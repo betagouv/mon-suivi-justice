@@ -1,0 +1,2 @@
+class Convict < ApplicationRecord
+end
