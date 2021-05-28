@@ -6,12 +6,86 @@
   height: 100vh;
 }
 
+.login-form {
+  width: 300px;
+}
+
 .login-button-container {
   margin-top: 20px;
   margin-bottom: 10px;
   text-align: center;
 }
 
-.login-form-field {
+.login-field-container {
   margin-top: 15px;
+}
+
+.login-field {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid $form-field-border;
+}
+
+.submit {
+  @include button($form-field-border);
+  margin-top: 10px;
+}
+
+.forgotten-password-link {
+  margin-top: 10px;
+  color: #333333;
+  text-decoration: none;
+}
+
+// checkbox, source: https://blog.logrocket.com/how-to-style-forms-with-css-a-beginners-guide/
+
+.checkbox-label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+.checkbox-label input[type=checkbox] {
+  position: absolute;
+  opacity:  0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-label span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: $form-field-border;
+  transition: .3s background-color;
+}
+
+.checkbox-label span:after {
+  content: "";
+  position: absolute;
+  display: none;
+
+  /* check icon */
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-label:hover span {
+  background: darken($form-field-border, 8%);
+}
+
+.checkbox-label input:checked ~ span {
+  background-color: $checked;
+}
+
+.checkbox-label input:checked ~ span:after {
+  display: block;
 }
