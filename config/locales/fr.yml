@@ -1,0 +1,10 @@
+fr:
+  activerecord:
+    models:
+      user: "Agent"
+      convict: "PPSMJ"
+    attributes:
+      convict:
+        first_name: "Prénom"
+        last_name: "Nom"
+        phone: "Téléphone"

@@ -11,8 +11,9 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% flash.each do |type, msg| %>
+      <p class=<%= type %>><%= msg %></p>
+    <% end %>
 
     <%= yield %>
   </body>

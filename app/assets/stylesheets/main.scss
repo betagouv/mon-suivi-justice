@@ -7,3 +7,20 @@
 body {
   font-family: "Open Sans", sans-serif;
 }
+
+.notice, .alert {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 100%;
+}
+
+.notice {
+  background-color: $notice;
+}
+
+.alert {
+  background-color: $alert;
+}
