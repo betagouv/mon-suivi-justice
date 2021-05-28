@@ -1,26 +1,28 @@
-<h2>Log in</h2>
+<div class="login-form-container">
+  <h2>Mon Suivi Justice admin</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="login-form-field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <div class="field">
+  <div class="login-form-field">
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
+  <div class="login-form-field">
+    <%= f.check_box :remember_me %>
+    <%= f.label :remember_me %>
+  </div>
   <% end %>
 
-  <div class="actions">
+  <div class="actions login-button-container">
     <%= f.submit "Log in" %>
   </div>
-<% end %>
+  <% end %>
 
-<%= render "devise/shared/links" %>
+  <%= render "devise/shared/links" %>
+</div>
