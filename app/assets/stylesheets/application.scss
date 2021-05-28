@@ -1,7 +1,7 @@
-@import '_variables';
-@import '_mixins';
+@use 'administrate';
+
+@import 'variables';
+@import 'mixins';
 @import 'main';
 @import 'static_pages';
 @import 'authentication';
-
-@use 'administrate';
