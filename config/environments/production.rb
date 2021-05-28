@@ -64,9 +64,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  if ENV['DATABASE_URL'].present?
-    config.action_mailer.default_url_options = { host: ENV['DATABASE_URL'], port: 3000 }
-  end
+  config.action_mailer.default_url_options = { host: ENV.fetch('DATABASE_URL','localhost'), port: 3000 }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
