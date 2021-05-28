@@ -12,6 +12,8 @@ gem 'turbolinks', '~> 5'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'administrate'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
