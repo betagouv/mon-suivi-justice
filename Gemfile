@@ -15,6 +15,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'administrate'
 gem 'administrate-field-enum'
 gem 'devise'
+gem 'pundit'
 
 group :development, :test do
   gem 'rspec-rails'
