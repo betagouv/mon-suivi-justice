@@ -72,6 +72,8 @@ GEM
       momentjs-rails (~> 2.8)
       sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
+    administrate-field-enum (0.0.9)
+      administrate (~> 0.12)
     bcrypt (3.1.16)
     bindex (0.8.1)
     bootsnap (1.7.5)
@@ -292,6 +294,7 @@ PLATFORMS
 
 DEPENDENCIES
   administrate
+  administrate-field-enum
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)

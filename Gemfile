@@ -13,6 +13,7 @@ gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'administrate'
+gem 'administrate-field-enum'
 gem 'devise'
 
 group :development, :test do
