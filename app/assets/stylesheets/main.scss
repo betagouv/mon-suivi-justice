@@ -18,9 +18,9 @@ body {
 }
 
 .notice {
-  background-color: palegreen;
+  background-color: $notice;
 }
 
 .alert {
-  background-color: tomato;
+  background-color: $alert;
 }

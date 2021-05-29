@@ -24,11 +24,11 @@
   width: 100%;
   padding: 10px;
   margin-top: 10px;
-  border: 2px solid $form-field-border;
+  border: 2px solid $grey;
 }
 
 .submit {
-  @include button($form-field-border);
+  @include button($grey);
   margin-top: 10px;
 }
 
@@ -59,7 +59,7 @@
   left: 0;
   width: 20px;
   height: 20px;
-  background-color: $form-field-border;
+  background-color: $grey;
   transition: .3s background-color;
 }
 
@@ -79,7 +79,7 @@
 }
 
 .checkbox-label:hover span {
-  background: darken($form-field-border, 8%);
+  background: darken($grey, 8%);
 }
 
 .checkbox-label input:checked ~ span {

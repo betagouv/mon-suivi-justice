@@ -8,3 +8,7 @@ fr:
         first_name: "Prénom"
         last_name: "Nom"
         phone: "Téléphone"
+
+  home_title: "Mon Suivi Justice"
+  home_to_admin: "Espace Agent"
+  login_title: "Mon Suivi Justice admin"

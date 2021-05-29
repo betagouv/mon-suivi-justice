@@ -1,1 +1,4 @@
-<h1 class='main-title'>Mon Suivi Justice</h1>
+<div class="home-container">
+  <h1 class='home-title'><%= t('home_title') %></h1>
+  <%= button_to t('home_to_admin'), admin_root_path, class: "home-to-admin-button", method: :get %>
+</div>
