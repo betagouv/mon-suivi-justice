@@ -102,6 +102,11 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
     erubi (1.10.0)
+    factory_bot (6.2.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     ffi (1.15.1)
     formatador (0.2.5)
     globalid (0.4.2)
@@ -138,6 +143,8 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
+    launchy (2.5.0)
+      addressable (~> 2.7)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -160,6 +167,9 @@ GEM
     net-ftp (0.1.2)
       net-protocol
       time
+    net-http (0.1.1)
+      net-protocol
+      uri
     net-protocol (0.1.0)
     nio4r (2.5.7)
     nokogiri (1.11.6)
@@ -276,6 +286,7 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    uri (0.10.1)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.1.0)
@@ -309,8 +320,11 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  factory_bot_rails
   guard-rspec
+  launchy (~> 2.4, >= 2.4.3)
   listen (~> 3.3)
+  net-http
   pg
   puma (~> 5.0)
   pundit

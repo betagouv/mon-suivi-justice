@@ -9,6 +9,7 @@ gem 'puma', '~> 5.0'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
+gem 'net-http'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 
@@ -19,7 +20,9 @@ gem 'pundit'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'factory_bot_rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'launchy', '~> 2.4', '>= 2.4.3'
 end
 
 group :development do
