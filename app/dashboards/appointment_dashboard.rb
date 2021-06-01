@@ -11,7 +11,6 @@ class AppointmentDashboard < Administrate::BaseDashboard
     convict: Field::BelongsTo,
     id: Field::Number,
     date: Field::Date,
-    slot: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -24,7 +23,6 @@ class AppointmentDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     convict
     date
-    slot
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -32,7 +30,6 @@ class AppointmentDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     convict
     date
-    slot
     created_at
     updated_at
   ].freeze
@@ -43,7 +40,6 @@ class AppointmentDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     convict
     date
-    slot
   ].freeze
 
   # COLLECTION_FILTERS
