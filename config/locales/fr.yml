@@ -1,8 +1,14 @@
 fr:
+  date:
+    formats:
+      default: "%d/%m/%Y"
+
   activerecord:
     models:
       user: "Agent"
       convict: "PPSMJ"
+      appointment: "Rendez-vous"
+
     attributes:
       convict:
         first_name: "Prénom"
@@ -12,6 +18,10 @@ fr:
         first_name: "Prénom"
         last_name: "Nom"
         role: "Rôle"
+        phone: "Téléphone"
+      appointment:
+        date: "Date"
+        slot: "Créneau"
 
     errors:
       phone_format: "au mauvais format"

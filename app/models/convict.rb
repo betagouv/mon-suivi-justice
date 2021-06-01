@@ -1,5 +1,6 @@
 class Convict < ApplicationRecord
-  has_many :appointments, inverse_of: :convict
+  has_many :appointments
+
   validates :first_name, :last_name, presence: true
 
   validates :phone, presence: true,
