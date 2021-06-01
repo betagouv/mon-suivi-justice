@@ -9,7 +9,7 @@ gem 'puma', '~> 5.0'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
-gem 'net-http'
+gem 'net-http' # here to silence a warning, to remove
 
 gem 'bootsnap', '>= 1.4.4', require: false
 
