@@ -1,13 +1,15 @@
 <div class="users-container">
+  <%= button_to t('new_user_title'), new_user_path, class: "link-to-new-user-button", form_class: "link-to-new-user-form", method: :get %>
+
   <div class="users-header">
     <div class="users-header-title users-column-1">
-      Nom
+      <%= t('activerecord.attributes.user.name') %>
     </div>
     <div class="users-header-title users-column-2">
-      Email
+      <%= t('activerecord.attributes.user.email') %>
     </div>
     <div class="users-header-title users-column-3">
-      Rôle
+      <%= t('activerecord.attributes.user.role') %>
     </div>
   </div>
 

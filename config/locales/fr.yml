@@ -11,10 +11,12 @@ fr:
 
     attributes:
       convict:
+        name: "Nom"
         first_name: "Prénom"
         last_name: "Nom"
         phone: "Téléphone"
       user:
+        name: "Nom"
         first_name: "Prénom"
         last_name: "Nom"
         role: "Rôle"
@@ -23,27 +25,29 @@ fr:
         date: "Date"
         slot: "Créneau"
 
-    # errors:
-    #   phone_format: "au mauvais format"
-    #   models:
-    #     user:
-    #       attributes:
-    #         email:
-    #           blank: "manquant"
-    #         password:
-    #           blank: "manquant"
-    #         first_name:
-    #           blank: "manquant"
-    #         last_name:
-    #           blank: "manquant"
-    #     convict:
-    #       attributes:
-    #         phone:
-    #           blank: "manquant"
-    #         first_name:
-    #           blank: "manquant"
-    #         last_name:
-    #           blank: "manquant"
+    errors:
+      phone_format: "au mauvais format"
+      models:
+        user:
+          attributes:
+            email:
+              blank: "Email manquant"
+            password:
+              blank: "Mot de passe manquant"
+            first_name:
+              blank: "Prénom manquant"
+            last_name:
+              blank: "Nom manquant"
+            password_confirmation:
+              confirmation: "Ne correspond pas au premier mot de passe saisi"
+        convict:
+          attributes:
+            phone:
+              blank: "Numéro de téléphone manquant"
+            first_name:
+              blank: "Prénom manquant"
+            last_name:
+              blank: "Nom manquant"
 
   home_title: "Mon Suivi Justice"
   home_to_admin: "Espace Agent"
@@ -52,3 +56,5 @@ fr:
 
   delete: "Supprimer"
   delete_confirmation: "Êtes-vous sûr(e)?"
+  new_user_title: "Nouvel Agent"
+  new_user_submit: "Créer Agent"

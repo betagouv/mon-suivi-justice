@@ -10,6 +10,16 @@
   padding-top: 30px;
 }
 
+.link-to-new-user-form {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.link-to-new-user-button {
+  @include button($grey);
+  margin-right: 30px;
+}
+
 .users-item-container {
   display: flex;
   align-items: center;
@@ -29,7 +39,3 @@
 .users-column-3 {
   width: 20%;
 }
-
-// .users-column-4 {
-//   width: 30%;
-// }

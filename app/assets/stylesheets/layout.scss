@@ -8,7 +8,12 @@
   height: 80px;
   padding: 20px 30px;
   display: flex;
+  align-items: center;
   background-color: $header-background;
+}
+
+.main-title {
+  font-size: 1.5em;
 }
 
 .sidebar {
