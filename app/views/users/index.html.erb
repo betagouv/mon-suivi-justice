@@ -6,6 +6,9 @@
     <div class="users-header-title users-column-2">
       Email
     </div>
+    <div class="users-header-title users-column-3">
+      Rôle
+    </div>
   </div>
 
   <% @users.each do |user| %>
@@ -18,7 +21,11 @@
         <%= user.email %>
       </div>
 
-      <div class="users-column-3">
+      <div class="user-data users-column-3">
+        <%= user.role %>
+      </div>
+
+      <div class="users-controls">
         <%= link_to t('delete'), user_path(user), data: { confirm: t('delete_confirmation') }, method: :delete %>
       </div>
     </div>
