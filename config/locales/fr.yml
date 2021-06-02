@@ -49,3 +49,6 @@ fr:
   home_to_admin: "Espace Agent"
   login_title: "Mon Suivi Justice admin"
   header_title: "Mon Suivi Justice"
+
+  delete: "Supprimer"
+  delete_confirmation: "Êtes-vous sûr(e)?"

@@ -1,7 +1,28 @@
-<div class="convicts-index-container">
+<div class="convicts-container">
+
+  <div class="convicts-header">
+    <div class="convicts-header-title convicts-column-1">
+      Nom
+    </div>
+    <div class="convicts-header-title convicts-column-2">
+      Téléphone
+    </div>
+  </div>
+
   <% @convicts.each do |convict| %>
-    <div class="convicts-index-item-container">
-      <%= convict.first_name + convict.last_name %>
+    <div class="convicts-item-container">
+      <div class="convict-data convicts-column-1">
+        <%= convict.first_name + convict.last_name %>
+      </div>
+
+      <div class="convict-data convicts-column-2">
+        <%= convict.phone %>
+      </div>
+
+      <div class="convicts-column-3">
+        <%= link_to t('delete'), convict_path(convict), data: { confirm: t('delete_confirmation') }, method: :delete %>
+      </div>
     </div>
   <% end %>
+
 </div>

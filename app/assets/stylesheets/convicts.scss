@@ -1,3 +1,27 @@
-// Place all the styles related to the Convicts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.convicts-header {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid lightgray;
+  padding-left: 30px;
+}
+
+.convicts-container {
+  padding-top: 30px;
+}
+
+.convicts-item-container {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid lightgray;
+  padding-left: 30px;
+}
+
+.convicts-column-1 {
+  width: 30%;
+}
+
+.convicts-column-2 {
+  width: 30%;
+}
