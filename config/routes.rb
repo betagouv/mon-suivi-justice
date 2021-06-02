@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  resources :convicts
+
   # namespace :admin do
-  #   resources :convicts
   #   resources :appointments
   #   resources :users
   #

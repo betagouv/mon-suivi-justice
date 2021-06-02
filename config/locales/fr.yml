@@ -23,28 +23,29 @@ fr:
         date: "Date"
         slot: "Créneau"
 
-    errors:
-      phone_format: "au mauvais format"
-      models:
-        user:
-          attributes:
-            email:
-              blank: "manquant"
-            password:
-              blank: "manquant"
-            first_name:
-              blank: "manquant"
-            last_name:
-              blank: "manquant"
-        convict:
-          attributes:
-            phone:
-              blank: "manquant"
-            first_name:
-              blank: "manquant"
-            last_name:
-              blank: "manquant"
+    # errors:
+    #   phone_format: "au mauvais format"
+    #   models:
+    #     user:
+    #       attributes:
+    #         email:
+    #           blank: "manquant"
+    #         password:
+    #           blank: "manquant"
+    #         first_name:
+    #           blank: "manquant"
+    #         last_name:
+    #           blank: "manquant"
+    #     convict:
+    #       attributes:
+    #         phone:
+    #           blank: "manquant"
+    #         first_name:
+    #           blank: "manquant"
+    #         last_name:
+    #           blank: "manquant"
 
   home_title: "Mon Suivi Justice"
   home_to_admin: "Espace Agent"
   login_title: "Mon Suivi Justice admin"
+  header_title: "Mon Suivi Justice"

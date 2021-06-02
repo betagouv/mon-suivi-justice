@@ -1,0 +1,5 @@
+<header class='header'>
+  <h1><%= t('header_title')%></h1>
+
+  <%= link_to(t('devise.sessions.log_out'), destroy_user_session_path, method: :delete, class: 'logout-link') %>
+</header>

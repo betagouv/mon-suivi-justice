@@ -1,0 +1,7 @@
+<div class="convicts-index-container">
+  <% @convicts.each do |convict| %>
+    <div class="convicts-index-item-container">
+      <%= convict.first_name + convict.last_name %>
+    </div>
+  <% end %>
+</div>

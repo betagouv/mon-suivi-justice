@@ -1,0 +1,26 @@
+.agent-interface-container {
+  height: calc(100vh - #{$header-height});
+  width: 100%;
+  display: flex;
+}
+
+.header {
+  height: 80px;
+  padding: 20px 30px;
+  display: flex;
+  background-color: $header-background;
+}
+
+.sidebar {
+  width: 200px;
+  padding: 30px;
+  background-color: $sidebar-background;
+}
+
+.agent-interface-content-container {
+  padding: 30px;
+}
+
+.logout-link {
+  margin-left: auto;
+}

@@ -1,0 +1,11 @@
+<% content_for :content do %>
+  <% flash.each do |type, msg| %>
+    <p class=<%= type %>><%= msg %></p>
+  <% end %>
+
+  <section class="authentication-form-container">
+    <%= yield %>
+  </section>
+<% end %>
+
+<%= render template: "layouts/application" %>
