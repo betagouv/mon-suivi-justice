@@ -46,7 +46,7 @@ jobs:
         run: yarn install
 
       - name: setup test db
-        run: rails db:create db:schema:load db:migrate db:seed RAILS_ENV=test
+        run: bundle exec rails db:create db:schema:load db:migrate db:seed RAILS_ENV=test
         env:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
@@ -54,10 +54,8 @@ jobs:
           POSTGRES_PASSWORD: lapin_test
           POSTGRES_DB: lapin_test
 
-      # Runs a single command using the runners shell
       - name: Spec suite
-        run: rspec
+        run: bundle exec rspec
 
-      # Runs a set of commands using the runners shell
       - name: Deploy staging
         run: bin/deploy-staging
