@@ -1,5 +1,4 @@
 <div class="convicts-container">
-
   <div class="convicts-header">
     <div class="convicts-header-title convicts-column-1">
       Nom
@@ -12,7 +11,7 @@
   <% @convicts.each do |convict| %>
     <div class="convicts-item-container">
       <div class="convict-data convicts-column-1">
-        <%= convict.first_name + convict.last_name %>
+        <%= convict.first_name + ' ' + convict.last_name %>
       </div>
 
       <div class="convict-data convicts-column-2">
@@ -24,5 +23,4 @@
       </div>
     </div>
   <% end %>
-
 </div>
