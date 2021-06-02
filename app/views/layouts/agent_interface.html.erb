@@ -1,14 +1,14 @@
 <% content_for :content do %>
   <%= render 'layouts/header' %>
 
-  <% flash.each do |type, msg| %>
-    <p class=<%= type %>><%= msg %></p>
-  <% end %>
-
   <section class="agent-interface-container">
     <%= render 'layouts/sidebar' %>
 
     <section class="content-container">
+      <% flash.each do |type, msg| %>
+      <p class=<%= type %>><%= msg %></p>
+      <% end %>
+
       <%= yield %>
     </section>
   </section>
