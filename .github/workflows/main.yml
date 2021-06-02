@@ -27,6 +27,9 @@ jobs:
         with:
           node-version: 10.13.0
 
+      - name: Clean bundle
+        run: bundle clean --force
+
       - name: setup test db
         run: bundle exec rails db:create db:schema:load db:migrate db:seed RAILS_ENV=test
         env:
