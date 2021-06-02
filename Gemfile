@@ -13,8 +13,6 @@ gem 'net-http' # here to silence a warning, to remove
 
 gem 'bootsnap', '>= 1.4.4', require: false
 
-gem 'administrate'
-gem 'administrate-field-enum'
 gem 'devise'
 gem 'pundit'
 
