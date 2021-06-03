@@ -7,6 +7,7 @@ class ConvictsController < ApplicationController
 
   def new
     @convict = Convict.new
+    @convict.appointments.build
   end
 
   def create
@@ -28,6 +29,7 @@ class ConvictsController < ApplicationController
   private
 
   def convict_params
-    params.require(:convict).permit(:first_name, :last_name, :phone)
+    params.require(:convict).permit(:first_name, :last_name, :phone,
+                                    appointments_attributes: [:date, :slot])
   end
 end

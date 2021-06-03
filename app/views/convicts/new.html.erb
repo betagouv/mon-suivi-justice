@@ -5,5 +5,13 @@
   <%= f.input :last_name %>
   <%= f.input :phone %>
 
+  <div class="convict-first-appointment-container">
+    <h2 class='form-secondary-title'><%= t('first_appointment_title') %></h2>
+
+    <%= f.simple_fields_for :appointments do |p| %>
+      <%= p.input :date, label: t('activerecord.attributes.appointment.date'), html5: true, order: [:day, :month, :year] %>
+    <% end %>
+  </div>
+
   <%= f.button :submit, t('new_convict_submit'), class: 'form-submit-button' %>
 <% end %>

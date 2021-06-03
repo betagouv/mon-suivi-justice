@@ -35,13 +35,13 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
 
-      # within ('.convict-first-appointment-container') do
-      #   fill_in 'Date', with: '22/08/21'
-      #   fill_in 'Slot', with: '2'
-      # end
+      within ('.convict-first-appointment-container') do
+        fill_in 'Date', with: '22/08/21'
+        # fill_in 'Créneau', with: '2'
+      end
 
       expect { click_button 'Créer PPSMJ' }.to change { Convict.count }.by(1)
-                                       # .and change { Appointment.count }.by(1)
+                                           .and change { Appointment.count }.by(1)
     end
   end
 
