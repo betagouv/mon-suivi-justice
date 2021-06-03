@@ -12,8 +12,15 @@
 }
 
 .basic-form {
-  width: 40%;
+  width: 30%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-submit-button {
+  @include button($grey);
+  margin: 15px auto 0;
 }
 
 .error {

@@ -5,7 +5,7 @@ RSpec.feature 'Convicts', type: :feature do
     create_admin_user_and_login
   end
 
-  describe '#index' do
+  describe 'index' do
     before do
       create(:convict, first_name: 'Michel')
       create(:convict, first_name: 'Paul')
@@ -25,18 +25,25 @@ RSpec.feature 'Convicts', type: :feature do
     end
   end
 
-  # describe 'is created with his first appointment' do
-    # create_admin_user_and_login
-    #
-    # visit new_admin_convict_path
-    #
-    # fill_in 'Prénom', with: 'Robert'
-    # fill_in 'Nom', with: 'Durand'
-    # fill_in 'Téléphone', with: '0606060606'
-    #
-    # expect { click_button 'Create PPSMJ' }.to change { Convict.count }.by(1)
-    #                                  .and change { Appointment.count }.by(1)
-  # end
+  describe 'creation' do
+    it 'creates a convict with his first appointment' do
+      create_admin_user_and_login
+
+      visit new_convict_path
+
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      fill_in 'Téléphone', with: '0606060606'
+
+      # within ('.convict-first-appointment-container') do
+      #   fill_in 'Date', with: '22/08/21'
+      #   fill_in 'Slot', with: '2'
+      # end
+
+      expect { click_button 'Créer PPSMJ' }.to change { Convict.count }.by(1)
+                                       # .and change { Appointment.count }.by(1)
+    end
+  end
 
   # describe 'can be updated' do
   # end

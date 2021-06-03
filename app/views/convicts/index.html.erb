@@ -1,4 +1,6 @@
 <div class="convicts-container">
+  <%= button_to t('new_convict_title'), new_convict_path, class: "link-to-new-convict-button", form_class: "link-to-new-convict-form", method: :get %>
+
   <div class="convicts-header">
     <div class="convicts-header-title convicts-column-1">
       <%= t('activerecord.attributes.convict.name') %>

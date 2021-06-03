@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   height: 40px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid $table-border;
   padding-left: 30px;
 }
 
@@ -10,11 +10,21 @@
   padding-top: 30px;
 }
 
+.link-to-new-convict-form {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.link-to-new-convict-button {
+  @include button($grey);
+  margin-right: 30px;
+}
+
 .convicts-item-container {
   display: flex;
   align-items: center;
   height: 40px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid $table-border;
   padding-left: 30px;
 }
 
