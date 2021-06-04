@@ -30,6 +30,6 @@ class ConvictsController < ApplicationController
 
   def convict_params
     params.require(:convict).permit(:first_name, :last_name, :phone,
-                                    appointments_attributes: [:date, :slot])
+                                    appointments_attributes: [:date, :slot, :place_id])
   end
 end

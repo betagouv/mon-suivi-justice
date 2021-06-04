@@ -9,6 +9,7 @@
     <h2 class='form-secondary-title'><%= t('first_appointment_title') %></h2>
 
     <%= f.simple_fields_for :appointments do |p| %>
+      <%= p.association :place, label: t('activerecord.models.place') %>
       <%= p.input :date, label: t('activerecord.attributes.appointment.date'), html5: true, order: [:day, :month, :year] %>
     <% end %>
   </div>

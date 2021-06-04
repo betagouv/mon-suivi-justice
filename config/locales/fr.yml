@@ -61,6 +61,12 @@ fr:
               blank: "Nom manquant"
             adress:
               blank: "Adresse manquante"
+        appointment:
+          attributes:
+            place:
+              required: "Lieu manquant"
+            date:
+              blank: "Date manquante"
 
   home_title: "Mon Suivi Justice"
   home_to_admin: "Espace Agent"

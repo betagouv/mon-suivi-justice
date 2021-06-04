@@ -27,6 +27,8 @@ RSpec.feature 'Convicts', type: :feature do
 
   describe 'creation' do
     it 'creates a convict with his first appointment' do
+      create(:place, name: 'McDo de Clichy')
+
       visit new_convict_path
 
       fill_in 'Prénom', with: 'Robert'
@@ -34,8 +36,8 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Téléphone', with: '0606060606'
 
       within ('.convict-first-appointment-container') do
+        select 'McDo de Clichy', from: 'Lieu'
         fill_in 'Date', with: '22/08/21'
-        # fill_in 'Créneau', with: '2'
       end
 
       expect { click_button 'Créer PPSMJ' }.to change { Convict.count }.by(1)
