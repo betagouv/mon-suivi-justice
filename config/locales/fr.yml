@@ -54,6 +54,13 @@ fr:
               blank: "Prénom manquant"
             last_name:
               blank: "Nom manquant"
+              confirmation: "Ne correspond pas au premier mot de passe saisi"
+        place:
+          attributes:
+            name:
+              blank: "Nom manquant"
+            adress:
+              blank: "Adresse manquante"
 
   home_title: "Mon Suivi Justice"
   home_to_admin: "Espace Agent"
