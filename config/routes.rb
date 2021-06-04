@@ -3,12 +3,7 @@ Rails.application.routes.draw do
 
   resources :convicts
   resources :users
-
-  # namespace :admin do
-  #   resources :appointments
-  #
-  #   root to: "convicts#index"
-  # end
+  resources :places
 
   root 'static_pages#home'
 end

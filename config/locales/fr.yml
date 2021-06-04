@@ -8,6 +8,7 @@ fr:
       user: "Agent"
       convict: "PPSMJ"
       appointment: "Rendez-vous"
+      place: "Lieu"
 
     attributes:
       convict:
@@ -24,6 +25,11 @@ fr:
       appointment:
         date: "Date"
         slot: "Créneau"
+        phone: "Téléphone"
+      place:
+        name: "Nom"
+        adress: "Adresse"
+        phone: "Téléphone"
 
     errors:
       phone_format: "au mauvais format"
@@ -63,3 +69,6 @@ fr:
   new_convict_title: "Nouveau PPSMJ"
   first_appointment_title: "Premier rendez-vous"
   new_convict_submit: "Créer PPSMJ"
+
+  new_place_title: "Nouveau Lieu"
+  new_place_submit: "Créer Lieu"

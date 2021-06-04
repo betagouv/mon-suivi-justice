@@ -1,0 +1,41 @@
+.places-header {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid $table-border;
+  padding-left: 30px;
+}
+
+.places-container {
+  padding-top: 30px;
+}
+
+.link-to-new-place-form {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.link-to-new-place-button {
+  @include button($grey);
+  margin-right: 30px;
+}
+
+.places-item-container {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid $table-border;
+  padding-left: 30px;
+}
+
+.places-column-1 {
+  width: 30%;
+}
+
+.places-column-2 {
+  width: 30%;
+}
+
+.places-column-3 {
+  width: 30%;
+}

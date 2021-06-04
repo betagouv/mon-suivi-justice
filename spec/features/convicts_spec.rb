@@ -27,8 +27,6 @@ RSpec.feature 'Convicts', type: :feature do
 
   describe 'creation' do
     it 'creates a convict with his first appointment' do
-      create_admin_user_and_login
-
       visit new_convict_path
 
       fill_in 'Prénom', with: 'Robert'

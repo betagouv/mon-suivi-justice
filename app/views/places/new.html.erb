@@ -1,0 +1,9 @@
+<h1 class='form-title'><%= t('new_place_title') %></h1>
+
+<%= simple_form_for @place, html: { class: 'basic-form' } do |f| %>
+  <%= f.input :name %>
+  <%= f.input :adress %>
+  <%= f.input :phone %>
+
+  <%= f.button :submit, t('new_place_submit'), class: 'form-submit-button' %>
+<% end %>
