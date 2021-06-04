@@ -79,7 +79,7 @@ fr:
   new_user_submit: "Créer Agent"
   delete_confirmation: "Êtes-vous sûr(e)?"
 
-  new_convict_title: "Nouveau PPSMJ"
+  new_convict_title: "Nouvelle PPSMJ"
   first_appointment_title: "Premier rendez-vous"
   new_convict_submit: "Créer PPSMJ"
 
@@ -87,7 +87,7 @@ fr:
   new_place_submit: "Créer Lieu"
 
   sidebar:
-    convicts: "PPSMJs"
+    convicts: "PPSMJ"
     appointments: "Rendez-vous"
     places: "Lieux"
     users: "Agents"
