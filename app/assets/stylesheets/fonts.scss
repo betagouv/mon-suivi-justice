@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'Marianne';
     src:
-        url(asset-path('Marianne-Regular.woff')) format('woff'),
-        url(asset-path('Marianne-Regular.woff2')) format('woff2');
+      url(asset-path('Marianne-Regular.woff')) format('woff'),
+      url(asset-path('Marianne-Regular.woff2')) format('woff2');
     font-weight: normal;
     font-style: normal;
 }
@@ -10,8 +10,8 @@
 @font-face {
   font-family: 'Marianne';
   src:
-  url(asset-path('Marianne-Bold.woff')) format('woff'),
-  url(asset-path('Marianne-Bold.woff2')) format('woff2');
+    url(asset-path('Marianne-Bold.woff')) format('woff'),
+    url(asset-path('Marianne-Bold.woff2')) format('woff2');
   font-weight: bold;
   font-style: normal;
 }
@@ -19,17 +19,17 @@
 @font-face {
   font-family: 'Marianne';
     src:
-        url(asset-path('Marianne-Light.woff')) format('woff'),
-        url(asset-path('Marianne-Light.woff2')) format('woff2');
-    font-weight: light;
+      url(asset-path('Marianne-Light.woff')) format('woff'),
+      url(asset-path('Marianne-Light.woff2')) format('woff2');
+    font-weight: 100;
     font-style: normal;
 }
 
 @font-face {
   font-family: 'Marianne';
     src:
-        url(asset-path('Marianne-Regular_Italic.woff')) format('woff'),
-        url(asset-path('Marianne-Regular_Italic.woff2')) format('woff2');
+      url(asset-path('Marianne-Regular_Italic.woff')) format('woff'),
+      url(asset-path('Marianne-Regular_Italic.woff2')) format('woff2');
     font-weight: normal;
     font-style: italic;
 }
@@ -37,8 +37,8 @@
 @font-face {
   font-family: 'Marianne';
     src:
-        url(asset-path('Marianne-Bold_Italic.woff')) format('woff'),
-        url(asset-path('Marianne-Bold_Italic.woff2')) format('woff2');
+      url(asset-path('Marianne-Bold_Italic.woff')) format('woff'),
+      url(asset-path('Marianne-Bold_Italic.woff2')) format('woff2');
     font-weight: bold;
     font-style: italic;
 }
@@ -46,17 +46,17 @@
 @font-face {
   font-family: 'Marianne';
     src:
-        url(asset-path('Marianne-Bold_Italic.woff')) format('woff'),
-        url(asset-path('Marianne-Bold_Italic.woff2')) format('woff2');
-    font-weight: light;
+      url(asset-path('Marianne-Bold_Italic.woff')) format('woff'),
+      url(asset-path('Marianne-Bold_Italic.woff2')) format('woff2');
+    font-weight: lighter;
     font-style: italic;
 }
 
 @font-face {
   font-family: 'Spectral';
     src:
-        url(asset-path('Spectral-Regular.woff')) format('woff'),
-        url(asset-path('Spectral-Regular.woff2')) format('woff2');
+      url(asset-path('Spectral-Regular.woff')) format('woff'),
+      url(asset-path('Spectral-Regular.woff2')) format('woff2');
     font-weight: normal;
     font-style: normal;
 }
@@ -64,8 +64,8 @@
 @font-face {
   font-family: 'Spectral';
     src:
-        url(asset-path('Spectral-ExtraBold.woff')) format('woff'),
-        url(asset-path('Spectral-ExtraBold.woff2')) format('woff2');
+      url(asset-path('Spectral-ExtraBold.woff')) format('woff'),
+      url(asset-path('Spectral-ExtraBold.woff2')) format('woff2');
     font-weight: bold;
     font-style: normal;
 }
