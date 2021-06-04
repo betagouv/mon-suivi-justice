@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Appointments', type: :feature, focus: true do
+RSpec.feature 'Appointments', type: :feature do
   before do
     create_admin_user_and_login
   end
