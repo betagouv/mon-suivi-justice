@@ -1,0 +1,41 @@
+.appointments-header {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid $table-border;
+  padding-left: 30px;
+}
+
+.appointments-container {
+  padding-top: 30px;
+}
+
+.link-to-new-appointment-form {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.link-to-new-appointment-button {
+  @include button($grey);
+  margin-right: 30px;
+}
+
+.appointments-item-container {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid $table-border;
+  padding-left: 30px;
+}
+
+.appointments-column-1 {
+  width: 30%;
+}
+
+.appointments-column-2 {
+  width: 30%;
+}
+
+.appointments-column-3 {
+  width: 30%;
+}

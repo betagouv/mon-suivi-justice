@@ -1,0 +1,29 @@
+<div class="appointments-container">
+  <div class="appointments-header">
+    <div class="appointments-header-title appointments-column-1">
+      <%= t('activerecord.models.convict') %>
+    </div>
+    <div class="appointments-header-title appointments-column-2">
+      <%= t('activerecord.models.place') %>
+    </div>
+    <div class="appointments-header-title appointments-column-2">
+      <%= t('activerecord.attributes.appointment.date') %>
+    </div>
+  </div>
+
+  <% @appointments.each do |appointment| %>
+    <div class="appointments-item-container">
+      <div class="appointment-data appointments-column-1">
+        <%= appointment.convict.name %>
+      </div>
+
+      <div class="appointment-data appointments-column-2">
+        <%= appointment.place.name %>
+      </div>
+
+      <div class="appointments-column-3">
+        <%= appointment.date.to_s(:base_date_format) %>
+      </div>
+    </div>
+  <% end %>
+</div>

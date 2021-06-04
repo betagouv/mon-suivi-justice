@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :convicts
   resources :users
   resources :places
+  resources :appointments
 
   root 'static_pages#home'
 end
