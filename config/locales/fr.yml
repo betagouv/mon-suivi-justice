@@ -85,3 +85,9 @@ fr:
 
   new_place_title: "Nouveau Lieu"
   new_place_submit: "Créer Lieu"
+
+  sidebar:
+    convicts: "PPSMJs"
+    appointments: "Rendez-vous"
+    places: "Lieux"
+    users: "Agents"
