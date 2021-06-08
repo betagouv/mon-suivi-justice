@@ -5,7 +5,7 @@ RSpec.feature 'Users', type: :feature do
     create_admin_user_and_login
   end
 
-  describe '#index' do
+  describe 'index' do
     before do
       create(:user, first_name: 'Jeanne')
       create(:user, first_name: 'Michèle')
@@ -25,7 +25,7 @@ RSpec.feature 'Users', type: :feature do
     end
   end
 
-  describe '#create' do
+  describe 'creation' do
     it "works" do
       visit new_user_path
 

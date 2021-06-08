@@ -50,12 +50,33 @@
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24' ><path fill='%23a1a1a1' d='M12,13.1l5-4.9l1.4,1.4L12,15.9L5.6,9.5l1.4-1.4L12,13.1z'/></svg>");;
 }
 
+.form-date-select-fields {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  select {
+    width: 30%;
+  }
+}
+
+.form-time-select-fields {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  select {
+    width: 30%;
+    margin: 0 10px;
+  }
+}
+
 .error {
   color: $error;
 }
 
 .field_with_errors {
-  input {
+  input, select {
     border: 2px solid $error;
   }
 }

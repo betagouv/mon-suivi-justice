@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_04_085600) do
+ActiveRecord::Schema.define(version: 2021_06_08_111759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 2021_06_04_085600) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "slots", force: :cascade do |t|
+    t.date "date"
+    t.time "starting_time"
+    t.bigint "place_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["place_id"], name: "index_slots_on_place_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -58,4 +67,5 @@ ActiveRecord::Schema.define(version: 2021_06_04_085600) do
 
   add_foreign_key "appointments", "convicts"
   add_foreign_key "appointments", "places"
+  add_foreign_key "slots", "places"
 end

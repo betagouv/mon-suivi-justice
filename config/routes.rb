@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users
   resources :places
   resources :appointments
+  resources :slots
 
   root 'static_pages#home'
 end

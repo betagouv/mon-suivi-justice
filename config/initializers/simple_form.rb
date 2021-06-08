@@ -173,4 +173,18 @@ SimpleForm.setup do |config|
   # Defines validation classes to the input_field. By default it's nil.
   # config.input_field_valid_class = 'is-valid'
   # config.input_field_error_class = 'is-invalid'
+
+  config.wrappers :custom_date, error_class: :field_with_errors do |b|
+    b.use :label, :wrap_with => { :class => 'form-label' }
+    b.use :input, :wrap_with => { :tag => 'div', :class => 'form-date-select-fields form-input-wrapper' }
+    b.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+    b.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
+  end
+
+  config.wrappers :custom_time, error_class: :field_with_errors do |b|
+    b.use :label, :wrap_with => { :class => 'form-label' }
+    b.use :input, :wrap_with => { :tag => 'div', :class => 'form-time-select-fields form-input-wrapper' }
+    b.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+    b.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
+  end
 end

@@ -1,0 +1,10 @@
+<h1 class='form-title'><%= t('new_slot_title') %></h1>
+
+<%= simple_form_for @slot, html: { class: 'basic-form' } do |f| %>
+  <%= f.association :place, label: t('activerecord.models.place'), input_html: { class: 'form-select' } %>
+  <%= f.input :date, input_html: { class: 'form-select' }, wrapper: :custom_date, start_year: 2021 %>
+  <%= f.input :starting_time, input_html: { class: 'form-select' }, wrapper: :custom_time,
+      start_hour: 8, end_hour: 20, minute_step: 5 %>
+
+  <%= f.button :submit, t('new_slot_submit'), class: 'form-submit-button' %>
+<% end %>

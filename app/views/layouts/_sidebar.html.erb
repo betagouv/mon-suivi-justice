@@ -17,6 +17,12 @@
     </div>
   <% end %>
 
+  <%= link_to slots_path, class: 'sidebar-item-link' do %>
+    <div class="sidebar-item <%= active_class_if_url([slots_path, new_slot_path]) %>">
+      <%= t('sidebar.slots') %>
+    </div>
+  <% end %>
+
   <%= link_to users_path, class: 'sidebar-item-link' do %>
     <div class="sidebar-item <%= active_class_if_url([users_path, new_user_path]) %>">
       <%= t('sidebar.users') %>

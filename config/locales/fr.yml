@@ -1,14 +1,11 @@
 fr:
-  date:
-    formats:
-      default: "%d/%m/%Y"
-
   activerecord:
     models:
       user: "Agent"
       convict: "PPSMJ"
       appointment: "Rendez-vous"
       place: "Lieu"
+      slot: Créneau
 
     attributes:
       convict:
@@ -30,6 +27,10 @@ fr:
         name: "Nom"
         adress: "Adresse"
         phone: "Téléphone"
+      slot:
+        place: "Lieu"
+        date: "Date"
+        starting_time: "Heure"
 
     errors:
       phone_format: "au mauvais format"
@@ -86,8 +87,12 @@ fr:
   new_place_title: "Nouveau Lieu"
   new_place_submit: "Créer Lieu"
 
+  new_slot_title: "Nouveau Créneau"
+  new_slot_submit: "Créer Créneau"
+
   sidebar:
     convicts: "PPSMJ"
     appointments: "Rendez-vous"
     places: "Lieux"
+    slots: "Créneaux dispos"
     users: "Agents"
