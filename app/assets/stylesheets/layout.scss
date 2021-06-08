@@ -16,20 +16,11 @@
   font-size: 1.5em;
 }
 
-.sidebar {
-  width: 200px;
-  padding: 30px;
-  background-color: $sidebar-background;
-}
-
-.sidebar-item {
-  height: 40px;
-}
-
 .content-container {
   width: 100%;
 }
 
 .logout-link {
   margin-left: auto;
+  color: $main-font-color;
 }

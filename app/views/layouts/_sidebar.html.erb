@@ -1,14 +1,25 @@
 <section class="sidebar">
-  <div class="sidebar-item">
-    <%= link_to t('sidebar.convicts'), convicts_path %>
-  </div>
-  <div class="sidebar-item">
-    <%= link_to t('sidebar.appointments'), appointments_path %>
-  </div>
-  <div class="sidebar-item">
-    <%= link_to t('sidebar.places'), places_path %>
-  </div>
-  <div class="sidebar-item">
-    <%= link_to t('sidebar.users'), users_path %>
-  </div>
+  <%= link_to convicts_path, class: 'sidebar-item-link' do %>
+    <div class="sidebar-item <%= active_class_if_url([convicts_path, new_convict_path]) %>">
+      <%= t('sidebar.convicts') %>
+    </div>
+  <% end %>
+
+  <%= link_to appointments_path, class: 'sidebar-item-link' do %>
+    <div class="sidebar-item <%= active_class_if_url([appointments_path]) %>">
+      <%= t('sidebar.appointments') %>
+    </div>
+  <% end %>
+
+  <%= link_to places_path, class: 'sidebar-item-link' do %>
+    <div class="sidebar-item <%= active_class_if_url([places_path, new_place_path]) %>">
+      <%= t('sidebar.places') %>
+    </div>
+  <% end %>
+
+  <%= link_to users_path, class: 'sidebar-item-link' do %>
+    <div class="sidebar-item <%= active_class_if_url([users_path, new_user_path]) %>">
+      <%= t('sidebar.users') %>
+    </div>
+  <% end %>
 </section>

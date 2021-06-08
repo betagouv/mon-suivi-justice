@@ -1,0 +1,17 @@
+.sidebar {
+  width: 200px;
+  background-color: $sidebar-background;
+}
+
+.sidebar-item {
+  padding: 20px;
+}
+
+.sidebar-item-link {
+  color: $main-font-color;
+  text-decoration: none;
+}
+
+.sidebar-active-item {
+  background-color: darken($sidebar-background, 10%);;
+}
