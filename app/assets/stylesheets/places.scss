@@ -8,7 +8,7 @@
 }
 
 .places-container {
-  padding-top: 30px;
+  padding-top: 20px;
 }
 
 .link-to-new-place-form {
@@ -18,7 +18,7 @@
 
 .link-to-new-place-button {
   @include button($grey);
-  margin-right: 30px;
+  margin-right: 20px;
 }
 
 .places-item-container {
