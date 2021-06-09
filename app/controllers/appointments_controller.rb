@@ -3,5 +3,6 @@ class AppointmentsController < ApplicationController
 
   def index
     @appointments = Appointment.all
+    authorize @appointments
   end
 end

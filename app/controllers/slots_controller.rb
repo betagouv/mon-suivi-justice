@@ -3,14 +3,17 @@ class SlotsController < ApplicationController
 
   def index
     @slots = Slot.all
+    authorize @slots
   end
 
   def new
     @slot = Slot.new
+    authorize @slot
   end
 
   def create
     @slot = Slot.new(slot_params)
+    authorize @slot
 
     if @slot.save
       redirect_to slots_path
@@ -21,6 +24,8 @@ class SlotsController < ApplicationController
 
   def destroy
     @slot = Slot.find(params[:id])
+    authorize @slot
+
     @slot.destroy
     redirect_to places_path
   end

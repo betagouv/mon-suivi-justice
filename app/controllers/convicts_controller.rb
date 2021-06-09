@@ -3,15 +3,19 @@ class ConvictsController < ApplicationController
 
   def index
     @convicts = Convict.all
+    authorize @convicts
   end
 
   def new
     @convict = Convict.new
+    authorize @convict
+
     @convict.appointments.build
   end
 
   def create
     @convict = Convict.new(convict_params)
+    authorize @convict
 
     if @convict.save
       redirect_to convicts_path
@@ -22,6 +26,8 @@ class ConvictsController < ApplicationController
 
   def destroy
     @convict = Convict.find(params[:id])
+    authorize @convict
+
     @convict.destroy
     redirect_to convicts_path
   end

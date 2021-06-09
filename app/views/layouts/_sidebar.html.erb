@@ -1,31 +1,41 @@
 <section class="sidebar">
-  <%= link_to convicts_path, class: 'sidebar-item-link' do %>
-    <div class="sidebar-item <%= active_class_if_url([convicts_path, new_convict_path]) %>">
-      <%= t('sidebar.convicts') %>
-    </div>
+  <% if policy(:convict).index? %>
+    <%= link_to convicts_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_url([convicts_path, new_convict_path]) %>">
+        <%= t('sidebar.convicts') %>
+      </div>
+    <% end %>
   <% end %>
 
-  <%= link_to appointments_path, class: 'sidebar-item-link' do %>
-    <div class="sidebar-item <%= active_class_if_url([appointments_path]) %>">
-      <%= t('sidebar.appointments') %>
-    </div>
+  <% if policy(:appointment).index? %>
+    <%= link_to appointments_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_url([appointments_path]) %>">
+        <%= t('sidebar.appointments') %>
+      </div>
+    <% end %>
   <% end %>
 
-  <%= link_to places_path, class: 'sidebar-item-link' do %>
-    <div class="sidebar-item <%= active_class_if_url([places_path, new_place_path]) %>">
-      <%= t('sidebar.places') %>
-    </div>
+  <% if policy(:place).index? %>
+    <%= link_to places_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_url([places_path, new_place_path]) %>">
+        <%= t('sidebar.places') %>
+      </div>
+    <% end %>
   <% end %>
 
-  <%= link_to slots_path, class: 'sidebar-item-link' do %>
-    <div class="sidebar-item <%= active_class_if_url([slots_path, new_slot_path]) %>">
-      <%= t('sidebar.slots') %>
-    </div>
+  <% if policy(:slot).index? %>
+    <%= link_to slots_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_url([slots_path, new_slot_path]) %>">
+        <%= t('sidebar.slots') %>
+      </div>
+    <% end %>
   <% end %>
 
-  <%= link_to users_path, class: 'sidebar-item-link' do %>
-    <div class="sidebar-item <%= active_class_if_url([users_path, new_user_path]) %>">
-      <%= t('sidebar.users') %>
-    </div>
+  <% if policy(:user).index? %>
+    <%= link_to users_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_url([users_path, new_user_path]) %>">
+        <%= t('sidebar.users') %>
+      </div>
+    <% end %>
   <% end %>
 </section>

@@ -3,14 +3,17 @@ class PlacesController < ApplicationController
 
   def index
     @places = Place.all
+    authorize @places
   end
 
   def new
     @place = Place.new
+    authorize @place
   end
 
   def create
     @place = Place.new(place_params)
+    authorize @place
 
     if @place.save
       redirect_to places_path
@@ -21,6 +24,8 @@ class PlacesController < ApplicationController
 
   def destroy
     @place = Place.find(params[:id])
+    authorize @place
+
     @place.destroy
     redirect_to places_path
   end

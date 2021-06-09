@@ -1,21 +1,21 @@
 class AppointmentPolicy < ApplicationPolicy
   def index?
-    user.admin? or user.cpip?
+    true
   end
 
   def update?
-    user.admin? or user.bex?
+    true
   end
 
   def show?
-    user.admin? or user.cpip?
+    true
   end
 
   def create?
-    user.admin? or user.bex?
+    true
   end
 
   def destroy?
-    user.admin? or user.bex?
+    true
   end
 end

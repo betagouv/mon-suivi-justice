@@ -90,9 +90,12 @@ fr:
   new_slot_title: "Nouveau Créneau"
   new_slot_submit: "Créer Créneau"
 
+  errors:
+    non_authorized: "Vous n'êtes pas autorisé à effectuer cette action"
+
   sidebar:
     convicts: "PPSMJ"
     appointments: "Rendez-vous"
     places: "Lieux"
-    slots: "Créneaux dispos"
+    slots: "Créneaux"
     users: "Agents"

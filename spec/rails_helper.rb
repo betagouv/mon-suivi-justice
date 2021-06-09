@@ -6,6 +6,7 @@ require File.expand_path('../config/environment', __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'pundit/matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -78,5 +79,13 @@ end
 
 def create_admin_user_and_login
   user = create(:user, role: :admin)
+  login_as(user, scope: :user)
+end
+
+def logout_current_user
+  logout(scope: :user)
+end
+
+def login_user(user)
   login_as(user, scope: :user)
 end

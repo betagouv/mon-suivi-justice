@@ -26,7 +26,7 @@ RSpec.feature 'Users', type: :feature do
   end
 
   describe 'creation' do
-    it "works" do
+    it 'works' do
       visit new_user_path
 
       fill_in 'Prénom', with: 'Robert'
@@ -36,6 +36,52 @@ RSpec.feature 'Users', type: :feature do
       fill_in 'Confirmation du mot de passe', with: 'password'
 
       expect { click_button 'Créer Agent' }.to change { User.count }.by(1)
+    end
+  end
+
+  describe 'roles' do
+    it 'allows admin users to access everything' do
+      visit convicts_path
+
+      sidebar = find('section.sidebar')
+
+      expect(sidebar).to have_link('PPSMJ')
+      expect(sidebar).to have_link('Rendez-vous')
+      expect(sidebar).to have_link('Lieux')
+      expect(sidebar).to have_link('Créneaux')
+      expect(sidebar).to have_link('Agents')
+    end
+
+    it 'forbid bex users to access some interfaces' do
+      bex_user = create(:user, role: :bex)
+      logout_current_user
+      login_user(bex_user)
+
+      visit convicts_path
+
+      sidebar = find('section.sidebar')
+
+      expect(sidebar).to have_link('PPSMJ')
+      expect(sidebar).to have_link('Rendez-vous')
+      expect(sidebar).not_to have_link('Lieux')
+      expect(sidebar).not_to have_link('Créneaux')
+      expect(sidebar).not_to have_link('Agents')
+    end
+
+    it 'allows cpip users to access appointment interface' do
+      cpip_user = create(:user, role: :cpip)
+      logout_current_user
+      login_user(cpip_user)
+
+      visit convicts_path
+
+      sidebar = find('section.sidebar')
+
+      expect(sidebar).to have_link('PPSMJ')
+      expect(sidebar).to have_link('Rendez-vous')
+      expect(sidebar).not_to have_link('Lieux')
+      expect(sidebar).not_to have_link('Créneaux')
+      expect(sidebar).not_to have_link('Agents')
     end
   end
 end
