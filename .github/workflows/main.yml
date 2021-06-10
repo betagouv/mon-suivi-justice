@@ -7,7 +7,6 @@ on:
     branches: [ master ]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
@@ -26,7 +25,8 @@ jobs:
         ports: ["5432:5432"]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out repository code
+        uses: actions/checkout@v2
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -38,6 +38,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.18.3
+
+      - name: Install Ruby dependencies
+        run: bundle install
 
       - name: Install JS dependencies
         run: yarn install
