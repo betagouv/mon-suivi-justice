@@ -36,4 +36,21 @@ RSpec.feature 'Places', type: :feature do
       expect { click_button 'Créer Lieu' }.to change { Place.count }.by(1)
     end
   end
+
+  describe 'update' do
+    it 'works' do
+      place = create(:place, name: 'Spip du 78')
+
+      visit places_path
+
+      within first('.places-item-container') { click_link 'Modifier' }
+
+      fill_in 'Nom', with: 'Spip du 58'
+      click_button 'Enregistrer'
+
+      place.reload()
+
+      expect(place.name).to eq('Spip du 58')
+    end
+  end
 end

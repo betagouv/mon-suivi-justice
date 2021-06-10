@@ -74,8 +74,10 @@ fr:
   login_title: "Mon Suivi Justice admin"
   header_title: "Mon Suivi Justice"
 
+  edit: "Modifier"
   delete: "Supprimer"
   delete_confirmation: "Êtes-vous sûr(e)?"
+
   new_user_title: "Nouvel Agent"
   new_user_submit: "Créer Agent"
   delete_confirmation: "Êtes-vous sûr(e)?"
@@ -86,6 +88,8 @@ fr:
 
   new_place_title: "Nouveau Lieu"
   new_place_submit: "Créer Lieu"
+  edit_place_title: "Modifier Lieu"
+  edit_place_submit: "Enregistrer"
 
   new_slot_title: "Nouveau Créneau"
   new_slot_submit: "Créer Créneau"

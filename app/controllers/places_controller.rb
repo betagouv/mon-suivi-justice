@@ -22,6 +22,22 @@ class PlacesController < ApplicationController
     end
   end
 
+  def edit
+    @place = Place.find(params[:id])
+    authorize @place
+  end
+
+  def update
+    @place = Place.find(params[:id])
+    authorize @place
+
+    if @place.update(place_params)
+      redirect_to places_path
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @place = Place.find(params[:id])
     authorize @place
