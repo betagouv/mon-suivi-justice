@@ -27,7 +27,7 @@ class SlotsController < ApplicationController
     authorize @slot
 
     @slot.destroy
-    redirect_to places_path
+    redirect_to slots_path
   end
 
   private
