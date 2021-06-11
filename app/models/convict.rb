@@ -9,6 +9,6 @@ class Convict < ApplicationRecord
                               message: I18n.t('activerecord.errors.phone_format') }
 
   def name
-    first_name + ' ' + last_name
+    "#{first_name} #{last_name}"
   end
 end

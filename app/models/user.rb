@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
-  enum role: [:admin, :bex, :cpip]
+  enum role: %i[admin bex cpip]
 
   validates :first_name, :last_name, :role, presence: true
 end

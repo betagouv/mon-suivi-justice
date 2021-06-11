@@ -1,0 +1,28 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - db/**/*
+    - bin/**/*
+    - config/**/*
+    - node_modules/**/*
+    - tmp/**/*
+    - vendor/**/*
+    - .git/**/*
+    - Guardfile
+    - Rakefile
+    - config.ru
+    - spec/spec_helper.rb
+    - spec/rails_helper.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false

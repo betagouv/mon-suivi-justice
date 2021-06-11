@@ -7,6 +7,6 @@ class Slot < ApplicationRecord
   scope :available_for_place, ->(place) { where(place_id: place.id, available: true) }
 
   def form_label
-    date.to_s(:base_date_format) + ' - ' + starting_time.to_s(:time)
+    "#{date.to_s(:base_date_format)} - #{starting_time.to_s(:time)}"
   end
 end

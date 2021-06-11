@@ -6,9 +6,9 @@ class ApplicationController < ActionController::Base
 
   def layout_by_resource
     if devise_controller?
-      "authentication"
+      'authentication'
     else
-      "agent_interface"
+      'agent_interface'
     end
   end
 
