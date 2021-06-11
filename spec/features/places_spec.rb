@@ -48,7 +48,7 @@ RSpec.feature 'Places', type: :feature do
       fill_in 'Nom', with: 'Spip du 58'
       click_button 'Enregistrer'
 
-      place.reload()
+      place.reload
 
       expect(place.name).to eq('Spip du 58')
     end

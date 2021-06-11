@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :slots
 
   get '/appointment/:convict_id/:place_id', to: 'appointments#new_first',
-                                as: 'new_first_appointment'
+                                            as: 'new_first_appointment'
 
   root 'static_pages#home'
 end

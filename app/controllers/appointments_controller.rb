@@ -18,6 +18,7 @@ class AppointmentsController < ApplicationController
     authorize @appointment
 
     if @appointment.save
+      @appointment.slot.update(available: false)
       redirect_to appointments_path
     else
       render :new_first

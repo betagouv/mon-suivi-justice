@@ -31,6 +31,7 @@ fr:
         place: "Lieu"
         date: "Date"
         starting_time: "Heure"
+        available: "Disponible"
 
     errors:
       phone_format: "au mauvais format"
@@ -108,3 +109,6 @@ fr:
     places: "Lieux"
     slots: "Créneaux"
     users: "Agents"
+
+  "true": "Oui"
+  "false": "Non"
