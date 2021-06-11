@@ -5,14 +5,7 @@
   <%= f.input :last_name %>
   <%= f.input :phone %>
 
-  <div class="convict-first-appointment-container">
-    <h2 class='form-secondary-title'><%= t('first_appointment_title') %></h2>
-
-    <%= f.simple_fields_for :appointments do |p| %>
-      <%= p.association :place, label: t('activerecord.models.place'), input_html: { class: 'form-select' } %>
-      <%= p.input :date, label: t('activerecord.attributes.appointment.date'), html5: true %>
-    <% end %>
-  </div>
+  <%= f.input :place_id, label: t('new_convict_first_appointment_place'), collection: Place.all, input_html: { class: 'form-select' }, required: true %>
 
   <%= f.button :submit, t('new_convict_submit'), class: 'form-submit-button' %>
 <% end %>

@@ -27,24 +27,22 @@ RSpec.feature 'Convicts', type: :feature do
 
   describe 'creation' do
     it 'creates a convict with his first appointment' do
-      create(:place, name: 'McDo de Clichy')
+      place = create(:place, name: 'McDo de Clichy')
+      create(:slot, place: place, date: '10/10/2021', starting_time: '14h')
 
       visit new_convict_path
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
+      select 'McDo de Clichy', from: 'Lieu du premier rendez-vous'
 
-      within ('.convict-first-appointment-container') do
-        select 'McDo de Clichy', from: 'Lieu'
-        fill_in 'Date', with: '22/08/21'
-      end
+      expect { click_button 'Choisir créneau' }.to change { Convict.count }.by(1)
+      expect(page).to have_current_path(new_first_appointment_path(Convict.last.id, place.id))
 
-      expect { click_button 'Créer PPSMJ' }.to change { Convict.count }.by(1)
-                                           .and change { Appointment.count }.by(1)
+      choose '10/10/2021 - 14:00'
+
+      expect { click_button 'Créer rendez-vous' }.to change { Appointment.count }.by(1)
     end
   end
-
-  # describe 'can be updated' do
-  # end
 end

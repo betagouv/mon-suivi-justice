@@ -83,8 +83,13 @@ fr:
   delete_confirmation: "Êtes-vous sûr(e)?"
 
   new_convict_title: "Nouvelle PPSMJ"
-  first_appointment_title: "Premier rendez-vous"
-  new_convict_submit: "Créer PPSMJ"
+  new_first_appointment_title: "Créneaux disponibles"
+  new_convict_first_appointment_place: "Lieu du premier rendez-vous"
+  new_convict_submit: "Choisir créneau"
+  new_appointment_submit: "Créer rendez-vous"
+
+  new-appointment-place: "Lieu de rendez-vous :"
+  new-appointment-no-slot: "Pas de créneau disponible"
 
   new_place_title: "Nouveau Lieu"
   new_place_submit: "Créer Lieu"

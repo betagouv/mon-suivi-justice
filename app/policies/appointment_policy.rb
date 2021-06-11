@@ -11,6 +11,10 @@ class AppointmentPolicy < ApplicationPolicy
     true
   end
 
+  def new_first?
+    true
+  end
+
   def create?
     true
   end

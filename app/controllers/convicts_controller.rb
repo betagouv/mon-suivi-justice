@@ -18,7 +18,7 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     if @convict.save
-      redirect_to convicts_path
+      redirect_to new_first_appointment_path(@convict.id, convict_params[:place_id])
     else
       render :new
     end
@@ -35,7 +35,6 @@ class ConvictsController < ApplicationController
   private
 
   def convict_params
-    params.require(:convict).permit(:first_name, :last_name, :phone,
-                                    appointments_attributes: [:date, :slot, :place_id])
+    params.require(:convict).permit(:first_name, :last_name, :phone, :place_id)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_111759) do
+ActiveRecord::Schema.define(version: 2021_06_11_094137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(version: 2021_06_08_111759) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "convict_id", null: false
-    t.bigint "place_id", null: false
+    t.bigint "slot_id", null: false
     t.index ["convict_id"], name: "index_appointments_on_convict_id"
-    t.index ["place_id"], name: "index_appointments_on_place_id"
+    t.index ["slot_id"], name: "index_appointments_on_slot_id"
   end
 
   create_table "convicts", force: :cascade do |t|
@@ -66,6 +66,6 @@ ActiveRecord::Schema.define(version: 2021_06_08_111759) do
   end
 
   add_foreign_key "appointments", "convicts"
-  add_foreign_key "appointments", "places"
+  add_foreign_key "appointments", "slots"
   add_foreign_key "slots", "places"
 end
