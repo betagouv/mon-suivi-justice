@@ -1,5 +1,7 @@
 <div class="convicts-container">
-  <%= button_to t('new_convict_title'), new_convict_path, class: "link-to-new-convict-button", form_class: "link-to-new-convict-form", method: :get %>
+  <% if policy(:convict).new? %>
+    <%= button_to t('new_convict_title'), new_convict_path, class: "link-to-new-convict-button", form_class: "link-to-new-convict-form", method: :get %>
+  <% end %>
 
   <div class="convicts-header">
     <div class="convicts-header-title convicts-column-1">
@@ -21,7 +23,9 @@
       </div>
 
       <div class="convicts-column-3">
-        <%= link_to t('delete'), convict_path(convict), data: { confirm: t('delete_confirmation') }, method: :delete %>
+        <% if policy(:convict).destroy? %>
+          <%= link_to t('delete'), convict_path(convict), data: { confirm: t('delete_confirmation') }, method: :delete %>
+        <% end %>
       </div>
     </div>
   <% end %>
