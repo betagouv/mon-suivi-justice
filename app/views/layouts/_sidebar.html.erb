@@ -1,7 +1,7 @@
 <section class="sidebar">
   <% if policy(:convict).index? %>
     <%= link_to convicts_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_url([convicts_path, new_convict_path]) %>">
+      <div class="sidebar-item <%= active_class_if_url([convicts_path, new_convict_path, new_first_appointment_url(:convict_id, :place_id)]) %>">
         <%= t('sidebar.convicts') %>
       </div>
     <% end %>
@@ -17,7 +17,7 @@
 
   <% if policy(:place).index? %>
     <%= link_to places_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_url([places_path, new_place_path]) %>">
+      <div class="sidebar-item <%= active_class_if_url([places_path, new_place_path, edit_place_path(:id)]) %>">
         <%= t('sidebar.places') %>
       </div>
     <% end %>

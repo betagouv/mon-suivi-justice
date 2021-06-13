@@ -29,6 +29,7 @@ RSpec.feature 'Convicts', type: :feature do
     it 'creates a convict with his first appointment' do
       place = create(:place, name: 'McDo de Clichy')
       slot = create(:slot, place: place, date: '10/10/2021', starting_time: '14h')
+      create(:appointment_type, name: 'Premier contact Spip')
 
       visit new_convict_path
 
@@ -40,6 +41,7 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'Choisir créneau' }.to change { Convict.count }.by(1)
       expect(page).to have_current_path(new_first_appointment_path(Convict.last.id, place.id))
 
+      select 'Premier contact Spip', from: 'Type de rendez-vous'
       choose '10/10/2021 - 14:00'
 
       expect { click_button 'Créer rendez-vous' }.to change { Appointment.count }.by(1)

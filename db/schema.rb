@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_11_122044) do
+ActiveRecord::Schema.define(version: 2021_06_13_120840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "appointment_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "appointments", force: :cascade do |t|
     t.date "date"
@@ -21,6 +27,8 @@ ActiveRecord::Schema.define(version: 2021_06_11_122044) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "convict_id", null: false
     t.bigint "slot_id", null: false
+    t.bigint "appointment_type_id", null: false
+    t.index ["appointment_type_id"], name: "index_appointments_on_appointment_type_id"
     t.index ["convict_id"], name: "index_appointments_on_convict_id"
     t.index ["slot_id"], name: "index_appointments_on_slot_id"
   end
@@ -31,6 +39,15 @@ ActiveRecord::Schema.define(version: 2021_06_11_122044) do
     t.string "phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "name"
+    t.text "content"
+    t.bigint "appointment_type_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_type_id"], name: "index_notifications_on_appointment_type_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -66,7 +83,9 @@ ActiveRecord::Schema.define(version: 2021_06_11_122044) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "appointments", "appointment_types"
   add_foreign_key "appointments", "convicts"
   add_foreign_key "appointments", "slots"
+  add_foreign_key "notifications", "appointment_types"
   add_foreign_key "slots", "places"
 end

@@ -9,7 +9,7 @@ end
 
 api_instance = SibApiV3Sdk::TransactionalSMSApi.new
 
-send_transac_sms = SibApiV3Sdk::SendTransacSms.new(
+sms = SibApiV3Sdk::SendTransacSms.new(
   sender: 'MSJ',
   recipient: ENV['PHONE_REMY'],
   content: "Salut, c'est Mon Suivi Justice ;)"
@@ -18,7 +18,7 @@ send_transac_sms = SibApiV3Sdk::SendTransacSms.new(
 # recipient: phone number with country code, ex: '+33607070707'
 
 begin
-  result = api_instance.send_transac_sms(send_transac_sms)
+  result = api_instance.send_transac_sms(sms)
   p result
 rescue SibApiV3Sdk::ApiError => e
   puts "Exception when calling TransactionalSMSApi->send_transac_sms: #{e}"

@@ -4,8 +4,9 @@ fr:
       user: "Agent"
       convict: "PPSMJ"
       appointment: "Rendez-vous"
+      appointment_type: "Type de rendez-vous"
       place: "Lieu"
-      slot: Créneau
+      slot:  "Créneau"
 
     attributes:
       convict:

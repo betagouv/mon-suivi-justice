@@ -5,6 +5,11 @@
   <%= simple_form_for @appointment, html: { class: 'basic-form' } do |f| %>
     <%= f.input :place_id, as: :hidden, input_html: { value: @place.id }  %>
     <%= f.input :convict_id, as: :hidden, input_html: { value: params[:convict_id] }  %>
+    <%= f.association :appointment_type, collection: AppointmentType.all,
+                                         label: t('activerecord.models.appointment_type'),
+                                         as: :select,
+                                         label_method: :form_label %>
+
     <%= f.association :slot, collection: Slot.available_for_place(@place),
                              label: false,
                              as: :radio_buttons,

@@ -6,7 +6,7 @@ RSpec.describe Slot, type: :model do
   it { should validate_presence_of(:starting_time) }
 
   describe '.available_for_place' do
-    it 'includes available slots for a place' do
+    it 'returns available slots for a place' do
       place1 = create(:place)
       place2 = create(:place)
 

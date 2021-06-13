@@ -21,6 +21,7 @@ class AppointmentsController < ApplicationController
       @appointment.slot.update(available: false)
       redirect_to appointments_path
     else
+      # @place = Place.find(params[:place_id])
       render :new_first
     end
   end
@@ -28,6 +29,6 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.require(:appointment).permit(:slot_id, :convict_id)
+    params.require(:appointment).permit(:slot_id, :convict_id, :appointment_type_id)
   end
 end
