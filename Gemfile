@@ -16,6 +16,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 gem 'pundit'
 gem 'simple_form'
+gem 'addressable'
 
 gem 'sib-api-v3-sdk'
 gem 'dotenv-rails'
