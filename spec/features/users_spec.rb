@@ -35,7 +35,7 @@ RSpec.feature 'Users', type: :feature do
       fill_in 'Mot de passe', with: 'password'
       fill_in 'Confirmation du mot de passe', with: 'password'
 
-      expect { click_button 'Créer Agent' }.to change { User.count }.by(1)
+      expect { click_button 'Enregistrer' }.to change { User.count }.by(1)
     end
   end
 

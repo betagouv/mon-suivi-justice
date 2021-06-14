@@ -1,0 +1,20 @@
+<% if Slot.available_for_place(@place).length > 0 %>
+  <p class='new-appointment-slots-title'>Créneaux disponibles</p>
+
+  <div class="form-input-wrapper radio_buttons appointment_slot" id='appointment-slots-container'>
+    <% Slot.available_for_place(@place).each do |slot| %>
+      <span class="radio form-radio-wrapper">
+        <input class="select-slot-button form-radio-input"
+               type="radio"
+               value=<%= slot.id %>
+               name="appointment[slot_id]"
+               id=<%="appointment_slot_id_#{slot.id}"%>>
+        <label class="form-radio-label collection_radio_buttons" for=<%="appointment_slot_id_#{slot.id}"%>>
+          <%= slot.form_label %>
+        </label>
+      </span>
+    <% end %>
+  </div>
+<% else %>
+  <p class='new-appointment-form-no-slot'><%= t('new-appointment-no-slot') %></p>
+<% end %>

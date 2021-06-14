@@ -44,7 +44,7 @@ RSpec.feature 'Slots', type: :feature do
         select '00', from: 'slot_starting_time_5i'
       end
 
-      expect { click_button 'Créer Créneau' }.to change { Slot.count }.by(1)
+      expect { click_button 'Enregistrer' }.to change { Slot.count }.by(1)
     end
   end
 end

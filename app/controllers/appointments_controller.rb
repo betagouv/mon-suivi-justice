@@ -13,6 +13,12 @@ class AppointmentsController < ApplicationController
     authorize @appointment
   end
 
+  def new
+    @appointment = Appointment.new
+
+    authorize @appointment
+  end
+
   def create
     @appointment = Appointment.new(appointment_params)
     authorize @appointment
@@ -21,8 +27,16 @@ class AppointmentsController < ApplicationController
       @appointment.slot.update(available: false)
       redirect_to appointments_path
     else
-      # @place = Place.find(params[:place_id])
       render :new_first
+    end
+  end
+
+  def select_slot
+    skip_authorization
+    @place = Place.find(params[:place_id])
+
+    respond_to do |format|
+      format.js
     end
   end
 

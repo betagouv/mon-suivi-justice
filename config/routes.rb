@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   get '/appointment/:convict_id/:place_id', to: 'appointments#new_first',
                                             as: 'new_first_appointment'
 
+  get '/select_slot' => 'appointments#select_slot', as: 'select_slot'
+
   root 'static_pages#home'
 end

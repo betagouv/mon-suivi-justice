@@ -18,4 +18,8 @@ class SlotPolicy < ApplicationPolicy
   def destroy?
     user.admin?
   end
+
+  def select?
+    true
+  end
 end

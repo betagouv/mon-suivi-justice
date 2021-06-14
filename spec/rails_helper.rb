@@ -36,7 +36,7 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -76,6 +76,10 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+Capybara.server = :puma, { Silent: true }
+Capybara.javascript_driver = :selenium_headless
+Capybara.default_max_wait_time = 5
 
 def create_admin_user_and_login
   user = create(:user, role: :admin)

@@ -21,4 +21,29 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_content('15:30')
     end
   end
+
+  describe 'creation', js: true do
+    it 'works' do
+      create(:convict, first_name: 'JP', last_name: 'Cherty')
+      place = create(:place, name: 'KFC de Chatelet')
+      slot = create(:slot, place: place, date: '10/10/2021', starting_time: '16h')
+      create(:appointment_type, name: 'Premier contact Spip')
+
+      visit new_appointment_path
+
+      select 'JP Cherty', from: 'PPSMJ'
+      select 'KFC de Chatelet', from: 'Lieu'
+      select 'Premier contact Spip', from: 'Type de rendez-vous'
+
+      click_link 'Charger créneaux'
+
+      choose '10/10/2021 - 16:00'
+
+      expect(page).to have_button('Enregistrer')
+      expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)
+
+      slot.reload
+      expect(slot.available).to eq(false)
+    end
+  end
 end

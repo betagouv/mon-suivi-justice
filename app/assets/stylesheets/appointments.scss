@@ -8,7 +8,7 @@
 }
 
 .appointments-container {
-  padding-top: 30px;
+  padding-top: 20px;
 }
 
 .link-to-new-appointment-form {
@@ -17,8 +17,8 @@
 }
 
 .link-to-new-appointment-button {
-  @include button($grey);
-  margin-right: 30px;
+  @include button($light-blue);
+  margin-right: 20px;
 }
 
 .appointments-item-container {
@@ -48,4 +48,19 @@
 .new-appointment-form-no-slot {
   text-align: center;
   margin-top: 30px;
+}
+
+.new-appointment-slots-title {
+  text-align: center;
+  margin: 30px 0;
+  font-weight: bold;
+}
+
+.form-load-slots-button {
+  @include button($light-blue);
+  margin: 15px auto 20px;
+}
+
+.appointment-load-slots {
+  text-align: center;
 }

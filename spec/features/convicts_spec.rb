@@ -44,7 +44,7 @@ RSpec.feature 'Convicts', type: :feature do
       select 'Premier contact Spip', from: 'Type de rendez-vous'
       choose '10/10/2021 - 14:00'
 
-      expect { click_button 'Créer rendez-vous' }.to change { Appointment.count }.by(1)
+      expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)
 
       slot.reload
       expect(slot.available).to eq(false)

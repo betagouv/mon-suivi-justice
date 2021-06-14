@@ -1,4 +1,8 @@
 <div class="appointments-container">
+  <% if policy(:appointment).new? %>
+    <%= button_to t('new_appointment_title'), new_appointment_path, class: "link-to-new-appointment-button", form_class: "link-to-new-appointment-form", method: :get %>
+  <% end %>
+
   <div class="appointments-header">
     <div class="appointments-header-title appointments-column-1">
       <%= t('activerecord.models.convict') %>

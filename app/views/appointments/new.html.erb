@@ -1,0 +1,40 @@
+<h1 class='form-title'><%= t('new_appointment_title') %></h1>
+
+<%= simple_form_for @appointment, html: { class: 'basic-form' } do |f| %>
+  <%= f.association :convict, collection: Convict.all,
+                              label: t('activerecord.models.convict'),
+                              as: :select,
+                              label_method: :name,
+                              input_html: { class: 'form-select' } %>
+
+  <%= f.association :appointment_type, collection: AppointmentType.all,
+                                       label: t('activerecord.models.appointment_type'),
+                                       as: :select,
+                                       label_method: :name,
+                                       input_html: { class: 'form-select' } %>
+
+  <%= f.input :place_id, collection: Place.all,
+                         label: t('activerecord.models.place'),
+                         as: :select,
+                         required: true,
+                         label_method: :name,
+                         input_html: { id: 'appointment-form-place-select', class: 'form-select' } %>
+
+  <div class='appointment-form-slots-container' id='slots-container'>
+    <%= link_to select_slot_path, remote: true,
+                                  id: 'load-slots-link',
+                                  class: 'appointment-load-slots' do %>
+      <%= f.button :button, t('new-appointment-load-slots'),
+                            class: 'form-load-slots-button',
+                            disabled: true,
+                            id: 'load-slots-button' %>
+    <% end %>
+  </div>
+
+  <%= f.button :submit, t('new_appointment_submit'),
+                        class: 'form-submit-button',
+                        id: 'submit-new-appointment',
+                        disabled: true %>
+<% end %>
+
+<%= javascript_pack_tag 'display_slots' %>
