@@ -33,7 +33,7 @@ RSpec.feature 'Places', type: :feature do
       fill_in 'Adresse', with: '93 rue des charmes 72200 La Flèche'
       fill_in 'Téléphone', with: '0606060606'
 
-      expect { click_button 'Créer Lieu' }.to change { Place.count }.by(1)
+      expect { click_button 'Enregistrer' }.to change { Place.count }.by(1)
     end
   end
 

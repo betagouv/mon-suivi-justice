@@ -5,7 +5,8 @@
   <%= f.input :last_name %>
   <%= f.input :phone %>
 
-  <%= f.input :place_id, label: t('new_convict_first_appointment_place'), collection: Place.all, input_html: { class: 'form-select' }, required: true %>
-
-  <%= f.button :submit, t('new_convict_submit'), class: 'form-submit-button' %>
+  <div class='new-convict-submits-container'>
+    <%= f.button :submit, t('new_convict_submit'), class: 'form-submit-button' %>
+    <%= f.button :submit, t('new_convict_first_appointment'), class: 'form-submit-button' %>
+  </div>
 <% end %>

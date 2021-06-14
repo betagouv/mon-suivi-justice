@@ -6,13 +6,6 @@ class AppointmentsController < ApplicationController
     authorize @appointments
   end
 
-  def new_first
-    @appointment = Appointment.new
-    @place = Place.find(params[:place_id])
-
-    authorize @appointment
-  end
-
   def new
     @appointment = Appointment.new
 

@@ -18,7 +18,7 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     if @convict.save
-      redirect_to new_first_appointment_path(@convict.id, convict_params[:place_id])
+      redirect_to select_path(params)
     else
       render :new
     end
@@ -36,5 +36,13 @@ class ConvictsController < ApplicationController
 
   def convict_params
     params.require(:convict).permit(:first_name, :last_name, :phone, :place_id)
+  end
+
+  def select_path(params)
+    if params[:commit] == I18n.t('new_convict_first_appointment')
+      new_appointment_path(convict_id: @convict.id)
+    else
+      convicts_path
+    end
   end
 end
