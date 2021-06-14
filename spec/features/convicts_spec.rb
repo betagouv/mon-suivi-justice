@@ -64,4 +64,20 @@ RSpec.feature 'Convicts', type: :feature do
       expect(slot.available).to eq(false)
     end
   end
+
+  describe 'update' do
+    it 'works' do
+      convict = create(:convict, last_name: 'Expresso')
+
+      visit convicts_path
+
+      within first('.convicts-item-container') { click_link 'Modifier' }
+
+      fill_in 'Nom', with: 'Ristretto'
+      click_button 'Enregistrer'
+
+      convict.reload
+      expect(convict.last_name).to eq('Ristretto')
+    end
+  end
 end

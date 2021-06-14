@@ -22,9 +22,14 @@
         <%= convict.phone %>
       </div>
 
-      <div class="convicts-column-3">
+      <div class="index-controls-container">
+        <% if policy(:convict).edit? %>
+          <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control' %>
+        <% end %>
         <% if policy(:convict).destroy? %>
-          <%= link_to t('delete'), convict_path(convict), data: { confirm: t('delete_confirmation') }, method: :delete %>
+          <%= link_to t('delete'), convict_path(convict), class: 'index-control',
+                                                          data: { confirm: t('delete_confirmation') },
+                                                          method: :delete %>
         <% end %>
       </div>
     </div>

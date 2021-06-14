@@ -24,6 +24,22 @@ class ConvictsController < ApplicationController
     end
   end
 
+  def edit
+    @convict = Convict.find(params[:id])
+    authorize @convict
+  end
+
+  def update
+    @convict = Convict.find(params[:id])
+    authorize @convict
+
+    if @convict.update(convict_params)
+      redirect_to convicts_path
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @convict = Convict.find(params[:id])
     authorize @convict

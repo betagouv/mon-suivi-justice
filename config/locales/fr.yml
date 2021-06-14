@@ -88,6 +88,8 @@ fr:
   new_first_appointment_title: "Créneaux disponibles"
   new_convict_submit: "Enregistrer"
   new_convict_first_appointment: "Prendre RDV"
+  edit_convict_title: "Modifier PPSMJ"
+  edit_convict_submit: "Enregistrer"
 
   new_appointment_title: "Nouveau rendez-vous"
   new-appointment-place: "Lieu de rendez-vous :"
