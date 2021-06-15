@@ -46,4 +46,5 @@ group :test do
   gem 'shoulda-matchers', '~> 4.0'
   gem 'pundit-matchers', '~> 1.6.0'
   gem 'state_machines-rspec'
+  gem 'webmock'
 end
