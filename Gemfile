@@ -9,7 +9,6 @@ gem 'puma', '~> 5.0'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
-gem 'net-http' # here to silence a warning, to remove
 
 gem 'bootsnap', '>= 1.4.4', require: false
 
@@ -17,6 +16,9 @@ gem 'devise'
 gem 'pundit'
 gem 'simple_form'
 gem 'addressable'
+
+gem 'state_machines'
+gem 'state_machines-activerecord'
 
 gem 'sib-api-v3-sdk'
 gem 'dotenv-rails'
@@ -43,4 +45,5 @@ group :test do
   gem 'webdrivers'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'pundit-matchers', '~> 1.6.0'
+  gem 'state_machines-rspec'
 end

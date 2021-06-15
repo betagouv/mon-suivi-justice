@@ -26,3 +26,7 @@ Style/FrozenStringLiteralComment:
 
 Bundler/OrderedGems:
   Enabled: false
+
+Lint/EmptyBlock:
+  Exclude:
+    - app/models/appointment.rb
