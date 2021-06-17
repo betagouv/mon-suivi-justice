@@ -5,8 +5,12 @@ class Notification < ApplicationRecord
     format_content
   end
 
+  # def send_later
+  #   SmsDeliveryJob.perform_later()
+  # end
+
   def send_now
-    SendinblueAdapter.new.send_sms(self)
+    SmsDeliveryJob.perform_later(self)
   end
 
   def format_content

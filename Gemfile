@@ -22,6 +22,7 @@ gem 'state_machines-activerecord'
 
 gem 'sib-api-v3-sdk'
 gem 'dotenv-rails'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'rspec-rails'
