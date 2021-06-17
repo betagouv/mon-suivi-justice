@@ -1,5 +1,5 @@
 class AppointmentType < ApplicationRecord
-  has_many :notifications
+  has_many :notification_types
 
   validates :name, presence: true
 end

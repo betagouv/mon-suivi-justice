@@ -9,7 +9,7 @@ RSpec.describe Notification, type: :model do
       slot = create(:slot, place: place, date: '02/08/2021', starting_time: new_time_for(16, 30))
       appointment = create(:appointment, slot: slot)
 
-      expected = 'Vous avez rendez-vous au Spip du 03 le 02/08/2021 à 16h30.'\
+      expected = 'Vous êtes convoqué au Spip du 03 le 02/08/2021 à 16h30.'\
                 " Merci d'arriver 15 minutes en avance au 38 rue Jean Moulin."
 
       notif = Notification.create(appointment_id: appointment.id)
