@@ -5,8 +5,8 @@ class Notification < ApplicationRecord
     format_content
   end
 
-  # def send_later
-  #   SmsDeliveryJob.perform_later()
+  # def send_later(time)
+  #   SmsDeliveryJob.perform_later(opts)
   # end
 
   def send_now

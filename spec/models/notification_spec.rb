@@ -20,12 +20,14 @@ RSpec.describe Notification, type: :model do
 
   describe 'send_now' do
     it 'calls Sendinblue adapter' do
-      api_mock = instance_double(SibApiV3Sdk::TransactionalSMSApi)
-      allow(SibApiV3Sdk::TransactionalSMSApi).to receive(:new).and_return(api_mock)
-      expect(api_mock).to receive(:send_transac_sms)
+      Sidekiq::Testing.inline! do
+        api_mock = instance_double(SibApiV3Sdk::TransactionalSMSApi)
+        allow(SibApiV3Sdk::TransactionalSMSApi).to receive(:new).and_return(api_mock)
+        expect(api_mock).to receive(:send_transac_sms)
 
-      notif = create(:notification)
-      notif.send_now
+        notif = create(:notification)
+        notif.send_now
+      end
     end
   end
 end
