@@ -2,7 +2,8 @@ class AppointmentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @appointments = Appointment.all
+    @q = Appointment.ransack(params[:q])
+    @appointments = @q.result(distinct: true).includes(:slot)
     authorize @appointments
   end
 

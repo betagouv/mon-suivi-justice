@@ -1,37 +1,50 @@
 <div class="convicts-container">
-  <% if policy(:convict).new? %>
-    <%= button_to t('new_convict_title'), new_convict_path, class: "link-to-new-convict-button", form_class: "link-to-new-convict-form", method: :get %>
-  <% end %>
 
-  <div class="convicts-header">
-    <div class="convicts-header-title convicts-column-1">
-      <%= t('activerecord.attributes.convict.name') %>
-    </div>
-    <div class="convicts-header-title convicts-column-2">
-      <%= t('activerecord.attributes.convict.phone') %>
-    </div>
+  <div class='index-tools-container'>
+    <%= search_form_for @q, class: 'index-search-form' do |f| %>
+      <%= f.search_field :first_name_or_last_name_cont, id: 'search-field',
+                                                        class: 'index-search-field',
+                                                        placeholder: t('search_convict_placeholder') %>
+                                                        
+      <%= f.submit t('search'), class: 'index-search-button' %>
+    <% end %>
+
+    <% if policy(:convict).new? %>
+      <%= button_to t('new_convict_title'), new_convict_path, class: "link-to-new-convict-button", form_class: "link-to-new-convict-form", method: :get %>
+    <% end %>
   </div>
 
-  <% @convicts.each do |convict| %>
-    <div class="convicts-item-container">
-      <div class="convict-data convicts-column-1">
-        <%= convict.name %>
+  <div class='index-table-container'>
+    <div class="convicts-header">
+      <div class="convicts-header-title convicts-column-1">
+        <%= t('activerecord.attributes.convict.name') %>
       </div>
-
-      <div class="convict-data convicts-column-2">
-        <%= convict.phone %>
-      </div>
-
-      <div class="index-controls-container">
-        <% if policy(:convict).edit? %>
-          <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control' %>
-        <% end %>
-        <% if policy(:convict).destroy? %>
-          <%= link_to t('delete'), convict_path(convict), class: 'index-control',
-                                                          data: { confirm: t('delete_confirmation') },
-                                                          method: :delete %>
-        <% end %>
+      <div class="convicts-header-title convicts-column-2">
+        <%= t('activerecord.attributes.convict.phone') %>
       </div>
     </div>
-  <% end %>
+
+    <% @convicts.each do |convict| %>
+      <div class="convicts-item-container">
+        <div class="convict-data convicts-column-1">
+          <%= convict.name %>
+        </div>
+
+        <div class="convict-data convicts-column-2">
+          <%= convict.phone %>
+        </div>
+
+        <div class="index-controls-container">
+          <% if policy(:convict).edit? %>
+            <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control' %>
+          <% end %>
+          <% if policy(:convict).destroy? %>
+            <%= link_to t('delete'), convict_path(convict), class: 'index-control',
+                                                            data: { confirm: t('delete_confirmation') },
+                                                            method: :delete %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

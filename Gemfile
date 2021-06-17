@@ -15,7 +15,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 gem 'pundit'
 gem 'simple_form'
-gem 'addressable'
+# gem 'addressable'
+gem 'ransack', github: 'activerecord-hackery/ransack'
 
 gem 'state_machines'
 gem 'state_machines-activerecord'

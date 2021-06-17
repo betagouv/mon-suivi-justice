@@ -5,3 +5,30 @@
 .index-control {
   margin-right: 10px;
 }
+
+.index-tools-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.index-table-container {
+  margin-top: 20px;
+}
+
+.index-search-form {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.index-search-field {
+  padding: 10px;
+  border: 1px solid $table-border;
+  height: 40px;
+}
+
+.index-search-button {
+  @include button($light-grey);
+  margin-left: 20px;
+}

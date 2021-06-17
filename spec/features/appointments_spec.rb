@@ -6,7 +6,7 @@ RSpec.feature 'Appointments', type: :feature do
   end
 
   describe 'index' do
-    it 'lists all appointments' do
+    before do
       slot1 = create(:slot, date: '06/06/2021', starting_time: new_time_for(13, 0))
       slot2 = create(:slot, date: '08/08/2021', starting_time: new_time_for(15, 30))
 
@@ -14,11 +14,22 @@ RSpec.feature 'Appointments', type: :feature do
       create(:appointment, slot: slot2)
 
       visit appointments_path
+    end
 
+    it 'lists all appointments' do
       expect(page).to have_content('06/06/2021')
       expect(page).to have_content('13:00')
       expect(page).to have_content('08/08/2021')
       expect(page).to have_content('15:30')
+    end
+
+    it 'filter appointments with search form' do
+      expect(page).to have_content('06/06/2021')
+
+      fill_in 'search-field', with: '08/08/2021'
+      click_button 'Recherche'
+
+      expect(page).not_to have_content('06/06/2021')
     end
   end
 

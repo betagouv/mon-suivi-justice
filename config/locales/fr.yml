@@ -78,6 +78,7 @@ fr:
 
   edit: "Modifier"
   delete: "Supprimer"
+  search: "Recherche"
   delete_confirmation: "Êtes-vous sûr(e)?"
 
   new_user_title: "Nouvel Agent"
@@ -90,12 +91,14 @@ fr:
   new_convict_first_appointment: "Prendre RDV"
   edit_convict_title: "Modifier PPSMJ"
   edit_convict_submit: "Enregistrer"
+  search_convict_placeholder: "Saisir un nom ou un prénom"
 
   new_appointment_title: "Nouveau rendez-vous"
   new-appointment-place: "Lieu de rendez-vous :"
   new-appointment-load-slots: "Charger créneaux"
   new-appointment-no-slot: "Pas de créneau disponible"
   new_appointment_submit: "Enregistrer"
+  search_appointment_placeholder: "Saisir une date"
 
   new_place_title: "Nouveau Lieu"
   new_place_submit: "Enregistrer"

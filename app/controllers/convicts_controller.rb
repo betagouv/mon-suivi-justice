@@ -2,7 +2,8 @@ class ConvictsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @convicts = Convict.all
+    @q = Convict.ransack(params[:q])
+    @convicts = @q.result(distinct: true)
     authorize @convicts
   end
 

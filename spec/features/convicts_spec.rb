@@ -23,6 +23,15 @@ RSpec.feature 'Convicts', type: :feature do
         expect { click_link('Supprimer') }.to change { Convict.count }.by(-1)
       end
     end
+
+    it 'filter convicts with search form' do
+      expect(page).to have_content('Paul')
+
+      fill_in 'search-field', with: 'Michel'
+      click_button 'Recherche'
+
+      expect(page).not_to have_content('Paul')
+    end
   end
 
   describe 'creation' do
