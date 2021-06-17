@@ -12,7 +12,7 @@ api_instance = SibApiV3Sdk::TransactionalSMSApi.new
 sms = SibApiV3Sdk::SendTransacSms.new(
   sender: 'MSJ',
   recipient: ENV['PHONE_REMY'],
-  content: "Salut, c'est Mon Suivi Justice ;)"
+  content: "Bonjour M. Lucas, pour rappel vous avez rendez-vous au SPIP des Hauts-de-Seine le 24 juin à 9h00, au 94 boulevard du Général Leclerc à Nanterre. En cas de problème, contactez le SPIP."
 )
 
 # recipient: phone number with country code, ex: '+33607070707'
