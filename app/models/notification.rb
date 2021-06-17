@@ -19,7 +19,7 @@ class Notification < ApplicationRecord
   end
 
   def default_template
-    "Vous avez rendez-vous au #{@slot.place.name} "\
+    "Vous êtes convoqué au #{@slot.place.name} "\
     "le #{@slot.date.to_s(:base_date_format)} à "\
     "#{@slot.starting_time.to_s(:lettered)}."\
     " Merci d'arriver 15 minutes en avance au #{@slot.place.adress}."
