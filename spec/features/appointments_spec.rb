@@ -7,8 +7,8 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'index' do
     it 'lists all appointments' do
-      slot1 = create(:slot, date: '06/06/2021', starting_time: Time.new(2021, 6, 21, 13, 0, 0, '+00:00'))
-      slot2 = create(:slot, date: '08/08/2021', starting_time: Time.new(2021, 6, 21, 15, 30, 0, '+00:00'))
+      slot1 = create(:slot, date: '06/06/2021', starting_time: new_time_for(13, 0))
+      slot2 = create(:slot, date: '08/08/2021', starting_time: new_time_for(15, 30))
 
       create(:appointment, slot: slot1)
       create(:appointment, slot: slot2)

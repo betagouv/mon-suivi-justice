@@ -8,7 +8,8 @@ class SendinblueAdapter
     @client = SibApiV3Sdk::TransactionalSMSApi.new
   end
 
-  def send_sms
+  def send_sms(notification)
+    sms_data = format_data(notification)
     sms = SibApiV3Sdk::SendTransacSms.new(sms_data)
 
     begin
@@ -18,11 +19,20 @@ class SendinblueAdapter
     end
   end
 
-  def sms_data
+  def format_data(notification)
     {
       sender: 'MSJ',
-      recipient: ENV['PHONE_REMY'],
-      content: "Salut, c'est Mon Suivi Justice ;)"
+      recipient: format_phone(notification.appointment.convict.phone),
+      content: notification.content
     }
+  end
+
+  private
+
+  def format_phone(number)
+    return unless number.start_with?('0')
+
+    number.slice!(0)
+    number.prepend('+33')
   end
 end

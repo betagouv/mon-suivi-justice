@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_15_085140) do
+ActiveRecord::Schema.define(version: 2021_06_15_160118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(version: 2021_06_15_085140) do
   create_table "notifications", force: :cascade do |t|
     t.string "name"
     t.text "content"
-    t.bigint "appointment_type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["appointment_type_id"], name: "index_notifications_on_appointment_type_id"
+    t.bigint "appointment_id", null: false
+    t.index ["appointment_id"], name: "index_notifications_on_appointment_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -87,6 +87,6 @@ ActiveRecord::Schema.define(version: 2021_06_15_085140) do
   add_foreign_key "appointments", "appointment_types"
   add_foreign_key "appointments", "convicts"
   add_foreign_key "appointments", "slots"
-  add_foreign_key "notifications", "appointment_types"
+  add_foreign_key "notifications", "appointments"
   add_foreign_key "slots", "places"
 end

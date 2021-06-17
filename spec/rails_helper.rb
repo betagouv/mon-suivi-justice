@@ -70,6 +70,10 @@ RSpec.configure do |config|
 
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
+
+  config.before(:each) do
+    stub_request(:any, /api.sendinblue.com/)
+  end
 end
 
 Shoulda::Matchers.configure do |config|
@@ -83,7 +87,11 @@ Capybara.server = :puma, { Silent: true }
 Capybara.javascript_driver = :selenium_headless
 Capybara.default_max_wait_time = 5
 
-WebMock.disable_net_connect!(allow_localhost: true)
+driver_urls = Webdrivers::Common.subclasses.map do |driver|
+  Addressable::URI.parse(driver.base_url).host
+end
+
+WebMock.disable_net_connect!(allow_localhost: true, allow: [*driver_urls])
 
 def create_admin_user_and_login
   user = create(:user, role: :admin)
@@ -96,4 +104,8 @@ end
 
 def login_user(user)
   login_as(user, scope: :user)
+end
+
+def new_time_for(hour, min)
+  Time.new(2021, 6, 21, hour, min, 0, '+00:00')
 end
