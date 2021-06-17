@@ -15,7 +15,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 gem 'pundit'
 gem 'simple_form'
-# gem 'addressable'
+gem 'addressable' # fix scalingo deply bug 
 gem 'ransack', github: 'activerecord-hackery/ransack'
 
 gem 'state_machines'
