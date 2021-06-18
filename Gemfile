@@ -9,14 +9,16 @@ gem 'puma', '~> 5.0'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
-
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'devise'
 gem 'pundit'
 gem 'simple_form'
-gem 'addressable' # fix scalingo deply bug 
+gem 'addressable' # fix scalingo deploy bug
+
 gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'kaminari'
+gem 'font-awesome-rails'
 
 gem 'state_machines'
 gem 'state_machines-activerecord'

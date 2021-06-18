@@ -32,3 +32,19 @@
   @include button($light-grey);
   margin-left: 20px;
 }
+
+.index-pagination-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  height: 24px;
+}
+
+.index-pagination-item {
+  margin: 0 8px;
+}
+
+.index-pagination-navigation {
+  font-size: 1.2em;
+}

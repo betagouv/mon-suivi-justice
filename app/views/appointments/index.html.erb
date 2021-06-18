@@ -6,6 +6,7 @@
                                         class: 'index-search-field',
                                         value: @q.slot_date_eq ? @q.slot_date_eq .strftime("%d/%m/%Y") : '',
                                         placeholder: t('search_appointment_placeholder') %>
+
       <%= f.submit t('search'), class: 'index-search-button' %>
     <% end %>
 
@@ -49,5 +50,7 @@
         </div>
       </div>
     <% end %>
+
+    <%= paginate @appointments %>
   </div>
 </div>
