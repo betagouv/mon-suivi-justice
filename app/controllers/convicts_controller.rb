@@ -3,7 +3,7 @@ class ConvictsController < ApplicationController
 
   def index
     @q = Convict.ransack(params[:q])
-    @convicts = @q.result(distinct: true)
+    @convicts = @q.result(distinct: true).page params[:page]
     authorize @convicts
   end
 

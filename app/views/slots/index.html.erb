@@ -1,42 +1,46 @@
-<div class="slots-container">
-  <%= button_to t('new_slot_title'), new_slot_path, class: "link-to-new-slot-button", form_class: "link-to-new-slot-form", method: :get %>
+<div class='slots-container'>
+  <%= button_to t('new_slot_title'), new_slot_path, class: 'link-to-new-slot-button', form_class: 'link-to-new-slot-form', method: :get %>
 
-  <div class="slots-header">
-    <div class="slots-header-title slots-column-1">
-      <%= t('activerecord.attributes.slot.place') %>
+  <div class='index-table-container'>
+    <div class='slots-header'>
+      <div class='slots-header-title slots-column-1'>
+        <%= t('activerecord.attributes.slot.place') %>
+      </div>
+      <div class='slots-header-title slots-column-2'>
+        <%= t('activerecord.attributes.slot.date') %>
+      </div>
+      <div class='slots-header-title slots-column-3'>
+        <%= t('activerecord.attributes.slot.starting_time') %>
+      </div>
+      <div class='slots-header-title slots-column-4'>
+        <%= t('activerecord.attributes.slot.available') %>
+      </div>
     </div>
-    <div class="slots-header-title slots-column-2">
-      <%= t('activerecord.attributes.slot.date') %>
-    </div>
-    <div class="slots-header-title slots-column-3">
-      <%= t('activerecord.attributes.slot.starting_time') %>
-    </div>
-    <div class="slots-header-title slots-column-4">
-      <%= t('activerecord.attributes.slot.available') %>
-    </div>
+
+    <% @slots.each do |slot| %>
+      <div class='slots-item-container'>
+        <div class='slot-data slots-column-1'>
+          <%= slot.place.name %>
+        </div>
+
+        <div class='slot-data slots-column-2'>
+          <%= slot.date.to_s(:base_date_format) %>
+        </div>
+
+        <div class='slot-data slots-column-3'>
+          <%= slot.starting_time.to_s(:time) %>
+        </div>
+
+        <div class='slots-column-4'>
+          <%= t(slot.available) %>
+        </div>
+
+        <div class='slots-column-5'>
+          <%= link_to t('delete'), slot_path(slot), data: { confirm: t('delete_confirmation') }, method: :delete %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= paginate @slots %>
   </div>
-
-  <% @slots.each do |slot| %>
-    <div class="slots-item-container">
-      <div class="slot-data slots-column-1">
-        <%= slot.place.name %>
-      </div>
-
-      <div class="slot-data slots-column-2">
-        <%= slot.date.to_s(:base_date_format) %>
-      </div>
-
-      <div class="slot-data slots-column-3">
-        <%= slot.starting_time.to_s(:time) %>
-      </div>
-
-      <div class="slots-column-4">
-        <%= t(slot.available) %>
-      </div>
-
-      <div class="slots-column-5">
-        <%= link_to t('delete'), slot_path(slot), data: { confirm: t('delete_confirmation') }, method: :delete %>
-      </div>
-    </div>
-  <% end %>
 </div>

@@ -2,7 +2,7 @@ class SlotsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @slots = Slot.all
+    @slots = Slot.all.page params[:page]
     authorize @slots
   end
 

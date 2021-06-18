@@ -2,7 +2,7 @@ class PlacesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @places = Place.all
+    @places = Place.all.page params[:page]
     authorize @places
   end
 

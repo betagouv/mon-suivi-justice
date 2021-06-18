@@ -1,36 +1,40 @@
-<div class="places-container">
-  <%= button_to t('new_place_title'), new_place_path, class: "link-to-new-place-button", form_class: "link-to-new-place-form", method: :get %>
+<div class='places-container'>
+  <%= button_to t('new_place_title'), new_place_path, class: 'link-to-new-place-button', form_class: 'link-to-new-place-form', method: :get %>
 
-  <div class="places-header">
-    <div class="places-header-title places-column-1">
-      <%= t('activerecord.attributes.place.name') %>
+  <div class='index-table-container'>
+    <div class='places-header'>
+      <div class='places-header-title places-column-1'>
+        <%= t('activerecord.attributes.place.name') %>
+      </div>
+      <div class='places-header-title places-column-2'>
+        <%= t('activerecord.attributes.place.adress') %>
+      </div>
+      <div class='places-header-title places-column-3'>
+        <%= t('activerecord.attributes.place.phone') %>
+      </div>
     </div>
-    <div class="places-header-title places-column-2">
-      <%= t('activerecord.attributes.place.adress') %>
-    </div>
-    <div class="places-header-title places-column-3">
-      <%= t('activerecord.attributes.place.phone') %>
-    </div>
+
+    <% @places.each do |place| %>
+      <div class='places-item-container'>
+        <div class='place-data places-column-1'>
+          <%= place.name %>
+        </div>
+
+        <div class='place-data places-column-2'>
+          <%= place.adress %>
+        </div>
+
+        <div class='place-data places-column-3'>
+          <%= place.phone %>
+        </div>
+
+        <div class='index-controls-container'>
+          <%= link_to t('edit'), edit_place_path(place), class: 'index-control' %>
+          <%= link_to t('delete'), place_path(place), class: 'index-control', data: { confirm: t('delete_confirmation') }, method: :delete %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= paginate @places %>
   </div>
-
-  <% @places.each do |place| %>
-    <div class="places-item-container">
-      <div class="place-data places-column-1">
-        <%= place.name %>
-      </div>
-
-      <div class="place-data places-column-2">
-        <%= place.adress %>
-      </div>
-
-      <div class="place-data places-column-3">
-        <%= place.phone %>
-      </div>
-
-      <div class="index-controls-container">
-        <%= link_to t('edit'), edit_place_path(place), class: 'index-control' %>
-        <%= link_to t('delete'), place_path(place), class: 'index-control', data: { confirm: t('delete_confirmation') }, method: :delete %>
-      </div>
-    </div>
-  <% end %>
 </div>
