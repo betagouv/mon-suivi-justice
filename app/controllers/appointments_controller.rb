@@ -21,7 +21,7 @@ class AppointmentsController < ApplicationController
       @appointment.book
       redirect_to appointments_path
     else
-      render :new_first
+      render :new
     end
   end
 

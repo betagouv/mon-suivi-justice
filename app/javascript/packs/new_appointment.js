@@ -1,7 +1,6 @@
 let placeSelect = document.getElementById('appointment-form-place-select');
 let loadSlotsLink = document.getElementById('load-slots-link');
 let loadSlotsButton = document.getElementById('load-slots-button');
-let submitButton = document.getElementById('submit-new-appointment');
 
 placeSelect.addEventListener("change", (e) => {
   let url = new URL(loadSlotsLink.href);
@@ -15,6 +14,8 @@ function allowSubmitOnSlotSelection () {
   let slotsFields = document.getElementsByName('appointment[slot_id]');
 
   if (slotsFields.length) {
+    let submitButton = document.getElementById('submit-new-appointment');
+    
     slotsFields.forEach(field => field.addEventListener('change', () => {
       submitButton.disabled = false;
     }));

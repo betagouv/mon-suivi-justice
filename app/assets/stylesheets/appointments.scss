@@ -52,7 +52,7 @@
 
 .new-appointment-slots-title {
   text-align: center;
-  margin: 30px 0;
+  margin: 10px 0 30px;
   font-weight: bold;
 }
 
@@ -63,4 +63,16 @@
 
 .appointment-load-slots {
   text-align: center;
+}
+
+.new-appointment-slots-container {
+  height: 200px;
+  padding: 20px;
+  border: 2px solid $form-input;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.reload-button {
+  margin-top: 30px;
 }

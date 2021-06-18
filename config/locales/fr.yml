@@ -78,6 +78,7 @@ fr:
 
   edit: "Modifier"
   delete: "Supprimer"
+  submit: "Enregistrer"
   search: "Recherche"
   delete_confirmation: "Êtes-vous sûr(e)?"
 
@@ -97,7 +98,7 @@ fr:
   new-appointment-place: "Lieu de rendez-vous :"
   new-appointment-load-slots: "Charger créneaux"
   new-appointment-no-slot: "Pas de créneau disponible"
-  new_appointment_submit: "Enregistrer"
+  new_appointment_reload: "Recharger"
   search_appointment_placeholder: "Saisir une date"
 
   new_place_title: "Nouveau Lieu"
