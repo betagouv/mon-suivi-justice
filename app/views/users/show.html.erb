@@ -1,0 +1,44 @@
+<h1 class='show-title'><%= t('show_user_title') %></h1>
+
+<div class='show-container'>
+  <div class='show-data-container'>
+    <div class='show-data-label'>
+      <%= t('activerecord.attributes.user.first_name')%>
+    </div>
+    <div class='show-data-item'>
+      <%= @user.first_name %>
+    </div>
+  </div>
+
+  <div class='show-data-container'>
+    <div class='show-data-label'>
+      <%= t('activerecord.attributes.user.last_name')%>
+    </div>
+    <div class='show-data-item'>
+      <%= @user.last_name %>
+    </div>
+  </div>
+
+  <div class='show-data-container'>
+    <div class='show-data-label'>
+      <%= t('activerecord.attributes.user.email')%>
+    </div>
+    <div class='show-data-item'>
+      <%= @user.email %>
+    </div>
+  </div>
+
+  <div class='show-data-container'>
+    <div class='show-data-label'>
+      <%= t('activerecord.attributes.user.role')%>
+    </div>
+    <div class='show-data-item'>
+      <%= t("activerecord.attributes.user.user_roles.#{@user.role}") %>
+    </div>
+  </div>
+
+  <%= button_to t('edit_user'), edit_user_path(current_user.id),
+                                method: :get,
+                                form_class: 'show-button-to-edit-form',
+                                class: 'show-button-to-edit' %>
+</div>

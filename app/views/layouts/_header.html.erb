@@ -1,5 +1,8 @@
 <header class='header'>
-  <h1 class="main-title"><%= t('header_title')%></h1>
+  <h1 class='header-title'><%= t('header_title')%></h1>
 
-  <%= link_to(t('devise.sessions.log_out'), destroy_user_session_path, method: :delete, class: 'logout-link') %>
+  <div class='header-controls-container'>
+    <%= link_to(t('my_profile'), user_path(current_user.id), class: 'header-link') %>
+    <%= link_to(t('log_out'), destroy_user_session_path, method: :delete, class: 'header-link') %>
+  </div>
 </header>

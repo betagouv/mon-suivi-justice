@@ -39,6 +39,35 @@ RSpec.feature 'Users', type: :feature do
     end
   end
 
+  describe 'show', :focus do
+    it 'displays user data' do
+      user = create(:user, first_name: 'Jeanne',
+                           last_name: 'Delajungle',
+                           email: 'jeanne@delajungle.fr')
+
+      visit user_path(user.id)
+
+      expect(page).to have_content('Jeanne')
+      expect(page).to have_content('Delajungle')
+      expect(page).to have_content('jeanne@delajungle.fr')
+    end
+  end
+
+  describe 'edition', :focus do
+    it 'works' do
+      user = create(:user, first_name: 'Jeanne')
+
+      visit edit_user_path(user.id)
+
+      fill_in 'Prénom', with: 'Mireille'
+
+      click_button 'Enregistrer'
+
+      user.reload
+      expect(user.first_name).to eq('Mireille')
+    end
+  end
+
   describe 'roles' do
     it 'allows admin users to access everything' do
       visit convicts_path

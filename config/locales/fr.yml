@@ -20,6 +20,10 @@ fr:
         last_name: "Nom"
         role: "Rôle"
         phone: "Téléphone"
+        user_roles:
+          admin: "Administrateur"
+          cpip:  "Cpip"
+          bex: "Bex"
       appointment:
         date: "Date"
         slot: "Créneau"
@@ -81,10 +85,14 @@ fr:
   submit: "Enregistrer"
   search: "Recherche"
   delete_confirmation: "Êtes-vous sûr(e)?"
+  my_profile: "Mon profil"
+  log_out: "Déconnexion"
 
   new_user_title: "Nouvel Agent"
   new_user_submit: "Enregistrer"
-  delete_confirmation: "Êtes-vous sûr(e)?"
+  show_user_title: "Mes informations"
+  edit_user: "Modifier"
+  edit_user_title: "Modifier mes informations"
 
   new_convict_title: "Nouvelle PPSMJ"
   new_first_appointment_title: "Créneaux disponibles"

@@ -9,10 +9,11 @@
   padding: 20px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: $header-background;
 }
 
-.main-title {
+.header-title {
   font-size: 1.4em;
 }
 
@@ -20,7 +21,7 @@
   width: 100%;
 }
 
-.logout-link {
-  margin-left: auto;
+.header-link {
+  margin-left: 20px;
   color: $main-font-color;
 }
