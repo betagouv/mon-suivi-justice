@@ -13,9 +13,6 @@ Rails.application.routes.draw do
   resources :appointments
   resources :slots
 
-  get '/edit_password' => 'users#edit_password', as: 'edit_password'
-  put '/update_password' => 'users#update_password'
-  patch '/update_password' => 'users#update_password'
   get '/select_slot' => 'appointments#select_slot', as: 'select_slot'
 
   root 'static_pages#home'

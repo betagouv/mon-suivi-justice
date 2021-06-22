@@ -37,15 +37,8 @@
     </div>
   </div>
 
-  <div class='show-controls-container'>
-    <%= button_to t('edit_user'), edit_user_path(current_user.id),
-                                  method: :get,
-                                  form_class: 'show-button-to-edit-form',
-                                  class: 'show-button-to-edit' %>
-
-    <%= button_to t('edit_user_password'), edit_password_path,
-                                           method: :get,
-                                           form_class: 'show-button-to-edit-form',
-                                           class: 'show-button-to-edit' %>
-  </div>
+  <%= button_to t('edit_user'), edit_user_path(current_user.id),
+                                method: :get,
+                                form_class: 'show-button-to-edit-form',
+                                class: 'show-button-to-edit' %>
 </div>

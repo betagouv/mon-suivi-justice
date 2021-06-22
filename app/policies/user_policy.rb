@@ -15,14 +15,6 @@ class UserPolicy < ApplicationPolicy
     user.admin?
   end
 
-  def edit_password?
-    true
-  end
-
-  def update_password?
-    true
-  end
-
   def destroy?
     user.admin?
   end
