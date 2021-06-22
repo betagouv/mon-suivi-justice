@@ -99,6 +99,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.10.0)
+      devise (>= 4.8.0)
     diff-lcs (1.4.4)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
@@ -153,6 +155,8 @@ GEM
     kaminari-core (1.2.1)
     launchy (2.5.0)
       addressable (~> 2.7)
+    letter_opener (1.7.0)
+      launchy (~> 2.2)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -364,6 +368,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  devise-i18n
   dotenv-rails
   factory_bot_rails
   font-awesome-rails
@@ -371,6 +376,7 @@ DEPENDENCIES
   guard-rubocop
   kaminari
   launchy (~> 2.4, >= 2.4.3)
+  letter_opener
   listen (~> 3.3)
   pg
   puma (~> 5.0)

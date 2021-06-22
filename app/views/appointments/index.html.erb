@@ -11,7 +11,10 @@
     <% end %>
 
     <% if policy(:appointment).new? %>
-      <%= button_to t('new_appointment_title'), new_appointment_path, class: 'link-to-new-appointment-button', form_class: 'link-to-new-appointment-form', method: :get %>
+      <%= button_to t('new_appointment_title'), new_appointment_path,
+                                                class: 'link-to-new-appointment-button',
+                                                form_class: 'link-to-new-appointment-form',
+                                                method: :get %>
     <% end %>
   </div>
 

@@ -12,6 +12,7 @@ gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'devise'
+gem 'devise-i18n'
 gem 'pundit'
 gem 'simple_form'
 gem 'addressable' # fix scalingo deploy bug
@@ -42,6 +43,7 @@ group :development do
   gem 'spring'
   gem 'guard-rspec', require: false
   gem 'guard-rubocop'
+  gem 'letter_opener'
 end
 
 group :test do
