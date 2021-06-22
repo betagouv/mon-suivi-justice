@@ -43,6 +43,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_password
+    @user = current_user
+    authorize @user
+  end
+
+  def update_password
+    @user = current_user
+    authorize @user
+
+    if @user.update(user_password_params)
+      bypass_sign_in(@user)
+      redirect_to root_path
+    else
+      render :edit_password
+    end
+  end
+
   def destroy
     @user = User.find(params[:id])
     authorize @user
@@ -55,5 +72,9 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :role,
                                  :password, :password_confirmation)
+  end
+
+  def user_password_params
+    params.require(:user).permit(:password, :password_confirmation)
   end
 end

@@ -39,7 +39,7 @@ RSpec.feature 'Users', type: :feature do
     end
   end
 
-  describe 'show', :focus do
+  describe 'show' do
     it 'displays user data' do
       user = create(:user, first_name: 'Jeanne',
                            last_name: 'Delajungle',
@@ -53,7 +53,7 @@ RSpec.feature 'Users', type: :feature do
     end
   end
 
-  describe 'edition', :focus do
+  describe 'edition' do
     it 'works' do
       user = create(:user, first_name: 'Jeanne')
 
