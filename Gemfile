@@ -13,6 +13,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'devise'
 gem 'devise-i18n'
+gem 'devise_invitable', '~> 2.0.0'
+
 gem 'pundit'
 gem 'simple_form'
 gem 'addressable' # fix scalingo deploy bug

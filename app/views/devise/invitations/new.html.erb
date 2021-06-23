@@ -1,0 +1,12 @@
+<h1 class='form-title'><%= t('new_user_title') %></h1>
+
+<%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, class: 'basic-form' }) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :first_name %>
+  <%= f.input :last_name %>
+  <%= f.input :role, collection: User.roles.keys, input_html: { class: 'form-select' } %>
+  <%= f.input :email, required: true %>
+
+  <%= f.button :submit, t('send_invitation'), class: 'form-submit-button' %>
+<% end %>

@@ -89,7 +89,7 @@ fr:
   log_out: "Déconnexion"
 
   new_user_title: "Nouvel Agent"
-  new_user_submit: "Enregistrer"
+  send_invitation: "Envoyer invitation"
   show_user_title: "Mes informations"
   edit_user: "Modifier"
   edit_user_title: "Modifier mes informations"

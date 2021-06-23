@@ -1,34 +1,34 @@
-<div class="users-container">
-  <%= button_to t('new_user_title'), new_user_path, class: "link-to-new-user-button", form_class: "link-to-new-user-form", method: :get %>
+<div class='users-container'>
+  <%= button_to t('new_user_title'), new_user_invitation_path, class: 'link-to-new-user-button', form_class: 'link-to-new-user-form', method: :get %>
 
   <div class='index-table-container'>
-    <div class="users-header">
-      <div class="users-header-title users-column-1">
+    <div class='users-header'>
+      <div class='users-header-title users-column-1'>
         <%= t('activerecord.attributes.user.name') %>
       </div>
-      <div class="users-header-title users-column-2">
+      <div class='users-header-title users-column-2'>
         <%= t('activerecord.attributes.user.email') %>
       </div>
-      <div class="users-header-title users-column-3">
+      <div class='users-header-title users-column-3'>
         <%= t('activerecord.attributes.user.role') %>
       </div>
     </div>
 
     <% @users.each do |user| %>
-      <div class="users-item-container">
-        <div class="user-data users-column-1">
+      <div class='users-item-container'>
+        <div class='user-data users-column-1'>
           <%= user.first_name + ' ' + user.last_name %>
         </div>
 
-        <div class="user-data users-column-2">
+        <div class='user-data users-column-2'>
           <%= user.email %>
         </div>
 
-        <div class="user-data users-column-3">
+        <div class='user-data users-column-3'>
           <%= user.role %>
         </div>
 
-        <div class="users-controls">
+        <div class='users-controls'>
           <%= link_to t('delete'), user_path(user), data: { confirm: t('delete_confirmation') }, method: :delete %>
         </div>
       </div>

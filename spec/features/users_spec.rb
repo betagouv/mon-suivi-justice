@@ -18,7 +18,7 @@ RSpec.feature 'Users', type: :feature do
       expect(page).to have_content('Michèle')
     end
 
-    it 'allows to delete convict' do
+    it 'allows to delete user' do
       within first('.users-item-container') do
         expect { click_link('Supprimer') }.to change { User.count }.by(-1)
       end
@@ -26,20 +26,18 @@ RSpec.feature 'Users', type: :feature do
   end
 
   describe 'creation' do
-    it 'works' do
-      visit new_user_path
+    it 'sends invitation to new user' do
+      visit new_user_invitation_path
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Email', with: 'robertdurand@justice.fr'
-      fill_in 'Mot de passe', with: 'password'
-      fill_in 'Confirmation du mot de passe', with: 'password'
 
-      expect { click_button 'Enregistrer' }.to change { User.count }.by(1)
+      expect { click_button 'Envoyer invitation' }.to change { User.count }.by(1)
     end
   end
 
-  describe 'show', :focus do
+  describe 'show' do
     it 'displays user data' do
       user = create(:user, first_name: 'Jeanne',
                            last_name: 'Delajungle',
@@ -53,7 +51,7 @@ RSpec.feature 'Users', type: :feature do
     end
   end
 
-  describe 'edition', :focus do
+  describe 'edition' do
     it 'works' do
       user = create(:user, first_name: 'Jeanne')
 

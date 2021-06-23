@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
+
+  before_action :configure_permitted_parameters, if: :devise_controller?
   after_action :verify_authorized, unless: :devise_controller?
 
   layout :layout_by_resource
@@ -12,6 +14,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_sign_in_path_for(_)
+    stored_location_for(current_user) || root_path
+  end
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
@@ -19,5 +25,9 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:alert] = I18n.t('errors.non_authorized')
     redirect_to(request.referrer || root_path)
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:invite, keys: %i[first_name last_name role email])
   end
 end
