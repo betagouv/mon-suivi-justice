@@ -34,3 +34,7 @@ Lint/EmptyBlock:
 Layout/MultilineMethodCallIndentation:
   Exclude:
     - spec/**/*
+
+Style/FormatStringToken:
+  Exclude:
+    - spec/services/notification_factory_spec.rb

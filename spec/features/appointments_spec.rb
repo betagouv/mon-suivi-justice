@@ -38,7 +38,8 @@ RSpec.feature 'Appointments', type: :feature do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       place = create(:place, name: 'KFC de Chatelet')
       slot = create(:slot, place: place, date: '10/10/2021', starting_time: '16h')
-      create(:appointment_type, name: 'Premier contact Spip')
+      appointment_type = create(:appointment_type, name: 'Premier contact Spip')
+      create(:notification_type, appointment_type: appointment_type)
 
       visit new_appointment_path
 

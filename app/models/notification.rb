@@ -1,5 +1,8 @@
 class Notification < ApplicationRecord
   belongs_to :appointment
+  validates :template, presence: true
+
+  enum role: %i[summon reminder]
 
   after_create do
     format_content
@@ -14,14 +17,16 @@ class Notification < ApplicationRecord
   end
 
   def format_content
-    @slot = appointment.slot
-    update(content: default_template)
+    update(content: template % sms_data)
   end
 
-  def default_template
-    "Vous êtes convoqué au #{@slot.place.name} "\
-    "le #{@slot.date.to_s(:base_date_format)} à "\
-    "#{@slot.starting_time.to_s(:lettered)}."\
-    " Merci de venir avec une pièce d'identité au #{@slot.place.adress}."
+  def sms_data
+    slot = appointment.slot
+    {
+      appointment_hour: slot.starting_time.to_s(:lettered),
+      appointment_date: slot.date.to_s(:base_date_format),
+      place_name: slot.place.name,
+      place_adress: slot.place.adress
+    }
   end
 end

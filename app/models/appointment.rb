@@ -7,6 +7,14 @@ class Appointment < ApplicationRecord
 
   attr_accessor :place_id
 
+  def summon_notif
+    notifications.where(role: :summon).first
+  end
+
+  def reminder_notif
+    notifications.where(role: :reminder).first
+  end
+
   state_machine initial: :waiting do
     state :waiting do
     end
@@ -20,8 +28,9 @@ class Appointment < ApplicationRecord
 
     after_transition on: :book do |appointment|
       appointment.slot.update(available: false)
-      notif = Notification.create!(appointment_id: appointment.id)
-      notif.send_now
+      NotificationFactory.perform(appointment)
+
+      appointment.summon_notif.send_now
     end
   end
 end
