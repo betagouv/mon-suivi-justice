@@ -62,7 +62,7 @@ RSpec.feature 'Convicts', type: :feature do
       select 'McDo de Clichy', from: 'Lieu'
       select 'Premier contact Spip', from: 'Type de rendez-vous'
 
-      click_link 'Charger créneaux'
+      click_link 'Afficher les créneaux'
 
       choose '10/10/2021 - 14:00'
 

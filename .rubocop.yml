@@ -30,3 +30,7 @@ Bundler/OrderedGems:
 Lint/EmptyBlock:
   Exclude:
     - app/models/appointment.rb
+
+Layout/MultilineMethodCallIndentation:
+  Exclude:
+    - spec/**/*
