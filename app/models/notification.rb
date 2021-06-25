@@ -22,6 +22,6 @@ class Notification < ApplicationRecord
     "Vous êtes convoqué au #{@slot.place.name} "\
     "le #{@slot.date.to_s(:base_date_format)} à "\
     "#{@slot.starting_time.to_s(:lettered)}."\
-    " Merci d'arriver 15 minutes en avance au #{@slot.place.adress}."
+    " Merci de venir avec une pièce d'identité au #{@slot.place.adress}."
   end
 end
