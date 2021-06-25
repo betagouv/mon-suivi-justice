@@ -38,3 +38,7 @@ Layout/MultilineMethodCallIndentation:
 Style/FormatStringToken:
   Exclude:
     - spec/services/notification_factory_spec.rb
+
+Style/SymbolArray:
+  Exclude:
+    - app/controllers/**/*

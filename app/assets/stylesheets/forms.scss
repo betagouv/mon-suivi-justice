@@ -28,7 +28,7 @@
 
 .form-submit-button {
   @include button($light-blue);
-  margin: 15px auto 0;
+  margin: 15px auto;
 }
 
 .form-text-input {
@@ -101,4 +101,8 @@
   input, select {
     border: 2px solid $error;
   }
+}
+
+.form-textarea {
+  height: 120px;
 }

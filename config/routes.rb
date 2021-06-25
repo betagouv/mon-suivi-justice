@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :users
   resources :places
   resources :appointments
+  resources :appointment_types
   resources :slots
 
   get '/select_slot' => 'appointments#select_slot', as: 'select_slot'

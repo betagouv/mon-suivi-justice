@@ -1,0 +1,32 @@
+<h1 class='form-title'><%= t('edit_appointment_type_title') %></h1>
+
+<%= simple_form_for @appointment_type, html: { class: 'basic-form' } do |f| %>
+  <%= f.input :name %>
+
+  <h2 class='form-secondary-title'><%= t('edit_appointment_type_notifications') %></h2>
+
+  <%= f.simple_fields_for :notification_types, @appointment_type.summon_notif do |p| %>
+    <div class='notification-type-container'>
+      <p class='notification-type-role'>
+        - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.summon_notif.role}").capitalize %>
+      </p>
+      <%= p.input :template, input_html: { class: 'form-textarea' } %>
+    </div>
+  <% end %>
+
+  <%= f.simple_fields_for :notification_types, @appointment_type.reminder_notif do |p| %>
+    <div class='notification-type-container reminder-container'>
+      <p class='notification-type-role'>
+        - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.reminder_notif.role}").capitalize %>
+      </p>
+
+      <%= p.input :reminder_period, collection: NotificationType.reminder_periods.symbolize_keys.keys,
+                                    input_html: { class: 'form-select' },
+                                    required: true %>
+
+      <%= p.input :template, input_html: { class: 'form-textarea' } %>
+    </div>
+  <% end %>
+
+  <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
+<% end %>

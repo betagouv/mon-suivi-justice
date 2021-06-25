@@ -1,0 +1,21 @@
+<div class='appointment-types-container'>
+  <div class='index-table-container'>
+    <div class='appointment-types-header'>
+      <div class='appointment-types-header-title appointment-types-column-1'>
+        <%= t('activerecord.attributes.appointment_type.name') %>
+      </div>
+    </div>
+
+    <% @appointment_types.each do |appointment_type| %>
+      <div class='appointment-types-item-container'>
+        <div class='appointment_type-data appointment-types-column-1'>
+          <%= appointment_type.name %>
+        </div>
+
+        <div class='index-controls-container'>
+          <%= link_to t('edit'), edit_appointment_type_path(appointment_type), class: 'index-control' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

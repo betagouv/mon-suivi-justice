@@ -1,0 +1,28 @@
+.appointment-types-header {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid $table-border;
+  padding-left: 30px;
+}
+
+.appointment-types-container {
+  padding-top: 20px;
+}
+
+.appointment-types-item-container {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid $table-border;
+  padding-left: 30px;
+}
+
+.appointment-types-column-1 {
+  width: 50%;
+}
+
+.notification-type-role {
+  height: 40px;
+}
