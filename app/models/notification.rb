@@ -3,14 +3,15 @@ class Notification < ApplicationRecord
   validates :template, presence: true
 
   enum role: %i[summon reminder]
+  enum reminder_period: %i[one_day two_days]
 
   after_create do
     format_content
   end
 
-  # def send_later(time)
-  #   SmsDeliveryJob.perform_later(opts)
-  # end
+  def send_later
+    SmsDeliveryJob.set(wait_until: delivery_time).perform_later(self)
+  end
 
   def send_now
     SmsDeliveryJob.perform_later(self)
@@ -28,5 +29,19 @@ class Notification < ApplicationRecord
       place_name: slot.place.name,
       place_adress: slot.place.adress
     }
+  end
+
+  def delivery_time
+    app_date = appointment.slot.date
+    app_time = appointment.slot.starting_time
+
+    app_datetime = app_date.to_datetime + app_time.seconds_since_midnight.seconds
+
+    hour_delay = case reminder_period
+                 when 'one_day' then 24
+                 when 'two_days' then 48
+                 end
+
+    app_datetime.to_time - hour_delay.hours
   end
 end

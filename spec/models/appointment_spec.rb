@@ -12,6 +12,8 @@ RSpec.describe Appointment, type: :model do
       allow_any_instance_of(Notification).to receive(:format_content)
       allow(subject).to receive(:summon_notif)
                     .and_return(create(:notification))
+      allow(subject).to receive(:reminder_notif)
+                    .and_return(create(:notification))
     end
 
     it { is_expected.to have_states :waiting, :booked }

@@ -6,6 +6,7 @@ module NotificationFactory
       Notification.create!(
         appointment: appointment,
         role: notif_type.role,
+        reminder_period: notif_type.reminder_period,
         template: setup_template(notif_type.template)
       )
     end

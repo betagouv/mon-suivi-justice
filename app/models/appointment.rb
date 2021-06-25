@@ -30,7 +30,8 @@ class Appointment < ApplicationRecord
       appointment.slot.update(available: false)
       NotificationFactory.perform(appointment)
 
-      appointment.summon_notif.send_now
+      appointment.summon_notif&.send_now
+      appointment.reminder_notif&.send_later
     end
   end
 end
