@@ -35,8 +35,11 @@
           <%= t(slot.available) %>
         </div>
 
-        <div class='slots-column-5'>
-          <%= link_to t('delete'), slot_path(slot), data: { confirm: t('delete_confirmation') }, method: :delete %>
+        <div class='index-controls-container'>
+          <%= link_to t('delete'), slot_path(slot),
+                                   data: { confirm: t('delete_confirmation') },
+                                   class: 'index-control',
+                                    method: :delete %>
         </div>
       </div>
     <% end %>

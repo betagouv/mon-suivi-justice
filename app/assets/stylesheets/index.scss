@@ -1,9 +1,6 @@
-.index-controls-container {
-  width: 25%;
-}
-
 .index-control {
   margin-right: 10px;
+  color: $link;
 }
 
 .index-tools-container {
@@ -44,8 +41,24 @@
 
 .index-pagination-item {
   margin: 0 8px;
+
+  a {
+    color: $link;
+
+    &:visited {
+      color: $link;
+    }
+  }
 }
 
 .index-pagination-navigation {
   font-size: 1.2em;
+
+  a {
+    color: $link;
+
+    &:visited {
+      color: $link;
+    }
+  }
 }

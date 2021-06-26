@@ -28,8 +28,11 @@
           <%= user.role %>
         </div>
 
-        <div class='users-controls'>
-          <%= link_to t('delete'), user_path(user), data: { confirm: t('delete_confirmation') }, method: :delete %>
+        <div class='index-controls-container'>
+          <%= link_to t('delete'), user_path(user),
+                                   data: { confirm: t('delete_confirmation') },
+                                   class: 'index-control',
+                                   method: :delete %>
         </div>
       </div>
     <% end %>

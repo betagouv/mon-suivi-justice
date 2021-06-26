@@ -108,5 +108,5 @@ def login_user(user)
 end
 
 def new_time_for(hour, min)
-  Time.new(2021, 6, 21, hour, min, 0, '+00:00')
+  Time.new(2021, 6, 21, hour, min, 0)
 end

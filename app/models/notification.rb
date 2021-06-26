@@ -42,6 +42,7 @@ class Notification < ApplicationRecord
                  when 'two_days' then 48
                  end
 
-    app_datetime.to_time - hour_delay.hours
+    result = app_datetime.to_time - hour_delay.hours
+    result.asctime.in_time_zone('Paris')
   end
 end

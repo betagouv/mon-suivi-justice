@@ -15,6 +15,14 @@
     <% end %>
   <% end %>
 
+  <% if policy(:appointment_type).index? %>
+    <%= link_to appointment_types_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_url([appointment_types_path, appointment_type_path(:id)]) %>">
+        <%= t('sidebar.appointment_types') %>
+      </div>
+    <% end %>
+  <% end %>
+
   <% if policy(:place).index? %>
     <%= link_to places_path, class: 'sidebar-item-link' do %>
       <div class="sidebar-item <%= active_class_if_url([places_path, new_place_path, edit_place_path(:id)]) %>">

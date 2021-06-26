@@ -45,6 +45,11 @@ RSpec.feature 'Slots', type: :feature do
       end
 
       expect { click_button 'Enregistrer' }.to change { Slot.count }.by(1)
+
+      created_slot = Slot.last
+
+      expect(created_slot.starting_time.hour).to eq(15)
+      expect(created_slot.starting_time.min).to eq(0)
     end
   end
 end

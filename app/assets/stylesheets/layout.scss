@@ -11,6 +11,8 @@
   align-items: center;
   justify-content: space-between;
   background-color: $header-background;
+  position: fixed;
+  width: 100%;
 }
 
 .header-title {
@@ -19,6 +21,8 @@
 
 .content-container {
   width: 100%;
+  padding-top: $header-height;
+  padding-left: $sidebar-width;
 }
 
 .header-link {

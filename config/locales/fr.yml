@@ -134,6 +134,7 @@ fr:
   sidebar:
     convicts: "PPSMJ"
     appointments: "Rendez-vous"
+    appointment_types: "Types de RDV"
     places: "Lieux"
     slots: "Créneaux"
     users: "Agents"

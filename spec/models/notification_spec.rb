@@ -62,7 +62,7 @@ RSpec.describe Notification, type: :model do
       notif = appointment.reminder_notif
       result = notif.delivery_time
 
-      expected = DateTime.new(2021, 8, 2, 17, 30, 0, '+00:00')
+      expected = DateTime.new(2021, 8, 2, 17, 30, 0).asctime.in_time_zone('Paris')
 
       expect(result).to eq(expected)
     end
