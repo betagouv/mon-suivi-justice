@@ -28,10 +28,13 @@ class Appointment < ApplicationRecord
 
     after_transition on: :book do |appointment|
       appointment.slot.update(available: false)
-      NotificationFactory.perform(appointment)
 
-      appointment.summon_notif&.send_now
-      appointment.reminder_notif&.send_later
+      if appointment.convict.phone?
+        NotificationFactory.perform(appointment)
+
+        appointment.summon_notif&.send_now
+        appointment.reminder_notif&.send_later
+      end
     end
   end
 end
