@@ -39,6 +39,7 @@ RSpec.feature 'Convicts', type: :feature do
     it 'works' do
       visit new_convict_path
 
+      select 'M.', from: 'Civilité'
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
@@ -56,6 +57,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       visit new_convict_path
 
+      select 'M.', from: 'Civilité'
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'

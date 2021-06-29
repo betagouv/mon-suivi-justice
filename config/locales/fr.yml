@@ -10,6 +10,7 @@ fr:
 
     attributes:
       convict:
+        title: "Civilité"
         name: "Nom"
         first_name: "Prénom"
         last_name: "Nom"
@@ -32,7 +33,7 @@ fr:
         name: "Nom"
       notification_type:
         template: "Template"
-        reminder_period: "Temps avant le rdv"
+        reminder_period: "Délai avant le rdv"
         notification_type_roles:
           summon: convocation
           reminder: rappel
@@ -148,3 +149,8 @@ fr:
         reminder_period:
           one_day: "24h"
           two_days: "48h"
+
+      convict:
+        title:
+          male: "M."
+          female: "Mme"
