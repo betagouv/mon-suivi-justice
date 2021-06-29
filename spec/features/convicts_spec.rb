@@ -7,7 +7,7 @@ RSpec.feature 'Convicts', type: :feature do
 
   describe 'index' do
     before do
-      create(:convict, first_name: 'Michel')
+      create(:convict, first_name: 'Michel', phone: '0607080910')
       create(:convict, first_name: 'Paul')
 
       visit convicts_path
@@ -15,6 +15,7 @@ RSpec.feature 'Convicts', type: :feature do
 
     it 'lists all convicts' do
       expect(page).to have_content('Michel')
+      expect(page).to have_content('06 07 08 09 10')
       expect(page).to have_content('Paul')
     end
 
