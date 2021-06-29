@@ -7,4 +7,8 @@ class User < ApplicationRecord
   enum role: %i[admin bex cpip]
 
   validates :first_name, :last_name, :role, presence: true
+
+  def name
+    "#{last_name.upcase} #{first_name}"
+  end
 end

@@ -7,14 +7,14 @@ RSpec.feature 'Users', type: :feature do
 
   describe 'index' do
     before do
-      create(:user, first_name: 'Jeanne')
+      create(:user, first_name: 'Jeanne', last_name: 'Montirello')
       create(:user, first_name: 'Michèle')
 
       visit users_path
     end
 
     it 'lists all users' do
-      expect(page).to have_content('Jeanne')
+      expect(page).to have_content('MONTIRELLO Jeanne')
       expect(page).to have_content('Michèle')
     end
 
@@ -46,7 +46,7 @@ RSpec.feature 'Users', type: :feature do
       visit user_path(user.id)
 
       expect(page).to have_content('Jeanne')
-      expect(page).to have_content('Delajungle')
+      expect(page).to have_content('DELAJUNGLE')
       expect(page).to have_content('jeanne@delajungle.fr')
     end
   end

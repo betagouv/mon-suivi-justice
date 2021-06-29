@@ -3,19 +3,19 @@
 <div class='show-container'>
   <div class='show-data-container'>
     <div class='show-data-label'>
-      <%= t('activerecord.attributes.user.first_name')%>
+      <%= t('activerecord.attributes.user.last_name')%>
     </div>
     <div class='show-data-item'>
-      <%= @user.first_name %>
+      <%= @user.last_name.upcase %>
     </div>
   </div>
 
   <div class='show-data-container'>
     <div class='show-data-label'>
-      <%= t('activerecord.attributes.user.last_name')%>
+      <%= t('activerecord.attributes.user.first_name')%>
     </div>
     <div class='show-data-item'>
-      <%= @user.last_name %>
+      <%= @user.first_name %>
     </div>
   </div>
 
