@@ -30,3 +30,42 @@
 
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>
+
+<div class='appointment-type-tutorial-container'>
+  <h2 class='appointment-type-tutorial-title'>Mode d'emploi des templates</h2>
+
+  <p>Les templates de SMS permettent d'insérer des données issues de Mon Suivi justice dans le contenu des SMS envoyés. Pour cela on utilise des clés, comme par exemple {lieu.nom}, qui insère le nom du lieu de rendez-vous.</p>
+
+  <p class='appointment-type-tutorial-secondary-title'>Liste des clés disponibles</p>
+
+  <div class='appointment-type-tutorial-key-table'>
+    <div class='appointment-type-tutorial-key-table-line'>
+      <div class='appointment-type-tutorial-key-name'>{lieu.nom}</div>
+      <div class='appointment-type-tutorial-key-content'>Nom du lieu</div>
+      <div class='appointment-type-tutorial-key-sample'>Ex : SPIP 92</div>
+    </div>
+    <div class='appointment-type-tutorial-key-table-line'>
+      <div class='appointment-type-tutorial-key-name'>{lieu.adresse}</div>
+      <div class='appointment-type-tutorial-key-content'>Adresse du lieu</div>
+      <div class='appointment-type-tutorial-key-sample'>Ex : 25 Avenue de la libération</div>
+    </div>
+    <div class='appointment-type-tutorial-key-table-line'>
+      <div class='appointment-type-tutorial-key-name'>{rdv.date}</div>
+      <div class='appointment-type-tutorial-key-content'>Date du RDV</div>
+      <div class='appointment-type-tutorial-key-sample'>Ex : 06/08/2021</div>
+    </div>
+    <div class='appointment-type-tutorial-key-table-line'>
+      <div class='appointment-type-tutorial-key-name'>{rdv.heure}</div>
+      <div class='appointment-type-tutorial-key-content'>Heure du RDV</div>
+      <div class='appointment-type-tutorial-key-sample'>Ex : 18h20</div>
+    </div>
+  </div>
+
+  <p class='appointment-type-tutorial-secondary-title'>Example</p>
+
+  <p class='appointment-type-tutorial-sample-title'>Template :</p>
+  <p>Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}.</p>
+  <p class='appointment-type-tutorial-sample-title'>Résultat :</p>
+  <p>Vous êtes convoqué au SPIP 92 le 27/06/2021 à 15h15. Merci de venir avec une pièce d'identité au 94 Bvd du Géneral Leclerc 92000 Nanterre.</p>
+
+</div>

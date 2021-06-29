@@ -26,3 +26,40 @@
 .notification-type-role {
   height: 40px;
 }
+
+.appointment-type-tutorial-container {
+  width: 40%;
+  margin: 40px auto;
+}
+
+.appointment-type-tutorial-title {
+  font-size: 1.1em;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.appointment-type-tutorial-secondary-title {
+  text-align: center;
+  font-weight: bold;
+  margin: 30px 0;
+}
+
+.appointment-type-tutorial-key-table-line {
+  display: flex;
+}
+
+.appointment-type-tutorial-key-name {
+  width: 33%;
+}
+
+.appointment-type-tutorial-key-content {
+  width: 33%;
+}
+
+.appointment-type-tutorial-key-sample {
+  width: 33%;
+}
+
+.appointment-type-tutorial-sample-title {
+  margin: 20px 0;
+}
