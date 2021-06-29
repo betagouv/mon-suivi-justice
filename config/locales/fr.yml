@@ -15,12 +15,13 @@ fr:
         first_name: "Prénom"
         last_name: "Nom"
         phone: "Téléphone"
+        no_phone: "Ne possède pas de téléphone"
+        refused_phone: "Refuse de donner son numéro"
       user:
         name: "Nom"
         first_name: "Prénom"
         last_name: "Nom"
         role: "Rôle"
-        phone: "Téléphone"
         user_roles:
           admin: "Administrateur"
           cpip:  "Cpip"

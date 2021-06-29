@@ -4,7 +4,6 @@ RSpec.describe Convict, type: :model do
   it { should have_many(:appointments) }
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
-  it { should validate_presence_of(:phone) }
   it { should validate_presence_of(:title) }
 
   it { should define_enum_for(:title).with_values(%i[male female]) }
