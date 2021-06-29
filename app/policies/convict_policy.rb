@@ -12,7 +12,7 @@ class ConvictPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin? or user.bex?
+    true
   end
 
   def destroy?

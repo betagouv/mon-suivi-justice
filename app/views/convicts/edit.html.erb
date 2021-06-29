@@ -1,6 +1,7 @@
 <h1 class='form-title'><%= t('edit_convict_title') %></h1>
 
 <%= simple_form_for @convict, html: { class: 'basic-form' } do |f| %>
+  <%= f.input :title, collection: Convict.titles.symbolize_keys.keys, input_html: { class: 'form-select' } %>
   <%= f.input :last_name %>
   <%= f.input :first_name %>
   <%= f.input :phone %>
