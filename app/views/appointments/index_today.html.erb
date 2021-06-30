@@ -16,7 +16,7 @@
   </div>
 
   <% if @appointments.count == 0 %>
-    <p><%= t('no_appointment_today') %></p>
+    <p class='no-appointment-today'><%= t('no_appointment_today') %></p>
   <% else %>
     <div class='index-table-container'>
       <div class='appointments-header'>

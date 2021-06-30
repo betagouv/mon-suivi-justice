@@ -7,6 +7,11 @@ class Appointment < ApplicationRecord
 
   attr_accessor :place_id
 
+  scope :for_today, -> {
+    joins(:slot).where('slots.date' => Date.today)
+                .order('slots.starting_time asc')
+  }
+
   def summon_notif
     notifications.where(role: :summon).first
   end
