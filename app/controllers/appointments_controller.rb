@@ -16,6 +16,7 @@ class AppointmentsController < ApplicationController
     @appointments = @q.result(distinct: true)
                       .includes(slot: [:place])
                       .joins(slot: [:place])
+                      .order("appointment_slot.starting_time desc")
 
     authorize @appointments
   end
