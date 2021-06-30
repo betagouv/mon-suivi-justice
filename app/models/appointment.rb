@@ -7,7 +7,7 @@ class Appointment < ApplicationRecord
 
   attr_accessor :place_id
 
-  scope :for_today, -> {
+  scope :for_today, lambda {
     joins(:slot).where('slots.date' => Date.today)
                 .order('slots.starting_time asc')
   }

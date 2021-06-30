@@ -159,3 +159,7 @@ fr:
         title:
           male: "M."
           female: "Mme"
+
+  views:
+    pagination:
+      truncate: '...'
