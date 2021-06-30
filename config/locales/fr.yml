@@ -119,7 +119,7 @@ fr:
   new-appointment-load-slots: "Afficher les créneaux"
   new-appointment-no-slot: "Pas de créneau disponible"
   new_appointment_reload: "Recharger"
-  search_appointment_placeholder: "Saisir une date"
+  search_appointment_placeholder: "Saisir une date : dd/mm/yyyy"
   index_appointment_place_title: "Lieu de RDV"
   today_appointments_title: "RDV du jour"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
