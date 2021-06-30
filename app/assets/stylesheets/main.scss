@@ -23,3 +23,9 @@ body {
 .alert {
   background-color: $alert;
 }
+
+@media print {
+  section.sidebar, header.header, div.index-tools-container {
+    display: none;
+  }
+}

@@ -21,6 +21,11 @@
   margin-right: 20px;
 }
 
+.link-to-today-appointment-button {
+  @include button($light-grey);
+  margin-right: 20px;
+}
+
 .appointments-item-container {
   display: flex;
   align-items: center;

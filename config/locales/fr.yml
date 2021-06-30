@@ -98,6 +98,7 @@ fr:
   delete_confirmation: "Êtes-vous sûr(e)?"
   my_profile: "Mon profil"
   log_out: "Déconnexion"
+  print_button: "Imprimer"
 
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"
@@ -120,6 +121,8 @@ fr:
   new_appointment_reload: "Recharger"
   search_appointment_placeholder: "Saisir une date"
   index_appointment_place_title: "Lieu de RDV"
+  today_appointments_title: "RDV du jour"
+  no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
 
   edit_appointment_type_title: Modifier Type de RDV
   edit_appointment_type_notifications: Notifications

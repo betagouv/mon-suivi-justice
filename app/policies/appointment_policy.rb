@@ -3,6 +3,10 @@ class AppointmentPolicy < ApplicationPolicy
     true
   end
 
+  def index_today?
+    true
+  end
+
   def update?
     true
   end

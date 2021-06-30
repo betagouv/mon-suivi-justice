@@ -1,5 +1,4 @@
 <div class='appointments-container'>
-
   <div class='index-tools-container'>
     <div class='index-tools-filter-container'>
       <%= search_form_for @q, class: 'index-search-form' do |f| %>
@@ -18,13 +17,17 @@
       <% end %>
     </div>
 
-
-    <% if policy(:appointment).new? %>
-      <%= button_to t('new_appointment_title'), new_appointment_path,
-                                                class: 'link-to-new-appointment-button',
-                                                form_class: 'link-to-new-appointment-form',
+    <div class='index-tools-controls-container'>
+      <%= button_to t('today_appointments_title'), today_appointments_path,
+                                                class: 'link-to-today-appointment-button',
                                                 method: :get %>
-    <% end %>
+      <% if policy(:appointment).new? %>
+        <%= button_to t('new_appointment_title'), new_appointment_path,
+                                                  class: 'link-to-new-appointment-button',
+                                                  form_class: 'link-to-new-appointment-form',
+                                                  method: :get %>
+      <% end %>
+    </div>
   </div>
 
   <div class='index-table-container'>

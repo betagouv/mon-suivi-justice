@@ -10,6 +10,16 @@ class AppointmentsController < ApplicationController
     authorize @appointments
   end
 
+  def index_today
+    @q = Appointment.where(slot: Slot.where(date: Date.today))
+                    .ransack(params[:q])
+    @appointments = @q.result(distinct: true)
+                      .includes(slot: [:place])
+                      .joins(slot: [:place])
+
+    authorize @appointments
+  end
+
   def new
     @appointment = Appointment.new
 

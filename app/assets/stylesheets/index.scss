@@ -94,3 +94,12 @@
     color: grey;
   }
 }
+
+.index-tools-controls-container {
+  display: flex;
+}
+
+.print-button {
+  @include button($light-grey);
+  margin-right: 20px;
+}

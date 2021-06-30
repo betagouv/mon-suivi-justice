@@ -9,7 +9,7 @@
 
   <% if policy(:appointment).index? %>
     <%= link_to appointments_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_url([appointments_path, new_appointment_path]) %>">
+      <div class="sidebar-item <%= active_class_if_url([appointments_path, new_appointment_path, today_appointments_path]) %>">
         <%= t('sidebar.appointments') %>
       </div>
     <% end %>

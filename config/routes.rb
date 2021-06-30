@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :slots
 
   get '/select_slot' => 'appointments#select_slot', as: 'select_slot'
+  get '/today_appointments' => 'appointments#index_today', as: 'today_appointments'
 
   root 'static_pages#home'
 end

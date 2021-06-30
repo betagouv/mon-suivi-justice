@@ -23,6 +23,10 @@
   width: 100%;
   padding-top: $header-height;
   padding-left: $sidebar-width;
+
+  @media print {
+    padding: 0;
+  }
 }
 
 .header-link {
