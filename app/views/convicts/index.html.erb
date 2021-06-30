@@ -1,8 +1,7 @@
 <div class="convicts-container">
-
   <div class='index-tools-container'>
     <%= search_form_for @q, class: 'index-search-form' do |f| %>
-      <%= f.search_field :first_name_or_last_name_cont, id: 'search-field',
+      <%= f.search_field :first_name_or_last_name_start, id: 'search-field',
                                                         class: 'index-search-field',
                                                         placeholder: t('search_convict_placeholder') %>
 
