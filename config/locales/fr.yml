@@ -14,8 +14,8 @@ fr:
         name: "Nom"
         first_name: "Prénom"
         last_name: "Nom"
-        phone: "Téléphone"
-        no_phone: "Ne possède pas de téléphone"
+        phone: "Téléphone portable"
+        no_phone: "Ne possède pas de téléphone portable"
         refused_phone: "Refuse de donner son numéro"
       user:
         name: "Nom"
