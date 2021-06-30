@@ -3,7 +3,10 @@ class AppointmentsController < ApplicationController
 
   def index
     @q = Appointment.ransack(params[:q])
-    @appointments = @q.result(distinct: true).includes(:slot).page params[:page]
+    @appointments = @q.result(distinct: true)
+                      .includes(slot: [:place])
+                      .joins(slot: [:place])
+                      .page params[:page]
     authorize @appointments
   end
 

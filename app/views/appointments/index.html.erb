@@ -1,14 +1,23 @@
 <div class='appointments-container'>
 
   <div class='index-tools-container'>
-    <%= search_form_for @q, class: 'index-search-form' do |f| %>
-      <%= f.search_field :slot_date_eq, id: 'search-field',
-                                        class: 'index-search-field',
-                                        value: @q.slot_date_eq ? @q.slot_date_eq .strftime('%d/%m/%Y') : '',
-                                        placeholder: t('search_appointment_placeholder') %>
+    <div class='index-tools-filter-container'>
+      <%= search_form_for @q, class: 'index-search-form' do |f| %>
+        <%= f.search_field :slot_date_eq, id: 'search-field',
+                            class: 'index-search-field',
+                            value: @q.slot_date_eq ? @q.slot_date_eq .strftime('%d/%m/%Y') : '',
+                            placeholder: t('search_appointment_placeholder') %>
 
-      <%= f.submit t('search'), class: 'index-search-button' %>
-    <% end %>
+        <%= f.submit t('search'), class: 'index-search-button' %>
+      <% end %>
+
+      <%= search_form_for @q, html: { class: 'index-place-filter-form' } do |f| %>
+        <%= f.select :slot_place_id_eq, options_from_collection_for_select(Place.all, 'id', 'name', @q.slot_place_id_eq),
+                                        { include_blank: 'Filtrer par lieu de RDV' },
+                                        { onchange: 'this.form.submit();', class: 'form-select index-place-filter-field' } %>
+      <% end %>
+    </div>
+
 
     <% if policy(:appointment).new? %>
       <%= button_to t('new_appointment_title'), new_appointment_path,
@@ -24,13 +33,13 @@
         <%= t('activerecord.models.convict') %>
       </div>
       <div class='appointments-header-title appointments-column-2'>
-        <%= t('activerecord.models.place') %>
+        <%= t('index_appointment_place_title') %>
       </div>
       <div class='appointments-header-title appointments-column-3'>
-        <%= t('activerecord.attributes.slot.date') %>
+        <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
       </div>
       <div class='appointments-header-title appointments-column-4'>
-        <%= t('activerecord.attributes.slot.starting_time') %>
+        <%= sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) %>
       </div>
     </div>
 

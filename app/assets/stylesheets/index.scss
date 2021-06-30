@@ -6,10 +6,19 @@
 .index-tools-container {
   display: flex;
   justify-content: space-between;
+  height: 40px;
+  margin-bottom: 40px;
 }
 
 .index-table-container {
   margin-top: 20px;
+}
+
+.index-tools-filter-container {
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+  max-width: 750px;
 }
 
 .index-search-form {
@@ -22,8 +31,8 @@
 .index-search-field {
   width: 250px;
   padding: 10px;
-  border: 1px solid $table-border;
   height: 40px;
+  border: 1px solid $table-border;
 }
 
 .index-search-button {
@@ -60,5 +69,28 @@
     &:visited {
       color: $link;
     }
+  }
+}
+
+.sort_link {
+  text-decoration: none;
+  color: black;
+
+  .fa-sort { margin-left: 5px; }
+}
+
+.index-place-filter-form {
+  width: 250px;
+  margin-left: 20px;
+}
+
+.index-place-filter-field {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border: 1px solid $table-border;
+
+  &:first-child {
+    color: grey;
   }
 }

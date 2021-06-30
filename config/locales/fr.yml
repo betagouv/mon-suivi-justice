@@ -119,6 +119,7 @@ fr:
   new-appointment-no-slot: "Pas de créneau disponible"
   new_appointment_reload: "Recharger"
   search_appointment_placeholder: "Saisir une date"
+  index_appointment_place_title: "Lieu de RDV"
 
   edit_appointment_type_title: Modifier Type de RDV
   edit_appointment_type_notifications: Notifications
