@@ -43,7 +43,6 @@ fr:
         starting_time: Heure
         duration: Durée
         capacity: Capacité
-
       place:
         name: "Nom"
         adress: "Adresse"
@@ -53,6 +52,8 @@ fr:
         date: "Date"
         starting_time: "Heure"
         available: "Disponible"
+        duration: Durée
+        capacity: Capacité
 
     errors:
       phone_format: "au mauvais format"
@@ -131,7 +132,7 @@ fr:
 
   edit_appointment_type_title: Modifier Type de RDV
   edit_appointment_type_notifications: Notifications
-  edit_appointment_type_slots: Créneaux
+  edit_appointment_type_slots: Créneaux récurrents
   edit_appointment_type_add_slot: Ajouter créneau
 
   new_place_title: "Nouveau Lieu"

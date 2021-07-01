@@ -17,7 +17,7 @@
     <%= f.input :duration, wrapper_html: { class: 'appointment-type-slot-form-line2' } %>
     <%= f.input :capacity, wrapper_html: { class: 'appointment-type-slot-form-line2' } %>
     <div class='remove-slot-button-container'>
-      <%= link_to_remove_association t('delete'), f %>
+      <%= link_to_remove_association button_tag(t('delete'), type: 'button', class: 'remove-slot-button'), f %>
     </div>
   </div>
 </div>

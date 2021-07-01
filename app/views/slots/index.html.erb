@@ -1,5 +1,25 @@
 <div class='slots-container'>
-  <%= button_to t('new_slot_title'), new_slot_path, class: 'link-to-new-slot-button', form_class: 'link-to-new-slot-form', method: :get %>
+  <div class='index-tools-container'>
+    <div class='index-tools-filter-container'>
+      <%= search_form_for @q, class: 'index-search-form' do |f| %>
+        <%= f.search_field :date_eq, id: 'search-field',
+                            class: 'index-search-field',
+                            value: @q.date_eq ? @q.date_eq .strftime('%d/%m/%Y') : '',
+                            placeholder: t('search_appointment_placeholder') %>
+
+        <%= f.submit t('search'), class: 'index-search-button' %>
+      <% end %>
+    </div>
+
+    <div class='index-tools-controls-container'>
+      <% if policy(:slot).new? %>
+        <%= button_to t('new_slot_title'), new_slot_path,
+                                                  class: 'link-to-new-slot-button',
+                                                  form_class: 'link-to-new-slot-form',
+                                                  method: :get %>
+      <% end %>
+    </div>
+  </div>
 
   <div class='index-table-container'>
     <div class='slots-header'>

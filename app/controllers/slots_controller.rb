@@ -2,7 +2,10 @@ class SlotsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @slots = Slot.all.page params[:page]
+    @q = Slot.ransack(params[:q])
+    @slots = @q.result(distinct: true)
+                .page params[:page]
+
     authorize @slots
   end
 

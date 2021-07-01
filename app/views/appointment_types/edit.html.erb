@@ -8,7 +8,7 @@
 
     <div class='slot-types-container'>
       <%= f.simple_fields_for :slot_types do |slot_type| %>
-      <%= render 'slot_type_fields', f: slot_type %>
+        <%= render 'slot_type_fields', f: slot_type %>
       <% end %>
       <div class='add-slot-button-container links'>
         <%= link_to_add_association button_tag(t('edit_appointment_type_add_slot'), type: 'button', class: 'add-slot-button'), f, :slot_types %>

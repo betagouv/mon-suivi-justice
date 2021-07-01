@@ -14,7 +14,7 @@
   flex-direction: column;
   justify-content: space-between;
 
-  @media (min-width: 1100px) {
+  @media (min-width: 1200px) {
     flex-direction: row;
   }
 }
@@ -22,7 +22,7 @@
 .edit-appointment-type-slots-container {
   width: 100%;
 
-  @media (min-width: 1100px) {
+  @media (min-width: 1200px) {
     width: 45%;
   }
 }
@@ -30,7 +30,7 @@
 .edit-appointment-type-notifications-container {
   width: 100%;
 
-  @media (min-width: 1100px) {
+  @media (min-width: 1200px) {
     width: 45%;
   }
 }
@@ -75,6 +75,7 @@
 }
 
 .remove-slot-button {
+  margin-top: 11px;
   @include button($grey);
 }
 
