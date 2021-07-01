@@ -4,6 +4,8 @@ RSpec.describe Slot, type: :model do
   it { should belong_to(:place) }
   it { should validate_presence_of(:date) }
   it { should validate_presence_of(:starting_time) }
+  it { should validate_presence_of(:capacity) }
+  it { should validate_presence_of(:duration) }
 
   describe '.available_for_place' do
     it 'returns available slots for a place' do
