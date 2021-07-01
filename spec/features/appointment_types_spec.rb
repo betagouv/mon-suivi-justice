@@ -18,9 +18,11 @@ RSpec.feature 'AppointmentType', type: :feature do
   end
 
   describe 'update' do
-    it 'works' do
-      appointment_type = create(:appointment_type, name: '1er contact')
+    before do
+      @appointment_type = create(:appointment_type, name: '1er contact')
+    end
 
+    it 'works' do
       visit appointment_types_path
 
       within first('.appointment-types-item-container') { click_link 'Modifier' }
@@ -28,20 +30,19 @@ RSpec.feature 'AppointmentType', type: :feature do
       fill_in 'Nom', with: '2e contact'
       click_button 'Enregistrer'
 
-      appointment_type.reload
-      expect(appointment_type.name).to eq('2e contact')
+      @appointment_type.reload
+      expect(@appointment_type.name).to eq('2e contact')
     end
 
     it 'allows to update notification types' do
-      appointment_type = create(:appointment_type, name: 'Premier contact Spip')
-      notif_type1 = create(:notification_type, appointment_type: appointment_type,
+      notif_type1 = create(:notification_type, appointment_type: @appointment_type,
                                                role: :summon,
                                                template: 'Yo')
-      notif_type2 = create(:notification_type, appointment_type: appointment_type,
+      notif_type2 = create(:notification_type, appointment_type: @appointment_type,
                                                role: :reminder,
                                                template: 'Man')
 
-      visit edit_appointment_type_path(appointment_type)
+      visit edit_appointment_type_path(@appointment_type)
 
       within first('.notification-type-container') do
         fill_in 'Template', with: 'Yolo'
@@ -58,6 +59,21 @@ RSpec.feature 'AppointmentType', type: :feature do
 
       notif_type2.reload
       expect(notif_type2.template).to eq('Girl')
+    end
+
+    it 'allows to add slot types', js: true do
+      visit edit_appointment_type_path(@appointment_type)
+
+      within first('.slot-types-container') do
+        click_button 'Ajouter créneau'
+
+        select 'Mardi', from: 'Jour'
+        select '14', from: 'Heure'
+        fill_in 'Durée', with: '60'
+        fill_in 'Capacité', with: '5'
+      end
+
+      expect { click_button('Enregistrer') }.to change { SlotType.count }.by(1)
     end
   end
 end

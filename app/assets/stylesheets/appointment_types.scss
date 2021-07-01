@@ -7,6 +7,84 @@
   padding-left: 30px;
 }
 
+.appointment-type-form {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media (min-width: 1100px) {
+    flex-direction: row;
+  }
+}
+
+.edit-appointment-type-slots-container {
+  width: 100%;
+
+  @media (min-width: 1100px) {
+    width: 45%;
+  }
+}
+
+.edit-appointment-type-notifications-container {
+  width: 100%;
+
+  @media (min-width: 1100px) {
+    width: 45%;
+  }
+}
+
+.edit-appointment-type-container-submit-container {
+  text-align: center;
+}
+
+.slot-container-line1 {
+  display: flex;
+  justify-content: space-between;
+
+  .form-time-select-fields {
+    select { width: 100%; }
+  }
+}
+
+.slot-container-line2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.appointment-type-slot-form-line1 {
+  width: 45%
+}
+
+.appointment-type-slot-form-line2 {
+  width: 30%
+}
+
+.add-slot-button-container {
+  text-align: center;
+}
+
+.add-slot-button {
+  @include button($grey);
+}
+
+.remove-slot-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.remove-slot-button {
+  @include button($grey);
+}
+
+.edit-appointment-type-slot-container {
+  padding-bottom: 20px;
+  border-bottom: 1px solid $table-border;
+  margin-bottom: 20px;
+}
+
+
 .appointment-types-container {
   padding-top: 20px;
 }
@@ -28,7 +106,6 @@
 }
 
 .appointment-type-tutorial-container {
-  width: 40%;
   margin: 40px auto;
 }
 

@@ -18,6 +18,7 @@ gem 'devise_invitable', '~> 2.0.0'
 gem 'pundit'
 gem 'simple_form'
 gem 'addressable' # fix scalingo deploy bug
+gem 'cocoon'
 
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'kaminari'

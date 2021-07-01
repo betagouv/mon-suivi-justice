@@ -38,6 +38,11 @@ fr:
         notification_type_roles:
           summon: convocation
           reminder: rappel
+      slot_type:
+        week_day: Jour
+        starting_time: Heure
+        duration: Durée
+        capacity: Capacité
 
       place:
         name: "Nom"
@@ -126,6 +131,8 @@ fr:
 
   edit_appointment_type_title: Modifier Type de RDV
   edit_appointment_type_notifications: Notifications
+  edit_appointment_type_slots: Créneaux
+  edit_appointment_type_add_slot: Ajouter créneau
 
   new_place_title: "Nouveau Lieu"
   new_place_submit: "Enregistrer"
@@ -154,11 +161,17 @@ fr:
         reminder_period:
           one_day: "24h"
           two_days: "48h"
-
       convict:
         title:
           male: "M."
           female: "Mme"
+      slot_type:
+        week_day:
+          monday: Lundi
+          tuesday: Mardi
+          wednesday: Mercredi
+          thursday: Jeudi
+          friday: Vendredi
 
   views:
     pagination:

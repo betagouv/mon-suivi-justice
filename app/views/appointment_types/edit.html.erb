@@ -1,70 +1,87 @@
 <h1 class='form-title'><%= t('edit_appointment_type_title') %></h1>
 
-<%= simple_form_for @appointment_type, html: { class: 'basic-form' } do |f| %>
-  <%= f.input :name %>
+<%= simple_form_for @appointment_type, html: { class: 'appointment-type-form' } do |f| %>
+  <div class='edit-appointment-type-slots-container'>
+    <%= f.input :name %>
 
-  <h2 class='form-secondary-title'><%= t('edit_appointment_type_notifications') %></h2>
+    <h2 class='form-secondary-title'><%= t('edit_appointment_type_slots') %></h2>
 
-  <%= f.simple_fields_for :notification_types, @appointment_type.summon_notif do |p| %>
-    <div class='notification-type-container'>
-      <p class='notification-type-role'>
-        - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.summon_notif.role}").capitalize %>
-      </p>
-      <%= p.input :template, input_html: { class: 'form-textarea' } %>
-    </div>
-  <% end %>
-
-  <%= f.simple_fields_for :notification_types, @appointment_type.reminder_notif do |p| %>
-    <div class='notification-type-container reminder-container'>
-      <p class='notification-type-role'>
-        - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.reminder_notif.role}").capitalize %>
-      </p>
-
-      <%= p.input :reminder_period, collection: NotificationType.reminder_periods.symbolize_keys.keys,
-                                    input_html: { class: 'form-select' },
-                                    required: true %>
-
-      <%= p.input :template, input_html: { class: 'form-textarea' } %>
-    </div>
-  <% end %>
-
-  <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
-<% end %>
-
-<div class='appointment-type-tutorial-container'>
-  <h2 class='appointment-type-tutorial-title'>Mode d'emploi des templates</h2>
-
-  <p>Les templates de SMS permettent d'insérer les données de Mon Suivi Justice dans le contenu des SMS envoyés. Pour cela on utilise des clés, comme par exemple {lieu.nom}, qui insère le nom du lieu de rendez-vous.</p>
-
-  <p class='appointment-type-tutorial-secondary-title'>Liste des clés disponibles</p>
-
-  <div class='appointment-type-tutorial-key-table'>
-    <div class='appointment-type-tutorial-key-table-line'>
-      <div class='appointment-type-tutorial-key-name'>{lieu.nom}</div>
-      <div class='appointment-type-tutorial-key-content'>Nom du lieu</div>
-      <div class='appointment-type-tutorial-key-sample'>Ex : SPIP 92</div>
-    </div>
-    <div class='appointment-type-tutorial-key-table-line'>
-      <div class='appointment-type-tutorial-key-name'>{lieu.adresse}</div>
-      <div class='appointment-type-tutorial-key-content'>Adresse du lieu</div>
-      <div class='appointment-type-tutorial-key-sample'>Ex : 25 Avenue de la libération</div>
-    </div>
-    <div class='appointment-type-tutorial-key-table-line'>
-      <div class='appointment-type-tutorial-key-name'>{rdv.date}</div>
-      <div class='appointment-type-tutorial-key-content'>Date du RDV</div>
-      <div class='appointment-type-tutorial-key-sample'>Ex : 06/08/2021</div>
-    </div>
-    <div class='appointment-type-tutorial-key-table-line'>
-      <div class='appointment-type-tutorial-key-name'>{rdv.heure}</div>
-      <div class='appointment-type-tutorial-key-content'>Heure du RDV</div>
-      <div class='appointment-type-tutorial-key-sample'>Ex : 18h20</div>
+    <div class='slot-types-container'>
+      <%= f.simple_fields_for :slot_types do |slot_type| %>
+      <%= render 'slot_type_fields', f: slot_type %>
+      <% end %>
+      <div class='add-slot-button-container links'>
+        <%= link_to_add_association button_tag(t('edit_appointment_type_add_slot'), type: 'button', class: 'add-slot-button'), f, :slot_types %>
+      </div>
     </div>
   </div>
 
-  <p class='appointment-type-tutorial-secondary-title'>Exemple</p>
+  <div class='edit-appointment-type-notifications-container'>
+    <h2 class='form-secondary-title'><%= t('edit_appointment_type_notifications') %></h2>
 
-  <p class='appointment-type-tutorial-sample-title'>Template :</p>
-  <p class='appointment-type-tutorial-sample'>Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}.</p>
-  <p class='appointment-type-tutorial-sample-title'>Résultat :</p>
-  <p class='appointment-type-tutorial-sample'>Vous êtes convoqué au SPIP 92 le 27/06/2021 à 15h15. Merci de venir avec une pièce d'identité au 94 Bvd du Géneral Leclerc 92000 Nanterre.</p>
+    <%= f.simple_fields_for :notification_types, @appointment_type.summon_notif do |p| %>
+      <div class='notification-type-container'>
+        <p class='notification-type-role'>
+          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.summon_notif.role}").capitalize %>
+        </p>
+        <%= p.input :template, input_html: { class: 'form-textarea' } %>
+      </div>
+    <% end %>
+
+    <%= f.simple_fields_for :notification_types, @appointment_type.reminder_notif do |p| %>
+      <div class='notification-type-container reminder-container'>
+        <p class='notification-type-role'>
+          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.reminder_notif.role}").capitalize %>
+        </p>
+
+        <%= p.input :reminder_period, collection: NotificationType.reminder_periods.symbolize_keys.keys,
+                                      input_html: { class: 'form-select' },
+                                      required: true %>
+
+        <%= p.input :template, input_html: { class: 'form-textarea' } %>
+      </div>
+    <% end %>
+
+    <div class='edit-appointment-type-container-submit-container'>
+      <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
+    </div>
+  <% end %>
+
+  <div class='appointment-type-tutorial-container'>
+    <h2 class='appointment-type-tutorial-title'>Mode d'emploi des templates</h2>
+
+    <p>Les templates de SMS permettent d'insérer les données de Mon Suivi Justice dans le contenu des SMS envoyés. Pour cela on utilise des clés, comme par exemple {lieu.nom}, qui insère le nom du lieu de rendez-vous.</p>
+
+    <p class='appointment-type-tutorial-secondary-title'>Liste des clés disponibles</p>
+
+    <div class='appointment-type-tutorial-key-table'>
+      <div class='appointment-type-tutorial-key-table-line'>
+        <div class='appointment-type-tutorial-key-name'>{lieu.nom}</div>
+        <div class='appointment-type-tutorial-key-content'>Nom du lieu</div>
+        <div class='appointment-type-tutorial-key-sample'>Ex : SPIP 92</div>
+      </div>
+      <div class='appointment-type-tutorial-key-table-line'>
+        <div class='appointment-type-tutorial-key-name'>{lieu.adresse}</div>
+        <div class='appointment-type-tutorial-key-content'>Adresse du lieu</div>
+        <div class='appointment-type-tutorial-key-sample'>Ex : 25 Avenue de la libération</div>
+      </div>
+      <div class='appointment-type-tutorial-key-table-line'>
+        <div class='appointment-type-tutorial-key-name'>{rdv.date}</div>
+        <div class='appointment-type-tutorial-key-content'>Date du RDV</div>
+        <div class='appointment-type-tutorial-key-sample'>Ex : 06/08/2021</div>
+      </div>
+      <div class='appointment-type-tutorial-key-table-line'>
+        <div class='appointment-type-tutorial-key-name'>{rdv.heure}</div>
+        <div class='appointment-type-tutorial-key-content'>Heure du RDV</div>
+        <div class='appointment-type-tutorial-key-sample'>Ex : 18h20</div>
+      </div>
+    </div>
+
+    <p class='appointment-type-tutorial-secondary-title'>Exemple</p>
+
+    <p class='appointment-type-tutorial-sample-title'>Template :</p>
+    <p class='appointment-type-tutorial-sample'>Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}.</p>
+    <p class='appointment-type-tutorial-sample-title'>Résultat :</p>
+    <p class='appointment-type-tutorial-sample'>Vous êtes convoqué au SPIP 92 le 27/06/2021 à 15h15. Merci de venir avec une pièce d'identité au 94 Bvd du Géneral Leclerc 92000 Nanterre.</p>
+  </div>
 </div>
