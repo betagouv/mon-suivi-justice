@@ -5,7 +5,9 @@ class AppointmentType < ApplicationRecord
   accepts_nested_attributes_for :notification_types
   accepts_nested_attributes_for :slot_types, reject_if: :all_blank, allow_destroy: true
 
-  validates :name, presence: true
+  validates :name, :place_type, presence: true
+
+  enum place_type: %i[spip sap]
 
   def summon_notif
     notification_types.where(role: :summon).first

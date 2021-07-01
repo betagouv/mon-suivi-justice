@@ -32,6 +32,7 @@ fr:
         phone: "Téléphone"
       appointment_type:
         name: "Nom"
+        place_type: Type de lieu de RDV
       notification_type:
         template: "Template"
         reminder_period: "Délai avant le rdv"
@@ -47,6 +48,7 @@ fr:
         name: "Nom"
         adress: "Adresse"
         phone: "Téléphone"
+        place_type: "Type de lieu"
       slot:
         place: "Lieu"
         date: "Date"
@@ -166,6 +168,14 @@ fr:
         title:
           male: "M."
           female: "Mme"
+      appointment_type:
+        place_type:
+          spip:  "Spip"
+          sap: "Sap"
+      place:
+        place_type:
+          spip:  "Spip"
+          sap: "Sap"
       slot_type:
         week_day:
           monday: Lundi

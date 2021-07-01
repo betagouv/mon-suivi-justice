@@ -3,6 +3,9 @@
 <%= simple_form_for @appointment_type, html: { class: 'appointment-type-form' } do |f| %>
   <div class='edit-appointment-type-slots-container'>
     <%= f.input :name %>
+    <%= f.input :place_type, collection: AppointmentType.place_types.keys,
+                             label_method: lambda {|k| t("simple_form.options.appointment_type.place_type.#{k}")},
+                             input_html: { class: 'form-select' } %>
 
     <h2 class='form-secondary-title'><%= t('edit_appointment_type_slots') %></h2>
 

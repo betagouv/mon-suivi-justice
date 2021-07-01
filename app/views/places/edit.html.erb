@@ -2,6 +2,9 @@
 
 <%= simple_form_for @place, html: { class: 'basic-form' } do |f| %>
   <%= f.input :name %>
+  <%= f.input :place_type, collection: Place.place_types.keys,
+                           label_method: lambda {|k| t("simple_form.options.place.place_type.#{k}")},
+                           input_html: { class: 'form-select' } %>
   <%= f.input :adress %>
   <%= f.input :phone %>
 

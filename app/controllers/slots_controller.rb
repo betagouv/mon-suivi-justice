@@ -4,7 +4,7 @@ class SlotsController < ApplicationController
   def index
     @q = Slot.ransack(params[:q])
     @slots = @q.result(distinct: true)
-                .page params[:page]
+               .page params[:page]
 
     authorize @slots
   end
