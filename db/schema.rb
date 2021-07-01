@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_01_085100) do
+ActiveRecord::Schema.define(version: 2021_07_01_092920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,17 @@ ActiveRecord::Schema.define(version: 2021_07_01_085100) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "slot_types", force: :cascade do |t|
+    t.integer "week_day", default: 0
+    t.time "starting_time"
+    t.integer "duration", default: 30
+    t.integer "capacity", default: 1
+    t.bigint "appointment_type_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_type_id"], name: "index_slot_types_on_appointment_type_id"
+  end
+
   create_table "slots", force: :cascade do |t|
     t.date "date"
     t.time "starting_time"
@@ -118,5 +129,6 @@ ActiveRecord::Schema.define(version: 2021_07_01_085100) do
   add_foreign_key "appointments", "slots"
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notifications", "appointments"
+  add_foreign_key "slot_types", "appointment_types"
   add_foreign_key "slots", "places"
 end

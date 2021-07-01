@@ -1,6 +1,9 @@
 class AppointmentType < ApplicationRecord
   has_many :notification_types, inverse_of: :appointment_type
+  has_many :slot_types, inverse_of: :appointment_type
+
   accepts_nested_attributes_for :notification_types
+  accepts_nested_attributes_for :slot_types
 
   validates :name, presence: true
 
