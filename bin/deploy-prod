@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+git push scalingo-prod master
+scalingo -a mon-suivi-justice-prod --region osc-secnum-fr1 run rails db:migrate

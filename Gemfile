@@ -32,6 +32,8 @@ gem 'dotenv-rails'
 gem 'sidekiq'
 gem 'redis-namespace'
 
+gem 'holidays'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
