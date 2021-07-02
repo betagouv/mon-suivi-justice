@@ -37,6 +37,11 @@
 
 .edit-appointment-type-container-submit-container {
   text-align: center;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: calc(100vw - #{$sidebar-width});
+  background-color: white;
 }
 
 .slot-container-line1 {
@@ -85,7 +90,6 @@
   margin-bottom: 20px;
 }
 
-
 .appointment-types-container {
   padding-top: 20px;
 }
@@ -107,7 +111,7 @@
 }
 
 .appointment-type-tutorial-container {
-  margin: 40px auto;
+  margin: 40px auto 100px;
 }
 
 .appointment-type-tutorial-title {

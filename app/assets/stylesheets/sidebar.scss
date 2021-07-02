@@ -4,6 +4,7 @@
   position: fixed;
   margin-top: $header-height;
   height: calc(100vh - #{$header-height});
+  z-index: 1;
 }
 
 .sidebar-item {
