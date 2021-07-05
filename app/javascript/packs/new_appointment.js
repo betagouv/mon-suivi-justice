@@ -7,7 +7,8 @@ let loadSlotsButton = document.getElementById('load-slots-button');
 placeSelect.addEventListener('change', (e) => {
   Rails.ajax({
     type: 'GET',
-    url: '/select_slot?place_id=' + placeSelect.value
+    url: '/select_slot?place_id=' + placeSelect.value,
+    success: function() { allowSubmitOnSlotSelection(); }
   });
 });
 
