@@ -21,7 +21,7 @@ RSpec.describe Notification, type: :model do
       appointment = create(:appointment, appointment_type: appointment_type, slot: slot)
 
       expected = 'Vous êtes convoqué au Spip du 03 le 02/08/2021 à 16h30.'\
-                " Merci de venir avec une pièce d'identité au 38 rue Jean Moulin."
+                 " Merci de venir avec une pièce d'identité au 38 rue Jean Moulin."
 
       NotificationFactory.perform(appointment)
 

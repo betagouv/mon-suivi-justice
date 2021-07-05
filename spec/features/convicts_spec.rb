@@ -7,7 +7,7 @@ RSpec.feature 'Convicts', type: :feature do
 
   describe 'index' do
     before do
-      create(:convict, first_name: 'Michel', phone: '0607080910')
+      create(:convict, first_name: 'michel', phone: '0607080910')
       create(:convict, first_name: 'Paul')
 
       visit convicts_path

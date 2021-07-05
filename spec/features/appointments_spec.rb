@@ -43,7 +43,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       visit new_appointment_path
 
-      select 'CHERTY JP', from: 'PPSMJ'
+      select 'CHERTY Jp', from: 'PPSMJ'
       select 'KFC de Chatelet', from: 'Lieu'
       select 'Premier contact Spip', from: 'Type de rendez-vous'
 

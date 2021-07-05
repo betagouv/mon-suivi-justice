@@ -18,6 +18,6 @@ class Convict < ApplicationRecord
   end
 
   def name
-    "#{last_name.upcase} #{first_name}"
+    "#{last_name.upcase} #{first_name.capitalize}"
   end
 end
