@@ -18,6 +18,6 @@ module NotificationFactory
                        .gsub('rdv.date', 'appointment_date')
                        .gsub('lieu.nom', 'place_name')
                        .gsub('lieu.adresse', 'place_adress')
-                       .gsub('lieu.telephone', 'place_phone')
+                       .gsub('lieu.téléphone', 'place_phone')
   end
 end
