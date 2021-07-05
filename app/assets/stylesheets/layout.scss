@@ -33,3 +33,15 @@
   margin-left: 20px;
   color: $main-font-color;
 }
+
+.support-link {
+  text-decoration: none;
+  padding: 5px 15px;
+  color: $main-font-color;
+  background-color: $salmon;
+  position: fixed;
+  top: 60%;
+  right: 0;
+  transform-origin: right bottom;
+  transform: rotate(-90deg) translateX(-50%);
+}

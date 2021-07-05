@@ -1,17 +1,19 @@
 <% content_for :content do %>
   <%= render 'layouts/header' %>
 
-  <section class="agent-interface-container">
+  <section class='agent-interface-container'>
     <%= render 'layouts/sidebar' %>
 
-    <section class="content-container">
+    <section class='content-container'>
       <% flash.each do |type, msg| %>
       <p class=<%= type %>><%= msg %></p>
       <% end %>
 
       <%= yield %>
     </section>
+
   </section>
+  <%= mail_to ENV['SUPPORT_EMAIL_ADRESS'], t('contact'), class: 'support-link' %>
 <% end %>
 
-<%= render template: "layouts/application" %>
+<%= render template: 'layouts/application' %>

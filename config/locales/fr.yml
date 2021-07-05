@@ -107,6 +107,7 @@ fr:
   my_profile: "Mon profil"
   log_out: "Déconnexion"
   print_button: "Imprimer"
+  contact: "Contacter l'équipe"
 
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"
