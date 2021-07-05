@@ -27,7 +27,8 @@ class Notification < ApplicationRecord
       appointment_hour: slot.starting_time.to_s(:lettered),
       appointment_date: slot.date.to_s(:base_date_format),
       place_name: slot.place.name,
-      place_adress: slot.place.adress
+      place_adress: slot.place.adress,
+      place_phone: slot.place.phone
     }
   end
 

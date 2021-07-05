@@ -9,19 +9,25 @@ RSpec.describe Notification, type: :model do
 
   describe 'format_content' do
     it 'generates SMS content' do
-      place = create(:place, name: 'Spip du 03', adress: '38 rue Jean Moulin')
-      slot = create(:slot, place: place, date: '02/08/2021', starting_time: new_time_for(16, 30))
+      place = create(:place, name: 'Spip du 03',
+                             adress: '38 rue Jean Moulin',
+                             phone: '0102030405')
+
+      slot = create(:slot, place: place,
+                           date: '02/08/2021',
+                           starting_time: new_time_for(16, 30))
 
       appointment_type = create(:appointment_type)
       sms_template = 'Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}.'\
-                     " Merci de venir avec une pièce d'identité au {lieu.adresse}."
-
+                     " Merci de venir avec une pièce d'identité au {lieu.adresse}." \
+                     ' Veuillez contacter le {lieu.telephone} en cas de problème.'
       create(:notification_type, appointment_type: appointment_type, template: sms_template)
 
       appointment = create(:appointment, appointment_type: appointment_type, slot: slot)
 
       expected = 'Vous êtes convoqué au Spip du 03 le 02/08/2021 à 16h30.'\
-                 " Merci de venir avec une pièce d'identité au 38 rue Jean Moulin."
+                 " Merci de venir avec une pièce d'identité au 38 rue Jean Moulin."\
+                 ' Veuillez contacter le 0102030405 en cas de problème.'
 
       NotificationFactory.perform(appointment)
 
