@@ -33,14 +33,17 @@
   <div class='index-table-container'>
     <div class='appointments-header'>
       <div class='appointments-header-title appointments-column-1'>
-        <%= t('activerecord.models.convict') %>
+        <%= sort_link(@q, 'convict_last_name', t('activerecord.models.convict'), default_order: :desc) %>
       </div>
+
       <div class='appointments-header-title appointments-column-2'>
-        <%= t('index_appointment_place_title') %>
+        <%= sort_link(@q, 'slot_place_name', t('index_appointment_place_title'), default_order: :desc) %>
       </div>
+
       <div class='appointments-header-title appointments-column-3'>
         <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
       </div>
+
       <div class='appointments-header-title appointments-column-4'>
         <%= sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) %>
       </div>
