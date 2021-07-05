@@ -1,4 +1,6 @@
 class Notification < ApplicationRecord
+  has_paper_trail
+
   belongs_to :appointment
   validates :template, presence: true
 

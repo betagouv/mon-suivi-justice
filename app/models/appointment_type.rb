@@ -1,4 +1,6 @@
 class AppointmentType < ApplicationRecord
+  has_paper_trail
+
   has_many :notification_types, inverse_of: :appointment_type
   has_many :slot_types, inverse_of: :appointment_type
 

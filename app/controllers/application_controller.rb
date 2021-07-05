@@ -2,10 +2,11 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_paper_trail_whodunnit
+
   after_action :verify_authorized, unless: :devise_controller?
 
   layout :layout_by_resource
-
   def layout_by_resource
     if devise_controller?
       'authentication'

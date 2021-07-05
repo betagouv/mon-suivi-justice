@@ -1,4 +1,6 @@
 class Convict < ApplicationRecord
+  has_paper_trail
+
   has_many :appointments, dependent: :destroy
   attr_accessor :place_id
 

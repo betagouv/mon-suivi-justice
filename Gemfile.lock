@@ -186,6 +186,9 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
+    paper_trail (12.0.0)
+      activerecord (>= 5.2)
+      request_store (~> 1.1)
     parallel (1.20.1)
     parser (3.0.1.1)
       ast (~> 2.4.1)
@@ -243,6 +246,8 @@ GEM
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
     regexp_parser (2.1.1)
+    request_store (1.5.0)
+      rack (>= 1.4)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -386,6 +391,7 @@ DEPENDENCIES
   launchy (~> 2.4, >= 2.4.3)
   letter_opener
   listen (~> 3.3)
+  paper_trail
   pg
   puma (~> 5.0)
   pundit

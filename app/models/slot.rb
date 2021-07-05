@@ -1,4 +1,6 @@
 class Slot < ApplicationRecord
+  has_paper_trail
+
   belongs_to :place
 
   validates :date, :starting_time, :duration, :capacity, presence: true

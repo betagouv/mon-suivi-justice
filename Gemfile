@@ -34,6 +34,8 @@ gem 'redis-namespace'
 
 gem 'holidays'
 
+gem 'paper_trail'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
