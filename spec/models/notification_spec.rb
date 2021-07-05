@@ -20,7 +20,7 @@ RSpec.describe Notification, type: :model do
       appointment_type = create(:appointment_type)
       sms_template = 'Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}.'\
                      " Merci de venir avec une pièce d'identité au {lieu.adresse}." \
-                     ' Veuillez contacter le {lieu.telephone} en cas de problème.'
+                     ' Veuillez contacter le {lieu.téléphone} en cas de problème.'
       create(:notification_type, appointment_type: appointment_type, template: sms_template)
 
       appointment = create(:appointment, appointment_type: appointment_type, slot: slot)

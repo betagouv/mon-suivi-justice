@@ -47,8 +47,6 @@ RSpec.feature 'Appointments', type: :feature do
       select 'KFC de Chatelet', from: 'Lieu'
       select 'Premier contact Spip', from: 'Type de rendez-vous'
 
-      click_link 'Afficher les créneaux'
-
       choose '10/10/2021 - 16:00'
 
       expect(page).to have_button('Enregistrer')

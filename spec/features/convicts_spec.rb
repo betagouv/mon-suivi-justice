@@ -65,10 +65,8 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'Prendre RDV' }.to change { Convict.count }.by(1)
       expect(page).to have_current_path(new_appointment_path(convict_id: Convict.last.id))
 
-      select 'McDo de Clichy', from: 'Lieu'
       select 'Premier contact Spip', from: 'Type de rendez-vous'
-
-      click_link 'Afficher les créneaux'
+      select 'McDo de Clichy', from: 'Lieu'
 
       choose '10/10/2021 - 14:00'
 

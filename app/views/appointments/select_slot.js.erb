@@ -1,2 +1,8 @@
-let container = document.getElementById('slots-container');
+try {
+  console.log(typeof container);
+  container = document.getElementById('slots-container');
+} catch (error) {
+  let container = document.getElementById('slots-container');
+}
+
 container.innerHTML = "<%= j render partial: 'select_slot', locals: {place: @place} %>";

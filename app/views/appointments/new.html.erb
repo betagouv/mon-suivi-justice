@@ -25,14 +25,7 @@
                          input_html: { id: 'appointment-form-place-select', class: 'form-select' } %>
 
   <div class='appointment-form-slots-container' id='slots-container'>
-    <%= link_to select_slot_path, remote: true,
-                                  id: 'load-slots-link',
-                                  class: 'appointment-load-slots' do %>
-      <%= f.button :button, t('new-appointment-load-slots'),
-                            class: 'form-load-slots-button',
-                            disabled: true,
-                            id: 'load-slots-button' %>
-    <% end %>
+    <%= t('new-appointment-help') %>
   </div>
 <% end %>
 

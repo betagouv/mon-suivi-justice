@@ -125,13 +125,14 @@ fr:
 
   new_appointment_title: "Nouveau rendez-vous"
   new-appointment-place: "Lieu de rendez-vous :"
-  new-appointment-load-slots: "Afficher les créneaux"
+  new-appointment-available-slots: Créneaux disponibles
   new-appointment-no-slot: "Pas de créneau disponible"
   new_appointment_reload: "Recharger"
   search_appointment_placeholder: "Saisir une date : dd/mm/yyyy"
   index_appointment_place_title: "Lieu de RDV"
   today_appointments_title: "RDV du jour"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
+  new-appointment-help: "Sélectionnez un lieu de RDV pour afficher les créneaux disponibles."
 
   edit_appointment_type_title: Modifier Type de RDV
   edit_appointment_type_notifications: Notifications

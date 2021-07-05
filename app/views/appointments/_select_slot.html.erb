@@ -1,5 +1,5 @@
 <% if Slot.available_for_place(@place).length > 0 %>
-  <p class='new-appointment-slots-title'>Créneaux disponibles</p>
+  <p class='new-appointment-slots-title'><%= t('new-appointment-available-slots') %></p>
 
   <div class="form-input-wrapper new-appointment-slots-container" id='appointment-slots-container'>
     <% Slot.available_for_place(@place).each do |slot| %>
