@@ -5,6 +5,7 @@ FactoryBot.define do
     available { true }
     duration { 60 }
     capacity { 3 }
+    used_capacity { 0 }
     place
   end
 end

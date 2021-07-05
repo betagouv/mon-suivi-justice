@@ -34,7 +34,10 @@ class Appointment < ApplicationRecord
     end
 
     after_transition on: :book do |appointment|
-      appointment.slot.update(available: false)
+      appointment.slot.increment!(:used_capacity, 1)
+      if appointment.slot.used_capacity == appointment.slot.capacity
+        appointment.slot.update(available: false)
+      end
 
       if appointment.convict.phone?
         NotificationFactory.perform(appointment)

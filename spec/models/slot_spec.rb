@@ -21,4 +21,23 @@ RSpec.describe Slot, type: :model do
       expect(Slot.available_for_place(place1)).not_to include(slot3)
     end
   end
+
+  describe 'capacity' do
+    it 'allows multiple appointments for a slot' do
+      slot = create(:slot, available: true, capacity: 3, used_capacity: 0)
+
+      create(:appointment, slot: slot).book
+
+      slot.reload
+      expect(slot.used_capacity).to eq(1)
+      expect(slot.available).to eq(true)
+
+      create(:appointment, slot: slot).book
+      create(:appointment, slot: slot).book
+
+      slot.reload
+      expect(slot.used_capacity).to eq(3)
+      expect(slot.available).to eq(false)
+    end
+  end
 end

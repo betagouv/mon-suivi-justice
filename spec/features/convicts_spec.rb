@@ -51,7 +51,7 @@ RSpec.feature 'Convicts', type: :feature do
       allow_any_instance_of(Notification).to receive(:format_content)
 
       place = create(:place, name: 'McDo de Clichy')
-      slot = create(:slot, place: place, date: '10/10/2021', starting_time: '14h')
+      create(:slot, place: place, date: '10/10/2021', starting_time: '14h')
       appointment_type = create(:appointment_type, name: 'Premier contact Spip')
       create(:notification_type, appointment_type: appointment_type)
 
@@ -74,9 +74,6 @@ RSpec.feature 'Convicts', type: :feature do
 
       expect(page).to have_button('Enregistrer')
       expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)
-
-      slot.reload
-      expect(slot.available).to eq(false)
     end
   end
 

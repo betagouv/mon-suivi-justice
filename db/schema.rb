@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_05_081841) do
+ActiveRecord::Schema.define(version: 2021_07_05_143551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 2021_07_05_081841) do
     t.boolean "available", default: true
     t.integer "duration", default: 30
     t.integer "capacity", default: 1
+    t.integer "used_capacity", default: 0
     t.index ["place_id"], name: "index_slots_on_place_id"
   end
 

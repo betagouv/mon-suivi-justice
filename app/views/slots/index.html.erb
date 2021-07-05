@@ -35,6 +35,10 @@
       <div class='slots-header-title slots-column-4'>
         <%= t('activerecord.attributes.slot.available') %>
       </div>
+      <div class='slots-header-title slots-column-5'>
+        <%= t('activerecord.attributes.slot.capacity') %>
+      </div>
+      <div class='index-controls-container'></div>
     </div>
 
     <% @slots.each do |slot| %>
@@ -53,6 +57,10 @@
 
         <div class='slots-column-4'>
           <%= t(slot.available) %>
+        </div>
+
+        <div class='slots-column-5'>
+          <%= slot.used_capacity %> / <%= slot.capacity %>
         </div>
 
         <div class='index-controls-container'>

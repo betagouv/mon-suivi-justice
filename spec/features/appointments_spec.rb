@@ -37,7 +37,7 @@ RSpec.feature 'Appointments', type: :feature do
     it 'works' do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       place = create(:place, name: 'KFC de Chatelet')
-      slot = create(:slot, place: place, date: '10/10/2021', starting_time: '16h')
+      create(:slot, place: place, date: '10/10/2021', starting_time: '16h')
       appointment_type = create(:appointment_type, name: 'Premier contact Spip')
       create(:notification_type, appointment_type: appointment_type)
 
@@ -54,8 +54,6 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_button('Enregistrer')
       expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)
                                            .and change { Notification.count }.by(1)
-      slot.reload
-      expect(slot.available).to eq(false)
     end
   end
 end

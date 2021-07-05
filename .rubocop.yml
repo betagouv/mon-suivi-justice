@@ -42,3 +42,7 @@ Style/FormatStringToken:
 Style/SymbolArray:
   Exclude:
     - app/controllers/**/*
+
+Style/IfUnlessModifier:
+  Exclude:
+    - app/models/appointment.rb
