@@ -7,4 +7,6 @@ class Place < ApplicationRecord
                               message: I18n.t('activerecord.errors.phone_format') }, allow_blank: true
 
   enum place_type: %i[spip sap]
+
+  has_many :slots, dependent: :destroy
 end

@@ -68,7 +68,7 @@ RSpec.feature 'Convicts', type: :feature do
       select 'Premier contact Spip', from: 'Type de rendez-vous'
       select 'McDo de Clichy', from: 'Lieu'
 
-      choose '10/10/2021 - 14:00'
+      choose '14:00'
 
       expect(page).to have_button('Enregistrer')
       expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)

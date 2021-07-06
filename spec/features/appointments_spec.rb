@@ -51,7 +51,7 @@ RSpec.feature 'Appointments', type: :feature do
       select 'Premier contact Spip', from: 'Type de rendez-vous'
       select 'KFC de Chatelet', from: 'Lieu'
 
-      choose '10/10/2021 - 16:00'
+      choose '16:00'
 
       expect(page).to have_button('Enregistrer')
       expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)
