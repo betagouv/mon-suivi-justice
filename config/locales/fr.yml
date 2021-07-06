@@ -138,6 +138,7 @@ fr:
   edit_appointment_type_notifications: Notifications
   edit_appointment_type_slots: Créneaux récurrents
   edit_appointment_type_add_slot: Ajouter créneau
+  index_appointment_type_place_type: Type de RDV
 
   new_place_title: "Nouveau Lieu"
   new_place_submit: "Enregistrer"

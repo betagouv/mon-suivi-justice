@@ -1,6 +1,7 @@
 class AppointmentTypesController < ApplicationController
   def index
-    @appointment_types = AppointmentType.all
+    @q = AppointmentType.ransack(params[:q])
+    @appointment_types = @q.result(distinct: true)
     authorize @appointment_types
   end
 
