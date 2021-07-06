@@ -2,17 +2,23 @@
   <p class='new-appointment-slots-title'><%= t('new-appointment-available-slots') %></p>
 
   <div class="form-input-wrapper new-appointment-slots-container" id='appointment-slots-container'>
-    <% Slot.relevant_and_available(@place, @appointment_type).each do |slot| %>
-      <span class="radio form-radio-wrapper">
-        <input class="select-slot-button form-radio-input"
-               type="radio"
-               value=<%= slot.id %>
-               name="appointment[slot_id]"
-               id=<%="appointment_slot_id_#{slot.id}"%>>
-        <label class="form-radio-label collection_radio_buttons" for=<%="appointment_slot_id_#{slot.id}"%>>
-          <%= slot.form_label %>
-        </label>
-      </span>
+    <% Slot.relevant_and_available(@place, @appointment_type).group_by(&:date).each do |date| %>
+      <div class='slot-date-container'>
+        <p class='slot-date-title'><%= t("date.day_names")[date.first.wday].capitalize %> <%= date.first %></p>
+        <% date.drop(1).first.each do |slot| %>
+          <span class="radio form-radio-wrapper">
+            <input class="select-slot-button form-radio-input"
+            type="radio"
+            value=<%= slot.id %>
+            name="appointment[slot_id]"
+            id=<%="appointment_slot_id_#{slot.id}"%>>
+            <label class="form-radio-label collection_radio_buttons" for=<%="appointment_slot_id_#{slot.id}"%>>
+              <%= slot.starting_time.to_s(:time) %>
+            </label>
+          </span>
+        <% end %>
+      </div>
+
     <% end %>
   </div>
 

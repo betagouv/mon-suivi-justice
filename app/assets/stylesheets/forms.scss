@@ -20,7 +20,8 @@
 }
 
 .basic-form {
-  width: 30%;
+  width: 60%;
+  max-width: 500px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -82,7 +83,6 @@
 
 .form-radio-wrapper {
   margin-bottom: 10px;
-  text-align: center;
 }
 
 .form-radio-input {

@@ -16,8 +16,4 @@ class Slot < ApplicationRecord
   end)
 
   scope :future, -> { where('date >= ?', Date.today) }
-
-  def form_label
-    "#{date.to_s(:base_date_format)} - #{starting_time.to_s(:time)}"
-  end
 end

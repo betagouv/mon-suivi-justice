@@ -71,11 +71,13 @@
 }
 
 .new-appointment-slots-container {
-  height: 200px;
+  height: 250px;
   padding: 20px;
   border: 2px solid $form-input;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .reload-button {
@@ -84,4 +86,17 @@
 
 .no-appointment-today {
   text-align: center;
+}
+
+.slot-date-container {
+  display: flex;
+  border: 1px solid $table-border;
+  padding: 5px;
+  margin: 5px;
+  flex-direction: column;
+  width: 35%;
+}
+
+.slot-date-title {
+  margin-bottom: 2px;
 }
