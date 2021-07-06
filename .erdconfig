@@ -1,0 +1,22 @@
+attributes:
+  - content
+  - foreign_key
+  - inheritance
+disconnected: true
+filename: erd
+filetype: dot
+indirect: true
+inheritance: false
+markup: true
+notation: simple
+orientation: horizontal
+polymorphism: false
+sort: true
+warn: false
+title: false
+exclude: "ActiveRecord::InternalMetadata,ActiveRecord::SchemaMigration,primary::SchemaMigration, PaperTrail::Version"
+only: null
+only_recursion_depth: null
+prepend_primary: false
+cluster: false
+splines: spline

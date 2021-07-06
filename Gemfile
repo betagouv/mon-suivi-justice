@@ -51,6 +51,7 @@ group :development do
   gem 'guard-rspec', require: false
   gem 'guard-rubocop'
   gem 'letter_opener'
+  gem 'rails-erd'
 end
 
 group :test do
