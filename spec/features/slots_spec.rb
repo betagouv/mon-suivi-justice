@@ -28,10 +28,12 @@ RSpec.feature 'Slots', type: :feature do
   describe 'creation' do
     it 'works' do
       create(:place, name: 'McDo de Clichy')
+      create(:appointment_type, name: 'Premier contact Spip')
 
       visit new_slot_path
 
       select 'McDo de Clichy', from: 'Lieu'
+      select 'Premier contact Spip', from: 'Type de rendez-vous'
 
       within '.form-date-select-fields' do
         select '14', from: 'slot_date_3i'

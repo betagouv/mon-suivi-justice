@@ -37,15 +37,19 @@ RSpec.feature 'Appointments', type: :feature do
     it 'works' do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       place = create(:place, name: 'KFC de Chatelet')
-      create(:slot, place: place, date: '10/10/2021', starting_time: '16h')
       appointment_type = create(:appointment_type, name: 'Premier contact Spip')
+
+      create(:slot, place: place,
+                    appointment_type: appointment_type,
+                    date: '10/10/2021', starting_time: '16h')
+
       create(:notification_type, appointment_type: appointment_type)
 
       visit new_appointment_path
 
       select 'CHERTY Jp', from: 'PPSMJ'
-      select 'KFC de Chatelet', from: 'Lieu'
       select 'Premier contact Spip', from: 'Type de rendez-vous'
+      select 'KFC de Chatelet', from: 'Lieu'
 
       choose '10/10/2021 - 16:00'
 

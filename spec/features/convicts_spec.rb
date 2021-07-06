@@ -51,8 +51,8 @@ RSpec.feature 'Convicts', type: :feature do
       allow_any_instance_of(Notification).to receive(:format_content)
 
       place = create(:place, name: 'McDo de Clichy')
-      create(:slot, place: place, date: '10/10/2021', starting_time: '14h')
       appointment_type = create(:appointment_type, name: 'Premier contact Spip')
+      create(:slot, place: place, appointment_type: appointment_type, date: '10/10/2021', starting_time: '14h')
       create(:notification_type, appointment_type: appointment_type)
 
       visit new_convict_path

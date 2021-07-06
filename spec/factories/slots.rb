@@ -7,5 +7,6 @@ FactoryBot.define do
     capacity { 3 }
     used_capacity { 0 }
     place
+    appointment_type
   end
 end

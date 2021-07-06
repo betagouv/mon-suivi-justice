@@ -1,8 +1,8 @@
-<% if Slot.available_for_place(@place).length > 0 %>
+<% if Slot.relevant_and_available(@place, @appointment_type).length > 0 %>
   <p class='new-appointment-slots-title'><%= t('new-appointment-available-slots') %></p>
 
   <div class="form-input-wrapper new-appointment-slots-container" id='appointment-slots-container'>
-    <% Slot.available_for_place(@place).each do |slot| %>
+    <% Slot.relevant_and_available(@place, @appointment_type).each do |slot| %>
       <span class="radio form-radio-wrapper">
         <input class="select-slot-button form-radio-input"
                type="radio"

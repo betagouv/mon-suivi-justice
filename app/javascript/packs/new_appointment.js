@@ -1,15 +1,28 @@
 import Rails from '@rails/ujs';
 
 let placeSelect = document.getElementById('appointment-form-place-select');
+let aptTypeSelect = document.getElementById('appointment_appointment_type_id');
 let loadSlotsLink = document.getElementById('load-slots-link');
 let loadSlotsButton = document.getElementById('load-slots-button');
 
 placeSelect.addEventListener('change', (e) => {
-  Rails.ajax({
-    type: 'GET',
-    url: '/select_slot?place_id=' + placeSelect.value,
-    success: function() { allowSubmitOnSlotSelection(); }
-  });
+  if (aptTypeSelect.value) {
+    Rails.ajax({
+      type: 'GET',
+      url: '/select_slot?place_id=' + placeSelect.value + '&apt_type_id=' + aptTypeSelect.value,
+      success: function() { allowSubmitOnSlotSelection(); }
+    });
+  }
+});
+
+aptTypeSelect.addEventListener('change', (e) => {
+  if (placeSelect.value) {
+    Rails.ajax({
+      type: 'GET',
+      url: '/select_slot?place_id=' + placeSelect.value + '&apt_type_id=' + aptTypeSelect.value,
+      success: function() { allowSubmitOnSlotSelection(); }
+    });
+  }
 });
 
 function allowSubmitOnSlotSelection () {

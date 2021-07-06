@@ -40,6 +40,7 @@ class AppointmentsController < ApplicationController
   def select_slot
     skip_authorization
     @place = Place.find(params[:place_id])
+    @appointment_type = AppointmentType.find(params[:apt_type_id])
 
     respond_to do |format|
       format.js

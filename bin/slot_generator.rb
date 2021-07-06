@@ -17,14 +17,15 @@ appointment_types = AppointmentType.all
 appointment_types.each do |appointment_type|
   concerned_places = places.where(place_type: appointment_type.place_type)
 
-  concerned_places.each do |p|
+  concerned_places.each do |place|
     appointment_type.slot_types.each do |slot_type|
       dates = open_dates.select {|date| date.strftime("%A").downcase == slot_type.week_day }
 
       dates.each do |date|
         Slot.create!(
           date: date,
-          place: p,
+          place: place,
+          appointment_type: appointment_type,
           starting_time: slot_type.starting_time,
           duration: slot_type.duration,
           capacity: slot_type.capacity,
