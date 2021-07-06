@@ -24,8 +24,8 @@ fr:
         role: "Rôle"
         user_roles:
           admin: "Administrateur"
-          cpip:  "Cpip"
-          bex: "Bex"
+          cpip:  "CPIP"
+          bex: "BEX"
       appointment:
         date: "Date"
         slot: "Créneau"
@@ -172,12 +172,12 @@ fr:
           female: "Mme"
       appointment_type:
         place_type:
-          spip:  "Spip"
-          sap: "Sap"
+          spip:  "SPIP"
+          sap: "SAP"
       place:
         place_type:
-          spip:  "Spip"
-          sap: "Sap"
+          spip:  "SPIP"
+          sap: "SAP"
       slot_type:
         week_day:
           monday: Lundi
