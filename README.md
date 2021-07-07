@@ -6,3 +6,7 @@ Un service numérique public pour réduire l'absentéisme lors des rendez-vous a
 - En démo sur [mon-suivi-justice.incubateur.net](https://www.mon-suivi-justice.incubateur.net)
 
 Documentation en cours de rédaction.
+
+## Licence
+
+Ce logiciel et son code source sont distribués sous licence [EUPL v1.2](https://choosealicense.com/licenses/eupl-1.2/).
