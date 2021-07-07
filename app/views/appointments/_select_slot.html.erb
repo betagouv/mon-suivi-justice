@@ -26,7 +26,8 @@
   </div>
 
   <input type='submit' name='commit' value=<%= t('submit')%> class='form-submit-button' id='submit-new-appointment' disabled='disabled' data-disable-with='Enregistrer'>
+  <p class='new-appointment-form-warning'><%= t('new-appointment-warning') %></p>
 <% else %>
-  <p class='new-appointment-form-no-slot'><%= t('new-appointment-no-slot') %></p>
+  <p class='new-appointment-form-no-slot><%= t('new-appointment-no-slot') %></p>
   <%= button_to t('new_appointment_reload'), new_appointment_path, class: 'form-submit-button reload-button', method: :get %>
 <% end %>
