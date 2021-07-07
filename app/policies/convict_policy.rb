@@ -4,7 +4,7 @@ class ConvictPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? or user.bex?
+    true
   end
 
   def show?
@@ -16,6 +16,6 @@ class ConvictPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.admin? or user.bex?
+    true
   end
 end

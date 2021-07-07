@@ -36,8 +36,8 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
-    it { is_expected.to forbid_action(:edit) }
-    it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:edit) }
+    it { is_expected.to permit_action(:update) }
+    it { is_expected.to permit_action(:destroy) }
   end
 end
