@@ -14,8 +14,10 @@
   </div>
 
   <div class='slot-container-line2'>
-    <%= f.input :duration, wrapper_html: { class: 'appointment-type-slot-form-line2' } %>
-    <%= f.input :capacity, wrapper_html: { class: 'appointment-type-slot-form-line2' } %>
+    <%= f.input :duration, wrapper_html: { class: 'appointment-type-slot-form-line2' },
+                           as: :string,
+                           label: t('edit_appointment_type_slot_type_duration') %>
+    <%= f.input :capacity, as: :string, wrapper_html: { class: 'appointment-type-slot-form-line2' } %>
     <div class='remove-slot-button-container'>
       <%= link_to_remove_association button_tag(t('delete'), type: 'button', class: 'remove-slot-button'), f %>
     </div>
