@@ -7,19 +7,13 @@
 
   <%= f.input :phone %>
 
-  <div class="form-checkbox-field-container">
-    <label for='convict_no_phone' class='checkbox-label'><%= t('activerecord.attributes.convict.no_phone') %>
-      <input type="checkbox" id='convict_no_phone' name='convict[no_phone]' value='1' />
-      <span></span>
-    </label>
-  </div>
+  <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
+                         label_html: { class: 'form-checkbox-label' },
+                         wrapper_html: { class: 'form-checkbox-wrapper'} %>
 
-  <div class="form-checkbox-field-container">
-    <label for='convict_refused_phone' class='checkbox-label'><%= t('activerecord.attributes.convict.refused_phone') %>
-      <input type="checkbox" id='convict_refused_phone' name='convict[refused_phone]' value='1' />
-      <span></span>
-    </label>
-  </div>
+  <%= f.input :refused_phone, input_html: { class: 'form-checkbox' },
+                         label_html: { class: 'form-checkbox-label' },
+                         wrapper_html: { class: 'form-checkbox-wrapper'} %>
 
   <div class='new-convict-submits-container'>
     <%= f.button :submit, t('new_convict_submit'), class: 'form-submit-button' %>

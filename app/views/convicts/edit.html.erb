@@ -6,5 +6,13 @@
   <%= f.input :first_name %>
   <%= f.input :phone %>
 
-  <%= f.button :submit, t('edit_convict_submit'), class: 'form-submit-button' %>
+  <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
+                         label_html: { class: 'form-checkbox-label' },
+                         wrapper_html: { class: 'form-checkbox-wrapper'} %>
+
+  <%= f.input :refused_phone, input_html: { class: 'form-checkbox' },
+                         label_html: { class: 'form-checkbox-label' },
+                         wrapper_html: { class: 'form-checkbox-wrapper'} %>
+
+  <%= f.button :submit, t('edit_convict_submit'), class: 'form-submit-button edit-convict-submit-button' %>
 <% end %>

@@ -108,6 +108,21 @@
   height: 120px;
 }
 
+.form-checkbox {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.form-checkbox-label {
+  display: flex;
+  align-items: center;
+}
+
+.form-checkbox-wrapper {
+  height: 40px;
+  margin-bottom: 0;
+}
+
 // checkbox, source: https://blog.logrocket.com/how-to-style-forms-with-css-a-beginners-guide/
 
 .form-checkbox-field-container {
