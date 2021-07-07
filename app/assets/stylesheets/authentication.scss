@@ -14,6 +14,10 @@
   color: $home-title;
 }
 
+.login-sub-title {
+  color: $home-sub-title;
+}
+
 .login-button-container {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -36,8 +40,7 @@
   margin-top: 10px;
 }
 
-.forgotten-password-link {
+.authentication-link {
+  color: $link;
   margin-top: 10px;
-  color: #333333;
-  text-decoration: none;
 }

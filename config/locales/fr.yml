@@ -96,7 +96,8 @@ fr:
 
   home_title: "Mon Suivi Justice"
   home_to_admin: "Espace Agent"
-  login_title: "Mon Suivi Justice admin"
+  login_title: "Mon Suivi Justice"
+  login_sub_title: "Espace agents"
   header_title: "Mon Suivi Justice"
 
   edit: "Modifier"

@@ -1,5 +1,6 @@
 <div class="login-form-container">
   <h2 class='login-title'><%= t('login_title') %></h2>
+  <h2 class='login-sub-title'><%= t('login_sub_title') %></h2>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'login-form'}) do |f| %>
     <div class="login-field-container">
