@@ -12,7 +12,10 @@ start_date.upto(end_date) { |date| all_dates << date }
 open_dates = all_dates - holidays
 
 places = Place.all
-appointment_types = AppointmentType.all
+
+# appointment_types = AppointmentType.all
+# creates slots only for spip appointments for now
+appointment_types = AppointmentType.find([1,3,4])
 
 appointment_types.each do |appointment_type|
   concerned_places = places.where(place_type: appointment_type.place_type)
