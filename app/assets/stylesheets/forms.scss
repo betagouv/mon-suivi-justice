@@ -148,6 +148,10 @@
   display:none !important;
 }
 
+.select2-results__option {
+  font-size: .8em !important;
+}
+
 .select2-selection .select2-selection--single {
   width: 100%;
   display: flex !important;
@@ -156,6 +160,7 @@
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
   color: $main-font-color !important;
+  font-size: .8em !important;
   line-height: inherit !important;
   padding-left: 5px !important;
 }
