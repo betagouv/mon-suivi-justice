@@ -1,4 +1,4 @@
-<div class="convicts-container">
+<div class='convicts-container'>
   <div class='index-tools-container'>
     <%= search_form_for @q, class: 'index-search-form' do |f| %>
       <%= f.search_field :first_name_or_last_name_start, id: 'search-field',
@@ -9,31 +9,31 @@
     <% end %>
 
     <% if policy(:convict).new? %>
-      <%= button_to t('new_convict_title'), new_convict_path, class: "link-to-new-convict-button", form_class: "link-to-new-convict-form", method: :get %>
+      <%= button_to t('new_convict_title'), new_convict_path, class: 'link-to-new-convict-button', form_class: 'link-to-new-convict-form', method: :get %>
     <% end %>
   </div>
 
   <div class='index-table-container'>
-    <div class="convicts-header">
-      <div class="convicts-header-title convicts-column-1">
+    <div class='convicts-header'>
+      <div class='convicts-header-title convicts-column-1'>
         <%= t('activerecord.attributes.convict.name') %>
       </div>
-      <div class="convicts-header-title convicts-column-2">
+      <div class='convicts-header-title convicts-column-2'>
         <%= t('activerecord.attributes.convict.phone') %>
       </div>
     </div>
 
     <% @convicts.each do |convict| %>
-      <div class="convicts-item-container">
-        <div class="convict-data convicts-column-1">
+      <div class='convicts-item-container'>
+        <div class='convict-data convicts-column-1'>
           <%= convict.name %>
         </div>
 
-        <div class="convict-data convicts-column-2">
+        <div class='convict-data convicts-column-2'>
           <%= num_to_phone(convict.phone) %>
         </div>
 
-        <div class="index-controls-container">
+        <div class='index-controls-container'>
           <% if policy(:convict).edit? %>
             <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control' %>
           <% end %>
