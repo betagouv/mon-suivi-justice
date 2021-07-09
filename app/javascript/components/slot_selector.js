@@ -2,25 +2,26 @@ import Rails from '@rails/ujs';
 
 document.addEventListener('turbolinks:load',function() {
   let placeSelect = document.getElementById('appointment-form-place-select');
+  let agendaSelect = document.getElementById('appointment-form-agenda-select');
   let aptTypeSelect = document.getElementById('appointment_appointment_type_id');
   let loadSlotsLink = document.getElementById('load-slots-link');
   let loadSlotsButton = document.getElementById('load-slots-button');
 
-  placeSelect.addEventListener('change', (e) => {
+  agendaSelect.addEventListener('change', (e) => {
     if (aptTypeSelect.value) {
       Rails.ajax({
         type: 'GET',
-        url: '/select_slot?place_id=' + placeSelect.value + '&apt_type_id=' + aptTypeSelect.value,
+        url: '/select_slot?agenda_id=' + agendaSelect.value + '&apt_type_id=' + aptTypeSelect.value,
         success: function() { allowSubmitOnSlotSelection(); }
       });
     }
   });
 
   aptTypeSelect.addEventListener('change', (e) => {
-    if (placeSelect.value) {
+    if (agendaSelect.value) {
       Rails.ajax({
         type: 'GET',
-        url: '/select_slot?place_id=' + placeSelect.value + '&apt_type_id=' + aptTypeSelect.value,
+        url: '/select_slot?agenda_id=' + agendaSelect.value + '&apt_type_id=' + aptTypeSelect.value,
         success: function() { allowSubmitOnSlotSelection(); }
       });
     }

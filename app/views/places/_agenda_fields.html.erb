@@ -1,0 +1,7 @@
+<div class='edit-place-agenda-container nested-fields'>
+  <%= f.input :name %>
+
+  <div class='remove-agenda-button-container'>
+    <%= link_to_remove_association button_tag(t('delete'), type: 'button', class: 'remove-agenda-button'), f %>
+  </div>
+</div>

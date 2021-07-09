@@ -7,7 +7,7 @@ class Appointment < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
-  attr_accessor :place_id
+  attr_accessor :place_id, :agenda_id
 
   scope :for_today, lambda {
     joins(:slot).where('slots.date' => Date.today)

@@ -1,12 +1,27 @@
 <h1 class='form-title'><%= t('edit_place_title') %></h1>
 
-<%= simple_form_for @place, html: { class: 'basic-form' } do |f| %>
-  <%= f.input :name %>
-  <%= f.input :place_type, collection: Place.place_types.keys,
-                           label_method: lambda {|k| t("simple_form.options.place.place_type.#{k}")},
-                           input_html: { class: 'form-select' } %>
-  <%= f.input :adress %>
-  <%= f.input :phone %>
+<%= simple_form_for @place, html: { class: 'edit-place-form' } do |f| %>
+  <div class='edit-place-data-container'>
+    <%= f.input :name %>
+    <%= f.input :place_type, collection: Place.place_types.keys,
+                             label_method: lambda {|k| t("simple_form.options.place.place_type.#{k}")},
+                             input_html: { class: 'form-select' } %>
+    <%= f.input :adress %>
+    <%= f.input :phone %>
+  </div>
 
-  <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
+  <div class='edit-place-agendas-container'>
+    <h2 class='form-secondary-title'><%= t('edit_place_agendas') %></h2>
+    <%= f.simple_fields_for :agendas do |agenda| %>
+      <%= render 'agenda_fields', f: agenda %>
+    <% end %>
+
+    <div class='add-agenda-button-container links'>
+      <%= link_to_add_association button_tag(t('edit_place_add_agenda'), type: 'button', class: 'add-slot-button'), f, :agendas %>
+    </div>
+  </div>
+
+  <div class='edit-place-submit-button-container'>
+    <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
+  </div>
 <% end %>

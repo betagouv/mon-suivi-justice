@@ -8,5 +8,6 @@ class Place < ApplicationRecord
 
   enum place_type: %i[spip sap]
 
-  has_many :slots, dependent: :destroy
+  has_many :agendas, dependent: :destroy
+  accepts_nested_attributes_for :agendas, reject_if: :all_blank, allow_destroy: true
 end

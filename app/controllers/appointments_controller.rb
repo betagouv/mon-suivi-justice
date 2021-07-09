@@ -4,8 +4,8 @@ class AppointmentsController < ApplicationController
   def index
     @q = Appointment.ransack(params[:q])
     @appointments = @q.result(distinct: true)
-                      .includes(:convict, slot: [:place])
-                      .joins(:convict, slot: [:place])
+                      .includes(:convict, slot: [:agenda])
+                      .joins(:convict, slot: [:agenda])
                       .page params[:page]
     authorize @appointments
   end
@@ -13,8 +13,8 @@ class AppointmentsController < ApplicationController
   def index_today
     @q = Appointment.for_today.ransack(params[:q])
     @appointments = @q.result
-                      .joins(slot: [:place])
-                      .includes(slot: [:place])
+                      .joins(slot: [:agenda])
+                      .includes(slot: [:agenda])
 
     authorize @appointments
   end
@@ -39,7 +39,7 @@ class AppointmentsController < ApplicationController
 
   def select_slot
     skip_authorization
-    @place = Place.find(params[:place_id])
+    @agenda = Agenda.find(params[:agenda_id])
     @appointment_type = AppointmentType.find(params[:apt_type_id])
 
     respond_to do |format|

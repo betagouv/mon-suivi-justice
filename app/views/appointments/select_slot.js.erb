@@ -5,4 +5,4 @@ try {
   let container = document.getElementById('slots-container');
 }
 
-container.innerHTML = "<%= j render partial: 'select_slot', locals: {place: @place, appointment_type: @appointment_type} %>";
+container.innerHTML = "<%= j render partial: 'select_slot', locals: {agenda: @agenda, appointment_type: @appointment_type} %>";

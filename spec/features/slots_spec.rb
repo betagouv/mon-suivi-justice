@@ -27,12 +27,13 @@ RSpec.feature 'Slots', type: :feature do
 
   describe 'creation' do
     it 'works' do
-      create(:place, name: 'McDo de Clichy')
+      place = create(:place, name: 'McDo de Clichy')
+      create(:agenda, place: place, name: 'Agenda de Michel')
       create(:appointment_type, name: 'Premier contact Spip')
 
       visit new_slot_path
 
-      select 'McDo de Clichy', from: 'Lieu'
+      select 'Agenda de Michel', from: 'Agenda'
       select 'Premier contact Spip', from: 'Type de rendez-vous'
 
       within '.form-date-select-fields' do

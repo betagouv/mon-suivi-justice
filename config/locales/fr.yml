@@ -7,6 +7,7 @@ fr:
       appointment_type: "Type de rendez-vous"
       place: "Lieu"
       slot:  "Créneau"
+      agenda: "Agenda"
 
     attributes:
       convict:
@@ -56,6 +57,8 @@ fr:
         available: "Disponible"
         duration: Durée
         capacity: Capacité
+      agenda:
+        name: Nom
 
     errors:
       phone_format: "au mauvais format"
@@ -146,6 +149,8 @@ fr:
   new_place_title: "Nouveau Lieu"
   new_place_submit: "Enregistrer"
   edit_place_title: "Modifier Lieu"
+  edit_place_agendas: Agendas
+  edit_place_add_agenda: Ajouter agenda
 
   new_slot_title: "Nouveau Créneau"
   new_slot_submit: "Enregistrer"

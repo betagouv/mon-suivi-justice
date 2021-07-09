@@ -40,3 +40,56 @@
 .places-column-3 {
   width: 25%;
 }
+
+.edit-place-form {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media (min-width: 1200px) {
+    flex-direction: row;
+  }
+}
+
+.edit-place-data-container {
+  width: 100%;
+
+  @media (min-width: 1200px) {
+    width: 45%;
+  }
+}
+
+.edit-place-agendas-container {
+  width: 100%;
+
+  @media (min-width: 1200px) {
+    width: 45%;
+  }
+}
+
+.edit-place-agenda-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.remove-agenda-button {
+  margin-top: 10px;
+  @include button($grey);
+}
+
+.add-agenda-button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.edit-place-submit-button-container {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: calc(100vw - #{$sidebar-width});
+  background-color: white;
+}

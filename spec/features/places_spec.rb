@@ -52,5 +52,19 @@ RSpec.feature 'Places', type: :feature do
 
       expect(place.name).to eq('Spip du 58')
     end
+
+    it 'allows to add agendas', js: true do
+      place = create(:place, name: 'Spip du 93')
+
+      visit edit_place_path(place)
+
+      within first('.edit-place-agendas-container') do
+        click_button 'Ajouter agenda'
+
+        fill_in 'Nom', with: 'Agenda de Jean-Pierre'
+      end
+
+      expect { click_button('Enregistrer') }.to change { Agenda.count }.by(1)
+    end
   end
 end

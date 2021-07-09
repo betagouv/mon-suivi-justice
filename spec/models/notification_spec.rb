@@ -12,8 +12,8 @@ RSpec.describe Notification, type: :model do
       place = create(:place, name: 'Spip du 03',
                              adress: '38 rue Jean Moulin',
                              phone: '0102030405')
-
-      slot = create(:slot, place: place,
+      agenda = create(:agenda, place: place)
+      slot = create(:slot, agenda: agenda,
                            date: '02/08/2021',
                            starting_time: new_time_for(16, 30))
 

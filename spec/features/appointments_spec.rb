@@ -38,8 +38,9 @@ RSpec.feature 'Appointments', type: :feature do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       place = create(:place, name: 'KFC de Chatelet')
       appointment_type = create(:appointment_type, name: 'Premier contact Spip')
+      agenda = create(:agenda, place: place, name: 'Agenda de Josiane')
 
-      create(:slot, place: place,
+      create(:slot, agenda: agenda,
                     appointment_type: appointment_type,
                     date: '10/10/2021', starting_time: '16h')
 
@@ -52,6 +53,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       select 'Premier contact Spip', from: 'Type de rendez-vous'
       select 'KFC de Chatelet', from: 'Lieu'
+      select 'Agenda de Josiane', from: 'Agenda'
 
       choose '16:00'
 

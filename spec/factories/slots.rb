@@ -6,7 +6,7 @@ FactoryBot.define do
     duration { 60 }
     capacity { 3 }
     used_capacity { 0 }
-    place
+    agenda
     appointment_type
   end
 end

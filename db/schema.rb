@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_06_084757) do
+ActiveRecord::Schema.define(version: 2021_07_09_085429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "agendas", force: :cascade do |t|
+    t.string "name"
+    t.bigint "place_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["place_id"], name: "index_agendas_on_place_id"
+  end
 
   create_table "appointment_types", force: :cascade do |t|
     t.string "name"
@@ -91,7 +99,6 @@ ActiveRecord::Schema.define(version: 2021_07_06_084757) do
   create_table "slots", force: :cascade do |t|
     t.date "date"
     t.time "starting_time"
-    t.bigint "place_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "available", default: true
@@ -99,8 +106,9 @@ ActiveRecord::Schema.define(version: 2021_07_06_084757) do
     t.integer "capacity", default: 1
     t.integer "used_capacity", default: 0
     t.bigint "appointment_type_id", null: false
+    t.bigint "agenda_id", default: 1, null: false
+    t.index ["agenda_id"], name: "index_slots_on_agenda_id"
     t.index ["appointment_type_id"], name: "index_slots_on_appointment_type_id"
-    t.index ["place_id"], name: "index_slots_on_place_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -140,12 +148,13 @@ ActiveRecord::Schema.define(version: 2021_07_06_084757) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "agendas", "places"
   add_foreign_key "appointments", "appointment_types"
   add_foreign_key "appointments", "convicts"
   add_foreign_key "appointments", "slots"
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notifications", "appointments"
   add_foreign_key "slot_types", "appointment_types"
+  add_foreign_key "slots", "agendas"
   add_foreign_key "slots", "appointment_types"
-  add_foreign_key "slots", "places"
 end
