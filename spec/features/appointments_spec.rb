@@ -47,7 +47,9 @@ RSpec.feature 'Appointments', type: :feature do
 
       visit new_appointment_path
 
-      select 'CHERTY Jp', from: 'PPSMJ'
+      first('.select2-container', minimum: 1).click
+      find('li.select2-results__option', text: 'CHERTY Jp').click
+
       select 'Premier contact Spip', from: 'Type de rendez-vous'
       select 'KFC de Chatelet', from: 'Lieu'
 
