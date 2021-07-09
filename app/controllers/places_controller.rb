@@ -49,7 +49,7 @@ class PlacesController < ApplicationController
   private
 
   def place_params
-    params.require(:place).permit(:name, :adress, :phone,
+    params.require(:place).permit(:name, :adress, :phone, :place_type,
                                   agendas_attributes: [:id, :name, :_destroy])
   end
 end
