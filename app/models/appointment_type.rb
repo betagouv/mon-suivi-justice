@@ -1,8 +1,8 @@
 class AppointmentType < ApplicationRecord
   has_paper_trail
 
-  has_many :notification_types, inverse_of: :appointment_type
-  has_many :slot_types, inverse_of: :appointment_type
+  has_many :notification_types, inverse_of: :appointment_type, dependent: :destroy
+  has_many :slot_types, inverse_of: :appointment_type, dependent: :destroy
 
   accepts_nested_attributes_for :notification_types
   accepts_nested_attributes_for :slot_types, reject_if: :all_blank, allow_destroy: true
