@@ -11,7 +11,8 @@ holidays = Holidays.between(start_date, end_date, :fr).map{|h| h[:date]}
 start_date.upto(end_date) { |date| all_dates << date }
 open_dates = all_dates - holidays
 
-places = Place.all
+# places = Place.all
+places = Place.where(id: 3)
 
 # appointment_types = AppointmentType.all
 # creates slots only for spip appointments for now
