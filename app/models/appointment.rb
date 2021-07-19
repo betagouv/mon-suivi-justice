@@ -15,11 +15,11 @@ class Appointment < ApplicationRecord
   }
 
   def summon_notif
-    notifications.where(role: :summon).first
+    notifications.find_by(role: :summon)
   end
 
   def reminder_notif
-    notifications.where(role: :reminder).first
+    notifications.find_by(role: :reminder)
   end
 
   state_machine initial: :waiting do
