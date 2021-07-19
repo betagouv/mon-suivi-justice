@@ -21,8 +21,6 @@ class Notification < ApplicationRecord
 
   private
 
-  HOUR_DELAYS = { "one_day" => 24, "two_days" => 48 }
-
   def format_content
     update(content: template % sms_data)
   end
@@ -38,10 +36,6 @@ class Notification < ApplicationRecord
     }
   end
 
-  def hour_delay
-    HOUR_DELAYS.fetch(reminder_period)
-  end
-
   def delivery_time
     app_date = appointment.slot.date
     app_time = appointment.slot.starting_time
@@ -51,4 +45,10 @@ class Notification < ApplicationRecord
     result = app_datetime.to_time - hour_delay.hours
     result.asctime.in_time_zone('Paris')
   end
+
+  def hour_delay
+    HOUR_DELAYS.fetch(reminder_period)
+  end
+
+  HOUR_DELAYS = { "one_day" => 24, "two_days" => 48 }
 end
