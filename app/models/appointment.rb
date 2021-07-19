@@ -35,7 +35,7 @@ class Appointment < ApplicationRecord
 
     after_transition on: :book do |appointment|
       appointment.slot.increment!(:used_capacity, 1)
-      if appointment.slot.used_capacity == appointment.slot.capacity
+      if slot.full?
         appointment.slot.update(available: false)
       end
 
