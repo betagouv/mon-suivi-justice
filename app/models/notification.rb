@@ -19,6 +19,14 @@ class Notification < ApplicationRecord
     SmsDeliveryJob.perform_later(self)
   end
 
+  private
+
+  HOUR_DELAYS = { "one_day" => 24, "two_days" => 48 }
+
+  def format_content
+    update(content: template % sms_data)
+  end
+
   def sms_data
     slot = appointment.slot
     {
@@ -28,14 +36,6 @@ class Notification < ApplicationRecord
       place_adress: slot.agenda.place.adress,
       place_phone: slot.agenda.place.phone
     }
-  end
-
-  private
-
-  HOUR_DELAYS = { "one_day" => 24, "two_days" => 48 }
-
-  def format_content
-    update(content: template % sms_data)
   end
 
   def hour_delay
