@@ -52,25 +52,22 @@ RSpec.describe Notification, type: :model do
     end
   end
 
-  describe 'delivery_time' do
-    it 'compute delivery time' do
+  describe 'send_later' do
+    let(:slot) { create(:slot, date: '04/08/2021', starting_time: new_time_for(17, 30)) }
+    let(:appointment_type) { create(:appointment_type) }
+    let!(:notification_type) { create(:notification_type, :reminder, :two_days, appointment_type: appointment_type) }
+    let(:appointment) { create(:appointment, appointment_type: appointment_type, slot: slot) }
+    let(:notification) do
       allow_any_instance_of(Notification).to receive(:format_content)
-
-      slot = create(:slot, date: '04/08/2021', starting_time: new_time_for(17, 30))
-      appointment_type = create(:appointment_type)
-      create(:notification_type, appointment_type: appointment_type,
-                                 role: :reminder,
-                                 reminder_period: :two_days)
-      appointment = create(:appointment, appointment_type: appointment_type, slot: slot)
-
       NotificationFactory.perform(appointment)
+      appointment.reminder_notif
+    end
+    let(:expected_time) { DateTime.new(2021, 8, 2, 17, 30, 0).asctime.in_time_zone('Paris') }
 
-      notif = appointment.reminder_notif
-      result = notif.delivery_time
+    it 'sends at the proper delivery time' do
+      expect(SmsDeliveryJob).to receive(:set).with(wait_until: expected_time) { double(perform_later: true) }
 
-      expected = DateTime.new(2021, 8, 2, 17, 30, 0).asctime.in_time_zone('Paris')
-
-      expect(result).to eq(expected)
+      notification.send_later
     end
   end
 end
