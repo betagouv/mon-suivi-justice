@@ -1,16 +1,20 @@
 <div class='convicts-container'>
   <div class='index-tools-container'>
-    <%= search_form_for @q, class: 'index-search-form' do |f| %>
-      <%= f.search_field :first_name_or_last_name_start, id: 'search-field',
-                                                        class: 'index-search-field',
-                                                        placeholder: t('search_convict_placeholder') %>
+    <div class='index-tools-filter-container'>
+      <%= search_form_for @q, class: 'index-search-form' do |f| %>
+        <%= f.search_field :first_name_or_last_name_start, id: 'search-field',
+                                                          class: 'index-search-field',
+                                                          placeholder: t('search_convict_placeholder') %>
 
-      <%= f.submit t('search'), class: 'index-search-button' %>
-    <% end %>
+        <%= f.submit t('filter'), class: 'index-search-button' %>
+      <% end %>
+    </div>
 
-    <% if policy(:convict).new? %>
-      <%= button_to t('new_convict_title'), new_convict_path, class: 'link-to-new-convict-button', form_class: 'link-to-new-convict-form', method: :get %>
-    <% end %>
+    <div class='index-tools-controls-container'>
+      <% if policy(:convict).new? %>
+        <%= button_to t('new_convict_title'), new_convict_path, class: 'link-to-new-convict-button', form_class: 'link-to-new-convict-form', method: :get %>
+      <% end %>
+    </div>
   </div>
 
   <div class='index-table-container'>

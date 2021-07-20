@@ -16,13 +16,15 @@
 
 .index-tools-filter-container {
   display: flex;
-  width: 60%;
+  height: 60px;
+  min-width: 250px;
   justify-content: space-between;
-  max-width: 750px;
+  border-right: 1px solid $table-border;
+  border-bottom: 1px solid $table-border;
+  padding: 10px;
 }
 
 .index-search-form {
-  margin-left: 20px;
   display: flex;
   align-items: center;
   height: 40px;
@@ -30,14 +32,14 @@
 
 .index-search-field {
   width: 250px;
-  padding: 10px;
   height: 40px;
+  padding: 10px;
+  margin-right: 10px;
   border: 1px solid $table-border;
 }
 
 .index-search-button {
   @include button($light-grey);
-  margin-left: 20px;
 }
 
 .index-pagination-container {
@@ -79,24 +81,26 @@
   .fa-sort { margin-left: 5px; }
 }
 
-.index-place-filter-form {
-  width: 250px;
-  margin-left: 20px;
+.index-filter-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .index-place-filter-field {
   width: 100%;
   height: 40px;
+  margin-right: 10px;
   padding: 10px;
   border: 1px solid $table-border;
 
-  &:first-child {
-    color: grey;
-  }
+  color: grey;
 }
 
 .index-tools-controls-container {
   display: flex;
+  margin-top: 10px;
+  padding: 10px;
 }
 
 .print-button {

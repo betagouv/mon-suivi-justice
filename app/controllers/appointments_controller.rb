@@ -4,8 +4,8 @@ class AppointmentsController < ApplicationController
   def index
     @q = Appointment.ransack(params[:q])
     @appointments = @q.result(distinct: true)
-                      .includes(:convict, slot: [:agenda])
-                      .joins(:convict, slot: [:agenda])
+                      .includes(:convict, slot: [agenda: [:place]])
+                      .joins(:convict, slot: [agenda: [:place]])
                       .page params[:page]
     authorize @appointments
   end
@@ -13,8 +13,8 @@ class AppointmentsController < ApplicationController
   def index_today
     @q = Appointment.for_today.ransack(params[:q])
     @appointments = @q.result
-                      .joins(slot: [:agenda])
-                      .includes(slot: [:agenda])
+                      .joins(slot: [agenda: [:place]])
+                      .includes(slot: [agenda: [:place]])
 
     authorize @appointments
   end

@@ -1,10 +1,11 @@
 <div class='appointments-container'>
   <div class='index-tools-container'>
     <div class='index-tools-filter-container'>
-      <%= search_form_for @q, url: today_appointments_path, html: { class: 'index-place-filter-form' } do |f| %>
-        <%= f.select :slot_place_id_eq, options_from_collection_for_select(Place.all, 'id', 'name', @q.slot_place_id_eq),
-                                        { include_blank: 'Filtrer par lieu de RDV' },
-                                        { onchange: 'this.form.submit();', class: 'form-select index-place-filter-field' } %>
+      <%= search_form_for @q, url: today_appointments_path, html: { class: 'index-filter-form' } do |f| %>
+        <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.all, 'id', 'name', @q.slot_agenda_place_id_eq),
+                                        { include_blank: t('index-appointment-place-title') },
+                                        { class: 'form-select index-place-filter-field' } %>
+        <%= f.submit t('filter'), class: 'index-search-button' %>
       <% end %>
     </div>
 

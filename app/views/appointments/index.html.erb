@@ -5,15 +5,13 @@
         <%= f.search_field :slot_date_eq, id: 'search-field',
                             class: 'index-search-field',
                             value: @q.slot_date_eq ? @q.slot_date_eq .strftime('%d/%m/%Y') : '',
-                            placeholder: t('search_appointment_placeholder') %>
+                            placeholder: t('search-appointment-placeholder') %>
 
-        <%= f.submit t('search'), class: 'index-search-button' %>
-      <% end %>
+        <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.all, 'id', 'name', @q.slot_agenda_place_id_eq),
+                     { include_blank: t('index-appointment-place-title') },
+                     { class: 'form-select index-place-filter-field' } %>
 
-      <%= search_form_for @q, html: { class: 'index-place-filter-form' } do |f| %>
-        <%= f.select :slot_agenda_id_eq, options_from_collection_for_select(Agenda.all, 'id', 'name', @q.slot_agenda_id_eq),
-                                        { include_blank: 'Filtrer par lieu de RDV' },
-                                        { onchange: 'this.form.submit();', class: 'form-select index-place-filter-field' } %>
+        <%= f.submit t('filter'), class: 'index-search-button' %>
       <% end %>
     </div>
 
@@ -37,7 +35,7 @@
       </div>
 
       <div class='appointments-header-title appointments-column-2'>
-        <%= sort_link(@q, 'slot_place_name', t('index_appointment_place_title'), default_order: :desc) %>
+        <%= sort_link(@q, 'slot_place_name', t('index-appointment-place-title'), default_order: :desc) %>
       </div>
 
       <div class='appointments-header-title appointments-column-3'>
