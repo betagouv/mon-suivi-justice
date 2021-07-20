@@ -4,6 +4,8 @@ class SlotsController < ApplicationController
   def index
     @q = Slot.future.ransack(params[:q])
     @slots = @q.result(distinct: true)
+               .includes(agenda: [:place])
+               .joins(agenda: [:place])
                .page params[:page]
 
     authorize @slots

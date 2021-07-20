@@ -7,6 +7,14 @@
                             value: @q.date_eq ? @q.date_eq .strftime('%d/%m/%Y') : '',
                             placeholder: t('search-appointment-placeholder') %>
 
+        <%= f.select :agenda_place_id_eq, options_from_collection_for_select(Place.all, 'id', 'name', @q.agenda_place_id_eq),
+                     { include_blank: t('index-appointment-place-filter') },
+                     { class: 'form-select index-place-filter-field' } %>
+
+        <%= f.select :agenda_id_eq, options_from_collection_for_select(Agenda.all, 'id', 'name', @q.agenda_id_eq),
+                     { include_blank: t('index-appointment-agenda-filter') },
+                     { class: 'form-select index-place-filter-field' } %>
+
         <%= f.submit t('filter'), class: 'index-search-button' %>
       <% end %>
     </div>
@@ -14,9 +22,9 @@
     <div class='index-tools-controls-container'>
       <% if policy(:slot).new? %>
         <%= button_to t('new_slot_title'), new_slot_path,
-                                                  class: 'link-to-new-slot-button',
-                                                  form_class: 'link-to-new-slot-form',
-                                                  method: :get %>
+                                           class: 'link-to-new-slot-button',
+                                           form_class: 'link-to-new-slot-form',
+                                           method: :get %>
       <% end %>
     </div>
   </div>
@@ -27,15 +35,18 @@
         <%= t('activerecord.attributes.slot.place') %>
       </div>
       <div class='slots-header-title slots-column-2'>
-        <%= t('activerecord.attributes.slot.date') %>
+        <%= t('activerecord.models.agenda') %>
       </div>
       <div class='slots-header-title slots-column-3'>
-        <%= t('activerecord.attributes.slot.starting_time') %>
+        <%= t('activerecord.attributes.slot.date') %>
       </div>
       <div class='slots-header-title slots-column-4'>
-        <%= t('activerecord.attributes.slot.available') %>
+        <%= t('activerecord.attributes.slot.starting_time') %>
       </div>
       <div class='slots-header-title slots-column-5'>
+        <%= t('activerecord.attributes.slot.available') %>
+      </div>
+      <div class='slots-header-title slots-column-6'>
         <%= t('activerecord.attributes.slot.capacity') %>
       </div>
       <div class='index-controls-container'></div>
@@ -46,20 +57,23 @@
         <div class='slot-data slots-column-1'>
           <%= slot.agenda.place.name %>
         </div>
-
         <div class='slot-data slots-column-2'>
-          <%= slot.date.to_s(:base_date_format) %>
+          <%= slot.agenda.name %>
         </div>
 
         <div class='slot-data slots-column-3'>
+          <%= slot.date.to_s(:base_date_format) %>
+        </div>
+
+        <div class='slot-data slots-column-4'>
           <%= slot.starting_time.to_s(:time) %>
         </div>
 
-        <div class='slots-column-4'>
+        <div class='slots-column-5'>
           <%= t(slot.available) %>
         </div>
 
-        <div class='slots-column-5'>
+        <div class='slots-column-6'>
           <%= slot.used_capacity %> / <%= slot.capacity %>
         </div>
 

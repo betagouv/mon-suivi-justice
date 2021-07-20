@@ -8,7 +8,7 @@
                             placeholder: t('search-appointment-placeholder') %>
 
         <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.all, 'id', 'name', @q.slot_agenda_place_id_eq),
-                     { include_blank: t('index-appointment-place-title') },
+                     { include_blank: t('index-appointment-place-filter') },
                      { class: 'form-select index-place-filter-field' } %>
 
         <%= f.submit t('filter'), class: 'index-search-button' %>
