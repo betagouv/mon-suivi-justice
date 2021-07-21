@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   resources :appointment_types
   resources :slots
 
-  get '/select_slot' => 'appointments#select_slot', as: 'select_slot'
+  get '/display_slots' => 'appointments#display_slots', as: 'display_slots'
+  get '/display_places' => 'appointments#display_places', as: 'display_places'
+  get '/display_agendas' => 'appointments#display_agendas', as: 'display_agendas'
+
   get '/today_appointments' => 'appointments#index_today', as: 'today_appointments'
 
   root 'static_pages#home'

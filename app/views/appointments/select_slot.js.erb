@@ -1,8 +1,0 @@
-try {
-  console.log(typeof container);
-  container = document.getElementById('slots-container');
-} catch (error) {
-  let container = document.getElementById('slots-container');
-}
-
-container.innerHTML = "<%= j render partial: 'select_slot', locals: {agenda: @agenda, appointment_type: @appointment_type} %>";

@@ -7,6 +7,7 @@ class AppointmentsController < ApplicationController
                       .includes(:convict, slot: [agenda: [:place]])
                       .joins(:convict, slot: [agenda: [:place]])
                       .page params[:page]
+
     authorize @appointments
   end
 
@@ -37,10 +38,35 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  def select_slot
+  def display_places
     skip_authorization
-    @agenda = Agenda.find(params[:agenda_id])
     @appointment_type = AppointmentType.find(params[:apt_type_id])
+    @places = Place.where(place_type: @appointment_type.place_type)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def display_agendas
+    skip_authorization
+    place = Place.find(params[:place_id])
+    @agendas = Agenda.where(place_id: place.id)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def display_slots
+    skip_authorization
+    agenda = Agenda.find(params[:agenda_id])
+    appointment_type = AppointmentType.find(params[:apt_type_id])
+
+    @slots_by_date = Slot.future
+                         .relevant_and_available(agenda, appointment_type)
+                         .order(:date)
+                         .group_by(&:date)
 
     respond_to do |format|
       format.js

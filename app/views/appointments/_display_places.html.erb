@@ -1,0 +1,16 @@
+<% if @places.length > 0 %>
+  <div class="form-input-wrapper select required appointment_place_id">
+    <label class="select required form-label" for="appointment-form-place-select">
+      <abbr title="required">*</abbr> <%= t('activerecord.models.place') %>
+    </label>
+    <select id="appointment-form-place-select" class="select required form-text-input form-select" required="required" aria-required="true" name="appointment[place_id]">
+      <option value="" label=" "></option>
+      <% @places.each do |place| %>
+        <option value=<%= place.id %>><%= place.name %></option>
+      <% end %>
+    </select>
+  </div>
+<% else %>
+  <p class='new-appointment-form-no-slot><%= t('new-appointment-no-place') %></p>
+  <%= button_to t('new_appointment_reload'), new_appointment_path, class: 'form-submit-button reload-button', method: :get %>
+<% end %>

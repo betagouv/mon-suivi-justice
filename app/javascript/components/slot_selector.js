@@ -1,45 +1,59 @@
 import Rails from '@rails/ujs';
 
 document.addEventListener('turbolinks:load',function() {
-  let placeSelect = document.getElementById('appointment-form-place-select');
-  let agendaSelect = document.getElementById('appointment-form-agenda-select');
   let aptTypeSelect = document.getElementById('appointment_appointment_type_id');
-  let loadSlotsLink = document.getElementById('load-slots-link');
-  let loadSlotsButton = document.getElementById('load-slots-button');
-
-  agendaSelect.addEventListener('change', (e) => {
-    if (aptTypeSelect.value) {
-      Rails.ajax({
-        type: 'GET',
-        url: '/select_slot?agenda_id=' + agendaSelect.value + '&apt_type_id=' + aptTypeSelect.value,
-        success: function() { allowSubmitOnSlotSelection(); }
-      });
-    }
-  });
 
   aptTypeSelect.addEventListener('change', (e) => {
-    if (agendaSelect.value) {
-      Rails.ajax({
-        type: 'GET',
-        url: '/select_slot?agenda_id=' + agendaSelect.value + '&apt_type_id=' + aptTypeSelect.value,
-        success: function() { allowSubmitOnSlotSelection(); }
-      });
-    }
+    displayPlaces(aptTypeSelect.value);
   });
-
-  function allowSubmitOnSlotSelection () {
-    let slotsFields = document.getElementsByName('appointment[slot_id]');
-
-    if (slotsFields.length) {
-      let submitButton = document.getElementById('submit-new-appointment');
-
-      slotsFields.forEach(field => field.addEventListener('change', () => {
-        submitButton.disabled = false;
-      }));
-    } else {
-      setTimeout(allowSubmitOnSlotSelection, 200);
-    }
-  }
-
-  allowSubmitOnSlotSelection();
 });
+
+function displayPlaces (appointment_type_id) {
+  Rails.ajax({
+    type: 'GET',
+    url: '/display_places?apt_type_id=' + appointment_type_id,
+    success: function() { addListenerToPlaceSelect(); }
+  });
+}
+
+function displayAgendas(place_id) {
+  Rails.ajax({
+    type: 'GET',
+    url: '/display_agendas?place_id=' + place_id,
+    success: function() { addListenerToAgendaSelect(); }
+  });
+}
+
+function displaySlots (agenda_id, appointment_type_id) {
+  Rails.ajax({
+    type: 'GET',
+    url: '/display_slots?agenda_id=' + agenda_id + '&apt_type_id=' + appointment_type_id,
+    success: function() { allowSubmitOnSlotSelection(); }
+  });
+}
+
+function addListenerToPlaceSelect() {
+  let placeSelect = document.getElementById('appointment-form-place-select');
+
+  placeSelect.addEventListener('change', (e) => {
+    displayAgendas(placeSelect.value);
+  });
+}
+
+function addListenerToAgendaSelect() {
+  let aptTypeSelect = document.getElementById('appointment_appointment_type_id');
+  let agendaSelect = document.getElementById('appointment-form-agenda-select');
+
+  agendaSelect.addEventListener('change', (e) => {
+    displaySlots(agendaSelect.value, aptTypeSelect.value);
+  });
+}
+
+function allowSubmitOnSlotSelection () {
+  let slotsFields = document.getElementsByName('appointment[slot_id]');
+  let submitButton = document.getElementById('submit-new-appointment');
+
+  slotsFields.forEach(field => field.addEventListener('change', () => {
+    submitButton.disabled = false;
+  }));
+}

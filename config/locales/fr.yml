@@ -61,7 +61,7 @@ fr:
         name: Nom
 
     errors:
-      phone_format: "au mauvais format"
+      phone_format: "Doit être saisi au format XXXXXXXXXX (pas d'espace ni de tirets)"
       models:
         user:
           attributes:
@@ -132,6 +132,7 @@ fr:
   new-appointment-place: "Lieu de rendez-vous :"
   new-appointment-available-slots: Créneaux disponibles
   new-appointment-no-slot: "Pas de créneau disponible"
+  new-appointment-no-place: "Vous n'avez accès à aucun lieu proposant ce type de RDV"
   new_appointment_reload: "Recharger"
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-place-filter: "Lieu de RDV"

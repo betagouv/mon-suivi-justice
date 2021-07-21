@@ -25,11 +25,11 @@ RSpec.feature 'Convicts', type: :feature do
       end
     end
 
-    it 'filter convicts with search form' do
+    it 'allows to filter convicts' do
       expect(page).to have_content('Paul')
 
       fill_in 'search-field', with: 'Michel'
-      click_button 'Recherche'
+      click_button 'Filtrer'
 
       expect(page).not_to have_content('Paul')
     end

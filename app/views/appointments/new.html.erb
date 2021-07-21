@@ -17,19 +17,8 @@
                                        label_method: :name,
                                        input_html: { class: 'form-select' } %>
 
-  <%= f.input :place_id, collection: Place.all,
-                         label: t('activerecord.models.place'),
-                         as: :select,
-                         required: true,
-                         label_method: :name,
-                         input_html: { id: 'appointment-form-place-select', class: 'form-select' } %>
-
-  <%= f.input :agenda_id, collection: Agenda.all,
-                          label: t('activerecord.models.agenda'),
-                          as: :select,
-                          required: true,
-                          label_method: :name,
-                          input_html: { id: 'appointment-form-agenda-select', class: 'form-select' } %>
+  <div class='appointment-form-places-container' id='places-container'></div>
+  <div class='appointment-form-agendas-container' id='agendas-container'></div>
 
   <div class='appointment-form-slots-container' id='slots-container'>
     <%= t('new-appointment-help') %>

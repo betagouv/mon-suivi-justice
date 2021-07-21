@@ -23,11 +23,11 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_content('15:30')
     end
 
-    it 'filter appointments with search form' do
+    it 'allows to filter appointments' do
       expect(page).to have_content('06/06/2021')
 
       fill_in 'search-field', with: '08/08/2021'
-      click_button 'Recherche'
+      click_button 'Filtrer'
 
       expect(page).not_to have_content('06/06/2021')
     end
