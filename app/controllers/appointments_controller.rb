@@ -53,6 +53,10 @@ class AppointmentsController < ApplicationController
     place = Place.find(params[:place_id])
     @agendas = Agenda.where(place_id: place.id)
 
+    if @agendas.count == 1
+      redirect_to display_slots_path(agenda_id: @agendas.first.id, apt_type_id: params[:apt_type_id])
+    end
+
     respond_to do |format|
       format.js
     end

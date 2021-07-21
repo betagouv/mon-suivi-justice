@@ -36,9 +36,10 @@ RSpec.feature 'Appointments', type: :feature do
   describe 'creation', js: true do
     it 'works' do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
-      place = create(:place, name: 'KFC de Chatelet')
-      appointment_type = create(:appointment_type, name: 'Premier contact Spip')
+      place = create(:place, name: 'KFC de Chatelet', place_type: 'sap')
+      appointment_type = create(:appointment_type, name: 'RDV suivi SAP', place_type: 'sap')
       agenda = create(:agenda, place: place, name: 'Agenda de Josiane')
+      create(:agenda, place: place, name: 'Agenda de Michel')
 
       create(:slot, agenda: agenda,
                     appointment_type: appointment_type,
@@ -51,7 +52,7 @@ RSpec.feature 'Appointments', type: :feature do
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'CHERTY Jp').click
 
-      select 'Premier contact Spip', from: 'Type de rendez-vous'
+      select 'RDV suivi SAP', from: 'Type de rendez-vous'
       select 'KFC de Chatelet', from: 'Lieu'
       select 'Agenda de Josiane', from: 'Agenda'
 

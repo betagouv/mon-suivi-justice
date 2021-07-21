@@ -52,6 +52,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       place = create(:place, name: 'McDo de Clichy')
       agenda = create(:agenda, place: place, name: 'Agenda de Jean-Louis')
+      create(:agenda, place: place, name: 'Agenda de Michel')
 
       appointment_type = create(:appointment_type, name: 'Premier contact Spip')
       create(:slot, agenda: agenda, appointment_type: appointment_type, date: '10/10/2021', starting_time: '14h')

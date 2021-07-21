@@ -136,6 +136,7 @@ fr:
   new_appointment_reload: "Recharger"
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-place-filter: "Lieu de RDV"
+  index-appointment-place-title: "Lieu de RDV"
   index-appointment-agenda-filter: "Agenda"
   today_appointments_title: "RDV du jour"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
