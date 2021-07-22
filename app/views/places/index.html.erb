@@ -30,7 +30,7 @@
 
         <div class='index-controls-container'>
           <%= link_to t('edit'), edit_place_path(place), class: 'index-control' %>
-          <%= link_to t('delete'), place_path(place), class: 'index-control', data: { confirm: t('delete_confirmation') }, method: :delete %>
+          <%= link_to t('delete'), place_path(place), class: 'index-control', data: { confirm: t('delete_place_confirmation') }, method: :delete %>
         </div>
       </div>
     <% end %>

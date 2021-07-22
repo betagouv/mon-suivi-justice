@@ -109,6 +109,7 @@ fr:
   search: "Recherche"
   filter: "Filtrer"
   delete_confirmation: "Êtes-vous sûr(e)?"
+  delete_place_confirmation: "Attention, en supprimant ce lieu, vous supprimez tous les créneaux associés et les rendez-vous programmés."
   my_profile: "Mon profil"
   log_out: "Déconnexion"
   print_button: "Imprimer"
