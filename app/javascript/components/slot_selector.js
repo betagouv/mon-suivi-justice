@@ -1,10 +1,10 @@
 import Rails from '@rails/ujs';
 
 document.addEventListener('turbolinks:load',function() {
-  let aptTypeSelect = document.getElementById('appointment_appointment_type_id');
+  const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
 
-  let slots_container = document.getElementById('slots-container');
-  let agendas_container = document.getElementById('agendas-container');
+  const slots_container = document.getElementById('slots-container');
+  const agendas_container = document.getElementById('agendas-container');
 
   aptTypeSelect.addEventListener('change', (e) => {
     if(agendas_container) { agendas_container.innerHTML = '';}
@@ -39,11 +39,11 @@ function displaySlots (agenda_id, appointment_type_id) {
 }
 
 function addListenerToPlaceSelect() {
-  let placeSelect = document.getElementById('appointment-form-place-select');
-  let aptTypeSelect = document.getElementById('appointment_appointment_type_id');
+  const placeSelect = document.getElementById('appointment-form-place-select');
+  const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
 
-  let slots_container = document.getElementById('slots-container');
-  let agendas_container = document.getElementById('agendas-container');
+  const slots_container = document.getElementById('slots-container');
+  const agendas_container = document.getElementById('agendas-container');
 
   placeSelect.addEventListener('change', (e) => {
     if(agendas_container) { agendas_container.innerHTML = '';}
@@ -54,11 +54,11 @@ function addListenerToPlaceSelect() {
 }
 
 function addListenerToAgendaSelect() {
-  let aptTypeSelect = document.getElementById('appointment_appointment_type_id');
-  let agendaSelect = document.getElementById('appointment-form-agenda-select');
+  const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
+  const agendaSelect = document.getElementById('appointment-form-agenda-select');
   if(agendaSelect == null) {return;}
 
-  let slots_container = document.getElementById('slots-container');
+  const slots_container = document.getElementById('slots-container');
 
   agendaSelect.addEventListener('change', (e) => {
     if(slots_container) { slots_container.innerHTML = '';}
@@ -68,8 +68,8 @@ function addListenerToAgendaSelect() {
 }
 
 function allowSubmitOnSlotSelection () {
-  let slotsFields = document.getElementsByName('appointment[slot_id]');
-  let submitButton = document.getElementById('submit-new-appointment');
+  const slotsFields = document.getElementsByName('appointment[slot_id]');
+  const submitButton = document.getElementById('submit-new-appointment');
 
   slotsFields.forEach(field => field.addEventListener('change', () => {
     submitButton.disabled = false;
