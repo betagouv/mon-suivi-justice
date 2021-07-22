@@ -16,7 +16,7 @@
                          wrapper_html: { class: 'form-checkbox-wrapper'} %>
 
   <div class='new-convict-submits-container'>
-    <%= f.button :submit, value:"#{t('submit')}\n #{t('new_convict_submit')}", class: 'form-submit-button' %>
-    <%= f.button :submit, value:"#{t('submit')}\n #{t('new_convict_first_appointment')}", class: 'form-submit-button' %>
+    <%= f.button :submit, value: convict_no_appointment_label, id: 'submit-no-appointment', class: 'form-submit-button' %>
+    <%= f.button :submit, value: convict_with_appointment_label, id: 'submit-with-appointment', class: 'form-submit-button' %>
   </div>
 <% end %>

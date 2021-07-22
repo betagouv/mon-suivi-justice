@@ -44,7 +44,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
 
-      expect { click_button 'Enregistrer' }.to change { Convict.count }.by(1)
+      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
     end
 
     it 'creates a convict with his first appointment', js: true do
@@ -65,7 +65,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
 
-      expect { click_button 'Prendre RDV' }.to change { Convict.count }.by(1)
+      expect { click_button 'submit-with-appointment' }.to change { Convict.count }.by(1)
       expect(page).to have_current_path(new_appointment_path(convict_id: Convict.last.id))
 
       select 'Premier contact Spip', from: 'Type de rendez-vous'

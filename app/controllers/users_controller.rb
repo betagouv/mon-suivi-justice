@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     authorize @user
 
     if @user.update(user_params)
-      redirect_to user_path(params[:id])
+      redirect_to @user == current_user ? user_path(params[:id]) : users_path
     else
       render :edit
     end

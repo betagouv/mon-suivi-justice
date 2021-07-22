@@ -29,10 +29,16 @@
         </div>
 
         <div class='index-controls-container'>
-          <%= link_to t('delete'), user_path(user),
-                                   data: { confirm: t('delete_confirmation') },
-                                   class: 'index-control',
-                                   method: :delete %>
+          <% if policy(:user).edit? %>
+            <%= link_to t('edit'), edit_user_path(user), class: 'index-control' %>
+          <% end %>
+
+          <% if policy(:user).edit? %>
+            <%= link_to t('delete'), user_path(user),
+                                     data: { confirm: t('delete_confirmation') },
+                                     class: 'index-control',
+                                     method: :delete %>
+          <% end %>
         </div>
       </div>
     <% end %>
