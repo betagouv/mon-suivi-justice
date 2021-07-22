@@ -123,8 +123,8 @@ fr:
 
   new_convict_title: "Nouvelle PPSMJ"
   new_first_appointment_title: "Créneaux disponibles"
-  new_convict_submit: "Enregistrer"
-  new_convict_first_appointment: "Prendre RDV"
+  new_convict_submit: "sans prendre RDV"
+  new_convict_first_appointment: "et prendre RDV"
   edit_convict_title: "Modifier PPSMJ"
   edit_convict_submit: "Enregistrer"
   search_convict_placeholder: "Saisir un nom ou un prénom"
