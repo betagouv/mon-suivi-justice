@@ -38,6 +38,7 @@ gem 'paper_trail'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'rspec_junit_formatter'
   gem 'factory_bot_rails'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'launchy', '~> 2.4', '>= 2.4.3'
