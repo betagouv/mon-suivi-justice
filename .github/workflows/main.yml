@@ -48,11 +48,10 @@ jobs:
       - name: setup test db
         run: bundle exec rails db:create db:schema:load db:migrate db:seed RAILS_ENV=test
         env:
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
-          POSTGRES_USER: lapin_test
-          POSTGRES_PASSWORD: lapin_test
-          POSTGRES_DB: lapin_test
+          DATABASE_URL: localhost
+          MSJ_DB_USER: lapin_test
+          MSJ_DB_PASSWORD: lapin_test
+          MSJ_DB_NAME: lapin_test
 
       - name: Spec suite
         run: bundle exec rspec
