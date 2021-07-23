@@ -55,6 +55,11 @@ jobs:
 
       - name: Spec suite
         run: bundle exec rspec
-
+        env:
+          DATABASE_URL: localhost
+          MSJ_DB_USER: lapin_test
+          MSJ_DB_PASSWORD: lapin_test
+          MSJ_DB_NAME: lapin_test
+          
       # - name: Deploy staging
       #   run: bin/deploy-staging
