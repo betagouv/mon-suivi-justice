@@ -14,9 +14,9 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: lapin_test
-          POSTGRES_PASSWORD: lapin_test
-          POSTGRES_DB: lapin_test
+          MSJ_DB_USER: lapin_test
+          MSJ_DB_PASSWORD: lapin_test
+          MSJ_DB_NAME: lapin_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
