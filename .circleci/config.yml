@@ -42,6 +42,7 @@ jobs:
           POSTGRES_USER: msj
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: msj-test
+          TZ: "Paris"
     # environment variables specific to Ruby/Rails, applied to the primary container.
     environment:
       # BUNDLE_JOBS: "3"
