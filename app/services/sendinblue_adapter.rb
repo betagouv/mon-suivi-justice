@@ -19,20 +19,13 @@ class SendinblueAdapter
     end
   end
 
+  private
+
   def format_data(notification)
     {
       sender: 'MSJ',
-      recipient: format_phone(notification.appointment.convict.phone),
+      recipient: Phone.format(notification.appointment.convict.phone),
       content: notification.content
     }
-  end
-
-  private
-
-  def format_phone(number)
-    return unless number.start_with?('0')
-
-    number.slice!(0)
-    number.prepend('+33')
   end
 end

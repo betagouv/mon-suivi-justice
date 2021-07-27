@@ -17,4 +17,8 @@ class Slot < ApplicationRecord
   end)
 
   scope :future, -> { where('date >= ?', Date.today) }
+
+  def full?
+    used_capacity == capacity
+  end
 end

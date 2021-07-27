@@ -12,10 +12,10 @@ class AppointmentType < ApplicationRecord
   enum place_type: %i[spip sap]
 
   def summon_notif
-    notification_types.where(role: :summon).first
+    notification_types.find_by(role: :summon)
   end
 
   def reminder_notif
-    notification_types.where(role: :reminder).first
+    notification_types.find_by(role: :reminder)
   end
 end

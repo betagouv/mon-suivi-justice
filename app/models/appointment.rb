@@ -15,11 +15,11 @@ class Appointment < ApplicationRecord
   }
 
   def summon_notif
-    notifications.where(role: :summon).first
+    notifications.find_by(role: :summon)
   end
 
   def reminder_notif
-    notifications.where(role: :reminder).first
+    notifications.find_by(role: :reminder)
   end
 
   state_machine initial: :waiting do
@@ -35,7 +35,7 @@ class Appointment < ApplicationRecord
 
     after_transition on: :book do |appointment|
       appointment.slot.increment!(:used_capacity, 1)
-      if appointment.slot.used_capacity == appointment.slot.capacity
+      if appointment.slot.full?
         appointment.slot.update(available: false)
       end
 
