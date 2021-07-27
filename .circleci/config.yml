@@ -53,6 +53,7 @@ jobs:
       MSJ_DB_USER: msj
       MSJ_DB_PASSWORD: msj
       RAILS_ENV: test
+      TZ: "Paris"
     # A series of steps to run, some are similar to those in "build".
     steps:
       - checkout
