@@ -56,7 +56,8 @@ function addListenerToPlaceSelect() {
 function addListenerToAgendaSelect() {
   const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
   const agendaSelect = document.getElementById('appointment-form-agenda-select');
-  if(agendaSelect == null) {return;}
+
+  if(agendaSelect == null) { allowSubmitOnSlotSelection(); return; }
 
   const slots_container = document.getElementById('slots-container');
 
