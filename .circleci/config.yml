@@ -66,6 +66,7 @@ jobs:
           name: Database setup
           command: bundle exec rails db:schema:load --trace
       - browser-tools/install-geckodriver
+      - browser-tools/install-firefox
       # Run rspec in parallel
       - ruby/rspec-test
 
