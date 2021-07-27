@@ -86,7 +86,7 @@ Shoulda::Matchers.configure do |config|
 end
 
 Capybara.server = :puma, { Silent: true }
-Capybara.javascript_driver = :selenium_headless
+Capybara.javascript_driver = :selenium_chrome_headless
 Capybara.default_max_wait_time = 5
 
 driver_urls = Webdrivers::Common.subclasses.map do |driver|
