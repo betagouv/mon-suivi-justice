@@ -93,6 +93,8 @@ driver_urls = Webdrivers::Common.subclasses.map do |driver|
   Addressable::URI.parse(driver.base_url).host
 end
 
+driver_urls << "github-releases.githubusercontent.com"
+
 WebMock.disable_net_connect!(allow_localhost: true, allow: [*driver_urls])
 
 def create_admin_user_and_login
