@@ -56,7 +56,7 @@ jobs:
       - name: Setup timezone
         uses: zcong1993/setup-timezone@master
         with:
-          timezone: Paris
+          timezone: Europe/Paris
 
       - name: Spec suite
         run: bundle exec rspec
