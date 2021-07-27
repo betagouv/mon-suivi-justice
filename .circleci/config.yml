@@ -5,6 +5,7 @@ version: 2.1 # Use 2.1 to enable using orbs and other features.
 orbs:
   ruby: circleci/ruby@1.0
   node: circleci/node@2
+  browser-tools: circleci/browser-tools@1.1.3
 
 jobs:
   build: # our first job, named "build"
@@ -64,6 +65,7 @@ jobs:
       - run:
           name: Database setup
           command: bundle exec rails db:schema:load --trace
+      - browser-tools/install-browser-tools
       # Run rspec in parallel
       - ruby/rspec-test
 
