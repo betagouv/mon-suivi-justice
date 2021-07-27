@@ -66,5 +66,5 @@ jobs:
           MSJ_DB_PASSWORD: msj
           MSJ_DB_NAME: msj_test
 
-      # - name: Deploy staging
-      #   run: bin/deploy-staging
+      - name: Deploy staging
+        run: bin/deploy-staging
