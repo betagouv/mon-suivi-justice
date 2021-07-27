@@ -66,5 +66,8 @@ jobs:
           MSJ_DB_PASSWORD: msj
           MSJ_DB_NAME: msj_test
 
+      - name: Ruby linter
+        run: bundle exec rubocop
+
       # - name: Deploy staging
       #   run: bin/deploy-staging
