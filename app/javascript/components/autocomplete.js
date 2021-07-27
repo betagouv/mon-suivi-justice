@@ -3,7 +3,7 @@ import 'select2';
 import 'select2/dist/css/select2.css';
 
 document.addEventListener('turbolinks:load',function() {
-  $('#appointment_convict_id').select2({
+  $('#convict-name-autocomplete').select2({
     selectionCssClass : 'custom-select2-input',
     language: {
       noResults: function () {

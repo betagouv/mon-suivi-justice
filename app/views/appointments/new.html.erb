@@ -8,7 +8,7 @@
                                 label: t('activerecord.models.convict'),
                                 as: :select,
                                 label_method: :name,
-                                input_html: { class: 'form-select' } %>
+                                input_html: { class: 'form-select', id: 'convict-name-autocomplete' } %>
   <% end %>
 
   <%= f.association :appointment_type, collection: AppointmentType.all,
