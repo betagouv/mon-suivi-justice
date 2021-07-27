@@ -19,8 +19,6 @@ class SendinblueAdapter
     end
   end
 
-  private
-
   def format_data(notification)
     {
       sender: 'MSJ',

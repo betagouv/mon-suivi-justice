@@ -1,5 +1,5 @@
 module Phone
-  REGEX = /(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/
+  REGEX = /(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/.freeze
 
   def self.display(num_as_string)
     num_as_string.gsub(REGEX, '\1 \2 \3 \4 \5')

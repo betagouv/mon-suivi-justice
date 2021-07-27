@@ -50,5 +50,5 @@ class Notification < ApplicationRecord
     HOUR_DELAYS.fetch(reminder_period)
   end
 
-  HOUR_DELAYS = { "one_day" => 24, "two_days" => 48 }
+  HOUR_DELAYS = { 'one_day' => 24, 'two_days' => 48 }.freeze
 end
