@@ -2,7 +2,7 @@ class ConvictsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @q = Convict.ransack(params[:q])
+    @q = Convict.order('last_name asc').ransack(params[:q])
     @convicts = @q.result(distinct: true).page params[:page]
     authorize @convicts
   end

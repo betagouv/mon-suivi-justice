@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all.page params[:page]
+    @users = User.all.order('last_name asc').page params[:page]
     authorize @users
   end
 
