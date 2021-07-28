@@ -22,12 +22,34 @@
   margin-right: 20px;
 }
 
+.new-appointment-form {
+  width: 60%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .appointments-item-container {
   display: flex;
   align-items: center;
   height: 40px;
   border-bottom: 1px solid $table-border;
   padding-left: 30px;
+}
+
+.appointment-form-slots-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.new-appointment-help-container {
+  max-width: 500px;
+  margin: auto;
 }
 
 .appointments-column-1 {
@@ -94,7 +116,7 @@
   padding: 5px;
   margin: 5px;
   flex-direction: column;
-  width: 35%;
+  width: 18%;
 }
 
 .slot-date-title {

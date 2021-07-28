@@ -1,27 +1,31 @@
 <h1 class='form-title'><%= t('new_appointment_title') %></h1>
 
-<%= simple_form_for @appointment, html: { class: 'basic-form' } do |f| %>
-  <% if params.has_key?(:convict_id) %>
-    <%= f.input :convict_id, as: :hidden, input_html: { value: params[:convict_id] }  %>
-  <% else %>
-    <%= f.association :convict, collection: Convict.all,
-                                label: t('activerecord.models.convict'),
-                                as: :select,
-                                label_method: :name,
-                                input_html: { class: 'form-select', id: 'convict-name-autocomplete' } %>
-  <% end %>
+<%= simple_form_for @appointment do |f| %>
+  <div class='new-appointment-form'>
+    <% if params.has_key?(:convict_id) %>
+      <%= f.input :convict_id, as: :hidden, input_html: { value: params[:convict_id] }  %>
+    <% else %>
+      <%= f.association :convict, collection: Convict.all,
+                                  label: t('activerecord.models.convict'),
+                                  as: :select,
+                                  label_method: :name,
+                                  input_html: { class: 'form-select', id: 'convict-name-autocomplete' } %>
+    <% end %>
 
-  <%= f.association :appointment_type, collection: AppointmentType.all,
-                                       label: t('activerecord.models.appointment_type'),
-                                       as: :select,
-                                       label_method: :name,
-                                       input_html: { class: 'form-select' } %>
+    <%= f.association :appointment_type, collection: AppointmentType.all,
+                                         label: t('activerecord.models.appointment_type'),
+                                         as: :select,
+                                         label_method: :name,
+                                         input_html: { class: 'form-select' } %>
 
-  <div class='appointment-form-places-container' id='places-container'></div>
-  <div class='appointment-form-agendas-container' id='agendas-container'></div>
+    <div class='appointment-form-places-container' id='places-container'></div>
+    <div class='appointment-form-agendas-container' id='agendas-container'></div>
+  </div>
 
   <div class='appointment-form-slots-container' id='slots-container'>
-    <%= t('new-appointment-help') %>
+    <div class='new-appointment-help-container'>
+      <%= t('new-appointment-help') %>
+    </div>
   </div>
 <% end %>
 
