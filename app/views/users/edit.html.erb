@@ -5,5 +5,10 @@
   <%= f.input :last_name %>
   <%= f.input :email, required: true %>
 
+  <% if current_user.admin? %>
+    <%= f.input :role, collection: User.roles.keys,
+                       input_html: { class: 'form-select' } %>
+  <% end %>
+
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>
