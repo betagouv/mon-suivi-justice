@@ -8,12 +8,4 @@ module ApplicationHelper
   def num_to_phone(num)
     Phone.display(num)
   end
-
-  def convict_no_appointment_label
-    "#{I18n.t('submit')}\n#{I18n.t('new_convict_submit')}"
-  end
-
-  def convict_with_appointment_label
-    "#{I18n.t('submit')}\n#{I18n.t('new_convict_first_appointment')}"
-  end
 end

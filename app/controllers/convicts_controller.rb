@@ -57,7 +57,7 @@ class ConvictsController < ApplicationController
   end
 
   def select_path(params)
-    if params[:commit] == "Enregistrer\r\net prendre RDV"
+    if params['no-appointment'].nil?
       new_appointment_path(convict_id: @convict.id)
     else
       convicts_path
