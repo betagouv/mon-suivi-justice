@@ -7,6 +7,8 @@ RSpec.describe Appointment, type: :model do
   it { should belong_to(:slot) }
   it { should belong_to(:appointment_type) }
 
+  it { should define_enum_for(:origin_department).with_values(%i[bex gref_co pr]) }
+
   describe 'State machine' do
     before do
       allow_any_instance_of(Notification).to receive(:format_content)

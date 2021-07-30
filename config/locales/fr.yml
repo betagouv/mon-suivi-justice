@@ -32,6 +32,7 @@ fr:
         date: "Date"
         slot: "Créneau"
         phone: "Téléphone"
+        origin_department: "Service d'origine de la convocation"
       appointment_type:
         name: "Nom"
         place_type: Type de lieu de RDV
@@ -182,6 +183,11 @@ fr:
         reminder_period:
           one_day: "24h"
           two_days: "48h"
+      appointment:
+        origin_department:
+          bex: "Agents du BEX"
+          gref_co: "Greffe correctionnel"
+          pr: "Parquet de l'exécution"
       convict:
         title:
           male: "M."

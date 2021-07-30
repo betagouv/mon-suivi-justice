@@ -12,6 +12,12 @@
                                   input_html: { class: 'form-select', id: 'convict-name-autocomplete' } %>
     <% end %>
 
+    <% if current_user.admin? || current_user.bex? %>
+      <%= f.input :origin_department, collection: Appointment.origin_departments.keys,
+                                      label_method: lambda {|k| t("simple_form.options.appointment.origin_department.#{k}")},
+                                      input_html: { class: 'form-select' } %>
+    <% end %>
+
     <%= f.association :appointment_type, collection: AppointmentType.all,
                                          label: t('activerecord.models.appointment_type'),
                                          as: :select,
