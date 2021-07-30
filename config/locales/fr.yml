@@ -18,6 +18,7 @@ fr:
         phone: "Téléphone portable"
         no_phone: "Ne possède pas de téléphone portable"
         refused_phone: "Refuse de donner son numéro"
+        prosecutor_number: Numéro de parquet
       user:
         name: "Nom"
         first_name: "Prénom"
