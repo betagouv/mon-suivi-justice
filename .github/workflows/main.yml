@@ -45,7 +45,7 @@ jobs:
       - name: Install JS dependencies
         run: yarn install
 
-      - name: setup test db
+      - name: Setup test db
         run: bundle exec rails db:create db:schema:load db:migrate db:seed RAILS_ENV=test
         env:
           DATABASE_URL: localhost
