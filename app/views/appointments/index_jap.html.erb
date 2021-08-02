@@ -1,0 +1,65 @@
+<div class='jap-agendas-container'>
+  <div class='jap-agendas-date-container'>
+    <div class='jap-date-title-container'>
+      <%= t('jap_agendas_title') %>
+    </div>
+    <div class='jap-date-select-container'>
+      <%= form_tag jap_appointments_path, method: 'get' do %>
+        <%= select_tag :date, options_for_select(formated_dates_for_select(ten_next_fridays), params[:date]),
+                              id: 'jap-appointments-date-select',
+                              class: 'form-select form-text-input jap-date-select',
+                              onchange: 'this.form.submit()' %>
+      <% end %>
+    </div>
+  </div>
+
+  <% available_agendas.each do |agenda| %>
+    <% apts = appointments_by_agenda(@appointments).find { |a| a[0] == agenda }&.last %>
+    <div class='jap-agenda-container'>
+      <div class='jap-agenda-header'>
+        <div class='jap-agenda-header-title'>
+          <%= agenda %>
+        </div>
+      </div>
+      <div class='jap-agenda-table'>
+        <div class='jap-agenda-table-header jap-agenda-line'>
+          <div class='jap-agenda-header-title jap-agenda-column'>
+            <%= t('jap_agenda_title_hour') %>
+          </div>
+          <div class='jap-agenda-header-title jap-agenda-column'>
+            <%= t('jap_agenda_title_last_name') %>
+          </div>
+          <div class='jap-agenda-header-title jap-agenda-column'>
+            <%= t('jap_agenda_title_first_name') %>
+          </div>
+          <div class='jap-agenda-header-title jap-agenda-column'>
+            <%= t('jap_agenda_title_prosecutor') %>
+          </div>
+          <div class='jap-agenda-header-title jap-agenda-column'>
+            <%= t('jap_agenda_title_origin') %>
+          </div>
+        </div>
+        <% available_hours.each do |hour| %>
+          <% appointment = select_appointment(apts, hour)%>
+          <div class='jap-agenda-line'>
+            <div class='jap-agenda-column'>
+              <%= hour %>
+            </div>
+            <div class='jap-agenda-column'>
+              <%= appointment&.convict&.last_name %>
+            </div>
+            <div class='jap-agenda-column'>
+              <%= appointment&.convict&.first_name %>
+            </div>
+            <div class='jap-agenda-column'>
+              <%= appointment&.convict&.prosecutor_number %>
+            </div>
+            <div class='jap-agenda-column'>
+              <%= appointment&.origin_department %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

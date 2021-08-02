@@ -16,9 +16,18 @@
     </div>
 
     <div class='index-tools-controls-container'>
-      <%= button_to t('today_appointments_title'), today_appointments_path,
-                                                class: 'link-to-today-appointment-button',
-                                                method: :get %>
+      <% if current_user.admin? || current_user.bex? %>
+        <%= button_to t('jap_appointments_title'), jap_appointments_path,
+                                                   class: 'link-to-today-appointment-button',
+                                                   method: :get %>
+      <% end %>
+
+      <% if current_user.admin? || current_user.cpip? %>
+        <%= button_to t('today_appointments_title'), today_appointments_path,
+                                                     class: 'link-to-today-appointment-button',
+                                                     method: :get %>
+      <% end %>
+
       <% if policy(:appointment).new? %>
         <%= button_to t('new_appointment_title'), new_appointment_path,
                                                   class: 'link-to-new-appointment-button',

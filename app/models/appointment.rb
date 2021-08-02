@@ -16,6 +16,8 @@ class Appointment < ApplicationRecord
                 .order('slots.starting_time asc')
   }
 
+  scope :for_a_date, ->(date = Date.today) { joins(:slot).where('slots.date' => date) }
+
   def summon_notif
     notifications.find_by(role: :summon)
   end

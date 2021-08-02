@@ -20,6 +20,17 @@ class AppointmentsController < ApplicationController
     authorize @appointments
   end
 
+  def index_jap
+    current_date = params.key?(:date) ? params[:date] : Date.today.next_occurring(:friday)
+
+    @appointments = Appointment.for_a_date(current_date)
+                               .joins(slot: [:appointment_type, :agenda])
+                               .where(appointment_type: { name: 'RDV de suivi SAP' })
+                               .group('agendas.name,appointments.id')
+
+    authorize @appointments
+  end
+
   def new
     @appointment = Appointment.new
 

@@ -4,7 +4,11 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def index_today?
-    true
+    user.admin? || user.cpip?
+  end
+
+  def index_jap?
+    user.admin? || user.bex?
   end
 
   def update?

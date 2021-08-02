@@ -1,0 +1,63 @@
+.jap-agendas-container {
+  width: 70%;
+  max-width: 800px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+.jap-agendas-date-container {
+  height: 100px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.jap-date-title-container {
+  margin-right: 20px;
+}
+
+.jap-date-select {
+  min-width: 130px;
+}
+
+.jap-agenda-container {
+  display: flex;
+  margin-bottom: 30px;
+  border: 1px solid black;
+}
+
+.jap-agenda-header {
+  display: flex;
+  width: 15%;
+  align-items: center;
+  justify-content: center;
+}
+
+.jap-agenda-table-header {
+  font-weight: bold;
+}
+
+.jap-agenda-table {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.jap-agenda-column {
+  width: 20%;
+  border-left: 1px solid black;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+}
+
+.jap-agenda-line {
+  display: flex;
+  min-height: 30px;
+  border-bottom: 1px solid black;
+
+  &:last-child{
+    border: 0;
+  }
+}
