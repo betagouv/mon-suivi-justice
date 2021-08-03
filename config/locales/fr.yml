@@ -147,6 +147,29 @@ fr:
   new-appointment-help: "Sélectionnez un lieu de RDV pour afficher les créneaux disponibles."
   new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi immédiat d'un SMS de confirmation à la PPSMJ et l'envoi d'un SMS de rappel avant le rendez-vous (si un numéro de téléphone a été donné)."
 
+  new-appointment-cab-list-title: 'Liste des cabinets par secteur'
+  new-appointment-cab1-name: 'Cabinet 1 -'
+  new-appointment-cab1-judge: 'Mme CIMAMONTI'
+  new-appointment-cab1-places: 'Gennevilliers, Neuilly, Villeneuve la Garenne, Bois-Colombes, Montrouge, Puteaux, Sceaux'
+  new-appointment-cab2-name: 'Cabinet 2'
+  new-appointment-cab2-judge: ''
+  new-appointment-cab2-places: 'Boulogne-Billancourt, Clamart, Fontenay-aux-Rose, Le Plessis-Robinson, Rueil-Malmaison, Suresnes'
+  new-appointment-cab3-name: 'Cabinet 3 -'
+  new-appointment-cab3-judge: 'Mme DARROT'
+  new-appointment-cab3-places: 'Antony, Bagneux, Bourg la Reine, Châtenay-Malabry, Issy les Moulineaux, Vanves'
+  new-appointment-cab4-name: 'Cabinet 4 -'
+  new-appointment-cab4-judge: 'Mme CROCHARD'
+  new-appointment-cab4-places: 'Colombes, la Garenne Colombes'
+  new-appointment-cab5-name: 'Cabinet 5 -'
+  new-appointment-cab5-judge: 'Mme POUIT-HMAMI'
+  new-appointment-cab5-places: 'Nanterre, Meudon, Saint-Cloud, Sèvres, Vaucresson'
+  new-appointment-cab6-name: 'Cabinet 6 -'
+  new-appointment-cab6-judge: 'Mme KASPARIAN'
+  new-appointment-cab6-places: "Asnières, Châtillon, Chaville, Courbevoie, Malakoff, Marne la Coquette, Ville d'Avray"
+  new-appointment-cab7-name: 'Cabinet 7 -'
+  new-appointment-cab7-judge: 'DE-LAFORCADE'
+  new-appointment-cab7-places: 'Clichy, Garches, Levallois-Perret'
+
   jap_appointments_title: "Agenda RDV JAP"
   jap_agendas_title: "Agenda RDV JAP pour le vendredi"
   jap_agenda_title_hour: Heure

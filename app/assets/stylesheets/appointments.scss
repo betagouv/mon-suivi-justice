@@ -14,7 +14,6 @@
 
 .link-to-new-appointment-button {
   @include button($light-blue);
-  margin-right: 20px;
 }
 
 .link-to-today-appointment-button {
@@ -122,4 +121,18 @@
 .slot-date-title {
   margin-bottom: 10px;
   text-align: center;
+}
+
+.new-appointment-links-container {
+  position: absolute;
+  right: 0;
+  padding: 20px;
+}
+
+.jap-agendas-modal-trigger {
+  @include button($light-grey);
+}
+
+.jap-agendas-name {
+  font-weight: bold;
 }
