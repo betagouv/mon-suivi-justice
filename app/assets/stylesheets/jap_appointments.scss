@@ -14,6 +14,10 @@
   margin-top: 20px;
 }
 
+.jap-print-button {
+  @include button($light-grey);
+}
+
 .jap-agendas-date-container {
   height: 100px;
   margin-bottom: 40px;
