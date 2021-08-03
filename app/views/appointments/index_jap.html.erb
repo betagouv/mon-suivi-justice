@@ -19,10 +19,10 @@
     </div>
   </div>
 
-  <% available_agendas.each do |agenda| %>
+  <% available_agendas.each_with_index do |agenda, index| %>
     <% apts = appointments_by_agenda(@appointments).find { |a| a[0] == agenda }&.last %>
     <div class='jap-agenda-container'>
-      <div class='jap-agenda-header'>
+      <div class='jap-agenda-header jap-agenda-header<%= index+1%>'>
         <div class='jap-agenda-header-title'>
           <%= agenda %>
         </div>
