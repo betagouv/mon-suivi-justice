@@ -3,11 +3,20 @@
   max-width: 800px;
   margin: auto;
   margin-bottom: 50px;
+
+  @media print {
+    width: 100%;
+  }
+}
+
+.jap-agendas-tools-container {
+  text-align: right;
+  margin-top: 20px;
 }
 
 .jap-agendas-date-container {
   height: 100px;
-  margin-top: 50px;
+  margin-bottom: 40px;
   display: flex;
   justify-content: center;
   align-items: center;

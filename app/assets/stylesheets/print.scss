@@ -1,0 +1,17 @@
+@page {
+  size: 210mm 297mm;
+  margin: 1cm;
+}
+
+@page :footer {color: #fff }
+@page :header {color: #fff}
+
+@media print {
+  section.sidebar, header.header, div.index-tools-container, a.support-link {
+    display: none;
+  }
+
+  div.jap-agendas-tools-container {
+    display: none;
+  }
+}

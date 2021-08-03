@@ -1,4 +1,10 @@
 <div class='jap-agendas-container'>
+  <div class='jap-agendas-tools-container'>
+    <%= button_to t('print_button'), 'fake_link',
+                                      class: 'print-button',
+                                      onclick: 'window.print();return false;'%>
+  </div>
+
   <div class='jap-agendas-date-container'>
     <div class='jap-date-title-container'>
       <%= t('jap_agendas_title') %>
@@ -21,6 +27,7 @@
           <%= agenda %>
         </div>
       </div>
+
       <div class='jap-agenda-table'>
         <div class='jap-agenda-table-header jap-agenda-line'>
           <div class='jap-agenda-header-title jap-agenda-column'>
@@ -39,6 +46,7 @@
             <%= t('jap_agenda_title_origin') %>
           </div>
         </div>
+
         <% available_hours.each do |hour| %>
           <% appointment = select_appointment(apts, hour)%>
           <div class='jap-agenda-line'>
