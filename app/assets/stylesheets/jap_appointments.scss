@@ -45,6 +45,8 @@
   width: 15%;
   align-items: center;
   justify-content: center;
+
+  @media print { background-color: initial !important; }
 }
 
 .jap-agenda-header1 { background-color: $jap-cabinet1; }
