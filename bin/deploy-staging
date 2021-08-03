@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
-git push scalingo master
+git push scalingo develop
 scalingo -a mon-suivi-justice-staging run rails db:migrate
