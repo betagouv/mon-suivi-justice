@@ -39,6 +39,8 @@ RSpec.describe Notification, type: :model do
 
   describe 'send_now' do
     it 'calls Sendinblue adapter' do
+      allow(ENV).to receive(:[]).with('SMS_SENDER').and_return('MSJ')
+      
       Sidekiq::Testing.inline! do
         api_mock = instance_double(SibApiV3Sdk::TransactionalSMSApi)
         allow(SibApiV3Sdk::TransactionalSMSApi).to receive(:new).and_return(api_mock)

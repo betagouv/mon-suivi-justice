@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe SendinblueAdapter do
+  before do
+    allow(ENV).to receive(:[]).with('SMS_SENDER').and_return('MSJ')
+  end
+
   describe 'send_sms' do
     it 'calls Sendinblue API' do
       notif = build(:notification)
@@ -23,7 +27,7 @@ RSpec.describe SendinblueAdapter do
       notif.content = 'Bonjour'
 
       expected = {
-        sender: 'MSJDEV',
+        sender: 'MSJ',
         recipient: '+33622334455',
         content: 'Bonjour'
       }
