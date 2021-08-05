@@ -19,6 +19,9 @@ fr:
         no_phone: "Ne possède pas de téléphone portable"
         refused_phone: "Refuse de donner son numéro"
         prosecutor_number: Numéro de parquet
+        convict_titles:
+          male: "M."
+          female: "Mme"
       user:
         name: "Nom"
         first_name: "Prénom"
@@ -120,7 +123,6 @@ fr:
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"
   show_user_title: "Mes informations"
-  edit_user: "Modifier"
   edit_user_title: "Modifier mes informations"
 
   new_convict_title: "Nouvelle PPSMJ"
@@ -131,6 +133,8 @@ fr:
   edit_convict_title: "Modifier PPSMJ"
   edit_convict_submit: "Enregistrer"
   search_convict_placeholder: "Saisir un nom ou un prénom"
+  show_convict: Profil
+  show_convict_title: "Profil PPSMJ"
 
   new_appointment_title: "Nouveau rendez-vous"
   new-appointment-place: "Lieu de rendez-vous :"

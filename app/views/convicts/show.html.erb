@@ -1,0 +1,62 @@
+<h1 class='show-title'><%= t('show_convict_title') %></h1>
+
+<div class='show-container'>
+  <div class='show-data-container'>
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.convict.title')%>
+      </div>
+      <div class='show-data-item'>
+        <%= t("activerecord.attributes.convict.convict_titles.#{@convict.title}") %>
+      </div>
+    </div>
+
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.convict.last_name')%>
+      </div>
+      <div class='show-data-item'>
+        <%= @convict.last_name.upcase %>
+      </div>
+    </div>
+
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.convict.first_name')%>
+      </div>
+      <div class='show-data-item'>
+        <%= @convict.first_name.capitalize %>
+      </div>
+    </div>
+
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.convict.phone')%>
+      </div>
+      <div class='show-data-item'>
+        <% if @convict.no_phone? %>
+        <%= t('activerecord.attributes.convict.no_phone')%>
+        <% elsif @convict.refused_phone? %>
+        <%= t('activerecord.attributes.convict.refused_phone')%>
+        <% else %>
+        <%= @convict.phone %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.convict.prosecutor_number')%>
+      </div>
+      <div class='show-data-item'>
+        <%= @convict.prosecutor_number %>
+      </div>
+    </div>
+  </div>
+
+  <div class='show-button-to-edit-container'>
+    <%= button_to t('edit'), edit_convict_path(params[:id]),
+                             method: :get,
+                             class: 'show-button-to-edit' %>
+  </div>
+</div>

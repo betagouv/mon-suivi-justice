@@ -49,6 +49,11 @@ class ConvictsController < ApplicationController
     redirect_to convicts_path
   end
 
+  def show
+    @convict = Convict.find(params[:id])
+    authorize @convict
+  end
+
   private
 
   def convict_params

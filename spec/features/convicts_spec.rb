@@ -94,4 +94,18 @@ RSpec.feature 'Convicts', type: :feature do
       expect(convict.last_name).to eq('Ristretto')
     end
   end
+
+  describe 'show' do
+    it 'displays infos on convict' do
+      convict = create(:convict, last_name: 'Noisette',
+                                 first_name: 'Café',
+                                 phone: '0607060706')
+
+      visit convict_path(convict)
+
+      expect(page).to have_content('Café')
+      expect(page).to have_content('NOISETTE')
+      expect(page).to have_content('0607060706')
+    end
+  end
 end

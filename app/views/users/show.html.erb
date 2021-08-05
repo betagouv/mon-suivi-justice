@@ -2,43 +2,47 @@
 
 <div class='show-container'>
   <div class='show-data-container'>
-    <div class='show-data-label'>
-      <%= t('activerecord.attributes.user.last_name')%>
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.user.last_name')%>
+      </div>
+      <div class='show-data-item'>
+        <%= @user.last_name.upcase %>
+      </div>
     </div>
-    <div class='show-data-item'>
-      <%= @user.last_name.upcase %>
+
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.user.first_name')%>
+      </div>
+      <div class='show-data-item'>
+        <%= @user.first_name.capitalize %>
+      </div>
+    </div>
+
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.user.email')%>
+      </div>
+      <div class='show-data-item'>
+        <%= @user.email %>
+      </div>
+    </div>
+
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.user.role') %>
+      </div>
+      <div class='show-data-item'>
+        <%= t("activerecord.attributes.user.user_roles.#{@user.role}") %>
+      </div>
     </div>
   </div>
 
-  <div class='show-data-container'>
-    <div class='show-data-label'>
-      <%= t('activerecord.attributes.user.first_name')%>
-    </div>
-    <div class='show-data-item'>
-      <%= @user.first_name.capitalize %>
-    </div>
+  <div class='show-button-to-edit-container'>
+    <%= button_to t('edit'), edit_user_path(current_user.id),
+                                  method: :get,
+                                  form_class: 'show-button-to-edit-form',
+                                  class: 'show-button-to-edit' %>
   </div>
-
-  <div class='show-data-container'>
-    <div class='show-data-label'>
-      <%= t('activerecord.attributes.user.email')%>
-    </div>
-    <div class='show-data-item'>
-      <%= @user.email %>
-    </div>
-  </div>
-
-  <div class='show-data-container'>
-    <div class='show-data-label'>
-      <%= t('activerecord.attributes.user.role')%>
-    </div>
-    <div class='show-data-item'>
-      <%= t("activerecord.attributes.user.user_roles.#{@user.role}") %>
-    </div>
-  </div>
-
-  <%= button_to t('edit_user'), edit_user_path(current_user.id),
-                                method: :get,
-                                form_class: 'show-button-to-edit-form',
-                                class: 'show-button-to-edit' %>
 </div>

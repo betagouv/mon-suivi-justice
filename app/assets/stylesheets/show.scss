@@ -8,13 +8,21 @@
 }
 
 .show-container {
-  width: 30%;
+  width: 60%;
+  max-width: 700px;
   margin: auto;
   display: flex;
-  flex-direction: column;
+  padding: 20px;
+  border: 1px solid $table-border;
 }
 
 .show-data-container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.show-data-item-container{
   display: flex;
   margin-bottom: 10px;
 }
@@ -24,12 +32,11 @@
   font-weight: bold;
 }
 
-.show-button-to-edit-form {
-  text-align: center;
-  margin-top: 20px;
+.show-button-to-edit-container {
+  display: flex;
+  align-items: center;
 }
 
 .show-button-to-edit {
   @include button($light-blue);
-  margin: 15px auto 0;
 }
