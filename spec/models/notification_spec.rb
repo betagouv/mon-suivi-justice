@@ -39,8 +39,9 @@ RSpec.describe Notification, type: :model do
 
   describe 'send_now' do
     it 'calls Sendinblue adapter' do
-      allow(ENV).to receive(:[]).with('SMS_SENDER').and_return('MSJ')
-      
+      cached_sms_sender = ENV['SMS_SENDER']
+      ENV['SMS_SENDER'] = 'MSJ'
+
       Sidekiq::Testing.inline! do
         api_mock = instance_double(SibApiV3Sdk::TransactionalSMSApi)
         allow(SibApiV3Sdk::TransactionalSMSApi).to receive(:new).and_return(api_mock)
@@ -51,6 +52,8 @@ RSpec.describe Notification, type: :model do
         notif = create(:notification)
         notif.send_now
       end
+
+      ENV['SMS_SENDER'] = cached_sms_sender
     end
   end
 

@@ -1,8 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe SendinblueAdapter do
-  before do
-    allow(ENV).to receive(:[]).with('SMS_SENDER').and_return('MSJ')
+  before :each do
+    cached_sms_sender = ENV['SMS_SENDER']
+    ENV['SMS_SENDER'] = 'MSJ'
+  end
+
+  after :each do
+    ENV['SMS_SENDER'] = cached_sms_sender
   end
 
   describe 'send_sms' do
