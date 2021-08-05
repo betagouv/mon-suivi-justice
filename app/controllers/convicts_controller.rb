@@ -35,7 +35,7 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     if @convict.update(convict_params)
-      redirect_to convicts_path
+      redirect_to convict_path(@convict)
     else
       render :edit
     end
