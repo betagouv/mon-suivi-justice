@@ -25,7 +25,7 @@ class AppointmentsController < ApplicationController
 
     @appointments = Appointment.for_a_date(current_date)
                                .joins(slot: [:appointment_type, :agenda])
-                               .where(appointment_type: { name: 'RDV de suivi SAP' })
+                               .where(appointment_type: { name: 'RDV BEX SAP' })
                                .group('agendas.name,appointments.id')
 
     authorize @appointments

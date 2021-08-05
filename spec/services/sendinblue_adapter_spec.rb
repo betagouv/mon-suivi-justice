@@ -23,7 +23,7 @@ RSpec.describe SendinblueAdapter do
       notif.content = 'Bonjour'
 
       expected = {
-        sender: 'MSJ',
+        sender: 'MSJDEV',
         recipient: '+33622334455',
         content: 'Bonjour'
       }

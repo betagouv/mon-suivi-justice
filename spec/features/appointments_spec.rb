@@ -43,7 +43,7 @@ RSpec.feature 'Appointments', type: :feature do
                                   last_name: 'Luthor',
                                   prosecutor_number: '205206')
 
-      apt_type = create(:appointment_type, name: 'RDV de suivi SAP')
+      apt_type = create(:appointment_type, name: 'RDV BEX SAP')
       place = create(:place, place_type: 'sap', name: 'Tribunal de Nanterre')
 
       agenda1 = create(:agenda, place: place, name: 'Cabinet 1')
