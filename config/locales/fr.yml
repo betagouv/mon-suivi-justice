@@ -135,6 +135,8 @@ fr:
   search_convict_placeholder: "Saisir un nom ou un prénom"
   show_convict: Profil
   show_convict_title: "Profil PPSMJ"
+  show_convict_history_title: Historique
+  show_convict_new_appointment: Prendre rendez-vous
 
   new_appointment_title: "Nouveau rendez-vous"
   new-appointment-place: "Lieu de rendez-vous :"

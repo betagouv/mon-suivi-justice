@@ -101,11 +101,28 @@ RSpec.feature 'Convicts', type: :feature do
                                  first_name: 'Café',
                                  phone: '0607060706')
 
+      place = create(:place, name: 'SPIP du 93')
+      agenda = create(:agenda, place: place)
+
+      slot1 = create(:slot, agenda: agenda,
+                            date: '06/10/2021',
+                            starting_time: new_time_for(13, 0))
+
+      slot2 = create(:slot, agenda: agenda,
+                            date: '08/12/2021',
+                            starting_time: new_time_for(15, 30))
+
+      create(:appointment, slot: slot1, convict: convict)
+      create(:appointment, slot: slot2, convict: convict)
+
       visit convict_path(convict)
 
       expect(page).to have_content('Café')
       expect(page).to have_content('NOISETTE')
-      expect(page).to have_content('0607060706')
+      expect(page).to have_content('06 07 06 07 06')
+
+      expect(page).to have_content('A été convoqué au SPIP du 93 le 06/10/2021 à 13:00')
+      expect(page).to have_content('A été convoqué au SPIP du 93 le 08/12/2021 à 15:30')
     end
   end
 end

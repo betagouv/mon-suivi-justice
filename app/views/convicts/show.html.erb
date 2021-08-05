@@ -1,6 +1,6 @@
 <h1 class='show-title'><%= t('show_convict_title') %></h1>
 
-<div class='show-container'>
+<div class='show-profile-container'>
   <div class='show-data-container'>
     <div class='show-data-item-container'>
       <div class='show-data-label'>
@@ -35,11 +35,11 @@
       </div>
       <div class='show-data-item'>
         <% if @convict.no_phone? %>
-        <%= t('activerecord.attributes.convict.no_phone')%>
+          <%= t('activerecord.attributes.convict.no_phone')%>
         <% elsif @convict.refused_phone? %>
-        <%= t('activerecord.attributes.convict.refused_phone')%>
+          <%= t('activerecord.attributes.convict.refused_phone')%>
         <% else %>
-        <%= @convict.phone %>
+          <%= num_to_phone(@convict.phone) %>
         <% end %>
       </div>
     </div>
@@ -59,4 +59,33 @@
                              method: :get,
                              class: 'show-button-to-edit' %>
   </div>
+</div>
+
+<% if policy(:appointment).new? %>
+  <div class='show-convict-new-appointment-container'>
+    <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
+                                                   class: 'link-to-new-appointment-button',
+                                                   form_class: 'link-to-new-appointment-form',
+                                                   method: :get %>
+  </div>
+<% end %>
+
+<h2 class='show-secondary-title'><%= t('show_convict_history_title') %></h2>
+
+<div class='show-history-container'>
+  <% @appointments.each do |appointment| %>
+    <div class='show-history-item-container'>
+      <div class='show-history-item-header'>
+        <div class='show-history-item-icon'>
+          <%= fa_icon 'circle' %>
+        </div>
+        <div class='show-history-item-creation'>
+          <%= appointment.created_at.strftime('%d/%m/%Y %H:%M') %>
+        </div>
+      </div>
+      <div class='show-history-item'>
+        A été convoqué au <%= appointment.slot.agenda.place.name %> le <%= appointment.slot.date %> à <%= appointment.slot.starting_time.to_s(:time) %>
+      </div>
+    </div>
+  <% end %>
 </div>

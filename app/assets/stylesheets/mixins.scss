@@ -1,5 +1,6 @@
 @mixin button($color) {
   background-color: $color;
+  color: $main-font-color;
   padding: .5em 1em;
   font-size: 18px;
   text-decoration: none;
