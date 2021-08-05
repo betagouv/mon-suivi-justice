@@ -58,7 +58,7 @@ class ConvictsController < ApplicationController
   private
 
   def convict_params
-    params.require(:convict).permit(:first_name, :last_name, :phone, :no_phone,
+    params.require(:convict).permit(:first_name, :last_name, :title, :phone, :no_phone,
                                     :refused_phone, :place_id, :prosecutor_number)
   end
 
