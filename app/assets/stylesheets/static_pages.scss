@@ -1,20 +1,52 @@
 .static-page-container {
   width: 100%;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $desktop-breakpoint) {
+    width: 80%;
+    max-width: 900px;
+    margin: auto;
+  }
 }
 
 .static-title {
   font-size: 24px;
   margin-bottom: 20px;
+
+  @media (min-width: $tablet-breakpoint) {
+    text-align: center;
+  }
 }
 
 .static-text-header {
   font-style: italic;
   margin-bottom: 10px;
+
+  @media (min-width: $tablet-breakpoint) {
+    margin-left: 20px;
+  }
 }
 
 .static-text-bloc {
   margin-bottom: 10px;
+  line-height: 2;
+
+  @media (min-width: $tablet-breakpoint) {
+    width: 90%;
+  }
+
+  @media (min-width: $desktop-breakpoint) {
+    line-height: 1.5;
+  }
+}
+
+.static-explanation-bloc {
+  @media (min-width: $tablet-breakpoint) {
+    width: 80%;
+    align-self: center;
+  }
 }
 
 .static-secondary-title {
