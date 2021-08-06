@@ -13,6 +13,7 @@ then
   echo "Merge develop in master"
   git checkout master
   git merge develop
+  git push origin master
   git checkout develop
   echo "Push to Scalingo"
   git push scalingo-prod master
