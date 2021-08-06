@@ -133,7 +133,7 @@ fr:
     obligation_spec15_explication2: "La mise en place de ce stage sera organisée avec votre CPIP référent."
 
     obligation_spec16_titre: "16. Ne pas communiquer sur son infraction"
-    obligation_spec16_convocation: "16° S'abstenir de diffuser tout ouvrage ou œuvre audiovisuelle dont il serait l'auteur ou le coauteur et qui porterait, en tout ou partie, sur l'infraction commise et s'abstenir de toute intervention publique relative à cette infraction. [les dispositions du présent alinéa ne sont applicables qu'en cas de condamnation pour crimes ou délits d'atteintes volontaires à la vie, d'agressions sexuelles ou d'atteintes sexuelles ;]"
+    obligation_spec16_convocation: "16° S'abstenir de diffuser tout ouvrage ou œuvre audiovisuelle dont il serait l'auteur ou le coauteur et qui porterait, en tout ou partie, sur l'infraction commise et s'abstenir de toute intervention publique relative à cette infraction."
     obligation_spec16_explication1: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
 
     obligation_spec17_titre: "17. Respecter les décisions sur la garde des enfants"
@@ -141,7 +141,7 @@ fr:
     obligation_spec17_explication1: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
 
     obligation_spec18_titre: "18. Ne pas se rendre au domicile conjugal"
-    obligation_spec18_convocation: "18° En cas d'infraction commise soit contre son conjoint, son concubin ou son partenaire lié par un pacte civil de solidarité, soit contre ses enfants ou ceux de son conjoint, concubin ou partenaire, résider hors du domicile ou de la résidence du couple et, le cas échéant, s'abstenir de paraître dans ce domicile ou cette résidence ou aux abords immédiats de celui-ci, ainsi que, si nécessaire, faire l'objet d'une prise en charge sanitaire, sociale ou psychologique. [les dispositions du présent 19° sont également applicables lorsque l'infraction est commise par l'ancien conjoint ou concubin de la victime, ou par la personne ayant été liée à elle par un pacte civil de solidarité, le domicile concerné étant alors celui de la victime. Pour l'application du présent 19°, l'avis de la victime est recueilli, dans les meilleurs délais et par tous moyens, sur l'opportunité d'imposer au condamné de résider hors du logement du couple. Sauf circonstances particulières, cette mesure est prise lorsque sont en cause des faits de violences susceptibles d'être renouvelés et que la victime la sollicite. La juridiction peut préciser les modalités de prise en charge des frais afférents à ce logement.]"
+    obligation_spec18_convocation: "18° En cas d'infraction commise soit contre son conjoint, son concubin ou son partenaire lié par un pacte civil de solidarité, soit contre ses enfants ou ceux de son conjoint, concubin ou partenaire, résider hors du domicile ou de la résidence du couple et, le cas échéant, s'abstenir de paraître dans ce domicile ou cette résidence ou aux abords immédiats de celui-ci, ainsi que, si nécessaire, faire l'objet d'une prise en charge sanitaire, sociale ou psychologique."
     obligation_spec18_explication1: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
     obligation_spec18_explication2: "En cas de difficulté liée au respect de cette interdiction (logement, soins), parlez-en à votre CPIP. Il pourra vous accompagner."
 
@@ -163,7 +163,7 @@ fr:
     obligation_spec21_explication1: "La mise en place de ce travail d’intérêt général (TIG) sera discutée avec votre CPIP référent."
     obligation_spec21_explication2: "Il existe de nombreux postes: individuels ou collectifs, près de votre résidence ou un peu plus éloigné, en semaine, en soirée, le weekend..."
 
-    obligation_spec22_titre: "22. Reçevoir des soins"
+    obligation_spec22_titre: "22. Me soigner dans le cadre d'un suivi socio-judiciaire"
     obligation_spec22_convocation: "22° L'injonction de soins, dans les conditions prévues aux articles L. 3711-1 à L. 3711-5 du code de la santé publique, si la personne a été condamnée pour un délit pour lequel le suivi socio-judiciaire est encouru et qu'une expertise médicale a conclu qu'elle était susceptible de faire l'objet d'un traitement."
     obligation_spec22_explication1: "Avec votre peine de suivi socio-judiciaire, vous êtes soumis à une injonction de soin."
     obligation_spec22_explication2: "Vous avez un interlocuteur supplémentaire: un médecin coordonnateur, qui fait l’intermédiaire entre la Justice et le soin."
