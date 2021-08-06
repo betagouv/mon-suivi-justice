@@ -1,0 +1,186 @@
+fr:
+  comprendre:
+    titre: "Comprendre mes mesures de contrôle et mes obligations"
+    paragraphe1: "Pendant votre délai de probation, vous devez respecter les obligations qui sont prévues pour vous."
+    paragraphe2: "Il y a 6 règles de base à respecter :"
+
+    ce_qui_est_ecrit: "Ce qui est écrit sur ma convocation :"
+    ce_que_ca_veut_dire: "Ce que ça veut dire :"
+
+    obligation1_titre: "1. Venir aux convocations"
+    obligation1_convocation: "Répondre aux convocations du juge de l'application des peines ou du service pénitentiaire d'insertion et de probation désigné."
+    obligation1_explication1: "Vous avez l’obligation de vous présenter aux convocations devant le juge de l'application des peines (JAP) ou au service pénitentiaire d'insertion et de probation (SPIP)."
+    obligation1_explication2: "En cas d’absence, vous devez contacter le JAP ou le conseiller pénitentiaire d’insertion et de probation (CPIP) référent."
+    obligation1_explication3: "Si vous ne vous présentez pas aux convocations et ne prévenez pas de votre absence, vous pouvez faire l’objet de sanctions (prolongation de votre mesure, révocation, prison, ...)"
+    obligation1_explication4: "Si vous demandez un aménagement de peine, celui-ci ne pourra pas être accordé en votre absence et la peine pourra être exécutée en prison."
+
+    obligation2_titre: "2. Reçevoir des visites à domicile"
+    obligation2_convocation: "Recevoir les visites du service pénitentiaire d'insertion et de probation et lui communiquer les renseignements ou documents de nature à permettre le contrôle de ses moyens d'existence et de l'exécution de ses obligations."
+    obligation2_explication1: "Un agent du SPIP peut se déplacer à votre domicile."
+    obligation2_explication2: "Vous devez lui transmettre les renseignements et documents demandés pour qu’il assure votre accompagnement et contrôle le respect de vos obligations."
+
+    obligation3_titre: "3. Prévenir en cas de changement d'emploi"
+    obligation3_convocation: "Prévenir le service pénitentiaire d'insertion et de probation de ses changements d'emploi."
+    obligation3_explication1: "Prévenir le SPIP d’un changement d’employeur, de lieu de travail, ou de fonction permet d’assurer votre suivi et de faire le point régulièrement sur votre situation socio-professionnelle."
+    obligation3_explication2: "Le SPIP peut vous accompagner dans votre recherche professionnelle si nécessaire."
+
+    obligation4_titre: "4. Prévenir en cas de déménagement ou déplacement prolongé"
+    obligation4_convocation: "Prévenir le service pénitentiaire d'insertion et de probation de ses changements de résidence ou de tout déplacement dont la durée excéderait quinze jours et rendre compte de son retour."
+    obligation4_explication1: "Prévenir le SPIP de votre adresse postale exacte et de votre adresse électronique vous permet de recevoir les convocations et de vous y présenter."
+    obligation4_explication2: "C’est important aussi si vous changez de département car vous allez changer de JAP et de SPIP et votre dossier sera transféré au tribunal du département de votre nouvelle résidence."
+    obligation4_explication3: "Bonne pratique : préciser par exemple, chez Monsieur ou Madame XXX si votre nom n’est pas sur la boîte aux lettres."
+    obligation4_explication4: "Bonne pratique : Pensez aussi à donner votre numéro de téléphone portable pour bénéficier du rappel de convocation par SMS et être appelé directement en cas de difficulté avec votre courrier."
+    obligation4_explication5: "Prévenir le SPIP de votre absence prolongée permet d’éviter toute difficulté si vous êtes convoqué en votre absence. Il s’agit d’une information, vous n’avez pas besoin d‘attendre l’autorisation pour partir."
+
+    obligation5_titre: "5. Demander l'autorisation en cas de changement important"
+    obligation5_convocation: "Obtenir l'autorisation préalable du juge de l'application des peines pour tout changement d'emploi ou de résidence, lorsque ce changement est de nature à mettre obstacle à l'exécution de ses obligations."
+    obligation5_explication1: "Il s’agit par exemple du cas où vous avez trouvé un emploi qui ne vous permet pas de venir aux convocations (par exemple, un contrat de quelques mois à l’étranger) ou que vous voulez déménager dans un pays étranger avant la fin de votre suivi judiciaire."
+
+    obligation6_titre: "6. Prévenir en cas de déplacement à l'étranger"
+    obligation6_convocation: "Informer préalablement le juge de l'application des peines de tout déplacement à l'étranger."
+    obligation6_explication1: "Informer le SPIP de vos déplacements à l’étranger permet d’éviter toute difficulté si vous êtes convoqué pendant votre absence."
+    obligation6_explication2: "Il s’agit d’une information, vous n’avez pas besoin d’attendre l’autorisation pour partir."
+
+    paragraphe3: "Selon votre situation et l’infraction commise, vous pouvez être soumis à plusieurs obligations spécialement imposées par le juge."
+
+    obligation_spec1_titre: "1. Travailler ou suivre une formation"
+    obligation_spec1_convocation: "Exercer une activité professionnelle ou suivre un enseignement ou une formation professionnelle."
+    obligation_spec1_explication1: "Vous devez apporter les justificatifs d’une activité professionnelle légale : emploi, formation, cursus scolaire..."
+    obligation_spec1_explication2: "Bonne pratique: pensez à garder tous vos justificatifs (fiches de paie, contrat de travail, attestation de formation, relevés de courses, factures...)"
+
+    obligation_spec2_titre: "2. Déclarer une adresse"
+    obligation_spec2_convocation: "Établir sa résidence en un lieu déterminé."
+    obligation_spec2_explication1: "Vous devez avoir une adresse permettant de recevoir des courriers et des convocations avec accusé-réception."
+    obligation_spec2_explication2: "Tous les courriers qui vous sont adressés sont censés être reçus. A vous de signaler tout changement d’adresse."
+    obligation_spec2_explication3: "Le SPIP peut vous apporter de l’aide en cas de difficulté sur ce point. N’hésitez pas à en parler à votre CPIP."
+    obligation_spec2_explication4: "Bonne pratique : préciser par exemple, chez Monsieur ou Madame XXX si votre nom n’est pas sur la boîte aux lettres."
+    obligation_spec2_explication5: "Bonne pratique : pensez aussi à donner votre numéro de téléphone portable pour bénéficier du rappel de convocation par SMS et être appelé directement en cas de difficulté avec votre courrier."
+
+    obligation_spec3_titre: "3. Reçevoir des soins"
+    obligation_spec3_convocation: "Se soumettre à des mesures d'examen médical, de traitement ou de soins, même sous le régime de l'hospitalisation. Ces mesures peuvent consister en l'injonction thérapeutique prévue par les articles L. 3413-1 à L. 3413-4 du code de la santé publique, lorsqu'il apparaît que le condamné fait usage de stupéfiants ou fait une consommation habituelle et excessive de boissons alcooliques."
+    obligation_spec3_explication1: "Vous devez apporter les justificatifs des soins que vous avez engagés."
+    obligation_spec3_explication2: "Il vous appartient de déterminer, avec votre médecin et/ou votre CPIP, les soins qui sont adaptés à votre situation."
+    obligation_spec3_explication3: "Par exemple: soins psychologiques, soins en addictologie (alcool, drogue, jeu...)"
+    obligation_spec3_explication4: "Bonne pratique: pensez à garder tous vos justificatifs (attestation de présence, ordonnance, résultats d’analyses...)"
+
+    obligation_spec4_titre: "4. Participer aux charges familiales"
+    obligation_spec4_convocation: "Justifier qu'il contribue aux charges familiales ou acquitte régulièrement les pensions alimentaires dont il est débiteur."
+    obligation_spec4_explication1: "Vous devez apporter les justificatifs des paiements effectués."
+    obligation_spec4_explication2: "Les paiements sont fixés à la hauteur de vos ressources financières. Parlez-en avec votre CPIP."
+    obligation_spec4_explication3: "Bonne pratique: pensez à garder tous vos justificatifs (mandats cash, relevés bancaires...)"
+
+    obligation_spec5_titre: "5. Réparer les dommages causés"
+    obligation_spec5_convocation: "Réparer en tout ou partie, en fonction de ses facultés contributives, les dommages causés par l'infraction, même en l'absence de décision sur l'action civile."
+    obligation_spec5_explication1: "Vous devez apporter les justificatifs des paiements effectués."
+    obligation_spec5_explication2: "Les paiements sont fixés à la hauteur de vos ressources financières. Parlez-en avec votre CPIP."
+    obligation_spec5_explication3: "Bonne pratique: pensez à garder tous vos justificatifs (mandats cash, relevés bancaires...)"
+
+    obligation_spec6_titre: "6. Payer ses amendes"
+    obligation_spec6_convocation: "Justifier qu'il acquitte en fonction de ses facultés contributives les sommes dues au Trésor public à la suite de la condamnation."
+    obligation_spec6_explication1: "Vous devez apporter les justificatifs des paiements effectués auprès du Trésor Public."
+    obligation_spec6_explication2: "Les paiements sont fixés à la hauteur de vos ressources financières. Parlez-en avec votre CPIP."
+    obligation_spec6_explication3: "Bonne pratique: pensez à garder tous vos justificatifs (mandats cash, relevés bancaires...)"
+    obligation_spec6_explication4: "Bonne pratique : vous pouvez régler votre amende au Bureau d’exécution des peines (BEX) au RDC du Tribunal. Le paiement dans un délai d’un mois vous permet de bénéficier d’une réduction de 20%."
+
+    obligation_spec7_titre: "7. Ne pas conduire certains véhicules"
+    obligation_spec7_convocation: "S'abstenir de conduire certains véhicules déterminés par les catégories de permis prévues par le code de la route ou de conduire un véhicule qui ne soit pas équipé, par un professionnel agréé ou par construction, d'un dispositif homologué d'antidémarrage par éthylotest électronique."
+    obligation_spec7_explication1: "Le non-respect de cette interdiction, même pour une courte durée, une courte distance ou pour une urgence, peut entraîner des sanctions."
+
+    obligation_spec7bis_titre: "7bis. Passer le permis de conduire"
+    obligation_spec7bis_convocation: "Sous réserve de son accord, s'inscrire et se présenter aux épreuves du permis de conduire, le cas échéant après avoir suivi des leçons de conduite."
+    obligation_spec7bis_explication1: "Le SPIP peut vous orienter vers des auto-écoles sociales ou des organismes vous permettant de vous aider à financer le permis de conduire. N’hésitez pas à en parler à votre CPIP."
+    obligation_spec7bis_explication2: "Vous devez apporter les justificatifs de votre inscription et/ou du passage des épreuves."
+
+    obligation_spec8_titre: "8. Ne pas travailler dans un certain domaine"
+    obligation_spec8_convocation: "Ne pas se livrer à l'activité dans l'exercice ou à l'occasion de l'exercice de laquelle l'infraction a été commise ou ne pas exercer une activité impliquant un contact habituel avec des mineurs."
+    obligation_spec8_explication1: "Si vous êtes concerné par cette interdiction, vous n’avez pas le droit de travailler dans un domaine identique à celui pour lequel vous avez été condamné (ex : vous avez escroqué un particulier sur la vente d’une voiture, vous ne pouvez pas travailler chez un concessionnaire)."
+    obligation_spec8_explication2: "Si vous êtes concerné par cette interdiction, vous ne pouvez pas être en contact avec des mineurs dans le cadre d’une activité professionnelle (ex : éducateur sportif, cantinier, etc...)."
+    obligation_spec8_explication3: "Le non-respect de cette interdiction, même pour une courte durée, peut entraîner des sanctions. En cas de doute, parlez-en à votre CPIP."
+
+    obligation_spec9_titre: "9. Ne pas fréquenter certains lieux"
+    obligation_spec9_convocation: "S'abstenir de paraître en tout lieu, toute catégorie de lieux ou toute zone spécialement désignés."
+    obligation_spec9_explication1: "Vous avez l’interdiction de fréquenter certains lieux, catégories de lieux ou zones qui ont été désignés par la juridiction de condamnation."
+    obligation_spec9_explication2: "L’interdiction peut concerner une adresse exacte, une rue, un quartier, un département, une région..."
+    obligation_spec9_explication3: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
+
+    obligation_spec10_titre: "10. Ne pas participer à des jeux d'argent"
+    obligation_spec10_convocation: "Ne pas engager de paris, notamment dans les organismes de paris mutuels, et ne pas prendre part à des jeux d'argent et de hasard."
+    obligation_spec10_explication1: "Vous avez l’interdiction de faire des paris, jeux d’argent ou de hasard (PMU, sites de paris sportifs, casinos, jeux à gratter...)"
+    obligation_spec10_explication2: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
+
+    obligation_spec11_titre: "11. Ne pas entrer dans un bar"
+    obligation_spec11_convocation: "Ne pas fréquenter les débits de boissons."
+    obligation_spec11_explication1: "Vous avez l’interdiction de fréquenter tout établissement qui sert des boissons: bars, pubs..."
+    obligation_spec11_explication2: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
+
+    obligation_spec12_titre: "12. Ne pas contacter certains condamnés"
+    obligation_spec12_convocation: "Ne pas fréquenter certains condamnés, notamment les auteurs ou complices de l'infraction."
+    obligation_spec12_explication1: "Vous avez l’interdiction d’entrer en contact avec les auteurs ou les complices de votre infraction, par tout moyen et quelle qu’en soit la raison."
+    obligation_spec12_explication2: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
+
+    obligation_spec13_titre: "13. Ne pas contacter les victimes"
+    obligation_spec13_convocation: "S'abstenir d'entrer en relation avec certaines personnes, dont la victime, ou certaines catégories de personnes, et notamment des mineurs, à l'exception, le cas échéant, de ceux désignés par la juridiction."
+    obligation_spec13_explication1: "Vous avez l’interdiction d’entrer en contact avec la victime, même par un intermédiaire, quel que soit le moyen utilisé (appel, SMS, réseaux sociaux...)."
+    obligation_spec13_explication2: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
+
+    obligation_spec14_titre: "14. Ne pas posséder d'arme"
+    obligation_spec14_convocation: "Ne pas détenir ou porter une arme."
+    obligation_spec14_explication1: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
+
+    obligation_spec15_titre: "15. Faire un stage"
+    obligation_spec15_convocation: "Accomplir à ses frais un des stages prévus à l'article 131-5-1 du présent code."
+    obligation_spec15_explication1: "Le type de stage dépend du motif de votre condamnation."
+    obligation_spec15_explication2: "La mise en place de ce stage sera organisée avec votre CPIP référent."
+
+    obligation_spec16_titre: "16. Ne pas communiquer sur son infraction"
+    obligation_spec16_convocation: "S'abstenir de diffuser tout ouvrage ou œuvre audiovisuelle dont il serait l'auteur ou le coauteur et qui porterait, en tout ou partie, sur l'infraction commise et s'abstenir de toute intervention publique relative à cette infraction. [les dispositions du présent alinéa ne sont applicables qu'en cas de condamnation pour crimes ou délits d'atteintes volontaires à la vie, d'agressions sexuelles ou d'atteintes sexuelles ;]"
+    obligation_spec16_explication1: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
+
+    obligation_spec17_titre: "17. Respecter les décisions sur la garde des enfants"
+    obligation_spec17_convocation: "Remettre ses enfants entre les mains de ceux auxquels la garde a été confiée par décision de justice."
+    obligation_spec17_explication1: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
+
+    obligation_spec18_titre: "18. Ne pas se rendre au domicile conjugal"
+    obligation_spec18_convocation: "En cas d'infraction commise soit contre son conjoint, son concubin ou son partenaire lié par un pacte civil de solidarité, soit contre ses enfants ou ceux de son conjoint, concubin ou partenaire, résider hors du domicile ou de la résidence du couple et, le cas échéant, s'abstenir de paraître dans ce domicile ou cette résidence ou aux abords immédiats de celui-ci, ainsi que, si nécessaire, faire l'objet d'une prise en charge sanitaire, sociale ou psychologique. [les dispositions du présent 19° sont également applicables lorsque l'infraction est commise par l'ancien conjoint ou concubin de la victime, ou par la personne ayant été liée à elle par un pacte civil de solidarité, le domicile concerné étant alors celui de la victime. Pour l'application du présent 19°, l'avis de la victime est recueilli, dans les meilleurs délais et par tous moyens, sur l'opportunité d'imposer au condamné de résider hors du logement du couple. Sauf circonstances particulières, cette mesure est prise lorsque sont en cause des faits de violences susceptibles d'être renouvelés et que la victime la sollicite. La juridiction peut préciser les modalités de prise en charge des frais afférents à ce logement.]"
+    obligation_spec18_explication1: "Le non-respect de cette interdiction, même pour une courte durée, même une fois, peut entraîner des sanctions."
+    obligation_spec18_explication2: "En cas de difficulté liée au respect de cette interdiction (logement, soins), parlez-en à votre CPIP. Il pourra vous accompagner."
+
+    obligation_spec18bis_titre: "18bis. Ne pas s'approcher de son ex-conjoint"
+    obligation_spec18bis_convocation: "Respecter l'interdiction de se rapprocher d'une victime de violences commises au sein du couple prévue à l'article 132-45-1 du présent code contrôlée par un dispositif électronique mobile anti-rapprochement."
+    obligation_spec18bis_explication1: "Si vous êtes porteur d’un bracelet anti-rapprochement (BAR), vous ne devez pas vous rapprocher de la victime protégée par ce dispositif."
+
+    obligation_spec19_titre: "19. Demander l'autorisation en cas de déplacement à l'étranger"
+    obligation_spec19_convocation: "Obtenir l'autorisation préalable du juge de l'application des peines pour tout déplacement à l'étranger."
+    obligation_spec19_explication1: "Vous devez demander l’autorisation du JAP pour tout déplacement à l’étranger (même en Europe). Vous devez attendre l’autorisation écrite avant de quitter le territoire français. "
+
+    obligation_spec20_titre: "20. Se faire accompagner dans une structure spécialisée"
+    obligation_spec20_convocation: "Respecter les conditions d'une prise en charge sanitaire, sociale, éducative ou psychologique, destinée à permettre sa réinsertion et l'acquisition des valeurs de la citoyenneté ; cette prise en charge peut, le cas échéant, intervenir au sein d'un établissement d'accueil adapté dans lequel le condamné est tenu de résider."
+    obligation_spec20_explication1: "Ce type de prise en charge est mis en place et organisé avec votre CPIP référent."
+    obligation_spec20_explication2: "Elle implique un suivi par une partenaire désigné par la Justice, qui vous accompagnera dans votre réinsertion au sein de la société."
+
+    obligation_spec21_titre: "21. Effectuer un travail d'intérêt général"
+    obligation_spec21_convocation: "L'obligation d'accomplir un travail d'intérêt général, selon les modalités prévues à l'article 131-8 ; le condamné doit en ce cas se soumettre à l'examen médical prévu au dernier alinéa de l'article 131-22."
+    obligation_spec21_explication1: "La mise en place de ce travail d’intérêt général (TIG) sera discutée avec votre CPIP référent."
+    obligation_spec21_explication2: "Il existe de nombreux postes: individuels ou collectifs, près de votre résidence ou un peu plus éloigné, en semaine, en soirée, le weekend..."
+
+    obligation_spec22_titre: "22. Reçevoir des soins"
+    obligation_spec22_convocation: "L'injonction de soins, dans les conditions prévues aux articles L. 3711-1 à L. 3711-5 du code de la santé publique, si la personne a été condamnée pour un délit pour lequel le suivi socio-judiciaire est encouru et qu'une expertise médicale a conclu qu'elle était susceptible de faire l'objet d'un traitement."
+    obligation_spec22_explication1: "Avec votre peine de suivi socio-judiciaire, vous êtes soumis à une injonction de soin."
+    obligation_spec22_explication2: "Vous avez un interlocuteur supplémentaire: un médecin coordonnateur, qui fait l’intermédiaire entre la Justice et le soin."
+    obligation_spec22_explication3: "Si vous arrêtez ou refusez le traitement, le médecin informe le JAP ou le CPIP."
+    obligation_spec22_explication4: "Cet arrêt ou ce refus constitue un manquement qui peut entraîner des sanctions."
+
+    obligation_spec23_titre: "23. Remettre un bien confisqué"
+    obligation_spec23_convocation: "L'obligation de justifier de la remise d'un bien dont la confiscation a été ordonnée."
+    obligation_spec23_explication1: "Vous devez apporter les justificatifs de la remise du bien confisqué par le tribunal."
+    obligation_spec23_explication2: "Par exemple, il peut s’agir de votre passeport, d’un véhicule..."
+
+    obligation_spec24_titre: "24. Payer ses impôts"
+    obligation_spec24_convocation: "L'obligation de justifier du paiement régulier des impôts."
+    obligation_spec24_explication1: "Vous devez apporter les justificatifs des paiements effectués auprès du Trésor Public."
+    obligation_spec24_explication2: "Bonne pratique : pensez à garder tous vos justificatifs (mandats cash, relevés bancaires...)"
+
+    obligation_spec25_titre: "25. Tenir une comptabilité régulière"
+    obligation_spec25_convocation: "L'obligation de justifier de la tenue d'une comptabilité régulière certifiée par un commissaire aux comptes."
+    obligation_spec25_explication1: "Vous devez apporter les justificatifs de la tenue de cette comptabilité."
+    obligation_spec25_explication2: "Bonne pratique : pensez à garder tous vos justificatifs (mandats cash, relevés bancaires...)"

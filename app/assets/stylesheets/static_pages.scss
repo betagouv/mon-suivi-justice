@@ -1,16 +1,30 @@
-.home-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
+.static-page-container {
+  width: 100%;
+  padding: 20px;
 }
 
-.home-title {
-  color: $home-title;
-  margin-bottom: 30px;
+.static-title {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-.home-to-admin-button {
-  @include button($grey);
+.static-text-header {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.static-text-bloc {
+  margin-bottom: 10px;
+}
+
+.static-secondary-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.static-separator {
+  width: 50%;
+  margin: 20px auto;
+  color: $light-grey;
 }

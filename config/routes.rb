@@ -22,4 +22,9 @@ Rails.application.routes.draw do
   get '/jap_appointments' => 'appointments#index_jap', as: 'jap_appointments'
 
   root 'static_pages#home'
+
+  scope controller: :static_pages do
+    get :home
+    get :comprendre_mes_mesures
+  end
 end
