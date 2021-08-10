@@ -1,7 +1,7 @@
 <section class="sidebar">
   <% if policy(:convict).index? %>
     <%= link_to convicts_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_url([convicts_path, new_convict_path]) %>">
+      <div class="sidebar-item <%= active_class_if_controller('convicts') %>">
         <%= t('sidebar.convicts') %>
       </div>
     <% end %>
@@ -9,7 +9,7 @@
 
   <% if policy(:appointment).index? %>
     <%= link_to appointments_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_url([appointments_path, new_appointment_path, today_appointments_path, jap_appointments_path]) %>">
+      <div class="sidebar-item <%= active_class_if_controller('appointments') %>">
         <%= t('sidebar.appointments') %>
       </div>
     <% end %>
@@ -17,7 +17,7 @@
 
   <% if policy(:appointment_type).index? %>
     <%= link_to appointment_types_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_url([appointment_types_path, appointment_type_path(:id)]) %>">
+      <div class="sidebar-item <%= active_class_if_controller('appointment_types') %>">
         <%= t('sidebar.appointment_types') %>
       </div>
     <% end %>
@@ -25,7 +25,7 @@
 
   <% if policy(:place).index? %>
     <%= link_to places_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_url([places_path, new_place_path, edit_place_path(:id)]) %>">
+      <div class="sidebar-item <%= active_class_if_controller('places') %>">
         <%= t('sidebar.places') %>
       </div>
     <% end %>
@@ -33,7 +33,7 @@
 
   <% if policy(:slot).index? %>
     <%= link_to slots_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_url([slots_path, new_slot_path]) %>">
+      <div class="sidebar-item <%= active_class_if_controller('slots') %>">
         <%= t('sidebar.slots') %>
       </div>
     <% end %>
@@ -41,7 +41,7 @@
 
   <% if policy(:user).index? %>
     <%= link_to users_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_url([users_path, new_user_path]) %>">
+      <div class="sidebar-item <%= active_class_if_controller('users') %>">
         <%= t('sidebar.users') %>
       </div>
     <% end %>

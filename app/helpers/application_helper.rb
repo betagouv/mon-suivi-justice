@@ -1,6 +1,6 @@
 module ApplicationHelper
-  def active_class_if_url(urls)
-    urls.include?(request.path) ? 'sidebar-active-item' : ''
+  def active_class_if_controller(controller)
+    params[:controller] == controller ? 'sidebar-active-item' : ''
   end
 
   def num_to_phone(num)

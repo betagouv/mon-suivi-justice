@@ -132,7 +132,7 @@ fr:
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"
   show_user_title: "Mes informations"
-  edit_user_title: "Modifier mes informations"
+  edit_user_title: "Modifier informations"
 
   new_convict_title: "Nouvelle PPSMJ"
   new_first_appointment_title: "Créneaux disponibles"
