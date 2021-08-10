@@ -1,4 +1,4 @@
-<h1 class='show-title'><%= t('show_convict_title') %></h1>
+<h1 class='show-title'><%= t('show_appointment_title') %></h1>
 
 <div class='show-profile-container'>
   <div class='show-data-container'>
@@ -55,41 +55,50 @@
   </div>
 
   <div class='show-button-to-edit-container'>
-    <%= button_to t('edit'), edit_convict_path(params[:id]),
-                             method: :get,
-                             class: 'show-button-to-edit' %>
+    <%= button_to t('see_profile'), convict_path(@convict.id),
+                                    method: :get,
+                                    class: 'show-button-to-edit' %>
   </div>
 </div>
 
-<% if policy(:appointment).new? %>
-  <div class='show-convict-new-appointment-container'>
-    <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
-                                                   class: 'link-to-new-appointment-button',
-                                                   form_class: 'link-to-new-appointment-form',
-                                                   method: :get %>
-  </div>
-<% end %>
-
-<h2 class='show-secondary-title'><%= t('show_convict_history_title') %></h2>
-
-<div class='show-history-container'>
-  <% @appointments.each do |appointment| %>
-    <div class='show-history-item-container'>
-      <div class='show-history-item-header'>
-        <div class='show-history-item-icon'>
-          <%= fa_icon 'circle' %>
+<div class='show-appointment-container'>
+  <div class='show-appointment-summon-container'>
+    <div class='show-appointment-data-container'>
+      <div class='show-appointment-summon-data'>
+        <div class='show-appointment-summon-title'>
+          <%= t('appointment_place') %>
         </div>
-        <div class='show-history-item-creation'>
-          <%= appointment.created_at.strftime('%d/%m/%Y %H:%M') %>
+        <div class='show-appointment-summon-item'>
+          <%= @appointment.slot.agenda.place.name %>
         </div>
       </div>
-      <div class='show-history-item'>
-        <%= t('show_convict_history_summon', place: appointment.slot.agenda.place.name,
-                                             date:appointment.slot.date,
-                                             time: appointment.slot.starting_time.to_s(:time)) %>
-
-        <%= link_to t('see'), appointment_path(appointment), class: 'show-convict-history-control' %>
+      <div class='show-appointment-summon-data'>
+        <div class='show-appointment-summon-title'>
+          <%= t('appointment_date') %>
+        </div>
+        <div class='show-appointment-summon-item'>
+          <%= @appointment.slot.date %>
+        </div>
+      </div>
+      <div class='show-appointment-summon-data'>
+        <div class='show-appointment-summon-title'>
+          <%= t('appointment_starting_time') %>
+        </div>
+        <div class='show-appointment-summon-item'>
+          <%= @appointment.slot.starting_time.to_s(:time) %>
+        </div>
+      </div>
+      <div class='show-appointment-summon-data'>
+        <div class='show-appointment-summon-title'>
+          <%= t('appointment_state') %>
+        </div>
+        <div class='show-appointment-summon-item'>
+          <%= @appointment.human_state_name %>
+        </div>
       </div>
     </div>
-  <% end %>
+
+    <div class='show-appointment-controls-container'>
+    </div>
+  </div>
 </div>

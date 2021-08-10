@@ -120,4 +120,25 @@ RSpec.feature 'Appointments', type: :feature do
                                            .and change { Notification.count }.by(1)
     end
   end
+
+  describe 'show' do
+    it 'displays appointment data' do
+      slot = create(:slot, date: '06/10/2021', starting_time: new_time_for(17, 0))
+      convict = create(:convict, first_name: 'Monique', last_name: 'Lassalle')
+
+      appointment = create(:appointment, slot: slot, convict: convict)
+
+      visit appointment_path(appointment)
+
+      expect(page).to have_content('06/10/2021')
+      expect(page).to have_content('17:00')
+      expect(page).to have_content('Monique')
+      expect(page).to have_content('LASSALLE')
+    end
+  end
+
+  # describe 'cancelation' do
+  #   it 'change state and cancel notifications' do
+  #   end
+  # end
 end

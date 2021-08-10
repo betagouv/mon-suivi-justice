@@ -11,24 +11,11 @@ class AppointmentsController < ApplicationController
     authorize @appointments
   end
 
-  def index_today
-    @q = Appointment.for_today.ransack(params[:q])
-    @appointments = @q.result
-                      .joins(slot: [agenda: [:place]])
-                      .includes(slot: [agenda: [:place]])
+  def show
+    @appointment = Appointment.find(params[:id])
+    @convict = @appointment.convict
 
-    authorize @appointments
-  end
-
-  def index_jap
-    current_date = params.key?(:date) ? params[:date] : Date.today.next_occurring(:friday)
-
-    @appointments = Appointment.for_a_date(current_date)
-                               .joins(slot: [:appointment_type, :agenda])
-                               .where(appointment_type: { name: 'RDV BEX SAP' })
-                               .group('agendas.name,appointments.id')
-
-    authorize @appointments
+    authorize @appointment
   end
 
   def new
@@ -43,7 +30,7 @@ class AppointmentsController < ApplicationController
 
     if @appointment.save
       @appointment.book
-      redirect_to appointments_path
+      redirect_to appointment_path(@appointment)
     else
       render :new
     end
@@ -86,6 +73,26 @@ class AppointmentsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def index_today
+    @q = Appointment.for_today.ransack(params[:q])
+    @appointments = @q.result
+                      .joins(slot: [agenda: [:place]])
+                      .includes(slot: [agenda: [:place]])
+
+    authorize @appointments
+  end
+
+  def index_jap
+    current_date = params.key?(:date) ? params[:date] : Date.today.next_occurring(:friday)
+
+    @appointments = Appointment.for_a_date(current_date)
+                               .joins(slot: [:appointment_type, :agenda])
+                               .where(appointment_type: { name: 'RDV BEX SAP' })
+                               .group('agendas.name,appointments.id')
+
+    authorize @appointments
   end
 
   private

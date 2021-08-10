@@ -65,6 +65,13 @@ fr:
       agenda:
         name: Nom
 
+    state_machines:
+      states:
+        waiting: "En attente"
+        booked: "Planifié"
+      events:
+        book: "Plannifier"
+
     errors:
       phone_format: "Doit être saisi au format XXXXXXXXXX (pas d'espace ni de tirets)"
       models:
@@ -113,8 +120,9 @@ fr:
   submit: "Enregistrer"
   search: "Recherche"
   filter: "Filtrer"
+  see: "Voir"
+  see_profile: "Voir profil"
   delete_confirmation: "Êtes-vous sûr(e)?"
-  delete_place_confirmation: "Attention, en supprimant ce lieu, vous supprimez tous les créneaux associés et les rendez-vous programmés."
   my_profile: "Mon profil"
   log_out: "Déconnexion"
   print_button: "Imprimer"
@@ -137,7 +145,12 @@ fr:
   show_convict_title: "Profil PPSMJ"
   show_convict_history_title: Historique
   show_convict_new_appointment: Prendre rendez-vous
+  show_convict_history_summon: "A été convoqué au %{place} le %{date} à %{time}."
 
+  appointment_place: "Lieu de RDV"
+  appointment_date: "Date"
+  appointment_starting_time: "Heure"
+  appointment_state: "Statut"
   new_appointment_title: "Nouveau rendez-vous"
   new-appointment-place: "Lieu de rendez-vous :"
   new-appointment-available-slots: Créneaux disponibles
@@ -145,13 +158,12 @@ fr:
   new-appointment-no-place: "Vous n'avez accès à aucun lieu proposant ce type de RDV"
   new_appointment_reload: "Recharger"
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
-  index-appointment-place-filter: "Lieu de RDV"
-  index-appointment-place-title: "Lieu de RDV"
   index-appointment-agenda-filter: "Agenda"
   today_appointments_title: "RDV SPIP du jour"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
   new-appointment-help: "Sélectionnez un lieu de RDV pour afficher les créneaux disponibles."
   new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi immédiat d'un SMS de confirmation à la PPSMJ et l'envoi d'un SMS de rappel avant le rendez-vous (si un numéro de téléphone a été donné)."
+  show_appointment_title: "Infos rendez-vous"
 
   new-appointment-cab-list-title: 'Liste des cabinets par secteur'
   new-appointment-cab1-name: 'Cabinet 1 -'
@@ -196,6 +208,7 @@ fr:
   edit_place_title: "Modifier Lieu"
   edit_place_agendas: Agendas
   edit_place_add_agenda: Ajouter agenda
+  delete_place_confirmation: "Attention, en supprimant ce lieu, vous supprimez tous les créneaux associés et les rendez-vous programmés."
 
   new_slot_title: "Nouveau Créneau"
   new_slot_submit: "Enregistrer"

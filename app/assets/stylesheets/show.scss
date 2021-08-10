@@ -36,6 +36,10 @@
 .show-data-item-container{
   display: flex;
   margin-bottom: 10px;
+
+  &:last-child{
+    margin-bottom: 0;
+  }
 }
 
 .show-data-label {
@@ -60,12 +64,13 @@
 }
 
 .show-history-item-container {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .show-history-item-header {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .show-history-item-icon {
@@ -76,6 +81,11 @@
 
 .show-history-item {
   margin-left: 20px;
+}
+
+.show-convict-history-control {
+  margin-left: 10px;
+  color: $link;
 }
 
 .show-convict-new-appointment-container {
