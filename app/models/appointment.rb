@@ -33,8 +33,15 @@ class Appointment < ApplicationRecord
     state :booked do
     end
 
+    state :canceled do
+    end
+
     event :book do
       transition waiting: :booked
+    end
+
+    event :cancel do
+      transition booked: :canceled
     end
 
     after_transition on: :book do |appointment|
@@ -47,7 +54,7 @@ class Appointment < ApplicationRecord
         NotificationFactory.perform(appointment)
 
         appointment.summon_notif&.send_now
-        appointment.reminder_notif&.send_later
+        appointment.reminder_notif&.program
       end
     end
   end

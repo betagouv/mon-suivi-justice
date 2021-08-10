@@ -23,8 +23,6 @@ RSpec.describe SendinblueAdapter do
 
   describe 'format_data' do
     it 'prepares data for SMS' do
-      allow_any_instance_of(Notification).to receive(:format_content)
-
       convict = create(:convict, phone: '0622334455')
       appointment = create(:appointment, convict: convict)
 

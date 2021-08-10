@@ -17,6 +17,7 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+    - app/models/notification.rb
 
 Style/Documentation:
   Enabled: false
@@ -30,6 +31,7 @@ Bundler/OrderedGems:
 Lint/EmptyBlock:
   Exclude:
     - app/models/appointment.rb
+    - app/models/notification.rb
 
 Layout/MultilineMethodCallIndentation:
   Exclude:
@@ -42,7 +44,12 @@ Style/FormatStringToken:
 Style/SymbolArray:
   Exclude:
     - app/controllers/**/*
+    - app/models/notification.rb
 
 Style/IfUnlessModifier:
   Exclude:
     - app/models/appointment.rb
+
+Metrics/MethodLength:
+  Exclude:
+    - app/services/notification_factory.rb

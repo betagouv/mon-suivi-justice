@@ -69,6 +69,7 @@ fr:
       states:
         waiting: "En attente"
         booked: "Planifié"
+        canceled: "Annulé"
       events:
         book: "Plannifier"
 

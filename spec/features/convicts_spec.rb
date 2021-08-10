@@ -48,8 +48,6 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'creates a convict with his first appointment', js: true do
-      allow_any_instance_of(Notification).to receive(:format_content)
-
       place = create(:place, name: 'McDo de Clichy')
       agenda = create(:agenda, place: place, name: 'Agenda de Jean-Louis')
       create(:agenda, place: place, name: 'Agenda de Michel')

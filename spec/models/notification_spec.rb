@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
+  subject { build(:notification) }
+
   it { should belong_to(:appointment) }
   it { should validate_presence_of(:template) }
 
@@ -45,7 +47,6 @@ RSpec.describe Notification, type: :model do
       Sidekiq::Testing.inline! do
         api_mock = instance_double(SibApiV3Sdk::TransactionalSMSApi)
         allow(SibApiV3Sdk::TransactionalSMSApi).to receive(:new).and_return(api_mock)
-        allow_any_instance_of(Notification).to receive(:format_content)
 
         expect(api_mock).to receive(:send_transac_sms)
 
@@ -57,7 +58,7 @@ RSpec.describe Notification, type: :model do
     end
   end
 
-  describe 'send_later' do
+  describe 'program' do
     it 'sends at the proper delivery time' do
       slot = create(:slot, date: '04/08/2021', starting_time: new_time_for(17, 30))
       appointment_type = create(:appointment_type)
@@ -67,7 +68,6 @@ RSpec.describe Notification, type: :model do
 
       appointment = create(:appointment, appointment_type: appointment_type, slot: slot)
 
-      allow_any_instance_of(Notification).to receive(:format_content)
       NotificationFactory.perform(appointment)
 
       notification = appointment.reminder_notif
@@ -75,7 +75,17 @@ RSpec.describe Notification, type: :model do
 
       expect(SmsDeliveryJob).to receive(:set).with(wait_until: expected_time) { double(perform_later: true) }
 
-      notification.send_later
+      notification.program
     end
+  end
+
+  describe 'state machine' do
+    it { is_expected.to have_states :created, :programmed, :canceled, :sent }
+
+    it { is_expected.to transition_from :created, to_state: :programmed, on_event: :program }
+    it { is_expected.to transition_from :created, to_state: :sent, on_event: :send_now }
+
+    it { is_expected.to transition_from :programmed, to_state: :sent, on_event: :send_then }
+    it { is_expected.to transition_from :programmed, to_state: :canceled, on_event: :cancel }
   end
 end

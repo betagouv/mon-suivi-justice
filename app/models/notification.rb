@@ -7,33 +7,43 @@ class Notification < ApplicationRecord
   enum role: %i[summon reminder]
   enum reminder_period: %i[one_day two_days]
 
-  after_create do
-    format_content
-  end
+  state_machine initial: :created do
+    state :created do
+    end
 
-  def send_later
-    SmsDeliveryJob.set(wait_until: delivery_time).perform_later(self)
-  end
+    state :programmed do
+    end
 
-  def send_now
-    SmsDeliveryJob.perform_later(self)
-  end
+    state :canceled do
+    end
 
-  private
+    state :sent do
+    end
 
-  def format_content
-    update(content: template % sms_data)
-  end
+    event :program do
+      transition created: :programmed
+    end
 
-  def sms_data
-    slot = appointment.slot
-    {
-      appointment_hour: slot.starting_time.to_s(:lettered),
-      appointment_date: slot.date.to_s(:base_date_format),
-      place_name: slot.agenda.place.name,
-      place_adress: slot.agenda.place.adress,
-      place_phone: slot.agenda.place.phone
-    }
+    event :send_now do
+      transition created: :sent
+    end
+
+    event :send_then do
+      transition programmed: :sent
+    end
+
+    event :cancel do
+      transition [:created, :programmed] => :canceled
+    end
+
+    after_transition on: :send_now do |notification|
+      SmsDeliveryJob.perform_later(notification.id, notification.updated_at)
+    end
+
+    after_transition on: :program do |notification|
+      SmsDeliveryJob.set(wait_until: notification.delivery_time)
+                    .perform_later(notification.id, notification.updated_at)
+    end
   end
 
   def delivery_time
@@ -47,8 +57,6 @@ class Notification < ApplicationRecord
   end
 
   def hour_delay
-    HOUR_DELAYS.fetch(reminder_period)
+    { 'one_day' => 24, 'two_days' => 48 }.fetch(reminder_period)
   end
-
-  HOUR_DELAYS = { 'one_day' => 24, 'two_days' => 48 }.freeze
 end

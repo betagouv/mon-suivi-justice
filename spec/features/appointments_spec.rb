@@ -137,8 +137,25 @@ RSpec.feature 'Appointments', type: :feature do
     end
   end
 
-  # describe 'cancelation' do
-  #   it 'change state and cancel notifications' do
-  #   end
-  # end
+  xdescribe 'cancelation' do
+    it 'change state and cancel notifications' do
+      apt_type = create(:appointment_type, :with_notification_types)
+      appointment = create(:appointment, appointment_type: apt_type)
+
+      appointment.book
+      expect(appointment.state).to eq('booked')
+      expect(appointment.notifications.count).to eq(2)
+      expect(appointment.reminder_notif.state).to eq('programmed')
+
+      visit appointment_path(appointment)
+
+      # byebug
+
+      click_button 'Annuler'
+
+      appointment.reload
+      expect(appointment.state).to eq('canceled')
+      expect(appointment.reminder_notif.state).to eq('canceled')
+    end
+  end
 end

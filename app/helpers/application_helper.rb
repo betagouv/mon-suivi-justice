@@ -1,8 +1,6 @@
 module ApplicationHelper
   def active_class_if_url(urls)
-    return 'sidebar-active-item' if urls.include?(request.path)
-
-    ''
+    urls.include?(request.path) ? 'sidebar-active-item' : ''
   end
 
   def num_to_phone(num)
