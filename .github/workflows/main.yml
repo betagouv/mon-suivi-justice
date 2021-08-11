@@ -71,6 +71,11 @@ jobs:
 
       - name: Test seed file
         run: bundle exec rails db:seed RAILS_ENV=test
+        env:
+          DATABASE_URL: localhost
+          MSJ_DB_USER: msj
+          MSJ_DB_PASSWORD: msj
+          MSJ_DB_NAME: msj_test
 
       # - name: Deploy staging
       #   run: bin/deploy-staging
