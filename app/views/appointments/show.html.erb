@@ -99,6 +99,11 @@
     </div>
 
     <div class='show-appointment-controls-container'>
+      <%= button_to t('cancel'), appointment_cancel_path(@appointment),
+                                 method: :put,
+                                 data: { confirm: 'Vraiment ?' },
+                                 class: 'show-button-to-edit',
+                                 disabled: !@appointment.booked? %>
     </div>
   </div>
 </div>

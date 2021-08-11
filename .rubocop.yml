@@ -18,6 +18,7 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*
     - app/models/notification.rb
+    - app/models/appointment.rb
 
 Style/Documentation:
   Enabled: false

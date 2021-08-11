@@ -10,9 +10,12 @@ Rails.application.routes.draw do
   resources :convicts
   resources :users
   resources :places
-  resources :appointments
   resources :appointment_types
   resources :slots
+
+  resources :appointments do
+    put 'cancel'
+  end
 
   get '/display_slots' => 'appointments#display_slots', as: 'display_slots'
   get '/display_places' => 'appointments#display_places', as: 'display_places'

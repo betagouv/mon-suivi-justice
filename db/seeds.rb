@@ -3,7 +3,7 @@ User.create!(email: 'admin@example.com', password: 'password', password_confirma
 place = Place.create!(name: "Tribunal d'Ancenis", adress: "133 Av. Robert Schuman, 44150 Ancenis", place_type: :sap, phone: '0606060606')
 agenda = Agenda.create!(place: place, name: "Agenda tribunal Ancenis")
 
-appointment_type = AppointmentType.create!(name: 'RDV de test SAP', place_type: :spip)
+appointment_type = AppointmentType.create!(name: 'RDV de test SAP', place_type: :sap)
 
 NotificationType.create!(appointment_type: appointment_type, role: :summon, template: "Vous êtes convoqué, merci de venir.")
 NotificationType.create!(appointment_type: appointment_type, role: :reminder, template: "RAPPEL Vous êtes convoqué, vraiment il faut venir.", reminder_period: :two_days)
@@ -33,3 +33,5 @@ appointment_type.slot_types.each do |slot_type|
     )
   end
 end
+
+p 'database seeded'

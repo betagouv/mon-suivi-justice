@@ -30,4 +30,8 @@ class AppointmentPolicy < ApplicationPolicy
   def destroy?
     true
   end
+
+  def cancel?
+    true
+  end
 end

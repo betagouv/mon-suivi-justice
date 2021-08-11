@@ -36,6 +36,14 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def cancel
+    @appointment = Appointment.find(params[:appointment_id])
+    @appointment.cancel!
+
+    authorize @appointment
+    redirect_back(fallback_location: root_path)
+  end
+
   def display_places
     skip_authorization
     @appointment_type = AppointmentType.find(params[:apt_type_id])

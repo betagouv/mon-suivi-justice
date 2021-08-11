@@ -57,5 +57,9 @@ class Appointment < ApplicationRecord
         appointment.reminder_notif&.program
       end
     end
+
+    after_transition on: :cancel do |appointment|
+      appointment.reminder_notif.cancel!
+    end
   end
 end
