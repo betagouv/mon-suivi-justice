@@ -46,7 +46,7 @@ jobs:
         run: yarn install
 
       - name: Setup test db
-        run: bundle exec rails db:create db:schema:load db:migrate db:seed RAILS_ENV=test
+        run: bundle exec rails db:create db:schema:load db:migrate RAILS_ENV=test
         env:
           DATABASE_URL: localhost
           MSJ_DB_USER: msj
