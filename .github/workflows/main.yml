@@ -70,7 +70,7 @@ jobs:
         run: bundle exec rubocop
 
       - name: Test seed file
-        run: rails db:seed
+        run: bundle exec rails db:seed
 
       # - name: Deploy staging
       #   run: bin/deploy-staging
