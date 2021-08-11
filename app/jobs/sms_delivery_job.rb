@@ -3,9 +3,8 @@ class SmsDeliveryJob < ApplicationJob
 
   queue_as :default
 
-  def perform(notification_id, notification_updated_at)
-    notification = Notification.find(notification_id)
-    return if notification_updated_at != notification.updated_at
+  def perform(notification)
+    return if notification.canceled?
 
     SendinblueAdapter.new.send_sms(notification)
   end

@@ -26,6 +26,10 @@ class Appointment < ApplicationRecord
     notifications.find_by(role: :reminder)
   end
 
+  def cancelation_notif
+    notifications.find_by(role: :cancelation)
+  end
+
   state_machine initial: :waiting do
     state :waiting do
     end
@@ -51,15 +55,18 @@ class Appointment < ApplicationRecord
       end
 
       if appointment.convict.phone?
-        NotificationFactory.perform(appointment)
+        appointment.transaction do
+          NotificationFactory.perform(appointment)
 
-        appointment.summon_notif&.send_now
-        appointment.reminder_notif&.program
+          appointment.summon_notif.send_now!
+          appointment.reminder_notif.program!
+        end
       end
     end
 
     after_transition on: :cancel do |appointment|
       appointment.reminder_notif.cancel!
+      appointment.cancelation_notif.send_now!
     end
   end
 end

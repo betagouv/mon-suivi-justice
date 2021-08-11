@@ -4,7 +4,7 @@ class Notification < ApplicationRecord
   belongs_to :appointment
   validates :template, presence: true
 
-  enum role: %i[summon reminder]
+  enum role: %i[summon reminder cancelation]
   enum reminder_period: %i[one_day two_days]
 
   state_machine initial: :created do
@@ -37,12 +37,12 @@ class Notification < ApplicationRecord
     end
 
     after_transition on: :send_now do |notification|
-      SmsDeliveryJob.perform_later(notification.id, notification.updated_at)
+      SmsDeliveryJob.perform_later(notification)
     end
 
     after_transition on: :program do |notification|
       SmsDeliveryJob.set(wait_until: notification.delivery_time)
-                    .perform_later(notification.id, notification.updated_at)
+                    .perform_later(notification)
     end
   end
 

@@ -41,15 +41,22 @@ RSpec.feature 'AppointmentType', type: :feature do
       notif_type2 = create(:notification_type, appointment_type: @appointment_type,
                                                role: :reminder,
                                                template: 'Man')
+      notif_type3 = create(:notification_type, appointment_type: @appointment_type,
+                                               role: :cancelation,
+                                               template: 'Bruh')
 
       visit edit_appointment_type_path(@appointment_type)
 
-      within first('.notification-type-container') do
+      within first('.summon-container') do
         fill_in 'Template', with: 'Yolo'
       end
 
       within first('.reminder-container') do
         fill_in 'Template', with: 'Girl'
+      end
+
+      within first('.cancelation-container') do
+        fill_in 'Template', with: 'Bwah'
       end
 
       click_button 'Enregistrer'
@@ -59,6 +66,9 @@ RSpec.feature 'AppointmentType', type: :feature do
 
       notif_type2.reload
       expect(notif_type2.template).to eq('Girl')
+
+      notif_type3.reload
+      expect(notif_type3.template).to eq('Bwah')
     end
 
     it 'allows to add slot types', js: true do

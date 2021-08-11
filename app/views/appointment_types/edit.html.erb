@@ -23,7 +23,7 @@
     <h2 class='form-secondary-title'><%= t('edit_appointment_type_notifications') %></h2>
 
     <%= f.simple_fields_for :notification_types, @appointment_type.summon_notif do |p| %>
-      <div class='notification-type-container'>
+      <div class='notification-type-container summon-container'>
         <p class='notification-type-role'>
           - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.summon_notif.role}").capitalize %>
         </p>
@@ -41,6 +41,15 @@
                                       input_html: { class: 'form-select' },
                                       required: true %>
 
+        <%= p.input :template, input_html: { class: 'form-textarea' } %>
+      </div>
+    <% end %>
+
+    <%= f.simple_fields_for :notification_types, @appointment_type.cancelation_notif do |p| %>
+      <div class='notification-type-container cancelation-container'>
+        <p class='notification-type-role'>
+          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.cancelation_notif.role}").capitalize %>
+        </p>
         <%= p.input :template, input_html: { class: 'form-textarea' } %>
       </div>
     <% end %>

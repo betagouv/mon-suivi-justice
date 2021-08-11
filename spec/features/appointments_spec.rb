@@ -94,15 +94,17 @@ RSpec.feature 'Appointments', type: :feature do
     it 'works' do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       place = create(:place, name: 'KFC de Chatelet', place_type: 'sap')
-      appointment_type = create(:appointment_type, name: 'RDV suivi SAP', place_type: 'sap')
+
+      appointment_type = create(:appointment_type, :with_notification_types,
+                                name: 'RDV suivi SAP',
+                                place_type: 'sap')
+
       agenda = create(:agenda, place: place, name: 'Agenda de Josiane')
       create(:agenda, place: place, name: 'Agenda de Michel')
 
       create(:slot, agenda: agenda,
                     appointment_type: appointment_type,
                     date: '10/10/2021', starting_time: '16h')
-
-      create(:notification_type, appointment_type: appointment_type)
 
       visit new_appointment_path
 
@@ -117,7 +119,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       expect(page).to have_button('Enregistrer')
       expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)
-                                           .and change { Notification.count }.by(1)
+                                           .and change { Notification.count }.by(3)
     end
   end
 
@@ -144,18 +146,18 @@ RSpec.feature 'Appointments', type: :feature do
 
       appointment.book
       expect(appointment.state).to eq('booked')
-      expect(appointment.notifications.count).to eq(2)
+      expect(appointment.notifications.count).to eq(3)
       expect(appointment.reminder_notif.state).to eq('programmed')
+      expect(appointment.cancelation_notif.state).to eq('created')
 
       visit appointment_path(appointment)
-
-      # byebug
 
       click_button 'Annuler'
 
       appointment.reload
       expect(appointment.state).to eq('canceled')
       expect(appointment.reminder_notif.state).to eq('canceled')
+      expect(appointment.cancelation_notif.state).to eq('sent')
 
       expect(page).to have_current_path(appointment_path(appointment))
     end

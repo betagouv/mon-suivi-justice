@@ -46,16 +46,17 @@ RSpec.describe Slot, type: :model do
 
   describe 'capacity' do
     it 'allows multiple appointments for a slot' do
+      appointment_type = create(:appointment_type, :with_notification_types)
       slot = create(:slot, available: true, capacity: 3, used_capacity: 0)
 
-      create(:appointment, slot: slot).book
+      create(:appointment, appointment_type: appointment_type, slot: slot).book
 
       slot.reload
       expect(slot.used_capacity).to eq(1)
       expect(slot.available).to eq(true)
 
-      create(:appointment, slot: slot).book
-      create(:appointment, slot: slot).book
+      create(:appointment, appointment_type: appointment_type, slot: slot).book
+      create(:appointment, appointment_type: appointment_type, slot: slot).book
 
       slot.reload
       expect(slot.used_capacity).to eq(3)
