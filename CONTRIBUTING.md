@@ -2,7 +2,7 @@
 
 La meilleure façon de contribuer à Mon Suivi Justice (MSJ), c'est de créer une issue [ici](https://github.com/betagouv/mon-suivi-justice/issues), ou de répondre à une issue existante. L'équipe pose régulièrement dans des issues des problèmes repérés mais non priorisés.
 
-Pour signaler un problème ou proposer quelque chose, vous pouvez nous contacter à [contact@mon-suivi-justice.beta.gouv.fr](mailto:contact@mon-suivi-justice.beta.gouv.fr)
+Pour signaler un problème ou proposer quelque chose, vous pouvez aussi nous contacter à [contact@mon-suivi-justice.beta.gouv.fr](mailto:contact@mon-suivi-justice.beta.gouv.fr)
 
 ## Soumettre une modification
 
@@ -13,8 +13,8 @@ Pour soumettre une modification de code :
 - Cloner le projet dans votre environnement
 - Créer une branche
 - Apporter les modifications que vous souhaitez en respectant [le guide de programmation](#Guide-de-programmation)
-- Pousser votre code sur github
-- Créer une Pull Request
+- Pousser votre code sur Github
+- Créer une pull request
 
 N'oubliez pas de vérifier le résultat de la CI sur Github Actions.
 
@@ -34,12 +34,12 @@ Dans la suite du projet, nous allons nous concentrer sur les PPSMJ, avec un site
 
 ### Sens métier des principaux modèles:
 
-- Convict : PPSMJ, personne récemment condamnés, soumis à diverses mesures ou sortant de prison.
-- User : Agent du ministère, peut travailler dans un Spip ou un tribunal.
-- Appointment : Rendez-vous
-- Slot : créneau disponible pour un rendez-vous, défini par la structure d'accueil
-- Place : lieu de rendez-vous
-- Notification : SMS envoyé au PPSMJ
+- Convict : PPSMJ, personne récemment condamnée, soumise à diverses mesures (bracelet électronique, obligation de soins...) ou sortant de prison.
+- User : agent du ministère, peut travailler dans un Spip ou un tribunal.
+- Appointment : rendez-vous d'un PPSMJ dans un lieu, matérialisé par une convocation.
+- Slot : créneau disponible pour un rendez-vous, défini par la structure d'accueil.
+- Place : lieu de rendez-vous.
+- Notification : SMS envoyé au PPSMJ.
 
 ### Structure de la base de données
 
@@ -47,7 +47,7 @@ Dans la suite du projet, nous allons nous concentrer sur les PPSMJ, avec un site
 
 ### State machines
 
-Les modèles Appointment et Notification disposent chacun d'une state machine. C'est via ce système que sont envoyé les SMS.
+Les modèles Appointment et Notification disposent chacun d'une state machine. C'est avec ce système que sont envoyé les SMS.
 
 Appointment :
 
@@ -61,9 +61,9 @@ Notification :
 
 Le code de MSJ respecte les bonnes pratiques de la communauté, en s'inspirant des textes suivants :
 
-- [The Twelve-factor app](https://12factor.net/)
-- [The rails Style Guide](https://rails.rubystyle.guide)
 - [The Rails Doctrine](https://rubyonrails.org/doctrine/)
+- [The rails Style Guide](https://rails.rubystyle.guide)
+- [The Twelve-factor app](https://12factor.net/)
 - [Sandi Metz' Rules For Developers](https://thoughtbot.com/blog/sandi-metz-rules-for-developers)
 
 Le but est de chercher "the Rails way", la méthode préférée de la communauté Rails pour régler un problème. Convention over configuration.
@@ -75,9 +75,9 @@ Pour s'assurer que les standards sont respectés, le linter Rubocop bloque la CI
 Pour respecter les conventions de l'open-source, le code est en anglais. Les noms de tables, colonnes et variables sont en anglais.
 Pour git, les commits / noms de branche sont en anglais. Les messages de commit commencent toujours par un verbe d'action.
 
-La documentation est en français. Le projet est financé par l'État français, tous les utilisateurs sont français.
+Mais la documentation que vous êtes en train de lire est en français. Le projet est financé par l'État français, tous les utilisateurs sont français.
 
-Pour que le code reste clair, la séparation doit être très nette. La langue française est présente dans des fichiers de traduction et la documentation.
+Pour que le code reste clair, la séparation doit être très nette. La langue française est présente uniquement dans des fichiers de traduction et la documentation.
 
 Les échanges avec l'équipe, notamment sur Github, sont en français. Les issues et les PR sont en français. Cela peut changer si des contributeurs non-francophones arrivent dans le projet.
 
@@ -117,6 +117,6 @@ Si vous souhaitez contribuer à notre projet, vous pouvez :
 - Proposer des améliorations de la documentation, y compris cette page.
 - Venir discuter dans les issues et les PR, donner votre avis sur le code proposé.
 
-Merci d'avoir lu ce document, et n'hésitez pas : toutes les contributions seront les bienvenues.
+Merci d'avoir lu ce document, et n'hésitez pas : toutes les contributions seront les bienvenues :)
 
 <!-- - Participer à la [documentation](https://doc.rdv-solidarites.fr/) -->
