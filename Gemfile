@@ -53,6 +53,7 @@ group :development do
   gem 'guard-rubocop'
   gem 'letter_opener'
   gem 'rails-erd'
+  gem 'state_machines-graphviz'
 end
 
 group :test do

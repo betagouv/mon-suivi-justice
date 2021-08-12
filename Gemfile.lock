@@ -338,6 +338,9 @@ GEM
     state_machines-activerecord (0.8.0)
       activerecord (>= 5.1)
       state_machines-activemodel (>= 0.8.0)
+    state_machines-graphviz (0.0.2)
+      ruby-graphviz
+      state_machines
     state_machines-rspec (0.6.0)
       activesupport
       rspec (~> 3.3)
@@ -422,6 +425,7 @@ DEPENDENCIES
   spring
   state_machines
   state_machines-activerecord
+  state_machines-graphviz
   state_machines-rspec
   turbolinks (~> 5)
   web-console (>= 4.1.0)
