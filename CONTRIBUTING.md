@@ -16,7 +16,7 @@ Pour soumettre une modification de code :
 - Pousser votre code sur github
 - Créer une Pull Request
 
-N'oubliez pas de vérifier le résultat de la CI sur Github Actions. Une PR ne sera pas mergée si la CI ne passe pas.
+N'oubliez pas de vérifier le résultat de la CI sur Github Actions.
 
 ## Code existant
 
@@ -34,7 +34,7 @@ Dans la suite du projet, nous allons nous concentrer sur les PPSMJ, avec un site
 
 ### Sens métier des principaux modèles:
 
-- Convict : PPSMJ
+- Convict : PPSMJ, personne récemment condamnés, soumis à diverses mesures ou sortant de prison.
 - User : Agent du ministère, peut travailler dans un Spip ou un tribunal.
 - Appointment : Rendez-vous
 - Slot : créneau disponible pour un rendez-vous, défini par la structure d'accueil
@@ -47,11 +47,11 @@ Dans la suite du projet, nous allons nous concentrer sur les PPSMJ, avec un site
 
 ### State machines
 
-Les modèles Appointment et Notification disposent chacun d'une state machine.
+Les modèles Appointment et Notification disposent chacun d'une state machine. C'est via ce système que sont envoyé les SMS.
 
 Appointment :
 
-![Machine à état Rendez-vous](/docs/Appointment_state.png)
+![Machine à état Appointment](/docs/Appointment_state.png)
 
 Notification :
 

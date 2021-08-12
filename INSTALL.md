@@ -37,6 +37,7 @@ Vous pouvez vous connecter avec l'utilisateur 'admin@example.com', mot de passe 
 et exécutez la suite de test :
 
 `$ rails db:test:prepare`
+
 `$ rspec`
 
 ## Conseil
