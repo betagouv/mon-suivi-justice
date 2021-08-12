@@ -20,12 +20,34 @@ N'oubliez pas de vérifier le résultat de la CI sur Github Actions. Une PR ne s
 
 ## Code existant
 
-Structure de la base de données
+Le métier est centré sur la convocation de personnes placées sous main de justice (PPSMJ) par des agents du Ministère de la Justice.
 
-<!-- ![Graph ERD](https://github.com/betagouv/mon-suivi-justice/blob/[branch]/image.jpg) -->
+La première phase du projet contient une interface pour les agents, qui peuvent saisir leurs rendez-vous et envoyer des SMS de notification au PPSMJ. Le premier objectif, c'est de réduire l'absentéisme, et l'outil principal, ce sont des SMS.
+
+MSJ envoie actuellement trois types de SMS :
+
+- Convocation : envoyé immédiatement après la prise de RDV, regroupe les infos utiles.
+- Rappel : envoyé 48h avant le RDV.
+- Annulation : envoyé si un agent annule un RDV prévu.
+
+Dans la suite du projet, nous allons nous concentrer sur les PPSMJ, avec un site d'information sur les différentes mesures et une interface dediée.
+
+### Sens métier des principaux modèles:
+
+- Convict : PPSMJ
+- User : Agent du ministère, peut travailler dans un Spip ou un tribunal.
+- Appointment : Rendez-vous
+- Slot : créneau disponible pour un rendez-vous, défini par la structure d'accueil
+- Place : lieu de rendez-vous
+- Notification : SMS envoyé au PPSMJ
+
+### Structure de la base de données
+
 ![Graph ERD](/docs/erd.png)
 
-Les modèles Appointment et Notification disposent chacun d'une state machine (très simple pour l'instant).
+### State machines
+
+Les modèles Appointment et Notification disposent chacun d'une state machine.
 
 Appointment :
 
