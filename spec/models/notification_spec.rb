@@ -9,36 +9,6 @@ RSpec.describe Notification, type: :model do
   it { should define_enum_for(:role).with_values(%i[summon reminder cancelation]) }
   it { should define_enum_for(:reminder_period).with_values(%i[one_day two_days]) }
 
-  describe 'format_content' do
-    it 'generates SMS content' do
-      place = create(:place, name: 'Spip du 03',
-                             adress: '38 rue Jean Moulin',
-                             phone: '0102030405')
-      agenda = create(:agenda, place: place)
-      slot = create(:slot, agenda: agenda,
-                           date: '02/08/2021',
-                           starting_time: new_time_for(16, 30))
-
-      appointment_type = create(:appointment_type)
-      sms_template = 'Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}.'\
-                     " Merci de venir avec une pièce d'identité au {lieu.adresse}." \
-                     ' Veuillez contacter le {lieu.téléphone} en cas de problème.'
-      create(:notification_type, appointment_type: appointment_type, template: sms_template)
-
-      appointment = create(:appointment, appointment_type: appointment_type, slot: slot)
-
-      expected = 'Vous êtes convoqué au Spip du 03 le 02/08/2021 à 16h30.'\
-                 " Merci de venir avec une pièce d'identité au 38 rue Jean Moulin."\
-                 ' Veuillez contacter le 0102030405 en cas de problème.'
-
-      NotificationFactory.perform(appointment)
-
-      notif = appointment.notifications.last
-
-      expect(notif.content).to eq(expected)
-    end
-  end
-
   describe 'send_now' do
     it 'calls Sendinblue adapter' do
       cached_sms_sender = ENV['SMS_SENDER']
