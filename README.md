@@ -1,17 +1,21 @@
 # Mon suivi justice
 
-Un service numérique public pour réduire l'absentéisme lors des rendez-vous avec les agents du ministère de la justice.
+Un service numérique public pour réduire l'absentéisme lors des rendez-vous avec les agents du ministère de la justice. Construit avec les agents concernés.
 
-- En production sur [mon-suivi-justice.beta.gouv.fr](https://www.mon-suivi-justice.beta.gouv.fr)
+Application CRUD qui permet de prendre et suivre des rendez-vous, en envoyant des SMS à différentes étapes du process.
+
+Outils permettant aux conseillers pénitentiaires de mieux suivre le parcours des personnes placées sous main de justice (PPSMJ), et à ces dernières de disposer de toutes les informations nécessaires.
+
 - En démo sur [mon-suivi-justice.incubateur.net](https://www.mon-suivi-justice.incubateur.net)
+- En production sur [mon-suivi-justice.beta.gouv.fr](https://www.mon-suivi-justice.beta.gouv.fr)
 
 Documentation utilisateur en cours de rédaction.
 
 ## Contribuer
 
-La meilleure façon de contribuer à Mon Suivi Justice aujourd'hui, c'est de créer une issue [ici](https://github.com/betagouv/mon-suivi-justice/issues), ou de répondre à une issue existante.
+Toutes les contributions sont les bienvenues. La première façon de participer, c'est de signaler un problème [ici](https://github.com/betagouv/mon-suivi-justice/issues)
 
-Par exemple, si quelqu'un crée une issue "Je ne peux pas contribuer efficacement, il manque un guide de contribution", je serai ravi d'y répondre ;)
+Avant de proposer une évolution du code, merci de lire le [guide de contribution](CONTRIBUTING.md).
 
 ## Licence
 

@@ -1,10 +1,12 @@
-# INSTALL
+# Installation
 
-## 1. Installer Ruby
+Instructions pour installer Mon Suivi Justice en local.
 
-MSJ utilise Ruby 2.7.4. L'installation peut être géré avec[RVM](https://rvm.io/): [Installing rubies](https://rvm.io/rubies/installing)
+## 1. Ruby
 
-## 2. Installer les bases de données
+MSJ utilise Ruby 2.7.4. L'installation peut être géré avec [RVM](https://rvm.io/): [Installing rubies](https://rvm.io/rubies/installing)
+
+## 2. Bases de données
 
 - PostgreSQL
 
@@ -14,13 +16,13 @@ MSJ utilise Ruby 2.7.4. L'installation peut être géré avec[RVM](https://rvm.i
 
   Ubuntu : [tutoriel](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04)
 
-# 3. Installer les outils de dev
+## 3. Outils de dev
 
 - Yarn : voir https://yarnpkg.com/en/docs/install
 - Foreman : voir https://github.com/ddollar/foreman
 - graphviz, pour rails-erd : voir https://voormedia.github.io/rails-erd/install.html
 
-## Script d'installation
+## 4. Script d'installation
 
 Une fois les dépendances installées, lancer le script d'installation :
 
@@ -29,6 +31,8 @@ Une fois les dépendances installées, lancer le script d'installation :
 Pour vérifier que tout fonctionne, lancer le serveur local :
 
 `$ foreman start`
+
+Vous pouvez vous connecter avec l'utilisateur 'admin@example.com', mot de passe : 'password'.
 
 et exécutez la suite de test :
 
