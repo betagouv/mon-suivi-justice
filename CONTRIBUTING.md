@@ -28,9 +28,11 @@ Structure de la base de données
 Les modèles Appointment et Notification disposent chacun d'une state machine (très simple pour l'instant).
 
 Appointment :
+
 ![Machine à état Rendez-vous](/docs/Appointment_state.png)
 
 Notification :
+
 ![Machine à état Notification](/docs/Notification_state.png)
 
 ## Guide de programmation
