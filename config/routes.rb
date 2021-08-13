@@ -29,5 +29,6 @@ Rails.application.routes.draw do
   scope controller: :static_pages do
     get :home
     get :comprendre_mes_mesures
+    get :sursis_probatoire
   end
 end

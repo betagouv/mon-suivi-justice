@@ -6,4 +6,5 @@ class StaticPagesController < ApplicationController
   def home; end
 
   def comprendre_mes_mesures; end
+  def sursis_probatoire; end
 end

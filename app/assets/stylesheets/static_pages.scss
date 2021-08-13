@@ -20,6 +20,10 @@
   }
 }
 
+.static-text-container {
+  margin-bottom: 20px;
+}
+
 .static-text-header {
   font-style: italic;
   margin-bottom: 10px;
@@ -27,6 +31,11 @@
   @media (min-width: $tablet-breakpoint) {
     margin-left: 20px;
   }
+}
+
+.static-text-question {
+  font-style: italic;
+  margin-bottom: 10px;
 }
 
 .static-text-bloc {
