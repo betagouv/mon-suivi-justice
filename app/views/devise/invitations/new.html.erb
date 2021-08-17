@@ -5,7 +5,9 @@
 
   <%= f.input :first_name %>
   <%= f.input :last_name %>
-  <%= f.input :role, collection: User.roles.keys, input_html: { class: 'form-select' } %>
+  <%= f.input :role, collection: User.roles.keys,
+                     label_method: lambda {|k| t("activerecord.attributes.user.user_roles.#{k}")},
+                     input_html: { class: 'form-select' } %>
   <%= f.input :email, required: true %>
 
   <%= f.button :submit, t('send_invitation'), class: 'form-submit-button' %>
