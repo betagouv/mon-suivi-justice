@@ -22,23 +22,23 @@ N'oubliez pas de vérifier le résultat de la CI sur Github Actions.
 
 Le métier est centré sur la convocation de personnes placées sous main de justice (PPSMJ) par des agents du Ministère de la Justice.
 
-La première phase du projet contient une interface pour les agents, qui peuvent saisir leurs rendez-vous et envoyer des SMS de notification au PPSMJ. Le premier objectif, c'est de réduire l'absentéisme, et l'outil principal, ce sont des SMS.
+La première phase du projet contient une interface pour les agents, qui peuvent saisir leurs rendez-vous (rdv) et envoyer des SMS de notification au PPSMJ. Le premier objectif, c'est de réduire l'absentéisme, et l'outil principal, ce sont des SMS.
 
 MSJ envoie actuellement trois types de SMS :
 
-- Convocation : envoyé immédiatement après la prise de RDV, regroupe les infos utiles.
-- Rappel : envoyé 48h avant le RDV.
-- Annulation : envoyé si un agent annule un RDV prévu.
+- Convocation : envoyé immédiatement après la prise de rdv, regroupe les infos utiles.
+- Rappel : envoyé 48h avant le rdv.
+- Annulation : envoyé si un agent annule un rdv prévu.
 
-Dans la suite du projet, nous allons nous concentrer sur les PPSMJ, avec un site d'information sur les différentes mesures et une interface dediée.
+Dans la suite du projet, nous allons nous concentrer sur les PPSMJ, avec un site d'information sur les différentes mesures et une interface dédiée.
 
 ### Sens métier des principaux modèles:
 
 - Convict : PPSMJ, personne récemment condamnée, soumise à diverses mesures (bracelet électronique, obligation de soins...) ou sortant de prison.
-- User : agent du ministère, peut travailler dans un Spip ou un tribunal.
+- User : agent du ministère, peut travailler dans un Spip (Service pénitentiaire d'insertion et de probation) ou un tribunal.
+- Place : lieu de rendez-vous. Pour l'expérimentation en cours, les rdv ont lieu au Spip du 92 et au Tribunal judiciaire de Nanterre.
 - Appointment : rendez-vous d'un PPSMJ dans un lieu, matérialisé par une convocation.
-- Slot : créneau disponible pour un rendez-vous, défini par la structure d'accueil.
-- Place : lieu de rendez-vous.
+- Slot : créneau disponible pour un rendez-vous, défini par les agents du lieu de rdv.
 - Notification : SMS envoyé au PPSMJ.
 
 ### Structure de la base de données
@@ -77,9 +77,9 @@ Pour git, les commits / noms de branche sont en anglais. Les messages de commit 
 
 Mais la documentation que vous êtes en train de lire est en français. Le projet est financé par l'État français, tous les utilisateurs sont français.
 
-Pour que le code reste clair, la séparation doit être très nette. La langue française est présente uniquement dans des fichiers de traduction et la documentation.
+Pour éviter le franglais et que le code reste clair, la séparation doit être très nette. La langue française est présente uniquement dans des fichiers de traduction et la documentation.
 
-Les échanges avec l'équipe, notamment sur Github, sont en français. Les issues et les PR sont en français. Cela peut changer si des contributeurs non-francophones arrivent dans le projet.
+Les échanges avec l'équipe, notamment sur Github, sont en français. Les issues et les PR sont en français. Cela peut changer si des contributeurs non-francophones arrivent dans le projet (doubtful).
 
 ### Tests
 
@@ -99,11 +99,14 @@ La suite de test a été réalisée avec [Rspec](http://rspec.info/), [Capybara]
 
 ### Style
 
+Le style du projet a été intégré en mobile-first pour la partie site d'information. L'interface agent n'a pour l'instant pas de version mobile. Comme c'est un outil de travail utilisé sur des ordinateurs professionnels, il n'est pas prévu d'adapter l'interface aux supports mobiles.
+
 Le CSS du projet s'inspire du BEM, sans le respecter rigoureusement. Parmi les principes gardés :
 
 - Le style est toujours lié à une classe, pas à un id. Les id sont utilisés pour le Javascript.
 - Aucun style n'est lié directement à une balise, mais toujours à une classe.
 - Classes à usage unique, avec des noms longs et descriptifs. Il vaut parfois mieux dupliquer que complexifier du CSS.
+- Les classes ne sont pas nestées, elles restent à un seul niveau.
 
 Les styles de MSJ sont structurés comme un proto-design système.
 
