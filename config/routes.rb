@@ -30,5 +30,6 @@ Rails.application.routes.draw do
     get :home
     get :comprendre_mes_mesures
     get :sursis_probatoire
+    get :travail_interet_general
   end
 end
