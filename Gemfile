@@ -35,6 +35,8 @@ gem 'redis-namespace'
 gem 'holidays'
 
 gem 'paper_trail'
+gem 'sentry-ruby'
+gem 'sentry-rails'
 
 group :development, :test do
   gem 'rspec-rails'
