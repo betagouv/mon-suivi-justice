@@ -83,6 +83,8 @@ Les échanges avec l'équipe, notamment sur Github, sont en français. Les issue
 
 ### Tests
 
+Mon Suivi Justice a été codé en TDD. Je sais bien que c'est une pratique personnelle, mais je vous encourage vraiment à vous y intéresser, c'est très efficace.
+
 La suite de test a été réalisée avec [Rspec](http://rspec.info/), [Capybara](https://github.com/teamcapybara/capybara), [Webmock](https://github.com/bblimke/webmock), [FactoryBot](https://github.com/thoughtbot/factory_bot) et [Shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers).
 
 - Chaque fonctionnalité est couverte par des tests, de préférence par un test de feature et une série de tests unitaires. Aucune pull request ne sera mergée sans tests.
@@ -99,7 +101,7 @@ La suite de test a été réalisée avec [Rspec](http://rspec.info/), [Capybara]
 
 ### Style
 
-Le style du projet a été intégré en mobile-first pour la partie site d'information. L'interface agent n'a pour l'instant pas de version mobile. Comme c'est un outil de travail utilisé sur des ordinateurs professionnels, il n'est pas prévu d'adapter l'interface aux supports mobiles.
+Le style du projet a été intégré en mobile-first pour la partie site d'information. L'interface agent n'a pas de version mobile, et ce n'est pas prévu (outil de travail utilisé sur des ordinateurs pros).
 
 Le CSS du projet s'inspire du BEM, sans le respecter rigoureusement. Parmi les principes gardés :
 
