@@ -83,8 +83,6 @@ Les échanges avec l'équipe, notamment sur Github, sont en français. Les issue
 
 ### Tests
 
-Mon Suivi Justice a été codé en TDD. Je sais bien que c'est une pratique personnelle, mais je vous encourage vraiment à vous y intéresser, c'est très efficace.
-
 La suite de test a été réalisée avec [Rspec](http://rspec.info/), [Capybara](https://github.com/teamcapybara/capybara), [Webmock](https://github.com/bblimke/webmock), [FactoryBot](https://github.com/thoughtbot/factory_bot) et [Shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers).
 
 - Chaque fonctionnalité est couverte par des tests, de préférence par un test de feature et une série de tests unitaires. Aucune pull request ne sera mergée sans tests.
