@@ -1,6 +1,10 @@
 module ApplicationHelper
   def active_class_if_controller(controller)
-    params[:controller] == controller ? 'sidebar-active-item' : ''
+    if controller.is_a?(Array)
+      controller.include?(params[:controller]) ? 'sidebar-active-item' : ''
+    else
+      params[:controller] == controller ? 'sidebar-active-item' : ''
+    end
   end
 
   def num_to_phone(num)

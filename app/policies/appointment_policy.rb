@@ -7,11 +7,11 @@ class AppointmentPolicy < ApplicationPolicy
     user.admin? || user.cpip?
   end
 
-  def index_jap?
+  def agenda_jap?
     user.admin? || user.bex?
   end
 
-  def index_spip?
+  def agenda_spip?
     user.admin? || user.bex?
   end
 

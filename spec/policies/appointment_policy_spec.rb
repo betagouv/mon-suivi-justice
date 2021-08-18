@@ -17,8 +17,8 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:destroy) }
     it { is_expected.to permit_action(:cancel) }
     it { is_expected.to permit_action(:index_today) }
-    it { is_expected.to permit_action(:index_jap) }
-    it { is_expected.to permit_action(:index_spip) }
+    it { is_expected.to permit_action(:agenda_jap) }
+    it { is_expected.to permit_action(:agenda_spip) }
   end
 
   context 'for a bex user' do
@@ -33,8 +33,8 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:destroy) }
     it { is_expected.to permit_action(:cancel) }
     it { is_expected.to forbid_action(:index_today) }
-    it { is_expected.to permit_action(:index_jap) }
-    it { is_expected.to permit_action(:index_spip) }
+    it { is_expected.to permit_action(:agenda_jap) }
+    it { is_expected.to permit_action(:agenda_spip) }
   end
 
   context 'for a cpip user' do
@@ -49,7 +49,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:destroy) }
     it { is_expected.to permit_action(:cancel) }
     it { is_expected.to permit_action(:index_today) }
-    it { is_expected.to forbid_action(:index_jap) }
-    it { is_expected.to forbid_action(:index_spip) }
+    it { is_expected.to forbid_action(:agenda_jap) }
+    it { is_expected.to forbid_action(:agenda_spip) }
   end
 end

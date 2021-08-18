@@ -17,11 +17,11 @@
 
     <div class='index-tools-controls-container'>
       <% if current_user.admin? || current_user.bex? %>
-        <%= button_to t('jap_appointments_link'), jap_appointments_path,
-                                                   class: 'link-to-today-appointment-button',
-                                                   method: :get %>
+        <%= button_to t('bex_jap_appointments_link'), agenda_jap_path,
+                                                  class: 'link-to-today-appointment-button',
+                                                  method: :get %>
 
-        <%= button_to t('spip_appointments_link'), spip_appointments_path,
+        <%= button_to t('bex_spip_appointments_link'), agenda_spip_path,
                                                    class: 'link-to-today-appointment-button',
                                                    method: :get %>
       <% end %>

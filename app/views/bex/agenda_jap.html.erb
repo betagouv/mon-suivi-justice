@@ -1,16 +1,16 @@
-<div class='jap-agendas-container'>
-  <div class='jap-agendas-tools-container'>
+<div class='bex-agendas-container'>
+  <div class='bex-agendas-tools-container'>
     <%= button_to t('print_button'), 'fake_link',
-                                      class: 'jap-print-button',
+                                      class: 'bex-print-button',
                                       onclick: 'window.print();return false;'%>
   </div>
 
-  <div class='jap-agendas-date-container'>
-    <div class='jap-date-title-container'>
-      <%= t('jap_agendas_title') %>
+  <div class='bex-agendas-date-container'>
+    <div class='bex-date-title-container'>
+      <%= t('bex_jap_agendas_title') %>
     </div>
-    <div class='jap-date-select-container'>
-      <%= form_tag jap_appointments_path, method: 'get' do %>
+    <div class='bex-date-select-container'>
+      <%= form_tag agenda_jap_path, method: 'get' do %>
         <%= select_tag :date, options_for_select(formated_dates_for_select(ten_next_fridays), params[:date]),
                               id: 'jap-appointments-date-select',
                               class: 'form-select form-text-input jap-date-select',
@@ -31,19 +31,19 @@
       <div class='jap-agenda-table'>
         <div class='jap-agenda-table-header jap-agenda-line'>
           <div class='jap-agenda-header-title jap-agenda-column'>
-            <%= t('jap_agenda_header_hour') %>
+            <%= t('bex_jap_agenda_header_hour') %>
           </div>
           <div class='jap-agenda-header-title jap-agenda-column'>
-            <%= t('jap_agenda_header_last_name') %>
+            <%= t('bex_jap_agenda_header_last_name') %>
           </div>
           <div class='jap-agenda-header-title jap-agenda-column'>
-            <%= t('jap_agenda_header_first_name') %>
+            <%= t('bex_jap_agenda_header_first_name') %>
           </div>
           <div class='jap-agenda-header-title jap-agenda-column'>
-            <%= t('jap_agenda_header_prosecutor') %>
+            <%= t('bex_jap_agenda_header_prosecutor') %>
           </div>
           <div class='jap-agenda-header-title jap-agenda-column'>
-            <%= t('jap_agenda_header_origin') %>
+            <%= t('bex_jap_agenda_header_origin') %>
           </div>
         </div>
 
