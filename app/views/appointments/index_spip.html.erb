@@ -1,0 +1,52 @@
+<div class='jap-agendas-container'>
+  <div class='jap-agendas-tools-container'>
+    <%= button_to t('print_button'), 'fake_link',
+                                      class: 'jap-print-button',
+                                      onclick: 'window.print();return false;'%>
+  </div>
+
+  <div class='jap-agendas-date-container'>
+    <div class='jap-date-title-container'>
+      <%= t('spip_appointments_title') %>
+    </div>
+    <div class='jap-date-select-container'>
+      <%= form_tag spip_appointments_path, method: 'get' do %>
+        <%= select_tag :month, options_for_select(formated_month_for_select(six_next_months), params[:month]),
+                               id: 'spip-appointments-month-select',
+                               class: 'form-select form-text-input spip-date-select',
+                               onchange: 'this.form.submit()' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='spip-agenda-table'>
+    <div class='spip-agenda-table-header spip-agenda-line'>
+      <div class='spip-agenda-column'></div>
+      <% bex_spip_available_hours.each do |hour| %>
+        <div class='spip-agenda-column'><%= hour %></div>
+      <% end %>
+    </div>
+    <% open_days_for_the_month(@current_month).each do |day| %>
+      <% days_appointments = appointments_for_a_day(@appointments, day) %>
+      <div class='spip-agenda-line'>
+        <div class='spip-agenda-column'><%= day %></div>
+        <% bex_spip_available_hours.each do |hour| %>
+          <% apt = appointment_of_the_hour(days_appointments, hour) %>
+          <div class='spip-agenda-column'>
+            <div class='spip-appointment-container'>
+              <div class='spip-appointment-data'>
+                <%= apt&.convict&.last_name&.upcase %>
+              </div>
+              <div class='spip-appointment-data'>
+                <%= apt&.convict&.first_name&.capitalize %>
+              </div>
+              <div class='spip-appointment-data'>
+                <%= apt&.convict&.prosecutor_number %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

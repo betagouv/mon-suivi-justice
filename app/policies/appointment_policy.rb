@@ -11,6 +11,10 @@ class AppointmentPolicy < ApplicationPolicy
     user.admin? || user.bex?
   end
 
+  def index_spip?
+    user.admin? || user.bex?
+  end
+
   def update?
     true
   end

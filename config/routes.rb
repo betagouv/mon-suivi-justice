@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get '/today_appointments' => 'appointments#index_today', as: 'today_appointments'
   get '/jap_appointments' => 'appointments#index_jap', as: 'jap_appointments'
+  get '/spip_appointments' => 'appointments#index_spip', as: 'spip_appointments'
 
   root 'static_pages#home'
 

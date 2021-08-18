@@ -18,6 +18,10 @@ class Appointment < ApplicationRecord
 
   scope :for_a_date, ->(date = Date.today) { joins(:slot).where('slots.date' => date) }
 
+  scope :for_a_month, lambda { |date = Date.today|
+    joins(:slot).where('extract(month from slots.date) = ?', date.month)
+  }
+
   def summon_notif
     notifications.find_by(role: :summon)
   end

@@ -82,11 +82,71 @@ RSpec.feature 'Appointments', type: :feature do
 
       expect(agenda_containers[0]).to have_content('Cabinet 1')
       expect(agenda_containers[0]).to have_content('James')
-      expect(agenda_containers[0]).to have_content('Moriarty')
+      expect(agenda_containers[0]).to have_content('MORIARTY')
 
       expect(agenda_containers[1]).to have_content('Cabinet 2')
       expect(agenda_containers[1]).to have_content('Lex')
-      expect(agenda_containers[1]).to have_content('Luthor')
+      expect(agenda_containers[1]).to have_content('LUTHOR')
+    end
+  end
+
+  describe 'Spip appointment index' do
+    it 'lists all Spip appointments', js: true do
+      convict1 = create(:convict, first_name: 'Julius',
+                                  last_name: 'Erving',
+                                  prosecutor_number: '203205')
+
+      convict2 = create(:convict, first_name: 'Moses',
+                                  last_name: 'Malone',
+                                  prosecutor_number: '205201')
+
+      apt_type = create(:appointment_type, name: 'RDV BEX SPIP')
+      place = create(:place, place_type: 'sap', name: 'SPIP 91')
+
+      agenda = create(:agenda, place: place, name: 'Agenda SPIP 91')
+
+      slot1 = create(:slot, agenda: agenda,
+                            appointment_type: apt_type,
+                            date: Date.today.next_occurring(:tuesday),
+                            starting_time: '9h')
+
+      slot2 = create(:slot, agenda: agenda,
+                            appointment_type: apt_type,
+                            date: Date.today.next_occurring(:friday) + 1.month,
+                            starting_time: '14h')
+
+      current_month_label = (I18n.l slot1.date, format: '%B %Y').capitalize
+      next_month_label = (I18n.l slot2.date, format: '%B %Y').capitalize
+
+      create(:appointment, slot: slot1, convict: convict1)
+      create(:appointment, slot: slot2, convict: convict2)
+
+      bex_user = create(:user, role: :bex)
+      logout_current_user
+      login_user(bex_user)
+
+      visit appointments_path
+      click_button 'Agenda RDV SPIP'
+
+      expect(page).to have_current_path(spip_appointments_path)
+
+      select current_month_label, from: :month
+      page.execute_script("$('#spip-appointments-month-select').trigger('change')")
+
+      expect(page).to have_content('Julius')
+      expect(page).to have_content('ERVING')
+      expect(page).to have_content('203205')
+
+      select next_month_label, from: :month
+      page.execute_script("$('#spip-appointments-month-select').trigger('change')")
+
+      expect(page).not_to have_content('Julius')
+      expect(page).not_to have_content('ERVING')
+      expect(page).not_to have_content('203205')
+
+      expect(page).to have_content('Moses')
+      expect(page).to have_content('MALONE')
+      expect(page).to have_content('205201')
     end
   end
 

@@ -31,30 +31,30 @@
       <div class='jap-agenda-table'>
         <div class='jap-agenda-table-header jap-agenda-line'>
           <div class='jap-agenda-header-title jap-agenda-column'>
-            <%= t('jap_agenda_title_hour') %>
+            <%= t('jap_agenda_header_hour') %>
           </div>
           <div class='jap-agenda-header-title jap-agenda-column'>
-            <%= t('jap_agenda_title_last_name') %>
+            <%= t('jap_agenda_header_last_name') %>
           </div>
           <div class='jap-agenda-header-title jap-agenda-column'>
-            <%= t('jap_agenda_title_first_name') %>
+            <%= t('jap_agenda_header_first_name') %>
           </div>
           <div class='jap-agenda-header-title jap-agenda-column'>
-            <%= t('jap_agenda_title_prosecutor') %>
+            <%= t('jap_agenda_header_prosecutor') %>
           </div>
           <div class='jap-agenda-header-title jap-agenda-column'>
-            <%= t('jap_agenda_title_origin') %>
+            <%= t('jap_agenda_header_origin') %>
           </div>
         </div>
 
-        <% available_hours.each do |hour| %>
-          <% appointment = select_appointment(apts, hour)%>
+        <% bex_jap_available_hours.each do |hour| %>
+          <% appointment = select_appointment(apts, hour) %>
           <div class='jap-agenda-line'>
             <div class='jap-agenda-column'>
               <%= hour %>
             </div>
             <div class='jap-agenda-column'>
-              <%= appointment&.convict&.last_name %>
+              <%= appointment&.convict&.last_name&.upcase %>
             </div>
             <div class='jap-agenda-column'>
               <%= appointment&.convict&.first_name %>

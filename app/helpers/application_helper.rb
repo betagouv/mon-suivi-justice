@@ -16,4 +16,14 @@ module ApplicationHelper
 
     formated
   end
+
+  def formated_month_for_select(date_array)
+    formated = []
+
+    date_array.each do |date|
+      formated << [(I18n.l date, format: '%B %Y').capitalize, date]
+    end
+
+    formated
+  end
 end

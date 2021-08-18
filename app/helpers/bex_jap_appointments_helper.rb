@@ -1,4 +1,4 @@
-module JapAppointmentsHelper
+module BexJapAppointmentsHelper
   def ten_next_fridays
     fridays = [Date.today.next_occurring(:friday)]
 
@@ -12,7 +12,7 @@ module JapAppointmentsHelper
      'Cabinet 5', 'Cabinet 6', 'Cabinet 7']
   end
 
-  def available_hours
+  def bex_jap_available_hours
     %w[9h30 10h00 10h30 11h00 11h30]
   end
 

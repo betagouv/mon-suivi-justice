@@ -193,13 +193,16 @@ fr:
   new-appointment-cab7-judge: 'DE-LAFORCADE'
   new-appointment-cab7-places: 'Clichy, Garches, Levallois-Perret'
 
-  jap_appointments_title: "Agenda RDV JAP"
+  jap_appointments_link: "Agenda RDV JAP"
   jap_agendas_title: "Agenda RDV JAP pour le vendredi"
-  jap_agenda_title_hour: Heure
-  jap_agenda_title_last_name: Nom
-  jap_agenda_title_first_name: Prénom
-  jap_agenda_title_prosecutor: Numéro parquet
-  jap_agenda_title_origin: "Service d'origine"
+  jap_agenda_header_hour: Heure
+  jap_agenda_header_last_name: Nom
+  jap_agenda_header_first_name: Prénom
+  jap_agenda_header_prosecutor: Numéro parquet
+  jap_agenda_header_origin: "Service d'origine"
+
+  spip_appointments_link: "Agenda RDV SPIP"
+  spip_appointments_title: "Agenda RDV SPIP pour"
 
   edit_appointment_type_title: Modifier Type de RDV
   edit_appointment_type_notifications: Notifications
