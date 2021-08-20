@@ -1,0 +1,157 @@
+fr:
+  amenagements:
+    titre: "Les aménagements de peine"
+
+    question1: "Qu’est-ce que ça signifie ? "
+    reponse1_a: "L’aménagement de peine est une façon d’exécuter une peine d’emprisonnement ferme, pour les peines inférieures à un an."
+    reponse1_b: "L’aménagement de peine peut être décidé :"
+    reponse1_liste1: "dès la condamnation par le tribunal si vous avez pu justifier à l’audience de votre situation précise"
+    reponse1_liste2: "après la condamnation par le juge d’application des peines si vous vous présentez à votre convocation et justifiez de votre situation précise (“article 723-15 du CPP” ex de convocation à joindre)."
+    reponse1_liste3: "après exécution d’une partie de votre peine en détention. Parlez-en avec votre CPIP référent."
+    reponse1_c: "L’aménagement de peine peut prendre différentes formes."
+
+    type1:
+      titre: "1. La détention à domicile sous surveillance électronique (DDSE)"
+
+      question1: "Qu’est-ce que ça signifie ? "
+      reponse1_a: "La détention à domicile sous surveillance électronique (DDSE) est un aménagement de peine qui vous oblige à porter un bracelet électronique à la cheville et qui vous interdit de vous absenter de votre domicile (ou de tout autre lieu désigné), en dehors des horaires fixés par le juge."
+      reponse1_b: "Le lieu et les périodes sont fixés par la juridiction ou par le juge de l’application des peines."
+      reponse1_c: "Si vous êtes hébergé par une autre personne ou si vous n’êtes pas le seul locataire ou propriétaire de votre logement, la ou les personnes concernées doivent donner leur accord pour vous héberger."
+
+      question2: "Combien de temps cette mesure va-t-elle durer ? "
+      reponse2_a: "La durée de la détention à domicile sous surveillance électronique dépend de votre condamnation. Cette mesure peut être prononcée pour l’intégralité de la peine d’emprisonnement ou pour une partie uniquement."
+      reponse2_b: "La durée exacte de la peine d’emprisonnement est indiquée sur votre procès-verbal de notification ou sur votre jugement. Pour connaître la durée exacte prenant en compte les réductions de peine, parlez-en à votre CPIP."
+
+      question3: "Quelles sont mes obligations ?"
+      reponse3_a: "Pendant le délai de la mesure, vous devez demeurer à votre domicile ou tout autre lieu désigné et porter le bracelet électronique permettant de vérifier le respect de cette première obligation."
+      reponse3_b: "Vous êtes autorisé à vous absenter de ce lieu pendant les périodes et les horaires déterminés uniquement pour :"
+      reponse3_liste1: "l’exercice d’une activité professionnelle, la recherche d’un emploi ou tout projet d’insertion ou de réinsertion"
+      reponse3_liste2: "le suivi d’un enseignement, d’un stage, d’une formation"
+      reponse3_liste3: "le suivi d’un traitement médical"
+      reponse3_liste4: "la participation à la vie de famille"
+      reponse3_c: "Vous devez également satisfaire les mesures générales de contrôle et les obligations particulières prévues selon votre situation et l’infraction commise."
+
+      question4: "Que se passe-t-il si je respecte cette mesure ?"
+      reponse4_a: "Si vous avez respecté les obligations fixées par le juge, votre peine est terminée à la fin du délai fixé et l’emprisonnement ne sera pas appliqué."
+
+      question5: "Que se passe-t-il si je ne respecte pas cette mesure ? "
+      reponse5_a: "Si vous ne respectez pas une ou plusieurs obligations fixées par le juge ou si vous commettez une nouvelle infraction pendant le délai de votre mesure, le sursis probatoire peut être révoqué en tout ou partie et l’emprisonnement prononcé pourra être mis à exécution en détention."
+      reponse5_b: "La juridiction peut également ordonner votre incarcération provisoire immédiate dans l’attente de vous convoquer au Tribunal."
+
+    type2:
+      titre: "2. La semi-liberté"
+
+      question1: "Qu’est-ce que ça signifie ? "
+      reponse1_a: "La semi-liberté (SL) est un aménagement de peine qui vous permet, alors que vous êtes détenu dans un établissement pénitentiaire, d’accomplir librement certaines activités en dehors de l’établissement pénitentiaire, durant les jours et horaires fixés."
+      reponse1_b: "Les jours et horaires de sortie sont déterminés par le juge de l’application des peines."
+      reponse1_c: "Vous pouvez quitter l’établissement pénitentiaire dans la journée pour remplir vos obligations et le réintégrer une fois celles-ci terminées."
+
+      question2: "Combien de temps cette mesure va-t-elle durer ? "
+      reponse2_a: "La semi-liberté peut être prononcée pour l’intégralité de la peine d’emprisonnement ou pour une partie uniquement."
+      reponse2_b: "La durée exacte de la peine d’emprisonnement est indiquée sur votre procès-verbal de notification ou sur votre jugement. Pour connaître la durée exacte prenant en compte les réductions de peine, parlez-en à votre CPIP."
+
+      question3: "Quelles sont mes obligations ?"
+      reponse3_a: "Vous devez respecter les jours et horaires d’incarcération fixés par le juge de l’application des peines. En dehors des horaires de sorties autorisées, vous devez être présent dans l’établissement pénitentiaire."
+      reponse3_b: "Vous êtes autorisé à quitter l’établissement pénitentiaire uniquement pour :"
+      reponse3_liste1: "l’exercice d’une activité professionnelle, la recherche d’un emploi ou tout projet d’insertion ou de réinsertion"
+      reponse3_liste2: "le suivi d’un enseignement, d’un stage, d’une formation"
+      reponse3_liste3: "le suivi d’un traitement médical"
+      reponse3_liste4: "la participation à la vie de famille"
+      reponse3_c: "Vous devez également satisfaire les mesures générales de contrôle et les obligations particulières prévues selon votre situation et l’infraction commise."
+
+      question4: "Que se passe-t-il si je respecte cette mesure ?"
+      reponse4_a: "Si vous avez respecté les obligations fixées par le juge, votre peine est terminée à la fin du délai fixé et l’emprisonnement ne sera pas appliqué."
+
+      question5: "Que se passe-t-il si je ne respecte pas cette mesure ? "
+      reponse5_a: "Si vous ne respectez pas une ou plusieurs obligations imposées, le juge de l’application des peines peut retirer la mesure et ordonner votre incarcération."
+      reponse5_b: "Le non-respect des horaires définis par le juge de l’application des peines peut également être considéré comme une évasion et entraîner des poursuites judiciaires."
+
+    type3:
+      titre: "3. Le placement à l’extérieur"
+
+      question1: "Qu’est-ce que ça signifie ? "
+      reponse1_a: "Le placement à l’extérieur est un aménagement de peine qui vous permet d’exercer des activités ou de bénéficier de soins en dehors de l’établissement pénitentiaire, durant les horaires fixés."
+      reponse1_b: "Il peut vous être accordé si vous vous trouvez dans une situation matérielle ou sociale difficile."
+      reponse1_exemple: "Par exemple : difficulté d’insertion, problèmes de santé et/ou d’addiction."
+
+      question2: "Combien de temps cette mesure va-t-elle durer ? "
+      reponse2_a: "Le placement à l’extérieur peut être prononcé pour l’intégralité de la peine d’emprisonnement ou pour une partie uniquement."
+      reponse2_b: "La durée exacte de la peine d’emprisonnement est indiquée sur votre procès-verbal de notification ou sur votre jugement. Pour connaître la durée exacte prenant en compte les réductions de peine, parlez-en à votre CPIP."
+
+      question3: "Quelles sont mes obligations ?"
+      reponse3_a: "Vous devez exercer les activités prévues par le juge de l’application des peines et/ou faire l’objet d’une prise en charge sanitaire."
+      reponse3_b: "Vous devez également satisfaire les mesures générales de contrôle et les obligations particulières prévues selon votre situation et l’infraction commise."
+
+      question4: "Que se passe-t-il si je respecte cette mesure ?"
+      reponse4_a: "Si vous avez respecté les obligations fixées par le juge, votre peine est terminée à la fin du délai fixé et l’emprisonnement ne sera pas appliqué."
+
+      question5: "Que se passe-t-il si je ne respecte pas cette mesure ? "
+      reponse5_a: "Si vous ne respectez pas une ou plusieurs obligations imposées, le juge de l’application des peines peut retirer la mesure et ordonner votre incarcération."
+      reponse5_b: "Le non-respect des horaires définis par le juge de l’application des peines peut également être considéré comme une évasion et entraîner des poursuites judiciaires."
+
+    type4:
+      titre: "4. La liberté conditionnelle"
+
+      question1: "Qu’est-ce que ça signifie ? "
+      reponse1_a: "La liberté conditionnelle est un aménagement de peine qui permet votre remise en liberté lorsque vous avez déjà effectué la moitié de votre peine d’emprisonnement. La détention provisoire effectuée, c'est-à-dire l’incarcération effectuée dans l’attente du jugement, compte pour calculer la moitié de votre peine."
+      reponse1_b: "Vous n’avez pas besoin d’avoir accompli la moitié de la peine si vous avez plus de 70 ans."
+
+      question2: "Combien de temps cette mesure va-t-elle durer ? "
+      reponse2_a: "La liberté conditionnelle peut être prononcée à la moitié de votre peine d’emprisonnement ou un an avant la fin de votre peine."
+      reponse2_b: "La durée exacte de la peine d’emprisonnement est indiquée sur votre procès-verbal de notification ou sur votre jugement. Pour connaître la date à laquelle vous pouvez bénéficier d’une libération conditionnelle, parlez-en à votre CPIP."
+
+      question3: "Quelles sont mes obligations ?"
+      reponse3_a: "Vous devez justifier de :"
+      reponse3_liste1: "l’exercice d’une activité professionnelle, la recherche d’un emploi ou tout projet d’insertion ou de réinsertion"
+      reponse3_liste2: "le suivi d’un enseignement, d’un stage, d’une formation"
+      reponse3_liste3: "le suivi d’un traitement médical"
+      reponse3_liste4: "la participation à la vie de famille"
+      reponse3_b: "Vous devez également satisfaire les mesures générales de contrôle et les obligations particulières prévues selon votre situation et l’infraction commise."
+
+      question4: "Que se passe-t-il si je respecte cette mesure ?"
+      reponse4_a: "Si vous avez respecté les obligations fixées par le juge, votre peine est terminée."
+
+      question5: "Que se passe-t-il si je ne respecte pas cette mesure ? "
+      reponse5_a: "Si vous ne respectez pas une ou plusieurs obligations imposées, le juge de l’application des peines peut retirer la mesure et ordonner votre réincarcération pour le reste de la peine à effectuer."
+
+    type5:
+      titre: "5. Le fractionnement de la peine"
+
+      question1: "Qu’est-ce que ça signifie ? "
+      reponse1_a: "Le fractionnement de la peine vous permet d’effectuer votre peine en plusieurs fois."
+      reponse1_b: "Vous alternez entre des périodes durant lesquelles vous êtes incarcéré et des périodes durant lesquelles vous ne l’êtes pas."
+      reponse1_c: "La durée exacte de la peine d’emprisonnement est indiquée sur votre procès-verbal de notification ou sur votre jugement. Pour connaître la durée exacte et la date de votre fin de peine, parlez-en à votre CPIP."
+
+      question2: "Combien de temps cette mesure va-t-elle durer ? "
+      reponse2_a: "Chaque période d’incarcération ne peut être pas inférieure à 2 jours."
+      reponse2_b: "La durée exacte de la peine d’emprisonnement est indiquée sur votre procès-verbal de notification ou sur votre jugement. Pour connaître la date à laquelle vous pouvez bénéficier d’une libération conditionnelle, parlez-en à votre CPIP."
+
+      question3: "Quelles sont mes obligations ?"
+      reponse3_a: "Le fractionnement doit être effectué dans une période ne dépassant pas 4 ans."
+      reponse3_b: "Vous devez également satisfaire les mesures générales de contrôle et les obligations particulières prévues selon votre situation et l’infraction commise."
+
+      question4: "Que se passe-t-il si je respecte cette mesure ?"
+      reponse4_a: "Si vous avez respecté les obligations fixées par le juge, votre peine est terminée."
+
+      question5: "Que se passe-t-il si je ne respecte pas cette mesure ? "
+      reponse5_a: "Si vous ne respectez pas les périodes d’incarcération prévues ou que vous ne respectez pas vos obligations, le juge de l’application des peines peut retirer la mesure et des poursuites pénales peuvent être engagées pour évasion."
+
+    type6:
+      titre: "6. La suspension de de peine"
+
+      question1: "Qu’est-ce que ça signifie ? "
+      reponse1_a: "La suspension de la peine vous permet de ne pas effectuer votre peine d’emprisonnement immédiatement."
+      reponse1_b: "Elle permet de répondre à un évènement exceptionnel intervenu dans votre vie et nécessitant votre présence."
+      reponse1_exemple: "Par exemple : un traitement médical, pathologie engageant le pronostic vital etc."
+
+      question2: "Combien de temps cette mesure va-t-elle durer ? "
+      reponse2_a: "La durée exacte de la peine d’emprisonnement est indiquée sur votre procès-verbal de notification ou sur votre jugement."
+
+      question3: "Quelles sont mes obligations ?"
+      reponse3_a: "Vous devez satisfaire les mesures générales de contrôle et les obligations particulières prévues selon votre situation et l’infraction commise."
+
+      question4: "Que se passe-t-il si je respecte cette mesure ?"
+      reponse4_a: "Si vous avez respecté les obligations fixées par le juge, votre peine est terminée."
+
+      question5: "Que se passe-t-il si je ne respecte pas cette mesure ? "
+      reponse5_a: "Si vous ne vous présentez pas aux convocations, ou que vous n’intégrez pas l’établissement pénitentiaire à la fin de la suspension, le juge de l’application des peines peut retirer la mesure et des poursuites pénales peuvent être engagées pour évasion."

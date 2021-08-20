@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     get :travail_interet_general
     get :suivi_socio_judiciaire
     get :stage
+    get :amenagements_de_peine
   end
 
   scope controller: :home do
