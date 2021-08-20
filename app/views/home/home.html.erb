@@ -1,0 +1,51 @@
+<div class='home-wrapper'>
+  <div class='home-container'>
+    <div class='home-convict-search-container'>
+      <p class='home-convict-search-title'><%= t('home_find_convict') %></p>
+      <div class='home-search-field-container'>
+        <%= select_tag '', options_from_collection_for_select(@convicts, :profile_path, 'name'),
+                           id: 'home-search-field',
+                           style: "width: 100%",
+                           include_blank: true %>
+      </div>
+    </div>
+
+    <div class='home-controls-container'>
+      <% if policy(:appointment).new? %>
+        <%= button_to t('home_new_appointment'), new_appointment_path,
+                                                 class: 'home-control',
+                                                 method: :get %>
+      <% end %>
+
+      <% if policy(:convict).new? %>
+        <%= button_to t('home_new_convict'), new_convict_path, class: 'home-control', method: :get %>
+      <% end %>
+    </div>
+
+    <div class='home-custom-links-container'>
+      <% if current_user.admin? || current_user.bex? %>
+        <p class='home-custom-links-title'><%= t('home_bex_title') %></p>
+        <div class='home-custom-links'>
+          <%= button_to t('home_bex_jap'), agenda_jap_path,
+                                           class: 'home-agenda-link',
+                                           method: :get %>
+
+          <%= button_to t('home_bex_spip'), agenda_spip_path,
+                                            class: 'home-agenda-link',
+                                            method: :get %>
+        </div>
+      <% end %>
+
+      <% if current_user.admin? || current_user.cpip? %>
+        <p class='home-custom-links-title'><%= t('home_spip_title') %></p>
+        <div class='home-custom-links'>
+          <%= button_to t('today_appointments_title'), today_appointments_path,
+                                                       class: 'home-agenda-link',
+                                                       method: :get %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_pack_tag 'home', 'data-turbolinks-eval': false, defer: true %>

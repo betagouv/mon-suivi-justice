@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
 
   skip_after_action :verify_authorized
 
-  def home; end
+  def landing; end
 
   def comprendre_mes_mesures; end
 

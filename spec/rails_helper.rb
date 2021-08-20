@@ -75,7 +75,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     stub_request(:any, /api.sendinblue.com/)
-    stub_request(:any, /ingest.sentry.io/)
+    stub_request(:any, /ingest.sentry.io.*/)
   end
 end
 

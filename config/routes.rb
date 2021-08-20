@@ -23,17 +23,27 @@ Rails.application.routes.draw do
 
   get '/today_appointments' => 'appointments#index_today', as: 'today_appointments'
 
-  root 'static_pages#home'
-
   scope controller: :bex do
     get :agenda_jap
     get :agenda_spip
   end
 
   scope controller: :static_pages do
-    get :home
+    get :landing
     get :comprendre_mes_mesures
     get :sursis_probatoire
     get :travail_interet_general
+  end
+
+  scope controller: :home do
+    get :home
+  end
+
+  unauthenticated do
+    root 'static_pages#landing'
+  end
+
+  authenticated :user do
+    root 'home#home', as: :authenticated_root
   end
 end

@@ -1,4 +1,10 @@
 <section class="sidebar">
+  <%= link_to home_path, class: 'sidebar-item-link' do %>
+    <div class="sidebar-item <%= active_class_if_controller('home') %>">
+      <%= t('sidebar.home') %>
+    </div>
+  <% end %>
+
   <% if policy(:convict).index? %>
     <%= link_to convicts_path, class: 'sidebar-item-link' do %>
       <div class="sidebar-item <%= active_class_if_controller('convicts') %>">

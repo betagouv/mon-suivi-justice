@@ -1,0 +1,8 @@
+class HomeController < ApplicationController
+  before_action :authenticate_user!
+  skip_after_action :verify_authorized
+
+  def home
+    @convicts = Convict.all
+  end
+end

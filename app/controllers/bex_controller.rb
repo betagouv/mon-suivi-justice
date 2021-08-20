@@ -1,4 +1,6 @@
 class BexController < ApplicationController
+  before_action :authenticate_user!
+
   def agenda_jap
     current_date = params.key?(:date) ? params[:date] : Date.today.next_occurring(:friday)
 

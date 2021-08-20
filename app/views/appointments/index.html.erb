@@ -8,8 +8,8 @@
                             placeholder: t('search-appointment-placeholder') %>
 
         <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.all, 'id', 'name', @q.slot_agenda_place_id_eq),
-                     { include_blank: t('appointment_place') },
-                     { class: 'form-select index-place-filter-field' } %>
+                                               { include_blank: t('appointment_place') },
+                                               { class: 'form-select index-place-filter-field' } %>
 
         <%= f.submit t('filter'), class: 'index-search-button' %>
       <% end %>
@@ -18,13 +18,13 @@
     <div class='index-tools-controls-container'>
       <% if current_user.admin? || current_user.bex? %>
         <%= button_to t('bex_jap_appointments_link'), agenda_jap_path,
-                                                  class: 'link-to-today-appointment-button',
-                                                  method: :get %>
+                                                      class: 'link-to-today-appointment-button',
+                                                      method: :get %>
 
         <%= button_to t('bex_spip_appointments_link'), agenda_spip_path,
-                                                   class: 'link-to-today-appointment-button',
-                                                   method: :get %>
-      <% end %>
+                                                       class: 'link-to-today-appointment-button',
+                                                       method: :get %>
+        <% end %>
 
       <% if current_user.admin? || current_user.cpip? %>
         <%= button_to t('today_appointments_title'), today_appointments_path,

@@ -1,0 +1,80 @@
+.home-wrapper {
+  height: calc(100vh - #{$header-height});
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-container {
+  width: 90%;
+  max-width: 700px;
+  margin: auto;
+}
+
+.home-convict-search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.home-search-field-container {
+  width: 400px;
+  margin-left: 30px;
+}
+
+.home-convict-search-title {
+  // margin-bottom: 20px;
+}
+
+.home-control {
+  @include button($light-grey);
+  margin-right: 20px;
+}
+
+.home-controls-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-agenda-link {
+  @include button($light-grey);
+  margin-right: 20px;
+}
+
+.home-custom-links-container {
+  margin-top: 20px;
+}
+
+.home-custom-links-title {
+  height: 30px;
+  font-style: italic;
+}
+
+.home-custom-links {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.home-select2-input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid $form-input !important;
+  border-radius: 0 !important;
+  height: 45px !important;
+  display: flex !important;
+  align-items: center !important;
+
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+.select2-selection--multiple {
+  padding-bottom: 10px !important;
+}
+
+.select2-search {
+  width: 100%;
+}

@@ -17,6 +17,10 @@ class Convict < ApplicationRecord
     "#{last_name.upcase} #{first_name.capitalize}"
   end
 
+  def profile_path
+    Rails.application.routes.url_helpers.convict_path(id)
+  end
+
   private
 
   def phone_situation

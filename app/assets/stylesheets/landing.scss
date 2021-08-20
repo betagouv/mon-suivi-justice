@@ -1,4 +1,4 @@
-.home-container {
+.landing-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,11 +6,11 @@
   height: 100vh;
 }
 
-.home-title {
+.landing-title {
   color: $home-title;
   margin-bottom: 30px;
 }
 
-.home-to-admin-button {
-  @include button($grey);
+.landing-to-admin-button {
+  @include button($light-grey);
 }

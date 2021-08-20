@@ -36,7 +36,7 @@
 }
 
 .submit {
-  @include button($grey);
+  @include button($light-grey);
   margin-top: 10px;
 }
 

@@ -111,8 +111,8 @@ fr:
             date:
               blank: "Date manquante"
 
-  home_title: "Mon Suivi Justice"
-  home_to_admin: "Espace Agent"
+  landing_title: "Mon Suivi Justice"
+  landing_to_admin: "Espace Agent"
   login_title: "Mon Suivi Justice"
   login_sub_title: "Espace agents"
   header_title: "Mon Suivi Justice"
@@ -131,6 +131,14 @@ fr:
   log_out: "Déconnexion"
   print_button: "Imprimer"
   contact: "Contacter l'équipe"
+
+  home_find_convict: "Trouver une PPSMJ"
+  home_new_appointment: "Prendre RDV"
+  home_new_convict: "Nouvelle PPSMJ"
+  home_bex_title: "Agents du BEX"
+  home_bex_jap: "Agenda RDV JAP"
+  home_bex_spip: "Agenda RDV SPIP"
+  home_spip_title: "Agents du SPIP"
 
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"
@@ -226,6 +234,7 @@ fr:
     non_authorized: "Vous n'êtes pas autorisé à effectuer cette action"
 
   sidebar:
+    home: "Accueil"
     convicts: "PPSMJ"
     appointments: "Rendez-vous"
     appointment_types: "Types de RDV"

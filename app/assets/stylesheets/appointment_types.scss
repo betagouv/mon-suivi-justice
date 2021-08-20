@@ -75,7 +75,7 @@
 }
 
 .add-slot-button {
-  @include button($grey);
+  @include button($light-grey);
 }
 
 .remove-slot-button-container {
@@ -85,7 +85,7 @@
 
 .remove-slot-button {
   margin-top: 11px;
-  @include button($grey);
+  @include button($light-grey);
 }
 
 .edit-appointment-type-slot-container {

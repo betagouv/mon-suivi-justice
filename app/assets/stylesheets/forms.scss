@@ -186,7 +186,7 @@
   left: 0;
   width: 20px;
   height: 20px;
-  background-color: $grey;
+  background-color: $light-grey;
   transition: .3s background-color;
 }
 
@@ -206,7 +206,7 @@
 }
 
 .checkbox-label:hover span {
-  background: darken($grey, 8%);
+  background: darken($light-grey, 8%);
 }
 
 .checkbox-label input:checked ~ span {

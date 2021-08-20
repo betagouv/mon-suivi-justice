@@ -20,6 +20,11 @@
   font-size: 1.4em;
 }
 
+.header-home-link {
+  color: $main-font-color;
+  text-decoration: none;
+}
+
 .content-container {
   width: 100%;
   padding-top: $header-height;

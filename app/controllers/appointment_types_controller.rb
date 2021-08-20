@@ -1,4 +1,6 @@
 class AppointmentTypesController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @q = AppointmentType.order('name asc').ransack(params[:q])
     @appointment_types = @q.result(distinct: true)
