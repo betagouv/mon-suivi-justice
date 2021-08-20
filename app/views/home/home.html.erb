@@ -22,26 +22,31 @@
       <% end %>
     </div>
 
-    <div class='home-custom-links-container'>
+    <div class='home-custom-links-wrapper'>
       <% if current_user.admin? || current_user.bex? %>
-        <p class='home-custom-links-title'><%= t('home_bex_title') %></p>
-        <div class='home-custom-links'>
-          <%= button_to t('home_bex_jap'), agenda_jap_path,
-                                           class: 'home-agenda-link',
-                                           method: :get %>
+        <div class='home-custom-links-container'>
+          <p class='home-custom-links-title'><%= t('home_bex_title') %></p>
+          <div class='home-custom-links'>
+            <%= button_to t('home_bex_jap'), agenda_jap_path,
+                                             class: 'home-agenda-link',
+                                             method: :get %>
 
-          <%= button_to t('home_bex_spip'), agenda_spip_path,
-                                            class: 'home-agenda-link',
-                                            method: :get %>
+            <%= button_to t('home_bex_spip'), agenda_spip_path,
+                                              class: 'home-agenda-link',
+                                              method: :get %>
+          </div>
         </div>
       <% end %>
 
       <% if current_user.admin? || current_user.cpip? %>
-        <p class='home-custom-links-title'><%= t('home_spip_title') %></p>
-        <div class='home-custom-links'>
-          <%= button_to t('today_appointments_title'), today_appointments_path,
-                                                       class: 'home-agenda-link',
-                                                       method: :get %>
+        <div class='home-custom-links-container'>
+          <p class='home-custom-links-title'><%= t('home_spip_title') %></p>
+          <div class='home-custom-links'>
+            <%= button_to t('today_appointments_title'), today_appointments_path,
+                                                         class: 'home-agenda-link',
+                                                         method: :get %>
+            <div class='home-agenda-empty-link'></div>
+          </div>
         </div>
       <% end %>
     </div>

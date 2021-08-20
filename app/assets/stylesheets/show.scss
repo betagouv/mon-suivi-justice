@@ -23,8 +23,7 @@
   max-width: 700px;
   margin: auto;
   display: flex;
-  padding: 20px;
-  border: 1px solid $table-border;
+  @include box;
 }
 
 .show-data-container {
@@ -94,5 +93,5 @@
 .show-convict-new-appointment-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 40px;
 }

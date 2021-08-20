@@ -15,7 +15,8 @@
 .home-convict-search-container {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
+  justify-content: center;
+  margin-bottom: 50px;
 }
 
 .home-search-field-container {
@@ -28,33 +29,44 @@
 }
 
 .home-control {
-  @include button($light-grey);
+  @include button($light-blue);
   margin-right: 20px;
 }
 
 .home-controls-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  margin-bottom: 50px;
 }
 
 .home-agenda-link {
   @include button($light-grey);
   margin-right: 20px;
+  width: 175px;
+}
+
+.home-agenda-empty-link {
+  background-color: none;
+  width: 175px;
+  margin-right: 20px;
 }
 
 .home-custom-links-container {
-  margin-top: 20px;
-}
-
-.home-custom-links-title {
-  height: 30px;
-  font-style: italic;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  @include box;
 }
 
 .home-custom-links {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  justify-content: space-around;
+  width: 80%;
+}
+
+.home-custom-links-title {
+  font-style: italic;
+  margin-right: 20px;
 }
 
 .home-select2-input {

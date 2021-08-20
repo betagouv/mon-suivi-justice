@@ -17,3 +17,8 @@
     cursor: not-allowed;
   }
 }
+
+@mixin box {
+  border: 1px solid $table-border;
+  padding: 20px;
+}

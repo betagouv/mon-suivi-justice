@@ -132,7 +132,7 @@ fr:
   print_button: "Imprimer"
   contact: "Contacter l'équipe"
 
-  home_find_convict: "Trouver une PPSMJ"
+  home_find_convict: "Trouver une PPSMJ :"
   home_new_appointment: "Prendre RDV"
   home_new_convict: "Nouvelle PPSMJ"
   home_bex_title: "Agents du BEX"
