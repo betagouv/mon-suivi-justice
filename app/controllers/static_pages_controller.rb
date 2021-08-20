@@ -10,4 +10,6 @@ class StaticPagesController < ApplicationController
   def sursis_probatoire; end
 
   def travail_interet_general; end
+
+  def suivi_socio_judiciaire; end
 end

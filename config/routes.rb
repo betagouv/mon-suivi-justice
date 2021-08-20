@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     get :comprendre_mes_mesures
     get :sursis_probatoire
     get :travail_interet_general
+    get :suivi_socio_judiciaire
   end
 
   scope controller: :home do
