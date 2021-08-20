@@ -12,4 +12,6 @@ class StaticPagesController < ApplicationController
   def travail_interet_general; end
 
   def suivi_socio_judiciaire; end
+
+  def stage; end
 end

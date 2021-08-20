@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     get :sursis_probatoire
     get :travail_interet_general
     get :suivi_socio_judiciaire
+    get :stage
   end
 
   scope controller: :home do

@@ -1,0 +1,28 @@
+fr:
+  stage:
+    titre: "Le stage"
+
+    question1: "Qu’est-ce que ça signifie ?"
+    reponse1_a: "Le stage est une peine qui consiste en une période de formation au cours de laquelle vous devez suivre un enseignement spécifique."
+    reponse1_b: "Il peut être prononcé soit à la place de l’emprisonnement soit en même temps. Le type de stage dépend du motif de votre condamnation :"
+    reponse1_liste1: "Le stage de citoyenneté"
+    reponse1_liste2: "Le stage de sensibilisation à la sécurité routière"
+    reponse1_liste3: "Le stage de sensibilisation aux dangers de l'usage de produits stupéfiants"
+    reponse1_liste4: "Le stage de responsabilisation pour la prévention et la lutte contre les violences au sein du couple et sexistes"
+    reponse1_liste5: "Le stage de sensibilisation à la lutte contre l'achat d'actes sexuels"
+    reponse1_liste6: "Le stage de la responsabilité parentale"
+    reponse1_liste7: "Le stage de lutte contre le sexisme et de sensibilisation à l'égalité entre les femmes et les hommes"
+
+    question2: "Combien de temps cette mesure va-t-elle durer ?"
+    reponse2_a: "La peine de stage ne peut dépasser 1 mois. La durée exacte du stage est indiquée sur votre jugement."
+
+    question3: "Quelles sont mes obligations ?"
+    reponse3_a: "Le stage doit être effectué dans un délai de 6 mois à compter de la date de condamnation, selon la durée et la nature fixées par le juge. La mise en place de ce stage sera organisée avec votre CPIP référent."
+
+    question4: "Que se passe-t-il si je respecte la mesure ?"
+    reponse4_a: "La peine de stage se termine une fois que la durée fixée par le juge a été effectuée."
+
+    question5: "Que se passe-t-il si je ne respecte pas la mesure ?"
+    reponse5_a: "Si vous n’effectuez pas la peine de stage dans le délai imparti :"
+    reponse5_liste1: "Si une peine avait été prévue lors de l’audience, le juge de l’application des peines peut l’appliquer."
+    reponse5_liste2: "Si une peine de prison n’avait pas été annoncée lors du jugement, le procureur vous convoque devant le tribunal correctionnel et vous risquez d’être condamné à deux ans de prison et 30.000 euros d’amende."
