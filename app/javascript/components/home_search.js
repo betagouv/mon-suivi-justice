@@ -14,9 +14,8 @@ document.addEventListener('turbolinks:load',function(e) {
         return 'Aucun résultat trouvé';
       }
     }
-
-
   });
+
   $('.select2-search__field').focus();
 
   $('#home-search-field').on('select2:select', function (e) {
