@@ -63,7 +63,9 @@
               <%= appointment&.convict&.prosecutor_number %>
             </div>
             <div class='jap-agenda-column'>
-              <%= appointment&.origin_department %>
+              <% if appointment.present? %>
+                <%= t("activerecord.attributes.appointment.origin_departments.#{appointment.origin_department}") %>
+              <% end %>
             </div>
           </div>
         <% end %>

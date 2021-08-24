@@ -72,6 +72,7 @@
           <%= @appointment.slot.agenda.place.name %>
         </div>
       </div>
+
       <div class='show-appointment-summon-data'>
         <div class='show-appointment-summon-title'>
           <%= t('appointment_date') %>
@@ -80,6 +81,7 @@
           <%= @appointment.slot.date %>
         </div>
       </div>
+
       <div class='show-appointment-summon-data'>
         <div class='show-appointment-summon-title'>
           <%= t('appointment_starting_time') %>
@@ -88,6 +90,16 @@
           <%= @appointment.slot.starting_time.to_s(:time) %>
         </div>
       </div>
+
+      <div class='show-appointment-summon-data'>
+        <div class='show-appointment-summon-title'>
+          <%= t('appointment_origin_department') %>
+        </div>
+        <div class='show-appointment-summon-item'>
+          <%= t("activerecord.attributes.appointment.origin_departments.#{@appointment.origin_department}") %>
+        </div>
+      </div>
+
       <div class='show-appointment-summon-data'>
         <div class='show-appointment-summon-title'>
           <%= t('appointment_state') %>

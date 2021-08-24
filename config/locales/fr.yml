@@ -36,6 +36,10 @@ fr:
         slot: "Créneau"
         phone: "Téléphone"
         origin_department: "Service d'origine de la convocation"
+        origin_departments:
+          bex: "BEX"
+          gref_co: "Greffe co"
+          pr: "PR"
       appointment_type:
         name: "Nom"
         place_type: Type de lieu de RDV
@@ -163,6 +167,7 @@ fr:
   appointment_date: "Date"
   appointment_starting_time: "Heure"
   appointment_state: "Statut"
+  appointment_origin_department: "Service d'origine"
   new_appointment_title: "Nouveau rendez-vous"
   new-appointment-place: "Lieu de rendez-vous :"
   new-appointment-available-slots: Créneaux disponibles
@@ -229,6 +234,7 @@ fr:
 
   new_slot_title: "Nouveau Créneau"
   new_slot_submit: "Enregistrer"
+  index_slot_place_filter: "Lieu de RDV"
 
   errors:
     non_authorized: "Vous n'êtes pas autorisé à effectuer cette action"

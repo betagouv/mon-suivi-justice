@@ -26,9 +26,18 @@ AppointmentType.all.each do |appointment_type|
   concerned_places.each do |place|
     place.agendas.each do |agenda|
       appointment_type.slot_types.each do |slot_type|
-        dates = open_dates.select {|date| date.strftime("%A").downcase == slot_type.week_day }
+        dates = open_dates.select { |date| date.strftime("%A").downcase == slot_type.week_day }
 
         dates.each do |date|
+          existing = Slot.where(
+            date: date,
+            agenda: agenda,
+            appointment_type: appointment_type,
+            starting_time: slot_type.starting_time
+          )
+
+          next if existing.present?
+
           Slot.create!(
             date: date,
             agenda: agenda,
