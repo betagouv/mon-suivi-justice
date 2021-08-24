@@ -34,8 +34,8 @@ class Appointment < ApplicationRecord
     notifications.find_by(role: :cancelation)
   end
 
-  state_machine initial: :waiting do
-    state :waiting do
+  state_machine initial: :created do
+    state :created do
     end
 
     state :booked do
@@ -51,7 +51,7 @@ class Appointment < ApplicationRecord
     end
 
     event :book do
-      transition waiting: :booked
+      transition created: :booked
     end
 
     event :cancel do
