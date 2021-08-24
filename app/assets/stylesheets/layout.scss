@@ -43,8 +43,9 @@
 .support-link {
   text-decoration: none;
   padding: 5px 15px;
+  border-radius: 2px;
   color: $main-font-color;
-  background-color: $salmon;
+  background-color: $support-link;
   position: fixed;
   top: 60%;
   right: 0;

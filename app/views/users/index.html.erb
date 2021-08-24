@@ -35,7 +35,7 @@
 
           <% if policy(:user).edit? %>
             <%= link_to t('delete'), user_path(user),
-                                     data: { confirm: t('delete_confirmation') },
+                                     data: { confirm: t('basic_confirmation') },
                                      class: 'index-control',
                                      method: :delete %>
           <% end %>

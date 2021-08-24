@@ -33,7 +33,7 @@ class Notification < ApplicationRecord
     end
 
     event :cancel do
-      transition [:created, :programmed] => :canceled
+      transition programmed: :canceled
     end
 
     after_transition on: :send_now do |notification|

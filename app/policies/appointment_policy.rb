@@ -38,4 +38,12 @@ class AppointmentPolicy < ApplicationPolicy
   def cancel?
     true
   end
+
+  def fulfil?
+    true
+  end
+
+  def miss?
+    true
+  end
 end

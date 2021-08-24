@@ -1,5 +1,30 @@
 <h1 class='show-title'><%= t('show_convict_title') %></h1>
 
+<% if @convict.passed_appointments.present? %>
+  <% @convict.passed_appointments.each do |apt| %>
+    <div class='appointment-fulfilment-container'>
+      <div class='appointment-fulfilment-prompt-container'>
+        <%= t('show-convict-fulfilment-prompt', name: @convict.name,
+                                                place: apt.slot.agenda.place.name,
+                                                date: apt.slot.date,
+                                                time: apt.slot.starting_time.to_s(:time)) %>
+      </div>
+
+      <div class='appointment-fulfilment-controls-container'>
+        <%= button_to t('yes'), appointment_fulfil_path(apt),
+                                method: :put,
+                                data: { confirm: t('basic_confirmation') },
+                                class: 'show-convict-fulfil-button' %>
+
+        <%= button_to t('no'), appointment_miss_path(apt),
+                                method: :put,
+                                data: { confirm: t('basic_confirmation') },
+                                class: 'show-convict-miss-button' %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
 <div class='show-profile-container'>
   <div class='show-data-container'>
     <div class='show-data-item-container'>
@@ -61,6 +86,26 @@
   </div>
 </div>
 
+<% if @convict.booked_appointments.count != 0 %>
+  <div class='show-convict-next-appointments-container'>
+    <% if @convict.booked_appointments.count == 1 %>
+      <p class='show-convict-next-appointments-title'><%= t('show-convict-next-appointments-title1')%></p>
+    <% else %>
+      <p class='show-convict-next-appointments-title'><%= t('show-convict-next-appointments-title2')%></p>
+    <% end %>
+    <div class='show-convict-next-appointments-item'>
+      <% @convict.booked_appointments.each do |apt| %>
+        <p class='show-convict-next-appointment'>
+          <%= t('show_convict_next_appointment', place: apt.slot.agenda.place.name,
+                                                 date: apt.slot.date,
+                                                 time: apt.slot.starting_time.to_s(:time)) %>
+          <%= link_to t('see'), appointment_path(apt), class: 'show-convict-next-appointment-link' %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
 <% if policy(:appointment).new? %>
   <div class='show-convict-new-appointment-container'>
     <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
@@ -86,7 +131,7 @@
       <div class='show-history-item'>
         <div class='show-history-item-content'>
           <%= t('show_convict_history_summon', place: appointment.slot.agenda.place.name,
-                                               date:appointment.slot.date,
+                                               date: appointment.slot.date,
                                                time: appointment.slot.starting_time.to_s(:time)) %>
         </div>
 

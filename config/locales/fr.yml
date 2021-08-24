@@ -75,6 +75,8 @@ fr:
         waiting: "En attente"
         booked: "Planifié"
         canceled: "Annulé"
+        fulfiled: "Honoré"
+        no_show: "Manqué"
       events:
         book: "Plannifier"
 
@@ -121,6 +123,11 @@ fr:
   login_sub_title: "Espace agents"
   header_title: "Mon Suivi Justice"
 
+  "yes": "Oui"
+  "no": "Non"
+  "true": "Oui"
+  "false": "Non"
+
   edit: "Modifier"
   delete: "Supprimer"
   submit: "Enregistrer"
@@ -130,7 +137,7 @@ fr:
   see: "Voir"
   see_infos: "Voir les infos"
   see_profile: "Voir profil"
-  delete_confirmation: "Êtes-vous sûr(e)?"
+  basic_confirmation: "Êtes-vous sûr(e)?"
   my_profile: "Mon profil"
   log_out: "Déconnexion"
   print_button: "Imprimer"
@@ -162,6 +169,10 @@ fr:
   show_convict_history_title: Historique
   show_convict_new_appointment: Prendre rendez-vous
   show_convict_history_summon: "A été convoqué au %{place} le %{date} à %{time}."
+  show_convict_next_appointment: "%{date} à %{time} au %{place}"
+  show-convict-next-appointments-title1: "Prochain rendez-vous :"
+  show-convict-next-appointments-title2: "Prochains rendez-vous :"
+  show-convict-fulfilment-prompt: "%{name} s'est-il présenté au %{place} le %{date} à %{time} ?"
 
   appointment_place: "Lieu de RDV"
   appointment_date: "Date"
@@ -247,9 +258,6 @@ fr:
     places: "Lieux"
     slots: "Créneaux"
     users: "Agents"
-
-  "true": "Oui"
-  "false": "Non"
 
   simple_form:
     options:

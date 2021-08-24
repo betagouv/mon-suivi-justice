@@ -105,4 +105,60 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_current_path(appointment_path(appointment))
     end
   end
+
+  describe 'fulfilment' do
+    it 'controls are only displayed for passed appointments' do
+      convict = create(:convict)
+      apt_type = create(:appointment_type, :with_notification_types)
+      slot = create(:slot, date: Date.tomorrow)
+
+      appointment = create(:appointment, convict: convict,
+                                         slot: slot,
+                                         appointment_type: apt_type)
+
+      appointment.book
+
+      visit convict_path(convict)
+
+      expect(page).not_to have_selector '.appointment-fulfilment-container'
+    end
+
+    it 'works if convict came to appointment' do
+      convict = create(:convict)
+      apt_type = create(:appointment_type, :with_notification_types)
+      slot = create(:slot, date: Date.today)
+
+      appointment = create(:appointment, convict: convict,
+                                         slot: slot,
+                                         appointment_type: apt_type)
+
+      appointment.book
+
+      visit convict_path(convict)
+
+      within first('.appointment-fulfilment-container') { click_button 'Oui' }
+
+      appointment.reload
+      expect(appointment.state).to eq('fulfiled')
+    end
+
+    it "works if convict didn't came to appointment" do
+      convict = create(:convict)
+      apt_type = create(:appointment_type, :with_notification_types)
+      slot = create(:slot, date: Date.today)
+
+      appointment = create(:appointment, convict: convict,
+                                         slot: slot,
+                                         appointment_type: apt_type)
+
+      appointment.book
+
+      visit convict_path(convict)
+
+      within first('.appointment-fulfilment-container') { click_button 'Non' }
+
+      appointment.reload
+      expect(appointment.state).to eq('no_show')
+    end
+  end
 end

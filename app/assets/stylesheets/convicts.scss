@@ -45,3 +45,57 @@
 .edit-convict-submit-button {
   margin-top: 40px;
 }
+
+.show-convict-next-appointments-container {
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  max-width: 700px;
+  margin: auto;
+  margin-top: 20px;
+  @include box;
+}
+
+.show-convict-next-appointments-item {
+  margin-left: 40px;
+}
+
+.show-convict-next-appointment-link {
+  margin-left: 10px;
+}
+
+.show-convict-next-appointments-title {
+  text-align: center;
+}
+
+.show-convict-next-appointment {
+  margin-bottom: 5px;
+}
+
+.appointment-fulfilment-container {
+  width: 60%;
+  max-width: 700px;
+  margin: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+
+  @include box;
+  border-color: $light-red;
+  border-width: 2px;
+}
+
+.appointment-fulfilment-controls-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.show-convict-fulfil-button {
+  @include button($light-blue)
+}
+
+.show-convict-miss-button {
+  @include button($light-grey)
+  margin-left: 40px;
+}

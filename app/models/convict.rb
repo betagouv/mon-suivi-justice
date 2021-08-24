@@ -21,6 +21,16 @@ class Convict < ApplicationRecord
     Rails.application.routes.url_helpers.convict_path(id)
   end
 
+  def booked_appointments
+    appointments.where(state: 'booked')
+  end
+
+  def passed_appointments
+    appointments.joins(:slot)
+                .where(state: 'booked')
+                .where('slots.date': ..Date.today)
+  end
+
   private
 
   def phone_situation

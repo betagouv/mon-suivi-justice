@@ -9,7 +9,7 @@
     <%= f.input :prosecutor_number %>
   <% end %>
 
-  <%= f.input :phone, placeholder: t('new_convict_phone_placeholder') %>
+  <%= f.input :phone, placeholder: t('new_convict_phone_placeholder'), required: true %>
 
   <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
                          label_html: { class: 'form-checkbox-label' },

@@ -2,6 +2,7 @@
   background-color: $color;
   color: $main-font-color;
   padding: .5em 1em;
+  border-radius: 2px;
   font-size: 18px;
   text-decoration: none;
   border: none;
@@ -21,4 +22,5 @@
 @mixin box {
   border: 1px solid $table-border;
   padding: 20px;
+  border-radius: 2px;
 }

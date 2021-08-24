@@ -44,12 +44,26 @@ class Appointment < ApplicationRecord
     state :canceled do
     end
 
+    state :fulfiled do
+    end
+
+    state :no_show do
+    end
+
     event :book do
       transition waiting: :booked
     end
 
     event :cancel do
       transition booked: :canceled
+    end
+
+    event :fulfil do
+      transition booked: :fulfiled
+    end
+
+    event :miss do
+      transition booked: :no_show
     end
 
     after_transition on: :book do |appointment|

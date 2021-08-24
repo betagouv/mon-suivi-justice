@@ -24,10 +24,6 @@
   margin-left: 30px;
 }
 
-.home-convict-search-title {
-  // margin-bottom: 20px;
-}
-
 .home-control {
   @include button($light-blue);
   margin-right: 20px;
@@ -42,7 +38,6 @@
 .home-agenda-link {
   @include button($light-grey);
   margin-right: 20px;
-  width: 175px;
 }
 
 .home-agenda-empty-link {
