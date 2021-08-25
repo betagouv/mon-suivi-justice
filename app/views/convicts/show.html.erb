@@ -64,7 +64,7 @@
         <% elsif @convict.refused_phone? %>
           <%= t('activerecord.attributes.convict.refused_phone')%>
         <% else %>
-          <%= num_to_phone(@convict.phone) %>
+          <%= @convict.display_phone %>
         <% end %>
       </div>
     </div>
