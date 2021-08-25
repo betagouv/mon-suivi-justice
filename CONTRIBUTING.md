@@ -2,7 +2,7 @@
 
 La meilleure façon de contribuer à Mon Suivi Justice (MSJ), c'est de créer une issue [ici](https://github.com/betagouv/mon-suivi-justice/issues), ou de répondre à une issue existante.
 
-Pour signaler un problème ou proposer quelque chose, vous pouvez aussi nous contacter à [contact@mon-suivi-justice.beta.gouv.fr](mailto:contact@mon-suivi-justice.beta.gouv.fr)
+Pour signaler un problème ou proposer quelque chose, vous pouvez aussi nous écrire à [contact@mon-suivi-justice.beta.gouv.fr](mailto:contact@mon-suivi-justice.beta.gouv.fr)
 
 ## Soumettre une modification
 
