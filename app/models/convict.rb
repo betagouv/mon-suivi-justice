@@ -30,4 +30,8 @@ class Convict < ApplicationRecord
                 .where(state: 'booked')
                 .where('slots.date': ..Date.today)
   end
+
+  def display_phone
+    phone.phony_formatted format: :national
+  end
 end

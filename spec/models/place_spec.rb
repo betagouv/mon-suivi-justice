@@ -5,16 +5,10 @@ RSpec.describe Place, type: :model do
   it { should validate_presence_of(:adress) }
   it { should validate_presence_of(:place_type) }
   it { should validate_presence_of(:phone) }
-
   it { should have_many(:agendas) }
-
-  it { should allow_value('0687549865').for(:phone) }
-  # it { should allow_value('06 87 54 98 65').for(:phone) }
-  it { should_not allow_value('06845').for(:phone) }
-
   it { should define_enum_for(:place_type).with_values(%i[spip sap]) }
 
-  describe 'Validations' do
+  describe 'Phone validations' do
     it 'denies a non-digit number' do
       expect(build(:convict, phone: 'my phone number')).not_to be_valid
     end
@@ -67,6 +61,16 @@ RSpec.describe Place, type: :model do
     end
     it 'denies a blank phone' do
       expect(build(:convict, phone: '')).not_to be_valid
+    end
+  end
+
+  describe '#display_phone' do
+
+    it 'returns correct phone value with a french number' do
+      expect(create(:convict, phone: '+33561083731').display_phone).to eq '05 61 08 37 31'
+    end
+    it 'returns correct phone value with a UK number' do
+      expect(create(:convict, phone: '+443031237300').display_phone).to eq '0303 123 7300'
     end
   end
 end

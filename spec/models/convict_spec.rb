@@ -7,7 +7,7 @@ RSpec.describe Convict, type: :model do
   it { should validate_presence_of(:title) }
   it { should define_enum_for(:title).with_values(%i[male female]) }
 
-  describe 'Validations' do
+  describe 'Phone validations' do
     it 'denies a non-digit number' do
       expect(build(:convict, phone: 'my phone number')).not_to be_valid
     end
@@ -66,6 +66,16 @@ RSpec.describe Convict, type: :model do
     end
     it 'accepts a blank phone with refused_phone option' do
       expect(build(:convict, phone: nil, refused_phone: true)).to be_valid
+    end
+  end
+
+  describe '#display_phone' do
+
+    it 'returns correct phone value with a french number' do
+      expect(create(:convict, phone: '+33561083731').display_phone).to eq '05 61 08 37 31'
+    end
+    it 'returns correct phone value with a UK number' do
+      expect(create(:convict, phone: '+443031237300').display_phone).to eq '0303 123 7300'
     end
   end
 end

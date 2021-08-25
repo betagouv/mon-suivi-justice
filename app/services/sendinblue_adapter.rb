@@ -22,7 +22,7 @@ class SendinblueAdapter
   def format_data(notification)
     {
       sender: ENV['SMS_SENDER'],
-      recipient: Phone.format(notification.appointment.convict.phone),
+      recipient: notification.appointment.convict.phone,
       content: notification.content
     }
   end
