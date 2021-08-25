@@ -4,12 +4,12 @@ class Convict < ApplicationRecord
   has_many :appointments, dependent: :destroy
   attr_accessor :place_id
 
+  # Phone attribute will be normalized to a +33... format BEFORE validation.
+  phony_normalize :phone, default_country_code: 'FR'
+
   validates :first_name, :last_name, :title, presence: true
-
-  validates :phone, format: { with: Phone::REGEX,
-                              message: I18n.t('activerecord.errors.phone_format') }, allow_blank: true
-
-  validate :phone_situation
+  validates :phone, phony_plausible: true
+  validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
 
   enum title: %i[male female]
 
@@ -29,13 +29,5 @@ class Convict < ApplicationRecord
     appointments.joins(:slot)
                 .where(state: 'booked')
                 .where('slots.date': ..Date.today)
-  end
-
-  private
-
-  def phone_situation
-    return if phone.present? || refused_phone? || no_phone?
-
-    errors.add(:phone, 'Téléphone manquant')
   end
 end

@@ -1,10 +1,11 @@
 class Place < ApplicationRecord
   has_paper_trail
 
-  validates :name, :adress, :place_type, :phone, presence: true
+  # Phone attribute will be normalized to a +33... format BEFORE validation.
+  phony_normalize :phone, default_country_code: 'FR'
 
-  validates :phone, format: { with: Phone::REGEX,
-                              message: I18n.t('activerecord.errors.phone_format') }, allow_blank: true
+  validates :name, :adress, :place_type, :phone, presence: true
+  validates :phone, phony_plausible: true
 
   enum place_type: %i[spip sap]
 
