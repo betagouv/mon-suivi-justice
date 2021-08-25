@@ -62,7 +62,7 @@ RSpec.describe NotificationFactory do
 
       expected = 'Vous êtes convoqué au Spip du 03 le 02/08/2021 à 16h30.'\
                  " Merci de venir avec une pièce d'identité au 38 rue Jean Moulin."\
-                 ' Veuillez contacter le 0102030405 en cas de problème.'
+                 ' Veuillez contacter le +33102030405 en cas de problème.'
 
       NotificationFactory.perform(appointment)
 
