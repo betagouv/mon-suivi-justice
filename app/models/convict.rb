@@ -1,14 +1,11 @@
 class Convict < ApplicationRecord
+  include NormalizedPhone
   has_paper_trail
 
   has_many :appointments, dependent: :destroy
   attr_accessor :place_id
 
-  # Phone attribute will be normalized to a +33... format BEFORE validation.
-  phony_normalize :phone, default_country_code: 'FR'
-
   validates :first_name, :last_name, :title, presence: true
-  validates :phone, phony_plausible: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
 
   enum title: %i[male female]
@@ -29,9 +26,5 @@ class Convict < ApplicationRecord
     appointments.joins(:slot)
                 .where(state: 'booked')
                 .where('slots.date': ..Date.today)
-  end
-
-  def display_phone
-    phone.phony_formatted format: :national
   end
 end
