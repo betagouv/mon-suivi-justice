@@ -36,24 +36,24 @@ shared_examples_for 'normalized_phone' do
 
   describe 'Phone normalization' do
     it 'normalizes a valid number with country prefix' do
-      convict = create(model_factory, phone: '+33561083731')
-      expect(convict.reload.phone).to eq '+33561083731'
+      ressource = create(model_factory, phone: '+33561083731')
+      expect(ressource.reload.phone).to eq '+33561083731'
     end
     it 'normalizes a valid number without country prefix' do
-      convict = create(model_factory, phone: '0561083731')
-      expect(convict.reload.phone).to eq '+33561083731'
+      ressource = create(model_factory, phone: '0561083731')
+      expect(ressource.reload.phone).to eq '+33561083731'
     end
     it 'normalizes a valid number with space' do
-      convict = create(model_factory, phone: '05 61 08 37 31')
-      expect(convict.reload.phone).to eq '+33561083731'
+      ressource = create(model_factory, phone: '05 61 08 37 31')
+      expect(ressource.reload.phone).to eq '+33561083731'
     end
     it 'normalizes a valid number with dot' do
-      convict = create(model_factory, phone: '05.61.08.37.31')
-      expect(convict.reload.phone).to eq '+33561083731'
+      ressource = create(model_factory, phone: '05.61.08.37.31')
+      expect(ressource.reload.phone).to eq '+33561083731'
     end
     it 'normalizes a valid number with dash' do
-      convict = create(model_factory, phone: '05-61-08-37-31')
-      expect(convict.reload.phone).to eq '+33561083731'
+      ressource = create(model_factory, phone: '05-61-08-37-31')
+      expect(ressource.reload.phone).to eq '+33561083731'
     end
   end
 

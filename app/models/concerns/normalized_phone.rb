@@ -10,7 +10,7 @@ module NormalizedPhone
   end
 
   #
-  # HUman readable phone number without international prefix, space between 2 digits numbers
+  # Human readable phone number without international prefix, space between 2 digits numbers
   # ie: 05 61 08 37 31
   #
   def display_phone
