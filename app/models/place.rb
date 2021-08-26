@@ -1,10 +1,8 @@
 class Place < ApplicationRecord
+  include NormalizedPhone
   has_paper_trail
 
   validates :name, :adress, :place_type, :phone, presence: true
-
-  validates :phone, format: { with: Phone::REGEX,
-                              message: I18n.t('activerecord.errors.phone_format') }, allow_blank: true
 
   enum place_type: %i[spip sap]
 

@@ -5,12 +5,16 @@ RSpec.describe Place, type: :model do
   it { should validate_presence_of(:adress) }
   it { should validate_presence_of(:place_type) }
   it { should validate_presence_of(:phone) }
-
   it { should have_many(:agendas) }
-
-  it { should allow_value('0687549865').for(:phone) }
-  # it { should allow_value('06 87 54 98 65').for(:phone) }
-  it { should_not allow_value('06845').for(:phone) }
-
   it { should define_enum_for(:place_type).with_values(%i[spip sap]) }
+  it_behaves_like 'normalized_phone'
+
+  describe 'Validations' do
+    it 'requires a phone' do
+      expect(build(:convict, phone: nil)).not_to be_valid
+    end
+    it 'denies a blank phone' do
+      expect(build(:convict, phone: '')).not_to be_valid
+    end
+  end
 end
