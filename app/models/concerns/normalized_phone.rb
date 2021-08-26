@@ -13,7 +13,8 @@ module NormalizedPhone
   # Human readable phone number without international prefix, space between 2 digits numbers
   # ie: 05 61 08 37 31
   #
-  def display_phone
-    phone.phony_formatted format: :national
+  def display_phone(spaces: true)
+    options = { format: :national, spaces: (spaces ? ' ' : '') }
+    phone.phony_formatted options
   end
 end
