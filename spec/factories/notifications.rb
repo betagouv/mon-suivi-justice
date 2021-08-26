@@ -4,5 +4,6 @@ FactoryBot.define do
     template { 'test' }
     content { 'test' }
     state { 'created' }
+    role { 'summon' }
   end
 end

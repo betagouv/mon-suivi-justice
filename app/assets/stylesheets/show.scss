@@ -19,8 +19,8 @@
 }
 
 .show-profile-container {
-  width: 60%;
-  max-width: 700px;
+  width: 70%;
+  max-width: 650px;
   margin: auto;
   display: flex;
   @include box;
@@ -53,45 +53,4 @@
 
 .show-button-to-edit {
   @include button($light-blue);
-}
-
-.show-history-container {
-  width: 70%;
-  max-width: 500px;
-  margin: auto;
-  margin-bottom: 50px;
-}
-
-.show-history-item-container {
-  margin-bottom: 30px;
-}
-
-.show-history-item-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.show-history-item-icon {
-  margin-right: 10px;
-  font-size: 10px;
-  color: $dark-grey;
-}
-
-.show-history-item {
-  margin-left: 20px;
-}
-
-.show-history-item-link {
-  margin-top: 10px;
-}
-
-.show-convict-history-control {
-  color: $link;
-}
-
-.show-convict-new-appointment-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
 }

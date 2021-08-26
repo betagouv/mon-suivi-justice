@@ -49,8 +49,8 @@
 .show-convict-next-appointments-container {
   display: flex;
   justify-content: center;
-  width: 60%;
-  max-width: 700px;
+  width: 70%;
+  max-width: 650px;
   margin: auto;
   margin-top: 20px;
   @include box;
@@ -73,8 +73,8 @@
 }
 
 .appointment-fulfilment-container {
-  width: 60%;
-  max-width: 700px;
+  width: 70%;
+  max-width: 650px;
   margin: auto;
   margin-bottom: 20px;
   display: flex;
@@ -98,4 +98,61 @@
 .show-convict-miss-button {
   @include button($light-grey)
   margin-left: 40px;
+}
+
+.show-history-container {
+  width: 70%;
+  max-width: 650px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+.show-history-item-container {
+  margin-bottom: 30px;
+}
+
+.show-history-item-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.show-history-item-icon {
+  margin-right: 10px;
+  font-size: 10px;
+  color: $dark-grey;
+}
+
+.show-history-item {
+  margin-left: 20px;
+  display: flex;
+}
+
+.show-history-item-title {
+  width: 20%;
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+.show-history-item-link {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.show-convict-history-control {
+  color: $link;
+}
+
+.show-convict-new-appointment-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.icon_fulfil_appointment {
+  color: $fulfiled-appointment;
+}
+
+.icon_miss_appointment {
+  color: $missed-appointment;
 }
