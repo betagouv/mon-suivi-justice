@@ -9,15 +9,15 @@
     <%= f.input :prosecutor_number %>
   <% end %>
 
-  <%= f.input :phone, placeholder: t('new_convict_phone_placeholder') %>
+  <%= f.input :phone, required: true %>
 
   <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
                          label_html: { class: 'form-checkbox-label' },
                          wrapper_html: { class: 'form-checkbox-wrapper'} %>
 
   <%= f.input :refused_phone, input_html: { class: 'form-checkbox' },
-                         label_html: { class: 'form-checkbox-label' },
-                         wrapper_html: { class: 'form-checkbox-wrapper'} %>
+                              label_html: { class: 'form-checkbox-label' },
+                              wrapper_html: { class: 'form-checkbox-wrapper'} %>
 
   <%= f.button :submit, t('edit_convict_submit'), class: 'form-submit-button edit-convict-submit-button' %>
 <% end %>

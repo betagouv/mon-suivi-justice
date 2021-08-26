@@ -159,7 +159,6 @@ fr:
 
   new_convict_title: "Nouvelle PPSMJ"
   new_first_appointment_title: "Créneaux disponibles"
-  new_convict_phone_placeholder: "Doit être saisi au format XXXXXXXXXX (pas d'espace ni de tirets)"
   new_convict_submit: "sans prendre RDV"
   new_convict_first_appointment: "et prendre RDV"
   edit_convict_title: "Modifier PPSMJ"
