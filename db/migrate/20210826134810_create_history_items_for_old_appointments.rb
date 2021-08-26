@@ -1,11 +1,11 @@
-class CreateHistoryItemsForLegacyAppointments < ActiveRecord::Migration[6.1]
+class CreateHistoryItemsForOldAppointments < ActiveRecord::Migration[6.1]
   def change
     #
     # One shot migration to create HistoryItems for old appointments
     #
     def up
       Appointment.all.each do |apt|
-        next if HistoryItem.where(appointment: apt).present?
+        next if HistoryItem.where(appointment: apt).count != 0
 
         HistoryItem.create!(
           convict: apt.convict,
@@ -15,7 +15,7 @@ class CreateHistoryItemsForLegacyAppointments < ActiveRecord::Migration[6.1]
       end
 
       Appointment.where(state: :canceled).each do |apt|
-        next if HistoryItem.where(appointment: apt, event: :miss_appointment).present?
+        next if HistoryItem.where(appointment: apt, event: :miss_appointment).count != 0
 
         HistoryItem.create!(
           convict: apt.convict,
