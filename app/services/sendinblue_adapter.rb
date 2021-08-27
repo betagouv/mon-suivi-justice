@@ -13,7 +13,8 @@ class SendinblueAdapter
     sms = SibApiV3Sdk::SendTransacSms.new(sms_data)
 
     begin
-      @client.send_transac_sms(sms)
+      result = @client.send_transac_sms(sms)
+      notification.update(external_id: result.message_id)
     rescue SibApiV3Sdk::ApiError => e
       puts "Exception when calling TransactionalSMSApi->send_transac_sms: #{e}"
     end
