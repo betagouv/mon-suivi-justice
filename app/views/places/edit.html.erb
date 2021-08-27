@@ -7,7 +7,7 @@
                              label_method: lambda {|k| t("simple_form.options.place.place_type.#{k}")},
                              input_html: { class: 'form-select' } %>
     <%= f.input :adress %>
-    <%= f.input :phone %>
+    <%= f.input :phone, input_html: { value: @place.display_phone } %>
   </div>
 
   <div class='edit-place-agendas-container'>
