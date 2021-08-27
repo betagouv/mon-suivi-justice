@@ -30,6 +30,8 @@ class Convict < ApplicationRecord
   end
 
   def mobile_phone_number
-    errors.add(:phone, 'Numéro de téléphone portable requis.') if phone && !phone.start_with?('+336', '+337')
+    return unless phone && !phone.start_with?('+336', '+337')
+
+    errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.mobile')
   end
 end
