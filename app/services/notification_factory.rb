@@ -32,7 +32,7 @@ module NotificationFactory
       appointment_date: slot.date.to_s(:base_date_format),
       place_name: slot.agenda.place.name,
       place_adress: slot.agenda.place.adress,
-      place_phone: slot.agenda.place.phone
+      place_phone: slot.agenda.place.display_phone(spaces: false)
     }
   end
 end

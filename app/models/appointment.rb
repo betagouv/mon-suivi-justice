@@ -86,5 +86,13 @@ class Appointment < ApplicationRecord
       appointment.reminder_notif.cancel!
       appointment.cancelation_notif.send_now!
     end
+
+    after_transition do |appointment, transition|
+      HistoryItem.create!(
+        convict: appointment.convict,
+        appointment: appointment,
+        event: "#{transition.event}_appointment".to_sym
+      )
+    end
   end
 end

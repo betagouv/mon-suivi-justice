@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_12_084642) do
+ActiveRecord::Schema.define(version: 2021_08_26_140557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(version: 2021_08_12_084642) do
     t.boolean "no_phone"
     t.boolean "refused_phone"
     t.string "prosecutor_number"
+  end
+
+  create_table "history_items", force: :cascade do |t|
+    t.integer "event", default: 0
+    t.bigint "convict_id"
+    t.bigint "appointment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_id"], name: "index_history_items_on_appointment_id"
+    t.index ["convict_id"], name: "index_history_items_on_convict_id"
   end
 
   create_table "notification_types", force: :cascade do |t|
@@ -153,6 +163,8 @@ ActiveRecord::Schema.define(version: 2021_08_12_084642) do
   add_foreign_key "appointments", "appointment_types"
   add_foreign_key "appointments", "convicts"
   add_foreign_key "appointments", "slots"
+  add_foreign_key "history_items", "appointments"
+  add_foreign_key "history_items", "convicts"
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notifications", "appointments"
   add_foreign_key "slot_types", "appointment_types"

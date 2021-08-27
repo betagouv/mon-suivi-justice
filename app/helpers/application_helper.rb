@@ -7,10 +7,6 @@ module ApplicationHelper
     end
   end
 
-  def num_to_phone(num)
-    Phone.display(num)
-  end
-
   def formated_dates_for_select(date_array)
     formated = []
 

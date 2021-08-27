@@ -118,9 +118,6 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_content('Café')
       expect(page).to have_content('NOISETTE')
       expect(page).to have_content('06 07 06 07 06')
-
-      expect(page).to have_content('A été convoqué au SPIP du 93 le 06/10/2021 à 13:00')
-      expect(page).to have_content('A été convoqué au SPIP du 93 le 08/12/2021 à 15:30')
     end
   end
 end

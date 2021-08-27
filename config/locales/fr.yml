@@ -136,6 +136,7 @@ fr:
   filter: "Filtrer"
   see: "Voir"
   see_infos: "Voir les infos"
+  see_details: "Voir infos du rdv"
   see_profile: "Voir profil"
   basic_confirmation: "Êtes-vous sûr(e)?"
   my_profile: "Mon profil"
@@ -158,7 +159,6 @@ fr:
 
   new_convict_title: "Nouvelle PPSMJ"
   new_first_appointment_title: "Créneaux disponibles"
-  new_convict_phone_placeholder: "Doit être saisi au format XXXXXXXXXX (pas d'espace ni de tirets)"
   new_convict_submit: "sans prendre RDV"
   new_convict_first_appointment: "et prendre RDV"
   edit_convict_title: "Modifier PPSMJ"
@@ -168,11 +168,19 @@ fr:
   show_convict_title: "Profil PPSMJ"
   show_convict_history_title: Historique
   show_convict_new_appointment: Prendre rendez-vous
-  show_convict_history_summon: "A été convoqué au %{place} le %{date} à %{time}."
   show_convict_next_appointment: "%{date} à %{time} au %{place}"
   show-convict-next-appointments-title1: "Prochain rendez-vous :"
   show-convict-next-appointments-title2: "Prochains rendez-vous :"
   show-convict-fulfilment-prompt: "%{name} s'est-il présenté au %{place} le %{date} à %{time} ?"
+
+  show_history_book_appointment_title: "Nouveau RDV"
+  show_history_book_appointment: "%{name} a été convoqué au %{place} le %{date} à %{time}."
+  show_history_cancel_appointment_title: "RDV annulé"
+  show_history_cancel_appointment: "Le rendez-vous au %{place} le %{date} à %{time} a été annulé."
+  show_history_fulfil_appointment_title: "RDV honoré"
+  show_history_fulfil_appointment: "%{name} s'est bien présenté à son rendez-vous au %{place} le %{date} à %{time}."
+  show_history_miss_appointment_title: "RDV manqué"
+  show_history_miss_appointment: "%{name} ne s'est pas présenté à son rendez-vous au %{place} le %{date} à %{time}."
 
   appointment_place: "Lieu de RDV"
   appointment_date: "Date"
