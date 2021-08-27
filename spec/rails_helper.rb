@@ -35,8 +35,6 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-ActiveJob::Base.queue_adapter = :test
-
 RSpec.configure do |config|
   config.include ActiveJob::TestHelper
   config.include FactoryBot::Syntax::Methods
@@ -80,9 +78,6 @@ RSpec.configure do |config|
   config.before(:each) do
     stub_request(:any, /api.sendinblue.com/)
     stub_request(:any, /ingest.sentry.io.*/)
-  end
-  config.after(:each) do
-    clear_enqueued_jobs
   end
 end
 

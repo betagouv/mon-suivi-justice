@@ -10,21 +10,10 @@ RSpec.describe Notification, type: :model do
   it { should define_enum_for(:reminder_period).with_values(%i[one_day two_days]) }
 
   describe 'send_now' do
-    it 'calls Sendinblue adapter' do
-      cached_sms_sender = ENV['SMS_SENDER']
-      ENV['SMS_SENDER'] = 'MSJ'
-
-      Sidekiq::Testing.inline! do
-        api_mock = instance_double(SibApiV3Sdk::TransactionalSMSApi)
-        allow(SibApiV3Sdk::TransactionalSMSApi).to receive(:new).and_return(api_mock)
-
-        expect(api_mock).to receive(:send_transac_sms)
-
-        notif = create(:notification)
-        notif.send_now
-      end
-
-      ENV['SMS_SENDER'] = cached_sms_sender
+    it 'trigger sms delivery job' do
+      notif = create(:notification)
+      notif.send_now
+      expect(SmsDeliveryJob).to have_been_enqueued.once.with(notif)
     end
   end
 
