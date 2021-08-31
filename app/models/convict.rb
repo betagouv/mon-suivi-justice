@@ -7,6 +7,7 @@ class Convict < ApplicationRecord
 
   validates :first_name, :last_name, :title, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
+  validate :mobile_phone_number
 
   enum title: %i[male female]
 
@@ -26,5 +27,11 @@ class Convict < ApplicationRecord
     appointments.joins(:slot)
                 .where(state: 'booked')
                 .where('slots.date': ..Date.today)
+  end
+
+  def mobile_phone_number
+    return unless phone && !phone.start_with?('+336', '+337')
+
+    errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.mobile')
   end
 end
