@@ -1,26 +1,26 @@
 <% if @slots_by_date.length > 0 %>
   <p class='new-appointment-slots-title'><%= t('new-appointment-available-slots') %></p>
-
-  <div class='form-input-wrapper new-appointment-slots-container' id='appointment-slots-container'>
-    <% @slots_by_date.each do |date| %>
-      <div class='slot-date-container'>
-        <p class='slot-date-title'><%= t('date.day_names')[date.first.wday].capitalize %> <%= date.first %></p>
-        <% date.drop(1).first.sort_by(&:starting_time).each do |slot| %>
-          <span class='radio form-radio-wrapper'>
-            <input class='select-slot-button form-radio-input'
-            type='radio'
-            value=<%= slot.id %>
-            name="appointment[slot_id]"
-            id=<%="appointment_slot_id_#{slot.id}"%>>
-            <label class='form-radio-label collection_radio_buttons' for=<%="appointment_slot_id_#{slot.id}"%>>
-              <%= slot.starting_time.to_s(:time) %>
-            </label>
-          </span>
-        <% end %>
-      </div>
-    <% end %>
+  <div class='new-appointment-slots-container' id='appointment-slots-container'>
+    <div class='new-appointment-slots-header'>
+      <% @slots_by_date.each do |date| %>
+        <div class='slot-date-title'><%= t('date.day_names')[date.first.wday].capitalize %> <%= date.first %></div>
+      <% end %>
+    </div>
+    <div class='new-appointment-slots-body'>
+      <% @slots_by_date.each do |date| %>
+        <div class='slot-date-container'>
+          <% date.drop(1).first.sort_by(&:starting_time).each do |slot| %>
+            <div>
+              <input type='radio' value=<%= slot.id %> name="appointment[slot_id]" id=<%="appointment_slot_id_#{slot.id}"%>>
+              <label for=<%="appointment_slot_id_#{slot.id}"%>>
+                <%= slot.starting_time.to_s(:time) %>
+              </label>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-
   <input type='submit' name='commit' value=<%= t('submit')%> class='form-submit-button' id='submit-new-appointment' disabled='disabled' data-disable-with='Enregistrer'>
   <p class='new-appointment-form-warning'><%= t('new-appointment-warning') %></p>
 <% else %>
