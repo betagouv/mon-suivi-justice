@@ -8,6 +8,6 @@ class GetSmsStatusJob < ApplicationJob
 
     return if %w[received failed].include?(notification.state)
 
-    GetSmsStatusJob.perform_now(notification)
+    GetSmsStatusJob.perform_later(notification)
   end
 end

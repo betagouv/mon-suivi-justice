@@ -9,6 +9,6 @@ class SmsDeliveryJob < ApplicationJob
     notification.send_then if notification.programmed?
 
     SendinblueAdapter.new.send_sms(notification)
-    GetSmsStatusJob.perform_now(notification)
+    GetSmsStatusJob.perform_later(notification)
   end
 end
