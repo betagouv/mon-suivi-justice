@@ -11,7 +11,7 @@ api_instance = SibApiV3Sdk::TransactionalSMSApi.new
 
 sms = SibApiV3Sdk::SendTransacSms.new(
   sender: 'MSJ',
-  recipient: ENV['PHONE_REMY'],
+  recipient: '+33600000000',
   content: "SMS de test envoyé avec un script"
 )
 
