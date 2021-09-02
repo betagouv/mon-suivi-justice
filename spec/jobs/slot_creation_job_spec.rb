@@ -16,12 +16,12 @@ RSpec.describe SlotCreationJob, type: :job do
 
     before do
       allow(Time).to receive(:now).and_return frozen_time
-      allow(SlotFactory).to receive(:new)
+      allow(SlotFactory).to receive(:perform)
       tested_method
     end
 
     it 'instantiates Slot factory' do
-      expect(SlotFactory).to have_received(:new).once
+      expect(SlotFactory).to have_received(:perform).once
     end
     it 'queues itself for next week' do
       expect(SlotCreationJob).to have_been_enqueued.once.at(1.week.since)
