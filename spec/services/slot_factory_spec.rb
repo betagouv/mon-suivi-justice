@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe SlotFactory do
   let(:frozen_time) { Time.zone.parse '2021-07-12' }
   # tuesday 13, wednesday 14, thursday 15 august (14 is holiday)
-  let(:factory) { SlotFactory.new start_date: 1.day.since, end_date: 3.days.since }
   let(:appointment_type) { create :appointment_type }
   let(:place) { create :place }
   let(:agenda) { create :agenda, place: place }
@@ -30,14 +29,13 @@ RSpec.describe SlotFactory do
   end
 
   describe '#Initialize' do
-    it 'instantiates itself' do
-      expect(factory).to be_a SlotFactory
-    end
     it 'creates 2 new slot' do
-      expect { factory }.to change(Slot, :count).from(0).to 2
+      expect do
+        SlotFactory.perform(start_date: 1.day.since, end_date: 3.days.since)
+      end.to change(Slot, :count).from(0).to 2
     end
     it 'creates saturday slot' do
-      factory
+      SlotFactory.perform(start_date: 1.day.since, end_date: 3.days.since)
       expect(
         Slot.find_by(
           agenda: agenda, appointment_type: appointment_type, starting_time: Time.zone.parse('2021-01-01 10:00:00'),
@@ -46,7 +44,7 @@ RSpec.describe SlotFactory do
       ).not_to be nil
     end
     it 'creates monday slot' do
-      factory
+      SlotFactory.perform(start_date: 1.day.since, end_date: 3.days.since)
       expect(
         Slot.find_by(
           agenda: agenda, appointment_type: appointment_type, starting_time: Time.zone.parse('2021-01-01 15:00:00'),
