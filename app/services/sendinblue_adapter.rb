@@ -45,6 +45,6 @@ class SendinblueAdapter
                      .map(&:event)
 
     notification.receive! if events.include?('delivered')
-    notification.failed_send! if (events & ['hardBounces', 'softBounces']).any?
+    notification.failed_send! if (events & %w[hardBounces softBounces]).any?
   end
 end

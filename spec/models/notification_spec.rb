@@ -17,9 +17,12 @@ RSpec.describe Notification, type: :model do
       Sidekiq::Testing.inline! do
         api_mock = instance_double(SibApiV3Sdk::TransactionalSMSApi)
         allow(SibApiV3Sdk::TransactionalSMSApi).to receive(:new).and_return(api_mock)
+
         api_result = double(message_id: '111')
+        events_api_result = double(events: [double(message_id: '111', event: 'delivered')])
 
         expect(api_mock).to receive(:send_transac_sms).and_return(api_result)
+        expect(api_mock).to receive(:get_sms_events).and_return(events_api_result)
 
         notif = create(:notification)
         notif.send_now
