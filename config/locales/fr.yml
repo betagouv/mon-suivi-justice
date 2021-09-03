@@ -99,6 +99,7 @@ fr:
           attributes:
             phone:
               blank: "Numéro de téléphone manquant"
+              mobile: "Numéro de téléphone portable requis"
             first_name:
               blank: "Prénom manquant"
             last_name:

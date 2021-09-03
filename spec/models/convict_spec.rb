@@ -21,5 +21,14 @@ RSpec.describe Convict, type: :model do
     it 'accepts a blank phone with refused_phone option' do
       expect(build(:convict, phone: nil, refused_phone: true)).to be_valid
     end
+    it 'accepts a 06 mobile phone' do
+      expect(build(:convict, phone: '0612458745')).to be_valid
+    end
+    it 'accepts a 07 mobile phone' do
+      expect(build(:convict, phone: '0781007498')).to be_valid
+    end
+    it 'denies a non-mobile phone' do
+      expect(build(:convict, phone: '0561083731')).not_to be_valid
+    end
   end
 end
