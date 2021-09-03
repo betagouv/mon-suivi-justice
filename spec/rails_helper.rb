@@ -34,7 +34,9 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
+  config.include ActiveJob::TestHelper
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
   config.include StateMachinesRspec::Matchers
