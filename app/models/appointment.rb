@@ -66,6 +66,15 @@ class Appointment < ApplicationRecord
       transition booked: :no_show
     end
 
+    after_transition do |appointment, transition|
+      HistoryItem.create!(
+        convict: appointment.convict,
+        appointment: appointment,
+        category: 'appointment',
+        event: "#{transition.event}_appointment".to_sym
+      )
+    end
+
     after_transition on: :book do |appointment|
       appointment.slot.increment!(:used_capacity, 1)
       if appointment.slot.full?
@@ -85,14 +94,6 @@ class Appointment < ApplicationRecord
     after_transition on: :cancel do |appointment|
       appointment.reminder_notif.cancel!
       appointment.cancelation_notif.send_now!
-    end
-
-    after_transition do |appointment, transition|
-      HistoryItem.create!(
-        convict: appointment.convict,
-        appointment: appointment,
-        event: "#{transition.event}_appointment".to_sym
-      )
     end
   end
 end

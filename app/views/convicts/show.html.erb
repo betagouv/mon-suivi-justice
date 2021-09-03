@@ -128,6 +128,7 @@
           <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
         </div>
       </div>
+
       <div class='show-history-item'>
         <div class='show-history-item-title'>
           <%= t("show_history_#{history_item.event}_title") %>
@@ -139,8 +140,8 @@
                                                       date: history_item.appointment.slot.date,
                                                       time: history_item.appointment.slot.starting_time.to_s(:time)) %>
         </div>
-
       </div>
+
       <div class='show-history-item-link'>
         <%= link_to t('see_details'), appointment_path(history_item.appointment), class: 'show-convict-history-control' %>
       </div>

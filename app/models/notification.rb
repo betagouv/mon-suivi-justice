@@ -50,6 +50,18 @@ class Notification < ApplicationRecord
       transition sent: :failed
     end
 
+    after_transition do |notification, transition|
+      event = "#{transition.event}_#{notification.role}_notification".to_sym
+      if HistoryItem.validate_event(event) == true
+        HistoryItem.create!(
+          convict: notification.appointment.convict,
+          appointment: notification.appointment,
+          category: 'notification',
+          event: event
+        )
+      end
+    end
+
     after_transition on: :send_now do |notification|
       SmsDeliveryJob.perform_later(notification)
     end
