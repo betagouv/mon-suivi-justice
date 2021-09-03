@@ -34,5 +34,4 @@ appointment_type.slot_types.each do |slot_type|
     )
   end
 end
-
 p 'database seeded'

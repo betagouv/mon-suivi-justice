@@ -1,12 +1,3 @@
-.appointments-header {
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  height: 40px;
-  border-bottom: 1px solid $table-border;
-  padding-left: 30px;
-}
-
 .link-to-new-appointment-form {
   text-align: right;
   margin-bottom: 20px;
@@ -67,10 +58,6 @@
   width: 20%;
 }
 
-.new-appointment-form-place {
-  text-align: center;
-}
-
 .new-appointment-form-no-slot {
   text-align: center;
   margin-top: 30px;
@@ -80,29 +67,51 @@
   margin: 20px 0 50px;
 }
 
-.new-appointment-slots-title {
-  text-align: center;
-  margin: 10px 0 30px;
-  font-weight: bold;
-}
-
 .form-load-slots-button {
   @include button($light-blue);
   margin: 15px auto 20px;
 }
 
-.appointment-load-slots {
-  text-align: center;
-}
-
 .new-appointment-slots-container {
+  position: relative;
+  width: 100%;
   height: 250px;
-  padding: 20px;
   border: 2px solid $form-input;
   overflow-x: auto;
   overflow-y: auto;
+}
+
+.new-appointment-slots-header {
+  position: sticky;
+  top: 0;
   display: flex;
-  flex-wrap: wrap;
+  text-align: center;
+  font-weight: 600;
+}
+
+.slot-date-title {
+  flex-shrink: 0;
+  width: 18%;
+  background-color: $grey;
+  padding: 10px 2px;
+  border-right: 1px solid black;
+}
+
+.new-appointment-slots-body {
+  padding-top: 3px;
+  text-align: center;
+  display: flex;
+}
+
+.slot-date-container {
+  flex-shrink: 0;
+  width: 18%;
+  padding: 0 2px;
+  border-right: 1px solid black;
+
+  div {
+    padding: 5px;
+  }
 }
 
 .reload-button {
@@ -110,20 +119,6 @@
 }
 
 .no-appointment-today {
-  text-align: center;
-}
-
-.slot-date-container {
-  display: flex;
-  border: 1px solid $table-border;
-  padding: 5px;
-  margin: 5px;
-  flex-direction: column;
-  width: 18%;
-}
-
-.slot-date-title {
-  margin-bottom: 10px;
   text-align: center;
 }
 
