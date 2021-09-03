@@ -12,19 +12,31 @@ RSpec.describe SlotCreationJob, type: :job do
 
   describe '#perform' do
     let(:frozen_time) { Time.zone.parse '2021-05-03' }
-    let(:tested_method) { SlotCreationJob.new.perform }
-
     before do
       allow(Time).to receive(:now).and_return frozen_time
       allow(SlotFactory).to receive(:perform)
-      tested_method
     end
 
-    it 'instantiates Slot factory' do
-      expect(SlotFactory).to have_received(:perform).once
+    context 'with auto-relaunch for the job' do
+      before { SlotCreationJob.new.perform }
+
+      it 'performs Slot factory' do
+        expect(SlotFactory).to have_received(:perform).once
+      end
+      it 'queues itself for next week' do
+        expect(SlotCreationJob).to have_been_enqueued.once.at(1.week.since)
+      end
     end
-    it 'queues itself for next week' do
-      expect(SlotCreationJob).to have_been_enqueued.once.at(1.week.since)
+
+    context 'with one shot option' do
+      before { SlotCreationJob.new.perform oneshot: true }
+
+      it 'performs Slot factory' do
+        expect(SlotFactory).to have_received(:perform).once
+      end
+      it 'does not queues itself for next week' do
+        expect(SlotCreationJob).not_to have_been_enqueued
+      end
     end
   end
 end

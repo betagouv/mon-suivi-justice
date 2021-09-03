@@ -32,6 +32,7 @@ RSpec.feature 'AppointmentType', type: :feature do
 
       @appointment_type.reload
       expect(@appointment_type.name).to eq('2e contact')
+      expect(SlotCreationJob).to have_been_enqueued.once.with(oneshot: true)
     end
 
     it 'allows to update notification types' do
@@ -69,6 +70,7 @@ RSpec.feature 'AppointmentType', type: :feature do
 
       notif_type3.reload
       expect(notif_type3.template).to eq('Bwah')
+      expect(SlotCreationJob).to have_been_enqueued.once.with(oneshot: true)
     end
 
     it 'allows to add slot types', js: true do
@@ -84,6 +86,7 @@ RSpec.feature 'AppointmentType', type: :feature do
       end
 
       expect { click_button('Enregistrer') }.to change { SlotType.count }.by(1)
+      expect(SlotCreationJob).to have_been_enqueued.once.with(oneshot: true)
     end
   end
 end
