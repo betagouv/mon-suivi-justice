@@ -173,6 +173,10 @@
   justify-content: center;
 }
 
+.info-tip-warning {
+  font-weight: 300;
+}
+
 .jap-agendas-modal-trigger {
   @include button($light-grey);
 }

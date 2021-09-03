@@ -111,11 +111,14 @@
     </div>
 
     <div class='show-appointment-controls-container'>
-      <%= button_to t('cancel'), appointment_cancel_path(@appointment),
-                                 method: :put,
-                                 data: { confirm: t('cancel_appointment_warning') },
-                                 class: 'show-button-to-edit',
-                                 disabled: !@appointment.booked? %>
+      <% if  @appointment.booked? %>
+        <%= button_to t('cancel'), appointment_cancel_path(@appointment),
+                                   method: :put,
+                                   data: { confirm: t('cancel_appointment_warning') },
+                                   class: 'show-button-to-edit' %>
+      <% else %>
+        <small class='info-tip-warning'><%= t('appointment_cancel_info') %></small>
+      <% end %>
     </div>
   </div>
 </div>
