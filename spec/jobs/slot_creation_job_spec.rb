@@ -20,7 +20,7 @@ RSpec.describe SlotCreationJob, type: :job do
     context 'with auto-relaunch for the job' do
       before { SlotCreationJob.new.perform }
 
-      it 'instantiates Slot factory' do
+      it 'performs Slot factory' do
         expect(SlotFactory).to have_received(:perform).once
       end
       it 'queues itself for next week' do
@@ -31,7 +31,7 @@ RSpec.describe SlotCreationJob, type: :job do
     context 'with one shot option' do
       before { SlotCreationJob.new.perform oneshot: true }
 
-      it 'instantiates Slot factory' do
+      it 'performs Slot factory' do
         expect(SlotFactory).to have_received(:perform).once
       end
       it 'does not queues itself for next week' do
