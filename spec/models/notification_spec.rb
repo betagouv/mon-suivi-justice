@@ -39,12 +39,15 @@ RSpec.describe Notification, type: :model do
   end
 
   describe 'state machine' do
-    it { is_expected.to have_states :created, :programmed, :canceled, :sent }
+    it { is_expected.to have_states :created, :programmed, :canceled, :sent, :received, :failed }
 
     it { is_expected.to transition_from :created, to_state: :programmed, on_event: :program }
     it { is_expected.to transition_from :created, to_state: :sent, on_event: :send_now }
 
     it { is_expected.to transition_from :programmed, to_state: :sent, on_event: :send_then }
     it { is_expected.to transition_from :programmed, to_state: :canceled, on_event: :cancel }
+
+    it { is_expected.to transition_from :sent, to_state: :received, on_event: :receive }
+    it { is_expected.to transition_from :sent, to_state: :failed, on_event: :failed_send }
   end
 end

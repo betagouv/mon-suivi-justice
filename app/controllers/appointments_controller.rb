@@ -15,6 +15,8 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     @convict = @appointment.convict
 
+    @history_items = HistoryItem.where(appointment: @appointment)
+                                .order(created_at: :desc)
     authorize @appointment
   end
 

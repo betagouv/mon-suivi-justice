@@ -20,6 +20,12 @@ class Notification < ApplicationRecord
     state :sent do
     end
 
+    state :received do
+    end
+
+    state :failed do
+    end
+
     event :program do
       transition created: :programmed
     end
@@ -34,6 +40,26 @@ class Notification < ApplicationRecord
 
     event :cancel do
       transition programmed: :canceled
+    end
+
+    event :receive do
+      transition sent: :received
+    end
+
+    event :failed_send do
+      transition sent: :failed
+    end
+
+    after_transition do |notification, transition|
+      event = "#{transition.event}_#{notification.role}_notification".to_sym
+      if HistoryItem.validate_event(event) == true
+        HistoryItem.create!(
+          convict: notification.appointment.convict,
+          appointment: notification.appointment,
+          category: 'notification',
+          event: event
+        )
+      end
     end
 
     after_transition on: :send_now do |notification|

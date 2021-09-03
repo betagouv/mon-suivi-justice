@@ -27,5 +27,8 @@ RSpec.describe SmsDeliveryJob, type: :job do
     it 'send sms' do
       expect(adapter_dbl).to have_received(:send_sms).once.with(notification)
     end
+    it 'get sms events' do
+      expect(GetSmsStatusJob).to have_been_enqueued.once.with(notification)
+    end
   end
 end

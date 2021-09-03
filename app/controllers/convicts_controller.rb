@@ -51,7 +51,7 @@ class ConvictsController < ApplicationController
 
   def show
     @convict = Convict.find(params[:id])
-    @history_items = HistoryItem.where(convict: @convict)
+    @history_items = HistoryItem.where(convict: @convict, category: 'appointment')
                                 .order(created_at: :desc)
 
     authorize @convict

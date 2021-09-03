@@ -6,6 +6,9 @@ class SmsDeliveryJob < ApplicationJob
   def perform(notification)
     return if notification.canceled?
 
+    notification.send_then if notification.programmed?
+
     SendinblueAdapter.new.send_sms(notification)
+    GetSmsStatusJob.perform_later(notification)
   end
 end

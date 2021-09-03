@@ -14,10 +14,26 @@ RSpec.describe SendinblueAdapter do
     it 'calls Sendinblue API' do
       notif = build(:notification)
       sib_api_mock = instance_double(SibApiV3Sdk::TransactionalSMSApi)
+      api_result = double(message_id: '111')
+
       allow(SibApiV3Sdk::TransactionalSMSApi).to receive(:new).and_return(sib_api_mock)
-      expect(sib_api_mock).to receive(:send_transac_sms)
+      expect(sib_api_mock).to receive(:send_transac_sms).and_return(api_result)
 
       SendinblueAdapter.new.send_sms(notif)
+    end
+  end
+
+  describe 'get_sms_status' do
+    it 'calls Sendinblue API' do
+      notif = build(:notification)
+      sib_api_mock = instance_double(SibApiV3Sdk::TransactionalSMSApi)
+      allow(SibApiV3Sdk::TransactionalSMSApi).to receive(:new).and_return(sib_api_mock)
+      expect(sib_api_mock).to receive(:get_sms_events)
+
+      adapter = SendinblueAdapter.new
+      allow(adapter).to receive(:set_notification_state)
+
+      adapter.get_sms_status(notif)
     end
   end
 
