@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   end
 
   scope controller: :static_pages do
+    get :secret
     get :landing
     get :comprendre_mes_mesures
     get :sursis_probatoire

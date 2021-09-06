@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mon Suivi Justice</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application_static', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application_static', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application_static' %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
