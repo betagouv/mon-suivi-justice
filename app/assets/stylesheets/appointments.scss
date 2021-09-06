@@ -175,11 +175,3 @@
 .jap-agendas-name {
   font-weight: bold;
 }
-
-.icon_receive_summon_notification, .icon_receive_reminder_notification, .icon_receive_cancelation_notification {
-  color: $fulfiled-appointment;
-}
-
-.icon_failed_send_summon_notification, .icon_failed_send_reminder_notification, .icon_failed_send_cancelation_notification {
-  color: $missed-appointment;
-}

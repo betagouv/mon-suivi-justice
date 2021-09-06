@@ -78,23 +78,5 @@ RSpec.feature 'HistoryItems', type: :feature do
 
       expect(page).to have_content('Finalement non :/')
     end
-
-    it 'displays sms reception' do
-      @summon_notif.send_now
-      expect { @summon_notif.receive }.to change { HistoryItem.count }.by(1)
-
-      visit appointment_path(@appointment)
-
-      expect(page).to have_content('Le SMS de convocation a bien été reçu')
-    end
-
-    it 'displays sms failure' do
-      @summon_notif.send_now
-      expect { @summon_notif.failed_send }.to change { HistoryItem.count }.by(1)
-
-      visit appointment_path(@appointment)
-
-      expect(page).to have_content("Le SMS de convocation n'a pas été reçu")
-    end
   end
 end
