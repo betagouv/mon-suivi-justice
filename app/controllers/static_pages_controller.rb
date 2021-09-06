@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
-  layout 'static'
+  layout 'application_static'
 
   skip_after_action :verify_authorized
 
