@@ -1,64 +1,71 @@
-<div class="fr-mb-6v">
-    <header role="banner" class="fr-header">
-        <div class="fr-header__body">
-            <div class="fr-container">
-                <div class="fr-header__body-row">
-                    <div class="fr-header__brand fr-enlarge-link">
-                        <div class="fr-header__brand-top">
-                            <div class="fr-header__logo">
-                                <a href=<%= secret_path %> title="Accueil - [À MODIFIER - nom de l’entité (ministère , secrétariat d‘état, gouvernement)]">
-                                    <p class="fr-logo">
-                                        Ministère de
-                                        <br>la Justice
-                                    </p>
-                                </a>
-                            </div>
-                            <div class="fr-header__navbar">
-                                <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-851" aria-haspopup="menu" id="button-852" title="Menu">
-                                    Menu
-                                </button>
-                            </div>
-                        </div>
+  <header role="banner" class="fr-header">
+      <div class="fr-header__body">
+          <div class="fr-container">
+              <div class="fr-header__body-row">
+                  <div class="fr-header__brand fr-enlarge-link">
+                      <div class="fr-header__brand-top">
+                          <div class="fr-header__logo">
+                              <a href=<%= secret_path %> title="Accueil - Ministère de la justice - Mon Suivi Justice">
+                                  <p class="fr-logo">
+                                      Ministère de
+                                      <br>la Justice
+                                  </p>
+                              </a>
+                          </div>
+                          <div class="fr-header__navbar">
+                            <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-851" aria-haspopup="menu" id="button-852" title="Menu">
+                              Menu
+                            </button>
+                          </div>
+                      </div>
+                      <div class="fr-header__service">
+                        <%= image_tag "static/logo_msj_v1.png" %>
+                      </div>
+                  </div>
+
+                  <div class="fr-header__tools">
+                    <div class="fr-header__tools-links">
+                      <%= button_to 'Espace agents', home_path, method: :get, class: 'fr-btn'  %>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="fr-header__menu fr-modal" id="modal-851" aria-labelledby="button-852">
-            <div class="fr-container">
-                <button class="fr-link--close fr-link" aria-controls="modal-851">Fermer</button>
-                <nav class="fr-nav" id="navigation-850" role="navigation" aria-label="Menu principal">
-                    <ul class="fr-nav__list">
-                        <li class="fr-nav__item">
-                            <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-830">Comprendre ma peine</button>
-                            <div class="fr-collapse fr-menu" id="menu-830">
-                                <ul class="fr-menu__list">
-                                    <li>
-                                        <a class="fr-nav__link" href=<%= comprendre_mes_mesures_path %> target="_self">Comprendre mes mesures</a>
-                                    </li>
-                                    <li>
-                                        <a class="fr-nav__link" href=<%= sursis_probatoire_path %> target="_self">Le sursis probatoire</a>
-                                    </li>
-                                    <li>
-                                        <a class="fr-nav__link" href=<%= travail_interet_general_path %> target="_self">Le travail d'intérêt général</a>
-                                    </li>
-                                    <li>
-                                        <a class="fr-nav__link" href=<%= suivi_socio_judiciaire_path %> target="_self">Le suivi socio-judiciaire</a>
-                                    </li>
-                                    <li>
-                                        <a class="fr-nav__link" href=<%= stage_path %> target="_self">Le stages</a>
-                                    </li>
-                                    <li>
-                                        <a class="fr-nav__link" href=<%= amenagements_de_peine_path %> target="_self">Les aménagements de peine</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="fr-nav__item">
-                            <a class="fr-nav__link" href="#" target="_self">Qui sommes nous</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="fr-header__menu fr-modal" id="modal-851" aria-labelledby="button-852">
+          <div class="fr-container">
+              <button class="fr-link--close fr-link" aria-controls="modal-851">Fermer</button>
+              <nav class="fr-nav" id="navigation-850" role="navigation" aria-label="Menu principal">
+                  <ul class="fr-nav__list">
+                      <li class="fr-nav__item">
+                          <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-830">Comprendre ma peine</button>
+                          <div class="fr-collapse fr-menu" id="menu-830">
+                              <ul class="fr-menu__list">
+                                  <li>
+                                      <a class="fr-nav__link" href=<%= comprendre_mes_mesures_path %> target="_self">Comprendre mes mesures</a>
+                                  </li>
+                                  <li>
+                                      <a class="fr-nav__link" href=<%= sursis_probatoire_path %> target="_self">Le sursis probatoire</a>
+                                  </li>
+                                  <li>
+                                      <a class="fr-nav__link" href=<%= travail_interet_general_path %> target="_self">Le travail d'intérêt général</a>
+                                  </li>
+                                  <li>
+                                      <a class="fr-nav__link" href=<%= suivi_socio_judiciaire_path %> target="_self">Le suivi socio-judiciaire</a>
+                                  </li>
+                                  <li>
+                                      <a class="fr-nav__link" href=<%= stage_path %> target="_self">Le stages</a>
+                                  </li>
+                                  <li>
+                                      <a class="fr-nav__link" href=<%= amenagements_de_peine_path %> target="_self">Les aménagements de peine</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </li>
+                      <li class="fr-nav__item">
+                          <a class="fr-nav__link" href="https://beta.gouv.fr/startups/justif.html" target="_self">Qui sommes nous</a>
+                      </li>
+                  </ul>
+              </nav>
+          </div>
+      </div>
+  </header>
