@@ -1,3 +1,12 @@
+.appointments-header {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid $table-border;
+  padding-left: 30px;
+}
+
 .link-to-new-appointment-form {
   text-align: right;
   margin-bottom: 20px;
