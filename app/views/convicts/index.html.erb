@@ -9,7 +9,14 @@
         <%= f.submit t('filter'), class: 'index-search-button' %>
       <% end %>
     </div>
-
+    <div class='index-tools-filter-container'>
+      <div>
+        <%= select_tag '', options_from_collection_for_select(@convicts, :profile_path, 'name'),
+                           id: 'home-search-field',
+                           style: "width: 200%",
+                           include_blank: true %>
+      </div>
+    </div>
     <div class='index-tools-controls-container'>
       <% if policy(:convict).new? %>
         <%= button_to t('new_convict_title'), new_convict_path, class: 'link-to-new-convict-button', form_class: 'link-to-new-convict-form', method: :get %>
