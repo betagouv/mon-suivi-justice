@@ -212,6 +212,7 @@ fr:
   new-appointment-no-slot: "Pas de créneau disponible"
   new-appointment-no-place: "Vous n'avez accès à aucun lieu proposant ce type de RDV"
   new_appointment_reload: "Recharger"
+  appointment_cancel_info: "Ce rendez-vous ne peut-être annulé."
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-agenda-filter: "Agenda"
   today_appointments_title: "RDV SPIP du jour"

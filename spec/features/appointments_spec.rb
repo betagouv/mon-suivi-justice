@@ -104,6 +104,11 @@ RSpec.feature 'Appointments', type: :feature do
 
       expect(page).to have_current_path(appointment_path(appointment))
     end
+    it 'cant cancel a not-booked appointment' do
+      visit appointment_path(create(:appointment))
+      expect(page).not_to have_button 'Annuler'
+      expect(page).to have_content 'Ce rendez-vous ne peut-être annulé.'
+    end
   end
 
   describe 'fulfilment' do
