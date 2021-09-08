@@ -220,7 +220,7 @@ fr:
   new-appointment-help: "Sélectionnez un lieu de RDV pour afficher les créneaux disponibles."
   new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi immédiat d'un SMS de confirmation à la PPSMJ et l'envoi d'un SMS de rappel avant le rendez-vous (si un numéro de téléphone a été donné)."
   show_appointment_title: "Infos rendez-vous"
-  cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation au PPSMJ, et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
+  cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ, et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
 
   new-appointment-cab-list-title: 'Liste des cabinets par secteur'
   new-appointment-cab1-name: 'Cabinet 1 -'
