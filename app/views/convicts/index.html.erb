@@ -1,15 +1,6 @@
 <div class='convicts-container'>
   <div class='index-tools-container'>
     <div class='index-tools-filter-container'>
-      <%= search_form_for @q, class: 'index-search-form' do |f| %>
-        <%= f.search_field :first_name_or_last_name_start, id: 'search-field',
-                                                          class: 'index-search-field',
-                                                          placeholder: t('search_convict_placeholder') %>
-
-        <%= f.submit t('filter'), class: 'index-search-button' %>
-      <% end %>
-    </div>
-    <div class='index-tools-filter-container'>
       <div>
         <%= select_tag '', options_from_collection_for_select(@convicts, :profile_path, 'name'),
                            id: 'home-search-field',
