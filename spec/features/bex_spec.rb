@@ -38,11 +38,7 @@ RSpec.feature 'Bex', type: :feature do
       create(:appointment, slot: slot1, convict: convict1)
       create(:appointment, slot: slot2, convict: convict2)
 
-      visit appointments_path
-      click_button 'Agenda RDV JAP'
-
-      expect(page).to have_current_path(agenda_jap_path)
-
+      visit agenda_jap_path
       select current_date, from: :date
       page.execute_script("$('#jap-appointments-date-select').trigger('change')")
 
@@ -94,11 +90,7 @@ RSpec.feature 'Bex', type: :feature do
       create(:appointment, slot: slot1, convict: convict1)
       create(:appointment, slot: slot2, convict: convict2)
 
-      visit appointments_path
-      click_button 'Agenda RDV SPIP'
-
-      expect(page).to have_current_path(agenda_spip_path)
-
+      visit agenda_spip_path
       select current_month_label, from: :month
       page.execute_script("$('#spip-appointments-month-select').trigger('change')")
 
