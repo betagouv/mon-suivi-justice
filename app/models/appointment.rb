@@ -6,6 +6,7 @@ class Appointment < ApplicationRecord
   belongs_to :slot
 
   has_many :notifications, dependent: :destroy
+  has_many :history_items, dependent: :destroy
 
   attr_accessor :place_id, :agenda_id
 
