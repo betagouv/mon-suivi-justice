@@ -44,7 +44,7 @@ RSpec.feature 'Bex', type: :feature do
 
       expect(page).to have_current_path(agenda_jap_path(date: current_date))
 
-      agenda_containers = page.all('.jap-agenda-container')
+      agenda_containers = page.all('.bex-agenda-container')
 
       expect(agenda_containers[0]).to have_content('Cabinet 1')
       expect(agenda_containers[0]).to have_content('James')
