@@ -14,7 +14,7 @@ module BexHelper
   end
 
   def bex_jap_available_hours
-    %w[9h30 10h00 10h30 11h00 11h30]
+    %w[09h30 10h00 10h30 11h00 11h30]
   end
 
   def appointments_by_agenda(appointments)
