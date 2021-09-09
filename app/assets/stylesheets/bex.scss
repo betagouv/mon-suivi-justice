@@ -30,23 +30,51 @@
   margin-right: 20px;
 }
 
-.jap-date-select {
-  min-width: 130px;
-}
-
-.jap-agenda-container {
+.bex-agenda-container {
   display: flex;
   margin-bottom: 30px;
   border: 1px solid black;
 }
 
-.jap-agenda-header {
+.bex-agenda-header {
   display: flex;
   width: 15%;
   align-items: center;
   justify-content: center;
 
   @media print { background-color: initial !important; }
+}
+
+.bex-agenda-table {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.bex-agenda-table-header {
+  font-weight: bold;
+}
+
+.bex-agenda-column {
+  width: 20%;
+  border-left: 1px solid black;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+}
+
+.bex-agenda-line {
+  display: flex;
+  min-height: 30px;
+  border-bottom: 1px solid black;
+
+  &:last-child{
+    border: 0;
+  }
+}
+
+.jap-date-select {
+  min-width: 130px;
 }
 
 .jap-agenda-header1 { background-color: $jap-cabinet1; }
@@ -57,33 +85,6 @@
 .jap-agenda-header6 { background-color: $jap-cabinet6; }
 .jap-agenda-header7 { background-color: $jap-cabinet7; }
 
-.jap-agenda-table-header {
-  font-weight: bold;
-}
-
-.jap-agenda-table {
-  display: flex;
-  flex-direction: column;
-  width: 85%;
-}
-
-.jap-agenda-column {
-  width: 20%;
-  border-left: 1px solid black;
-  padding: 0 5px;
-  display: flex;
-  align-items: center;
-}
-
-.jap-agenda-line {
-  display: flex;
-  min-height: 30px;
-  border-bottom: 1px solid black;
-
-  &:last-child{
-    border: 0;
-  }
-}
 
 .spip-date-select {
   width: 170px;
@@ -93,45 +94,7 @@
   }
 }
 
-.spip-agenda-table {
-  border: 1px solid black;
-}
-
-.spip-agenda-line {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid black;
-
-  &:last-child{
-    border: 0;
-  }
-}
-
-.spip-agenda-column {
-  display: flex;
-  align-items: center;
-
-  width: 15%;
-  border-left: 1px solid black;
-  height: 75px;
-  flex-grow: 1;
-  flex-basis: 0;
-
-  &:first-child{
-    border: 0;
-  }
-}
-
-.spip-agenda-table-header {
-  font-weight: bold;
+.spip-agenda-header {
   background-color: $jap-cabinet4;
   justify-content: center;
-}
-
-.spip-agenda-date-column {
-  justify-content: center;
-}
-
-.spip-appointment-container {
-  padding-left: 10px;
 }

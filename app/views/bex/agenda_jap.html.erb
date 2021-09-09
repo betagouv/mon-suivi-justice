@@ -21,48 +21,48 @@
 
   <% available_agendas.each_with_index do |agenda, index| %>
     <% apts = appointments_by_agenda(@appointments).find { |a| a[0] == agenda }&.last %>
-    <div class='jap-agenda-container'>
-      <div class='jap-agenda-header jap-agenda-header<%= index+1%>'>
-        <div class='jap-agenda-header-title'>
+    <div class='bex-agenda-container'>
+      <div class='bex-agenda-header jap-agenda-header<%= index+1%>'>
+        <div class='bex-agenda-header-title'>
           <%= agenda %>
         </div>
       </div>
 
-      <div class='jap-agenda-table'>
-        <div class='jap-agenda-table-header jap-agenda-line'>
-          <div class='jap-agenda-header-title jap-agenda-column'>
+      <div class='bex-agenda-table'>
+        <div class='bex-agenda-table-header bex-agenda-line'>
+          <div class='bex-agenda-header-title bex-agenda-column'>
             <%= t('bex_jap_agenda_header_hour') %>
           </div>
-          <div class='jap-agenda-header-title jap-agenda-column'>
+          <div class='bex-agenda-header-title bex-agenda-column'>
             <%= t('bex_jap_agenda_header_last_name') %>
           </div>
-          <div class='jap-agenda-header-title jap-agenda-column'>
+          <div class='bex-agenda-header-title bex-agenda-column'>
             <%= t('bex_jap_agenda_header_first_name') %>
           </div>
-          <div class='jap-agenda-header-title jap-agenda-column'>
+          <div class='bex-agenda-header-title bex-agenda-column'>
             <%= t('bex_jap_agenda_header_prosecutor') %>
           </div>
-          <div class='jap-agenda-header-title jap-agenda-column'>
+          <div class='bex-agenda-header-title bex-agenda-column'>
             <%= t('bex_jap_agenda_header_origin') %>
           </div>
         </div>
 
         <% bex_jap_available_hours.each do |hour| %>
           <% appointment = select_appointment(apts, hour) %>
-          <div class='jap-agenda-line'>
-            <div class='jap-agenda-column'>
+          <div class='bex-agenda-line'>
+            <div class='bex-agenda-column'>
               <%= hour %>
             </div>
-            <div class='jap-agenda-column'>
+            <div class='bex-agenda-column'>
               <%= appointment&.convict&.last_name&.upcase %>
             </div>
-            <div class='jap-agenda-column'>
+            <div class='bex-agenda-column'>
               <%= appointment&.convict&.first_name %>
             </div>
-            <div class='jap-agenda-column'>
+            <div class='bex-agenda-column'>
               <%= appointment&.convict&.prosecutor_number %>
             </div>
-            <div class='jap-agenda-column'>
+            <div class='bex-agenda-column'>
               <% if appointment.present? %>
                 <%= t("activerecord.attributes.appointment.origin_departments.#{appointment.origin_department}") %>
               <% end %>
