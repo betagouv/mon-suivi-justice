@@ -87,8 +87,16 @@
 
 .appointment-fulfilment-controls-container {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+
   margin-top: 20px;
+  div {
+    display: flex;
+    justify-content: center;
+    flex: 1 0 100%;
+    padding: 6px;
+  }
 }
 
 .show-convict-fulfil-button {

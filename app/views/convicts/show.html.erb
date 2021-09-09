@@ -11,12 +11,34 @@
       </div>
 
       <div class='appointment-fulfilment-controls-container'>
-        <%= button_to t('yes'), appointment_fulfil_path(apt),
+
+        <%# button_to t('yes'), appointment_fulfil_path(apt),
                                 method: :put,
                                 data: { confirm: t('basic_confirmation') },
                                 class: 'show-convict-fulfil-button' %>
 
-        <%= button_to t('no'), appointment_miss_path(apt),
+        <div>
+          <%= form_with model: apt, url: appointment_fulfil_path(apt), method: :put do |form| %>
+            <%= form.submit 'Babar est venu', class: 'show-convict-fulfil-button' %>
+          <% end %>
+        </div>
+        <div>
+          <%= form_with model: apt, url: appointment_miss_path(apt), method: :put do |form| %>
+            <%= form.hidden_field :send_missed_notification, value: false %>
+            <%= form.submit 'Babar est pas venu, je ne souhaite pas envoyer un sms de rappel',   class: 'show-convict-miss-button' %>
+          <% end %>
+        </div>
+        <div>
+          <%= form_with model: apt, url: appointment_miss_path(apt), method: :put do |form| %>
+            <%= form.hidden_field :send_missed_notification, value: true %>
+            <%= form.submit 'Babar est pas venu, je souhaite envoyer le sms de rappel suivant',   class: 'show-convict-miss-button' %>
+          <% end %>
+        </div>
+        <div>
+          <p><%= apt.missed_notif.template %></p>
+        </div>
+
+        <%# button_to t('no'), appointment_miss_path(apt),
                                 method: :put,
                                 data: { confirm: t('basic_confirmation') },
                                 class: 'show-convict-miss-button' %>
