@@ -35,6 +35,10 @@ class Appointment < ApplicationRecord
     notifications.find_by(role: :cancelation)
   end
 
+  def missed_notif
+    notifications.find_by(role: :missed)
+  end
+
   state_machine initial: :created do
     state :created do
     end
@@ -95,6 +99,10 @@ class Appointment < ApplicationRecord
     after_transition on: :cancel do |appointment|
       appointment.reminder_notif.cancel!
       appointment.cancelation_notif.send_now!
+    end
+
+    after_transition on: :no_show do |appointment|
+      appointment.missed_notif.send_now!
     end
   end
 end

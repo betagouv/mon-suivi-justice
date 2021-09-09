@@ -4,7 +4,7 @@ class Notification < ApplicationRecord
   belongs_to :appointment
   validates :template, presence: true
 
-  enum role: %i[summon reminder cancelation]
+  enum role: %i[summon reminder cancelation missed]
   enum reminder_period: %i[one_day two_days]
 
   state_machine initial: :created do
