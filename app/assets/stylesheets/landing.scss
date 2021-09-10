@@ -13,4 +13,5 @@
 
 .landing-to-admin-button {
   @include button($light-grey);
+  margin-bottom: 20px;
 }
