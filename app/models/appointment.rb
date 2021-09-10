@@ -101,9 +101,8 @@ class Appointment < ApplicationRecord
       appointment.cancelation_notif.send_now!
     end
 
-    after_transition on: :no_show do |appointment, transition|
-      TODO see why not here ?
-      appointment.missed_notif.send_now!
+    after_transition on: :miss do |appointment, transition|
+      appointment.missed_notif&.send_now! if transition.args.first&.dig(:send_notification)
     end
   end
 end

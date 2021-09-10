@@ -55,7 +55,7 @@
     <% end %>
 
     <%= f.simple_fields_for :notification_types, @appointment_type.missed_notif do |p| %>
-      <div class='notification-type-container cancelation-container'>
+      <div class='notification-type-container missed-container'>
         <p class='notification-type-role'>
           - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.missed_notif.role}").capitalize %>
         </p>

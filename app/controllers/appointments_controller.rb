@@ -56,8 +56,11 @@ class AppointmentsController < ApplicationController
 
   def miss
     @appointment = Appointment.find(params[:appointment_id])
-    byebug
-    @appointment.miss!(send_notification: params[:appointment_send_missed_notification])
+    @appointment.miss!(
+      send_notification: ActiveModel::Type::Boolean.new.cast(
+        params.dig(:appointment, :send_missed_notification)
+      )
+    )
 
     authorize @appointment
     redirect_back(fallback_location: root_path)

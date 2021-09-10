@@ -30,5 +30,20 @@ RSpec.describe Appointment, type: :model do
       allow(subject).to receive(:reminder_notif).and_return(create(:notification, state: 'programmed'))
       is_expected.to transition_from :booked, to_state: :canceled, on_event: :cancel
     end
+
+    it 'transitions from booked to missed without sending sms' do
+      appointment_type = create :appointment_type
+      appointment = create :appointment, :with_notifications, appointment_type: appointment_type
+      appointment.book
+      appointment.miss
+      expect(SmsDeliveryJob).not_to have_been_enqueued.with(appointment.missed_notif)
+    end
+    it 'transitions from booked to missed and sending sms' do
+      appointment_type = create :appointment_type
+      appointment = create :appointment, :with_notifications, appointment_type: appointment_type
+      appointment.book
+      appointment.miss(send_notification: true)
+      expect(SmsDeliveryJob).to have_been_enqueued.once.with(appointment.missed_notif)
+    end
   end
 end

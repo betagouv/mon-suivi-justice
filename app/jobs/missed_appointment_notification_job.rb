@@ -3,20 +3,24 @@ class MissedAppointmentNotificationJob < ApplicationJob
     AppointmentType.find_each do |appointment_type|
       next if NotificationType.exists? appointment_type: appointment_type, role: :missed
 
-      NotificationType.create(
-        appointment_type: appointment_type, role: :missed,
-        template: 'Vous avez manqué votre "RDV suivi", veuillez contacter votre SPIP dans la meilleurs délais.'
-      )
+      create_notification_type(appointment_type)
     end
+    Appointment.find_each { |appointment| create_notification(appointment) }
+  end
 
-    todo spec pour below :
+  private
 
-    Appointment.find_each do |appointment|
-      Notification.create(
-        appointment: appointment,
-        role: :missed,
-        template: 'Vous avez manqué votre "RDV suivi", veuillez contacter votre SPIP dans la meilleurs délais.'
-      )
-    end
+  def create_notification_type(appointment_type)
+    NotificationType.create(
+      appointment_type: appointment_type, role: :missed,
+      template: 'Vous avez manqué votre "RDV suivi", veuillez contacter votre SPIP dans les meilleurs délais.'
+    )
+  end
+
+  def create_notification(appointment)
+    Notification.create(
+      appointment: appointment, role: :missed,
+      template: 'Vous avez manqué votre "RDV suivi", veuillez contacter votre SPIP dans les meilleurs délais.'
+    )
   end
 end
