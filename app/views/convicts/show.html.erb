@@ -13,19 +13,19 @@
       <div class='appointment-fulfilment-controls-container'>
         <div>
           <%= form_with model: apt, url: appointment_fulfil_path(apt), method: :put do |form| %>
-            <%= form.submit "Oui, #{@convict.name} était présent(e).", class: 'show-convict-fulfil-button' %>
+            <%= form.submit t('show-convict-fulfilment-yes', name: @convict.name), class: 'show-convict-fulfil-button' %>
           <% end %>
         </div>
         <div>
           <%= form_with model: apt, url: appointment_miss_path(apt), method: :put do |form| %>
             <%= form.hidden_field :send_missed_notification, value: true %>
-            <%= form.submit "Non, #{@convict.name} n'était pas présent(e). Envoyer un sms de rappel",   class: 'show-convict-miss-button' %>
+            <%= form.submit t('show-convict-fulfilment-no-with-sms', name: @convict.name),   class: 'show-convict-miss-button' %>
           <% end %>
         </div>
         <div>
           <%= form_with model: apt, url: appointment_miss_path(apt), method: :put do |form| %>
             <%= form.hidden_field :send_missed_notification, value: false %>
-            <%= form.submit "Non, #{@convict.name} n'était pas présent(e). Ne pas envoyer de sms de rappel",   class: 'show-convict-miss-sms-button' %>
+            <%= form.submit t('show-convict-fulfilment-no-without-sms', name: @convict.name),   class: 'show-convict-miss-sms-button' %>
           <% end %>
         </div>
         <div>
