@@ -141,7 +141,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       visit convict_path(convict)
       within first('.appointment-fulfilment-container') {
-               click_button 'Oui, BOBOR Babar était présent(e) à son rendez-vous.'
+               click_button 'Oui, BOBOR Babar était présent(e).'
              }
 
       appointment.reload
@@ -162,7 +162,7 @@ RSpec.feature 'Appointments', type: :feature do
       visit convict_path(convict)
 
       within first('.appointment-fulfilment-container') {
-               click_button "Non, BOBOR Babar n'était pas présent(e) à son rendez-vous. Envoyer un sms de rappel"
+               click_button "Non, BOBOR Babar n'était pas présent(e). Envoyer un sms de rappel"
              }
 
       appointment.reload
@@ -184,7 +184,7 @@ RSpec.feature 'Appointments', type: :feature do
       visit convict_path(convict)
 
       within first('.appointment-fulfilment-container') {
-               click_button "Non, BOBOR Babar n'était pas présent(e) à son rendez-vous. Ne pas envoyer de sms de rappel"
+               click_button "Non, BOBOR Babar n'était pas présent(e). Ne pas envoyer de sms de rappel"
              }
 
       appointment.reload
