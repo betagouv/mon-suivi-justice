@@ -19,34 +19,57 @@
     </div>
   </div>
 
-  <div class='spip-agenda-table'>
-    <div class='spip-agenda-line'>
-      <div class='spip-agenda-column'></div>
-      <% bex_spip_available_hours.each do |hour| %>
-        <div class='spip-agenda-column spip-agenda-table-header'><%= hour %></div>
-      <% end %>
-    </div>
-    <% open_days_for_the_month(@current_month).each do |day| %>
-      <% days_appointments = appointments_for_a_day(@appointments, day) %>
-      <div class='spip-agenda-line'>
-        <div class='spip-agenda-column spip-agenda-date-column'><%= day %></div>
+  <% open_days_for_the_month(@current_month).each do |day| %>
+    <% days_appointments = appointments_for_a_day(@appointments, day) %>
+    <div class='bex-agenda-container'>
+      <div class='bex-agenda-header spip-agenda-header'>
+        <div class='bex-agenda-header-title'>
+          <%= day %>
+        </div>
+      </div>
+
+      <div class='bex-agenda-table'>
+        <div class='bex-agenda-table-header bex-agenda-line'>
+          <div class='bex-agenda-header-title bex-agenda-column'>
+            <%= t('bex_jap_agenda_header_hour') %>
+          </div>
+          <div class='bex-agenda-header-title bex-agenda-column'>
+            <%= t('bex_jap_agenda_header_last_name') %>
+          </div>
+          <div class='bex-agenda-header-title bex-agenda-column'>
+            <%= t('bex_jap_agenda_header_first_name') %>
+          </div>
+          <div class='bex-agenda-header-title bex-agenda-column'>
+            <%= t('bex_jap_agenda_header_prosecutor') %>
+          </div>
+          <div class='bex-agenda-header-title bex-agenda-column'>
+            <%= t('bex_jap_agenda_header_origin') %>
+          </div>
+        </div>
+
         <% bex_spip_available_hours.each do |hour| %>
-          <% apt = appointment_of_the_hour(days_appointments, hour) %>
-          <div class='spip-agenda-column'>
-            <div class='spip-appointment-container'>
-              <div class='spip-appointment-data'>
-                <%= apt&.convict&.last_name&.upcase %>
-              </div>
-              <div class='spip-appointment-data'>
-                <%= apt&.convict&.first_name&.capitalize %>
-              </div>
-              <div class='spip-appointment-data'>
-                <%= apt&.convict&.prosecutor_number %>
-              </div>
+          <% appointment = appointment_of_the_hour(days_appointments, hour) %>
+          <div class='bex-agenda-line'>
+            <div class='bex-agenda-column'>
+              <%= hour %>
+            </div>
+            <div class='bex-agenda-column'>
+              <%= appointment&.convict&.last_name&.upcase %>
+            </div>
+            <div class='bex-agenda-column'>
+              <%= appointment&.convict&.first_name %>
+            </div>
+            <div class='bex-agenda-column'>
+              <%= appointment&.convict&.prosecutor_number %>
+            </div>
+            <div class='bex-agenda-column'>
+              <% if appointment.present? %>
+                <%= t("activerecord.attributes.appointment.origin_departments.#{appointment.origin_department}") %>
+              <% end %>
             </div>
           </div>
         <% end %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
