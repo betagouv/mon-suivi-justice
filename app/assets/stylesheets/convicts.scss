@@ -89,23 +89,28 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
   margin-top: 20px;
   div {
     display: flex;
+    padding-top: 10px;
     justify-content: center;
     flex: 1 0 100%;
-    padding: 6px;
   }
 }
 
 .show-convict-fulfil-button {
-  @include button($light-blue)
+  @include button($notice)
+  font-size: 1em
+}
+
+.show-convict-miss-sms-button {
+  @include button(tomato)
+  font-size: 1em
 }
 
 .show-convict-miss-button {
-  @include button($light-grey)
-  margin-left: 40px;
+  @include button(coral)
+  font-size: 1em
 }
 
 .show-history-container {

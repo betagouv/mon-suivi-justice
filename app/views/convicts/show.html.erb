@@ -11,37 +11,26 @@
       </div>
 
       <div class='appointment-fulfilment-controls-container'>
-
-        <%# button_to t('yes'), appointment_fulfil_path(apt),
-                                method: :put,
-                                data: { confirm: t('basic_confirmation') },
-                                class: 'show-convict-fulfil-button' %>
-
         <div>
           <%= form_with model: apt, url: appointment_fulfil_path(apt), method: :put do |form| %>
-            <%= form.submit "Oui, #{@convict.name} était présent(e) à son rendez-vous.", class: 'show-convict-fulfil-button' %>
+            <%= form.submit "Oui, #{@convict.name} était présent(e).", class: 'show-convict-fulfil-button' %>
           <% end %>
         </div>
         <div>
           <%= form_with model: apt, url: appointment_miss_path(apt), method: :put do |form| %>
             <%= form.hidden_field :send_missed_notification, value: true %>
-            <%= form.submit "Non, #{@convict.name} n'était pas présent(e) à son rendez-vous. Envoyer un sms de rappel",   class: 'show-convict-miss-button' %>
+            <%= form.submit "Non, #{@convict.name} n'était pas présent(e). Envoyer un sms de rappel",   class: 'show-convict-miss-button' %>
           <% end %>
         </div>
         <div>
           <%= form_with model: apt, url: appointment_miss_path(apt), method: :put do |form| %>
             <%= form.hidden_field :send_missed_notification, value: false %>
-            <%= form.submit "Non, #{@convict.name} n'était pas présent(e) à son rendez-vous. Ne pas envoyer de sms de rappel",   class: 'show-convict-miss-button' %>
+            <%= form.submit "Non, #{@convict.name} n'était pas présent(e). Ne pas envoyer de sms de rappel",   class: 'show-convict-miss-sms-button' %>
           <% end %>
         </div>
         <div>
-          <p><%= apt.missed_notif.template %></p>
+          <p><strong>Texte du SMS de rappel : </strong><%= apt.missed_notif.template %></p>
         </div>
-
-        <%# button_to t('no'), appointment_miss_path(apt),
-                                method: :put,
-                                data: { confirm: t('basic_confirmation') },
-                                class: 'show-convict-miss-button' %>
       </div>
     </div>
   <% end %>
