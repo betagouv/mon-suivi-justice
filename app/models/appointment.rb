@@ -93,7 +93,9 @@ class Appointment < ApplicationRecord
     end
 
     after_transition on: :cancel do |appointment|
-      appointment.reminder_notif.cancel!
+      if appointment.reminder_notif.programmed?
+        appointment.reminder_notif.cancel!
+      end
       appointment.cancelation_notif.send_now!
     end
   end
