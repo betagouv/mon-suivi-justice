@@ -40,6 +40,8 @@ class SendinblueAdapter
   end
 
   def set_notification_state(notification, sms_data)
+    return if sms_data.events.empty?
+
     events = sms_data.events
                      .select { |event| event.message_id == notification.external_id }
                      .map(&:event)
