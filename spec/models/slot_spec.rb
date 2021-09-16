@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Slot, type: :model do
-  it { should belong_to(:agenda) }
+  it { should belong_to(:slot_type) }
   it { should belong_to(:appointment_type) }
   it { should have_one(:appointment) }
 

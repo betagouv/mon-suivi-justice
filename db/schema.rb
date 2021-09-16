@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_16_121021) do
+ActiveRecord::Schema.define(version: 2021_09_16_111658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,9 +121,8 @@ ActiveRecord::Schema.define(version: 2021_09_16_121021) do
     t.integer "capacity", default: 1
     t.integer "used_capacity", default: 0
     t.bigint "appointment_type_id", null: false
-    t.bigint "slot_type_id"
+    t.integer "agenda_id"
     t.index ["appointment_type_id"], name: "index_slots_on_appointment_type_id"
-    t.index ["slot_type_id"], name: "index_slots_on_slot_type_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -174,5 +173,4 @@ ActiveRecord::Schema.define(version: 2021_09_16_121021) do
   add_foreign_key "slot_types", "agendas"
   add_foreign_key "slot_types", "appointment_types"
   add_foreign_key "slots", "appointment_types"
-  add_foreign_key "slots", "slot_types"
 end

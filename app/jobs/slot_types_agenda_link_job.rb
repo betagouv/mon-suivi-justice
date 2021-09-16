@@ -13,5 +13,15 @@ class SlotTypesAgendaLinkJob < ApplicationJob
         slot_type.destroy # destroy the legacy slot type without agenda
       end
     end
+    # Link booked slot to their corresponding slot_type, agenda reference will be removed later
+    Slot.find_each do |slot|
+      slot_type = SlotType.find_by(
+        agenda: slot.agenda, appointment_type: slot.appointment_type,
+        starting_time: slot.starting_time, weekday: slot.date.strftime('%A').downcase
+      )
+      slot.update slot_type: slot_type
+    end
+    # Re-launch Slot creation factory to re-seed new slot
+    SlotCreationJob.perform_later oneshot: true
   end
 end

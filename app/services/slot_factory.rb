@@ -39,6 +39,7 @@ module SlotFactory
       Slot.create(
         date: date,
         agenda: agenda,
+        slot_type: slot_type,
         appointment_type: appointment_type,
         starting_time: slot_type.starting_time,
         duration: slot_type.duration,
