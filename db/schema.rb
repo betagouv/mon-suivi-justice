@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_03_105951) do
+ActiveRecord::Schema.define(version: 2021_09_16_111658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,8 @@ ActiveRecord::Schema.define(version: 2021_09_03_105951) do
     t.bigint "appointment_type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "agenda_id"
+    t.index ["agenda_id"], name: "index_slot_types_on_agenda_id"
     t.index ["appointment_type_id"], name: "index_slot_types_on_appointment_type_id"
   end
 
@@ -169,6 +171,7 @@ ActiveRecord::Schema.define(version: 2021_09_03_105951) do
   add_foreign_key "history_items", "convicts"
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notifications", "appointments"
+  add_foreign_key "slot_types", "agendas"
   add_foreign_key "slot_types", "appointment_types"
   add_foreign_key "slots", "agendas"
   add_foreign_key "slots", "appointment_types"
