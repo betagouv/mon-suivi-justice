@@ -72,21 +72,5 @@ RSpec.feature 'AppointmentType', type: :feature do
       expect(notif_type3.template).to eq('Bwah')
       expect(SlotCreationJob).to have_been_enqueued.once.with(oneshot: true)
     end
-
-    it 'allows to add slot types', js: true do
-      visit edit_appointment_type_path(@appointment_type)
-
-      within first('.slot-types-container') do
-        click_button 'Ajouter créneau'
-
-        select 'Mardi', from: 'Jour'
-        select '14', from: 'Heure'
-        fill_in 'Durée', with: '60'
-        fill_in 'Capacité', with: '5'
-      end
-
-      expect { click_button('Enregistrer') }.to change { SlotType.count }.by(1)
-      expect(SlotCreationJob).to have_been_enqueued.once.with(oneshot: true)
-    end
   end
 end
