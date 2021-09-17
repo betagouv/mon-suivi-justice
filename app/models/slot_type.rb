@@ -18,6 +18,7 @@ class SlotType < ApplicationRecord
   private
 
   def destroy_orphan_slots_not_booked
+    # TODO a revoir, jsute ceux de ce slot_type
     Slot.where(slot_type_id: nil).where.not(id: Appointment.select(:slot_id)).destroy_all
   end
 end

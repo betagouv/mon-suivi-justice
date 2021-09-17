@@ -1,0 +1,55 @@
+<div class='places-container'>
+  <%= button_to t('new_slot_type_title'), new_slot_type_path, class: 'link-to-new-slot-type-button', form_class: 'link-to-new-slot-type-form', method: :get %>
+  <div class='index-table-container'>
+    <div class='slot-type-header'>
+      <div class='slot-type-header-title slot-type-column-1'>
+        <%= t('activerecord.attributes.slot_type.appointment_type') %>
+      </div>
+      <div class='slot-type-header-title slot-type-column-2'>
+        <%= t('activerecord.attributes.slot_type.agenda') %>
+      </div>
+      <div class='slot-type-header-title slot-type-column-3'>
+        <%= t('activerecord.attributes.slot_type.week_day') %>
+      </div>
+      <div class='slot-type-header-title slot-type-column-4'>
+        <%= t('activerecord.attributes.slot_type.starting_time') %>
+      </div>
+      <div class='slot-type-header-title slot-type-column-5'>
+        <%= t('activerecord.attributes.slot_type.duration') %>
+      </div>
+      <div class='slot-type-header-title slot-type-column-6'>
+        <%= t('activerecord.attributes.slot_type.capacity') %>
+      </div>
+    </div>
+
+    <% @slot_types.each do |slot_type| %>
+      <div class='slot-type-item-container'>
+        <div class='slot-type-data slot-type-column-1'>
+          <%= slot_type.appointment_type.name %>
+        </div>
+        <div class='slot-type-data slot-type-column-2'>
+          <%= slot_type.agenda.name %>
+        </div>
+        <div class='slot-type-data slot-type-column-3'>
+          <%= t("simple_form.options.slot_type.week_day.#{slot_type.week_day}") %>
+        </div>
+        <div class='slot-type-data slot-type-column-4'>
+          <%= slot_type.starting_time.to_s(:time) %>
+        </div>
+        <div class='slot-type-data slot-type-column-5'>
+          <%= slot_type.duration %>
+        </div>
+        <div class='slot-type-data slot-type-column-6'>
+          <%= slot_type.capacity %>
+        </div>
+
+        <div class='index-controls-container'>
+          <%= link_to t('edit'), edit_slot_type_path(slot_type), class: 'index-control' %>
+          <%= link_to t('delete'), slot_type_path(slot_type), class: 'index-control', data: { confirm: t('delete_slot_type_confirmation') }, method: :delete %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= paginate @slot_types %>
+  </div>
+</div>

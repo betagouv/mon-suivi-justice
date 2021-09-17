@@ -51,6 +51,8 @@ fr:
           reminder: rappel
           cancelation: annulation
       slot_type:
+        appointment_type: "Type de RDV"
+        agenda: "Agenda"
         week_day: Jour
         starting_time: Heure
         duration: Durée
@@ -271,6 +273,11 @@ fr:
   edit_place_add_agenda: Ajouter agenda
   delete_place_confirmation: "Attention, en supprimant ce lieu, vous supprimez tous les créneaux associés et les rendez-vous programmés."
 
+  new_slot_type_title: "Nouveau Créneau Récurent"
+  new_slot_type_submit: "Enregistrer"
+  edit_slot_type_title: "Modifier"
+  delete_slot_type_confirmation: "Attention, en supprimant ce créneau récurent, vous supprimez tous les créneaux associés."
+
   new_slot_title: "Nouveau Créneau"
   new_slot_submit: "Enregistrer"
   index_slot_place_filter: "Lieu de RDV"
@@ -285,6 +292,7 @@ fr:
     appointment_types: "Types de RDV"
     places: "Lieux"
     slots: "Créneaux"
+    slot_types: 'Créneaux récurrents'
     users: "Agents"
 
   simple_form:

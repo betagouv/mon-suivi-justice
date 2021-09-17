@@ -1,0 +1,17 @@
+<h1 class='form-title'><%= t('new_slot_type_title') %></h1>
+<%= simple_form_for @slot_type, html: { class: 'basic-form' } do |f| %>
+  <%= f.association :agenda, label: t('activerecord.models.agenda'), input_html: { class: 'form-select' } %>
+  <%= f.association :appointment_type, label: t('activerecord.models.appointment_type'), input_html: { class: 'form-select' } %>
+  <%= f.input :week_day, collection: SlotType.week_days.keys,
+                         label_method: lambda {|k| t("simple_form.options.slot_type.week_day.#{k}")},
+                         wrapper_html: { class: 'appointment-type-slot-form-line1' },
+                         input_html: { class: 'form-select' } %>
+  <%= f.input :starting_time, input_html: { class: 'form-select', value: f.object.starting_time.to_s },
+                              wrapper: :custom_time,
+                              start_hour: 8,
+                              end_hour: 20,
+                              minute_step: 5 %>
+  <%= f.input :duration %>
+  <%= f.input :capacity %>
+  <%= f.button :submit, t('new_slot_type_submit'), class: 'form-submit-button' %>
+<% end %>
