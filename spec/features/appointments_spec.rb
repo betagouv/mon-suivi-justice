@@ -64,6 +64,9 @@ RSpec.feature 'Appointments', type: :feature do
       expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)
                                            .and change { Notification.count }.by(3)
     end
+
+    xit 'shows only relevant places for an appointment type' do
+    end
   end
 
   describe 'show' do

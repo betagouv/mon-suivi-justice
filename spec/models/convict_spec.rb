@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'models/shared_normalized_phone'
 
 RSpec.describe Convict, type: :model do
   it { should have_many(:appointments) }
