@@ -98,3 +98,22 @@
   width: calc(100vw - #{$sidebar-width});
   background-color: white;
 }
+
+.edit-place-appointment-types-container {
+  width: 60%;
+  margin: auto;
+  @include box;
+}
+
+.edit-place-appointment-type-wrapper {
+  display: inline-block;
+  margin-bottom: 10px;
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+
+.edit-place-apt-type-checkbox {
+  margin-right: 10px;
+}

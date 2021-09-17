@@ -67,11 +67,11 @@ RSpec.feature 'Places', type: :feature do
       expect { click_button('Enregistrer') }.to change { Agenda.count }.by(1)
     end
 
-    xit 'allows to select appointment_types' do
+    it 'allows to select appointment_types' do
       place = create(:place, name: 'Spip du 91')
       apt_type = create(:appointment_type, name: 'Premier contact Spip')
 
-      expect { place.appointment_types }.to be_empty
+      expect(place.appointment_types).to be_empty
 
       visit edit_place_path(place)
 
@@ -83,7 +83,7 @@ RSpec.feature 'Places', type: :feature do
 
       place.reload
 
-      expect { place.appointment_types.first }.to eq(apt_type)
+      expect(place.appointment_types.first).to eq(apt_type)
     end
   end
 end

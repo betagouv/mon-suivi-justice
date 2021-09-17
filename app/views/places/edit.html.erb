@@ -8,6 +8,16 @@
                              input_html: { class: 'form-select' } %>
     <%= f.input :adress %>
     <%= f.input :phone, input_html: { value: @place.display_phone } %>
+
+    <h2 class='form-secondary-title'><%= t('edit_place_appointment_types') %></h2>
+
+    <div class='edit-place-appointment-types-container'>
+      <%= f.association :appointment_types, as: :check_boxes,
+                                            label: '',
+                                            item_wrapper_class: 'form-checkbox-wrapper',
+                                            item_label_class: 'form-checkbox-label',
+                                            input_html: { class: 'form-checkbox' } %>
+    </div>
   </div>
 
   <div class='edit-place-agendas-container'>

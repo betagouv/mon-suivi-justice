@@ -11,4 +11,5 @@ class Place < ApplicationRecord
   has_many :appointment_types, through: :place_appointment_types
 
   accepts_nested_attributes_for :agendas, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :place_appointment_types
 end

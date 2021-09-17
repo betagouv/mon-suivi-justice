@@ -269,6 +269,7 @@ fr:
   edit_place_title: "Modifier Lieu"
   edit_place_agendas: Agendas
   edit_place_add_agenda: Ajouter agenda
+  edit_place_appointment_types: Types de rdv possibles
   delete_place_confirmation: "Attention, en supprimant ce lieu, vous supprimez tous les créneaux associés et les rendez-vous programmés."
 
   new_slot_title: "Nouveau Créneau"
