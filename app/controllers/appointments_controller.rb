@@ -64,8 +64,9 @@ class AppointmentsController < ApplicationController
 
   def display_places
     skip_authorization
-    @appointment_type = AppointmentType.find(params[:apt_type_id])
-    @places = Place.where(place_type: @appointment_type.place_type)
+    appointment_type = AppointmentType.find(params[:apt_type_id])
+    @places = Place.joins(:appointment_types)
+                   .where(appointment_types: appointment_type)
 
     respond_to do |format|
       format.js

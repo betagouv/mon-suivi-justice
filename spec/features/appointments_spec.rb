@@ -36,12 +36,11 @@ RSpec.feature 'Appointments', type: :feature do
   describe 'creation', js: true do
     it 'works' do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
-      place = create(:place, name: 'KFC de Chatelet', place_type: 'sap')
 
       appointment_type = create(:appointment_type, :with_notification_types,
-                                name: 'RDV suivi SAP',
-                                place_type: 'sap')
+                                name: 'RDV suivi SAP')
 
+      place = create(:place, name: 'KFC de Chatelet', appointment_types: [appointment_type])
       agenda = create(:agenda, place: place, name: 'Agenda de Josiane')
       create(:agenda, place: place, name: 'Agenda de Michel')
 
@@ -65,7 +64,24 @@ RSpec.feature 'Appointments', type: :feature do
                                            .and change { Notification.count }.by(3)
     end
 
-    xit 'shows only relevant places for an appointment type' do
+    it 'shows only relevant places for an appointment type', js: true do
+      create(:convict, first_name: 'Joe', last_name: 'Dalton')
+
+      apt_type1 = create(:appointment_type, name: 'RDV de test SAP')
+      apt_type2 = create(:appointment_type, name: 'RDV de test SPIP')
+
+      create(:place, name: 'McDo de Barbès', appointment_types: [apt_type1])
+      create(:place, name: 'Quick de Montreuil', appointment_types: [apt_type2])
+
+      visit new_appointment_path
+
+      first('.select2-container', minimum: 1).click
+      find('li.select2-results__option', text: 'DALTON Joe').click
+
+      select 'RDV de test SAP', from: 'Type de rendez-vous'
+
+      expect(page).not_to have_select('Lieu', options: ['', 'McDo de Barbès', 'Quick de Montreuil'])
+      expect(page).to have_select('Lieu', options: ['', 'McDo de Barbès'])
     end
   end
 

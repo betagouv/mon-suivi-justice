@@ -39,11 +39,11 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'creates a convict with his first appointment', js: true do
-      place = create(:place, name: 'McDo de Clichy')
-      agenda = create(:agenda, place: place, name: 'Agenda de Jean-Louis')
-      create(:agenda, place: place, name: 'Agenda de Michel')
-
       appointment_type = create(:appointment_type, :with_notification_types, name: 'Premier contact Spip')
+      place = create(:place, name: 'McDo de Clichy', appointment_types: [appointment_type])
+      agenda = create(:agenda, place: place, name: 'Agenda de Jean-Louis')
+
+      create(:agenda, place: place, name: 'Agenda de Michel')
       create(:slot, agenda: agenda, appointment_type: appointment_type, date: '10/10/2021', starting_time: '14h')
       create(:notification_type, appointment_type: appointment_type)
 
