@@ -1,6 +1,7 @@
 class Slot < ApplicationRecord
   has_paper_trail
 
+  belongs_to :agenda
   belongs_to :slot_type, optional: true
   belongs_to :appointment_type
   has_one :appointment, dependent: :destroy
