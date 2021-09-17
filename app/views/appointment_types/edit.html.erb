@@ -6,22 +6,9 @@
     <%= f.input :place_type, collection: AppointmentType.place_types.keys,
                              label_method: lambda {|k| t("simple_form.options.appointment_type.place_type.#{k}")},
                              input_html: { class: 'form-select' } %>
-
-    <h2 class='form-secondary-title'><%= t('edit_appointment_type_slots') %></h2>
-
-    <div class='slot-types-container'>
-      <%= f.simple_fields_for :slot_types do |slot_type| %>
-        <%= render 'slot_type_fields', f: slot_type %>
-      <% end %>
-      <div class='add-slot-button-container links'>
-        <%= link_to_add_association button_tag(t('edit_appointment_type_add_slot'), type: 'button', class: 'add-slot-button'), f, :slot_types %>
-      </div>
-    </div>
   </div>
-
   <div class='edit-appointment-type-notifications-container'>
     <h2 class='form-secondary-title'><%= t('edit_appointment_type_notifications') %></h2>
-
     <%= f.simple_fields_for :notification_types, @appointment_type.summon_notif do |p| %>
       <div class='notification-type-container summon-container'>
         <p class='notification-type-role'>

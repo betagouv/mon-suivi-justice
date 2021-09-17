@@ -6,7 +6,6 @@ class AppointmentType < ApplicationRecord
   has_many :slots, through: :slot_type
 
   accepts_nested_attributes_for :notification_types
-  accepts_nested_attributes_for :slot_types, reject_if: :all_blank, allow_destroy: true
 
   validates :name, :place_type, presence: true
 
