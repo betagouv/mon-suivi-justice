@@ -10,14 +10,14 @@ class SlotType < ApplicationRecord
   # When a SlotType is destroyed, we remove corresponding slots, as they are no more available
   # Slot already booked are preserved.
   #
-  before_destroy :destroy_slots_not_booked # TODO: spec
+  after_destroy :destroy_orphan_slots_not_booked
 
   validates :week_day, :duration, :starting_time, :capacity, presence: true
   enum week_day: %i[monday tuesday wednesday thursday friday]
 
   private
 
-  def destroy_slots_not_booked
-    slots.where.not(id: Appointment.select(:slot_id)).destroy_all
+  def destroy_orphan_slots_not_booked
+    Slot.where(slot_type_id: nil).where.not(id: Appointment.select(:slot_id)).destroy_all
   end
 end

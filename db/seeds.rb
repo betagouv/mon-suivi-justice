@@ -2,7 +2,6 @@ User.create!(email: 'admin@example.com', password: 'password', password_confirma
 
 place = Place.create!(name: "Tribunal d'Ancenis", adress: "133 Av. Robert Schuman, 44150 Ancenis", place_type: :sap, phone: '0606060606')
 agenda = Agenda.create!(place: place, name: "Agenda tribunal Ancenis")
-
 appointment_type = AppointmentType.create!(name: 'RDV de test SAP', place_type: :sap)
 
 NotificationType.create!(appointment_type: appointment_type, role: :summon, template: "Vous êtes convoqué, merci de venir.")
@@ -26,6 +25,7 @@ appointment_type.slot_types.each do |slot_type|
     Slot.create!(
       date: date,
       agenda: agenda,
+      slot_type: slot_type,
       appointment_type: appointment_type,
       starting_time: slot_type.starting_time,
       duration: slot_type.duration,

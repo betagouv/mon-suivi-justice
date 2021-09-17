@@ -37,6 +37,14 @@
     <% end %>
   <% end %>
 
+  <% if policy(:slot_type).index? %>
+    <%= link_to slot_types_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_controller('slot_types') %>">
+        <%= t('sidebar.slot_types') %>
+      </div>
+    <% end %>
+  <% end %>
+
   <% if policy(:slot).index? %>
     <%= link_to slots_path, class: 'sidebar-item-link' do %>
       <div class="sidebar-item <%= active_class_if_controller('slots') %>">

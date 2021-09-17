@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :places
   resources :appointment_types
   resources :slots
+  resources :slot_types
 
   resources :appointments do
     put 'cancel'

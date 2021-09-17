@@ -8,5 +8,6 @@ FactoryBot.define do
     used_capacity { 0 }
     slot_type
     appointment_type
+    agenda
   end
 end

@@ -9,4 +9,17 @@ RSpec.describe SlotType, type: :model do
   it { should validate_presence_of(:capacity) }
 
   it { should define_enum_for(:week_day).with_values(%i[monday tuesday wednesday thursday friday]) }
+
+  describe 'Associations' do
+    it 'destroys his associated not-booked slots' do
+      slot_type = create :slot_type
+      create :slot, slot_type: slot_type
+      expect { slot_type.destroy }.to change(Slot, :count).from(1).to(0)
+    end
+    it 'does not destroys his associated booked slots' do
+      slot_type = create :slot_type
+      create :appointment, slot: create(:slot, slot_type: slot_type)
+      expect { slot_type.destroy }.not_to change(Slot, :count)
+    end
+  end
 end
