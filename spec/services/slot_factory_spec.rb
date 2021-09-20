@@ -5,6 +5,8 @@ RSpec.describe SlotFactory do
   # tuesday 13, wednesday 14, thursday 15 august (14 is holiday)
   let(:appointment_type) { create :appointment_type }
   let(:place) { create :place }
+  let(:place_appointment_type) { create :place_appointment_type, place: place, appointment_type: appointment_type }
+
   let(:agenda) { create :agenda, place: place }
   let(:tuesday_slot) do
     create :slot_type, appointment_type: appointment_type, week_day: 'tuesday',
@@ -22,6 +24,7 @@ RSpec.describe SlotFactory do
   before do
     allow(Time).to receive(:now).and_return frozen_time
     appointment_type
+    place_appointment_type
     agenda
     tuesday_slot
     wednesday_slot

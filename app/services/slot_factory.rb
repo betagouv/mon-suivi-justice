@@ -10,7 +10,7 @@ module SlotFactory
     private
 
     def create_slot_for_all_places(appointment_type)
-      concerned_places(appointment_type.place_type).each do |place|
+      concerned_places(appointment_type).each do |place|
         create_slots_on_all_agendas(appointment_type, place)
       end
     end
@@ -52,8 +52,9 @@ module SlotFactory
                    starting_time: slot_type.starting_time
     end
 
-    def concerned_places(place_type)
-      Place.all.where place_type: place_type
+    def concerned_places(appointment_type)
+      Place.joins(:appointment_types)
+           .where(appointment_types: appointment_type)
     end
 
     def open_dates_on(weekday)

@@ -108,6 +108,14 @@
   align-self: flex-end;
 }
 
+.new-place-appointment-types-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-self: center;
+  margin-bottom: 30px;
+}
+
 .edit-place-appointment-types-container {
   @include box;
   padding-left: 50px;

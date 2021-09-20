@@ -18,7 +18,7 @@ RSpec.feature 'Bex', type: :feature do
                                   prosecutor_number: '205206')
 
       apt_type = create(:appointment_type, name: 'RDV BEX SAP')
-      place = create(:place, place_type: 'sap', name: 'Tribunal de Nanterre')
+      place = create(:place, name: 'Tribunal de Nanterre')
 
       agenda1 = create(:agenda, place: place, name: 'Cabinet 1')
       agenda2 = create(:agenda, place: place, name: 'Cabinet 2')
@@ -70,7 +70,7 @@ RSpec.feature 'Bex', type: :feature do
                                   prosecutor_number: '205201')
 
       apt_type = create(:appointment_type, name: 'RDV BEX SPIP')
-      place = create(:place, place_type: 'sap', name: 'SPIP 91')
+      place = create(:place, name: 'SPIP 91')
 
       agenda = create(:agenda, place: place, name: 'Agenda SPIP 91')
 

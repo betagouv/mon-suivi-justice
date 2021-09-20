@@ -42,7 +42,6 @@ fr:
           pr: "PR"
       appointment_type:
         name: "Nom"
-        place_type: Type de lieu de RDV
       notification_type:
         template: "Template"
         reminder_period: "Délai avant le rdv"
@@ -59,7 +58,6 @@ fr:
         name: "Nom"
         adress: "Adresse"
         phone: "Téléphone"
-        place_type: "Type de lieu"
       slot:
         place: "Lieu"
         date: "Date"
@@ -261,7 +259,6 @@ fr:
   edit_appointment_type_notifications: Notifications
   edit_appointment_type_slots: Créneaux récurrents
   edit_appointment_type_add_slot: Ajouter créneau
-  index_appointment_type_place_type: Type de lieu
   edit_appointment_type_slot_type_duration: "Durée (minutes)"
 
   new_place_title: "Nouveau Lieu"
@@ -303,14 +300,6 @@ fr:
         title:
           male: "M."
           female: "Mme"
-      appointment_type:
-        place_type:
-          spip:  "SPIP"
-          sap: "SAP"
-      place:
-        place_type:
-          spip:  "SPIP"
-          sap: "SAP"
       slot_type:
         week_day:
           monday: Lundi
