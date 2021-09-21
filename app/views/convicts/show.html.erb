@@ -11,28 +11,18 @@
       </div>
 
       <div class='appointment-fulfilment-controls-container'>
-        <div>
-          <%= form_with model: apt, url: appointment_fulfil_path(apt), method: :put do |form| %>
-            <%= form.submit t('show-convict-fulfilment-yes', name: @convict.name), class: 'show-convict-fulfil-button' %>
-          <% end %>
-        </div>
-        <div>
-          <%= form_with model: apt, url: appointment_miss_path(apt), method: :put do |form| %>
-            <%= form.hidden_field :send_missed_notification, value: true %>
-            <%= form.submit t('show-convict-fulfilment-no-with-sms', name: @convict.name),   class: 'show-convict-miss-button' %>
-          <% end %>
-        </div>
-        <div>
-          <%= form_with model: apt, url: appointment_miss_path(apt), method: :put do |form| %>
-            <%= form.hidden_field :send_missed_notification, value: false %>
-            <%= form.submit t('show-convict-fulfilment-no-without-sms', name: @convict.name),   class: 'show-convict-miss-sms-button' %>
-          <% end %>
-        </div>
-        <div>
-          <p><strong>Texte du SMS de rappel : </strong><%= apt.missed_notif.template %></p>
-        </div>
+        <%= button_to t('yes'), appointment_fulfil_path(apt),
+                                method: :put,
+                                id: 'show-convict-fulfil-button',
+                                class: 'show-convict-fulfil-button' %>
+
+        <%= button_tag t('no'), type: 'button',
+                                class: 'show-convict-miss-button',
+                                data: { 'micromodal-trigger': "missed-appointment-modal-#{apt.id}" } %>
       </div>
     </div>
+
+    <%= render 'missed_appointment_modal', apt: apt %>
   <% end %>
 <% end %>
 
@@ -150,3 +140,5 @@
     </div>
   <% end %>
 </div>
+
+<%= javascript_pack_tag 'convict', 'data-turbolinks-eval': false, defer: true %>

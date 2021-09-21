@@ -50,7 +50,7 @@ fr:
           summon: convocation
           reminder: rappel
           cancelation: annulation
-          missed: manqué
+          no_show: rdv manqué
       slot_type:
         week_day: Jour
         starting_time: Heure

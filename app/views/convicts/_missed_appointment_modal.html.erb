@@ -1,0 +1,30 @@
+<div class='modal micromodal-slide' id=<%="missed-appointment-modal-#{apt.id}"%> aria-hidden='true'>
+  <div class='modal__overlay' tabindex='-1' data-micromodal-close>
+    <div class='modal__container missed-appointment-modal-container' role='dialog' aria-modal='true' aria-labelledby='modal-1-title'>
+      <header class='modal__header'>
+        <h2 class="modal__title" id="modal-1-title"></h2>
+        <button class='modal__close' aria-label='Close modal' data-micromodal-close></button>
+      </header>
+
+      <div class='missed-appointment-modal-text'>
+        Voulez-vous envoyer un SMS à la PPSMJ ?
+      </div>
+
+      <div>
+        <p class='missed-appointment-modal-sms-content'>Texte du SMS :</p><%= apt.no_show_notif.content %>
+      </div>
+
+      <div class='appointment-fulfilment-controls-container'>
+        <%= button_to t('yes'), appointment_miss_path(apt),
+                                method: :put,
+                                params: { send_sms: true },
+                                class: 'show-convict-fulfil-button' %>
+
+        <%= button_to t('no'), appointment_miss_path(apt),
+                               method: :put,
+                               params: { send_sms: false },
+                               class: 'show-convict-miss-button' %>
+      </div>
+    </div>
+  </div>
+</div>

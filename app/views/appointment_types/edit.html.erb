@@ -54,10 +54,10 @@
       </div>
     <% end %>
 
-    <%= f.simple_fields_for :notification_types, @appointment_type.missed_notif do |p| %>
-      <div class='notification-type-container missed-container'>
+    <%= f.simple_fields_for :notification_types, @appointment_type.no_show_notif do |p| %>
+      <div class='notification-type-container no-show-container'>
         <p class='notification-type-role'>
-          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.missed_notif.role}").capitalize %>
+          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.no_show_notif.role}").capitalize %>
         </p>
         <%= p.input :template, input_html: { class: 'form-textarea' } %>
       </div>

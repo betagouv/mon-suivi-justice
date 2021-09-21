@@ -46,7 +46,7 @@ RSpec.feature 'AppointmentType', type: :feature do
                                                role: :cancelation,
                                                template: 'Bruh')
       notif_type4 = create(:notification_type, appointment_type: @appointment_type,
-                                               role: :missed,
+                                               role: :no_show,
                                                template: 'Dude')
 
       visit edit_appointment_type_path(@appointment_type)
@@ -63,7 +63,7 @@ RSpec.feature 'AppointmentType', type: :feature do
         fill_in 'Template', with: 'Bwah'
       end
 
-      within first('.missed-container') do
+      within first('.no-show-container') do
         fill_in 'Template', with: 'Dudette'
       end
 

@@ -30,7 +30,7 @@ RSpec.feature 'HistoryItems', type: :feature do
 
     it 'displays when appointments are missed' do
       @appointment.book
-      expect { @appointment.miss }.to change { HistoryItem.count }.by(1)
+      expect { @appointment.miss(send_sms: false) }.to change { HistoryItem.count }.by(1)
 
       visit convict_path(@convict)
 
