@@ -4,7 +4,7 @@ class AppointmentType < ApplicationRecord
   has_many :notification_types, inverse_of: :appointment_type, dependent: :destroy
   has_many :slot_types, inverse_of: :appointment_type, dependent: :destroy
 
-  has_many :place_appointment_types
+  has_many :place_appointment_types, dependent: :destroy
   has_many :places, through: :place_appointment_types
 
   accepts_nested_attributes_for :notification_types
