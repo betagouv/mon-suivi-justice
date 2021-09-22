@@ -4,19 +4,12 @@
       <div class='appointment-types-header-title appointment-types-column-1'>
         <%= t('activerecord.attributes.appointment_type.name') %>
       </div>
-      <div class='appointment-types-header-title appointment-types-column-2'>
-        <%= sort_link(@q, 'place_type', t('index_appointment_type_place_type'), default_order: :desc) %>
-      </div>
     </div>
 
     <% @appointment_types.each do |appointment_type| %>
       <div class='appointment-types-item-container'>
         <div class='appointment_type-data appointment-types-column-1'>
           <%= appointment_type.name %>
-        </div>
-
-        <div class='appointment_type-data appointment-types-column-2'>
-          <%= t("simple_form.options.appointment_type.place_type.#{appointment_type.place_type}") %>
         </div>
 
         <div class='index-controls-container'>

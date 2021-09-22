@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-shared_examples_for 'normalized_phone' do
+RSpec.shared_examples_for 'normalized_phone' do
   let(:model) { described_class }
   let(:model_factory) { model.to_s.underscore.to_sym }
 

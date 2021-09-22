@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_03_105951) do
+ActiveRecord::Schema.define(version: 2021_09_20_134212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 2021_09_03_105951) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "place_type", default: 0
   end
 
   create_table "appointments", force: :cascade do |t|
@@ -89,13 +88,21 @@ ActiveRecord::Schema.define(version: 2021_09_03_105951) do
     t.index ["appointment_id"], name: "index_notifications_on_appointment_id"
   end
 
+  create_table "place_appointment_types", force: :cascade do |t|
+    t.bigint "place_id"
+    t.bigint "appointment_type_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_type_id"], name: "index_place_appointment_types_on_appointment_type_id"
+    t.index ["place_id"], name: "index_place_appointment_types_on_place_id"
+  end
+
   create_table "places", force: :cascade do |t|
     t.string "name"
     t.string "adress"
     t.string "phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "place_type", default: 0
   end
 
   create_table "slot_types", force: :cascade do |t|

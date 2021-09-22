@@ -66,5 +66,24 @@ RSpec.feature 'Places', type: :feature do
 
       expect { click_button('Enregistrer') }.to change { Agenda.count }.by(1)
     end
+
+    it 'allows to select appointment_types' do
+      place = create(:place, name: 'Spip du 91')
+      apt_type = create(:appointment_type, name: 'Premier contact Spip')
+
+      expect(place.appointment_types).to be_empty
+
+      visit edit_place_path(place)
+
+      within first('.edit-place-appointment-types-container') do
+        check 'Premier contact Spip'
+      end
+
+      click_button('Enregistrer')
+
+      place.reload
+
+      expect(place.appointment_types.first).to eq(apt_type)
+    end
   end
 end

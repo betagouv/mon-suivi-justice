@@ -4,12 +4,13 @@ class AppointmentType < ApplicationRecord
   has_many :notification_types, inverse_of: :appointment_type, dependent: :destroy
   has_many :slot_types, inverse_of: :appointment_type, dependent: :destroy
 
+  has_many :place_appointment_types, dependent: :destroy
+  has_many :places, through: :place_appointment_types
+
   accepts_nested_attributes_for :notification_types
   accepts_nested_attributes_for :slot_types, reject_if: :all_blank, allow_destroy: true
 
-  validates :name, :place_type, presence: true
-
-  enum place_type: %i[spip sap]
+  validates :name, presence: true
 
   def summon_notif
     notification_types.find_by(role: :summon)
