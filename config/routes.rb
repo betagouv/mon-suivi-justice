@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :places
   resources :appointment_types
   resources :slots
-  resources :agendas, only: [:create, :destroy, :update]
+  resources :agendas, only: [:create, :destroy, :update] do
+    resources :slot_types, only: :index
+  end
   resources :slot_types, only: [:create, :destroy, :update]
 
   resources :appointments do

@@ -1,12 +1,19 @@
 class SlotTypesController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @agenda = Agenda.find params[:agenda_id]
+    @slot_type = SlotType.new agenda: @agenda
+    @slot_types = @agenda.slot_types
+    authorize @slot_types
+  end
+
   def update
     slot_type = SlotType.find params[:id]
     authorize slot_type
 
     slot_type.update slot_type_params
-    redirect_to edit_place_path(slot_type.agenda.place)
+    redirect_to agenda_slot_types_path(slot_type.agenda)
   end
 
   def destroy
@@ -14,7 +21,7 @@ class SlotTypesController < ApplicationController
     authorize slot_type
 
     slot_type.destroy
-    redirect_to edit_place_path(slot_type.agenda.place)
+    redirect_to agenda_slot_types_path(slot_type.agenda)
   end
 
   def create
@@ -22,7 +29,7 @@ class SlotTypesController < ApplicationController
     authorize slot_type
 
     slot_type.save
-    redirect_to edit_place_path(slot_type.agenda.place)
+    redirect_to agenda_slot_types_path(slot_type.agenda)
   end
 
   private

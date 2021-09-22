@@ -271,7 +271,13 @@ fr:
   edit_place_title: "Modifier Lieu"
   edit_place_agendas: Agendas
   edit_place_add_agenda: Ajouter agenda
+  edit_place_update_agenda: "Enregistrer"
+  edit_place_slot_types_agenda: "Gerer les crénaux"
+  edit_place_delete_agenda: "Supprimer"
   delete_place_confirmation: "Attention, en supprimant ce lieu, vous supprimez tous les créneaux associés et les rendez-vous programmés."
+
+  index_slot_types_title: "Getion des créneaux %{place} : %{agenda}"
+  index_slot_types_back_link: "Retour %{place}"
 
   new_slot_type_title: "Nouveau Créneau Récurent"
   new_slot_type_submit: "Enregistrer"

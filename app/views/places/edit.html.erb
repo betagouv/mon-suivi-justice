@@ -1,5 +1,4 @@
 <h1 class='form-title'><%= t('edit_place_title') %></h1>
-
 <%= simple_form_for @place, html: { class: 'edit-place-form' } do |f| %>
   <div class='edit-place-data-container'>
     <%= f.input :name %>
@@ -10,77 +9,28 @@
     <%= f.input :phone, input_html: { value: @place.display_phone } %>
     <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
   </div>
-
-  <!-- <div class='edit-place-agendas-container'>
-    <h2 class='form-secondary-title'><%# t('edit_place_agendas') %></h2>
-    <%# f.simple_fields_for :agendas do |agenda| %>
-      <%# render 'agenda_fields', f: agenda %>
-    <%# end %>
-
-    <div class='add-agenda-button-container links'>
-      <%# link_to_add_association button_tag(t('edit_place_add_agenda'), type: 'button', class: 'add-slot-button'), f, :agendas %>
-    </div>
-  </div> -->
-
-  <div class='edit-place-submit-button-container'>
-    <%# f.button :submit, t('submit'), class: 'form-submit-button' %>
-  </div>
 <% end %>
 
-
-<h2>Agendas</h2>
-
-<%= form_with model: Agenda.new(place: @place) do |form| %>
-  <%= form.hidden_field :place_id, value: @place.id %>
-  <%= form.text_field :name %>
-  <%= form.submit 'Ajouter un nouveau agenda' %>
-<% end %>
-
-
+<h2 class='form-secondary-title'><%= t('edit_place_agendas') %></h2>
 <% @place.agendas.each do |agenda| %>
-
-  <%= form_with model: agenda do |form| %>
-    <%= form.hidden_field :place_id, value: @place.id %>
-    <%= form.text_field :name %>
-    <%= form.submit 'Update agenda' %>
-  <% end %>
-  <%= link_to 'Delete agenda', agenda_path(agenda), method: :delete %>
-
-  <%= simple_form_for SlotType.new(agenda: agenda), html: { class: 'basic-form' } do |f| %>
-    <%= f.hidden_field :agenda_id, value: agenda.id %>
-    <%= f.association :appointment_type, label: t('activerecord.models.appointment_type'), input_html: { class: 'form-select' } %>
-    <%= f.input :week_day, collection: SlotType.week_days.keys,
-                           label_method: lambda {|k| t("simple_form.options.slot_type.week_day.#{k}")},
-                           wrapper_html: { class: 'appointment-type-slot-form-line1' },
-                           input_html: { class: 'form-select' } %>
-    <%= f.input :starting_time, input_html: { class: 'form-select', value: f.object.starting_time.to_s },
-                                wrapper: :custom_time,
-                                start_hour: 8,
-                                end_hour: 20,
-                                minute_step: 5 %>
-    <%= f.input :duration %>
-    <%= f.input :capacity %>
-    <%= f.button :submit, 'Add new slot type', class: 'form-submit-button' %>
-  <% end %>
-
-  <% agenda.slot_types.each do |slot_type| %>
-    <%= simple_form_for slot_type, html: { class: 'basic-form' } do |f| %>
-      <%= f.hidden_field :agenda_id, value: agenda.id %>
-      <%= f.association :appointment_type, label: t('activerecord.models.appointment_type'), input_html: { class: 'form-select' } %>
-      <%= f.input :week_day, collection: SlotType.week_days.keys,
-                             label_method: lambda {|k| t("simple_form.options.slot_type.week_day.#{k}")},
-                             wrapper_html: { class: 'appointment-type-slot-form-line1' },
-                             input_html: { class: 'form-select' } %>
-      <%= f.input :starting_time, input_html: { class: 'form-select', value: f.object.starting_time.to_s },
-                                  wrapper: :custom_time,
-                                  start_hour: 8,
-                                  end_hour: 20,
-                                  minute_step: 5 %>
-      <%= f.input :duration %>
-      <%= f.input :capacity %>
-      <%= f.button :submit, 'Update sot type', class: 'form-submit-button' %>
-    <% end %>
-
-    <%= link_to 'Delete slot type', slot_type_path(slot_type), method: :delete %>
+  <%= simple_form_for agenda, html: { class: 'edit-place-form' } do |form| %>
+    <div class='edit-place-data-container'>
+      <%= form.hidden_field :place_id, value: @place.id %>
+      <%= form.input :name %>
+      <%= form.button :submit, t('edit_place_update_agenda'), class: 'form-submit-button' %>
+    </div>
+    <div class='edit-place-cta-container'>
+      <%= link_to t('edit_place_slot_types_agenda'), agenda_slot_types_path(agenda) %> |
+      <%= link_to t('edit_place_delete_agenda'), agenda_path(agenda), method: :delete %>
+    </div>
   <% end %>
 <% end %>
+<div class='edit-place-new-agenda-container'>
+  <%= simple_form_for Agenda.new(place: @place), html: { class: 'edit-place-form' } do |form| %>
+    <div class='edit-place-data-container'>
+      <%= form.hidden_field :place_id, value: @place.id %>
+      <%= form.input :name %>
+      <%= form.button :submit, t('edit_place_add_agenda'), class: 'form-submit-button' %>
+    </div>
+  <% end %>
+</div>
