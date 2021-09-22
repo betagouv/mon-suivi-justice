@@ -9,6 +9,7 @@ FactoryBot.define do
       create(:notification_type, appointment_type: apt_type, role: :summon)
       create(:notification_type, appointment_type: apt_type, role: :reminder)
       create(:notification_type, appointment_type: apt_type, role: :cancelation)
+      create(:notification_type, appointment_type: apt_type, role: :no_show)
     end
   end
 end

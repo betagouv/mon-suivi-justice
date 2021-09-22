@@ -62,7 +62,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       expect(page).to have_button('Enregistrer')
       expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)
-                                           .and change { Notification.count }.by(3)
+                                           .and change { Notification.count }.by(4)
     end
   end
 
@@ -89,7 +89,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       appointment.book
       expect(appointment.state).to eq('booked')
-      expect(appointment.notifications.count).to eq(3)
+      expect(appointment.notifications.count).to eq(4)
       expect(appointment.reminder_notif.state).to eq('programmed')
       expect(appointment.cancelation_notif.state).to eq('created')
 
@@ -140,30 +140,54 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.book
 
       visit convict_path(convict)
-
-      within first('.appointment-fulfilment-container') { click_button 'Oui' }
+      within first('.appointment-fulfilment-container') { find('#show-convict-fulfil-button').click }
 
       appointment.reload
       expect(appointment.state).to eq('fulfiled')
     end
 
-    it "works if convict didn't came to appointment" do
-      convict = create(:convict)
-      apt_type = create(:appointment_type, :with_notification_types)
-      slot = create(:slot, date: Date.today)
+    describe "if convict didn't came to appointment" do
+      it 'change appointment state and sends sms', js: true do
+        convict = create(:convict, first_name: 'babar', last_name: 'bobor')
+        apt_type = create(:appointment_type, :with_notification_types)
+        slot = create(:slot, date: Date.today)
 
-      appointment = create(:appointment, convict: convict,
-                                         slot: slot,
-                                         appointment_type: apt_type)
+        appointment = create(:appointment, convict: convict,
+                                           slot: slot,
+                                           appointment_type: apt_type)
 
-      appointment.book
+        appointment.book
 
-      visit convict_path(convict)
+        visit convict_path(convict)
 
-      within first('.appointment-fulfilment-container') { click_button 'Non' }
+        within first('.appointment-fulfilment-container') { click_button 'Non' }
+        within("#missed-appointment-modal-#{appointment.id}") { click_button 'Oui' }
 
-      appointment.reload
-      expect(appointment.state).to eq('no_show')
+        appointment.reload
+        expect(appointment.state).to eq('no_show')
+        expect(SmsDeliveryJob).to have_been_enqueued.once.with(appointment.no_show_notif)
+      end
+
+      it "change appointment state and don't send sms", js: true do
+        convict = create(:convict, first_name: 'babar', last_name: 'bobor')
+        apt_type = create(:appointment_type, :with_notification_types)
+        slot = create(:slot, date: Date.today)
+
+        appointment = create(:appointment, convict: convict,
+                                           slot: slot,
+                                           appointment_type: apt_type)
+
+        appointment.book
+
+        visit convict_path(convict)
+
+        within first('.appointment-fulfilment-container') { click_button 'Non' }
+        within("#missed-appointment-modal-#{appointment.id}") { click_button 'Non' }
+
+        appointment.reload
+        expect(appointment.state).to eq('no_show')
+        expect(SmsDeliveryJob).not_to have_been_enqueued.with(appointment.no_show_notif)
+      end
     end
   end
 end

@@ -13,15 +13,16 @@
       <div class='appointment-fulfilment-controls-container'>
         <%= button_to t('yes'), appointment_fulfil_path(apt),
                                 method: :put,
-                                data: { confirm: t('basic_confirmation') },
+                                id: 'show-convict-fulfil-button',
                                 class: 'show-convict-fulfil-button' %>
 
-        <%= button_to t('no'), appointment_miss_path(apt),
-                                method: :put,
-                                data: { confirm: t('basic_confirmation') },
-                                class: 'show-convict-miss-button' %>
+        <%= button_tag t('no'), type: 'button',
+                                class: 'show-convict-miss-button',
+                                data: { 'micromodal-trigger': "missed-appointment-modal-#{apt.id}" } %>
       </div>
     </div>
+
+    <%= render 'missed_appointment_modal', apt: apt %>
   <% end %>
 <% end %>
 
@@ -139,3 +140,5 @@
     </div>
   <% end %>
 </div>
+
+<%= javascript_pack_tag 'convict', 'data-turbolinks-eval': false, defer: true %>

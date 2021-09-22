@@ -22,4 +22,8 @@ class AppointmentType < ApplicationRecord
   def cancelation_notif
     notification_types.find_by(role: :cancelation)
   end
+
+  def no_show_notif
+    notification_types.find_by(role: :no_show)
+  end
 end

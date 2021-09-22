@@ -56,7 +56,7 @@ class AppointmentsController < ApplicationController
 
   def miss
     @appointment = Appointment.find(params[:appointment_id])
-    @appointment.miss!
+    @appointment.miss!(send_notification: params[:send_sms])
 
     authorize @appointment
     redirect_back(fallback_location: root_path)
