@@ -1,30 +1,12 @@
 class SlotTypesController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-    @slot_types = SlotType.all.page params[:page]
-    authorize @slot_types
-  end
-
-  def new
-    @slot_type = SlotType.new
-    authorize @slot_type
-  end
-
-  def edit
-    @slot_type = SlotType.find params[:id]
-    authorize @slot_type
-  end
-
   def update
     slot_type = SlotType.find params[:id]
     authorize slot_type
 
-    if slot_type.update slot_type_params
-      redirect_to slot_types_path
-    else
-      render :edit
-    end
+    slot_type.update slot_type_params
+    redirect_to edit_place_path(slot_type.agenda.place)
   end
 
   def destroy
@@ -32,14 +14,15 @@ class SlotTypesController < ApplicationController
     authorize slot_type
 
     slot_type.destroy
-    redirect_to slot_types_path
+    redirect_to edit_place_path(slot_type.agenda.place)
   end
 
   def create
     slot_type = SlotType.new slot_type_params
     authorize slot_type
 
-    slot_type.save ? redirect_to(slot_types_path) : render(:new)
+    slot_type.save
+    redirect_to edit_place_path(slot_type.agenda.place)
   end
 
   private

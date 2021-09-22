@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   resources :places
   resources :appointment_types
   resources :slots
-  resources :slot_types
+  resources :agendas, only: [:create, :destroy, :update]
+  resources :slot_types, only: [:create, :destroy, :update]
 
   resources :appointments do
     put 'cancel'
