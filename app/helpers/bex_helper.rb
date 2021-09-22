@@ -3,7 +3,7 @@ module BexHelper
   def ten_next_fridays
     fridays = [Date.today.next_occurring(:friday)]
 
-    9.times { fridays << fridays[-1] + 1.week }
+    9.times { fridays << (fridays[-1] + 1.week) }
 
     fridays
   end
@@ -33,7 +33,7 @@ module BexHelper
   def six_next_months
     months = [Date.today]
 
-    5.times { months << months[-1] + 1.month }
+    5.times { months << (months[-1] + 1.month) }
 
     months
   end
