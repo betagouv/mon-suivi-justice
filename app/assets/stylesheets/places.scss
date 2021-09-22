@@ -41,7 +41,7 @@
   width: 25%;
 }
 
-.edit-place-form {
+.edit-place-wrapper {
   width: 80%;
   margin: 0 auto;
   display: flex;
@@ -53,11 +53,7 @@
   }
 }
 
-.edit-place-new-agenda-container {
-  margin-top: 40px;
-}
-
-.edit-place-data-container {
+.edit-place-form-container {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -67,13 +63,38 @@
   }
 }
 
-.edit-place-cta-container {
-  width: 100%;
+.edit-place-form {
+  display: flex;
+  flex-direction: column;
+}
 
-  @media (min-width: 1200px) {
-    width: 45%;
-    padding-top: 20px;
-  }
+.edit-place-form-wrapper {
+
+}
+
+.edit-place-new-agenda-container {
+  margin-top: 40px;
+}
+
+.edit-place-data-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-place-agenda-form-container {
+  display: flex;
+}
+
+.edit-place-agenda-name {
+  width: 60%;
+  margin-right: 20px;
+}
+
+.edit-place-cta-container {
+  text-align: center;
+  margin: 0 auto 20px;
+
+  a { color: $link; }
 }
 
 .edit-place-agendas-container {
@@ -91,9 +112,11 @@
   justify-content: space-between;
 }
 
-.remove-agenda-button {
-  margin-top: 10px;
-  @include button($light-grey);
+.save-agenda-button {
+  height: 40px;
+  margin-top: 30px;
+  margin-left: 20px;
+  @include button($light-blue);
 }
 
 .add-agenda-button-container {
@@ -119,6 +142,7 @@
   flex-direction: column;
   width: 50%;
   align-self: flex-end;
+  margin-bottom: 20px;
 }
 
 .new-place-appointment-types-wrapper {
