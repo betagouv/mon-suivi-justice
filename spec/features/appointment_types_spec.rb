@@ -45,6 +45,9 @@ RSpec.feature 'AppointmentType', type: :feature do
       notif_type3 = create(:notification_type, appointment_type: @appointment_type,
                                                role: :cancelation,
                                                template: 'Bruh')
+      notif_type4 = create(:notification_type, appointment_type: @appointment_type,
+                                               role: :no_show,
+                                               template: 'Dude')
 
       visit edit_appointment_type_path(@appointment_type)
 
@@ -60,6 +63,10 @@ RSpec.feature 'AppointmentType', type: :feature do
         fill_in 'Template', with: 'Bwah'
       end
 
+      within first('.no-show-container') do
+        fill_in 'Template', with: 'Dudette'
+      end
+
       click_button 'Enregistrer'
 
       notif_type1.reload
@@ -70,6 +77,9 @@ RSpec.feature 'AppointmentType', type: :feature do
 
       notif_type3.reload
       expect(notif_type3.template).to eq('Bwah')
+
+      notif_type4.reload
+      expect(notif_type4.template).to eq('Dudette')
       expect(SlotCreationJob).to have_been_enqueued.once.with(oneshot: true)
     end
   end

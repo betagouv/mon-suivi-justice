@@ -42,7 +42,6 @@ fr:
           pr: "PR"
       appointment_type:
         name: "Nom"
-        place_type: Type de lieu de RDV
       notification_type:
         template: "Template"
         reminder_period: "Délai avant le rdv"
@@ -50,6 +49,7 @@ fr:
           summon: convocation
           reminder: rappel
           cancelation: annulation
+          no_show: rdv manqué
       slot_type:
         appointment_type: "Type de RDV"
         agenda: "Agenda"
@@ -61,7 +61,6 @@ fr:
         name: "Nom"
         adress: "Adresse"
         phone: "Téléphone"
-        place_type: "Type de lieu"
       slot:
         place: "Lieu"
         date: "Date"
@@ -174,6 +173,9 @@ fr:
   show-convict-next-appointments-title1: "Prochain rendez-vous :"
   show-convict-next-appointments-title2: "Prochains rendez-vous :"
   show-convict-fulfilment-prompt: "Est-ce-que %{name} s'est présenté(e) au %{place} le %{date} à %{time} ?"
+  show-convict-fulfilment-yes: "Oui, %{name} était présent(e)."
+  show-convict-fulfilment-no-with-sms: "Non, %{name} n'était pas présent(e). Envoyer un sms de rappel"
+  show-convict-fulfilment-no-without-sms: "Non, %{name} n'était pas présent(e). Ne pas envoyer de sms de rappel"
 
   show_history_book_appointment_title: "Nouveau RDV"
   show_history_book_appointment: "%{name} a été convoqué(e) au %{place} le %{date} à %{time}."
@@ -228,22 +230,22 @@ fr:
   new-appointment-cab-list-title: 'Liste des cabinets par secteur'
   new-appointment-cab1-name: 'Cabinet 1 -'
   new-appointment-cab1-judge: 'Mme CIMAMONTI'
-  new-appointment-cab1-places: 'Gennevilliers, Neuilly, Villeneuve la Garenne, Bois-Colombes, Montrouge, Puteaux, Sceaux'
+  new-appointment-cab1-places: 'Gennevilliers, Neuilly, Villeneuve la Garenne, Bois-Colombes, Montrouge, Puteaux, Sceaux, la Garenne Colombes'
   new-appointment-cab2-name: 'Cabinet 2'
-  new-appointment-cab2-judge: ''
+  new-appointment-cab2-judge: 'Mme CORNEC-LECLERCQ'
   new-appointment-cab2-places: 'Boulogne-Billancourt, Clamart, Fontenay-aux-Rose, Le Plessis-Robinson, Rueil-Malmaison, Suresnes'
   new-appointment-cab3-name: 'Cabinet 3 -'
   new-appointment-cab3-judge: 'Mme DARROT'
   new-appointment-cab3-places: 'Antony, Bagneux, Bourg la Reine, Châtenay-Malabry, Issy les Moulineaux, Vanves'
   new-appointment-cab4-name: 'Cabinet 4 -'
   new-appointment-cab4-judge: 'Mme CROCHARD'
-  new-appointment-cab4-places: 'Colombes, la Garenne Colombes'
+  new-appointment-cab4-places: 'Colombes'
   new-appointment-cab5-name: 'Cabinet 5 -'
   new-appointment-cab5-judge: 'Mme POUIT-HMAMI'
-  new-appointment-cab5-places: 'Nanterre, Meudon, Saint-Cloud, Sèvres, Vaucresson'
+  new-appointment-cab5-places: 'Nanterre, Meudon, Vaucresson, Asnières-sur-Seine'
   new-appointment-cab6-name: 'Cabinet 6 -'
-  new-appointment-cab6-judge: 'Mme KASPARIAN'
-  new-appointment-cab6-places: "Asnières, Châtillon, Chaville, Courbevoie, Malakoff, Marne la Coquette, Ville d'Avray"
+  new-appointment-cab6-judge: 'Mme MERINI'
+  new-appointment-cab6-places: "Châtillon, Chaville, Courbevoie, Malakoff, Marne la Coquette, Saint-Cloud, Sèvres, Ville d'Avray"
   new-appointment-cab7-name: 'Cabinet 7 -'
   new-appointment-cab7-judge: 'DE-LAFORCADE'
   new-appointment-cab7-places: 'Clichy, Garches, Levallois-Perret'
@@ -263,7 +265,6 @@ fr:
   edit_appointment_type_notifications: Notifications
   edit_appointment_type_slots: Créneaux récurrents
   edit_appointment_type_add_slot: Ajouter créneau
-  index_appointment_type_place_type: Type de lieu
   edit_appointment_type_slot_type_duration: "Durée (minutes)"
 
   new_place_title: "Nouveau Lieu"
@@ -271,6 +272,7 @@ fr:
   edit_place_title: "Modifier Lieu"
   edit_place_agendas: Agendas
   edit_place_add_agenda: Ajouter agenda
+  edit_place_appointment_types: Types de rdv possibles
   edit_place_update_agenda: "Enregistrer"
   edit_place_slot_types_agenda: "Gerer les crénaux"
   edit_place_delete_agenda: "Supprimer"
@@ -316,14 +318,6 @@ fr:
         title:
           male: "M."
           female: "Mme"
-      appointment_type:
-        place_type:
-          spip:  "SPIP"
-          sap: "SAP"
-      place:
-        place_type:
-          spip:  "SPIP"
-          sap: "SAP"
       slot_type:
         week_day:
           monday: Lundi

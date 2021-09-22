@@ -3,9 +3,6 @@
 <%= simple_form_for @appointment_type, html: { class: 'appointment-type-form' } do |f| %>
   <div class='edit-appointment-type-slots-container'>
     <%= f.input :name %>
-    <%= f.input :place_type, collection: AppointmentType.place_types.keys,
-                             label_method: lambda {|k| t("simple_form.options.appointment_type.place_type.#{k}")},
-                             input_html: { class: 'form-select' } %>
   </div>
   <div class='edit-appointment-type-notifications-container'>
     <h2 class='form-secondary-title'><%= t('edit_appointment_type_notifications') %></h2>
@@ -36,6 +33,15 @@
       <div class='notification-type-container cancelation-container'>
         <p class='notification-type-role'>
           - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.cancelation_notif.role}").capitalize %>
+        </p>
+        <%= p.input :template, input_html: { class: 'form-textarea' } %>
+      </div>
+    <% end %>
+
+    <%= f.simple_fields_for :notification_types, @appointment_type.no_show_notif do |p| %>
+      <div class='notification-type-container no-show-container'>
+        <p class='notification-type-role'>
+          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.no_show_notif.role}").capitalize %>
         </p>
         <%= p.input :template, input_html: { class: 'form-textarea' } %>
       </div>

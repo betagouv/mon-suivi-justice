@@ -28,8 +28,7 @@ class AppointmentTypesController < ApplicationController
 
   def appointment_type_params
     params.require(:appointment_type).permit(
-      :name, :place_type,
-      notification_types_attributes: [:id, :template, :reminder_period]
+      :name, notification_types_attributes: [:id, :template, :reminder_period]
     )
   end
 end

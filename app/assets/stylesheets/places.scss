@@ -59,6 +59,8 @@
 
 .edit-place-data-container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 
   @media (min-width: 1200px) {
     width: 45%;
@@ -110,4 +112,38 @@
   right: 0;
   width: calc(100vw - #{$sidebar-width});
   background-color: white;
+}
+
+.edit-place-appointment-types-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-self: flex-end;
+}
+
+.new-place-appointment-types-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-self: center;
+  margin-bottom: 30px;
+}
+
+.edit-place-appointment-types-container {
+  @include box;
+  padding-left: 50px;
+  border-width: 2px;
+}
+
+.edit-place-appointment-type-wrapper {
+  display: inline-block;
+  margin-bottom: 10px;
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+
+.edit-place-apt-type-checkbox {
+  margin-right: 10px;
 }

@@ -1,12 +1,15 @@
 User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password', role: :admin, first_name: 'Kevin', last_name: 'Mc Alistair')
 
-place = Place.create!(name: "Tribunal d'Ancenis", adress: "133 Av. Robert Schuman, 44150 Ancenis", place_type: :sap, phone: '0606060606')
+place = Place.create!(name: "Tribunal d'Ancenis", adress: "133 Av. Robert Schuman, 44150 Ancenis", phone: '0606060606')
 agenda = Agenda.create!(place: place, name: "Agenda tribunal Ancenis")
-appointment_type = AppointmentType.create!(name: 'RDV de test SAP', place_type: :sap)
+
+appointment_type = AppointmentType.create!(name: 'RDV de test SAP')
+PlaceAppointmentType.create!(place: place, appointment_type: appointment_type)
 
 NotificationType.create!(appointment_type: appointment_type, role: :summon, template: "Vous êtes convoqué, merci de venir.")
 NotificationType.create!(appointment_type: appointment_type, role: :reminder, template: "RAPPEL Vous êtes convoqué, vraiment il faut venir.", reminder_period: :two_days)
 NotificationType.create!(appointment_type: appointment_type, role: :cancelation, template: "Finalement non, c'est pas la peine.")
+NotificationType.create!(appointment_type: appointment_type, role: :no_show, template: "Vous n'êtes pas venu.")
 
 SlotType.create(appointment_type: appointment_type, agenda: agenda, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: appointment_type, agenda: agenda, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
@@ -34,4 +37,5 @@ appointment_type.slot_types.each do |slot_type|
     )
   end
 end
+
 p 'database seeded'

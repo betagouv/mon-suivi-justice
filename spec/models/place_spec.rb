@@ -1,12 +1,14 @@
 require 'rails_helper'
+require 'models/shared_normalized_phone'
 
 RSpec.describe Place, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:adress) }
-  it { should validate_presence_of(:place_type) }
   it { should validate_presence_of(:phone) }
+
   it { should have_many(:agendas) }
-  it { should define_enum_for(:place_type).with_values(%i[spip sap]) }
+  it { should have_many(:appointment_types).through(:place_appointment_types) }
+
   it_behaves_like 'normalized_phone'
 
   describe 'Validations' do

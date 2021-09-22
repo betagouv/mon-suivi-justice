@@ -2,11 +2,20 @@
 
 <%= simple_form_for @place, html: { class: 'basic-form' } do |f| %>
   <%= f.input :name %>
-  <%= f.input :place_type, collection: Place.place_types.keys,
-                           label_method: lambda {|k| t("simple_form.options.place.place_type.#{k}")},
-                           input_html: { class: 'form-select' } %>
   <%= f.input :adress %>
   <%= f.input :phone %>
+
+  <div class='new-place-appointment-types-wrapper'>
+    <h2 class='form-secondary-title'><%= t('edit_place_appointment_types') %></h2>
+
+    <div class='edit-place-appointment-types-container'>
+      <%= f.association :appointment_types, as: :check_boxes,
+                                            label: '',
+                                            item_wrapper_class: 'form-checkbox-wrapper',
+                                            item_label_class: 'form-checkbox-label',
+                                            input_html: { class: 'form-checkbox' } %>
+    </div>
+  </div>
 
   <%= f.button :submit, t('new_place_submit'), class: 'form-submit-button' %>
 <% end %>
