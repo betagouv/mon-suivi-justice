@@ -16,8 +16,8 @@
                                 minute_step: 5 %>
     <%= f.input :duration %>
     <%= f.input :capacity %>
-    <%= f.button :submit, 'Update slot type', class: 'form-submit-button' %>
-    <%= link_to 'Delete slot type', slot_type_path(slot_type), method: :delete, class: 'form-submit-button' %>
+    <%= f.button :submit, t('index_slot_types_update'), class: 'form-submit-button' %>
+    <%= link_to t('index_slot_types_delete'), slot_type_path(slot_type), method: :delete, class: 'form-submit-button' %>
   <% end %>
 <% end %>
 
@@ -35,5 +35,5 @@
                               minute_step: 5 %>
   <%= f.input :duration %>
   <%= f.input :capacity %>
-  <%= f.button :submit, 'Add new slot type', class: 'form-submit-button' %>
+  <%= f.button :submit, t('index_slot_types_create'), class: 'form-submit-button' %>
 <% end %>

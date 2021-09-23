@@ -280,6 +280,9 @@ fr:
 
   index_slot_types_title: "Gestion des créneaux %{place} : %{agenda}"
   index_slot_types_back_link: "Retour %{place}"
+  index_slot_types_update: "Enregistrer"
+  index_slot_types_delete: "Supprimer"
+  index_slot_types_create: "Ajouter"
 
   new_slot_type_title: "Nouveau Créneau Récurent"
   new_slot_type_submit: "Enregistrer"
