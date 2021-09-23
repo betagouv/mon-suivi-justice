@@ -202,6 +202,8 @@ fr:
   show_history_receive_cancelation_notification: "Le SMS d'annulation a bien été reçu par %{name}."
   show_history_failed_send_cancelation_notification_title: "Echec du SMS (annulation)"
   show_history_failed_send_cancelation_notification: "Le SMS d'annulation n'a pas été reçu par %{name}."
+  show_history_send_now_no_show_notification_title: "SMS envoyé (rdv manqué)"
+  show_history_send_now_no_show_notification: "[Texte du SMS] %{content}"
 
   appointment_place: "Lieu de RDV"
   appointment_date: "Date"
