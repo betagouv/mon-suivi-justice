@@ -38,6 +38,17 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
     end
 
+    it 'allows to create a convict without a phone number' do
+      visit new_convict_path
+
+      select 'M.', from: 'Civilité'
+      fill_in 'Prénom', with: 'Roberta'
+      fill_in 'Nom', with: 'Dupond'
+      check 'Ne possède pas de téléphone portable'
+
+      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+    end
+
     it 'creates a convict with his first appointment', js: true do
       appointment_type = create(:appointment_type, :with_notification_types, name: 'Premier contact Spip')
       place = create(:place, name: 'McDo de Clichy', appointment_types: [appointment_type])

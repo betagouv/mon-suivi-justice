@@ -9,7 +9,7 @@ class Convict < ApplicationRecord
 
   validates :first_name, :last_name, :title, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
-  validate :mobile_phone_number
+  validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
   enum title: %i[male female]
 
