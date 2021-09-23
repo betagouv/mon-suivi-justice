@@ -31,7 +31,7 @@
 
   <% if policy(:place).index? %>
     <%= link_to places_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_controller('places') %>">
+      <div class="sidebar-item <%= active_class_if_controller(['places', 'slot_types']) %>">
         <%= t('sidebar.places') %>
       </div>
     <% end %>
