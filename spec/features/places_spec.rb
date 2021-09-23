@@ -47,7 +47,7 @@ RSpec.feature 'Places', type: :feature do
       expect(place.reload.name).to eq('Spip du 58')
     end
 
-    it 'allows to add agendas' do
+    it 'creates agenda' do
       place = create(:place, name: 'Spip du 93')
       visit edit_place_path(place)
       within '#new_agenda' do
@@ -56,7 +56,7 @@ RSpec.feature 'Places', type: :feature do
       end
     end
 
-    it 'updates agenda name' do
+    it 'updates agenda' do
       place = create :place, name: 'Spip du 93'
       agenda = create :agenda, name: 'test_agenda', place: place
       visit edit_place_path place
@@ -65,6 +65,13 @@ RSpec.feature 'Places', type: :feature do
         click_button 'Enregistrer'
       end
       expect(agenda.reload.name).to eq 'updated_name'
+    end
+
+    it 'deeted agenda' do
+      place = create :place, name: 'Spip du 93'
+      agenda = create :agenda, name: 'test_agenda', place: place
+      visit edit_place_path place
+      expect{click_link('Supprimer')}.to change(place.agendas, :count).from(1).to(0)
     end
 
     it 'allows to select appointment_types' do
