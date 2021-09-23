@@ -6,6 +6,7 @@
         <div class='slot-date-title'><%= t('date.day_names')[date.first.wday].capitalize %> <%= date.first %></div>
       <% end %>
     </div>
+
     <div class='new-appointment-slots-body'>
       <% @slots_by_date.each do |date| %>
         <div class='slot-date-container'>
@@ -21,6 +22,11 @@
       <% end %>
     </div>
   </div>
+
+  <% if @appointment_type.name == 'RDV BEX SPIP' %>
+    <p class='new-appointment-bex-warning'><%= t('new-appointment-bex-warning') %></p>
+  <% end %>
+
   <input type='submit' name='commit' value=<%= t('submit')%> class='form-submit-button new-appointment-submit-button' id='submit-new-appointment' disabled='disabled' data-disable-with='Enregistrer'>
   <p class='new-appointment-form-warning'><%= t('new-appointment-warning') %></p>
 <% else %>

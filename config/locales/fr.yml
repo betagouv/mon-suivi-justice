@@ -224,6 +224,7 @@ fr:
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
   new-appointment-help: "Sélectionnez un lieu de RDV pour afficher les créneaux disponibles."
   new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi immédiat d'un SMS de confirmation à la PPSMJ et l'envoi d'un SMS de rappel avant le rendez-vous (si un numéro de téléphone a été donné)."
+  new-appointment-bex-warning: "Attention, le créneau de 9h est réservé aux DDSE."
   show_appointment_title: "Infos rendez-vous"
   cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ, et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
 

@@ -90,10 +90,10 @@ class AppointmentsController < ApplicationController
   def display_slots
     skip_authorization
     agenda = Agenda.find(params[:agenda_id])
-    appointment_type = AppointmentType.find(params[:apt_type_id])
+    @appointment_type = AppointmentType.find(params[:apt_type_id])
 
     @slots_by_date = Slot.future
-                         .relevant_and_available(agenda, appointment_type)
+                         .relevant_and_available(agenda, @appointment_type)
                          .order(:date)
                          .group_by(&:date)
 
