@@ -40,31 +40,31 @@ RSpec.feature 'Places', type: :feature do
   describe 'update' do
     it 'works' do
       place = create(:place, name: 'Spip du 78')
-
       visit places_path
-
       within first('.places-item-container') { click_link 'Modifier' }
-
-      fill_in 'Nom', with: 'Spip du 58'
-      click_button 'Enregistrer'
-
-      place.reload
-
-      expect(place.name).to eq('Spip du 58')
+      fill_in :place_name, with: 'Spip du 58'
+      within("#edit_place_#{place.id}") { click_button 'Enregistrer' }
+      expect(place.reload.name).to eq('Spip du 58')
     end
 
-    it 'allows to add agendas', js: true do
+    it 'allows to add agendas' do
       place = create(:place, name: 'Spip du 93')
-
       visit edit_place_path(place)
-
-      within first('.edit-place-agendas-container') do
-        click_button 'Ajouter agenda'
-
-        fill_in 'Nom', with: 'Agenda de Jean-Pierre'
+      within '#new_agenda' do
+        fill_in :agenda_name, with: 'Agenda de Jean-Pierre'
+        expect { click_button('Ajouter agenda') }.to change { Agenda.count }.by(1)
       end
+    end
 
-      expect { click_button('Enregistrer') }.to change { Agenda.count }.by(1)
+    it 'updates agenda name' do
+      place = create :place, name: 'Spip du 93'
+      agenda = create :agenda, name: 'test_agenda', place: place
+      visit edit_place_path place
+      within "#edit_agenda_#{agenda.id}" do
+        fill_in :agenda_name, with: 'updated_name'
+        click_button 'Enregistrer'
+      end
+      expect(agenda.reload.name).to eq 'updated_name'
     end
 
     it 'allows to select appointment_types' do
