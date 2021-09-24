@@ -113,6 +113,8 @@ ActiveRecord::Schema.define(version: 2021_09_20_134212) do
     t.bigint "appointment_type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "agenda_id"
+    t.index ["agenda_id"], name: "index_slot_types_on_agenda_id"
     t.index ["appointment_type_id"], name: "index_slot_types_on_appointment_type_id"
   end
 
@@ -127,8 +129,10 @@ ActiveRecord::Schema.define(version: 2021_09_20_134212) do
     t.integer "used_capacity", default: 0
     t.bigint "appointment_type_id", null: false
     t.bigint "agenda_id", null: false
+    t.bigint "slot_type_id"
     t.index ["agenda_id"], name: "index_slots_on_agenda_id"
     t.index ["appointment_type_id"], name: "index_slots_on_appointment_type_id"
+    t.index ["slot_type_id"], name: "index_slots_on_slot_type_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -176,7 +180,9 @@ ActiveRecord::Schema.define(version: 2021_09_20_134212) do
   add_foreign_key "history_items", "convicts"
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notifications", "appointments"
+  add_foreign_key "slot_types", "agendas"
   add_foreign_key "slot_types", "appointment_types"
   add_foreign_key "slots", "agendas"
   add_foreign_key "slots", "appointment_types"
+  add_foreign_key "slots", "slot_types"
 end

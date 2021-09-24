@@ -1,36 +1,55 @@
 <h1 class='form-title'><%= t('edit_place_title') %></h1>
 
-<%= simple_form_for @place, html: { class: 'edit-place-form' } do |f| %>
-  <div class='edit-place-data-container'>
-    <%= f.input :name %>
-    <%= f.input :adress %>
-    <%= f.input :phone, input_html: { value: @place.display_phone } %>
+<div class='edit-place-wrapper'>
+  <div class='edit-place-form-container'>
+    <%= simple_form_for @place, html: { class: 'edit-place-form' } do |f| %>
+      <div class='edit-place-data-container'>
+        <%= f.input :name %>
+        <%= f.input :adress %>
+        <%= f.input :phone, input_html: { value: @place.display_phone } %>
 
-    <div class='edit-place-appointment-types-wrapper'>
-      <h2 class='form-secondary-title'><%= t('edit_place_appointment_types') %></h2>
+        <div class='edit-place-appointment-types-wrapper'>
+          <h2 class='form-secondary-title'><%= t('edit_place_appointment_types') %></h2>
 
-      <div class='edit-place-appointment-types-container'>
-        <%= f.association :appointment_types, as: :check_boxes,
-                                              label: '',
-                                              item_wrapper_class: 'form-checkbox-wrapper',
-                                              item_label_class: 'form-checkbox-label',
-                                              input_html: { class: 'form-checkbox' } %>
+          <div class='edit-place-appointment-types-container'>
+            <%= f.association :appointment_types, as: :check_boxes,
+                                                  label: '',
+                                                  item_wrapper_class: 'form-checkbox-wrapper',
+                                                  item_label_class: 'form-checkbox-label',
+                                                  input_html: { class: 'form-checkbox' } %>
+          </div>
+        </div>
+        <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
       </div>
-    </div>
+    <% end %>
   </div>
 
   <div class='edit-place-agendas-container'>
     <h2 class='form-secondary-title'><%= t('edit_place_agendas') %></h2>
-    <%= f.simple_fields_for :agendas do |agenda| %>
-      <%= render 'agenda_fields', f: agenda %>
+
+    <% @place.agendas.each do |agenda| %>
+      <%= simple_form_for agenda, html: { class: 'edit-place-form' } do |form| %>
+        <div class='edit-place-agenda-form-container'>
+          <%= form.hidden_field :place_id, value: @place.id %>
+          <%= form.input :name, wrapper_html: { class: 'edit-place-agenda-name'} %>
+          <%= form.button :submit, t('edit_place_update_agenda'), class: 'save-agenda-button' %>
+        </div>
+      <% end %>
+
+      <div class='edit-place-cta-container'>
+        <%= link_to t('edit_place_slot_types_agenda'), agenda_slot_types_path(agenda) %> |
+        <%= link_to t('edit_place_delete_agenda'), agenda_path(agenda), method: :delete %>
+      </div>
     <% end %>
 
-    <div class='add-agenda-button-container links'>
-      <%= link_to_add_association button_tag(t('edit_place_add_agenda'), type: 'button', class: 'add-slot-button'), f, :agendas %>
+    <div class='edit-place-new-agenda-container'>
+      <%= simple_form_for Agenda.new(place: @place), html: { class: 'edit-place-form' } do |form| %>
+        <div class='edit-place-data-container'>
+          <%= form.hidden_field :place_id, value: @place.id %>
+          <%= form.input :name %>
+          <%= form.button :submit, t('edit_place_add_agenda'), class: 'form-submit-button' %>
+        </div>
+      <% end %>
     </div>
   </div>
-
-  <div class='edit-place-submit-button-container'>
-    <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
-  </div>
-<% end %>
+</div>

@@ -91,6 +91,7 @@ end
 Capybara.server = :puma, { Silent: true }
 Capybara.javascript_driver = :selenium_headless
 Capybara.default_max_wait_time = 5
+Capybara.default_normalize_ws = true
 
 driver_urls = Webdrivers::Common.subclasses.map do |driver|
   Addressable::URI.parse(driver.base_url).host

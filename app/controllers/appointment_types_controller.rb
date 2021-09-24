@@ -16,7 +16,7 @@ class AppointmentTypesController < ApplicationController
     @appointment_type = AppointmentType.find(params[:id])
     authorize @appointment_type
 
-    if @appointment_type.update(place_params)
+    if @appointment_type.update(appointment_type_params)
       SlotCreationJob.perform_later oneshot: true
       redirect_to appointment_types_path
     else
@@ -26,11 +26,9 @@ class AppointmentTypesController < ApplicationController
 
   private
 
-  def place_params
+  def appointment_type_params
     params.require(:appointment_type).permit(
-      :name,
-      notification_types_attributes: [:id, :template, :reminder_period],
-      slot_types_attributes: [:id, :week_day, :starting_time, :duration, :capacity, :_destroy]
+      :name, notification_types_attributes: [:id, :template, :reminder_period]
     )
   end
 end

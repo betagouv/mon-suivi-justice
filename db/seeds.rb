@@ -11,12 +11,12 @@ NotificationType.create!(appointment_type: appointment_type, role: :reminder, te
 NotificationType.create!(appointment_type: appointment_type, role: :cancelation, template: "Finalement non, c'est pas la peine.")
 NotificationType.create!(appointment_type: appointment_type, role: :no_show, template: "Vous n'êtes pas venu.")
 
-SlotType.create(appointment_type: appointment_type, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type, week_day: :tuesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type, week_day: :tuesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: appointment_type, agenda: agenda, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: appointment_type, agenda: agenda, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: appointment_type, agenda: agenda, week_day: :tuesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: appointment_type, agenda: agenda, week_day: :tuesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: appointment_type, agenda: agenda, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: appointment_type, agenda: agenda, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 
 all_dates = []
 Date.today.upto(6.months.from_now.to_date) { |date| all_dates << date }
@@ -28,6 +28,7 @@ appointment_type.slot_types.each do |slot_type|
     Slot.create!(
       date: date,
       agenda: agenda,
+      slot_type: slot_type,
       appointment_type: appointment_type,
       starting_time: slot_type.starting_time,
       duration: slot_type.duration,
