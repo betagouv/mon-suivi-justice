@@ -116,8 +116,6 @@
                                    method: :put,
                                    data: { confirm: t('cancel_appointment_warning') },
                                    class: 'show-button-to-edit' %>
-      <% else %>
-        <p><%= t('appointment_cancel_info') %></p>
       <% end %>
     </div>
   </div>
@@ -153,7 +151,6 @@
       </div>
     <% elsif history_item.category == 'notification' %>
       <% next if ['program_reminder_notification', 'cancel_reminder_notification'].include?(history_item.event) %>
-      <% notification_role = "#{history_item.event.split('_')[-2]}_notif" %>
 
       <div class='show-history-item-container'>
         <div class='show-history-item-header'>
@@ -172,7 +169,7 @@
 
           <div class='show-history-item-content'>
             <%= t("show_history_#{history_item.event}", name: @convict.name,
-                                                        content: history_item.appointment.send(notification_role).content) %>
+                                                        content: history_item.appointment.send(history_item.notification_role).content) %>
           </div>
         </div>
       </div>

@@ -204,6 +204,8 @@ fr:
   show_history_receive_cancelation_notification: "Le SMS d'annulation a bien été reçu par %{name}."
   show_history_failed_send_cancelation_notification_title: "Echec du SMS (annulation)"
   show_history_failed_send_cancelation_notification: "Le SMS d'annulation n'a pas été reçu par %{name}."
+  show_history_send_now_no_show_notification_title: "SMS envoyé (rdv manqué)"
+  show_history_send_now_no_show_notification: "[Texte du SMS] %{content}"
 
   appointment_place: "Lieu de RDV"
   appointment_date: "Date"
@@ -216,7 +218,6 @@ fr:
   new-appointment-no-slot: "Pas de créneau disponible"
   new-appointment-no-place: "Vous n'avez accès à aucun lieu proposant ce type de RDV"
   new_appointment_reload: "Recharger"
-  appointment_cancel_info: "Ce rendez-vous ne peut-être annulé."
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-agenda-filter: "Agenda"
   today_appointments_title: "RDV SPIP du jour"
@@ -224,6 +225,7 @@ fr:
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
   new-appointment-help: "Sélectionnez un lieu de RDV pour afficher les créneaux disponibles."
   new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi immédiat d'un SMS de confirmation à la PPSMJ et l'envoi d'un SMS de rappel avant le rendez-vous (si un numéro de téléphone a été donné)."
+  new-appointment-bex-warning: "Attention, le créneau de 9h est réservé aux DDSE."
   show_appointment_title: "Infos rendez-vous"
   cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ, et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
 

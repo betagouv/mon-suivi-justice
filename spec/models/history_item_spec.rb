@@ -17,6 +17,7 @@ RSpec.describe HistoryItem, type: :model do
         send_then_reminder_notification
         cancel_reminder_notification
         send_now_cancelation_notification
+        send_now_no_show_notification
       ]
     )
   end

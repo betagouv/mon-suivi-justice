@@ -53,6 +53,10 @@ RSpec.feature 'HistoryItems', type: :feature do
       @cancelation_notif = create(:notification, appointment: @appointment,
                                                  role: 'cancelation',
                                                  content: 'Finalement non :/')
+
+      @no_show_notif = create(:notification, appointment: @appointment,
+                                             role: 'no_show',
+                                             content: "Sérieusement, vous n'êtes pas venu ?")
     end
 
     it 'displays summon notification content' do
@@ -77,6 +81,14 @@ RSpec.feature 'HistoryItems', type: :feature do
       visit appointment_path(@appointment)
 
       expect(page).to have_content('Finalement non :/')
+    end
+
+    it 'displays no_show notification content' do
+      expect { @no_show_notif.send_now }.to change { HistoryItem.count }.by(1)
+
+      visit appointment_path(@appointment)
+
+      expect(page).to have_content("Sérieusement, vous n'êtes pas venu ?")
     end
   end
 end
