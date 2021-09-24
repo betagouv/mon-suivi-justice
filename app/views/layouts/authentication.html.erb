@@ -1,5 +1,5 @@
 <% content_for :content do %>
-  <% flash.each do |type, msg| %>
+  <% flash.except(:timedout).each do |type, msg| %>
     <p class=<%= type %>><%= msg %></p>
   <% end %>
 
