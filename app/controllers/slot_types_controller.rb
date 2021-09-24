@@ -4,7 +4,9 @@ class SlotTypesController < ApplicationController
   def index
     @agenda = Agenda.find params[:agenda_id]
     @slot_type = SlotType.new agenda: @agenda
-    @slot_types = @agenda.slot_types
+    @appointment_type = AppointmentType.find_by(id: params[:appointment_type_id])
+    @appointment_type ||= @agenda.place.appointment_types.first
+    @slot_types = @agenda.slot_types.where(appointment_type: @appointment_type).order(:starting_time)
     authorize @slot_types
   end
 

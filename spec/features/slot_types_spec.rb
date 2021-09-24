@@ -60,7 +60,7 @@ RSpec.feature 'SlotTypes', type: :feature do
   scenario 'An admin delete a slot type' do
     create_admin_user_and_login
     slot_type = create :slot_type, week_day: 'monday', starting_time: Time.zone.parse('2012-05-05 10:00:00'),
-                       duration: 30, capacity: 1, appointment_type: @appointment_type, agenda: @agenda
+                                   duration: 30, capacity: 1, appointment_type: @appointment_type, agenda: @agenda
     visit agenda_slot_types_path(@agenda)
     within "#edit_slot_type_#{slot_type.id}"
     expect { click_link 'Supprimer' }.to change(SlotType, :count).from(1).to(0)

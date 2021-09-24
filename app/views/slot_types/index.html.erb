@@ -1,15 +1,19 @@
 <h1 class='form-title'><%= t('index_slot_types_title', place: @agenda.place.name, agenda: @agenda.name) %></h1>
+<div class='slot-type-apt-type-link-container'>
+  <% @agenda.place.appointment_types.each do |apt_type| %>
+    <%= link_to apt_type.name, agenda_slot_types_path(@agenda, appointment_type_id: apt_type.id), class: "slot-type-apt-type-link-#{apt_type == @appointment_type}" %>
+  <% end %>
+</div>
 <%= link_to t('index_slot_types_back_link', place: @agenda.place.name), edit_place_path(@agenda.place), class: 'back-link' %>
-<% @agenda.place.appointment_types.each do |apt_type| %>
+<% if @appointment_type %>
   <div class='slot-type-appointment-type-container'>
-    <h2><%= apt_type.name %></h2>
     <% SlotType.week_days.keys.each do |weekday| %>
       <h3><%= t("simple_form.options.slot_type.week_day.#{weekday}") %></h3>
       <div class='weekday-container'>
-        <% @slot_types.where(week_day: weekday, appointment_type: apt_type).order(:starting_time).each do |slot_type| %>
+        <% @slot_types.where(week_day: weekday).each do |slot_type| %>
           <%= simple_form_for slot_type, html: { class: 'slot-type-form' } do |f| %>
             <%= f.hidden_field :agenda_id, value: @agenda.id %>
-            <%= f.hidden_field :appointment_type_id, value: apt_type.id %>
+            <%= f.hidden_field :appointment_type_id, value: @appointment_type.id %>
             <%= f.hidden_field :week_day, value: weekday %>
             <div class='slot-type-input'>
               <%= f.input :starting_time, input_html: { class: 'slot-type-input', value: f.object.starting_time.to_s },
@@ -28,7 +32,7 @@
         <% end %>
         <%= simple_form_for @slot_type, html: { class: 'slot-type-form new-slot-type-form' } do |f| %>
           <%= f.hidden_field :agenda_id, value: @agenda.id %>
-          <%= f.hidden_field :appointment_type_id, value: apt_type.id %>
+          <%= f.hidden_field :appointment_type_id, value: @appointment_type.id %>
           <%= f.hidden_field :week_day, value: weekday %>
           <div class='slot-type-input'>
             <%= f.input :starting_time, input_html: { class: 'slot-type-input', value: f.object.starting_time.to_s },

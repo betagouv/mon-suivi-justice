@@ -69,7 +69,7 @@ RSpec.feature 'Places', type: :feature do
 
     it 'deeted agenda' do
       place = create :place, name: 'Spip du 93'
-      agenda = create :agenda, name: 'test_agenda', place: place
+      create :agenda, name: 'test_agenda', place: place
       visit edit_place_path place
       expect { click_link('Supprimer') }.to change(place.agendas, :count).from(1).to(0)
     end
