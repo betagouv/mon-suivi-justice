@@ -17,7 +17,8 @@ RSpec.feature 'SlotTypes', type: :feature do
     visit places_path
     click_link 'Modifier'
     click_link 'Gérer les créneaux'
-    expect(page).to have_content 'Gestion des créneaux test_place_name : test_agenda_name'
+    expect(page).to have_content 'Créneaux récurrents'
+    expect(page).to have_content 'test_place_name : test_agenda_name'
     expect(page).to have_content 'apt_type_name'
     expect(page).to have_css "#edit_slot_type_#{sot_type1.id}"
     expect(page).to have_css "#edit_slot_type_#{sot_type2.id}"

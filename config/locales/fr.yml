@@ -280,7 +280,8 @@ fr:
   edit_place_delete_agenda: "Supprimer"
   delete_place_confirmation: "Attention, en supprimant ce lieu, vous supprimez tous les créneaux associés et les rendez-vous programmés."
 
-  index_slot_types_title: "Gestion des créneaux %{place} : %{agenda}"
+  index_slot_types_title: "Créneaux récurrents"
+  index_slot_types_title_place: "%{place} : %{agenda}"
   index_slot_types_back_link: "Retour %{place}"
   index_slot_types_update: "Enregistrer"
   index_slot_types_delete: "Supprimer"

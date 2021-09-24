@@ -1,7 +1,24 @@
-.back-link {
-    display: flex;
-    flex-direction: row-reverse;
-    margin: 10px 50px 10px 0;
+.index-slot-types-back-button {
+  @include button($light-grey)
+  display: flex;
+  width: max-content;
+  margin: 20px;
+}
+
+.index-slot-types-title {
+  font-size: 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.index-slot-types-title-place {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .slot-type-apt-type-link-container {
@@ -9,25 +26,28 @@
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  margin: 40px 0;
 }
 
 .slot-type-apt-type-link-true {
+  color: $link;
   padding: 0 10px;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .slot-type-apt-type-link-false {
+  color: $link;
   padding: 0 10px;
 }
 
 .slot-type-appointment-type-container {
-  padding: 10px 0;
-  h2 {
-    padding: 10px;
-  }
-  h3 {
-    padding-left: 20px;
-  }
+  width: max-content;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+.slot-type-weekday {
+  margin: 20px 0;
 }
 
 .slot-type-form {
@@ -35,27 +55,59 @@
   margin: 0 auto;
   display: flex;
   flex-direction: row;
+  padding: 10px 30px;
+  align-items: center;
 }
 
 .new-slot-type-form {
   border-top: 1px solid $table-border;
+
+  &:first-child { border: none; }
 }
 
 .slot-type-input {
-  padding-left: 15px;
+  // padding-left: 15px;
+}
+
+.slot-type-time-input {
+  margin-right: 20px;
+  select { width: 70px }
+}
+
+.slot-type-time-input-label {
+  margin-left: 10px;
+}
+
+.slot-type-duration-input {
+  width: 100px;
+  margin-right: 20px;
+}
+
+.slot-type-capacity-input {
+  width: 100px;
+  margin-right: 20px;
 }
 
 .slot-type-input-last {
-  padding-left: 10px;
-  padding-top: 15px;
-  align-self: flex-end;
+  margin-top: 10px;
+
   a {
+    color: $link;
     padding-left: 10px;
   }
 }
 
-.weekday-container {
-  margin: 5px 40px;
-  border-left: 2px solid $table-border;
-  border-bottom: 2px solid $table-border;
+.slot-type-submit-button {
+  @include button($light-grey)
+}
+
+.slot-type-add-button {
+  @include button($light-blue)
+}
+
+.index-slot-types-weekday-container {
+  width: max-content;
+  min-width: 715px;
+  padding-top: 10px;
+  border: 2px solid $table-border;
 }
