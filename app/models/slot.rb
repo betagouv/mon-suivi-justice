@@ -3,7 +3,7 @@ class Slot < ApplicationRecord
 
   belongs_to :agenda
   belongs_to :appointment_type
-  has_one :appointment, dependent: :destroy
+  has_many :appointments, dependent: :destroy
 
   validates :date, :starting_time, :duration, :capacity, presence: true
   validates_inclusion_of :available, in: [true, false]
