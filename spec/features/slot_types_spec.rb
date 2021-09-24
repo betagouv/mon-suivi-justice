@@ -16,7 +16,7 @@ RSpec.feature 'SlotTypes', type: :feature do
                                    duration: 60, capacity: 3, appointment_type: @appointment_type, agenda: @agenda
     visit places_path
     click_link 'Modifier'
-    click_link 'Gérer les créneaux'
+    click_link 'Créneaux récurrents'
     expect(page).to have_content 'Créneaux récurrents'
     expect(page).to have_content 'test_place_name : test_agenda_name'
     expect(page).to have_content 'apt_type_name'
