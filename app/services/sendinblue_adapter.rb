@@ -40,7 +40,7 @@ class SendinblueAdapter
   end
 
   def set_notification_state(notification, sms_data)
-    return if sms_data.event.nil?
+    return if sms_data.events.nil?
     return if sms_data.events.empty?
 
     events = sms_data.events
