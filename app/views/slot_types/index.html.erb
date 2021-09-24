@@ -6,7 +6,7 @@
     <% SlotType.week_days.keys.each do |weekday| %>
       <h3><%= t("simple_form.options.slot_type.week_day.#{weekday}") %></h3>
       <div class='weekday-container'>
-        <% @slot_types.where(week_day: weekday, appointment_type: apt_type).each do |slot_type| %>
+        <% @slot_types.where(week_day: weekday, appointment_type: apt_type).order(:starting_time).each do |slot_type| %>
           <%= simple_form_for slot_type, html: { class: 'slot-type-form' } do |f| %>
             <%= f.hidden_field :agenda_id, value: @agenda.id %>
             <%= f.hidden_field :appointment_type_id, value: apt_type.id %>

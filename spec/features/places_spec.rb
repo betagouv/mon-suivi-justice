@@ -71,7 +71,7 @@ RSpec.feature 'Places', type: :feature do
       place = create :place, name: 'Spip du 93'
       agenda = create :agenda, name: 'test_agenda', place: place
       visit edit_place_path place
-      expect{click_link('Supprimer')}.to change(place.agendas, :count).from(1).to(0)
+      expect { click_link('Supprimer') }.to change(place.agendas, :count).from(1).to(0)
     end
 
     it 'allows to select appointment_types' do
