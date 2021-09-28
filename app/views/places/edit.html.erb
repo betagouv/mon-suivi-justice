@@ -44,10 +44,10 @@
 
     <div class='edit-place-new-agenda-container'>
       <%= simple_form_for Agenda.new(place: @place), html: { class: 'edit-place-form' } do |form| %>
-        <div class='edit-place-data-container'>
+        <div class='edit-place-agenda-form-container'>
           <%= form.hidden_field :place_id, value: @place.id %>
-          <%= form.input :name %>
-          <%= form.button :submit, t('edit_place_add_agenda'), class: 'form-submit-button' %>
+          <%= form.input :name, wrapper_html: { class: 'edit-place-agenda-name'} %>
+          <%= form.button :submit, t('edit_place_add_agenda'), class: 'save-agenda-button' %>
         </div>
       <% end %>
     </div>
