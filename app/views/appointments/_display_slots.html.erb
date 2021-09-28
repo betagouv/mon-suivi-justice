@@ -1,5 +1,10 @@
 <% if @slots_by_date.length > 0 %>
   <p class='new-appointment-slots-title'><%= t('new-appointment-available-slots') %></p>
+
+  <% if @appointment_type.name == 'RDV BEX SPIP' %>
+    <p class='new-appointment-bex-warning'><%= t('new-appointment-bex-warning') %></p>
+  <% end %>
+
   <div class='new-appointment-slots-container' id='appointment-slots-container'>
     <div class='new-appointment-slots-header'>
       <% @slots_by_date.each do |date| %>
@@ -22,10 +27,6 @@
       <% end %>
     </div>
   </div>
-
-  <% if @appointment_type.name == 'RDV BEX SPIP' %>
-    <p class='new-appointment-bex-warning'><%= t('new-appointment-bex-warning') %></p>
-  <% end %>
 
   <input type='submit' name='commit' value=<%= t('submit')%> class='form-submit-button new-appointment-submit-button' id='submit-new-appointment' disabled='disabled' data-disable-with='Enregistrer'>
   <p class='new-appointment-form-warning'><%= t('new-appointment-warning') %></p>
