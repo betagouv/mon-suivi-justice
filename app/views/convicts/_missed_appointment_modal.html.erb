@@ -7,11 +7,11 @@
       </header>
 
       <div class='missed-appointment-modal-text'>
-        Voulez-vous envoyer un SMS à la PPSMJ ?
+        <%= t('show-convict-fulfilment-send-sms') %>
       </div>
 
       <div>
-        <p class='missed-appointment-modal-sms-content'>Texte du SMS :</p><%= apt.no_show_notif.content %>
+        <p class='missed-appointment-modal-sms-content'><%= t('show-convict-fulfilment-sms-content') %> </p><%= apt.no_show_notif.content %>
       </div>
 
       <div class='appointment-fulfilment-controls-container'>

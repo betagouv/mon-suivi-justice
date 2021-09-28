@@ -173,9 +173,8 @@ fr:
   show-convict-next-appointments-title1: "Prochain rendez-vous :"
   show-convict-next-appointments-title2: "Prochains rendez-vous :"
   show-convict-fulfilment-prompt: "Est-ce-que %{name} s'est présenté(e) au %{place} le %{date} à %{time} ?"
-  show-convict-fulfilment-yes: "Oui, %{name} était présent(e)."
-  show-convict-fulfilment-no-with-sms: "Non, %{name} n'était pas présent(e). Envoyer un sms de rappel"
-  show-convict-fulfilment-no-without-sms: "Non, %{name} n'était pas présent(e). Ne pas envoyer de sms de rappel"
+  show-convict-fulfilment-send-sms: "Voulez-vous envoyer un SMS à la PPSMJ ?"
+  show-convict-fulfilment-sms-content: "Texte du SMS :"
 
   show_history_book_appointment_title: "Nouveau RDV"
   show_history_book_appointment: "%{name} a été convoqué(e) au %{place} le %{date} à %{time}."
