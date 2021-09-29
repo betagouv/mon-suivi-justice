@@ -27,6 +27,7 @@ fr:
         first_name: "Prénom"
         last_name: "Nom"
         role: "Rôle"
+        organization: "Service"
         user_roles:
           admin: "Administrateur"
           cpip:  "CPIP"
