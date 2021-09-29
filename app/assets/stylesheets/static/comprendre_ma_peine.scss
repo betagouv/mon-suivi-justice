@@ -1,5 +1,6 @@
 .comprendre-ma-peine-title {
   font-size: 48px;
+  line-height: 50px;
   font-weight: 800;
 }
 
@@ -67,8 +68,12 @@
 .comprendre-ma-peine-large-tiles-text {
   max-width: 320px;
   margin-top: 10px;
-  font-size: 18px;
+  font-size: 16px;
   color: $msj-grey-text;
+
+  @media (min-width: $msj-small-breakpoint) {
+    font-size: 18px;
+  }
 }
 
 .comprendre-ma-peine-small-tiles-container {
