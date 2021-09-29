@@ -20,6 +20,11 @@ class ApplicationController < ActionController::Base
     stored_location_for(current_user) || root_path
   end
 
+  def current_organization
+    @current_organization ||= current_user&.organization
+  end
+  helper_method :current_organization
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
