@@ -7,6 +7,6 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:role) }
 
   it { should define_enum_for(:role).with_values(%i[admin bex cpip]) }
-  
-  it { should belongs_to(:organization) }
+
+  it { should belong_to(:organization) }
 end
