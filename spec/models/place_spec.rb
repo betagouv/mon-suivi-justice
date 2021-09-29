@@ -8,6 +8,7 @@ RSpec.describe Place, type: :model do
 
   it { should have_many(:agendas) }
   it { should have_many(:appointment_types).through(:place_appointment_types) }
+  it { should belongs_to(:organization) }
 
   it_behaves_like 'normalized_phone'
 
