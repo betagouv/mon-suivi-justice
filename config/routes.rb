@@ -41,7 +41,9 @@ Rails.application.routes.draw do
   scope controller: :static_pages do
     get :secret
     get :landing
-    get :comprendre_mes_mesures
+    get :comprendre_ma_peine
+    get :regles_essentielles
+    get :obligations_personnelles
     get :sursis_probatoire
     get :travail_interet_general
     get :suivi_socio_judiciaire

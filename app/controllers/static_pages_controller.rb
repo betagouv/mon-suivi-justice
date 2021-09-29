@@ -9,6 +9,10 @@ class StaticPagesController < ApplicationController
 
   def comprendre_mes_mesures; end
 
+  def regles_essentielles; end
+
+  def obligations_personnelles; end
+
   def sursis_probatoire; end
 
   def travail_interet_general; end

@@ -13,7 +13,9 @@
   <body>
     <%= render 'layouts/static/header' %>
 
-    <%= yield %>
+    <div class='static-wrapper'>
+      <%= yield %>
+    </div>
 
     <%= render 'layouts/static/footer' %>
   </body>

@@ -1,0 +1,20 @@
+<div class='fr-container fr-pb-6w fr-pt-8w'>
+  <h1 class='static-title comprendre-ma-peine-title fr-mb-4w'><%= t('comprendre_ma_peine.title') %></h1>
+  <div class='comprendre-ma-peine-intro'>
+    <%= t('comprendre_ma_peine.intro') %>
+  </div>
+
+  <h2 class='fr-mt-8w fr-mb-4w'><%= t('comprendre_ma_peine.secondary_title1') %></h2>
+
+  <div class='comprendre-ma-peine-large-tiles-container'>
+    <%= link_to regles_essentielles_path, class: 'comprendre-ma-peine-large-tile' do %>
+      <%= t('comprendre_ma_peine.tile1-title') %>
+    <% end %>
+
+    <%= link_to obligations_personnelles_path, class: 'comprendre-ma-peine-large-tile' do %>
+      <%= t('comprendre_ma_peine.tile2-title') %>
+    <% end %>
+  </div>
+
+  <h2 class='fr-mt-8w fr-mb-4w'><%= t('comprendre_ma_peine.secondary_title2') %></h2>
+</div>

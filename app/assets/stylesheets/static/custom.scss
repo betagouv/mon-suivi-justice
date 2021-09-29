@@ -1,5 +1,9 @@
 // add custom styles here, don't change the dsfr.css file
 
+.static-wrapper {
+  background-color: $msj-background;
+}
+
 .landing-main-text {
   width: 50%;
   margin: 30px auto;
@@ -42,4 +46,8 @@
   font-size: 12px;
   margin-top: 20px;
   margin-bottom: 0;
+}
+
+.static-title {
+  color: $msj-orange;
 }

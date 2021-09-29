@@ -1,0 +1,23 @@
+.comprendre-ma-peine-title {
+  font-size: 48px;
+  font-weight: 800;
+}
+
+.comprendre-ma-peine-intro {
+  font-size: 24px;
+  line-height: 32px;
+  max-width: 950px;
+}
+
+.comprendre-ma-peine-large-tiles-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comprendre-ma-peine-large-tile {
+  display: flex;
+  height: 225px;
+  width: 45%;
+  border: 2px solid red;
+  box-shadow: none;
+}
