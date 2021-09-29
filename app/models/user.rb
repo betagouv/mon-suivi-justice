@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :timeoutable,
          :recoverable, :rememberable, :validatable
 
-  enum role: %i[admin bex cpip]
+  enum role: %i[admin bex cpip sap]
 
   validates :first_name, :last_name, :role, presence: true
 
