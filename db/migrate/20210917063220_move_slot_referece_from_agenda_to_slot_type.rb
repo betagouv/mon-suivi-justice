@@ -20,6 +20,8 @@ class MoveSlotRefereceFromAgendaToSlotType < ActiveRecord::Migration[6.1]
 
       # Link remaining booked slot to their new corresponding slot_type (agenda reference is to be removed later on)
       Slot.where(id: Appointment.select(:slot_id)).find_each do |slot|
+        next if SlotType.week_days.keys.exclude?(slot.date.strftime('%A').downcase)
+
         slot_type = SlotType.find_by(
           agenda: slot.agenda, appointment_type: slot.appointment_type, starting_time: slot.starting_time, week_day: slot.date.strftime('%A').downcase
         )
