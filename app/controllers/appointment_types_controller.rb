@@ -17,7 +17,6 @@ class AppointmentTypesController < ApplicationController
     authorize @appointment_type
 
     if @appointment_type.update(appointment_type_params)
-      SlotCreationJob.perform_later oneshot: true
       redirect_to appointment_types_path
     else
       render :edit
