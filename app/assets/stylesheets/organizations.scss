@@ -1,0 +1,34 @@
+.organizations-header {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid lightgray;
+  padding-left: 30px;
+}
+
+.organizations-container {
+  padding-top: 20px;
+}
+
+.link-to-new-organization-form {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.link-to-new-organization-button {
+  @include button($light-blue);
+  margin-right: 20px;
+}
+
+.organizations-item-container {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid lightgray;
+  padding-left: 30px;
+}
+
+.organizations-column-1 {
+  width: 80%;
+}

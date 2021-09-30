@@ -2,7 +2,7 @@ class OrganizationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @organizations = Organization.all
+    @organizations = Organization.all.page params[:page]
     authorize @organizations
   end
 
@@ -12,7 +12,7 @@ class OrganizationsController < ApplicationController
   end
 
   def new
-    @organization = Organization.find params[:id]
+    @organization = Organization.new
     authorize @organization
   end
 
