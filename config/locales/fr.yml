@@ -309,6 +309,7 @@ fr:
     slots: "Créneaux"
     slot_types: 'Créneaux récurrents'
     users: "Agents"
+    organization: "Organizations"
 
   simple_form:
     options:
