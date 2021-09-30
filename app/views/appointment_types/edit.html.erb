@@ -1,11 +1,11 @@
 <h1 class='form-title'><%= t('edit_appointment_type_title') %></h1>
 
 <%= simple_form_for @appointment_type, html: { class: 'appointment-type-form' } do |f| %>
-  <div class='edit-appointment-type-slots-container'>
+  <div class='edit-appointment-type-container'>
     <%= f.input :name %>
-  </div>
-  <div class='edit-appointment-type-notifications-container'>
+
     <h2 class='form-secondary-title'><%= t('edit_appointment_type_notifications') %></h2>
+
     <%= f.simple_fields_for :notification_types, @appointment_type.summon_notif do |p| %>
       <div class='notification-type-container summon-container'>
         <p class='notification-type-role'>

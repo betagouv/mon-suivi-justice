@@ -19,20 +19,10 @@
   }
 }
 
-.edit-appointment-type-slots-container {
+.edit-appointment-type-container {
   width: 100%;
-
-  @media (min-width: 1200px) {
-    width: 45%;
-  }
-}
-
-.edit-appointment-type-notifications-container {
-  width: 100%;
-
-  @media (min-width: 1200px) {
-    width: 45%;
-  }
+  max-width: 500px;
+  margin: auto;
 }
 
 .edit-appointment-type-container-submit-container {
