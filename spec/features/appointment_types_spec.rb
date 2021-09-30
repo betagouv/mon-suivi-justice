@@ -32,7 +32,6 @@ RSpec.feature 'AppointmentType', type: :feature do
 
       @appointment_type.reload
       expect(@appointment_type.name).to eq('2e contact')
-      expect(SlotCreationJob).to have_been_enqueued.once.with(oneshot: true)
     end
 
     it 'allows to update notification types' do
@@ -80,7 +79,6 @@ RSpec.feature 'AppointmentType', type: :feature do
 
       notif_type4.reload
       expect(notif_type4.template).to eq('Dudette')
-      expect(SlotCreationJob).to have_been_enqueued.once.with(oneshot: true)
     end
   end
 end
