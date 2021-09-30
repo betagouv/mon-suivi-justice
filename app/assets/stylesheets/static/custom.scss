@@ -1,5 +1,27 @@
 // add custom styles here, don't change the dsfr.css file
 
+.static-wrapper {
+  background-color: $msj-background;
+}
+
+.static-footer {
+  border-color: $msj-border;
+}
+
+.static-home-back-office-button {
+  height: 50px;
+  width: 190px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: $msj-dark-background;
+  color: $msj-dark-grey-text;
+  transition: .3s background-color;
+
+  &:hover {
+    background: darken($msj-dark-background, 8%);
+  }
+}
+
 .landing-main-text {
   width: 50%;
   margin: 30px auto;
@@ -42,4 +64,8 @@
   font-size: 12px;
   margin-top: 20px;
   margin-bottom: 0;
+}
+
+.static-title {
+  color: $msj-orange;
 }

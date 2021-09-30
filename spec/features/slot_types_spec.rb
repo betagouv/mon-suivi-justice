@@ -10,9 +10,9 @@ RSpec.feature 'SlotTypes', type: :feature do
 
   scenario 'An admin consults slot types' do
     create_admin_user_and_login
-    sot_type1 = create :slot_type, week_day: 'monday', starting_time: Time.zone.parse('2012-05-05 10:00:00'),
+    slot_type1 = create :slot_type, week_day: 'monday', starting_time: Time.zone.parse('2012-05-05 10:00:00'),
                                    duration: 30, capacity: 1, appointment_type: @appointment_type, agenda: @agenda
-    sot_type2 = create :slot_type, week_day: 'tuesday', starting_time: Time.zone.parse('2012-05-05 16:00:00'),
+    slot_type2 = create :slot_type, week_day: 'tuesday', starting_time: Time.zone.parse('2012-05-05 16:00:00'),
                                    duration: 60, capacity: 3, appointment_type: @appointment_type, agenda: @agenda
     visit places_path
     click_link 'Modifier'
@@ -20,8 +20,8 @@ RSpec.feature 'SlotTypes', type: :feature do
     expect(page).to have_content 'Créneaux récurrents'
     expect(page).to have_content 'test_place_name : test_agenda_name'
     expect(page).to have_content 'apt_type_name'
-    expect(page).to have_css "#edit_slot_type_#{sot_type1.id}"
-    expect(page).to have_css "#edit_slot_type_#{sot_type2.id}"
+    expect(page).to have_css "#edit_slot_type_#{slot_type1.id}"
+    expect(page).to have_css "#edit_slot_type_#{slot_type2.id}"
   end
 
   scenario 'An admin edits a slot type' do

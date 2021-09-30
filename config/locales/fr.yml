@@ -32,6 +32,7 @@ fr:
           admin: "Administrateur"
           cpip:  "CPIP"
           bex: "BEX"
+          sap: "SAP"
       appointment:
         date: "Date"
         slot: "Créneau"

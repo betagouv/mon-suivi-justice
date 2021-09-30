@@ -40,4 +40,16 @@ describe UserPolicy do
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
   end
+
+  context 'for a sap user' do
+    let(:user) { build(:user, role: 'sap') }
+
+    it { is_expected.to permit_action(:show) }
+    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to forbid_action(:new) }
+    it { is_expected.to forbid_action(:create) }
+    it { is_expected.to permit_action(:edit) }
+    it { is_expected.to permit_action(:update) }
+    it { is_expected.to forbid_action(:destroy) }
+  end
 end

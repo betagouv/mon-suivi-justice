@@ -1,0 +1,71 @@
+<div class='fr-container fr-pb-6w fr-pt-8w'>
+  <h1 class='static-title comprendre-ma-peine-title fr-mb-4w'><%= t('comprendre_ma_peine.title') %></h1>
+  <div class='comprendre-ma-peine-intro'>
+    <%= t('comprendre_ma_peine.intro') %>
+  </div>
+
+  <h2 class='fr-mt-8w fr-mb-4w'><%= t('comprendre_ma_peine.secondary_title1') %></h2>
+
+  <div class='comprendre-ma-peine-large-tiles-container'>
+    <%= link_to regles_essentielles_path, class: 'comprendre-ma-peine-large-tile fr-mb-4w' do %>
+      <div class='comprendre-ma-peine-large-tiles-icon'><%= image_tag 'static/docs.svg' %></div>
+      <div class='comprendre-ma-peine-large-tiles-content'>
+        <div class='comprendre-ma-peine-large-tiles-chevron'><%= image_tag 'static/chevron.svg' %></div>
+        <div class='comprendre-ma-peine-large-tiles-text-container'>
+          <div class='comprendre-ma-peine-large-tiles-title'><%= t('comprendre_ma_peine.tile1-title') %></div>
+          <div class='comprendre-ma-peine-large-tiles-text'><%= t('comprendre_ma_peine.tile1-text') %></div>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to obligations_personnelles_path, class: 'comprendre-ma-peine-large-tile fr-mb-4w' do %>
+      <div class='comprendre-ma-peine-large-tiles-icon'><%= image_tag 'static/target.svg' %></div>
+      <div class='comprendre-ma-peine-large-tiles-content'>
+        <div class='comprendre-ma-peine-large-tiles-chevron'><%= image_tag 'static/chevron.svg' %></div>
+        <div class='comprendre-ma-peine-large-tiles-text-container'>
+          <div class='comprendre-ma-peine-large-tiles-title'><%= t('comprendre_ma_peine.tile2-title') %></div>
+          <div class='comprendre-ma-peine-large-tiles-text'><%= t('comprendre_ma_peine.tile2-text') %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <h2 class='fr-mt-4w fr-mb-4w'><%= t('comprendre_ma_peine.secondary_title2') %></h2>
+
+  <div class='comprendre-ma-peine-small-tiles-container'>
+    <%= link_to sursis_probatoire_path, class: 'comprendre-ma-peine-small-tile fr-mb-4w' do %>
+      <div class='comprendre-ma-peine-small-tiles-content'>
+        <div class='comprendre-ma-peine-small-tiles-chevron'><%= image_tag 'static/chevron.svg' %></div>
+        <div class='comprendre-ma-peine-small-tiles-title'><%= t('comprendre_ma_peine.tile3-title_a') %><br><%= t('comprendre_ma_peine.tile3-title_b') %></div>
+      </div>
+    <% end %>
+
+    <%= link_to travail_interet_general_path, class: 'comprendre-ma-peine-small-tile fr-mb-4w' do %>
+      <div class='comprendre-ma-peine-small-tiles-content'>
+        <div class='comprendre-ma-peine-small-tiles-chevron'><%= image_tag 'static/chevron.svg' %></div>
+        <div class='comprendre-ma-peine-small-tiles-title'><%= t('comprendre_ma_peine.tile4-title_a') %><br><%= t('comprendre_ma_peine.tile4-title_b') %></div>
+      </div>
+    <% end %>
+
+    <%= link_to suivi_socio_judiciaire_path, class: 'comprendre-ma-peine-small-tile fr-mb-4w' do %>
+      <div class='comprendre-ma-peine-small-tiles-content'>
+        <div class='comprendre-ma-peine-small-tiles-chevron'><%= image_tag 'static/chevron.svg' %></div>
+        <div class='comprendre-ma-peine-small-tiles-title'><%= t('comprendre_ma_peine.tile5-title_a') %><br><%= t('comprendre_ma_peine.tile5-title_b') %></div>
+      </div>
+    <% end %>
+
+    <%= link_to stage_path, class: 'comprendre-ma-peine-small-tile fr-mb-4w' do %>
+      <div class='comprendre-ma-peine-small-tiles-content'>
+        <div class='comprendre-ma-peine-small-tiles-chevron'><%= image_tag 'static/chevron.svg' %></div>
+        <div class='comprendre-ma-peine-small-tiles-title'><%= t('comprendre_ma_peine.tile6-title') %></div>
+      </div>
+    <% end %>
+
+    <%= link_to amenagements_de_peine_path, class: 'comprendre-ma-peine-small-tile fr-mb-4w' do %>
+      <div class='comprendre-ma-peine-small-tiles-content'>
+        <div class='comprendre-ma-peine-small-tiles-chevron'><%= image_tag 'static/chevron.svg' %></div>
+        <div class='comprendre-ma-peine-small-tiles-title'><%= t('comprendre_ma_peine.tile7-title') %></div>
+      </div>
+    <% end %>
+  </div>
+</div>

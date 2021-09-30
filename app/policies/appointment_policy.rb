@@ -4,7 +4,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def index_today?
-    user.admin? || user.cpip?
+    user.admin? || user.cpip? || user.sap?
   end
 
   def agenda_jap?
