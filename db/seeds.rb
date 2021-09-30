@@ -1,6 +1,7 @@
-User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password', role: :admin, first_name: 'Kevin', last_name: 'Mc Alistair')
+organization = Organization.find_or_create_by name: 'SPIP 92'
+User.create!(organization: organization, email: 'admin@example.com', password: 'password', password_confirmation: 'password', role: :admin, first_name: 'Kevin', last_name: 'Mc Alistair')
 
-place1 = Place.create!(name: "Tribunal judiciaire de Nanterre", adress: "179-191 av. Joliot Curie, 92020 NANTERRE", phone: '0606060606')
+place1 = Place.create!(organization: organization, name: "Tribunal judiciaire de Nanterre", adress: "179-191 av. Joliot Curie, 92020 NANTERRE", phone: '0606060606')
 agenda1 = Agenda.create!(place: place1, name: "Agenda tribunal Ancenis")
 
 appointment_type1 = AppointmentType.create!(name: 'RDV BEX SAP')
