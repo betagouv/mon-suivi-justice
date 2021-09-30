@@ -11,9 +11,9 @@ RSpec.feature 'SlotTypes', type: :feature do
   scenario 'An admin consults slot types' do
     create_admin_user_and_login
     slot_type1 = create :slot_type, week_day: 'monday', starting_time: Time.zone.parse('2012-05-05 10:00:00'),
-                                   duration: 30, capacity: 1, appointment_type: @appointment_type, agenda: @agenda
+                                    duration: 30, capacity: 1, appointment_type: @appointment_type, agenda: @agenda
     slot_type2 = create :slot_type, week_day: 'tuesday', starting_time: Time.zone.parse('2012-05-05 16:00:00'),
-                                   duration: 60, capacity: 3, appointment_type: @appointment_type, agenda: @agenda
+                                    duration: 60, capacity: 3, appointment_type: @appointment_type, agenda: @agenda
     visit places_path
     click_link 'Modifier'
     click_link 'Créneaux récurrents'
