@@ -8,6 +8,10 @@
   border-color: $msj-border;
 }
 
+.static-title {
+  color: $msj-orange;
+}
+
 .static-home-back-office-button {
   height: 50px;
   width: 190px;
@@ -21,6 +25,8 @@
     background: darken($msj-dark-background, 8%);
   }
 }
+
+// VO landing page
 
 .landing-main-text {
   width: 50%;
@@ -64,8 +70,4 @@
   font-size: 12px;
   margin-top: 20px;
   margin-bottom: 0;
-}
-
-.static-title {
-  color: $msj-orange;
 }
