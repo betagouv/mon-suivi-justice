@@ -6,5 +6,5 @@ class Agenda < ApplicationRecord
 
   validates :name, presence: true
 
-  scope :in_organization, -> (organization) { joins(:place).where(place: {organization: organization}) }
+  scope :in_organization, ->(organization) { joins(:place).where(place: { organization: organization }) }
 end

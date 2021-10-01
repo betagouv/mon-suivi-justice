@@ -8,7 +8,7 @@ class AgendaPolicy < ApplicationPolicy
       end
     end
   end
-  
+
   def create?
     user.admin?
   end

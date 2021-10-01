@@ -23,7 +23,9 @@ class Appointment < ApplicationRecord
     joins(:slot).where('extract(month from slots.date) = ?', date.month)
   }
 
-  scope :in_organization, -> (organization) { joins(slot: {agenda: :place}).where(slots: {agendas: {places: { organization: organization }}}) }
+  scope :in_organization, lambda { |organization|
+    joins(slot: { agenda: :place }).where(slots: { agendas: { places: { organization: organization } } })
+  }
 
   def summon_notif
     notifications.find_by(role: :summon)
