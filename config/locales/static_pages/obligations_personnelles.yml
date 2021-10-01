@@ -1,6 +1,8 @@
 fr:
   obligations:
-    titre: "Mes obligations personnelles"
+    category: "Comprendre ma peine"
+    title: "Mes obligations personnelles"
+    subtitle: "Découvrir les règles qui s'appliquent spécifiquement pour vous"
 
     ce_qui_est_ecrit: "Ce qui est écrit sur ma convocation :"
     ce_que_ca_veut_dire: "Ce que ça veut dire :"
