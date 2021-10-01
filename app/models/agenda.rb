@@ -5,4 +5,6 @@ class Agenda < ApplicationRecord
   has_many :appointment_types, through: :slot_type
 
   validates :name, presence: true
+
+  scope :in_organization, -> (organization) { joins(:place).where(place: {organization: organization}) }
 end

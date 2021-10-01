@@ -1,4 +1,14 @@
 class AppointmentPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      if user.admin?
+        scope.all
+      else
+        scope.in_organization(organization)
+      end
+    end
+  end
+
   def index?
     true
   end

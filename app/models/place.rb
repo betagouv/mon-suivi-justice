@@ -11,4 +11,6 @@ class Place < ApplicationRecord
 
   accepts_nested_attributes_for :agendas, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :place_appointment_types
+
+  scope :in_organization, -> (organization) { where(organization: organization) }
 end
