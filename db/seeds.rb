@@ -19,7 +19,7 @@ SlotType.create(appointment_type: appointment_type1, agenda: agenda1, week_day: 
 SlotType.create(appointment_type: appointment_type1, agenda: agenda1, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: appointment_type1, agenda: agenda1, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 
-place2 = Place.create!(name: "SPIP 92", adress: "94 Boulevard du Général Leclerc, 92000 Nanterre", phone: '0606060606')
+place2 = Place.create!(organization: organization, name: "SPIP 92", adress: "94 Boulevard du Général Leclerc, 92000 Nanterre", phone: '0606060606')
 agenda2 = Agenda.create!(place: place2, name: "Agenda tribunal Ancenis")
 
 appointment_type2 = AppointmentType.create!(name: 'RDV BEX SPIP')
