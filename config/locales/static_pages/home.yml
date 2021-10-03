@@ -1,11 +1,11 @@
 fr:
   static-home:
-    preparer-text: "Vous êtes convoqué.e au tribunal ou au service pénitentiaire d’insertion et de probation dans le cadre de votre suivi ?"
+    preparer-text: "Vous êtes convoqué.e au Tribunal judiciaire de Nanterre ou au Spip du 92 ?"
     preparer-button-head: Préparer
     preparer-button-sub: mon rendez-vous
-    comprendre-text: "Vous êtes convoqué.e au tribunal ou au service pénitentiaire d’insertion et de probation dans le cadre de votre suivi ?"
+    comprendre-text: "Vous cherchez des informations sur votre peine et ses aménagements ?"
     comprendre-button-head: Comprendre
     comprendre-button-sub: ma peine
-    investir-text: "Vous êtes convoqué.e au tribunal ou au service pénitentiaire d’insertion et de probation dans le cadre de votre suivi ?"
+    investir-text: "Suivi.e par le SPIP du 92, vous cherchez comment réussir au mieux votre probation ?"
     investir-button-head: Investir
     investir-button-sub: ma réinsertion
