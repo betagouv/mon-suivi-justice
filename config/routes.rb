@@ -49,6 +49,8 @@ Rails.application.routes.draw do
     get :suivi_socio_judiciaire
     get :stage
     get :amenagements_de_peine
+    get :preparer_mon_rdv
+    get :ma_reinsertion
   end
 
   scope controller: :home do
