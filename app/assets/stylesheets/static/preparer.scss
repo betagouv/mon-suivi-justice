@@ -6,12 +6,6 @@
   text-align: center;
 }
 
-.preparer-head-content {
-  background-color: $msj-clear-background;
-  padding: 30px 55px;;
-  margin-top: 40px;
-}
-
 .preparer-head-trigger-container {
   display: flex;
   justify-content: center;
@@ -56,10 +50,16 @@
 
 .preparer-general-content,
 .preparer-absence-content,
-.preparer-place-content {
+.preparer-place-content,
+.preparer-head-content {
   background-color: $msj-clear-background;
-  padding: 30px 55px;;
-  margin-top: 40px;
+  margin-top: 20px;
+  padding: 20px 10px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding: 30px 55px;
+    margin-top: 40px;
+  }
 }
 
 .static-google-map-link {
