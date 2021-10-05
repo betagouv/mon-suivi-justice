@@ -1,3 +1,92 @@
 fr:
   preparer:
-    title: Préparer mon rendez-vous
+    title: "Préparer mon rendez-vous"
+    intro: "Vous avez été convoqué.e au Service d'application des peines (SAP) ou au Service pénitentiaire d'insertion et probation (SPIP) à Nanterre (92). Vous trouverez ici toutes les informations nécessaires pour bien préparer votre rendez-vous. "
+    secondary_title1: "Où avez-vous rendez-vous ?"
+    toggle-head-label-spip: "SPIP 92"
+    toggle-head-label-tribunal: "SAP de Nanterre"
+
+    head-spip-text1: "Durant votre suivi judiciaire, vous serez régulièrement convoqué par un conseiller pénitentiaire d’insertion et de probation (CPIP) afin qu’il suive l’exécution de votre peine ou de votre mesure."
+    head-spip-title1: "Le premier entretien avec un CPIP"
+    head-spip-text2: "Le premier entretien avec un CPIP est indispensable. Il permet de faire le point sur votre situation et de vous expliquer le déroulement de votre suivi judiciaire. Il dure entre 30 minutes et une heure. Il est important de vous présenter à l’entretien avec une pièce d’identité et l’ensemble des justificatifs demandés sur votre convocation."
+    head-spip-text3: "Cet entretien se déroulera de la façon suivante :"
+    head-spip-text4: "Le CPIP se présentera et vous expliquera le rôle du SPIP et les missions des personnels en SPIP. Il vous précisera s’il sera en charge du suivi de votre peine ou de votre mesure durant toute sa durée ou si un autre CPIP référent prendra le relai après votre premier entretien. Votre CPIP référent sera votre interlocuteur principal au cours de votre mesure judiciaire."
+    head-spip-text5:
+      html: "Le CPIP fera un point sur votre <b>situation globale</b>, qu’elle soit personnelle (nom, adresse, situation maritale…), professionnelle (travail, formation professionnelle, étude…), sanitaire... : c’est le moment pour vous d’exposer les difficultés sociales, professionnelles, personnelles, auxquelles vous êtes confronté.e."
+    head-spip-text6:
+      html: "Une attention particulière sera également portée à votre <b>situation pénale</b>. Le CPIP vous rappellera votre condamnation et vous expliquera en détail le contenu des obligations que vous devrez respecter."
+    head-spip-text7: "N’hésitez pas à poser toutes les questions que vous souhaitez afin d’être certain de bien comprendre les attentes de la Justice (CPIP, magistrats). Une partie de l’entretien peut être consacrée à vos questions et vos attentes."
+    head-spip-text8: "Ce premier entretien doit permettre de s’assurer de votre compréhension de la mesure judiciaire. En partant de votre situation, votre CPIP référent pourra assurer un suivi personnalisé et ainsi proposer des orientations adaptées."
+    head-spip-text9: "A l’issue de ce premier entretien, il y aura deux possibilités :"
+    head-spip-text10: "Si vous avez été reçu par un CPIP de permanence : le suivi de votre mesure va ensuite être affecté à un CPIP référent en fonction de votre adresse. Le CPIP référent vous enverra une convocation, par mail ou par voie postale."
+    head-spip-text11: "Si vous avez directement été reçu par votre CPIP référent : le CPIP peut fixer avec vous la date de votre prochaine convocation. Il peut vous remettre une convocation en mains propres ou vous l'adresser par mail ou voie postale."
+    head-spip-text12: "Les entretiens de suivi"
+    head-spip-text13: "A l’issue d’une période d’évaluation de quelques mois, votre CPIP référent fixera la périodicité de vos convocations au SPIP. Ces entretiens serviront à s’assurer de la bonne exécution de votre mesure."
+    head-spip-text14: "IMPORTANT : Votre CPIP référent est en lien étroit avec les magistrats auxquels il rend compte régulièrement du déroulement de votre mesure judiciaire. Le CPIP référent est votre interlocuteur privilégié pour témoigner de l’évolution de votre situation. Il est donc essentiel de vous impliquer dans votre suivi et de justifier de vos démarches."
+
+    head-tribunal-intro: "Plusieurs types de convocations sont possibles :"
+    head-tribunal-text1: "Convocation “723-15” pour un aménagement de peine"
+    head-tribunal-text2: "Vous avez été condamné à une peine d’emprisonnement ferme pour laquelle vous allez solliciter un aménagement (lien vers aménagements de peine). Lors de cet entretien, vous devrez exposer votre situation au juge et en justifier (lien vers justificatifs). Selon votre situation, l’aménagement pourra être proposé lors de ce premier rdv ou vous serez orientés vers le SPIP pour un examen plus complet de votre situation."
+    head-tribunal-text3: "Convocation de notification de vos obligations"
+    head-tribunal-text4: "Votre conseiller d’insertion et de probation a estimé que vous ne respectiez pas vos obligation et le juge d’application des peine vous convoque pour vous les rappeler et vous expliquer les risques encourus."
+    head-tribunal-text5: "Convocation de rappel de vos obligations"
+    head-tribunal-text6: "TODO"
+    head-tribunal-text7: "Bonne pratique :"
+    head-tribunal-text8: "Il vous est conseillé d’arriver 5 à 10 minutes en avance pour permettre à l’accueil de vérifier votre identité et de prévenir de votre arrivée."
+    head-tribunal-text9: "Bonne pratique :"
+    head-tribunal-text10: "n’oubliez pas de venir avec une pièce d’identité ou si vous n’en avez pas, tout document officiel avec photo."
+
+    justificatifs-title: "Quels justificatifs apporter ?"
+    justificatifs-text1: "Les justificatifs à apporter dépendent de votre situation et des obligations prononcées par le tribunal."
+    justificatifs-text2: "Vérifiez votre convocation papier (TODO lien vers screenshot)."
+    justificatifs-text3: "Les justificatifs peuvent concerner :"
+
+    justificatifs-type1:
+      html: "<b>Votre activité professionnelle :</b> contrat de travail, trois dernières fiches de paie, attestation d’inscription à un stage, attestation de sécurité sociale, attestation assedic..."
+    justificatifs-type2:
+      html: "<b>Les soins :</b> tous documents concernant les soins que vous suivez."
+    justificatifs-type3:
+      html: "<b>Le paiement de sommes dues :</b> vos justificatifs de paiement des sommes dues aux parties civiles, vos justificatifs de paiement des pensions alimentaires, tous documents concernant vos charges (loyer, factures...), votre avis d’imposition ou de non-imposition pour l’année, tous documents justifiant de votre situation familiale."
+    justificatifs-type4:
+      html: "<b>Votre résidence :</b> un justificatif de domicile ou d’hébergement."
+    justificatifs-bonne-pratique: "Bonne pratique : regroupez vos documents à l’avance et faites une photocopie de chaque, à remettre lors du rdv."
+
+    absence-title: "Que faire si je ne peux pas venir ?"
+    absence-text1: "Vous présenter à votre rendez-vous fait partie de vos obligations judiciaires (lien mesures de contrôle). Ces rendez-vous sont essentiels pour contrôler le respect de vos obligations personnelles (lien obligations). En ne vous présentant pas à votre rendez-vous, vous vous exposez à des sanctions."
+    absence-text-spip: "Si vous ne pouvez pas vous rendre à votre rendez-vous, vous devez prévenir votre CPIP (standard 01 71 13 02 00 ou ligne directe de votre CPIP) avant la date du rendez-vous et d’envoyer un justificatif de votre motif d’absence. Le motif de votre absence sera apprécié par votre CPIP."
+    absence-text-tribunal: "Si vous ne pouvez pas vous rendre à votre rendez-vous, vous devez prévenir le secrétariat du SAP (01 40 97 15 00 Mail : jap.tj-nanterre@justice.fr) avant la date du rendez-vous et d’envoyer un justificatif de votre motif d’absence. Le motif de votre absence sera apprécié par votre JAP."
+
+    place-title: "Comment venir ?"
+    place-google: "Ouvrir dans Google Maps"
+    place-transport: "Moyens de transport"
+    place-train: "RER"
+    place-bus: "Bus"
+    place-car: "Voiture"
+
+    place-spip-text1: "Le Service pénitentiaire d’insertion et de probation des Hauts-de-Seine (SPIP 92) se situe au 94 Boulevard du Général Leclerc à Nanterre (92000)."
+    place-spip-text2: "En cas de difficulté, vous pouvez joindre le standard au 01 71 13 02 00 du lundi au vendredi de 9h à 12h et de 14h à 17h ( 14h-16h30 le vendredi)."
+    place-spip-text3: "Le site est accessible aux personnes à mobilité réduite."
+    place-spip-train1: "RER A, descendre à la station 'Nanterre-Ville'."
+    place-spip-train2: "Prendre la sortie 1 'Boulevard de la Seine'."
+    place-spip-train3: "Juste avant les portiques de sortie, tournez à droite pour prendre le tunnel."
+    place-spip-train4: "Montez l’escalier et prenez les portiques de sortie."
+    place-spip-train5: "Avancez sur le boulevard de la Seine puis prendre boulevard du Général Leclerc.  Marchez tout droit jusqu’au numéro 94."
+    place-spip-bus1: "Arrêt Nanterre-ville : ligne 378"
+    place-spip-bus2: "Arrêt Nanterre-ville RER :  157"
+    place-spip-bus3: "Arrêt Lannes : ligne 160 (direction “Nanterre-boulevard de la Seine”)."
+    place-spip-bus4: "Arrêt Jules Quentin : ligne 159"
+    place-spip-car: "Le SPIP des Hauts-de-Seine ne dispose pas d’un parking accessible au public. Il existe des possibilités de stationnement autour du bâtiment."
+
+    place-tribunal-text1: "Le tribunal judiciaire de Nanterre se situe au 179-191 avenue Joliot Curie à Nanterre (92020)."
+    place-tribunal-text2: "Le service de l’application des peines se situe au deuxième étage du tribunal. A votre arrivée dans le service, présentez-vous au bureau 228."
+    place-tribunal-text3: "En cas de difficulté, vous pouvez joindre le :  01 40 97 15 00. (TODO horaires de l'Accueil téléphonique)"
+    place-tribunal-text4: "Le site est accessible aux personnes à mobilité réduite."
+
+    place-tribunal-train1: "RER A, descendre à la station 'Nanterre-Préfecture'. Prendre la sortie 2 'Préfecture'0 ou la sortie 3 'Boulevard de Pesaro'."
+
+    place-tribunal-bus1: "Arrêt Préfecture des Hauts-de-Seine : lignes 159 (La Défense - Cité du vieux pont) et 304"
+    place-tribunal-bus2: "Arrêt Nanterre Préfecture RER : lignes 160 (Pont de Sèvres - Nanterre-Préfecture RER), 259 et 276"
+    place-tribunal-bus3: "Arrêt Esplanade Charles de Gaulle : ligne 163 (Rueil Ville-Porte de Champerret)"
+
+    place-tribunal-car1: "Depuis Paris/Porte Maillot : Prendre l’avenue de Neuilly et continuer sur 2,6 km. Tourner à droite sur le Boulevard circulaire pendant 1,7 km. Au rond-point, prendre à droite rue Félix Eboué pendant 1,3 km. Prendre à gauche avenue François Arago sur 100m. Au rond point, place Nelson Mandela, prendre à gauche avenue Frédéric et Irène Joliot-Curie."
+    place-tribunal-car2: "Il est possible de se garer dans le parking public de la préfecture - rue des Trois Fontanot."
