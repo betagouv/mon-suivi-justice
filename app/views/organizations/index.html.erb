@@ -1,0 +1,32 @@
+<div class='organizations-container'>
+  <%= button_to t('new_organization_title'), new_organization_path, class: 'link-to-new-organization-button', form_class: 'link-to-new-organization-form', method: :get %>
+
+  <div class='index-table-container'>
+    <div class='organizations-header'>
+      <div class='organizations-header-title organizations-column-1'>
+        <%= t('activerecord.attributes.organizations.name') %>
+      </div>
+    </div>
+
+    <% @organizations.each do |organization| %>
+      <div class='organizations-item-container'>
+        <div class='organization-data organizations-column-1'>
+          <%= organization.name %>
+        </div>
+        <div class='index-controls-container'>
+          <% if policy(:organization).edit? %>
+            <%= link_to t('edit'), edit_organization_path(organization), class: 'index-control' %>
+          <% end %>
+
+          <% if policy(:organization).destroy? %>
+            <%= link_to t('delete'), organization_path(organization),
+                                     data: { confirm: t('basic_confirmation') },
+                                     class: 'index-control',
+                                     method: :delete %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <%= paginate @organizations %>
+  </div>
+</div>

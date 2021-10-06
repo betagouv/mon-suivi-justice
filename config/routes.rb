@@ -7,9 +7,10 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  resources :convicts
+  resources :organizations
   resources :users
   resources :places
+  resources :convicts
   resources :appointment_types
   resources :slots
   resources :agendas, only: [:create, :destroy, :update] do

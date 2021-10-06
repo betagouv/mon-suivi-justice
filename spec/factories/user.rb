@@ -6,5 +6,6 @@ FactoryBot.define do
     role { :admin }
     password { 'password' }
     password_confirmation { 'password' }
+    organization
   end
 end

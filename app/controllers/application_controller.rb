@@ -20,6 +20,11 @@ class ApplicationController < ActionController::Base
     stored_location_for(current_user) || root_path
   end
 
+  def current_organization
+    @current_organization ||= current_user&.organization
+  end
+  helper_method :current_organization
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
@@ -30,6 +35,6 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:invite, keys: %i[first_name last_name role email])
+    devise_parameter_sanitizer.permit(:invite, keys: %i[first_name last_name role email organization_id])
   end
 end
