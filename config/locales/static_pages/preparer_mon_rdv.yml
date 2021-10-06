@@ -1,7 +1,7 @@
 fr:
   preparer:
     title: "Préparer mon rendez-vous"
-    intro: "Vous avez été convoqué.e au Service d'application des peines (SAP) ou au Service pénitentiaire d'insertion et probation (SPIP) à Nanterre (92). Vous trouverez ici toutes les informations nécessaires pour bien préparer votre rendez-vous. "
+    intro: "Vous avez été convoqué au Service d'application des peines (SAP) ou au Service pénitentiaire d'insertion et probation (SPIP) à Nanterre (92). Vous trouverez ici toutes les informations nécessaires pour bien préparer votre rendez-vous. "
     secondary_title1: "Où avez-vous rendez-vous ?"
     toggle-head-label-spip: "SPIP 92"
     toggle-head-label-tribunal: "SAP de Nanterre"
