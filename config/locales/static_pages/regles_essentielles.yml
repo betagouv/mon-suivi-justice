@@ -1,11 +1,13 @@
 fr:
   regles:
-    titre: "Les règles essentielles"
+    category: "Comprendre ma peine"
+    title: "Les règles essentielles"
+    subtitle: "Découvrir les 6 règles essentielles pour réussir son suivi"
     paragraphe1: "Pendant votre délai de probation, vous devez respecter les obligations qui sont prévues pour vous."
     paragraphe2: "Il y a 6 règles de base à respecter :"
 
-    ce_qui_est_ecrit: "Ce qui est écrit sur ma convocation :"
-    ce_que_ca_veut_dire: "Ce que ça veut dire :"
+    ce_qui_est_ecrit: "Ce qui est écrit sur ma convocation"
+    ce_que_ca_veut_dire: "Ce que ça veut dire"
 
     obligation1_titre: "1. Venir aux convocations"
     obligation1_convocation: "1° Répondre aux convocations du juge de l'application des peines ou du service pénitentiaire d'insertion et de probation désigné."

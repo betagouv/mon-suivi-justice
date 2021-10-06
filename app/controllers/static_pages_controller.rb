@@ -22,4 +22,8 @@ class StaticPagesController < ApplicationController
   def stage; end
 
   def amenagements_de_peine; end
+
+  def preparer_mon_rdv; end
+
+  def ma_reinsertion; end
 end

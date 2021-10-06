@@ -10,12 +10,16 @@
   width: 300px;
 }
 
-.login-title {
-  color: $home-title;
+.login-logo-container {
+  margin-bottom: 10px;
+
+  img { width: 200px; }
 }
 
 .login-sub-title {
   color: $home-sub-title;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 
 .login-button-container {
