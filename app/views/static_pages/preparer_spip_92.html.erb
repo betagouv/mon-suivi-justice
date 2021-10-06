@@ -1,9 +1,14 @@
 <div class='fr-container static-wrapper fr-pb-6w fr-pt-8w'>
-  <h1 class='static-title preparer-title fr-mb-4w'><%= t('preparer.spip92.title') %></h1>
+  <h1 class='static-title preparer-title fr-mb-8w'><%= t('preparer.spip92.title') %></h1>
 
-  <div class='preparer-menu-trigger'>
-    <%= t('preparer.spip92.question-place') %>
-  </div>
+  <label for="toggle-menu-place" class='preparer-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line fa-3x preparer-menu-picto" id="menu-place-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line fa-3x preparer-menu-picto preparer-menu-picto-inactive" id="menu-place-picto-down" aria-hidden="true"></span>
+
+    <div class='preparer-menu-text'><%= t('preparer.spip92.question-place') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-place" class='static-hidden-checkbox'>
 
   <div class='preparer-place-content static-content-container'>
     <p class='static-text fr-mb-2w'><%= t('preparer.spip92.place-text1') %></p>
@@ -40,20 +45,28 @@
     <p class='static-text fr-mb-2w'><%= t('preparer.spip92.place-car') %></p>
   </div>
 
-  <div class='preparer-menu-trigger'>
-    <%= t('preparer.question-no-show') %>
-  </div>
+  <label for="toggle-menu-no-show" class='preparer-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-no-show-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-no-show-picto-down" aria-hidden="true"></span>
+    <div class='preparer-menu-text'><%= t('preparer.question-no-show') %></div>
+  </label>
 
-  <div class='preparer-absence-content static-content-container'>
+  <input type='checkbox' id="toggle-menu-no-show" class='static-hidden-checkbox'>
+
+  <div class='preparer-no-show-content static-content-container'>
     <p class='static-text fr-mb-2w'><%= t('preparer.absence-text1') %></p>
     <p class='static-text fr-mb-2w'><%= t('preparer.spip92.absence-text') %></p>
   </div>
 
-  <div class='preparer-menu-trigger'>
-    <%= t('preparer.question-justif') %>
-  </div>
+  <label for="toggle-menu-justif" class='preparer-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-justif-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-justif-picto-down" aria-hidden="true"></span>
+    <div class='preparer-menu-text'><%= t('preparer.question-justif') %></div>
+  </label>
 
-  <div class='preparer-general-content static-content-container'>
+  <input type='checkbox' id="toggle-menu-justif" class='static-hidden-checkbox'>
+
+  <div class='preparer-justif-content static-content-container'>
     <p class='static-text fr-mb-2w'><%= t('preparer.justificatifs-text1') %></p>
     <p class='static-text fr-mb-2w'><%= t('preparer.justificatifs-text2') %></p>
     <p class='static-text fr-mb-2w'><%= t('preparer.justificatifs-text3') %></p>
@@ -68,11 +81,15 @@
     <p class='static-text fr-mb-2w'><%= t('preparer.justificatifs-bonne-pratique') %></p>
   </div>
 
-  <div class='preparer-menu-trigger'>
-    <%= t('preparer.question-process') %>
-  </div>
+  <label for="toggle-menu-process" class='preparer-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-process-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-process-picto-down" aria-hidden="true"></span>
+    <div class='preparer-menu-text'><%= t('preparer.question-process') %></div>
+  </label>
 
-  <div class='preparer-head-content static-content-container preparer-head-text'>
+  <input type='checkbox' id="toggle-menu-process" class='static-hidden-checkbox'>
+
+  <div class='preparer-process-content static-content-container preparer-head-text'>
     <p class='static-text fr-mb-2w'><%= t('preparer.spip92.head-text1') %></p>
 
     <h2 class='static-secondary-title fr-mb-2w'><%= t('preparer.spip92.head-title1') %></h2>
@@ -100,3 +117,5 @@
     <p class='static-text fr-mb-2w'><%= t('preparer.spip92.head-text14') %></p>
   </div>
 </div>
+
+<%= javascript_pack_tag 'static_preparer', 'data-turbolinks-eval': false, defer: true %>
