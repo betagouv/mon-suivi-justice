@@ -2,19 +2,18 @@ class AppointmentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @q = Appointment.ransack(params[:q])
+    @q = policy_scope(Appointment).ransack(params[:q])
     @appointments = @q.result(distinct: true)
+                      .joins(:convict)
                       .includes(:convict, slot: [agenda: [:place]])
-                      .joins(:convict, slot: [agenda: [:place]])
                       .page params[:page]
 
     authorize @appointments
   end
 
   def show
-    @appointment = Appointment.find(params[:id])
+    @appointment = policy_scope(Appointment).find(params[:id])
     @convict = @appointment.convict
-
     @history_items = HistoryItem.where(appointment: @appointment)
                                 .order(created_at: :desc)
     authorize @appointment
@@ -39,7 +38,7 @@ class AppointmentsController < ApplicationController
   end
 
   def cancel
-    @appointment = Appointment.find(params[:appointment_id])
+    @appointment = policy_scope(Appointment).find(params[:appointment_id])
     @appointment.cancel!
 
     authorize @appointment
@@ -47,7 +46,7 @@ class AppointmentsController < ApplicationController
   end
 
   def fulfil
-    @appointment = Appointment.find(params[:appointment_id])
+    @appointment = policy_scope(Appointment).find(params[:appointment_id])
     @appointment.fulfil!
 
     authorize @appointment
@@ -55,7 +54,7 @@ class AppointmentsController < ApplicationController
   end
 
   def miss
-    @appointment = Appointment.find(params[:appointment_id])
+    @appointment = policy_scope(Appointment).find(params[:appointment_id])
     @appointment.miss!(send_notification: params[:send_sms])
 
     authorize @appointment
@@ -65,8 +64,7 @@ class AppointmentsController < ApplicationController
   def display_places
     skip_authorization
     appointment_type = AppointmentType.find(params[:apt_type_id])
-    @places = Place.joins(:appointment_types)
-                   .where(appointment_types: appointment_type)
+    @places = policy_scope(Place).joins(:appointment_types).where(appointment_types: appointment_type)
 
     respond_to do |format|
       format.js
@@ -75,7 +73,7 @@ class AppointmentsController < ApplicationController
 
   def display_agendas
     skip_authorization
-    place = Place.find(params[:place_id])
+    place = policy_scope(Place).find(params[:place_id])
     @agendas = Agenda.where(place_id: place.id)
 
     if @agendas.count == 1
@@ -89,7 +87,7 @@ class AppointmentsController < ApplicationController
 
   def display_slots
     skip_authorization
-    agenda = Agenda.find(params[:agenda_id])
+    agenda = policy_scope(Agenda).find(params[:agenda_id])
     @appointment_type = AppointmentType.find(params[:apt_type_id])
 
     @slots_by_date = Slot.future
@@ -103,7 +101,7 @@ class AppointmentsController < ApplicationController
   end
 
   def index_today
-    @q = Appointment.for_today.ransack(params[:q])
+    @q = policy_scope(Appointment).for_today.ransack(params[:q])
     @appointments = @q.result
                       .joins(slot: [agenda: [:place]])
                       .includes(slot: [agenda: [:place]])
@@ -114,7 +112,8 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.require(:appointment).permit(:slot_id, :convict_id, :appointment_type_id,
-                                        :place_id, :origin_department)
+    params.require(:appointment).permit(
+      :slot_id, :convict_id, :appointment_type_id, :place_id, :origin_department
+    )
   end
 end

@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.feature 'Bex', type: :feature do
   before do
-    bex_user = create(:user, role: :bex)
+    @organization = create :organization
+    bex_user = create(:user, role: :bex, organization: @organization)
     logout_current_user
     login_user(bex_user)
   end
@@ -18,7 +19,7 @@ RSpec.feature 'Bex', type: :feature do
                                   prosecutor_number: '205206')
 
       apt_type = create(:appointment_type, name: 'RDV BEX SAP')
-      place = create(:place, name: 'Tribunal de Nanterre')
+      place = create(:place, name: 'Tribunal de Nanterre', organization: @organization)
 
       agenda1 = create(:agenda, place: place, name: 'Cabinet 1')
       agenda2 = create(:agenda, place: place, name: 'Cabinet 2')
@@ -70,7 +71,7 @@ RSpec.feature 'Bex', type: :feature do
                                   prosecutor_number: '205201')
 
       apt_type = create(:appointment_type, name: 'RDV BEX SPIP')
-      place = create(:place, name: 'SPIP 91')
+      place = create(:place, name: 'SPIP 91', organization: @organization)
 
       agenda = create(:agenda, place: place, name: 'Agenda SPIP 91')
 
