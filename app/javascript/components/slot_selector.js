@@ -70,9 +70,11 @@ function addListenerToAgendaSelect() {
 
 function allowSubmitOnSlotSelection () {
   const slotsFields = document.getElementsByName('appointment[slot_id]');
-  const submitButton = document.getElementById('submit-new-appointment');
+  const submitButtonContainer = document.getElementById('before-submit-modal-option-container');
+  //const submitButton = document.getElementById('submit-new-appointment');
 
   slotsFields.forEach(field => field.addEventListener('change', () => {
-    submitButton.disabled = false;
+    // submitButton.disabled = false;
+    submitButtonContainer.style.display = 'block';
   }));
 }

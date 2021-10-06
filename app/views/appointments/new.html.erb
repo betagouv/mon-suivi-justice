@@ -41,7 +41,27 @@
       <%= t('new-appointment-help') %>
     </div>
   </div>
+  </div>
+  <div id='submit-btn-container'>
+    <input type='submit' name='commit' value=<%= t('submit')%> class='form-submit-button new-appointment-submit-button' id='submit-new-appointment' disabled='disabled' data-disable-with='Enregistrer'>
+    <p class='new-appointment-form-warning'><%= t('new-appointment-warning') %></p>
+  </div>
 <% end %>
+
+<div id='before-submit-modal-option-container'>
+  <%= button_tag 'OpenMODAL', type: 'button', data: { :'micromodal-trigger' => 'test-modal' } %>
+  <div class='modal micromodal-slide' id='test-modal' aria-hidden='true'>
+    <div class='modal__overlay' tabindex='-1' data-micromodal-close>
+      <div class='modal__container test-modal-container' role='dialog' aria-modal='true' aria-labelledby='test-modal-title'>
+        <header class='modal__header'>
+          <h2 class="modal__title" id="test-modal-title"></h2>
+          <button class='modal__close' aria-label='Close modal' data-micromodal-close></button>
+        </header>
+        TEST TEST
+      </div>
+    </div>
+</div>
+
 
 <%= render 'jap_agendas_data_modal' %>
 <%= javascript_pack_tag 'appointment', 'data-turbolinks-eval': false, defer: true %>
