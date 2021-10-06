@@ -2,29 +2,39 @@
   color: $msj-blue;
 }
 
+.preparer-place-title {
+  color: $msj-blue;
+  text-align: center;
+}
+
 .preparer-secondary-title {
   text-align: center;
 }
 
 .preparer-menu-trigger {
-  font-size: 18px;
+  font-size: 16px;
 
   max-width: 850px;
   margin: auto;
   margin-top: 30px;
   border: 2px solid $msj-blue;
   background-color: $msj-clear-background;
-  padding: 20px 30px;
+  padding: 20px 15px;
   display: flex;
 
   @media (min-width: $msj-small-breakpoint) {
-    font-size: 24px;
+    padding: 20px 30px;
+    font-size: 20px;
     line-height: 30px;
   }
 }
 
 .preparer-menu-text {
-  margin-left: 30px;
+  margin-left: 10px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    margin-left: 30px;
+  }
 }
 
 .preparer-menu-picto {

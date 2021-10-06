@@ -15,16 +15,13 @@
 .static-home-link-container {
   width: 90%;
   background-color: $msj-clear-background;
-  margin-bottom: 80px;
-  padding: 20px;
-  height: 210px;
+  margin-bottom: 30px;
 
   @media (min-width: $msj-small-breakpoint) {
-    padding: 0;
     padding-top: 40px;
-    width: 70%;
-    height: auto;
     margin-bottom: 60px;
+    width: 70%;
+    height: 250px;
   }
 
   @media (min-width: $msj-medium-breakpoint) {
@@ -62,6 +59,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
+
+  @media (min-width: $msj-small-breakpoint) {
+    flex-direction: row;
+  }
 
   @media (min-width: $msj-medium-breakpoint) {
     flex-direction: column;
@@ -69,7 +71,11 @@
 }
 
 .static-home-link-picto {
+  margin: 10px 0;
+
   @media (min-width: $msj-small-breakpoint) {
+    margin-top: 0;
+    margin-bottom: 0;
     margin-left: 20px;
   }
 
@@ -79,7 +85,7 @@
 }
 
 .static-home-link-picto-img {
-  width: 150px;
+  width: 130px;
 
   @media (min-width: $msj-small-breakpoint) {
     width: 200px;
@@ -88,11 +94,13 @@
 
 .static-home-link-text {
   font-size: 16px;
+  padding: 0 20px;
   margin: 0;
-  width: 60%;
+  width: 100%;
 
   @media (min-width: $msj-small-breakpoint) {
     margin: auto;
+    padding: 0;
     width: 50%;
   }
 
@@ -109,17 +117,19 @@
   justify-content: center;
   transition: .3s background-color;
 
-  width: 220px;
+  width: 100%;
   height: 80px;
-  position: relative;
-  top: 25px;
+  margin-top: 20px;
 
   @media (min-width: $msj-small-breakpoint) {
+    margin-top: 0;
+    width: 220px;
     top: 40px;
   }
 
   @media (min-width: $msj-medium-breakpoint) {
     width: 260px;
+    position: relative;
     height: 90px;
   }
 }

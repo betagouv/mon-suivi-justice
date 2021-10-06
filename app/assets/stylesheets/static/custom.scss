@@ -58,6 +58,15 @@
   padding-left: 10px;
 }
 
+.static-list-short-item {
+  margin-bottom: 8px;
+  padding-left: 10px;
+
+  &:last-child {
+    margin-bottom: 20px;
+  }
+}
+
 .static-home-back-office-button {
   height: 50px;
   width: 190px;
