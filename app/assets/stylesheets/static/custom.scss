@@ -78,3 +78,14 @@
   margin: auto;
   padding-top: 50px;
 }
+
+.static-box-link {
+  background: lighten($msj-blue, 20%);
+  font-weight: bold;
+  height: 60px;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}

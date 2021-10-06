@@ -3,5 +3,6 @@ FactoryBot.define do
     name { 'Spip du 92' }
     adress { 'fake adress' }
     phone { '0606060606' }
+    organization
   end
 end

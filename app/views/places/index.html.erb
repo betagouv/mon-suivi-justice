@@ -12,6 +12,9 @@
       <div class='places-header-title places-column-3'>
         <%= t('activerecord.attributes.place.phone') %>
       </div>
+      <div class='places-header-title places-column-4'>
+        <%= t('activerecord.attributes.user.organization') %>
+      </div>
     </div>
 
     <% @places.each do |place| %>
@@ -19,15 +22,15 @@
         <div class='place-data places-column-1'>
           <%= place.name %>
         </div>
-
         <div class='place-data places-column-2'>
           <%= place.adress %>
         </div>
-
         <div class='place-data places-column-3'>
           <%= place.display_phone %>
         </div>
-
+        <div class='place-data places-column-4'>
+          <%= place.organization.name %>
+        </div>
         <div class='index-controls-container'>
           <%= link_to t('edit'), edit_place_path(place), class: 'index-control' %>
           <%= link_to t('delete'), place_path(place), class: 'index-control', data: { confirm: t('delete_place_confirmation') }, method: :delete %>

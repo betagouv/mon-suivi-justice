@@ -52,4 +52,12 @@
       </div>
     <% end %>
   <% end %>
+
+  <% if policy(:organization).index? %>
+    <%= link_to organizations_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_controller('organizations') %>">
+        <%= t('sidebar.organizations') %>
+      </div>
+    <% end %>
+  <% end %>
 </section>
