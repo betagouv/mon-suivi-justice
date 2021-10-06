@@ -2,7 +2,6 @@ import Rails from '@rails/ujs';
 
 document.addEventListener('turbolinks:load',function() {
   const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
-
   const slots_container = document.getElementById('slots-container');
   const agendas_container = document.getElementById('agendas-container');
 
@@ -12,6 +11,30 @@ document.addEventListener('turbolinks:load',function() {
 
     displayPlaces(aptTypeSelect.value);
   });
+
+
+  document.getElementById('btn-modal-with-sms').addEventListener('click', (e) => {
+    var input = document.createElement("input");
+    input.type = 'hidden'
+    input.name = 'send_sms'
+    input.value = 'true'
+    document.getElementById('submit-btn-container').prepend(input);
+    // document.getElementById('submit-new-appointment').disabled = false;
+    // document.getElementById('submit-btn-container').style.display = 'block';
+    document.getElementById('new_appointment').submit();
+  });
+
+  document.getElementById('btn-modal-without-sms').addEventListener('click', (e) => {
+    var input = document.createElement("input");
+    input.type = 'hidden'
+    input.name = 'send_sms'
+    input.value = 'false'
+    // document.getElementById('submit-new-appointment').disabled = false;
+    document.getElementById('submit-btn-container').prepend(input);
+    //document.getElementById('submit-btn-container').style.display = 'block';
+    document.getElementById('new_appointment').submit();
+  });
+
 });
 
 function displayPlaces (appointment_type_id) {
