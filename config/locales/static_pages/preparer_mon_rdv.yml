@@ -10,7 +10,6 @@ fr:
     question-justif: "Quels justificatifs apporter ?"
     question-process: "Comment va se dérouler mon entretien ?"
 
-    # justificatifs-title: "Quels justificatifs apporter ?"
     justificatifs-text1: "Les justificatifs à apporter dépendent de votre situation et des obligations prononcées par le tribunal."
     justificatifs-text2: "Vérifiez votre convocation papier (TODO lien vers screenshot)."
     justificatifs-text3: "Les justificatifs peuvent concerner :"
@@ -25,10 +24,8 @@ fr:
       html: "<b>Votre résidence :</b> un justificatif de domicile ou d’hébergement."
     justificatifs-bonne-pratique: "Bonne pratique : regroupez vos documents à l’avance et faites une photocopie de chaque, à remettre lors du rdv."
 
-    # absence-title: "Que faire si je ne peux pas venir ?"
     absence-text1: "Vous présenter à votre rendez-vous fait partie de vos obligations judiciaires (lien mesures de contrôle). Ces rendez-vous sont essentiels pour contrôler le respect de vos obligations personnelles (lien obligations). En ne vous présentant pas à votre rendez-vous, vous vous exposez à des sanctions."
 
-    # place-title: "Comment venir ?"
     place-google: "Ouvrir dans Google Maps"
     place-transport: "Moyens de transport"
     place-train: "RER"
