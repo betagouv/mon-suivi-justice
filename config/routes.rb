@@ -51,6 +51,8 @@ Rails.application.routes.draw do
     get :stage
     get :amenagements_de_peine
     get :preparer_mon_rdv
+    get :preparer_spip_92
+    get :preparer_sap_nanterre
     get :ma_reinsertion
   end
 

@@ -25,5 +25,9 @@ class StaticPagesController < ApplicationController
 
   def preparer_mon_rdv; end
 
+  def preparer_spip_92; end
+
+  def preparer_sap_nanterre; end
+
   def ma_reinsertion; end
 end
