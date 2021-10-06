@@ -1,12 +1,12 @@
 .static-home-links-wrapper {
   padding-bottom: 60px;
-  padding-top: 60px;
+  padding-top: 50px;
   display: flex;
   align-items: center;
   flex-direction: column;
 
   @media (min-width: $msj-medium-breakpoint) {
-    padding-bottom: 110px;
+    padding-bottom: 80px;
     flex-direction: row;
     justify-content: space-between;
   }
@@ -21,14 +21,14 @@
 
   @media (min-width: $msj-small-breakpoint) {
     padding: 0;
-    padding-top: 50px;
+    padding-top: 40px;
     width: 70%;
     height: auto;
     margin-bottom: 60px;
   }
 
   @media (min-width: $msj-medium-breakpoint) {
-    height: 435px;
+    height: 400px;
     margin-bottom: 0;
     width: 31%;
     max-width: 390px;
@@ -94,12 +94,11 @@
   @media (min-width: $msj-small-breakpoint) {
     margin: auto;
     width: 50%;
-    font-size: 18px;
   }
 
   @media (min-width: $msj-medium-breakpoint) {
-    margin: 45px auto 0;
-    width: 75%;
+    margin: 35px auto 0;
+    width: 70%;
   }
 }
 
@@ -120,9 +119,8 @@
   }
 
   @media (min-width: $msj-medium-breakpoint) {
-    width: 270px;
-    height: 100px;
-    top: 50px;
+    width: 260px;
+    height: 90px;
   }
 }
 
@@ -131,21 +129,21 @@
   margin-bottom: 0;
   font-weight: bold;
   margin-bottom: 2px;
-  font-size: 20px;
+  font-size: 18px;
 
   @media (min-width: $msj-medium-breakpoint) {
-    margin-bottom: 8px;
-    font-size: 24px;
+    margin-bottom: 6px;
+    font-size: 22px;
   }
 }
 
 .static-home-link-button-sub {
   color: $msj-white-text;
   margin-bottom: 0;
-  font-size: 20px;
+  font-size: 18px;
 
   @media (min-width: $msj-medium-breakpoint) {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 

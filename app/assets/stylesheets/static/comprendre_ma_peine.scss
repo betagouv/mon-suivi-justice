@@ -62,10 +62,6 @@
   margin-top: 10px;
   font-size: 16px;
   color: $msj-grey-text;
-
-  @media (min-width: $msj-small-breakpoint) {
-    font-size: 18px;
-  }
 }
 
 .comprendre-ma-peine-small-tiles-container {
@@ -77,7 +73,7 @@
 .comprendre-ma-peine-small-tiles-content {
   height: 80px;
   display: flex;
-  padding-left: 30px;
+  padding-left: 20px;
 }
 
 .comprendre-ma-peine-small-tile {
@@ -92,6 +88,7 @@
 
   @media (min-width: $msj-small-breakpoint) {
     width: 47%;
+    padding: 0 10px;
   }
 
   @media (min-width: $msj-medium-breakpoint) {
@@ -105,6 +102,6 @@
 
 .comprendre-ma-peine-small-tiles-title {
   font-weight: bold;
-  font-size: 22px;
+  font-size: 20px;
   margin-left: 10px;
 }
