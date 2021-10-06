@@ -50,7 +50,11 @@
 }
 
 .static-list {
-  padding-left: 45px;
+  padding-left: 16px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding-left: 45px;
+  }
 }
 
 .static-list-item {
@@ -87,11 +91,15 @@
 }
 
 .static-intro {
-  font-size: 22px;
+  font-size: 18px;
   line-height: 28px;
   width: 85%;
   margin: auto;
   max-width: 950px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    font-size: 22px;
+  }
 
   @media (min-width: $msj-medium-breakpoint) {
     font-size: 24px;
