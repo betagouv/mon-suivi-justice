@@ -10,33 +10,20 @@ document.addEventListener('turbolinks:load',function() {
   aptTypeSelect.addEventListener('change', (e) => {
     if(agendas_container) { agendas_container.innerHTML = '';}
     if(slots_container) { slots_container.innerHTML = '';}
-
     displayPlaces(aptTypeSelect.value);
   });
 
-
-  submitBtnWithSms.addEventListener('click', (e) => {
-    var input = document.createElement("input");
-    input.type = 'hidden'
-    input.name = 'send_sms'
-    input.value = 'true'
-    document.getElementById('submit-btn-container').prepend(input);
-    document.getElementById('new_appointment').submit();
-  });
-
-  submitBtnWithoutSms.addEventListener('click', (e) => {
-    var input = document.createElement("input");
-    input.type = 'hidden'
-    input.name = 'send_sms'
-    input.value = 'false'
-    document.getElementById('submit-btn-container').prepend(input);
-    document.getElementById('new_appointment').submit();
-  });
-
+  submitBtnWithSms.addEventListener('click', (e) => { submitFormNewAppointment('true') });
+  submitBtnWithoutSms.addEventListener('click', (e) => { submitFormNewAppointment('false') });
 });
 
 function submitFormNewAppointment (with_sms) {
-  
+  var input = document.createElement("input");
+  input.type = 'hidden';
+  input.name = 'send_sms';
+  input.value = with_sms;
+  document.getElementById('submit-btn-container').prepend(input);
+  document.getElementById('new_appointment').submit();
 }
 
 function displayPlaces (appointment_type_id) {
