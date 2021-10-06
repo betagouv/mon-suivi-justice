@@ -27,12 +27,11 @@ RSpec.feature 'Users', type: :feature do
 
   describe 'creation' do
     it 'sends invitation to new user' do
+      create :organization
       visit new_user_invitation_path
-
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Email', with: 'robertdurand@justice.fr'
-
       expect { click_button 'Envoyer invitation' }.to change { User.count }.by(1)
     end
   end

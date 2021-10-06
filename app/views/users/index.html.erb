@@ -12,6 +12,9 @@
       <div class='users-header-title users-column-3'>
         <%= t('activerecord.attributes.user.role') %>
       </div>
+      <div class='users-header-title users-column-4'>
+        <%= t('activerecord.attributes.user.organization') %>
+      </div>
     </div>
 
     <% @users.each do |user| %>
@@ -26,6 +29,9 @@
 
         <div class='user-data users-column-3'>
           <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
+        </div>
+        <div class='user-data users-column-4'>
+          <%= user.organization.name %>
         </div>
 
         <div class='index-controls-container'>

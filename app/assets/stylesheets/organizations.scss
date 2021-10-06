@@ -1,4 +1,4 @@
-.users-header {
+.organizations-header {
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -7,21 +7,21 @@
   padding-left: 30px;
 }
 
-.users-container {
+.organizations-container {
   padding-top: 20px;
 }
 
-.link-to-new-user-form {
+.link-to-new-organization-form {
   text-align: right;
   margin-bottom: 20px;
 }
 
-.link-to-new-user-button {
+.link-to-new-organization-button {
   @include button($light-blue);
   margin-right: 20px;
 }
 
-.users-item-container {
+.organizations-item-container {
   display: flex;
   align-items: center;
   height: 40px;
@@ -29,18 +29,6 @@
   padding-left: 30px;
 }
 
-.users-column-1 {
-  width: 25%;
-}
-
-.users-column-2 {
-  width: 25%;
-}
-
-.users-column-3 {
-  width: 15%;
-}
-
-.users-column-4 {
-  width: 20%;
+.organizations-column-1 {
+  width: 80%;
 }
