@@ -23,7 +23,7 @@ fr:
     liste1_exemple3: "Exemples : un module sur l’insertion professionnelle, une sensibilisation à la sécurité routière, une formation citoyenneté etc."
 
     paragraphe2: "Il permet d’exécuter une peine tout en bénéficiant d’une expérience professionnelle."
-    paragraphe3: "Le travail d’intérêt général peut prendre trois formes :"
+    # paragraphe3: "Le travail d’intérêt général peut prendre trois formes :"
 
     question2: "Combien de temps cette mesure va-t-elle durer ? "
     reponse2_a: "Le travail d’intérêt général peut être prononcé pour une durée de :"

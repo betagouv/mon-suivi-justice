@@ -105,3 +105,19 @@
   font-size: 20px;
   margin-left: 10px;
 }
+
+.comprendre-ma-peine-secondary-title {
+  color: $msj-orange;
+  font-size: 26px;
+  margin-top: 20px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  @media (min-width: $msj-medium-breakpoint) {
+    text-align: left;
+    font-size: 30px;
+  }
+}
