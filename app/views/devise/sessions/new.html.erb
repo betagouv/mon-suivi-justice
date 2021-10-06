@@ -1,28 +1,31 @@
-<div class="login-form-container">
-  <h2 class='login-title'><%= t('login_title') %></h2>
+<div class='login-form-container'>
+  <div class='login-logo-container'>
+    <%= image_tag 'static/logo_msj.svg' %>
+  </div>
+
   <h2 class='login-sub-title'><%= t('login_sub_title') %></h2>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'login-form'}) do |f| %>
-    <div class="login-field-container">
+    <div class='login-field-container'>
       <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => 'login-field' %>
+      <%= f.email_field :email, autofocus: true, autocomplete: 'email', :class => 'login-field' %>
     </div>
 
-    <div class="login-field-container">
+    <div class='login-field-container'>
       <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password", :class => 'login-field' %>
+      <%= f.password_field :password, autocomplete: 'current-password', :class => 'login-field' %>
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="login-field-container">
+      <div class='login-field-container'>
         <label for='user_remember_me' class='checkbox-label'><%= t('activerecord.attributes.user.remember_me') %>
-          <input type="checkbox" id='user_remember_me' name='user[remember_me]' value='1' />
+          <input type='checkbox' id='user_remember_me' name='user[remember_me]' value='1' />
           <span></span>
         </label>
       </div>
     <% end %>
 
-    <div class="actions login-button-container">
+    <div class='actions login-button-container'>
       <%= f.submit t('devise.sessions.new.sign_in'), {class: 'submit'} %>
     </div>
   <% end %>
