@@ -4,6 +4,8 @@ document.addEventListener('turbolinks:load',function() {
   const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
   const slots_container = document.getElementById('slots-container');
   const agendas_container = document.getElementById('agendas-container');
+  const submitBtnWithSms = document.getElementById('btn-modal-with-sms');
+  const submitBtnWithoutSms = document.getElementById('btn-modal-without-sms');
 
   aptTypeSelect.addEventListener('change', (e) => {
     if(agendas_container) { agendas_container.innerHTML = '';}
@@ -13,29 +15,29 @@ document.addEventListener('turbolinks:load',function() {
   });
 
 
-  document.getElementById('btn-modal-with-sms').addEventListener('click', (e) => {
+  submitBtnWithSms.addEventListener('click', (e) => {
     var input = document.createElement("input");
     input.type = 'hidden'
     input.name = 'send_sms'
     input.value = 'true'
     document.getElementById('submit-btn-container').prepend(input);
-    // document.getElementById('submit-new-appointment').disabled = false;
-    // document.getElementById('submit-btn-container').style.display = 'block';
     document.getElementById('new_appointment').submit();
   });
 
-  document.getElementById('btn-modal-without-sms').addEventListener('click', (e) => {
+  submitBtnWithoutSms.addEventListener('click', (e) => {
     var input = document.createElement("input");
     input.type = 'hidden'
     input.name = 'send_sms'
     input.value = 'false'
-    // document.getElementById('submit-new-appointment').disabled = false;
     document.getElementById('submit-btn-container').prepend(input);
-    //document.getElementById('submit-btn-container').style.display = 'block';
     document.getElementById('new_appointment').submit();
   });
 
 });
+
+function submitFormNewAppointment (with_sms) {
+  
+}
 
 function displayPlaces (appointment_type_id) {
   Rails.ajax({
@@ -93,11 +95,8 @@ function addListenerToAgendaSelect() {
 
 function allowSubmitOnSlotSelection () {
   const slotsFields = document.getElementsByName('appointment[slot_id]');
-  const submitButtonContainer = document.getElementById('before-submit-modal-option-container');
-  //const submitButton = document.getElementById('submit-new-appointment');
-
+  const showModalButtonContainer = document.getElementById('before-submit-modal-option-container');
   slotsFields.forEach(field => field.addEventListener('change', () => {
-    // submitButton.disabled = false;
-    submitButtonContainer.style.display = 'block';
+    showModalButtonContainer.style.display = 'flex';
   }));
 }

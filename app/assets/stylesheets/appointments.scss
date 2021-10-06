@@ -1,9 +1,29 @@
 #before-submit-modal-option-container {
   display: none;
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #submit-btn-container {
   display: none;
+}
+
+.appointment-send-sms-modal-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.appointment-send-sms-modal-modal-text {
+  margin-bottom: 20px;
+}
+
+.appointment-send-sms-modal-sms-content {
+  font-weight: bold;
+  display: inline;
 }
 
 .appointments-header {
@@ -81,6 +101,7 @@
 }
 
 .new-appointment-form-warning {
+  text-align: center;
   margin: 20px 0 50px;
 }
 
