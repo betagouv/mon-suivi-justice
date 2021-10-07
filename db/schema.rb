@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_29_065916) do
+ActiveRecord::Schema.define(version: 2021_10_07_115854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,15 @@ ActiveRecord::Schema.define(version: 2021_09_29_065916) do
     t.boolean "no_phone"
     t.boolean "refused_phone"
     t.string "prosecutor_number"
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string "number", null: false
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_departments_on_name", unique: true
+    t.index ["number"], name: "index_departments_on_number", unique: true
   end
 
   create_table "history_items", force: :cascade do |t|
