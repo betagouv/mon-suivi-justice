@@ -2,6 +2,11 @@
 
 .static-wrapper {
   background-color: $msj-background;
+  padding-bottom: 20px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding-bottom: 40px;
+  }
 }
 
 .static-footer {
@@ -9,10 +14,15 @@
 }
 
 .static-title {
-  font-size: 36px;
-  line-height: 50px;
+  font-size: 32px;
+  line-height: 40px;
   font-weight: 800;
-  text-align: center;
+
+  @media (min-width: $msj-small-breakpoint) {
+    font-size: 36px;
+    line-height: 50px;
+    text-align: center;
+  }
 
   @media (min-width: $msj-medium-breakpoint) {
     text-align: left;
@@ -20,23 +30,51 @@
   }
 }
 
+.static-simple-title {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 800;
+  margin-bottom: 50px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    font-size: 36px;
+    line-height: 50px;
+  }
+
+  @media (min-width: $msj-medium-breakpoint) {
+    text-align: left;
+    font-size: 40px;
+    margin-bottom: 60px;
+  }
+}
+
+.static-title-orange { color: $msj-orange; }
+
 .static-secondary-title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
 }
 
-.static-text {
-  font-size: 18px;
-}
-
 .static-list {
-  padding-left: 45px;
-  font-size: 18px;
+  padding-left: 16px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding-left: 45px;
+  }
 }
 
 .static-list-item {
   margin-bottom: 20px;
   padding-left: 10px;
+}
+
+.static-list-short-item {
+  margin-bottom: 8px;
+  padding-left: 10px;
+
+  &:last-child {
+    margin-bottom: 20px;
+  }
 }
 
 .static-home-back-office-button {
@@ -59,11 +97,15 @@
 }
 
 .static-intro {
-  font-size: 22px;
+  font-size: 18px;
   line-height: 28px;
   width: 85%;
   margin: auto;
   max-width: 950px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    font-size: 22px;
+  }
 
   @media (min-width: $msj-medium-breakpoint) {
     font-size: 24px;
@@ -77,6 +119,28 @@
   max-width: 850px;
   margin: auto;
   padding-top: 50px;
+
+  @media (min-width: $msj-small-breakpoint) {
+
+  }
+
+  @media (min-width: $msj-medium-breakpoint) {
+    padding-top: 60px;
+  }
+}
+
+.static-content {
+  display: flex;
+  flex-direction: column;
+  background-color: $msj-clear-background;
+  margin-bottom: 20px;
+  padding: 20px 10px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding: 30px 55px;
+    margin-bottom: 40px;
+    text-align: justify;
+  }
 }
 
 .static-box-link {
