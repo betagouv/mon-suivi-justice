@@ -36,12 +36,9 @@ RSpec.feature 'Appointments', type: :feature do
   describe 'creation', js: true do
     it 'works' do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
-
-      appointment_type = create(:appointment_type, :with_notification_types,
-                                name: 'RDV suivi SAP')
-
-      place = create(:place, name: 'KFC de Chatelet', appointment_types: [appointment_type])
-      agenda = create(:agenda, place: place, name: 'Agenda de Josiane')
+      appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
+      place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
+      agenda = create :agenda, place: place, name: 'Agenda de Josiane'
       create(:agenda, place: place, name: 'Agenda de Michel')
 
       create(:slot, agenda: agenda,
