@@ -61,10 +61,9 @@
 }
 
 .static-home-link-wrapper-reverse {
-  padding-left: 15px;
-
   @media (min-width: $msj-small-breakpoint) {
     flex-flow: row-reverse;
+    padding-left: 15px;
   }
 
   @media (min-width: $msj-medium-breakpoint) {

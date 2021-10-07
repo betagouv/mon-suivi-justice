@@ -2,6 +2,11 @@
 
 .static-wrapper {
   background-color: $msj-background;
+  padding-bottom: 20px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding-bottom: 40px;
+  }
 }
 
 .static-footer {
@@ -29,16 +34,17 @@
   font-size: 32px;
   line-height: 40px;
   font-weight: 800;
+  margin-bottom: 50px;
 
   @media (min-width: $msj-small-breakpoint) {
     font-size: 36px;
     line-height: 50px;
-    text-align: center;
   }
 
   @media (min-width: $msj-medium-breakpoint) {
     text-align: left;
     font-size: 40px;
+    margin-bottom: 60px;
   }
 }
 
@@ -113,6 +119,14 @@
   max-width: 850px;
   margin: auto;
   padding-top: 50px;
+
+  @media (min-width: $msj-small-breakpoint) {
+
+  }
+
+  @media (min-width: $msj-medium-breakpoint) {
+    padding-top: 60px;
+  }
 }
 
 .static-content {
