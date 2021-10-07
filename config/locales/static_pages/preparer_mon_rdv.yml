@@ -6,7 +6,7 @@ fr:
     link-spip: "SPIP 92"
     link-tribunal: "SAP de Nanterre"
 
-    question-no-show: "Que faire si je ne peux pas me rendre à mon rdv ?"
+    question-no-show: "Que faire si je ne peux pas me rendre à mon rendez-vous ?"
     question-justif: "Quels justificatifs apporter ?"
     question-process: "Comment va se dérouler mon entretien ?"
 
@@ -34,9 +34,9 @@ fr:
 
     spip92:
       title: "SPIP 92"
+      intro: "Durant votre suivi judiciaire, vous serez régulièrement convoqué par un conseiller pénitentiaire d’insertion et de probation (CPIP) afin qu’il suive l’exécution de votre peine ou de votre mesure."
       question-place: "Comment me rendre au SPIP ?"
 
-      head-text1: "Durant votre suivi judiciaire, vous serez régulièrement convoqué par un conseiller pénitentiaire d’insertion et de probation (CPIP) afin qu’il suive l’exécution de votre peine ou de votre mesure."
       head-title1: "Le premier entretien avec un CPIP"
       head-text2: "Le premier entretien avec un CPIP est indispensable. Il permet de faire le point sur votre situation et de vous expliquer le déroulement de votre suivi judiciaire. Il dure entre 30 minutes et une heure. Il est important de vous présenter à l’entretien avec une pièce d’identité et l’ensemble des justificatifs demandés sur votre convocation."
       head-text3: "Cet entretien se déroulera de la façon suivante :"
@@ -72,6 +72,7 @@ fr:
 
     sap_nanterre:
       title: "Tribunal judiciaire de Nanterre"
+      intro: "Durant votre suivi judiciaire, en fonction de votre condamnation, vous pourrez être convoqué par un juge d'application des peines."
       question-place: "Comment me rendre au tribunal?"
 
       head-intro: "Plusieurs types de convocations sont possibles :"
