@@ -1,43 +1,48 @@
 <div class='fr-container static-wrapper fr-pb-6w fr-pt-8w'>
-  <h1 class='static-title preparer-place-title fr-mb-8w'><%= t('preparer.sap_nanterre.title') %></h1>
+  <h1 class='static-title preparer-place-title fr-mb-8w'><%= t('preparer.spip92.title') %></h1>
 
   <label for="toggle-menu-place" class='static-dropdown-trigger preparer-menu-trigger'>
     <span class="fr-fi-arrow-right-s-line fa-3x preparer-menu-picto" id="menu-place-picto-right" aria-hidden="true"></span>
     <span class="fr-fi-arrow-down-s-line fa-3x preparer-menu-picto preparer-menu-picto-inactive" id="menu-place-picto-down" aria-hidden="true"></span>
 
-    <div class='preparer-menu-text'><%= t('preparer.sap_nanterre.question-place') %></div>
+    <div class='preparer-menu-text'><%= t('preparer.spip92.question-place') %></div>
   </label>
 
   <input type='checkbox' id="toggle-menu-place" class='static-hidden-checkbox'>
 
   <div class='preparer-place-content static-content-container'>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text1') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.place-text1') %></p>
 
-    <%= link_to 'https://goo.gl/maps/NdpnVo23UZTeVUne7', target: '_blank', class: 'static-google-map-link' do %>
+    <%= link_to 'https://goo.gl/maps/ejsmD6nAmqEfWAf4A', target: '_blank', class: 'static-google-map-link' do %>
       <div class='static-google-map-link-button'>
         <%= t('preparer.place-google') %>
       </div>
     <% end %>
 
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text2') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text3') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text4') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.place-text2') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.place-text3') %></p>
 
     <h3 class='static-tertiary-title fr-mb-2w'><%= t('preparer.place-train') %></h3>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-train1') %></p>
+
+    <ol class='static-list'>
+      <li class='static-list-item'><%= t('preparer.spip92.place-train1') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.place-train2') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.place-train3') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.place-train4') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.place-train5') %></li>
+    </ol>
 
     <h3 class='static-tertiary-title fr-mb-2w'><%= t('preparer.place-bus') %></h3>
 
     <ul class='static-list'>
-      <li class='static-list-item'><%= t('preparer.sap_nanterre.place-bus1') %></li>
-      <li class='static-list-item'><%= t('preparer.sap_nanterre.place-bus2') %></li>
-      <li class='static-list-item'><%= t('preparer.sap_nanterre.place-bus3') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.place-bus1') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.place-bus2') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.place-bus3') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.place-bus4') %></li>
     </ul>
 
     <h3 class='static-tertiary-title fr-mb-2w'><%= t('preparer.place-car') %></h3>
-
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-car1') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-car2') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.place-car') %></p>
   </div>
 
   <label for="toggle-menu-no-show" class='static-dropdown-trigger preparer-menu-trigger'>
@@ -50,7 +55,7 @@
 
   <div class='preparer-no-show-content static-content-container'>
     <p class='fr-mb-2w'><%= t('preparer.absence-text1') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.absence-text') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.absence-text') %></p>
   </div>
 
   <label for="toggle-menu-justif" class='static-dropdown-trigger preparer-menu-trigger'>
@@ -85,19 +90,31 @@
   <input type='checkbox' id="toggle-menu-process" class='static-hidden-checkbox'>
 
   <div class='preparer-process-content static-content-container preparer-head-text'>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.head-intro') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text1') %></p>
 
-    <h2 class='preparer-head-tribunal-title fr-mb-2w'><%= t('preparer.sap_nanterre.head-text1') %></h2>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.head-text2') %></p>
+    <h2 class='static-secondary-title fr-mb-2w'><%= t('preparer.spip92.head-title1') %></h2>
 
-    <h2 class='preparer-head-tribunal-title fr-mb-2w'><%= t('preparer.sap_nanterre.head-text3') %></h2>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.head-text4') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text2') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text3') %></p>
 
-    <h2 class='preparer-head-tribunal-title fr-mb-2w'><%= t('preparer.sap_nanterre.head-text5') %></h2>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.head-text6') %></p>
+    <ul class='static-list'>
+      <li class='static-list-item'><%= t('preparer.spip92.head-text4') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.head-text5.html') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.head-text6.html') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.head-text7') %></li>
+    </ul>
 
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.head-text7') %> <%= t('preparer.sap_nanterre.head-text8') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.head-text9') %> <%= t('preparer.sap_nanterre.head-text10') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text8') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text9') %></p>
+
+    <ul class='static-list'>
+      <li class='static-list-item'><%= t('preparer.spip92.head-text10') %></li>
+      <li class='static-list-item'><%= t('preparer.spip92.head-text11') %></li>
+    </ul>
+
+    <h2 class='static-secondary-title fr-mb-2w'><%= t('preparer.spip92.head-text12') %></h2>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text13') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text14') %></p>
   </div>
 </div>
 

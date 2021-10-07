@@ -11,7 +11,7 @@ fr:
     reponse1_c: "L’aménagement de peine peut prendre différentes formes."
 
     type1:
-      titre: "1. La détention à domicile sous surveillance électronique (DDSE)"
+      titre: "La détention à domicile sous surveillance électronique (DDSE)"
 
       question1: "Qu’est-ce que ça signifie ? "
       reponse1_a: "La détention à domicile sous surveillance électronique (DDSE) est un aménagement de peine qui vous oblige à porter un bracelet électronique à la cheville et qui vous interdit de vous absenter de votre domicile (ou de tout autre lieu désigné), en dehors des horaires fixés par le juge."
@@ -39,7 +39,7 @@ fr:
       reponse5_b: "La juridiction peut également ordonner votre incarcération provisoire immédiate dans l’attente de vous convoquer au Tribunal."
 
     type2:
-      titre: "2. La semi-liberté"
+      titre: "La semi-liberté"
 
       question1: "Qu’est-ce que ça signifie ? "
       reponse1_a: "La semi-liberté (SL) est un aménagement de peine qui vous permet, alors que vous êtes détenu dans un établissement pénitentiaire, d’accomplir librement certaines activités en dehors de l’établissement pénitentiaire, durant les jours et horaires fixés."
@@ -67,7 +67,7 @@ fr:
       reponse5_b: "Le non-respect des horaires définis par le juge de l’application des peines peut également être considéré comme une évasion et entraîner des poursuites judiciaires."
 
     type3:
-      titre: "3. Le placement à l’extérieur"
+      titre: "Le placement à l’extérieur"
 
       question1: "Qu’est-ce que ça signifie ? "
       reponse1_a: "Le placement à l’extérieur est un aménagement de peine qui vous permet d’exercer des activités ou de bénéficier de soins en dehors de l’établissement pénitentiaire, durant les horaires fixés."
@@ -90,7 +90,7 @@ fr:
       reponse5_b: "Le non-respect des horaires définis par le juge de l’application des peines peut également être considéré comme une évasion et entraîner des poursuites judiciaires."
 
     type4:
-      titre: "4. La liberté conditionnelle"
+      titre: "La liberté conditionnelle"
 
       question1: "Qu’est-ce que ça signifie ? "
       reponse1_a: "La liberté conditionnelle est un aménagement de peine qui permet votre remise en liberté lorsque vous avez déjà effectué la moitié de votre peine d’emprisonnement. La détention provisoire effectuée, c'est-à-dire l’incarcération effectuée dans l’attente du jugement, compte pour calculer la moitié de votre peine."
@@ -115,7 +115,7 @@ fr:
       reponse5_a: "Si vous ne respectez pas une ou plusieurs obligations imposées, le juge de l’application des peines peut retirer la mesure et ordonner votre réincarcération pour le reste de la peine à effectuer."
 
     type5:
-      titre: "5. Le fractionnement de la peine"
+      titre: "Le fractionnement de la peine"
 
       question1: "Qu’est-ce que ça signifie ? "
       reponse1_a: "Le fractionnement de la peine vous permet d’effectuer votre peine en plusieurs fois."
@@ -137,7 +137,7 @@ fr:
       reponse5_a: "Si vous ne respectez pas les périodes d’incarcération prévues ou que vous ne respectez pas vos obligations, le juge de l’application des peines peut retirer la mesure et des poursuites pénales peuvent être engagées pour évasion."
 
     type6:
-      titre: "6. La suspension de de peine"
+      titre: "La suspension de de peine"
 
       question1: "Qu’est-ce que ça signifie ? "
       reponse1_a: "La suspension de la peine vous permet de ne pas effectuer votre peine d’emprisonnement immédiatement."

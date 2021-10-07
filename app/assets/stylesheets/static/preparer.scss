@@ -2,13 +2,29 @@
   color: $msj-blue;
 }
 
+.preparer-place-title {
+  color: $msj-blue;
+  text-align: center;
+}
+
 .preparer-secondary-title {
   text-align: center;
 }
 
 .preparer-menu-trigger {
-  font-size: 30px;
-  margin: 30px auto;
+  border: 2px solid $msj-blue;
+}
+
+.preparer-menu-text {
+  margin-left: 10px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    margin-left: 30px;
+  }
+}
+
+.preparer-menu-picto {
+  &:before { font-size: 34px; }
 }
 
 .preparer-links-container {
@@ -16,9 +32,7 @@
   justify-content: center;
 }
 
-
-.preparer-link,
-.preparer-head-trigger {
+.preparer-link {
   background-color: $msj-clear-background;
   display: flex;
   align-items: center;
@@ -36,19 +50,31 @@
   font-size: 24px;
 }
 
-.preparer-general-content,
-.preparer-absence-content,
+.preparer-justif-content,
+.preparer-no-show-content,
 .preparer-place-content,
-.preparer-head-content {
+.preparer-process-content {
+  display: none;
+  flex-direction: column;
   background-color: $msj-clear-background;
-  margin-top: 20px;
+  margin-bottom: 20px;
   padding: 20px 10px;
 
   @media (min-width: $msj-small-breakpoint) {
     padding: 30px 55px;
-    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: justify;
   }
 }
+
+#toggle-menu-place:checked ~ .preparer-place-content { display: flex; }
+#toggle-menu-no-show:checked ~ .preparer-no-show-content { display: flex; }
+#toggle-menu-justif:checked ~ .preparer-justif-content { display: flex; }
+#toggle-menu-process:checked ~ .preparer-process-content { display: flex; }
+
+.preparer-menu-picto-active { display: flex; }
+.preparer-menu-picto-inactive { display: none; }
+
 
 .static-google-map-link {
   width: 100%;

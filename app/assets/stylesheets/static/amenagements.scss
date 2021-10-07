@@ -1,0 +1,19 @@
+.static-amenagement1-container,
+.static-amenagement2-container,
+.static-amenagement3-container,
+.static-amenagement4-container,
+.static-amenagement5-container,
+.static-amenagement6-container {
+  display: none;
+}
+
+#toggle-menu-amenagement1:checked ~ .static-amenagement1-container { display: flex; }
+#toggle-menu-amenagement2:checked ~ .static-amenagement2-container { display: flex; }
+#toggle-menu-amenagement3:checked ~ .static-amenagement3-container { display: flex; }
+#toggle-menu-amenagement4:checked ~ .static-amenagement4-container { display: flex; }
+#toggle-menu-amenagement5:checked ~ .static-amenagement5-container { display: flex; }
+#toggle-menu-amenagement6:checked ~ .static-amenagement6-container { display: flex; }
+
+.amenagements-menu-trigger {
+  border: 3px solid $msj-orange;
+}
