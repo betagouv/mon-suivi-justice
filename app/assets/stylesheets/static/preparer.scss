@@ -12,21 +12,7 @@
 }
 
 .preparer-menu-trigger {
-  font-size: 16px;
-
-  max-width: 850px;
-  margin: auto;
-  margin-top: 30px;
   border: 2px solid $msj-blue;
-  background-color: $msj-clear-background;
-  padding: 20px 15px;
-  display: flex;
-
-  @media (min-width: $msj-small-breakpoint) {
-    padding: 20px 30px;
-    font-size: 20px;
-    line-height: 30px;
-  }
 }
 
 .preparer-menu-text {
@@ -39,12 +25,6 @@
 
 .preparer-menu-picto {
   &:before { font-size: 34px; }
-}
-
-.preparer-menu-place-picto-right {}
-
-.preparer-menu-place-picto-down {
-  display: none;
 }
 
 .preparer-links-container {

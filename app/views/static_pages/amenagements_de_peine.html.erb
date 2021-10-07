@@ -2,7 +2,7 @@
   <h1 class='static-simple-title static-title-orange'><%= t('amenagements.titre') %></h1>
 
   <div class='static-content'>
-    <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.question1') %></h2>
+    <h2 class='static-secondary-title fr-mb-3w'><%= t('amenagements.question1') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.reponse1_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.reponse1_b') %></p>
 
@@ -13,10 +13,19 @@
     </ul>
 
     <p class='fr-text fr-mb-2w'><%= t('amenagements.reponse1_c') %></p>
+  </div>
 
-    <h2 class='comprendre-ma-peine-secondary-title'><%= t('amenagements.type1.titre') %></h2>
+  <label for="toggle-menu-amenagement1" class='static-dropdown-trigger amenagements-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line static-dropdown-picto" id="menu-am1-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line static-dropdown-picto static-dropdown-picto-inactive" id="menu-am1-picto-down" aria-hidden="true"></span>
 
-    <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.type1.question1') %></h2>
+    <div class='preparer-menu-text'><%= t('amenagements.type1.titre') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-amenagement1" class='static-hidden-checkbox'>
+
+  <div class='static-content static-amenagement1-container'>
+    <h2 class='static-secondary-title fr-mb-3w'><%= t('amenagements.type1.question1') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type1.reponse1_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type1.reponse1_b') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type1.reponse1_c') %></p>
@@ -44,10 +53,19 @@
     <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.type1.question5') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type1.reponse5_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type1.reponse5_b') %></p>
+  </div>
 
-    <h2 class='comprendre-ma-peine-secondary-title'><%= t('amenagements.type2.titre') %></h2>
+  <label for="toggle-menu-amenagement2" class='static-dropdown-trigger amenagements-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line static-dropdown-picto" id="menu-am2-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line static-dropdown-picto static-dropdown-picto-inactive" id="menu-am2-picto-down" aria-hidden="true"></span>
 
-    <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.type2.question1') %></h2>
+    <div class='preparer-menu-text'><%= t('amenagements.type2.titre') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-amenagement2" class='static-hidden-checkbox'>
+
+  <div class='static-content static-amenagement2-container'>
+    <h2 class='static-secondary-title fr-mb-3w'><%= t('amenagements.type2.question1') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type2.reponse1_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type2.reponse1_b') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type2.reponse1_c') %></p>
@@ -75,10 +93,19 @@
     <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.type2.question5') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type2.reponse5_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type2.reponse5_b') %></p>
+  </div>
 
-    <h2 class='comprendre-ma-peine-secondary-title'><%= t('amenagements.type3.titre') %></h2>
+  <label for="toggle-menu-amenagement3" class='static-dropdown-trigger amenagements-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line static-dropdown-picto" id="menu-am3-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line static-dropdown-picto static-dropdown-picto-inactive" id="menu-am3-picto-down" aria-hidden="true"></span>
 
-    <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.type3.question1') %></h2>
+    <div class='preparer-menu-text'><%= t('amenagements.type3.titre') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-amenagement3" class='static-hidden-checkbox'>
+
+  <div class='static-content static-amenagement3-container'>
+    <h2 class='static-secondary-title fr-mb-3w'><%= t('amenagements.type3.question1') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type3.reponse1_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type3.reponse1_b') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type3.reponse1_exemple') %></p>
@@ -97,10 +124,19 @@
     <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.type3.question5') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type3.reponse5_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type3.reponse5_b') %></p>
+  </div>
 
-    <h2 class='comprendre-ma-peine-secondary-title'><%= t('amenagements.type4.titre') %></h2>
+  <label for="toggle-menu-amenagement4" class='static-dropdown-trigger amenagements-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line static-dropdown-picto" id="menu-am4-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line static-dropdown-picto static-dropdown-picto-inactive" id="menu-am4-picto-down" aria-hidden="true"></span>
 
-    <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.type4.question1') %></h2>
+    <div class='preparer-menu-text'><%= t('amenagements.type4.titre') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-amenagement4" class='static-hidden-checkbox'>
+
+  <div class='static-content static-amenagement4-container'>
+    <h2 class='static-secondary-title fr-mb-3w'><%= t('amenagements.type4.question1') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type4.reponse1_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type4.reponse1_b') %></p>
 
@@ -125,10 +161,19 @@
 
     <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.type4.question5') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type4.reponse5_a') %></p>
+  </div>
 
-    <h2 class='comprendre-ma-peine-secondary-title'><%= t('amenagements.type5.titre') %></h2>
+  <label for="toggle-menu-amenagement5" class='static-dropdown-trigger amenagements-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line static-dropdown-picto" id="menu-am5-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line static-dropdown-picto static-dropdown-picto-inactive" id="menu-am5-picto-down" aria-hidden="true"></span>
 
-    <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.type5.question1') %></h2>
+    <div class='preparer-menu-text'><%= t('amenagements.type5.titre') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-amenagement5" class='static-hidden-checkbox'>
+
+  <div class='static-content static-amenagement5-container'>
+    <h2 class='static-secondary-title fr-mb-3w'><%= t('amenagements.type5.question1') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type5.reponse1_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type5.reponse1_b') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type5.reponse1_c') %></p>
@@ -146,10 +191,19 @@
 
     <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.type5.question5') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type5.reponse5_a') %></p>
+  </div>
 
-    <h2 class='comprendre-ma-peine-secondary-title'><%= t('amenagements.type6.titre') %></h2>
+  <label for="toggle-menu-amenagement6" class='static-dropdown-trigger amenagements-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line static-dropdown-picto" id="menu-am6-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line static-dropdown-picto static-dropdown-picto-inactive" id="menu-am6-picto-down" aria-hidden="true"></span>
 
-    <h2 class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('amenagements.type6.question1') %></h2>
+    <div class='preparer-menu-text'><%= t('amenagements.type6.titre') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-amenagement6" class='static-hidden-checkbox'>
+
+  <div class='static-content static-amenagement6-container'>
+    <h2 class='static-secondary-title fr-mb-3w'><%= t('amenagements.type6.question1') %></h2>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type6.reponse1_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type6.reponse1_b') %></p>
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type6.reponse1_exemple') %></p>
@@ -167,3 +221,5 @@
     <p class='fr-text fr-mb-2w'><%= t('amenagements.type6.reponse5_a') %></p>
   </div>
 </div>
+
+<%= javascript_pack_tag 'static_amenagements', 'data-turbolinks-eval': false, defer: true %>
