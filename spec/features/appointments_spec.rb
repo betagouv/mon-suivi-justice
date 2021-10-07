@@ -34,31 +34,53 @@ RSpec.feature 'Appointments', type: :feature do
   end
 
   describe 'creation', js: true do
-    it 'works' do
+    it 'create an appointment with a convocation sms' do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
       place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
       agenda = create :agenda, place: place, name: 'Agenda de Josiane'
-      create(:agenda, place: place, name: 'Agenda de Michel')
-
-      create(:slot, agenda: agenda,
-                    appointment_type: appointment_type,
-                    date: '10/10/2021', starting_time: '16h')
+      create :agenda, place: place, name: 'Agenda de Michel'
+      slot = create :slot, agenda: agenda, appointment_type: appointment_type, date: '10/10/2021', starting_time: '16h'
 
       visit new_appointment_path
-
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'CHERTY Jp').click
-
       select 'RDV suivi SAP', from: 'Type de rendez-vous'
       select 'KFC de Chatelet', from: 'Lieu'
       select 'Agenda de Josiane', from: 'Agenda'
-
       choose '16:00'
-
       expect(page).to have_button('Enregistrer')
-      expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)
-                                           .and change { Notification.count }.by(4)
+      click_button 'Enregistrer'
+      expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(4)
+      expect(SmsDeliveryJob).to have_been_enqueued.once.with(
+        Notification.find_by(role: :summon, appointment: Appointment.find_by(slot: slot))
+      )
+      expect(SmsDeliveryJob).to have_been_enqueued.once.with(
+        Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
+      )
+    end
+
+    it 'create an appointment without a convocation sms' do
+      create(:convict, first_name: 'JP', last_name: 'Cherty')
+      appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
+      place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
+      agenda = create :agenda, place: place, name: 'Agenda de Josiane'
+      create :agenda, place: place, name: 'Agenda de Michel'
+      slot = create :slot, agenda: agenda, appointment_type: appointment_type, date: '10/10/2021', starting_time: '16h'
+
+      visit new_appointment_path
+      first('.select2-container', minimum: 1).click
+      find('li.select2-results__option', text: 'CHERTY Jp').click
+      select 'RDV suivi SAP', from: 'Type de rendez-vous'
+      select 'KFC de Chatelet', from: 'Lieu'
+      select 'Agenda de Josiane', from: 'Agenda'
+      choose '16:00'
+      expect(page).to have_button('Enregistrer')
+      click_button 'Enregistrer'
+      expect { click_button 'Non' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(4)
+      expect(SmsDeliveryJob).to have_been_enqueued.once.with(
+        Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
+      )
     end
 
     it 'shows only relevant places for an appointment type', js: true do

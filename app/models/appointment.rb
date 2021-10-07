@@ -89,7 +89,7 @@ class Appointment < ApplicationRecord
       if appointment.convict.phone?
         appointment.transaction do
           NotificationFactory.perform(appointment)
-          send_sms = ActiveModel::Type::Boolean.new.cast(transition.args.first[:send_notification])
+          send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
           appointment.summon_notif.send_now! if send_sms
           appointment.reminder_notif.program!
         end
@@ -104,7 +104,7 @@ class Appointment < ApplicationRecord
     end
 
     after_transition on: :miss do |appointment, transition|
-      send_sms = ActiveModel::Type::Boolean.new.cast(transition.args.first[:send_notification])
+      send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
       appointment.no_show_notif&.send_now! if send_sms
     end
   end
