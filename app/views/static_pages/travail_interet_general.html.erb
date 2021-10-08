@@ -1,7 +1,12 @@
 <div class='fr-container static-content-container'>
   <h1 class='static-simple-title static-title-orange'><%= t('tig.titre') %></h1>
 
-  <a href=<%= t('tig.link') %>><%= t('tig.link') %></a>
+  <div class='static-card static-link-card'>
+    <p class='static-link-card-intro'><%= t('tig.link-intro') %></p>
+    <div class='static-link-container'>
+      <a href=<%= t('tig.link') %> target="_blank" class='static-link-card-anchor'><%= t('tig.link-anchor') %></a>
+    </div>
+  </div>
 
   <div class='static-content'>
     <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('tig.question1') %></p>
