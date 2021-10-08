@@ -2,11 +2,6 @@
 
 .static-wrapper {
   background-color: $msj-background;
-  // padding-bottom: 20px;
-
-  @media (min-width: $msj-small-breakpoint) {
-    // padding-bottom: 40px;
-  }
 }
 
 .static-footer {
