@@ -1,3 +1,5 @@
+FRENCH_DEPARTMENTS.each { |department| Department.find_or_create_by name: department.name, number: department.number }
+
 organization = Organization.find_or_create_by name: 'SPIP 92'
 User.create!(organization: organization, email: 'admin@example.com', password: 'password', password_confirmation: 'password', role: :admin, first_name: 'Kevin', last_name: 'Mc Alistair')
 
