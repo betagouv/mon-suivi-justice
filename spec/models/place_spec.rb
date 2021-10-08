@@ -20,4 +20,16 @@ RSpec.describe Place, type: :model do
       expect(build(:convict, phone: '')).not_to be_valid
     end
   end
+
+  describe '.in_organization' do
+    before do
+      @organization = create :organization
+      @place_in = create :place, organization: @organization
+      create :place
+    end
+
+    it 'returns correct relation' do
+      expect(Place.in_organization(@organization)).to eq [@place_in]
+    end
+  end
 end

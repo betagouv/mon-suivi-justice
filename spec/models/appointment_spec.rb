@@ -50,4 +50,19 @@ RSpec.describe Appointment, type: :model do
       expect(SmsDeliveryJob).to have_been_enqueued.once.with(appointment.no_show_notif)
     end
   end
+
+  describe '.in_organization' do
+    before do
+      @organization = create :organization
+      place_in = create :place, organization: @organization
+      agenda_in = create :agenda, place: place_in
+      slot_in = create :slot, agenda: agenda_in
+      @appointment_in = create :appointment, slot: slot_in
+      create :appointment
+    end
+
+    it 'returns correct relation' do
+      expect(Appointment.in_organization(@organization)).to eq [@appointment_in]
+    end
+  end
 end
