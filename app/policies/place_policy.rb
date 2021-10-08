@@ -1,7 +1,7 @@
 class PlacePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.admin?
+      if user.admin? || user.bex? || user.sap?
         scope.all
       else
         scope.in_organization(organization)
