@@ -40,9 +40,9 @@ RSpec.feature 'Organizations', type: :feature do
       click_link 'Modifier'
     end
     select 'Ariège', from: :areas_organizations_mapping_area_id
-    expect {click_button 'Ajouter'}.to change(AreasOrganizationsMapping, :count).from(0).to(1)
-    expect(page).to have_content("(09) Ariège")
-    expect {click_link 'Supprimer'}.to change(AreasOrganizationsMapping, :count).from(1).to(0)
-    expect(page).not_to have_content("(09) Ariège")
+    expect { click_button 'Ajouter' }.to change(AreasOrganizationsMapping, :count).from(0).to(1)
+    expect(page).to have_content('(09) Ariège')
+    expect { click_link 'Supprimer' }.to change(AreasOrganizationsMapping, :count).from(1).to(0)
+    expect(page).not_to have_content('(09) Ariège')
   end
 end
