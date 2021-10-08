@@ -224,9 +224,32 @@
     padding: 20px 30px;
   }
 }
+.static-good-practice-card {
+  display: flex;
+  padding: 20px;
+  border-color: $msj-green;
+  background-color: lighten(palegreen, 15%);
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding: 20px 30px;
+  }
+}
+
+.static-good-practice-thumb-up {
+  font-size: 50px;
+  margin-right: 40px;
+  margin-left: 10px;
+  color: $msj-green;
+  display: flex;
+  align-items: center;
+}
 
 .static-link-card-intro {
   margin-bottom: 10px;
+}
+
+.static-link-good-practice-intro {
+  max-width: 250px;
 }
 
 .static-link-container {

@@ -4,8 +4,8 @@
   <p class='static-place-intro'><%= t('preparer.spip92.intro') %></p>
 
   <label for="toggle-menu-place" class='static-dropdown-trigger preparer-menu-trigger'>
-    <span class="fr-fi-arrow-right-s-line fa-3x preparer-menu-picto" id="menu-place-picto-right" aria-hidden="true"></span>
-    <span class="fr-fi-arrow-down-s-line fa-3x preparer-menu-picto preparer-menu-picto-inactive" id="menu-place-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-place-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-place-picto-down" aria-hidden="true"></span>
 
     <div class='preparer-menu-text'><%= t('preparer.spip92.question-place') %></div>
   </label>
@@ -80,7 +80,10 @@
       <li class='static-list-item'><%= t('preparer.justificatifs-type4.html') %></li>
     </ul>
 
-    <p class='fr-mb-2w'><%= t('preparer.justificatifs-bonne-pratique') %></p>
+    <div class='static-card static-good-practice-card'>
+      <i class='fa fa-thumbs-up 3x static-good-practice-thumb-up'></i>
+      <p class='static-link-card-intro static-link-good-practice-intro'><%= t('preparer.justificatifs-bonne-pratique') %></p>
+    </div>
   </div>
 
   <label for="toggle-menu-process" class='static-dropdown-trigger preparer-menu-trigger'>
