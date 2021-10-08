@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2021_10_08_081150) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["area_type", "area_id"], name: "index_areas_organizations_mappings_on_area"
+    t.index ["organization_id", "area_id", "area_type"], name: "index_areas_organizations_mappings_on_organization_and_area", unique: true
     t.index ["organization_id"], name: "index_areas_organizations_mappings_on_organization_id"
   end
 

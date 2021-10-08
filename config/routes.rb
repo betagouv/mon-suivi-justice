@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resources :slot_types, only: :index
   end
   resources :slot_types, only: [:create, :destroy, :update]
+  resources :areas_organizations_mappings, only: [:create, :destroy]
 
   resources :appointments do
     put 'cancel'

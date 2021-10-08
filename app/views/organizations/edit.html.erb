@@ -1,6 +1,19 @@
 <h1 class='form-title'><%= t('edit_organization_title') %></h1>
-
 <%= simple_form_for @organization, html: { class: 'basic-form' } do |f| %>
   <%= f.input :name %>
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
+<% end %>
+
+<h2 class='form-title'><%= t('edit_organization_department_title') %></h2>
+<%= simple_form_for AreasOrganizationsMapping.new, html: { class: 'basic-form' } do |f| %>
+  <% @organization.departments.order(:number).each do |department|%>
+    <p>
+      <%= "(#{department.number}) #{department.name}" %>
+      <%= link_to 'Supprimer', areas_organizations_mapping_path(AreasOrganizationsMapping.find_by(area: department, organization: @organization)), method: :delete %>
+    </p>
+  <% end %>
+  <%= f.input :organization_id, as: :hidden, input_html: { value: @organization.id } %>
+  <%= f.input :area_type, as: :hidden, input_html: { value: 'Department' } %>
+  <%= f.input :area_id, collection: Department.order(:number), label: 'Département' %>
+  <%= f.button :submit, t('add'), class: 'form-submit-button' %>
 <% end %>
