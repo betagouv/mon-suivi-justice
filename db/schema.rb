@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_07_115854) do
+ActiveRecord::Schema.define(version: 2021_10_08_081150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,16 @@ ActiveRecord::Schema.define(version: 2021_10_07_115854) do
     t.index ["appointment_type_id"], name: "index_appointments_on_appointment_type_id"
     t.index ["convict_id"], name: "index_appointments_on_convict_id"
     t.index ["slot_id"], name: "index_appointments_on_slot_id"
+  end
+
+  create_table "areas_organizations_mappings", force: :cascade do |t|
+    t.string "area_type"
+    t.bigint "area_id"
+    t.bigint "organization_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["area_type", "area_id"], name: "index_areas_organizations_mappings_on_area"
+    t.index ["organization_id"], name: "index_areas_organizations_mappings_on_organization_id"
   end
 
   create_table "convicts", force: :cascade do |t|
@@ -196,6 +206,7 @@ ActiveRecord::Schema.define(version: 2021_10_07_115854) do
   add_foreign_key "appointments", "appointment_types"
   add_foreign_key "appointments", "convicts"
   add_foreign_key "appointments", "slots"
+  add_foreign_key "areas_organizations_mappings", "organizations"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
   add_foreign_key "notification_types", "appointment_types"
