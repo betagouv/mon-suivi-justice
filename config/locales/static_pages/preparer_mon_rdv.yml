@@ -1,7 +1,7 @@
 fr:
   preparer:
     title: "Préparer mon rendez-vous"
-    intro: "Vous avez été convoqué au Service d'application des peines (SAP) ou au Service pénitentiaire d'insertion et probation (SPIP) à Nanterre (92). Vous trouverez ici toutes les informations nécessaires pour bien préparer votre rendez-vous. "
+    intro: "Vous avez été convoqué au Service d'application des peines (SAP) ou au Service pénitentiaire d'insertion et probation (SPIP) à Nanterre (92). Vous trouverez ici toutes les informations nécessaires au bon déroulement de vos entretiens."
     secondary_title1: "Où avez-vous rendez-vous ?"
     link-spip: "SPIP 92"
     link-tribunal: "SAP de Nanterre"
@@ -52,7 +52,8 @@ fr:
       head-text11: "Si vous avez directement été reçu par votre CPIP référent : le CPIP peut fixer avec vous la date de votre prochaine convocation. Il peut vous remettre une convocation en mains propres ou vous l'adresser par mail ou voie postale."
       head-text12: "Les entretiens de suivi"
       head-text13: "A l’issue d’une période d’évaluation de quelques mois, votre CPIP référent fixera la périodicité de vos convocations au SPIP. Ces entretiens serviront à s’assurer de la bonne exécution de votre mesure."
-      head-text14: "IMPORTANT : Votre CPIP référent est en lien étroit avec les magistrats auxquels il rend compte régulièrement du déroulement de votre mesure judiciaire. Le CPIP référent est votre interlocuteur privilégié pour témoigner de l’évolution de votre situation. Il est donc essentiel de vous impliquer dans votre suivi et de justifier de vos démarches."
+      head-text14:
+        html: "<b>IMPORTANT</b> Votre CPIP référent est en lien étroit avec les magistrats auxquels il rend compte régulièrement du déroulement de votre mesure judiciaire. Le CPIP référent est votre interlocuteur privilégié pour témoigner de l’évolution de votre situation. Il est donc essentiel de vous impliquer dans votre suivi et de justifier de vos démarches."
 
       place-text1: "Le Service pénitentiaire d’insertion et de probation des Hauts-de-Seine (SPIP 92) se situe au 94 Boulevard du Général Leclerc à Nanterre (92000)."
       place-text2: "En cas de difficulté, vous pouvez joindre le standard au 01 71 13 02 00 du lundi au vendredi de 9h à 12h et de 14h à 17h ( 14h-16h30 le vendredi)."

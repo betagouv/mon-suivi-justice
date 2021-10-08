@@ -2,11 +2,6 @@
 
 .static-wrapper {
   background-color: $msj-background;
-  padding-bottom: 20px;
-
-  @media (min-width: $msj-small-breakpoint) {
-    padding-bottom: 40px;
-  }
 }
 
 .static-footer {
@@ -203,4 +198,37 @@
     line-height: 32px;
     width: auto;
   }
+}
+
+.static-card {
+  border: 2px solid $msj-border;
+  max-width: 500px;
+
+  padding: 20px;
+  margin: auto;
+  margin-bottom: 40px;
+
+  border-radius: 10px;
+}
+
+.static-link-card {
+  background-color: $msj-clear-background;
+}
+
+.static-important-card {
+  padding: 20px;
+  border-color: $msj-red;
+  background-color: lighten($msj-red, 30%);
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding: 20px 30px;
+  }
+}
+
+.static-link-card-intro {
+  margin-bottom: 10px;
+}
+
+.static-link-container {
+  text-align: center;
 }

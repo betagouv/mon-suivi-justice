@@ -2,6 +2,8 @@ fr:
   tig:
     titre: "Le travail d’intérêt général"
 
+    link-intro: "Pour une présentation plus complète, n'hésitez pas à consulter le site officiel :"
+    link-anchor: "travail-interet-general.fr"
     link: "https://www.travail-interet-general.fr/"
 
     question1: "Qu’est-ce que ça signifie ? "

@@ -2,17 +2,29 @@ import Rails from '@rails/ujs';
 
 document.addEventListener('turbolinks:load',function() {
   const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
-
   const slots_container = document.getElementById('slots-container');
   const agendas_container = document.getElementById('agendas-container');
+  const submitBtnWithSms = document.getElementById('btn-modal-with-sms');
+  const submitBtnWithoutSms = document.getElementById('btn-modal-without-sms');
 
   aptTypeSelect.addEventListener('change', (e) => {
     if(agendas_container) { agendas_container.innerHTML = '';}
     if(slots_container) { slots_container.innerHTML = '';}
-
     displayPlaces(aptTypeSelect.value);
   });
+
+  submitBtnWithSms.addEventListener('click', (e) => { submitFormNewAppointment('true') });
+  submitBtnWithoutSms.addEventListener('click', (e) => { submitFormNewAppointment('false') });
 });
+
+function submitFormNewAppointment (with_sms) {
+  var input = document.createElement("input");
+  input.type = 'hidden';
+  input.name = 'send_sms';
+  input.value = with_sms;
+  document.getElementById('submit-btn-container').prepend(input);
+  document.getElementById('new_appointment').submit();
+}
 
 function displayPlaces (appointment_type_id) {
   Rails.ajax({
@@ -70,9 +82,8 @@ function addListenerToAgendaSelect() {
 
 function allowSubmitOnSlotSelection () {
   const slotsFields = document.getElementsByName('appointment[slot_id]');
-  const submitButton = document.getElementById('submit-new-appointment');
-
+  const showModalButtonContainer = document.getElementById('before-submit-modal-option-container');
   slotsFields.forEach(field => field.addEventListener('change', () => {
-    submitButton.disabled = false;
+    showModalButtonContainer.style.display = 'flex';
   }));
 }
