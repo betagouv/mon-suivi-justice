@@ -84,7 +84,7 @@ class Appointment < ApplicationRecord
       )
     end
 
-    after_transition on: :book do |appointment|
+    after_transition on: :book do |appointment, transition|
       appointment.slot.increment!(:used_capacity, 1)
       if appointment.slot.full?
         appointment.slot.update(available: false)
@@ -93,8 +93,8 @@ class Appointment < ApplicationRecord
       if appointment.convict.phone?
         appointment.transaction do
           NotificationFactory.perform(appointment)
-
-          appointment.summon_notif.send_now!
+          send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
+          appointment.summon_notif.send_now! if send_sms
           appointment.reminder_notif.program!
         end
       end
@@ -108,7 +108,7 @@ class Appointment < ApplicationRecord
     end
 
     after_transition on: :miss do |appointment, transition|
-      send_sms = ActiveModel::Type::Boolean.new.cast(transition.args.first[:send_notification])
+      send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
       appointment.no_show_notif&.send_now! if send_sms
     end
   end

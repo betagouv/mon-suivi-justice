@@ -9,3 +9,6 @@ fr:
     investir-text: "Suivi par le SPIP 92, vous cherchez comment réussir au mieux votre probation ?"
     investir-button-head: Investir
     investir-button-sub: ma réinsertion
+
+    explanation: "Mon Suivi Justice vous accompagne dans l'exécution de votre suivi judiciaire. Il vous rappelle par SMS vos rendez-vous avec la Justice* et vous aide à mieux comprendre ce qui est attendu de vous."
+    availability: "* Actuellement disponible dans le 92"

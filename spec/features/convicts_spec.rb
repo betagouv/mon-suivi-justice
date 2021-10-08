@@ -75,7 +75,8 @@ RSpec.feature 'Convicts', type: :feature do
       choose '14:00'
 
       expect(page).to have_button('Enregistrer')
-      expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)
+      click_button 'Enregistrer'
+      expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
     end
   end
 

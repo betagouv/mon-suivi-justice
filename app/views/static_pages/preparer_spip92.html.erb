@@ -1,5 +1,7 @@
-<div class='fr-container static-wrapper fr-pb-6w fr-pt-8w'>
-  <h1 class='static-title preparer-place-title fr-mb-8w'><%= t('preparer.spip92.title') %></h1>
+<div class='fr-container fr-pb-6w fr-pt-8w'>
+  <h1 class='static-title preparer-place-title'><%= t('preparer.spip92.title') %></h1>
+
+  <p class='static-place-intro'><%= t('preparer.spip92.intro') %></p>
 
   <label for="toggle-menu-place" class='static-dropdown-trigger preparer-menu-trigger'>
     <span class="fr-fi-arrow-right-s-line fa-3x preparer-menu-picto" id="menu-place-picto-right" aria-hidden="true"></span>
@@ -90,8 +92,6 @@
   <input type='checkbox' id="toggle-menu-process" class='static-hidden-checkbox'>
 
   <div class='preparer-process-content static-content-container preparer-head-text'>
-    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text1') %></p>
-
     <h2 class='static-secondary-title fr-mb-2w'><%= t('preparer.spip92.head-title1') %></h2>
 
     <p class='fr-mb-2w'><%= t('preparer.spip92.head-text2') %></p>
@@ -114,7 +114,10 @@
 
     <h2 class='static-secondary-title fr-mb-2w'><%= t('preparer.spip92.head-text12') %></h2>
     <p class='fr-mb-2w'><%= t('preparer.spip92.head-text13') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text14') %></p>
+
+    <div class='static-card static-important-card'>
+      <p class='static-link-card-intro'><%= t('preparer.spip92.head-text14.html') %></p>
+    </div>
   </div>
 </div>
 
