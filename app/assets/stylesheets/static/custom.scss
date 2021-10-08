@@ -184,3 +184,23 @@
 
 .static-dropdown-picto-active { display: flex; }
 .static-dropdown-picto-inactive { display: none; }
+
+.static-place-intro {
+  font-size: 18px;
+  line-height: 28px;
+  margin: auto;
+  max-width: 850px;
+  margin-top: 20px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    width: 85%;
+    font-size: 20px;
+    text-align: justify;
+    margin-top: 20px;
+  }
+
+  @media (min-width: $msj-medium-breakpoint) {
+    line-height: 32px;
+    width: auto;
+  }
+}
