@@ -222,7 +222,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.6)
-    puma (5.5.0)
+    puma (5.5.1)
       nio4r (~> 2.0)
     pundit (2.1.1)
       activesupport (>= 3.0.0)
@@ -442,7 +442,7 @@ DEPENDENCIES
   paper_trail
   pg
   phony_rails
-  puma (~> 5.0)
+  puma (~> 5.5)
   pundit
   pundit-matchers (~> 1.6.0)
   rack-mini-profiler (~> 2.0)
