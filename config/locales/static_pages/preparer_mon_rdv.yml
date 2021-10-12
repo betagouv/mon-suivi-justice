@@ -24,7 +24,10 @@ fr:
       html: "<b>Votre résidence :</b> un justificatif de domicile ou d’hébergement."
     justificatifs-bonne-pratique: "Bonne pratique : regroupez vos documents à l’avance et faites une photocopie de chaque, à remettre lors du rdv."
 
-    absence-text1: "Vous présenter à votre rendez-vous fait partie de vos obligations judiciaires (lien mesures de contrôle). Ces rendez-vous sont essentiels pour contrôler le respect de vos obligations personnelles (lien obligations). En ne vous présentant pas à votre rendez-vous, vous vous exposez à des sanctions."
+    absence-text1: "Vous présenter à votre rendez-vous fait partie de vos obligations judiciaires."
+    absence-text2: "Ces rendez-vous sont essentiels pour contrôler le respect de vos"
+    absence-text3: "obligations personnelles."
+    absence-text4: "En ne vous présentant pas à votre rendez-vous, vous vous exposez à des sanctions."
 
     place-google: "Ouvrir dans Google Maps"
     place-transport: "Moyens de transport"

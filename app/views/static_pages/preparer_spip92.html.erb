@@ -20,9 +20,9 @@
         <p class='fr-mb-2w'><%= t('preparer.spip92.place-text1') %></p>
 
         <%= link_to 'https://goo.gl/maps/ejsmD6nAmqEfWAf4A', target: '_blank', class: 'static-google-map-link' do %>
-        <div class='static-google-map-link-button'>
-          <%= t('preparer.place-google') %>
-        </div>
+          <div class='static-google-map-link-button'>
+            <%= t('preparer.place-google') %>
+          </div>
         <% end %>
 
         <p class='fr-mb-2w'><%= t('preparer.spip92.place-text2') %></p>
@@ -62,7 +62,7 @@
   <input type='checkbox' id="toggle-menu-no-show" class='static-hidden-checkbox'>
 
   <div class='preparer-no-show-content static-content-container'>
-    <p class='fr-mb-2w'><%= t('preparer.absence-text1') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.absence-text1') %> <%= t('preparer.absence-text2') %> <%= link_to t('preparer.absence-text3'), obligations_personnelles_path %> <%= t('preparer.absence-text4') %></p>
     <p class='fr-mb-2w'><%= t('preparer.spip92.absence-text') %></p>
   </div>
 

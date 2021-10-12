@@ -16,11 +16,9 @@
   @media (min-width: $msj-small-breakpoint) {
     font-size: 36px;
     line-height: 50px;
-    text-align: center;
   }
 
   @media (min-width: $msj-medium-breakpoint) {
-    text-align: left;
     font-size: 48px;
   }
 }
@@ -99,19 +97,35 @@
 .static-intro {
   font-size: 18px;
   line-height: 28px;
-  width: 85%;
   margin: auto;
-  max-width: 950px;
 
   @media (min-width: $msj-small-breakpoint) {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   @media (min-width: $msj-medium-breakpoint) {
-    font-size: 24px;
-    line-height: 32px;
-    width: auto;
     margin: 0;
+    width: auto;
+    max-width: 750px;
+    text-align: justify;
+  }
+}
+
+.static-place-intro {
+  font-size: 18px;
+  line-height: 28px;
+  margin: auto;
+  margin-top: 20px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    max-width: 850px;
+    font-size: 20px;
+    margin-top: 20px;
+    line-height: 32px;
+  }
+
+  @media (min-width: $msj-medium-breakpoint) {
+    width: auto;
   }
 }
 
@@ -179,26 +193,6 @@
 
 .static-dropdown-picto-active { display: flex; }
 .static-dropdown-picto-inactive { display: none; }
-
-.static-place-intro {
-  font-size: 18px;
-  line-height: 28px;
-  margin: auto;
-  max-width: 850px;
-  margin-top: 20px;
-
-  @media (min-width: $msj-small-breakpoint) {
-    width: 85%;
-    font-size: 20px;
-    text-align: justify;
-    margin-top: 20px;
-  }
-
-  @media (min-width: $msj-medium-breakpoint) {
-    line-height: 32px;
-    width: auto;
-  }
-}
 
 .static-card {
   border: 2px solid $msj-border;
