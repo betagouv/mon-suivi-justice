@@ -100,3 +100,32 @@
   border-radius: 10px;
   font-weight: bold;
 }
+
+.preparer-place-header {
+  @media (min-width: $msj-medium-breakpoint) {
+    display: flex;
+    margin-bottom: 20px;
+  }
+}
+
+.preparer-place-picture {
+
+  @media (min-width: $msj-small-breakpoint) {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  @media (min-width: $msj-medium-breakpoint) {
+    margin-bottom: 0;
+    margin-right: 30px;
+  }
+}
+
+.preparer-place-picture-img {
+  width: 100%;
+
+  @media (min-width: $msj-small-breakpoint) {
+    width: 250px;
+  }
+}

@@ -13,16 +13,22 @@
   <input type='checkbox' id="toggle-menu-place" class='static-hidden-checkbox'>
 
   <div class='preparer-place-content static-content-container'>
-    <p class='fr-mb-2w'><%= t('preparer.spip92.place-text1') %></p>
+    <div class='preparer-place-header'>
+      <div class='preparer-place-picture'><%= image_tag 'static/entree_SPIP92.jpg', class: 'preparer-place-picture-img' %></div>
 
-    <%= link_to 'https://goo.gl/maps/ejsmD6nAmqEfWAf4A', target: '_blank', class: 'static-google-map-link' do %>
-      <div class='static-google-map-link-button'>
-        <%= t('preparer.place-google') %>
+      <div class='preparer-place-general-infos'>
+        <p class='fr-mb-2w'><%= t('preparer.spip92.place-text1') %></p>
+
+        <%= link_to 'https://goo.gl/maps/ejsmD6nAmqEfWAf4A', target: '_blank', class: 'static-google-map-link' do %>
+        <div class='static-google-map-link-button'>
+          <%= t('preparer.place-google') %>
+        </div>
+        <% end %>
+
+        <p class='fr-mb-2w'><%= t('preparer.spip92.place-text2') %></p>
+        <p class='fr-mb-2w'><%= t('preparer.spip92.place-text3') %></p>
       </div>
-    <% end %>
-
-    <p class='fr-mb-2w'><%= t('preparer.spip92.place-text2') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.spip92.place-text3') %></p>
+    </div>
 
     <h3 class='static-tertiary-title fr-mb-2w'><%= t('preparer.place-train') %></h3>
 
