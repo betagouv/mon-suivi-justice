@@ -109,12 +109,9 @@
 }
 
 .preparer-place-picture {
-
-  @media (min-width: $msj-small-breakpoint) {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 
   @media (min-width: $msj-medium-breakpoint) {
     margin-bottom: 0;
@@ -124,6 +121,7 @@
 
 .preparer-place-picture-img {
   width: 100%;
+  max-width: 250px;
 
   @media (min-width: $msj-small-breakpoint) {
     width: 250px;
