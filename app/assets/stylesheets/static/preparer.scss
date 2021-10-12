@@ -14,6 +14,19 @@
 
 .preparer-menu-trigger {
   border: 2px solid $msj-blue;
+  font-size: 16px;
+
+  max-width: 850px;
+  margin: auto;
+  margin-top: 30px;
+  background-color: $msj-clear-background;
+  padding: 20px 15px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding: 20px 30px;
+    font-size: 20px;
+    line-height: 30px;
+  }
 }
 
 .preparer-menu-text {
@@ -75,7 +88,6 @@
 
 .preparer-menu-picto-active { display: flex; }
 .preparer-menu-picto-inactive { display: none; }
-
 
 .static-google-map-link {
   width: 100%;

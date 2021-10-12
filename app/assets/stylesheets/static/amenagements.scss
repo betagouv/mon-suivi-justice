@@ -1,3 +1,20 @@
+.amenagements-menu-trigger {
+  border: 3px solid $msj-orange;
+  font-size: 16px;
+
+  max-width: 850px;
+  margin: auto;
+  margin-top: 30px;
+  background-color: $msj-clear-background;
+  padding: 20px 15px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding: 20px 30px;
+    font-size: 20px;
+    line-height: 30px;
+  }
+}
+
 .static-amenagement1-container,
 .static-amenagement2-container,
 .static-amenagement3-container,
@@ -13,7 +30,3 @@
 #toggle-menu-amenagement4:checked ~ .static-amenagement4-container { display: flex; }
 #toggle-menu-amenagement5:checked ~ .static-amenagement5-container { display: flex; }
 #toggle-menu-amenagement6:checked ~ .static-amenagement6-container { display: flex; }
-
-.amenagements-menu-trigger {
-  border: 3px solid $msj-orange;
-}
