@@ -4,5 +4,6 @@ class Organization < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :places, dependent: :destroy
   has_many :areas_organizations_mappings, dependent: :destroy
-  has_many :departments, through: :areas_organizations_mappings, source: :area, source_type: 'Department'
+  has_many :departments,  through: :areas_organizations_mappings, source: :area, source_type: 'Department'
+  has_many :juridictions, through: :areas_organizations_mappings, source: :area, source_type: 'Juridiction'
 end
