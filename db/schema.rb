@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_08_081150) do
+ActiveRecord::Schema.define(version: 2021_10_13_080642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,13 @@ ActiveRecord::Schema.define(version: 2021_10_08_081150) do
     t.integer "category", default: 0
     t.index ["appointment_id"], name: "index_history_items_on_appointment_id"
     t.index ["convict_id"], name: "index_history_items_on_convict_id"
+  end
+
+  create_table "juridictions", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_juridictions_on_name", unique: true
   end
 
   create_table "notification_types", force: :cascade do |t|
