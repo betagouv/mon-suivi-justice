@@ -31,7 +31,7 @@ RSpec.feature 'Organizations', type: :feature do
     expect(page).to have_content('SPIP 75')
   end
 
-  scenario 'An admin attaches department to an organizatio' do
+  scenario 'An admin attaches department to an organization' do
     create :department, number: '09', name: 'Ariège'
     create :organization, name: 'SPIP 92'
     create_admin_user_and_login

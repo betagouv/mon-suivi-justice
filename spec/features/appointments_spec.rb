@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Appointments', type: :feature do
+  before { create_admin_user_and_login }
+
   describe 'index' do
     before do
-      create_admin_user_and_login
       slot1 = create(:slot, date: '06/06/2021', starting_time: new_time_for(13, 0))
       slot2 = create(:slot, date: '08/08/2021', starting_time: new_time_for(15, 30))
 
@@ -32,7 +33,6 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'creation', js: true do
     it 'create an appointment with a convocation sms' do
-      create_admin_user_and_login
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
       place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
@@ -59,7 +59,6 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'create an appointment without a convocation sms' do
-      create_admin_user_and_login
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
       place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
@@ -83,6 +82,7 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'allows an agent to create appointment only for his service places & slots', js: true do
+      logout_current_user
       organization = create :organization
       agent = create :user, role: :cpip, organization: organization
       login_user agent
@@ -117,7 +117,6 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'shows only relevant places for an appointment type', js: true do
-      create_admin_user_and_login
       create(:convict, first_name: 'Joe', last_name: 'Dalton')
 
       apt_type1 = create(:appointment_type, name: 'RDV de test SAP')
@@ -140,7 +139,6 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'show' do
     it 'displays appointment data' do
-      create_admin_user_and_login
       slot = create(:slot, date: '06/10/2021', starting_time: new_time_for(17, 0))
       convict = create(:convict, first_name: 'Monique', last_name: 'Lassalle')
 
@@ -157,7 +155,6 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'cancelation' do
     it 'change state and cancel notifications' do
-      create_admin_user_and_login
       apt_type = create(:appointment_type, :with_notification_types)
       appointment = create(:appointment, appointment_type: apt_type)
 
@@ -187,7 +184,6 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'fulfilment' do
     it 'controls are only displayed for passed appointments' do
-      create_admin_user_and_login
       convict = create(:convict)
       apt_type = create(:appointment_type, :with_notification_types)
       slot = create(:slot, date: Date.tomorrow)
@@ -204,7 +200,6 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'works if convict came to appointment' do
-      create_admin_user_and_login
       convict = create(:convict)
       apt_type = create(:appointment_type, :with_notification_types)
       slot = create(:slot, date: Date.today)
@@ -224,7 +219,6 @@ RSpec.feature 'Appointments', type: :feature do
 
     describe "if convict didn't came to appointment" do
       it 'change appointment state and sends sms', js: true do
-        create_admin_user_and_login
         convict = create(:convict, first_name: 'babar', last_name: 'bobor')
         apt_type = create(:appointment_type, :with_notification_types)
         slot = create(:slot, date: Date.today)
@@ -246,7 +240,6 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it "change appointment state and don't send sms", js: true do
-        create_admin_user_and_login
         convict = create(:convict, first_name: 'babar', last_name: 'bobor')
         apt_type = create(:appointment_type, :with_notification_types)
         slot = create(:slot, date: Date.today)
