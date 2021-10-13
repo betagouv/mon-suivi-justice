@@ -31,7 +31,7 @@ RSpec.feature 'Organizations', type: :feature do
     expect(page).to have_content('SPIP 75')
   end
 
-  scenario 'An admin attaches department to an organization' do
+  scenario 'An admin attaches departments to an organization' do
     create :department, number: '09', name: 'Ariège'
     create :organization, name: 'SPIP 92'
     create_admin_user_and_login
@@ -39,10 +39,30 @@ RSpec.feature 'Organizations', type: :feature do
     within first('.organizations-item-container') do
       click_link 'Modifier'
     end
-    select 'Ariège', from: :areas_organizations_mapping_area_id
-    expect { click_button 'Ajouter' }.to change(AreasOrganizationsMapping, :count).from(0).to(1)
-    expect(page).to have_content('(09) Ariège')
-    expect { click_link 'Supprimer' }.to change(AreasOrganizationsMapping, :count).from(1).to(0)
+    within '#department-form' do
+      select 'Ariège', from: :areas_organizations_mapping_area_id
+      expect { click_button 'Ajouter' }.to change(AreasOrganizationsMapping, :count).from(0).to(1)
+      expect(page).to have_content('(09) Ariège')
+      expect { click_link 'Supprimer' }.to change(AreasOrganizationsMapping, :count).from(1).to(0)
+    end
     expect(page).not_to have_content('(09) Ariège')
+  end
+
+  scenario 'An admin attaches juridictions to an organization' do
+    create :juridiction, name: 'Juridiction de Nanterre'
+    create :organization, name: 'SPIP 92'
+    create_admin_user_and_login
+    visit organizations_path
+    within first('.organizations-item-container') do
+      click_link 'Modifier'
+    end
+    within '#juridiction-form' do
+      select 'Juridiction de Nanterre', from: :areas_organizations_mapping_area_id
+      expect { click_button 'Ajouter' }.to change(AreasOrganizationsMapping, :count).from(0).to(1)
+      sleep 2
+      expect(page).to have_content('Juridiction de Nanterre')
+      sleep 2
+      expect { click_link 'Supprimer' }.to change(AreasOrganizationsMapping, :count).from(1).to(0)
+    end
   end
 end
