@@ -16,11 +16,9 @@
   @media (min-width: $msj-small-breakpoint) {
     font-size: 36px;
     line-height: 50px;
-    text-align: center;
   }
 
   @media (min-width: $msj-medium-breakpoint) {
-    text-align: left;
     font-size: 48px;
   }
 }
@@ -99,19 +97,35 @@
 .static-intro {
   font-size: 18px;
   line-height: 28px;
-  width: 85%;
   margin: auto;
-  max-width: 950px;
 
   @media (min-width: $msj-small-breakpoint) {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   @media (min-width: $msj-medium-breakpoint) {
-    font-size: 24px;
-    line-height: 32px;
-    width: auto;
     margin: 0;
+    width: auto;
+    max-width: 750px;
+    text-align: justify;
+  }
+}
+
+.static-place-intro {
+  font-size: 18px;
+  line-height: 28px;
+  margin: auto;
+  margin-top: 20px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    max-width: 850px;
+    font-size: 20px;
+    margin-top: 20px;
+    line-height: 32px;
+  }
+
+  @media (min-width: $msj-medium-breakpoint) {
+    width: auto;
   }
 }
 
@@ -119,9 +133,11 @@
   max-width: 850px;
   margin: auto;
   padding-top: 50px;
+  padding-bottom: 50px;
 
   @media (min-width: $msj-medium-breakpoint) {
     padding-top: 60px;
+    padding-bottom: 60px;
   }
 }
 
@@ -129,12 +145,10 @@
   display: flex;
   flex-direction: column;
   background-color: $msj-clear-background;
-  margin-bottom: 20px;
   padding: 20px 10px;
 
   @media (min-width: $msj-small-breakpoint) {
     padding: 30px 55px;
-    margin-bottom: 40px;
     text-align: justify;
   }
 }
@@ -151,20 +165,7 @@
 }
 
 .static-dropdown-trigger {
-  font-size: 16px;
-
-  max-width: 850px;
-  margin: auto;
-  margin-top: 30px;
-  background-color: $msj-clear-background;
-  padding: 20px 15px;
   display: flex;
-
-  @media (min-width: $msj-small-breakpoint) {
-    padding: 20px 30px;
-    font-size: 20px;
-    line-height: 30px;
-  }
 }
 
 .static-dropdown-picto {
@@ -179,26 +180,6 @@
 
 .static-dropdown-picto-active { display: flex; }
 .static-dropdown-picto-inactive { display: none; }
-
-.static-place-intro {
-  font-size: 18px;
-  line-height: 28px;
-  margin: auto;
-  max-width: 850px;
-  margin-top: 20px;
-
-  @media (min-width: $msj-small-breakpoint) {
-    width: 85%;
-    font-size: 20px;
-    text-align: justify;
-    margin-top: 20px;
-  }
-
-  @media (min-width: $msj-medium-breakpoint) {
-    line-height: 32px;
-    width: auto;
-  }
-}
 
 .static-card {
   border: 2px solid $msj-border;
@@ -224,9 +205,32 @@
     padding: 20px 30px;
   }
 }
+.static-good-practice-card {
+  display: flex;
+  padding: 20px;
+  border-color: $msj-green;
+  background-color: lighten(palegreen, 15%);
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding: 20px 30px;
+  }
+}
+
+.static-good-practice-thumb-up {
+  font-size: 50px;
+  margin-right: 40px;
+  margin-left: 10px;
+  color: $msj-green;
+  display: flex;
+  align-items: center;
+}
 
 .static-link-card-intro {
   margin-bottom: 10px;
+}
+
+.static-link-good-practice-intro {
+  max-width: 250px;
 }
 
 .static-link-container {

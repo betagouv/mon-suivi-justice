@@ -4,8 +4,8 @@
   <p class='static-place-intro'><%= t('preparer.sap_nanterre.intro') %></p>
 
   <label for="toggle-menu-place" class='static-dropdown-trigger preparer-menu-trigger'>
-    <span class="fr-fi-arrow-right-s-line fa-3x preparer-menu-picto" id="menu-place-picto-right" aria-hidden="true"></span>
-    <span class="fr-fi-arrow-down-s-line fa-3x preparer-menu-picto preparer-menu-picto-inactive" id="menu-place-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-place-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-place-picto-down" aria-hidden="true"></span>
 
     <div class='preparer-menu-text'><%= t('preparer.sap_nanterre.question-place') %></div>
   </label>
@@ -13,17 +13,25 @@
   <input type='checkbox' id="toggle-menu-place" class='static-hidden-checkbox'>
 
   <div class='preparer-place-content static-content-container'>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text1') %></p>
 
-    <%= link_to 'https://goo.gl/maps/NdpnVo23UZTeVUne7', target: '_blank', class: 'static-google-map-link' do %>
-      <div class='static-google-map-link-button'>
-        <%= t('preparer.place-google') %>
+
+    <div class='preparer-place-header'>
+      <div class='preparer-place-picture'><%= image_tag 'static/entree_TJ92.jpg', class: 'preparer-place-picture-img' %></div>
+
+      <div class='preparer-place-general-infos'>
+        <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text1') %></p>
+
+        <%= link_to 'https://goo.gl/maps/NdpnVo23UZTeVUne7', target: '_blank', class: 'static-google-map-link' do %>
+          <div class='static-google-map-link-button'>
+            <%= t('preparer.place-google') %>
+          </div>
+        <% end %>
+
+        <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text2') %></p>
+        <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text3') %></p>
+        <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text4') %></p>
       </div>
-    <% end %>
-
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text2') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text3') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-text4') %></p>
+    </div>
 
     <h3 class='static-tertiary-title fr-mb-2w'><%= t('preparer.place-train') %></h3>
     <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.place-train1') %></p>
@@ -75,7 +83,10 @@
       <li class='static-list-item'><%= t('preparer.justificatifs-type4.html') %></li>
     </ul>
 
-    <p class='fr-mb-2w'><%= t('preparer.justificatifs-bonne-pratique') %></p>
+    <div class='static-card static-good-practice-card'>
+      <i class='fa fa-thumbs-up 3x static-good-practice-thumb-up'></i>
+      <p class='static-link-card-intro static-link-good-practice-intro'><%= t('preparer.justificatifs-bonne-pratique') %></p>
+    </div>
   </div>
 
   <label for="toggle-menu-process" class='static-dropdown-trigger preparer-menu-trigger'>
@@ -98,8 +109,15 @@
     <h2 class='preparer-head-tribunal-title fr-mb-2w'><%= t('preparer.sap_nanterre.head-text5') %></h2>
     <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.head-text6') %></p>
 
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.head-text7') %> <%= t('preparer.sap_nanterre.head-text8') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.sap_nanterre.head-text9') %> <%= t('preparer.sap_nanterre.head-text10') %></p>
+    <div class='static-card static-good-practice-card'>
+      <i class='fa fa-thumbs-up 3x static-good-practice-thumb-up'></i>
+      <p class='static-link-card-intro static-link-good-practice-intro'><%= t('preparer.sap_nanterre.head-text7') %> <%= t('preparer.sap_nanterre.head-text8') %></p>
+    </div>
+
+    <div class='static-card static-good-practice-card'>
+      <i class='fa fa-thumbs-up 3x static-good-practice-thumb-up'></i>
+      <p class='static-link-card-intro static-link-good-practice-intro'><%= t('preparer.sap_nanterre.head-text9') %> <%= t('preparer.sap_nanterre.head-text10') %></p>
+    </div>
   </div>
 </div>
 
