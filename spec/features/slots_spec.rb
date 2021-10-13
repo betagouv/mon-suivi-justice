@@ -7,15 +7,15 @@ RSpec.feature 'Slots', type: :feature do
 
   describe 'index' do
     before do
-      create(:slot, date: '10/10/2021')
-      create(:slot, date: '23/10/2021')
+      create(:slot, date: (Date.today + 2).to_s)
+      create(:slot, date: (Date.today + 4).to_s)
 
       visit slots_path
     end
 
     it 'lists all places' do
-      expect(page).to have_content('10/10/2021')
-      expect(page).to have_content('23/10/2021')
+      expect(page).to have_content((Date.today + 2).to_s)
+      expect(page).to have_content((Date.today + 4).to_s)
     end
 
     it 'allows to delete slot' do
