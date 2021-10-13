@@ -38,7 +38,11 @@ RSpec.feature 'Appointments', type: :feature do
       place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
       agenda = create :agenda, place: place, name: 'Agenda de Josiane'
       create :agenda, place: place, name: 'Agenda de Michel'
-      slot = create :slot, agenda: agenda, appointment_type: appointment_type, date: '10/10/2021', starting_time: '16h'
+
+      slot = create :slot, agenda: agenda,
+                           appointment_type: appointment_type,
+                           date: (Date.today + 2).to_s,
+                           starting_time: '16h'
 
       visit new_appointment_path
       first('.select2-container', minimum: 1).click
@@ -64,7 +68,11 @@ RSpec.feature 'Appointments', type: :feature do
       place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
       agenda = create :agenda, place: place, name: 'Agenda de Josiane'
       create :agenda, place: place, name: 'Agenda de Michel'
-      slot = create :slot, agenda: agenda, appointment_type: appointment_type, date: '10/10/2021', starting_time: '16h'
+
+      slot = create :slot, agenda: agenda,
+                           appointment_type: appointment_type,
+                           date: (Date.today + 2).to_s,
+                           starting_time: '16h'
 
       visit new_appointment_path
       first('.select2-container', minimum: 1).click

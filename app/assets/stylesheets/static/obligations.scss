@@ -17,10 +17,6 @@
   font-weight: bold;
   margin-top: 16px;
 
-  @media (min-width: $msj-small-breakpoint) {
-    font-size: 22px;
-  }
-
   &:first-child {
     margin-top: 0;
   }
