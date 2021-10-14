@@ -10,4 +10,6 @@ RSpec.describe Department, type: :model do
 
   it { should have_many(:areas_organizations_mappings).dependent(:destroy) }
   it { should have_many(:organizations).through(:areas_organizations_mappings) }
+  it { should have_many(:areas_convicts_mappings).dependent(:destroy) }
+  it { should have_many(:convicts).through(:areas_convicts_mappings) }
 end
