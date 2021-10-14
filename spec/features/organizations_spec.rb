@@ -59,9 +59,7 @@ RSpec.feature 'Organizations', type: :feature do
     within '#juridiction-form' do
       select 'Juridiction de Nanterre', from: :areas_organizations_mapping_area_id
       expect { click_button 'Ajouter' }.to change(AreasOrganizationsMapping, :count).from(0).to(1)
-      sleep 2
       expect(page).to have_content('Juridiction de Nanterre')
-      sleep 2
       expect { click_link 'Supprimer' }.to change(AreasOrganizationsMapping, :count).from(1).to(0)
     end
   end
