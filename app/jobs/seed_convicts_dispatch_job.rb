@@ -1,8 +1,9 @@
 class SeedConvictsDispatchJob < ApplicationJob
-  def perform
-    dpt_92 = Department.find_by number: '92'
-    return unless dpt_92
-
-    Convict.find_each { |convict| AreasConvictsMapping.create convict: convict, area: dpt_92 }
+  #
+  # Will rattach all convicts to all legal_areas(ie: departments + juridictions) of provided organizations
+  #
+  def perform(organization_ids)
+    organizations = Organization.where id: organization_ids
+    Convict.find_each { |convict| RegisterLegalAreas.for_convict(convict, from: organizations) }
   end
 end

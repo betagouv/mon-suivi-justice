@@ -9,7 +9,6 @@ RSpec.feature 'Convicts', type: :feature do
     before do
       create(:convict, first_name: 'michel', phone: '0607080910')
       create(:convict, first_name: 'Paul')
-
       visit convicts_path
     end
 
@@ -27,7 +26,7 @@ RSpec.feature 'Convicts', type: :feature do
   end
 
   describe 'creation' do
-    it 'works' do
+    it 'creates a convicts with a phone number' do
       visit new_convict_path
 
       select 'M.', from: 'Civilité'
@@ -81,21 +80,61 @@ RSpec.feature 'Convicts', type: :feature do
       click_button 'Enregistrer'
       expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
     end
+
+    it 'rataches a convict to user organization juridiction & department at creation' do
+      dpt81 = create :department, name: 'Tarn', number: '81'
+      juri81 = create :juridiction, name: "Tribunal d'Albi"
+      orga = create :organization, name: 'test_orga'
+      create :areas_organizations_mapping, organization: orga, area: dpt81
+      create :areas_organizations_mapping, organization: orga, area: juri81
+      user = create :user, organization: orga
+      logout_current_user
+      login_user user
+      visit new_convict_path
+      select 'M.', from: 'Civilité'
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      fill_in 'Téléphone', with: '0606060606'
+      expect { click_button 'submit-no-appointment' }.to change(AreasConvictsMapping, :count).from(0).to(2)
+    end
   end
 
   describe 'update' do
-    it 'works' do
+    it 'update convict informations' do
       convict = create(:convict, last_name: 'Expresso')
-
       visit convicts_path
-
       within first('.convicts-item-container') { click_link 'Modifier' }
-
       fill_in 'Nom', with: 'Ristretto'
       click_button 'Enregistrer'
-
       convict.reload
       expect(convict.last_name).to eq('Ristretto')
+    end
+
+    it 'updates convict departments' do
+      create :department, number: '09', name: 'Ariège'
+      create(:convict, last_name: 'Expresso')
+      visit convicts_path
+      within first('.convicts-item-container') { click_link 'Modifier' }
+      within '#department-form' do
+        select 'Ariège', from: :areas_convicts_mapping_area_id
+        expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(0).to(1)
+        expect(page).to have_content('(09) Ariège')
+        expect { click_link 'Supprimer' }.to change(AreasConvictsMapping, :count).from(1).to(0)
+      end
+      expect(page).not_to have_content('(09) Ariège')
+    end
+
+    it 'updates convict juridictions' do
+      create :juridiction, name: 'Juridiction de Nanterre'
+      create(:convict, last_name: 'Expresso')
+      visit convicts_path
+      within first('.convicts-item-container') { click_link 'Modifier' }
+      within '#juridiction-form' do
+        select 'Juridiction de Nanterre', from: :areas_convicts_mapping_area_id
+        expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(0).to(1)
+        expect(page).to have_content('Juridiction de Nanterre')
+        expect { click_link 'Supprimer' }.to change(AreasConvictsMapping, :count).from(1).to(0)
+      end
     end
   end
 
