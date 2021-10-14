@@ -32,6 +32,10 @@ RSpec.feature 'Appointments', type: :feature do
   end
 
   describe 'creation', js: true do
+    let(:frozen_date) { Date.new 2015, 5, 5 }
+
+    before { allow(Date).to receive(:today).and_return frozen_date }
+
     it 'create an appointment with a convocation sms' do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
