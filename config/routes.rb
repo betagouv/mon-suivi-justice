@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
   resources :slot_types, only: [:create, :destroy, :update]
   resources :areas_organizations_mappings, only: [:create, :destroy]
+  resources :areas_convicts_mappings, only: [:create, :destroy]
 
   resources :appointments do
     put 'cancel'

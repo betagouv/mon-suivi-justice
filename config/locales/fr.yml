@@ -170,6 +170,8 @@ fr:
   new_convict_submit: "sans prendre RDV"
   new_convict_first_appointment: "et prendre RDV"
   edit_convict_title: "Modifier PPSMJ"
+  edit_convict_department_title: "Département(s) de la PPSMJ"
+  edit_convict_juridiction_title: "Juridiction(s) de la PPSMJ"
   edit_convict_submit: "Enregistrer"
   search_convict_placeholder: "Saisir un nom ou un prénom"
   show_convict: Profil

@@ -22,6 +22,7 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     if @convict.save
+      RegisterLegalAreas.for_convict @convict, from: current_organization
       redirect_to select_path(params)
     else
       render :new

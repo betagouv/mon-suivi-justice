@@ -1,23 +1,45 @@
 <h1 class='form-title'><%= t('edit_convict_title') %></h1>
-
 <%= simple_form_for @convict, html: { class: 'basic-form' } do |f| %>
   <%= f.input :title, collection: Convict.titles.symbolize_keys.keys, input_html: { class: 'form-select' } %>
   <%= f.input :last_name %>
   <%= f.input :first_name %>
-
   <% if current_user.admin? || current_user.bex? %>
     <%= f.input :prosecutor_number %>
   <% end %>
-
   <%= f.input :phone, required: true, input_html: { value: @convict.display_phone } %>
-
   <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
                          label_html: { class: 'form-checkbox-label' },
                          wrapper_html: { class: 'form-checkbox-wrapper'} %>
-
   <%= f.input :refused_phone, input_html: { class: 'form-checkbox' },
                               label_html: { class: 'form-checkbox-label' },
                               wrapper_html: { class: 'form-checkbox-wrapper'} %>
-
   <%= f.button :submit, t('edit_convict_submit'), class: 'form-submit-button edit-convict-submit-button' %>
+<% end %>
+
+<h2 class='form-title'><%= t('edit_convict_department_title') %></h2>
+<%= simple_form_for AreasConvictsMapping.new, html: { id: 'department-form', class: 'basic-form' } do |f| %>
+  <% @convict.departments.order(:number).each do |department|%>
+    <p>
+      <%= "(#{department.number}) #{department.name}" %>
+      <%= link_to 'Supprimer', areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: department, convict: @convict)), method: :delete %>
+    </p>
+  <% end %>
+  <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id } %>
+  <%= f.input :area_type, as: :hidden, input_html: { value: 'Department' } %>
+  <%= f.input :area_id, collection: Department.order(:number), label: 'Département' %>
+  <%= f.button :submit, t('add'), class: 'form-submit-button' %>
+<% end %>
+
+<h2 class='form-title'><%= t('edit_convict_juridiction_title') %></h2>
+<%= simple_form_for AreasConvictsMapping.new, html: { id: 'juridiction-form', class: 'basic-form' } do |f| %>
+  <% @convict.juridictions.order(:name).each do |juridiction|%>
+    <p>
+      <%= juridiction.name %>
+      <%= link_to 'Supprimer', areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: juridiction, convict: @convict)), method: :delete %>
+    </p>
+  <% end %>
+  <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id } %>
+  <%= f.input :area_type, as: :hidden, input_html: { value: 'Juridiction' } %>
+  <%= f.input :area_id, collection: Juridiction.order(:name), label: 'Juridiction' %>
+  <%= f.button :submit, t('add'), class: 'form-submit-button' %>
 <% end %>
