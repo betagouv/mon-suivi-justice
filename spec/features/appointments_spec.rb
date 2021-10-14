@@ -1,10 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Appointments', type: :feature do
-  before do
-    create_admin_user_and_login
-  end
-
+  before { create_admin_user_and_login }
   describe 'index' do
     before do
       slot1 = create(:slot, date: '06/06/2021', starting_time: new_time_for(13, 0))
@@ -34,6 +31,10 @@ RSpec.feature 'Appointments', type: :feature do
   end
 
   describe 'creation', js: true do
+    let(:frozen_date) { Date.new 2015, 5, 5 }
+
+    before { allow(Date).to receive(:today).and_return frozen_date }
+
     it 'create an appointment with a convocation sms' do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
@@ -89,6 +90,41 @@ RSpec.feature 'Appointments', type: :feature do
       expect(SmsDeliveryJob).to have_been_enqueued.once.with(
         Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
       )
+    end
+
+    it 'allows an agent to create appointment only for his service places & slots', js: true do
+      logout_current_user
+      organization = create :organization
+      agent = create :user, role: :cpip, organization: organization
+      login_user agent
+      create :convict, first_name: 'JP', last_name: 'Cherty'
+      appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
+      place_in = create :place, organization: organization, name: 'place_in_name', appointment_types: [appointment_type]
+      agenda_in = create :agenda, place: place_in, name: 'agenda_in_name'
+      create :agenda, place: place_in, name: 'other_agenda_in_name'
+
+      create :place, name: 'place_out_name', appointment_types: [appointment_type]
+      agenda_out = create :agenda, name: 'agenda_out_name'
+
+      create :slot, agenda: agenda_in, appointment_type: appointment_type, date: '10/10/2021', starting_time: '14h'
+      create :slot, agenda: agenda_out, appointment_type: appointment_type, date: '10/10/2021', starting_time: '16h'
+
+      visit new_appointment_path
+      first('.select2-container', minimum: 1).click
+      find('li.select2-results__option', text: 'CHERTY Jp').click
+      select 'RDV suivi SAP', from: 'Type de rendez-vous'
+      expect(page).not_to have_select('Lieu', options: ['', 'place_in_name', 'place_out_name'])
+      expect(page).to have_select('Lieu', options: ['', 'place_in_name'])
+      select 'place_in_name', from: 'Lieu'
+      expect(page).not_to have_select('Agenda',
+                                      options: ['', 'agenda_in_name', 'agenda_out_name', 'other_agenda_in_name'])
+      expect(page).to have_select('Agenda', options: ['', 'agenda_in_name', 'other_agenda_in_name'])
+      select 'agenda_in_name', from: 'Agenda'
+      choose '14:00'
+      expect(page).to have_button('Enregistrer')
+      click_button 'Enregistrer'
+      expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
+                                           .and change { Notification.count }.by(4)
     end
 
     it 'shows only relevant places for an appointment type', js: true do
