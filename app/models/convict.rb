@@ -5,6 +5,10 @@ class Convict < ApplicationRecord
   has_many :appointments, dependent: :destroy
   has_many :history_items, dependent: :destroy
 
+  has_many :areas_convicts_mappings, dependent: :destroy
+  has_many :departments,  through: :areas_convicts_mappings, source: :area, source_type: 'Department'
+  has_many :juridictions, through: :areas_convicts_mappings, source: :area, source_type: 'Juridiction'
+
   attr_accessor :place_id
 
   validates :first_name, :last_name, :title, presence: true
