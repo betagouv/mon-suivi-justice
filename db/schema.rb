@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_08_081150) do
+ActiveRecord::Schema.define(version: 2021_10_14_071821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(version: 2021_10_08_081150) do
     t.index ["appointment_type_id"], name: "index_appointments_on_appointment_type_id"
     t.index ["convict_id"], name: "index_appointments_on_convict_id"
     t.index ["slot_id"], name: "index_appointments_on_slot_id"
+  end
+
+  create_table "areas_convicts_mappings", force: :cascade do |t|
+    t.string "area_type"
+    t.bigint "area_id"
+    t.bigint "convict_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["area_type", "area_id"], name: "index_areas_convicts_mappings_on_area"
+    t.index ["convict_id", "area_id", "area_type"], name: "index_areas_convicts_mappings_on_convict_and_area", unique: true
+    t.index ["convict_id"], name: "index_areas_convicts_mappings_on_convict_id"
   end
 
   create_table "areas_organizations_mappings", force: :cascade do |t|
@@ -83,6 +94,13 @@ ActiveRecord::Schema.define(version: 2021_10_08_081150) do
     t.integer "category", default: 0
     t.index ["appointment_id"], name: "index_history_items_on_appointment_id"
     t.index ["convict_id"], name: "index_history_items_on_convict_id"
+  end
+
+  create_table "jurisdictions", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_jurisdictions_on_name", unique: true
   end
 
   create_table "notification_types", force: :cascade do |t|
@@ -207,6 +225,7 @@ ActiveRecord::Schema.define(version: 2021_10_08_081150) do
   add_foreign_key "appointments", "appointment_types"
   add_foreign_key "appointments", "convicts"
   add_foreign_key "appointments", "slots"
+  add_foreign_key "areas_convicts_mappings", "convicts"
   add_foreign_key "areas_organizations_mappings", "organizations"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
