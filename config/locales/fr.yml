@@ -80,6 +80,7 @@ fr:
         canceled: "Annulé"
         fulfiled: "Honoré"
         no_show: "Manqué"
+        excused: "Excusé"
       events:
         book: "Plannifier"
 
@@ -182,6 +183,7 @@ fr:
   show-convict-fulfilment-prompt: "Est-ce-que %{name} s'est présenté(e) au %{place} le %{date} à %{time} ?"
   show-convict-fulfilment-send-sms: "Voulez-vous envoyer un SMS à la PPSMJ ?"
   show-convict-fulfilment-sms-content: "Texte du SMS :"
+  show-convict-fulfilment-excused: "Excusé(e)"
 
   show_history_book_appointment_title: "Nouveau RDV"
   show_history_book_appointment: "%{name} a été convoqué(e) au %{place} le %{date} à %{time}."
@@ -191,6 +193,8 @@ fr:
   show_history_fulfil_appointment: "%{name} s'est bien présenté(e) à son rendez-vous au %{place} le %{date} à %{time}."
   show_history_miss_appointment_title: "RDV manqué"
   show_history_miss_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous au %{place} le %{date} à %{time}."
+  show_history_excuse_appointment_title: "RDV excusé"
+  show_history_excuse_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous au %{place} le %{date} à %{time}, mais a présenté une justification valide."
 
   show_history_send_now_summon_notification_title: "SMS envoyé (convocation)"
   show_history_send_now_summon_notification: "[Texte du SMS] %{content}"

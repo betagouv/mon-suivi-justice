@@ -56,4 +56,8 @@ class AppointmentPolicy < ApplicationPolicy
   def miss?
     true
   end
+
+  def excuse?
+    true
+  end
 end

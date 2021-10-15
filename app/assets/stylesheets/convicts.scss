@@ -92,10 +92,15 @@
 }
 
 .show-convict-fulfil-button {
-  @include button($light-blue)
+  @include button($light-green)
 }
 
 .show-convict-miss-button {
+  @include button($light-red)
+  margin-left: 40px;
+}
+
+.show-convict-excuse-button {
   @include button($light-grey)
   margin-left: 40px;
 }

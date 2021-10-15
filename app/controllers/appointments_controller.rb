@@ -61,6 +61,14 @@ class AppointmentsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def excuse
+    @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    @appointment.excuse!
+
+    authorize @appointment
+    redirect_back(fallback_location: root_path)
+  end
+
   def display_places
     skip_authorization
     appointment_type = AppointmentType.find(params[:apt_type_id])

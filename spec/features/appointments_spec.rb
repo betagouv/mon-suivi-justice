@@ -300,6 +300,23 @@ RSpec.feature 'Appointments', type: :feature do
         expect(appointment.state).to eq('no_show')
         expect(SmsDeliveryJob).not_to have_been_enqueued.with(appointment.no_show_notif)
       end
+
+      it 'can be excused' do
+        convict = create(:convict)
+        apt_type = create(:appointment_type, :with_notification_types)
+
+        appointment = create(:appointment, convict: convict,
+                                           appointment_type: apt_type)
+
+        appointment.book
+
+        visit convict_path(convict)
+
+        within first('.appointment-fulfilment-container') { click_button 'Excusé(e)' }
+
+        appointment.reload
+        expect(appointment.state).to eq('excused')
+      end
     end
   end
 end

@@ -19,6 +19,11 @@
         <%= button_tag t('no'), type: 'button',
                                 class: 'show-convict-miss-button',
                                 data: { 'micromodal-trigger': "missed-appointment-modal-#{apt.id}" } %>
+
+        <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(apt),
+                                                            method: :put,
+                                                            id: 'show-convict-excuse-button',
+                                                            class: 'show-convict-excuse-button' %>
       </div>
     </div>
 

@@ -9,6 +9,7 @@ class HistoryItem < ApplicationRecord
     cancel_appointment
     fulfil_appointment
     miss_appointment
+    excuse_appointment
     send_now_summon_notification
     send_then_reminder_notification
     cancel_reminder_notification
