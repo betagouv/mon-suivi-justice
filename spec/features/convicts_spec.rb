@@ -55,7 +55,10 @@ RSpec.feature 'Convicts', type: :feature do
       agenda = create(:agenda, place: place, name: 'Agenda de Jean-Louis')
 
       create(:agenda, place: place, name: 'Agenda de Michel')
-      create(:slot, agenda: agenda, appointment_type: appointment_type, date: '10/10/2021', starting_time: '14h')
+      create(:slot, agenda: agenda,
+                    appointment_type: appointment_type,
+                    date: (Date.today + 2).to_s,
+                    starting_time: '14h')
       create(:notification_type, appointment_type: appointment_type)
 
       visit new_convict_path

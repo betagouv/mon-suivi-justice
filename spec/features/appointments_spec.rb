@@ -32,13 +32,21 @@ RSpec.feature 'Appointments', type: :feature do
   end
 
   describe 'creation', js: true do
+    let(:frozen_date) { Date.new 2015, 5, 5 }
+
+    before { allow(Date).to receive(:today).and_return frozen_date }
+
     it 'create an appointment with a convocation sms' do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
       place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
       agenda = create :agenda, place: place, name: 'Agenda de Josiane'
       create :agenda, place: place, name: 'Agenda de Michel'
-      slot = create :slot, agenda: agenda, appointment_type: appointment_type, date: '10/10/2021', starting_time: '16h'
+
+      slot = create :slot, agenda: agenda,
+                           appointment_type: appointment_type,
+                           date: (Date.today + 2).to_s,
+                           starting_time: '16h'
 
       visit new_appointment_path
       first('.select2-container', minimum: 1).click
@@ -64,7 +72,11 @@ RSpec.feature 'Appointments', type: :feature do
       place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
       agenda = create :agenda, place: place, name: 'Agenda de Josiane'
       create :agenda, place: place, name: 'Agenda de Michel'
-      slot = create :slot, agenda: agenda, appointment_type: appointment_type, date: '10/10/2021', starting_time: '16h'
+
+      slot = create :slot, agenda: agenda,
+                           appointment_type: appointment_type,
+                           date: (Date.today + 2).to_s,
+                           starting_time: '16h'
 
       visit new_appointment_path
       first('.select2-container', minimum: 1).click
