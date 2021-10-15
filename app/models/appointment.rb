@@ -27,6 +27,8 @@ class Appointment < ApplicationRecord
     joins(slot: { agenda: :place }).where(slots: { agendas: { places: { organization: organization } } })
   }
 
+  scope :active, -> { where.not(state: 'canceled') }
+
   def summon_notif
     notifications.find_by(role: :summon)
   end
