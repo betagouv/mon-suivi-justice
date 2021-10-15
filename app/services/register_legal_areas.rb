@@ -1,6 +1,6 @@
 class RegisterLegalAreas
   #
-  # Attach a convict to all juridiction/department of some Organizations
+  # Attach a convict to all jurisdiction/department of some Organizations
   # <from> argument can be a single organization or a collection of
   # Example
   # RegisterLegalAreas.for_convict @convict, from: Organization.where(name: ['Spip92', 'Tribunal de nanterre'])

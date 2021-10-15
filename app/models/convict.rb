@@ -7,7 +7,7 @@ class Convict < ApplicationRecord
 
   has_many :areas_convicts_mappings, dependent: :destroy
   has_many :departments,  through: :areas_convicts_mappings, source: :area, source_type: 'Department'
-  has_many :juridictions, through: :areas_convicts_mappings, source: :area, source_type: 'Juridiction'
+  has_many :jurisdictions, through: :areas_convicts_mappings, source: :area, source_type: 'Jurisdiction'
 
   attr_accessor :place_id
 

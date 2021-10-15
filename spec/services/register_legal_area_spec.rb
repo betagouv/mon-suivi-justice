@@ -4,7 +4,7 @@ RSpec.describe RegisterLegalAreas do
   describe '.for_convict' do
     it 'creates relevants convicts mappings with one organization' do
       dpt09 = create :department, name: 'Ariège', number: '09'
-      juri09 = create :juridiction, name: 'Tribunal de foix'
+      juri09 = create :jurisdiction, name: 'Tribunal de foix'
       convict = create :convict
       organization = create :organization
       create :areas_organizations_mapping, organization: organization, area: dpt09
@@ -13,11 +13,11 @@ RSpec.describe RegisterLegalAreas do
         RegisterLegalAreas.for_convict(convict, from: organization)
       end.to change(AreasConvictsMapping, :count).from(0).to(2)
       expect(convict.reload.departments).to include dpt09
-      expect(convict.reload.juridictions).to include juri09
+      expect(convict.reload.jurisdictions).to include juri09
     end
     it 'creates relevants convicts mappings with many organizations' do
       dpt09 = create :department, name: 'Ariège', number: '09'
-      juri09 = create :juridiction, name: 'Tribunal de foix'
+      juri09 = create :jurisdiction, name: 'Tribunal de foix'
       dpt31 = create :department, name: 'Haute-Garonne', number: '31'
       convict = create :convict
       organization09 = create :organization
@@ -30,7 +30,7 @@ RSpec.describe RegisterLegalAreas do
       end.to change(AreasConvictsMapping, :count).from(0).to(3)
       expect(convict.reload.departments).to include dpt09
       expect(convict.reload.departments).to include dpt31
-      expect(convict.reload.juridictions).to include juri09
+      expect(convict.reload.jurisdictions).to include juri09
     end
     it 'does not creates any convicts mappings with no organization' do
       convict = create :convict

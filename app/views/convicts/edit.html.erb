@@ -30,16 +30,16 @@
   <%= f.button :submit, t('add'), class: 'form-submit-button' %>
 <% end %>
 
-<h2 class='form-title'><%= t('edit_convict_juridiction_title') %></h2>
-<%= simple_form_for AreasConvictsMapping.new, html: { id: 'juridiction-form', class: 'basic-form' } do |f| %>
-  <% @convict.juridictions.order(:name).each do |juridiction|%>
+<h2 class='form-title'><%= t('edit_convict_jurisdiction_title') %></h2>
+<%= simple_form_for AreasConvictsMapping.new, html: { id: 'jurisdiction-form', class: 'basic-form' } do |f| %>
+  <% @convict.jurisdictions.order(:name).each do |jurisdiction|%>
     <p>
-      <%= juridiction.name %>
-      <%= link_to 'Supprimer', areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: juridiction, convict: @convict)), method: :delete %>
+      <%= jurisdiction.name %>
+      <%= link_to 'Supprimer', areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: jurisdiction, convict: @convict)), method: :delete %>
     </p>
   <% end %>
   <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id } %>
-  <%= f.input :area_type, as: :hidden, input_html: { value: 'Juridiction' } %>
-  <%= f.input :area_id, collection: Juridiction.order(:name), label: 'Juridiction' %>
+  <%= f.input :area_type, as: :hidden, input_html: { value: 'Jurisdiction' } %>
+  <%= f.input :area_id, collection: Jurisdiction.order(:name), label: 'Juridiction' %>
   <%= f.button :submit, t('add'), class: 'form-submit-button' %>
 <% end %>

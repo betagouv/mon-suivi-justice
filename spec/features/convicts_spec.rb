@@ -81,9 +81,9 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
     end
 
-    it 'rataches a convict to user organization juridiction & department at creation' do
+    it 'rataches a convict to user organization jurisdiction & department at creation' do
       dpt81 = create :department, name: 'Tarn', number: '81'
-      juri81 = create :juridiction, name: "Tribunal d'Albi"
+      juri81 = create :jurisdiction, name: "Tribunal d'Albi"
       orga = create :organization, name: 'test_orga'
       create :areas_organizations_mapping, organization: orga, area: dpt81
       create :areas_organizations_mapping, organization: orga, area: juri81
@@ -124,12 +124,12 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).not_to have_content('(09) Ariège')
     end
 
-    it 'updates convict juridictions' do
-      create :juridiction, name: 'Juridiction de Nanterre'
+    it 'updates convict jurisdictions' do
+      create :jurisdiction, name: 'Juridiction de Nanterre'
       create(:convict, last_name: 'Expresso')
       visit convicts_path
       within first('.convicts-item-container') { click_link 'Modifier' }
-      within '#juridiction-form' do
+      within '#jurisdiction-form' do
         select 'Juridiction de Nanterre', from: :areas_convicts_mapping_area_id
         expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(0).to(1)
         expect(page).to have_content('Juridiction de Nanterre')

@@ -5,7 +5,7 @@ RSpec.describe Convict, type: :model do
   it { should have_many(:appointments) }
   it { should have_many(:areas_convicts_mappings).dependent(:destroy) }
   it { should have_many(:departments).through(:areas_convicts_mappings) }
-  it { should have_many(:juridictions).through(:areas_convicts_mappings) }
+  it { should have_many(:jurisdictions).through(:areas_convicts_mappings) }
 
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
