@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Appointments', type: :feature do
   before { create_admin_user_and_login }
+
   describe 'index' do
     before do
       slot1 = create(:slot, date: '06/06/2021', starting_time: new_time_for(13, 0))
@@ -251,6 +252,24 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.book
 
       visit convict_path(convict)
+      within first('.appointment-fulfilment-container') { find('#show-convict-fulfil-button').click }
+
+      appointment.reload
+      expect(appointment.state).to eq('fulfiled')
+    end
+
+    it 'is also available on appointment#show page' do
+      convict = create(:convict)
+      apt_type = create(:appointment_type, :with_notification_types)
+      slot = create(:slot, date: Date.today)
+
+      appointment = create(:appointment, convict: convict,
+                                         slot: slot,
+                                         appointment_type: apt_type)
+
+      appointment.book
+
+      visit appointment_path(appointment)
       within first('.appointment-fulfilment-container') { find('#show-convict-fulfil-button').click }
 
       appointment.reload
