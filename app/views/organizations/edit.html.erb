@@ -28,6 +28,6 @@
   <% end %>
   <%= f.input :organization_id, as: :hidden, input_html: { value: @organization.id } %>
   <%= f.input :area_type, as: :hidden, input_html: { value: 'Jurisdiction' } %>
-  <%= f.input :area_id, collection: Jurisdiction.order(:name), label: 'Jurisdiction' %>
+  <%= f.input :area_id, collection: Jurisdiction.order(:name), label: 'Juridiction' %>
   <%= f.button :submit, t('add'), class: 'form-submit-button' %>
 <% end %>
