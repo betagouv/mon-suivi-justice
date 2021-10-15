@@ -85,11 +85,11 @@ ActiveRecord::Schema.define(version: 2021_10_13_080642) do
     t.index ["convict_id"], name: "index_history_items_on_convict_id"
   end
 
-  create_table "juridictions", force: :cascade do |t|
+  create_table "jurisdictions", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_juridictions_on_name", unique: true
+    t.index ["name"], name: "index_jurisdictions_on_name", unique: true
   end
 
   create_table "notification_types", force: :cascade do |t|
