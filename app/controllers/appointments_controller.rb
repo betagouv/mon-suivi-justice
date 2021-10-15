@@ -2,7 +2,7 @@ class AppointmentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @q = policy_scope(Appointment).ransack(params[:q])
+    @q = policy_scope(Appointment).active.ransack(params[:q])
     @appointments = @q.result(distinct: true)
                       .joins(:convict)
                       .includes(:convict, slot: [agenda: [:place]])
@@ -101,7 +101,7 @@ class AppointmentsController < ApplicationController
   end
 
   def index_today
-    @q = policy_scope(Appointment).for_today.ransack(params[:q])
+    @q = policy_scope(Appointment).active.for_today.ransack(params[:q])
     @appointments = @q.result
                       .joins(slot: [agenda: [:place]])
                       .includes(slot: [agenda: [:place]])
