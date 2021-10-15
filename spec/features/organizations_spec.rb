@@ -48,15 +48,15 @@ RSpec.feature 'Organizations', type: :feature do
     expect(page).not_to have_content('(09) Ariège')
   end
 
-  scenario 'An admin attaches juridictions to an organization' do
-    create :juridiction, name: 'Juridiction de Nanterre'
+  scenario 'An admin attaches jurisdictions to an organization' do
+    create :jurisdiction, name: 'Juridiction de Nanterre'
     create :organization, name: 'SPIP 92'
     create_admin_user_and_login
     visit organizations_path
     within first('.organizations-item-container') do
       click_link 'Modifier'
     end
-    within '#juridiction-form' do
+    within '#jurisdiction-form' do
       select 'Juridiction de Nanterre', from: :areas_organizations_mapping_area_id
       expect { click_button 'Ajouter' }.to change(AreasOrganizationsMapping, :count).from(0).to(1)
       expect(page).to have_content('Juridiction de Nanterre')

@@ -163,7 +163,7 @@ fr:
   new_organization_title: "Nouveau service"
   edit_organization_title: "Modifier le service"
   edit_organization_department_title: "Département(s) rattaché(s)"
-  edit_organization_juridiction_title: "Juridiction(s) rattachée(s)"
+  edit_organization_jurisdiction_title: "Juridiction(s) rattachée(s)"
 
   new_convict_title: "Nouvelle PPSMJ"
   new_first_appointment_title: "Créneaux disponibles"
