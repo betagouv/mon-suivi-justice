@@ -55,6 +55,7 @@ Rails.application.routes.draw do
     get :preparer_spip92
     get :preparer_sap_nanterre
     get :ma_reinsertion
+    get :donnees_personnelles
   end
 
   scope controller: :home do
