@@ -1,5 +1,31 @@
 <h1 class='show-title'><%= t('show_appointment_title') %></h1>
 
+<% if @convict.passed_appointments.present? %>
+  <% @convict.passed_appointments.each do |apt| %>
+    <div class='appointment-fulfilment-container'>
+      <div class='appointment-fulfilment-prompt-container'>
+        <%= t('show-convict-fulfilment-prompt', name: @convict.name,
+                                                place: @appointment.slot.agenda.place.name,
+                                                date: @appointment.slot.date,
+                                                time: @appointment.slot.starting_time.to_s(:time)) %>
+      </div>
+
+      <div class='appointment-fulfilment-controls-container'>
+        <%= button_to t('yes'), appointment_fulfil_path(@appointment),
+                                method: :put,
+                                id: 'show-convict-fulfil-button',
+                                class: 'show-convict-fulfil-button' %>
+
+        <%= button_tag t('no'), type: 'button',
+                                class: 'show-convict-miss-button',
+                                data: { 'micromodal-trigger': "missed-appointment-modal-#{@appointment.id}" } %>
+      </div>
+    </div>
+
+    <%= render 'missed_appointment_modal', apt: @appointment %>
+  <% end %>
+<% end %>
+
 <div class='show-profile-container'>
   <div class='show-data-container'>
     <div class='show-data-item-container'>
@@ -176,3 +202,5 @@
     <% end %>
   <% end %>
 </div>
+
+<%= javascript_pack_tag 'appointment_show' %>

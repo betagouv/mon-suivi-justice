@@ -258,6 +258,24 @@ RSpec.feature 'Appointments', type: :feature do
       expect(appointment.state).to eq('fulfiled')
     end
 
+    it 'is also available on appointment#show page' do
+      convict = create(:convict)
+      apt_type = create(:appointment_type, :with_notification_types)
+      slot = create(:slot, date: Date.today)
+
+      appointment = create(:appointment, convict: convict,
+                                         slot: slot,
+                                         appointment_type: apt_type)
+
+      appointment.book
+
+      visit appointment_path(appointment)
+      within first('.appointment-fulfilment-container') { find('#show-convict-fulfil-button').click }
+
+      appointment.reload
+      expect(appointment.state).to eq('fulfiled')
+    end
+
     describe "if convict didn't came to appointment" do
       it 'change appointment state and sends sms', js: true do
         convict = create(:convict, first_name: 'babar', last_name: 'bobor')

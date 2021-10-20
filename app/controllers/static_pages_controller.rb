@@ -30,4 +30,6 @@ class StaticPagesController < ApplicationController
   def preparer_sap_nanterre; end
 
   def ma_reinsertion; end
+
+  def donnees_personnelles; end
 end
