@@ -22,6 +22,7 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     if @convict.save
+      # Wil register the new convict in every department/juridiction of current_user's organization areas
       RegisterLegalAreas.for_convict @convict, from: current_organization
       redirect_to select_path(params)
     else
