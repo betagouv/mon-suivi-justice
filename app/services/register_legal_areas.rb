@@ -1,4 +1,4 @@
-class RegisterLegalAreas
+module RegisterLegalAreas
   #
   # Attach a convict to all jurisdiction/department of some Organizations
   # <from> argument can be a single organization or a collection of
