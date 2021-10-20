@@ -17,16 +17,22 @@ class Convict < ApplicationRecord
 
   enum title: %i[male female]
 
-  scope :under_hand_of, lambda { |user|
-    dpt_id = User.where(id: user.id).joins(organization: :areas_organizations_mappings)
-                 .where(areas_organizations_mappings: { area_type: 'Department' })
-                 .select('areas_organizations_mappings.area_id')
-    juri_id = User.where(id: user.id).joins(organization: :areas_organizations_mappings)
-                  .where(areas_organizations_mappings: { area_type: 'Jurisdiction' })
-                  .select('areas_organizations_mappings.area_id')
-    Convict.joins(:areas_convicts_mappings).where(areas_convicts_mappings: { area_type: 'Department', area_id: dpt_id }).or(
-      Convict.joins(:areas_convicts_mappings).where(areas_convicts_mappings: { area_type: 'Jurisdiction', area_id: juri_id })
-    ).distinct
+  #
+  # Convict linked to same departement OR same jurisdiction than the user's organization ones
+  #
+  scope :under_hand_of, lambda { |organization|
+    dpt_id = Organization.joins(:areas_organizations_mappings)
+                         .where(id: organization, areas_organizations_mappings: { area_type: 'Department' })
+                         .select('areas_organizations_mappings.area_id')
+    juri_id = Organization.joins(:areas_organizations_mappings)
+                          .where(id: organization, areas_organizations_mappings: { area_type: 'Jurisdiction' })
+                          .select('areas_organizations_mappings.area_id')
+    Convict.joins(:areas_convicts_mappings)
+           .where(areas_convicts_mappings: { area_type: 'Department', area_id: dpt_id })
+           .or(
+             Convict.joins(:areas_convicts_mappings)
+                    .where(areas_convicts_mappings: { area_type: 'Jurisdiction', area_id: juri_id })
+           ).distinct
   }
 
   def name
