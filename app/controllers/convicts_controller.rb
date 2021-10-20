@@ -2,8 +2,8 @@ class ConvictsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @all_convicts = Convict.all
-    @q = Convict.order('last_name asc').ransack(params[:q])
+    @all_convicts = policy_scope(Convict)
+    @q = policy_scope(Convict).order('last_name asc').ransack(params[:q])
     @convicts = @q.result(distinct: true).page params[:page]
 
     authorize @all_convicts
