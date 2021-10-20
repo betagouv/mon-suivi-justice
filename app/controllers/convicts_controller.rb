@@ -30,12 +30,12 @@ class ConvictsController < ApplicationController
   end
 
   def edit
-    @convict = Convict.find(params[:id])
+    @convict = policy_scope(Convict).find(params[:id])
     authorize @convict
   end
 
   def update
-    @convict = Convict.find(params[:id])
+    @convict = policy_scope(Convict).find(params[:id])
     authorize @convict
 
     if @convict.update(convict_params)
@@ -46,7 +46,7 @@ class ConvictsController < ApplicationController
   end
 
   def destroy
-    @convict = Convict.find(params[:id])
+    @convict = policy_scope(Convict).find(params[:id])
     authorize @convict
 
     @convict.destroy
@@ -54,7 +54,7 @@ class ConvictsController < ApplicationController
   end
 
   def show
-    @convict = Convict.find(params[:id])
+    @convict = policy_scope(Convict).find(params[:id])
     @history_items = HistoryItem.where(convict: @convict, category: 'appointment')
                                 .order(created_at: :desc)
 
