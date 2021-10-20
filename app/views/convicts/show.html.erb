@@ -48,7 +48,7 @@
 
     <div class='show-data-item-container'>
       <div class='show-data-label'>
-        <%= t('activerecord.attributes.convict.first_name')%>
+        <%= t('activerecord.attributes.convict.first_name') %>
       </div>
       <div class='show-data-item'>
         <%= @convict.first_name.capitalize %>
@@ -57,13 +57,13 @@
 
     <div class='show-data-item-container'>
       <div class='show-data-label'>
-        <%= t('activerecord.attributes.convict.phone')%>
+        <%= t('activerecord.attributes.convict.phone') %>
       </div>
       <div class='show-data-item'>
         <% if @convict.no_phone? %>
-          <%= t('activerecord.attributes.convict.no_phone')%>
+          <%= t('activerecord.attributes.convict.no_phone') %>
         <% elsif @convict.refused_phone? %>
-          <%= t('activerecord.attributes.convict.refused_phone')%>
+          <%= t('activerecord.attributes.convict.refused_phone') %>
         <% else %>
           <%= @convict.display_phone %>
         <% end %>
@@ -75,15 +75,22 @@
     <%= button_to t('edit'), edit_convict_path(params[:id]),
                              method: :get,
                              class: 'show-button-to-edit' %>
+
+    <% if policy(:convict).destroy? %>
+      <%= button_to t('delete'), convict_path(params[:id]),
+                                 method: :delete,
+                                 data: { confirm: t('basic_confirmation') },
+                                 class: 'show-button-to-delete' %>
+    <% end %>
   </div>
 </div>
 
 <% if @convict.booked_appointments.count != 0 %>
   <div class='show-convict-next-appointments-container'>
     <% if @convict.booked_appointments.count == 1 %>
-      <p class='show-convict-next-appointments-title'><%= t('show-convict-next-appointments-title1')%></p>
+      <p class='show-convict-next-appointments-title'><%= t('show-convict-next-appointments-title1') %></p>
     <% else %>
-      <p class='show-convict-next-appointments-title'><%= t('show-convict-next-appointments-title2')%></p>
+      <p class='show-convict-next-appointments-title'><%= t('show-convict-next-appointments-title2') %></p>
     <% end %>
     <div class='show-convict-next-appointments-item'>
       <% @convict.booked_appointments.each do |apt| %>
