@@ -139,11 +139,13 @@ RSpec.feature 'Convicts', type: :feature do
   end
 
   describe 'show' do
-    it 'displays infos on convict' do
-      convict = create(:convict, last_name: 'Noisette',
-                                 first_name: 'Café',
-                                 phone: '0607060706')
+    before do
+      @convict = create(:convict, last_name: 'Noisette',
+                                  first_name: 'Café',
+                                  phone: '0607060706')
+    end
 
+    it 'displays infos on convict' do
       place = create(:place, name: 'SPIP du 93')
       agenda = create(:agenda, place: place)
 
@@ -155,14 +157,22 @@ RSpec.feature 'Convicts', type: :feature do
                             date: '08/12/2021',
                             starting_time: new_time_for(15, 30))
 
-      create(:appointment, slot: slot1, convict: convict)
-      create(:appointment, slot: slot2, convict: convict)
+      create(:appointment, slot: slot1, convict: @convict)
+      create(:appointment, slot: slot2, convict: @convict)
 
-      visit convict_path(convict)
+      visit convict_path(@convict)
 
       expect(page).to have_content('Café')
       expect(page).to have_content('NOISETTE')
       expect(page).to have_content('06 07 06 07 06')
+    end
+
+    it 'allows to delete convict' do
+      visit convict_path(@convict)
+
+      within first('.show-profile-container') do
+        expect { click_button('Supprimer') }.to change { Convict.count }.by(-1)
+      end
     end
   end
 end

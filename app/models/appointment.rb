@@ -61,6 +61,9 @@ class Appointment < ApplicationRecord
     state :no_show do
     end
 
+    state :excused do
+    end
+
     event :book do
       transition created: :booked
     end
@@ -75,6 +78,10 @@ class Appointment < ApplicationRecord
 
     event :miss do
       transition booked: :no_show
+    end
+
+    event :excuse do
+      transition booked: :excused
     end
 
     after_transition do |appointment, transition|
