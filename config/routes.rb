@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     put 'fulfil'
     put 'miss'
     put 'excuse'
+    get 'reschedule'
   end
 
   get '/display_slots' => 'appointments#display_slots', as: 'display_slots'

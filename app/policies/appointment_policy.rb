@@ -45,6 +45,10 @@ class AppointmentPolicy < ApplicationPolicy
     true
   end
 
+  def reschedule?
+    true
+  end
+
   def cancel?
     true
   end
