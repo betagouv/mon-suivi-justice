@@ -2,8 +2,8 @@ class ConvictsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @all_convicts = Convict.all
-    @q = Convict.order('last_name asc').ransack(params[:q])
+    @all_convicts = policy_scope(Convict)
+    @q = policy_scope(Convict).order('last_name asc').ransack(params[:q])
     @convicts = @q.result(distinct: true).page params[:page]
 
     authorize @all_convicts
@@ -22,6 +22,7 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     if @convict.save
+      # Wil register the new convict in every department/juridiction of current_user's organization areas
       RegisterLegalAreas.for_convict @convict, from: current_organization
       redirect_to select_path(params)
     else
@@ -30,12 +31,12 @@ class ConvictsController < ApplicationController
   end
 
   def edit
-    @convict = Convict.find(params[:id])
+    @convict = policy_scope(Convict).find(params[:id])
     authorize @convict
   end
 
   def update
-    @convict = Convict.find(params[:id])
+    @convict = policy_scope(Convict).find(params[:id])
     authorize @convict
 
     if @convict.update(convict_params)
@@ -46,7 +47,7 @@ class ConvictsController < ApplicationController
   end
 
   def destroy
-    @convict = Convict.find(params[:id])
+    @convict = policy_scope(Convict).find(params[:id])
     authorize @convict
 
     @convict.destroy
@@ -54,7 +55,7 @@ class ConvictsController < ApplicationController
   end
 
   def show
-    @convict = Convict.find(params[:id])
+    @convict = policy_scope(Convict).find(params[:id])
     @history_items = HistoryItem.where(convict: @convict, category: 'appointment')
                                 .order(created_at: :desc)
 
