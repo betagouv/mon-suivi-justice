@@ -135,6 +135,7 @@ fr:
   delete: "Supprimer"
   submit: "Enregistrer"
   cancel: "Annuler"
+  reschedule: "Replanifier"
   search: "Recherche"
   filter: "Filtrer"
   see: "Voir"

@@ -136,8 +136,12 @@
       </div>
     </div>
 
+
     <div class='show-appointment-controls-container'>
       <% if  @appointment.booked? %>
+        <%= button_to t('reschedule'), appointment_reschedule_path(@appointment),
+                                   method: :put,
+                                   class: 'show-button-to-edit' %>
         <%= button_to t('cancel'), appointment_cancel_path(@appointment),
                                    method: :put,
                                    data: { confirm: t('cancel_appointment_warning') },
