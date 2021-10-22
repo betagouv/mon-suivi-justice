@@ -8,6 +8,7 @@ fr:
       place: "Lieu"
       slot:  "Créneau"
       agenda: "Agenda"
+      organization: "Service"
 
     attributes:
       convict:
@@ -321,7 +322,7 @@ fr:
     slots: "Créneaux"
     slot_types: 'Créneaux récurrents'
     users: "Agents"
-    organizations: "Organisations"
+    organizations: "Services"
 
   simple_form:
     options:
