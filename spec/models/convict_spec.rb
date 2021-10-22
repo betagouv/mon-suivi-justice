@@ -38,4 +38,119 @@ RSpec.describe Convict, type: :model do
       expect(build(:convict, phone: '0561083731')).not_to be_valid
     end
   end
+
+  describe 'under_hand_of' do
+    let!(:dpt01) { create :department, number: '01', name: 'Ain' }
+    let!(:dpt02) { create :department, number: '02', name: 'Aisne' }
+    let!(:dpt03) { create :department, number: '03', name: 'Allier' }
+    let!(:juri01) { create :jurisdiction, name: 'jurisdiction_1' }
+    let!(:juri02) { create :jurisdiction, name: 'jurisdiction_2' }
+    let!(:juri03) { create :jurisdiction, name: 'jurisdiction_3' }
+    let!(:convict1) { create :convict }
+    let!(:convict2) { create :convict }
+    let!(:orga) { create :organization }
+
+    context 'with jurisdiction & department' do
+      before do
+        create :areas_organizations_mapping, organization: orga, area: dpt01
+        create :areas_organizations_mapping, organization: orga, area: juri01
+        create :areas_convicts_mapping, convict: convict1, area: dpt01
+        create :areas_convicts_mapping, convict: convict1, area: juri01
+        create :areas_convicts_mapping, convict: convict2, area: juri01
+        create :areas_convicts_mapping, convict: convict1, area: dpt02
+        create :areas_convicts_mapping, convict: convict2, area: juri02
+        create :areas_convicts_mapping, area: dpt03
+        create :areas_convicts_mapping, area: juri03
+      end
+
+      it 'return 2 convicts' do
+        expect(Convict.under_hand_of(orga).count).to eq 2
+      end
+      it 'includes convict from the department' do
+        expect(Convict.under_hand_of(orga)).to include convict1
+      end
+      it 'includes second from the jurisdiction' do
+        expect(Convict.under_hand_of(orga)).to include convict2
+      end
+    end
+
+    context 'with only jurisdiction' do
+      before do
+        create :areas_organizations_mapping, organization: orga, area: juri01
+        create :areas_convicts_mapping, convict: convict1, area: dpt01
+        create :areas_convicts_mapping, convict: convict1, area: juri01
+        create :areas_convicts_mapping, convict: convict2, area: dpt01
+        create :areas_convicts_mapping, convict: convict1, area: dpt02
+        create :areas_convicts_mapping, convict: convict2, area: juri01
+        create :areas_convicts_mapping, area: dpt03
+        create :areas_convicts_mapping, area: juri03
+      end
+
+      it 'return 2 convicts' do
+        expect(Convict.under_hand_of(orga).count).to eq 2
+      end
+      it 'includes convict from the department' do
+        expect(Convict.under_hand_of(orga)).to include convict1
+      end
+      it 'includes second from the jurisdiction' do
+        expect(Convict.under_hand_of(orga)).to include convict2
+      end
+    end
+
+    context 'with only department' do
+      before do
+        create :areas_organizations_mapping, organization: orga, area: dpt01
+        create :areas_convicts_mapping, convict: convict1, area: dpt01
+        create :areas_convicts_mapping, convict: convict1, area: juri01
+        create :areas_convicts_mapping, convict: convict2, area: dpt01
+        create :areas_convicts_mapping, convict: convict1, area: dpt02
+        create :areas_convicts_mapping, convict: convict2, area: juri01
+        create :areas_convicts_mapping, area: dpt03
+        create :areas_convicts_mapping, area: juri03
+      end
+
+      it 'return 2 convicts' do
+        expect(Convict.under_hand_of(orga).count).to eq 2
+      end
+      it 'includes convict from the department' do
+        expect(Convict.under_hand_of(orga)).to include convict1
+      end
+      it 'includes second from the jurisdiction' do
+        expect(Convict.under_hand_of(orga)).to include convict2
+      end
+    end
+
+    context 'with an organization without any jurisdiction or department' do
+      before do
+        create :areas_convicts_mapping, convict: convict1, area: dpt01
+        create :areas_convicts_mapping, convict: convict1, area: juri01
+        create :areas_convicts_mapping, convict: convict2, area: dpt01
+        create :areas_convicts_mapping, convict: convict1, area: dpt02
+        create :areas_convicts_mapping, convict: convict2, area: juri02
+        create :areas_convicts_mapping, area: dpt03
+        create :areas_convicts_mapping, area: juri03
+      end
+
+      it 'return 0 convicts' do
+        expect(Convict.under_hand_of(orga).count).to eq 0
+      end
+    end
+
+    context 'with no convict in jurisdiction & department' do
+      before do
+        create :areas_organizations_mapping, organization: orga, area: dpt01
+        create :areas_organizations_mapping, organization: orga, area: juri01
+        create :areas_convicts_mapping, convict: convict1, area: dpt02
+        create :areas_convicts_mapping, convict: convict1, area: juri03
+        create :areas_convicts_mapping, convict: convict2, area: juri02
+        create :areas_convicts_mapping, convict: convict2, area: dpt03
+        create :areas_convicts_mapping, area: dpt03
+        create :areas_convicts_mapping, area: juri03
+      end
+
+      it 'return 0 convicts' do
+        expect(Convict.under_hand_of(orga).count).to eq 0
+      end
+    end
+  end
 end
