@@ -21,11 +21,11 @@ Rails.application.routes.draw do
   resources :areas_convicts_mappings, only: [:create, :destroy]
 
   resources :appointments do
+    resource :reschedule, only: [:new, :create], controller: 'appointments/reschedules'
     put 'cancel'
     put 'fulfil'
     put 'miss'
     put 'excuse'
-    get 'reschedule'
   end
 
   get '/display_slots' => 'appointments#display_slots', as: 'display_slots'

@@ -265,6 +265,7 @@ fr:
   new-appointment-cab7-name: 'Cabinet 7 -'
   new-appointment-cab7-judge: 'DE-LAFORCADE'
   new-appointment-cab7-places: 'Clichy, Garches, Levallois-Perret'
+  appointment-reschedule-title: 'Replanifier un rendez-vous'
 
   bex_jap_appointments_link: "Agenda RDV JAP"
   bex_jap_agendas_title: "Agenda RDV JAP pour le vendredi"

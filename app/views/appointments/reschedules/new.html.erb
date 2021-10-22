@@ -1,12 +1,9 @@
-<h1 class='form-title'>RESCHEDULE APPT</h1>
-
-<%= simple_form_for Appointment.new do |f| %>
-  <div class='new-appointment-form'>
-    <%= f.hidden_field :convict_id, value: @appointment.convict_id  %>
-    <%= f.hidden_field :appointment_type_id, value: @appointment.appointment_type_id  %>
-    <%= f.hidden_field :origin_department, value: @appointment.origin_department  %>
-  </div>
-
+<h1 class='form-title'><%= t('appointment-reschedule-title') %></h1>
+<%= simple_form_for Appointment.new, url: appointment_reschedule_path do |f| %>
+  <%= f.hidden_field :appointment_type_id, value: @appointment.appointment_type_id  %>
+  <%= f.hidden_field :convict_id, value: @appointment.convict_id  %>
+  <%= f.hidden_field :origin_department, value: @appointment.origin_department  %>
+  <%= f.hidden_field :old_appointment_id, value: @appointment.id  %>
   <div class='appointment-form-slots-container'>
     <% if @slots_by_date.length > 0 %>
       <p class='new-appointment-slots-title'><%= t('new-appointment-available-slots') %></p>
@@ -36,11 +33,7 @@
       </div>
     <% else %>
       <p class='new-appointment-form-no-slot'><%= t('new-appointment-no-slot') %></p>
-      <%= button_to t('new_appointment_reload'), new_appointment_path, class: 'form-submit-button reload-button', method: :get %>
     <% end %>
-  </div>
-
-  <div>
     <%= f.submit t('submit'), class: 'form-submit-button new-appointment-submit-button'  %>
   </div>
 <% end %>

@@ -37,16 +37,6 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  def reschedule
-    @appointment = policy_scope(Appointment).find(params[:appointment_id])
-    authorize @appointment
-    #@appointment.cancel!
-    @slots_by_date = Slot.future
-                         .relevant_and_available(@appointment.slot.agenda, @appointment.appointment_type)
-                         .order(:date)
-                         .group_by(&:date)
-  end
-
   def cancel
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
     @appointment.cancel!

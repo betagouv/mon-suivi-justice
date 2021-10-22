@@ -139,7 +139,7 @@
 
     <div class='show-appointment-controls-container'>
       <% if  @appointment.booked? %>
-        <%= button_to t('reschedule'), appointment_reschedule_path(@appointment),
+        <%= button_to t('reschedule'), new_appointment_reschedule_path(@appointment),
                                    method: :get,
                                    class: 'show-button-to-edit' %>
         <%= button_to t('cancel'), appointment_cancel_path(@appointment),
