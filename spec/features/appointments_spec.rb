@@ -337,4 +337,30 @@ RSpec.feature 'Appointments', type: :feature do
       end
     end
   end
+
+  describe 'Replanification' do
+    it 're-schedules an appointment to a later date' do
+      apt_type = create(:appointment_type, :with_notification_types)
+      appointment = create(:appointment, appointment_type: apt_type)
+      appointment.book
+      slot = create :slot, agenda: appointment.slot.agenda,
+                           appointment_type: apt_type,
+                           date: (Date.today + 2).to_s,
+                           starting_time: '16h'
+
+      visit appointment_path(appointment)
+      click_button 'Replanifier'
+      expect(page).to have_content 'Replanifier un rendez-vous'
+      choose '16:00'
+      click_button 'Enregistrer'
+      appointment.reload
+      expect(appointment.state).to eq 'canceled'
+      expect(appointment.reminder_notif.state).to eq 'canceled'
+      expect(appointment.cancelation_notif.state).to eq 'sent'
+      expect(appointment.history_items).to eq []
+      new_appointment = Appointment.find_by(slot: slot)
+      expect(new_appointment.state).to eq 'booked'
+      expect(new_appointment.history_items.count).to eq 5
+    end
+  end
 end
