@@ -9,9 +9,10 @@ module Appointments
       authorize new_appointment
 
       if new_appointment.save
-        old_appointment.cancel!
+        old_appointment.cancel! send_notification: false
         HistoryItem.where(appointment: old_appointment).update_all(appointment_id: new_appointment.id)
-        new_appointment.book(send_notification: params[:send_sms])
+        new_appointment.book send_notification: false
+        new_appointment.reschedule_notif.send_now
         redirect_to appointment_path new_appointment
       else
         redirect_to new_appointment_reschedule_path(old_appointment)
