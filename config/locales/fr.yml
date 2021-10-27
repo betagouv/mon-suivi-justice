@@ -8,6 +8,7 @@ fr:
       place: "Lieu"
       slot:  "Créneau"
       agenda: "Agenda"
+      organization: "Service"
 
     attributes:
       convict:
@@ -71,6 +72,8 @@ fr:
         duration: Durée
         capacity: Capacité
       agenda:
+        name: Nom
+      organization:
         name: Nom
 
     state_machines:
@@ -166,6 +169,8 @@ fr:
   edit_organization_title: "Modifier le service"
   edit_organization_department_title: "Département(s) rattaché(s)"
   edit_organization_jurisdiction_title: "Juridiction(s) rattachée(s)"
+  edit_organization_department: "Département"
+  edit_organization_jurisdiction: "Juridiction"
 
   new_convict_title: "Nouvelle PPSMJ"
   new_first_appointment_title: "Créneaux disponibles"
@@ -323,7 +328,7 @@ fr:
     slots: "Créneaux"
     slot_types: 'Créneaux récurrents'
     users: "Agents"
-    organizations: "Organisations"
+    organizations: "Services"
 
   simple_form:
     options:
