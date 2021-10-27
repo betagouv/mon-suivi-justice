@@ -37,14 +37,15 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def agenda_spip?
-    user.admin? || user.local_admin? || user.bex? || user.jap? ||
-      user.prosecutor? || user.secretary_court? || user.greff_sap? || user.dir_greff_bex? ||
-      user.dir_greff_sap? || user.greff_co? || user.sap? || user.cpip? ||
-      user.educator? || user.psychologist? || user.dpip? || user.overseer? || user.secretary_spip?
+    true
   end
 
   def update?
     appointment_workflow
+  end
+
+  def new?
+    true
   end
 
   def create?
@@ -74,12 +75,14 @@ class AppointmentPolicy < ApplicationPolicy
   private
 
   def appointment_workflow
+    apt_type = AppointmentType.find(record.appointment_type_id).name
+
     if SAP_HABILITATIONS.include? user.role
-      SAP_APPOINTMENTS.include? record.appointment_type.name
+      SAP_APPOINTMENTS.include? apt_type
     elsif BEX_HABILITATIONS.include? user.role
-      BEX_APPOINTMENTS.include? record.appointment_type.name
+      BEX_APPOINTMENTS.include? apt_type
     elsif SPIP_HABILITATIONS.include? user.role
-      SPIP_APPOINTMENTS.include? record.appointment_type.name
+      SPIP_APPOINTMENTS.include? apt_type
     else
       true
     end

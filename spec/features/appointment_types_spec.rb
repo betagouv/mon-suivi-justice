@@ -22,18 +22,6 @@ RSpec.feature 'AppointmentType', type: :feature do
       @appointment_type = create(:appointment_type, name: '1er contact')
     end
 
-    it 'works' do
-      visit appointment_types_path
-
-      within first('.appointment-types-item-container') { click_link 'Modifier' }
-
-      fill_in 'Nom', with: '2e contact'
-      click_button 'Enregistrer'
-
-      @appointment_type.reload
-      expect(@appointment_type.name).to eq('2e contact')
-    end
-
     it 'allows to update notification types' do
       notif_type1 = create(:notification_type, appointment_type: @appointment_type,
                                                role: :summon,

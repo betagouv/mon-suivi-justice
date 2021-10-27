@@ -2,8 +2,7 @@
 
 <%= simple_form_for @appointment_type, html: { class: 'appointment-type-form' } do |f| %>
   <div class='edit-appointment-type-container'>
-    <%= f.input :name %>
-
+    <p class='appointment-type-edit-subtitle'><%= @appointment_type.name %></p>
     <h2 class='form-secondary-title'><%= t('edit_appointment_type_notifications') %></h2>
 
     <%= f.simple_fields_for :notification_types, @appointment_type.summon_notif do |p| %>

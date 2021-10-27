@@ -127,8 +127,9 @@ RSpec.feature 'Appointments', type: :feature do
       organization = create :organization
       agent = create :user, role: :cpip, organization: organization
       login_user agent
+
       create :convict, first_name: 'JP', last_name: 'Cherty'
-      appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
+      appointment_type = create :appointment_type, :with_notification_types, name: 'RDV de suivi SPIP'
       place_in = create :place, organization: organization, name: 'place_in_name', appointment_types: [appointment_type]
       agenda_in = create :agenda, place: place_in, name: 'agenda_in_name'
       create :agenda, place: place_in, name: 'other_agenda_in_name'
@@ -142,7 +143,7 @@ RSpec.feature 'Appointments', type: :feature do
       visit new_appointment_path
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'CHERTY Jp').click
-      select 'RDV suivi SAP', from: 'Type de rendez-vous'
+      select 'RDV de suivi SPIP', from: 'Type de rendez-vous'
       expect(page).not_to have_select('Lieu', options: ['', 'place_in_name', 'place_out_name'])
       expect(page).to have_select('Lieu', options: ['', 'place_in_name'])
       select 'place_in_name', from: 'Lieu'
