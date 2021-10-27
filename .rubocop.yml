@@ -42,6 +42,10 @@ Style/FormatStringToken:
   Exclude:
     - spec/services/notification_factory_spec.rb
 
+Style/WordArray:
+  Exclude:
+    - app/policies/appointment_policy.rb
+
 Style/SymbolArray:
   Exclude:
     - app/controllers/**/*
@@ -54,3 +58,15 @@ Style/IfUnlessModifier:
 Metrics/MethodLength:
   Exclude:
     - app/services/notification_factory.rb
+
+Metrics/AbcSize:
+  Exclude:
+    - app/policies/appointment_policy.rb
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - app/policies/appointment_policy.rb
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - app/policies/appointment_policy.rb
