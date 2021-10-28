@@ -1,4 +1,3 @@
-
 module Appointments
   class ReschedulesController < AppointmentsController
     before_action :authenticate_user!
