@@ -3,6 +3,10 @@ class OrganizationPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def show?
+    user.admin?
+  end
+
   def new?
     user.admin?
   end
