@@ -47,9 +47,9 @@ RSpec.feature 'AppointmentType', type: :feature do
       notif_type4 = create(:notification_type, appointment_type: @appointment_type,
                                                role: :no_show,
                                                template: 'Dude')
-      notif_type5 = create(:notification_type, appointment_type: @appointment_type,
-                                               role: :reschedule,
-                                               template: 'Meh')
+      create(:notification_type, appointment_type: @appointment_type,
+                                 role: :reschedule,
+                                 template: 'Meh')
 
       visit edit_appointment_type_path(@appointment_type)
 

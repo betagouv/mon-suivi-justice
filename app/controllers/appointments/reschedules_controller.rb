@@ -8,10 +8,8 @@ module Appointments
       authorize new_appointment
 
       if new_appointment.save
-        old_appointment.cancel! send_notification: false
-        HistoryItem.where(appointment: old_appointment).update_all(appointment_id: new_appointment.id)
-        new_appointment.book send_notification: false
-        new_appointment.reschedule_notif.send_now
+        cancel_old_appointment old_appointment, new_appointment
+        book_new_appointment new_appointment
         redirect_to appointment_path new_appointment
       else
         redirect_to new_appointment_reschedule_path(old_appointment)
@@ -25,6 +23,18 @@ module Appointments
                            .relevant_and_available(@appointment.slot.agenda, @appointment.appointment_type)
                            .order(:date)
                            .group_by(&:date)
+    end
+
+    private
+
+    def cancel_old_appointment(old_appointment, new_appointment)
+      old_appointment.cancel! send_notification: false
+      HistoryItem.where(appointment: old_appointment).update_all(appointment_id: new_appointment.id)
+    end
+
+    def book_new_appointment(appointment)
+      appointment.book send_notification: false
+      appointment.reschedule_notif.send_now
     end
   end
 end
