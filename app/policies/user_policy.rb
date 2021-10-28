@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def index?
-    user.admin?
+    user.admin? || user.local_admin?
   end
 
   def update?
@@ -12,10 +12,10 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    user.admin? || user.local_admin?
   end
 
   def destroy?
-    user.admin?
+    user.admin? || user.local_admin?
   end
 end
