@@ -53,6 +53,7 @@ fr:
           reminder: rappel
           cancelation: annulation
           no_show: rdv manqué
+          reschedule: replanifier
       slot_type:
         appointment_type: "Type de RDV"
         agenda: "Agenda"

@@ -86,7 +86,7 @@ RSpec.feature 'Appointments', type: :feature do
       choose '16:00'
       expect(page).to have_button('Enregistrer')
       click_button 'Enregistrer'
-      expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(4)
+      expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
       expect(SmsDeliveryJob).to have_been_enqueued.once.with(
         Notification.find_by(role: :summon, appointment: Appointment.find_by(slot: slot))
       )
@@ -116,7 +116,7 @@ RSpec.feature 'Appointments', type: :feature do
       choose '16:00'
       expect(page).to have_button('Enregistrer')
       click_button 'Enregistrer'
-      expect { click_button 'Non' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(4)
+      expect { click_button 'Non' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
       expect(SmsDeliveryJob).to have_been_enqueued.once.with(
         Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
       )
@@ -154,7 +154,7 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_button('Enregistrer')
       click_button 'Enregistrer'
       expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
-                                           .and change { Notification.count }.by(4)
+                                           .and change { Notification.count }.by(5)
     end
 
     it 'shows only relevant places for an appointment type', js: true do
@@ -201,7 +201,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       appointment.book
       expect(appointment.state).to eq('booked')
-      expect(appointment.notifications.count).to eq(4)
+      expect(appointment.notifications.count).to eq(5)
       expect(appointment.reminder_notif.state).to eq('programmed')
       expect(appointment.cancelation_notif.state).to eq('created')
 
@@ -356,11 +356,12 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.reload
       expect(appointment.state).to eq 'canceled'
       expect(appointment.reminder_notif.state).to eq 'canceled'
-      expect(appointment.cancelation_notif.state).to eq 'sent'
+      expect(appointment.cancelation_notif.state).to eq 'created'
       expect(appointment.history_items).to eq []
       new_appointment = Appointment.find_by(slot: slot)
       expect(new_appointment.state).to eq 'booked'
-      expect(new_appointment.history_items.count).to eq 5
+      expect(new_appointment.history_items.count).to eq 4
+      expect(new_appointment.reschedule_notif.state).to eq 'sent'
     end
   end
 end

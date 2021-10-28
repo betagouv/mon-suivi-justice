@@ -1,6 +1,6 @@
 class SeedRescheduleNotificationJob < ApplicationJob
   def perform(appointment_id)
-    appointment = Apppointment.find_by id: appointment_id
+    appointment = Appointment.find_by id: appointment_id
     return unless appointment
 
     notification_type = appointment.appointment_type.notification_types.find_by(role: 'reschedule')
