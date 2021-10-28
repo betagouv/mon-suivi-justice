@@ -3,7 +3,6 @@ class SeedRescheduleNotificationTypeJob < ApplicationJob
     AppointmentType.find_each do | apt_type|
       NotificationType.create appointment_type: apt_type, role: :reschedule, template: seed_template(apt_type)
     end
-
     Appointment.find_each { |appointment| SeedRescheduleNotificationJob.perform_later(appointment.id) }
   end
 
@@ -29,7 +28,6 @@ class SeedRescheduleNotificationTypeJob < ApplicationJob
       "Vous êtes désormais convoqué pour débuter votre TIG le {rdv.date} à {rdv.heure}. "\
       "Merci de vous rendre directement sur le lieu du poste TIG communiqué. "\
       "En cas de problème, contactez votre conseiller référent ou le 0171130200".
-
     when 'RDV téléphonique'
       "Votre rendez-vous téléphonique avec le SPIP du {rdv.date} à {rdv.heure} a été modifié. "\
       "Vous avez désormais un rendez-vous téléphonique avec le SPIP le {rdv.date} à {rdv.heure}. "\
