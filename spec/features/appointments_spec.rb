@@ -123,11 +123,14 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'allows an agent to create appointment only for his service places & slots', js: true do
+      department = create :department, number: '09', name: 'Ariège'
       logout_current_user
       organization = create :organization
+      create :areas_organizations_mapping, organization: organization, area: department
       agent = create :user, role: :cpip, organization: organization
       login_user agent
-      create :convict, first_name: 'JP', last_name: 'Cherty'
+      convict = create :convict, first_name: 'JP', last_name: 'Cherty'
+      create :areas_convicts_mapping, convict: convict, area: department
       appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
       place_in = create :place, organization: organization, name: 'place_in_name', appointment_types: [appointment_type]
       agenda_in = create :agenda, place: place_in, name: 'agenda_in_name'
