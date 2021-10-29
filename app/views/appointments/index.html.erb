@@ -16,7 +16,7 @@
     </div>
 
     <div class='index-tools-controls-container'>
-      <% if current_user.admin? || current_user.cpip? %>
+      <% if policy(:appointment).index_today? %>
         <%= button_to t('today_appointments_title'), today_appointments_path,
                                                      class: 'link-to-today-appointment-button',
                                                      method: :get %>
