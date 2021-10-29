@@ -226,6 +226,9 @@ fr:
   show_history_send_now_no_show_notification_title: "SMS envoyé (rdv manqué)"
   show_history_send_now_no_show_notification: "[Texte du SMS] %{content}"
 
+  show_history_reschedule_appointment_title: "RDV replanifié"
+  show_history_reschedule_appointment: "Le RDV a été replanifié."
+  
   appointment_place: "Lieu de RDV"
   appointment_date: "Date"
   appointment_starting_time: "Heure"
