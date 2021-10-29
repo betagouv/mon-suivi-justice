@@ -360,7 +360,7 @@ RSpec.feature 'Appointments', type: :feature do
       expect(appointment.history_items).to eq []
       new_appointment = Appointment.find_by(slot: slot)
       expect(new_appointment.state).to eq 'booked'
-      expect(new_appointment.history_items.count).to eq 4
+      expect(new_appointment.history_items.count).to eq 3
       expect(new_appointment.reschedule_notif.state).to eq 'sent'
     end
   end
