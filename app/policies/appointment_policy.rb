@@ -18,14 +18,11 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def index_today?
-    user.admin? || user.local_admin? || user.cpip? || user.educator? ||
-      user.psychologist? || user.dpip? || user.overseer? || user.secretary_spip?
+    user.admin? || user.local_admin? || user.work_at_spip?
   end
 
   def agenda_jap?
-    user.admin? || user.local_admin? || user.bex? || user.jap? ||
-      user.prosecutor? || user.secretary_court? || user.greff_sap? || user.dir_greff_bex? ||
-      user.dir_greff_sap? || user.greff_co? || user.sap?
+    user.admin? || user.local_admin? || user.work_at_sap? || user.work_at_bex?
   end
 
   def agenda_spip?

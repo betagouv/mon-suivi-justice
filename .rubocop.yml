@@ -55,15 +55,3 @@ Metrics/MethodLength:
   Exclude:
     - app/services/notification_factory.rb
     - app/helpers/users_helper.rb
-
-Metrics/AbcSize:
-  Exclude:
-    - app/policies/appointment_policy.rb
-
-Metrics/CyclomaticComplexity:
-  Exclude:
-    - app/policies/appointment_policy.rb
-
-Metrics/PerceivedComplexity:
-  Exclude:
-    - app/policies/appointment_policy.rb
