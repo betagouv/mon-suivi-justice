@@ -28,6 +28,14 @@
   flex-direction: column;
 }
 
+.single-line-form {
+  display: flex;
+}
+
+.single-line-input {
+  width: 50%;
+}
+
 .form-submit-button {
   @include button($light-blue);
   margin: 15px auto 30px;

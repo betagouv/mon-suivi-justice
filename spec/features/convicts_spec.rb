@@ -12,16 +12,37 @@ RSpec.feature 'Convicts', type: :feature do
       visit convicts_path
     end
 
-    it 'lists all convicts' do
+    it 'an admin lists all convicts' do
       expect(page).to have_content('Michel')
       expect(page).to have_content('06 07 08 09 10')
       expect(page).to have_content('Paul')
     end
 
-    it 'allows to delete convict' do
+    it 'an admin can delete convict' do
       within first('.convicts-item-container') do
         expect { click_link('Supprimer') }.to change { Convict.count }.by(-1)
       end
+    end
+
+    it 'an agent see only convict from his jurisdiction and department' do
+      dpt01 = create :department, number: '01', name: 'Ain'
+      juri01 = create :jurisdiction, name: 'jurisdiction_01'
+      orga = create :organization
+      user = create :user, role: 'cpip', organization: orga
+      create :areas_organizations_mapping, organization: orga, area: dpt01
+      create :areas_organizations_mapping, organization: orga, area: juri01
+      create :user, organization: orga
+      convict_dpt01 = create :convict, first_name: 'babar', last_name: 'BABAR'
+      convict_juri01 = create :convict, first_name: 'bobor', last_name: 'BOBOR'
+      create :areas_convicts_mapping, convict: convict_dpt01, area: dpt01
+      create :areas_convicts_mapping, convict: convict_juri01, area: juri01
+      logout_current_user
+      login_user user
+      visit convicts_path
+      expect(page).not_to have_content('Michel')
+      expect(page).not_to have_content('Paul')
+      expect(page).to have_content('BABAR Babar')
+      expect(page).to have_content('BOBOR Bobor')
     end
   end
 
