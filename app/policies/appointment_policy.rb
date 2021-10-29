@@ -1,12 +1,4 @@
 class AppointmentPolicy < ApplicationPolicy
-  SAP_APPOINTMENTS = ['RDV BEX SAP', 'RDV de suivi SAP'].freeze
-  BEX_APPOINTMENTS = ['RDV BEX SAP', 'RDV BEX SPIP'].freeze
-  SPIP_APPOINTMENTS = ['RDV BEX SPIP', '1er RDV SPIP', 'RDV de suivi SPIP'].freeze
-
-  SAP_HABILITATIONS = ['jap', 'secretary_court', 'greff_sap', 'dir_greff_bex', 'dir_greff_sap', 'sap'].freeze
-  BEX_HABILITATIONS = ['prosecutor', 'greff_co', 'bex'].freeze
-  SPIP_HABILITATIONS = ['cpip', 'educator', 'psychologist', 'overseer', 'dpip', 'secretary_spip'].freeze
-
   class Scope < Scope
     def resolve
       if user.admin? || user.bex? || user.sap?
@@ -75,16 +67,12 @@ class AppointmentPolicy < ApplicationPolicy
   private
 
   def appointment_workflow
-    apt_type = AppointmentType.find(record.appointment_type_id).name
+    apt_type = AppointmentType.find(record.appointment_type_id)
 
-    if SAP_HABILITATIONS.include? user.role
-      SAP_APPOINTMENTS.include? apt_type
-    elsif BEX_HABILITATIONS.include? user.role
-      BEX_APPOINTMENTS.include? apt_type
-    elsif SPIP_HABILITATIONS.include? user.role
-      SPIP_APPOINTMENTS.include? apt_type
-    else
-      true
+    if user.work_at_sap? then apt_type.used_at_sap?
+    elsif user.work_at_bex? then apt_type.used_at_bex?
+    elsif user.work_at_spip? then apt_type.used_at_spip?
+    else true
     end
   end
 end

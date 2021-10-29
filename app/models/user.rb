@@ -33,4 +33,16 @@ class User < ApplicationRecord
   def name
     "#{last_name.upcase} #{first_name.capitalize}"
   end
+
+  def work_at_bex?
+    %w[prosecutor greff_co bex].include? role
+  end
+
+  def work_at_sap?
+    %w[jap secretary_court greff_sap dir_greff_bex dir_greff_sap sap].include? role
+  end
+
+  def work_at_spip?
+    %w[dpip cpip educator psychologist overseer secretary_spip].include? role
+  end
 end

@@ -42,10 +42,6 @@ Style/FormatStringToken:
   Exclude:
     - spec/services/notification_factory_spec.rb
 
-Style/WordArray:
-  Exclude:
-    - app/policies/appointment_policy.rb
-
 Style/SymbolArray:
   Exclude:
     - app/controllers/**/*
@@ -58,6 +54,7 @@ Style/IfUnlessModifier:
 Metrics/MethodLength:
   Exclude:
     - app/services/notification_factory.rb
+    - app/helpers/users_helper.rb
 
 Metrics/AbcSize:
   Exclude:
