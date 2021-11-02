@@ -3,12 +3,31 @@
   <div class='static-intro'><%= t('reinsertion.intro') %></div>
 
   <div class='static-content-container'>
-    <p class='fr-mb-2w'><%= t('reinsertion.text1') %></p>
+    <div class="static-content">
+      <h2 class='static-secondary-title fr-mb-3w'><%= t('reinsertion.sub-title1') %></h2>
+      <p class='fr-mb-2w'><%= t('reinsertion.text3') %></p>
+      <p class='fr-mb-2w'><%= t('reinsertion.text4') %></p>
 
-    <%= link_to asset_path('static/2021_09_SPIP92_LIVRET_PLATEAU_TECHNIQUE.pdf'), download: '2021_09_SPIP92_LIVRET_PLATEAU_TECHNIQUE.pdf', target: '_blank', class: 'static-google-map-link' do %>
-      <div class='static-box-link'>
-        <%= t('reinsertion.download-link') %>
-      </div>
-    <% end %>
+      <ul class='static-list'>
+        <li class='static-list-short-item'><%= t('reinsertion.list1') %></li>
+        <li class='static-list-short-item'><%= t('reinsertion.list2') %></li>
+        <li class='static-list-short-item'><%= t('reinsertion.list3') %></li>
+        <li class='static-list-short-item'><%= t('reinsertion.list4') %></li>
+        <li class='static-list-short-item'><%= t('reinsertion.list5') %></li>
+        <li class='static-list-short-item'><%= t('reinsertion.list6') %></li>
+        <li class='static-list-short-item'><%= t('reinsertion.list7') %></li>
+        <li class='static-list-short-item'><%= t('reinsertion.list8') %></li>
+      </ul>
+
+      <p class='fr-mb-2w'><%= t('reinsertion.text5') %></p>
+      <p class='fr-mb-2w'><%= t('reinsertion.text6') %></p>
+      <p class='fr-mb-2w'><%= t('reinsertion.text7') %></p>
+
+      <%= link_to asset_path('static/2021_09_SPIP92_LIVRET_PLATEAU_TECHNIQUE.pdf'), download: '2021_09_SPIP92_LIVRET_PLATEAU_TECHNIQUE.pdf', target: '_blank', class: 'static-google-map-link' do %>
+        <div class='static-box-link'>
+          <%= t('reinsertion.download-link') %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
