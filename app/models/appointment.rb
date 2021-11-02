@@ -45,6 +45,10 @@ class Appointment < ApplicationRecord
     notifications.find_by(role: :no_show)
   end
 
+  def reschedule_notif
+    notifications.find_by(role: :reschedule)
+  end
+
   state_machine initial: :created do
     state :created do
     end
@@ -109,11 +113,12 @@ class Appointment < ApplicationRecord
       end
     end
 
-    after_transition on: :cancel do |appointment|
+    after_transition on: :cancel do |appointment, transition|
       if appointment.reminder_notif.programmed?
         appointment.reminder_notif.cancel!
       end
-      appointment.cancelation_notif.send_now!
+      send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
+      appointment.cancelation_notif.send_now! if send_sms
     end
 
     after_transition on: :miss do |appointment, transition|
