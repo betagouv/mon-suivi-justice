@@ -54,6 +54,17 @@
   }
 }
 
+.static-tertiary-title {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: bold;
+  margin-top: 16px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
 .static-list {
   padding-left: 16px;
 
