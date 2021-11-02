@@ -8,8 +8,16 @@
     </div>
   </div>
 
-  <div class='static-content'>
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('tig.question1') %></p>
+  <label for="toggle-tig1" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('tig.question1') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="tig1-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="tig1-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-tig1" class='static-hidden-checkbox'>
+
+  <div class='tig1-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('tig.reponse1_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('tig.reponse1_b') %></p>
     <p class='fr-text fr-mb-2w'><%= t('tig.reponse1_c') %></p>
@@ -29,8 +37,18 @@
     </ul>
 
     <p class='fr-text fr-mb-2w'><%= t('tig.paragraphe2') %></p>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('tig.question2') %></p>
+  <label for="toggle-tig2" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('tig.question2') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="tig2-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="tig2-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-tig2" class='static-hidden-checkbox'>
+
+  <div class='tig2-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('tig.reponse2_a') %></p>
 
     <ul class='static-list'>
@@ -42,15 +60,47 @@
     <p class='fr-text fr-mb-2w'><%= t('tig.reponse2_c') %></p>
     <p class='fr-text fr-mb-2w'><%= t('tig.reponse2_exemple') %></p>
     <p class='fr-text fr-mb-2w'><%= t('tig.reponse2_d') %></p>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('tig.question3') %></p>
+  <label for="toggle-tig3" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('tig.question3') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="tig3-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="tig3-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-tig3" class='static-hidden-checkbox'>
+
+  <div class='tig3-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('tig.reponse3_a') %></p>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('tig.question4') %></p>
+  <label for="toggle-tig4" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('tig.question4') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="tig4-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="tig4-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-tig4" class='static-hidden-checkbox'>
+
+  <div class='tig4-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('tig.reponse4_a') %></p>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('tig.question5') %></p>
+  <label for="toggle-tig5" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('tig.question5') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="tig5-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="tig5-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-tig5" class='static-hidden-checkbox'>
+
+  <div class='tig5-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('tig.reponse5_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('tig.reponse5_b') %></p>
   </div>
 </div>
+
+<%= javascript_pack_tag 'static/tig', 'data-turbolinks-eval': false, defer: true %>
