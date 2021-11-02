@@ -1,8 +1,16 @@
 <div class='fr-container static-content-container'>
   <h1 class='static-simple-title static-title-orange'><%= t('stage.titre') %></h1>
 
-  <div class='static-content'>
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('stage.question1') %></p>
+  <label for="toggle-stage1" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('stage.question1') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="stage1-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="stage1-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-stage1" class='static-hidden-checkbox'>
+
+  <div class='stage1-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('stage.reponse1_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('stage.reponse1_b') %></p>
 
@@ -15,17 +23,57 @@
       <li class='static-list-short-item'><%= t('stage.reponse1_liste6') %></li>
       <li class='static-list-short-item'><%= t('stage.reponse1_liste7') %></li>
     </ul>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('stage.question2') %></p>
+  <label for="toggle-stage2" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('stage.question2') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="stage2-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="stage2-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-stage2" class='static-hidden-checkbox'>
+
+  <div class='stage2-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('stage.reponse2_a') %></p>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('stage.question3') %></p>
+  <label for="toggle-stage3" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('stage.question3') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="stage3-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="stage3-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-stage3" class='static-hidden-checkbox'>
+
+  <div class='stage3-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('stage.reponse3_a') %></p>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('stage.question4') %></p>
+  <label for="toggle-stage4" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('stage.question4') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="stage4-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="stage4-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-stage4" class='static-hidden-checkbox'>
+
+  <div class='stage4-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('stage.reponse4_a') %></p>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('stage.question5') %></p>
+  <label for="toggle-stage5" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('stage.question5') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="stage5-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="stage5-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-stage5" class='static-hidden-checkbox'>
+
+  <div class='stage5-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('stage.reponse5_a') %></p>
 
     <ul class='static-list'>
@@ -34,3 +82,5 @@
     </ul>
   </div>
 </div>
+
+<%= javascript_pack_tag 'static/stage', 'data-turbolinks-eval': false, defer: true %>
