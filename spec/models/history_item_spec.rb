@@ -14,6 +14,7 @@ RSpec.describe HistoryItem, type: :model do
         fulfil_appointment
         miss_appointment
         excuse_appointment
+        reschedule_appointment
         send_now_summon_notification
         send_then_reminder_notification
         cancel_reminder_notification

@@ -86,7 +86,7 @@ RSpec.feature 'Appointments', type: :feature do
       choose '16:00'
       expect(page).to have_button('Enregistrer')
       click_button 'Enregistrer'
-      expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(4)
+      expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
       expect(SmsDeliveryJob).to have_been_enqueued.once.with(
         Notification.find_by(role: :summon, appointment: Appointment.find_by(slot: slot))
       )
@@ -116,20 +116,24 @@ RSpec.feature 'Appointments', type: :feature do
       choose '16:00'
       expect(page).to have_button('Enregistrer')
       click_button 'Enregistrer'
-      expect { click_button 'Non' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(4)
+      expect { click_button 'Non' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
       expect(SmsDeliveryJob).to have_been_enqueued.once.with(
         Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
       )
     end
 
     it 'allows an agent to create appointment only for his service places & slots', js: true do
+      department = create :department, number: '09', name: 'Ariège'
       logout_current_user
       organization = create :organization
+      create :areas_organizations_mapping, organization: organization, area: department
       agent = create :user, role: :cpip, organization: organization
       login_user agent
 
-      create :convict, first_name: 'JP', last_name: 'Cherty'
-      appointment_type = create :appointment_type, :with_notification_types, name: 'RDV de suivi SPIP'
+      convict = create :convict, first_name: 'JP', last_name: 'Cherty'
+      create :areas_convicts_mapping, convict: convict, area: department
+      appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
+
       place_in = create :place, organization: organization, name: 'place_in_name', appointment_types: [appointment_type]
       agenda_in = create :agenda, place: place_in, name: 'agenda_in_name'
       create :agenda, place: place_in, name: 'other_agenda_in_name'
@@ -155,7 +159,7 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_button('Enregistrer')
       click_button 'Enregistrer'
       expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
-                                           .and change { Notification.count }.by(4)
+                                           .and change { Notification.count }.by(5)
     end
 
     it 'shows only relevant places for an appointment type', js: true do
@@ -202,7 +206,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       appointment.book
       expect(appointment.state).to eq('booked')
-      expect(appointment.notifications.count).to eq(4)
+      expect(appointment.notifications.count).to eq(5)
       expect(appointment.reminder_notif.state).to eq('programmed')
       expect(appointment.cancelation_notif.state).to eq('created')
 
@@ -336,6 +340,33 @@ RSpec.feature 'Appointments', type: :feature do
         appointment.reload
         expect(appointment.state).to eq('excused')
       end
+    end
+  end
+
+  describe 'Replanification' do
+    it 're-schedules an appointment to a later date' do
+      apt_type = create(:appointment_type, :with_notification_types)
+      appointment = create(:appointment, appointment_type: apt_type)
+      appointment.book
+      slot = create :slot, agenda: appointment.slot.agenda,
+                           appointment_type: apt_type,
+                           date: (Date.today + 2).to_s,
+                           starting_time: '16h'
+
+      visit appointment_path(appointment)
+      click_button 'Replanifier'
+      expect(page).to have_content 'Replanifier un rendez-vous'
+      choose '16:00'
+      click_button 'Enregistrer'
+      appointment.reload
+      expect(appointment.state).to eq 'canceled'
+      expect(appointment.reminder_notif.state).to eq 'canceled'
+      expect(appointment.cancelation_notif.state).to eq 'created'
+      expect(appointment.history_items).to eq []
+      new_appointment = Appointment.find_by(slot: slot)
+      expect(new_appointment.state).to eq 'booked'
+      expect(new_appointment.history_items.count).to eq 3
+      expect(new_appointment.reschedule_notif.state).to eq 'sent'
     end
   end
 end

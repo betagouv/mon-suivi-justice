@@ -11,7 +11,7 @@ fr:
     question-process: "Comment va se dérouler mon entretien ?"
 
     justificatifs-text1: "Les justificatifs à apporter dépendent de votre situation et des obligations prononcées par le tribunal."
-    justificatifs-text2: "Vérifiez votre convocation papier (TODO lien vers screenshot)."
+    justificatifs-text2: "Vérifiez votre convocation papier."
     justificatifs-text3: "Les justificatifs peuvent concerner :"
 
     justificatifs-type1:
@@ -79,17 +79,21 @@ fr:
       intro: "Durant votre suivi judiciaire, en fonction de votre condamnation, vous pourrez être convoqué par un juge d'application des peines."
       question-place: "Comment me rendre au tribunal?"
 
-      head-intro: "Plusieurs types de convocations sont possibles :"
-      head-text1: "Convocation “723-15” pour un aménagement de peine"
-      head-text2: "Vous avez été condamné à une peine d’emprisonnement ferme pour laquelle vous allez solliciter un aménagement (lien vers aménagements de peine). Lors de cet entretien, vous devrez exposer votre situation au juge et en justifier (lien vers justificatifs). Selon votre situation, l’aménagement pourra être proposé lors de ce premier rdv ou vous serez orientés vers le SPIP pour un examen plus complet de votre situation."
-      head-text3: "Convocation de notification de vos obligations"
-      head-text4: "Votre conseiller d’insertion et de probation a estimé que vous ne respectiez pas vos obligation et le juge d’application des peine vous convoque pour vous les rappeler et vous expliquer les risques encourus."
-      head-text5: "Convocation de rappel de vos obligations"
-      head-text6: "TODO"
-      head-text7: "Bonne pratique :"
-      head-text8: "Il vous est conseillé d’arriver 5 à 10 minutes en avance pour permettre à l’accueil de vérifier votre identité et de prévenir de votre arrivée."
-      head-text9: "Bonne pratique :"
-      head-text10: "n’oubliez pas de venir avec une pièce d’identité ou si vous n’en avez pas, tout document officiel avec photo."
+      process-intro: "Plusieurs types de convocations sont possibles :"
+      process-text1: "Convocation “723-15” pour un aménagement de peine"
+      process-text2_html: "Vous avez été condamné à une peine d’emprisonnement ferme pour laquelle vous allez solliciter %{link}. Lors de cet entretien, vous devrez exposer votre situation au juge et en justifier. Selon votre situation, l’aménagement pourra être proposé lors de ce premier rdv ou vous serez orientés vers le SPIP pour un examen plus complet de votre situation."
+      process-text2-link: "un aménagement"
+      process-text3: "Convocation de notification de vos obligations"
+      process-text4: "Votre conseiller d’insertion et de probation a estimé que vous ne respectiez pas vos obligation et le juge d’application des peine vous convoque pour vous les rappeler et vous expliquer les risques encourus."
+      process-text5: "Convocation de rappel de vos obligations"
+      process-text6: "Le JAP vous convoque pour vous rappeler vos obligations et vous expliquer les risques encourus si vous ne les respectez pas. Cette convocation peut notamment faire suite à un rapport d’incident de votre Conseiller pénitentiaire qui a estimé que vous ne respectiez pas vos obligations."
+      process-text7: "Convocation pour débat contradictoire"
+      process-text8: "Vous êtes convoqué en audience devant le juge d’application des peines en présence d’un Procureur de la République et d’un greffier. Ce débat peut avoir pour objet l’aménagement de votre peine d’emprisonnement, la révocation de votre mesure ou sa prolongation. Vous avez le droit d’être assisté par un avocat."
+
+      process-text9: "Bonne pratique :"
+      process-text10: "Il vous est conseillé d’arriver 5 à 10 minutes en avance pour permettre à l’accueil de vérifier votre identité et de prévenir de votre arrivée."
+      process-text11: "Bonne pratique :"
+      process-text12: "n’oubliez pas de venir avec une pièce d’identité ou si vous n’en avez pas, tout document officiel avec photo."
 
       place-text1: "Le tribunal judiciaire de Nanterre se situe au 179-191 avenue Joliot Curie à Nanterre (92020)."
       place-text2: "Le service de l’application des peines se situe au deuxième étage du tribunal. A votre arrivée dans le service, présentez-vous au bureau 228. Si vous êtes convoqué pour un débat contradictoire, rendez-vous au bureau 112."

@@ -1,0 +1,23 @@
+.suivi1-content,
+.suivi2-content,
+.suivi3-content,
+.suivi4-content,
+.suivi5-content {
+  display: none;
+  flex-direction: column;
+  background-color: $msj-clear-background;
+  margin-bottom: 20px;
+  padding: 20px 10px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding: 30px 55px;
+    margin-bottom: 40px;
+    text-align: justify;
+  }
+}
+
+#toggle-suivi1:checked ~ .suivi1-content { display: flex; }
+#toggle-suivi2:checked ~ .suivi2-content { display: flex; }
+#toggle-suivi3:checked ~ .suivi3-content { display: flex; }
+#toggle-suivi4:checked ~ .suivi4-content { display: flex; }
+#toggle-suivi5:checked ~ .suivi5-content { display: flex; }

@@ -3,6 +3,6 @@ class HomeController < ApplicationController
   skip_after_action :verify_authorized
 
   def home
-    @convicts = Convict.all
+    @convicts = policy_scope(Convict.all)
   end
 end

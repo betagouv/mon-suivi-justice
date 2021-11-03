@@ -1,12 +1,30 @@
 <div class='fr-container static-content-container'>
   <h1 class='static-simple-title static-title-orange'><%= t('suivi_socio_judiciaire.titre') %></h1>
 
-  <div class='static-content'>
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('suivi_socio_judiciaire.question1') %></p>
+  <label for="toggle-suivi1" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('suivi_socio_judiciaire.question1') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="suivi1-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="suivi1-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-suivi1" class='static-hidden-checkbox'>
+
+  <div class='suivi1-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('suivi_socio_judiciaire.reponse1_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('suivi_socio_judiciaire.reponse1_b') %></p>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('suivi_socio_judiciaire.question2') %></p>
+  <label for="toggle-suivi2" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('suivi_socio_judiciaire.question2') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="suivi2-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="suivi2-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-suivi2" class='static-hidden-checkbox'>
+
+  <div class='suivi2-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('suivi_socio_judiciaire.reponse2_a') %></p>
 
     <ul class='static-list'>
@@ -17,16 +35,46 @@
 
     <p class='fr-text fr-mb-2w'><%= t('suivi_socio_judiciaire.reponse2_b') %></p>
     <p class='fr-text fr-mb-2w'><%= t('suivi_socio_judiciaire.reponse2_c') %></p>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('suivi_socio_judiciaire.question3') %></p>
+  <label for="toggle-suivi3" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('suivi_socio_judiciaire.question3') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="suivi3-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="suivi3-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-suivi3" class='static-hidden-checkbox'>
+
+  <div class='suivi3-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('suivi_socio_judiciaire.reponse3_a') %></p>
     <p class='fr-text fr-mb-2w'><%= t('suivi_socio_judiciaire.reponse3_b') %></p>
     <p class='fr-text fr-mb-2w'><%= t('suivi_socio_judiciaire.reponse3_c') %></p>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('suivi_socio_judiciaire.question4') %></p>
+  <label for="toggle-suivi4" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('suivi_socio_judiciaire.question4') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="suivi4-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="suivi4-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-suivi4" class='static-hidden-checkbox'>
+
+  <div class='suivi4-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('suivi_socio_judiciaire.reponse4_a') %></p>
+  </div>
 
-    <p class='static-secondary-title fr-mt-2w fr-mb-3w'><%= t('suivi_socio_judiciaire.question5') %></p>
+  <label for="toggle-suivi5" class='static-dropdown-trigger comprendre-ma-peine-menu-trigger'>
+    <div class='obligations-menu-text'><%= t('suivi_socio_judiciaire.question5') %></div>
+
+    <span class="fr-fi-arrow-down-s-line comprendre-ma-peine-menu-picto" id="suivi5-picto-down" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-up-s-line comprendre-ma-peine-menu-picto static-dropdown-picto-inactive" id="suivi5-picto-up" aria-hidden="true"></span>
+  </label>
+
+  <input type='checkbox' id="toggle-suivi5" class='static-hidden-checkbox'>
+
+  <div class='suivi5-content static-content'>
     <p class='fr-text fr-mb-2w'><%= t('suivi_socio_judiciaire.reponse5_a') %></p>
 
     <ul class='static-list'>
@@ -37,3 +85,5 @@
     <p class='fr-text fr-mb-2w'><%= t('suivi_socio_judiciaire.reponse5_b') %></p>
   </div>
 </div>
+
+<%= javascript_pack_tag 'static/suivi', 'data-turbolinks-eval': false, defer: true %>

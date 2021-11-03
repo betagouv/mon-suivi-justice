@@ -46,6 +46,15 @@
       </div>
     <% end %>
 
+    <%= f.simple_fields_for :notification_types, @appointment_type.reschedule_notif do |p| %>
+      <div class='notification-type-container no-show-container'>
+        <p class='notification-type-role'>
+          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.reschedule_notif.role}").capitalize %>
+        </p>
+        <%= p.input :template, input_html: { class: 'form-textarea' } %>
+      </div>
+    <% end %>
+
     <div class='appointment-type-tutorial-container'>
       <h2 class='appointment-type-tutorial-title'>Mode d'emploi des templates</h2>
 

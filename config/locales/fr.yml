@@ -66,6 +66,7 @@ fr:
           reminder: rappel
           cancelation: annulation
           no_show: rdv manqué
+          reschedule: replanifier
       slot_type:
         appointment_type: "Type de RDV"
         agenda: "Agenda"
@@ -151,6 +152,7 @@ fr:
   delete: "Supprimer"
   submit: "Enregistrer"
   cancel: "Annuler"
+  reschedule: "Replanifier"
   search: "Recherche"
   filter: "Filtrer"
   see: "Voir"
@@ -237,6 +239,9 @@ fr:
   show_history_send_now_no_show_notification_title: "SMS envoyé (rdv manqué)"
   show_history_send_now_no_show_notification: "[Texte du SMS] %{content}"
 
+  show_history_reschedule_appointment_title: "RDV replanifié"
+  show_history_reschedule_appointment: "Le RDV a été replanifié."
+  
   appointment_place: "Lieu de RDV"
   appointment_date: "Date"
   appointment_starting_time: "Heure"
@@ -282,6 +287,7 @@ fr:
   new-appointment-cab7-name: 'Cabinet 7 -'
   new-appointment-cab7-judge: 'DE-LAFORCADE'
   new-appointment-cab7-places: 'Clichy, Garches, Levallois-Perret'
+  appointment-reschedule-title: 'Replanifier un rendez-vous'
 
   bex_jap_appointments_link: "Agenda RDV JAP"
   bex_jap_agendas_title: "Agenda RDV JAP pour le vendredi"

@@ -1,0 +1,23 @@
+.tig1-content,
+.tig2-content,
+.tig3-content,
+.tig4-content,
+.tig5-content {
+  display: none;
+  flex-direction: column;
+  background-color: $msj-clear-background;
+  margin-bottom: 20px;
+  padding: 20px 10px;
+
+  @media (min-width: $msj-small-breakpoint) {
+    padding: 30px 55px;
+    margin-bottom: 40px;
+    text-align: justify;
+  }
+}
+
+#toggle-tig1:checked ~ .tig1-content { display: flex; }
+#toggle-tig2:checked ~ .tig2-content { display: flex; }
+#toggle-tig3:checked ~ .tig3-content { display: flex; }
+#toggle-tig4:checked ~ .tig4-content { display: flex; }
+#toggle-tig5:checked ~ .tig5-content { display: flex; }

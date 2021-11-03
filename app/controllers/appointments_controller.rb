@@ -38,7 +38,7 @@ class AppointmentsController < ApplicationController
 
   def cancel
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
-    @appointment.cancel!
+    @appointment.cancel! send_notification: true
 
     authorize @appointment
     redirect_back(fallback_location: root_path)

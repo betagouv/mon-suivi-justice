@@ -121,3 +121,24 @@
     font-size: 30px;
   }
 }
+
+.comprendre-ma-peine-menu-trigger {
+  border: 2px solid $msj-orange;
+  font-size: 16px;
+
+  max-width: 850px;
+  margin: auto;
+  margin-top: 30px;
+  background-color: $msj-clear-background;
+  padding: 10px 20px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.comprendre-ma-peine-menu-picto {
+  &:before { font-size: 24px; }
+}
+
+.comprendre-ma-peine-menu-picto-active { display: flex; }
+.comprendre-ma-peine-menu-picto-inactive { display: none; }
