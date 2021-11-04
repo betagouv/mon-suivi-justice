@@ -39,10 +39,13 @@
   </div>
 </div>
 
-<div class='how-to-wrapper'>
-  <div class='how-to-container'>
-    <%= image_tag "static/phone-icon.png", class: 'phone-icon' %>
-    <p class='phone-text'><%= t('static-home.explanation') %></p>
-    <p class='phone-precision'><%= t('static-home.availability') %></p>
+<div class='presentation-wrapper'>
+  <div class='presentation-container'>
+    <%= image_tag 'static/text_message.svg', class: 'presentation-picto' %>
+
+    <div class='presentation-text-container'>
+      <p class='presentation-text'><%= t('static-home.explanation') %></p>
+      <p class='presentation-precision'><%= t('static-home.availability') %></p>
+    </div>
   </div>
 </div>
