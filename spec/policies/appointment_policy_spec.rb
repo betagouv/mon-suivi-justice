@@ -271,14 +271,14 @@ describe AppointmentPolicy do
       end
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to permit_action(:create) }
-      it { is_expected.to permit_action(:edit) }
-      it { is_expected.to permit_action(:update) }
-      it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to forbid_action(:edit) }
+      it { is_expected.to forbid_action(:update) }
+      it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:cancel) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
@@ -289,14 +289,14 @@ describe AppointmentPolicy do
       end
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
-      it { is_expected.to forbid_action(:edit) }
-      it { is_expected.to forbid_action(:update) }
-      it { is_expected.to forbid_action(:destroy) }
-      it { is_expected.to forbid_action(:cancel) }
-      it { is_expected.to forbid_action(:fulfil) }
-      it { is_expected.to forbid_action(:miss) }
-      it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:edit) }
+      it { is_expected.to permit_action(:update) }
+      it { is_expected.to permit_action(:destroy) }
+      it { is_expected.to permit_action(:cancel) }
+      it { is_expected.to permit_action(:fulfil) }
+      it { is_expected.to permit_action(:miss) }
+      it { is_expected.to permit_action(:excuse) }
     end
   end
 

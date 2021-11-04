@@ -35,11 +35,11 @@ class User < ApplicationRecord
   end
 
   def work_at_bex?
-    %w[prosecutor greff_co bex].include? role
+    %w[prosecutor greff_co dir_greff_bex bex].include? role
   end
 
   def work_at_sap?
-    %w[jap secretary_court greff_sap dir_greff_bex dir_greff_sap sap].include? role
+    %w[jap secretary_court greff_sap dir_greff_sap sap].include? role
   end
 
   def work_at_spip?
