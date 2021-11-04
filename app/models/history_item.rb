@@ -23,6 +23,8 @@ class HistoryItem < ApplicationRecord
   end
 
   def notification_role
+    return 'reschedule_notif' if reschedule_appointment?
+
     array = event.delete_suffix('_notification').split('_')
     array -= array.shift(2)
 
