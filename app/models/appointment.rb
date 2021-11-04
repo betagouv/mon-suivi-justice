@@ -103,9 +103,9 @@ class Appointment < ApplicationRecord
         appointment.slot.update(available: false)
       end
 
-      if appointment.convict.phone?
-        appointment.transaction do
-          NotificationFactory.perform(appointment)
+      appointment.transaction do
+        NotificationFactory.perform(appointment)
+        if appointment.convict.phone?
           send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
           appointment.summon_notif.send_now! if send_sms
           appointment.reminder_notif.program!
