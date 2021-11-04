@@ -5,9 +5,10 @@
   <%= f.input :last_name %>
   <%= f.input :first_name %>
 
-  <% if current_user.admin? || current_user.bex? %>
+  <% if current_user.admin? || current_user.work_at_bex? %>
     <%= f.input :prosecutor_number %>
   <% end %>
+
   <%= f.input :phone, required: true %>
 
   <%= f.input :no_phone, input_html: { class: 'form-checkbox' },

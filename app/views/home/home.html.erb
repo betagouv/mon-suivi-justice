@@ -23,22 +23,25 @@
     </div>
 
     <div class='home-custom-links-wrapper'>
-      <% if current_user.admin? || current_user.bex? %>
+      <% if policy(:appointment).agenda_jap? || policy(:appointment).agenda_spip?  %>
         <div class='home-custom-links-container'>
           <p class='home-custom-links-title'><%= t('home_bex_title') %></p>
           <div class='home-custom-links'>
-            <%= button_to t('home_bex_jap'), agenda_jap_path,
-                                             class: 'home-agenda-link',
-                                             method: :get %>
-
-            <%= button_to t('home_bex_spip'), agenda_spip_path,
-                                              class: 'home-agenda-link',
-                                              method: :get %>
+            <% if policy(:appointment).agenda_jap? %>
+                <%= button_to t('home_bex_jap'), agenda_jap_path,
+                                                 class: 'home-agenda-link',
+                                                 method: :get %>
+            <% end %>
+            <% if policy(:appointment).agenda_spip? %>
+              <%= button_to t('home_bex_spip'), agenda_spip_path,
+                                                class: 'home-agenda-link',
+                                                method: :get %>
+            <% end %>
           </div>
         </div>
       <% end %>
 
-      <% if current_user.admin? || current_user.cpip? %>
+      <% if policy(:appointment).index_today? %>
         <div class='home-custom-links-container'>
           <p class='home-custom-links-title'><%= t('home_spip_title') %></p>
           <div class='home-custom-links'>

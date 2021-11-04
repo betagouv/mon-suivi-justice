@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe SlotPolicy do
-  subject { SlotPolicy.new(user, slot) }
+describe OrganizationPolicy do
+  subject { OrganizationPolicy.new(user, organization) }
 
-  let(:slot) { build(:slot) }
+  let(:organization) { build(:organization) }
 
   context 'for an admin' do
     let(:user) { build(:user, role: 'admin') }
@@ -20,13 +20,13 @@ describe SlotPolicy do
   context 'for a local_admin' do
     let(:user) { build(:user, role: 'local_admin') }
 
-    it { is_expected.to permit_action(:show) }
-    it { is_expected.to permit_action(:index) }
-    it { is_expected.to permit_action(:new) }
-    it { is_expected.to permit_action(:create) }
-    it { is_expected.to permit_action(:edit) }
-    it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to forbid_action(:show) }
+    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to forbid_action(:new) }
+    it { is_expected.to forbid_action(:create) }
+    it { is_expected.to forbid_action(:edit) }
+    it { is_expected.to forbid_action(:update) }
+    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a prosecutor' do

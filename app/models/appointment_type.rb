@@ -31,4 +31,16 @@ class AppointmentType < ApplicationRecord
   def reschedule_notif
     notification_types.find_by(role: :reschedule)
   end
+
+  def used_at_bex?
+    ['RDV BEX SAP', 'RDV BEX SPIP'].include? name
+  end
+
+  def used_at_sap?
+    ['RDV BEX SAP', 'RDV de suivi SAP'].include? name
+  end
+
+  def used_at_spip?
+    ['RDV BEX SPIP', '1er RDV SPIP', 'RDV de suivi SPIP'].include? name
+  end
 end
