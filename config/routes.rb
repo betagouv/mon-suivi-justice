@@ -39,12 +39,7 @@ Rails.application.routes.draw do
     get :agenda_spip
   end
 
-  scope controller: :temporary_landings do
-    get :landing
-  end
-
   scope controller: :static_pages do
-    get :secret
     get :landing
     get :comprendre_ma_peine
     get :regles_essentielles
@@ -66,7 +61,7 @@ Rails.application.routes.draw do
   end
 
   unauthenticated do
-    root 'temporary_landings#landing'
+    root 'static_pages#landing'
   end
 
   authenticated :user do
