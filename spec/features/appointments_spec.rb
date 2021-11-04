@@ -132,7 +132,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       convict = create :convict, first_name: 'JP', last_name: 'Cherty'
       create :areas_convicts_mapping, convict: convict, area: department
-      appointment_type = create :appointment_type, :with_notification_types, name: 'RDV suivi SAP'
+      appointment_type = create :appointment_type, :with_notification_types, name: 'RDV de suivi SPIP'
 
       place_in = create :place, organization: organization, name: 'place_in_name', appointment_types: [appointment_type]
       agenda_in = create :agenda, place: place_in, name: 'agenda_in_name'
