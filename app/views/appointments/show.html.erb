@@ -204,7 +204,7 @@
 
           <div class='show-history-item-content'>
             <%= t("show_history_#{history_item.event}", name: @convict.name,
-                                                        content: history_item.appointment.send(history_item.notification_role).content) %>
+                                                        content: history_item.appointment.send(history_item.notification_role)&.content) %>
           </div>
         </div>
       </div>
