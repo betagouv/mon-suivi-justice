@@ -202,7 +202,8 @@ RSpec.feature 'Appointments', type: :feature do
   describe 'cancelation' do
     it 'change state and cancel notifications' do
       apt_type = create(:appointment_type, :with_notification_types)
-      appointment = create(:appointment, appointment_type: apt_type)
+      slot = create :slot, appointment_type: apt_type
+      appointment = create(:appointment, slot: slot)
 
       appointment.book
       expect(appointment.state).to eq('booked')
@@ -346,7 +347,8 @@ RSpec.feature 'Appointments', type: :feature do
   describe 'Replanification' do
     it 're-schedules an appointment to a later date' do
       apt_type = create(:appointment_type, :with_notification_types)
-      appointment = create(:appointment, appointment_type: apt_type)
+      slot = create :slot, appointment_type: appointment_type
+      appointment = create(:appointment, slot: slot)
       appointment.book
       slot = create :slot, agenda: appointment.slot.agenda,
                            appointment_type: apt_type,

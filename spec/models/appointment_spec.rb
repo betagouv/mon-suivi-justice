@@ -33,7 +33,8 @@ RSpec.describe Appointment, type: :model do
 
     it 'transitions from booked to missed without sending sms' do
       appointment_type = create :appointment_type
-      appointment = create :appointment, :with_notifications, appointment_type: appointment_type
+      slot = create :slot, appointment_type: appointment_type
+      appointment = create :appointment, :with_notifications, slot: slot
       appointment.book
       appointment.miss(send_notification: false)
 
@@ -43,7 +44,8 @@ RSpec.describe Appointment, type: :model do
 
     it 'transitions from booked to missed and sending sms' do
       appointment_type = create :appointment_type
-      appointment = create :appointment, :with_notifications, appointment_type: appointment_type
+      slot = create :slot, appointment_type: appointment_type
+      appointment = create :appointment, :with_notifications, slot: slot
       appointment.book
       appointment.miss(send_notification: true)
 

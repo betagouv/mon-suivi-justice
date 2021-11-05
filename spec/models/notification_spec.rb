@@ -19,13 +19,13 @@ RSpec.describe Notification, type: :model do
 
   describe 'program' do
     it 'sends at the proper delivery time' do
-      slot = create(:slot, date: '04/08/2021', starting_time: new_time_for(17, 30))
       appointment_type = create(:appointment_type)
+      slot = create(:slot, date: '04/08/2021', appointment_type: appointment_type, starting_time: new_time_for(17, 30))
       create(:notification_type, appointment_type: appointment_type,
                                  role: :reminder,
                                  reminder_period: :two_days)
 
-      appointment = create(:appointment, appointment_type: appointment_type, slot: slot)
+      appointment = create(:appointment, slot: slot)
 
       NotificationFactory.perform(appointment)
 
