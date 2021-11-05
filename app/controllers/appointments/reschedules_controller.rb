@@ -20,7 +20,7 @@ module Appointments
       @appointment = policy_scope(Appointment).find(params[:appointment_id])
       authorize @appointment
       @slots_by_date = Slot.future
-                           .relevant_and_available(@appointment.slot.agenda, @appointment.appointment_type)
+                           .relevant_and_available(@appointment.slot.agenda, @appointment.slot.appointment_type)
                            .order(:date)
                            .group_by(&:date)
     end

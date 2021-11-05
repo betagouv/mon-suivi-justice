@@ -1,13 +1,12 @@
 <h1 class='form-title'><%= t('appointment-reschedule-title') %></h1>
 <%= simple_form_for Appointment.new, url: appointment_reschedule_path do |f| %>
-  <%= f.hidden_field :appointment_type_id, value: @appointment.appointment_type_id  %>
   <%= f.hidden_field :convict_id, value: @appointment.convict_id  %>
   <%= f.hidden_field :origin_department, value: @appointment.origin_department  %>
   <%= f.hidden_field :old_appointment_id, value: @appointment.id  %>
   <div class='appointment-form-slots-container'>
     <% if @slots_by_date.length > 0 %>
       <p class='new-appointment-slots-title'><%= t('new-appointment-available-slots') %></p>
-      <% if @appointment.appointment_type.name == 'RDV BEX SPIP' %>
+      <% if @appointment.slot.appointment_type.name == 'RDV BEX SPIP' %>
         <p class='new-appointment-bex-warning'><%= t('new-appointment-bex-warning') %></p>
       <% end %>
       <div class='new-appointment-slots-container'>

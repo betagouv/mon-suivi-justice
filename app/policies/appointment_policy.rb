@@ -68,7 +68,7 @@ class AppointmentPolicy < ApplicationPolicy
   private
 
   def appointment_workflow
-    apt_type = AppointmentType.find(record.appointment_type_id)
+    apt_type = AppointmentType.find(record.slot&.appointment_type_id)
 
     if user.work_at_sap? then apt_type.used_at_sap?
     elsif user.work_at_bex? then apt_type.used_at_bex?
