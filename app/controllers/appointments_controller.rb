@@ -4,7 +4,7 @@ class AppointmentsController < ApplicationController
   def index
     @q = policy_scope(Appointment).active.ransack(params[:q])
     @appointments = @q.result(distinct: true)
-                      .joins(:convict)
+                      .joins(:convict, slot: [agenda: [:place]])
                       .includes(:convict, slot: [agenda: [:place]])
                       .page params[:page]
 
