@@ -44,18 +44,12 @@ RSpec.feature 'Appointments', type: :feature do
       visit today_appointments_path
       expect(page).to have_content('GOMEZ')
 
-      visit agenda_spip_path
-      expect(page).to have_content('GOMEZ')
-
       appointment.cancel
 
       visit appointments_path
       expect(page).not_to have_content('GOMEZ')
 
       visit today_appointments_path
-      expect(page).not_to have_content('GOMEZ')
-
-      visit agenda_spip_path
       expect(page).not_to have_content('GOMEZ')
     end
   end

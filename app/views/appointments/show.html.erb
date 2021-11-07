@@ -141,12 +141,13 @@
       </div>
     </div>
 
-
     <div class='show-appointment-controls-container'>
-      <% if  @appointment.booked? %>
-        <%= button_to t('reschedule'), new_appointment_reschedule_path(@appointment),
-                                   method: :get,
-                                   class: 'show-button-to-edit' %>
+      <% if @appointment.booked? %>
+        <% if ENV["APP"] != "mon-suivi-justice-prod" %>
+          <%= button_to t('reschedule'), new_appointment_reschedule_path(@appointment),
+                                         method: :get,
+                                         class: 'show-button-to-edit' %>
+        <% end %>
         <%= button_to t('cancel'), appointment_cancel_path(@appointment),
                                    method: :put,
                                    data: { confirm: t('cancel_appointment_warning') },
