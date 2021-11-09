@@ -95,9 +95,9 @@ fr:
       process-text2_html: "Vous avez été condamné à une peine d’emprisonnement ferme pour laquelle vous allez solliciter %{link}. Lors de cet entretien, vous devrez exposer votre situation au juge et en justifier. Selon votre situation, l’aménagement pourra être proposé lors de ce premier rdv ou vous serez orientés vers le SPIP pour un examen plus complet de votre situation."
       process-text2-link: "un aménagement"
       process-text3: "Convocation de notification de vos obligations"
-      process-text4: "Votre conseiller d’insertion et de probation a estimé que vous ne respectiez pas vos obligation et le juge d’application des peine vous convoque pour vous les rappeler et vous expliquer les risques encourus."
+      process-text4: "Le juge d'application des peines vous convoque pour vous notifier vos obligations, c'est à dire vous les expliquer et vous dire ce qui est attendu de vous ainsi que les risques encourus si vous ne les respectez pas."
       process-text5: "Convocation de rappel de vos obligations"
-      process-text6: "Le JAP vous convoque pour vous rappeler vos obligations et vous expliquer les risques encourus si vous ne les respectez pas. Cette convocation peut notamment faire suite à un rapport d’incident de votre Conseiller pénitentiaire qui a estimé que vous ne respectiez pas vos obligations."
+      process-text6: "Le juge d'application des peines vous convoque pour vous rappeler vos obligations et vous expliquer les risques encourus si vous ne les respectez pas. Cette convocation peut notamment faire suite à un rapport d’incident de votre Conseiller pénitentiaire qui a estimé que vous ne respectiez pas vos obligations."
       process-text7: "Convocation pour débat contradictoire"
       process-text8: "Vous êtes convoqué en audience devant le juge d’application des peines en présence d’un Procureur de la République et d’un greffier. Ce débat peut avoir pour objet l’aménagement de votre peine d’emprisonnement, la révocation de votre mesure ou sa prolongation. Vous avez le droit d’être assisté par un avocat."
 
