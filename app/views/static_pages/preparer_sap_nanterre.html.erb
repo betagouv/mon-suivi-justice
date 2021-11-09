@@ -13,8 +13,6 @@
   <input type='checkbox' id="toggle-menu-place" class='static-hidden-checkbox'>
 
   <div class='preparer-place-content static-content-container'>
-
-
     <div class='preparer-place-header'>
       <div class='preparer-place-picture'><%= image_tag 'static/entree_TJ92.jpg', class: 'preparer-place-picture-img' %></div>
 
@@ -121,6 +119,26 @@
       <i class='fa fa-thumbs-up 3x static-good-practice-thumb-up'></i>
       <p class='static-link-card-intro static-link-good-practice-intro'><%= t('preparer.sap_nanterre.process-text11') %> <%= t('preparer.sap_nanterre.process-text12') %></p>
     </div>
+  </div>
+
+  <label for="toggle-menu-lawyer" class='static-dropdown-trigger preparer-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-lawyer-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-lawyer-picto-down" aria-hidden="true"></span>
+    <div class='preparer-menu-text'><%= t('preparer.question-avocat') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-lawyer" class='static-hidden-checkbox'>
+
+  <div class='preparer-lawyer-content static-content-container preparer-head-text'>
+    <p class='fr-mb-2w'><%= t('preparer.avocat-text1') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.avocat-text2') %></p>
+
+    <ul class='static-list'>
+      <li class='static-short-list-item'><%= t('preparer.avocat-list1') %> <%= link_to(t("preparer.avocat-link-anchor_html"), t("preparer.avocat-link1"), target: "_blank") %></li>
+      <li class='static-short-list-item'><%= t('preparer.avocat-list2') %> <%= link_to(t("preparer.avocat-link-anchor_html"), t("preparer.avocat-link2"), target: "_blank") %></li>
+    </ul>
+
+    <p class='fr-mb-2w'><%= t('preparer.avocat-text3') %> <%= link_to(t("preparer.avocat-link-anchor_html"), t("preparer.avocat-link3"), target: "_blank") %></p>
   </div>
 </div>
 

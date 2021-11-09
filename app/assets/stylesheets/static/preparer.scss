@@ -67,7 +67,8 @@
 .preparer-justif-content,
 .preparer-no-show-content,
 .preparer-place-content,
-.preparer-process-content {
+.preparer-process-content,
+.preparer-lawyer-content {
   display: none;
   flex-direction: column;
   background-color: $msj-clear-background;
@@ -85,6 +86,7 @@
 #toggle-menu-no-show:checked ~ .preparer-no-show-content { display: flex; }
 #toggle-menu-justif:checked ~ .preparer-justif-content { display: flex; }
 #toggle-menu-process:checked ~ .preparer-process-content { display: flex; }
+#toggle-menu-lawyer:checked ~ .preparer-lawyer-content { display: flex; }
 
 .preparer-menu-picto-active { display: flex; }
 .preparer-menu-picto-inactive { display: none; }
