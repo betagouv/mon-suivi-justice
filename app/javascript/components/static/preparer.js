@@ -3,16 +3,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const noShowCheckbox = document.getElementById('toggle-menu-no-show');
   const justifCheckbox = document.getElementById('toggle-menu-justif');
   const processCheckbox = document.getElementById('toggle-menu-process');
+  const lawyerCheckbox = document.getElementById('toggle-menu-lawyer');
 
   const placePictoClosed = document.getElementById('menu-place-picto-right');
   const noShowPictoClosed = document.getElementById('menu-no-show-picto-right');
   const justifPictoClosed = document.getElementById('menu-justif-picto-right');
   const processPictoClosed = document.getElementById('menu-process-picto-right');
+  const lawyerPictoClosed = document.getElementById('menu-lawyer-picto-right');
 
   const placePictoOpened = document.getElementById('menu-place-picto-down');
   const noShowPictoOpened = document.getElementById('menu-no-show-picto-down');
   const justifPictoOpened = document.getElementById('menu-justif-picto-down');
   const processPictoOpened = document.getElementById('menu-process-picto-down');
+  const lawyerPictoOpened = document.getElementById('menu-lawyer-picto-down');
 
   placeCheckbox.addEventListener('change', e => {
     if(e.target.checked === true) {
@@ -75,6 +78,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
       processPictoClosed.classList.remove('preparer-menu-picto-inactive');
       processPictoOpened.classList.add('preparer-menu-picto-inactive');
       processPictoOpened.classList.remove('preparer-menu-picto-active');
+    }
+  });
+
+  lawyerCheckbox.addEventListener('change', e => {
+    if(e.target.checked === true) {
+      lawyerPictoClosed.classList.add('preparer-menu-picto-inactive');
+      lawyerPictoClosed.classList.remove('preparer-menu-picto-active');
+      lawyerPictoOpened.classList.add('preparer-menu-picto-active');
+      lawyerPictoOpened.classList.remove('preparer-menu-picto-inactive');
+    }
+
+    if(e.target.checked === false) {
+      lawyerPictoClosed.classList.add('preparer-menu-picto-active');
+      lawyerPictoClosed.classList.remove('preparer-menu-picto-inactive');
+      lawyerPictoOpened.classList.add('preparer-menu-picto-inactive');
+      lawyerPictoOpened.classList.remove('preparer-menu-picto-active');
     }
   });
 });
