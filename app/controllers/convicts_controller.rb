@@ -20,11 +20,22 @@ class ConvictsController < ApplicationController
   def create
     @convict = Convict.new(convict_params)
     authorize @convict
-
-    if @convict.save
-      # Wil register the new convict in every department/juridiction of current_user's organization areas
-      RegisterLegalAreas.for_convict @convict, from: current_organization
-      redirect_to select_path(params)
+    @duplicate_presence = Convict.exists?(
+      [
+        "lower(first_name) = ? AND lower(last_name) = ?",
+        convict_params[:first_name].downcase,
+        convict_params[:last_name].downcase
+      ]
+    )
+    force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
+    if force_duplication || !@duplicate_presence
+      if @convict.save
+        # Wil register the new convict in every department/juridiction of current_user's organization areas
+        RegisterLegalAreas.for_convict @convict, from: current_organization
+        redirect_to select_path(params)
+      else
+        render :new
+      end
     else
       render :new
     end
@@ -65,8 +76,10 @@ class ConvictsController < ApplicationController
   private
 
   def convict_params
-    params.require(:convict).permit(:first_name, :last_name, :title, :phone, :no_phone,
-                                    :refused_phone, :place_id, :prosecutor_number)
+    params.require(:convict).permit(
+      :first_name, :last_name, :title, :phone, :no_phone,
+      :refused_phone, :place_id, :prosecutor_number, :appi_uuid
+    )
   end
 
   def select_path(params)

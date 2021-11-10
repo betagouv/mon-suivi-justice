@@ -6,6 +6,7 @@
   <% if current_user.admin? || current_user.work_at_bex? %>
     <%= f.input :prosecutor_number %>
   <% end %>
+  <%= f.input :appi_uuid %>
   <%= f.input :phone, required: true, input_html: { value: @convict.display_phone } %>
   <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
                          label_html: { class: 'form-checkbox-label' },
