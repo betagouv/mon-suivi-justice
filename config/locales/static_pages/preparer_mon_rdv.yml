@@ -35,6 +35,17 @@ fr:
     place-bus: "Bus"
     place-car: "Voiture"
 
+    question-avocat: "Est-ce que je peux être assisté par un avocat ?"
+    avocat-text1: "La présence de l'avocat aux rendez-vous de suivi judiciaire n'est pas obligatoire. Il ne pourra donc pas vous être désigné un avocat commis d'office. En revanche, vous pouvez à tout moment consulter un avocat pour être informé sur vos droits ou être assistée d'un avocat lors de vos entretiens devant le SPIP ou le juge d'application des peines."
+    avocat-text2: "Pour trouver un avocat :"
+    avocat-list1: "Annuaire des avocats du barreau des Hauts-de-Seine :"
+    avocat-list2: "Annuaire des avocats en France :"
+    avocat-text3: "Si vos ressources financières sont insuffisantes, vous pouvez bénéficier d'une aide financière de l'Etat, totale ou partielle, appelée aide juridictionnelle. Pour calculer vos droits :"
+    avocat-link-anchor_html: "lien"
+    avocat-link1: "https://www.barreau92.com/search"
+    avocat-link2: "https://www.cnb.avocat.fr/fr/annuaire-des-avocats-de-france"
+    avocat-link3: "https://www.justice.fr/simulateurs/aide-juridictionnelle"
+
     spip92:
       title: "SPIP 92"
       intro: "Durant votre suivi judiciaire, vous serez régulièrement convoqué par un conseiller pénitentiaire d’insertion et de probation (CPIP) afin qu’il suive l’exécution de votre peine ou de votre mesure."
@@ -84,9 +95,9 @@ fr:
       process-text2_html: "Vous avez été condamné à une peine d’emprisonnement ferme pour laquelle vous allez solliciter %{link}. Lors de cet entretien, vous devrez exposer votre situation au juge et en justifier. Selon votre situation, l’aménagement pourra être proposé lors de ce premier rdv ou vous serez orientés vers le SPIP pour un examen plus complet de votre situation."
       process-text2-link: "un aménagement"
       process-text3: "Convocation de notification de vos obligations"
-      process-text4: "Votre conseiller d’insertion et de probation a estimé que vous ne respectiez pas vos obligation et le juge d’application des peine vous convoque pour vous les rappeler et vous expliquer les risques encourus."
+      process-text4: "Le juge d'application des peines vous convoque pour vous notifier vos obligations, c'est à dire vous les expliquer et vous dire ce qui est attendu de vous ainsi que les risques encourus si vous ne les respectez pas."
       process-text5: "Convocation de rappel de vos obligations"
-      process-text6: "Le JAP vous convoque pour vous rappeler vos obligations et vous expliquer les risques encourus si vous ne les respectez pas. Cette convocation peut notamment faire suite à un rapport d’incident de votre Conseiller pénitentiaire qui a estimé que vous ne respectiez pas vos obligations."
+      process-text6: "Le juge d'application des peines vous convoque pour vous rappeler vos obligations et vous expliquer les risques encourus si vous ne les respectez pas. Cette convocation peut notamment faire suite à un rapport d’incident de votre Conseiller pénitentiaire qui a estimé que vous ne respectiez pas vos obligations."
       process-text7: "Convocation pour débat contradictoire"
       process-text8: "Vous êtes convoqué en audience devant le juge d’application des peines en présence d’un Procureur de la République et d’un greffier. Ce débat peut avoir pour objet l’aménagement de votre peine d’emprisonnement, la révocation de votre mesure ou sa prolongation. Vous avez le droit d’être assisté par un avocat."
 
@@ -96,7 +107,7 @@ fr:
       process-text12: "n’oubliez pas de venir avec une pièce d’identité ou si vous n’en avez pas, tout document officiel avec photo."
 
       place-text1: "Le tribunal judiciaire de Nanterre se situe au 179-191 avenue Joliot Curie à Nanterre (92020)."
-      place-text2: "Le service de l’application des peines se situe au deuxième étage du tribunal. A votre arrivée dans le service, présentez-vous au bureau 228. Si vous êtes convoqué pour un débat contradictoire, rendez-vous au bureau 112."
+      place-text2: "Le service de l'application des peines se situe au deuxième étage du tribunal. A votre arrivée dans le service, présentez vous au bureau 228. Si vous êtes convoqué pour un débat contradictoire, rendez-vous en salle d'audience 112."
       place-text3: "En cas de difficulté, vous pouvez joindre le : 01 40 97 15 00. Accueil téléphonique du lundi au vendredi de 9h à 12h30 et de 13h30 à 17h."
       place-text4: "Le site est accessible aux personnes à mobilité réduite."
       place-train1: "RER A, descendre à la station 'Nanterre-Préfecture'. Prendre la sortie 2 'Préfecture' ou la sortie 3 'Boulevard de Pesaro'."
