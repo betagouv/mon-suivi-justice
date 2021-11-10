@@ -182,7 +182,7 @@ RSpec.feature 'Appointments', type: :feature do
       slot = create(:slot, date: '06/10/2021', starting_time: new_time_for(17, 0))
       convict = create(:convict, first_name: 'Monique', last_name: 'Lassalle')
 
-      appointment = create(:appointment, slot: slot, convict: convict)
+      appointment = create(:appointment, :with_notifications, slot: slot, convict: convict)
 
       visit appointment_path(appointment)
 
@@ -217,7 +217,7 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'cant cancel a not-booked appointment' do
-      visit appointment_path(create(:appointment))
+      visit appointment_path(create(:appointment, :with_notifications))
       expect(page).not_to have_button 'Annuler'
     end
   end
