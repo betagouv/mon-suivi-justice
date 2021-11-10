@@ -74,7 +74,7 @@ RSpec.feature 'Appointments', type: :feature do
       visit new_appointment_path
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'CHERTY Jp').click
-      select 'RDV suivi SAP', from: 'Type de rendez-vous'
+      select 'RDV suivi SAP', from: :appointment_appointment_type_id
       select 'KFC de Chatelet', from: 'Lieu'
       select 'Agenda de Josiane', from: 'Agenda'
       choose '16:00'
@@ -104,7 +104,7 @@ RSpec.feature 'Appointments', type: :feature do
       visit new_appointment_path
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'CHERTY Jp').click
-      select 'RDV suivi SAP', from: 'Type de rendez-vous'
+      select 'RDV suivi SAP', from: :appointment_appointment_type_id
       select 'KFC de Chatelet', from: 'Lieu'
       select 'Agenda de Josiane', from: 'Agenda'
       choose '16:00'
@@ -141,7 +141,7 @@ RSpec.feature 'Appointments', type: :feature do
       visit new_appointment_path
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'CHERTY Jp').click
-      select 'RDV de suivi SPIP', from: 'Type de rendez-vous'
+      select 'RDV de suivi SPIP', from: :appointment_appointment_type_id
       expect(page).not_to have_select('Lieu', options: ['', 'place_in_name', 'place_out_name'])
       expect(page).to have_select('Lieu', options: ['', 'place_in_name'])
       select 'place_in_name', from: 'Lieu'
@@ -170,7 +170,7 @@ RSpec.feature 'Appointments', type: :feature do
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'DALTON Joe').click
 
-      select 'RDV de test SAP', from: 'Type de rendez-vous'
+      select 'RDV de test SAP', from: :appointment_appointment_type_id
 
       expect(page).not_to have_select('Lieu', options: ['', 'McDo de Barbès', 'Quick de Montreuil'])
       expect(page).to have_select('Lieu', options: ['', 'McDo de Barbès'])
@@ -225,13 +225,10 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'fulfilment' do
     it 'controls are only displayed for passed appointments' do
-      convict = create(:convict)
-      apt_type = create(:appointment_type, :with_notification_types)
-      slot = create(:slot, date: Date.tomorrow)
-
-      appointment = create(:appointment, convict: convict,
-                                         slot: slot,
-                                         appointment_type: apt_type)
+      convict = create :convict
+      apt_type = create :appointment_type, :with_notification_types
+      slot = create :slot, date: Date.tomorrow, appointment_type: apt_type
+      appointment = create :appointment, convict: convict, slot: slot
 
       appointment.book
 
@@ -241,13 +238,10 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'works if convict came to appointment' do
-      convict = create(:convict)
-      apt_type = create(:appointment_type, :with_notification_types)
-      slot = create(:slot, date: Date.today)
-
-      appointment = create(:appointment, convict: convict,
-                                         slot: slot,
-                                         appointment_type: apt_type)
+      convict = create :convict
+      apt_type = create :appointment_type, :with_notification_types
+      slot = create :slot, date: Date.today, appointment_type: apt_type
+      appointment = create :appointment, convict: convict, slot: slot
 
       appointment.book
 
@@ -259,13 +253,10 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'is also available on appointment#show page' do
-      convict = create(:convict)
-      apt_type = create(:appointment_type, :with_notification_types)
-      slot = create(:slot, date: Date.today)
-
-      appointment = create(:appointment, convict: convict,
-                                         slot: slot,
-                                         appointment_type: apt_type)
+      convict = create :convict
+      apt_type = create :appointment_type, :with_notification_types
+      slot = create :slot, date: Date.today, appointment_type: apt_type
+      appointment = create :appointment, convict: convict, slot: slot
 
       appointment.book
 
@@ -278,13 +269,10 @@ RSpec.feature 'Appointments', type: :feature do
 
     describe "if convict didn't came to appointment" do
       it 'change appointment state and sends sms', js: true do
-        convict = create(:convict, first_name: 'babar', last_name: 'bobor')
-        apt_type = create(:appointment_type, :with_notification_types)
-        slot = create(:slot, date: Date.today)
-
-        appointment = create(:appointment, convict: convict,
-                                           slot: slot,
-                                           appointment_type: apt_type)
+        convict = create :convict, first_name: 'babar', last_name: 'bobor'
+        apt_type = create :appointment_type, :with_notification_types
+        slot = create :slot, date: Date.today, appointment_type: apt_type
+        appointment = create :appointment, convict: convict, slot: slot
 
         appointment.book
 
@@ -301,11 +289,8 @@ RSpec.feature 'Appointments', type: :feature do
       it "change appointment state and don't send sms", js: true do
         convict = create(:convict, first_name: 'babar', last_name: 'bobor')
         apt_type = create(:appointment_type, :with_notification_types)
-        slot = create(:slot, date: Date.today)
-
-        appointment = create(:appointment, convict: convict,
-                                           slot: slot,
-                                           appointment_type: apt_type)
+        slot = create :slot, date: Date.today, appointment_type: apt_type
+        appointment = create :appointment, convict: convict, slot: slot
 
         appointment.book
 
@@ -320,11 +305,10 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it 'can be excused' do
-        convict = create(:convict)
-        apt_type = create(:appointment_type, :with_notification_types)
-
-        appointment = create(:appointment, convict: convict,
-                                           appointment_type: apt_type)
+        convict = create :convict
+        apt_type = create :appointment_type, :with_notification_types
+        slot = create :slot, date: Date.today, appointment_type: apt_type
+        appointment = create :appointment, convict: convict, slot: slot
 
         appointment.book
 
@@ -341,7 +325,7 @@ RSpec.feature 'Appointments', type: :feature do
   describe 'Replanification' do
     it 're-schedules an appointment to a later date' do
       apt_type = create(:appointment_type, :with_notification_types)
-      slot = create :slot, appointment_type: appointment_type
+      slot = create :slot, appointment_type: apt_type
       appointment = create(:appointment, slot: slot)
       appointment.book
       slot = create :slot, agenda: appointment.slot.agenda,
