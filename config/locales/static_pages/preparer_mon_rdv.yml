@@ -36,7 +36,7 @@ fr:
     place-car: "Voiture"
 
     question-avocat: "Est-ce que je peux être assisté par un avocat ?"
-    avocat-text1: "La présence de l'avocat aux rendez-vous de suivi judiciaire n'est pas obligatoire. Il ne pourra donc pas vous être désigné un avocat commis d'office. En revanche, vous pouvez à tout moment consulter un avocat pour être informé sur vos droits ou être assistée d'un avocat lors de vos entretiens devant le SPIP ou le juge d'application des peines."
+    avocat-text1: "La présence de l'avocat aux rendez-vous de suivi judiciaire n'est pas obligatoire. Il ne pourra donc pas vous être désigné un avocat commis d'office. En revanche, vous pouvez à tout moment consulter un avocat pour être informé de vos droits ou être assisté d'un avocat lors de vos entretiens devant le SPIP ou le juge d'application des peines."
     avocat-text2: "Pour trouver un avocat :"
     avocat-list1: "Annuaire des avocats du barreau des Hauts-de-Seine :"
     avocat-list2: "Annuaire des avocats en France :"
