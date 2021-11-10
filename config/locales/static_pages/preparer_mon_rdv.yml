@@ -92,7 +92,7 @@ fr:
 
       process-intro: "Plusieurs types de convocations sont possibles :"
       process-text1: "Convocation “723-15” pour un aménagement de peine"
-      process-text2_html: "Vous avez été condamné à une peine d’emprisonnement ferme pour laquelle vous allez solliciter %{link}. Lors de cet entretien, vous devrez exposer votre situation au juge et en justifier. Selon votre situation, l’aménagement pourra être proposé lors de ce premier rdv ou vous serez orientés vers le SPIP pour un examen plus complet de votre situation."
+      process-text2_html: "Vous avez été condamné à une peine d’emprisonnement ferme pour laquelle vous allez solliciter %{link}. Lors de cet entretien, vous devrez exposer votre situation au juge et en justifier. Selon votre situation, l’aménagement pourra être proposé lors de ce premier rdv ou vous serez orienté vers le SPIP pour un examen plus complet de votre situation."
       process-text2-link: "un aménagement"
       process-text3: "Convocation de notification de vos obligations"
       process-text4: "Le juge d'application des peines vous convoque pour vous notifier vos obligations, c'est à dire vous les expliquer et vous dire ce qui est attendu de vous ainsi que les risques encourus si vous ne les respectez pas."
