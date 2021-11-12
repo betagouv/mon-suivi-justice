@@ -46,7 +46,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def reschedule?
-    true
+    appointment_workflow
   end
 
   def cancel?

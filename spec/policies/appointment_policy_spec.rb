@@ -21,6 +21,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:fulfil) }
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
+    it { is_expected.to permit_action(:reschedule) }
     it { is_expected.to permit_action(:index_today) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
@@ -40,6 +41,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:fulfil) }
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
+    it { is_expected.to permit_action(:reschedule) }
     it { is_expected.to permit_action(:index_today) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
@@ -66,6 +68,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
@@ -80,6 +83,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -94,6 +98,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -118,6 +123,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -132,6 +138,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
@@ -146,6 +153,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -170,6 +178,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -184,6 +193,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
@@ -198,6 +208,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -222,6 +233,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -236,6 +248,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
@@ -250,6 +263,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
   end
 
@@ -273,6 +287,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
@@ -287,6 +302,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -301,6 +317,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -325,6 +342,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
@@ -339,6 +357,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -353,6 +372,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -377,6 +397,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -391,6 +412,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
@@ -405,6 +427,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -429,6 +452,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -443,6 +467,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
@@ -457,6 +482,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -481,6 +507,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -495,6 +522,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
@@ -509,6 +537,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -533,6 +562,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
@@ -547,6 +577,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
@@ -561,6 +592,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -575,6 +607,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -599,6 +632,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
@@ -613,6 +647,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
@@ -627,6 +662,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -641,6 +677,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -665,6 +702,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
@@ -679,6 +717,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
@@ -693,6 +732,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -707,6 +747,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -731,6 +772,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
@@ -745,6 +787,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
@@ -759,6 +802,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -773,6 +817,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -797,6 +842,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
@@ -811,6 +857,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
@@ -825,6 +872,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -839,6 +887,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -863,6 +912,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
@@ -877,6 +927,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
@@ -891,6 +942,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
@@ -905,6 +957,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 end
