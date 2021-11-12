@@ -20,25 +20,7 @@ class ConvictsController < ApplicationController
   def create
     @convict = Convict.new(convict_params)
     authorize @convict
-    @duplicate_presence = Convict.exists?(
-      [
-        "lower(first_name) = ? AND lower(last_name) = ?",
-        convict_params[:first_name].downcase,
-        convict_params[:last_name].downcase
-      ]
-    )
-    force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
-    if force_duplication || !@duplicate_presence
-      if @convict.save
-        # Wil register the new convict in every department/juridiction of current_user's organization areas
-        RegisterLegalAreas.for_convict @convict, from: current_organization
-        redirect_to select_path(params)
-      else
-        render :new
-      end
-    else
-      render :new
-    end
+    save_and_redirect @convict 
   end
 
   def edit
@@ -74,6 +56,30 @@ class ConvictsController < ApplicationController
   end
 
   private
+
+  def save_and_redirect(convict)
+    @duplicate_presence = duplicate_convict_presence
+    force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
+    render(:new) && return if @duplicate_presence && !force_duplication
+
+    if convict.save
+      # Wil register the new convict in every department/juridiction of current_user's organization areas
+      RegisterLegalAreas.for_convict convict, from: current_organization
+      redirect_to select_path(params)
+    else
+      render :new
+    end
+  end
+
+  def duplicate_convict_presence
+    Convict.exists?(
+      [
+        'lower(first_name) = ? AND lower(last_name) = ?',
+        convict_params[:first_name].downcase,
+        convict_params[:last_name].downcase
+      ]
+    )
+  end
 
   def convict_params
     params.require(:convict).permit(

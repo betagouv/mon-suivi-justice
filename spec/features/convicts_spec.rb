@@ -77,9 +77,11 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Roberta'
       fill_in 'Nom', with: 'Dupond'
       fill_in 'Téléphone', with: '0606060606'
-      expect { click_button 'submit-no-appointment' }.not_to change { Convict.count }
-      expect(page).to have_content 'Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir continuer ?'
-      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+      expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
+      expect(page).to have_content(
+        'Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir continuer ?'
+      )
+      expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
     end
 
     it 'creates a convict with his first appointment', js: true do
