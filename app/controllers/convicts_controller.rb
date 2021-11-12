@@ -20,7 +20,7 @@ class ConvictsController < ApplicationController
   def create
     @convict = Convict.new(convict_params)
     authorize @convict
-    save_and_redirect @convict 
+    save_and_redirect @convict
   end
 
   def edit
