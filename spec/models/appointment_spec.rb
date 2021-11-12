@@ -66,4 +66,23 @@ RSpec.describe Appointment, type: :model do
       expect(Appointment.in_organization(@organization)).to eq [@appointment_in]
     end
   end
+
+  describe '.in_the_past?' do
+    let(:frozen_date) { Date.new 2020, 1, 1 }
+    before { allow(Date).to receive(:today).and_return frozen_date }
+
+    it 'returns true if appointment is in the past' do
+      slot = Slot.new(date: Date.new(2018, 1, 1))
+      appointment = Appointment.new(slot: slot)
+
+      expect(appointment.in_the_past?).to eq(true)
+    end
+
+    it 'returns false if appointment is not in the past' do
+      slot = Slot.new(date: Date.new(2021, 1, 1))
+      appointment = Appointment.new(slot: slot)
+
+      expect(appointment.in_the_past?).to eq(false)
+    end
+  end
 end

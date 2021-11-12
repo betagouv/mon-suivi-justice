@@ -1,34 +1,32 @@
 <h1 class='show-title'><%= t('show_appointment_title') %></h1>
 
-<% if @convict.passed_appointments.present? %>
-  <% @convict.passed_appointments.each do |apt| %>
-    <div class='appointment-fulfilment-container'>
-      <div class='appointment-fulfilment-prompt-container'>
-        <%= t('show-convict-fulfilment-prompt', name: @convict.name,
-                                                place: @appointment.slot.agenda.place.name,
-                                                date: @appointment.slot.date,
-                                                time: @appointment.slot.starting_time.to_s(:time)) %>
-      </div>
-
-      <div class='appointment-fulfilment-controls-container'>
-        <%= button_to t('yes'), appointment_fulfil_path(@appointment),
-                                method: :put,
-                                id: 'show-convict-fulfil-button',
-                                class: 'show-convict-fulfil-button' %>
-
-        <%= button_tag t('no'), type: 'button',
-                                class: 'show-convict-miss-button',
-                                data: { 'micromodal-trigger': "missed-appointment-modal-#{@appointment.id}" } %>
-
-        <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(@appointment),
-                                                            method: :put,
-                                                            id: 'show-convict-excuse-button',
-                                                            class: 'show-convict-excuse-button' %>
-      </div>
+<% if @appointment.in_the_past? %>
+  <div class='appointment-fulfilment-container'>
+    <div class='appointment-fulfilment-prompt-container'>
+      <%= t('show-convict-fulfilment-prompt', name: @convict.name,
+                                              place: @appointment.slot.agenda.place.name,
+                                              date: @appointment.slot.date,
+                                              time: @appointment.slot.starting_time.to_s(:time)) %>
     </div>
 
-    <%= render 'missed_appointment_modal', apt: @appointment %>
-  <% end %>
+    <div class='appointment-fulfilment-controls-container'>
+      <%= button_to t('yes'), appointment_fulfil_path(@appointment),
+                              method: :put,
+                              id: 'show-convict-fulfil-button',
+                              class: 'show-convict-fulfil-button' %>
+
+      <%= button_tag t('no'), type: 'button',
+                              class: 'show-convict-miss-button',
+                              data: { 'micromodal-trigger': "missed-appointment-modal-#{@appointment.id}" } %>
+
+      <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(@appointment),
+                                                          method: :put,
+                                                          id: 'show-convict-excuse-button',
+                                                          class: 'show-convict-excuse-button' %>
+    </div>
+  </div>
+
+  <%= render 'missed_appointment_modal', apt: @appointment %>
 <% end %>
 
 <div class='show-profile-container'>
@@ -142,7 +140,7 @@
     </div>
 
     <div class='show-appointment-controls-container'>
-      <% if @appointment.booked? %>
+      <% if @appointment.booked? && policy(@appointment).update? %>
         <% if ENV["APP"] != "mon-suivi-justice-prod" %>
           <%= button_to t('reschedule'), new_appointment_reschedule_path(@appointment),
                                          method: :get,

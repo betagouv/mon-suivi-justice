@@ -29,6 +29,10 @@ class Appointment < ApplicationRecord
 
   scope :active, -> { where.not(state: 'canceled') }
 
+  def in_the_past?
+    slot.date <= Date.today
+  end
+
   def summon_notif
     notifications.find_by(role: :summon)
   end
