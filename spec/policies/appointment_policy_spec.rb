@@ -3,8 +3,9 @@ require 'rails_helper'
 describe AppointmentPolicy do
   subject { AppointmentPolicy.new(user, appointment) }
 
-  let(:appointment_type) { build(:appointment_type) }
-  let!(:appointment) { create(:appointment, appointment_type: appointment_type) }
+  let(:appointment_type) { create(:appointment_type) }
+  let(:slot) { create :slot, appointment_type: appointment_type }
+  let!(:appointment) { create(:appointment, slot: slot) }
 
   context 'for an admin' do
     let(:user) { build(:user, role: 'admin') }
@@ -56,11 +57,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_spip) }
 
     context 'for an appointment_type RDV BEX SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -75,11 +72,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -94,11 +87,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -123,11 +112,7 @@ describe AppointmentPolicy do
     it { is_expected.to forbid_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -142,11 +127,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -161,11 +142,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -190,11 +167,7 @@ describe AppointmentPolicy do
     it { is_expected.to forbid_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -209,11 +182,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -228,11 +197,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -257,11 +222,7 @@ describe AppointmentPolicy do
     it { is_expected.to forbid_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -276,11 +237,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -295,11 +252,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -323,11 +276,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_spip) }
 
     context 'for an appointment_type RDV BEX SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -342,11 +291,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -361,11 +306,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -390,11 +331,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_spip) }
 
     context 'for an appointment_type RDV BEX SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -409,11 +346,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -428,11 +361,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -457,11 +386,7 @@ describe AppointmentPolicy do
     it { is_expected.to forbid_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -476,11 +401,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -495,11 +416,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -524,11 +441,7 @@ describe AppointmentPolicy do
     it { is_expected.to forbid_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -543,11 +456,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -562,11 +471,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -591,11 +496,7 @@ describe AppointmentPolicy do
     it { is_expected.to forbid_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -610,11 +511,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -629,11 +526,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -658,11 +551,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save!
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -677,11 +566,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: '1er RDV SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save!
-      end
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -696,11 +581,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save!
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -715,11 +596,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save!
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -744,11 +621,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -763,11 +636,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: '1er RDV SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -782,11 +651,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -801,11 +666,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -830,11 +691,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -849,11 +706,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: '1er RDV SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -868,11 +721,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -887,11 +736,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -916,11 +761,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -935,11 +776,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: '1er RDV SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -954,11 +791,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -973,11 +806,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -1002,11 +831,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -1021,11 +846,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: '1er RDV SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -1040,11 +861,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -1059,11 +876,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -1088,11 +901,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type RDV BEX SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV BEX SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV BEX SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -1107,11 +916,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: '1er RDV SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -1126,11 +931,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SPIP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SPIP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -1145,11 +946,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type RDV de suivi SAP' do
-      before do
-        apt_type = build(:appointment_type, name: 'RDV de suivi SAP')
-        appointment.appointment_type = apt_type
-        appointment.save
-      end
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
