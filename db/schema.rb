@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_14_071821) do
+ActiveRecord::Schema.define(version: 2021_11_05_124341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,10 +34,8 @@ ActiveRecord::Schema.define(version: 2021_10_14_071821) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "convict_id", null: false
     t.bigint "slot_id", null: false
-    t.bigint "appointment_type_id", null: false
     t.string "state"
     t.integer "origin_department", default: 0
-    t.index ["appointment_type_id"], name: "index_appointments_on_appointment_type_id"
     t.index ["convict_id"], name: "index_appointments_on_convict_id"
     t.index ["slot_id"], name: "index_appointments_on_slot_id"
   end
@@ -222,7 +220,6 @@ ActiveRecord::Schema.define(version: 2021_10_14_071821) do
   end
 
   add_foreign_key "agendas", "places"
-  add_foreign_key "appointments", "appointment_types"
   add_foreign_key "appointments", "convicts"
   add_foreign_key "appointments", "slots"
   add_foreign_key "areas_convicts_mappings", "convicts"

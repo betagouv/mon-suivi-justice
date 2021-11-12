@@ -3,7 +3,7 @@ class SeedRescheduleNotificationJob < ApplicationJob
     appointment = Appointment.find_by id: appointment_id
     return unless appointment
 
-    notification_type = appointment.appointment_type.notification_types.find_by(role: 'reschedule')
+    notification_type = appointment.slot.appointment_type.notification_types.find_by(role: 'reschedule')
     content = setup_template(notification_type.template) % sms_data(appointment)
     Notification.create appointment: appointment, role: 'reschedule', content: content
   end

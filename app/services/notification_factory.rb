@@ -1,6 +1,6 @@
 module NotificationFactory
   def self.perform(appointment)
-    notif_types = appointment.appointment_type.notification_types
+    notif_types = appointment.slot.appointment_type.notification_types
 
     notif_types.each do |notif_type|
       notification = Notification.create!(
