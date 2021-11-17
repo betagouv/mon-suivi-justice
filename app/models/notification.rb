@@ -2,7 +2,9 @@ class Notification < ApplicationRecord
   has_paper_trail
 
   belongs_to :appointment
-  validates :template, presence: true
+  validates :content, presence: true
+
+  attr_readonly :content
 
   enum role: %i[summon reminder cancelation no_show reschedule]
   enum reminder_period: %i[one_day two_days]
