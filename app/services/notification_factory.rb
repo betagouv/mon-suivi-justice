@@ -3,16 +3,14 @@ module NotificationFactory
     notif_types = appointment.appointment_type.notification_types
 
     notif_types.each do |notif_type|
-      notification = Notification.create!(
+      template = setup_template(notif_type.template)
+
+      Notification.create!(
         appointment: appointment,
         role: notif_type.role,
         reminder_period: notif_type.reminder_period,
-        template: setup_template(notif_type.template)
+        content: template % sms_data(appointment)
       )
-
-      content = notification.template % sms_data(appointment)
-
-      notification.update(content: content)
     end
   end
 
