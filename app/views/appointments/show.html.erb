@@ -120,14 +120,16 @@
         </div>
       </div>
 
-      <div class='show-appointment-summon-data'>
-        <div class='show-appointment-summon-title'>
-          <%= t('appointment_origin_department') %>
+      <% if current_user.admin? || current_user.local_admin? || current_user.work_at_bex? %>
+        <div class='show-appointment-summon-data'>
+          <div class='show-appointment-summon-title'>
+            <%= t('appointment_origin_department') %>
+          </div>
+          <div class='show-appointment-summon-item'>
+            <%= t("activerecord.attributes.appointment.origin_departments.#{@appointment.origin_department}") %>
+          </div>
         </div>
-        <div class='show-appointment-summon-item'>
-          <%= t("activerecord.attributes.appointment.origin_departments.#{@appointment.origin_department}") %>
-        </div>
-      </div>
+      <% end %>
 
       <div class='show-appointment-summon-data'>
         <div class='show-appointment-summon-title'>
