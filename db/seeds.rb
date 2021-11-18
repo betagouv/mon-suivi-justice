@@ -1,7 +1,7 @@
 FRENCH_DEPARTMENTS.each { |department| Department.find_or_create_by name: department.name, number: department.number }
 
 organization = Organization.find_or_create_by name: 'SPIP 92'
-User.create!(organization: organization, email: 'admin@example.com', password: 'password', password_confirmation: 'password', role: :admin, first_name: 'Kevin', last_name: 'Mc Alistair')
+User.create!(organization: organization, email: 'admin@example.com', password: '1mot2passeSecurise!', password_confirmation: 'password', role: :admin, first_name: 'Kevin', last_name: 'Mc Alistair')
 
 place1 = Place.create!(organization: organization, name: "Tribunal judiciaire de Nanterre", adress: "179-191 av. Joliot Curie, 92020 NANTERRE", phone: '0606060606')
 agenda1 = Agenda.create!(place: place1, name: "Agenda tribunal Ancenis")
