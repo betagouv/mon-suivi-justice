@@ -125,8 +125,8 @@ fr:
         sign_in_with_provider: Connexion avec %{provider}
         sign_up: Inscription
       minimum_password_length:
-        one: "(%{count} caractère au moins)"
-        other: "(%{count} caractères au moins)"
+        one: "(%{count} caractère minimum)"
+        other: "(%{count} caractères minimum)"
     unlocks:
       new:
         resend_unlock_instructions: Renvoyer les instructions de déblocage
