@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_091013) do
+ActiveRecord::Schema.define(version: 2021_11_18_135817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,17 @@ ActiveRecord::Schema.define(version: 2021_11_10_091013) do
     t.index ["organization_id"], name: "index_places_on_organization_id"
   end
 
+  create_table "previous_passwords", force: :cascade do |t|
+    t.string "salt", null: false
+    t.string "encrypted_password", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["encrypted_password"], name: "index_previous_passwords_on_encrypted_password"
+    t.index ["user_id", "created_at"], name: "index_previous_passwords_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_previous_passwords_on_user_id"
+  end
+
   create_table "slot_types", force: :cascade do |t|
     t.integer "week_day", default: 0
     t.time "starting_time"
@@ -230,6 +241,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_091013) do
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notifications", "appointments"
   add_foreign_key "places", "organizations"
+  add_foreign_key "previous_passwords", "users"
   add_foreign_key "slot_types", "agendas"
   add_foreign_key "slot_types", "appointment_types"
   add_foreign_key "slots", "agendas"
