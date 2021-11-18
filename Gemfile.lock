@@ -103,6 +103,9 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.10.0)
       devise (>= 4.8.0)
+    devise-secure_password (2.0.1)
+      devise (>= 4.0.0, < 5.0.0)
+      railties (>= 5.0.0, < 7.0.0)
     devise_invitable (2.0.5)
       actionmailer (>= 5.0)
       devise (>= 4.6)
@@ -428,6 +431,7 @@ DEPENDENCIES
   cocoon
   devise
   devise-i18n
+  devise-secure_password (~> 2.0)
   devise_invitable (~> 2.0.0)
   dotenv-rails
   factory_bot_rails

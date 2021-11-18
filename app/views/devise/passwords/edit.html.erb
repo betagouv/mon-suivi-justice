@@ -1,9 +1,8 @@
 <div class="login-form-container">
   <h2 class='login-title'><%= t(".change_your_password") %></h2>
+  <p class='login-tutorial'><%= t("login_tutorial") %></p>
 
   <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'login-form' }) do |f| %>
-    <%= f.error_notification %>
-
     <%= f.input :reset_password_token, as: :hidden %>
     <%= f.full_error :reset_password_token %>
 

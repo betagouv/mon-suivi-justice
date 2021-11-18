@@ -139,6 +139,7 @@ fr:
               blank: "Date manquante"
 
   login_sub_title: "Espace agents"
+  login_tutorial: "Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial."
   header_title: "Mon Suivi Justice"
   back_to_public_site: "Retour sur le site public"
 
