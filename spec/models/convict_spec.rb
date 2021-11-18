@@ -10,6 +10,7 @@ RSpec.describe Convict, type: :model do
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
   it { should validate_presence_of(:title) }
+  it { should validate_uniqueness_of(:appi_uuid) }
 
   it { should define_enum_for(:title).with_values(%i[male female]) }
 
@@ -36,6 +37,10 @@ RSpec.describe Convict, type: :model do
     end
     it 'denies a non-mobile phone' do
       expect(build(:convict, phone: '0561083731')).not_to be_valid
+    end
+    it 'accepts multiples user with no-data for appi uuid' do
+      create(:convict, appi_uuid: nil)
+      expect(build(:convict, appi_uuid: nil)).to be_valid
     end
   end
 

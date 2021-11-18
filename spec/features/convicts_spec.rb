@@ -58,15 +58,30 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
     end
 
+    it 'creates a convicts with a duplicate name' do
+      visit new_convict_path
+
+      select 'M.', from: 'Civilité'
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      fill_in 'Téléphone', with: '0606060606'
+
+      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+    end
+
     it 'allows to create a convict without a phone number' do
+      create(:convict, first_name: 'roberta', last_name: 'dupond')
       visit new_convict_path
 
       select 'M.', from: 'Civilité'
       fill_in 'Prénom', with: 'Roberta'
       fill_in 'Nom', with: 'Dupond'
-      check 'Ne possède pas de téléphone portable'
-
-      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+      fill_in 'Téléphone', with: '0606060606'
+      expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
+      expect(page).to have_content(
+        'Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir continuer ?'
+      )
+      expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
     end
 
     it 'creates a convict with his first appointment', js: true do
