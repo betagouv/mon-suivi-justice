@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2021_11_18_135817) do
     t.boolean "no_phone"
     t.boolean "refused_phone"
     t.string "prosecutor_number"
+    t.string "appi_uuid"
   end
 
   create_table "departments", force: :cascade do |t|

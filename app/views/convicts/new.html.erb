@@ -1,30 +1,39 @@
 <h1 class='form-title'><%= t('new_convict_title') %></h1>
-
 <%= simple_form_for @convict, html: { class: 'basic-form' } do |f| %>
   <%= f.input :title, collection: Convict.titles.symbolize_keys.keys, input_html: { class: 'form-select' } %>
   <%= f.input :last_name %>
   <%= f.input :first_name %>
-
   <% if current_user.admin? || current_user.work_at_bex? %>
     <%= f.input :prosecutor_number %>
   <% end %>
-
+  <%= f.input :appi_uuid %>
   <%= f.input :phone, required: true %>
-
   <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
                          label_html: { class: 'form-checkbox-label' },
                          wrapper_html: { class: 'form-checkbox-wrapper' } %>
-
   <%= f.input :refused_phone, input_html: { class: 'form-checkbox' },
                               label_html: { class: 'form-checkbox-label' },
                               wrapper_html: { class: 'form-checkbox-wrapper' } %>
+  <% if @duplicate_presence %>
+    <p class='new_convict_duplicate_warning'><%= t('new_convict_duplicate_warning')%></p>
+    <div class='new-convict-submits-container'>
+      <%= f.hidden_field :force_duplication, value: true  %>
+      <%= f.button :button, id: 'submit-no-appointment', class: 'form-submit-button', name: 'no-appointment' do %>
+        <%= t('submit') %><br><%= t('new_convict_submit') %>
+      <% end %>
+      <%= f.button :button, id: 'submit-with-appointment', class: 'form-submit-button', name: 'with-appointment' do %>
+        <%= t('submit') %><br><%= t('new_convict_first_appointment') %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class='new-convict-submits-container'>
+      <%= f.button :button, id: 'submit-no-appointment', class: 'form-submit-button', name: 'no-appointment' do %>
+        <%= t('submit') %><br><%= t('new_convict_submit') %>
+      <% end %>
+      <%= f.button :button, id: 'submit-with-appointment', class: 'form-submit-button', name: 'with-appointment' do %>
+        <%= t('submit') %><br><%= t('new_convict_first_appointment') %>
+      <% end %>
+    </div>
+  <% end %>
 
-  <div class='new-convict-submits-container'>
-    <%= f.button :button, id: 'submit-no-appointment', class: 'form-submit-button', name: 'no-appointment' do %>
-      <%= t('submit') %><br><%= t('new_convict_submit') %>
-    <% end %>
-    <%= f.button :button, id: 'submit-with-appointment', class: 'form-submit-button', name: 'with-appointment' do %>
-      <%= t('submit') %><br><%= t('new_convict_first_appointment') %>
-    <% end %>
-  </div>
 <% end %>

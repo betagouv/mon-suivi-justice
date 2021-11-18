@@ -20,6 +20,7 @@ fr:
         no_phone: "Ne possède pas de téléphone portable"
         refused_phone: "Refuse de donner son numéro"
         prosecutor_number: Numéro de parquet
+        appi_uuid: "N° dossier APPI"
         convict_titles:
           male: "M."
           female: "Mme"
@@ -190,6 +191,7 @@ fr:
   new_first_appointment_title: "Créneaux disponibles"
   new_convict_submit: "sans prendre RDV"
   new_convict_first_appointment: "et prendre RDV"
+  new_convict_duplicate_warning: "Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir continuer ?"
   edit_convict_title: "Modifier PPSMJ"
   edit_convict_department_title: "Département(s) de la PPSMJ"
   edit_convict_jurisdiction_title: "Juridiction(s) de la PPSMJ"
