@@ -151,6 +151,7 @@ fr:
 
   edit: "Modifier"
   archive: "Archiver"
+  unarchive: "Désarchiver"
   delete: "Supprimer"
   submit: "Enregistrer"
   cancel: "Annuler"

@@ -55,6 +55,14 @@ class ConvictsController < ApplicationController
     redirect_to convicts_path
   end
 
+  def unarchive
+    @convict = policy_scope(Convict).find(params[:convict_id])
+    authorize @convict
+
+    @convict.recover
+    redirect_to convicts_path
+  end
+
   def show
     @convict = policy_scope(Convict).find(params[:id])
     @history_items = HistoryItem.where(convict: @convict, category: 'appointment')

@@ -3,7 +3,9 @@ class ConvictPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.admin? || user.bex? || user.sap?
+      if user.admin? || user.local_admin?
+        scope.with_deleted
+      elsif user.bex? || user.sap?
         scope.all
       else
         scope.under_hand_of(organization)
@@ -29,6 +31,10 @@ class ConvictPolicy < ApplicationPolicy
 
   def archive?
     true
+  end
+
+  def unarchive?
+    user.admin? || user.local_admin?
   end
 
   def destroy?

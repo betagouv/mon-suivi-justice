@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :places
   resources :convicts do
     delete 'archive'
+    post 'unarchive'
   end
   resources :appointment_types
   resources :slots
