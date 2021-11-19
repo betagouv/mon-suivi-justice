@@ -1,35 +1,40 @@
-<div class="login-form-container">
-  <h2 class='login-title'><%= t(".change_your_password") %></h2>
-  <p class='login-tutorial'><%= t("login_tutorial") %></p>
+<div class='login-form-container'>
+  <h2 class='login-title'><%= t('.change_your_password') %></h2>
+  <p class='login-tutorial'><%= t('login_tutorial') %></p>
+  <p class='login-tutorial-special'><%= t('login_tutorial_special') %></p>
+
+  <%= render 'devise/shared/error_messages', resource: resource %>
 
   <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'login-form' }) do |f| %>
     <%= f.input :reset_password_token, as: :hidden %>
     <%= f.full_error :reset_password_token %>
 
-    <div class="form-inputs">
-      <div class="login-field-container">
+    <div class='form-inputs'>
+      <div class='login-field-container'>
         <%= f.input :password,
-                    label: t(".new_password"),
+                    label: t('.new_password'),
                     required: true,
                     autofocus: true,
                     hint: (t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length),
-                    input_html: { autocomplete: "new-password" },
-                    class: 'login-field' %>
+                    input_html: { autocomplete: 'new-password' },
+                    class: 'login-field',
+                    error: false %>
       </div>
 
-      <div class="login-field-container">
+      <div class='login-field-container'>
         <%= f.input :password_confirmation,
-                    label: t(".confirm_new_password"),
+                    label: t('.confirm_new_password'),
                     required: true,
-                    input_html: { autocomplete: "new-password" },
-                    class: 'login-field' %>
+                    input_html: { autocomplete: 'new-password' },
+                    class: 'login-field',
+                    error: false %>
       </div>
     </div>
 
-    <div class="form-actions login-button-container">
-      <%= f.button :submit, t(".change_my_password"), {class: 'submit'} %>
+    <div class='form-actions login-button-container'>
+      <%= f.button :submit, t('.change_my_password'), {class: 'submit'} %>
     </div>
   <% end %>
 
-  <%= render "devise/shared/links" %>
+  <%= render 'devise/shared/links' %>
 </div>
