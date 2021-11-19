@@ -53,3 +53,23 @@
   width: 300px;
   margin-top: 15px;
 }
+
+.login-tutorial-special {
+  margin-top: 15px;
+}
+
+.login-password-error-explanation {
+  border: 2px solid $error;
+  padding: 20px;
+  margin-top: 15px;
+}
+
+.login-password-error-title {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.login-password-errors-list {
+  padding-left: 20px;
+}
