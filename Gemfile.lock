@@ -69,6 +69,9 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    acts_as_paranoid (0.7.3)
+      activerecord (>= 5.2, < 7.0)
+      activesupport (>= 5.2, < 7.0)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
@@ -424,6 +427,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_paranoid
   addressable
   bootsnap (>= 1.4.4)
   byebug

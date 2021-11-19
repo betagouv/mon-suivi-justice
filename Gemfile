@@ -21,6 +21,7 @@ gem 'simple_form'
 gem 'addressable' # fix scalingo deploy bug
 gem 'cocoon'
 gem 'phony_rails'
+gem 'acts_as_paranoid'
 
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'kaminari'
