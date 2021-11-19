@@ -211,4 +211,38 @@ RSpec.feature 'Convicts', type: :feature do
       end
     end
   end
+
+  describe 'Archive' do
+    it 'an agent archive a convict' do
+      dpt01 = create :department, number: '01', name: 'Ain'
+      orga = create :organization
+      user = create :user, role: 'cpip', organization: orga
+      create :areas_organizations_mapping, organization: orga, area: dpt01
+      convict_dpt01 = create :convict, first_name: 'babar', last_name: 'BABAR'
+      create :areas_convicts_mapping, convict: convict_dpt01, area: dpt01
+      login_user user
+      visit convicts_path
+      expect(page).to have_content('BABAR Babar')
+      click_link 'Archiver'
+      expect(page).not_to have_content('BABAR Babar')
+      expect(page).not_to have_content('Désarchiver')
+    end
+
+    it 'an admin archive and unarchive a convict' do
+      dpt01 = create :department, number: '01', name: 'Ain'
+      orga = create :organization
+      user = create :user, role: 'cpip', organization: orga
+      create :areas_organizations_mapping, organization: orga, area: dpt01
+      convict_dpt01 = create :convict, first_name: 'babar', last_name: 'BABAR'
+      create :areas_convicts_mapping, convict: convict_dpt01, area: dpt01
+      visit convicts_path
+      expect(page).to have_content('BABAR Babar')
+      click_link 'Archiver'
+      expect(page).to have_content('BABAR Babar')
+      expect(Convict.exists?(id: convict_dpt01.id)).to be false
+      click_link 'Désarchiver'
+      expect(page).to have_content('BABAR Babar')
+      expect(Convict.exists?(id: convict_dpt01.id)).to be true
+    end
+  end
 end
