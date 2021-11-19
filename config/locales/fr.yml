@@ -150,6 +150,7 @@ fr:
   "false": "Non"
 
   edit: "Modifier"
+  archive: "Archiver"
   delete: "Supprimer"
   submit: "Enregistrer"
   cancel: "Annuler"

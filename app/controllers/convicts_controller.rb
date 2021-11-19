@@ -43,6 +43,14 @@ class ConvictsController < ApplicationController
     @convict = policy_scope(Convict).find(params[:id])
     authorize @convict
 
+    @convict.destroy_fully!
+    redirect_to convicts_path
+  end
+
+  def archive
+    @convict = policy_scope(Convict).find(params[:convict_id])
+    authorize @convict
+
     @convict.destroy
     redirect_to convicts_path
   end

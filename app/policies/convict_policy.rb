@@ -27,6 +27,10 @@ class ConvictPolicy < ApplicationPolicy
     true
   end
 
+  def archive?
+    true
+  end
+
   def destroy?
     ALLOWED_TO_DESTROY.include? user.role
   end

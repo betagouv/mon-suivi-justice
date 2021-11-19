@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :organizations
   resources :users
   resources :places
-  resources :convicts
+  resources :convicts do
+    delete 'archive'
+  end
   resources :appointment_types
   resources :slots
   resources :agendas, only: [:create, :destroy, :update] do
