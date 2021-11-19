@@ -73,7 +73,8 @@ class AppointmentPolicy < ApplicationPolicy
     if user.work_at_sap? then apt_type.used_at_sap?
     elsif user.work_at_bex? then apt_type.used_at_bex?
     elsif user.work_at_spip? then apt_type.used_at_spip?
-    else true
+    else
+      true
     end
   end
 end
