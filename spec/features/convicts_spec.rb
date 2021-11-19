@@ -229,20 +229,15 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'an admin archive and unarchive a convict' do
-      dpt01 = create :department, number: '01', name: 'Ain'
-      orga = create :organization
-      user = create :user, role: 'cpip', organization: orga
-      create :areas_organizations_mapping, organization: orga, area: dpt01
-      convict_dpt01 = create :convict, first_name: 'babar', last_name: 'BABAR'
-      create :areas_convicts_mapping, convict: convict_dpt01, area: dpt01
+      convict = create :convict, first_name: 'babar', last_name: 'BABAR'
       visit convicts_path
       expect(page).to have_content('BABAR Babar')
       click_link 'Archiver'
       expect(page).to have_content('BABAR Babar')
-      expect(Convict.exists?(id: convict_dpt01.id)).to be false
+      expect(Convict.exists?(id: convict.id)).to be false
       click_link 'Désarchiver'
       expect(page).to have_content('BABAR Babar')
-      expect(Convict.exists?(id: convict_dpt01.id)).to be true
+      expect(Convict.exists?(id: convict.id)).to be true
     end
   end
 end
