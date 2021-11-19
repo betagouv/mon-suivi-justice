@@ -16,6 +16,6 @@ unless defined?(Rails::Console) || Rails.env.test? || Rails.env.development? || 
   #
   Rufus::Scheduler.singleton.cron '5 0 * * *' do
     # Every day at 23:55, create all Slot from SlotTypes
-    SlotCreationJob.perform_later oneshot: true
+    SlotCreationJob.perform_later
   end
 end
