@@ -34,7 +34,7 @@ RSpec.describe Place, type: :model do
   end
 
   describe '.in_department', :focus do
-    it 'returns places available for bex user' do
+    it 'returns places scoped by department' do
       department1 = Department.find_or_create_by name: 'Creuse'
 
       organization1 = create :organization

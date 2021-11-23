@@ -158,4 +158,23 @@ RSpec.describe Convict, type: :model do
       end
     end
   end
+
+  describe '.in_department', :focus do
+    it 'returns convicts scoped by department' do
+      department1 = Department.find_or_create_by name: 'Creuse'
+
+      convict1 = create :convict
+      create :areas_convicts_mapping, convict: convict1, area: department1
+
+      convict2 = create :convict
+      create :areas_convicts_mapping, convict: convict2, area: department1
+
+      department2 = Department.find_or_create_by name: 'Ain'
+
+      convict3 = create :convict
+      create :areas_convicts_mapping, convict: convict3, area: department2
+
+      expect(Convict.in_department(department1)).to eq [convict1, convict2]
+    end
+  end
 end
