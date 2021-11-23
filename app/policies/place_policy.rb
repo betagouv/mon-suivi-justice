@@ -4,7 +4,7 @@ class PlacePolicy < ApplicationPolicy
       if user.admin?
         scope.all
       elsif user.bex? || user.sap?
-        scope.bex_selection(user.area)
+        scope.in_department(user.organization.departments.first)
       else
         scope.in_organization(organization)
       end

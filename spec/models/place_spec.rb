@@ -33,7 +33,7 @@ RSpec.describe Place, type: :model do
     end
   end
 
-  describe '.bex_selection', :focus do
+  describe '.in_department', :focus do
     it 'returns places available for bex user' do
       department1 = Department.find_or_create_by name: 'Creuse'
 
@@ -51,7 +51,7 @@ RSpec.describe Place, type: :model do
       create :areas_organizations_mapping, organization: organization3, area: department2
       place3 = create :place, organization: organization3
 
-      expect(Place.bex_selection(department1)).to eq [place1, place2]
+      expect(Place.in_department(department1)).to eq [place1, place2]
     end
   end
 end
