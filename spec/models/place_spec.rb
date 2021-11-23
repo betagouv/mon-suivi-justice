@@ -33,9 +33,9 @@ RSpec.describe Place, type: :model do
     end
   end
 
-  describe '.in_department', :focus do
+  describe '.in_department' do
     it 'returns places scoped by department' do
-      department1 = Department.find_or_create_by name: 'Creuse'
+      department1 = create :department, number: '01', name: 'Ain'
 
       organization1 = create :organization
       create :areas_organizations_mapping, organization: organization1, area: department1
@@ -45,7 +45,7 @@ RSpec.describe Place, type: :model do
       create :areas_organizations_mapping, organization: organization2, area: department1
       place2 = create :place, organization: organization2
 
-      department2 = Department.find_or_create_by name: 'Ain'
+      department2 = create :department, number: '02', name: 'Aisne'
 
       organization3 = create :organization
       create :areas_organizations_mapping, organization: organization3, area: department2

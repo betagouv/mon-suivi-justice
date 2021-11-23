@@ -14,5 +14,8 @@ class Place < ApplicationRecord
 
   scope :in_organization, ->(organization) { where(organization: organization) }
 
-  scope :in_department, ->(department) { joins(:organization).where(organization: { area: department }) }
+  scope :in_department, lambda { |department|
+    joins(organization: :areas_organizations_mappings)
+      .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
+  }
 end
