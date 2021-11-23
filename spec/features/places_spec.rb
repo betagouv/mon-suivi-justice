@@ -67,7 +67,7 @@ RSpec.feature 'Places', type: :feature do
       expect(agenda.reload.name).to eq 'updated_name'
     end
 
-    it 'deeted agenda' do
+    it 'deletes agenda' do
       place = create :place, name: 'Spip du 93'
       create :agenda, name: 'test_agenda', place: place
       visit edit_place_path place

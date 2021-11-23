@@ -151,12 +151,18 @@ RSpec.feature 'Convicts', type: :feature do
       create(:convict, last_name: 'Expresso')
       visit convicts_path
       within first('.convicts-item-container') { click_link 'Modifier' }
+
       within '#department-form' do
         select 'Ariège', from: :areas_convicts_mapping_area_id
         expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(0).to(1)
-        expect(page).to have_content('(09) Ariège')
+      end
+
+      expect(page).to have_content('(09) Ariège')
+
+      within '.convict-attachment' do
         expect { click_link 'Supprimer' }.to change(AreasConvictsMapping, :count).from(1).to(0)
       end
+
       expect(page).not_to have_content('(09) Ariège')
     end
 
@@ -168,7 +174,11 @@ RSpec.feature 'Convicts', type: :feature do
       within '#jurisdiction-form' do
         select 'Juridiction de Nanterre', from: :areas_convicts_mapping_area_id
         expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(0).to(1)
-        expect(page).to have_content('Juridiction de Nanterre')
+      end
+
+      expect(page).to have_content('Juridiction de Nanterre')
+
+      within '.convict-attachment' do
         expect { click_link 'Supprimer' }.to change(AreasConvictsMapping, :count).from(1).to(0)
       end
     end
