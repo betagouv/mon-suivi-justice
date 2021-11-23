@@ -49,7 +49,7 @@ RSpec.describe Place, type: :model do
 
       organization3 = create :organization
       create :areas_organizations_mapping, organization: organization3, area: department2
-      place3 = create :place, organization: organization3
+      create :place, organization: organization3
 
       expect(Place.in_department(department1)).to eq [place1, place2]
     end

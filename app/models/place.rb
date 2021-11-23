@@ -13,5 +13,6 @@ class Place < ApplicationRecord
   accepts_nested_attributes_for :place_appointment_types
 
   scope :in_organization, ->(organization) { where(organization: organization) }
-  scope :in_department, ->(department) { joins(:organization).where(organization: {area: department})}
+
+  scope :in_department, ->(department) { joins(:organization).where(organization: { area: department }) }
 end

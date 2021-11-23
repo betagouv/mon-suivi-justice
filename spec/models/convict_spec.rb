@@ -159,9 +159,9 @@ RSpec.describe Convict, type: :model do
     end
   end
 
-  describe '.in_department', :focus do
+  describe '.in_department' do
     it 'returns convicts scoped by department' do
-      department1 = Department.find_or_create_by name: 'Creuse'
+      department1 = create :department, number: '01', name: 'Ain'
 
       convict1 = create :convict
       create :areas_convicts_mapping, convict: convict1, area: department1
@@ -169,7 +169,7 @@ RSpec.describe Convict, type: :model do
       convict2 = create :convict
       create :areas_convicts_mapping, convict: convict2, area: department1
 
-      department2 = Department.find_or_create_by name: 'Ain'
+      department2 = create :department, number: '02', name: 'Aisne'
 
       convict3 = create :convict
       create :areas_convicts_mapping, convict: convict3, area: department2
