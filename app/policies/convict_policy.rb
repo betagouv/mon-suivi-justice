@@ -8,7 +8,7 @@ class ConvictPolicy < ApplicationPolicy
       elsif user.local_admin? || user.bex? || user.sap?
         scope.in_department(user.organization.departments.first)
       else
-        scope.in_organization(organization)
+        scope.under_hand_of(organization)
       end
     end
   end
