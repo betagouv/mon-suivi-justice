@@ -53,6 +53,10 @@ class Convict < ApplicationRecord
     appointments.where(state: 'booked')
   end
 
+  def booked_appointments_in_future
+    Appointment.joins(:slot).where(convict: self, slots: {date: (Time.zone.now..)})
+  end
+
   def passed_appointments
     appointments.joins(:slot)
                 .where(state: 'booked')
