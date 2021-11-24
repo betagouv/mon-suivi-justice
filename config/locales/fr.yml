@@ -271,29 +271,6 @@ fr:
   new-appointment-bex-warning: "Attention, le créneau de 9h est réservé aux DDSE."
   show_appointment_title: "Infos rendez-vous"
   cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ, et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
-
-  new-appointment-cab-list-title: 'Liste des cabinets par secteur'
-  new-appointment-cab1-name: 'Cabinet 1 -'
-  new-appointment-cab1-judge: 'Mme CIMAMONTI'
-  new-appointment-cab1-places: 'Gennevilliers, Neuilly, Villeneuve la Garenne, Bois-Colombes, Montrouge, Puteaux, Sceaux, la Garenne Colombes'
-  new-appointment-cab2-name: 'Cabinet 2'
-  new-appointment-cab2-judge: 'Mme CORNEC-LECLERCQ'
-  new-appointment-cab2-places: 'Boulogne-Billancourt, Clamart, Fontenay-aux-Rose, Le Plessis-Robinson, Rueil-Malmaison, Suresnes'
-  new-appointment-cab3-name: 'Cabinet 3 -'
-  new-appointment-cab3-judge: 'Mme DARROT'
-  new-appointment-cab3-places: 'Antony, Bagneux, Bourg la Reine, Châtenay-Malabry, Issy les Moulineaux, Vanves'
-  new-appointment-cab4-name: 'Cabinet 4 -'
-  new-appointment-cab4-judge: 'Mme CROCHARD'
-  new-appointment-cab4-places: 'Colombes'
-  new-appointment-cab5-name: 'Cabinet 5 -'
-  new-appointment-cab5-judge: 'Mme POUIT-HMAMI'
-  new-appointment-cab5-places: 'Nanterre, Meudon, Vaucresson, Asnières-sur-Seine'
-  new-appointment-cab6-name: 'Cabinet 6 -'
-  new-appointment-cab6-judge: 'Mme MERINI'
-  new-appointment-cab6-places: "Châtillon, Chaville, Courbevoie, Malakoff, Marne la Coquette, Saint-Cloud, Sèvres, Ville d'Avray"
-  new-appointment-cab7-name: 'Cabinet 7 -'
-  new-appointment-cab7-judge: 'DE-LAFORCADE'
-  new-appointment-cab7-places: 'Clichy, Garches, Levallois-Perret'
   appointment-reschedule-title: 'Replanifier un rendez-vous'
 
   bex_jap_appointments_link: "Agenda RDV JAP"
