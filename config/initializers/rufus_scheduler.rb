@@ -15,7 +15,12 @@ unless defined?(Rails::Console) || Rails.env.test? || Rails.env.development? || 
   # day of week    0-7 (0 or 7 is Sun)
   #
   Rufus::Scheduler.singleton.cron '5 0 * * *' do
-    # Every day at 23:55, create all Slot from SlotTypes
+    # Every day at 00:05, create all Slot from SlotTypes
     SlotCreationJob.perform_later
+  end
+
+  Rufus::Scheduler.singleton.cron '10 0 * * *' do
+    # Every day at 00:10, delete archived convicts 6 months ago
+    ArchivedConvictsDestroy.perform_later
   end
 end
