@@ -33,15 +33,15 @@ class AppointmentType < ApplicationRecord
   end
 
   def used_at_bex?
-    ['RDV BEX SAP', 'RDV BEX SPIP'].include? name
+    ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
   end
 
   def used_at_sap?
-    ['RDV BEX SAP', 'RDV de suivi SAP', 'SAP débat contradictoire'].include? name
+    ["Sortie d'audience SAP", 'RDV de suivi SAP', 'SAP débat contradictoire'].include? name
   end
 
   def used_at_spip?
-    ['RDV BEX SPIP', '1er RDV SPIP', 'RDV de suivi SPIP', 'Convocation 741-1',
+    ["Sortie d'audience SPIP", '1er RDV SPIP', 'RDV de suivi SPIP', 'Convocation 741-1',
      'Placement TIG', 'Visite à domicile', 'RDV téléphonique'].include? name
   end
 end

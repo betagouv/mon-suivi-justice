@@ -6,7 +6,7 @@ class BexController < ApplicationController
 
     @appointments = policy_scope(Appointment).for_a_date(current_date).active
                                              .joins(slot: [:appointment_type, :agenda])
-                                             .where(appointment_type: { name: 'RDV BEX SAP' })
+                                             .where(appointment_type: { name: "Sortie d'audience SAP" })
                                              .group('appointments.id,agendas.name')
 
     authorize @appointments
@@ -17,7 +17,7 @@ class BexController < ApplicationController
 
     @appointments = policy_scope(Appointment).for_a_month(@current_month).active
                                              .joins(slot: [:appointment_type, :agenda])
-                                             .where(appointment_type: { name: 'RDV BEX SPIP' })
+                                             .where(appointment_type: { name: "Sortie d'audience SPIP" })
 
     authorize @appointments
   end
