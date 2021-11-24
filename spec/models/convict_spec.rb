@@ -177,4 +177,31 @@ RSpec.describe Convict, type: :model do
       expect(Convict.in_department(department1)).to eq [convict1, convict2]
     end
   end
+
+  describe '#booked_appointments_in_future' do
+    let(:convict) { create :convict }
+    let(:apt1) { create :appointment, slot: create(:slot, date: 2.days.since), state: 'booked', convict: convict }
+    let(:apt2) { create :appointment, slot: create(:slot, date: 5.days.since), state: 'booked', convict: convict }
+
+    before do
+      apt1
+      apt2
+      create :appointment, slot: create(:slot, date: 2.days.since), convict: convict
+      create :appointment, slot: create(:slot, date: 2.days.since), state: 'booked'
+      create :appointment, slot: create(:slot, date: 2.days.ago), state: 'booked', convict: convict
+    end
+
+    it 'returns 2 appointments' do
+      expect(convict.booked_appointments_in_future.count).to eq 2
+    end
+    it 'includes first appointment' do
+      expect(convict.booked_appointments_in_future).to include apt1
+    end
+    it 'includes second appointment' do
+      expect(convict.booked_appointments_in_future).to include apt2
+    end
+  end
 end
+# def booked_appointments_in_future
+#   Appointment.joins(:slot).where(state: 'booked', convict: self, slots: {date: (Time.zone.now..)})
+# end
