@@ -7,7 +7,9 @@
         <%= f.input :name %>
         <%= f.input :adress %>
         <%= f.input :phone, input_html: { value: @place.display_phone } %>
-        <%= f.association :organization, include_blank: false, label: t('activerecord.attributes.user.organization') %>
+        <%= f.association :organization, include_blank: false,
+                                         label: t('activerecord.attributes.user.organization'),
+                                         input_html: { class: 'form-select' } %>
         <div class='edit-place-appointment-types-wrapper'>
           <h2 class='form-secondary-title'><%= t('edit_place_appointment_types') %></h2>
 
