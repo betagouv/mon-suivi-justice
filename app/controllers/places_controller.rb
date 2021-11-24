@@ -2,7 +2,7 @@ class PlacesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @places = Place.all.page params[:page]
+    @places = policy_scope(Place).page params[:page]
     authorize @places
   end
 

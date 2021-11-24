@@ -3,10 +3,12 @@ class ConvictPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.admin? || user.local_admin?
+      if user.admin?
         scope.with_deleted
+      elsif user.local_admin?
+        scope.with_deleted.in_department(user.organization.departments.first)
       elsif user.bex? || user.sap?
-        scope.all
+        scope.in_department(user.organization.departments.first)
       else
         scope.under_hand_of(organization)
       end

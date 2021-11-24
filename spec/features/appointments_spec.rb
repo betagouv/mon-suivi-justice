@@ -32,7 +32,7 @@ RSpec.feature 'Appointments', type: :feature do
 
     it "doesn't show canceled appointments" do
       convict = create(:convict, last_name: 'Gomez')
-      apt_type = create(:appointment_type, :with_notification_types, name: 'RDV BEX SPIP')
+      apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
       slot = create(:slot, date: Date.today, appointment_type: apt_type, starting_time: new_time_for(14, 0))
       appointment = create(:appointment, :with_notifications, convict: convict, slot: slot)
 

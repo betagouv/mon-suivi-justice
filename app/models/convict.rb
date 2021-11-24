@@ -37,6 +37,11 @@ class Convict < ApplicationRecord
            ).distinct
   }
 
+  scope :in_department, lambda { |department|
+    joins(:areas_convicts_mappings)
+      .where(areas_convicts_mappings: { area_type: 'Department', area_id: department.id })
+  }
+
   def name
     "#{last_name.upcase} #{first_name.capitalize}"
   end

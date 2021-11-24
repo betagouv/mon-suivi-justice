@@ -30,6 +30,11 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, :role, presence: true
 
+  scope :in_department, lambda { |department|
+    joins(organization: :areas_organizations_mappings)
+      .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
+  }
+
   def name
     "#{last_name.upcase} #{first_name.capitalize}"
   end
