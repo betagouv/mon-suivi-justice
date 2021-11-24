@@ -141,7 +141,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context  "for an appointment_type Sortie d'audience SPIP" do
+    context "for an appointment_type Sortie d'audience SPIP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
 
       it { is_expected.to permit_action(:new) }
