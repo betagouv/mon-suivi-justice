@@ -213,6 +213,8 @@ fr:
   show-convict-fulfilment-send-sms: "Voulez-vous envoyer un SMS à la PPSMJ ?"
   show-convict-fulfilment-sms-content: "Texte du SMS :"
   show-convict-fulfilment-excused: "Excusé(e)"
+  edit_convict_department: "Département"
+  edit_convict_jurisdiction: "Juridiction"
 
   show_history_book_appointment_title: "Nouveau RDV"
   show_history_book_appointment: "%{name} a été convoqué(e) au %{place} le %{date} à %{time}."

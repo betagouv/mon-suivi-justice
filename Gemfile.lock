@@ -119,6 +119,8 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.10.0)
+    et-orbi (1.2.6)
+      tzinfo
     ethon (0.15.0)
       ffi (>= 1.15.0)
     factory_bot (6.2.0)
@@ -149,6 +151,9 @@ GEM
     font-awesome-rails (4.7.0.7)
       railties (>= 3.2, < 7)
     formatador (0.3.0)
+    fugit (1.5.2)
+      et-orbi (~> 1.1, >= 1.1.8)
+      raabro (~> 1.4)
     globalid (0.5.2)
       activesupport (>= 5.0)
     guard (2.18.0)
@@ -236,6 +241,7 @@ GEM
       activesupport (>= 3.0.0)
     pundit-matchers (1.6.0)
       rspec-rails (>= 3.0.0)
+    raabro (1.4.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-mini-profiler (2.3.3)
@@ -329,6 +335,8 @@ GEM
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    rufus-scheduler (3.8.0)
+      fugit (~> 1.1, >= 1.1.6)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -463,6 +471,7 @@ DEPENDENCIES
   redis-namespace
   rspec-rails
   rspec_junit_formatter
+  rufus-scheduler (~> 3.2)
   sass-rails (>= 6)
   selenium-webdriver
   sentry-rails

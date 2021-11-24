@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   get '/display_places' => 'appointments#display_places', as: 'display_places'
   get '/display_agendas' => 'appointments#display_agendas', as: 'display_agendas'
   get '/today_appointments' => 'appointments#index_today', as: 'today_appointments'
-  get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live'), as: :stats
+  get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
 
   scope controller: :bex do
     get :agenda_jap
