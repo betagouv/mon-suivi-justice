@@ -8,27 +8,7 @@
         <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
       </header>
       <main class="modal__content" id="modal-1-content">
-        <span class='jap-agendas-name'><%= t('new-appointment-cab1-name') %></span> <span><%= t('new-appointment-cab1-judge') %></span>
-        <p><%= t('new-appointment-cab1-places') %></p><br>
-
-        <span class='jap-agendas-name'><%= t('new-appointment-cab2-name') %></span> <span><%= t('new-appointment-cab2-judge') %></span>
-        <p><%= t('new-appointment-cab2-places') %></p><br>
-
-        <span class='jap-agendas-name'><%= t('new-appointment-cab3-name') %></span> <span><%= t('new-appointment-cab3-judge') %></span>
-        <p><%= t('new-appointment-cab3-places') %></p><br>
-
-        <span class='jap-agendas-name'><%= t('new-appointment-cab4-name') %></span> <span><%= t('new-appointment-cab4-judge') %></span>
-        <p><%= t('new-appointment-cab4-places') %></p><br>
-
-        <span class='jap-agendas-name'><%= t('new-appointment-cab5-name') %></span> <span><%= t('new-appointment-cab5-judge') %></span>
-        <p><%= t('new-appointment-cab5-places') %></p><br>
-
-        <span class='jap-agendas-name'><%= t('new-appointment-cab6-name') %></span> <span><%= t('new-appointment-cab6-judge') %></span>
-        <p><%= t('new-appointment-cab6-places') %></p><br>
-
-        <span class='jap-agendas-name'><%= t('new-appointment-cab7-name') %></span> <span><%= t('new-appointment-cab7-judge') %></span>
-        <p><%= t('new-appointment-cab7-places') %></p><br>
-
+        <%= current_user.organization.jap_modal_content %>
       </main>
     </div>
   </div>
