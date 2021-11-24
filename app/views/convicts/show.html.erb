@@ -98,12 +98,6 @@
     <% end %>
   </div>
 </div>
-futur_booked_appointments
-  appointments.where(state: 'booked')
-
-<% Appointment.joins(:slot).where(convict: @convict, slots: {date: (Time.zone.now..)}) %>
-
-
 
 <% if @convict.booked_appointments_in_future.exists? %>
   <div class='show-convict-next-appointments-container'>
