@@ -189,6 +189,7 @@ fr:
   edit_organization_jurisdiction_title: "Juridiction(s) rattachée(s)"
   edit_organization_department: "Département"
   edit_organization_jurisdiction: "Juridiction"
+  edit_organization_jap_modal: "Texte de la liste des agendas JAP"
 
   new_convict_title: "Nouvelle PPSMJ"
   new_first_appointment_title: "Créneaux disponibles"
@@ -272,6 +273,7 @@ fr:
   show_appointment_title: "Infos rendez-vous"
   cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ, et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
   appointment-reschedule-title: 'Replanifier un rendez-vous'
+  new-appointment-jap-agendas: "Liste agendas JAP"
 
   bex_jap_appointments_link: "Agenda RDV JAP"
   bex_jap_agendas_title: "Agenda RDV JAP pour le vendredi"

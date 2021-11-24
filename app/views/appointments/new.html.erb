@@ -1,8 +1,8 @@
 <section class='new-appointment-links-container'>
   <% if current_user.admin? || current_user.local_admin? || current_user.work_at_bex? %>
-    <%= button_tag('Liste Cabinets JAP', type: 'button',
-                                         class: 'jap-agendas-modal-trigger',
-                                         data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
+    <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
+                                                     class: 'jap-agendas-modal-trigger',
+                                                     data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
   <% end %>
 </section>
 
