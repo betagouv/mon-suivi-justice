@@ -17,6 +17,7 @@ RSpec.describe SlotType, type: :model do
       create :slot
       expect { slot_type.destroy }.to change(Slot, :count).from(2).to(1)
     end
+
     it 'does not destroys his associated booked slots' do
       slot_type = create :slot_type
       create :appointment, slot: create(:slot, slot_type: slot_type)

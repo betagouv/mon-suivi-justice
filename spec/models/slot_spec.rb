@@ -62,4 +62,32 @@ RSpec.describe Slot, type: :model do
       expect(slot.available).to eq(false)
     end
   end
+
+  describe '.in_department' do
+    it 'returns slots scoped by department' do
+      department1 = create :department, number: '01', name: 'Ain'
+
+      organization1 = create :organization
+      create :areas_organizations_mapping, organization: organization1, area: department1
+      place1 = create :place, organization: organization1
+      agenda1 = create :agenda, place: place1
+      slot1 = create :slot, agenda: agenda1
+
+      organization2 = create :organization
+      create :areas_organizations_mapping, organization: organization2, area: department1
+      place2 = create :place, organization: organization2
+      agenda2 = create :agenda, place: place2
+      slot2 = create :slot, agenda: agenda2
+
+      department2 = create :department, number: '02', name: 'Aisne'
+
+      organization3 = create :organization
+      create :areas_organizations_mapping, organization: organization3, area: department2
+      place3 = create :place, organization: organization3
+      agenda3 = create :agenda, place: place3
+      create :slot, agenda: agenda3
+
+      expect(Slot.in_department(department1)).to eq [slot1, slot2]
+    end
+  end
 end
