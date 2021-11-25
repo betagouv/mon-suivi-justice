@@ -15,7 +15,8 @@ class SlotTypesController < ApplicationController
     authorize slot_type
 
     slot_type.update slot_type_params
-    redirect_to agenda_slot_types_path(slot_type.agenda, appointment_type_id: slot_type.appointment_type_id), notice: t('slot_type_update_delay')
+    redirect_to agenda_slot_types_path(slot_type.agenda, appointment_type_id: slot_type.appointment_type_id),
+                notice: t('slot_type_update_delay')
   end
 
   def destroy
@@ -23,7 +24,8 @@ class SlotTypesController < ApplicationController
     authorize slot_type
 
     slot_type.destroy
-    redirect_to agenda_slot_types_path(slot_type.agenda, appointment_type_id: slot_type.appointment_type_id), notice: t('slot_type_update_delay')
+    redirect_to agenda_slot_types_path(slot_type.agenda, appointment_type_id: slot_type.appointment_type_id),
+                notice: t('slot_type_update_delay')
   end
 
   def create
@@ -31,7 +33,8 @@ class SlotTypesController < ApplicationController
     authorize slot_type
 
     slot_type.save
-    redirect_to agenda_slot_types_path(slot_type.agenda, appointment_type_id: slot_type.appointment_type_id), notice: t('slot_type_update_delay')
+    redirect_to agenda_slot_types_path(slot_type.agenda, appointment_type_id: slot_type.appointment_type_id),
+                notice: t('slot_type_update_delay')
   end
 
   private
