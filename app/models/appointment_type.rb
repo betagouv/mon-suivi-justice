@@ -37,7 +37,7 @@ class AppointmentType < ApplicationRecord
   end
 
   def used_at_sap?
-    ["Sortie d'audience SAP", 'RDV de suivi SAP', 'SAP débat contradictoire']
+    ["Sortie d'audience SAP", "Sortie d'audience SPIP", 'RDV de suivi SAP', 'SAP débat contradictoire']
   end
 
   def used_at_spip?
