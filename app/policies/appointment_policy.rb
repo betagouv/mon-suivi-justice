@@ -26,7 +26,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def agenda_spip?
-    true
+    user.admin? || user.local_admin? || user.work_at_bex?
   end
 
   def update?
