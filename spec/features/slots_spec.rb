@@ -5,6 +5,10 @@ RSpec.feature 'Slots', type: :feature do
     create_admin_user_and_login
   end
 
+  before :each do
+    allow(Place).to receive(:in_department).and_return([])
+  end
+
   describe 'index' do
     before do
       create(:slot, date: (Date.today + 2).to_s)
