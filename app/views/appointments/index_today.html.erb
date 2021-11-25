@@ -5,7 +5,7 @@
         <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.all, 'id', 'name', @q.slot_agenda_place_id_eq),
                                         { include_blank: t('today_appointments_place_filter') },
                                         { class: 'form-select index-place-filter-field' } %>
-
+        <%= f.date_field :slot_date_eq, value: @q.slot_date_eq&.strftime('%Y-%m-%d'), class: 'form-select index-place-filter-field' %>
         <%= f.submit t('filter'), class: 'index-search-button' %>
       <% end %>
     </div>

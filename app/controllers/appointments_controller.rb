@@ -108,7 +108,7 @@ class AppointmentsController < ApplicationController
   end
 
   def index_today
-    @q = policy_scope(Appointment).active.for_today.ransack(params[:q])
+    @q = policy_scope(Appointment).active.ransack(params[:q])
     @appointments = @q.result
                       .joins(slot: [agenda: [:place]])
                       .includes(slot: [agenda: [:place]])
