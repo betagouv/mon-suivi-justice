@@ -141,8 +141,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context "for an appointment_type Sortie d'audience SPIP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    context 'for an appointment_type 1er RDV SPIP' do
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -196,8 +196,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context "for an appointment_type Sortie d'audience SPIP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    context 'for an appointment_type 1er RDV SPIP' do
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -415,8 +415,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context "for an appointment_type Sortie d'audience SPIP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    context 'for an appointment_type 1er RDV SPIP' do
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -470,8 +470,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context "for an appointment_type Sortie d'audience SPIP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    context 'for an appointment_type 1er RDV SPIP' do
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -525,8 +525,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context "for an appointment_type Sortie d'audience SPIP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    context 'for an appointment_type 1er RDV SPIP' do
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to forbid_action(:create) }
@@ -550,8 +550,8 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_spip) }
     it { is_expected.to permit_action(:index_today) }
 
-    context "for an appointment_type Sortie d'audience SPIP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    context 'for an appointment_type 1er RDV SPIP' do
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -620,8 +620,8 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_spip) }
     it { is_expected.to permit_action(:index_today) }
 
-    context "for an appointment_type Sortie d'audience SPIP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    context 'for an appointment_type 1er RDV SPIP' do
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -690,8 +690,8 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_spip) }
     it { is_expected.to permit_action(:index_today) }
 
-    context "for an appointment_type Sortie d'audience SPIP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    context 'for an appointment_type 1er RDV SPIP' do
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -760,8 +760,8 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_spip) }
     it { is_expected.to permit_action(:index_today) }
 
-    context "for an appointment_type Sortie d'audience SPIP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    context 'for an appointment_type 1er RDV SPIP' do
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -830,8 +830,8 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_spip) }
     it { is_expected.to permit_action(:index_today) }
 
-    context "for an appointment_type Sortie d'audience SPIP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    context 'for an appointment_type 1er RDV SPIP' do
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -900,8 +900,8 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_spip) }
     it { is_expected.to permit_action(:index_today) }
 
-    context "for an appointment_type Sortie d'audience SPIP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    context 'for an appointment_type 1er RDV SPIP' do
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }

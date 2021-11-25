@@ -27,7 +27,7 @@ RSpec.feature 'Slots', type: :feature do
 
   describe 'creation' do
     it 'works' do
-      place = create(:place, name: 'McDo de Clichy')
+      place = create(:place, name: 'McDo de Clichy', organization: @user.organization)
       create(:agenda, place: place, name: 'Agenda de Michel')
       create(:appointment_type, name: 'Premier contact Spip')
 

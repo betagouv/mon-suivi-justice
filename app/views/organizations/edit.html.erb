@@ -1,6 +1,8 @@
 <h1 class='form-title'><%= t('edit_organization_title') %></h1>
 <%= simple_form_for @organization, html: { class: 'basic-form' } do |f| %>
   <%= f.input :name %>
+  <p class='organization-subtitle'><%= t('edit_organization_jap_modal') %></p>
+  <%= f.rich_text_area :jap_modal_content %>
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>
 
