@@ -18,6 +18,7 @@
     <div class='index-tools-controls-container'>
       <% if policy(:appointment).index_today? %>
         <%= button_to t('today_appointments_title'), today_appointments_path,
+                                                     params: {q: {slot_date_eq: Date.today }},
                                                      class: 'link-to-today-appointment-button',
                                                      method: :get %>
       <% end %>
