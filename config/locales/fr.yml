@@ -274,6 +274,7 @@ fr:
   cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ, et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
   appointment-reschedule-title: 'Replanifier un rendez-vous'
   new-appointment-jap-agendas: "Liste agendas JAP"
+  slot_type_update_delay: "L'action a bien été enregistrée. Elle sera visible dans un délai de 24 heures."
 
   bex_jap_appointments_link: "Agenda RDV JAP"
   bex_jap_agendas_title: "Agenda RDV JAP pour le vendredi"
