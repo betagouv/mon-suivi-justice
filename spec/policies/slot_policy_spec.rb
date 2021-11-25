@@ -44,13 +44,13 @@ describe SlotPolicy do
   context 'for a jap user' do
     let(:user) { build(:user, role: 'jap') }
 
-    it { is_expected.to forbid_action(:show) }
-    it { is_expected.to forbid_action(:index) }
-    it { is_expected.to forbid_action(:new) }
-    it { is_expected.to forbid_action(:create) }
-    it { is_expected.to forbid_action(:edit) }
-    it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:show) }
+    it { is_expected.to permit_action(:index) }
+    it { is_expected.to permit_action(:new) }
+    it { is_expected.to permit_action(:create) }
+    it { is_expected.to permit_action(:edit) }
+    it { is_expected.to permit_action(:update) }
+    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'for a court secretary' do
@@ -68,13 +68,13 @@ describe SlotPolicy do
   context 'for a dir_greff_bex user' do
     let(:user) { build(:user, role: 'dir_greff_bex') }
 
-    it { is_expected.to forbid_action(:show) }
-    it { is_expected.to forbid_action(:index) }
-    it { is_expected.to forbid_action(:new) }
-    it { is_expected.to forbid_action(:create) }
-    it { is_expected.to forbid_action(:edit) }
-    it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:show) }
+    it { is_expected.to permit_action(:index) }
+    it { is_expected.to permit_action(:new) }
+    it { is_expected.to permit_action(:create) }
+    it { is_expected.to permit_action(:edit) }
+    it { is_expected.to permit_action(:update) }
+    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'for a bex user' do
@@ -104,25 +104,25 @@ describe SlotPolicy do
   context 'for a dir_greff_sap user' do
     let(:user) { build(:user, role: 'dir_greff_sap') }
 
-    it { is_expected.to forbid_action(:show) }
-    it { is_expected.to forbid_action(:index) }
-    it { is_expected.to forbid_action(:new) }
-    it { is_expected.to forbid_action(:create) }
-    it { is_expected.to forbid_action(:edit) }
-    it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:show) }
+    it { is_expected.to permit_action(:index) }
+    it { is_expected.to permit_action(:new) }
+    it { is_expected.to permit_action(:create) }
+    it { is_expected.to permit_action(:edit) }
+    it { is_expected.to permit_action(:update) }
+    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'for a greff_sap user' do
     let(:user) { build(:user, role: 'greff_sap') }
 
-    it { is_expected.to forbid_action(:show) }
-    it { is_expected.to forbid_action(:index) }
-    it { is_expected.to forbid_action(:new) }
-    it { is_expected.to forbid_action(:create) }
-    it { is_expected.to forbid_action(:edit) }
-    it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:show) }
+    it { is_expected.to permit_action(:index) }
+    it { is_expected.to permit_action(:new) }
+    it { is_expected.to permit_action(:create) }
+    it { is_expected.to permit_action(:edit) }
+    it { is_expected.to permit_action(:update) }
+    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'for a sap user' do
