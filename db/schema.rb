@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2021_11_24_100717) do
     t.boolean "refused_phone"
     t.string "prosecutor_number"
     t.string "appi_uuid"
+    t.datetime "deleted_at"
   end
 
   create_table "departments", force: :cascade do |t|
