@@ -5,7 +5,7 @@ class SlotPolicy < ApplicationPolicy
     def resolve
       if user.admin?
         scope.all
-      elsif user.local_admin? || user.bex? || user.sap? || user.dpip? || user.jap?
+      elsif ALLOWED_TO_EDIT.include? user.role
         scope.in_department(user.organization.departments.first)
       end
     end
