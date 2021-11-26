@@ -16,3 +16,6 @@ require("components/home_search");
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+require("trix")
+require("@rails/actiontext")

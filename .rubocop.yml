@@ -54,3 +54,11 @@ Style/IfUnlessModifier:
 Metrics/MethodLength:
   Exclude:
     - app/services/notification_factory.rb
+    - app/helpers/users_helper.rb
+
+Metrics/AbcSize:
+  Exclude:
+    - app/policies/convict_policy.rb
+    - app/policies/place_policy.rb
+    - app/policies/slot_policy.rb
+    - app/policies/appointment_policy.rb

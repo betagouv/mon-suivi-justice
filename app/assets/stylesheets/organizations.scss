@@ -37,6 +37,7 @@
   width: 60%;
   max-width: 500px;
   margin: auto;
+  margin-bottom: 30px;
   @include box;
 }
 
@@ -55,4 +56,11 @@
 
 .organization-attachment-submit {
   margin-top: 30px;
+}
+
+.organization-subtitle {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }

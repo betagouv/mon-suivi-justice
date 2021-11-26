@@ -1,8 +1,12 @@
 class ConvictPolicy < ApplicationPolicy
+  ALLOWED_TO_DESTROY = %w[admin local_admin jap dir_greff_bex dir_greff_sap greff_sap dpip secretary_court].freeze
+
   class Scope < Scope
     def resolve
-      if user.admin? || user.bex? || user.sap?
+      if user.admin?
         scope.all
+      elsif user.local_admin? || user.bex? || user.sap?
+        scope.in_department(user.organization.departments.first)
       else
         scope.under_hand_of(organization)
       end
@@ -26,6 +30,6 @@ class ConvictPolicy < ApplicationPolicy
   end
 
   def destroy?
-    true
+    ALLOWED_TO_DESTROY.include? user.role
   end
 end

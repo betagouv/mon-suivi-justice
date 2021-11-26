@@ -13,4 +13,9 @@ class Place < ApplicationRecord
   accepts_nested_attributes_for :place_appointment_types
 
   scope :in_organization, ->(organization) { where(organization: organization) }
+
+  scope :in_department, lambda { |department|
+    joins(organization: :areas_organizations_mappings)
+      .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
+  }
 end

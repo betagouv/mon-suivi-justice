@@ -14,6 +14,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise_invitable', '~> 2.0.0'
+gem 'devise-secure_password', '~> 2.0'
 
 gem 'pundit'
 gem 'simple_form'
@@ -32,6 +33,7 @@ gem 'sib-api-v3-sdk'
 gem 'dotenv-rails'
 gem 'sidekiq'
 gem 'redis-namespace'
+gem 'rufus-scheduler', '~> 3.2'
 
 gem 'holidays'
 

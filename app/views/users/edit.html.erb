@@ -4,11 +4,18 @@
   <%= f.input :first_name %>
   <%= f.input :last_name %>
   <%= f.input :email, required: true %>
-  <%= f.association :organization, include_blank: false, label: t('activerecord.attributes.user.organization') %>
+
   <% if current_user.admin? %>
-    <%= f.input :role, collection: User.roles.keys,
+    <%= f.association :organization, include_blank: false,
+                                     label: t('activerecord.attributes.user.organization'),
+                                     input_html: { class: 'form-select' } %>
+  <% end %>
+
+  <% if (current_user.admin? || current_user.local_admin?) && current_user != @user %>
+    <%= f.input :role, collection: ordered_user_roles,
                        label_method: lambda {|k| t("activerecord.attributes.user.user_roles.#{k}")},
                        input_html: { class: 'form-select' } %>
   <% end %>
+
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>

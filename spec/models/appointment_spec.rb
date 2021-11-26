@@ -5,7 +5,6 @@ RSpec.describe Appointment, type: :model do
 
   it { should belong_to(:convict) }
   it { should belong_to(:slot) }
-  it { should belong_to(:appointment_type) }
 
   it { should define_enum_for(:origin_department).with_values(%i[bex gref_co pr]) }
 
@@ -33,7 +32,8 @@ RSpec.describe Appointment, type: :model do
 
     it 'transitions from booked to missed without sending sms' do
       appointment_type = create :appointment_type
-      appointment = create :appointment, :with_notifications, appointment_type: appointment_type
+      slot = create :slot, appointment_type: appointment_type
+      appointment = create :appointment, :with_notifications, slot: slot
       appointment.book
       appointment.miss(send_notification: false)
 
@@ -43,7 +43,8 @@ RSpec.describe Appointment, type: :model do
 
     it 'transitions from booked to missed and sending sms' do
       appointment_type = create :appointment_type
-      appointment = create :appointment, :with_notifications, appointment_type: appointment_type
+      slot = create :slot, appointment_type: appointment_type
+      appointment = create :appointment, :with_notifications, slot: slot
       appointment.book
       appointment.miss(send_notification: true)
 
@@ -64,6 +65,25 @@ RSpec.describe Appointment, type: :model do
 
     it 'returns correct relation' do
       expect(Appointment.in_organization(@organization)).to eq [@appointment_in]
+    end
+  end
+
+  describe '.in_the_past?' do
+    let(:frozen_date) { Date.new 2020, 1, 1 }
+    before { allow(Date).to receive(:today).and_return frozen_date }
+
+    it 'returns true if appointment is in the past' do
+      slot = Slot.new(date: Date.new(2018, 1, 1))
+      appointment = Appointment.new(slot: slot)
+
+      expect(appointment.in_the_past?).to eq(true)
+    end
+
+    it 'returns false if appointment is not in the past' do
+      slot = Slot.new(date: Date.new(2021, 1, 1))
+      appointment = Appointment.new(slot: slot)
+
+      expect(appointment.in_the_past?).to eq(false)
     end
   end
 end

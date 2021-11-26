@@ -4,8 +4,8 @@ FactoryBot.define do
     last_name { 'Doe' }
     sequence(:email) { |n| "john#{n}@doe.fr" }
     role { :admin }
-    password { 'password' }
-    password_confirmation { 'password' }
+    password { '1mot2passeSecurise!' }
+    password_confirmation { '1mot2passeSecurise!' }
     organization
   end
 end

@@ -1,3 +1,11 @@
+.new_convict_duplicate_warning {
+  margin-top: 10px;
+  border: 1px solid red;
+  font-weight: 300;
+  color: red;
+  padding: 10px;
+  text-align: justify;
+}
 .convicts-header {
   font-weight: bold;
   display: flex;
@@ -169,4 +177,29 @@
 .missed-appointment-modal-sms-content {
   font-weight: bold;
   display: inline;
+}
+
+.convict-relation-container {
+  width: 60%;
+  max-width: 500px;
+  margin: auto;
+  margin-bottom: 30px;
+  @include box;
+}
+
+.convict-attachment {
+  margin-bottom: 15px;
+}
+
+.convict-secondary-title {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.convict-attachment-delete {
+  margin-left: 30px;
+}
+
+.convict-attachment-submit {
+  margin-top: 30px;
 }

@@ -58,15 +58,30 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
     end
 
+    it 'creates a convicts with a duplicate name' do
+      visit new_convict_path
+
+      select 'M.', from: 'Civilité'
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      fill_in 'Téléphone', with: '0606060606'
+
+      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+    end
+
     it 'allows to create a convict without a phone number' do
+      create(:convict, first_name: 'roberta', last_name: 'dupond')
       visit new_convict_path
 
       select 'M.', from: 'Civilité'
       fill_in 'Prénom', with: 'Roberta'
       fill_in 'Nom', with: 'Dupond'
-      check 'Ne possède pas de téléphone portable'
-
-      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+      fill_in 'Téléphone', with: '0606060606'
+      expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
+      expect(page).to have_content(
+        'Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir continuer ?'
+      )
+      expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
     end
 
     it 'creates a convict with his first appointment', js: true do
@@ -91,7 +106,7 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'submit-with-appointment' }.to change { Convict.count }.by(1)
       expect(page).to have_current_path(new_appointment_path(convict_id: Convict.last.id))
 
-      select 'Premier contact Spip', from: 'Type de rendez-vous'
+      select 'Premier contact Spip', from: :appointment_appointment_type_id
       select 'McDo de Clichy', from: 'Lieu'
       select 'Agenda de Jean-Louis', from: 'Agenda'
 
@@ -136,12 +151,18 @@ RSpec.feature 'Convicts', type: :feature do
       create(:convict, last_name: 'Expresso')
       visit convicts_path
       within first('.convicts-item-container') { click_link 'Modifier' }
+
       within '#department-form' do
         select 'Ariège', from: :areas_convicts_mapping_area_id
         expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(0).to(1)
-        expect(page).to have_content('(09) Ariège')
+      end
+
+      expect(page).to have_content('(09) Ariège')
+
+      within '.convict-attachment' do
         expect { click_link 'Supprimer' }.to change(AreasConvictsMapping, :count).from(1).to(0)
       end
+
       expect(page).not_to have_content('(09) Ariège')
     end
 
@@ -153,7 +174,11 @@ RSpec.feature 'Convicts', type: :feature do
       within '#jurisdiction-form' do
         select 'Juridiction de Nanterre', from: :areas_convicts_mapping_area_id
         expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(0).to(1)
-        expect(page).to have_content('Juridiction de Nanterre')
+      end
+
+      expect(page).to have_content('Juridiction de Nanterre')
+
+      within '.convict-attachment' do
         expect { click_link 'Supprimer' }.to change(AreasConvictsMapping, :count).from(1).to(0)
       end
     end

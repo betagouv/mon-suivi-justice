@@ -1,22 +1,34 @@
 class SlotPolicy < ApplicationPolicy
+  ALLOWED_TO_EDIT = %w[admin local_admin jap dir_greff_bex dir_greff_sap greff_sap dpip].freeze
+
+  class Scope < Scope
+    def resolve
+      if user.admin?
+        scope.all
+      elsif ALLOWED_TO_EDIT.include? user.role
+        scope.in_department(user.organization.departments.first)
+      end
+    end
+  end
+
   def index?
-    user.admin?
+    ALLOWED_TO_EDIT.include? user.role
   end
 
   def update?
-    user.admin?
+    ALLOWED_TO_EDIT.include? user.role
   end
 
   def show?
-    user.admin?
+    ALLOWED_TO_EDIT.include? user.role
   end
 
   def create?
-    user.admin?
+    ALLOWED_TO_EDIT.include? user.role
   end
 
   def destroy?
-    user.admin?
+    ALLOWED_TO_EDIT.include? user.role
   end
 
   def select?

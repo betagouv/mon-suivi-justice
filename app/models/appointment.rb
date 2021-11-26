@@ -1,7 +1,6 @@
 class Appointment < ApplicationRecord
   has_paper_trail
 
-  belongs_to :appointment_type
   belongs_to :convict
   belongs_to :slot
 
@@ -28,6 +27,10 @@ class Appointment < ApplicationRecord
   }
 
   scope :active, -> { where.not(state: 'canceled') }
+
+  def in_the_past?
+    slot.date <= Date.today
+  end
 
   def summon_notif
     notifications.find_by(role: :summon)

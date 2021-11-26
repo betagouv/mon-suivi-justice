@@ -1,6 +1,5 @@
 class SlotCreationJob < ApplicationJob
-  def perform(oneshot: false)
+  def perform
     SlotFactory.perform
-    SlotCreationJob.set(wait: 1.week).perform_later unless oneshot
   end
 end

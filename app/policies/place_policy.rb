@@ -1,8 +1,12 @@
 class PlacePolicy < ApplicationPolicy
+  ALLOWED_TO_EDIT = %w[admin local_admin jap dir_greff_bex dir_greff_sap greff_sap dpip].freeze
+
   class Scope < Scope
     def resolve
-      if user.admin? || user.bex? || user.sap?
+      if user.admin?
         scope.all
+      elsif user.local_admin? || user.bex? || user.sap?
+        scope.in_department(user.organization.departments.first)
       else
         scope.in_organization(organization)
       end
@@ -10,22 +14,22 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def index?
-    user.admin?
+    ALLOWED_TO_EDIT.include? user.role
   end
 
   def update?
-    user.admin?
+    ALLOWED_TO_EDIT.include? user.role
   end
 
   def show?
-    user.admin?
+    ALLOWED_TO_EDIT.include? user.role
   end
 
   def create?
-    user.admin?
+    ALLOWED_TO_EDIT.include? user.role
   end
 
   def destroy?
-    user.admin?
+    ALLOWED_TO_EDIT.include? user.role
   end
 end

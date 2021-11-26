@@ -10,10 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_14_071821) do
+ActiveRecord::Schema.define(version: 2021_11_24_100717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "agendas", force: :cascade do |t|
     t.string "name"
@@ -34,10 +72,8 @@ ActiveRecord::Schema.define(version: 2021_10_14_071821) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "convict_id", null: false
     t.bigint "slot_id", null: false
-    t.bigint "appointment_type_id", null: false
     t.string "state"
     t.integer "origin_department", default: 0
-    t.index ["appointment_type_id"], name: "index_appointments_on_appointment_type_id"
     t.index ["convict_id"], name: "index_appointments_on_convict_id"
     t.index ["slot_id"], name: "index_appointments_on_slot_id"
   end
@@ -74,6 +110,7 @@ ActiveRecord::Schema.define(version: 2021_10_14_071821) do
     t.boolean "no_phone"
     t.boolean "refused_phone"
     t.string "prosecutor_number"
+    t.string "appi_uuid"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -152,6 +189,17 @@ ActiveRecord::Schema.define(version: 2021_10_14_071821) do
     t.index ["organization_id"], name: "index_places_on_organization_id"
   end
 
+  create_table "previous_passwords", force: :cascade do |t|
+    t.string "salt", null: false
+    t.string "encrypted_password", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["encrypted_password"], name: "index_previous_passwords_on_encrypted_password"
+    t.index ["user_id", "created_at"], name: "index_previous_passwords_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_previous_passwords_on_user_id"
+  end
+
   create_table "slot_types", force: :cascade do |t|
     t.integer "week_day", default: 0
     t.time "starting_time"
@@ -221,8 +269,9 @@ ActiveRecord::Schema.define(version: 2021_10_14_071821) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agendas", "places"
-  add_foreign_key "appointments", "appointment_types"
   add_foreign_key "appointments", "convicts"
   add_foreign_key "appointments", "slots"
   add_foreign_key "areas_convicts_mappings", "convicts"
@@ -232,6 +281,7 @@ ActiveRecord::Schema.define(version: 2021_10_14_071821) do
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notifications", "appointments"
   add_foreign_key "places", "organizations"
+  add_foreign_key "previous_passwords", "users"
   add_foreign_key "slot_types", "agendas"
   add_foreign_key "slot_types", "appointment_types"
   add_foreign_key "slots", "agendas"

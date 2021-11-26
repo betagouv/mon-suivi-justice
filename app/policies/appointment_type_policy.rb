@@ -11,10 +11,6 @@ class AppointmentTypePolicy < ApplicationPolicy
     user.admin?
   end
 
-  def new_first?
-    user.admin?
-  end
-
   def create?
     user.admin?
   end

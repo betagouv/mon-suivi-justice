@@ -5,6 +5,10 @@ RSpec.feature 'Slots', type: :feature do
     create_admin_user_and_login
   end
 
+  before :each do
+    allow(Place).to receive(:in_department).and_return([])
+  end
+
   describe 'index' do
     before do
       create(:slot, date: (Date.today + 2).to_s)
@@ -27,7 +31,7 @@ RSpec.feature 'Slots', type: :feature do
 
   describe 'creation' do
     it 'works' do
-      place = create(:place, name: 'McDo de Clichy')
+      place = create(:place, name: 'McDo de Clichy', organization: @user.organization)
       create(:agenda, place: place, name: 'Agenda de Michel')
       create(:appointment_type, name: 'Premier contact Spip')
 

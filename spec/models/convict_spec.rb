@@ -10,6 +10,7 @@ RSpec.describe Convict, type: :model do
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
   it { should validate_presence_of(:title) }
+  it { should validate_uniqueness_of(:appi_uuid) }
 
   it { should define_enum_for(:title).with_values(%i[male female]) }
 
@@ -36,6 +37,10 @@ RSpec.describe Convict, type: :model do
     end
     it 'denies a non-mobile phone' do
       expect(build(:convict, phone: '0561083731')).not_to be_valid
+    end
+    it 'accepts multiples user with no-data for appi uuid' do
+      create(:convict, appi_uuid: nil)
+      expect(build(:convict, appi_uuid: nil)).to be_valid
     end
   end
 
@@ -151,6 +156,25 @@ RSpec.describe Convict, type: :model do
       it 'return 0 convicts' do
         expect(Convict.under_hand_of(orga).count).to eq 0
       end
+    end
+  end
+
+  describe '.in_department' do
+    it 'returns convicts scoped by department' do
+      department1 = create :department, number: '01', name: 'Ain'
+
+      convict1 = create :convict
+      create :areas_convicts_mapping, convict: convict1, area: department1
+
+      convict2 = create :convict
+      create :areas_convicts_mapping, convict: convict2, area: department1
+
+      department2 = create :department, number: '02', name: 'Aisne'
+
+      convict3 = create :convict
+      create :areas_convicts_mapping, convict: convict3, area: department2
+
+      expect(Convict.in_department(department1)).to eq [convict1, convict2]
     end
   end
 end

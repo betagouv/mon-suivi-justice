@@ -11,6 +11,7 @@ class Convict < ApplicationRecord
 
   attr_accessor :place_id
 
+  validates :appi_uuid, allow_blank: true, uniqueness: true
   validates :first_name, :last_name, :title, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
@@ -33,6 +34,11 @@ class Convict < ApplicationRecord
              Convict.joins(:areas_convicts_mappings)
                     .where(areas_convicts_mappings: { area_type: 'Jurisdiction', area_id: juri_id })
            ).distinct
+  }
+
+  scope :in_department, lambda { |department|
+    joins(:areas_convicts_mappings)
+      .where(areas_convicts_mappings: { area_type: 'Department', area_id: department.id })
   }
 
   def name
