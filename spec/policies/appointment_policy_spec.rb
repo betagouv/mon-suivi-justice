@@ -108,7 +108,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
-    it { is_expected.to permit_action(:agenda_spip) }
+    it { is_expected.to forbid_action(:agenda_spip) }
     it { is_expected.to forbid_action(:index_today) }
 
     context "for an appointment_type Sortie d'audience SAP" do
@@ -163,7 +163,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
-    it { is_expected.to permit_action(:agenda_spip) }
+    it { is_expected.to forbid_action(:agenda_spip) }
     it { is_expected.to forbid_action(:index_today) }
 
     context "for an appointment_type Sortie d'audience SAP" do
@@ -382,7 +382,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
-    it { is_expected.to permit_action(:agenda_spip) }
+    it { is_expected.to forbid_action(:agenda_spip) }
     it { is_expected.to forbid_action(:index_today) }
 
     context "for an appointment_type Sortie d'audience SAP" do
@@ -437,7 +437,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
-    it { is_expected.to permit_action(:agenda_spip) }
+    it { is_expected.to forbid_action(:agenda_spip) }
     it { is_expected.to forbid_action(:index_today) }
 
     context "for an appointment_type Sortie d'audience SAP" do
@@ -492,7 +492,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
-    it { is_expected.to permit_action(:agenda_spip) }
+    it { is_expected.to forbid_action(:agenda_spip) }
     it { is_expected.to forbid_action(:index_today) }
 
     context "for an appointment_type Sortie d'audience SAP" do
