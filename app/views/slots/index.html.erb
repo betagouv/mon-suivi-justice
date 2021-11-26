@@ -4,16 +4,16 @@
       <%= search_form_for @q, class: 'index-search-form' do |f| %>
         <%= f.search_field :date_eq, id: 'search-field',
                             class: 'index-search-field',
-                            value: @q.date_eq ? @q.date_eq .strftime('%d/%m/%Y') : '',
+                            value: @q.date_eq ? @q.date_eq.strftime('%d/%m/%Y') : '',
                             placeholder: t('search-appointment-placeholder') %>
 
-        <%= f.select :agenda_place_id_eq, options_from_collection_for_select(Place.all, 'id', 'name', @q.agenda_place_id_eq),
-                     { include_blank: t('index_slot_place_filter') },
-                     { class: 'form-select index-place-filter-field' } %>
+        <%= f.select :agenda_place_id_eq, options_from_collection_for_select(Place.in_department(current_user.organization.departments.first), 'id', 'name', @q.agenda_place_id_eq),
+                                          { include_blank: t('index_slot_place_filter') },
+                                          { class: 'form-select index-place-filter-field' } %>
 
-        <%= f.select :agenda_id_eq, options_from_collection_for_select(Agenda.all, 'id', 'name', @q.agenda_id_eq),
-                     { include_blank: t('index-appointment-agenda-filter') },
-                     { class: 'form-select index-place-filter-field' } %>
+        <%= f.select :agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.agenda_id_eq),
+                                    { include_blank: t('index-appointment-agenda-filter') },
+                                    { class: 'form-select index-place-filter-field' } %>
 
         <%= f.submit t('filter'), class: 'index-search-button' %>
       <% end %>
