@@ -142,11 +142,7 @@
     </div>
 
     <div class='show-appointment-controls-container'>
-<<<<<<< HEAD
-      <% if @appointment.booked? %>
-=======
       <% if @appointment.booked? && policy(@appointment).update? %>
->>>>>>> develop
         <% if ENV["APP"] != "mon-suivi-justice-prod" %>
           <%= button_to t('reschedule'), new_appointment_reschedule_path(@appointment),
                                          method: :get,
