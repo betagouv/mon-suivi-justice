@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.feature 'Appointments', type: :feature do
   before { create_admin_user_and_login }
 
+  before :each do
+    allow(Place).to receive(:in_department).and_return([])
+  end
+
   describe 'index' do
     before do
       slot1 = create(:slot, date: '06/06/2021', starting_time: new_time_for(13, 0))
