@@ -1,0 +1,208 @@
+
+Morceaux de scripts utiles / maintenance MSJ
+
+================================================================================
+
+# Intégration d'un nouveau ressort
+
+1. Création des Services (Organization)
+
+2. Création des agents
+
+  (possible dans l'interface)
+
+3. Création des lieux et des agendas associés
+
+  (possible dans l'interface)
+
+4. Création des créneaux recurrents
+
+  à faire pour chaque agenda
+  ajuster les jours et heures d'ouverture et la capacité
+  exemple : un créneau tous les jours ouvré, toutes les 15 minutes entre 8h et 18h, capacité 100
+
+
+  at = AppointmentType.find_by(name: 'RDV de suivi SPIP')
+  agenda = Agenda.find(22)
+  open_days = %i[monday tuesday wednesday thursday friday]
+
+  starts = [
+    Time.new(2021, 6, 21, 8, 00, 0, "+01:00"),
+    Time.new(2021, 6, 21, 8, 15, 0, "+01:00"),
+    Time.new(2021, 6, 21, 8, 30, 0, "+01:00"),
+    Time.new(2021, 6, 21, 8, 45, 0, "+01:00"),
+    Time.new(2021, 6, 21, 9, 00, 0, "+01:00"),
+    Time.new(2021, 6, 21, 9, 15, 0, "+01:00"),
+    Time.new(2021, 6, 21, 9, 30, 0, "+01:00"),
+    Time.new(2021, 6, 21, 9, 45, 0, "+01:00"),
+    Time.new(2021, 6, 21, 10, 00, 0, "+01:00"),
+    Time.new(2021, 6, 21, 10, 15, 0, "+01:00"),
+    Time.new(2021, 6, 21, 10, 30, 0, "+01:00"),
+    Time.new(2021, 6, 21, 10, 45, 0, "+01:00"),
+    Time.new(2021, 6, 21, 11, 00, 0, "+01:00"),
+    Time.new(2021, 6, 21, 11, 15, 0, "+01:00"),
+    Time.new(2021, 6, 21, 11, 30, 0, "+01:00"),
+    Time.new(2021, 6, 21, 11, 45, 0, "+01:00"),
+    Time.new(2021, 6, 21, 12, 00, 0, "+01:00"),
+    Time.new(2021, 6, 21, 12, 15, 0, "+01:00"),
+    Time.new(2021, 6, 21, 12, 30, 0, "+01:00"),
+    Time.new(2021, 6, 21, 12, 45, 0, "+01:00"),
+    Time.new(2021, 6, 21, 13, 00, 0, "+01:00"),
+    Time.new(2021, 6, 21, 13, 15, 0, "+01:00"),
+    Time.new(2021, 6, 21, 13, 30, 0, "+01:00"),
+    Time.new(2021, 6, 21, 13, 45, 0, "+01:00"),
+    Time.new(2021, 6, 21, 14, 00, 0, "+01:00"),
+    Time.new(2021, 6, 21, 14, 15, 0, "+01:00"),
+    Time.new(2021, 6, 21, 14, 30, 0, "+01:00"),
+    Time.new(2021, 6, 21, 14, 45, 0, "+01:00"),
+    Time.new(2021, 6, 21, 15, 00, 0, "+01:00"),
+    Time.new(2021, 6, 21, 15, 15, 0, "+01:00"),
+    Time.new(2021, 6, 21, 15, 30, 0, "+01:00"),
+    Time.new(2021, 6, 21, 15, 45, 0, "+01:00"),
+    Time.new(2021, 6, 21, 16, 00, 0, "+01:00"),
+    Time.new(2021, 6, 21, 16, 15, 0, "+01:00"),
+    Time.new(2021, 6, 21, 16, 30, 0, "+01:00"),
+    Time.new(2021, 6, 21, 16, 45, 0, "+01:00"),
+    Time.new(2021, 6, 21, 17, 00, 0, "+01:00"),
+    Time.new(2021, 6, 21, 17, 15, 0, "+01:00"),
+    Time.new(2021, 6, 21, 17, 30, 0, "+01:00"),
+    Time.new(2021, 6, 21, 17, 45, 0, "+01:00"),
+    Time.new(2021, 6, 21, 18, 00, 0, "+01:00")
+  ]
+
+  open_days.each do |od|
+    starts.each do |st|
+      SlotType.create!(
+        week_day: od,
+        starting_time: st,
+        duration: 15,
+        capacity: 100,
+        appointment_type: at,
+        agenda: agenda
+      )
+    end
+  end
+
+  si plusieurs agenda avec le meme type de RDV & memes horaires
+
+  agendas = [32, 33, 34]
+  at = AppointmentType.find_by(name: 'Rdv de suivi SAP')
+
+  agendas.each do |a|
+    ag = Agenda.find(a)
+    open_days.each do |od|
+      starts3.each do |st|
+        SlotType.create!(
+          week_day: od,
+          starting_time: st,
+          duration: 15,
+          capacity: 1,
+          appointment_type: at,
+          agenda: ag
+        )
+      end
+    end
+  end
+
+5. Création des créneaux
+
+  SlotCreationJob.perform_later
+
+
+================================================================================
+
+# Création type de RDV
+
+at = AppointmentType.create!(name: 'SAP débat contradictoire')
+NotificationType.create!(appointment_type: at, role: :summon, template: "Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}. En cas de problème, contactez le standard au {lieu.téléphone}.")
+NotificationType.create!(appointment_type: at, role: :reminder, template: "RAPPEL Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}. En cas de problème, contactez le standard au {lieu.téléphone}.", reminder_period: :two_days)
+NotificationType.create!(appointment_type: at, role: :cancelation, template: "Votre rendez-vous du {rdv.date} à {rdv.heure} est annulé. Si vous n'avez pas d'autre rendez-vous, merci d'appeler le {lieu.nom} au {lieu.téléphone} pour en fixer un nouveau.")
+NotificationType.create!(appointment_type: at, role: :no_show, template: "Vous avez manqué votre rendez-vous du {rdv.date} à {rdv.heure} au {lieu.nom}, merci de contacter rapidement le {lieu.téléphone}.")
+NotificationType.create!(appointment_type: at, role: :reschedule, template: "Votre rendez-vous au SPIP a été modifié. Vous êtes désormais convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}. En cas de problème, contactez votre conseiller référent ou le standard au {lieu.téléphone}.")
+
+(si nécessaire, créer un lieu + agenda)
+
+-> choisir ce type de rdv sur les bons lieux
+
+création des créneaux récurrents
+(ex tous les jours, tous les créneaux possibles)
+
+agenda = Agenda.find(22)
+open_days = %i[monday tuesday wednesday thursday friday]
+
+starts = [
+  Time.new(2021, 6, 21, 8, 00, 0, "+01:00"),
+  Time.new(2021, 6, 21, 8, 15, 0, "+01:00"),
+  Time.new(2021, 6, 21, 8, 30, 0, "+01:00"),
+  Time.new(2021, 6, 21, 8, 45, 0, "+01:00"),
+  Time.new(2021, 6, 21, 9, 00, 0, "+01:00"),
+  Time.new(2021, 6, 21, 9, 15, 0, "+01:00"),
+  Time.new(2021, 6, 21, 9, 30, 0, "+01:00"),
+  Time.new(2021, 6, 21, 9, 45, 0, "+01:00"),
+  Time.new(2021, 6, 21, 10, 00, 0, "+01:00"),
+  Time.new(2021, 6, 21, 10, 15, 0, "+01:00"),
+  Time.new(2021, 6, 21, 10, 30, 0, "+01:00"),
+  Time.new(2021, 6, 21, 10, 45, 0, "+01:00"),
+  Time.new(2021, 6, 21, 11, 00, 0, "+01:00"),
+  Time.new(2021, 6, 21, 11, 15, 0, "+01:00"),
+  Time.new(2021, 6, 21, 11, 30, 0, "+01:00"),
+  Time.new(2021, 6, 21, 11, 45, 0, "+01:00"),
+  Time.new(2021, 6, 21, 12, 00, 0, "+01:00"),
+  Time.new(2021, 6, 21, 12, 15, 0, "+01:00"),
+  Time.new(2021, 6, 21, 12, 30, 0, "+01:00"),
+  Time.new(2021, 6, 21, 12, 45, 0, "+01:00"),
+  Time.new(2021, 6, 21, 13, 00, 0, "+01:00"),
+  Time.new(2021, 6, 21, 13, 15, 0, "+01:00"),
+  Time.new(2021, 6, 21, 13, 30, 0, "+01:00"),
+  Time.new(2021, 6, 21, 13, 45, 0, "+01:00"),
+  Time.new(2021, 6, 21, 14, 00, 0, "+01:00"),
+  Time.new(2021, 6, 21, 14, 15, 0, "+01:00"),
+  Time.new(2021, 6, 21, 14, 30, 0, "+01:00"),
+  Time.new(2021, 6, 21, 14, 45, 0, "+01:00"),
+  Time.new(2021, 6, 21, 15, 00, 0, "+01:00"),
+  Time.new(2021, 6, 21, 15, 15, 0, "+01:00"),
+  Time.new(2021, 6, 21, 15, 30, 0, "+01:00"),
+  Time.new(2021, 6, 21, 15, 45, 0, "+01:00"),
+  Time.new(2021, 6, 21, 16, 00, 0, "+01:00"),
+  Time.new(2021, 6, 21, 16, 15, 0, "+01:00"),
+  Time.new(2021, 6, 21, 16, 30, 0, "+01:00"),
+  Time.new(2021, 6, 21, 16, 45, 0, "+01:00"),
+  Time.new(2021, 6, 21, 17, 00, 0, "+01:00"),
+  Time.new(2021, 6, 21, 17, 15, 0, "+01:00"),
+  Time.new(2021, 6, 21, 17, 30, 0, "+01:00"),
+  Time.new(2021, 6, 21, 17, 45, 0, "+01:00"),
+  Time.new(2021, 6, 21, 18, 00, 0, "+01:00")
+]
+
+open_days.each do |od|
+  starts.each do |st|
+    SlotType.create!(
+      week_day: od,
+      starting_time: st,
+      duration: 15,
+      capacity: 100,
+      appointment_type: at,
+      agenda: agenda
+    )
+  end
+end
+
+-> lancer le script de création des créneaux
+
+SlotCreationJob.perform_later
+
+Ajuster les templates des SMS
+
+================================================================================
+
+# Duplication des créneaux récurrents d'un type de rdv vers un autre
+
+slot_types = SlotType.where(appointment_type_id: 4)
+
+slot_types.each do |st|
+  new_st = st.dup
+  new_st.appointment_type_id = 6
+  new_st.save!
+end
+
+================================================================================
