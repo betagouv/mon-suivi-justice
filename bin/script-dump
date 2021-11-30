@@ -118,11 +118,13 @@ NotificationType.create!(appointment_type: at, role: :summon, template: "Vous ê
 NotificationType.create!(appointment_type: at, role: :reminder, template: "RAPPEL Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}. En cas de problème, contactez le standard au {lieu.téléphone}.", reminder_period: :two_days)
 NotificationType.create!(appointment_type: at, role: :cancelation, template: "Votre rendez-vous du {rdv.date} à {rdv.heure} est annulé. Si vous n'avez pas d'autre rendez-vous, merci d'appeler le {lieu.nom} au {lieu.téléphone} pour en fixer un nouveau.")
 NotificationType.create!(appointment_type: at, role: :no_show, template: "Vous avez manqué votre rendez-vous du {rdv.date} à {rdv.heure} au {lieu.nom}, merci de contacter rapidement le {lieu.téléphone}.")
-NotificationType.create!(appointment_type: at, role: :reschedule, template: "Votre rendez-vous au SPIP a été modifié. Vous êtes désormais convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}. En cas de problème, contactez votre conseiller référent ou le standard au {lieu.téléphone}.")
+NotificationType.create!(appointment_type: at, role: :reschedule, template: "Votre rendez-vous a été modifié. Vous êtes désormais convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}. En cas de problème, contactez votre conseiller référent ou le standard au {lieu.téléphone}.")
 
 (si nécessaire, créer un lieu + agenda)
 
 -> choisir ce type de rdv sur les bons lieux
+
+Ajouter le nom du nouveau type de rdv dans la bonne méthode du modèle appointment_type (par ex : used_at_spip?)
 
 création des créneaux récurrents
 (ex tous les jours, tous les créneaux possibles)
