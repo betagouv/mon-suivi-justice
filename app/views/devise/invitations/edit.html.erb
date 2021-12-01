@@ -1,16 +1,33 @@
 <div class='login-form-container'>
   <h2 class='login-title'><%= t('devise.invitations.edit.header') %></h2>
+  <p class='login-tutorial'><%= t('login_tutorial') %></p>
+  <p class='login-tutorial-special'><%= t('login_tutorial_special') %></p>
+
+  <%= render 'devise/shared/error_messages', resource: resource %>
 
   <%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: 'login-form' }) do |f| %>
-    <%= f.error_notification %>
     <%= f.hidden_field :invitation_token %>
 
-    <div class="login-field-container">
-      <%= f.input :password %>
-    </div>
+    <div class='form-inputs'>
+      <div class='login-field-container'>
+        <%= f.input :password,
+                    label: t('.new_password'),
+                    required: true,
+                    autofocus: true,
+                    hint: (t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length),
+                    input_html: { autocomplete: 'new-password' },
+                    class: 'login-field',
+                    error: false %>
+      </div>
 
-    <div class="login-field-container">
-      <%= f.input :password_confirmation %>
+      <div class='login-field-container'>
+        <%= f.input :password_confirmation,
+                    label: t('.new_password_confirmation'),
+                    required: true,
+                    input_html: { autocomplete: 'new-password' },
+                    class: 'login-field',
+                    error: false %>
+      </div>
     </div>
 
     <div class="login-button-container">
