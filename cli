@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby
+
+require 'thor'
+
+class CLI < Thor
+  include Thor::Actions
+
+  # Monkey patch for first screen customization
+  # inspiration : https://stackoverflow.com/a/45730659/3219759
+  class << self
+    def help(shell, subcommand = false)
+      list = printable_commands(true, subcommand)
+      Thor::Util.thor_classes_in(self).each do |klass|
+        list += klass.printable_commands(false)
+      end
+
+      # Remove this line to disable alphabetical sorting
+      # list.sort! { |a, b| a[0] <=> b[0] }
+
+      # Add this line to remove the help-command itself from the output
+      list.reject! {|l| l[0].split[1] == 'help'}
+
+      shell.say "Commands:"
+      shell.say
+
+      staging_commands = list.select { |a| a[0].include? 'staging' }
+      production_commands = list.select { |a| a[0].include? 'prod' }
+
+      shell.say "Staging"
+      shell.print_table(staging_commands, indent: 2, truncate: true)
+      shell.say
+      shell.say "Production"
+      shell.print_table(production_commands, indent: 2, truncate: true)
+
+      shell.say
+    end
+  end
+
+  desc "deploy_staging", "deploy MSJ staging from develop branch"
+  def deploy_staging
+    run('bin/deploy-staging')
+  end
+
+  desc "staging_console", "launch MSJ staging rails console"
+  def staging_console
+    run('scalingo -a mon-suivi-justice-staging run rails console')
+  end
+
+  desc "staging_logs", "streams MSJ staging logs"
+  def staging_logs
+    run('scalingo -a mon-suivi-justice-staging logs -f')
+  end
+
+  desc "staging_migrations", "launch migrations on MSJ staging"
+  def staging_migrations
+    run('scalingo -a mon-suivi-justice-staging run rails db:migrate')
+  end
+
+  desc "deploy_prod", "deploy MSJ production from master branch. See bin/deploy-prod"
+  def deploy_prod
+    run('bin/deploy-prod')
+  end
+
+  desc "prod_console", "launch MSJ production rails console"
+  def prod_console
+    run('scalingo -a mon-suivi-justice-prod --region osc-secnum-fr1 run rails console')
+  end
+
+  desc "prod_logs", "streams MSJ production logs"
+  def prod_logs
+    run('scalingo -a mon-suivi-justice-prod --region osc-secnum-fr1 logs -f')
+  end
+
+  desc "prod_migrations", "launch migrations on MSJ production"
+  def prod_migrations
+    run('scalingo -a mon-suivi-justice-prod --region osc-secnum-fr1 run rails db:migrate')
+  end
+end
+
+CLI.start(ARGV)
