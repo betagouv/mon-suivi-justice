@@ -2,32 +2,34 @@
 
 <% if @convict.passed_appointments.present? %>
   <% @convict.passed_appointments.each do |apt| %>
-    <div class='appointment-fulfilment-container'>
-      <div class='appointment-fulfilment-prompt-container'>
-        <%= t('show-convict-fulfilment-prompt', name: @convict.name,
-                                                place: apt.slot.agenda.place.name,
-                                                date: apt.slot.date,
-                                                time: apt.slot.starting_time.to_s(:time)) %>
+    <% if apt.booked? %>
+      <div class='appointment-fulfilment-container'>
+        <div class='appointment-fulfilment-prompt-container'>
+          <%= t('show-convict-fulfilment-prompt', name: @convict.name,
+                                                  place: apt.slot.agenda.place.name,
+                                                  date: apt.slot.date,
+                                                  time: apt.slot.starting_time.to_s(:time)) %>
+        </div>
+
+        <div class='appointment-fulfilment-controls-container'>
+          <%= button_to t('yes'), appointment_fulfil_path(apt),
+                                  method: :put,
+                                  id: 'show-convict-fulfil-button',
+                                  class: 'show-convict-fulfil-button' %>
+
+          <%= button_tag t('no'), type: 'button',
+                                  class: 'show-convict-miss-button',
+                                  data: { 'micromodal-trigger': "missed-appointment-modal-#{apt.id}" } %>
+
+          <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(apt),
+                                                              method: :put,
+                                                              id: 'show-convict-excuse-button',
+                                                              class: 'show-convict-excuse-button' %>
+        </div>
       </div>
 
-      <div class='appointment-fulfilment-controls-container'>
-        <%= button_to t('yes'), appointment_fulfil_path(apt),
-                                method: :put,
-                                id: 'show-convict-fulfil-button',
-                                class: 'show-convict-fulfil-button' %>
-
-        <%= button_tag t('no'), type: 'button',
-                                class: 'show-convict-miss-button',
-                                data: { 'micromodal-trigger': "missed-appointment-modal-#{apt.id}" } %>
-
-        <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(apt),
-                                                            method: :put,
-                                                            id: 'show-convict-excuse-button',
-                                                            class: 'show-convict-excuse-button' %>
-      </div>
-    </div>
-
-    <%= render 'missed_appointment_modal', apt: apt %>
+      <%= render 'missed_appointment_modal', apt: apt %>
+    <% end %>
   <% end %>
 <% end %>
 
