@@ -19,7 +19,9 @@ Morceaux de scripts utiles / maintenance MSJ
 
   à faire pour chaque agenda
   ajuster les jours et heures d'ouverture et la capacité
-  exemple : un créneau tous les jours ouvré, toutes les 15 minutes entre 8h et 18h, capacité 100
+
+  exemple : un créneau tous les jours ouvrés,
+            toutes les 15 minutes entre 8h et 18h, capacité 100
 
 
   at = AppointmentType.find_by(name: 'RDV de suivi SPIP')

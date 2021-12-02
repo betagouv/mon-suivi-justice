@@ -29,50 +29,55 @@ class CLI < Thor
       shell.say 'Staging'
       shell.print_table(staging_commands, indent: 2, truncate: true)
       shell.say
+
       shell.say 'Production'
       shell.print_table(production_commands, indent: 2, truncate: true)
-
       shell.say
     end
   end
 
-  desc 'deploy_staging', 'deploy MSJ staging from develop branch'
+  desc 'deploy_staging', 'deploy staging from develop'
   def deploy_staging
-    run('bin/deploy-staging')
+    run('git push scalingo develop:master')
+    run('scalingo -a mon-suivi-justice-staging run rails db:migrate')
+
+    say
+    say 'Staging deployed'
+    say
   end
 
-  desc 'staging_console', 'launch MSJ staging rails console'
-  def staging_console
+  desc 'console_staging', 'launch MSJ staging rails console'
+  def console_staging
     run('scalingo -a mon-suivi-justice-staging run rails console')
   end
 
-  desc 'staging_logs', 'streams MSJ staging logs'
-  def staging_logs
+  desc 'logs_staging', 'streams MSJ staging logs'
+  def logs_staging
     run('scalingo -a mon-suivi-justice-staging logs -f')
   end
 
-  desc 'staging_migrations', 'launch migrations on MSJ staging'
-  def staging_migrations
+  desc 'migrations_staging', 'launch migrations on MSJ staging'
+  def migrations_staging
     run('scalingo -a mon-suivi-justice-staging run rails db:migrate')
   end
 
-  desc 'deploy_prod', 'deploy MSJ production from master branch. See bin/deploy-prod'
+  desc 'deploy_prod', 'launch bin/deploy-prod script'
   def deploy_prod
     run('bin/deploy-prod')
   end
 
-  desc 'prod_console', 'launch MSJ production rails console'
-  def prod_console
+  desc 'console_prod', 'launch MSJ production rails console'
+  def console_prod
     run('scalingo -a mon-suivi-justice-prod --region osc-secnum-fr1 run rails console')
   end
 
-  desc 'prod_logs', 'streams MSJ production logs'
-  def prod_logs
+  desc 'logs_prod', 'streams MSJ production logs'
+  def logs_prod
     run('scalingo -a mon-suivi-justice-prod --region osc-secnum-fr1 logs -f')
   end
 
-  desc 'prod_migrations', 'launch migrations on MSJ production'
-  def prod_migrations
+  desc 'migrations_prod', 'launch migrations on MSJ production'
+  def migrations_prod
     run('scalingo -a mon-suivi-justice-prod --region osc-secnum-fr1 run rails db:migrate')
   end
 end
