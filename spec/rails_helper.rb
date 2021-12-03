@@ -78,7 +78,6 @@ RSpec.configure do |config|
   config.before(:each) do
     stub_request(:any, /api.sendinblue.com/)
     stub_request(:any, /ingest.sentry.io.*/)
-    # stub_request(:any, /objects.githubusercontent.com/)
   end
 end
 
@@ -99,6 +98,7 @@ driver_urls = Webdrivers::Common.subclasses.map do |driver|
 end
 
 driver_urls << "github-releases.githubusercontent.com"
+driver_urls << "objects.githubusercontent.com"
 
 WebMock.disable_net_connect!(allow_localhost: true, allow: [*driver_urls])
 
