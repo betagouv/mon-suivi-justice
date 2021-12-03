@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# use this script with this command : $ ./cli
+
 require 'thor'
 
 class CLI < Thor
