@@ -27,10 +27,10 @@
 
     <div class='today-date-select-container'>
       <%= form_tag today_appointments_path, method: 'get' do %>
-        <%= select_tag :date, options_for_select(available_places_list, params[:place]),
-                              id: 'today-appointments-date-select',
-                              class: 'form-select form-text-input today-appointments-date-select',
-                              onchange: 'this.form.submit()' %>
+        <%= select_tag :place, options_for_select(available_places_list, params[:place]),
+                               id: 'today-appointments-date-select',
+                               class: 'form-select form-text-input today-appointments-date-select',
+                               onchange: 'this.form.submit()' %>
       <% end %>
     </div>
   </div>
