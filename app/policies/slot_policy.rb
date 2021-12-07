@@ -6,7 +6,7 @@ class SlotPolicy < ApplicationPolicy
       if user.admin?
         scope.all
       elsif ALLOWED_TO_EDIT.include? user.role
-        scope.in_department(user.organization.departments.first)
+        scope.in_organization(user.organization)
       end
     end
   end
