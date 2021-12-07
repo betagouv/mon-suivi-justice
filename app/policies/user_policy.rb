@@ -4,7 +4,7 @@ class UserPolicy < ApplicationPolicy
       if user.admin?
         scope.all
       elsif user.local_admin?
-        scope.in_department(user.organization.departments.first)
+        scope.in_organization(user.organization)
       end
     end
   end

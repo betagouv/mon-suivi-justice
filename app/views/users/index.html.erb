@@ -39,11 +39,20 @@
             <%= link_to t('edit'), edit_user_path(user), class: 'index-control' %>
           <% end %>
 
-          <% if policy(:user).edit? %>
-            <%= link_to t('delete'), user_path(user),
-                                     data: { confirm: t('basic_confirmation') },
-                                     class: 'index-control',
-                                     method: :delete %>
+          <% if policy(:user).destroy? %>
+            <% if !user.admin? %>
+              <%= link_to t('delete'), user_path(user),
+                                       data: { confirm: t('basic_confirmation') },
+                                       class: 'index-control',
+                                       method: :delete %>
+            <% else %>
+              <% if current_user.admin? %>
+                <%= link_to t('delete'), user_path(user),
+                                         data: { confirm: t('basic_confirmation') },
+                                         class: 'index-control',
+                                         method: :delete %>
+              <% end %>
+            <% end %>
           <% end %>
         </div>
       </div>

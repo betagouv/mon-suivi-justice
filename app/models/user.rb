@@ -35,6 +35,8 @@ class User < ApplicationRecord
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
   }
 
+  scope :in_organization, ->(organization) { where(organization: organization) }
+
   def name
     "#{last_name.upcase} #{first_name.capitalize}"
   end
