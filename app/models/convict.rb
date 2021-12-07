@@ -12,11 +12,9 @@ class Convict < ApplicationRecord
   attr_accessor :place_id
 
   validates :appi_uuid, allow_blank: true, uniqueness: true
-  validates :first_name, :last_name, :title, presence: true
+  validates :first_name, :last_name, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
-
-  enum title: %i[male female]
 
   #
   # Convict linked to same departement OR same jurisdiction than the user's organization ones

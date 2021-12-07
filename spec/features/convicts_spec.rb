@@ -50,7 +50,6 @@ RSpec.feature 'Convicts', type: :feature do
     it 'creates a convicts with a phone number' do
       visit new_convict_path
 
-      select 'M.', from: 'Civilité'
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
@@ -61,7 +60,6 @@ RSpec.feature 'Convicts', type: :feature do
     it 'creates a convicts with a duplicate name' do
       visit new_convict_path
 
-      select 'M.', from: 'Civilité'
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
@@ -73,7 +71,6 @@ RSpec.feature 'Convicts', type: :feature do
       create(:convict, first_name: 'roberta', last_name: 'dupond')
       visit new_convict_path
 
-      select 'M.', from: 'Civilité'
       fill_in 'Prénom', with: 'Roberta'
       fill_in 'Nom', with: 'Dupond'
       fill_in 'Téléphone', with: '0606060606'
@@ -98,7 +95,6 @@ RSpec.feature 'Convicts', type: :feature do
 
       visit new_convict_path
 
-      select 'M.', from: 'Civilité'
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
@@ -127,7 +123,7 @@ RSpec.feature 'Convicts', type: :feature do
       logout_current_user
       login_user user
       visit new_convict_path
-      select 'M.', from: 'Civilité'
+
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
