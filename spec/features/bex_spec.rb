@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.feature 'Bex', type: :feature do
   before do
+    @department = create :department
     @organization = create :organization
+    create :areas_organizations_mapping, organization: @organization, area: @department
     bex_user = create(:user, role: :bex, organization: @organization)
     logout_current_user
     login_user(bex_user)
@@ -17,6 +19,9 @@ RSpec.feature 'Bex', type: :feature do
       convict2 = create(:convict, first_name: 'Lex',
                                   last_name: 'Luthor',
                                   prosecutor_number: '205206')
+
+      create :areas_convicts_mapping, convict: convict1, area: @department
+      create :areas_convicts_mapping, convict: convict2, area: @department
 
       apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
       place = create(:place, name: 'Tribunal de Nanterre', organization: @organization)
@@ -69,6 +74,9 @@ RSpec.feature 'Bex', type: :feature do
       convict2 = create(:convict, first_name: 'Moses',
                                   last_name: 'Malone',
                                   prosecutor_number: '205201')
+
+      create :areas_convicts_mapping, convict: convict1, area: @department
+      create :areas_convicts_mapping, convict: convict2, area: @department
 
       apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
       place = create(:place, name: 'SPIP 91', organization: @organization)

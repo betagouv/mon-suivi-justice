@@ -25,6 +25,11 @@ class Appointment < ApplicationRecord
     joins(slot: { agenda: :place }).where(slots: { agendas: { places: { organization: organization } } })
   }
 
+  scope :in_department, lambda { |department|
+    joins(convict: :areas_convicts_mappings)
+      .where(convict: { areas_convicts_mappings: { area_type: 'Department', area_id: department.id } })
+  }
+
   scope :active, -> { where.not(state: 'canceled') }
 
   def in_the_past?

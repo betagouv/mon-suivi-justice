@@ -57,6 +57,10 @@ Metrics/MethodLength:
     - app/services/notification_factory.rb
     - app/helpers/users_helper.rb
 
+Metrics/ClassLength:
+  Exclude:
+    - app/models/appointment.rb
+
 Metrics/AbcSize:
   Exclude:
     - app/policies/convict_policy.rb
