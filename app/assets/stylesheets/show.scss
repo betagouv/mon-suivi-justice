@@ -63,3 +63,9 @@
   @include button($light-blue);
   width: 120px;
 }
+
+.show-button-to-reschedule {
+  @include button($light-blue);
+  width: 120px;
+  margin-bottom: 20px;
+}

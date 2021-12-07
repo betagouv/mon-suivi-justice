@@ -92,15 +92,15 @@
   </div>
 </div>
 
-<% if @convict.booked_appointments.count != 0 %>
+<% if @convict.future_appointments.count != 0 %>
   <div class='show-convict-next-appointments-container'>
-    <% if @convict.booked_appointments.count == 1 %>
+    <% if @convict.future_appointments.count == 1 %>
       <p class='show-convict-next-appointments-title'><%= t('show-convict-next-appointments-title1') %></p>
     <% else %>
       <p class='show-convict-next-appointments-title'><%= t('show-convict-next-appointments-title2') %></p>
     <% end %>
     <div class='show-convict-next-appointments-item'>
-      <% @convict.booked_appointments.each do |apt| %>
+      <% @convict.future_appointments.each do |apt| %>
         <p class='show-convict-next-appointment'>
           <%= t('show_convict_next_appointment', place: apt.slot.agenda.place.name,
                                                  date: apt.slot.date,
