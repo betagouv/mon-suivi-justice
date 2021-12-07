@@ -26,4 +26,21 @@ module ApplicationHelper
 
     formated
   end
+
+  def ten_next_open_days
+    twenty_next_days = (Date.today..Date.today + 20).to_a
+    open_days = twenty_next_days.select { |d| !d.on_weekend? && Holidays.on(d, :fr) == [] }
+
+    open_days.slice(0, 10)
+  end
+
+  def available_places_list
+    list = []
+
+    Place.in_organization(current_organization).each do |place|
+      list << [place.name, place.id]
+    end
+
+    list
+  end
 end

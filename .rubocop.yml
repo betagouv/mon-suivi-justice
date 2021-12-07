@@ -63,3 +63,4 @@ Metrics/AbcSize:
     - app/policies/place_policy.rb
     - app/policies/slot_policy.rb
     - app/policies/appointment_policy.rb
+    - app/controllers/appointments_controller.rb

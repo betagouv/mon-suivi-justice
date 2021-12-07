@@ -11,12 +11,11 @@ class Appointment < ApplicationRecord
 
   enum origin_department: %i[bex gref_co pr]
 
-  scope :for_today, lambda {
-    joins(:slot).where('slots.date' => Date.today)
-                .order('slots.starting_time asc')
-  }
-
   scope :for_a_date, ->(date = Date.today) { joins(:slot).where('slots.date' => date) }
+
+  scope :for_a_place, lambda { |place|
+    joins(slot: { agenda: :place }).where(slots: { agendas: { places: place } })
+  }
 
   scope :for_a_month, lambda { |date = Date.today|
     joins(:slot).where('extract(month from slots.date) = ?', date.month)

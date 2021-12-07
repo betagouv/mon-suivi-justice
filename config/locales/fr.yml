@@ -282,6 +282,9 @@ fr:
   bex_spip_appointments_link: "Agenda RDV SPIP"
   bex_spip_appointments_title: "Agenda RDV SPIP pour"
 
+  today_agendas_title: "RDV prévus pour le"
+  today_agendas_title_part2: "au"
+
   edit_appointment_type_title: Modifier Type de RDV
   edit_appointment_type_notifications: Notifications
   edit_appointment_type_slots: Créneaux récurrents

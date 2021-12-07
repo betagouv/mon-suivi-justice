@@ -54,17 +54,32 @@ RSpec.describe Appointment, type: :model do
   end
 
   describe '.in_organization' do
-    before do
-      @organization = create :organization
-      place_in = create :place, organization: @organization
+    it 'returns correct relation' do
+      organization = create :organization
+      place_in = create :place, organization: organization
       agenda_in = create :agenda, place: place_in
       slot_in = create :slot, agenda: agenda_in
-      @appointment_in = create :appointment, slot: slot_in
+      appointment_in = create :appointment, slot: slot_in
       create :appointment
-    end
 
+      expect(Appointment.in_organization(organization)).to eq [appointment_in]
+    end
+  end
+
+  describe '.for_a_place' do
     it 'returns correct relation' do
-      expect(Appointment.in_organization(@organization)).to eq [@appointment_in]
+      place1 = create :place
+      agenda1 = create :agenda, place: place1
+      slot1 = create :slot, agenda: agenda1
+      appointment1 = create :appointment, slot: slot1
+
+      place2 = create :place
+      agenda2 = create :agenda, place: place2
+      slot2 = create :slot, agenda: agenda2
+      appointment2 = create :appointment, slot: slot2
+
+      expect(Appointment.for_a_place(place1)).to eq [appointment1]
+      expect(Appointment.for_a_place(place2)).to eq [appointment2]
     end
   end
 

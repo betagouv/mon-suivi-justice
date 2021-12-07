@@ -1,19 +1,37 @@
 <div class='appointments-container'>
-  <div class='index-tools-container'>
-    <div class='index-tools-filter-container'>
-      <%= search_form_for @q, url: today_appointments_path, html: { class: 'index-filter-form' } do |f| %>
-        <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.all, 'id', 'name', @q.slot_agenda_place_id_eq),
-                                        { include_blank: t('today_appointments_place_filter') },
-                                        { class: 'form-select index-place-filter-field' } %>
-
-        <%= f.submit t('filter'), class: 'index-search-button' %>
-      <% end %>
-    </div>
-
+  <div class='today-appointments-tools-container'>
     <div class='index-tools-controls-container'>
       <%= button_to t('print_button'), 'fake_link',
                                         class: 'print-button',
                                         onclick: 'window.print();return false;'%>
+    </div>
+  </div>
+
+  <div class='today-agendas-date-container'>
+    <div class='today-date-title-container'>
+      <%= t('today_agendas_title') %>
+    </div>
+
+    <div class='today-date-select-container'>
+      <%= form_tag today_appointments_path, method: 'get' do %>
+        <%= select_tag :date, options_for_select(formated_dates_for_select(ten_next_open_days), params[:date]),
+                              id: 'today-appointments-date-select',
+                              class: 'form-select form-text-input today-appointments-date-select',
+                              onchange: 'this.form.submit()' %>
+      <% end %>
+    </div>
+
+    <div class='today-date-title-container'>
+      <%= t('today_agendas_title_part2') %>
+    </div>
+
+    <div class='today-date-select-container'>
+      <%= form_tag today_appointments_path, method: 'get' do %>
+        <%= select_tag :date, options_for_select(available_places_list, params[:place]),
+                              id: 'today-appointments-date-select',
+                              class: 'form-select form-text-input today-appointments-date-select',
+                              onchange: 'this.form.submit()' %>
+      <% end %>
     </div>
   </div>
 
