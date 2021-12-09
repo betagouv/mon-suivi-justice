@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
   def layout_by_resource
     if devise_controller?
       'authentication'
+    elsif params[:controller] == 'stats'
+      'application'
     else
       'agent_interface'
     end
