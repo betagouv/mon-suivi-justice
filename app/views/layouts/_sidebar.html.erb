@@ -60,4 +60,12 @@
       </div>
     <% end %>
   <% end %>
+
+  <% if ENV["APP"] != "mon-suivi-justice-prod" %>
+    <%= link_to 'https://documentation.mon-suivi-justice.beta.gouv.fr', class: 'sidebar-item-link', target: '_blank' do %>
+      <div class="sidebar-item">
+        <%= t('sidebar.guides') %>
+      </div>
+    <% end %>
+  <% end %>
 </section>
