@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   def home
     @convicts = policy_scope(Convict.all)
     @users = User.count
-    @notifications = Notification.where(state: 'sent').count
+    @notifications = Notification.where(state: ['received', 'failed').count
 
     @recorded = Appointment.count
     @fulfiled = Appointment.where(state: 'fulfiled').count
