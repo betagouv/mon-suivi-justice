@@ -60,6 +60,10 @@ Rails.application.routes.draw do
     get :home
   end
 
+  scope controller: :stats do
+    get :secret_stats
+  end
+
   unauthenticated do
     root 'static_pages#landing'
   end
