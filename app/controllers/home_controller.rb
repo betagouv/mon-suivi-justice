@@ -16,6 +16,7 @@ class HomeController < ApplicationController
 
     @future_booked = Appointment.where(state: 'booked').joins(:slot).where('slots.date > ?', Date.today).count
     @passed_booked = Appointment.where(state: 'booked').joins(:slot).where('slots.date < ?', Date.today).count
-    @passed_no_canceled = Appointment.joins(:slot).where('slots.date < ?', Date.today).where.not(state: 'canceled').count
+    @passed_no_canceled = Appointment.joins(:slot).where('slots.date < ?', Date.today)
+                                     .where.not(state: 'canceled').count
   end
 end

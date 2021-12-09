@@ -56,6 +56,7 @@ Metrics/MethodLength:
   Exclude:
     - app/services/notification_factory.rb
     - app/helpers/users_helper.rb
+    - app/controllers/home_controller.rb
 
 Metrics/ClassLength:
   Exclude:
@@ -68,3 +69,4 @@ Metrics/AbcSize:
     - app/policies/slot_policy.rb
     - app/policies/appointment_policy.rb
     - app/controllers/appointments_controller.rb
+    - app/controllers/home_controller.rb
