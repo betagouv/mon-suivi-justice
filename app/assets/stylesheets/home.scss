@@ -9,7 +9,6 @@
 .home-container {
   width: 90%;
   max-width: 700px;
-  margin: auto;
 }
 
 .home-convict-search-container {
@@ -37,30 +36,29 @@
 
 .home-agenda-link {
   @include button($light-grey);
-  margin-right: 20px;
-}
-
-.home-agenda-empty-link {
-  background-color: none;
-  width: 175px;
-  margin-right: 20px;
 }
 
 .home-custom-links-container {
   display: flex;
   justify-content: space-between;
+  width: fit-content;
+
+  margin: auto;
   margin-bottom: 20px;
   @include box;
+
+  form {
+    margin-right: 20px;
+
+    &:last-child{
+      margin-right: 0;
+    }
+  }
 }
 
 .home-custom-links {
   display: flex;
   width: 80%;
-}
-
-.home-custom-links-title {
-  font-style: italic;
-  margin-right: 20px;
 }
 
 .home-select2-input {
@@ -83,4 +81,23 @@
 
 .select2-search {
   width: 100%;
+}
+
+.home-stats-container {
+  @include box;
+  padding: 20px;
+  margin-right: 40px;
+}
+
+.home-stat-container {
+  display: flex;
+}
+
+.home-stats-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.home-stat-value {
+  margin-left: 10px;
 }
