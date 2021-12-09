@@ -3,10 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Slots', type: :feature do
   before do
     create_admin_user_and_login
-  end
-
-  before :each do
-    allow(Place).to receive(:in_department).and_return([])
+    allow(Place).to receive(:in_department).and_return(Place.all)
   end
 
   describe 'index' do

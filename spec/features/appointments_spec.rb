@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature 'Appointments', type: :feature do
-  before { create_admin_user_and_login }
-
-  before :each do
-    allow(Place).to receive(:in_department).and_return([])
+  before do
+    create_admin_user_and_login
+    allow(Place).to receive(:in_department).and_return(Place.all)
   end
 
   describe 'index' do
