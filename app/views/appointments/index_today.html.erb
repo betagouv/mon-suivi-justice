@@ -14,7 +14,10 @@
 
     <div class='today-date-select-container'>
       <%= form_tag today_appointments_path, method: 'get' do %>
-        <%= hidden_field_tag :place , params[:place] %>
+        <% if params.key?(:place) %>
+          <%= hidden_field_tag :place, params[:place] %>
+        <% end %>
+
         <%= select_tag :date, options_for_select(formated_dates_for_select(ten_next_open_days), params[:date]),
                               id: 'today-appointments-date-select',
                               class: 'form-select form-text-input today-appointments-date-select',
@@ -28,7 +31,10 @@
 
     <div class='today-date-select-container'>
       <%= form_tag today_appointments_path, method: 'get' do %>
-        <%= hidden_field_tag :date , params[:date] %>
+        <% if params.key?(:date) %>
+          <%= hidden_field_tag :date, params[:date] %>
+        <% end %>
+
         <%= select_tag :place, options_for_select(available_places_list, params[:place]),
                                id: 'today-appointments-date-select',
                                class: 'form-select form-text-input today-appointments-date-select',
