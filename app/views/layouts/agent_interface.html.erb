@@ -6,14 +6,19 @@
 
     <section class='content-container'>
       <% flash.each do |type, msg| %>
-      <p class=<%= type %>><%= msg %></p>
+        <p class=<%= type %>><%= msg %></p>
       <% end %>
 
       <%= yield %>
     </section>
 
   </section>
-  <%= mail_to ENV['SUPPORT_EMAIL_ADRESS'], t('contact'), class: 'support-link' %>
+  <div class='support-link' data-micromodal-trigger='support-modal'>
+    <%= t('contact') %>
+  </div>
 <% end %>
 
 <%= render template: 'layouts/application' %>
+
+<%= render 'layouts/support_modal' %>
+<%= javascript_pack_tag 'agent_interface', 'data-turbolinks-eval': false, defer: true %>
