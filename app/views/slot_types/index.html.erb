@@ -2,6 +2,7 @@
 
 <h1 class='index-slot-types-title'><%= t('index_slot_types_title') %></h1>
 <h2 class='index-slot-types-title-place'><%= t('index_slot_types_title_place', place: @agenda.place.name, agenda: @agenda.name) %></h2>
+<p class='index-slot-types-warning'><%= t('index_slot_types_warning') %></p>
 
 <div class='slot-type-apt-type-link-container'>
   <% @agenda.place.appointment_types.each do |apt_type| %>
@@ -37,6 +38,7 @@
             </div>
           <% end %>
         <% end %>
+
         <%= simple_form_for @slot_type, html: { class: 'slot-type-form new-slot-type-form' } do |f| %>
           <%= f.hidden_field :agenda_id, value: @agenda.id %>
           <%= f.hidden_field :appointment_type_id, value: @appointment_type.id %>

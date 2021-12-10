@@ -316,6 +316,7 @@ fr:
 
   index_slot_types_title: "Créneaux récurrents"
   index_slot_types_title_place: "%{place} : %{agenda}"
+  index_slot_types_warning: "Les modifications sur cette page seront répercutées pour la prise de rdv dans un délai de 24h."
   index_slot_types_back_link: "Retour %{place}"
   index_slot_types_update: "Enregistrer"
   index_slot_types_delete: "Supprimer"
