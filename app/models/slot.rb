@@ -25,7 +25,7 @@ class Slot < ApplicationRecord
   }
 
   scope :in_organization, lambda { |organization|
-    joins(agenda: { place: :organization }).where(organization: organization)
+    joins(agenda: :place).where(agendas: { places: { organization: organization } })
   }
 
   def full?
