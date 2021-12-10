@@ -166,7 +166,11 @@ fr:
   contact: "Contacter l'équipe"
 
   support_modal_title: Support
-  support_modal_text: "Merci d'envoyer votre demande à l'adresse suivante:"
+  support_modal_text: "Pour toute demande, vous pouvez écrire à l'équipe de Mon Suivi Justice à l'adresse suivante:"
+  support_modal_warning: "Quelques recommandations :"
+  support_modal_bug: "Pour signaler un bug, merci de décrire avec précision les dernières actions qui ont menées au bug. Une capture d'écran du problème est également très utile."
+  support_modal_evolution: "Pour demander une évolution, n'hésitez pas à entrer dans les détails. Dites-nous quel est votre poste et quelle partie du processus vous souhaitez changer."
+  support_modal_thanks: "Merci de nous aider à améliorer Mon Suivi Justice."
 
   home_find_convict: "Trouver une PPSMJ :"
   home_new_appointment: "Prendre RDV"
