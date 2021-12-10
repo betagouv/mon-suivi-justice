@@ -24,6 +24,10 @@ class Slot < ApplicationRecord
       .where(areas_organizations_mappings: { area: department })
   }
 
+  scope :in_organization, lambda { |organization|
+    joins(agenda: { place: :organization }).where(organization: organization)
+  }
+
   def full?
     used_capacity == capacity
   end
