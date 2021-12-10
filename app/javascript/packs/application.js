@@ -10,7 +10,6 @@ import "channels"
 
 require("jquery");
 require("@nathanvda/cocoon");
-
 require("components/home_search");
 
 Rails.start()

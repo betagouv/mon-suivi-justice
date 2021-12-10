@@ -11,14 +11,13 @@
 
       <%= yield %>
     </section>
-
   </section>
+
   <div class='support-link' data-micromodal-trigger='support-modal'>
     <%= t('contact') %>
   </div>
+  <%= render 'layouts/support_modal' %>
 <% end %>
 
-<%= render 'layouts/support_modal' %>
-<%= javascript_pack_tag 'agent_interface', 'data-turbolinks-eval': false, defer: true %>
-
 <%= render template: 'layouts/application' %>
+<%= javascript_pack_tag 'agent_interface' %>
