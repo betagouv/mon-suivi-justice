@@ -175,8 +175,8 @@ fr:
   home_find_convict: "Trouver une PPSMJ :"
   home_new_appointment: "Prendre RDV"
   home_new_convict: "Nouvelle PPSMJ"
-  home_bex_jap: "Agenda RDV JAP"
-  home_bex_spip: "Agenda RDV SPIP"
+  home_bex_jap: "Sortie d'audience JAP"
+  home_bex_spip: "Sortie d'audience SPIP"
   home_today_appointments: "RDV du jour"
 
   home_stats_title: "Stats"
