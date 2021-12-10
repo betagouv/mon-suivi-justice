@@ -165,6 +165,9 @@ fr:
   print_button: "Imprimer"
   contact: "Contacter l'équipe"
 
+  support_modal_title: Support
+  support_modal_text: "Merci d'envoyer votre demande à l'adresse suivante:"
+
   home_find_convict: "Trouver une PPSMJ :"
   home_new_appointment: "Prendre RDV"
   home_new_convict: "Nouvelle PPSMJ"
