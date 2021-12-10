@@ -12,7 +12,6 @@ class User < ApplicationRecord
     admin: 0,
     bex: 1,
     cpip: 2,
-    sap: 3,
     local_admin: 4,
     prosecutor: 5,
     jap: 6,
@@ -46,7 +45,7 @@ class User < ApplicationRecord
   end
 
   def work_at_sap?
-    %w[jap secretary_court greff_sap dir_greff_sap sap].include? role
+    %w[jap secretary_court greff_sap dir_greff_sap].include? role
   end
 
   def work_at_spip?

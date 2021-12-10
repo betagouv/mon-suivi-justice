@@ -4,7 +4,6 @@ module UsersHelper
       admin
       local_admin
       jap
-      sap
       bex
       prosecutor
       secretary_court
