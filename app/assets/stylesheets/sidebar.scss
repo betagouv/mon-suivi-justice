@@ -12,6 +12,10 @@
   height: 60px;
   display: flex;
   align-items: center;
+
+  &:hover {
+    background-color: darken($sidebar-background, 4%);
+  }
 }
 
 .sidebar-item-link {
