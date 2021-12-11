@@ -10,7 +10,6 @@ class HomeController < ApplicationController
     @recorded = Appointment.count
     @fulfiled = Appointment.where(state: 'fulfiled').count
     @no_show = Appointment.where(state: 'no_show').count
-    @booked = Appointment.where(state: 'booked').count
     @excused = Appointment.where(state: 'excused').count
     @canceled = Appointment.where(state: 'canceled').count
 

@@ -64,6 +64,10 @@ Rails.application.routes.draw do
     get :secret_stats
   end
 
+  scope controller: :steering do
+    get :steering
+  end
+
   unauthenticated do
     root 'static_pages#landing'
   end
