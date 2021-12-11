@@ -12,10 +12,6 @@
   height: 60px;
   display: flex;
   align-items: center;
-
-  &:hover {
-    background-color: darken($sidebar-background, 4%);
-  }
 }
 
 .sidebar-item-link {
@@ -25,4 +21,10 @@
 
 .sidebar-active-item {
   background-color: darken($sidebar-background, 10%);;
+}
+
+.sidebar-inactive-item {
+  &:hover {
+    background-color: darken($sidebar-background, 4%);
+  }
 }
