@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   def home
     @convicts = policy_scope(Convict.all)
     @users = User.count
-    @notifications = Notification.where(state: %w[sent received failed]).count
+    @notifications = Notification.where(state: %w[sent received]).count
 
     @recorded = Appointment.count
     @fulfiled = Appointment.where(state: 'fulfiled').count
@@ -14,7 +14,7 @@ class HomeController < ApplicationController
     @excused = Appointment.where(state: 'excused').count
     @canceled = Appointment.where(state: 'canceled').count
 
-    @future_booked = Appointment.where(state: 'booked').joins(:slot).where('slots.date > ?', Date.today).count
+    @future_booked = Appointment.where(state: 'booked').joins(:slot).where('slots.date >= ?', Date.today).count
     @passed_booked = Appointment.where(state: 'booked').joins(:slot).where('slots.date < ?', Date.today).count
     @passed_no_canceled = Appointment.joins(:slot).where('slots.date < ?', Date.today)
                                      .where.not(state: 'canceled').count
