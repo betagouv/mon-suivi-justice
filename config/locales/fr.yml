@@ -350,7 +350,7 @@ fr:
     slot_types: 'Créneaux récurrents'
     users: "Agents"
     organizations: "Services"
-    guides: "Guides MSJ"
+    guides: "Documentation"
 
   simple_form:
     options:
