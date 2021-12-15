@@ -13,7 +13,12 @@ class SlotTypesBatchesController < ApplicationController
   end
 
   def destroy
-    slot_types = SlotType.where(agenda_id: params[:agenda_id])
+    slot_types = if params.key?(:weekday)
+                   SlotType.where(agenda_id: params[:agenda_id], week_day: params[:weekday])
+                 else
+                   SlotType.where(agenda_id: params[:agenda_id])
+                 end
+
     slot_types.destroy_all
 
     redirect_back(fallback_location: root_path)

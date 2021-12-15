@@ -37,6 +37,7 @@ RSpec.feature 'SlotTypes', type: :feature do
                                      duration: 30, capacity: 1, appointment_type: @appointment_type, agenda: @agenda
 
       visit agenda_slot_types_path(@agenda)
+
       within "#edit_slot_type_#{slot_type.id}" do
         fill_in :slot_type_duration, with: 23
         fill_in :slot_type_capacity, with: 6
@@ -103,13 +104,24 @@ RSpec.feature 'SlotTypes', type: :feature do
       expect { click_button 'Tout créer' }.to change(SlotType, :count).by(7)
     end
 
-    it 'deletes all slot_types for an agenda', :focus do
+    it 'deletes all slot_types for an agenda' do
       3.times { create :slot_type, agenda: @agenda }
 
       visit agenda_slot_types_path(@agenda)
 
       within first('.slot-type-batch-creator-container') do
         expect { click_link 'Tout supprimer' }.to change(SlotType, :count).by(-3)
+      end
+    end
+
+    it 'deletes slot_types for a specific day' do
+      2.times { create :slot_type, agenda: @agenda, appointment_type: @appointment_type, week_day: 'monday' }
+      2.times { create :slot_type, agenda: @agenda, appointment_type: @appointment_type, week_day: 'tuesday' }
+
+      visit agenda_slot_types_path(@agenda)
+
+      within first('.index-slot-types-weekday-wrapper-monday') do
+        expect { click_link 'Tout supprimer' }.to change(SlotType, :count).by(-2)
       end
     end
   end

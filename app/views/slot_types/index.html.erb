@@ -64,16 +64,19 @@
 
       <div class='slot-type-batch-data-wrapper'>
         <%= f.input :interval, as: :numeric,
+                               placeholder: t('slot_types_batch_interval_placeholder'),
                                label: t('slot_types_batch_interval'),
                                input_html: { class: 'slot-types-batch-field' },
                                wrapper_html: { class: 'slot-types-batch-field-wrapper' } %>
 
         <%= f.input :capacity, as: :numeric,
+                               placeholder: t('slot_types_batch_capacity_placeholder'),
                                label: t('slot_types_batch_capacity'),
                                input_html: { class: 'slot-types-batch-field' },
                                wrapper_html: { class: 'slot-types-batch-field-wrapper' } %>
 
         <%= f.input :duration, as: :numeric,
+                               placeholder: t('slot_types_batch_duration_placeholder'),
                                label: t('slot_types_batch_duration'),
                                input_html: { class: 'slot-types-batch-field' },
                                wrapper_html: { class: 'slot-types-batch-field-wrapper' } %>
@@ -86,7 +89,7 @@
         <%= t('slot_types_batch_submit') %>
       </button>
       <%= link_to t('slot_types_batch_deletion'), agenda_slot_types_batch_path(@agenda),
-                                                  data: { confirm: t('basic_confirmation') },
+                                                  data: { confirm: t('slot_type_delete_confirmation') },
                                                   class: 'slot-type-batch-delete-all-button',
                                                   method: :delete %>
     </div>
@@ -97,7 +100,15 @@
   <div class='slot-type-appointment-type-container'>
     <% SlotType.week_days.keys.each do |weekday| %>
       <div class=<%= "index-slot-types-weekday-wrapper-#{weekday}"%>>
-        <h3 class='slot-type-weekday'><%= t("simple_form.options.slot_type.week_day.#{weekday}") %></h3>
+        <div class='slot-type-weekday-header'>
+          <h3><%= t("simple_form.options.slot_type.week_day.#{weekday}") %></h3>
+          <% if ENV['APP'] != 'mon-suivi-justice-prod' && @slot_types.where(week_day: weekday).count != 0 %>
+            <%= link_to t('slot_types_batch_deletion'), agenda_slot_types_batch_path(@agenda, weekday: weekday),
+                                                        method: :delete,
+                                                        data: { confirm: t('slot_type_delete_confirmation') },
+                                                        class: 'slot-type-batch-delete-weekday-link'   %>
+          <% end %>
+        </div>
 
         <div class='index-slot-types-weekday-container'>
           <% @slot_types.where(week_day: weekday).each do |slot_type| %>
@@ -119,7 +130,7 @@
                 <%= f.button :submit, t('index_slot_types_update'), class: 'slot-type-submit-button' %>
                 <%= link_to t('index_slot_types_delete'), slot_type_path(slot_type),
                                                           method: :delete,
-                                                          data: { confirm: t('basic_confirmation') } %>
+                                                          data: { confirm: t('slot_type_delete_confirmation') } %>
               </div>
             <% end %>
           <% end %>

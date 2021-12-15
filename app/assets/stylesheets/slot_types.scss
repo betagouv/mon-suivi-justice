@@ -51,8 +51,15 @@
   margin-bottom: 50px;
 }
 
-.slot-type-weekday {
+.slot-type-weekday-header {
   margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slot-type-batch-delete-weekday-link {
+  color: $link;
+  margin-right: 30px;
 }
 
 .slot-type-form {

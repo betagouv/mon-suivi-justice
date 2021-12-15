@@ -336,11 +336,15 @@ fr:
 
   slot_types_batch_opening: "Premier créneau"
   slot_types_batch_closing: "Dernier créneau"
-  slot_types_batch_interval: "Intervale"
+  slot_types_batch_interval: "Intervale (min)"
   slot_types_batch_capacity: "Capacité"
-  slot_types_batch_duration: "Durée"
+  slot_types_batch_duration: "Durée (min)"
+  slot_types_batch_interval_placeholder: "ex: 15"
+  slot_types_batch_capacity_placeholder: "ex: 6"
+  slot_types_batch_duration_placeholder: "ex: 30"
   slot_types_batch_submit: "Tout créer"
   slot_types_batch_deletion: "Tout supprimer"
+  slot_type_delete_confirmation: "Supprimer un créneau récurrent supprimera également tous les créneaux associés, sauf si un rdv a déjà été pris sur ce créneau. Êtes-vous sûr(e)?"
 
   new_slot_type_title: "Nouveau Créneau Récurent"
   new_slot_type_submit: "Enregistrer"
