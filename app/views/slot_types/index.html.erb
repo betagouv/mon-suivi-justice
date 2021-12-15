@@ -10,54 +10,140 @@
   <% end %>
 </div>
 
+<% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+  <div class='slot-type-batch-creator-container'>
+    <%= simple_form_for :slot_types_batch, url: agenda_slot_types_batch_path(@agenda), html: { class: 'slot-types-batch-form', id: 'slot-types-batch-form' } do |f| %>
+      <div class='slot-types-batch-weekday-container'>
+        <%= f.input :day_monday, label: t('monday'), as: :boolean,
+                                                     wrapper_html: { class: 'slot-type-batch-checkbox-wrapper' },
+                                                     label_html: { class: 'form-checkbox-label' },
+                                                     input_html: { class: 'form-checkbox' } %>
+        <%= f.input :day_tuesday, label: t('tuesday'), as: :boolean,
+                                                       wrapper_html: { class: 'slot-type-batch-checkbox-wrapper' },
+                                                       label_html: { class: 'form-checkbox-label' },
+                                                       input_html: { class: 'form-checkbox' } %>
+        <%= f.input :day_wednesday, label: t('wednesday'), as: :boolean,
+                                                           wrapper_html: { class: 'slot-type-batch-checkbox-wrapper' },
+                                                           label_html: { class: 'form-checkbox-label' },
+                                                           input_html: { class: 'form-checkbox' } %>
+        <%= f.input :day_thursday, label: t('thursday'), as: :boolean,
+                                                         wrapper_html: { class: 'slot-type-batch-checkbox-wrapper' },
+                                                         label_html: { class: 'form-checkbox-label' },
+                                                         input_html: { class: 'form-checkbox' } %>
+        <%= f.input :day_friday, label: t('friday'), as: :boolean,
+                                                     wrapper_html: { class: 'slot-type-batch-checkbox-wrapper' },
+                                                     label_html: { class: 'form-checkbox-label' },
+                                                     input_html: { class: 'form-checkbox' } %>
+      </div>
+
+      <div class='slot-type-batch-time-wrapper'>
+        <div class='slot-type-batch-time-input'>
+          <%= f.input :first_slot, input_html: { class: 'form-select' },
+                                   as: :time,
+                                   include_blank: true,
+                                   label: t('slot_types_batch_opening'),
+                                   label_html: { class: 'slot-type-time-input-label' },
+                                   wrapper: :custom_time,
+                                   start_hour: 7,
+                                   end_hour: 20,
+                                   minute_step: 15 %>
+        </div>
+
+        <div class='slot-type-batch-time-input'>
+          <%= f.input :last_slot, input_html: { class: 'form-select' },
+                                  as: :time,
+                                  include_blank: true,
+                                  label: t('slot_types_batch_closing'),
+                                  label_html: { class: 'slot-type-time-input-label' },
+                                  wrapper: :custom_time,
+                                  start_hour: 7,
+                                  end_hour: 20,
+                                  minute_step: 15 %>
+        </div>
+      </div>
+
+      <div class='slot-type-batch-data-wrapper'>
+        <%= f.input :interval, as: :numeric,
+                               label: t('slot_types_batch_interval'),
+                               input_html: { class: 'slot-types-batch-field' },
+                               wrapper_html: { class: 'slot-types-batch-field-wrapper' } %>
+
+        <%= f.input :capacity, as: :numeric,
+                               label: t('slot_types_batch_capacity'),
+                               input_html: { class: 'slot-types-batch-field' },
+                               wrapper_html: { class: 'slot-types-batch-field-wrapper' } %>
+
+        <%= f.input :duration, as: :numeric,
+                               label: t('slot_types_batch_duration'),
+                               input_html: { class: 'slot-types-batch-field' },
+                               wrapper_html: { class: 'slot-types-batch-field-wrapper' } %>
+      </div>
+
+    <% end %>
+
+    <div class='slot-type-batch-controls-container'>
+      <button type='submit' form='slot-types-batch-form' class='slot-type-batch-submit-button'>
+        <%= t('slot_types_batch_submit') %>
+      </button>
+      <%= link_to t('slot_types_batch_deletion'), agenda_slot_types_batch_path(@agenda),
+                                                  data: { confirm: t('basic_confirmation') },
+                                                  class: 'slot-type-batch-delete-all-button',
+                                                  method: :delete %>
+    </div>
+  </div>
+<% end %>
+
 <% if @appointment_type %>
   <div class='slot-type-appointment-type-container'>
     <% SlotType.week_days.keys.each do |weekday| %>
-      <h3 class='slot-type-weekday'><%= t("simple_form.options.slot_type.week_day.#{weekday}") %></h3>
-      <div class='index-slot-types-weekday-container'>
-        <% @slot_types.where(week_day: weekday).each do |slot_type| %>
-          <%= simple_form_for slot_type, html: { class: 'slot-type-form' } do |f| %>
+      <div class=<%= "index-slot-types-weekday-wrapper-#{weekday}"%>>
+        <h3 class='slot-type-weekday'><%= t("simple_form.options.slot_type.week_day.#{weekday}") %></h3>
+
+        <div class='index-slot-types-weekday-container'>
+          <% @slot_types.where(week_day: weekday).each do |slot_type| %>
+            <%= simple_form_for slot_type, html: { class: 'slot-type-form' } do |f| %>
+              <%= f.hidden_field :agenda_id, value: @agenda.id %>
+              <%= f.hidden_field :appointment_type_id, value: @appointment_type.id %>
+              <%= f.hidden_field :week_day, value: weekday %>
+              <div class='slot-type-time-input'>
+                <%= f.input :starting_time, input_html: { value: f.object.starting_time.to_s, class: 'form-select' },
+                                            label_html: { class: 'slot-type-time-input-label' },
+                                            wrapper: :custom_time,
+                                            start_hour: 7,
+                                            end_hour: 20,
+                                            minute_step: 5 %>
+              </div>
+              <div class='slot-type-duration-input'><%= f.input :duration %></div>
+              <div class='slot-type-capacity-input'><%= f.input :capacity %></div>
+              <div class='slot-type-input-last'>
+                <%= f.button :submit, t('index_slot_types_update'), class: 'slot-type-submit-button' %>
+                <%= link_to t('index_slot_types_delete'), slot_type_path(slot_type),
+                                                          method: :delete,
+                                                          data: { confirm: t('basic_confirmation') } %>
+              </div>
+            <% end %>
+          <% end %>
+
+          <%= simple_form_for @slot_type, html: { class: 'slot-type-form new-slot-type-form' } do |f| %>
             <%= f.hidden_field :agenda_id, value: @agenda.id %>
             <%= f.hidden_field :appointment_type_id, value: @appointment_type.id %>
             <%= f.hidden_field :week_day, value: weekday %>
             <div class='slot-type-time-input'>
-              <%= f.input :starting_time, input_html: { value: f.object.starting_time.to_s, class: 'form-select' },
+              <%= f.input :starting_time, wrapper: :custom_time,
+                                          include_blank: true,
+                                          input_html: { class: 'form-select' },
                                           label_html: { class: 'slot-type-time-input-label' },
-                                          wrapper: :custom_time,
                                           start_hour: 7,
                                           end_hour: 20,
                                           minute_step: 5 %>
             </div>
-            <div class='slot-type-duration-input'><%= f.input :duration %></div>
-            <div class='slot-type-capacity-input'><%= f.input :capacity %></div>
+            <div class='slot-type-duration-input'><%= f.input :duration, input_html: { value: nil } %></div>
+            <div class='slot-type-capacity-input'><%= f.input :capacity, input_html: { value: nil } %></div>
             <div class='slot-type-input-last'>
-              <%= f.button :submit, t('index_slot_types_update'), class: 'slot-type-submit-button' %>
-              <%= link_to t('index_slot_types_delete'), slot_type_path(slot_type),
-                                                        method: :delete,
-                                                        data: { confirm: t('basic_confirmation') } %>
+              <%= f.button :submit, t('index_slot_types_create'), class: 'slot-type-add-button' %>
             </div>
           <% end %>
-        <% end %>
-
-        <%= simple_form_for @slot_type, html: { class: 'slot-type-form new-slot-type-form' } do |f| %>
-          <%= f.hidden_field :agenda_id, value: @agenda.id %>
-          <%= f.hidden_field :appointment_type_id, value: @appointment_type.id %>
-          <%= f.hidden_field :week_day, value: weekday %>
-          <div class='slot-type-time-input'>
-            <%= f.input :starting_time, wrapper: :custom_time,
-                                        include_blank: true,
-                                        input_html: { class: 'form-select' },
-                                        label_html: { class: 'slot-type-time-input-label' },
-                                        start_hour: 7,
-                                        end_hour: 20,
-                                        minute_step: 5 %>
-          </div>
-          <div class='slot-type-duration-input'><%= f.input :duration, input_html: { value: nil } %></div>
-          <div class='slot-type-capacity-input'><%= f.input :capacity, input_html: { value: nil } %></div>
-          <div class='slot-type-input-last'>
-            <%= f.button :submit, t('index_slot_types_create'), class: 'slot-type-add-button' %>
-          </div>
-        <% end %>
+        </div>
       </div>
     <% end %>
   </div>

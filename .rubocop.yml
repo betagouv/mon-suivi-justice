@@ -43,6 +43,10 @@ Style/FormatStringToken:
   Exclude:
     - spec/services/notification_factory_spec.rb
 
+Style/NumericLiteralPrefix:
+  Exclude:
+    - spec/services/slot_type_factory_spec.rb
+
 Style/SymbolArray:
   Exclude:
     - app/controllers/**/*
@@ -55,6 +59,7 @@ Style/IfUnlessModifier:
 Metrics/MethodLength:
   Exclude:
     - app/services/notification_factory.rb
+    - app/services/slot_type_factory.rb
     - app/helpers/users_helper.rb
     - app/controllers/home_controller.rb
 
