@@ -25,33 +25,96 @@
     <div class='home-custom-links-wrapper'>
       <% if policy(:appointment).agenda_jap? || policy(:appointment).agenda_spip?  %>
         <div class='home-custom-links-container'>
-          <p class='home-custom-links-title'><%= t('home_bex_title') %></p>
           <div class='home-custom-links'>
             <% if policy(:appointment).agenda_jap? %>
-                <%= button_to t('home_bex_jap'), agenda_jap_path,
-                                                 class: 'home-agenda-link',
-                                                 method: :get %>
+              <%= button_to t('home_bex_jap'), agenda_jap_path,
+                                               class: 'home-agenda-link',
+                                               method: :get %>
             <% end %>
+
             <% if policy(:appointment).agenda_spip? %>
               <%= button_to t('home_bex_spip'), agenda_spip_path,
                                                 class: 'home-agenda-link',
                                                 method: :get %>
             <% end %>
-          </div>
-        </div>
-      <% end %>
 
-      <% if policy(:appointment).index_today? %>
-        <div class='home-custom-links-container'>
-          <p class='home-custom-links-title'><%= t('home_spip_title') %></p>
-          <div class='home-custom-links'>
-            <%= button_to t('today_appointments_title'), today_appointments_path,
-                                                         class: 'home-agenda-link',
-                                                         method: :get %>
-            <div class='home-agenda-empty-link'></div>
+            <% if policy(:appointment).index_today? %>
+              <%= button_to t('home_today_appointments'), today_appointments_path,
+                                                          class: 'home-agenda-link',
+                                                          method: :get %>
+            <% end %>
           </div>
         </div>
       <% end %>
     </div>
   </div>
+
+  <% if current_user.admin? %>
+    <div class='home-stats-container'>
+      <p class='home-stats-title'><%= t('home_stats_title') %></p>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_users') %></p>
+        <p class='home-stat-value'><%= @users %></p>
+      </div>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_convicts') %></p>
+        <p class='home-stat-value'><%= @convicts.count %></p>
+      </div>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_notifications') %></p>
+        <p class='home-stat-value'><%= @notifications %></p>
+      </div>
+      <br>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_recorded') %></p>
+        <p class='home-stat-value'><%= @recorded %></p>
+      </div>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_passed_no_canceled') %></p>
+        <p class='home-stat-value'><%= @passed_no_canceled %></p>
+      </div>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_future_booked') %></p>
+        <p class='home-stat-value'><%= @future_booked %></p>
+      </div>
+      <br>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_fulfiled') %></p>
+        <p class='home-stat-value'><%= @fulfiled %></p>
+      </div>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_no_show') %></p>
+        <p class='home-stat-value'><%= @no_show %></p>
+      </div>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_excused') %></p>
+        <p class='home-stat-value'><%= @excused %></p>
+      </div>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_canceled') %></p>
+        <p class='home-stat-value'><%= @canceled %></p>
+      </div>
+      <br>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_passed_booked') %></p>
+        <p class='home-stat-value'><%= @passed_booked %></p>
+      </div>
+
+      <div class='home-stat-container'>
+        <p class='home-stat-title'><%= t('home_stats_data_missing') %></p>
+        <p class='home-stat-value'><%= @passed_booked * 100 / @passed_no_canceled %> %</p>
+      </div>
+    </div>
+  <% end %>
 </div>

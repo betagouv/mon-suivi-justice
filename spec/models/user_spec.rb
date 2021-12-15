@@ -14,7 +14,6 @@ RSpec.describe User, type: :model do
         admin: 0,
         bex: 1,
         cpip: 2,
-        sap: 3,
         local_admin: 4,
         prosecutor: 5,
         jap: 6,

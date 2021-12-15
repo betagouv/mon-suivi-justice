@@ -38,7 +38,6 @@ fr:
           greff_co: "Greffe correctionnel"
           dir_greff_sap: "Directeur de greffe SAP"
           greff_sap: "Greffe SAP"
-          sap: "SAP"
           dpip: "DPIP"
           cpip: "CPIP"
           educator: "Educateur"
@@ -166,13 +165,33 @@ fr:
   print_button: "Imprimer"
   contact: "Contacter l'équipe"
 
+  support_modal_title: Support
+  support_modal_text: "Pour toute demande, vous pouvez écrire à l'équipe de Mon Suivi Justice à l'adresse suivante:"
+  support_modal_warning: "Quelques recommandations :"
+  support_modal_bug: "Pour signaler un bug, merci de décrire avec précision les dernières actions qui ont menée au bug. Une capture d'écran du problème est également très utile."
+  support_modal_evolution: "Pour demander une évolution, n'hésitez pas à entrer dans les détails. Dites-nous quel est votre poste et quelle partie du processus vous souhaitez changer."
+  support_modal_thanks: "Merci de nous aider à améliorer Mon Suivi Justice."
+
   home_find_convict: "Trouver une PPSMJ :"
   home_new_appointment: "Prendre RDV"
   home_new_convict: "Nouvelle PPSMJ"
-  home_bex_title: "Agents du BEX"
-  home_bex_jap: "Agenda RDV JAP"
-  home_bex_spip: "Agenda RDV SPIP"
-  home_spip_title: "Agents du SPIP"
+  home_bex_jap: "Sortie d'audience JAP"
+  home_bex_spip: "Sortie d'audience SPIP"
+  home_today_appointments: "RDV du jour"
+
+  home_stats_title: "Stats"
+  home_stats_recorded: "Total RDV enregistrés"
+  home_stats_passed_no_canceled: "RDV passés hors annulation"
+  home_stats_future_booked: "RDV futurs"
+  home_stats_fulfiled: "RDV réussis"
+  home_stats_no_show: "RDV manqués"
+  home_stats_excused: "RDV excusés"
+  home_stats_canceled: "RDV annulés"
+  home_stats_passed_booked: "RDV passés non-renseignés"
+  home_stats_data_missing: "% RDV non-renseignés"
+  home_stats_convicts: "Total PPSMJ enregistrées"
+  home_stats_users: "Total agents utilisateurs"
+  home_stats_notifications: "Total SMS envoyés"
 
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"
@@ -259,7 +278,6 @@ fr:
   new_appointment_reload: "Recharger"
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-agenda-filter: "Agenda"
-  today_appointments_title: "RDV SPIP du jour"
   today_appointments_place_filter: "Lieu de RDV"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
   new-appointment-help: "Sélectionnez un lieu de RDV pour afficher les créneaux disponibles."
@@ -304,6 +322,7 @@ fr:
 
   index_slot_types_title: "Créneaux récurrents"
   index_slot_types_title_place: "%{place} : %{agenda}"
+  index_slot_types_warning: "Les modifications sur cette page seront répercutées pour la prise de rdv dans un délai de 24h."
   index_slot_types_back_link: "Retour %{place}"
   index_slot_types_update: "Enregistrer"
   index_slot_types_delete: "Supprimer"
@@ -331,7 +350,7 @@ fr:
     slot_types: 'Créneaux récurrents'
     users: "Agents"
     organizations: "Services"
-    guides: "Guides MSJ"
+    guides: "Documentation"
 
   simple_form:
     options:

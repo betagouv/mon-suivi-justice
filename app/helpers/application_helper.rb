@@ -1,9 +1,9 @@
 module ApplicationHelper
   def active_class_if_controller(controller)
     if controller.is_a?(Array)
-      controller.include?(params[:controller]) ? 'sidebar-active-item' : ''
+      controller.include?(params[:controller]) ? 'sidebar-active-item' : 'sidebar-inactive-item'
     else
-      params[:controller] == controller ? 'sidebar-active-item' : ''
+      params[:controller] == controller ? 'sidebar-active-item' : 'sidebar-inactive-item'
     end
   end
 

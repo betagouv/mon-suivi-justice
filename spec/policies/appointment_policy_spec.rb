@@ -486,61 +486,6 @@ describe AppointmentPolicy do
     end
   end
 
-  context 'for a sap user' do
-    let(:user) { build(:user, role: 'sap') }
-
-    it { is_expected.to permit_action(:show) }
-    it { is_expected.to permit_action(:index) }
-    it { is_expected.to permit_action(:agenda_jap) }
-    it { is_expected.to forbid_action(:agenda_spip) }
-    it { is_expected.to forbid_action(:index_today) }
-
-    context "for an appointment_type Sortie d'audience SAP" do
-      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
-
-      it { is_expected.to permit_action(:new) }
-      it { is_expected.to permit_action(:create) }
-      it { is_expected.to permit_action(:edit) }
-      it { is_expected.to permit_action(:update) }
-      it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
-      it { is_expected.to permit_action(:reschedule) }
-    end
-
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
-
-      it { is_expected.to permit_action(:new) }
-      it { is_expected.to permit_action(:create) }
-      it { is_expected.to permit_action(:edit) }
-      it { is_expected.to permit_action(:update) }
-      it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
-      it { is_expected.to permit_action(:reschedule) }
-    end
-
-    context 'for an appointment_type 1er RDV SPIP' do
-      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
-
-      it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
-      it { is_expected.to forbid_action(:edit) }
-      it { is_expected.to forbid_action(:update) }
-      it { is_expected.to forbid_action(:destroy) }
-      it { is_expected.to forbid_action(:cancel) }
-      it { is_expected.to forbid_action(:fulfil) }
-      it { is_expected.to forbid_action(:miss) }
-      it { is_expected.to forbid_action(:excuse) }
-      it { is_expected.to forbid_action(:reschedule) }
-    end
-  end
-
   context 'for a cpip user' do
     let(:user) { build(:user, role: 'cpip') }
 

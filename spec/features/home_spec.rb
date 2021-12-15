@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.feature 'Home', type: :feature do
   describe 'Home page' do
-    it 'allows to find a convict' do
-      create_admin_user_and_login
+    it 'loads' do
+      jap_user = create(:user, role: :jap)
+      login_user(jap_user)
 
       visit home_path
 
