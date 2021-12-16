@@ -267,6 +267,8 @@ fr:
   show_history_failed_send_cancelation_notification: "Le SMS d'annulation n'a pas été reçu par %{name}."
   show_history_send_now_no_show_notification_title: "SMS envoyé (rdv manqué)"
   show_history_send_now_no_show_notification: "[Texte du SMS] %{content}"
+  show_history_send_now_reschedule_notification_title: "SMS envoyé (rdv replanifié)"
+  show_history_send_now_reschedule_notification: "[Texte du SMS] %{content}"
 
   show_history_reschedule_appointment_title: "RDV replanifié"
   show_history_reschedule_appointment: "Le RDV a été replanifié."
