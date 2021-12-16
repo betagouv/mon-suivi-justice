@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :areas_convicts_mappings, only: [:create, :destroy]
 
   resources :appointments do
-    resource :reschedule, only: [:new, :create], controller: 'appointments/reschedules'
+    resource :reschedule, only: [:new, :create], controller: 'appointments_reschedules'
     put 'cancel'
     put 'fulfil'
     put 'miss'
