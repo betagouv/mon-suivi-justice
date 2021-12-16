@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   resources :organizations
   resources :users
   resources :places
-  resources :convicts
+  resources :convicts do
+    delete 'archive'
+    post 'unarchive'
+  end
   resources :appointment_types
   resources :slots
   resources :slot_types, only: [:create, :destroy, :update]

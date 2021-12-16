@@ -42,6 +42,12 @@
           <% if policy(:convict).edit? %>
             <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control' %>
           <% end %>
+          <% if policy(:convict).archive? && !convict.deleted? %>
+            <%= link_to t('archive'), convict_archive_path(convict), method: :delete, class: 'index-control' %>
+          <% end %>
+          <% if policy(:convict).unarchive? && convict.deleted? %>
+            <%= link_to t('unarchive'), convict_unarchive_path(convict), method: :post, class: 'index-control' %>
+          <% end %>
           <% if policy(:convict).destroy? %>
             <%= link_to t('delete'), convict_path(convict), class: 'index-control',
                                                             data: { confirm: t('basic_confirmation') },
