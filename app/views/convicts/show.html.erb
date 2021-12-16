@@ -89,6 +89,14 @@
                                  data: { confirm: t('basic_confirmation') },
                                  class: 'show-button-to-delete' %>
     <% end %>
+
+    <% if policy(:convict).archive? && !@convict.deleted? %>
+      <%= button_to t('archive'), convict_archive_path(@convict), method: :delete, class: 'show-button-archive' %>
+    <% end %>
+
+    <% if policy(:convict).unarchive? && @convict.deleted? %>
+      <%= button_to t('unarchive'), convict_unarchive_path(@convict), method: :post, class: 'show-button-archive' %>
+    <% end %>
   </div>
 </div>
 

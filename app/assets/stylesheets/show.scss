@@ -51,21 +51,30 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
-  margin-right: 15px;
 }
 
 .show-button-to-edit {
   @include button($light-blue);
+  padding: .4em 1em;
   width: 120px;
+  margin-bottom: 10px;
 }
 
 .show-button-to-delete {
   @include button($light-blue);
+  padding: .4em 1em;
   width: 120px;
+  margin-bottom: 10px;
 }
 
 .show-button-to-reschedule {
   @include button($light-blue);
   width: 120px;
   margin-bottom: 20px;
+}
+
+.show-button-archive {
+  @include button($light-grey);
+  padding: .4em 1em;
+  width: 120px;
 }

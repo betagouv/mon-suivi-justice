@@ -52,7 +52,7 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     @convict.destroy
-    redirect_to convicts_path
+    redirect_back(fallback_location: root_path)
   end
 
   def unarchive
@@ -60,7 +60,7 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     @convict.recover
-    redirect_to convicts_path
+    redirect_back(fallback_location: root_path)
   end
 
   def show

@@ -20,7 +20,7 @@ unless defined?(Rails::Console) || Rails.env.test? || Rails.env.development? || 
   end
 
   Rufus::Scheduler.singleton.cron '10 0 * * *' do
-    # Every day at 00:10, delete archived convicts 6 months ago
+    # Every day at 00:10, delete convicts archived 6 months ago
     ArchivedConvictsDestroy.perform_later
   end
 end
