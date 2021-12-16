@@ -5,7 +5,6 @@ class SlotTypesBatchesController < ApplicationController
   def create
     @agenda = Agenda.find params[:agenda_id]
     @appointment_type = AppointmentType.find_by(id: params[:appointment_type_id])
-    @appointment_type ||= @agenda.place.appointment_types.first
 
     SlotTypeFactory.perform(appointment_type: @appointment_type, agenda: @agenda, data: slot_types_batch_params.to_h)
 
