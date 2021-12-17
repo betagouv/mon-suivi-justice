@@ -2,6 +2,10 @@ class HistoryItem < ApplicationRecord
   belongs_to :convict
   belongs_to :appointment
 
+  # validates :content, presence: true
+  #
+  # attr_readonly :content
+
   enum category: %i[appointment notification]
 
   enum event: %i[

@@ -471,6 +471,7 @@ DEPENDENCIES
   redis-namespace
   rspec-rails
   rspec_junit_formatter
+  ruby-progressbar
   rufus-scheduler (~> 3.2)
   sass-rails (>= 6)
   sassc (= 2.3.0)
