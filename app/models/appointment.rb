@@ -96,11 +96,10 @@ class Appointment < ApplicationRecord
     end
 
     after_transition do |appointment, transition|
-      HistoryItem.create!(
-        convict: appointment.convict,
+      HistoryItemFactory.perform(
         appointment: appointment,
-        category: 'appointment',
-        event: "#{transition.event}_appointment".to_sym
+        event: "#{transition.event}_appointment".to_sym,
+        category: 'appointment'
       )
     end
 
