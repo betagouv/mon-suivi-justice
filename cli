@@ -80,7 +80,7 @@ class CLI < Thor
 
   desc 'bash_prod', 'launch bash on MSJ prod'
   def bash_prod
-    run('scalingo -a mon-suivi-justice-prod run bash')
+    run('scalingo -a mon-suivi-justice-prod --region osc-secnum-fr1 run bash')
   end
 
   desc 'logs_prod', 'streams MSJ production logs'
