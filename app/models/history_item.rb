@@ -2,9 +2,9 @@ class HistoryItem < ApplicationRecord
   belongs_to :convict
   belongs_to :appointment
 
-  # validates :content, presence: true
-  #
-  # attr_readonly :content
+  validates :content, presence: true
+
+  attr_readonly :content
 
   enum category: %i[appointment notification]
 
@@ -25,12 +25,5 @@ class HistoryItem < ApplicationRecord
 
   def self.validate_event(event)
     HistoryItem.events.keys.include?(event.to_s)
-  end
-
-  def notification_role
-    array = event.delete_suffix('_notification').split('_')
-    array -= array.shift(2)
-
-    "#{array.join('_')}_notif"
   end
 end

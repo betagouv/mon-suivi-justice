@@ -36,8 +36,7 @@ class AppointmentsReschedulesController < AppointmentsController
       appointment: appointment, event: 'cancel_reminder_notification'
     ).first&.destroy
     HistoryItem.order(created_at: :desc).where(appointment: appointment, event: 'cancel_appointment').first&.destroy
-    HistoryItem.create appointment: appointment, convict: appointment.convict, category: 'appointment',
-                       event: 'reschedule_appointment'
+    HistoryItemFactory.perform(appointment: appointment, event: :reschedule_appointment, category: 'appointment')
     appointment.book send_notification: false
     appointment.reschedule_notif.send_now
   end

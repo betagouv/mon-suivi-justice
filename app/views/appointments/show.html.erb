@@ -152,55 +152,28 @@
 
 <div class='show-history-container'>
   <% @history_items.each do |history_item| %>
-    <% if history_item.category == 'appointment' %>
-      <div class='show-history-item-container'>
-        <div class='show-history-item-header'>
-          <div class='show-history-item-icon'>
-            <%= fa_icon 'circle' %>
-          </div>
-          <div class='show-history-item-creation'>
-            <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
-          </div>
+    <% next if ['program_reminder_notification', 'cancel_reminder_notification'].include?(history_item.event) %>
+
+    <div class='show-history-item-container'>
+      <div class='show-history-item-header'>
+        <div class='show-history-item-icon'>
+          <%= fa_icon 'circle', class: "icon_#{history_item.event}" %>
         </div>
-
-        <div class='show-history-item'>
-          <div class='show-history-item-title'>
-            <%= t("show_history_#{history_item.event}_title") %>
-          </div>
-
-          <div class='show-history-item-content'>
-            <%= t("show_history_#{history_item.event}", name: @convict.name,
-                                                        place: history_item.appointment.slot.agenda.place.name,
-                                                        date: history_item.appointment.slot.date,
-                                                        time: history_item.appointment.slot.starting_time.to_s(:time)) %>
-          </div>
+        <div class='show-history-item-creation'>
+          <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
         </div>
       </div>
-    <% elsif history_item.category == 'notification' %>
-      <% next if ['program_reminder_notification', 'cancel_reminder_notification'].include?(history_item.event) %>
 
-      <div class='show-history-item-container'>
-        <div class='show-history-item-header'>
-          <div class='show-history-item-icon'>
-            <%= fa_icon 'circle', class: "icon_#{history_item.event}" %>
-          </div>
-          <div class='show-history-item-creation'>
-            <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
-          </div>
+      <div class='show-history-item'>
+        <div class='show-history-item-title'>
+          <%= t("show_history_#{history_item.event}_title") %>
         </div>
 
-        <div class='show-history-item'>
-          <div class='show-history-item-title'>
-            <%= t("show_history_#{history_item.event}_title") %>
-          </div>
-
-          <div class='show-history-item-content'>
-            <%= t("show_history_#{history_item.event}", name: @convict.name,
-                                                        content: history_item.appointment.send(history_item.notification_role)&.content) %>
-          </div>
+        <div class='show-history-item-content'>
+          <%= history_item.content %>
         </div>
       </div>
-    <% end %>
+    </div>
   <% end %>
 </div>
 

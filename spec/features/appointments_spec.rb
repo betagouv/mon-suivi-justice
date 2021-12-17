@@ -319,7 +319,7 @@ RSpec.feature 'Appointments', type: :feature do
     end
   end
 
-  describe 'Replanification' do
+  describe 'replanification' do
     it 're-schedules an appointment to a later date' do
       apt_type = create(:appointment_type, :with_notification_types)
       slot = create :slot, appointment_type: apt_type
