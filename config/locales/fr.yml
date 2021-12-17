@@ -149,6 +149,7 @@ fr:
 
   edit: "Modifier"
   archive: "Archiver"
+  archived: "(archivé)"
   unarchive: "Désarchiver"
   delete: "Supprimer"
   submit: "Enregistrer"
@@ -226,6 +227,7 @@ fr:
   search_convict_placeholder: "Saisir un nom ou un prénom"
   show_convict: Profil
   show_convict_title: "Profil PPSMJ"
+  show_convict_archived: Archivé
   show_convict_history_title: Historique
   show_convict_new_appointment: Prendre rendez-vous
   show_convict_next_appointment: "%{date} à %{time} au %{place}"
@@ -237,6 +239,7 @@ fr:
   show-convict-fulfilment-excused: "Excusé(e)"
   edit_convict_department: "Département"
   edit_convict_jurisdiction: "Juridiction"
+  archive_convict_confirmation: "Cette PPSMJ restera accessible pendant 6 mois avant d'être définitivement supprimée."
 
   show_history_book_appointment_title: "Nouveau RDV"
   show_history_book_appointment: "%{name} a été convoqué(e) au %{place} le %{date} à %{time}."
