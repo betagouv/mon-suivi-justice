@@ -162,10 +162,7 @@
         </div>
 
         <div class='show-history-item-content'>
-          <%= t("show_history_#{history_item.event}", name: @convict.name,
-                                                      place: history_item.appointment.slot.agenda.place.name,
-                                                      date: history_item.appointment.slot.date,
-                                                      time: history_item.appointment.slot.starting_time.to_s(:time)) %>
+          <%= history_item.content %>
         </div>
       </div>
 
