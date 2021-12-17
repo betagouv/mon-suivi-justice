@@ -148,6 +148,9 @@ fr:
   "false": "Non"
 
   edit: "Modifier"
+  archive: "Archiver"
+  archived: "(archivé)"
+  unarchive: "Désarchiver"
   delete: "Supprimer"
   submit: "Enregistrer"
   cancel: "Annuler"
@@ -164,6 +167,12 @@ fr:
   log_out: "Déconnexion"
   print_button: "Imprimer"
   contact: "Contacter l'équipe"
+
+  monday: lundi
+  tuesday: mardi
+  wednesday: mercredi
+  thursday: jeudi
+  friday: vendredi
 
   support_modal_title: Support
   support_modal_text: "Pour toute demande, vous pouvez écrire à l'équipe de Mon Suivi Justice à l'adresse suivante:"
@@ -218,6 +227,7 @@ fr:
   search_convict_placeholder: "Saisir un nom ou un prénom"
   show_convict: Profil
   show_convict_title: "Profil PPSMJ"
+  show_convict_archived: Archivé
   show_convict_history_title: Historique
   show_convict_new_appointment: Prendre rendez-vous
   show_convict_next_appointment: "%{date} à %{time} au %{place}"
@@ -229,6 +239,7 @@ fr:
   show-convict-fulfilment-excused: "Excusé(e)"
   edit_convict_department: "Département"
   edit_convict_jurisdiction: "Juridiction"
+  archive_convict_confirmation: "Cette PPSMJ restera accessible pendant 6 mois avant d'être définitivement supprimée."
 
   show_history_book_appointment_title: "Nouveau RDV"
   show_history_book_appointment: "%{name} a été convoqué(e) au %{place} le %{date} à %{time}."
@@ -261,6 +272,8 @@ fr:
   show_history_failed_send_cancelation_notification: "Le SMS d'annulation n'a pas été reçu par %{name}."
   show_history_send_now_no_show_notification_title: "SMS envoyé (rdv manqué)"
   show_history_send_now_no_show_notification: "[Texte du SMS] %{content}"
+  show_history_send_now_reschedule_notification_title: "SMS envoyé (rdv replanifié)"
+  show_history_send_now_reschedule_notification: "[Texte du SMS] %{content}"
 
   show_history_reschedule_appointment_title: "RDV replanifié"
   show_history_reschedule_appointment: "Le RDV a été replanifié."
@@ -327,6 +340,18 @@ fr:
   index_slot_types_update: "Enregistrer"
   index_slot_types_delete: "Supprimer"
   index_slot_types_create: "Ajouter"
+
+  slot_types_batch_opening: "Premier créneau"
+  slot_types_batch_closing: "Dernier créneau"
+  slot_types_batch_interval: "Intervale (min)"
+  slot_types_batch_capacity: "Capacité"
+  slot_types_batch_duration: "Durée (min)"
+  slot_types_batch_interval_placeholder: "ex: 15"
+  slot_types_batch_capacity_placeholder: "ex: 6"
+  slot_types_batch_duration_placeholder: "ex: 30"
+  slot_types_batch_submit: "Tout créer"
+  slot_types_batch_deletion: "Tout supprimer"
+  slot_type_delete_confirmation: "Supprimer un créneau récurrent supprimera également tous les créneaux associés, sauf si un rdv a déjà été pris sur ce créneau. Êtes-vous sûr(e)?"
 
   new_slot_type_title: "Nouveau Créneau Récurent"
   new_slot_type_submit: "Enregistrer"

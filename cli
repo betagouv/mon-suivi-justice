@@ -53,6 +53,11 @@ class CLI < Thor
     run('scalingo -a mon-suivi-justice-staging run rails console')
   end
 
+  desc 'bash_staging', 'launch bash on MSJ staging'
+  def bash_staging
+    run('scalingo -a mon-suivi-justice-staging run bash')
+  end
+
   desc 'logs_staging', 'streams MSJ staging logs'
   def logs_staging
     run('scalingo -a mon-suivi-justice-staging logs -f')
@@ -71,6 +76,11 @@ class CLI < Thor
   desc 'console_prod', 'launch MSJ production rails console'
   def console_prod
     run('scalingo -a mon-suivi-justice-prod --region osc-secnum-fr1 run rails console')
+  end
+
+  desc 'bash_prod', 'launch bash on MSJ prod'
+  def bash_prod
+    run('scalingo -a mon-suivi-justice-prod run bash')
   end
 
   desc 'logs_prod', 'streams MSJ production logs'

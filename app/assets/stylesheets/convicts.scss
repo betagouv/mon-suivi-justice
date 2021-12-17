@@ -22,7 +22,6 @@
 
 .link-to-new-convict-button {
   @include button($light-blue);
-  margin-right: 20px;
 }
 
 .convicts-item-container {
@@ -43,6 +42,10 @@
 
 .convicts-column-3 {
   width: 30%;
+}
+
+.convicts-archived {
+  color: grey;
 }
 
 .new-convict-submits-container {
@@ -111,6 +114,26 @@
 .show-convict-excuse-button {
   @include button($light-grey)
   margin-left: 40px;
+}
+
+.show-button-to-delete {
+  @include button($light-blue);
+  padding: .4em 1em;
+  width: 130px;
+  margin-bottom: 10px;
+}
+
+.show-button-archive {
+  @include button($light-grey);
+  padding: .4em 1em;
+  width: 130px;
+}
+
+.show-convict-button-to-edit {
+  @include button($light-blue);
+  padding: .4em 1em;
+  width: 130px;
+  margin-bottom: 10px;
 }
 
 .show-history-container {
@@ -202,4 +225,20 @@
 
 .convict-attachment-submit {
   margin-top: 30px;
+}
+
+.show-convict-achived-container {
+  background-color: $light-grey;
+  color: $dark-grey;
+  width: 70%;
+  max-width: 650px;
+  margin: auto;
+  height: 35px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-transform: uppercase;
+  font-weight: bold;
 }

@@ -6,10 +6,9 @@ class SlotType < ApplicationRecord
 
   has_many :slots, dependent: :nullify
 
-  #
   # When a SlotType is destroyed, we remove corresponding slots, as they are no more available
   # Slot already booked are preserved.
-  #
+
   before_destroy :destroy_dependent_slots_not_booked, prepend: true
 
   validates :week_day, :duration, :starting_time, :capacity, presence: true

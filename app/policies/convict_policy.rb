@@ -4,7 +4,9 @@ class ConvictPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.admin?
-        scope.all
+        scope.with_deleted
+      elsif user.local_admin?
+        scope.with_deleted.in_department(user.organization.departments.first)
       elsif user.bex?
         scope.in_department(user.organization.departments.first)
       else
@@ -27,6 +29,14 @@ class ConvictPolicy < ApplicationPolicy
 
   def create?
     true
+  end
+
+  def archive?
+    true
+  end
+
+  def unarchive?
+    user.admin? || user.local_admin?
   end
 
   def destroy?
