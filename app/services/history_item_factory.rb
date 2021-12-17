@@ -25,13 +25,13 @@ module HistoryItemFactory
     end
 
     def notification_role(event)
-      array = event.delete_suffix('_notification').split('_')
+      array = event.to_s.delete_suffix('_notification').split('_')
 
-      if array.first == 'cancel'
-        array -= array.shift(1)
-      else
-        array -= array.shift(2)
-      end
+      array -= if array.first == 'cancel'
+                 array.shift(1)
+               else
+                 array.shift(2)
+               end
 
       "#{array.join('_')}_notif"
     end
