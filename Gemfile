@@ -42,6 +42,7 @@ gem 'holidays'
 gem 'paper_trail'
 gem 'sentry-ruby'
 gem 'sentry-rails'
+gem 'ruby-progressbar'
 
 group :development, :test do
   gem 'rspec-rails'
