@@ -1,0 +1,145 @@
+<div class='fr-container fr-pb-6w fr-pt-8w'>
+  <h1 class='static-title preparer-place-title'><%= t('preparer.sap_chartres.title') %></h1>
+
+  <p class='static-place-intro'><%= t('preparer.sap_chartres.intro') %></p>
+
+  <label for="toggle-menu-place" class='static-dropdown-trigger preparer-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-place-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-place-picto-down" aria-hidden="true"></span>
+
+    <div class='preparer-menu-text'><%= t('preparer.sap_chartres.question-place') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-place" class='static-hidden-checkbox'>
+
+  <div class='preparer-place-content static-content-container'>
+    <div class='preparer-place-header'>
+      <div class='preparer-place-general-infos'>
+        <p class='fr-mb-2w'><%= t('preparer.sap_chartres.place-text1') %></p>
+
+        <%= link_to 'https://goo.gl/maps/NdpnVo23UZTeVUne7', target: '_blank', class: 'static-google-map-link' do %>
+          <div class='static-google-map-link-button'>
+            <%= t('preparer.place-google') %>
+          </div>
+        <% end %>
+
+        <p class='fr-mb-2w'><%= t('preparer.sap_chartres.place-text2') %></p>
+        <p class='fr-mb-2w'><%= t('preparer.sap_chartres.place-text2b') %></p>
+        <p class='fr-mb-2w'><%= t('preparer.sap_chartres.place-text3') %></p>
+        <p class='fr-mb-2w'><%= t('preparer.sap_chartres.place-text4') %></p>
+      </div>
+    </div>
+
+    <h3 class='static-tertiary-title fr-mb-2w'><%= t('preparer.place-bus') %></h3>
+
+    <ul class='static-list'>
+      <li class='static-list-short-item'><%= t('preparer.sap_chartres.place-bus1') %></li>
+      <li class='static-list-short-item'><%= t('preparer.sap_chartres.place-bus2') %></li>
+    </ul>
+
+    <h3 class='static-tertiary-title fr-mb-2w'><%= t('preparer.place-car-train') %></h3>
+
+    <ul class='static-list'>
+      <li class='static-list-short-item'><%= t('preparer.sap_chartres.place-car1') %></li>
+      <li class='static-list-short-item'><%= t('preparer.sap_chartres.place-car2') %></li>
+      <li class='static-list-short-item'><%= t('preparer.sap_chartres.place-car3') %></li>
+      <li class='static-list-short-item'><%= t('preparer.sap_chartres.place-car4') %></li>
+      <li class='static-list-short-item'><%= t('preparer.sap_chartres.place-car5') %></li>
+    </ul>
+  </div>
+
+  <label for="toggle-menu-no-show" class='static-dropdown-trigger preparer-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-no-show-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-no-show-picto-down" aria-hidden="true"></span>
+    <div class='preparer-menu-text'><%= t('preparer.question-no-show') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-no-show" class='static-hidden-checkbox'>
+
+  <div class='preparer-no-show-content static-content-container'>
+    <p class='fr-mb-2w'><%= t('preparer.absence-text1') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.sap_chartres.absence-text') %></p>
+  </div>
+
+  <label for="toggle-menu-justif" class='static-dropdown-trigger preparer-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-justif-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-justif-picto-down" aria-hidden="true"></span>
+    <div class='preparer-menu-text'><%= t('preparer.question-justif') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-justif" class='static-hidden-checkbox'>
+
+  <div class='preparer-justif-content static-content-container'>
+    <p class='fr-mb-2w'><%= t('preparer.justificatifs-text1') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.justificatifs-text2') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.justificatifs-text3') %></p>
+
+    <ul class='static-list'>
+      <li class='static-list-item'><%= t('preparer.justificatifs-type1.html') %></li>
+      <li class='static-list-item'><%= t('preparer.justificatifs-type2.html') %></li>
+      <li class='static-list-item'><%= t('preparer.justificatifs-type3.html') %></li>
+      <li class='static-list-item'><%= t('preparer.justificatifs-type4.html') %></li>
+    </ul>
+
+    <div class='static-card static-good-practice-card'>
+      <i class='fa fa-thumbs-up 3x static-good-practice-thumb-up'></i>
+      <p class='static-link-card-intro static-link-good-practice-intro'><%= t('preparer.justificatifs-bonne-pratique') %></p>
+    </div>
+  </div>
+
+  <label for="toggle-menu-process" class='static-dropdown-trigger preparer-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-process-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-process-picto-down" aria-hidden="true"></span>
+    <div class='preparer-menu-text'><%= t('preparer.question-process') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-process" class='static-hidden-checkbox'>
+
+  <div class='preparer-process-content static-content-container preparer-head-text'>
+    <p class='fr-mb-2w'><%= t('preparer.sap_chartres.process-intro') %></p>
+
+    <h2 class='preparer-head-tribunal-title fr-mb-2w'><%= t('preparer.sap_chartres.process-text1') %></h2>
+    <p class='fr-mb-2w'><%= t('preparer.sap_chartres.process-text2_html', link: link_to(t("preparer.sap_chartres.process-text2-link"), amenagements_de_peine_path)) %></p>
+
+    <h2 class='preparer-head-tribunal-title fr-mb-2w'><%= t('preparer.sap_chartres.process-text3') %></h2>
+    <p class='fr-mb-2w'><%= t('preparer.sap_chartres.process-text4') %></p>
+
+    <h2 class='preparer-head-tribunal-title fr-mb-2w'><%= t('preparer.sap_chartres.process-text5') %></h2>
+    <p class='fr-mb-2w'><%= t('preparer.sap_chartres.process-text6') %></p>
+
+    <h2 class='preparer-head-tribunal-title fr-mb-2w'><%= t('preparer.sap_chartres.process-text7') %></h2>
+    <p class='fr-mb-6w'><%= t('preparer.sap_chartres.process-text8') %></p>
+
+    <div class='static-card static-good-practice-card'>
+      <i class='fa fa-thumbs-up 3x static-good-practice-thumb-up'></i>
+      <p class='static-link-card-intro static-link-good-practice-intro'><%= t('preparer.sap_chartres.process-text9') %> <%= t('preparer.sap_chartres.process-text10') %></p>
+    </div>
+
+    <div class='static-card static-good-practice-card'>
+      <i class='fa fa-thumbs-up 3x static-good-practice-thumb-up'></i>
+      <p class='static-link-card-intro static-link-good-practice-intro'><%= t('preparer.sap_chartres.process-text11') %> <%= t('preparer.sap_chartres.process-text12') %></p>
+    </div>
+  </div>
+
+  <label for="toggle-menu-lawyer" class='static-dropdown-trigger preparer-menu-trigger'>
+    <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-lawyer-picto-right" aria-hidden="true"></span>
+    <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-lawyer-picto-down" aria-hidden="true"></span>
+    <div class='preparer-menu-text'><%= t('preparer.question-avocat') %></div>
+  </label>
+
+  <input type='checkbox' id="toggle-menu-lawyer" class='static-hidden-checkbox'>
+
+  <div class='preparer-lawyer-content static-content-container preparer-head-text'>
+    <p class='fr-mb-2w'><%= t('preparer.avocat-text1') %></p>
+    <p class='fr-mb-1w'><%= t('preparer.avocat-text2') %></p>
+
+    <ul class='static-list fr-mb-2w'>
+      <li class='static-short-list-item'><%= t('preparer.sap_chartres.avocat-local-list1') %> <%= link_to(t("preparer.avocat-link-anchor_html"), t("preparer.sap_chartres.avocat-local-link"), target: "_blank") %></li>
+      <li class='static-short-list-item'><%= t('preparer.avocat-list2') %> <%= link_to(t("preparer.avocat-link-anchor_html"), t("preparer.avocat-link2"), target: "_blank") %></li>
+    </ul>
+
+    <p class='fr-mb-2w'><%= t('preparer.avocat-text3') %> <%= link_to(t("preparer.avocat-link-anchor_html"), t("preparer.avocat-link3"), target: "_blank") %></p>
+  </div>
+</div>
+
+<%= javascript_pack_tag 'static/preparer', 'data-turbolinks-eval': false, defer: true %>
