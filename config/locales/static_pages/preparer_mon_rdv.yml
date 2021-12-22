@@ -3,7 +3,8 @@ fr:
     title: "Préparer mon rendez-vous"
     intro: "Vous avez été convoqué au Service d'application des peines (SAP) ou au Service pénitentiaire d'insertion et probation (SPIP) à Nanterre (92). Vous trouverez ici toutes les informations nécessaires au bon déroulement de vos entretiens."
     secondary_title1: "Où avez-vous rendez-vous ?"
-    link-spip: "SPIP 92"
+    link-spip92: "SPIP 92"
+    link-spip28: "SPIP 28"
     link-tribunal: "SAP de Nanterre"
 
     question-no-show: "Que faire si je ne peux pas me rendre à mon rendez-vous ?"
@@ -38,11 +39,9 @@ fr:
     question-avocat: "Est-ce que je peux être assisté par un avocat ?"
     avocat-text1: "La présence de l'avocat aux rendez-vous de suivi judiciaire n'est pas obligatoire. Il ne pourra donc pas vous être désigné un avocat commis d'office. En revanche, vous pouvez à tout moment consulter un avocat pour être informé de vos droits ou être assisté d'un avocat lors de vos entretiens devant le SPIP ou le juge d'application des peines."
     avocat-text2: "Pour trouver un avocat :"
-    avocat-list1: "Annuaire des avocats du barreau des Hauts-de-Seine :"
     avocat-list2: "Annuaire des avocats en France :"
     avocat-text3: "Si vos ressources financières sont insuffisantes, vous pouvez bénéficier d'une aide financière de l'Etat, totale ou partielle, appelée aide juridictionnelle. Pour calculer vos droits :"
     avocat-link-anchor_html: "lien"
-    avocat-link1: "https://www.barreau92.com/search"
     avocat-link2: "https://www.cnb.avocat.fr/fr/annuaire-des-avocats-de-france"
     avocat-link3: "https://www.justice.fr/simulateurs/aide-juridictionnelle"
 
@@ -70,7 +69,7 @@ fr:
         html: "<b>IMPORTANT</b> Votre CPIP référent est en lien étroit avec les magistrats auxquels il rend compte régulièrement du déroulement de votre mesure judiciaire. Le CPIP référent est votre interlocuteur privilégié pour témoigner de l’évolution de votre situation. Il est donc essentiel de vous impliquer dans votre suivi et de justifier de vos démarches."
 
       place-text1: "Le Service pénitentiaire d’insertion et de probation des Hauts-de-Seine (SPIP 92) se situe au 94 Boulevard du Général Leclerc à Nanterre (92000)."
-      place-text2: "En cas de difficulté, vous pouvez joindre le standard au 01 71 13 02 00 du lundi au vendredi de 9h à 12h et de 14h à 17h ( 14h-16h30 le vendredi)."
+      place-text2: "En cas de difficulté, vous pouvez joindre le standard au 01 71 13 02 00 du lundi au vendredi de 9h à 12h et de 14h à 17h (14h-16h30 le vendredi)."
       place-text3: "Le site est accessible aux personnes à mobilité réduite."
       place-train1: "RER A, descendre à la station 'Nanterre-Ville'."
       place-train2: "Prendre la sortie 1 'Boulevard de la Seine'."
@@ -84,6 +83,45 @@ fr:
       place-car: "Le SPIP des Hauts-de-Seine ne dispose pas d’un parking accessible au public. Il existe des possibilités de stationnement autour du bâtiment."
 
       absence-text: "Si vous ne pouvez pas vous rendre à votre rendez-vous, vous devez prévenir votre CPIP (standard 01 71 13 02 00 ou ligne directe de votre CPIP) avant la date du rendez-vous et d’envoyer un justificatif de votre motif d’absence. Le motif de votre absence sera apprécié par votre CPIP."
+      avocat-local-list1: "Annuaire des avocats du barreau des Hauts-de-Seine :"
+      avocat-local-link: "https://www.barreau92.com/search"
+
+    spip28:
+      title: "SPIP 28"
+      intro: "Durant votre suivi judiciaire, vous serez régulièrement convoqué par un conseiller pénitentiaire d’insertion et de probation (CPIP) afin qu’il suive l’exécution de votre peine ou de votre mesure."
+      question-place: "Comment me rendre au SPIP ?"
+
+      place-text1: "Le Service pénitentiaire d’insertion et de probation de l’Eure et Loir (SPIP 28) se situe au 4 rue Blaise Pascal – bat A à Chartres (28000)."
+      place-text2: "En cas de difficulté, vous pouvez joindre le standard au 02 19 02 64 30 du lundi au vendredi de 8h30 à 12h et de 13h30 à 17h."
+      place-text3: "Le site est accessible aux personnes à mobilité réduite."
+      place-bus1: "Arrêt « Blaise Pascal » : ligne 12 "
+      place-bus2: "Arrêt « Mare aux moines » : ligne 5 (environ 20 minutes de marche) "
+      place-bus-map: "Plan des bus"
+      place-bus-timetable: "Fiches horaire"
+      place-car: "Le SPIP de l’Eure et Loir dispose d’un parking accessible au public."
+
+      head-title1: "Le premier entretien avec un CPIP"
+      head-text2: "Le premier entretien avec un CPIP est indispensable. Il permet de faire le point sur votre situation et de vous expliquer le déroulement de votre suivi judiciaire. Il dure entre 30 minutes et une heure. Il est important de vous présenter à l’entretien avec une pièce d’identité et l’ensemble des justificatifs demandés sur votre convocation."
+      head-text3: "Cet entretien se déroulera de la façon suivante :"
+      head-text4: "Le CPIP se présentera et vous expliquera le rôle du SPIP et les missions des personnels en SPIP. Il vous précisera s’il sera en charge du suivi de votre peine ou de votre mesure durant toute sa durée ou si un autre CPIP référent prendra le relai après votre premier entretien. Votre CPIP référent sera votre interlocuteur principal au cours de votre mesure judiciaire."
+      head-text5:
+        html: "Le CPIP fera un point sur votre <b>situation globale</b>, qu’elle soit personnelle (nom, adresse, situation maritale…), professionnelle (travail, formation professionnelle, étude…), sanitaire... : c’est le moment pour vous d’exposer les difficultés sociales, professionnelles, personnelles, auxquelles vous êtes confronté.e."
+      head-text6:
+        html: "Une attention particulière sera également portée à votre <b>situation pénale</b>. Le CPIP vous rappellera votre condamnation et vous expliquera en détail le contenu des obligations que vous devrez respecter."
+      head-text7: "N’hésitez pas à poser toutes les questions que vous souhaitez afin d’être certain de bien comprendre les attentes de la Justice (CPIP, magistrats). Une partie de l’entretien peut être consacrée à vos questions et vos attentes."
+      head-text8: "Ce premier entretien doit permettre de s’assurer de votre compréhension de la mesure judiciaire. En partant de votre situation, votre CPIP référent pourra assurer un suivi personnalisé et ainsi proposer des orientations adaptées."
+      head-text9: "A l’issue de ce premier entretien, il y aura deux possibilités :"
+      head-text10: "Si vous avez été reçu par un CPIP de permanence : le suivi de votre mesure va ensuite être affecté à un CPIP référent en fonction de votre adresse. Le CPIP référent vous enverra une convocation, par mail ou par voie postale."
+      head-text11: "Si vous avez directement été reçu par votre CPIP référent : le CPIP peut fixer avec vous la date de votre prochaine convocation. Il peut vous remettre une convocation en mains propres ou vous l'adresser par mail ou voie postale."
+      head-text12: "Les entretiens de suivi"
+      head-text13: "A l’issue d’une période d’évaluation de quelques mois, votre CPIP référent fixera la périodicité de vos convocations au SPIP. Ces entretiens serviront à s’assurer de la bonne exécution de votre mesure."
+      head-text14:
+        html: "<b>IMPORTANT</b> Votre CPIP référent est en lien étroit avec les magistrats auxquels il rend compte régulièrement du déroulement de votre mesure judiciaire. Le CPIP référent est votre interlocuteur privilégié pour témoigner de l’évolution de votre situation. Il est donc essentiel de vous impliquer dans votre suivi et de justifier de vos démarches."
+
+      absence-text: "Si vous ne pouvez pas vous rendre à votre rendez-vous, vous devez prévenir votre CPIP (standard 02 19 02 64 30 ou ligne directe de votre CPIP) avant la date du rendez-vous et d’envoyer un justificatif de votre motif d’absence. Le motif de votre absence sera apprécié par votre CPIP."
+
+      avocat-local-list1: "Annuaire des avocats du barreau de Chartres :"
+      avocat-local-link: "http://www.ordredesavocats-chartres.com/Annuaire-des-avocats.html"
 
     sap_nanterre:
       title: "Tribunal judiciaire de Nanterre"

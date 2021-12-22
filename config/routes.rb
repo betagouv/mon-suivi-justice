@@ -58,6 +58,8 @@ Rails.application.routes.draw do
     get :preparer_mon_rdv
     get :preparer_spip92
     get :preparer_sap_nanterre
+    get :preparer_spip28
+    get :preparer_tribunal_chartres
     get :ma_reinsertion
     get :donnees_personnelles
   end
