@@ -128,7 +128,7 @@ fr:
     sap_nanterre:
       title: "Tribunal judiciaire de Nanterre"
       intro: "Durant votre suivi judiciaire, en fonction de votre condamnation, vous pourrez être convoqué par un juge d'application des peines."
-      question-place: "Comment me rendre au tribunal?"
+      question-place: "Comment me rendre au tribunal ?"
 
       process-intro: "Plusieurs types de convocations sont possibles :"
       process-text1: "Convocation “723-15” pour un aménagement de peine"
@@ -157,12 +157,12 @@ fr:
       place-car1: "Depuis Paris/Porte Maillot : Prendre l’avenue de Neuilly et continuer sur 2,6 km. Tourner à droite sur le Boulevard circulaire pendant 1,7 km. Au rond-point, prendre à droite rue Félix Eboué pendant 1,3 km. Prendre à gauche avenue François Arago sur 100m. Au rond point, place Nelson Mandela, prendre à gauche avenue Frédéric et Irène Joliot-Curie."
       place-car2: "Il est possible de se garer dans le parking public de la préfecture - rue des Trois Fontanot."
 
-      absence-text: "Si vous ne pouvez pas vous rendre à votre rendez-vous, vous devez prévenir le secrétariat du SAP (01 40 97 15 00 Mail : jap.tj-nanterre@justice.fr) avant la date du rendez-vous et d’envoyer un justificatif de votre motif d’absence. Le motif de votre absence sera apprécié par votre JAP."
+      absence-text: "Si vous ne pouvez pas vous rendre à votre rendez-vous, vous devez prévenir le secrétariat du SAP (01 40 97 15 00 Mail : jap.tj-nanterre@justice.fr) avant la date du rendez-vous et envoyer un justificatif de votre motif d’absence. Le motif de votre absence sera apprécié par votre JAP."
 
     sap_chartres:
       title: "Tribunal judiciaire de Chartres"
       intro: "Durant votre suivi judiciaire, en fonction de votre condamnation, vous pourrez être convoqué par un juge d'application des peines."
-      question-place: "Comment me rendre au tribunal?"
+      question-place: "Comment me rendre au tribunal ?"
 
       process-intro: "Plusieurs types de convocations sont possibles :"
       process-text1: "Convocation “723-15” pour un aménagement de peine"
@@ -194,6 +194,6 @@ fr:
       place-car4: "Depuis Paris : Autoroutes A10 et A11."
       place-car5: "Il est possible de se garer au parking public de la place Châtelet ou Q-Park du centre-ville."
 
-      absence-text: "Si vous ne pouvez pas vous rendre à votre rendez-vous, vous devez prévenir le greffe de l’application des peines (02 37 18 77 73 - Mail : jap.tj-chartres@justice.fr) avant la date du rendez-vous et d’envoyer un justificatif de votre motif d’absence. Le motif de votre absence sera apprécié par votre JAP."
+      absence-text: "Si vous ne pouvez pas vous rendre à votre rendez-vous, vous devez prévenir le greffe de l’application des peines (02 37 18 77 73 - Mail : jap.tj-chartres@justice.fr) avant la date du rendez-vous et envoyer un justificatif de votre motif d’absence. Le motif de votre absence sera apprécié par votre JAP."
       avocat-local-list1: "Annuaire des avocats du barreau de Chartres :"
       avocat-local-link: "http://www.ordredesavocats-chartres.com/Annuaire-des-avocats.html"
