@@ -20,13 +20,13 @@
 .slots-item-container {
   display: flex;
   align-items: center;
-  height: 40px;
   border-bottom: 1px solid $table-border;
   padding-left: 30px;
+  min-height: 40px;
 }
 
 .slots-column-1 {
-  width: 15%;
+  width: 20%;
 }
 
 .slots-column-2 {

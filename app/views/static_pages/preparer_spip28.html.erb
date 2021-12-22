@@ -1,56 +1,52 @@
 <div class='fr-container fr-pb-6w fr-pt-8w'>
-  <h1 class='static-title preparer-place-title'><%= t('preparer.spip92.title') %></h1>
+  <h1 class='static-title preparer-place-title'><%= t('preparer.spip28.title') %></h1>
 
-  <p class='static-place-intro'><%= t('preparer.spip92.intro') %></p>
+  <p class='static-place-intro'><%= t('preparer.spip28.intro') %></p>
 
   <label for="toggle-menu-place" class='static-dropdown-trigger preparer-menu-trigger'>
     <span class="fr-fi-arrow-right-s-line preparer-menu-picto" id="menu-place-picto-right" aria-hidden="true"></span>
     <span class="fr-fi-arrow-down-s-line preparer-menu-picto preparer-menu-picto-inactive" id="menu-place-picto-down" aria-hidden="true"></span>
 
-    <div class='preparer-menu-text'><%= t('preparer.spip92.question-place') %></div>
+    <div class='preparer-menu-text'><%= t('preparer.spip28.question-place') %></div>
   </label>
 
   <input type='checkbox' id="toggle-menu-place" class='static-hidden-checkbox'>
 
   <div class='preparer-place-content static-content-container'>
     <div class='preparer-place-header'>
-      <div class='preparer-place-picture'><%= image_tag 'static/entree_SPIP92.jpg', class: 'preparer-place-picture-img' %></div>
+      <div class='preparer-place-picture'><%= image_tag 'static/spip28.jpg', class: 'preparer-place-picture-img' %></div>
 
       <div class='preparer-place-general-infos'>
-        <p class='fr-mb-2w'><%= t('preparer.spip92.place-text1') %></p>
+        <p class='fr-mb-2w'><%= t('preparer.spip28.place-text1') %></p>
 
-        <%= link_to 'https://goo.gl/maps/ejsmD6nAmqEfWAf4A', target: '_blank', class: 'static-google-map-link' do %>
+        <%= link_to 'https://goo.gl/maps/Enyr9hqxbU6cNx6X7', target: '_blank', class: 'static-google-map-link' do %>
           <div class='static-google-map-link-button'>
             <%= t('preparer.place-google') %>
           </div>
         <% end %>
 
-        <p class='fr-mb-2w'><%= t('preparer.spip92.place-text2') %></p>
-        <p class='fr-mb-2w'><%= t('preparer.spip92.place-text3') %></p>
+        <p class='fr-mb-2w'><%= t('preparer.spip28.place-text2') %></p>
+        <p class='fr-mb-2w'><%= t('preparer.spip28.place-text3') %></p>
       </div>
     </div>
-
-    <h3 class='static-tertiary-title fr-mb-2w'><%= t('preparer.place-train') %></h3>
-
-    <ol class='static-list'>
-      <li class='static-list-short-item'><%= t('preparer.spip92.place-train1') %></li>
-      <li class='static-list-short-item'><%= t('preparer.spip92.place-train2') %></li>
-      <li class='static-list-short-item'><%= t('preparer.spip92.place-train3') %></li>
-      <li class='static-list-short-item'><%= t('preparer.spip92.place-train4') %></li>
-      <li class='static-list-short-item'><%= t('preparer.spip92.place-train5') %></li>
-    </ol>
 
     <h3 class='static-tertiary-title fr-mb-2w'><%= t('preparer.place-bus') %></h3>
 
     <ul class='static-list'>
-      <li class='static-list-short-item'><%= t('preparer.spip92.place-bus1') %></li>
-      <li class='static-list-short-item'><%= t('preparer.spip92.place-bus2') %></li>
-      <li class='static-list-short-item'><%= t('preparer.spip92.place-bus3') %></li>
-      <li class='static-list-short-item'><%= t('preparer.spip92.place-bus4') %></li>
+      <li class='static-list-short-item'><%= t('preparer.spip28.place-bus1') %></li>
+      <li class='static-list-short-item'><%= t('preparer.spip28.place-bus2') %></li>
     </ul>
 
+    <%= link_to 'http://www.filibus.fr/ftp/FR_document/web-Chartres%20URBAIN%202021%20OD.pdf', target: '_blank', class: 'static-external-link' do %>
+      <%= t('preparer.spip28.place-bus-map') %>
+    <% end %>
+
+    <%= link_to 'http://www.filibus.fr/presentation/?rub_code=89', target: '_blank', class: 'static-external-link' do %>
+      <%= t('preparer.spip28.place-bus-timetable') %>
+    <% end %>
+
     <h3 class='static-tertiary-title fr-mb-2w'><%= t('preparer.place-car') %></h3>
-    <p class='fr-mb-2w'><%= t('preparer.spip92.place-car') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip28.place-car') %></p>
   </div>
 
   <label for="toggle-menu-no-show" class='static-dropdown-trigger preparer-menu-trigger'>
@@ -63,7 +59,7 @@
 
   <div class='preparer-no-show-content static-content-container'>
     <p class='fr-mb-2w'><%= t('preparer.absence-text1') %> <%= t('preparer.absence-text2') %> <%= link_to t('preparer.absence-text3'), obligations_personnelles_path %> <%= t('preparer.absence-text4') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.spip92.absence-text') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip28.absence-text') %></p>
   </div>
 
   <label for="toggle-menu-justif" class='static-dropdown-trigger preparer-menu-trigger'>
@@ -101,31 +97,31 @@
   <input type='checkbox' id="toggle-menu-process" class='static-hidden-checkbox'>
 
   <div class='preparer-process-content static-content-container preparer-head-text'>
-    <h2 class='static-secondary-title fr-mb-2w'><%= t('preparer.spip92.head-title1') %></h2>
+    <h2 class='static-secondary-title fr-mb-2w'><%= t('preparer.spip28.head-title1') %></h2>
 
-    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text2') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text3') %></p>
-
-    <ul class='static-list'>
-      <li class='static-list-item'><%= t('preparer.spip92.head-text4') %></li>
-      <li class='static-list-item'><%= t('preparer.spip92.head-text5.html') %></li>
-      <li class='static-list-item'><%= t('preparer.spip92.head-text6.html') %></li>
-      <li class='static-list-item'><%= t('preparer.spip92.head-text7') %></li>
-    </ul>
-
-    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text8') %></p>
-    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text9') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip28.head-text2') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip28.head-text3') %></p>
 
     <ul class='static-list'>
-      <li class='static-list-item'><%= t('preparer.spip92.head-text10') %></li>
-      <li class='static-list-item'><%= t('preparer.spip92.head-text11') %></li>
+      <li class='static-list-item'><%= t('preparer.spip28.head-text4') %></li>
+      <li class='static-list-item'><%= t('preparer.spip28.head-text5.html') %></li>
+      <li class='static-list-item'><%= t('preparer.spip28.head-text6.html') %></li>
+      <li class='static-list-item'><%= t('preparer.spip28.head-text7') %></li>
     </ul>
 
-    <h2 class='static-secondary-title fr-mb-2w'><%= t('preparer.spip92.head-text12') %></h2>
-    <p class='fr-mb-2w'><%= t('preparer.spip92.head-text13') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip28.head-text8') %></p>
+    <p class='fr-mb-2w'><%= t('preparer.spip28.head-text9') %></p>
+
+    <ul class='static-list'>
+      <li class='static-list-item'><%= t('preparer.spip28.head-text10') %></li>
+      <li class='static-list-item'><%= t('preparer.spip28.head-text11') %></li>
+    </ul>
+
+    <h2 class='static-secondary-title fr-mb-2w'><%= t('preparer.spip28.head-text12') %></h2>
+    <p class='fr-mb-2w'><%= t('preparer.spip28.head-text13') %></p>
 
     <div class='static-card static-important-card'>
-      <p class='static-link-card-intro'><%= t('preparer.spip92.head-text14.html') %></p>
+      <p class='static-link-card-intro'><%= t('preparer.spip28.head-text14.html') %></p>
     </div>
   </div>
 
@@ -142,7 +138,7 @@
     <p class='fr-mb-1w'><%= t('preparer.avocat-text2') %></p>
 
     <ul class='static-list fr-mb-2w'>
-      <li class='static-short-list-item'><%= t('preparer.spip92.avocat-local-list1') %> <%= link_to(t("preparer.avocat-link-anchor_html"), t("preparer.spip92.avocat-local-link"), target: "_blank") %></li>
+      <li class='static-short-list-item'><%= t('preparer.spip28.avocat-local-list1') %> <%= link_to(t("preparer.avocat-link-anchor_html"), t("preparer.spip28.avocat-local-link"), target: "_blank") %></li>
       <li class='static-short-list-item'><%= t('preparer.avocat-list2') %> <%= link_to(t("preparer.avocat-link-anchor_html"), t("preparer.avocat-link2"), target: "_blank") %></li>
     </ul>
 

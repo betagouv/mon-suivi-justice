@@ -6,6 +6,7 @@
   padding: 10px;
   text-align: justify;
 }
+
 .convicts-header {
   font-weight: bold;
   display: flex;
@@ -27,7 +28,7 @@
 .convicts-item-container {
   display: flex;
   align-items: center;
-  height: 40px;
+  min-height: 40px;
   border-bottom: 1px solid $table-border;
   padding-left: 30px;
 }

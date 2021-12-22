@@ -11,6 +11,8 @@ module HistoryItemFactory
       )
     end
 
+    private
+
     def build_content(category, appointment, event)
       case category
       when 'appointment'
