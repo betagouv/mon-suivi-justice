@@ -14,13 +14,13 @@ unless defined?(Rails::Console) || Rails.env.test? || Rails.env.development? || 
   # month          1-12
   # day of week    0-7 (0 or 7 is Sun)
   #
-  Rufus::Scheduler.singleton.cron '5 0 * * *', overlap: false do
+  Rufus::Scheduler.singleton.cron '5 0 * * *', lockfile: '.slot_creation.lock' do
     # Every day at 00:05, create all Slot from SlotTypes
     SlotCreationJob.perform_later
   end
 
-  Rufus::Scheduler.singleton.cron '10 0 * * *', overlap: false do
-    # Every day at 00:10, delete convicts archived 6 months ago
+  Rufus::Scheduler.singleton.cron '50 0 * * *', lockfile: '.convict_deletion.lock' do
+    # Every day at 00:50, delete convicts archived 6 months ago
     ArchivedConvictsDestroy.perform_later
   end
 end
