@@ -16,7 +16,7 @@ module HistoryItemFactory
     def build_content(category, appointment, event)
       case category
       when 'appointment'
-        if appointment.slot.appointment_type == 'RDV téléphonique'
+        if appointment.slot.appointment_type.name == 'RDV téléphonique'
           I18n.t('show_history_book_phone_appointment', name: appointment.convict.name,
                                                         date: appointment.slot.date,
                                                         time: appointment.slot.starting_time.to_s(:time))
