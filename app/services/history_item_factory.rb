@@ -16,10 +16,16 @@ module HistoryItemFactory
     def build_content(category, appointment, event)
       case category
       when 'appointment'
-        I18n.t("show_history_#{event}", name: appointment.convict.name,
-                                        place: appointment.slot.agenda.place.name,
-                                        date: appointment.slot.date,
-                                        time: appointment.slot.starting_time.to_s(:time))
+        if appointment.slot.appointment_type == 'RDV téléphonique'
+          I18n.t('show_history_book_phone_appointment', name: appointment.convict.name,
+                                                        date: appointment.slot.date,
+                                                        time: appointment.slot.starting_time.to_s(:time))
+        else
+          I18n.t("show_history_#{event}", name: appointment.convict.name,
+                                          place: appointment.slot.agenda.place.name,
+                                          date: appointment.slot.date,
+                                          time: appointment.slot.starting_time.to_s(:time))
+        end
       when 'notification'
         I18n.t("show_history_#{event}", name: appointment.convict.name,
                                         content: appointment.send(notification_role(event))&.content)
