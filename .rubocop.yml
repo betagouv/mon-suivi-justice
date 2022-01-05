@@ -62,6 +62,7 @@ Metrics/MethodLength:
     - app/services/slot_type_factory.rb
     - app/helpers/users_helper.rb
     - app/controllers/home_controller.rb
+    - app/services/history_item_factory.rb
 
 Metrics/ClassLength:
   Exclude:
