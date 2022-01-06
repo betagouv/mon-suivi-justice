@@ -91,7 +91,7 @@ RSpec.describe Slot, type: :model do
     end
   end
 
-  describe '.batch_delete', :focus do
+  describe '.batch_delete' do
     it 'deletes batch of slots' do
       agenda = create(:agenda)
       apt_type = create(:appointment_type)
