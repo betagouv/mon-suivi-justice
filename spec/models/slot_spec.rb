@@ -100,7 +100,6 @@ RSpec.describe Slot, type: :model do
       create(:slot, agenda: agenda, date: '06/06/2021', starting_time: new_time_for(15, 0))
       create(:slot, agenda: agenda, date: '06/06/2021', starting_time: new_time_for(16, 0))
 
-      create(:slot, agenda: agenda, date: '08/06/2021', starting_time: new_time_for(13, 0))
       create(:slot, agenda: agenda, date: '08/06/2021', starting_time: new_time_for(14, 0))
       create(:slot, agenda: agenda, date: '08/06/2021', starting_time: new_time_for(15, 0))
 
