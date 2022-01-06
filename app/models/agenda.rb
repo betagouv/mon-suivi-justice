@@ -7,4 +7,9 @@ class Agenda < ApplicationRecord
   validates :name, presence: true
 
   scope :in_organization, ->(organization) { joins(:place).where(place: { organization: organization }) }
+
+  scope :in_department, lambda { |department|
+    joins(place: { organization: :areas_organizations_mappings })
+      .where(areas_organizations_mappings: { area: department })
+  }
 end

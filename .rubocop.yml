@@ -75,6 +75,7 @@ Metrics/AbcSize:
     - app/policies/place_policy.rb
     - app/policies/slot_policy.rb
     - app/policies/appointment_policy.rb
+    - app/policies/agenda_policy.rb
     - app/controllers/appointments_controller.rb
     - app/controllers/home_controller.rb
     - app/services/history_item_factory.rb
