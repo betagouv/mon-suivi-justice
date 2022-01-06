@@ -17,7 +17,7 @@ def delete_slots(doubles, nb_to_delete)
   end
 end
 
-Slot.all.each do |slot|
+Slot.future.each do |slot|
   progress.increment
 
   result = Slot.where(date: slot.date, slot_type: slot.slot_type, starting_time: slot.starting_time)
