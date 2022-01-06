@@ -35,7 +35,6 @@ gem 'sib-api-v3-sdk'
 gem 'dotenv-rails'
 gem 'sidekiq'
 gem 'redis-namespace'
-gem 'rufus-scheduler', '~> 3.2'
 
 gem 'holidays'
 
