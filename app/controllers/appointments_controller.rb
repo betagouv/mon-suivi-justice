@@ -22,6 +22,10 @@ class AppointmentsController < ApplicationController
   def new
     @appointment = Appointment.new
     authorize @appointment
+
+    return unless params.key?(:convict_id)
+
+    @convict = Convict.find(params[:convict_id])
   end
 
   def create

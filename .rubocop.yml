@@ -67,6 +67,7 @@ Metrics/MethodLength:
 Metrics/ClassLength:
   Exclude:
     - app/models/appointment.rb
+    - app/controllers/appointments_controller.rb
 
 Metrics/AbcSize:
   Exclude:
