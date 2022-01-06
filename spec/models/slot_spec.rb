@@ -91,28 +91,29 @@ RSpec.describe Slot, type: :model do
     end
   end
 
-  describe '.batch_delete' do
+  describe '.batch_delete', :focus do
     it 'deletes batch of slots' do
       agenda = create(:agenda)
+      apt_type = create(:appointment_type)
 
-      create(:slot, agenda: agenda, date: '06/06/2021', starting_time: new_time_for(13, 0))
-      create(:slot, agenda: agenda, date: '06/06/2021', starting_time: new_time_for(14, 0))
-      create(:slot, agenda: agenda, date: '06/06/2021', starting_time: new_time_for(15, 0))
-      create(:slot, agenda: agenda, date: '06/06/2021', starting_time: new_time_for(16, 0))
+      create(:slot, agenda: agenda, appointment_type: apt_type, date: '06/06/2021', starting_time: new_time_for(13, 0))
+      create(:slot, agenda: agenda, appointment_type: apt_type, date: '06/06/2021', starting_time: new_time_for(14, 0))
+      create(:slot, agenda: agenda, appointment_type: apt_type, date: '06/06/2021', starting_time: new_time_for(15, 0))
+      create(:slot, agenda: agenda, appointment_type: apt_type, date: '06/06/2021', starting_time: new_time_for(16, 0))
 
-      create(:slot, agenda: agenda, date: '08/06/2021', starting_time: new_time_for(14, 0))
-      create(:slot, agenda: agenda, date: '08/06/2021', starting_time: new_time_for(15, 0))
+      create(:slot, agenda: agenda, appointment_type: apt_type, date: '08/06/2021', starting_time: new_time_for(14, 0))
+      create(:slot, agenda: agenda, appointment_type: apt_type, date: '08/06/2021', starting_time: new_time_for(15, 0))
 
       input = [{ date: '06/06/2021', starting_times: ['13:00'] }]
 
       expect do
-        Slot.batch_delete(agenda_id: agenda.id, data: input)
+        Slot.batch_delete(agenda_id: agenda.id, appointment_type_id: apt_type.id, data: input)
       end.to change { Slot.count }.by(-1)
 
       input2 = [{ date: '06/06/2021', starting_times: ['14:00', '15:00'] }]
 
       expect do
-        Slot.batch_delete(agenda_id: agenda.id, data: input2)
+        Slot.batch_delete(agenda_id: agenda.id, appointment_type_id: apt_type.id, data: input2)
       end.to change { Slot.count }.by(-2)
 
       input3 = [
@@ -121,7 +122,7 @@ RSpec.describe Slot, type: :model do
       ]
 
       expect do
-        Slot.batch_delete(agenda_id: agenda.id, data: input3)
+        Slot.batch_delete(agenda_id: agenda.id, appointment_type_id: apt_type.id, data: input3)
       end.to change { Slot.count }.by(-3)
     end
   end
