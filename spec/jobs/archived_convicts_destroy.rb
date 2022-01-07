@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ArchivedConvictsDestroy, type: :job do
+RSpec.xdescribe ArchivedConvictsDestroy, type: :job do
   describe '#perform_later' do
     let(:tested_method) { ArchivedConvictsDestroy.perform_later }
 

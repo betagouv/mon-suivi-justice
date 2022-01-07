@@ -29,10 +29,6 @@
       <div class='convicts-item-container'>
         <div class='convict-data convicts-column-1'>
           <%= convict.name %>
-
-          <% if convict.deleted? %>
-            <span class='convicts-archived'><%= t('archived') %></span>
-          <% end %>
         </div>
 
         <div class='convict-data convicts-column-2'>
@@ -44,22 +40,11 @@
             <%= link_to t('show_convict'), convict_path(convict), class: 'index-control' %>
           <% end %>
 
-          <% if policy(:convict).edit? && !convict.deleted? %>
+          <% if policy(:convict).edit? %>
             <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control' %>
           <% end %>
 
-          <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
-            <% if policy(:convict).archive? && !convict.deleted? %>
-              <%= link_to t('archive'), convict_archive_path(convict), method: :delete,
-                                                                       data: { confirm: t('archive_convict_confirmation') },
-                                                                       class: 'index-control' %>
-            <% end %>
-            <% if policy(:convict).unarchive? && convict.deleted? %>
-              <%= link_to t('unarchive'), convict_unarchive_path(convict), method: :post, class: 'index-control' %>
-            <% end %>
-          <% end %>
-
-          <% if policy(:convict).destroy? && !convict.deleted? %>
+          <% if policy(:convict).destroy? %>
             <%= link_to t('delete'), convict_path(convict), class: 'index-control',
                                                             data: { confirm: t('basic_confirmation') },
                                                             method: :delete %>

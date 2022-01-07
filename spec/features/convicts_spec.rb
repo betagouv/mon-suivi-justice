@@ -219,7 +219,7 @@ RSpec.feature 'Convicts', type: :feature do
     end
   end
 
-  describe 'Archive' do
+  xdescribe 'archive' do
     it 'an agent archive a convict' do
       dpt01 = create :department, number: '01', name: 'Ain'
       orga = create :organization
