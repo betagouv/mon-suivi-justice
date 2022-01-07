@@ -1,5 +1,6 @@
 class Convict < ApplicationRecord
   include NormalizedPhone
+  include Discard::Model
   has_paper_trail
 
   has_many :appointments, dependent: :destroy

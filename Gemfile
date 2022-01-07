@@ -36,6 +36,7 @@ gem 'sidekiq'
 gem 'redis-namespace'
 
 gem 'holidays'
+gem 'discard', '~> 1.2'
 
 gem 'paper_trail'
 gem 'sentry-ruby'

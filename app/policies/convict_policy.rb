@@ -5,9 +5,7 @@ class ConvictPolicy < ApplicationPolicy
     def resolve
       if user.admin?
         scope.all
-      # elsif user.local_admin?
-        # scope.in_department(user.organization.departments.first)
-      elsif user.bex?
+      elsif user.bex? || user.local_admin?
         scope.in_department(user.organization.departments.first)
       else
         scope.under_hand_of(organization)

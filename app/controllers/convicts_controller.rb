@@ -47,21 +47,21 @@ class ConvictsController < ApplicationController
     redirect_to convicts_path
   end
 
-  # def archive
-  #   @convict = policy_scope(Convict).find(params[:convict_id])
-  #   authorize @convict
-  #
-  #   @convict.destroy
-  #   redirect_back(fallback_location: root_path)
-  # end
-  #
-  # def unarchive
-  #   @convict = policy_scope(Convict).find(params[:convict_id])
-  #   authorize @convict
-  #
-  #   @convict.recover
-  #   redirect_back(fallback_location: root_path)
-  # end
+  def archive
+    @convict = policy_scope(Convict).find(params[:convict_id])
+    authorize @convict
+
+    @convict.discard
+    redirect_back(fallback_location: root_path)
+  end
+
+  def unarchive
+    @convict = policy_scope(Convict).find(params[:convict_id])
+    authorize @convict
+
+    @convict.undiscard
+    redirect_back(fallback_location: root_path)
+  end
 
   def show
     @convict = policy_scope(Convict).find(params[:id])
