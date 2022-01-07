@@ -2,14 +2,16 @@ require 'rails_helper'
 
 RSpec.describe HistoryItem, type: :model do
   it { should belong_to(:convict) }
-  it { should belong_to(:appointment) }
+  it { should belong_to(:appointment).optional(true) }
 
   it { should validate_presence_of(:content) }
-  it { should define_enum_for(:category).with_values(%i[appointment notification]) }
+  it { should define_enum_for(:category).with_values(%i[appointment notification convict]) }
 
   it do
     should define_enum_for(:event).with_values(
       %i[
+        archive_convict
+        unarchive_convict
         book_appointment
         cancel_appointment
         fulfil_appointment

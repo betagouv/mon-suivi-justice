@@ -36,6 +36,26 @@ RSpec.feature 'HistoryItems', type: :feature do
 
       expect(page).to have_content("ne s'est pas présenté(e) à son rendez-vous")
     end
+
+    it 'displays when convict is archived' do
+      expect do
+        Capybara.current_session.driver.delete convict_archive_path(@convict)
+      end.to change { HistoryItem.count }.by(1)
+
+      visit convict_path(@convict)
+
+      expect(page).to have_content('a été archivé. Pour le désarchiver, contactez votre administrateur local.')
+    end
+
+    it 'displays when convict is unarchived' do
+      expect do
+        Capybara.current_session.driver.post convict_unarchive_path(@convict)
+      end.to change { HistoryItem.count }.by(1)
+
+      visit convict_path(@convict)
+
+      expect(page).to have_content('a été désarchivé.')
+    end
   end
 
   describe 'for an appointment' do

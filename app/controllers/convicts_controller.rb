@@ -1,6 +1,14 @@
 class ConvictsController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @convict = policy_scope(Convict).find(params[:id])
+    @history_items = HistoryItem.where(convict: @convict, category: %w[appointment convict])
+                                .order(created_at: :desc)
+
+    authorize @convict
+  end
+
   def index
     @all_convicts = policy_scope(Convict)
     @q = policy_scope(Convict).order('last_name asc').ransack(params[:q])
@@ -52,6 +60,7 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     @convict.discard
+    HistoryItemFactory.perform(convict: @convict, event: 'archive_convict', category: 'convict')
     redirect_back(fallback_location: root_path)
   end
 
@@ -60,15 +69,8 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     @convict.undiscard
+    HistoryItemFactory.perform(convict: @convict, event: 'unarchive_convict', category: 'convict')
     redirect_back(fallback_location: root_path)
-  end
-
-  def show
-    @convict = policy_scope(Convict).find(params[:id])
-    @history_items = HistoryItem.where(convict: @convict, category: 'appointment')
-                                .order(created_at: :desc)
-
-    authorize @convict
   end
 
   private
