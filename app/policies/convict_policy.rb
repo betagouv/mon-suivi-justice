@@ -21,6 +21,10 @@ class ConvictPolicy < ApplicationPolicy
     true
   end
 
+  def edit?
+    record.undiscarded?
+  end
+
   def show?
     true
   end
@@ -30,14 +34,14 @@ class ConvictPolicy < ApplicationPolicy
   end
 
   def archive?
-    true
+    record.undiscarded?
   end
 
   def unarchive?
-    user.admin? || user.local_admin?
+    (user.admin? || user.local_admin?) && record.discarded?
   end
 
   def destroy?
-    ALLOWED_TO_DESTROY.include? user.role
+    ALLOWED_TO_DESTROY.include?(user.role) && record.undiscarded?
   end
 end

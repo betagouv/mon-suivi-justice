@@ -48,6 +48,8 @@ RSpec.feature 'HistoryItems', type: :feature do
     end
 
     it 'displays when convict is unarchived' do
+      @convict.discard
+
       expect do
         Capybara.current_session.driver.post convict_unarchive_path(@convict)
       end.to change { HistoryItem.count }.by(1)

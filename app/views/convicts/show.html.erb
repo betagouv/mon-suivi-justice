@@ -85,13 +85,13 @@
   </div>
 
   <div class='show-button-to-edit-container'>
-    <% if @convict.undiscarded? %>
+    <% if policy(@convict).edit? %>
       <%= button_to t('edit'), edit_convict_path(params[:id]),
                                method: :get,
                                class: 'show-convict-button-to-edit' %>
     <% end %>
 
-    <% if policy(:convict).destroy? && @convict.undiscarded? %>
+    <% if policy(@convict).destroy? %>
       <%= button_to t('delete'), convict_path(params[:id]),
                                  method: :delete,
                                  data: { confirm: t('basic_confirmation') },
@@ -99,14 +99,14 @@
     <% end %>
 
     <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
-      <% if policy(:convict).archive? && @convict.undiscarded? %>
+      <% if policy(@convict).archive? %>
         <%= button_to t('archive'), convict_archive_path(@convict),
                                     method: :delete,
                                     data: { confirm: t('archive_convict_confirmation') },
                                     class: 'show-button-archive' %>
       <% end %>
 
-      <% if policy(:convict).unarchive? && @convict.discarded? %>
+      <% if policy(@convict).unarchive? %>
         <%= button_to t('unarchive'), convict_unarchive_path(@convict), method: :post, class: 'show-button-archive' %>
       <% end %>
     <% end %>
@@ -166,7 +166,7 @@
         </div>
       </div>
 
-      <% if history_item.category == 'appointment' %>
+      <% if history_item.appointment? %>
         <div class='show-history-item-link'>
           <%= link_to t('see_details'), appointment_path(history_item.appointment), class: 'show-convict-history-control' %>
         </div>
