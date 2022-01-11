@@ -50,6 +50,6 @@
   </div>
 
   <% if current_user.admin? %>
-    <%= render 'shared/data_card', data: @stats %>
+    <%= render 'shared/data_card', data: @stats, title: t('stats_home_title') %>
   <% end %>
 </div>

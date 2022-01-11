@@ -20,7 +20,7 @@ RSpec.describe DataCollector do
       create :appointment, state: 'excused', convict: convict1, slot: slot2
       create :appointment, state: 'canceled', convict: convict1, slot: slot2
 
-      result = DataCollector.perform
+      result = DataCollector.new.perform
 
       expect(result[:convicts]).to eq(2)
       expect(result[:convicts_with_phone]).to eq(1)
@@ -35,6 +35,17 @@ RSpec.describe DataCollector do
       expect(result[:passed_booked]).to eq(1)
       expect(result[:passed_no_canceled]).to eq(5)
       expect(result[:passed_no_canceled_with_phone]).to eq(4)
+    end
+
+    it 'can be scoped by organization' do
+      orga = create :organization
+
+      create :user, organization: orga
+      create :user
+
+      result = DataCollector.new(organization_id: orga.id).perform
+
+      expect(result[:users]).to eq(1)
     end
   end
 end

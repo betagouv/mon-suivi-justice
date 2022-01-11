@@ -82,39 +82,3 @@
 .select2-search {
   width: 100%;
 }
-
-.stats-card-container {
-  @include box;
-  padding: 20px;
-  margin-right: 40px;
-}
-
-.stat-card-container {
-  display: flex;
-}
-
-.stats-card-title {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.stat-card-value {
-  margin-left: 10px;
-}
-
-.stat-card-subsection {
-  display: flex;
-}
-
-.stat-card-of-which {
-  color: $dark-grey;
-  width: auto;
-}
-
-.stat-card-subsection-content {
-  margin-left: 10px;
-}
-
-.stat-card-percentage {
-  margin-left: 10px;
-}

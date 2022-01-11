@@ -4,6 +4,6 @@ class HomeController < ApplicationController
 
   def home
     @convicts = policy_scope(Convict.all)
-    @stats = DataCollector.perform
+    @stats = DataCollector.new.perform
   end
 end
