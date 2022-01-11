@@ -69,9 +69,6 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    acts_as_paranoid (0.8.0)
-      activerecord (>= 5.2, < 7.1)
-      activesupport (>= 5.2, < 7.1)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
@@ -114,6 +111,8 @@ GEM
       actionmailer (>= 5.0)
       devise (>= 4.6)
     diff-lcs (1.5.0)
+    discard (1.2.1)
+      activerecord (>= 4.2, < 8)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
@@ -435,7 +434,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_paranoid
   addressable
   bootsnap (>= 1.4.4)
   byebug
@@ -445,6 +443,7 @@ DEPENDENCIES
   devise-i18n
   devise-secure_password (~> 2.0)
   devise_invitable (~> 2.0.0)
+  discard (~> 1.2)
   dotenv-rails
   factory_bot_rails
   font-awesome-rails

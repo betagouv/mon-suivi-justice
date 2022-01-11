@@ -16,7 +16,7 @@
   <%= f.button :submit, t('edit_convict_submit'), class: 'form-submit-button edit-convict-submit-button' %>
 <% end %>
 
-<% if policy(:convict).destroy? %>
+<% if policy(@convict).destroy? %>
   <div class='convict-relation-container'>
     <h2 class='convict-secondary-title'><%= t('edit_convict_department_title') %></h2>
     <% @convict.departments.order(:number).each do |department|%>

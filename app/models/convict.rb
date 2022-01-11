@@ -1,7 +1,7 @@
 class Convict < ApplicationRecord
   include NormalizedPhone
+  include Discard::Model
   has_paper_trail
-  acts_as_paranoid
 
   has_many :appointments, dependent: :destroy
   has_many :history_items, dependent: :destroy
