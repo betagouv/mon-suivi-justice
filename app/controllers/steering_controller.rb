@@ -5,7 +5,6 @@ class SteeringController < ApplicationController
     authorize :steering, :steering?
 
     @global = DataCollector.new.perform
-
     @local = []
 
     Organization.all.each do |orga|
