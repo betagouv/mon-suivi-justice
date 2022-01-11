@@ -59,7 +59,7 @@
             <% end %>
           <% end %>
 
-          <% if policy(convict).destroy? && convict.undiscarded? %>
+          <% if policy(convict).destroy? %>
             <%= link_to t('delete'), convict_path(convict), class: 'index-control',
                                                             data: { confirm: t('basic_confirmation') },
                                                             method: :delete %>
