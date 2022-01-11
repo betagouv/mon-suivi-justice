@@ -376,10 +376,7 @@ fr:
     slot_types: 'Créneaux récurrents'
     users: "Agents"
     organizations: "Services"
-<<<<<<< HEAD
     steering: "Pilotage"
-=======
->>>>>>> develop
     guides: "Documentation"
 
   simple_form:

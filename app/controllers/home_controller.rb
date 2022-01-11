@@ -4,18 +4,21 @@ class HomeController < ApplicationController
 
   def home
     @convicts = policy_scope(Convict.all)
-    @users = User.count
-    @notifications = Notification.where(state: %w[sent received]).count
 
-    @recorded = Appointment.count
-    @fulfiled = Appointment.where(state: 'fulfiled').count
-    @no_show = Appointment.where(state: 'no_show').count
-    @excused = Appointment.where(state: 'excused').count
-    @canceled = Appointment.where(state: 'canceled').count
+    data = DataCollector.perform
 
-    @future_booked = Appointment.where(state: 'booked').joins(:slot).where('slots.date >= ?', Date.today).count
-    @passed_booked = Appointment.where(state: 'booked').joins(:slot).where('slots.date < ?', Date.today).count
-    @passed_no_canceled = Appointment.joins(:slot).where('slots.date < ?', Date.today)
-                                     .where.not(state: 'canceled').count
+    @convicts_count = data[:convicts]
+    @users = data[:users]
+    @notifications = data[:notifications]
+
+    @recorded = data[:recorded]
+    @fulfiled = data[:fulfiled]
+    @no_show = data[:no_show]
+    @excused = data[:excused]
+    @canceled = data[:canceled]
+
+    @future_booked = data[:future_booked]
+    @passed_booked = data[:passed_booked]
+    @passed_no_canceled = data[:passed_no_canceled]
   end
 end
