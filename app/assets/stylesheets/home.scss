@@ -83,21 +83,21 @@
   width: 100%;
 }
 
-.home-stats-container {
+.stats-card-container {
   @include box;
   padding: 20px;
   margin-right: 40px;
 }
 
-.home-stat-container {
+.stat-card-container {
   display: flex;
 }
 
-.home-stats-title {
+.stats-card-title {
   font-size: 18px;
   margin-bottom: 10px;
 }
 
-.home-stat-value {
+.stat-card-value {
   margin-left: 10px;
 }

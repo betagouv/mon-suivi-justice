@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe DataCollector, :focus do
+RSpec.describe DataCollector do
   describe 'perform' do
     it 'collects data' do
       convict1 = create :convict
