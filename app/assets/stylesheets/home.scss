@@ -101,3 +101,20 @@
 .stat-card-value {
   margin-left: 10px;
 }
+
+.stat-card-subsection {
+  display: flex;
+}
+
+.stat-card-of-which {
+  color: $dark-grey;
+  width: auto;
+}
+
+.stat-card-subsection-content {
+  margin-left: 10px;
+}
+
+.stat-card-percentage {
+  margin-left: 10px;
+}
