@@ -27,6 +27,10 @@ class StaticPagesController < ApplicationController
 
   def preparer_sap_nanterre; end
 
+  def preparer_spip28; end
+
+  def preparer_sap_chartres; end
+
   def ma_reinsertion; end
 
   def donnees_personnelles; end

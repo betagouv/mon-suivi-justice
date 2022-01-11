@@ -51,8 +51,15 @@
   margin-bottom: 50px;
 }
 
-.slot-type-weekday {
+.slot-type-weekday-header {
   margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slot-type-batch-delete-weekday-link {
+  color: $link;
+  margin-right: 30px;
 }
 
 .slot-type-form {
@@ -111,4 +118,88 @@
   min-width: 715px;
   padding-top: 10px;
   border: 2px solid $table-border;
+}
+
+.slot-type-batch-creator-container {
+  border: 2px solid $table-border;
+  max-width: 715px;
+  margin: auto;
+  display: flex;
+}
+
+.slot-types-batch-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 20px;
+  width: 480px;
+}
+
+.slot-types-batch-weekday-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.slot-type-batch-checkbox-wrapper {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.slot-types-batch-field-wrapper {
+  margin-right: 20px;
+
+  &:last-child{
+    margin-right: 0;
+  }
+}
+
+.slot-types-batch-field {
+  width: 120px;
+}
+
+.slot-type-batch-time-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.slot-type-batch-data-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.slot-type-batch-time-input {
+  margin-right: 20px;
+  select { width: 70px }
+  width: 40%;
+
+  &:last-child{
+    margin-right: 0;
+  }
+}
+
+.slot-type-batch-controls-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 2px solid $table-border;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.slot-type-batch-submit-button {
+  @include button($light-blue);
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.slot-type-batch-delete-all-button {
+  @include button($light-grey);
+  height: 40px;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

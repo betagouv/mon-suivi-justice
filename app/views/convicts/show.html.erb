@@ -33,6 +33,12 @@
   <% end %>
 <% end %>
 
+<% if @convict.deleted? %>
+  <div class='show-convict-achived-container'>
+    <%= t('show_convict_archived') %>
+  </div>
+<% end %>
+
 <div class='show-profile-container'>
   <div class='show-data-container'>
     <div class='show-data-item-container'>
@@ -79,15 +85,30 @@
   </div>
 
   <div class='show-button-to-edit-container'>
-    <%= button_to t('edit'), edit_convict_path(params[:id]),
-                             method: :get,
-                             class: 'show-button-to-edit' %>
+    <% if !@convict.deleted? %>
+      <%= button_to t('edit'), edit_convict_path(params[:id]),
+                               method: :get,
+                               class: 'show-convict-button-to-edit' %>
+    <% end %>
 
-    <% if policy(:convict).destroy? %>
+    <% if policy(:convict).destroy? && !@convict.deleted? %>
       <%= button_to t('delete'), convict_path(params[:id]),
                                  method: :delete,
                                  data: { confirm: t('basic_confirmation') },
                                  class: 'show-button-to-delete' %>
+    <% end %>
+
+    <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+      <% if policy(:convict).archive? && !@convict.deleted? %>
+        <%= button_to t('archive'), convict_archive_path(@convict),
+                                    method: :delete,
+                                    data: { confirm: t('archive_convict_confirmation') },
+                                    class: 'show-button-archive' %>
+      <% end %>
+
+      <% if policy(:convict).unarchive? && @convict.deleted? %>
+        <%= button_to t('unarchive'), convict_unarchive_path(@convict), method: :post, class: 'show-button-archive' %>
+      <% end %>
     <% end %>
   </div>
 </div>
@@ -112,7 +133,7 @@
   </div>
 <% end %>
 
-<% if policy(:appointment).new? %>
+<% if policy(:appointment).new? && !@convict.deleted? %>
   <div class='show-convict-new-appointment-container'>
     <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
                                                    class: 'link-to-new-appointment-button',
@@ -141,10 +162,7 @@
         </div>
 
         <div class='show-history-item-content'>
-          <%= t("show_history_#{history_item.event}", name: @convict.name,
-                                                      place: history_item.appointment.slot.agenda.place.name,
-                                                      date: history_item.appointment.slot.date,
-                                                      time: history_item.appointment.slot.starting_time.to_s(:time)) %>
+          <%= history_item.content %>
         </div>
       </div>
 

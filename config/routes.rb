@@ -10,18 +10,24 @@ Rails.application.routes.draw do
   resources :organizations
   resources :users
   resources :places
-  resources :convicts
+  resources :convicts do
+    delete 'archive'
+    post 'unarchive'
+  end
   resources :appointment_types
   resources :slots
+  resources :slot_types, only: [:create, :destroy, :update]
+
   resources :agendas, only: [:create, :destroy, :update] do
     resources :slot_types, only: :index
+    resource :slot_types_batch, only: [:create, :destroy]
   end
-  resources :slot_types, only: [:create, :destroy, :update]
+
   resources :areas_organizations_mappings, only: [:create, :destroy]
   resources :areas_convicts_mappings, only: [:create, :destroy]
 
   resources :appointments do
-    resource :reschedule, only: [:new, :create], controller: 'appointments/reschedules'
+    resource :reschedule, only: [:new, :create], controller: 'appointments_reschedules'
     put 'cancel'
     put 'fulfil'
     put 'miss'
@@ -52,6 +58,8 @@ Rails.application.routes.draw do
     get :preparer_mon_rdv
     get :preparer_spip92
     get :preparer_sap_nanterre
+    get :preparer_spip28
+    get :preparer_sap_chartres
     get :ma_reinsertion
     get :donnees_personnelles
   end

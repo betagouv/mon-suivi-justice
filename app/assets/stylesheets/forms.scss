@@ -14,6 +14,14 @@
   margin: 20px 0;
 }
 
+.form-subtitle {
+  font-size: 1.1em;
+  text-align: center;
+  margin-top: -30px;
+  margin-bottom: 20px;
+  color: $dark-grey;
+}
+
 .form-input-wrapper {
   display: flex;
   flex-direction: column;

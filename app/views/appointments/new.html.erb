@@ -1,5 +1,5 @@
 <section class='new-appointment-links-container'>
-  <% if current_user.admin? || current_user.local_admin? || current_user.work_at_bex? %>
+  <% if current_user.admin? || current_user.local_admin? || current_user.work_at_bex? || current_user.work_at_sap? %>
     <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
                                                      class: 'jap-agendas-modal-trigger',
                                                      data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
@@ -7,10 +7,13 @@
 </section>
 
 <h1 class='form-title'><%= t('new_appointment_title') %></h1>
+<% if params.key?(:convict_id) && ENV['APP'] != 'mon-suivi-justice-prod' %>
+  <h2 class='form-subtitle'><%= @convict.name %></h2>
+<% end %>
 
 <%= simple_form_for @appointment do |f| %>
   <div class='new-appointment-form'>
-    <% if params.has_key?(:convict_id) %>
+    <% if params.key?(:convict_id) %>
       <%= f.input :convict_id, as: :hidden, input_html: { value: params[:convict_id] }  %>
     <% else %>
       <%= f.association :convict, collection: policy_scope(Convict.all),

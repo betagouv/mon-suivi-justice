@@ -55,12 +55,7 @@ class Notification < ApplicationRecord
     after_transition do |notification, transition|
       event = "#{transition.event}_#{notification.role}_notification".to_sym
       if HistoryItem.validate_event(event) == true
-        HistoryItem.create!(
-          convict: notification.appointment.convict,
-          appointment: notification.appointment,
-          category: 'notification',
-          event: event
-        )
+        HistoryItemFactory.perform(appointment: notification.appointment, event: event, category: 'notification')
       end
     end
 

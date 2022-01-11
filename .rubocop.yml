@@ -43,6 +43,10 @@ Style/FormatStringToken:
   Exclude:
     - spec/services/notification_factory_spec.rb
 
+Style/NumericLiteralPrefix:
+  Exclude:
+    - spec/services/slot_type_factory_spec.rb
+
 Style/SymbolArray:
   Exclude:
     - app/controllers/**/*
@@ -55,12 +59,15 @@ Style/IfUnlessModifier:
 Metrics/MethodLength:
   Exclude:
     - app/services/notification_factory.rb
+    - app/services/slot_type_factory.rb
     - app/helpers/users_helper.rb
     - app/controllers/home_controller.rb
+    - app/services/history_item_factory.rb
 
 Metrics/ClassLength:
   Exclude:
     - app/models/appointment.rb
+    - app/controllers/appointments_controller.rb
 
 Metrics/AbcSize:
   Exclude:
@@ -68,5 +75,7 @@ Metrics/AbcSize:
     - app/policies/place_policy.rb
     - app/policies/slot_policy.rb
     - app/policies/appointment_policy.rb
+    - app/policies/agenda_policy.rb
     - app/controllers/appointments_controller.rb
     - app/controllers/home_controller.rb
+    - app/services/history_item_factory.rb

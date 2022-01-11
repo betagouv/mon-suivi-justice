@@ -22,6 +22,7 @@ gem 'simple_form'
 gem 'addressable' # fix scalingo deploy bug
 gem 'cocoon'
 gem 'phony_rails'
+gem 'acts_as_paranoid'
 
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'kaminari'
@@ -34,13 +35,13 @@ gem 'sib-api-v3-sdk'
 gem 'dotenv-rails'
 gem 'sidekiq'
 gem 'redis-namespace'
-gem 'rufus-scheduler', '~> 3.2'
 
 gem 'holidays'
 
 gem 'paper_trail'
 gem 'sentry-ruby'
 gem 'sentry-rails'
+gem 'ruby-progressbar'
 
 group :development, :test do
   gem 'rspec-rails'
