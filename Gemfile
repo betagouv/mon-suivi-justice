@@ -22,7 +22,6 @@ gem 'simple_form'
 gem 'addressable' # fix scalingo deploy bug
 gem 'cocoon'
 gem 'phony_rails'
-gem 'acts_as_paranoid'
 
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'kaminari'
@@ -37,6 +36,7 @@ gem 'sidekiq'
 gem 'redis-namespace'
 
 gem 'holidays'
+gem 'discard', '~> 1.2'
 
 gem 'paper_trail'
 gem 'sentry-ruby'

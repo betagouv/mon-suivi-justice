@@ -219,7 +219,7 @@ RSpec.feature 'Convicts', type: :feature do
     end
   end
 
-  describe 'Archive' do
+  describe 'archive' do
     it 'an agent archive a convict' do
       dpt01 = create :department, number: '01', name: 'Ain'
       orga = create :organization
@@ -228,23 +228,32 @@ RSpec.feature 'Convicts', type: :feature do
       convict_dpt01 = create :convict, first_name: 'babar', last_name: 'BABAR'
       create :areas_convicts_mapping, convict: convict_dpt01, area: dpt01
       login_user user
+
       visit convicts_path
+
       expect(page).to have_content('BABAR Babar')
+
       click_link 'Archiver'
-      expect(page).not_to have_content('BABAR Babar')
+
+      expect(page).to have_content('BABAR Babar (archivé)')
       expect(page).not_to have_content('Désarchiver')
     end
 
     it 'an admin archive and unarchive a convict' do
       convict = create :convict, first_name: 'babar', last_name: 'BABAR'
+
       visit convicts_path
       expect(page).to have_content('BABAR Babar')
+
       click_link 'Archiver'
+
       expect(page).to have_content('BABAR Babar')
-      expect(Convict.exists?(id: convict.id)).to be false
+      expect(Convict.find(convict.id).discarded?).to be true
+
       click_link 'Désarchiver'
+
       expect(page).to have_content('BABAR Babar')
-      expect(Convict.exists?(id: convict.id)).to be true
+      expect(Convict.find(convict.id).discarded?).to be false
     end
   end
 end
