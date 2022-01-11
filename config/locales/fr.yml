@@ -241,6 +241,11 @@ fr:
   edit_convict_jurisdiction: "Juridiction"
   archive_convict_confirmation: "Cette PPSMJ restera accessible pendant 6 mois avant d'être définitivement supprimée."
 
+  show_history_archive_convict_title: "Archivage"
+  show_history_archive_convict: "Le profil de %{name} a été archivé. Pour le désarchiver, contactez votre administrateur local."
+  show_history_unarchive_convict_title: "Désarchivage"
+  show_history_unarchive_convict: "Le profil de %{name} a été désarchivé."
+
   show_history_book_appointment_title: "Nouveau RDV"
   show_history_book_appointment: "%{name} a été convoqué(e) au %{place} le %{date} à %{time}."
   show_history_book_phone_appointment: "%{name} a été convoqué(e) pour un rendez-vous téléphonique le %{date} à %{time}."

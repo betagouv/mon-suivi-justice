@@ -18,21 +18,21 @@ RSpec.describe ArchivedConvictsDestroy, type: :job do
     before do
       allow(Time).to receive(:now).and_return Time.zone.parse('2021-02-02')
       convict3
-      convict1.delete
+      convict1.discard
       allow(Time).to receive(:now).and_return Time.zone.parse('2021-04-04')
-      convict2.delete
+      convict2.discard
       allow(Time).to receive(:now).and_return Time.zone.parse('2021-09-09')
       ArchivedConvictsDestroy.new.perform
     end
 
     it 'delete fully convict deleted 7 months ago' do
-      expect(Convict.with_deleted.find_by(id: convict1.id)).to be nil
+      expect(Convict.exists?(id: convict1.id)).to be false
     end
     it 'does not delete fully convict deleted 5 months ago' do
-      expect(Convict.with_deleted.find_by(id: convict2.id)).not_to be nil
+      expect(Convict.exists?(id: convict2.id)).to be true
     end
     it 'does not delete fully convict not deleted' do
-      expect(Convict.find_by(id: convict3.id)).not_to be nil
+      expect(Convict.exists?(id: convict3.id)).to be true
     end
   end
 end

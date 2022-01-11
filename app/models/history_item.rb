@@ -1,14 +1,16 @@
 class HistoryItem < ApplicationRecord
   belongs_to :convict
-  belongs_to :appointment
+  belongs_to :appointment, optional: true
 
   validates :content, presence: true
 
   attr_readonly :content
 
-  enum category: %i[appointment notification]
+  enum category: %i[appointment notification convict]
 
   enum event: %i[
+    archive_convict
+    unarchive_convict
     book_appointment
     cancel_appointment
     fulfil_appointment
