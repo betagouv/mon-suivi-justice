@@ -3,7 +3,7 @@ class PlacePolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.admin? || user.local_admin? || user.bex?
+      if user.admin? || user.local_admin? || user.work_at_bex?
         scope.in_department(user.organization.departments.first)
       else
         scope.in_organization(organization)
