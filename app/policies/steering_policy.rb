@@ -1,5 +1,5 @@
-class SteeringPolicy < Struct.new(:user, :steering)
-  def steering?
+class SteeringPolicy < ApplicationPolicy
+  def show?
     user.admin?
   end
 end

@@ -80,7 +80,3 @@ Metrics/AbcSize:
     - app/controllers/appointments_controller.rb
     - app/controllers/home_controller.rb
     - app/services/history_item_factory.rb
-
-Style/StructInheritance:
-  Exclude:
-    - app/policies/steering_policy.rb

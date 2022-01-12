@@ -13,7 +13,7 @@ class DataCollector
 
   private
 
-  def total_convict
+  def all_convicts
     if defined?(@organization)
       Convict.under_hand_of(@organization)
     else
@@ -21,7 +21,7 @@ class DataCollector
     end
   end
 
-  def total_user
+  def all_users
     if defined?(@organization)
       User.where(organization: @organization)
     else
@@ -29,7 +29,7 @@ class DataCollector
     end
   end
 
-  def total_notification
+  def all_notifications
     if defined?(@organization)
       Notification.in_organization(@organization)
     else
@@ -37,7 +37,7 @@ class DataCollector
     end
   end
 
-  def total_appointments
+  def all_appointments
     if defined?(@organization)
       Appointment.in_organization(@organization)
     else
@@ -47,53 +47,53 @@ class DataCollector
 
   def basic_stats
     {
-      convicts: total_convict.count,
-      convicts_with_phone: total_convict.where.not(phone: nil).count,
-      users: total_user.count,
-      notifications: total_notification.where(state: %w[sent received]).count
+      convicts: all_convicts.size,
+      convicts_with_phone: all_convicts.with_phone.size,
+      users: all_users.size,
+      notifications: all_notifications.all_sent.size
     }
   end
 
   def appointments_stats
     {
-      recorded: total_appointments.count,
-      future_booked: future_booked.count,
-      passed_booked: passed_booked.count,
+      recorded: all_appointments.size,
+      future_booked: future_booked.size,
+      passed_booked: passed_booked.size,
       passed_booked_percentage: passed_booked_percentage,
-      passed_no_canceled: passed_no_canceled.count,
-      passed_no_canceled_with_phone: passed_no_canceled_with_phone.count
+      passed_no_canceled: passed_no_canceled.size,
+      passed_no_canceled_with_phone: passed_no_canceled_with_phone.size
     }
   end
 
   def appointment_states_stats
     {
-      fulfiled: fulfiled.count,
+      fulfiled: fulfiled.size,
       fulfiled_percentage: fulfiled_percentage,
-      no_show: no_show.count,
+      no_show: no_show.size,
       no_show_percentage: no_show_percentage,
-      excused: excused.count
+      excused: excused.size
     }
   end
 
   def future_booked
-    total_appointments.where(state: 'booked').joins(:slot)
-                      .where('slots.date >= ?', Date.today)
+    all_appointments.where(state: 'booked').joins(:slot)
+                    .where('slots.date >= ?', Date.today)
   end
 
   def passed_booked
-    total_appointments.where(state: 'booked').joins(:slot)
-                      .where('slots.date < ?', Date.today)
+    all_appointments.where(state: 'booked').joins(:slot)
+                    .where('slots.date < ?', Date.today)
   end
 
   def passed_booked_percentage
-    return 0 if passed_no_canceled.count.zero?
+    return 0 if passed_no_canceled.size.zero?
 
-    passed_booked.count * 100 / passed_no_canceled.count
+    passed_booked.size * 100 / passed_no_canceled.size
   end
 
   def passed_no_canceled
-    total_appointments.where.not(state: 'canceled').joins(:slot)
-                      .where('slots.date < ?', Date.today)
+    all_appointments.where.not(state: 'canceled').joins(:slot)
+                    .where('slots.date < ?', Date.today)
   end
 
   def passed_no_canceled_with_phone
@@ -105,9 +105,9 @@ class DataCollector
   end
 
   def fulfiled_percentage
-    return 0 if passed_no_canceled_with_phone.count.zero?
+    return 0 if passed_no_canceled_with_phone.size.zero?
 
-    fulfiled.count * 100 / passed_no_canceled_with_phone.count
+    fulfiled.size * 100 / passed_no_canceled_with_phone.size
   end
 
   def no_show
@@ -115,9 +115,9 @@ class DataCollector
   end
 
   def no_show_percentage
-    return 0 if passed_no_canceled_with_phone.count.zero?
+    return 0 if passed_no_canceled_with_phone.size.zero?
 
-    no_show.count * 100 / passed_no_canceled_with_phone.count
+    no_show.size * 100 / passed_no_canceled_with_phone.size
   end
 
   def excused

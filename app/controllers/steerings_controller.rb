@@ -1,8 +1,8 @@
-class SteeringController < ApplicationController
+class SteeringsController < ApplicationController
   before_action :authenticate_user!
 
-  def steering
-    authorize :steering, :steering?
+  def show
+    authorize :steering, :show?
 
     @global = DataCollector.new.perform
     @local = []

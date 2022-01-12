@@ -14,6 +14,8 @@ class Notification < ApplicationRecord
       .where(appointment: { slots: { agendas: { places: { organization: organization } } } })
   }
 
+  scope :all_sent, -> { where(state: %w[sent received]) }
+
   state_machine initial: :created do
     state :created do
     end

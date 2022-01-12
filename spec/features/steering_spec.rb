@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Steering', type: :feature do
-  describe 'Steering page' do
+  describe 'show' do
     it 'loads' do
       create_admin_user_and_login
 

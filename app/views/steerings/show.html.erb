@@ -1,5 +1,5 @@
 <div class='steering-container'>
-  <%= render 'shared/data_card', data: @global, title: t('stats_steering_title') %>
+  <%= render 'shared/data_card', data: @global, title: t('stats.steering_title') %>
 
   <% @local.each do |local| %>
     <%= render 'shared/data_card', data: local, title: local[:organization_name] %>

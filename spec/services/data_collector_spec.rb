@@ -11,7 +11,7 @@ RSpec.describe DataCollector do
       slot1 = create :slot, date: Date.current.tomorrow
       slot2 = create :slot, date: Date.current.yesterday
 
-      create :appointment, state: 'booked', convict: convict1, slot: slot1
+      apt1 = create :appointment, state: 'booked', convict: convict1, slot: slot1
       create :appointment, state: 'booked', convict: convict1, slot: slot2
 
       create :appointment, state: 'fulfiled', convict: convict1, slot: slot2
@@ -20,21 +20,29 @@ RSpec.describe DataCollector do
       create :appointment, state: 'excused', convict: convict1, slot: slot2
       create :appointment, state: 'canceled', convict: convict1, slot: slot2
 
+      create :notification, appointment: apt1, state: 'sent'
+
+      expected = {
+        convicts: 2,
+        convicts_with_phone: 1,
+        users: 3,
+        notifications: 1,
+        recorded: 7,
+        future_booked: 1,
+        passed_booked: 1,
+        passed_booked_percentage: 20,
+        passed_no_canceled: 5,
+        passed_no_canceled_with_phone: 4,
+        fulfiled: 1,
+        fulfiled_percentage: 25,
+        no_show: 1,
+        no_show_percentage: 25,
+        excused: 1
+      }
+
       result = DataCollector.new.perform
 
-      expect(result[:convicts]).to eq(2)
-      expect(result[:convicts_with_phone]).to eq(1)
-      expect(result[:users]).to eq(3)
-
-      expect(result[:recorded]).to eq(7)
-      expect(result[:fulfiled]).to eq(1)
-      expect(result[:no_show]).to eq(1)
-      expect(result[:excused]).to eq(1)
-
-      expect(result[:future_booked]).to eq(1)
-      expect(result[:passed_booked]).to eq(1)
-      expect(result[:passed_no_canceled]).to eq(5)
-      expect(result[:passed_no_canceled_with_phone]).to eq(4)
+      expect(result).to eq(expected)
     end
 
     it 'can be scoped by organization' do

@@ -61,9 +61,9 @@
     <% end %>
   <% end %>
 
-  <% if policy(:steering).steering? %>
+  <% if policy(:steering).show? %>
     <%= link_to steering_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_controller('steering') %>">
+      <div class="sidebar-item <%= active_class_if_controller('steerings') %>">
         <%= t('sidebar.steering') %>
       </div>
     <% end %>
