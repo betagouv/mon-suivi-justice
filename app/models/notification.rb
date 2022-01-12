@@ -9,6 +9,13 @@ class Notification < ApplicationRecord
   enum role: %i[summon reminder cancelation no_show reschedule]
   enum reminder_period: %i[one_day two_days]
 
+  scope :in_organization, lambda { |organization|
+    joins(appointment: { slot: { agenda: :place } })
+      .where(appointment: { slots: { agendas: { places: { organization: organization } } } })
+  }
+
+  scope :all_sent, -> { where(state: %w[sent received]) }
+
   state_machine initial: :created do
     state :created do
     end

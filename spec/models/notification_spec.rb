@@ -38,6 +38,22 @@ RSpec.describe Notification, type: :model do
     end
   end
 
+  describe '.in_organization' do
+    it 'returns correct relation' do
+      organization = create :organization
+      place_in = create :place, organization: organization
+      agenda_in = create :agenda, place: place_in
+      slot_in = create :slot, agenda: agenda_in
+      appointment_in = create :appointment, slot: slot_in
+      notification_in = create :notification, appointment: appointment_in
+
+      appointment_out = create :appointment
+      create :notification, appointment: appointment_out
+
+      expect(Notification.in_organization(organization)).to eq [notification_in]
+    end
+  end
+
   describe 'state machine' do
     it { is_expected.to have_states :created, :programmed, :canceled, :sent, :received, :failed }
 

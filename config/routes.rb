@@ -72,6 +72,8 @@ Rails.application.routes.draw do
     get :secret_stats
   end
 
+  resource :steering, only: :show
+
   unauthenticated do
     root 'static_pages#landing'
   end
