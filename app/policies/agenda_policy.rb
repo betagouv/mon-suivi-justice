@@ -3,7 +3,7 @@ class AgendaPolicy < ApplicationPolicy
     def resolve
       if user.admin?
         scope.all
-      elsif user.local_admin? || user.bex?
+      elsif user.local_admin? || user.work_at_bex?
         scope.in_department(user.organization.departments.first)
       else
         scope.in_organization(organization)
