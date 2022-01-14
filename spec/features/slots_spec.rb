@@ -26,6 +26,7 @@ RSpec.feature 'Slots', type: :feature do
 
       @slot1.reload
       expect(@slot1.available).to eq(false)
+      expect(page).not_to have_content((Date.today + 2).to_s)
     end
   end
 
