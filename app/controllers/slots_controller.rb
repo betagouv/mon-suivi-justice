@@ -27,11 +27,11 @@ class SlotsController < ApplicationController
     end
   end
 
-  def destroy
+  def update
     @slot = Slot.find(params[:id])
     authorize @slot
 
-    @slot.destroy
+    @slot.update(slot_params)
     redirect_to slots_path
   end
 
@@ -39,6 +39,6 @@ class SlotsController < ApplicationController
 
   def slot_params
     params.require(:slot).permit(:agenda_id, :appointment_type_id,
-                                 :date, :starting_time)
+                                 :date, :starting_time, :available)
   end
 end

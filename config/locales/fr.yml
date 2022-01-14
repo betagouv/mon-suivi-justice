@@ -152,6 +152,7 @@ fr:
   archived: "(archivé)"
   unarchive: "Désarchiver"
   delete: "Supprimer"
+  close: "Fermer"
   submit: "Enregistrer"
   cancel: "Annuler"
   reschedule: "Replanifier"

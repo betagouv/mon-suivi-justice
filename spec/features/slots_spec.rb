@@ -8,7 +8,7 @@ RSpec.feature 'Slots', type: :feature do
 
   describe 'index' do
     before do
-      create(:slot, date: (Date.today + 2).to_s)
+      @slot1 = create(:slot, date: (Date.today + 2).to_s)
       create(:slot, date: (Date.today + 4).to_s)
 
       visit slots_path
@@ -19,10 +19,13 @@ RSpec.feature 'Slots', type: :feature do
       expect(page).to have_content((Date.today + 4).to_s)
     end
 
-    it 'allows to delete slot' do
+    it 'allows to close slot' do
       within first('.slots-item-container') do
-        expect { click_link('Supprimer') }.to change { Slot.count }.by(-1)
+        click_link('Fermer')
       end
+
+      @slot1.reload
+      expect(@slot1.available).to eq(false)
     end
   end
 
