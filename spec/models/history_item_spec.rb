@@ -10,8 +10,6 @@ RSpec.describe HistoryItem, type: :model do
   it do
     should define_enum_for(:event).with_values(
       %i[
-        archive_convict
-        unarchive_convict
         book_appointment
         cancel_appointment
         fulfil_appointment
@@ -24,6 +22,8 @@ RSpec.describe HistoryItem, type: :model do
         send_now_cancelation_notification
         send_now_no_show_notification
         send_now_reschedule_notification
+        archive_convict
+        unarchive_convict
       ]
     )
   end
