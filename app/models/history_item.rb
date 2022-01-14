@@ -9,8 +9,6 @@ class HistoryItem < ApplicationRecord
   enum category: %i[appointment notification convict]
 
   enum event: %i[
-    archive_convict
-    unarchive_convict
     book_appointment
     cancel_appointment
     fulfil_appointment
@@ -23,6 +21,8 @@ class HistoryItem < ApplicationRecord
     send_now_cancelation_notification
     send_now_no_show_notification
     send_now_reschedule_notification
+    archive_convict
+    unarchive_convict
   ]
 
   def self.validate_event(event)
