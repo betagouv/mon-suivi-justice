@@ -18,12 +18,11 @@ class HistoryItem < ApplicationRecord
     send_now_summon_notification: 7,
     send_then_reminder_notification: 8,
     cancel_reminder_notification: 9,
-    dir_greff_sap: 10,
-    send_now_cancelation_notification: 11,
-    send_now_no_show_notification: 12,
-    send_now_reschedule_notification: 13,
-    archive_convict: 14,
-    unarchive_convict: 15
+    send_now_cancelation_notification: 10,
+    send_now_no_show_notification: 11,
+    send_now_reschedule_notification: 12,
+    archive_convict: 13,
+    unarchive_convict: 14
   }
 
   def self.validate_event(event)
