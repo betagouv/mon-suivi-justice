@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe ArchivedConvictsDestroy, type: :job do
+RSpec.describe ArchivedConvictsDestroyJob, type: :job do
   describe '#perform_later' do
-    let(:tested_method) { ArchivedConvictsDestroy.perform_later }
+    let(:tested_method) { ArchivedConvictsDestroyJob.perform_later }
 
     it 'queues the job' do
       tested_method
-      expect(ArchivedConvictsDestroy).to have_been_enqueued.once
+      expect(ArchivedConvictsDestroyJob).to have_been_enqueued.once
     end
   end
 
@@ -22,7 +22,7 @@ RSpec.describe ArchivedConvictsDestroy, type: :job do
       allow(Time).to receive(:now).and_return Time.zone.parse('2021-04-04')
       convict2.discard
       allow(Time).to receive(:now).and_return Time.zone.parse('2021-09-09')
-      ArchivedConvictsDestroy.new.perform
+      ArchivedConvictsDestroyJob.new.perform
     end
 
     it 'delete fully convict deleted 7 months ago' do
