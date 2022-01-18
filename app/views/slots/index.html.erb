@@ -57,6 +57,7 @@
         <div class='slot-data slots-column-1'>
           <%= slot.agenda.place.name %>
         </div>
+
         <div class='slot-data slots-column-2'>
           <%= slot.agenda.name %>
         </div>
@@ -78,10 +79,10 @@
         </div>
 
         <div class='index-controls-container'>
-          <%= link_to t('delete'), slot_path(slot),
-                                   data: { confirm: t('basic_confirmation') },
-                                   class: 'index-control',
-                                    method: :delete %>
+          <%= link_to t('close'), slot_path(slot, slot: { available: false }),
+                                  method: :put,
+                                  data: { confirm: t('basic_confirmation') },
+                                  class: 'index-control' %>
         </div>
       </div>
     <% end %>

@@ -40,6 +40,8 @@ class Convict < ApplicationRecord
       .where(areas_convicts_mappings: { area_type: 'Department', area_id: department.id })
   }
 
+  scope :with_phone, -> { where.not(phone: nil) }
+
   def name
     "#{last_name.upcase} #{first_name.capitalize}"
   end

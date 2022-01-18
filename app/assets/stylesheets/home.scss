@@ -82,22 +82,3 @@
 .select2-search {
   width: 100%;
 }
-
-.home-stats-container {
-  @include box;
-  padding: 20px;
-  margin-right: 40px;
-}
-
-.home-stat-container {
-  display: flex;
-}
-
-.home-stats-title {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.home-stat-value {
-  margin-left: 10px;
-}

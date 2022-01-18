@@ -91,39 +91,70 @@ RSpec.describe Slot, type: :model do
     end
   end
 
-  describe '.batch_delete' do
-    it 'deletes batch of slots' do
+  describe '.batch_close' do
+    it 'marks batch of slots as unavailable' do
       agenda = create(:agenda)
       apt_type = create(:appointment_type)
 
-      create(:slot, agenda: agenda, appointment_type: apt_type, date: '06/06/2021', starting_time: new_time_for(13, 0))
-      create(:slot, agenda: agenda, appointment_type: apt_type, date: '06/06/2021', starting_time: new_time_for(14, 0))
-      create(:slot, agenda: agenda, appointment_type: apt_type, date: '06/06/2021', starting_time: new_time_for(15, 0))
-      create(:slot, agenda: agenda, appointment_type: apt_type, date: '06/06/2021', starting_time: new_time_for(16, 0))
+      slot1 = create(:slot, agenda: agenda,
+                            appointment_type: apt_type,
+                            date: '06/06/2021',
+                            starting_time: new_time_for(13, 0))
 
-      create(:slot, agenda: agenda, appointment_type: apt_type, date: '08/06/2021', starting_time: new_time_for(14, 0))
-      create(:slot, agenda: agenda, appointment_type: apt_type, date: '08/06/2021', starting_time: new_time_for(15, 0))
+      slot2 = create(:slot, agenda: agenda,
+                            appointment_type: apt_type,
+                            date: '06/06/2021',
+                            starting_time: new_time_for(14, 0))
 
-      input = [{ date: '06/06/2021', starting_times: ['13:00'] }]
+      slot3 = create(:slot, agenda: agenda,
+                            appointment_type: apt_type,
+                            date: '06/06/2021',
+                            starting_time: new_time_for(15, 0))
 
-      expect do
-        Slot.batch_delete(agenda_id: agenda.id, appointment_type_id: apt_type.id, data: input)
-      end.to change { Slot.count }.by(-1)
+      slot4 = create(:slot, agenda: agenda,
+                            appointment_type: apt_type,
+                            date: '06/06/2021',
+                            starting_time: new_time_for(16, 0))
+
+      slot5 = create(:slot, agenda: agenda,
+                            appointment_type: apt_type,
+                            date: '08/06/2021',
+                            starting_time: new_time_for(14, 0))
+
+      slot6 = create(:slot, agenda: agenda,
+                            appointment_type: apt_type,
+                            date: '08/06/2021',
+                            starting_time: new_time_for(15, 0))
+
+      input1 = [{ date: '06/06/2021', starting_times: ['13:00'] }]
+
+      Slot.batch_close(agenda_id: agenda.id, appointment_type_id: apt_type.id, data: input1)
+
+      slot1.reload
+      expect(slot1.available).to eq(false)
 
       input2 = [{ date: '06/06/2021', starting_times: ['14:00', '15:00'] }]
 
-      expect do
-        Slot.batch_delete(agenda_id: agenda.id, appointment_type_id: apt_type.id, data: input2)
-      end.to change { Slot.count }.by(-2)
+      Slot.batch_close(agenda_id: agenda.id, appointment_type_id: apt_type.id, data: input2)
+
+      slot2.reload
+      slot3.reload
+      expect(slot2.available).to eq(false)
+      expect(slot3.available).to eq(false)
 
       input3 = [
         { date: '06/06/2021', starting_times: ['16:00'] },
         { date: '08/06/2021', starting_times: ['14:00', '15:00'] }
       ]
 
-      expect do
-        Slot.batch_delete(agenda_id: agenda.id, appointment_type_id: apt_type.id, data: input3)
-      end.to change { Slot.count }.by(-3)
+      Slot.batch_close(agenda_id: agenda.id, appointment_type_id: apt_type.id, data: input3)
+
+      slot4.reload
+      slot5.reload
+      slot6.reload
+      expect(slot4.available).to eq(false)
+      expect(slot5.available).to eq(false)
+      expect(slot6.available).to eq(false)
     end
   end
 end

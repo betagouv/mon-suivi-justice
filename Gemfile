@@ -34,6 +34,7 @@ gem 'sib-api-v3-sdk'
 gem 'dotenv-rails'
 gem 'sidekiq'
 gem 'redis-namespace'
+gem 'clockwork'
 
 gem 'holidays'
 gem 'discard', '~> 1.2'

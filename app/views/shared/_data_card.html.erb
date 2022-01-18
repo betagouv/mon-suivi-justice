@@ -1,0 +1,93 @@
+<div class='stats-card-container'>
+  <p class='stats-card-title'><%= title %></p>
+
+  <div class='stat-card-container'>
+    <p class='stat-card-title'><%= t('stats.users') %></p>
+    <p class='stat-card-value'><%= data[:users] %></p>
+  </div>
+
+  <div class='stat-card-container'>
+    <p class='stat-card-title'><%= t('stats.convicts') %></p>
+    <p class='stat-card-value'><%= data[:convicts] %></p>
+  </div>
+
+  <div class='stat-card-container'>
+    <p class='stat-card-title'><%= t('stats.convicts_with_phone') %></p>
+    <p class='stat-card-value'><%= data[:convicts_with_phone] %></p>
+  </div>
+
+  <div class='stat-card-container'>
+    <p class='stat-card-title'><%= t('stats.notifications') %></p>
+    <p class='stat-card-value'><%= data[:notifications] %></p>
+  </div>
+  <br>
+
+  <div class='stat-card-container'>
+    <p class='stat-card-title'><%= t('stats.recorded') %></p>
+    <p class='stat-card-value'><%= data[:recorded] %></p>
+  </div>
+
+  <div class='stat-card-subsection'>
+    <div class='stat-card-of-which'>
+      <p class='stat-card-title'><%= t('stats.of_which') %></p>
+    </div>
+
+    <div class='stat-card-subsection-content'>
+      <div class='stat-card-container'>
+        <p class='stat-card-title'><%= t('stats.future_booked') %></p>
+        <p class='stat-card-value'><%= data[:future_booked] %></p>
+      </div>
+
+      <div class='stat-card-container'>
+        <p class='stat-card-title'><%= t('stats.passed_no_canceled') %></p>
+        <p class='stat-card-value'><%= data[:passed_no_canceled] %></p>
+      </div>
+
+      <div class='stat-card-container'>
+        <p class='stat-card-title'><%= t('stats.passed_no_canceled_with_phone') %></p>
+        <p class='stat-card-value'><%= data[:passed_no_canceled_with_phone] %></p>
+      </div>
+
+      <div class='stat-card-subsection'>
+        <div class='stat-card-of-which'>
+          <p class='stat-card-title'><%= t('stats.of_which') %></p>
+        </div>
+
+        <div class='stat-card-subsection-content'>
+          <div class='stat-card-container'>
+            <p class='stat-card-title'><%= t('stats.fulfiled') %></p>
+            <p class='stat-card-value'><%= data[:fulfiled] %></p>
+          </div>
+
+          <div class='stat-card-container'>
+            <p class='stat-card-percentage'><%= t('stats.fulfiled_percentage', data: data[:fulfiled_percentage]) %></p>
+          </div>
+
+          <div class='stat-card-container'>
+            <p class='stat-card-title'><%= t('stats.excused') %></p>
+            <p class='stat-card-value'><%= data[:excused] %></p>
+          </div>
+
+          <div class='stat-card-container'>
+            <p class='stat-card-title'><%= t('stats.no_show') %></p>
+            <p class='stat-card-value'><%= data[:no_show] %></p>
+          </div>
+
+          <div class='stat-card-container'>
+            <p class='stat-card-percentage'><%= t('stats.no_show_percentage', data: data[:no_show_percentage]) %></p>
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class='stat-card-container'>
+        <p class='stat-card-title'><%= t('stats.passed_booked') %></p>
+        <p class='stat-card-value'><%= data[:passed_booked] %></p>
+      </div>
+
+      <div class='stat-card-container'>
+        <p class='stat-card-percentage'><%= t('stats.passed_booked_percentage', data: data[:passed_booked_percentage]) %></p>
+      </div>
+    </div>
+  </div>
+</div>

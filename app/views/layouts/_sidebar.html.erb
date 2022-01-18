@@ -61,6 +61,16 @@
     <% end %>
   <% end %>
 
+  <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+    <% if policy(:steering).show? %>
+      <%= link_to steering_path, class: 'sidebar-item-link' do %>
+        <div class="sidebar-item <%= active_class_if_controller('steerings') %>">
+          <%= t('sidebar.steering') %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
   <%= link_to 'https://documentation.mon-suivi-justice.beta.gouv.fr', class: 'sidebar-item-link', target: '_blank' do %>
     <div class="sidebar-item sidebar-inactive-item">
       <%= t('sidebar.guides') %>

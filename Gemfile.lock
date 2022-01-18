@@ -89,6 +89,9 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     choice (0.2.0)
+    clockwork (3.0.0)
+      activesupport
+      tzinfo
     cocoon (1.2.15)
     coderay (1.1.3)
     concurrent-ruby (1.1.9)
@@ -438,6 +441,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  clockwork
   cocoon
   devise
   devise-i18n

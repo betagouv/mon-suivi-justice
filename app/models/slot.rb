@@ -18,6 +18,7 @@ class Slot < ApplicationRecord
   end)
 
   scope :future, -> { where('date >= ?', Date.today) }
+  scope :available, -> { where(available: true) }
 
   scope :in_department, lambda { |department|
     joins(agenda: { place: { organization: :areas_organizations_mappings } })
@@ -32,14 +33,14 @@ class Slot < ApplicationRecord
     used_capacity == capacity
   end
 
-  def self.batch_delete(agenda_id:, appointment_type_id:, data:)
+  def self.batch_close(agenda_id:, appointment_type_id:, data:)
     data.each do |day|
       Slot.where(
         agenda_id: agenda_id,
         appointment_type_id: appointment_type_id,
         date: day[:date],
         starting_time: day[:starting_times]
-      ).delete_all
+      ).update_all(available: false)
     end
   end
 end
