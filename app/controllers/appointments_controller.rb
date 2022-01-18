@@ -112,7 +112,7 @@ class AppointmentsController < ApplicationController
   end
 
   def index_today
-    current_date = params.key?(:date) ? params[:date] : Date.today.next_occurring(:friday)
+    current_date = params.key?(:date) ? params[:date] : Date.today
     current_place = params.key?(:place) ? Place.find(params[:place]) : current_organization.places.first
 
     @appointments = policy_scope(Appointment).for_a_date(current_date).for_a_place(current_place)
