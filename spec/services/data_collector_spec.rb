@@ -31,7 +31,6 @@ RSpec.describe DataCollector do
         future_booked: 1,
         passed_booked: 1,
         passed_booked_percentage: 20,
-        passed_no_canceled: 5,
         passed_no_canceled_with_phone: 4,
         fulfiled: 1,
         fulfiled_percentage: 25,

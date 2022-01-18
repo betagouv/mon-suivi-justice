@@ -60,7 +60,6 @@ class DataCollector
       future_booked: future_booked.size,
       passed_booked: passed_booked.size,
       passed_booked_percentage: passed_booked_percentage,
-      passed_no_canceled: passed_no_canceled.size,
       passed_no_canceled_with_phone: passed_no_canceled_with_phone.size
     }
   end
