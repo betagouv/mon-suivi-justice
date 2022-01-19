@@ -39,11 +39,6 @@
       </div>
 
       <div class='stat-card-container'>
-        <p class='stat-card-title'><%= t('stats.passed_no_canceled') %></p>
-        <p class='stat-card-value'><%= data[:passed_no_canceled] %></p>
-      </div>
-
-      <div class='stat-card-container'>
         <p class='stat-card-title'><%= t('stats.passed_no_canceled_with_phone') %></p>
         <p class='stat-card-value'><%= data[:passed_no_canceled_with_phone] %></p>
       </div>
@@ -60,7 +55,7 @@
           </div>
 
           <div class='stat-card-container'>
-            <p class='stat-card-percentage'><%= t('stats.fulfiled_percentage', data: data[:fulfiled_percentage]) %></p>
+            <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.fulfiled_percentage', data: data[:fulfiled_percentage]) %></b></p>
           </div>
 
           <div class='stat-card-container'>
@@ -74,7 +69,7 @@
           </div>
 
           <div class='stat-card-container'>
-            <p class='stat-card-percentage'><%= t('stats.no_show_percentage', data: data[:no_show_percentage]) %></p>
+            <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.no_show_percentage', data: data[:no_show_percentage]) %></b></p>
           </div>
         </div>
       </div>
@@ -86,7 +81,7 @@
       </div>
 
       <div class='stat-card-container'>
-        <p class='stat-card-percentage'><%= t('stats.passed_booked_percentage', data: data[:passed_booked_percentage]) %></p>
+        <p class='stat-card-percentage'> <%= t('stats.that_is') %> <b><%= t('stats.passed_booked_percentage', data: data[:passed_booked_percentage]) %></b></p>
       </div>
     </div>
   </div>
