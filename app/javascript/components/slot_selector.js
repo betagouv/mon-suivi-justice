@@ -34,7 +34,7 @@ function displayPlaces (appointment_type_id) {
   });
 }
 
-function displayAgendas(place_id, appointment_type_id) {
+function displayAgendas (place_id, appointment_type_id) {
   Rails.ajax({
     type: 'GET',
     url: '/display_agendas?place_id=' + place_id + '&apt_type_id=' + appointment_type_id,
@@ -46,7 +46,7 @@ function displaySlots (agenda_id, appointment_type_id) {
   Rails.ajax({
     type: 'GET',
     url: '/display_slots?agenda_id=' + agenda_id + '&apt_type_id=' + appointment_type_id,
-    success: function() { allowSubmitOnSlotSelection(); }
+    success: function() { allowSubmit(); }
   });
 }
 
@@ -69,7 +69,7 @@ function addListenerToAgendaSelect() {
   const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
   const agendaSelect = document.getElementById('appointment-form-agenda-select');
 
-  if(agendaSelect == null) { allowSubmitOnSlotSelection(); return; }
+  if(agendaSelect == null) { allowSubmit(); return; }
 
   const slots_container = document.getElementById('slots-container');
 
@@ -80,10 +80,13 @@ function addListenerToAgendaSelect() {
   });
 }
 
-function allowSubmitOnSlotSelection () {
+function allowSubmit () {
   const slotsFields = document.getElementsByName('appointment[slot_id]');
   const showModalButtonContainer = document.getElementById('before-submit-modal-option-container');
+
   slotsFields.forEach(field => field.addEventListener('change', () => {
     showModalButtonContainer.style.display = 'flex';
   }));
+
+  if(slotsFields.length == 0) { showModalButtonContainer.style.display = 'flex'; }
 }

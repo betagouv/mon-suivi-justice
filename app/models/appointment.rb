@@ -7,6 +7,8 @@ class Appointment < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :history_items, dependent: :destroy
 
+  accepts_nested_attributes_for :slot
+
   attr_accessor :place_id, :agenda_id
 
   enum origin_department: %i[bex gref_co pr]

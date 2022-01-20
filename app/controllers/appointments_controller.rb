@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :skip_authorization, only: [:display_places, :display_agendas, :display_slots, :display_slot_fields]
 
   def index
     @q = policy_scope(Appointment).active.ransack(params[:q])
@@ -73,7 +74,6 @@ class AppointmentsController < ApplicationController
   end
 
   def display_places
-    skip_authorization
     appointment_type = AppointmentType.find(params[:apt_type_id])
     @places = policy_scope(Place).joins(:appointment_types).where(appointment_types: appointment_type)
 
@@ -83,7 +83,6 @@ class AppointmentsController < ApplicationController
   end
 
   def display_agendas
-    skip_authorization
     place = policy_scope(Place).find(params[:place_id])
     @agendas = Agenda.where(place_id: place.id)
 
@@ -97,14 +96,24 @@ class AppointmentsController < ApplicationController
   end
 
   def display_slots
-    skip_authorization
     agenda = policy_scope(Agenda).find(params[:agenda_id])
     @appointment_type = AppointmentType.find(params[:apt_type_id])
 
-    @slots_by_date = Slot.future
-                         .relevant_and_available(agenda, @appointment_type)
-                         .order(:date)
-                         .group_by(&:date)
+    unless @appointment_type.use_prebuild_slots?
+      redirect_to display_slot_fields_path(agenda_id: agenda.id, apt_type_id: @appointment_type.id)
+    end
+
+    @slots_by_date = Slot.future.relevant_and_available(agenda, @appointment_type)
+                         .order(:date).group_by(&:date)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def display_slot_fields
+    @agenda = policy_scope(Agenda).find(params[:agenda_id])
+    @appointment_type = AppointmentType.find(params[:apt_type_id])
 
     respond_to do |format|
       format.js
@@ -127,7 +136,8 @@ class AppointmentsController < ApplicationController
 
   def appointment_params
     params.require(:appointment).permit(
-      :slot_id, :convict_id, :appointment_type_id, :place_id, :origin_department
+      :slot_id, :convict_id, :appointment_type_id, :place_id, :origin_department,
+      slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time]
     )
   end
 end

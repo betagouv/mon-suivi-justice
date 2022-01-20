@@ -44,7 +44,7 @@ RSpec.feature 'Slots', type: :feature do
       within '.form-date-select-fields' do
         select '14', from: 'slot_date_3i'
         select 'octobre', from: 'slot_date_2i'
-        select '2021', from: 'slot_date_1i'
+        select '2024', from: 'slot_date_1i'
       end
 
       within first('.form-time-select-fields') do

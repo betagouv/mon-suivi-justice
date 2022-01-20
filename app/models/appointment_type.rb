@@ -44,4 +44,8 @@ class AppointmentType < ApplicationRecord
     ["Sortie d'audience SPIP", '1er RDV SPIP', 'RDV de suivi SPIP', 'Convocation 741-1',
      'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'RDV pose DDSE', 'Convocation stage']
   end
+
+  def use_prebuild_slots?
+    ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
+  end
 end
