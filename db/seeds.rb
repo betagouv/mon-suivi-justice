@@ -30,7 +30,7 @@ SlotType.create(appointment_type: appointment_type1, agenda: agenda1, week_day: 
 place2 = Place.create!(organization: organization, name: "SPIP 92", adress: "94 Boulevard du Général Leclerc, 92000 Nanterre", phone: '0606060606')
 agenda2 = Agenda.create!(place: place2, name: "Agenda tribunal Ancenis")
 
-appointment_type2 = AppointmentType.create!(name: "Sortie d'audience SPIP")
+appointment_type2 = AppointmentType.create!(name: "RDV de suivi SPIP")
 PlaceAppointmentType.create!(place: place2, appointment_type: appointment_type2)
 
 NotificationType.create!(appointment_type: appointment_type2, role: :summon, template: "Vous êtes convoqué, merci de venir.")

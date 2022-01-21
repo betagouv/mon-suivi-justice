@@ -34,9 +34,12 @@ Rails.application.routes.draw do
     put 'excuse'
   end
 
+  get '/display_time_options' => 'appointments#display_time_options', as: 'display_time_options'
   get '/display_slots' => 'appointments#display_slots', as: 'display_slots'
+  get '/display_slot_fields' => 'appointments#display_slot_fields', as: 'display_slot_fields'
   get '/display_places' => 'appointments#display_places', as: 'display_places'
   get '/display_agendas' => 'appointments#display_agendas', as: 'display_agendas'
+
   get '/today_appointments' => 'appointments#index_today', as: 'today_appointments'
   get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
 

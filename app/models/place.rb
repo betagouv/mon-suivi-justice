@@ -18,4 +18,8 @@ class Place < ApplicationRecord
     joins(organization: :areas_organizations_mappings)
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
   }
+
+  def appointment_type_with_slot_types
+    appointment_types.with_slot_types
+  end
 end

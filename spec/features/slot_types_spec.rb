@@ -6,7 +6,7 @@ RSpec.feature 'SlotTypes', type: :feature do
 
     place = create :place, name: 'test_place_name'
     @agenda = create :agenda, place: place, name: 'test_agenda_name'
-    @appointment_type = create :appointment_type, name: 'apt_type_name'
+    @appointment_type = create :appointment_type, name: "Sortie d'audience SPIP"
     create :place_appointment_type, place: place, appointment_type: @appointment_type
     allow(Place).to receive(:in_department).and_return(Place.all)
   end
@@ -25,7 +25,7 @@ RSpec.feature 'SlotTypes', type: :feature do
 
       expect(page).to have_content 'Créneaux récurrents'
       expect(page).to have_content 'test_place_name : test_agenda_name'
-      expect(page).to have_content 'apt_type_name'
+      expect(page).to have_content "Sortie d'audience SPIP"
       expect(page).to have_css "#edit_slot_type_#{slot_type1.id}"
       expect(page).to have_css "#edit_slot_type_#{slot_type2.id}"
     end

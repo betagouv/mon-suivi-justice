@@ -1,0 +1,41 @@
+<div class="hidden appointment_slot_agenda_id">
+  <input class="hidden form-text-input" type="hidden" name="appointment[slot_attributes][agenda_id]" id="appointment_slot_agenda_id" value="<%= @agenda.id %>"/>
+</div>
+
+<div class="hidden appointment_slot_appointment_type_id">
+  <input class="hidden form-text-input" type="hidden" name="appointment[slot_attributes][appointment_type_id]" id="appointment_slot_appointment_type_id" value="<%= @appointment_type.id %>"/>
+</div>
+
+<div class="date required appointment_slot_date form-input-wrapper">
+  <label class="select required form-label" for="appointment-form-agenda-select">
+    <abbr title="required">*</abbr> <%= t('activerecord.attributes.slot.date') %>
+  </label>
+
+  <input class="form-text-input" type="date" name="appointment[slot_attributes][date]" id="appointment_slot_date" min=<%= Time.zone.now %>/>
+</div>
+
+<div class="time required appointment_slot_starting_time">
+  <div class="form-label">
+    <label class="time required form-label" for="appointment_slot_starting_time_4i">
+      <abbr title="required">*</abbr> <%= t('activerecord.attributes.slot.starting_time') %>
+    </label>
+  </div>
+
+  <div class="form-time-select-fields form-input-wrapper">
+    <input type="hidden" id="appointment_slot_starting_time_1i" name="appointment[slot_attributes][starting_time(1i)]" value="2022" />
+    <input type="hidden" id="appointment_slot_starting_time_2i" name="appointment[slot_attributes][starting_time(2i)]" value="1" />
+    <input type="hidden" id="appointment_slot_starting_time_3i" name="appointment[slot_attributes][starting_time(3i)]" value="20" />
+
+    <select id="appointment_slot_starting_time_4i" name="appointment[slot_attributes][starting_time(4i)]" class="time required form-text-input form-select" value="">
+      <% (7..20).each do |o| %>
+        <option value=<%= o %>><%= o %></option>
+      <% end %>
+    </select> :
+
+    <select id="appointment_slot_starting_time_5i" name="appointment[slot_attributes][starting_time(5i)]" class="time required form-text-input form-select" value="">
+      <% ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].each do |o| %>
+        <option value=<%= o %>><%= o %></option>
+      <% end %>
+    </select>
+  </div>
+</div>
