@@ -99,7 +99,7 @@ class AppointmentsController < ApplicationController
     agenda = policy_scope(Agenda).find(params[:agenda_id])
     @appointment_type = AppointmentType.find(params[:apt_type_id])
 
-    unless @appointment_type.use_prebuild_slots?
+    unless @appointment_type.with_slot_types?
       redirect_to display_slot_fields_path(agenda_id: agenda.id, apt_type_id: @appointment_type.id)
     end
 
