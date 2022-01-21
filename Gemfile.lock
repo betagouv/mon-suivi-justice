@@ -235,6 +235,9 @@ GEM
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    pry-byebug (3.8.0)
+      byebug (~> 11.0)
+      pry (~> 0.10)
     public_suffix (4.0.6)
     puma (5.5.2)
       nio4r (~> 2.0)
@@ -461,6 +464,7 @@ DEPENDENCIES
   paper_trail
   pg
   phony_rails
+  pry-byebug
   puma (~> 5.0)
   pundit
   pundit-matchers (~> 1.6.0)
