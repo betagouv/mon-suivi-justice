@@ -5,6 +5,8 @@ class Agenda < ApplicationRecord
 
   validates :name, presence: true
 
+  delegate :appointment_type_with_slot_types, to: :place
+
   scope :in_organization, ->(organization) { joins(:place).where(place: { organization: organization }) }
 
   scope :in_department, lambda { |department|
@@ -13,7 +15,6 @@ class Agenda < ApplicationRecord
   }
 
   def appointment_type_with_slot_types?
-    AppointmentType.where(id: slot_types.pluck(:appointment_type_id))
-                   .map(&:with_slot_types?).include?(true)
+    appointment_type_with_slot_types.length.positive?
   end
 end

@@ -11,7 +11,7 @@
     <abbr title="required">*</abbr> <%= t('activerecord.attributes.slot.date') %>
   </label>
 
-  <input class="form-text-input" type="date" name="appointment[slot_attributes][date]" id="appointment_slot_date"/>
+  <input class="form-text-input" type="date" name="appointment[slot_attributes][date]" id="appointment_slot_date" min=<%= Time.zone.now %>/>
 </div>
 
 <div class="time required appointment_slot_starting_time">

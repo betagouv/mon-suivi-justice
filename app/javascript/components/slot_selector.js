@@ -51,7 +51,7 @@ function displayAgendas (place_id, appointment_type_id) {
 function displaySlots (agenda_id, appointment_type_id) {
   Rails.ajax({
     type: 'GET',
-    url: '/display_slots?agenda_id=' + agenda_id + '&apt_type_id=' + appointment_type_id,
+    url: '/display_time_options?agenda_id=' + agenda_id + '&apt_type_id=' + appointment_type_id,
     success: function() { allowSubmit(); }
   });
 }

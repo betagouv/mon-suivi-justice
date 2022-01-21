@@ -5,7 +5,7 @@
 <p class='index-slot-types-warning'><%= t('index_slot_types_warning') %></p>
 
 <div class='slot-type-apt-type-link-container'>
-  <% @agenda.place.appointment_types.select(&:with_slot_types?).each do |apt_type| %>
+  <% @agenda.place.appointment_types.with_slot_types.each do |apt_type| %>
     <%= link_to apt_type.name, agenda_slot_types_path(@agenda, appointment_type_id: apt_type.id), class: "slot-type-apt-type-link-#{apt_type == @appointment_type}" %>
   <% end %>
 </div>

@@ -1,6 +1,8 @@
 class AppointmentType < ApplicationRecord
   has_paper_trail
 
+  WITH_SLOT_TYPES = ["Sortie d'audience SAP", "Sortie d'audience SPIP"].freeze
+
   has_many :notification_types, inverse_of: :appointment_type, dependent: :destroy
   has_many :slot_types, inverse_of: :appointment_type, dependent: :destroy
   has_many :slots
@@ -12,7 +14,7 @@ class AppointmentType < ApplicationRecord
 
   validates :name, presence: true
 
-  scope :with_slot_types, -> { all.select(&:with_slot_types?) }
+  scope :with_slot_types, -> { where name: WITH_SLOT_TYPES }
 
   def summon_notif
     notification_types.find_by(role: :summon)
@@ -51,7 +53,7 @@ class AppointmentType < ApplicationRecord
     if ENV['APP'] == 'mon-suivi-justice-prod'
       true
     else
-      ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
+      WITH_SLOT_TYPES.include? name
     end
   end
 end
