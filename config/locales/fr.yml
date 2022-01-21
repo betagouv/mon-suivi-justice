@@ -293,6 +293,7 @@ fr:
   show_history_reschedule_appointment: "Le RDV a été replanifié."
 
   appointment_place: "Lieu de RDV"
+  appointment_type: "Type de RDV"
   appointment_date: "Date"
   appointment_starting_time: "Heure"
   appointment_state: "Statut"
