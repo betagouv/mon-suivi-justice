@@ -85,7 +85,7 @@ class AppointmentsController < ApplicationController
 
     return unless @agendas.count == 1
 
-    redirect_to display_slots_path(agenda_id: @agendas.first.id, apt_type_id: params[:apt_type_id])
+    redirect_to display_time_options_path(agenda_id: @agendas.first.id, apt_type_id: params[:apt_type_id])
   end
 
   def display_time_options
