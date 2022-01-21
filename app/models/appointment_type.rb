@@ -12,6 +12,8 @@ class AppointmentType < ApplicationRecord
 
   validates :name, presence: true
 
+  scope :with_slot_types, -> { all.select(&:with_slot_types?) }
+
   def summon_notif
     notification_types.find_by(role: :summon)
   end
@@ -46,6 +48,10 @@ class AppointmentType < ApplicationRecord
   end
 
   def with_slot_types?
-    ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
+    if ENV['APP'] == 'mon-suivi-justice-prod'
+      true
+    else
+      ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
+    end
   end
 end

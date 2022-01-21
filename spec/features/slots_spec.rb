@@ -34,12 +34,14 @@ RSpec.feature 'Slots', type: :feature do
     it 'works' do
       place = create(:place, name: 'McDo de Clichy', organization: @user.organization)
       create(:agenda, place: place, name: 'Agenda de Michel')
-      create(:appointment_type, name: 'Premier contact Spip')
+      create(:appointment_type, name: "Sortie d'audience SPIP")
+      create(:appointment_type, name: 'RDV de suivi SPIP')
 
       visit new_slot_path
 
       select 'Agenda de Michel', from: 'Agenda'
-      select 'Premier contact Spip', from: 'Type de rendez-vous'
+      expect(page).to have_select('Type de rendez-vous', options: ['', "Sortie d'audience SPIP"])
+      select "Sortie d'audience SPIP", from: 'Type de rendez-vous'
 
       within '.form-date-select-fields' do
         select '14', from: 'slot_date_3i'

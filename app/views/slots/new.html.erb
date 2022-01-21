@@ -4,7 +4,7 @@
   <%= f.association :agenda, collection: Agenda.in_organization(current_user.organization),
                              label: t('activerecord.models.agenda'),
                              input_html: { class: 'form-select' } %>
-  <%= f.association :appointment_type, collection: appointment_types_for_user(current_user),
+  <%= f.association :appointment_type, collection: AppointmentType.with_slot_types,
                                        label: t('activerecord.models.appointment_type'),
                                        input_html: { class: 'form-select' } %>
   <%= f.input :date, input_html: { class: 'form-select' }, wrapper: :custom_date, start_year: 2022 %>
