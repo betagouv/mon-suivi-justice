@@ -5,7 +5,7 @@ class Place < ApplicationRecord
   validates :name, :adress, :phone, presence: true
 
   has_many :agendas, dependent: :destroy
-  has_many :place_appointment_types
+  has_many :place_appointment_types, dependent: :destroy
   has_many :appointment_types, through: :place_appointment_types
   belongs_to :organization
 
