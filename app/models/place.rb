@@ -5,7 +5,7 @@ class Place < ApplicationRecord
   validates :name, :adress, :main_contact_method, presence: true
   validates :phone, presence: true, if: :phone_main_contact_method?
   validates :contact_email, presence: true, if: :email_main_contact_method?
-  validates :contact_email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :contact_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
 
   has_many :agendas, dependent: :destroy
   has_many :place_appointment_types, dependent: :destroy
@@ -38,7 +38,6 @@ class Place < ApplicationRecord
   end
 
   def contact_detail
-    phone_main_contact_method? ? phone : contact_email
+    phone_main_contact_method? ? display_phone(spaces: false) : contact_email
   end
-
 end

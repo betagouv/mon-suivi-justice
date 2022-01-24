@@ -21,6 +21,7 @@ module NotificationFactory
                        .gsub('lieu.nom', 'place_name')
                        .gsub('lieu.adresse', 'place_adress')
                        .gsub('lieu.téléphone', 'place_phone')
+                       .gsub('lieu.contact', 'place_contact')
   end
 
   def self.sms_data(appointment)
@@ -30,7 +31,8 @@ module NotificationFactory
       appointment_date: slot.date.to_s(:base_date_format),
       place_name: slot.agenda.place.name,
       place_adress: slot.agenda.place.adress,
-      place_phone: slot.agenda.place.display_phone(spaces: false)
+      place_phone: slot.agenda.place.display_phone(spaces: false),
+      place_contact: slot.agenda.place.contact_detail
     }
   end
 end
