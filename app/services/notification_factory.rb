@@ -9,7 +9,7 @@ module NotificationFactory
         appointment: appointment,
         role: notif_type.role,
         reminder_period: notif_type.reminder_period,
-        content: template % sms_data(appointment)
+        content: template % sms_data(appointment.slot)
       )
     end
   end
@@ -24,8 +24,7 @@ module NotificationFactory
                        .gsub('lieu.contact', 'place_contact')
   end
 
-  def self.sms_data(appointment)
-    slot = appointment.slot
+  def self.sms_data(slot)
     {
       appointment_hour: slot.starting_time.to_s(:lettered),
       appointment_date: slot.date.to_s(:base_date_format),
