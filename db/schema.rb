@@ -189,7 +189,7 @@ ActiveRecord::Schema.define(version: 2022_01_24_181845) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "organization_id"
     t.string "contact_email"
-    t.integer "main_contact", default: 0, null: false
+    t.integer "main_contact_method", default: 0, null: false
     t.index ["organization_id"], name: "index_places_on_organization_id"
   end
 

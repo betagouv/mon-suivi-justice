@@ -2,17 +2,20 @@ class Place < ApplicationRecord
   include NormalizedPhone
   has_paper_trail
 
-  validates :name, :adress, :phone, :main_contact, presence: true
+  validates :name, :adress, :main_contact_method, presence: true
+  validates :phone, presence: true, if: :phone_main_contact_method?
+  validates :contact_email, presence: true, if: :email_main_contact_method?
+  validates :contact_email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   has_many :agendas, dependent: :destroy
   has_many :place_appointment_types, dependent: :destroy
   has_many :appointment_types, through: :place_appointment_types
   belongs_to :organization
 
-  enum main_contact: {
+  enum main_contact_method: {
     phone: 0,
     email: 1,
-  }
+  }, _default: :phone, _suffix: true
 
   accepts_nested_attributes_for :agendas, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :place_appointment_types
@@ -24,7 +27,18 @@ class Place < ApplicationRecord
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
   }
 
+  def self.ready_for_form_main_contact_methods
+    main_contact_methods.map do |k, v|
+      [I18n.t("activerecord.attributes.place.main_contact_methods.#{k}"), k]
+    end.sort_by(&:last)
+  end
+
   def appointment_type_with_slot_types
     appointment_types.with_slot_types
   end
+
+  def contact_detail
+    phone_main_contact_method? ? phone : contact_email
+  end
+
 end
