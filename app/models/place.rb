@@ -2,12 +2,17 @@ class Place < ApplicationRecord
   include NormalizedPhone
   has_paper_trail
 
-  validates :name, :adress, :phone, presence: true
+  validates :name, :adress, :phone, :main_contact, presence: true
 
   has_many :agendas, dependent: :destroy
   has_many :place_appointment_types, dependent: :destroy
   has_many :appointment_types, through: :place_appointment_types
   belongs_to :organization
+
+  enum main_contact: {
+    phone: 0,
+    email: 1,
+  }
 
   accepts_nested_attributes_for :agendas, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :place_appointment_types
