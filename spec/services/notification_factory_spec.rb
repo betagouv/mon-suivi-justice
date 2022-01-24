@@ -44,7 +44,7 @@ RSpec.describe NotificationFactory do
                              adress: '38 rue Jean Moulin',
                              phone: '0102030405',
                              main_contact_method: 1,
-                             contact_email: "test@test.com")
+                             contact_email: 'test@test.com')
       agenda = create(:agenda, place: place)
       slot = create(:slot, agenda: agenda,
                            date: '02/08/2021',

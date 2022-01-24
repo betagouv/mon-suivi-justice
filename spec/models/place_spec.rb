@@ -33,7 +33,7 @@ RSpec.describe Place, type: :model do
 
   describe 'contact_detail' do
     let(:phonable_place) { build(:place, phone: '0606060606', main_contact_method: 0) }
-    let(:emailable_place) { build(:place, contact_email: "test@test.com", main_contact_method: 1) }
+    let(:emailable_place) { build(:place, contact_email: 'test@test.com', main_contact_method: 1) }
 
     it 'returns the correct contact_detail' do
       expect(phonable_place.contact_detail).to eq('0606060606')

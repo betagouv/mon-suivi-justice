@@ -14,7 +14,7 @@ class Place < ApplicationRecord
 
   enum main_contact_method: {
     phone: 0,
-    email: 1,
+    email: 1
   }, _default: :phone, _suffix: true
 
   accepts_nested_attributes_for :agendas, reject_if: :all_blank, allow_destroy: true
@@ -28,7 +28,7 @@ class Place < ApplicationRecord
   }
 
   def self.ready_for_form_main_contact_methods
-    main_contact_methods.map do |k, v|
+    main_contact_methods.map do |k, _v|
       [I18n.t("activerecord.attributes.place.main_contact_methods.#{k}"), k]
     end.sort_by(&:last)
   end
