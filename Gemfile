@@ -44,6 +44,8 @@ gem 'sentry-ruby'
 gem 'sentry-rails'
 gem 'ruby-progressbar'
 
+gem 'annotate', '~> 3.1', '>= 3.1.1'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'

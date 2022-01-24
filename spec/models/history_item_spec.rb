@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: history_items
+#
+#  id             :bigint           not null, primary key
+#  category       :integer          default("appointment")
+#  content        :text
+#  event          :integer          default("book_appointment")
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  appointment_id :bigint
+#  convict_id     :bigint
+#
+# Indexes
+#
+#  index_history_items_on_appointment_id  (appointment_id)
+#  index_history_items_on_convict_id      (convict_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (appointment_id => appointments.id)
+#  fk_rails_...  (convict_id => convicts.id)
+#
 require 'rails_helper'
 
 RSpec.describe HistoryItem, type: :model do

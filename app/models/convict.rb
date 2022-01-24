@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: convicts
+#
+#  id                :bigint           not null, primary key
+#  appi_uuid         :string
+#  discarded_at      :datetime
+#  first_name        :string
+#  last_name         :string
+#  no_phone          :boolean
+#  phone             :string
+#  prosecutor_number :string
+#  refused_phone     :boolean
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+# Indexes
+#
+#  index_convicts_on_discarded_at  (discarded_at)
+#
 class Convict < ApplicationRecord
   include NormalizedPhone
   include Discard::Model

@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: departments
+#
+#  id         :bigint           not null, primary key
+#  name       :string           not null
+#  number     :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_departments_on_name    (name) UNIQUE
+#  index_departments_on_number  (number) UNIQUE
+#
 require 'rails_helper'
 
 RSpec.describe Department, type: :model do

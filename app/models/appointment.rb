@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: appointments
+#
+#  id                :bigint           not null, primary key
+#  origin_department :integer          default("bex")
+#  state             :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  convict_id        :bigint           not null
+#  slot_id           :bigint           not null
+#
+# Indexes
+#
+#  index_appointments_on_convict_id  (convict_id)
+#  index_appointments_on_slot_id     (slot_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (convict_id => convicts.id)
+#  fk_rails_...  (slot_id => slots.id)
+#
 class Appointment < ApplicationRecord
   has_paper_trail
 

@@ -20,6 +20,7 @@ Metrics/BlockLength:
     - spec/**/*
     - app/models/notification.rb
     - app/models/appointment.rb
+    - lib/tasks/auto_annotate_models.rake
 
 Style/Documentation:
   Enabled: false

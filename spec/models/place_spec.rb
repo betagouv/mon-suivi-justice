@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: places
+#
+#  id              :bigint           not null, primary key
+#  adress          :string
+#  name            :string
+#  phone           :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  organization_id :bigint
+#
+# Indexes
+#
+#  index_places_on_organization_id  (organization_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (organization_id => organizations.id)
+#
 require 'rails_helper'
 require 'models/shared_normalized_phone'
 
