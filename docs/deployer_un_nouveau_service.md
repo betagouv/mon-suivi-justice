@@ -85,7 +85,7 @@ Dans MSJ, il y a deux principes différents mais faciles à confondre : les cré
 - Créneau : Un emplacement disponible dans un agenda pour prendre un rdv. Exemple : Le mardi 4 juin 2022 à 11h dans l'agenda du cabinet 1 du SAP de Nanterre.
 - Créneau récurrent : Un emplacement qui est disponible toutes les semaines. Exemple : Le mardi à 11h dans l'agenda du cabinet 1 du SAP de Nanterre.
 
-Dans MSJ, des créneaux sont créés automatiquement à partir des créneaux récurrents. Tout ce fonctionnement n'est utilisé que pour les rdv sortie d'audience (SPIP ou SAP).
+Dans MSJ, des créneaux sont créés automatiquement à partir des créneaux récurrents. Tout ce fonctionnement n'est utilisé que pour les rdv sortie d'audience (SPIP ou SAP). Il est également possible de créer des créneaux directement, si il ne sont pas récurrents.
 
 Lors de la création d'un nouveau service, si il accueille des rdv de sortie d'audience, il faut donc définir sur quels créneaux ces rdv sont possibles.
 
