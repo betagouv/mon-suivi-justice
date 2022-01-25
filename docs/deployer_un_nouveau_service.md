@@ -8,6 +8,12 @@ Process à suivre pour déployer Mon Suivi Justice dans un nouveau service. Lors
 
 À cette étape, il suffit de choisir le nom.
 
+Il faut ensuite relier ce service à un département.
+
+-> Onglet services, choisir le bon service, cliquer sur modifier
+
+En bas de la page, dans la section "Département(s) rattaché(s)", choisir le bon département et cliquer sur Ajouter.
+
 ## 2. Créer les comptes des agents
 
 Données nécessaires pour chaque agent :
@@ -68,7 +74,7 @@ Note : Si le service pratique des rdv de type "RDV téléphonique" ou "Visite à
 
 ## 4. Création des agendas
 
-Chaque lieu doit avoir au moins un agenda pour pouvoir y prendre des rdv. Si il n'y en a qu'un, il n'apparaîtra pas dans le formulaire de prise de rdv, le systeme le choisira automatiquement, on peut donc lui donner un nom générique, comme "SPIP 92". Le fonctionnement des agendas est aujourd'hui surtout utilisé pour les SAP, avec la gestion des rdv par cabinet. À terme le fonctionnement des agendas permettra de regrouper les rdv de chaque agent, comme c'est le cas pour les juges au SAP.
+Chaque lieu doit avoir au moins un agenda pour pouvoir y prendre des rdv. Si il n'y en a qu'un, il n'apparaîtra pas dans le formulaire de prise de rdv, le systême le choisira automatiquement, on peut donc lui donner un nom générique, comme "SPIP 92". Le fonctionnement des agendas est aujourd'hui surtout utilisé pour les SAP, avec la gestion des rdv par cabinet. À terme le fonctionnement des agendas permettra de regrouper les rdv de chaque agent, comme c'est le cas pour les juges au SAP.
 
 -> Onglet lieux, choisir le bon lieu, cliquer sur modifier, colonne agendas, saisir le nom, cliquer sur ajouter agenda
 
