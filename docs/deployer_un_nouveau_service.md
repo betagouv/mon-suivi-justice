@@ -50,7 +50,7 @@ Pour ça il faut transmettre un fichier excel aux développeurs avec les bonnes 
 
 Dans les deux cas, les agents reçevront un mail qui les invitera à choisir un mot de passe.
 
-## 3. Création des lieux et des agendas associés
+## 3. Création des lieux
 
 Cela correspond aux différents lieux de rdv, ils sont donc différents des services. Par exemple, une permanence délocalisée dans le 92 est un lieu de rdv spécifique, rattaché au service SPIP 92. Il est important de bien comprendre qu'il y a deux objets "SPIP 92", un service "SPIP 92" et un lieu de rdv "SPIP 92". Pour déployer MSJ dans un nouveau SPIP, il faut bien créer les deux.
 
