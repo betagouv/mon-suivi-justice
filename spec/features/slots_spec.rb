@@ -14,7 +14,7 @@ RSpec.feature 'Slots', type: :feature do
       visit slots_path
     end
 
-    it 'lists all places' do
+    it 'lists all slots' do
       expect(page).to have_content((Date.today + 2).to_s)
       expect(page).to have_content((Date.today + 4).to_s)
     end

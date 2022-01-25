@@ -79,6 +79,7 @@ fr:
         date: "Date"
         starting_time: "Heure"
         available: "Disponible"
+        appointment_type: "Type de RDV"
         duration: Durée
         capacity: Capacité
       agenda:
@@ -307,6 +308,7 @@ fr:
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-agenda-filter: "Agenda"
   today_appointments_place_filter: "Lieu de RDV"
+  index-slots-appointment-type-filter: "Type de RDV"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
   new-appointment-help: "Sélectionnez un lieu de RDV pour afficher les créneaux disponibles."
   new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi d'un SMS de rappel 48h avant le rendez-vous (si un numéro de téléphone a été donné)."

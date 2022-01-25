@@ -29,7 +29,6 @@
 }
 
 .index-search-field {
-  width: 250px;
   height: 40px;
   padding: 10px;
   margin-right: 10px;
@@ -87,6 +86,18 @@
 
 .index-place-filter-field {
   width: 100%;
+  height: 40px;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid $table-border;
+
+  background-color: $main-background;
+  color: grey;
+}
+
+.index-slot-filter-field {
+  width: 100%;
+  max-width: 240px;
   height: 40px;
   margin-right: 10px;
   padding: 10px;
