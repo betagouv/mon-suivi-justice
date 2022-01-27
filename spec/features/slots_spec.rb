@@ -8,8 +8,9 @@ RSpec.feature 'Slots', type: :feature do
 
   describe 'index' do
     before do
-      @slot1 = create(:slot, date: (Date.today + 2).to_s)
-      create(:slot, date: (Date.today + 4).to_s)
+      apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
+      @slot1 = create(:slot, appointment_type: apt_type, date: (Date.today + 2).to_s)
+      create(:slot, appointment_type: apt_type, date: (Date.today + 4).to_s)
 
       visit slots_path
     end

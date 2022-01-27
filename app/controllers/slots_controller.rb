@@ -2,7 +2,7 @@ class SlotsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @q = policy_scope(Slot).future.ransack(params[:q])
+    @q = policy_scope(Slot).future.with_appointment_type_with_slot_system.ransack(params[:q])
     @slots = @q.result(distinct: true)
                .order(:date, :starting_time)
                .includes(agenda: [:place])
