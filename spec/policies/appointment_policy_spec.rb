@@ -90,7 +90,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -145,7 +145,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -200,7 +200,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -240,7 +240,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -309,7 +309,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -364,7 +364,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -419,7 +419,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -474,7 +474,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -544,7 +544,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -614,7 +614,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -684,7 +684,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -754,7 +754,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -824,7 +824,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
@@ -894,7 +894,7 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
 
       it { is_expected.to permit_action(:new) }
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }

@@ -4,6 +4,7 @@ class SlotsController < ApplicationController
   def index
     @q = policy_scope(Slot).future.ransack(params[:q])
     @slots = @q.result(distinct: true)
+               .order(:date, :starting_time)
                .includes(agenda: [:place])
                .joins(agenda: [:place])
                .page params[:page]

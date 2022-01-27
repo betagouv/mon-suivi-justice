@@ -83,7 +83,7 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'creates a convict with his first appointment', js: true do
-      appointment_type = create(:appointment_type, :with_notification_types, name: 'Premier contact Spip')
+      appointment_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
       place = create(:place, name: 'McDo de Clichy', appointment_types: [appointment_type])
       agenda = create(:agenda, place: place, name: 'Agenda de Jean-Louis')
 
@@ -103,7 +103,7 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'submit-with-appointment' }.to change { Convict.count }.by(1)
       expect(page).to have_current_path(new_appointment_path(convict_id: Convict.last.id))
 
-      select 'Premier contact Spip', from: :appointment_appointment_type_id
+      select "Sortie d'audience SPIP", from: :appointment_appointment_type_id
       select 'McDo de Clichy', from: 'Lieu'
       select 'Agenda de Jean-Louis', from: 'Agenda'
 

@@ -1,0 +1,7 @@
+try {
+  slot_fields_container = document.getElementById('slot-fields-container');
+} catch (error) {
+  let slot_fields_container = document.getElementById('slot-fields-container');
+}
+
+slot_fields_container.innerHTML = "<%= j render partial: 'display_slot_fields', locals: {agenda: @agenda, appointment_type: @appointment_type} %>";

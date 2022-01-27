@@ -9,11 +9,15 @@
 
         <%= f.select :agenda_place_id_eq, options_from_collection_for_select(Place.in_department(current_user.organization.departments.first), 'id', 'name', @q.agenda_place_id_eq),
                                           { include_blank: t('index_slot_place_filter') },
-                                          { class: 'form-select index-place-filter-field' } %>
+                                          { class: 'form-select index-slot-filter-field' } %>
 
         <%= f.select :agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.agenda_id_eq),
                                     { include_blank: t('index-appointment-agenda-filter') },
-                                    { class: 'form-select index-place-filter-field' } %>
+                                    { class: 'form-select index-slot-filter-field' } %>
+
+        <%= f.select :appointment_type_id_eq, options_from_collection_for_select(AppointmentType.all, 'id', 'name', @q.appointment_type_id_eq),
+                                    { include_blank: t('index-slots-appointment-type-filter') },
+                                    { class: 'form-select index-slot-filter-field' } %>
 
         <%= f.submit t('filter'), class: 'index-search-button' %>
       <% end %>
@@ -38,13 +42,13 @@
         <%= t('activerecord.models.agenda') %>
       </div>
       <div class='slots-header-title slots-column-3'>
-        <%= t('activerecord.attributes.slot.date') %>
+        <%= t('activerecord.attributes.slot.appointment_type') %>
       </div>
       <div class='slots-header-title slots-column-4'>
-        <%= t('activerecord.attributes.slot.starting_time') %>
+        <%= t('activerecord.attributes.slot.date') %>
       </div>
       <div class='slots-header-title slots-column-5'>
-        <%= t('activerecord.attributes.slot.available') %>
+        <%= t('activerecord.attributes.slot.starting_time') %>
       </div>
       <div class='slots-header-title slots-column-6'>
         <%= t('activerecord.attributes.slot.capacity') %>
@@ -63,15 +67,15 @@
         </div>
 
         <div class='slot-data slots-column-3'>
-          <%= slot.date.to_s(:base_date_format) %>
+          <%= slot.appointment_type.name %>
         </div>
 
         <div class='slot-data slots-column-4'>
-          <%= slot.starting_time.to_s(:time) %>
+          <%= slot.date.to_s(:base_date_format) %>
         </div>
 
-        <div class='slots-column-5'>
-          <%= t(slot.available) %>
+        <div class='slot-data slots-column-5'>
+          <%= slot.starting_time.to_s(:time) %>
         </div>
 
         <div class='slots-column-6'>

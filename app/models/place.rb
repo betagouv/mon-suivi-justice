@@ -5,7 +5,7 @@ class Place < ApplicationRecord
   validates :name, :adress, :phone, presence: true
 
   has_many :agendas, dependent: :destroy
-  has_many :place_appointment_types
+  has_many :place_appointment_types, dependent: :destroy
   has_many :appointment_types, through: :place_appointment_types
   belongs_to :organization
 
@@ -18,4 +18,8 @@ class Place < ApplicationRecord
     joins(organization: :areas_organizations_mappings)
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
   }
+
+  def appointment_type_with_slot_types
+    appointment_types.with_slot_types
+  end
 end

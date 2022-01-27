@@ -19,4 +19,24 @@ RSpec.describe Agenda, type: :model do
       expect(Agenda.in_organization(@organization)).to eq [@agenda_in]
     end
   end
+
+  describe '#has_appointment_type_with_slot_types?' do
+    it 'works' do
+      apt_type1 = create(:appointment_type, name: "Sortie d'audience SPIP")
+      place1 = create(:place)
+      create(:place_appointment_type, place: place1, appointment_type: apt_type1)
+      agenda1 = create(:agenda, place: place1)
+      create(:slot_type, appointment_type: apt_type1, agenda: agenda1)
+
+      expect(agenda1.appointment_type_with_slot_types?).to eq true
+
+      apt_type2 = create(:appointment_type, name: 'RDV de suivi SPIP')
+      place2 = create(:place)
+      create(:place_appointment_type, place: place2, appointment_type: apt_type2)
+      agenda2 = create(:agenda, place: place2)
+      create(:slot_type, appointment_type: apt_type2, agenda: agenda2)
+
+      expect(agenda2.appointment_type_with_slot_types?).to eq false
+    end
+  end
 end

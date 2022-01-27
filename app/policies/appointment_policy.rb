@@ -40,7 +40,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def create?
-    appointment_workflow
+    true
   end
 
   def destroy?

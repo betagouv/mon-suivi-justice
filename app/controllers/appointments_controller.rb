@@ -1,5 +1,7 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :skip_authorization, only: [:display_places, :display_agendas, :display_time_options,
+                                            :display_slots, :display_slot_fields]
 
   def index
     @q = policy_scope(Appointment).active.ransack(params[:q])
@@ -73,42 +75,41 @@ class AppointmentsController < ApplicationController
   end
 
   def display_places
-    skip_authorization
     appointment_type = AppointmentType.find(params[:apt_type_id])
     @places = policy_scope(Place).joins(:appointment_types).where(appointment_types: appointment_type)
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def display_agendas
-    skip_authorization
     place = policy_scope(Place).find(params[:place_id])
     @agendas = Agenda.where(place_id: place.id)
 
-    if @agendas.count == 1
-      redirect_to display_slots_path(agenda_id: @agendas.first.id, apt_type_id: params[:apt_type_id])
-    end
+    return unless @agendas.count == 1
 
-    respond_to do |format|
-      format.js
+    redirect_to display_time_options_path(agenda_id: @agendas.first.id, apt_type_id: params[:apt_type_id])
+  end
+
+  def display_time_options
+    agenda = policy_scope(Agenda).find(params[:agenda_id])
+    @appointment_type = AppointmentType.find(params[:apt_type_id])
+
+    if @appointment_type.with_slot_types?
+      redirect_to display_slots_path(agenda_id: agenda.id, apt_type_id: @appointment_type.id)
+    else
+      redirect_to display_slot_fields_path(agenda_id: agenda.id, apt_type_id: @appointment_type.id)
     end
   end
 
   def display_slots
-    skip_authorization
     agenda = policy_scope(Agenda).find(params[:agenda_id])
     @appointment_type = AppointmentType.find(params[:apt_type_id])
 
-    @slots_by_date = Slot.future
-                         .relevant_and_available(agenda, @appointment_type)
-                         .order(:date)
-                         .group_by(&:date)
+    @slots_by_date = Slot.future.relevant_and_available(agenda, @appointment_type)
+                         .order(:date).group_by(&:date)
+  end
 
-    respond_to do |format|
-      format.js
-    end
+  def display_slot_fields
+    @agenda = policy_scope(Agenda).find(params[:agenda_id])
+    @appointment_type = AppointmentType.find(params[:apt_type_id])
   end
 
   def index_today
@@ -127,7 +128,8 @@ class AppointmentsController < ApplicationController
 
   def appointment_params
     params.require(:appointment).permit(
-      :slot_id, :convict_id, :appointment_type_id, :place_id, :origin_department
+      :slot_id, :convict_id, :appointment_type_id, :place_id, :origin_department,
+      slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time]
     )
   end
 end

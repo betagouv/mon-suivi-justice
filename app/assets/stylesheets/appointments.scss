@@ -102,7 +102,7 @@
 
 .new-appointment-form-warning {
   text-align: center;
-  margin: 20px 0 50px;
+  margin: 20px 0;
 }
 
 .form-load-slots-button {
@@ -194,7 +194,7 @@
 .show-appointment-data-container {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 60%;
   padding: 20px;
   border-right: 1px solid $table-border;
 }
