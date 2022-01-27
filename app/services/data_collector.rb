@@ -96,7 +96,7 @@ class DataCollector
   end
 
   def passed_no_canceled_with_phone
-    passed_no_canceled.joins(:convict).where.not(convicts: { phone: "" })
+    passed_no_canceled.joins(:convict).where.not(convicts: { phone: '' })
   end
 
   def fulfiled
