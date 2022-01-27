@@ -14,7 +14,13 @@ class AppointmentType < ApplicationRecord
 
   validates :name, presence: true
 
-  scope :with_slot_types, -> { where name: WITH_SLOT_TYPES }
+  scope :with_slot_types, lambda {
+    if ENV['APP'] == 'mon-suivi-justice-prod'
+      false
+    else
+      where name: WITH_SLOT_TYPES
+    end
+  }
 
   def summon_notif
     notification_types.find_by(role: :summon)
