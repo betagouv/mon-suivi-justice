@@ -101,4 +101,13 @@ RSpec.describe Appointment, type: :model do
       expect(appointment.in_the_past?).to eq(false)
     end
   end
+
+  describe 'future validation' do
+    it 'validates that new appointment is in the future' do
+      slot = build(:slot, date: Date.new(2018, 1, 1))
+      appointment = build(:appointment, slot: slot)
+
+      expect(appointment.valid?).to eq(false)
+    end
+  end
 end

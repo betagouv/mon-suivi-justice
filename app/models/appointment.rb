@@ -34,6 +34,14 @@ class Appointment < ApplicationRecord
 
   scope :active, -> { where.not(state: 'canceled') }
 
+  validate :in_the_future
+
+  def in_the_future
+    return unless slot.date < Date.today
+
+    errors.add(:base, I18n.t('errors.models.appointment.date.past'))
+  end
+
   def in_the_past?
     slot.date <= Date.today
   end
