@@ -20,7 +20,11 @@ RSpec.describe Notification, type: :model do
   describe 'program' do
     it 'sends at the proper delivery time' do
       appointment_type = create(:appointment_type)
-      slot = create(:slot, date: '04/08/2021', appointment_type: appointment_type, starting_time: new_time_for(17, 30))
+
+      slot_date = DateTime.current + 10
+      slot_starting_time = Time.new(2021, 6, 21, slot_date.hour, slot_date.min, slot_date.sec)
+
+      slot = create(:slot, date: slot_date, appointment_type: appointment_type, starting_time: slot_starting_time)
       create(:notification_type, appointment_type: appointment_type,
                                  role: :reminder,
                                  reminder_period: :two_days)
@@ -30,7 +34,7 @@ RSpec.describe Notification, type: :model do
       NotificationFactory.perform(appointment)
 
       notification = appointment.reminder_notif
-      expected_time = DateTime.new(2021, 8, 2, 17, 30, 0).asctime.in_time_zone('Paris')
+      expected_time = (slot_date - 2).asctime.in_time_zone('Paris')
 
       expect(SmsDeliveryJob).to receive(:set).with(wait_until: expected_time) { double(perform_later: true) }
 

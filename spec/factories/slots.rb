@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :slot do
-    date { '01/01/2021' }
+    date { Date.today + 2 }
     starting_time { Time.new }
     available { true }
     duration { 60 }

@@ -12,13 +12,13 @@ RSpec.describe DataCollector do
       slot2 = create :slot, date: Date.current.yesterday
 
       apt1 = create :appointment, state: 'booked', convict: convict1, slot: slot1
-      create :appointment, state: 'booked', convict: convict1, slot: slot2
+      create :appointment, :skip_validate, state: 'booked', convict: convict1, slot: slot2
 
-      create :appointment, state: 'fulfiled', convict: convict1, slot: slot2
-      create :appointment, state: 'fulfiled', convict: convict2, slot: slot2
-      create :appointment, state: 'no_show', convict: convict1, slot: slot2
-      create :appointment, state: 'excused', convict: convict1, slot: slot2
-      create :appointment, state: 'canceled', convict: convict1, slot: slot2
+      create :appointment, :skip_validate, state: 'fulfiled', convict: convict1, slot: slot2
+      create :appointment, :skip_validate, state: 'fulfiled', convict: convict2, slot: slot2
+      create :appointment, :skip_validate, state: 'no_show', convict: convict1, slot: slot2
+      create :appointment, :skip_validate, state: 'excused', convict: convict1, slot: slot2
+      create :appointment, :skip_validate, state: 'canceled', convict: convict1, slot: slot2
 
       create :notification, appointment: apt1, state: 'sent'
 

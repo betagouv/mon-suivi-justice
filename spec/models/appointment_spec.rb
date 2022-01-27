@@ -4,7 +4,6 @@ RSpec.describe Appointment, type: :model do
   subject { build(:appointment) }
 
   it { should belong_to(:convict) }
-  it { should belong_to(:slot) }
 
   it { should define_enum_for(:origin_department).with_values(%i[bex gref_co pr]) }
 

@@ -39,7 +39,7 @@ class Appointment < ApplicationRecord
   def in_the_future
     return unless slot.date < Date.today
 
-    errors.add(:base, I18n.t('errors.models.appointment.date.past'))
+    errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.past'))
   end
 
   def in_the_past?

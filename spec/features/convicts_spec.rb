@@ -90,7 +90,7 @@ RSpec.feature 'Convicts', type: :feature do
       create(:agenda, place: place, name: 'Agenda de Michel')
       create(:slot, agenda: agenda,
                     appointment_type: appointment_type,
-                    date: (Date.today + 2).to_s,
+                    date: Date.today + 2,
                     starting_time: '14h')
       create(:notification_type, appointment_type: appointment_type)
 
@@ -193,11 +193,9 @@ RSpec.feature 'Convicts', type: :feature do
       agenda = create(:agenda, place: place)
 
       slot1 = create(:slot, agenda: agenda,
-                            date: '06/10/2021',
                             starting_time: new_time_for(13, 0))
 
       slot2 = create(:slot, agenda: agenda,
-                            date: '08/12/2021',
                             starting_time: new_time_for(15, 30))
 
       create(:appointment, slot: slot1, convict: @convict)
