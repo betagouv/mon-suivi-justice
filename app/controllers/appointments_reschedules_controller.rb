@@ -17,6 +17,7 @@ class AppointmentsReschedulesController < AppointmentsController
 
   def new
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    @appointment_type = @appointment.slot.appointment_type
     authorize @appointment
     @slots_by_date = Slot.future
                          .relevant_and_available(@appointment.slot.agenda, @appointment.slot.appointment_type)

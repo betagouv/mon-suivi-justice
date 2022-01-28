@@ -355,14 +355,14 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'replanification' do
     it 're-schedules an appointment to a later date' do
-      apt_type = create(:appointment_type, :with_notification_types)
-      slot = create :slot, appointment_type: apt_type
-      appointment = create(:appointment, slot: slot)
+      apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
+      slot1 = create :slot, appointment_type: apt_type
+      appointment = create(:appointment, slot: slot1)
       appointment.book
-      slot = create :slot, agenda: appointment.slot.agenda,
-                           appointment_type: apt_type,
-                           date: (Date.today + 2).to_s,
-                           starting_time: '16h'
+      slot2 = create :slot, agenda: appointment.slot.agenda,
+                            appointment_type: apt_type,
+                            date: (Date.today + 2).to_s,
+                            starting_time: '16h'
 
       visit appointment_path(appointment)
       click_button 'Replanifier'
@@ -378,7 +378,41 @@ RSpec.feature 'Appointments', type: :feature do
       expect(appointment.cancelation_notif.state).to eq 'created'
       expect(appointment.history_items).to eq []
 
-      new_appointment = Appointment.find_by(slot: slot)
+      new_appointment = Appointment.find_by(slot: slot2)
+
+      expect(new_appointment.state).to eq 'booked'
+      expect(new_appointment.history_items.count).to eq 4
+      expect(new_appointment.reschedule_notif.state).to eq 'sent'
+    end
+
+    it 'works for an appointment type without pre defined slots' do
+      apt_type = create(:appointment_type, :with_notification_types, name: 'RDV de suivi SPIP')
+      slot = create :slot, appointment_type: apt_type
+      appointment = create(:appointment, slot: slot)
+      appointment.book
+
+      visit appointment_path(appointment)
+      click_button 'Replanifier'
+
+      expect(page).to have_content 'Replanifier un rendez-vous'
+
+      fill_in 'appointment_slot_attributes_date', with: (Date.today + 12).strftime('%Y-%m-%d')
+
+      within first('.form-time-select-fields') do
+        select '15', from: 'appointment_slot_attributes_starting_time_4i'
+        select '00', from: 'appointment_slot_attributes_starting_time_5i'
+      end
+
+      click_button 'Enregistrer'
+
+      appointment.reload
+      expect(appointment.state).to eq 'canceled'
+      expect(appointment.reminder_notif.state).to eq 'canceled'
+      expect(appointment.cancelation_notif.state).to eq 'created'
+      expect(appointment.history_items).to eq []
+
+      slot2 = Slot.find_by(date: Date.today + 12)
+      new_appointment = Appointment.find_by(slot: slot2)
 
       expect(new_appointment.state).to eq 'booked'
       expect(new_appointment.history_items.count).to eq 4
