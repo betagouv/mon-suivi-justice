@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     stored_location_for(current_user) || root_path
   end
 
-  def after_sign_out_path_for
+  def after_sign_out_path_for(_)
     ENV['PUBLIC_SITE_ROOT']
   end
 

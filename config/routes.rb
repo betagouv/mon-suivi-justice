@@ -52,10 +52,16 @@ Rails.application.routes.draw do
     get :secret_stats
   end
 
+  scope controller: :home do
+    get :home
+  end
+
   resource :steering, only: :show
 
   unauthenticated do
-    root 'devise/sessions#new'
+    devise_scope :user do
+      root to: "devise/sessions#new"
+    end
   end
 
   authenticated :user do
