@@ -37,9 +37,11 @@ class Appointment < ApplicationRecord
   validate :in_the_future
 
   def in_the_future
-    return unless slot.date < Date.today
-
-    errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.past'))
+    if slot.date.nil?
+      errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.blank'))
+    elsif slot.date < Date.today
+      errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.past'))
+    end
   end
 
   def in_the_past?

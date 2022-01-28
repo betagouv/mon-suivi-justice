@@ -134,7 +134,7 @@ fr:
               required: "Lieu manquant"
             date:
               blank: "Date manquante"
-              past: "Ne peut pas être dans le passé"
+              past: "Le rendez-vous ne peut pas être dans le passé"
 
   login_sub_title: "Espace agents"
   login_tutorial: "Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial présent dans la liste suivante :"
