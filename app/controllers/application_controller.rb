@@ -4,14 +4,14 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_paper_trail_whodunnit
 
-  after_action :verify_authorized, unless: :devise_controller?
+  after_action :verify_authorized, unless: :skip_pundit?
 
   layout :layout_by_resource
 
   def layout_by_resource
     if devise_controller?
       'authentication'
-    elsif params[:controller] == 'stats'
+    elsif %w[stats errors].include?(params[:controller])
       'application'
     else
       'agent_interface'
@@ -30,6 +30,10 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
+
+  def skip_pundit?
+    devise_controller?
+  end
 
   def user_not_authorized
     flash[:alert] = I18n.t('errors.non_authorized')

@@ -12,12 +12,8 @@ class SendinblueAdapter
     sms_data = format_data(notification)
     sms = SibApiV3Sdk::SendTransacSms.new(sms_data)
 
-    begin
-      result = @client.send_transac_sms(sms)
-      notification.update(external_id: result.message_id)
-    rescue SibApiV3Sdk::ApiError => e
-      puts "Exception when calling TransactionalSMSApi -> send_transac_sms: #{e}"
-    end
+    result = @client.send_transac_sms(sms)
+    notification.update(external_id: result.message_id)
   end
 
   def format_data(notification)

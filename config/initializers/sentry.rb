@@ -11,4 +11,6 @@ Sentry.init do |config|
   config.traces_sampler = lambda do |context|
     true
   end
+
+  config.excluded_exceptions -= ['ActionController::RoutingError']
 end

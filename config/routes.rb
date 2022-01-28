@@ -84,4 +84,9 @@ Rails.application.routes.draw do
   authenticated :user do
     root 'home#home', as: :authenticated_root
   end
+
+  match '/404' => 'errors#not_found', via: :all
+  match '/422' => 'errors#unprocessable_entity', via: :all
+  match '/500' => 'errors#internal_server_error', via: :all
+  get :maintenance, to: "errors#service_unavailable"
 end
