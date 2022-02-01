@@ -394,8 +394,6 @@ fr:
     not_found:
       title: La page que vous recherchez n'existe pas.
       subtitle: Vous avez peut-être fait une erreur dans l'adresse, ou la page a été deplacée
-    service_unavailable:
-      title: Toutes nos excuses, le site que vous consultez est en maintenance ! Nous faisons tout pour revenir au plus vite !
     unprocessable_entity:
       title: La modification a été rejettée.
       subtitle: Peut-être n'aviez vous pas accès à cette action.
