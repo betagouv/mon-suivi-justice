@@ -30,5 +30,7 @@ module MonSuiviJustice
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
     config.i18n.load_path += Dir["#{Rails.root.to_s}/config/locales/**/*.{rb,yml}"]
+
+    config.exceptions_app = routes
   end
 end

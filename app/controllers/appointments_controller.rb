@@ -38,6 +38,7 @@ class AppointmentsController < ApplicationController
       @appointment.book(send_notification: params[:send_sms])
       redirect_to appointment_path(@appointment)
     else
+      @appointment.errors.full_messages.each { |error| flash[:alert] = error }
       render :new
     end
   end

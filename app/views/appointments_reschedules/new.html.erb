@@ -3,36 +3,56 @@
   <%= f.hidden_field :convict_id, value: @appointment.convict_id  %>
   <%= f.hidden_field :origin_department, value: @appointment.origin_department  %>
   <%= f.hidden_field :old_appointment_id, value: @appointment.id  %>
-  <div class='appointment-form-slots-container'>
-    <% if @slots_by_date.length > 0 %>
-      <p class='new-appointment-slots-title'><%= t('new-appointment-available-slots') %></p>
-      <% if @appointment.slot.appointment_type.name == "Sortie d'audience SPIP" %>
-        <p class='new-appointment-bex-warning'><%= t('new-appointment-bex-warning') %></p>
+
+  <% if @appointment_type.with_slot_types? %>
+    <div class='appointment-form-slots-container'>
+      <% if @slots_by_date.length > 0 %>
+        <p class='new-appointment-slots-title'><%= t('new-appointment-available-slots') %></p>
+        <% if @appointment.slot.appointment_type.name == "Sortie d'audience SPIP" %>
+          <p class='new-appointment-bex-warning'><%= t('new-appointment-bex-warning') %></p>
+        <% end %>
+        <div class='new-appointment-slots-container'>
+          <div class='new-appointment-slots-header'>
+            <% @slots_by_date.each do |date| %>
+              <div class='slot-date-title'><%= t('date.day_names')[date.first.wday].capitalize %> <%= date.first %></div>
+            <% end %>
+          </div>
+          <div class='new-appointment-slots-body'>
+            <% @slots_by_date.each do |date| %>
+              <div class='slot-date-container'>
+                <% date.drop(1).first.sort_by(&:starting_time).each do |slot| %>
+                  <div>
+                    <input type='radio' value=<%= slot.id %> name="appointment[slot_id]" id=<%="appointment_slot_id_#{slot.id}"%>>
+                    <label for=<%="appointment_slot_id_#{slot.id}"%>>
+                      <%= slot.starting_time.to_s(:time) %>
+                    </label>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <p class='new-appointment-form-no-slot'><%= t('new-appointment-no-slot') %></p>
       <% end %>
-      <div class='new-appointment-slots-container'>
-        <div class='new-appointment-slots-header'>
-          <% @slots_by_date.each do |date| %>
-            <div class='slot-date-title'><%= t('date.day_names')[date.first.wday].capitalize %> <%= date.first %></div>
-          <% end %>
-        </div>
-        <div class='new-appointment-slots-body'>
-          <% @slots_by_date.each do |date| %>
-            <div class='slot-date-container'>
-              <% date.drop(1).first.sort_by(&:starting_time).each do |slot| %>
-                <div>
-                  <input type='radio' value=<%= slot.id %> name="appointment[slot_id]" id=<%="appointment_slot_id_#{slot.id}"%>>
-                  <label for=<%="appointment_slot_id_#{slot.id}"%>>
-                    <%= slot.starting_time.to_s(:time) %>
-                  </label>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    <% else %>
-      <p class='new-appointment-form-no-slot'><%= t('new-appointment-no-slot') %></p>
-    <% end %>
+    </div>
+  <% else %>
+    <div class='appointment-reschedule-form-slot-fields-container'>
+      <%= f.simple_fields_for :slot, Slot.new do |form| %>
+        <%= form.hidden_field :agenda_id, value: @appointment.slot.agenda.id %>
+        <%= form.hidden_field :appointment_type_id, value: @appointment_type.id %>
+
+        <%= form.input :date, as: :date, html5: true, input_html: { class: 'form-text-input' }, min: Time.zone.now %>
+        <%= form.input :starting_time, input_html: { class: 'form-select', value: form.object.starting_time.to_s },
+                                        wrapper: :custom_time,
+                                        start_hour: 7,
+                                        end_hour: 20,
+                                        minute_step: 5 %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class='appointment-reschedule-form-submit-container'>
     <%= f.submit t('submit'), class: 'form-submit-button new-appointment-submit-button'  %>
   </div>
 <% end %>

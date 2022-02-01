@@ -10,7 +10,8 @@ RSpec.describe NotificationFactory do
       create(:notification_type, appointment_type: appointment_type,
                                  role: :reminder,
                                  template: 'Rappel: rdv le {rdv.date} à {rdv.heure}')
-      slot = create(:slot, date: '08/08/2021', starting_time: new_time_for(15, 30), appointment_type: appointment_type)
+      slot = create(:slot, date: Date.today + 2, starting_time: new_time_for(15, 30),
+                           appointment_type: appointment_type)
       appointment = create(:appointment, slot: slot)
 
       expect { NotificationFactory.perform(appointment) }.to change { Notification.count }.by(2)
@@ -21,8 +22,8 @@ RSpec.describe NotificationFactory do
       summon_notif = appointment.notifications.where(role: :summon).first
       reminder_notif = appointment.notifications.where(role: :reminder).first
 
-      expect(summon_notif.content).to eq('RDV pris le 08/08/2021 à 15h30')
-      expect(reminder_notif.content).to eq('Rappel: rdv le 08/08/2021 à 15h30')
+      expect(summon_notif.content).to eq("RDV pris le #{Date.today + 2} à 15h30")
+      expect(reminder_notif.content).to eq("Rappel: rdv le #{Date.today + 2} à 15h30")
     end
   end
 
@@ -45,7 +46,7 @@ RSpec.describe NotificationFactory do
                              phone: '0102030405')
       agenda = create(:agenda, place: place)
       slot = create(:slot, agenda: agenda,
-                           date: '02/08/2021',
+                           date: Date.today + 2,
                            starting_time: new_time_for(16, 30), appointment_type: appointment_type)
       sms_template = 'Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}.'\
                      " Merci de venir avec une pièce d'identité au {lieu.adresse}." \
@@ -54,7 +55,7 @@ RSpec.describe NotificationFactory do
 
       appointment = create(:appointment, slot: slot)
 
-      expected = 'Vous êtes convoqué au Spip du 03 le 02/08/2021 à 16h30.'\
+      expected = "Vous êtes convoqué au Spip du 03 le #{Date.today + 2} à 16h30."\
                  " Merci de venir avec une pièce d'identité au 38 rue Jean Moulin."\
                  ' Veuillez contacter le 0102030405 en cas de problème.'
 

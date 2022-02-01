@@ -9,13 +9,13 @@ class Slot < ApplicationRecord
   validates :date, :starting_time, :duration, :capacity, presence: true
   validates_inclusion_of :available, in: [true, false]
 
-  scope :relevant_and_available, (lambda do |agenda, appointment_type|
+  scope :relevant_and_available, lambda { |agenda, appointment_type|
     where(
       agenda_id: agenda.id,
       appointment_type_id: appointment_type.id,
       available: true
     )
-  end)
+  }
 
   scope :future, -> { where('date >= ?', Date.today) }
   scope :available, -> { where(available: true) }
@@ -27,6 +27,10 @@ class Slot < ApplicationRecord
 
   scope :in_organization, lambda { |organization|
     joins(agenda: :place).where(agendas: { places: { organization: organization } })
+  }
+
+  scope :with_appointment_type_with_slot_system, lambda {
+    joins(:appointment_type).merge(AppointmentType.with_slot_types)
   }
 
   def full?

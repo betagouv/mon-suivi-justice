@@ -8,8 +8,8 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'index' do
     before do
-      slot1 = create(:slot, date: '06/06/2021', starting_time: new_time_for(13, 0))
-      slot2 = create(:slot, date: '08/08/2021', starting_time: new_time_for(15, 30))
+      slot1 = create(:slot, date: (Date.today + 4).to_s, starting_time: new_time_for(13, 0))
+      slot2 = create(:slot, date: (Date.today + 6).to_s, starting_time: new_time_for(15, 30))
 
       create(:appointment, slot: slot1)
       create(:appointment, slot: slot2)
@@ -18,19 +18,19 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'lists all appointments' do
-      expect(page).to have_content('06/06/2021')
+      expect(page).to have_content((Date.today + 4).to_s)
       expect(page).to have_content('13:00')
-      expect(page).to have_content('08/08/2021')
+      expect(page).to have_content((Date.today + 6).to_s)
       expect(page).to have_content('15:30')
     end
 
     it 'allows to filter appointments' do
-      expect(page).to have_content('06/06/2021')
+      expect(page).to have_content((Date.today + 4).to_s)
 
-      fill_in 'search-field', with: '08/08/2021'
+      fill_in 'search-field', with: (Date.today + 6).to_s
       click_button 'Filtrer'
 
-      expect(page).not_to have_content('06/06/2021')
+      expect(page).not_to have_content((Date.today + 4).to_s)
     end
 
     it "doesn't show canceled appointments" do
@@ -52,10 +52,6 @@ RSpec.feature 'Appointments', type: :feature do
   end
 
   describe 'creation', js: true do
-    let(:frozen_date) { Date.new 2015, 5, 5 }
-
-    before { allow(Date).to receive(:today).and_return frozen_date }
-
     it 'create an appointment with a convocation sms' do
       create(:convict, first_name: 'JP', last_name: 'Cherty')
       appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
@@ -65,22 +61,27 @@ RSpec.feature 'Appointments', type: :feature do
 
       slot = create :slot, agenda: agenda,
                            appointment_type: appointment_type,
-                           date: (Date.today + 2).to_s,
+                           date: Date.today + 2,
                            starting_time: '16h'
 
       visit new_appointment_path
+
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'CHERTY Jp').click
       select "Sortie d'audience SAP", from: :appointment_appointment_type_id
       select 'KFC de Chatelet', from: 'Lieu'
       select 'Agenda de Josiane', from: 'Agenda'
       choose '16:00'
+
       expect(page).to have_button('Enregistrer')
       click_button 'Enregistrer'
+
       expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
+
       expect(SmsDeliveryJob).to have_been_enqueued.once.with(
         Notification.find_by(role: :summon, appointment: Appointment.find_by(slot: slot))
       )
+
       expect(SmsDeliveryJob).to have_been_enqueued.once.with(
         Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
       )
@@ -105,8 +106,11 @@ RSpec.feature 'Appointments', type: :feature do
       select 'KFC de Chatelet', from: 'Lieu'
       select 'Agenda de Josiane', from: 'Agenda'
       choose '16:00'
+
       expect(page).to have_button('Enregistrer')
+
       click_button 'Enregistrer'
+
       expect { click_button 'Non' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
       expect(SmsDeliveryJob).to have_been_enqueued.once.with(
         Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
@@ -132,8 +136,8 @@ RSpec.feature 'Appointments', type: :feature do
       create :place, name: 'place_out_name', appointment_types: [appointment_type]
       agenda_out = create :agenda, name: 'agenda_out_name'
 
-      create :slot, agenda: agenda_in, appointment_type: appointment_type, date: '10/10/2021', starting_time: '14h'
-      create :slot, agenda: agenda_out, appointment_type: appointment_type, date: '10/10/2021', starting_time: '16h'
+      create :slot, agenda: agenda_in, appointment_type: appointment_type, date: Date.today + 2, starting_time: '14h'
+      create :slot, agenda: agenda_out, appointment_type: appointment_type, date: Date.today + 2, starting_time: '16h'
 
       visit new_appointment_path
       first('.select2-container', minimum: 1).click
@@ -206,14 +210,14 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'show' do
     it 'displays appointment data' do
-      slot = create(:slot, date: '06/10/2021', starting_time: new_time_for(17, 0))
+      slot = create(:slot, date: (Date.today + 2).to_s, starting_time: new_time_for(17, 0))
       convict = create(:convict, first_name: 'Monique', last_name: 'Lassalle')
 
       appointment = create(:appointment, :with_notifications, slot: slot, convict: convict)
 
       visit appointment_path(appointment)
 
-      expect(page).to have_content('06/10/2021')
+      expect(page).to have_content((Date.today + 2).to_s)
       expect(page).to have_content('17:00')
       expect(page).to have_content('Monique')
       expect(page).to have_content('LASSALLE')
@@ -351,14 +355,14 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'replanification' do
     it 're-schedules an appointment to a later date' do
-      apt_type = create(:appointment_type, :with_notification_types)
-      slot = create :slot, appointment_type: apt_type
-      appointment = create(:appointment, slot: slot)
+      apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
+      slot1 = create :slot, appointment_type: apt_type
+      appointment = create(:appointment, slot: slot1)
       appointment.book
-      slot = create :slot, agenda: appointment.slot.agenda,
-                           appointment_type: apt_type,
-                           date: (Date.today + 2).to_s,
-                           starting_time: '16h'
+      slot2 = create :slot, agenda: appointment.slot.agenda,
+                            appointment_type: apt_type,
+                            date: (Date.today + 2).to_s,
+                            starting_time: '16h'
 
       visit appointment_path(appointment)
       click_button 'Replanifier'
@@ -374,7 +378,41 @@ RSpec.feature 'Appointments', type: :feature do
       expect(appointment.cancelation_notif.state).to eq 'created'
       expect(appointment.history_items).to eq []
 
-      new_appointment = Appointment.find_by(slot: slot)
+      new_appointment = Appointment.find_by(slot: slot2)
+
+      expect(new_appointment.state).to eq 'booked'
+      expect(new_appointment.history_items.count).to eq 4
+      expect(new_appointment.reschedule_notif.state).to eq 'sent'
+    end
+
+    it 'works for an appointment type without pre defined slots' do
+      apt_type = create(:appointment_type, :with_notification_types, name: 'RDV de suivi SPIP')
+      slot = create :slot, appointment_type: apt_type
+      appointment = create(:appointment, slot: slot)
+      appointment.book
+
+      visit appointment_path(appointment)
+      click_button 'Replanifier'
+
+      expect(page).to have_content 'Replanifier un rendez-vous'
+
+      fill_in 'appointment_slot_attributes_date', with: (Date.today + 12).strftime('%Y-%m-%d')
+
+      within first('.form-time-select-fields') do
+        select '15', from: 'appointment_slot_attributes_starting_time_4i'
+        select '00', from: 'appointment_slot_attributes_starting_time_5i'
+      end
+
+      click_button 'Enregistrer'
+
+      appointment.reload
+      expect(appointment.state).to eq 'canceled'
+      expect(appointment.reminder_notif.state).to eq 'canceled'
+      expect(appointment.cancelation_notif.state).to eq 'created'
+      expect(appointment.history_items).to eq []
+
+      slot2 = Slot.find_by(date: Date.today + 12)
+      new_appointment = Appointment.find_by(slot: slot2)
 
       expect(new_appointment.state).to eq 'booked'
       expect(new_appointment.history_items.count).to eq 4

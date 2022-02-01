@@ -13,4 +13,8 @@ FactoryBot.define do
       create(:notification, appointment: apt, role: :no_show)
     end
   end
+
+  trait :skip_validate do
+    to_create { |instance| instance.save(validate: false) }
+  end
 end

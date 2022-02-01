@@ -134,6 +134,7 @@ fr:
               required: "Lieu manquant"
             date:
               blank: "Date manquante"
+              past: "Le rendez-vous ne peut pas être dans le passé"
 
   login_sub_title: "Espace agents"
   login_tutorial: "Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial présent dans la liste suivante :"
@@ -310,7 +311,6 @@ fr:
   today_appointments_place_filter: "Lieu de RDV"
   index-slots-appointment-type-filter: "Type de RDV"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
-  new-appointment-help: "Sélectionnez un lieu de RDV pour afficher les créneaux disponibles."
   new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi d'un SMS de rappel 48h avant le rendez-vous (si un numéro de téléphone a été donné)."
   new-appointment-confirmation-warning: "Voulez-vous également envoyer immédiatement un SMS de confirmation à la PPSMJ pour ce rendez-vous ?."
   new-appointment-bex-warning: "Attention, le créneau de 9h est réservé aux DDSE."
@@ -381,6 +381,16 @@ fr:
 
   errors:
     non_authorized: "Vous n'êtes pas autorisé à effectuer cette action"
+    internal_server:
+      title: Toutes nos excuses, une erreur a eu lieu dans l'application.
+    not_found:
+      title: La page que vous recherchez n'existe pas.
+      subtitle: Vous avez peut-être fait une erreur dans l'adresse, ou la page a été deplacée
+    service_unavailable:
+      title: Toutes nos excuses, le site que vous consultez est en maintenance ! Nous faisons tout pour revenir au plus vite !
+    unprocessable_entity:
+      title: La modification a été rejettée.
+      subtitle: Peut-être n'aviez vous pas accès à cette action.
 
   sidebar:
     home: "Accueil"
