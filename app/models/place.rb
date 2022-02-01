@@ -27,12 +27,6 @@ class Place < ApplicationRecord
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
   }
 
-  def self.ready_for_form_main_contact_methods
-    main_contact_methods.map do |k, _v|
-      [I18n.t("activerecord.attributes.place.main_contact_methods.#{k}"), k]
-    end.sort_by(&:last)
-  end
-
   def appointment_type_with_slot_types
     appointment_types.with_slot_types
   end

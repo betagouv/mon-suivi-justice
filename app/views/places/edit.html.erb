@@ -9,7 +9,7 @@
         <%= f.input :phone, input_html: { value: @place.display_phone } %>
         <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
           <%= f.input :contact_email %>
-          <%= f.input :main_contact_method, collection: Place.ready_for_form_main_contact_methods,
+          <%= f.input :main_contact_method, collection: form_main_contact_methods,
                                             input_html: { class: 'form-select' },
                                             include_blank: false %>
         <% end %>
