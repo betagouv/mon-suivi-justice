@@ -2,12 +2,20 @@ class Place < ApplicationRecord
   include NormalizedPhone
   has_paper_trail
 
-  validates :name, :adress, :phone, presence: true
+  validates :name, :adress, :main_contact_method, presence: true
+  validates :phone, presence: true, if: :phone_main_contact_method?
+  validates :contact_email, presence: true, if: :email_main_contact_method?
+  validates :contact_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
 
   has_many :agendas, dependent: :destroy
   has_many :place_appointment_types, dependent: :destroy
   has_many :appointment_types, through: :place_appointment_types
   belongs_to :organization
+
+  enum main_contact_method: {
+    phone: 0,
+    email: 1
+  }, _default: :phone, _suffix: true
 
   accepts_nested_attributes_for :agendas, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :place_appointment_types
@@ -21,5 +29,9 @@ class Place < ApplicationRecord
 
   def appointment_type_with_slot_types
     appointment_types.with_slot_types
+  end
+
+  def contact_detail
+    phone_main_contact_method? ? display_phone(spaces: false) : contact_email
   end
 end

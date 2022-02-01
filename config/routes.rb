@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   devise_for :users, controllers: { invitations: 'invitations' }
 
   authenticate :user, ->(user) { user.admin? } do
@@ -48,37 +50,20 @@ Rails.application.routes.draw do
     get :agenda_spip
   end
 
-  scope controller: :static_pages do
-    get :landing
-    get :comprendre_ma_peine
-    get :regles_essentielles
-    get :obligations_personnelles
-    get :sursis_probatoire
-    get :travail_interet_general
-    get :suivi_socio_judiciaire
-    get :stage
-    get :amenagements_de_peine
-    get :preparer_mon_rdv
-    get :preparer_spip92
-    get :preparer_sap_nanterre
-    get :preparer_spip28
-    get :preparer_sap_chartres
-    get :ma_reinsertion
-    get :donnees_personnelles
+  scope controller: :stats do
+    get :secret_stats
   end
 
   scope controller: :home do
     get :home
   end
 
-  scope controller: :stats do
-    get :secret_stats
-  end
-
   resource :steering, only: :show
 
   unauthenticated do
-    root 'static_pages#landing'
+    devise_scope :user do
+      root to: "devise/sessions#new"
+    end
   end
 
   authenticated :user do

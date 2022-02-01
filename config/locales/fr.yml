@@ -74,6 +74,11 @@ fr:
         name: "Nom"
         adress: "Adresse"
         phone: "Téléphone"
+        contact_email: "Email de contact"
+        main_contact_method: "Méthode de contact préférentielle"
+        main_contact_methods:
+          phone: "Téléphone"
+          email: "Email"
       slot:
         place: "Lieu"
         date: "Date"
@@ -140,6 +145,9 @@ fr:
   login_tutorial: "Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial présent dans la liste suivante :"
   login_tutorial_special: "! @ # $ % ^ & * ( ) _ + - = [ ] { } | '"
   login_password_error: "Mot de passe invalide"
+
+  ie_warning1: "Mon Suivi Justice n'est pas compatible avec Internet Explorer. Merci d'utiliser Chrome ou Firefox."
+  ie_warning2: "Vous pouvez copier - coller le lien qui est dans la barre d'adresse dans un autre navigateur."
 
   header_title: "Mon Suivi Justice"
   back_to_public_site: "Retour sur le site public"

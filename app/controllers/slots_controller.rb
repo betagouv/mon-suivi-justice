@@ -40,6 +40,6 @@ class SlotsController < ApplicationController
 
   def slot_params
     params.require(:slot).permit(:agenda_id, :appointment_type_id,
-                                 :date, :starting_time, :available)
+                                 :date, :starting_time, :available, :capacity, :duration)
   end
 end
