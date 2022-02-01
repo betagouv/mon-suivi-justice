@@ -54,8 +54,8 @@ RSpec.feature 'Slots', type: :feature do
         select '15', from: 'slot_starting_time_4i'
         select '00', from: 'slot_starting_time_5i'
       end
-      fill_in "Durée", with: "40"
-      fill_in "Capacité", with: "10"
+      fill_in 'Durée', with: '40'
+      fill_in 'Capacité', with: '10'
 
       expect { click_button 'Enregistrer' }.to change { Slot.count }.by(1)
 
@@ -64,7 +64,7 @@ RSpec.feature 'Slots', type: :feature do
       expect(created_slot.agenda).to eq(agenda)
       expect(created_slot.appointment_type).to eq(appointment_type)
       expect(created_slot.appointment_type).to eq(appointment_type)
-      expect(created_slot.date).to eq(Date.parse("Mon, 14 Oct 2024"))
+      expect(created_slot.date).to eq(Date.parse('Mon, 14 Oct 2024'))
       expect(created_slot.starting_time.hour).to eq(15)
       expect(created_slot.starting_time.min).to eq(0)
       expect(created_slot.duration).to eq(40)
