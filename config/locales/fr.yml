@@ -146,6 +146,9 @@ fr:
   login_tutorial_special: "! @ # $ % ^ & * ( ) _ + - = [ ] { } | '"
   login_password_error: "Mot de passe invalide"
 
+  ie_warning1: "Mon Suivi Justice n'est pas compatible avec Internet Explorer. Merci d'utiliser Chrome ou Firefox."
+  ie_warning2: "Vous pouvez copier - coller le lien qui est dans la barre d'adresse dans un autre navigateur."
+
   header_title: "Mon Suivi Justice"
   back_to_public_site: "Retour sur le site public"
 

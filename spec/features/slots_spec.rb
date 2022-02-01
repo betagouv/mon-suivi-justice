@@ -34,8 +34,8 @@ RSpec.feature 'Slots', type: :feature do
   describe 'creation' do
     it 'works' do
       place = create(:place, name: 'McDo de Clichy', organization: @user.organization)
-      create(:agenda, place: place, name: 'Agenda de Michel')
-      create(:appointment_type, name: "Sortie d'audience SPIP")
+      agenda = create(:agenda, place: place, name: 'Agenda de Michel')
+      appointment_type = create(:appointment_type, name: "Sortie d'audience SPIP")
       create(:appointment_type, name: 'RDV de suivi SPIP')
 
       visit new_slot_path
@@ -54,13 +54,21 @@ RSpec.feature 'Slots', type: :feature do
         select '15', from: 'slot_starting_time_4i'
         select '00', from: 'slot_starting_time_5i'
       end
+      fill_in 'Durée', with: '40'
+      fill_in 'Capacité', with: '10'
 
       expect { click_button 'Enregistrer' }.to change { Slot.count }.by(1)
 
       created_slot = Slot.last
 
+      expect(created_slot.agenda).to eq(agenda)
+      expect(created_slot.appointment_type).to eq(appointment_type)
+      expect(created_slot.appointment_type).to eq(appointment_type)
+      expect(created_slot.date).to eq(Date.parse('Mon, 14 Oct 2024'))
       expect(created_slot.starting_time.hour).to eq(15)
       expect(created_slot.starting_time.min).to eq(0)
+      expect(created_slot.duration).to eq(40)
+      expect(created_slot.capacity).to eq(10)
     end
   end
 end
