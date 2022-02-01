@@ -20,8 +20,8 @@ fr:
         new_password_confirmation: Confirmation du mot de passe
     mailer:
       invitation_instructions:
-        subject: 'Vous avez reçu une invitation'
-        hello: 'Bonjour %{email}'
+        subject: 'Vous êtes invité.e à rejoindre Mon Suivi Justice'
+        hello: 'Bonjour %{first_name}'
         someone_invited_you: "Vous avez été invité à rejoindre %{url}, vous pouvez accepter cette invitation via le lien ci-dessous."
         accept: "Accepter l'invitation"
         accept_until: "Cette invitation sera valable jusqu'au %{due_date}."

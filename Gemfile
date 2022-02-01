@@ -61,6 +61,7 @@ group :development do
   gem 'guard-rspec', require: false
   gem 'guard-rubocop'
   gem 'letter_opener'
+  gem 'letter_opener_web', '~> 2.0'
   gem 'rails-erd'
   gem 'state_machines-graphviz'
 end
