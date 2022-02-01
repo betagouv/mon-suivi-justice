@@ -74,6 +74,11 @@ fr:
         name: "Nom"
         adress: "Adresse"
         phone: "Téléphone"
+        contact_email: "Email de contact"
+        main_contact_method: "Méthode de contact préférentielle"
+        main_contact_methods:
+          phone: "Téléphone"
+          email: "Email"
       slot:
         place: "Lieu"
         date: "Date"
