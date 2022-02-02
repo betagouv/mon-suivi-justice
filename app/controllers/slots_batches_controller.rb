@@ -5,7 +5,7 @@ class SlotsBatchesController < ApplicationController
     slots = Slot.where(id: params[:slot_ids])
     slots.update_all(available: false)
 
-    redirect_back(fallback_location: root_path)
+    redirect_to slots_path
 
     authorize slots
   end
