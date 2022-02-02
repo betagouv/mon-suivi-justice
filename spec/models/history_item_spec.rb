@@ -5,6 +5,7 @@ RSpec.describe HistoryItem, type: :model do
   it { should belong_to(:appointment).optional(true) }
 
   it { should validate_presence_of(:content) }
+  it { should validate_presence_of(:event) }
   it { should define_enum_for(:category).with_values(%i[appointment notification convict]) }
 
   it {
