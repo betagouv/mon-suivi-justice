@@ -15,7 +15,7 @@ RSpec.describe DeviseInvitable::Mailer, type: :mailer do
     it 'renders the body' do
       expect(mail.body.encoded).to match('Bonjour Super Agent')
       expect(mail.body.encoded).to match("Pour activer votre compte et commencer =C3=A0 utiliser Mon Suivi Justice,=\n veuillez copier-coller le lien suivant dans le navigateur Chrome ou Fire=\nfox :")
-      expect(mail.body.encoded).to match("Un guide d&#39;utilisation, qui va vous accompagner dans la prise en m=\nain de Mon Suivi Justice est disponible en ligne : https://documentation.=\nmon-suivi-justice.beta.gouv.fr/. Ce document est en cours de co-construct=\nion avec les utilisateurs.")
+      expect(mail.body.encoded).to match("Un guide d=E2=80=99utilisation est disponible en ligne afin de vous ac=\ncompagner dans la prise en main de Mon Suivi Justice : https://documentat=\nion.mon-suivi-justice.beta.gouv.fr/. Ce document est en cours de co-const=\nruction avec les utilisateurs.")
     end
     # rubocop:enable Metrics/LineLength
   end
