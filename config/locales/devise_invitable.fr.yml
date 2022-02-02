@@ -32,7 +32,8 @@ fr:
         documentation: "Un guide d'utilisation, qui va vous accompagner dans la prise en main de Mon Suivi Justice est disponible en ligne : %{url}. Ce document est en cours de co-construction avec les utilisateurs."
         ignore: "Si vous ne souhaitez pas accepter cette invitation, veuillez ignorer cet e-mail. Votre compte ne sera pas créé tant que vous n'accéderez pas au lien ci-dessous et que vous ayez défini votre mot de passe."
         conclusion: "Nous espérons que Mon Suivi Justice saura vous aider au quotidien et nous sommes à votre disposition si vous avez des questions ou remarques. À très bientôt, l'équipe Mon Suivi Justice"
-        conclusion_html: "Nous espérons que Mon Suivi Justice saura vous aider au quotidien et nous sommes à votre disposition si vous avez des questions ou remarques.<br>À très bientôt,<br>L'équipe Mon Suivi Justice"
+        signature_html: "À très bientôt,<br>L'équipe Mon Suivi Justice"
+        signature: "À très bientôt, L'équipe Mon Suivi Justice"
   time:
     formats:
       devise:

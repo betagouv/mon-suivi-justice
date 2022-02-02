@@ -2,7 +2,7 @@ class HistoryItem < ApplicationRecord
   belongs_to :convict
   belongs_to :appointment, optional: true
 
-  validates :content, presence: true
+  validates :content, :event, presence: true
 
   attr_readonly :content
 
