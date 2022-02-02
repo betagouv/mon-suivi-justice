@@ -1,41 +1,48 @@
-<div class='slots-container'>
-  <div class='index-tools-container'>
-    <div class='index-tools-filter-container'>
-      <%= search_form_for @q, class: 'index-search-form' do |f| %>
-        <%= f.search_field :date_eq, id: 'search-field',
-                            class: 'index-search-field',
-                            value: @q.date_eq ? @q.date_eq.strftime('%d/%m/%Y') : '',
-                            placeholder: t('search-appointment-placeholder') %>
+<div class='slots-index-tools-container'>
+  <div class='index-tools-filter-container'>
+    <%= search_form_for @q, class: 'index-search-form' do |f| %>
+      <%= f.search_field :date_eq, id: 'search-field',
+                          class: 'index-search-field',
+                          value: @q.date_eq ? @q.date_eq.strftime('%d/%m/%Y') : '',
+                          placeholder: t('search-appointment-placeholder') %>
 
-        <%# TODO: there is for the moment only one department per organization.
-        When there will be more, this logic will need to be adapted. %>
-        <%= f.select :agenda_place_id_eq, options_from_collection_for_select(Place.in_department(current_user.organization.departments.first), 'id', 'name', @q.agenda_place_id_eq),
-                                          { include_blank: t('index_slot_place_filter') },
-                                          { class: 'form-select index-slot-filter-field' } %>
+      <%# TODO: there is for the moment only one department per organization.
+      When there will be more, this logic will need to be adapted. %>
+      <%= f.select :agenda_place_id_eq, options_from_collection_for_select(Place.in_department(current_user.organization.departments.first), 'id', 'name', @q.agenda_place_id_eq),
+                                        { include_blank: t('index_slot_place_filter') },
+                                        { class: 'form-select index-slot-filter-field' } %>
 
-        <%= f.select :agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.agenda_id_eq),
-                                    { include_blank: t('index-appointment-agenda-filter') },
-                                    { class: 'form-select index-slot-filter-field' } %>
+      <%= f.select :agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.agenda_id_eq),
+                                  { include_blank: t('index-appointment-agenda-filter') },
+                                  { class: 'form-select index-slot-filter-field' } %>
 
-        <%= f.select :appointment_type_id_eq, options_from_collection_for_select(AppointmentType.with_slot_types, 'id', 'name', @q.appointment_type_id_eq),
-                                    { include_blank: t('index-slots-appointment-type-filter') },
-                                    { class: 'form-select index-slot-filter-field' } %>
+      <%= f.select :appointment_type_id_eq, options_from_collection_for_select(AppointmentType.with_slot_types, 'id', 'name', @q.appointment_type_id_eq),
+                                  { include_blank: t('index-slots-appointment-type-filter') },
+                                  { class: 'form-select index-slot-filter-field' } %>
 
-        <%= f.submit t('filter'), class: 'index-search-button' %>
-      <% end %>
-    </div>
-
-    <div class='index-tools-controls-container'>
-      <% if policy(:slot).new? %>
-        <%= button_to t('new_slot_title'), new_slot_path,
-                                           class: 'link-to-new-slot-button',
-                                           form_class: 'link-to-new-slot-form',
-                                           method: :get %>
-      <% end %>
-    </div>
+      <%= f.submit t('filter'), class: 'index-search-button' %>
+    <% end %>
   </div>
 
-  <div class='index-table-container'>
+  <div class='index-tools-controls-container'>
+    <% if ENV['APP'] != 'mon-suivi-justice-prod' && policy(:slot).update? %>
+      <%= button_tag t('index_slots_batch_close'), type: 'submit',
+                                                   form: 'index-slots-update-form',
+                                                   data: { confirm: t('basic_confirmation') },
+                                                   class: 'slots-batch-close-button' %>
+    <% end %>
+
+    <% if policy(:slot).new? %>
+      <%= button_to t('new_slot_title'), new_slot_path,
+                                         class: 'link-to-new-slot-button',
+                                         form_class: 'link-to-new-slot-form',
+                                         method: :get %>
+    <% end %>
+  </div>
+</div>
+
+<div class='slots-container'>
+  <div class='slots-index-table-container'>
     <div class='slots-header'>
       <div class='slots-header-title slots-column-1'>
         <%= t('activerecord.attributes.slot.place') %>
@@ -52,45 +59,51 @@
       <div class='slots-header-title slots-column-5'>
         <%= t('activerecord.attributes.slot.starting_time') %>
       </div>
-      <div class='slots-header-title slots-column-6'>
-        <%= t('activerecord.attributes.slot.capacity') %>
-      </div>
+      <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+        <div class='slots-column-6'>
+          <%= t('select') %>
+        </div>
+      <% end %>
       <div class='index-controls-container'></div>
     </div>
 
-    <% @slots.each do |slot| %>
-      <div class='slots-item-container'>
-        <div class='slot-data slots-column-1'>
-          <%= slot.agenda.place.name %>
-        </div>
+    <%= form_tag slots_batch_path, method: :put, id: 'index-slots-update-form' do %>
+      <% @slots.each do |slot| %>
+        <div class='slots-item-container'>
+          <div class='slot-data slots-column-1'>
+            <%= slot.agenda.place.name %>
+          </div>
 
-        <div class='slot-data slots-column-2'>
-          <%= slot.agenda.name %>
-        </div>
+          <div class='slot-data slots-column-2'>
+            <%= slot.agenda.name %>
+          </div>
 
-        <div class='slot-data slots-column-3'>
-          <%= slot.appointment_type.name %>
-        </div>
+          <div class='slot-data slots-column-3'>
+            <%= slot.appointment_type.name %>
+          </div>
 
-        <div class='slot-data slots-column-4'>
-          <%= slot.date.to_s(:base_date_format) %>
-        </div>
+          <div class='slot-data slots-column-4'>
+            <%= slot.date.to_s(:base_date_format) %>
+          </div>
 
-        <div class='slot-data slots-column-5'>
-          <%= slot.starting_time.to_s(:time) %>
-        </div>
+          <div class='slot-data slots-column-5'>
+            <%= slot.starting_time.to_s(:time) %>
+          </div>
 
-        <div class='slots-column-6'>
-          <%= slot.used_capacity %> / <%= slot.capacity %>
-        </div>
+          <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+            <div class='slots-column-6'>
+              <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
+            </div>
+          <% end %>
 
-        <div class='index-controls-container'>
-          <%= link_to t('close'), slot_path(slot, slot: { available: false }),
-                                  method: :put,
-                                  data: { confirm: t('basic_confirmation') },
-                                  class: 'index-control' %>
+          <div class='index-controls-container'>
+            <%= link_to t('close'), slot_path(slot, slot: { available: false }),
+                                    method: :put,
+                                    data: { confirm: t('basic_confirmation') },
+                                    class: 'index-control' %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
 
     <%= paginate @slots %>

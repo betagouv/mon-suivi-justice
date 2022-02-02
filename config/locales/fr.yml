@@ -169,6 +169,7 @@ fr:
   search: "Recherche"
   filter: "Filtrer"
   see: "Voir"
+  select: "Sélectionner"
   add: "Ajouter"
   see_infos: "Voir les infos"
   see_details: "Voir infos du rdv"
@@ -365,6 +366,7 @@ fr:
   index_slot_types_update: "Enregistrer"
   index_slot_types_delete: "Supprimer"
   index_slot_types_create: "Ajouter"
+  index_slots_batch_close: "Fermer la sélection"
 
   slot_types_batch_opening: "Premier créneau"
   slot_types_batch_closing: "Dernier créneau"

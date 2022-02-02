@@ -9,8 +9,8 @@ RSpec.feature 'Slots', type: :feature do
   describe 'index' do
     before do
       apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
-      @slot1 = create(:slot, appointment_type: apt_type, date: (Date.today + 2).to_s)
-      create(:slot, appointment_type: apt_type, date: (Date.today + 4).to_s)
+      @slot1 = create(:slot, appointment_type: apt_type, date: Date.today + 2)
+      create(:slot, appointment_type: apt_type, date: Date.today + 4)
 
       visit slots_path
     end
@@ -27,7 +27,7 @@ RSpec.feature 'Slots', type: :feature do
 
       @slot1.reload
       expect(@slot1.available).to eq(false)
-      expect(page).not_to have_content((Date.today + 2).to_s)
+      expect(page).not_to have_content(Date.today + 2)
     end
   end
 
@@ -54,6 +54,7 @@ RSpec.feature 'Slots', type: :feature do
         select '15', from: 'slot_starting_time_4i'
         select '00', from: 'slot_starting_time_5i'
       end
+
       fill_in 'Durée', with: '40'
       fill_in 'Capacité', with: '10'
 
@@ -69,6 +70,32 @@ RSpec.feature 'Slots', type: :feature do
       expect(created_slot.starting_time.min).to eq(0)
       expect(created_slot.duration).to eq(40)
       expect(created_slot.capacity).to eq(10)
+    end
+  end
+
+  describe 'batch close' do
+    it 'allows to select slots to close' do
+      apt_type = AppointmentType.create(name: "Sortie d'audience SPIP")
+
+      slot1 = create(:slot, appointment_type: apt_type, starting_time: new_time_for(9, 0))
+      slot2 = create(:slot, appointment_type: apt_type, starting_time: new_time_for(9, 0))
+      slot3 = create(:slot, appointment_type: apt_type, starting_time: new_time_for(9, 0))
+      slot4 = create(:slot, appointment_type: apt_type, starting_time: new_time_for(10, 0))
+      slot5 = create(:slot, appointment_type: apt_type, starting_time: new_time_for(10, 0))
+
+      visit slots_path
+
+      check "slot_#{slot1.id}"
+      check "slot_#{slot2.id}"
+      check "slot_#{slot3.id}"
+
+      expect { click_button 'Fermer la sélection' }.not_to(change { Slot.count })
+
+      expect(slot1.reload.available).to eq(false)
+      expect(slot2.reload.available).to eq(false)
+      expect(slot3.reload.available).to eq(false)
+      expect(slot4.reload.available).to eq(true)
+      expect(slot5.reload.available).to eq(true)
     end
   end
 end
