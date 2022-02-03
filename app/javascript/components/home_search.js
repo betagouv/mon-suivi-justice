@@ -2,11 +2,9 @@ import $ from 'jquery';
 import 'select2';
 import 'select2/dist/css/select2.css';
 
-$(document).on('turbolinks:before-cache', function () {
-  $('#home-search-field').select2('destroy');
-});
-
 document.addEventListener('turbolinks:load',function(e) {
+  $('.select2-container').remove();
+
   $('#home-search-field').select2({
     selectionCssClass : 'home-select2-input',
     placeholder: "Commencer à saisir le nom et choisir dans la liste",
