@@ -1,7 +1,7 @@
 <h1 class='show-title'><%= t('show_convict_title') %></h1>
 
 <% if @convict.passed_appointments.present? %>
-  <% @convict.passed_appointments.each do |apt| %>
+  <% policy_scope(@convict.passed_appointments).each do |apt| %>
     <% if apt.booked? %>
       <div class='appointment-fulfilment-container'>
         <div class='appointment-fulfilment-prompt-container'>
