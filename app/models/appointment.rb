@@ -34,7 +34,7 @@ class Appointment < ApplicationRecord
 
   scope :active, -> { where.not(state: 'canceled') }
 
-  validate :in_the_future
+  validate :in_the_future, on: :create
 
   def in_the_future
     if slot.date.nil?
