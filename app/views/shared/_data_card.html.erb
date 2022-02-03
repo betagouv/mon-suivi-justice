@@ -64,6 +64,10 @@
           </div>
 
           <div class='stat-card-container'>
+            <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.excused_percentage', data: data[:excused_percentage]) %></b></p>
+          </div>
+
+          <div class='stat-card-container'>
             <p class='stat-card-title'><%= t('stats.no_show') %></p>
             <p class='stat-card-value'><%= data[:no_show] %></p>
           </div>

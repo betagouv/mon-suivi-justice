@@ -36,7 +36,8 @@ RSpec.describe DataCollector do
         fulfiled_percentage: 25,
         no_show: 1,
         no_show_percentage: 25,
-        excused: 1
+        excused: 1,
+        excused_percentage: 25
       }
 
       result = DataCollector.new.perform

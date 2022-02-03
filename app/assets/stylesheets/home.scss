@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .home-container {
@@ -59,6 +60,22 @@
 .home-custom-links {
   display: flex;
   width: 80%;
+}
+
+.home-stats-wrapper {
+  @include box;
+  padding: 20px;
+  min-width: 600px;
+}
+
+.home-stats-title {
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.home-stats-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .home-select2-input {

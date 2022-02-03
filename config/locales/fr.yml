@@ -193,15 +193,23 @@ fr:
   support_modal_evolution: "Pour demander une évolution, n'hésitez pas à entrer dans les détails. Dites-nous quel est votre poste et quelle partie du processus vous souhaitez changer."
   support_modal_thanks: "Merci de nous aider à améliorer Mon Suivi Justice."
 
-  home_find_convict: "Trouver une PPSMJ :"
-  home_new_appointment: "Prendre RDV"
-  home_new_convict: "Nouvelle PPSMJ"
-  home_bex_jap: "Sortie d'audience JAP"
-  home_bex_spip: "Sortie d'audience SPIP"
-  home_today_appointments: "RDV du jour"
+  home:
+    find_convict: "Trouver une PPSMJ :"
+    new_appointment: "Prendre RDV"
+    new_convict: "Nouvelle PPSMJ"
+    bex_jap: "Sortie d'audience JAP"
+    bex_spip: "Sortie d'audience SPIP"
+    today_appointments: "RDV du jour"
+    stats_title: Stats
+    stats_users: Agents utilisateurs
+    stats_convicts: PPSMJ enregistrées
+    stats_reminded: "RDV rappelés"
+    stats_fulfiled: "de présence"
+    stats_excused: "d'absence justifiée"
+    stats_no_show: "d'absence non justifiée"
+    stats_passed_booked: "de rdv non renseignés"
 
   stats:
-    home_title: "Stats"
     steering_title: "Global"
     of_which: "dont"
     that_is: "soit"
@@ -213,6 +221,7 @@ fr:
     no_show: "rdv manqués"
     no_show_percentage: "%{data}% d'absence aux rdv rappelés"
     excused: "rdv excusés"
+    excused_percentage: "%{data}% d'absence justifiée aux rdv rappelés"
     canceled: "rdv annulés"
     passed_booked: "rdv passés non-renseignés"
     passed_booked_percentage: "%{data}% de rdv non renseignés"
