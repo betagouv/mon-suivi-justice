@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   end
   resources :appointment_types
   resources :slots
+  resource :slots_batch, only: :update
+
   resources :slot_types, only: [:create, :destroy, :update]
 
   resources :agendas, only: [:create, :destroy, :update] do
