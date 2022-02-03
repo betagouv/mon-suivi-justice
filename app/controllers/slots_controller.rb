@@ -7,7 +7,7 @@ class SlotsController < ApplicationController
                .order(:date, :starting_time)
                .includes(agenda: [:place])
                .joins(agenda: [:place])
-               .page params[:page]
+               .page(params[:page]).per(25)
 
     authorize @slots
   end
