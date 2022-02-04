@@ -80,17 +80,6 @@ class DataCollector
                     .where('slots.date >= ?', Date.today)
   end
 
-  def passed_booked
-    all_appointments.where(state: 'booked').joins(:slot)
-                    .where('slots.date < ?', Date.today)
-  end
-
-  def passed_booked_percentage
-    return 0 if passed_no_canceled.size.zero?
-
-    passed_booked.size * 100 / passed_no_canceled.size
-  end
-
   def passed_no_canceled
     all_appointments.where.not(state: 'canceled').joins(:slot)
                     .where('slots.date < ?', Date.today)
@@ -98,6 +87,16 @@ class DataCollector
 
   def passed_no_canceled_with_phone
     passed_no_canceled.joins(:convict).where.not(convicts: { phone: '' })
+  end
+
+  def passed_booked
+    passed_no_canceled_with_phone.where(state: 'booked')
+  end
+
+  def passed_booked_percentage
+    return 0 if passed_no_canceled_with_phone.size.zero?
+
+    passed_booked.size * 100 / passed_no_canceled_with_phone.size
   end
 
   def fulfiled
