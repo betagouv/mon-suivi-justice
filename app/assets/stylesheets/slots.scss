@@ -5,6 +5,7 @@
   height: 40px;
   border-bottom: 1px solid $table-border;
   padding-left: 30px;
+  padding-right: 20px;
 
   position: fixed;
   width: calc(100vw - #{$sidebar-width});
@@ -99,6 +100,7 @@
   align-items: center;
   border-bottom: 1px solid $table-border;
   padding-left: 30px;
+  padding-right: 20px;
   min-height: 40px;
 }
 
@@ -107,6 +109,10 @@
   width: 190px;
   margin-right: 10px;
   min-height: 40px;
+}
+
+.slots-index-control {
+  color: $link;
 }
 
 .slots-column {
@@ -118,11 +124,11 @@
 }
 
 .slots-column-2 {
-  width: 15%;
+  width: 20%;
 }
 
 .slots-column-3 {
-  width: 15%;
+  width: 20%;
 }
 
 .slots-column-4 {
