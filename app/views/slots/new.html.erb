@@ -1,8 +1,10 @@
-<section class='agendas-modal-trigger-container'>
-  <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
-                                                   class: 'jap-agendas-modal-trigger',
-                                                   data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
-</section>
+<% unless current_user.organization.jap_modal_content.empty? %>
+  <section class='agendas-modal-trigger-container'>
+    <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
+                                                     class: 'jap-agendas-modal-trigger',
+                                                     data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
+  </section>
+<% end %>
 
 <h1 class='form-title'><%= t('new_slot_title') %></h1>
 
