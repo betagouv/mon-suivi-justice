@@ -4,7 +4,7 @@
 # the \ are for zsh, source : https://www.seancdavis.com/posts/4-ways-to-pass-arguments-to-a-rake-task
 
 desc 'merge duplicated convicts'
-task :merge_convicts, [:id1, :id2] => [:environment] do |task, args|
+task :merge_convicts, %i[id1 id2] => [:environment] do |_task, args|
   kept_convict = Convict.find(args[:id1])
   duplicated_convict = Convict.find(args[:id2])
 
