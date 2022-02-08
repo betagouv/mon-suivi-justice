@@ -1,10 +1,12 @@
-<section class='new-appointment-links-container'>
+<% unless current_user.organization.jap_modal_content.empty? %>
   <% if current_user.admin? || current_user.local_admin? || current_user.work_at_bex? || current_user.work_at_sap? %>
-    <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
-                                                     class: 'jap-agendas-modal-trigger',
-                                                     data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
+    <section class='agendas-modal-trigger-container'>
+        <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
+                                                         class: 'jap-agendas-modal-trigger',
+                                                         data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
+    </section>
   <% end %>
-</section>
+<% end %>
 
 <h1 class='form-title'><%= t('new_appointment_title') %></h1>
 <% if params.key?(:convict_id) %>
@@ -68,5 +70,5 @@
   </div>
 </div>
 
-<%= render 'jap_agendas_data_modal' %>
+<%= render 'shared/jap_agendas_modal' %>
 <%= javascript_pack_tag 'appointment' %>

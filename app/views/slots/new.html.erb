@@ -1,3 +1,11 @@
+<% unless current_user.organization.jap_modal_content.empty? %>
+  <section class='agendas-modal-trigger-container'>
+    <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
+                                                     class: 'jap-agendas-modal-trigger',
+                                                     data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
+  </section>
+<% end %>
+
 <h1 class='form-title'><%= t('new_slot_title') %></h1>
 
 <%= simple_form_for @slot, html: { class: 'basic-form' } do |f| %>
@@ -18,3 +26,5 @@
   <%= f.input :capacity %>
   <%= f.button :submit, t('new_slot_submit'), class: 'form-submit-button' %>
 <% end %>
+
+<%= render 'shared/jap_agendas_modal' %>

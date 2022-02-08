@@ -48,19 +48,19 @@
 <div class='slots-container'>
   <div class='slots-index-table-container'>
     <div class='slots-header'>
-      <div class='slots-header-title slots-column-1'>
+      <div class='slots-column-1'>
         <%= t('activerecord.attributes.slot.place') %>
       </div>
-      <div class='slots-header-title slots-column-2'>
+      <div class='slots-column-2'>
         <%= t('activerecord.models.agenda') %>
       </div>
-      <div class='slots-header-title slots-column-3'>
+      <div class='slots-column-3'>
         <%= t('activerecord.attributes.slot.appointment_type') %>
       </div>
-      <div class='slots-header-title slots-column-4'>
+      <div class='slots-column-4'>
         <%= t('activerecord.attributes.slot.date') %>
       </div>
-      <div class='slots-header-title slots-column-5'>
+      <div class='slots-column-5'>
         <%= t('activerecord.attributes.slot.starting_time') %>
       </div>
       <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
@@ -105,7 +105,7 @@
               <%= link_to t('close'), slot_path(slot, slot: { available: false }),
                                       method: :put,
                                       data: { confirm: t('basic_confirmation') },
-                                      class: 'index-control' %>
+                                      class: 'slots-index-control' %>
             </div>
           </div>
         <% end %>
