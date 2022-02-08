@@ -10,7 +10,7 @@ import "channels"
 
 require("jquery");
 require("@nathanvda/cocoon");
-require("components/home_search");
+require("components/profile_search");
 
 Rails.start()
 Turbolinks.start()
