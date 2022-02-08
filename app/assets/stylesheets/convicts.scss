@@ -1,8 +1,8 @@
-.new_convict_duplicate_warning {
+.new-convict-duplicate-warning {
   margin-top: 10px;
-  border: 1px solid red;
-  font-weight: 300;
-  color: red;
+  border: 2px solid $important;
+  color: $important;
+  border-radius: 2px;
   padding: 10px;
   text-align: justify;
 }
