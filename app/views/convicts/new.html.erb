@@ -14,7 +14,7 @@
                               label_html: { class: 'form-checkbox-label' },
                               wrapper_html: { class: 'form-checkbox-wrapper' } %>
   <% if @duplicate_presence %>
-    <p class='new_convict_duplicate_warning'><%= t('new_convict_duplicate_warning')%></p>
+    <p class='new-convict-duplicate-warning'><%= t('new_convict_duplicate_warning')%></p>
     <div class='new-convict-submits-container'>
       <%= f.hidden_field :force_duplication, value: true  %>
       <%= f.button :button, id: 'submit-no-appointment', class: 'form-submit-button', name: 'no-appointment' do %>
