@@ -56,7 +56,7 @@ RSpec.feature 'SlotTypes', type: :feature do
       slot_type = create(:slot_type, week_day: 'monday', starting_time: '14:00',
                                      duration: 30, capacity: 1, appointment_type: @appointment_type,
                                      agenda: @agenda)
-      create(:slot_type, week_day: 'monday', starting_time: '15:00'.hours, duration: 30,
+      create(:slot_type, week_day: 'monday', starting_time: '15:00', duration: 30,
                          capacity: 1, appointment_type: @appointment_type, agenda: @agenda)
 
       visit agenda_slot_types_path(@agenda)
