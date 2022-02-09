@@ -96,7 +96,7 @@ class DataCollector
   def passed_booked_percentage
     return 0 if passed_no_canceled_with_phone.size.zero?
 
-    passed_booked.size * 100 / passed_no_canceled_with_phone.size
+    (passed_booked.size * 100.fdiv(passed_no_canceled_with_phone.size)).round
   end
 
   def fulfiled
@@ -106,7 +106,7 @@ class DataCollector
   def fulfiled_percentage
     return 0 if passed_no_canceled_with_phone.size.zero?
 
-    fulfiled.size * 100 / passed_no_canceled_with_phone.size
+    (fulfiled.size * 100.fdiv(passed_no_canceled_with_phone.size)).round
   end
 
   def no_show
@@ -116,7 +116,7 @@ class DataCollector
   def no_show_percentage
     return 0 if passed_no_canceled_with_phone.size.zero?
 
-    no_show.size * 100 / passed_no_canceled_with_phone.size
+    (no_show.size * 100.fdiv(passed_no_canceled_with_phone.size)).round
   end
 
   def excused
@@ -126,6 +126,6 @@ class DataCollector
   def excused_percentage
     return 0 if passed_no_canceled_with_phone.size.zero?
 
-    excused.size * 100 / passed_no_canceled_with_phone.size
+    (excused.size * 100.fdiv(passed_no_canceled_with_phone.size)).round
   end
 end
