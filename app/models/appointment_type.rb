@@ -46,7 +46,7 @@ class AppointmentType < ApplicationRecord
 
   def used_at_spip?
     ["Sortie d'audience SPIP", '1er RDV SPIP', 'RDV de suivi SPIP', 'Convocation 741-1',
-     'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'RDV pose DDSE', 'Convocation stage']
+     'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'RDV DDSE', 'Convocation stage']
   end
 
   def with_slot_types?
