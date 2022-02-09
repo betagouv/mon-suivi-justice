@@ -141,7 +141,8 @@ fr:
               blank: "Date manquante"
               past: "Le rendez-vous ne peut pas être dans le passé"
         slot_type:
-          multiple_uniqueness: "Erreur: un créneau récurrent existe déjà à ce moment"
+          multiple_uniqueness: "Un créneau récurrent similaire existe déjà."
+          batch_multiple_uniqueness: "Un ou plusieurs créneaux récurrents similaires existent déjà. Les doublons n'ont pas été crées."
 
 
   login_sub_title: "Espace agents"

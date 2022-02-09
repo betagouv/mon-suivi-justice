@@ -141,12 +141,12 @@
             <%= f.hidden_field :week_day, value: weekday %>
             <div class='slot-type-time-input'>
               <%= f.input :starting_time, wrapper: :custom_time,
+                                          include_blank: true,
                                           input_html: { class: 'form-select' },
                                           label_html: { class: 'slot-type-time-input-label' },
                                           start_hour: 7,
                                           end_hour: 20,
-                                          minute_step: 5,
-                                          default: Time.zone.now.beginning_of_day + 7.hours %>
+                                          minute_step: 5 %>
             </div>
             <div class='slot-type-duration-input'><%= f.input :duration, input_html: { value: nil } %></div>
             <div class='slot-type-capacity-input'><%= f.input :capacity, input_html: { value: nil } %></div>
