@@ -3,6 +3,8 @@ class UsersController < ApplicationController
 
   def index
     @users = policy_scope(User).order('last_name asc').page params[:page]
+    @all_users = policy_scope(User)
+
     authorize @users
   end
 

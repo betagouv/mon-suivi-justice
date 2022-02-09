@@ -1,5 +1,19 @@
 <div class='users-container'>
-  <%= button_to t('new_user_title'), new_user_invitation_path, class: 'link-to-new-user-button', form_class: 'link-to-new-user-form', method: :get %>
+  <div class='index-tools-container'>
+    <div class='index-tools-filter-container'>
+      <div>
+        <%= select_tag '', options_from_collection_for_select(@all_users, :profile_path, 'name'),
+                           id: 'profile-search-field',
+                           style: "width: 200%",
+                           include_blank: true %>
+      </div>
+    </div>
+    <div class='index-tools-controls-container'>
+      <% if policy(:user).new? %>
+        <%= button_to t('new_user_title'), new_user_invitation_path, class: 'link-to-new-user-button', form_class: 'link-to-new-user-form', method: :get %>
+      <% end %>
+    </div>
+  </div>
 
   <div class='index-table-container'>
     <div class='users-header'>

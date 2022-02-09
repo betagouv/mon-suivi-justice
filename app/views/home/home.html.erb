@@ -4,7 +4,7 @@
       <p class='home-convict-search-title'><%= t('home.find_convict') %></p>
       <div class='home-search-field-container'>
         <%= select_tag '', options_from_collection_for_select(@convicts, :profile_path, 'name'),
-                           id: 'home-search-field',
+                           id: 'profile-search-field',
                            style: "width: 100%",
                            include_blank: true %>
       </div>
