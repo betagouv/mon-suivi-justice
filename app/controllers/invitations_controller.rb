@@ -8,6 +8,6 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def after_accept_path_for(_)
-    convicts_path
+    home_path
   end
 end
