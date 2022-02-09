@@ -6,6 +6,7 @@ class Place < ApplicationRecord
   validates :phone, presence: true, if: :phone_main_contact_method?
   validates :contact_email, presence: true, if: :email_main_contact_method?
   validates :contact_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
+  validates :preparation_link, presence: true
 
   has_many :agendas, dependent: :destroy
   has_many :place_appointment_types, dependent: :destroy
