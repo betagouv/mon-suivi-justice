@@ -13,8 +13,9 @@ class SlotTypesController < ApplicationController
   def update
     slot_type = SlotType.find params[:id]
     authorize slot_type
-
-    slot_type.update slot_type_params
+    unless slot_type.update slot_type_params
+      flash[:alert] = slot_type.errors.map(&:message).join(" - ")
+    end
     redirect_to agenda_slot_types_path slot_type.agenda, appointment_type_id: slot_type.appointment_type_id
   end
 
@@ -29,8 +30,7 @@ class SlotTypesController < ApplicationController
   def create
     slot_type = SlotType.new slot_type_params
     authorize slot_type
-
-    slot_type.save
+    flash[:alert] = slot_type.errors.map(&:message).join(" - ") unless slot_type.save
     redirect_to agenda_slot_types_path slot_type.agenda, appointment_type_id: slot_type.appointment_type_id
   end
 
