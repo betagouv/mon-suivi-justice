@@ -6,7 +6,6 @@ class UsersController < ApplicationController
     @all_users = policy_scope(User)
 
     authorize @users
-    authorize @all_users
   end
 
   def show
