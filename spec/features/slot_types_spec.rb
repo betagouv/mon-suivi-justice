@@ -67,7 +67,7 @@ RSpec.feature 'SlotTypes', type: :feature do
         click_button 'Enregistrer'
       end
 
-      expect(page).to have_content('Erreur: un créneau récurrent existe déjà à ce moment')
+      expect(page).to have_content('Un créneau récurrent similaire existe déjà')
       expect(slot_type.starting_time).to eq('Sat, 01 Jan 2000 14:00:00.000000000 CET +01:00'.to_time)
     end
   end
@@ -95,7 +95,6 @@ RSpec.feature 'SlotTypes', type: :feature do
                          agenda: @agenda, appointment_type: @appointment_type)
 
       visit agenda_slot_types_path(@agenda)
-
       within first('#new_slot_type') do
         fill_in :slot_type_duration, with: 23
         fill_in :slot_type_capacity, with: 6
@@ -104,7 +103,7 @@ RSpec.feature 'SlotTypes', type: :feature do
         click_button 'Ajouter'
       end
 
-      expect(page).to have_content('Erreur: un créneau récurrent existe déjà à ce moment')
+      expect(page).to have_content('Un créneau récurrent similaire existe déjà')
       expect(SlotType.count).to eq(1)
     end
   end
