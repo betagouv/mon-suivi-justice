@@ -51,6 +51,25 @@ RSpec.feature 'SlotTypes', type: :feature do
         )
       ).not_to be_nil
     end
+
+    it 'does not edit a slot_type with attributes that already exists' do
+      slot_type = create(:slot_type, week_day: 'monday', starting_time: '14:00',
+                                     duration: 30, capacity: 1, appointment_type: @appointment_type,
+                                     agenda: @agenda)
+      create(:slot_type, week_day: 'monday', starting_time: '15:00', duration: 30,
+                         capacity: 1, appointment_type: @appointment_type, agenda: @agenda)
+
+      visit agenda_slot_types_path(@agenda)
+
+      within first("#edit_slot_type_#{slot_type.id}") do
+        select '15', from: 'slot_type_starting_time_4i'
+        select '00', from: 'slot_type_starting_time_5i'
+        click_button 'Enregistrer'
+      end
+
+      expect(page).to have_content('Un créneau récurrent similaire existe déjà')
+      expect(slot_type.starting_time).to eq('Sat, 01 Jan 2000 14:00:00.000000000 CET +01:00'.to_time)
+    end
   end
 
   describe 'creation' do
@@ -69,6 +88,23 @@ RSpec.feature 'SlotTypes', type: :feature do
           week_day: 'monday', duration: 23, capacity: 6
         )
       ).not_to be_nil
+    end
+
+    it 'does not create a slot_type that already exists' do
+      create(:slot_type, starting_time: '14:00', duration: 30, capacity: 10,
+                         agenda: @agenda, appointment_type: @appointment_type)
+
+      visit agenda_slot_types_path(@agenda)
+      within first('#new_slot_type') do
+        fill_in :slot_type_duration, with: 23
+        fill_in :slot_type_capacity, with: 6
+        select '14', from: 'slot_type_starting_time_4i'
+        select '00', from: 'slot_type_starting_time_5i'
+        click_button 'Ajouter'
+      end
+
+      expect(page).to have_content('Un créneau récurrent similaire existe déjà')
+      expect(SlotType.count).to eq(1)
     end
   end
 
