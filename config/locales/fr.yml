@@ -76,6 +76,7 @@ fr:
         phone: "Téléphone"
         contact_email: "Email de contact"
         main_contact_method: "Méthode de contact préférentielle"
+        preparation_link: "Lien d'information sur le lieu"
         main_contact_methods:
           phone: "Téléphone"
           email: "Email"

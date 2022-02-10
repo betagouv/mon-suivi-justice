@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_143302) do
+ActiveRecord::Schema.define(version: 2022_02_09_164708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 2022_02_09_143302) do
     t.bigint "organization_id"
     t.string "contact_email"
     t.integer "main_contact_method", default: 0, null: false
+    t.string "preparation_link", default: "https://mon-suivi-justice.beta.gouv.fr/", null: false
     t.index ["organization_id"], name: "index_places_on_organization_id"
   end
 

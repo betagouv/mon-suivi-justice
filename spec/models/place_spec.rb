@@ -5,6 +5,7 @@ RSpec.describe Place, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:adress) }
   it { should validate_presence_of(:main_contact_method) }
+  it { should validate_presence_of(:preparation_link) }
 
   it { should have_many(:agendas) }
   it { should have_many(:appointment_types).through(:place_appointment_types) }

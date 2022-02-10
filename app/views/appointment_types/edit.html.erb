@@ -83,6 +83,13 @@
           <div class='appointment-type-tutorial-key-content'>Moyen de contact du lieu (téléphone ou email selon ses préférences)</div>
           <div class='appointment-type-tutorial-key-sample'>Ex : 0102030405 ou test@test.com</div>
         </div>
+        <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
+          <div class='appointment-type-tutorial-key-table-line'>
+            <div class='appointment-type-tutorial-key-name'>{lieu.lien_info}</div>
+            <div class='appointment-type-tutorial-key-content'>Lien d'information sur le lien du RDV</div>
+            <div class='appointment-type-tutorial-key-sample'>Ex : https://mon-suivi-justice.beta.gouv.fr/preparer_spip92</div>
+          </div>
+        <% end %>
         <div class='appointment-type-tutorial-key-table-line'>
           <div class='appointment-type-tutorial-key-name'>{rdv.date}</div>
           <div class='appointment-type-tutorial-key-content'>Date du RDV</div>
