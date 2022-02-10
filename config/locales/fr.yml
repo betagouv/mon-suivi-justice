@@ -278,6 +278,8 @@ fr:
   show_history_archive_convict: "Le profil de %{name} a été archivé. Pour le désarchiver, contactez votre administrateur local."
   show_history_unarchive_convict_title: "Désarchivage"
   show_history_unarchive_convict: "Le profil de %{name} a été désarchivé."
+  show_history_update_phone_convict_title: "Nouveau numéro"
+  show_history_update_phone_convict: "Le numéro de téléphone de %{name} a été modifié par %{user_name} (%{user_role}). Ancien numéro : 06 06 06 06 06 / Nouveau numéro : 07 07 07 07 07"
 
   show_history_book_appointment_title: "Nouveau RDV"
   show_history_book_appointment: "%{name} a été convoqué(e) au %{place} le %{date} à %{time}."

@@ -40,7 +40,10 @@ class ConvictsController < ApplicationController
     @convict = policy_scope(Convict).find(params[:id])
     authorize @convict
 
+    old_phone = @convict.phone
+
     if @convict.update(convict_params)
+      record_phone_change(old_phone)
       redirect_to convict_path(@convict)
     else
       render :edit
@@ -112,5 +115,14 @@ class ConvictsController < ApplicationController
     else
       convicts_path
     end
+  end
+
+  def record_phone_change(old_phone)
+    return unless @convict.phone != old_phone
+
+    HistoryItemFactory.perform(
+      category: 'convict', convict: @convict, event: 'update_phone_convict',
+      data: { old_phone: old_phone, user_name: current_user.name, user_role: current_user.role }
+    )
   end
 end
