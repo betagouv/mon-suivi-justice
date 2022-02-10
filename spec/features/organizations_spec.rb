@@ -41,10 +41,10 @@ RSpec.feature 'Organizations', type: :feature do
     end
     within '#department-form' do
       select 'Ariège', from: :areas_organizations_mapping_area_id
-      expect { click_button 'Ajouter' }.to change(AreasOrganizationsMapping, :count).from(0).to(1)
+      expect { click_button 'Ajouter' }.to change(AreasOrganizationsMapping, :count).from(1).to(2)
     end
     expect(page).to have_content('(09) Ariège')
-    expect { click_link 'Supprimer' }.to change(AreasOrganizationsMapping, :count).from(1).to(0)
+    expect { click_link 'Supprimer' }.to change(AreasOrganizationsMapping, :count).from(2).to(1)
     expect(page).not_to have_content('(09) Ariège')
   end
 
@@ -58,9 +58,9 @@ RSpec.feature 'Organizations', type: :feature do
     end
     within '#jurisdiction-form' do
       select 'Juridiction de Nanterre', from: :areas_organizations_mapping_area_id
-      expect { click_button 'Ajouter' }.to change(AreasOrganizationsMapping, :count).from(0).to(1)
+      expect { click_button 'Ajouter' }.to change(AreasOrganizationsMapping, :count).from(1).to(2)
     end
     expect(page).to have_content('Juridiction de Nanterre')
-    expect { click_link 'Supprimer' }.to change(AreasOrganizationsMapping, :count).from(1).to(0)
+    expect { click_link 'Supprimer' }.to change(AreasOrganizationsMapping, :count).from(2).to(1)
   end
 end
