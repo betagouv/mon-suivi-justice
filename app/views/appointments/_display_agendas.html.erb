@@ -2,7 +2,7 @@
   <label class="select required form-label" for="appointment-form-agenda-select">
     <abbr title="required">*</abbr> <%= t('activerecord.models.agenda') %>
   </label>
-  <select id="appointment-form-agenda-select" class="select required form-text-input form-select" required="required" aria-required="true" name="appointment[agenda_id]">
+  <select id="appointment-form-agenda-select" class="select required form-text-input form-select" required="required" aria-required="true" name="appointment[slot_attributes][agenda_id]">
     <option value="" label=" "></option>
     <% @agendas.each do |agenda| %>
       <option value=<%= agenda.id %>><%= agenda.name %></option>
