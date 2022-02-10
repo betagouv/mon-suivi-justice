@@ -8,7 +8,7 @@ class Slot < ApplicationRecord
 
   validates :date, :starting_time, :duration, :capacity, presence: true
   validates_inclusion_of :available, in: [true, false]
-  validate :is_workday
+  validate :workday?
 
   scope :relevant_and_available, lambda { |agenda, appointment_type|
     where(
@@ -51,9 +51,9 @@ class Slot < ApplicationRecord
 
   private
 
-  def is_workday
-    if date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
-      errors.add(:date, I18n.t('activerecord.errors.models.slot.attributes.date.not_workday'))
-    end
+  def workday?
+    return unless date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
+
+    errors.add(:date, I18n.t('activerecord.errors.models.slot.attributes.date.not_workday'))
   end
 end

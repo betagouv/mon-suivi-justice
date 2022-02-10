@@ -8,8 +8,8 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'index' do
     before do
-      slot1 = create(:slot, date: (Date.today + 4).to_s, starting_time: new_time_for(13, 0))
-      slot2 = create(:slot, date: (Date.today + 6).to_s, starting_time: new_time_for(15, 30))
+      slot1 = create(:slot, date: Date.today.next_occurring(:monday), starting_time: new_time_for(13, 0))
+      slot2 = create(:slot, date: Date.today.next_occurring(:wednesday), starting_time: new_time_for(15, 30))
 
       create(:appointment, slot: slot1)
       create(:appointment, slot: slot2)
@@ -18,25 +18,26 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'lists all appointments' do
-      expect(page).to have_content((Date.today + 4).to_s)
+      expect(page).to have_content(Date.today.next_occurring(:monday))
       expect(page).to have_content('13:00')
-      expect(page).to have_content((Date.today + 6).to_s)
+      expect(page).to have_content(Date.today.next_occurring(:wednesday))
       expect(page).to have_content('15:30')
     end
 
     it 'allows to filter appointments' do
-      expect(page).to have_content((Date.today + 4).to_s)
+      expect(page).to have_content(Date.today.next_occurring(:monday))
 
-      fill_in 'search-field', with: (Date.today + 6).to_s
+      fill_in 'search-field', with: Date.today.next_occurring(:wednesday)
       click_button 'Filtrer'
 
-      expect(page).not_to have_content((Date.today + 4).to_s)
+      expect(page).not_to have_content(Date.today.next_occurring(:monday))
     end
 
     it "doesn't show canceled appointments" do
       convict = create(:convict, last_name: 'Gomez')
       apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
-      slot = create(:slot, date: Date.today, appointment_type: apt_type, starting_time: new_time_for(14, 0))
+      slot = create(:slot, date: Date.today.next_occurring(:monday), appointment_type: apt_type,
+                           starting_time: new_time_for(14, 0))
       appointment = create(:appointment, :with_notifications, convict: convict, slot: slot)
 
       appointment.book
@@ -52,172 +53,207 @@ RSpec.feature 'Appointments', type: :feature do
   end
 
   describe 'creation', js: true do
-    it 'create an appointment with a convocation sms' do
-      create(:convict, first_name: 'JP', last_name: 'Cherty')
-      appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
-      place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
-      agenda = create :agenda, place: place, name: 'Agenda de Josiane'
-      create :agenda, place: place, name: 'Agenda de Michel'
+    context 'appointment_type with predifined slots' do
+      it 'create an appointment with a convocation sms' do
+        create(:convict, first_name: 'JP', last_name: 'Cherty')
+        appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
+        place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
+        agenda = create :agenda, place: place, name: 'Agenda de Josiane'
+        create :agenda, place: place, name: 'Agenda de Michel'
 
-      slot = create :slot, agenda: agenda,
-                           appointment_type: appointment_type,
-                           date: Date.today + 2,
-                           starting_time: '16h'
+        slot = create :slot, agenda: agenda,
+                             appointment_type: appointment_type,
+                             date: Date.today.next_occurring(:monday),
+                             starting_time: '16h'
 
-      visit new_appointment_path
+        visit new_appointment_path
 
-      first('.select2-container', minimum: 1).click
-      find('li.select2-results__option', text: 'CHERTY Jp').click
-      select "Sortie d'audience SAP", from: :appointment_appointment_type_id
-      select 'KFC de Chatelet', from: 'Lieu'
-      select 'Agenda de Josiane', from: 'Agenda'
-      choose '16:00'
+        first('.select2-container', minimum: 1).click
+        find('li.select2-results__option', text: 'CHERTY Jp').click
+        select "Sortie d'audience SAP", from: :appointment_appointment_type_id
+        select 'KFC de Chatelet', from: 'Lieu'
+        select 'Agenda de Josiane', from: 'Agenda'
+        choose '16:00'
 
-      expect(page).to have_button('Enregistrer')
-      click_button 'Enregistrer'
+        expect(page).to have_button('Enregistrer')
+        click_button 'Enregistrer'
 
-      expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
+        expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
 
-      expect(SmsDeliveryJob).to have_been_enqueued.once.with(
-        Notification.find_by(role: :summon, appointment: Appointment.find_by(slot: slot))
-      )
+        expect(SmsDeliveryJob).to have_been_enqueued.once.with(
+          Notification.find_by(role: :summon, appointment: Appointment.find_by(slot: slot))
+        )
 
-      expect(SmsDeliveryJob).to have_been_enqueued.once.with(
-        Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
-      )
-    end
-
-    it 'create an appointment without a convocation sms' do
-      create(:convict, first_name: 'JP', last_name: 'Cherty')
-      appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
-      place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
-      agenda = create :agenda, place: place, name: 'Agenda de Josiane'
-      create :agenda, place: place, name: 'Agenda de Michel'
-
-      slot = create :slot, agenda: agenda,
-                           appointment_type: appointment_type,
-                           date: (Date.today + 2).to_s,
-                           starting_time: '16h'
-
-      visit new_appointment_path
-      first('.select2-container', minimum: 1).click
-      find('li.select2-results__option', text: 'CHERTY Jp').click
-      select "Sortie d'audience SAP", from: :appointment_appointment_type_id
-      select 'KFC de Chatelet', from: 'Lieu'
-      select 'Agenda de Josiane', from: 'Agenda'
-      choose '16:00'
-
-      expect(page).to have_button('Enregistrer')
-
-      click_button 'Enregistrer'
-
-      expect { click_button 'Non' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
-      expect(SmsDeliveryJob).to have_been_enqueued.once.with(
-        Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
-      )
-    end
-
-    it 'allows an agent to create appointment only for his service places & slots' do
-      department = create :department, number: '09', name: 'Ariège'
-      logout_current_user
-      organization = create :organization
-      create :areas_organizations_mapping, organization: organization, area: department
-      agent = create :user, role: :cpip, organization: organization
-      login_user agent
-
-      convict = create :convict, first_name: 'JP', last_name: 'Cherty'
-      create :areas_convicts_mapping, convict: convict, area: department
-      appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
-
-      place_in = create :place, organization: organization, name: 'place_in_name', appointment_types: [appointment_type]
-      agenda_in = create :agenda, place: place_in, name: 'agenda_in_name'
-      create :agenda, place: place_in, name: 'other_agenda_in_name'
-
-      create :place, name: 'place_out_name', appointment_types: [appointment_type]
-      agenda_out = create :agenda, name: 'agenda_out_name'
-
-      create :slot, agenda: agenda_in, appointment_type: appointment_type, date: Date.today + 2, starting_time: '14h'
-      create :slot, agenda: agenda_out, appointment_type: appointment_type, date: Date.today + 2, starting_time: '16h'
-
-      visit new_appointment_path
-      first('.select2-container', minimum: 1).click
-      find('li.select2-results__option', text: 'CHERTY Jp').click
-      select "Sortie d'audience SPIP", from: :appointment_appointment_type_id
-      expect(page).not_to have_select('Lieu', options: ['', 'place_in_name', 'place_out_name'])
-      expect(page).to have_select('Lieu', options: ['', 'place_in_name'])
-      select 'place_in_name', from: 'Lieu'
-      expect(page).not_to have_select('Agenda',
-                                      options: ['', 'agenda_in_name', 'agenda_out_name', 'other_agenda_in_name'])
-      expect(page).to have_select('Agenda', options: ['', 'agenda_in_name', 'other_agenda_in_name'])
-      select 'agenda_in_name', from: 'Agenda'
-      choose '14:00'
-      expect(page).to have_button('Enregistrer')
-      click_button 'Enregistrer'
-      expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
-                                           .and change { Notification.count }.by(5)
-    end
-
-    it 'shows only relevant places for an appointment type' do
-      create(:convict, first_name: 'Joe', last_name: 'Dalton')
-
-      apt_type1 = create(:appointment_type, name: 'RDV de test SAP')
-      apt_type2 = create(:appointment_type, name: 'RDV de test SPIP')
-
-      create(:place, name: 'McDo de Barbès', appointment_types: [apt_type1])
-      create(:place, name: 'Quick de Montreuil', appointment_types: [apt_type2])
-
-      visit new_appointment_path
-
-      first('.select2-container', minimum: 1).click
-      find('li.select2-results__option', text: 'DALTON Joe').click
-
-      select 'RDV de test SAP', from: :appointment_appointment_type_id
-
-      expect(page).not_to have_select('Lieu', options: ['', 'McDo de Barbès', 'Quick de Montreuil'])
-      expect(page).to have_select('Lieu', options: ['', 'McDo de Barbès'])
-    end
-
-    it 'creates an appointment without a pre-defined slot for some appointment types' do
-      create :convict, first_name: 'Momo', last_name: 'La Fouine'
-      appointment_type = create :appointment_type, :with_notification_types, name: 'RDV de suivi SAP'
-      place = create :place, name: 'McDo des Halles', appointment_types: [appointment_type]
-      create :agenda, place: place, name: 'Agenda de Jean-Louis'
-      create :agenda, place: place, name: 'Agenda de Mireille'
-
-      visit new_appointment_path
-
-      first('.select2-container', minimum: 1).click
-      find('li.select2-results__option', text: 'LA FOUINE Momo').click
-
-      select 'RDV de suivi SAP', from: :appointment_appointment_type_id
-      select 'McDo des Halles', from: 'Lieu'
-      select 'Agenda de Jean-Louis', from: 'Agenda'
-
-      fill_in 'appointment_slot_date', with: Date.today.strftime('%Y-%m-%d')
-
-      within first('.form-time-select-fields') do
-        select '15', from: 'appointment_slot_starting_time_4i'
-        select '00', from: 'appointment_slot_starting_time_5i'
+        expect(SmsDeliveryJob).to have_been_enqueued.once.with(
+          Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
+        )
       end
 
-      click_button 'Enregistrer'
+      it 'create an appointment without a convocation sms' do
+        create(:convict, first_name: 'JP', last_name: 'Cherty')
+        appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
+        place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
+        agenda = create :agenda, place: place, name: 'Agenda de Josiane'
+        create :agenda, place: place, name: 'Agenda de Michel'
 
-      expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
-                                   .and change { Slot.count }.by(1)
-                                   .and change { Notification.count }.by(5)
+        slot = create :slot, agenda: agenda,
+                             appointment_type: appointment_type,
+                             date: Date.today.next_occurring(:monday),
+                             starting_time: '16h'
+
+        visit new_appointment_path
+        first('.select2-container', minimum: 1).click
+        find('li.select2-results__option', text: 'CHERTY Jp').click
+        select "Sortie d'audience SAP", from: :appointment_appointment_type_id
+        select 'KFC de Chatelet', from: 'Lieu'
+        select 'Agenda de Josiane', from: 'Agenda'
+        choose '16:00'
+
+        expect(page).to have_button('Enregistrer')
+
+        click_button 'Enregistrer'
+
+        expect { click_button 'Non' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
+        expect(SmsDeliveryJob).to have_been_enqueued.once.with(
+          Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
+        )
+      end
+
+      it 'allows an agent to create appointment only for his service places & slots' do
+        department = create :department, number: '09', name: 'Ariège'
+        logout_current_user
+        organization = create :organization
+        create :areas_organizations_mapping, organization: organization, area: department
+        agent = create :user, role: :cpip, organization: organization
+        login_user agent
+
+        convict = create :convict, first_name: 'JP', last_name: 'Cherty'
+        create :areas_convicts_mapping, convict: convict, area: department
+        appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
+
+        place_in = create :place, organization: organization, name: 'place_in_name',
+                                  appointment_types: [appointment_type]
+        agenda_in = create :agenda, place: place_in, name: 'agenda_in_name'
+        create :agenda, place: place_in, name: 'other_agenda_in_name'
+
+        create :place, name: 'place_out_name', appointment_types: [appointment_type]
+        agenda_out = create :agenda, name: 'agenda_out_name'
+
+        create :slot, agenda: agenda_in, appointment_type: appointment_type, date: Date.today.next_occurring(:friday),
+                      starting_time: '14h'
+        create :slot, agenda: agenda_out, appointment_type: appointment_type, date: Date.today.next_occurring(:friday),
+                      starting_time: '16h'
+
+        visit new_appointment_path
+        first('.select2-container', minimum: 1).click
+        find('li.select2-results__option', text: 'CHERTY Jp').click
+        select "Sortie d'audience SPIP", from: :appointment_appointment_type_id
+        expect(page).not_to have_select('Lieu', options: ['', 'place_in_name', 'place_out_name'])
+        expect(page).to have_select('Lieu', options: ['', 'place_in_name'])
+        select 'place_in_name', from: 'Lieu'
+        expect(page).not_to have_select('Agenda',
+                                        options: ['', 'agenda_in_name', 'agenda_out_name', 'other_agenda_in_name'])
+        expect(page).to have_select('Agenda', options: ['', 'agenda_in_name', 'other_agenda_in_name'])
+        select 'agenda_in_name', from: 'Agenda'
+        choose '14:00'
+        expect(page).to have_button('Enregistrer')
+        click_button 'Enregistrer'
+        expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
+                                            .and change { Notification.count }.by(5)
+      end
+
+      it 'shows only relevant places for an appointment type' do
+        create(:convict, first_name: 'Joe', last_name: 'Dalton')
+
+        apt_type1 = create(:appointment_type, name: 'RDV de test SAP')
+        apt_type2 = create(:appointment_type, name: 'RDV de test SPIP')
+
+        create(:place, name: 'McDo de Barbès', appointment_types: [apt_type1])
+        create(:place, name: 'Quick de Montreuil', appointment_types: [apt_type2])
+
+        visit new_appointment_path
+
+        first('.select2-container', minimum: 1).click
+        find('li.select2-results__option', text: 'DALTON Joe').click
+
+        select 'RDV de test SAP', from: :appointment_appointment_type_id
+
+        expect(page).not_to have_select('Lieu', options: ['', 'McDo de Barbès', 'Quick de Montreuil'])
+        expect(page).to have_select('Lieu', options: ['', 'McDo de Barbès'])
+      end
+    end
+
+    context 'appointment_type without predefined slots' do
+      before do
+        create :convict, first_name: 'Momo', last_name: 'La Fouine'
+        appointment_type = create :appointment_type, :with_notification_types, name: 'RDV de suivi SAP'
+        place = create :place, name: 'McDo des Halles', appointment_types: [appointment_type]
+        create :agenda, place: place, name: 'Agenda de Jean-Louis'
+        create :agenda, place: place, name: 'Agenda de Mireille'
+      end
+
+      it 'creates an appointment without a pre-defined slot for some appointment types' do
+        visit new_appointment_path
+
+        first('.select2-container', minimum: 1).click
+        find('li.select2-results__option', text: 'LA FOUINE Momo').click
+
+        select 'RDV de suivi SAP', from: :appointment_appointment_type_id
+        select 'McDo des Halles', from: 'Lieu'
+        select 'Agenda de Jean-Louis', from: 'Agenda'
+
+        fill_in 'appointment_slot_date', with: (Date.today.next_occurring(:friday)).strftime('%Y-%m-%d')
+
+        within first('.form-time-select-fields') do
+          select '15', from: 'appointment_slot_starting_time_4i'
+          select '00', from: 'appointment_slot_starting_time_5i'
+        end
+
+        click_button 'Enregistrer'
+
+        expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
+                                    .and change { Slot.count }.by(1)
+                                    .and change { Notification.count }.by(5)
+      end
+
+      it 'does not create appointment with no pre-defined slot if the selected date is a weekend' do
+        visit new_appointment_path
+
+        first('.select2-container', minimum: 1).click
+        find('li.select2-results__option', text: 'LA FOUINE Momo').click
+
+        select 'RDV de suivi SAP', from: :appointment_appointment_type_id
+        select 'McDo des Halles', from: 'Lieu'
+        select 'Agenda de Jean-Louis', from: 'Agenda'
+
+        fill_in 'appointment_slot_date', with: (Date.today.next_occurring(:saturday)).strftime('%Y-%m-%d')
+
+        within first('.form-time-select-fields') do
+          select '15', from: 'appointment_slot_starting_time_4i'
+          select '00', from: 'appointment_slot_starting_time_5i'
+        end
+
+        click_button 'Enregistrer'
+
+        expect { click_button 'Oui' }.to change { Appointment.count }.by(0)
+                                    .and change { Slot.count }.by(0)
+                                    .and change { Notification.count }.by(0)
+
+        expect(page).to have_content("Le jour sélectionné n'est pas un jour ouvrable")
+      end
     end
   end
 
   describe 'show' do
     it 'displays appointment data' do
-      slot = create(:slot, date: (Date.today + 2).to_s, starting_time: new_time_for(17, 0))
+      slot = create(:slot, date: Date.today.next_occurring(:wednesday), starting_time: new_time_for(17, 0))
       convict = create(:convict, first_name: 'Monique', last_name: 'Lassalle')
 
       appointment = create(:appointment, :with_notifications, slot: slot, convict: convict)
 
       visit appointment_path(appointment)
 
-      expect(page).to have_content((Date.today + 2).to_s)
+      expect(page).to have_content(Date.today.next_occurring(:wednesday))
       expect(page).to have_content('17:00')
       expect(page).to have_content('Monique')
       expect(page).to have_content('LASSALLE')
@@ -361,7 +397,7 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.book
       slot2 = create :slot, agenda: appointment.slot.agenda,
                             appointment_type: apt_type,
-                            date: (Date.today + 2).to_s,
+                            date: Date.today.next_occurring(:wednesday),
                             starting_time: '16h'
 
       visit appointment_path(appointment)
@@ -396,7 +432,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       expect(page).to have_content 'Replanifier un rendez-vous'
 
-      fill_in 'appointment_slot_attributes_date', with: (Date.today + 12).strftime('%Y-%m-%d')
+      fill_in 'appointment_slot_attributes_date', with: (Date.today.next_occurring(:wednesday)).strftime('%Y-%m-%d')
 
       within first('.form-time-select-fields') do
         select '15', from: 'appointment_slot_attributes_starting_time_4i'
@@ -411,7 +447,7 @@ RSpec.feature 'Appointments', type: :feature do
       expect(appointment.cancelation_notif.state).to eq 'created'
       expect(appointment.history_items).to eq []
 
-      slot2 = Slot.find_by(date: Date.today + 12)
+      slot2 = Slot.find_by(date: Date.today.next_occurring(:wednesday))
       new_appointment = Appointment.find_by(slot: slot2)
 
       expect(new_appointment.state).to eq 'booked'
