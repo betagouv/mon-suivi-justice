@@ -9,7 +9,9 @@
     <%= f.input :main_contact_method, collection: form_main_contact_methods,
                                       input_html: { class: 'form-select' },
                                       include_blank: false %>
-    <%= f.input :preparation_link %>
+    <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
+      <%= f.input :preparation_link %>
+    <% end %>
   <% end %>
   <%= f.association :organization, include_blank: false,
                                    label: t('activerecord.attributes.user.organization'),
