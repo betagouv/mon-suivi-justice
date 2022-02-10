@@ -45,21 +45,24 @@ RSpec.describe NotificationFactory do
                              adress: '38 rue Jean Moulin',
                              phone: '0102030405',
                              main_contact_method: 1,
-                             contact_email: 'test@test.com')
+                             contact_email: 'test@test.com',
+                             preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip92')
       agenda = create(:agenda, place: place)
       slot = create(:slot, agenda: agenda,
                            date: Date.today.next_occurring(:friday),
                            starting_time: new_time_for(16, 30), appointment_type: appointment_type)
       sms_template = 'Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}.'\
                      " Merci de venir avec une pièce d'identité au {lieu.adresse}." \
-                     ' Veuillez contacter le {lieu.téléphone} (ou {lieu.contact}) en cas de problème.'
+                     ' Veuillez contacter le {lieu.téléphone} (ou {lieu.contact})' \
+                     ' en cas de problème. Plus d\'informations sur {lieu.lien_info}.'
       create(:notification_type, appointment_type: appointment_type, template: sms_template)
 
       appointment = create(:appointment, slot: slot)
 
       expected = "Vous êtes convoqué au Spip du 03 le #{Date.today.next_occurring(:friday)} à 16h30."\
                  " Merci de venir avec une pièce d'identité au 38 rue Jean Moulin."\
-                 ' Veuillez contacter le 0102030405 (ou test@test.com) en cas de problème.'
+                 ' Veuillez contacter le 0102030405 (ou test@test.com) en cas de problème.'\
+                 " Plus d'informations sur https://mon-suivi-justice.beta.gouv.fr/preparer_spip92."
 
       NotificationFactory.perform(appointment)
 

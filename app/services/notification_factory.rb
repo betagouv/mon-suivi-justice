@@ -22,16 +22,18 @@ module NotificationFactory
                        .gsub('lieu.adresse', 'place_adress')
                        .gsub('lieu.téléphone', 'place_phone')
                        .gsub('lieu.contact', 'place_contact')
+                       .gsub('lieu.lien_info', 'place_preparation_link')
   end
 
   def self.sms_data(slot)
     {
       appointment_hour: slot.starting_time.to_s(:lettered),
       appointment_date: slot.date.to_s(:base_date_format),
-      place_name: slot.agenda.place.name,
-      place_adress: slot.agenda.place.adress,
-      place_phone: slot.agenda.place.display_phone(spaces: false),
-      place_contact: slot.agenda.place.contact_detail
+      place_name: slot.place_name,
+      place_adress: slot.place_adress,
+      place_phone: slot.place_display_phone(spaces: false),
+      place_contact: slot.place_contact_detail,
+      place_preparation_link: slot.place_preparation_link
     }
   end
 end

@@ -10,6 +10,9 @@ class Slot < ApplicationRecord
   validates_inclusion_of :available, in: [true, false]
   validate :workday?
 
+  delegate :place, to: :agenda
+  delegate :name, :adress, :display_phone, :contact_detail, :preparation_link, to: :place, prefix: true
+
   scope :relevant_and_available, lambda { |agenda, appointment_type|
     where(
       agenda_id: agenda.id,

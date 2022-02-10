@@ -2,14 +2,16 @@ require 'rails_helper'
 
 RSpec.feature 'Convicts', type: :feature do
   before do
-    create_admin_user_and_login
+    @user = create_admin_user_and_login
     allow(Place).to receive(:in_department).and_return(Place.all)
   end
 
   describe 'index' do
     before do
-      create(:convict, first_name: 'michel', phone: '0607080910')
-      create(:convict, first_name: 'Paul')
+      convict1 = create(:convict, first_name: 'michel', phone: '0607080910')
+      create :areas_convicts_mapping, convict: convict1, area: @user.organization.departments.first
+      convict2 = create(:convict, first_name: 'Paul')
+      create :areas_convicts_mapping, convict: convict2, area: @user.organization.departments.first
       visit convicts_path
     end
 
@@ -84,7 +86,9 @@ RSpec.feature 'Convicts', type: :feature do
 
     it 'creates a convict with his first appointment', js: true do
       appointment_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
-      place = create(:place, name: 'McDo de Clichy', appointment_types: [appointment_type])
+      place = create :place, name: 'McDo de Clichy',
+                             appointment_types: [appointment_type],
+                             organization: @user.organization
       agenda = create(:agenda, place: place, name: 'Agenda de Jean-Louis')
 
       create(:agenda, place: place, name: 'Agenda de Michel')
@@ -135,6 +139,7 @@ RSpec.feature 'Convicts', type: :feature do
   describe 'update' do
     it 'update convict informations' do
       convict = create(:convict, last_name: 'Expresso')
+      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
       visit convicts_path
       within first('.convicts-item-container') { click_link 'Modifier' }
       fill_in 'Nom', with: 'Ristretto'
@@ -145,19 +150,21 @@ RSpec.feature 'Convicts', type: :feature do
 
     it 'updates convict departments' do
       create :department, number: '09', name: 'Ariège'
-      create(:convict, last_name: 'Expresso')
+      convict = create(:convict, last_name: 'Expresso')
+      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
       visit convicts_path
+
       within first('.convicts-item-container') { click_link 'Modifier' }
 
       within '#department-form' do
         select 'Ariège', from: :areas_convicts_mapping_area_id
-        expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(0).to(1)
+        expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(1).to(2)
       end
 
       expect(page).to have_content('(09) Ariège')
 
-      within '.convict-attachment' do
-        expect { click_link 'Supprimer' }.to change(AreasConvictsMapping, :count).from(1).to(0)
+      within first('.convict-attachment') do
+        expect { click_link 'Supprimer' }.to change(AreasConvictsMapping, :count).from(2).to(1)
       end
 
       expect(page).not_to have_content('(09) Ariège')
@@ -165,19 +172,18 @@ RSpec.feature 'Convicts', type: :feature do
 
     it 'updates convict jurisdictions' do
       create :jurisdiction, name: 'Juridiction de Nanterre'
-      create(:convict, last_name: 'Expresso')
+      convict = create(:convict, last_name: 'Expresso')
+      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+
       visit convicts_path
+
       within first('.convicts-item-container') { click_link 'Modifier' }
       within '#jurisdiction-form' do
         select 'Juridiction de Nanterre', from: :areas_convicts_mapping_area_id
-        expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(0).to(1)
+        expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(1).to(2)
       end
 
       expect(page).to have_content('Juridiction de Nanterre')
-
-      within '.convict-attachment' do
-        expect { click_link 'Supprimer' }.to change(AreasConvictsMapping, :count).from(1).to(0)
-      end
     end
   end
 
@@ -186,10 +192,11 @@ RSpec.feature 'Convicts', type: :feature do
       @convict = create(:convict, last_name: 'Noisette',
                                   first_name: 'Café',
                                   phone: '0607060706')
+      create :areas_convicts_mapping, convict: @convict, area: @user.organization.departments.first
     end
 
     it 'displays infos on convict' do
-      place = create(:place, name: 'SPIP du 93')
+      place = create(:place, name: 'SPIP du 93', organization: @user.organization)
       agenda = create(:agenda, place: place)
 
       slot1 = create(:slot, agenda: agenda,
@@ -239,6 +246,7 @@ RSpec.feature 'Convicts', type: :feature do
 
     it 'an admin archive and unarchive a convict' do
       convict = create :convict, first_name: 'babar', last_name: 'BABAR'
+      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
       visit convicts_path
       expect(page).to have_content('BABAR Babar')

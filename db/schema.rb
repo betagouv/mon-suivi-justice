@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_24_181845) do
+ActiveRecord::Schema.define(version: 2022_02_09_164708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 2022_01_24_181845) do
     t.bigint "organization_id"
     t.string "contact_email"
     t.integer "main_contact_method", default: 0, null: false
+    t.string "preparation_link", default: "https://mon-suivi-justice.beta.gouv.fr/", null: false
     t.index ["organization_id"], name: "index_places_on_organization_id"
   end
 
@@ -215,6 +216,7 @@ ActiveRecord::Schema.define(version: 2022_01_24_181845) do
     t.bigint "agenda_id"
     t.index ["agenda_id"], name: "index_slot_types_on_agenda_id"
     t.index ["appointment_type_id"], name: "index_slot_types_on_appointment_type_id"
+    t.index ["starting_time", "agenda_id", "appointment_type_id", "week_day"], name: "index_slot_types_on_starting_time_combination", unique: true
   end
 
   create_table "slots", force: :cascade do |t|

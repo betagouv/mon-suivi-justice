@@ -7,6 +7,11 @@ RSpec.describe SlotType, type: :model do
   it { should validate_presence_of(:starting_time) }
   it { should validate_presence_of(:duration) }
   it { should validate_presence_of(:capacity) }
+  it {
+    should validate_uniqueness_of(:starting_time).scoped_to(%i[agenda_id appointment_type_id
+                                                               week_day])
+                                                  .with_message('Un créneau récurrent similaire existe déjà.')
+  }
 
   it { should define_enum_for(:week_day).with_values(%i[monday tuesday wednesday thursday friday]) }
 
