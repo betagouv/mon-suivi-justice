@@ -52,7 +52,7 @@ class Slot < ApplicationRecord
   private
 
   def is_workday
-    if date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
+    if date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
       errors.add(:date, I18n.t('activerecord.errors.models.slot.attributes.date.not_workday'))
     end
   end
