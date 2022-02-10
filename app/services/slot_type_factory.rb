@@ -1,6 +1,8 @@
 module SlotTypeFactory
   class << self
     def perform(appointment_type:, agenda:, data:)
+      success = true
+
       open_days = format_open_days(data)
       starting_times = build_starting_times(
         first_slot: build_first_slot(data),
@@ -10,7 +12,7 @@ module SlotTypeFactory
 
       open_days.each do |day|
         starting_times.each do |start|
-          SlotType.create!(
+          slot_type = SlotType.new(
             week_day: day,
             starting_time: start,
             duration: data[:duration],
@@ -18,8 +20,10 @@ module SlotTypeFactory
             appointment_type: appointment_type,
             agenda: agenda
           )
+          success = false unless slot_type.save
         end
       end
+      success
     end
 
     def build_starting_times(first_slot:, last_slot:, interval:)

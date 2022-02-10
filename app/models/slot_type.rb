@@ -3,8 +3,11 @@ class SlotType < ApplicationRecord
 
   belongs_to :appointment_type
   belongs_to :agenda
-
   has_many :slots, dependent: :nullify
+
+  validates :starting_time,
+            uniqueness: { scope: %i[agenda_id appointment_type_id week_day],
+                          message: I18n.t('activerecord.errors.models.slot_type.multiple_uniqueness') }
 
   # When a SlotType is destroyed, we remove corresponding slots, as they are no more available
   # Slot already booked are preserved.
