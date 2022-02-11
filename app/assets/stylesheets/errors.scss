@@ -29,3 +29,12 @@
   color: #730E15;
   line-height: 1.5em;
 }
+
+.errors-box {
+  margin: 20px 0;
+  border: 2px solid $important;
+  color: $important;
+  border-radius: 2px;
+  padding: 10px;
+  text-align: justify;
+}

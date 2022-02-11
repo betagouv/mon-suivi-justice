@@ -1,4 +1,7 @@
 fr:
+  appointment_types:
+    update:
+      notice: "Les modifications ont bien été enregistrées."
   activerecord:
     models:
       user: "Agent"
@@ -144,6 +147,10 @@ fr:
         slot_type:
           multiple_uniqueness: "Un créneau récurrent similaire existe déjà."
           batch_multiple_uniqueness: "Un ou plusieurs créneaux récurrents similaires existent déjà. Les doublons n'ont pas été crées."
+        notification_type:
+          attributes:
+            template:
+              invalid_format: "Le format de ce modèle n'est pas valide. Merci d'utiliser uniquement les clés documentées."
 
 
   login_sub_title: "Espace agents"
