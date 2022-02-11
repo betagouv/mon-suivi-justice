@@ -1,21 +1,21 @@
 module HistoryItemFactory
   class << self
-    def perform(event:, category:, appointment: nil, convict: nil)
+    def perform(event:, category:, appointment: nil, convict: nil, data: nil)
       HistoryItem.create!(
         convict: convict.present? ? convict : appointment.convict,
         appointment: appointment,
         category: category,
         event: event,
-        content: build_content(event: event, category: category, appointment: appointment, convict: convict)
+        content: build_content(event: event, category: category, appointment: appointment, convict: convict, data: data)
       )
     end
 
     private
 
-    def build_content(event:, category:, appointment: nil, convict: nil)
+    def build_content(event:, category:, appointment: nil, convict: nil, data: nil)
       case category
       when 'convict'
-        content_for_convict(event: event, convict: convict)
+        content_for_convict(event: event, convict: convict, data: data)
       when 'appointment'
         content_for_appointment(event: event, appointment: appointment)
       when 'notification'
@@ -23,12 +23,16 @@ module HistoryItemFactory
       end
     end
 
-    def content_for_convict(event:, convict:)
+    def content_for_convict(event:, convict:, data:)
       case event
       when 'archive_convict'
         I18n.t('show_history_archive_convict', name: convict.name)
       when 'unarchive_convict'
         I18n.t('show_history_unarchive_convict', name: convict.name)
+      when 'update_phone_convict'
+        I18n.t('show_history_update_phone_convict', name: convict.name, old_phone: data[:old_phone].phony_formatted,
+                                                    new_phone: convict.display_phone, user_name: data[:user_name],
+                                                    user_role: data[:user_role])
       end
     end
 

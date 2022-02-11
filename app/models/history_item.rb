@@ -22,7 +22,8 @@ class HistoryItem < ApplicationRecord
     send_now_no_show_notification: 11,
     send_now_reschedule_notification: 12,
     archive_convict: 13,
-    unarchive_convict: 14
+    unarchive_convict: 14,
+    update_phone_convict: 15
   }
 
   def self.validate_event(event)
