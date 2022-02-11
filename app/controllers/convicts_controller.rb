@@ -118,7 +118,7 @@ class ConvictsController < ApplicationController
   end
 
   def record_phone_change(old_phone)
-    return if @convict.phone == old_phone || ENV['APP'] == 'mon-suivi-justice-prod'
+    return if @convict.phone == old_phone || old_phone.blank? || ENV['APP'] == 'mon-suivi-justice-prod'
 
     HistoryItemFactory.perform(
       category: 'convict', convict: @convict, event: 'update_phone_convict',
