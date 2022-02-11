@@ -30,8 +30,8 @@ module HistoryItemFactory
       when 'unarchive_convict'
         I18n.t('show_history_unarchive_convict', name: convict.name)
       when 'update_phone_convict'
-        I18n.t('show_history_update_phone_convict', name: convict.name, old_phone: data[:old_phone],
-                                                    new_phone: convict.phone, user_name: data[:user_name],
+        I18n.t('show_history_update_phone_convict', name: convict.name, old_phone: data[:old_phone].phony_formatted,
+                                                    new_phone: convict.display_phone, user_name: data[:user_name],
                                                     user_role: data[:user_role])
       end
     end
