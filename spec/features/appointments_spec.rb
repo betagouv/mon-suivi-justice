@@ -59,9 +59,12 @@ RSpec.feature 'Appointments', type: :feature do
   describe 'creation', js: true do
     context 'appointment_type with predifined slots' do
       it 'create an appointment with a convocation sms' do
-        create(:convict, first_name: 'JP', last_name: 'Cherty')
+        convict = create(:convict, first_name: 'JP', last_name: 'Cherty')
+        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+
         appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
-        place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
+        place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type],
+                               organization: @user.organization
         agenda = create :agenda, place: place, name: 'Agenda de Josiane'
         create :agenda, place: place, name: 'Agenda de Michel'
         slot = create :slot, agenda: agenda,
@@ -93,9 +96,11 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it 'create an appointment without a convocation sms' do
-        create(:convict, first_name: 'JP', last_name: 'Cherty')
+        convict = create(:convict, first_name: 'JP', last_name: 'Cherty')
+        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
         appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
-        place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type]
+        place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type],
+                               organization: @user.organization
         agenda = create :agenda, place: place, name: 'Agenda de Josiane'
         create :agenda, place: place, name: 'Agenda de Michel'
 
@@ -166,7 +171,8 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it 'shows only relevant places for an appointment type' do
-        create(:convict, first_name: 'Joe', last_name: 'Dalton')
+        convict = create(:convict, first_name: 'Joe', last_name: 'Dalton')
+        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
         apt_type1 = create(:appointment_type, name: 'RDV de test SAP')
         apt_type2 = create(:appointment_type, name: 'RDV de test SPIP')
@@ -188,9 +194,11 @@ RSpec.feature 'Appointments', type: :feature do
 
     context 'appointment_type without predefined slots' do
       before do
-        create :convict, first_name: 'Momo', last_name: 'La Fouine'
+        convict = create :convict, first_name: 'Momo', last_name: 'La Fouine'
+        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
         appointment_type = create :appointment_type, :with_notification_types, name: 'RDV de suivi SAP'
-        place = create :place, name: 'McDo des Halles', appointment_types: [appointment_type]
+        place = create :place, name: 'McDo des Halles', appointment_types: [appointment_type],
+                               organization: @user.organization
         create :agenda, place: place, name: 'Agenda de Jean-Louis'
         create :agenda, place: place, name: 'Agenda de Mireille'
       end
@@ -307,7 +315,7 @@ RSpec.feature 'Appointments', type: :feature do
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
       apt_type = create :appointment_type, :with_notification_types
-      slot = create :slot, date: Date.tomorrow, appointment_type: apt_type
+      slot = create :slot, date: Date.today.next_occurring(:monday), appointment_type: apt_type
       appointment = create :appointment, convict: convict, slot: slot
 
       appointment.book
