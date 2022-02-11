@@ -39,7 +39,7 @@
             <% end %>
 
             <% if policy(:appointment).index_today? %>
-              <%= button_to t('home.today_appointments'), today_appointments_path,
+              <%= button_to t('home.today_appointments'), appointments_path,
                                                           class: 'home-agenda-link',
                                                           method: :get %>
             <% end %>
