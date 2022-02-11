@@ -1,82 +1,90 @@
-<div class='appointments-container'>
-  <div class='index-tools-container'>
-    <div class='index-tools-filter-container'>
-      <%= search_form_for @q, class: 'index-search-form' do |f| %>
-        <%= f.search_field :slot_date_eq, id: 'search-field',
-                            class: 'index-search-field',
-                            value: @q.slot_date_eq ? @q.slot_date_eq .strftime('%d/%m/%Y') : '',
+<div class='index-header-container'>
+  <div class='index-header-filters-container'>
+    <%= search_form_for @q, class: 'index-header-filters-form', id: 'index-header-filters-form' do |f| %>
+      <div class='index-header-filters-fields-container'>
+        <%= f.search_field :slot_date_eq, id: 'index-appointment-date-filter',
+                            class: 'index-header-search-field',
+                            value: @q.slot_date_eq ? @q.slot_date_eq.strftime('%d/%m/%Y') : '',
                             placeholder: t('search-appointment-placeholder') %>
 
         <%# TODO: there is for the moment only one department per organization.
         When there will be more, this logic will need to be adapted. %>
         <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.in_department(current_user.organization.departments.first), 'id', 'name', @q.slot_agenda_place_id_eq),
-                                               { include_blank: t('appointment_place') },
-                                               { class: 'form-select index-place-filter-field' } %>
+                                               { include_blank: t('index_slot_place_filter') },
+                                               { class: 'form-select index-header-filter-field' } %>
 
-        <%= f.submit t('filter'), class: 'index-search-button' %>
-      <% end %>
-    </div>
+        <%= f.select :slot_agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_id_eq),
+                                         { include_blank: t('index-appointment-agenda-filter') },
+                                         { class: 'form-select index-header-filter-field' } %>
 
-    <div class='index-tools-controls-container'>
-      <% if policy(:appointment).index_today? %>
-        <%= button_to t('home.today_appointments'), today_appointments_path,
-                                                     class: 'link-to-today-appointment-button',
-                                                     method: :get %>
-      <% end %>
+        <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(AppointmentType.with_slot_types, 'id', 'name', @q.slot_appointment_type_id_eq),
+                                                   { include_blank: t('index-slots-appointment-type-filter') },
+                                                   { class: 'form-select index-header-filter-field' } %>
+      </div>
+    <% end %>
 
-      <% if policy(:appointment).new? %>
-        <%= button_to t('new_appointment_title'), new_appointment_path,
-                                                  class: 'link-to-new-appointment-button',
-                                                  form_class: 'link-to-new-appointment-form',
-                                                  method: :get %>
-      <% end %>
+    <div class='index-header-filters-button-container'>
+      <%= button_tag t('filter'), type: 'submit', class: 'index-header-filters-button', form: 'index-header-filters-form' %>
     </div>
   </div>
 
+  <div class='index-header-controls-container'>
+    <% if policy(:appointment).new? %>
+      <%= button_to t('new_appointment_title'), new_appointment_path,
+                                                class: 'link-to-new-appointment-button',
+                                                form_class: 'link-to-new-appointment-form',
+                                                method: :get %>
+    <% end %>
+  </div>
+</div>
+
+<div class='appointments-container'>
   <div class='index-table-container'>
-    <div class='appointments-header'>
-      <div class='appointments-header-title appointments-column-1'>
+    <div class='index-table-header'>
+      <div class='appointments-column-1'>
         <%= sort_link(@q, 'convict_last_name', t('activerecord.models.convict'), default_order: :desc) %>
       </div>
 
-      <div class='appointments-header-title appointments-column-2'>
+      <div class='appointments-column-2'>
         <%= sort_link(@q, 'slot_place_name', t('appointment_place'), default_order: :desc) %>
       </div>
 
-      <div class='appointments-header-title appointments-column-3'>
+      <div class='appointments-column-3'>
         <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
       </div>
 
-      <div class='appointments-header-title appointments-column-4'>
+      <div class='appointments-column-4'>
         <%= sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) %>
       </div>
     </div>
 
-    <% @appointments.each do |appointment| %>
-      <div class='appointments-item-container'>
-        <div class='appointment-data appointments-column-1'>
-          <%= appointment.convict.name %>
-        </div>
+    <div class='index-list-container'>
+      <% @appointments.each do |appointment| %>
+        <div class='index-list-item-container'>
+          <div class='appointments-column-1'>
+            <%= appointment.convict.name %>
+          </div>
 
-        <div class='appointment-data appointments-column-2'>
-          <%= appointment.slot.agenda.place.name %>
-        </div>
+          <div class='appointments-column-2'>
+            <%= appointment.slot.agenda.place.name %>
+          </div>
 
-        <div class='appointments-column-3'>
-          <%= appointment.slot.date.to_s(:base_date_format) %>
-        </div>
+          <div class='appointments-column-3'>
+            <%= appointment.slot.date.to_s(:base_date_format) %>
+          </div>
 
-        <div class='appointments-column-4'>
-          <%= appointment.slot.starting_time.to_s(:time) %>
-        </div>
+          <div class='appointments-column-4'>
+            <%= appointment.slot.starting_time.to_s(:time) %>
+          </div>
 
-        <div class='index-controls-container'>
-          <% if policy(:appointment).show? %>
-            <%= link_to t('see'), appointment_path(appointment), class: 'index-control' %>
-          <% end %>
+          <div class='index-controls-container'>
+            <% if policy(:appointment).show? %>
+              <%= link_to t('see'), appointment_path(appointment), class: 'index-control' %>
+            <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
 
     <%= paginate @appointments %>
   </div>

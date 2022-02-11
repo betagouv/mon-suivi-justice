@@ -8,31 +8,34 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'index' do
     before do
-      slot1 = create(:slot, date: (Date.today + 4).to_s, starting_time: new_time_for(13, 0))
+      slot1 = create(:slot, date: Date.today.to_s, starting_time: new_time_for(13, 0))
       slot2 = create(:slot, date: (Date.today + 6).to_s, starting_time: new_time_for(15, 30))
       convict = create(:convict)
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
       create(:appointment, convict: convict, slot: slot1)
       create(:appointment, convict: convict, slot: slot2)
-
-      visit appointments_path
     end
 
-    it 'lists all appointments' do
-      expect(page).to have_content((Date.today + 4).to_s)
+    it 'display appointments for current day by default' do
+      visit appointments_path
+
+      expect(page).to have_content(Date.today.to_s)
       expect(page).to have_content('13:00')
-      expect(page).to have_content((Date.today + 6).to_s)
-      expect(page).to have_content('15:30')
+      expect(page).not_to have_content((Date.today + 6).to_s)
+      expect(page).not_to have_content('15:30')
     end
 
     it 'allows to filter appointments' do
-      expect(page).to have_content((Date.today + 4).to_s)
+      visit appointments_path
 
-      fill_in 'search-field', with: (Date.today + 6).to_s
+      fill_in 'index-appointment-date-filter', with: (Date.today + 6).strftime('%d/%m/%Y')
       click_button 'Filtrer'
 
-      expect(page).not_to have_content((Date.today + 4).to_s)
+      expect(page).not_to have_content(Date.today.to_s)
+      expect(page).not_to have_content('13:00')
+      expect(page).to have_content((Date.today + 6).to_s)
+      expect(page).to have_content('15:30')
     end
 
     it "doesn't show canceled appointments" do

@@ -1,3 +1,98 @@
+.index-header-container {
+  width: calc(100vw - #{$sidebar-width});
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  height: 110px;
+  background-color: $main-background;
+  border-bottom: 1px solid $table-border;
+}
+
+.index-header-filters-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.index-header-filters-fields-container {
+  height: 110px;
+  max-width: 450px;
+  padding: 10px;
+}
+
+.index-header-filters-form {
+  display: flex;
+  align-items: center;
+}
+
+.index-header-search-field {
+  height: 40px;
+  max-width: 200px;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid $table-border;
+}
+
+.index-header-filter-field {
+  width: 100%;
+  max-width: 200px;
+  height: 40px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid $table-border;
+
+  background-color: $main-background;
+  color: grey;
+}
+
+.index-header-filters-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.index-header-filters-button {
+  @include button($light-grey);
+  height: 40px;
+}
+
+.index-header-controls-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.index-table-container {
+  margin-top: 110px;
+  display: flow-root;
+}
+
+.index-list-container {
+  margin-top: 40px;
+}
+
+.index-list-item-container {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $table-border;
+  padding-left: 30px;
+  padding-right: 20px;
+  min-height: 40px;
+}
+
+.index-table-header {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid $table-border;
+  padding-left: 30px;
+  padding-right: 20px;
+
+  position: fixed;
+  width: calc(100vw - #{$sidebar-width});
+  background-color: $main-background;
+}
+
 .index-control {
   margin-right: 10px;
   color: $link;
@@ -10,7 +105,7 @@
   margin-bottom: 40px;
 }
 
-.index-table-container {
+.index-basic-table-container {
   margin-top: 20px;
 }
 
