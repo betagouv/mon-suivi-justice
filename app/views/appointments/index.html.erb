@@ -35,6 +35,10 @@
                                                 form_class: 'link-to-new-appointment-form',
                                                 method: :get %>
     <% end %>
+
+    <%= button_to t('print_button'), 'fake_link',
+                                      class: 'bex-print-button',
+                                      onclick: 'window.print();return false;'%>
   </div>
 </div>
 

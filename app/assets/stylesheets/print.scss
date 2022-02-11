@@ -7,7 +7,7 @@
 @page :header {color: #fff}
 
 @media print {
-  section.sidebar, header.header, div.index-tools-container, a.support-link {
+  section.sidebar, header.header, div.index-tools-container, div.support-link, div.index-header-container {
     display: none;
   }
 
