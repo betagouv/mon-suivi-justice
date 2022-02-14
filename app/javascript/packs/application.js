@@ -18,3 +18,6 @@ ActiveStorage.start()
 
 require("trix")
 require("@rails/actiontext")
+
+import '@gouvfr/dsfr/dist/component/alert/alert.min.css'
+import '@gouvfr/dsfr/dist/dsfr/dsfr.module.min.js'
