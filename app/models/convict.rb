@@ -49,7 +49,7 @@ class Convict < ApplicationRecord
   def identity
     return name unless phone.present?
 
-    "#{last_name.upcase} #{first_name.capitalize} - #{unormalized_phone}"
+    "#{last_name.upcase} #{first_name.capitalize} - #{phone.phony_formatted.delete(' ')}"
   end
 
   def profile_path
@@ -66,10 +66,6 @@ class Convict < ApplicationRecord
     appointments.joins(:slot)
                 .where(state: 'booked')
                 .where('slots.date': ..Date.today)
-  end
-
-  def unormalized_phone
-    phone.gsub("+33", "0")
   end
 
   def mobile_phone_number
