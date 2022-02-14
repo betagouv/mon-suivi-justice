@@ -14,7 +14,7 @@ class NotificationType < ApplicationRecord
   private
 
   def template_format
-    return unless (template.scan(/{.*?}/) - VALID_NOTIFICATION_KEYS).present?
+    return unless template&.present? && (template.scan(/{.*?}/) - VALID_NOTIFICATION_KEYS).present?
 
     errors.add(:template, I18n.t('activerecord.errors.models.notification_type.attributes.template.invalid_format'))
   end
