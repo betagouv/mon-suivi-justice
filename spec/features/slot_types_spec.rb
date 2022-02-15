@@ -91,7 +91,7 @@ RSpec.feature 'SlotTypes', type: :feature do
     end
 
     it 'does not create a slot_type that already exists' do
-      create(:slot_type, starting_time: '14:00', duration: 30, capacity: 10,
+      create(:slot_type, week_day: 'monday', starting_time: '14:00', duration: 30, capacity: 10,
                          agenda: @agenda, appointment_type: @appointment_type)
 
       visit agenda_slot_types_path(@agenda)

@@ -85,6 +85,8 @@ AppointmentType.all.each do |apt_type|
     dates = all_dates.select {|date| date.strftime("%A").downcase == slot_type.week_day }
 
     dates.each do |date|
+      next if date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
+
       Slot.create!(
         date: date,
         agenda: agenda,
