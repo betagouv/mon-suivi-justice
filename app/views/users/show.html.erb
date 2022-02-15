@@ -37,6 +37,15 @@
         <%= t("activerecord.attributes.user.user_roles.#{@user.role}") %>
       </div>
     </div>
+
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.user.phone') %>
+      </div>
+      <div class='show-data-item'>
+        <%= @user.display_phone %>
+      </div>
+    </div>
   </div>
 
   <div class='show-button-to-edit-container'>

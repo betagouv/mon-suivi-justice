@@ -32,7 +32,9 @@ RSpec.feature 'Users', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Email', with: 'robertdurand@justice.fr'
+      fill_in 'Numéro de téléphone', with: '0644444444'
       expect { click_button 'Envoyer invitation' }.to change { User.count }.by(1)
+      expect(User.last.phone).to eq('0644444444')
     end
   end
 
@@ -40,13 +42,15 @@ RSpec.feature 'Users', type: :feature do
     it 'displays user data' do
       user = create(:user, first_name: 'Jeanne',
                            last_name: 'Delajungle',
-                           email: 'jeanne@delajungle.fr')
+                           email: 'jeanne@delajungle.fr',
+                           phone: '+33644444444')
 
       visit user_path(user.id)
 
       expect(page).to have_content('Jeanne')
       expect(page).to have_content('DELAJUNGLE')
       expect(page).to have_content('jeanne@delajungle.fr')
+      expect(page).to have_content('06 44 44 44 44')
     end
   end
 
@@ -57,11 +61,13 @@ RSpec.feature 'Users', type: :feature do
       visit edit_user_path(user.id)
 
       fill_in 'Prénom', with: 'Mireille'
+      fill_in 'Numéro de téléphone', with: '0644444444'
 
       click_button 'Enregistrer'
 
       user.reload
       expect(user.first_name).to eq('Mireille')
+      expect(user.phone).to eq('+33644444444')
     end
   end
 
