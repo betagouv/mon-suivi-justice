@@ -46,6 +46,12 @@ class Convict < ApplicationRecord
     "#{last_name.upcase} #{first_name.capitalize}"
   end
 
+  def identity
+    return name unless phone.present?
+
+    "#{last_name.upcase} #{first_name.capitalize} - #{phone.phony_formatted.delete(' ')}"
+  end
+
   def profile_path
     Rails.application.routes.url_helpers.convict_path(id)
   end
