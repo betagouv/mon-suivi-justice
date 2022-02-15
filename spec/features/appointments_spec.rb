@@ -18,13 +18,13 @@ RSpec.feature 'Appointments', type: :feature do
       create(:appointment, convict: convict, slot: slot2)
     end
 
-    it 'display appointments for current day by default' do
+    it 'display all appointments' do
       visit appointments_path
 
       expect(page).to have_content(Date.today)
       expect(page).to have_content('13:00')
-      expect(page).not_to have_content(Date.today + 4)
-      expect(page).not_to have_content('15:30')
+      expect(page).to have_content(Date.today + 4)
+      expect(page).to have_content('15:30')
     end
 
     it 'allows to filter appointments' do
