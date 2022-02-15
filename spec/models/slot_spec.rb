@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Slot, type: :model do
+  subject { build(:slot) }
+
   it { should belong_to(:slot_type).optional(true) }
   it { should belong_to(:appointment_type) }
   it { should have_many(:appointments) }
@@ -9,6 +11,35 @@ RSpec.describe Slot, type: :model do
   it { should validate_presence_of(:starting_time) }
   it { should validate_presence_of(:capacity) }
   it { should validate_presence_of(:duration) }
+
+  describe 'custom validations' do
+    let(:place) { create(:place) }
+    let(:agenda) { create(:agenda, place: place) }
+    let(:apt_type) { create(:appointment_type) }
+
+    it 'is not valid if date is a holiday' do
+      slot = build(:slot, agenda: agenda, appointment_type: apt_type,
+                          date: Date.civil(Date.today.year + 1, 7, 14))
+
+      expect(slot).to_not be_valid
+      expect(slot.errors.messages[:date]).to eq ["Le jour sélectionné n'est pas un jour ouvrable"]
+    end
+
+    it 'is not valid if date is a weekend' do
+      slot = build(:slot, agenda: agenda, appointment_type: apt_type,
+                          date: Date.today.next_occurring(:saturday))
+
+      expect(slot).to_not be_valid
+      expect(slot.errors.messages[:date]).to eq ["Le jour sélectionné n'est pas un jour ouvrable"]
+    end
+
+    it 'it is valid if date is not a weekend nor a holiday' do
+      slot = build(:slot, agenda: agenda, appointment_type: apt_type,
+                          date: Date.today.next_occurring(:monday))
+
+      expect(slot).to be_valid
+    end
+  end
 
   describe '.relevant_and_available' do
     it 'returns available slots for an agenda and an appointment_type' do
@@ -98,22 +129,22 @@ RSpec.describe Slot, type: :model do
 
       slot1 = create(:slot, agenda: agenda,
                             appointment_type: apt_type,
-                            date: '06/06/2021',
+                            date: '07/06/2021',
                             starting_time: new_time_for(13, 0))
 
       slot2 = create(:slot, agenda: agenda,
                             appointment_type: apt_type,
-                            date: '06/06/2021',
+                            date: '07/06/2021',
                             starting_time: new_time_for(14, 0))
 
       slot3 = create(:slot, agenda: agenda,
                             appointment_type: apt_type,
-                            date: '06/06/2021',
+                            date: '07/06/2021',
                             starting_time: new_time_for(15, 0))
 
       slot4 = create(:slot, agenda: agenda,
                             appointment_type: apt_type,
-                            date: '06/06/2021',
+                            date: '07/06/2021',
                             starting_time: new_time_for(16, 0))
 
       slot5 = create(:slot, agenda: agenda,
@@ -126,14 +157,14 @@ RSpec.describe Slot, type: :model do
                             date: '08/06/2021',
                             starting_time: new_time_for(15, 0))
 
-      input1 = [{ date: '06/06/2021', starting_times: ['13:00'] }]
+      input1 = [{ date: '07/06/2021', starting_times: ['13:00'] }]
 
       Slot.batch_close(agenda_id: agenda.id, appointment_type_id: apt_type.id, data: input1)
 
       slot1.reload
       expect(slot1.available).to eq(false)
 
-      input2 = [{ date: '06/06/2021', starting_times: ['14:00', '15:00'] }]
+      input2 = [{ date: '07/06/2021', starting_times: ['14:00', '15:00'] }]
 
       Slot.batch_close(agenda_id: agenda.id, appointment_type_id: apt_type.id, data: input2)
 
@@ -143,7 +174,7 @@ RSpec.describe Slot, type: :model do
       expect(slot3.available).to eq(false)
 
       input3 = [
-        { date: '06/06/2021', starting_times: ['16:00'] },
+        { date: '07/06/2021', starting_times: ['16:00'] },
         { date: '08/06/2021', starting_times: ['14:00', '15:00'] }
       ]
 

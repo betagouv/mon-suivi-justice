@@ -8,6 +8,7 @@ class Slot < ApplicationRecord
 
   validates :date, :starting_time, :duration, :capacity, presence: true
   validates_inclusion_of :available, in: [true, false]
+  validate :workday?
 
   delegate :place, to: :agenda
   delegate :name, :adress, :display_phone, :contact_detail, :preparation_link, to: :place, prefix: true
@@ -49,5 +50,13 @@ class Slot < ApplicationRecord
         starting_time: day[:starting_times]
       ).update_all(available: false)
     end
+  end
+
+  private
+
+  def workday?
+    return unless date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
+
+    errors.add(:date, I18n.t('activerecord.errors.models.slot.attributes.date.not_workday'))
   end
 end
