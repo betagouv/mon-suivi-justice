@@ -78,6 +78,11 @@
   padding-left: 30px;
   padding-right: 20px;
   min-height: 40px;
+
+  @media print {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .index-table-header {
@@ -95,6 +100,8 @@
 
   @media print {
     width: 100%;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
