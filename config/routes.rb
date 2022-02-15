@@ -72,6 +72,12 @@ Rails.application.routes.draw do
     root 'home#home', as: :authenticated_root
   end
 
+  namespace :api, defaults: {format: "json"} do
+    namespace :v1 do
+      resources :users, only: :show
+    end
+  end
+
   match '/404' => 'errors#not_found', via: :all
   match '/422' => 'errors#unprocessable_entity', via: :all
   match '/500' => 'errors#internal_server_error', via: :all
