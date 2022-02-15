@@ -25,6 +25,7 @@ fr:
         first_name: "Prénom"
         last_name: "Nom"
         role: "Rôle"
+        phone: "Numéro de téléphone"
         organization: "Service"
         user_roles:
           admin: "Administrateur central"

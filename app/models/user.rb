@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include NormalizedPhone
+
   has_paper_trail
 
   belongs_to :organization
