@@ -58,6 +58,7 @@
 .index-header-controls-container {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   padding: 10px;
 }
 
@@ -91,6 +92,10 @@
   position: fixed;
   width: calc(100vw - #{$sidebar-width});
   background-color: $main-background;
+
+  @media print {
+    width: 100%;
+  }
 }
 
 .index-control {

@@ -37,7 +37,7 @@
 
 .link-to-new-appointment-form {
   text-align: right;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .link-to-new-appointment-button {
@@ -76,18 +76,34 @@
 
 .appointments-column-1 {
   width: 20%;
+
+  @media print {
+    width: 25%;
+  }
 }
 
 .appointments-column-2 {
   width: 20%;
+
+  @media print {
+    width: 30%;
+  }
 }
 
 .appointments-column-3 {
   width: 20%;
+
+  @media print {
+    width: 25%;
+  }
 }
 
 .appointments-column-4 {
   width: 20%;
+
+  @media print {
+    width: 20%;
+  }
 }
 
 .new-appointment-form-no-slot {
@@ -215,6 +231,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   form {
     padding: 2px;
   }
