@@ -3,9 +3,7 @@ class ConvictPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.admin?
-        scope.all
-      elsif user.bex? || user.local_admin?
+      if user.admin? || user.bex? || user.local_admin?
         # TODO: there is for the moment only one department per organization.
         # When there will be more, this logic will need to be adapted.
         scope.in_department(user.organization.departments.first)

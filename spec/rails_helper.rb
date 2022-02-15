@@ -93,6 +93,8 @@ Capybara.javascript_driver = :selenium_headless
 Capybara.default_max_wait_time = 5
 Capybara.default_normalize_ws = true
 
+Selenium::WebDriver.logger.ignore(:browser_options)
+
 driver_urls = Webdrivers::Common.subclasses.map do |driver|
   Addressable::URI.parse(driver.base_url).host
 end
@@ -105,6 +107,7 @@ WebMock.disable_net_connect!(allow_localhost: true, allow: [*driver_urls])
 def create_admin_user_and_login
   @user = create(:user, role: :admin)
   login_as(@user, scope: :user)
+  @user
 end
 
 def logout_current_user

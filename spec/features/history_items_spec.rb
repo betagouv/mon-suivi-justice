@@ -2,12 +2,13 @@ require 'rails_helper'
 
 RSpec.feature 'HistoryItems', type: :feature do
   before do
-    create_admin_user_and_login
+    @user = create_admin_user_and_login
+    @convict = create(:convict, phone: nil, refused_phone: true)
+    create :areas_convicts_mapping, convict: @convict, area: @user.organization.departments.first
   end
 
   describe 'for a Convict' do
     before do
-      @convict = create(:convict, phone: nil, refused_phone: true)
       @appointment = create(:appointment, :with_notifications, convict: @convict)
     end
 
@@ -62,7 +63,7 @@ RSpec.feature 'HistoryItems', type: :feature do
 
   describe 'for an appointment' do
     before do
-      @appointment = create(:appointment)
+      @appointment = create(:appointment, convict: @convict)
       @summon_notif = create(:notification, appointment: @appointment,
                                             role: 'summon',
                                             content: 'Vous êtes encore convoqué...')

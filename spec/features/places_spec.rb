@@ -33,6 +33,7 @@ RSpec.feature 'Places', type: :feature do
       fill_in 'Nom', with: 'Spip 72'
       fill_in 'Adresse', with: '93 rue des charmes 72200 La Flèche'
       fill_in 'Téléphone', with: '0606060606'
+      fill_in "Lien d'information sur le lieu", with: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip92'
 
       expect { click_button 'Enregistrer' }.to change { Place.count }.by(1)
     end
@@ -40,12 +41,15 @@ RSpec.feature 'Places', type: :feature do
 
   describe 'update' do
     it 'works' do
-      place = create(:place, name: 'Spip du 78')
+      place = create(:place, name: 'Spip du 78', preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip92')
       visit places_path
       within first('.places-item-container') { click_link 'Modifier' }
       fill_in :place_name, with: 'Spip du 58'
+      fill_in :place_preparation_link, with: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip58'
       within("#edit_place_#{place.id}") { click_button 'Enregistrer' }
-      expect(place.reload.name).to eq('Spip du 58')
+      place.reload
+      expect(place.name).to eq('Spip du 58')
+      expect(place.preparation_link).to eq('https://mon-suivi-justice.beta.gouv.fr/preparer_spip58')
     end
 
     it 'creates agenda' do

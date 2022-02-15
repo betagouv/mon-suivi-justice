@@ -2,13 +2,12 @@ require 'rails_helper'
 
 RSpec.describe SlotTypeFactory do
   describe 'creates batches of slot_types' do
-    it 'works' do
-      apt_type = create :appointment_type
-      place = create :place
-      agenda = create :agenda, place: place
-      create :place_appointment_type, place: place, appointment_type: apt_type
-
-      data = {
+    let(:apt_type) { create :appointment_type }
+    let(:place) { create :place }
+    let(:agenda) { create :agenda, place: place }
+    let(:place_appointment_type) { create :place_appointment_type, place: place, appointment_type: apt_type }
+    let(:data) do
+      {
         day_monday: '1',
         day_tuesday: '1',
         day_wednesday: '0',
@@ -22,10 +21,28 @@ RSpec.describe SlotTypeFactory do
         capacity: 30,
         duration: 30
       }
+    end
 
-      expect do
-        SlotTypeFactory.perform(appointment_type: apt_type, agenda: agenda, data: data)
-      end.to change(SlotType, :count).by(10)
+    context 'none of the slot_types exist' do
+      it 'works' do
+        expect do
+          SlotTypeFactory.perform(appointment_type: apt_type, agenda: agenda, data: data)
+        end.to change(SlotType, :count).by(10)
+      end
+
+      it 'returns true' do
+        expect(SlotTypeFactory.perform(appointment_type: apt_type, agenda: agenda, data: data)).to eq(true)
+      end
+    end
+
+    context 'one of the slot_type already exists' do
+      before do
+        create(:slot_type, agenda: agenda, appointment_type: apt_type, week_day: 'monday', starting_time: '10:00')
+      end
+
+      it 'returns false' do
+        expect(SlotTypeFactory.perform(appointment_type: apt_type, agenda: agenda, data: data)).to eq(false)
+      end
     end
   end
 

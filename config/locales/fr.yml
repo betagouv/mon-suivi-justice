@@ -76,6 +76,7 @@ fr:
         phone: "Téléphone"
         contact_email: "Email de contact"
         main_contact_method: "Méthode de contact préférentielle"
+        preparation_link: "Lien d'information sur le lieu"
         main_contact_methods:
           phone: "Téléphone"
           email: "Email"
@@ -140,6 +141,10 @@ fr:
             date:
               blank: "Date manquante"
               past: "Le rendez-vous ne peut pas être dans le passé"
+        slot_type:
+          multiple_uniqueness: "Un créneau récurrent similaire existe déjà."
+          batch_multiple_uniqueness: "Un ou plusieurs créneaux récurrents similaires existent déjà. Les doublons n'ont pas été crées."
+
 
   login_sub_title: "Espace agents"
   login_tutorial: "Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial présent dans la liste suivante :"
@@ -273,6 +278,8 @@ fr:
   show_history_archive_convict: "Le profil de %{name} a été archivé. Pour le désarchiver, contactez votre administrateur local."
   show_history_unarchive_convict_title: "Désarchivage"
   show_history_unarchive_convict: "Le profil de %{name} a été désarchivé."
+  show_history_update_phone_convict_title: "Nouveau numéro"
+  show_history_update_phone_convict: "Le numéro de téléphone de %{name} a été modifié par %{user_name} (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}"
 
   show_history_book_appointment_title: "Nouveau RDV"
   show_history_book_appointment: "%{name} a été convoqué(e) au %{place} le %{date} à %{time}."
