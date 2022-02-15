@@ -17,10 +17,14 @@ module SlotFactory
       Slot.exists? date: date, slot_type: slot_type, starting_time: slot_type.starting_time
     end
 
+    def date_invalid?(date)
+      date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
+    end
+
     def create_slot(date, slot_type)
       return unless date && slot_type
 
-      return if slot_exists(date, slot_type)
+      return if slot_exists(date, slot_type) || date_invalid?(date)
 
       Slot.create(
         date: date, agenda: slot_type.agenda, slot_type: slot_type,
