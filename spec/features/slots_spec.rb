@@ -8,19 +8,22 @@ RSpec.feature 'Slots', type: :feature do
 
   describe 'index' do
     before do
-      apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
-      @slot1 = create(:slot, appointment_type: apt_type, date: Date.today.next_occurring(:monday))
-      create(:slot, appointment_type: apt_type, date: Date.today.next_occurring(:wednesday))
-
-      visit slots_path
+      @apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
+      @slot1 = create(:slot, appointment_type: @apt_type, date: Date.today.next_occurring(:monday))
     end
 
     it 'lists all slots' do
+      create(:slot, appointment_type: @apt_type, date: Date.today.next_occurring(:wednesday))
+
+      visit slots_path
+
       expect(page).to have_content(Date.today.next_occurring(:monday).to_s)
       expect(page).to have_content(Date.today.next_occurring(:wednesday).to_s)
     end
 
     it 'allows to close slot' do
+      visit slots_path
+
       within first('.slots-item-container') do
         click_link('Fermer')
       end
