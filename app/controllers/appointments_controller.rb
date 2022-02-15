@@ -5,11 +5,10 @@ class AppointmentsController < ApplicationController
 
   def index
     @q = policy_scope(Appointment).active.ransack(params[:q])
-    @q.slot_date_eq ||= Date.today.to_s
     @appointments = @q.result(distinct: true)
                       .joins(:convict, slot: [agenda: [:place]])
                       .includes(:convict, slot: [agenda: [:place]])
-                      .page params[:page]
+                      .page(params[:page]).per(25)
 
     authorize @appointments
   end

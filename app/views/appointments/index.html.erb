@@ -54,10 +54,18 @@
       </div>
 
       <div class='appointments-column-3'>
-        <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
+        <%= sort_link(@q, 'slot_agenda', t('activerecord.models.agenda'), default_order: :desc) %>
       </div>
 
       <div class='appointments-column-4'>
+        <%= sort_link(@q, 'slot_appointment_type', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) %>
+      </div>
+
+      <div class='appointments-column-5'>
+        <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
+      </div>
+
+      <div class='appointments-column-6'>
         <%= sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) %>
       </div>
     </div>
@@ -74,10 +82,18 @@
           </div>
 
           <div class='appointments-column-3'>
-            <%= appointment.slot.date.to_s(:base_date_format) %>
+            <%= appointment.slot.agenda.name %>
           </div>
 
           <div class='appointments-column-4'>
+            <%= appointment.slot.appointment_type.name %>
+          </div>
+
+          <div class='appointments-column-5'>
+            <%= appointment.slot.date.to_s(:base_date_format) %>
+          </div>
+
+          <div class='appointments-column-6'>
             <%= appointment.slot.starting_time.to_s(:time) %>
           </div>
 
