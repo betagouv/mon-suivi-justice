@@ -29,13 +29,11 @@ RSpec.feature 'Appointments', type: :feature do
     it 'allows to filter appointments' do
       visit appointments_path
 
-      fill_in 'index-appointment-date-filter', with: Date.today.next_occurring(:wednesday).strftime('%d/%m/%Y')
+      fill_in 'index-appointment-date-filter', with: Date.today.next_occurring(:wednesday)
       click_button 'Filtrer'
 
-      expect(page).not_to have_content(Date.today.next_occurring(:monday))
-      expect(page).not_to have_content('13:00')
       expect(page).to have_content(Date.today.next_occurring(:wednesday))
-      expect(page).to have_content('15:30')
+      expect(page).not_to have_content(Date.today.next_occurring(:monday))
     end
 
     it "doesn't show canceled appointments" do
