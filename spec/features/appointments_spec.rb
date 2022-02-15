@@ -4,13 +4,12 @@ RSpec.feature 'Appointments', type: :feature do
   before do
     @user = create_admin_user_and_login
     allow(Place).to receive(:in_department).and_return(Place.all)
-    allow(Date).to receive(:today).and_return(Date.today.next_occurring(:monday))
   end
 
   describe 'index' do
     before do
-      slot1 = create(:slot, date: Date.today, starting_time: new_time_for(13, 0))
-      slot2 = create(:slot, date: Date.today + 4, starting_time: new_time_for(15, 30))
+      slot1 = create(:slot, date: Date.today.next_occurring(:monday), starting_time: new_time_for(13, 0))
+      slot2 = create(:slot, date: Date.today.next_occurring(:wednesday), starting_time: new_time_for(15, 30))
       convict = create(:convict)
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
@@ -21,21 +20,21 @@ RSpec.feature 'Appointments', type: :feature do
     it 'display all appointments' do
       visit appointments_path
 
-      expect(page).to have_content(Date.today)
+      expect(page).to have_content(Date.today.next_occurring(:monday))
       expect(page).to have_content('13:00')
-      expect(page).to have_content(Date.today + 4)
+      expect(page).to have_content(Date.today.next_occurring(:wednesday))
       expect(page).to have_content('15:30')
     end
 
     it 'allows to filter appointments' do
       visit appointments_path
 
-      fill_in 'index-appointment-date-filter', with: (Date.today + 4).strftime('%d/%m/%Y')
+      fill_in 'index-appointment-date-filter', with: Date.today.next_occurring(:wednesday).strftime('%d/%m/%Y')
       click_button 'Filtrer'
 
-      expect(page).not_to have_content(Date.today)
+      expect(page).not_to have_content(Date.today.next_occurring(:monday))
       expect(page).not_to have_content('13:00')
-      expect(page).to have_content(Date.today + 4)
+      expect(page).to have_content(Date.today.next_occurring(:wednesday))
       expect(page).to have_content('15:30')
     end
 
