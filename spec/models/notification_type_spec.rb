@@ -16,7 +16,7 @@ RSpec.describe NotificationType, type: :model do
       expect(notification_type).to be_valid
     end
 
-    it "shouldn' accept templates with incorrect keys" do
+    it "shouldn't accept templates with incorrect keys" do
       incorrect_template = 'Mauvais template avec une clé invalide {rdv.heure} {clé_invalide}'
       notification_type = build(:notification_type, template: incorrect_template)
 
