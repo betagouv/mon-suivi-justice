@@ -24,7 +24,7 @@ RSpec.feature 'Slots', type: :feature do
     it 'allows to close slot' do
       visit slots_path
 
-      within first('.slots-item-container') do
+      within first('.index-list-item-container') do
         click_link('Fermer')
       end
 

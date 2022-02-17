@@ -37,7 +37,7 @@
 
 .link-to-new-appointment-form {
   text-align: right;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .link-to-new-appointment-button {
@@ -76,18 +76,50 @@
 
 .appointments-column-1 {
   width: 20%;
+
+  @media print {
+    width: 25%;
+  }
 }
 
 .appointments-column-2 {
   width: 20%;
+
+  @media print {
+    width: 30%;
+  }
 }
 
 .appointments-column-3 {
   width: 20%;
+
+  @media print {
+    width: 25%;
+  }
 }
 
 .appointments-column-4 {
-  width: 20%;
+  width: 15%;
+
+  @media print {
+    width: 20%;
+  }
+}
+
+.appointments-column-5 {
+  width: 10%;
+
+  @media print {
+    width: 20%;
+  }
+}
+
+.appointments-column-6 {
+  width: 10%;
+
+  @media print {
+    width: 20%;
+  }
 }
 
 .new-appointment-form-no-slot {
@@ -215,6 +247,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   form {
     padding: 2px;
   }
@@ -227,30 +260,6 @@
 .jap-agendas-modal-close {
   margin-right: 0;
   margin-left: auto;
-}
-
-.today-appointments-tools-container {
-  display: flex;
-  justify-content: flex-end;
-  height: 40px;
-  margin-bottom: 40px;
-}
-
-.today-agendas-date-container {
-  height: 100px;
-  margin: 40px auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.today-date-title-container {
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.today-appointments-date-select {
-  min-width: 130px;
 }
 
 .appointment-reschedule-form-slot-fields-container {

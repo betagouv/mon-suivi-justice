@@ -8,7 +8,7 @@ class AppointmentsController < ApplicationController
     @appointments = @q.result(distinct: true)
                       .joins(:convict, slot: [agenda: [:place]])
                       .includes(:convict, slot: [agenda: [:place]])
-                      .page params[:page]
+                      .page(params[:page]).per(25)
 
     authorize @appointments
   end
@@ -111,18 +111,6 @@ class AppointmentsController < ApplicationController
   def display_slot_fields
     @agenda = policy_scope(Agenda).find(params[:agenda_id])
     @appointment_type = AppointmentType.find(params[:apt_type_id])
-  end
-
-  def index_today
-    current_date = params.key?(:date) ? params[:date] : Date.today
-    current_place = params.key?(:place) ? Place.find(params[:place]) : current_organization.places.first
-
-    @appointments = policy_scope(Appointment).for_a_date(current_date).for_a_place(current_place)
-                                             .active
-                                             .joins(slot: [agenda: [:place]])
-                                             .includes(slot: [agenda: [:place]])
-
-    authorize @appointments
   end
 
   private
