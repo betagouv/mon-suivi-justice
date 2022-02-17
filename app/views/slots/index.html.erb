@@ -36,7 +36,7 @@
                                          method: :get %>
     <% end %>
 
-    <% if ENV['APP'] != 'mon-suivi-justice-prod' && policy(:slot).update? %>
+    <% if current_user.admin? %>
       <%= button_tag t('index_slots_batch_close'), type: 'submit',
                                                    form: 'index-slots-update-form',
                                                    data: { confirm: t('basic_confirmation') },
@@ -95,7 +95,7 @@
               <%= slot.starting_time.to_s(:time) %>
             </div>
 
-            <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+            <% if current_user.admin? %>
               <div class='slots-column-6'>
                 <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
               </div>
