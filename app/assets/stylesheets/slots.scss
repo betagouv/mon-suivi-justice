@@ -1,17 +1,3 @@
-.slots-header {
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  height: 40px;
-  border-bottom: 1px solid $table-border;
-  padding-left: 30px;
-  padding-right: 20px;
-
-  position: fixed;
-  width: calc(100vw - #{$sidebar-width});
-  background-color: $main-background;
-}
-
 .link-to-new-slot-form {
   text-align: right;
   margin-bottom: 10px;
@@ -21,87 +7,6 @@
   @include button($light-blue);
   margin-right: 10px;
   width: 190px;
-}
-
-.slots-index-tools-container {
-  width: calc(100vw - #{$sidebar-width});
-  position: fixed;
-  display: flex;
-  justify-content: space-between;
-  height: 110px;
-  background-color: $main-background;
-  border-bottom: 1px solid $table-border;
-}
-
-.slots-index-tools-filter-container {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.slots-index-filters-container {
-  height: 110px;
-  max-width: 450px;
-  padding: 10px;
-}
-
-.slots-index-search-form {
-  display: flex;
-  align-items: center;
-}
-
-.slots-index-search-field {
-  height: 40px;
-  max-width: 200px;
-  padding: 10px;
-  margin-right: 10px;
-  border: 1px solid $table-border;
-}
-
-.slots-index-slot-filter-field {
-  width: 100%;
-  max-width: 200px;
-  height: 40px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid $table-border;
-
-  background-color: $main-background;
-  color: grey;
-}
-
-.slots-index-filters-button-container {
-  display: flex;
-  align-items: center;
-}
-
-.slots-index-search-button {
-  @include button($light-grey);
-  height: 40px;
-}
-
-.slots-index-tools-controls-container {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-
-.slots-index-table-container {
-  margin-top: 110px;
-  display: flow-root;
-}
-
-.slots-index-list-container {
-  margin-top: 40px;
-}
-
-.slots-item-container {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid $table-border;
-  padding-left: 30px;
-  padding-right: 20px;
-  min-height: 40px;
 }
 
 .slots-batch-close-button {

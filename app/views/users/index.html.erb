@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class='index-table-container'>
+  <div class='index-basic-table-container'>
     <div class='users-header'>
       <div class='users-header-title users-column-1'>
         <%= t('activerecord.attributes.user.name') %>
@@ -29,6 +29,8 @@
       <div class='users-header-title users-column-4'>
         <%= t('activerecord.attributes.user.organization') %>
       </div>
+
+      <div class='users-column-5'></div>
     </div>
 
     <% @users.each do |user| %>
@@ -48,7 +50,7 @@
           <%= user.organization.name %>
         </div>
 
-        <div class='index-controls-container'>
+        <div class='index-controls-container users-column-5'>
           <% if policy(:user).edit? %>
             <%= link_to t('edit'), edit_user_path(user), class: 'index-control' %>
           <% end %>

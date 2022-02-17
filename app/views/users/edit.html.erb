@@ -4,6 +4,7 @@
   <%= f.input :first_name %>
   <%= f.input :last_name %>
   <%= f.input :email, required: true %>
+  <%= f.input :phone %>
 
   <% if current_user.admin? %>
     <%= f.association :organization, include_blank: false,

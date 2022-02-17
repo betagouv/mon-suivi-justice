@@ -7,11 +7,17 @@
 @page :header {color: #fff}
 
 @media print {
-  section.sidebar, header.header, div.index-tools-container, a.support-link {
+  section.sidebar,
+  header.header,
+  div.support-link,
+  div.index-header-container,
+  div.index-tools-container,
+  div.index-controls-container,
+  div.jap-agendas-tools-container {
     display: none;
   }
 
-  div.jap-agendas-tools-container {
+  .fa-sort {
     display: none;
   }
 }
