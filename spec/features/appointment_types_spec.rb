@@ -18,28 +18,30 @@ RSpec.feature 'AppointmentType', type: :feature do
   end
 
   describe 'update' do
-    before do
-      @appointment_type = create(:appointment_type, name: '1er contact')
+    let(:appointment_type) { create(:appointment_type, name: '1er contact') }
+    let!(:notif_type1) do
+      create(:notification_type, appointment_type: appointment_type,
+                                 role: :summon, template: 'Yo')
+    end
+    let!(:notif_type2) do
+      create(:notification_type, appointment_type: appointment_type,
+                                 role: :reminder, template: 'Man')
+    end
+    let!(:notif_type3) do
+      create(:notification_type, appointment_type: appointment_type,
+                                 role: :cancelation, template: 'Bruh')
+    end
+    let!(:notif_type4) do
+      create(:notification_type, appointment_type: appointment_type,
+                                 role: :no_show, template: 'Dude')
+    end
+    let!(:notif_type5) do
+      create(:notification_type, appointment_type: appointment_type,
+                                 role: :reschedule, template: 'Meh')
     end
 
     it 'allows to update notification types' do
-      notif_type1 = create(:notification_type, appointment_type: @appointment_type,
-                                               role: :summon,
-                                               template: 'Yo')
-      notif_type2 = create(:notification_type, appointment_type: @appointment_type,
-                                               role: :reminder,
-                                               template: 'Man')
-      notif_type3 = create(:notification_type, appointment_type: @appointment_type,
-                                               role: :cancelation,
-                                               template: 'Bruh')
-      notif_type4 = create(:notification_type, appointment_type: @appointment_type,
-                                               role: :no_show,
-                                               template: 'Dude')
-      create(:notification_type, appointment_type: @appointment_type,
-                                 role: :reschedule,
-                                 template: 'Meh')
-
-      visit edit_appointment_type_path(@appointment_type)
+      visit edit_appointment_type_path(appointment_type)
 
       within first('.summon-container') do
         fill_in 'Template', with: 'Yolo'
@@ -70,6 +72,25 @@ RSpec.feature 'AppointmentType', type: :feature do
 
       notif_type4.reload
       expect(notif_type4.template).to eq('Dudette')
+
+      expect(page).to have_content('Les modifications ont bien été enregistrées.')
+    end
+
+    it 'does not allow to update notification types with incorrect template' do
+      visit edit_appointment_type_path(appointment_type)
+
+      within first('.summon-container') do
+        fill_in 'Template', with: 'Mince {incorrect_key}'
+      end
+
+      click_button 'Enregistrer'
+
+      notif_type1.reload
+      expect(notif_type1.template).to eq('Yo')
+
+      expected_content = "Le format de ce modèle n'est pas valide. " \
+                         "Merci d'utiliser uniquement les clés documentées."
+      expect(page).to have_content(expected_content)
     end
   end
 end

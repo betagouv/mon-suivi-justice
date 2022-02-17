@@ -17,7 +17,7 @@ class AppointmentTypesController < ApplicationController
     authorize @appointment_type
 
     if @appointment_type.update(appointment_type_params)
-      redirect_to appointment_types_path
+      redirect_to appointment_types_path, notice: t('.notice')
     else
       render :edit
     end
