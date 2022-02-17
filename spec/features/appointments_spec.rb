@@ -15,11 +15,11 @@ RSpec.feature 'Appointments', type: :feature do
 
       create(:appointment, convict: convict, slot: slot1)
       create(:appointment, convict: convict, slot: slot2)
-
-      visit appointments_path
     end
 
-    it 'lists all appointments' do
+    it 'display all appointments' do
+      visit appointments_path
+
       expect(page).to have_content(Date.today.next_occurring(:monday))
       expect(page).to have_content('13:00')
       expect(page).to have_content(Date.today.next_occurring(:wednesday))
@@ -27,11 +27,12 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'allows to filter appointments' do
-      expect(page).to have_content(Date.today.next_occurring(:monday))
+      visit appointments_path
 
-      fill_in 'search-field', with: Date.today.next_occurring(:wednesday)
+      fill_in 'index-appointment-date-filter', with: Date.today.next_occurring(:wednesday)
       click_button 'Filtrer'
 
+      expect(page).to have_content(Date.today.next_occurring(:wednesday))
       expect(page).not_to have_content(Date.today.next_occurring(:monday))
     end
 
@@ -45,8 +46,8 @@ RSpec.feature 'Appointments', type: :feature do
       appointment = create(:appointment, :with_notifications, convict: convict, slot: slot)
 
       appointment.book
-
       visit appointments_path
+
       expect(page).to have_content('GOMEZ')
 
       appointment.cancel
