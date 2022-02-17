@@ -1,9 +1,14 @@
 <h1 class='form-title'><%= t('edit_appointment_type_title') %></h1>
 
+
 <%= simple_form_for @appointment_type, html: { class: 'appointment-type-form' } do |f| %>
   <div class='edit-appointment-type-container'>
     <p class='appointment-type-edit-subtitle'><%= @appointment_type.name %></p>
     <h2 class='form-secondary-title'><%= t('edit_appointment_type_notifications') %></h2>
+
+    <% if @appointment_type.errors.present? %>
+      <p class='errors-box'><%= @appointment_type.errors.map(&:message).join(" - ") %></p>
+    <% end %>
 
     <%= f.simple_fields_for :notification_types, @appointment_type.summon_notif do |p| %>
       <div class='notification-type-container summon-container'>
@@ -109,7 +114,9 @@
       <p class='appointment-type-tutorial-sample-title'>Résultat :</p>
       <p class='appointment-type-tutorial-sample'>Vous êtes convoqué au SPIP 92 le 27/06/2021 à 15h15. Merci de venir avec une pièce d'identité au 94 Bvd du Géneral Leclerc 92000 Nanterre.</p>
     </div>
+
   </div>
+
   <div class='edit-appointment-type-container-submit-container'>
     <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
   </div>
