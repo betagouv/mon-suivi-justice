@@ -1,6 +1,6 @@
-<header class='header'>
+<header class='header <%= 'header-staging' if ENV['APP'] == 'mon-suivi-justice-staging' %>'>
   <%= link_to home_path, class: 'header-home-link' do %>
-    <h1 class='header-title'><%= t('header_title')%></h1>
+    <h1 class='header-title'><%= t('header_title') %> <%= t('header_staging') if ENV['APP'] == 'mon-suivi-justice-staging' %></h1>
   <% end %>
   <h4><%= current_organization&.name %></h4>
   <div class='header-controls-container'>

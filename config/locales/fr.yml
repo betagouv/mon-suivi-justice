@@ -166,6 +166,7 @@ fr:
   ie_warning2: "Vous pouvez copier - coller le lien qui est dans la barre d'adresse dans un autre navigateur."
 
   header_title: "Mon Suivi Justice"
+  header_staging: "Staging"
   back_to_public_site: "Retour sur le site public"
 
   "yes": "Oui"
