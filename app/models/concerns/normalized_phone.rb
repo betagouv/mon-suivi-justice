@@ -14,6 +14,8 @@ module NormalizedPhone
   # ie: 05 61 08 37 31
   #
   def display_phone(spaces: true)
+    return unless phone.present?
+
     options = { format: :national, spaces: (spaces ? ' ' : '') }
     phone.phony_formatted options
   end
