@@ -39,6 +39,8 @@ RSpec.feature 'Slots', type: :feature do
       place = create(:place, name: 'McDo de Clichy', organization: @user.organization)
       agenda = create(:agenda, place: place, name: 'Agenda de Michel')
       appointment_type = create(:appointment_type, name: "Sortie d'audience SPIP")
+      create(:place_appointment_type, place: place, appointment_type: appointment_type)
+
       create(:appointment_type, name: 'RDV de suivi SPIP')
 
       visit new_slot_path
