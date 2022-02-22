@@ -57,14 +57,6 @@
         <%= sort_link(@q, 'slot_place_name', t('appointment_place'), default_order: :desc) %>
       </div>
 
-      <div class='appointments-column-3'>
-        <%= sort_link(@q, 'slot_agenda', t('activerecord.models.agenda'), default_order: :desc) %>
-      </div>
-
-      <div class='appointments-column-4'>
-        <%= sort_link(@q, 'slot_appointment_type', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) %>
-      </div>
-
       <div class='appointments-column-5'>
         <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
       </div>
@@ -72,38 +64,71 @@
       <div class='appointments-column-6'>
         <%= sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) %>
       </div>
+
+      <div class='appointments-column-3'>
+        <%= sort_link(@q, 'slot_agenda', t('activerecord.models.agenda'), default_order: :desc) %>
+      </div>
+
+      <div class='appointments-column-4'>
+        <%= sort_link(@q, 'slot_appointment_type', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) %>
+      </div>
     </div>
 
     <div class='index-list-container'>
       <% @appointments.each do |appointment| %>
-        <div class='index-list-item-container'>
-          <div class='appointments-column-1'>
-            <%= appointment.convict.name %>
+        <div class='index-list-line-container'>
+          <div class='index-list-item-container'>
+            <div class='appointments-column-1'>
+              <%= appointment.convict.name %>
+            </div>
+
+            <div class='appointments-column-2'>
+              <%= appointment.slot.agenda.place.name %>
+            </div>
+
+            <div class='appointments-column-5'>
+              <%= appointment.slot.date.to_s(:base_date_format) %>
+            </div>
+
+            <div class='appointments-column-6'>
+              <%= appointment.slot.starting_time.to_s(:time) %>
+            </div>
+
+            <div class='appointments-column-3'>
+              <%= appointment.slot.agenda.name %>
+            </div>
+
+            <div class='appointments-column-4'>
+              <%= appointment.slot.appointment_type.name %>
+            </div>
           </div>
 
-          <div class='appointments-column-2'>
-            <%= appointment.slot.agenda.place.name %>
-          </div>
+          <div class='index-list-controls-container'>
+            <div class='index-appointments-state-container'>
+              <%= t('index-appointment-state') %>
+              <% if appointment.in_the_past? && appointment.booked? %>
+                <div class='index-appointments-state-controls-container'>
+                  <%= button_to t('activerecord.state_machines.states.fulfiled'), appointment_fulfil_path(appointment),
+                                                                                  method: :put,
+                                                                                  class: 'index-appointments-fulfil-button' %>
 
-          <div class='appointments-column-3'>
-            <%= appointment.slot.agenda.name %>
-          </div>
+                  <%= button_tag t('activerecord.state_machines.states.no_show'), type: 'button',
+                                                                                  class: 'index-appointments-miss-button',
+                                                                                  data: { 'micromodal-trigger': "missed-appointment-modal-#{appointment.id}" } %>
 
-          <div class='appointments-column-4'>
-            <%= appointment.slot.appointment_type.name %>
-          </div>
+                  <%= button_to t('activerecord.state_machines.states.excused'), appointment_excuse_path(appointment),
+                                                                                 method: :put,
+                                                                                 class: 'index-appointments-excuse-button' %>
+                </div>
 
-          <div class='appointments-column-5'>
-            <%= appointment.slot.date.to_s(:base_date_format) %>
-          </div>
+                <%= render 'missed_appointment_modal', apt: appointment %>
+              <% else %>
+                <%= fa_icon 'circle', class: "index-appointments-state-icon icon_#{appointment.state}" %> <%= appointment.human_state_name %>
+              <% end %>
+            </div>
 
-          <div class='appointments-column-6'>
-            <%= appointment.slot.starting_time.to_s(:time) %>
-          </div>
-
-          <div class='index-controls-container'>
             <% if policy(:appointment).show? %>
-              <%= link_to t('see'), appointment_path(appointment), class: 'index-control' %>
+              <%= link_to t('index-appointment-see-data'), appointment_path(appointment), class: 'index-appointments-see-infos' %>
             <% end %>
           </div>
         </div>

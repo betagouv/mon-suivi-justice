@@ -8,12 +8,12 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'index' do
     before do
-      slot1 = create(:slot, date: Date.today.next_occurring(:monday), starting_time: new_time_for(13, 0))
+      @slot1 = create(:slot, date: Date.today.next_occurring(:monday), starting_time: new_time_for(13, 0))
       slot2 = create(:slot, date: Date.today.next_occurring(:wednesday), starting_time: new_time_for(15, 30))
       convict = create(:convict)
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
-      create(:appointment, convict: convict, slot: slot1)
+      @appointment1 = create(:appointment, :with_notifications, convict: convict, slot: @slot1)
       create(:appointment, convict: convict, slot: slot2)
     end
 
@@ -54,6 +54,20 @@ RSpec.feature 'Appointments', type: :feature do
 
       visit appointments_path
       expect(page).not_to have_content('GOMEZ')
+    end
+
+    it 'allows to indicate the state of appointments' do
+      @slot1.update(date: Date.today.prev_occurring(:monday))
+      @appointment1.book
+
+      visit appointments_path
+
+      within first('.index-list-controls-container') do
+        click_button 'Honoré'
+      end
+
+      @appointment1.reload
+      expect(@appointment1.state).to eq('fulfiled')
     end
   end
 

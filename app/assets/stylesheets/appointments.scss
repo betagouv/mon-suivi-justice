@@ -99,7 +99,7 @@
 }
 
 .appointments-column-4 {
-  width: 15%;
+  width: 20%;
 
   @media print {
     width: 20%;
@@ -270,4 +270,45 @@
 
 .appointment-reschedule-form-submit-container {
   display: flex;
+}
+
+.index-appointments-state-container {
+  display: flex;
+  align-items: center;
+}
+
+.index-appointments-state-controls-container {
+  display: flex;
+}
+
+.index-appointments-fulfil-button {
+  @include button($light-green)
+  font-size: 1.1em;
+  margin-left: 10px;
+  padding: .4em .8em;
+}
+
+.index-appointments-miss-button {
+  @include button($light-red)
+  font-size: 1.1em;
+  margin-left: 10px;
+  padding: .4em .8em;
+}
+
+.index-appointments-excuse-button {
+  @include button($light-grey)
+  font-size: 1.1em;
+  margin-left: 10px;
+  padding: .4em .8em;
+}
+
+.index-appointments-see-infos {
+  margin-left: 10px;
+  color: $link;
+}
+
+.index-appointments-state-icon {
+  font-size: 10px;
+  margin: 3px 5px 0 5px;
+  color: $dark-grey;
 }
