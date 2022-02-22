@@ -68,6 +68,7 @@
 
 .index-table-container {
   margin-top: 110px;
+  width: calc(100vw - #{$sidebar-width});
   display: flow-root;
 }
 
@@ -99,7 +100,7 @@
   padding-right: 20px;
 
   position: fixed;
-  width: calc(100vw - #{$sidebar-width});
+  width: inherit;
   background-color: $main-background;
 
   @media print {
