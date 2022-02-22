@@ -13,9 +13,7 @@
                                             input_html: { class: 'form-select' },
                                             include_blank: false %>
         <% end %>
-        <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
-          <%= f.input :preparation_link %>
-        <% end %>
+        <%= f.input :preparation_link %>
         <%= f.association :organization, include_blank: false,
                                          label: t('activerecord.attributes.user.organization'),
                                          input_html: { class: 'form-select' } %>
