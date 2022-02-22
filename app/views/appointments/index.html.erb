@@ -13,7 +13,7 @@
                                                { include_blank: t('index_slot_place_filter') },
                                                { class: 'form-select index-header-filter-field' } %>
 
-        <%= f.select :slot_agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_id_eq),
+        <%= f.select :slot_agenda_id_eq, options_from_collection_for_select(Agenda.in_department(current_user.organization), 'id', 'name', @q.slot_agenda_id_eq),
                                          { include_blank: t('index-appointment-agenda-filter') },
                                          { class: 'form-select index-header-filter-field' } %>
 
@@ -25,6 +25,10 @@
 
     <div class='index-header-filters-button-container'>
       <%= button_tag t('filter'), type: 'submit', class: 'index-header-filters-button', form: 'index-header-filters-form' %>
+      <%= button_to t('index-appointment-reinit-filter'), appointments_path,
+                                                          params: { q: {slot_date_eq: Date.today.to_s }},
+                                                          class: 'index-header-filters-button',
+                                                          method: :get %>
     </div>
   </div>
 

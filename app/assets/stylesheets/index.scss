@@ -15,8 +15,9 @@
 
 .index-header-filters-fields-container {
   height: 110px;
-  max-width: 450px;
+  max-width: 435px;
   padding: 10px;
+  padding-right: 0;
 }
 
 .index-header-filters-form {
@@ -26,15 +27,14 @@
 
 .index-header-search-field {
   height: 40px;
-  max-width: 200px;
+  width: 200px;
   padding: 10px;
   margin-right: 10px;
   border: 1px solid $table-border;
 }
 
 .index-header-filter-field {
-  width: 100%;
-  max-width: 200px;
+  width: 200px;
   height: 40px;
   margin-right: 10px;
   margin-bottom: 10px;
@@ -47,12 +47,16 @@
 
 .index-header-filters-button-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 0;
 }
 
 .index-header-filters-button {
   @include button($light-grey);
   height: 40px;
+  margin-bottom: 10px;
 }
 
 .index-header-controls-container {
