@@ -38,7 +38,7 @@
                                                 method: :get %>
             <% end %>
 
-            <% if policy(:appointment).index_today? %>
+            <% if policy(:appointment).index? %>
               <%= button_to t('home.today_appointments'), appointments_path,
                                                           params: { q: {slot_date_eq: Date.today.to_s }},
                                                           class: 'home-agenda-link',

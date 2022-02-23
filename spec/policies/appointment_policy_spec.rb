@@ -22,7 +22,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
     it { is_expected.to permit_action(:reschedule) }
-    it { is_expected.to permit_action(:index_today) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
   end
@@ -42,7 +41,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
     it { is_expected.to permit_action(:reschedule) }
-    it { is_expected.to permit_action(:index_today) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
   end
@@ -52,7 +50,6 @@ describe AppointmentPolicy do
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
-    it { is_expected.to forbid_action(:index_today) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -109,7 +106,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to forbid_action(:agenda_spip) }
-    it { is_expected.to forbid_action(:index_today) }
 
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
@@ -164,7 +160,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to forbid_action(:agenda_spip) }
-    it { is_expected.to forbid_action(:index_today) }
 
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
@@ -219,7 +214,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
-    it { is_expected.to forbid_action(:index_today) }
 
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
@@ -271,7 +265,6 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'bex') }
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
-    it { is_expected.to forbid_action(:index_today) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -326,7 +319,6 @@ describe AppointmentPolicy do
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
-    it { is_expected.to forbid_action(:index_today) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -383,7 +375,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to forbid_action(:agenda_spip) }
-    it { is_expected.to forbid_action(:index_today) }
 
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
@@ -438,7 +429,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to forbid_action(:agenda_spip) }
-    it { is_expected.to forbid_action(:index_today) }
 
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
@@ -493,7 +483,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to forbid_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
-    it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type 1er RDV SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
@@ -563,7 +552,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to forbid_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
-    it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type 1er RDV SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
@@ -633,7 +621,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to forbid_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
-    it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type 1er RDV SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
@@ -703,7 +690,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to forbid_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
-    it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type 1er RDV SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
@@ -773,7 +759,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to forbid_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
-    it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type 1er RDV SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
@@ -843,7 +828,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to forbid_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
-    it { is_expected.to permit_action(:index_today) }
 
     context 'for an appointment_type 1er RDV SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
