@@ -360,6 +360,8 @@ fr:
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-agenda-filter: "Agenda"
   index-appointment-reinit-filter: "Réinitialiser"
+  index-appointment-see-data: "Voir les infos"
+  index-appointment-state: "Statut :"
   today_appointments_place_filter: "Lieu de RDV"
   index-slots-appointment-type-filter: "Type de RDV"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"

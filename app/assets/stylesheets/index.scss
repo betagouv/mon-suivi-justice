@@ -70,6 +70,10 @@
   margin-top: 110px;
   width: calc(100vw - #{$sidebar-width});
   display: flow-root;
+
+  @media print {
+    width: 100%;
+  }
 }
 
 .index-list-container {
@@ -79,10 +83,10 @@
 .index-list-item-container {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid $table-border;
   padding-left: 30px;
   padding-right: 20px;
   min-height: 40px;
+  width: 100%;
 
   @media print {
     padding-left: 0;
@@ -222,6 +226,24 @@
 .index-tools-controls-container {
   display: flex;
   padding: 10px;
+}
+
+.index-list-line-container {
+  border-bottom: 1px solid $table-border;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.index-list-controls-container {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding-right: 10px;
+
+  @media print {
+    display: none;
+  }
 }
 
 .print-button {
