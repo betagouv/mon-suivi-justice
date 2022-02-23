@@ -1,1 +1,1 @@
-json.partial! "convict", convict: @convict
+json.partial! 'convict', convict: @convict

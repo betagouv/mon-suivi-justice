@@ -29,6 +29,8 @@ module MonSuiviJustice
     # config.eager_load_paths << Rails.root.join("extras")
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
+    config.hosts << "ffde-193-248-45-184.ngrok.io"
+
     config.i18n.load_path += Dir["#{Rails.root.to_s}/config/locales/**/*.{rb,yml}"]
 
     config.exceptions_app = routes
