@@ -4,7 +4,7 @@ class AppointmentsController < ApplicationController
                                             :display_slots, :display_slot_fields]
 
   def index
-    @q = policy_scope(Appointment).active.ransack(params[:q])
+    @q = policy_scope(Appointment).active.in_organization(current_user.organization).ransack(params[:q])
     @appointments = @q.result(distinct: true)
                       .joins(:convict, slot: [agenda: [:place]])
                       .includes(:convict, slot: [agenda: [:place]])

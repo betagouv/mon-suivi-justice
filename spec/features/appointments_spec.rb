@@ -8,8 +8,15 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'index' do
     before do
-      @slot1 = create(:slot, date: Date.today.next_occurring(:monday), starting_time: new_time_for(13, 0))
-      slot2 = create(:slot, date: Date.today.next_occurring(:wednesday), starting_time: new_time_for(15, 30))
+      place = create :place, organization: @user.organization
+      @agenda = create :agenda, place: place
+
+      @slot1 = create(:slot, agenda: @agenda,
+                             date: Date.today.next_occurring(:monday),
+                             starting_time: new_time_for(13, 0))
+      slot2 = create(:slot, agenda: @agenda,
+                            date: Date.today.next_occurring(:wednesday),
+                            starting_time: new_time_for(15, 30))
       convict = create(:convict)
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
@@ -41,7 +48,9 @@ RSpec.feature 'Appointments', type: :feature do
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
       apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
-      slot = create(:slot, date: Date.today.next_occurring(:monday), appointment_type: apt_type,
+      slot = create(:slot, date: Date.today.next_occurring(:monday),
+                           agenda: @agenda,
+                           appointment_type: apt_type,
                            starting_time: new_time_for(14, 0))
       appointment = create(:appointment, :with_notifications, convict: convict, slot: slot)
 
