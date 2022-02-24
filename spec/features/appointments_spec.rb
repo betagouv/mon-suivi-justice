@@ -185,7 +185,8 @@ RSpec.feature 'Appointments', type: :feature do
         select 'place_in_name', from: 'Lieu'
         expect(page).not_to have_select('Agenda',
                                         options: ['', 'agenda_in_name', 'agenda_out_name', 'other_agenda_in_name'])
-        expect(page).to have_select('Agenda', options: ['', 'agenda_in_name', 'other_agenda_in_name'])
+        expect(page).to have_select('Agenda',
+                                    options: ['', 'Tous les agendas', 'agenda_in_name', 'other_agenda_in_name'])
         select 'agenda_in_name', from: 'Agenda'
         choose '14:00'
         expect(page).to have_button('Enregistrer')
@@ -213,6 +214,34 @@ RSpec.feature 'Appointments', type: :feature do
 
         expect(page).not_to have_select('Lieu', options: ['', 'McDo de Barbès', 'Quick de Montreuil'])
         expect(page).to have_select('Lieu', options: ['', 'McDo de Barbès'])
+      end
+
+      it 'allows to see all agendas at once for some appointment_types' do
+        convict = create(:convict, first_name: 'Jean-Louis', last_name: 'Martin')
+        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+
+        appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
+        place = create :place, name: 'SPIP 93', appointment_types: [appointment_type],
+                               organization: @user.organization
+        agenda = create :agenda, place: place, name: 'Cabinet 28'
+        create :agenda, place: place, name: 'Cabinet 32'
+        create :slot, agenda: agenda,
+                      appointment_type: appointment_type,
+                      date: Date.today.next_occurring(:monday),
+                      starting_time: '17h'
+
+        visit new_appointment_path
+
+        first('.select2-container', minimum: 1).click
+        find('li.select2-results__option', text: 'MARTIN Jean-louis').click
+        select "Sortie d'audience SPIP", from: :appointment_appointment_type_id
+        select 'SPIP 93', from: 'Lieu'
+        select 'Tous les agendas', from: 'Agenda'
+        choose '17:00 - Cabinet 28'
+
+        click_button 'Enregistrer'
+
+        expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
       end
     end
 

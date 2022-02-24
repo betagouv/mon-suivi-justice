@@ -83,6 +83,7 @@ class AppointmentsController < ApplicationController
   def display_agendas
     place = policy_scope(Place).find(params[:place_id])
     @agendas = Agenda.where(place_id: place.id)
+    @appointment_type = AppointmentType.find(params[:apt_type_id])
 
     return unless @agendas.count == 1
 
@@ -90,22 +91,30 @@ class AppointmentsController < ApplicationController
   end
 
   def display_time_options
-    agenda = policy_scope(Agenda).find(params[:agenda_id])
+    all_agendas = params[:agenda_id] == 'all'
+    agenda_id = params[:agenda_id] == 'all' ? nil : policy_scope(Agenda).find(params[:agenda_id]).id
+
     @appointment_type = AppointmentType.find(params[:apt_type_id])
 
     if @appointment_type.with_slot_types?
-      redirect_to display_slots_path(agenda_id: agenda.id, apt_type_id: @appointment_type.id)
+      redirect_to display_slots_path(agenda_id: agenda_id, all_agendas: all_agendas, apt_type_id: @appointment_type.id)
     else
-      redirect_to display_slot_fields_path(agenda_id: agenda.id, apt_type_id: @appointment_type.id)
+      redirect_to display_slot_fields_path(agenda_id: agenda_id, apt_type_id: @appointment_type.id)
     end
   end
 
   def display_slots
-    agenda = policy_scope(Agenda).find(params[:agenda_id])
     @appointment_type = AppointmentType.find(params[:apt_type_id])
+    @all_agendas = params[:all_agendas] == 'true'
 
-    @slots_by_date = Slot.future.relevant_and_available(agenda, @appointment_type)
-                         .order(:date).group_by(&:date)
+    if @all_agendas
+      @slots_by_date = Slot.future.relevant_and_available_all_agendas(@appointment_type)
+                           .order(:date).group_by(&:date)
+    elsif !params[:agenda_id].nil?
+      agenda = policy_scope(Agenda).find(params[:agenda_id])
+      @slots_by_date = Slot.future.relevant_and_available(agenda, @appointment_type)
+                           .order(:date).group_by(&:date)
+    end
   end
 
   def display_slot_fields

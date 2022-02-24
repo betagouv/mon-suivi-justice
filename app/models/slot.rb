@@ -21,6 +21,13 @@ class Slot < ApplicationRecord
     )
   }
 
+  scope :relevant_and_available_all_agendas, lambda { |appointment_type|
+    where(
+      appointment_type_id: appointment_type.id,
+      available: true
+    )
+  }
+
   scope :future, -> { where('date >= ?', Date.today) }
   scope :available, -> { where(available: true) }
 
