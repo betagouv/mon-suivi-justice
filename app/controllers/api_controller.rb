@@ -1,6 +1,4 @@
 class ApiController < ActionController::API
-  class ActionForbidden < StandardError; end
-
   include ActionController::HttpAuthentication::Basic::ControllerMethods
   http_basic_authenticate_with name: ENV['HTTP_BASIC_AUTH_USER'],
                                password: ENV['HTTP_BASIC_AUTH_PSWD']
