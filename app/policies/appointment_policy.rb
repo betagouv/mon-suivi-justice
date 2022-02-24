@@ -12,7 +12,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    !user.bex?
   end
 
   def show?
