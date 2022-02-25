@@ -59,7 +59,7 @@ class AppointmentsController < ApplicationController
     @appointment.fulfil!
 
     authorize @appointment
-    redirect_back(fallback_location: root_path, anchor: dom_id(@appointment))
+    redirect_to_back(fallback_location: root_path, anchor: dom_id(@appointment))
   end
 
   def miss
@@ -67,7 +67,7 @@ class AppointmentsController < ApplicationController
     @appointment.miss!(send_notification: params[:send_sms])
 
     authorize @appointment
-    redirect_back(fallback_location: root_path, anchor: dom_id(@appointment))
+    redirect_to_back(fallback_location: root_path, anchor: dom_id(@appointment))
   end
 
   def excuse
@@ -75,7 +75,7 @@ class AppointmentsController < ApplicationController
     @appointment.excuse!
 
     authorize @appointment
-    redirect_back(fallback_location: root_path, anchor: dom_id(@appointment))
+    redirect_to_back(fallback_location: root_path, anchor: dom_id(@appointment))
   end
 
   def display_places

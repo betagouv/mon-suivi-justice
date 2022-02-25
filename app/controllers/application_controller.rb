@@ -26,6 +26,15 @@ class ApplicationController < ActionController::Base
     ENV['PUBLIC_SITE_ROOT']
   end
 
+  # allows to add anchor to redirect_back. Source : https://www.filippoliverani.com/pass-params-rails-redirect-back
+  def redirect_to_back(options = {})
+    uri = URI(request.referer)
+    uri.query = options.delete(:params)&.to_query
+    uri.fragment = options.delete(:anchor)
+
+    redirect_to(uri.to_s, options)
+  end
+
   def current_organization
     @current_organization ||= current_user&.organization
   end
