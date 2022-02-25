@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
     ENV['PUBLIC_SITE_ROOT']
   end
 
+  def back_with_anchor(anchor: '')
+    "#{request.referrer}##{anchor}"
+  end
+
   def current_organization
     @current_organization ||= current_user&.organization
   end
