@@ -1,6 +1,4 @@
 class AppointmentsController < ApplicationController
-  include ActionView::RecordIdentifier
-
   before_action :authenticate_user!
   before_action :skip_authorization, only: [:display_places, :display_agendas, :display_time_options,
                                             :display_slots, :display_slot_fields]
@@ -59,7 +57,7 @@ class AppointmentsController < ApplicationController
     @appointment.fulfil!
 
     authorize @appointment
-    redirect_to back_with_anchor anchor: dom_id(@appointment)
+    redirect_back(fallback_location: root_path)
   end
 
   def miss
@@ -67,7 +65,7 @@ class AppointmentsController < ApplicationController
     @appointment.miss!(send_notification: params[:send_sms])
 
     authorize @appointment
-    redirect_to back_with_anchor anchor: dom_id(@appointment)
+    redirect_back(fallback_location: root_path)
   end
 
   def excuse
@@ -75,7 +73,7 @@ class AppointmentsController < ApplicationController
     @appointment.excuse!
 
     authorize @appointment
-    redirect_to back_with_anchor anchor: dom_id(@appointment)
+    redirect_back(fallback_location: root_path)
   end
 
   def display_places
