@@ -1,4 +1,6 @@
 class AppointmentsController < ApplicationController
+  include ActionView::RecordIdentifier
+
   before_action :authenticate_user!
   before_action :skip_authorization, only: [:display_places, :display_agendas, :display_time_options,
                                             :display_slots, :display_slot_fields]
@@ -8,6 +10,7 @@ class AppointmentsController < ApplicationController
     @appointments = @q.result(distinct: true)
                       .joins(:convict, slot: [agenda: [:place]])
                       .includes(:convict, slot: [agenda: [:place]])
+                      .order('slots.date ASC')
                       .page(params[:page]).per(25)
 
     authorize @appointments
@@ -56,7 +59,7 @@ class AppointmentsController < ApplicationController
     @appointment.fulfil!
 
     authorize @appointment
-    redirect_back(fallback_location: root_path)
+    redirect_back(fallback_location: root_path, anchor: dom_id(@appointment))
   end
 
   def miss
@@ -64,7 +67,7 @@ class AppointmentsController < ApplicationController
     @appointment.miss!(send_notification: params[:send_sms])
 
     authorize @appointment
-    redirect_back(fallback_location: root_path)
+    redirect_back(fallback_location: root_path, anchor: dom_id(@appointment))
   end
 
   def excuse
@@ -72,7 +75,7 @@ class AppointmentsController < ApplicationController
     @appointment.excuse!
 
     authorize @appointment
-    redirect_back(fallback_location: root_path)
+    redirect_back(fallback_location: root_path, anchor: dom_id(@appointment))
   end
 
   def display_places

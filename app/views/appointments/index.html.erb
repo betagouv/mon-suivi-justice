@@ -17,7 +17,7 @@
                                          { include_blank: t('index-appointment-agenda-filter') },
                                          { class: 'form-select index-header-filter-field' } %>
 
-        <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(AppointmentType.all, 'id', 'name', @q.slot_appointment_type_id_eq),
+        <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_user(current_user), 'id', 'name', @q.slot_appointment_type_id_eq),
                                                    { include_blank: t('index-slots-appointment-type-filter') },
                                                    { class: 'form-select index-header-filter-field' } %>
       </div>
@@ -76,7 +76,7 @@
 
     <div class='index-list-container'>
       <% @appointments.each do |appointment| %>
-        <div class='index-list-line-container'>
+        <div class='index-list-line-container', id=<%= dom_id(appointment) %>>
           <div class='index-list-item-container'>
             <div class='appointments-column-1'>
               <%= appointment.convict.name %>

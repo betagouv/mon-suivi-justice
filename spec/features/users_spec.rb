@@ -99,7 +99,7 @@ RSpec.feature 'Users', type: :feature do
       sidebar = find('section.sidebar')
 
       expect(sidebar).to have_link('PPSMJ')
-      expect(sidebar).not_to have_link('Rendez-vous')
+      expect(sidebar).to have_link('Rendez-vous')
       expect(sidebar).not_to have_link('Lieux')
       expect(sidebar).not_to have_link('Créneaux')
       expect(sidebar).not_to have_link('Agents')
