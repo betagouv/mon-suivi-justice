@@ -106,7 +106,7 @@
           <div class='index-list-controls-container'>
             <div class='index-appointments-state-container'>
               <%= t('index-appointment-state') %>
-              <% if appointment.in_the_past? && appointment.booked? %>
+              <% if appointment.in_the_past? && appointment.booked? && ENV['APP'] != 'mon-suivi-justice-prod' %>
                 <div class='index-appointments-state-controls-container'>
                   <%= button_to t('activerecord.state_machines.states.fulfiled'), appointment_fulfil_path(appointment),
                                                                                   method: :put,
