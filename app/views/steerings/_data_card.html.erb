@@ -50,42 +50,52 @@
 
         <div class='stat-card-subsection-content'>
           <div class='stat-card-container'>
-            <p class='stat-card-title'><%= t('stats.fulfiled') %></p>
-            <p class='stat-card-value'><%= data[:fulfiled] %></p>
+            <p class='stat-card-title'><%= t('stats.informed') %></p>
+            <p class='stat-card-value'><%= data[:passed_informed] %></p>
           </div>
 
-          <div class='stat-card-container'>
-            <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.fulfiled_percentage', data: data[:fulfiled_percentage]) %></b></p>
+            <div class='stat-card-subsection'>
+          <div class='stat-card-of-which'>
+            <p class='stat-card-title'><%= t('stats.of_which') %></p>
           </div>
 
-          <div class='stat-card-container'>
-            <p class='stat-card-title'><%= t('stats.excused') %></p>
-            <p class='stat-card-value'><%= data[:excused] %></p>
-          </div>
+          <div class='stat-card-subsection-content'>
+            <div class='stat-card-container'>
+              <p class='stat-card-title'><%= t('stats.fulfiled') %></p>
+              <p class='stat-card-value'><%= data[:fulfiled] %></p>
+            </div>
 
-          <div class='stat-card-container'>
-            <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.excused_percentage', data: data[:excused_percentage]) %></b></p>
-          </div>
+            <div class='stat-card-container'>
+              <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.fulfiled_percentage', data: data[:fulfiled_percentage]) %></b></p>
+            </div>
 
-          <div class='stat-card-container'>
-            <p class='stat-card-title'><%= t('stats.no_show') %></p>
-            <p class='stat-card-value'><%= data[:no_show] %></p>
-          </div>
+            <div class='stat-card-container'>
+              <p class='stat-card-title'><%= t('stats.excused') %></p>
+              <p class='stat-card-value'><%= data[:excused] %></p>
+            </div>
 
+            <div class='stat-card-container'>
+              <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.excused_percentage', data: data[:excused_percentage]) %></b></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-title'><%= t('stats.no_show') %></p>
+              <p class='stat-card-value'><%= data[:no_show] %></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.no_show_percentage', data: data[:no_show_percentage]) %></b></p>
+            </div>
+          </div>
+          </div>
           <div class='stat-card-container'>
-            <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.no_show_percentage', data: data[:no_show_percentage]) %></b></p>
+            <p class='stat-card-title'><%= t('stats.uninformed') %></p>
+            <p class='stat-card-value'><%= data[:passed_uninformed] %></p>
+          </div>
+          <div class='stat-card-container'>
+            <p class='stat-card-percentage'> <%= t('stats.that_is') %> <b><%= t('stats.uninformed_percentage', data: data[:passed_uninformed_percentage]) %></b></p>
           </div>
         </div>
-      </div>
-      <br>
-
-      <div class='stat-card-container'>
-        <p class='stat-card-title'><%= t('stats.passed_booked') %></p>
-        <p class='stat-card-value'><%= data[:passed_booked] %></p>
-      </div>
-
-      <div class='stat-card-container'>
-        <p class='stat-card-percentage'> <%= t('stats.that_is') %> <b><%= t('stats.passed_booked_percentage', data: data[:passed_booked_percentage]) %></b></p>
       </div>
     </div>
   </div>

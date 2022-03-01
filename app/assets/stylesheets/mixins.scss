@@ -24,3 +24,19 @@
   padding: 20px;
   border-radius: 2px;
 }
+
+@mixin badge($color) {
+  background-color: $color;
+  color: $main-font-color;
+  padding: .2em .5em;
+  border-radius: 2px;
+  font-size: 14px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: .3s background-color;
+
+  &:hover {
+    background: darken($color, 8%);
+  }
+}

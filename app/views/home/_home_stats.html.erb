@@ -1,6 +1,15 @@
 <div class='home-stats-wrapper'>
   <div class='home-stats-container'>
-    <p class='home-stats-title'><%= title %></p>
+    <div class='home-stats-subsection'>
+      <p class='home-stats-title'><%= title %></p>
+      <div class='home-stats-orga'>
+        <% local_stats_class = @global_stats ? '' : 'home_active_stat_link' %>
+        <%= link_to current_organization.name, home_path, class: "home-stats-link #{local_stats_class}" %>
+        <% global_stats_class = @global_stats ? 'home_active_stat_link' : '' %>
+        <%= link_to t('home.stats_global'), home_path(global_stats: true), class: "home-stats-link #{global_stats_class}" %>
+      </div>
+    </div>
+
     <div class='home-stats-subsection'>
       <div class='stat-card-container'>
         <p class='stat-card-title'><%= t('home.stats_users') %></p>
@@ -19,20 +28,24 @@
     </div>
 
     <div class='home-stats-subsection'>
-      <div class='stat-card-container'>
-        <p class='home-stat-percentage'><b><%= data[:fulfiled_percentage] %>%</b> <%= t('home.stats_fulfiled') %></p>
+      <p class='stat-card-title'><%= t('home.stats_from_informed') %></p>
+
+      <div class='home-stats-appointment-states'>
+        <div class='stat-card-container'>
+          <p class='home-stat-percentage'><b><%= data[:fulfiled_percentage] %>%</b> <%= t('home.stats_fulfiled') %></p>
+        </div>
+
+        <div class='stat-card-container'>
+          <p class='home-stat-percentage'><b><%= data[:excused_percentage] %>%</b> <%= t('home.stats_excused') %></p>
+        </div>
+
+        <div class='stat-card-container'>
+          <p class='home-stat-percentage'><b><%= data[:no_show_percentage] %>%</b> <%= t('home.stats_no_show') %></p>
+        </div>
       </div>
 
       <div class='stat-card-container'>
-        <p class='home-stat-percentage'><b><%= data[:excused_percentage] %>%</b> <%= t('home.stats_excused') %></p>
-      </div>
-
-      <div class='stat-card-container'>
-        <p class='home-stat-percentage'><b><%= data[:no_show_percentage] %>%</b> <%= t('home.stats_no_show') %></p>
-      </div>
-
-      <div class='stat-card-container'>
-        <p class='home-stat-percentage'><b><%= data[:passed_booked_percentage] %>%</b> <%= t('home.stats_passed_booked') %></p>
+        <p class='home-stat-percentage'><b><%= data[:passed_uninformed_percentage] %>%</b> <%= t('home.stats_passed_booked') %></p>
       </div>
     </div>
   </div>

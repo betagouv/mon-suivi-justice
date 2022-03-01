@@ -29,15 +29,16 @@ RSpec.describe DataCollector do
         notifications: 1,
         recorded: 7,
         future_booked: 1,
-        passed_booked: 1,
-        passed_booked_percentage: 25,
+        passed_uninformed: 1,
+        passed_uninformed_percentage: 25,
+        passed_informed: 3,
         passed_no_canceled_with_phone: 4,
         fulfiled: 1,
-        fulfiled_percentage: 25,
+        fulfiled_percentage: 33,
         no_show: 1,
-        no_show_percentage: 25,
+        no_show_percentage: 33,
         excused: 1,
-        excused_percentage: 25
+        excused_percentage: 33
       }
 
       result = DataCollector.new.perform

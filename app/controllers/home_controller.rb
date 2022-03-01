@@ -4,6 +4,11 @@ class HomeController < ApplicationController
 
   def home
     @convicts = policy_scope(Convict.all)
-    @stats = DataCollector.new.perform
+    if params[:global_stats]
+      @stats = DataCollector.new.perform
+      @global_stats = true
+    else
+      @stats = DataCollector.new(organization_id: current_organization.id).perform
+    end
   end
 end
