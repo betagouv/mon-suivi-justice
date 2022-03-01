@@ -37,10 +37,19 @@
         <%= t("activerecord.attributes.user.user_roles.#{@user.role}") %>
       </div>
     </div>
+
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.user.phone') %>
+      </div>
+      <div class='show-data-item'>
+        <%= @user.display_phone %>
+      </div>
+    </div>
   </div>
 
   <div class='show-button-to-edit-container'>
-    <%= button_to t('edit'), edit_user_path(current_user.id),
+    <%= button_to t('edit'), edit_user_path(@user.id),
                                   method: :get,
                                   form_class: 'show-button-to-edit-form',
                                   class: 'show-button-to-edit' %>

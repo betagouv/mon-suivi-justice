@@ -37,7 +37,7 @@
 
 .link-to-new-appointment-form {
   text-align: right;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .link-to-new-appointment-button {
@@ -76,18 +76,50 @@
 
 .appointments-column-1 {
   width: 20%;
+
+  @media print {
+    width: 25%;
+  }
 }
 
 .appointments-column-2 {
   width: 20%;
+
+  @media print {
+    width: 30%;
+  }
 }
 
 .appointments-column-3 {
-  width: 20%;
+  width: 10%;
+
+  @media print {
+    width: 20%;
+  }
 }
 
 .appointments-column-4 {
+  width: 10%;
+
+  @media print {
+    width: 20%;
+  }
+}
+
+.appointments-column-5 {
   width: 20%;
+
+  @media print {
+    width: 25%;
+  }
+}
+
+.appointments-column-6 {
+  width: 20%;
+
+  @media print {
+    width: 20%;
+  }
 }
 
 .new-appointment-form-no-slot {
@@ -215,6 +247,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   form {
     padding: 2px;
   }
@@ -229,30 +262,6 @@
   margin-left: auto;
 }
 
-.today-appointments-tools-container {
-  display: flex;
-  justify-content: flex-end;
-  height: 40px;
-  margin-bottom: 40px;
-}
-
-.today-agendas-date-container {
-  height: 100px;
-  margin: 40px auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.today-date-title-container {
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.today-appointments-date-select {
-  min-width: 130px;
-}
-
 .appointment-reschedule-form-slot-fields-container {
   width: 40%;
   margin: auto;
@@ -261,4 +270,50 @@
 
 .appointment-reschedule-form-submit-container {
   display: flex;
+}
+
+.index-appointments-state-container {
+  display: flex;
+  align-items: center;
+
+  border: 1px solid $table-border;
+  border-bottom: none;
+  padding: 5px 10px;
+}
+
+.index-appointments-state-controls-container {
+  display: flex;
+  margin-right: -5px;
+}
+
+.index-appointments-fulfil-button {
+  @include button($light-green)
+  font-size: 1.1em;
+  margin-left: 10px;
+  padding: .4em .8em;
+}
+
+.index-appointments-miss-button {
+  @include button($light-red)
+  font-size: 1.1em;
+  margin-left: 10px;
+  padding: .4em .8em;
+}
+
+.index-appointments-excuse-button {
+  @include button($light-grey)
+  font-size: 1.1em;
+  margin-left: 10px;
+  padding: .4em .8em;
+}
+
+.index-appointments-see-infos {
+  margin-left: 10px;
+  color: $link;
+}
+
+.index-appointments-state-icon {
+  font-size: 10px;
+  margin: 3px 5px 0 5px;
+  color: $dark-grey;
 }

@@ -7,7 +7,7 @@ document.addEventListener('turbolinks:load',function(e) {
 
   $('#profile-search-field').select2({
     selectionCssClass : 'profile-search-select2-input',
-    placeholder: "Commencer à saisir le nom et choisir dans la liste",
+    placeholder: "Commencer à saisir un nom ou un téléphone",
     multiple: true,
     maximumSelectionSize: 1,
     width: 'resolve',

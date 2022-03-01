@@ -19,10 +19,6 @@ class AppointmentPolicy < ApplicationPolicy
     true
   end
 
-  def index_today?
-    user.admin? || user.local_admin? || user.work_at_spip?
-  end
-
   def agenda_jap?
     user.admin? || user.local_admin? || user.work_at_sap? || user.work_at_bex?
   end

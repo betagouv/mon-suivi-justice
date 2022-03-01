@@ -5,16 +5,16 @@
         <button class="modal__close support-modal-close" aria-label="Close modal" data-micromodal-close></button>
       </header>
       <main class="modal__content support-modal-content" id="modal-2-content">
-        <p class='support-modal-title'><%= t('support_modal_title') %></p>
-        <p class='support-modal-text'><%= t('support_modal_text') %></p>
+        <p class='support-modal-title'><%= t('support.modal_title') %></p>
+        <p class='support-modal-text'><%= t('support.modal_text') %></p>
 
         <%= mail_to ENV['SUPPORT_EMAIL_ADRESS'], ENV['SUPPORT_EMAIL_ADRESS'], class: 'support-modal-email' %>
-        <p class='support-modal-warning'><%= t('support_modal_warning') %></p>
+        <p class='support-modal-warning'><%= t('support.modal_warning') %></p>
         <ul class='support-modal-list'>
-          <li class='support-modal-bug'><%= t('support_modal_bug') %></li>
-          <li class='support-modal-evolution'><%= t('support_modal_evolution') %></li>
+          <li class='support-modal-bug'><%= t('support.modal_bug') %></li>
+          <li class='support-modal-evolution'><%= t('support.modal_evolution') %></li>
         </ul>
-        <p class='support-modal-thanks'><%= t('support_modal_thanks') %></p>
+        <p class='support-modal-thanks'><%= t('support.modal_thanks') %></p>
       </main>
     </div>
   </div>

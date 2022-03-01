@@ -8,18 +8,25 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'index' do
     before do
-      slot1 = create(:slot, date: Date.today.next_occurring(:monday), starting_time: new_time_for(13, 0))
-      slot2 = create(:slot, date: Date.today.next_occurring(:wednesday), starting_time: new_time_for(15, 30))
+      place = create :place, organization: @user.organization
+      @agenda = create :agenda, place: place
+
+      @slot1 = create(:slot, agenda: @agenda,
+                             date: Date.today.next_occurring(:monday),
+                             starting_time: new_time_for(13, 0))
+      slot2 = create(:slot, agenda: @agenda,
+                            date: Date.today.next_occurring(:wednesday),
+                            starting_time: new_time_for(15, 30))
       convict = create(:convict)
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
-      create(:appointment, convict: convict, slot: slot1)
+      @appointment1 = create(:appointment, :with_notifications, convict: convict, slot: @slot1)
       create(:appointment, convict: convict, slot: slot2)
-
-      visit appointments_path
     end
 
-    it 'lists all appointments' do
+    it 'display all appointments' do
+      visit appointments_path
+
       expect(page).to have_content(Date.today.next_occurring(:monday))
       expect(page).to have_content('13:00')
       expect(page).to have_content(Date.today.next_occurring(:wednesday))
@@ -27,11 +34,12 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'allows to filter appointments' do
-      expect(page).to have_content(Date.today.next_occurring(:monday))
+      visit appointments_path
 
-      fill_in 'search-field', with: Date.today.next_occurring(:wednesday)
+      fill_in 'index-appointment-date-filter', with: Date.today.next_occurring(:wednesday)
       click_button 'Filtrer'
 
+      expect(page).to have_content(Date.today.next_occurring(:wednesday))
       expect(page).not_to have_content(Date.today.next_occurring(:monday))
     end
 
@@ -40,19 +48,35 @@ RSpec.feature 'Appointments', type: :feature do
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
       apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
-      slot = create(:slot, date: Date.today.next_occurring(:monday), appointment_type: apt_type,
+      slot = create(:slot, date: Date.today.next_occurring(:monday),
+                           agenda: @agenda,
+                           appointment_type: apt_type,
                            starting_time: new_time_for(14, 0))
       appointment = create(:appointment, :with_notifications, convict: convict, slot: slot)
 
       appointment.book
-
       visit appointments_path
+
       expect(page).to have_content('GOMEZ')
 
       appointment.cancel
 
       visit appointments_path
       expect(page).not_to have_content('GOMEZ')
+    end
+
+    it 'allows to indicate the state of appointments' do
+      @slot1.update(date: Date.today.prev_occurring(:monday))
+      @appointment1.book
+
+      visit appointments_path
+
+      within first('.index-list-controls-container') do
+        click_button 'Honoré'
+      end
+
+      @appointment1.reload
+      expect(@appointment1.state).to eq('fulfiled')
     end
   end
 

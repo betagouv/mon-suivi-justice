@@ -11,6 +11,7 @@ task :invite_agents, [:filename] => [:environment] do |_task, args|
       User.invite!(
         first_name: row['FIRST_NAME'],
         last_name: row['LAST_NAME'],
+        phone: row['PHONE'],
         role: row['ROLE'],
         email: row['EMAIL'],
         organization: Organization.find_by_name(row['ORGANIZATION'])

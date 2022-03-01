@@ -1,4 +1,7 @@
 fr:
+  appointment_types:
+    update:
+      notice: "Les modifications ont bien été enregistrées."
   activerecord:
     models:
       user: "Agent"
@@ -25,6 +28,7 @@ fr:
         first_name: "Prénom"
         last_name: "Nom"
         role: "Rôle"
+        phone: "Numéro de téléphone"
         organization: "Service"
         user_roles:
           admin: "Administrateur central"
@@ -148,6 +152,10 @@ fr:
         slot_type:
           multiple_uniqueness: "Un créneau récurrent similaire existe déjà."
           batch_multiple_uniqueness: "Un ou plusieurs créneaux récurrents similaires existent déjà. Les doublons n'ont pas été crées."
+        notification_type:
+          attributes:
+            template:
+              invalid_format: "Le format de ce modèle n'est pas valide. Merci d'utiliser uniquement les clés documentées."
 
   login_sub_title: "Espace agents"
   login_tutorial: "Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial présent dans la liste suivante :"
@@ -158,6 +166,7 @@ fr:
   ie_warning2: "Vous pouvez copier - coller le lien qui est dans la barre d'adresse dans un autre navigateur."
 
   header_title: "Mon Suivi Justice"
+  header_staging: "Staging"
   back_to_public_site: "Retour sur le site public"
 
   "yes": "Oui"
@@ -194,13 +203,6 @@ fr:
   thursday: jeudi
   friday: vendredi
 
-  support_modal_title: Support
-  support_modal_text: "Pour toute demande, vous pouvez écrire à l'équipe de Mon Suivi Justice à l'adresse suivante:"
-  support_modal_warning: "Quelques recommandations :"
-  support_modal_bug: "Pour signaler un bug, merci de décrire avec précision les dernières actions qui ont menée au bug. Une capture d'écran du problème est également très utile."
-  support_modal_evolution: "Pour demander une évolution, n'hésitez pas à entrer dans les détails. Dites-nous quel est votre poste et quelle partie du processus vous souhaitez changer."
-  support_modal_thanks: "Merci de nous aider à améliorer Mon Suivi Justice."
-
   home:
     find_convict: "Trouver une PPSMJ :"
     new_appointment: "Prendre RDV"
@@ -216,6 +218,27 @@ fr:
     stats_excused: "d'absence justifiée"
     stats_no_show: "d'absence non justifiée"
     stats_passed_booked: "de rdv non renseignés"
+
+  sidebar:
+    home: "Accueil"
+    convicts: "PPSMJ"
+    appointments: "Rendez-vous"
+    appointment_types: "Types de RDV"
+    places: "Lieux"
+    slots: "Créneaux"
+    slot_types: 'Créneaux récurrents'
+    users: "Agents"
+    organizations: "Services"
+    steering: "Pilotage"
+    guides: "Documentation"
+
+  support:
+    modal_title: Support
+    modal_text: "Pour toute demande, vous pouvez écrire à l'équipe de Mon Suivi Justice à l'adresse suivante:"
+    modal_warning: "Quelques recommandations :"
+    modal_bug: "Pour signaler un bug, merci de décrire avec précision les dernières actions qui ont menée au bug. Une capture d'écran du problème est également très utile."
+    modal_evolution: "Pour demander une évolution, n'hésitez pas à entrer dans les détails. Dites-nous quel est votre poste et quelle partie du processus vous souhaitez changer."
+    modal_thanks: "Merci de nous aider à améliorer Mon Suivi Justice."
 
   stats:
     steering_title: "Global"
@@ -336,6 +359,9 @@ fr:
   new_appointment_reload: "Recharger"
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-agenda-filter: "Agenda"
+  index-appointment-reinit-filter: "RDV du jour"
+  index-appointment-see-data: "Voir les infos"
+  index-appointment-state: "Statut :"
   today_appointments_place_filter: "Lieu de RDV"
   index-slots-appointment-type-filter: "Type de RDV"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
@@ -418,19 +444,6 @@ fr:
     unprocessable_entity:
       title: La modification a été rejettée.
       subtitle: Peut-être n'aviez vous pas accès à cette action.
-
-  sidebar:
-    home: "Accueil"
-    convicts: "PPSMJ"
-    appointments: "Rendez-vous"
-    appointment_types: "Types de RDV"
-    places: "Lieux"
-    slots: "Créneaux"
-    slot_types: 'Créneaux récurrents'
-    users: "Agents"
-    organizations: "Services"
-    steering: "Pilotage"
-    guides: "Documentation"
 
   simple_form:
     options:

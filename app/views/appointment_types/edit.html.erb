@@ -1,9 +1,14 @@
 <h1 class='form-title'><%= t('edit_appointment_type_title') %></h1>
 
+
 <%= simple_form_for @appointment_type, html: { class: 'appointment-type-form' } do |f| %>
   <div class='edit-appointment-type-container'>
     <p class='appointment-type-edit-subtitle'><%= @appointment_type.name %></p>
     <h2 class='form-secondary-title'><%= t('edit_appointment_type_notifications') %></h2>
+
+    <% if @appointment_type.errors.present? %>
+      <p class='errors-box'><%= @appointment_type.errors.map(&:message).join(" - ") %></p>
+    <% end %>
 
     <%= f.simple_fields_for :notification_types, @appointment_type.summon_notif do |p| %>
       <div class='notification-type-container summon-container'>
@@ -83,13 +88,11 @@
           <div class='appointment-type-tutorial-key-content'>Moyen de contact du lieu (téléphone ou email selon ses préférences)</div>
           <div class='appointment-type-tutorial-key-sample'>Ex : 0102030405 ou test@test.com</div>
         </div>
-        <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
-          <div class='appointment-type-tutorial-key-table-line'>
-            <div class='appointment-type-tutorial-key-name'>{lieu.lien_info}</div>
-            <div class='appointment-type-tutorial-key-content'>Lien d'information sur le lien du RDV</div>
-            <div class='appointment-type-tutorial-key-sample'>Ex : https://mon-suivi-justice.beta.gouv.fr/preparer_spip92</div>
-          </div>
-        <% end %>
+        <div class='appointment-type-tutorial-key-table-line'>
+          <div class='appointment-type-tutorial-key-name'>{lieu.lien_info}</div>
+          <div class='appointment-type-tutorial-key-content'>Lien d'information sur le lien du RDV</div>
+          <div class='appointment-type-tutorial-key-sample'>Ex : https://mon-suivi-justice.beta.gouv.fr/preparer_spip92</div>
+        </div>
         <div class='appointment-type-tutorial-key-table-line'>
           <div class='appointment-type-tutorial-key-name'>{rdv.date}</div>
           <div class='appointment-type-tutorial-key-content'>Date du RDV</div>
@@ -109,7 +112,9 @@
       <p class='appointment-type-tutorial-sample-title'>Résultat :</p>
       <p class='appointment-type-tutorial-sample'>Vous êtes convoqué au SPIP 92 le 27/06/2021 à 15h15. Merci de venir avec une pièce d'identité au 94 Bvd du Géneral Leclerc 92000 Nanterre.</p>
     </div>
+
   </div>
+
   <div class='edit-appointment-type-container-submit-container'>
     <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
   </div>
