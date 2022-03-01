@@ -49,15 +49,21 @@ RSpec.feature 'Convicts', type: :feature do
     end
   end
 
-  describe 'creation' do
-    it 'creates a convicts with a phone number' do
+  describe 'creation', js: true do
+    it 'creates a convicts with a phone number and a cpip' do
+      create(:user, first_name: 'Damien', last_name: 'LET', role: 'cpip')
+      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip')
+
       visit new_convict_path
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
+      first('.select2-container', minimum: 1).click
+      find('li.select2-results__option', text: 'MAU Rémy').click
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+      expect(Convict.first.cpip).to eq(cpip)
     end
 
     it 'creates a convicts with a duplicate name' do
