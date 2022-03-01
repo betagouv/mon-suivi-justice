@@ -8,8 +8,9 @@
   <%= f.input :appi_uuid %>
   <%= f.association :user, collection: policy_scope(User.cpip),
                                   label: t('.cpip_label'),
-                                  selected: selected_cpip_for(@convict, current_user).id,
+                                  selected: selected_cpip_for(@convict, current_user)&.id,
                                   as: :select,
+                                  include_blank: true,
                                   label_method: :name,
                                   input_html: { class: 'form-select', id: 'name-autocomplete' } %>
   <%= f.input :phone, required: true %>
