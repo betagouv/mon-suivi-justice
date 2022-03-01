@@ -23,6 +23,7 @@ fr:
         refused_phone: "Refuse de donner son numéro"
         prosecutor_number: Numéro de parquet
         appi_uuid: "N° dossier APPI"
+        cpip: "CPIP"
       user:
         name: "Nom"
         first_name: "Prénom"
@@ -471,3 +472,9 @@ fr:
   views:
     pagination:
       truncate: '...'
+  convicts:
+    new:
+      cpip_label: "CPIP"
+    edit:
+      cpip_label: "CPIP (aucun pour l'instant)"
+      cpip_present_label: "CPIP (actuel: %{cpip_name})"

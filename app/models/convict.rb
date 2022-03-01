@@ -10,6 +10,9 @@ class Convict < ApplicationRecord
   has_many :departments, through: :areas_convicts_mappings, source: :area, source_type: 'Department'
   has_many :jurisdictions, through: :areas_convicts_mappings, source: :area, source_type: 'Jurisdiction'
 
+  belongs_to :user, optional: true
+  alias_attribute :cpip, :user
+
   attr_accessor :place_id
 
   validates :appi_uuid, allow_blank: true, uniqueness: true

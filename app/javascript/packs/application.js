@@ -11,6 +11,7 @@ import "channels"
 require("jquery");
 require("@nathanvda/cocoon");
 require("components/profile_search");
+require("components/autocomplete");
 
 Rails.start()
 Turbolinks.start()
