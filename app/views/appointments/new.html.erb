@@ -22,8 +22,14 @@
                                   label: t('activerecord.models.convict'),
                                   as: :select,
                                   label_method: :name,
-                                  input_html: { class: 'form-select', id: 'name-autocomplete' } %>
+                                  input_html: { class: 'form-select', id: 'convict-name-autocomplete' } %>
     <% end %>
+
+    <div class='appointment-form-cpip-container' id='cpip-container'>
+      <% if current_user.cpip? && params.key?(:convict_id) && Convict.find(params.key?(:convict_id)).cpip.nil? %>
+        <%= f.input :user_is_cpip, as: :radio_buttons, collection: [['1', 'Oui'], ['0', 'Non']], label_method: :second, value_method: :first, label: t('.is_cpip_label'), checked: '1' %>
+      <% end %>
+    </div>
 
     <% if current_user.work_at_bex? %>
       <%= f.input :origin_department, collection: Appointment.origin_departments.keys,

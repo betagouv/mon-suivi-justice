@@ -1,6 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :skip_authorization, only: [:display_places, :display_agendas, :display_time_options,
+  before_action :skip_authorization, only: [:display_places, :display_agendas, :display_time_options, :display_is_cpip,
                                             :display_slots, :display_slot_fields]
 
   def index
@@ -34,8 +34,10 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(appointment_params)
     authorize @appointment
-
     if @appointment.save
+      if params.dig(:appointment, :user_is_cpip) == '1'
+        @appointment.convict.update(user: current_user)
+      end
       @appointment.book(send_notification: params[:send_sms])
       redirect_to appointment_path(@appointment)
     else
@@ -79,6 +81,10 @@ class AppointmentsController < ApplicationController
   def display_places
     appointment_type = AppointmentType.find(params[:apt_type_id])
     @places = policy_scope(Place).joins(:appointment_types).where(appointment_types: appointment_type)
+  end
+
+  def display_is_cpip
+    @convict = params[:convict_id].present? ? Convict.find(params[:convict_id]) : nil
   end
 
   def display_agendas

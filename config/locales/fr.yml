@@ -478,3 +478,6 @@ fr:
     edit:
       cpip_label: "CPIP (aucun pour l'instant)"
       cpip_present_label: "CPIP (actuel: %{cpip_name})"
+  appointments:
+    new:
+      is_cpip_label: "Ce PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"

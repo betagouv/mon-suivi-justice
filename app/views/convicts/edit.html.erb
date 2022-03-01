@@ -12,7 +12,7 @@
                            as: :select,
                            include_blank: true,
                            label_method: :name,
-                           input_html: { class: 'form-select', id: 'name-autocomplete' } %>
+                           input_html: { class: 'form-select', id: 'agent-name-autocomplete' } %>
   <%= f.input :phone, required: true, input_html: { value: @convict.display_phone } %>
   <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
                          label_html: { class: 'form-checkbox-label' },

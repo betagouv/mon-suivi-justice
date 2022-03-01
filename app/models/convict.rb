@@ -45,6 +45,8 @@ class Convict < ApplicationRecord
 
   scope :with_phone, -> { where.not(phone: '') }
 
+  delegate :name, to: :cpip, allow_nil: true, prefix: true
+
   def name
     "#{last_name.upcase} #{first_name.capitalize}"
   end

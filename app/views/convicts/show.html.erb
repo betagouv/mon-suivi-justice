@@ -61,6 +61,15 @@
 
     <div class='show-data-item-container'>
       <div class='show-data-label'>
+        <%= t('activerecord.attributes.convict.cpip') %>
+      </div>
+      <div class='show-data-item'>
+        <%= @convict.cpip&.name %>
+      </div>
+    </div>
+
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
         <%= t('activerecord.attributes.convict.appi_uuid') %>
       </div>
       <div class='show-data-item'>
@@ -88,7 +97,8 @@
     <% if policy(@convict).edit? %>
       <%= button_to t('edit'), edit_convict_path(params[:id]),
                                method: :get,
-                               class: 'show-convict-button-to-edit' %>
+                               class: 'show-convict-button-to-edit',
+                               "data-turbolinks": false %>
     <% end %>
 
     <% if policy(@convict).destroy? %>
