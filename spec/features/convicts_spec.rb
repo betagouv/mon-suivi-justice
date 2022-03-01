@@ -49,8 +49,8 @@ RSpec.feature 'Convicts', type: :feature do
     end
   end
 
-  describe 'creation', js: true do
-    it 'creates a convicts with a phone number and a cpip' do
+  describe 'creation' do
+    it 'creates a convicts with a phone number and a cpip', js: true do
       create(:user, first_name: 'Damien', last_name: 'LET', role: 'cpip')
       cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip')
 
@@ -143,15 +143,19 @@ RSpec.feature 'Convicts', type: :feature do
   end
 
   describe 'update' do
-    it 'update convict informations' do
+    it 'update convict informations', js: true do
       convict = create(:convict, last_name: 'Expresso')
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip')
       visit convicts_path
       within first('.convicts-item-container') { click_link 'Modifier' }
       fill_in 'Nom', with: 'Ristretto'
+      first('.select2-container', minimum: 1).click
+      find('li.select2-results__option', text: 'MAU Rémy').click
       click_button 'Enregistrer'
       convict.reload
       expect(convict.last_name).to eq('Ristretto')
+      expect(convict.cpip).to eq(cpip)
     end
 
     it 'updates convict departments' do
