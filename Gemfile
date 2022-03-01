@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.5'
-gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
+gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
 
 gem 'pg', '~> 1.3'
 gem 'puma', '~> 5.6'
@@ -44,6 +44,8 @@ gem 'paper_trail', '~> 12.2'
 gem 'sentry-ruby', '~> 5.1'
 gem 'sentry-rails', '~> 5.1'
 gem 'ruby-progressbar', '~> 1.11'
+
+gem 'jbuilder', '~> 2.11', '>= 2.11.5'
 
 group :development, :test do
   gem 'rspec-rails'
