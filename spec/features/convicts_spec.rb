@@ -79,7 +79,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Téléphone', with: '0606060606'
       expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
       expect(page).to have_content(
-        'Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir continuer ?'
+        'Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir enregistrer cette PPSMJ ?'
       )
       expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
     end
