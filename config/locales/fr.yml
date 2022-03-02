@@ -281,7 +281,7 @@ fr:
   new_first_appointment_title: "Créneaux disponibles"
   new_convict_submit: "sans prendre RDV"
   new_convict_first_appointment: "et prendre RDV"
-  new_convict_duplicate_warning: "Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir continuer ?"
+  new_convict_duplicate_warning: "Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir enregistrer cette PPSMJ ?"
   edit_convict_title: "Modifier PPSMJ"
   edit_convict_department_title: "Département(s) de la PPSMJ"
   edit_convict_jurisdiction_title: "Juridiction(s) de la PPSMJ"
