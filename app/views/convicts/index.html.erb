@@ -43,7 +43,11 @@
         </div>
 
          <div class='convict-data convicts-column-3'>
-          <%= convict.cpip_name %>
+          <% if convict.cpip.present? %>
+            <%= convict.cpip_name %>
+          <% elsif policy(convict).self_assign? %>
+            <%= link_to t('.self_assign_link'), convict_self_assign_path(convict), method: 'post', class: 'index-control' %>
+          <% end %>
         </div>
 
         <div class='index-controls-container'>

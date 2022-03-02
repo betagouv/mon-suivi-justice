@@ -64,7 +64,11 @@
         <%= t('activerecord.attributes.convict.cpip') %>
       </div>
       <div class='show-data-item'>
-        <%= @convict.cpip&.name %>
+        <% if @convict.cpip.present? %>
+            <%= @convict.cpip_name %>
+          <% elsif policy(@convict).self_assign? %>
+            <%= link_to t('.self_assign_link'), convict_self_assign_path(@convict), method: 'post', class: 'index-control' %>
+          <% end %>
       </div>
     </div>
 

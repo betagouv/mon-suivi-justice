@@ -41,6 +41,10 @@ class ConvictPolicy < ApplicationPolicy
     (user.admin? || user.local_admin?) && record.discarded?
   end
 
+  def self_assign?
+    user.cpip? && record.cpip.nil?
+  end
+
   def destroy?
     ALLOWED_TO_DESTROY.include?(user.role) && record.undiscarded?
   end

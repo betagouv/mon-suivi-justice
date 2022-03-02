@@ -76,6 +76,15 @@ class ConvictsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def self_assign
+    @convict = policy_scope(Convict).find(params[:convict_id])
+    authorize @convict
+    @convict.update(user: current_user)
+
+    flash[:notice] = t('.notice')
+    redirect_back(fallback_location: root_path)
+  end
+
   private
 
   def save_and_redirect(convict)
