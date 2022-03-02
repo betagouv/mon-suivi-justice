@@ -50,7 +50,5 @@
     </div>
   </div>
 
-  <% if current_user.admin? %>
-    <%= render 'home_stats', data: @stats, title: t('home.stats_title') %>
-  <% end %>
+  <%= render 'home_stats', data: @stats, title: t('home.stats_title') %>
 </div>
