@@ -27,6 +27,18 @@ RSpec.feature 'Convicts', type: :feature do
       end
     end
 
+    it 'allows a cpip to assign himself to a convict' do
+      logout_current_user
+      @user = create_cpip_user_and_login
+      visit convicts_path
+      within first('.convicts-item-container') do
+        click_link('attribuer ce PPSMJ')
+      end
+      expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
+      expect(page).to have_content(@user.name)
+      expect(Convict.first.cpip).to eq(@user)
+    end
+
     it 'an agent see only convict from his jurisdiction and department' do
       dpt01 = create :department, number: '01', name: 'Ain'
       juri01 = create :jurisdiction, name: 'jurisdiction_01'
@@ -249,6 +261,17 @@ RSpec.feature 'Convicts', type: :feature do
       within first('.show-profile-container') do
         expect { click_button('Supprimer') }.to change { Convict.count }.by(-1)
       end
+    end
+
+    it 'allows a cpip to assign himself to a convict' do
+      logout_current_user
+      @user = create_cpip_user_and_login
+      visit convict_path(@convict)
+
+      click_link('attribuer ce PPSMJ')
+      expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
+      expect(page).to have_content(@user.name)
+      expect(Convict.first.cpip).to eq(@user)
     end
   end
 

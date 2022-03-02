@@ -152,7 +152,7 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it 'links the PPSMJ to the CPIP if wanted' do
-        create_cpip_user_and_login
+        @user = create_cpip_user_and_login
         convict = create(:convict, first_name: 'JP', last_name: 'Cherty')
         create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
         appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
@@ -177,12 +177,11 @@ RSpec.feature 'Appointments', type: :feature do
 
         click_button 'Enregistrer'
         click_button 'Non'
-
         expect(Appointment.last.convict.cpip).to eq(@user)
       end
 
       it 'does not link the PPSMJ to the CPIP if not wanted' do
-        create_cpip_user_and_login
+        @user = create_cpip_user_and_login
         convict = create(:convict, first_name: 'JP', last_name: 'Cherty')
         create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
         appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
