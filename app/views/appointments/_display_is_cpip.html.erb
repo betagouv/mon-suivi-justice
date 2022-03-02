@@ -1,4 +1,4 @@
-<% if current_user.cpip? && convict.present? && convict.cpip.nil? %>
+<% if can_be_linked_to_user?(convict, current_user) %>
   <div class="appointment-form-cpip-container" id="cpip-container">
     <div class="form-input-wrapper radio_buttons optional appointment_user_is_cpip">
       <label class="radio_buttons optional form-label"><%= t('appointments.new.is_cpip_label')%></label>
