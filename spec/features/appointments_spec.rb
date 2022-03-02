@@ -161,10 +161,10 @@ RSpec.feature 'Appointments', type: :feature do
         agenda = create :agenda, place: place, name: 'Agenda de Josiane'
         create :agenda, place: place, name: 'Agenda de Michel'
 
-        slot = create :slot, agenda: agenda,
-                             appointment_type: appointment_type,
-                             date: Date.today.next_occurring(:monday),
-                             starting_time: '16h'
+        create :slot, agenda: agenda,
+                      appointment_type: appointment_type,
+                      date: Date.today.next_occurring(:monday),
+                      starting_time: '16h'
 
         visit new_appointment_path
         first('.select2-container', minimum: 1).click
@@ -191,10 +191,10 @@ RSpec.feature 'Appointments', type: :feature do
         agenda = create :agenda, place: place, name: 'Agenda de Josiane'
         create :agenda, place: place, name: 'Agenda de Michel'
 
-        slot = create :slot, agenda: agenda,
-                             appointment_type: appointment_type,
-                             date: Date.today.next_occurring(:monday),
-                             starting_time: '16h'
+        create :slot, agenda: agenda,
+                      appointment_type: appointment_type,
+                      date: Date.today.next_occurring(:monday),
+                      starting_time: '16h'
 
         visit new_appointment_path
         first('.select2-container', minimum: 1).click
@@ -204,7 +204,6 @@ RSpec.feature 'Appointments', type: :feature do
         select 'KFC de Chatelet', from: 'Lieu'
         select 'Agenda de Josiane', from: 'Agenda'
         choose '16:00'
-
 
         click_button 'Enregistrer'
         click_button 'Non'
