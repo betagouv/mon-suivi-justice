@@ -151,6 +151,67 @@ RSpec.feature 'Appointments', type: :feature do
         )
       end
 
+      it 'links the PPSMJ to the CPIP if wanted' do
+        create_cpip_user_and_login
+        convict = create(:convict, first_name: 'JP', last_name: 'Cherty')
+        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+        appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
+        place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type],
+                               organization: @user.organization
+        agenda = create :agenda, place: place, name: 'Agenda de Josiane'
+        create :agenda, place: place, name: 'Agenda de Michel'
+
+        slot = create :slot, agenda: agenda,
+                             appointment_type: appointment_type,
+                             date: Date.today.next_occurring(:monday),
+                             starting_time: '16h'
+
+        visit new_appointment_path
+        first('.select2-container', minimum: 1).click
+        find('li.select2-results__option', text: 'CHERTY Jp').click
+        choose('appointment[user_is_cpip]', option: '1')
+        select "Sortie d'audience SPIP", from: :appointment_appointment_type_id
+        select 'KFC de Chatelet', from: 'Lieu'
+        select 'Agenda de Josiane', from: 'Agenda'
+        choose '16:00'
+
+        click_button 'Enregistrer'
+        click_button 'Non'
+
+        expect(Appointment.last.convict.cpip).to eq(@user)
+      end
+
+      it 'does not link the PPSMJ to the CPIP if not wanted' do
+        create_cpip_user_and_login
+        convict = create(:convict, first_name: 'JP', last_name: 'Cherty')
+        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+        appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
+        place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type],
+                               organization: @user.organization
+        agenda = create :agenda, place: place, name: 'Agenda de Josiane'
+        create :agenda, place: place, name: 'Agenda de Michel'
+
+        slot = create :slot, agenda: agenda,
+                             appointment_type: appointment_type,
+                             date: Date.today.next_occurring(:monday),
+                             starting_time: '16h'
+
+        visit new_appointment_path
+        first('.select2-container', minimum: 1).click
+        find('li.select2-results__option', text: 'CHERTY Jp').click
+        choose('appointment[user_is_cpip]', option: '0')
+        select "Sortie d'audience SPIP", from: :appointment_appointment_type_id
+        select 'KFC de Chatelet', from: 'Lieu'
+        select 'Agenda de Josiane', from: 'Agenda'
+        choose '16:00'
+
+
+        click_button 'Enregistrer'
+        click_button 'Non'
+
+        expect(Appointment.last.convict.cpip).to be_nil
+      end
+
       it 'allows an agent to create appointment only for his service places & slots' do
         department = create :department, number: '09', name: 'Ariège'
         logout_current_user
