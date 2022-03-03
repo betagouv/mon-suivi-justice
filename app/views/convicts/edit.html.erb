@@ -6,13 +6,15 @@
     <%= f.input :prosecutor_number %>
   <% end %>
   <%= f.input :appi_uuid %>
-  <%= f.association :user, collection: policy_scope(User.cpip),
-                           label: @convict.cpip.present? ? t('.cpip_present_label', cpip_name: @convict.cpip.name) : t('.cpip_label'),
-                           selected: selected_cpip_for(@convict, current_user)&.id,
-                           as: :select,
-                           include_blank: true,
-                           label_method: :name,
-                           input_html: { class: 'form-select', id: 'agent-name-autocomplete' } %>
+  <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
+    <%= f.association :user, collection: User.cpip.in_organization(current_user.organization),
+                            label: @convict.cpip.present? ? t('.cpip_present_label', cpip_name: @convict.cpip.name) : t('.cpip_label'),
+                            selected: selected_cpip_for(@convict, current_user)&.id,
+                            as: :select,
+                            include_blank: true,
+                            label_method: :name,
+                            input_html: { class: 'form-select', id: 'agent-name-autocomplete' } %>
+  <% end %>
   <%= f.input :phone, required: true, input_html: { value: @convict.display_phone } %>
   <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
                          label_html: { class: 'form-checkbox-label' },
