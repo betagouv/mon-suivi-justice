@@ -54,7 +54,7 @@ class Convict < ApplicationRecord
   def identity
     return name unless phone.present?
 
-    "#{last_name.upcase} #{first_name.capitalize} - #{phone.phony_formatted.delete(' ')}"
+    "#{name} - #{phone.phony_formatted.delete(' ')}"
   end
 
   def profile_path

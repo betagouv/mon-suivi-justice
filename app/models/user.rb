@@ -43,6 +43,12 @@ class User < ApplicationRecord
     "#{last_name.upcase} #{first_name.capitalize}"
   end
 
+  def identity
+    return name unless phone.present?
+
+    "#{name} - #{phone.phony_formatted.delete(' ')}"
+  end
+
   def work_at_bex?
     %w[prosecutor greff_co dir_greff_bex bex].include? role
   end
