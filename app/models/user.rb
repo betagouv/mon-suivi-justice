@@ -39,6 +39,8 @@ class User < ApplicationRecord
 
   scope :in_organization, ->(organization) { where(organization: organization) }
 
+  delegate :name, to: :organization, prefix: true
+
   def name
     "#{last_name.upcase} #{first_name.capitalize}"
   end

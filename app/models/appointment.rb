@@ -57,6 +57,11 @@ class Appointment < ApplicationRecord
     slot.date <= Date.today
   end
 
+  def datetime
+    DateTime.new(date.year, date.month, date.day,
+                 starting_time.hour, starting_time.min, starting_time.sec, starting_time.zone)
+  end
+
   def summon_notif
     notifications.find_by(role: :summon)
   end
