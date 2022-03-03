@@ -10,6 +10,7 @@ require 'pundit/matchers'
 require 'webmock/rspec'
 require 'sidekiq/testing'
 require 'paper_trail/frameworks/rspec'
+require "support/with_env"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -106,6 +107,12 @@ WebMock.disable_net_connect!(allow_localhost: true, allow: [*driver_urls])
 
 def create_admin_user_and_login
   @user = create(:user, role: :admin)
+  login_as(@user, scope: :user)
+  @user
+end
+
+def create_cpip_user_and_login
+  @user = create(:user, role: :cpip)
   login_as(@user, scope: :user)
   @user
 end

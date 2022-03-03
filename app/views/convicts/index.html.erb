@@ -23,6 +23,9 @@
       <div class='convicts-header-title convicts-column-2'>
         <%= t('activerecord.attributes.convict.phone') %>
       </div>
+      <div class='convicts-header-title convicts-column-3'>
+        <%= t('activerecord.attributes.convict.cpip') %>
+      </div>
     </div>
 
     <% @convicts.each do |convict| %>
@@ -39,13 +42,23 @@
           <%= convict.display_phone %>
         </div>
 
+         <div class='convict-data convicts-column-3'>
+          <% if convict.cpip.present? %>
+            <%= convict.cpip_name %>
+          <% elsif policy(convict).self_assign? %>
+            <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
+              <%= link_to t('.self_assign_link'), convict_self_assign_path(convict), method: 'post', class: 'index-control' %>
+            <% end %>
+          <% end %>
+        </div>
+
         <div class='index-controls-container'>
           <% if policy(:convict).show? %>
             <%= link_to t('show_convict'), convict_path(convict), class: 'index-control' %>
           <% end %>
 
           <% if policy(convict).edit? %>
-            <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control' %>
+            <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control', "data-turbolinks": false %>
           <% end %>
 
           <% if policy(convict).archive? %>

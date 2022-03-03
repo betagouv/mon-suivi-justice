@@ -2,6 +2,21 @@ fr:
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
+  convicts:
+    new:
+      cpip_label: "CPIP"
+    edit:
+      cpip_label: "CPIP (aucun pour l'instant)"
+      cpip_present_label: "CPIP (actuel: %{cpip_name})"
+    index:
+      self_assign_link: "S'attribuer cette PPSMJ"
+    show:
+      self_assign_link: "S'attribuer cette PPSMJ"
+    self_assign:
+      notice: "La PPSMJ vous a bien été attribuée."
+  appointments:
+    new:
+      is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
   activerecord:
     models:
       user: "Agent"
@@ -23,6 +38,7 @@ fr:
         refused_phone: "Refuse de donner son numéro"
         prosecutor_number: Numéro de parquet
         appi_uuid: "N° dossier APPI"
+        cpip: "CPIP"
       user:
         name: "Nom"
         first_name: "Prénom"
@@ -218,6 +234,8 @@ fr:
     stats_excused: "d'absence justifiée"
     stats_no_show: "d'absence non justifiée"
     stats_passed_booked: "de rdv non renseignés"
+    stats_from_informed: "Parmi les rdv renseignés :"
+    stats_global: "Global"
 
   sidebar:
     home: "Accueil"
@@ -248,14 +266,15 @@ fr:
     passed_no_canceled_with_phone: "rdv passés avec numéro de téléphone"
     future_booked: "rdv futurs"
     fulfiled: "rdv réussis"
-    fulfiled_percentage: "%{data}% de présence aux rdv rappelés"
+    fulfiled_percentage: "%{data}% de présence aux rdv renseignés"
     no_show: "rdv manqués"
-    no_show_percentage: "%{data}% d'absence aux rdv rappelés"
+    no_show_percentage: "%{data}% d'absence aux rdv renseignés"
     excused: "rdv excusés"
-    excused_percentage: "%{data}% d'absence justifiée aux rdv rappelés"
+    excused_percentage: "%{data}% d'absence justifiée aux rdv renseignés"
     canceled: "rdv annulés"
-    passed_booked: "rdv passés non-renseignés"
-    passed_booked_percentage: "%{data}% de rdv non renseignés"
+    informed: "rdv renseignés"
+    uninformed: "rdv passés non-renseignés"
+    uninformed_percentage: "%{data}% de rdv non renseignés"
     convicts: "Total PPSMJ enregistrées"
     convicts_with_phone: "Total PPSMJ avec numéro de téléphone"
     users: "Total agents utilisateurs"
@@ -278,7 +297,7 @@ fr:
   new_first_appointment_title: "Créneaux disponibles"
   new_convict_submit: "sans prendre RDV"
   new_convict_first_appointment: "et prendre RDV"
-  new_convict_duplicate_warning: "Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir continuer ?"
+  new_convict_duplicate_warning: "Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir enregistrer cette PPSMJ ?"
   edit_convict_title: "Modifier PPSMJ"
   edit_convict_department_title: "Département(s) de la PPSMJ"
   edit_convict_jurisdiction_title: "Juridiction(s) de la PPSMJ"
@@ -308,16 +327,16 @@ fr:
   show_history_update_phone_convict: "Le numéro de téléphone de %{name} a été modifié par %{user_name} (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}"
 
   show_history_book_appointment_title: "Nouveau RDV"
-  show_history_book_appointment: "%{name} a été convoqué(e) au %{place} le %{date} à %{time}."
+  show_history_book_appointment: "%{name} a été convoqué(e) le %{date} à %{time} au lieu suivant : %{place}."
   show_history_book_phone_appointment: "%{name} a été convoqué(e) pour un rendez-vous téléphonique le %{date} à %{time}."
   show_history_cancel_appointment_title: "RDV annulé"
   show_history_cancel_appointment: "Le rendez-vous au %{place} le %{date} à %{time} a été annulé."
   show_history_fulfil_appointment_title: "RDV honoré"
-  show_history_fulfil_appointment: "%{name} s'est bien présenté(e) à son rendez-vous au %{place} le %{date} à %{time}."
+  show_history_fulfil_appointment: "%{name} s'est bien présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}."
   show_history_miss_appointment_title: "RDV manqué"
-  show_history_miss_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous au %{place} le %{date} à %{time}."
+  show_history_miss_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}."
   show_history_excuse_appointment_title: "RDV excusé"
-  show_history_excuse_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous au %{place} le %{date} à %{time}, mais a présenté une justification valide."
+  show_history_excuse_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}, mais a présenté une justification valide."
 
   show_history_send_now_summon_notification_title: "SMS envoyé (convocation)"
   show_history_send_now_summon_notification: "[Texte du SMS] %{content}"

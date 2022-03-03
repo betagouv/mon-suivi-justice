@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_paper_trail
 
   belongs_to :organization
+  has_many :convicts
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :trackable and :omniauthable
@@ -40,6 +41,12 @@ class User < ApplicationRecord
 
   def name
     "#{last_name.upcase} #{first_name.capitalize}"
+  end
+
+  def identity
+    return name unless phone.present?
+
+    "#{name} - #{phone.phony_formatted.delete(' ')}"
   end
 
   def work_at_bex?

@@ -87,11 +87,16 @@
   padding-right: 20px;
   min-height: 40px;
   width: 100%;
+  margin-bottom: 5px;
 
   @media print {
     padding-left: 0;
     padding-right: 0;
   }
+}
+
+.index-list-small-line {
+  border-bottom: 1px solid $table-border;
 }
 
 .index-table-header {
@@ -229,7 +234,7 @@
 }
 
 .index-list-line-container {
-  border-bottom: 1px solid $table-border;
+  border-bottom: 3px solid lighten($table-border, 5%);
   display: flex;
   flex-direction: column;
   align-items: flex-end;

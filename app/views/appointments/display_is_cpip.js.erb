@@ -1,0 +1,8 @@
+try {
+  console.log(typeof cpip_container);
+  cpip_container = document.getElementById('cpip-container');
+} catch (error) {
+  let cpip_container = document.getElementById('cpip-container');
+}
+
+cpip_container.innerHTML = "<%= j render partial: 'display_is_cpip', locals: {current_user: current_user, convict: @convict} %>";

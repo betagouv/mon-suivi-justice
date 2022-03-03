@@ -3,7 +3,7 @@ class UserPolicy < ApplicationPolicy
     def resolve
       if user.admin?
         scope.all
-      elsif user.local_admin?
+      else
         scope.in_organization(user.organization)
       end
     end

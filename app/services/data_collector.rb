@@ -58,9 +58,10 @@ class DataCollector
     {
       recorded: all_appointments.size,
       future_booked: future_booked.size,
-      passed_booked: passed_booked.size,
-      passed_booked_percentage: passed_booked_percentage,
-      passed_no_canceled_with_phone: passed_no_canceled_with_phone.size
+      passed_no_canceled_with_phone: passed_no_canceled_with_phone.size,
+      passed_uninformed: passed_uninformed.size,
+      passed_uninformed_percentage: passed_uninformed_percentage,
+      passed_informed: passed_informed.size
     }
   end
 
@@ -89,43 +90,47 @@ class DataCollector
     passed_no_canceled.joins(:convict).where.not(convicts: { phone: '' })
   end
 
-  def passed_booked
+  def passed_uninformed
     passed_no_canceled_with_phone.where(state: 'booked')
   end
 
-  def passed_booked_percentage
+  def passed_uninformed_percentage
     return 0 if passed_no_canceled_with_phone.size.zero?
 
-    (passed_booked.size * 100.fdiv(passed_no_canceled_with_phone.size)).round
+    (passed_uninformed.size * 100.fdiv(passed_no_canceled_with_phone.size)).round
+  end
+
+  def passed_informed
+    passed_no_canceled_with_phone.where.not(state: 'booked')
   end
 
   def fulfiled
-    passed_no_canceled_with_phone.where(state: 'fulfiled')
+    passed_informed.where(state: 'fulfiled')
   end
 
   def fulfiled_percentage
-    return 0 if passed_no_canceled_with_phone.size.zero?
+    return 0 if passed_informed.size.zero?
 
-    (fulfiled.size * 100.fdiv(passed_no_canceled_with_phone.size)).round
+    (fulfiled.size * 100.fdiv(passed_informed.size)).round
   end
 
   def no_show
-    passed_no_canceled_with_phone.where(state: 'no_show')
+    passed_informed.where(state: 'no_show')
   end
 
   def no_show_percentage
-    return 0 if passed_no_canceled_with_phone.size.zero?
+    return 0 if passed_informed.size.zero?
 
-    (no_show.size * 100.fdiv(passed_no_canceled_with_phone.size)).round
+    (no_show.size * 100.fdiv(passed_informed.size)).round
   end
 
   def excused
-    passed_no_canceled_with_phone.where(state: 'excused')
+    passed_informed.where(state: 'excused')
   end
 
   def excused_percentage
-    return 0 if passed_no_canceled_with_phone.size.zero?
+    return 0 if passed_informed.size.zero?
 
-    (excused.size * 100.fdiv(passed_no_canceled_with_phone.size)).round
+    (excused.size * 100.fdiv(passed_informed.size)).round
   end
 end

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :convicts do
     delete 'archive'
     post 'unarchive'
+    post 'self_assign'
   end
   resources :appointment_types
   resources :slots
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
   get '/display_slots' => 'appointments#display_slots', as: 'display_slots'
   get '/display_slot_fields' => 'appointments#display_slot_fields', as: 'display_slot_fields'
   get '/display_places' => 'appointments#display_places', as: 'display_places'
+  get '/display_is_cpip' => 'appointments#display_is_cpip', as: 'display_is_cpip'
   get '/display_agendas' => 'appointments#display_agendas', as: 'display_agendas'
 
   get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
@@ -69,6 +71,12 @@ Rails.application.routes.draw do
 
   authenticated :user do
     root 'home#home', as: :authenticated_root
+  end
+
+  namespace :api, defaults: {format: "json"} do
+    namespace :v1 do
+      resources :convicts, only: :show
+    end
   end
 
   match '/404' => 'errors#not_found', via: :all

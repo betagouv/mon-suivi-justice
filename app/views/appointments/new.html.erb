@@ -9,13 +9,13 @@
 <% end %>
 
 <h1 class='form-title'><%= t('new_appointment_title') %></h1>
-<% if params.key?(:convict_id) %>
+<% if @convict %>
   <h2 class='form-subtitle'><%= @convict.name %></h2>
 <% end %>
 
 <%= simple_form_for @appointment do |f| %>
   <div class='new-appointment-form'>
-    <% if params.key?(:convict_id) %>
+    <% if @convict %>
       <%= f.input :convict_id, as: :hidden, input_html: { value: params[:convict_id] } %>
     <% else %>
       <%= f.association :convict, collection: policy_scope(Convict.all),
@@ -24,6 +24,14 @@
                                   label_method: :name,
                                   input_html: { class: 'form-select', id: 'convict-name-autocomplete' } %>
     <% end %>
+
+    <div class='appointment-form-cpip-container' id='cpip-container'>
+      <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
+        <% if can_be_linked_to_user?(@convict, current_user) %>
+          <%= f.input :user_is_cpip, as: :radio_buttons, collection: [['1', 'Oui'], ['0', 'Non']], label_method: :second, value_method: :first, label: t('.is_cpip_label'), checked: '1' %>
+        <% end %>
+      <% end %>
+    </div>
 
     <% if current_user.work_at_bex? %>
       <%= f.input :origin_department, collection: Appointment.origin_departments.keys,
@@ -71,4 +79,4 @@
 </div>
 
 <%= render 'shared/jap_agendas_modal' %>
-<%= javascript_pack_tag 'appointment' %>
+<%= javascript_pack_tag 'appointment_new' %>

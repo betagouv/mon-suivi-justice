@@ -9,7 +9,16 @@ class Appointment < ApplicationRecord
 
   accepts_nested_attributes_for :slot
 
-  attr_accessor :place_id, :agenda_id
+  delegate :date, :starting_time, :duration, :agenda, :appointment_type, to: :slot
+  delegate :name, to: :appointment_type, prefix: true
+  delegate :place, to: :agenda
+  delegate :name, to: :agenda, prefix: true
+  delegate :organization, to: :place
+  delegate :name, :adress, :phone, :contact_email, :main_contact_method,
+           to: :place, prefix: true
+  delegate :name, to: :organization, prefix: true
+
+  attr_accessor :place_id, :agenda_id, :user_is_cpip
 
   enum origin_department: %i[bex gref_co pr]
 

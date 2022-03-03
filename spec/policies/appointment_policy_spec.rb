@@ -264,7 +264,7 @@ describe AppointmentPolicy do
   context 'for a bex user' do
     let(:user) { build(:user, role: 'bex') }
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 

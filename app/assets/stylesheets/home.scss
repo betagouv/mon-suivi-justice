@@ -78,6 +78,27 @@
   justify-content: space-between;
 }
 
+.home-stats-appointment-states {
+  padding-left: 20px;
+}
+
+.home-stats-orga {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-stats-link {
+  @include badge($light-grey);
+  margin-bottom: 10px;
+  border: 2px solid darken($light-grey, 8%);;
+  background-color: $main-background;
+}
+
+.home_active_stat_link {
+  background-color: $light-grey;
+}
+
 .profile-search-select2-input {
   width: 100%;
   padding: 10px;

@@ -4,12 +4,10 @@
   <%= f.input :name %>
   <%= f.input :adress %>
   <%= f.input :phone %>
-  <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
-    <%= f.input :contact_email %>
-    <%= f.input :main_contact_method, collection: form_main_contact_methods,
-                                      input_html: { class: 'form-select' },
-                                      include_blank: false %>
-  <% end %>
+  <%= f.input :contact_email %>
+  <%= f.input :main_contact_method, collection: form_main_contact_methods,
+                                    input_html: { class: 'form-select' },
+                                    include_blank: false %>
   <%= f.input :preparation_link %>
   <%= f.association :organization, include_blank: false,
                                    label: t('activerecord.attributes.user.organization'),

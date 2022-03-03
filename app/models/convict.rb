@@ -10,6 +10,9 @@ class Convict < ApplicationRecord
   has_many :departments, through: :areas_convicts_mappings, source: :area, source_type: 'Department'
   has_many :jurisdictions, through: :areas_convicts_mappings, source: :area, source_type: 'Jurisdiction'
 
+  belongs_to :user, optional: true
+  alias_attribute :cpip, :user
+
   attr_accessor :place_id
 
   validates :appi_uuid, allow_blank: true, uniqueness: true
@@ -42,6 +45,8 @@ class Convict < ApplicationRecord
 
   scope :with_phone, -> { where.not(phone: '') }
 
+  delegate :name, to: :cpip, allow_nil: true, prefix: true
+
   def name
     "#{last_name.upcase} #{first_name.capitalize}"
   end
@@ -49,7 +54,7 @@ class Convict < ApplicationRecord
   def identity
     return name unless phone.present?
 
-    "#{last_name.upcase} #{first_name.capitalize} - #{phone.phony_formatted.delete(' ')}"
+    "#{name} - #{phone.phony_formatted.delete(' ')}"
   end
 
   def profile_path
