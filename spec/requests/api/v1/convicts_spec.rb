@@ -6,8 +6,15 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
 
   let(:do_request) { get(path.to_s, headers: headers) }
 
+  let(:organization1) { create(:organization, name: 'SPIP 92') }
+  let(:cpip) do
+    create(:user, id: 1, first_name: 'Rémy', last_name: 'MAU', phone: '+33606060610',
+                  email: 'remy.mau@justice.fr', organization: organization1, role: 2)
+  end
+
   let(:convict) do
-    create(:convict, id: 1, first_name: 'Damien', last_name: 'LT', phone: '+33606060606')
+    create(:convict, id: 1, first_name: 'Damien', last_name: 'LT', phone: '+33606060606',
+                     user: cpip)
   end
 
   let(:appointment_type1) { create(:appointment_type, name: 'RDV DDSE') }
@@ -16,7 +23,6 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
     create(:slot, date: Date.new(2026, 2, 24), starting_time: '10:00',
                   duration: 30, appointment_type: appointment_type1, agenda: agenda1)
   end
-  let(:organization1) { create(:organization, name: 'SPIP 92') }
   let(:place1) do
     create(:place, organization: organization1, name: 'SPIP 92',
                    adress: '94 Boulevard du Général Leclerc, 92000 Nanterre',
@@ -64,34 +70,42 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
             'first_name' => 'Damien',
             'last_name' => 'LT',
             'phone' => '+33606060606',
+            'cpip' =>
+              { 'id' => 1,
+                'first_name' => 'Rémy',
+                'last_name' => 'MAU',
+                'phone' => '+33606060610',
+                'email' => 'remy.mau@justice.fr',
+                'organization_name' => 'SPIP 92',
+                'role' => 'CPIP' },
             'appointments' =>
               [{ 'id' => 1,
-                 'date' => '2026-02-24',
-                 'starting_time' => '10:00',
+                 'datetime' => '2026-02-24T10:00:00.000+01:00',
                  'duration' => 30,
                  'state' => 'Planifié',
                  'organization_name' => 'SPIP 92',
                  'origin_department' => 'BEX',
                  'appointment_type_name' => 'RDV DDSE',
-                 'place_name' => 'SPIP 92',
-                 'place_adress' => '94 Boulevard du Général Leclerc, 92000 Nanterre',
-                 'place_phone' => '+33707070707',
-                 'place_email' => 'test@test.fr',
-                 'place_contact_method' => 'phone',
+                 'place' =>
+                   { 'name' => 'SPIP 92',
+                     'adress' => '94 Boulevard du Général Leclerc, 92000 Nanterre',
+                     'phone' => '+33707070707',
+                     'email' => 'test@test.fr',
+                     'contact_method' => 'phone' },
                  'agenda_name' => 'Cabinet 12 (JAPAT)' },
                { 'id' => 2,
-                 'date' => '2026-02-23',
-                 'starting_time' => '09:00',
+                 'datetime' => '2026-02-23T09:00:00.000+01:00',
                  'duration' => 30,
                  'state' => 'Planifié',
                  'organization_name' => 'SPIP 93',
                  'origin_department' => 'BEX',
                  'appointment_type_name' => '1er RDV SPIP',
-                 'place_name' => 'SPIP 93',
-                 'place_adress' => '95 Boulevard du Général Leclerc, 93000 Nanterre',
-                 'place_phone' => '+33707070708',
-                 'place_email' => 'test2@test.fr',
-                 'place_contact_method' => 'phone',
+                 'place' =>
+                   { 'name' => 'SPIP 93',
+                     'adress' => '95 Boulevard du Général Leclerc, 93000 Nanterre',
+                     'phone' => '+33707070708',
+                     'email' => 'test2@test.fr',
+                     'contact_method' => 'phone' },
                  'agenda_name' => 'Cabinet 11 (JAPAT)' }] }
         end
 
