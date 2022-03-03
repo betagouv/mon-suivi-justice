@@ -64,13 +64,14 @@ RSpec.feature 'Convicts', type: :feature do
   describe 'creation' do
     it 'creates a convicts with a phone number and a cpip', js: true do
       create(:user, first_name: 'Damien', last_name: 'LET', role: 'cpip')
-      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip')
+      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
 
       visit new_convict_path
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
+      binding.pry
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'MAU Rémy').click
 
@@ -158,7 +159,7 @@ RSpec.feature 'Convicts', type: :feature do
     it 'update convict informations', js: true do
       convict = create(:convict, last_name: 'Expresso')
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip')
+      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
       visit convicts_path
       within first('.convicts-item-container') { click_link 'Modifier' }
       fill_in 'Nom', with: 'Ristretto'
