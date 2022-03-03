@@ -18,7 +18,7 @@ class Appointment < ApplicationRecord
            to: :place, prefix: true
   delegate :name, to: :organization, prefix: true
 
-  attr_accessor :place_id, :agenda_id
+  attr_accessor :place_id, :agenda_id, :user_is_cpip
 
   enum origin_department: %i[bex gref_co pr]
 

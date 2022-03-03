@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_14_171625) do
+ActiveRecord::Schema.define(version: 2022_03_01_100729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,7 +111,9 @@ ActiveRecord::Schema.define(version: 2022_02_14_171625) do
     t.string "prosecutor_number"
     t.string "appi_uuid"
     t.datetime "discarded_at"
+    t.bigint "user_id"
     t.index ["discarded_at"], name: "index_convicts_on_discarded_at"
+    t.index ["user_id"], name: "index_convicts_on_user_id"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -283,6 +285,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_171625) do
   add_foreign_key "appointments", "slots"
   add_foreign_key "areas_convicts_mappings", "convicts"
   add_foreign_key "areas_organizations_mappings", "organizations"
+  add_foreign_key "convicts", "users"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
   add_foreign_key "notification_types", "appointment_types"

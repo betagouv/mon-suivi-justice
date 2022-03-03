@@ -1,0 +1,11 @@
+<% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
+  <% if can_be_linked_to_user?(convict, current_user) %>
+    <div class="appointment-form-cpip-container" id="cpip-container">
+      <div class="form-input-wrapper radio_buttons optional appointment_user_is_cpip">
+        <label class="radio_buttons optional form-label"><%= t('appointments.new.is_cpip_label')%></label>
+        <input type="hidden" name="appointment[user_is_cpip]" value="">
+        <span class="radio appointment-form-cpip-input-container"><label for="appointment_user_is_cpip_1" class="appointment-form-cpip-input-label"><input class="radio_buttons optional form-text-input appointment-form-cpip-input" type="radio" value="1" checked="checked" name="appointment[user_is_cpip]" id="appointment_user_is_cpip_1">Oui</label></span>
+        <span class="radio appointment-form-cpip-input-container"><label for="appointment_user_is_cpip_0" class="appointment-form-cpip-input-label"><input class="radio_buttons optional form-text-input appointment-form-cpip-input" type="radio" value="0" name="appointment[user_is_cpip]" id="appointment_user_is_cpip_0">Non</label></span></div>
+      </div>
+  <% end %>
+<% end %>

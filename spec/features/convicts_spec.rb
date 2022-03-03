@@ -27,6 +27,18 @@ RSpec.feature 'Convicts', type: :feature do
       end
     end
 
+    it 'allows a cpip to assign himself to a convict' do
+      logout_current_user
+      @user = create_cpip_user_and_login
+      visit convicts_path
+      within first('.convicts-item-container') do
+        click_link('attribuer cette PPSMJ')
+      end
+      expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
+      expect(page).to have_content(@user.name)
+      expect(Convict.first.cpip).to eq(@user)
+    end
+
     it 'an agent see only convict from his jurisdiction and department' do
       dpt01 = create :department, number: '01', name: 'Ain'
       juri01 = create :jurisdiction, name: 'jurisdiction_01'
@@ -50,14 +62,20 @@ RSpec.feature 'Convicts', type: :feature do
   end
 
   describe 'creation' do
-    it 'creates a convicts with a phone number' do
+    it 'creates a convicts with a phone number and a cpip', js: true do
+      create(:user, first_name: 'Damien', last_name: 'LET', role: 'cpip')
+      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
+
       visit new_convict_path
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
+      first('.select2-container', minimum: 1).click
+      find('li.select2-results__option', text: 'MAU Rémy').click
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+      expect(Convict.first.cpip).to eq(cpip)
     end
 
     it 'creates a convicts with a duplicate name' do
@@ -137,15 +155,19 @@ RSpec.feature 'Convicts', type: :feature do
   end
 
   describe 'update' do
-    it 'update convict informations' do
+    it 'update convict informations', js: true do
       convict = create(:convict, last_name: 'Expresso')
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
       visit convicts_path
       within first('.convicts-item-container') { click_link 'Modifier' }
       fill_in 'Nom', with: 'Ristretto'
+      first('.select2-container', minimum: 1).click
+      find('li.select2-results__option', text: 'MAU Rémy').click
       click_button 'Enregistrer'
       convict.reload
       expect(convict.last_name).to eq('Ristretto')
+      expect(convict.cpip).to eq(cpip)
     end
 
     it 'updates convict departments' do
@@ -239,6 +261,17 @@ RSpec.feature 'Convicts', type: :feature do
       within first('.show-profile-container') do
         expect { click_button('Supprimer') }.to change { Convict.count }.by(-1)
       end
+    end
+
+    it 'allows a cpip to assign himself to a convict' do
+      logout_current_user
+      @user = create_cpip_user_and_login
+      visit convict_path(@convict)
+
+      click_link('attribuer cette PPSMJ')
+      expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
+      expect(page).to have_content(@user.name)
+      expect(Convict.first.cpip).to eq(@user)
     end
   end
 

@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_paper_trail
 
   belongs_to :organization
+  has_many :convicts
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :trackable and :omniauthable

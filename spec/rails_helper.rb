@@ -111,6 +111,12 @@ def create_admin_user_and_login
   @user
 end
 
+def create_cpip_user_and_login
+  @user = create(:user, role: :cpip)
+  login_as(@user, scope: :user)
+  @user
+end
+
 def logout_current_user
   logout(scope: :user)
 end

@@ -2,6 +2,7 @@ require 'rails_helper'
 require 'models/shared_normalized_phone'
 
 RSpec.describe Convict, type: :model do
+  it { should belong_to(:user).optional }
   it { should have_many(:appointments) }
   it { should have_many(:areas_convicts_mappings).dependent(:destroy) }
   it { should have_many(:departments).through(:areas_convicts_mappings) }
