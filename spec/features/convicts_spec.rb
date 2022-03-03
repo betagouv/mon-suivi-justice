@@ -71,7 +71,6 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
-      binding.pry
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'MAU Rémy').click
 
