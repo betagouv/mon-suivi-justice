@@ -9,14 +9,14 @@ fr:
       cpip_label: "CPIP (aucun pour l'instant)"
       cpip_present_label: "CPIP (actuel: %{cpip_name})"
     index:
-      self_assign_link: "S'attribuer ce PPSMJ"
+      self_assign_link: "S'attribuer cette PPSMJ"
     show:
-      self_assign_link: "S'attribuer ce PPSMJ"
+      self_assign_link: "S'attribuer cette PPSMJ"
     self_assign:
       notice: "La PPSMJ vous a bien été attribuée."
   appointments:
     new:
-      is_cpip_label: "Ce PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
+      is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
   activerecord:
     models:
       user: "Agent"

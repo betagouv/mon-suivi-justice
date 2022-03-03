@@ -32,7 +32,7 @@ RSpec.feature 'Convicts', type: :feature do
       @user = create_cpip_user_and_login
       visit convicts_path
       within first('.convicts-item-container') do
-        click_link('attribuer ce PPSMJ')
+        click_link('attribuer cette PPSMJ')
       end
       expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
       expect(page).to have_content(@user.name)
@@ -268,7 +268,7 @@ RSpec.feature 'Convicts', type: :feature do
       @user = create_cpip_user_and_login
       visit convict_path(@convict)
 
-      click_link('attribuer ce PPSMJ')
+      click_link('attribuer cette PPSMJ')
       expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
       expect(page).to have_content(@user.name)
       expect(Convict.first.cpip).to eq(@user)
