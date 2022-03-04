@@ -372,6 +372,7 @@ fr:
   appointment_origin_department: "Service d'origine"
   new_appointment_title: "Nouveau rendez-vous"
   new-appointment-place: "Lieu de rendez-vous :"
+  new-appointment-all-agendas: "Tous les agendas"
   new-appointment-available-slots: Créneaux disponibles
   new-appointment-no-slot: "Pas de créneau disponible"
   new-appointment-no-place: "Vous n'avez accès à aucun lieu proposant ce type de RDV"

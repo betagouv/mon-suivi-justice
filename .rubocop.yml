@@ -63,6 +63,7 @@ Metrics/MethodLength:
     - app/helpers/users_helper.rb
     - app/controllers/home_controller.rb
     - app/services/history_item_factory.rb
+    - app/controllers/appointments_controller.rb
 
 Metrics/ClassLength:
   Exclude:

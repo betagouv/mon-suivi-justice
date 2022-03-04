@@ -48,10 +48,10 @@ function displayAgendas (place_id, appointment_type_id) {
   });
 }
 
-function displaySlots (agenda_id, appointment_type_id) {
+function displayTimeOptions (place_id, agenda_id, appointment_type_id) {
   Rails.ajax({
     type: 'GET',
-    url: '/display_time_options?agenda_id=' + agenda_id + '&apt_type_id=' + appointment_type_id,
+    url: '/display_time_options?place_id=' + place_id + '&agenda_id=' + agenda_id + '&apt_type_id=' + appointment_type_id,
     success: function() { allowSubmit(); }
   });
 }
@@ -74,6 +74,7 @@ function addListenerToPlaceSelect() {
 }
 
 function addListenerToAgendaSelect() {
+  const placeSelect = document.getElementById('appointment-form-place-select');
   const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
   const agendaSelect = document.getElementById('appointment-form-agenda-select');
   const submitButtonContainer = document.getElementById('before-submit-modal-option-container');
@@ -86,7 +87,7 @@ function addListenerToAgendaSelect() {
     submitButtonContainer.style.display = 'none';
     if(slots_container) { slots_container.innerHTML = '';}
 
-    displaySlots(agendaSelect.value, aptTypeSelect.value);
+    displayTimeOptions(placeSelect.value, agendaSelect.value, aptTypeSelect.value);
   });
 }
 
