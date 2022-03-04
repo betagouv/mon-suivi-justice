@@ -56,7 +56,7 @@ Style/IfUnlessModifier:
   Exclude:
     - app/models/appointment.rb
 
-Layout/MethodLength:
+Metrics/MethodLength:
   Exclude:
     - app/services/notification_factory.rb
     - app/services/slot_type_factory.rb

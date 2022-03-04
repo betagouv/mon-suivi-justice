@@ -296,6 +296,12 @@ RSpec.feature 'Appointments', type: :feature do
                       date: Date.today.next_occurring(:monday),
                       starting_time: '19h'
 
+        agenda3 = create :agenda, place: place1, name: 'Cabinet 22'
+        create :slot, agenda: agenda3,
+                      appointment_type: appointment_type,
+                      date: Date.today.next_occurring(:monday),
+                      starting_time: '11h'
+
         visit new_appointment_path
 
         first('.select2-container', minimum: 1).click
@@ -305,6 +311,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'Tous les agendas', from: 'Agenda'
         choose '17:00 - Cabinet 28'
 
+        expect(page).to have_content('11:00 - Cabinet 22')
         expect(page).not_to have_content('19:00 - Cabinet 74')
 
         click_button 'Enregistrer'
