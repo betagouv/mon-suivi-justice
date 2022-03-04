@@ -280,14 +280,21 @@ RSpec.feature 'Appointments', type: :feature do
         create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
         appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
-        place = create :place, name: 'SPIP 93', appointment_types: [appointment_type],
-                               organization: @user.organization
-        agenda = create :agenda, place: place, name: 'Cabinet 28'
-        create :agenda, place: place, name: 'Cabinet 32'
+        place1 = create :place, name: 'SPIP 93', appointment_types: [appointment_type],
+                                organization: @user.organization
+        agenda = create :agenda, place: place1, name: 'Cabinet 28'
+        create :agenda, place: place1, name: 'Cabinet 32'
         create :slot, agenda: agenda,
                       appointment_type: appointment_type,
                       date: Date.today.next_occurring(:monday),
                       starting_time: '17h'
+
+        place2 = create :place, name: 'SPIP 73', appointment_types: [appointment_type]
+        agenda2 = create :agenda, place: place2, name: 'Cabinet 74'
+        create :slot, agenda: agenda2,
+                      appointment_type: appointment_type,
+                      date: Date.today.next_occurring(:monday),
+                      starting_time: '19h'
 
         visit new_appointment_path
 
@@ -297,6 +304,8 @@ RSpec.feature 'Appointments', type: :feature do
         select 'SPIP 93', from: 'Lieu'
         select 'Tous les agendas', from: 'Agenda'
         choose '17:00 - Cabinet 28'
+
+        expect(page).not_to have_content('19:00 - Cabinet 74')
 
         click_button 'Enregistrer'
 

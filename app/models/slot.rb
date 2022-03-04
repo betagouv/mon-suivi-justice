@@ -21,8 +21,9 @@ class Slot < ApplicationRecord
     )
   }
 
-  scope :relevant_and_available_all_agendas, lambda { |appointment_type|
-    where(
+  scope :relevant_and_available_all_agendas, lambda { |place, appointment_type|
+    joins(:agenda).where(
+      'agenda.place' => place,
       appointment_type_id: appointment_type.id,
       available: true
     )

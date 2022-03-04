@@ -56,13 +56,14 @@ Style/IfUnlessModifier:
   Exclude:
     - app/models/appointment.rb
 
-Metrics/MethodLength:
+Layout/MethodLength:
   Exclude:
     - app/services/notification_factory.rb
     - app/services/slot_type_factory.rb
     - app/helpers/users_helper.rb
     - app/controllers/home_controller.rb
     - app/services/history_item_factory.rb
+    - app/controllers/appointments_controller.rb
 
 Metrics/ClassLength:
   Exclude:
