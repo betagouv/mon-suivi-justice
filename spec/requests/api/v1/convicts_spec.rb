@@ -53,7 +53,7 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
   end
 
   describe 'GET /show' do
-    let(:path) { "/api/v1/convicts/#{convict.phone}" }
+    let(:path) { "/api/v1/convicts/#{convict.id}" }
 
     before do
       do_request
