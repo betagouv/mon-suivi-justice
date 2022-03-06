@@ -4,8 +4,10 @@
   </label>
   <select id="appointment-form-agenda-select" class="select required form-text-input form-select" required="required" aria-required="true" name="appointment[agenda_id]">
     <option value="" label=" "></option>
-    <% if @appointment_type.with_slot_types? %>
-      <option value="all"><%= t('new-appointment-all-agendas') %></option>
+    <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
+      <% if @appointment_type.with_slot_types? %>
+        <option value="all"><%= t('new-appointment-all-agendas') %></option>
+      <% end %>
     <% end %>
     <% @agendas.each do |agenda| %>
       <option value=<%= agenda.id %>><%= agenda.name %></option>
