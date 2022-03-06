@@ -2,7 +2,7 @@ module Api
   module V1
     class ConvictsController < ApiController
       def show
-        @convict = Convict.find_by(phone: params[:phone])
+        @convict = Convict.find(params[:id])
 
         raise ActiveRecord::RecordNotFound unless @convict.present?
       end
