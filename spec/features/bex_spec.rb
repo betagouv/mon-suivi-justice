@@ -11,7 +11,7 @@ RSpec.feature 'Bex', type: :feature do
   end
 
   describe 'JAP appointments index', js: true do
-    it "lists appointments of type Sortie d'audience SAP" do
+    it "lists appointments of type Sortie d'audience SAP", :focus do
       convict1 = create(:convict, first_name: 'James',
                                   last_name: 'Moriarty',
                                   prosecutor_number: '203204')
@@ -50,8 +50,8 @@ RSpec.feature 'Bex', type: :feature do
 
       expect(page).to have_current_path(agenda_jap_path(date: current_date))
 
-      agenda_containers = page.all('.bex-agenda-container')
-      puts page.body
+      agenda_containers = page.all('.bex-agenda-container', minimum: 1)
+
       expect(agenda_containers[0]).to have_content('Cabinet Bleu')
       expect(agenda_containers[0]).to have_content('James')
       expect(agenda_containers[0]).to have_content('MORIARTY')
