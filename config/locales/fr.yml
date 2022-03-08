@@ -393,8 +393,7 @@ fr:
   appointment-reschedule-title: 'Replanifier un rendez-vous'
   new-appointment-jap-agendas: "Liste agendas JAP"
 
-  bex_jap_appointments_link: "Agenda RDV JAP"
-  bex_jap_agendas_title: "Agenda RDV JAP pour le vendredi"
+  bex_jap_agendas_title: "Agenda Sortie d'audience JAP pour le"
   bex_jap_agenda_header_hour: Heure
   bex_jap_agenda_header_last_name: Nom
   bex_jap_agenda_header_first_name: Prénom

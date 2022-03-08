@@ -11,7 +11,7 @@ RSpec.feature 'Bex', type: :feature do
   end
 
   describe 'JAP appointments index', js: true do
-    it 'lists all appointments' do
+    it "lists appointments of type Sortie d'audience SAP" do
       convict1 = create(:convict, first_name: 'James',
                                   last_name: 'Moriarty',
                                   prosecutor_number: '203204')
@@ -26,8 +26,8 @@ RSpec.feature 'Bex', type: :feature do
       apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
       place = create(:place, name: 'Tribunal de Nanterre', organization: @organization)
 
-      agenda1 = create(:agenda, place: place, name: 'Cabinet 1')
-      agenda2 = create(:agenda, place: place, name: 'Cabinet 2')
+      agenda1 = create(:agenda, place: place, name: 'Cabinet Bleu')
+      agenda2 = create(:agenda, place: place, name: 'Cabinet Rouge')
 
       slot1 = create(:slot, agenda: agenda1,
                             appointment_type: apt_type,
@@ -37,7 +37,7 @@ RSpec.feature 'Bex', type: :feature do
       slot2 = create(:slot, agenda: agenda2,
                             appointment_type: apt_type,
                             date: Date.today.next_occurring(:friday),
-                            starting_time: '11h')
+                            starting_time: '17h')
 
       current_date = slot1.date.strftime('%d/%m/%Y')
 
@@ -52,11 +52,11 @@ RSpec.feature 'Bex', type: :feature do
 
       agenda_containers = page.all('.bex-agenda-container')
 
-      expect(agenda_containers[0]).to have_content('Cabinet 1')
+      expect(agenda_containers[0]).to have_content('Cabinet Bleu')
       expect(agenda_containers[0]).to have_content('James')
       expect(agenda_containers[0]).to have_content('MORIARTY')
 
-      expect(agenda_containers[1]).to have_content('Cabinet 2')
+      expect(agenda_containers[1]).to have_content('Cabinet Rouge')
       expect(agenda_containers[1]).to have_content('Lex')
       expect(agenda_containers[1]).to have_content('LUTHOR')
     end
@@ -65,7 +65,7 @@ RSpec.feature 'Bex', type: :feature do
   describe 'Spip appointment index' do
     let(:frozen_time) { Time.zone.parse('2021-08-01 10:00:00').to_date }
 
-    it 'lists all Spip appointments', js: true do
+    it "lists all Spip appointments of type Sortie d'audience SPIP", js: true do
       allow(Date).to receive(:today).and_return frozen_time
       convict1 = create(:convict, first_name: 'Julius',
                                   last_name: 'Erving',
@@ -86,12 +86,12 @@ RSpec.feature 'Bex', type: :feature do
       slot1 = create(:slot, agenda: agenda,
                             appointment_type: apt_type,
                             date: Date.today.next_occurring(:tuesday),
-                            starting_time: '9h')
+                            starting_time: '8h')
 
       slot2 = create(:slot, agenda: agenda,
                             appointment_type: apt_type,
                             date: Date.today.next_occurring(:friday) + 1.month,
-                            starting_time: '14h')
+                            starting_time: '15h')
 
       current_month_label = (I18n.l slot1.date, format: '%B %Y').capitalize
       next_month_label = (I18n.l slot2.date, format: '%B %Y').capitalize

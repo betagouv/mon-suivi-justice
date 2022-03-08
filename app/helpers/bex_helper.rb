@@ -1,20 +1,23 @@
 module BexHelper
   # Agenda JAP
-  def ten_next_fridays
-    fridays = [Date.today.next_occurring(:friday)]
-
-    9.times { fridays << (fridays[-1] + 1.week) }
-
-    fridays
+  def ten_next_days_with_slots(appointment_type, organization)
+    Slot.future
+        .in_organization(organization)
+        .where(appointment_type: appointment_type)
+        .order(date: :asc)
+        .group_by(&:date)
+        .first(10)
+        .map(&:first)
   end
 
-  def available_agendas
-    ['Cabinet 1', 'Cabinet 2', 'Cabinet 3', 'Cabinet 4',
-     'Cabinet 5', 'Cabinet 6', 'Cabinet 7']
+  def first_day_with_slots(appointment_type, organization)
+    ten_next_days_with_slots(appointment_type, organization).first
   end
 
-  def bex_jap_available_hours
-    %w[09h30 10h00 10h30 11h00 11h30]
+  def available_slots_hours(date, agenda)
+    agenda.slots.where(date: date)
+          .pluck(:starting_time)
+          .uniq.map { |time| time.to_s(:lettered) }
   end
 
   def appointments_by_agenda(appointments)
@@ -36,10 +39,6 @@ module BexHelper
     5.times { months << (months[-1] + 1.month) }
 
     months
-  end
-
-  def bex_spip_available_hours
-    %w[09h00 14h00 14h45 15h30 16h15]
   end
 
   def open_days_for_the_month(date)
