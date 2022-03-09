@@ -9,7 +9,6 @@ class BexController < ApplicationController
                                              .joins(slot: [:appointment_type, :agenda])
                                              .where('slots.appointment_type_id = ?', @appointment_type.id)
                                              .group('appointments.id,agendas.name')
-
     authorize @appointments
   end
 
@@ -28,7 +27,7 @@ class BexController < ApplicationController
 
   def current_date(appointment_type, params)
     if params.key?(:date)
-      params[:date]
+      Date.parse(params[:date])
     else
       helpers.first_day_with_slots(appointment_type, current_organization)
     end
