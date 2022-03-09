@@ -11,7 +11,7 @@ RSpec.feature 'Bex', type: :feature do
   end
 
   describe 'JAP appointments index', js: true do
-    it "lists appointments of type Sortie d'audience SAP", :focus do
+    it "lists appointments of type Sortie d'audience SAP" do
       convict1 = create(:convict, first_name: 'James',
                                   last_name: 'Moriarty',
                                   prosecutor_number: '203204')
@@ -100,14 +100,14 @@ RSpec.feature 'Bex', type: :feature do
       create(:appointment, slot: slot2, convict: convict2)
 
       visit agenda_spip_path
-      select current_month_label, from: :month
+      select current_month_label, from: :date
       page.execute_script("$('#spip-appointments-month-select').trigger('change')")
 
       expect(page).to have_content('Julius')
       expect(page).to have_content('ERVING')
       expect(page).to have_content('203205')
 
-      select next_month_label, from: :month
+      select next_month_label, from: :date
       page.execute_script("$('#spip-appointments-month-select').trigger('change')")
 
       expect(page).not_to have_content('Julius')

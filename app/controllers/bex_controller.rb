@@ -14,12 +14,11 @@ class BexController < ApplicationController
 
   def agenda_spip
     @appointment_type = AppointmentType.find_by(name: "Sortie d'audience SPIP")
-    @current_month = current_month(params)
+    @current_date = current_date(@appointment_type, params)
     @agenda = Agenda.in_organization(current_organization).with_open_slots(@appointment_type).first
-    @appointments = policy_scope(Appointment).for_a_month(@current_month).active
+    @appointments = policy_scope(Appointment).for_a_month(@current_date).active
                                              .joins(slot: [:appointment_type, :agenda])
                                              .where('slots.appointment_type_id = ?', @appointment_type.id)
-
     authorize @appointments
   end
 
@@ -27,13 +26,9 @@ class BexController < ApplicationController
 
   def current_date(appointment_type, params)
     if params.key?(:date)
-      Date.parse(params[:date])
+      params[:date].to_date
     else
       helpers.first_day_with_slots(appointment_type, current_organization)
     end
-  end
-
-  def current_month(params)
-    params.key?(:month) ? params[:month].to_date : Date.today
   end
 end

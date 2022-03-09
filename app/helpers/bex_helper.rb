@@ -4,10 +4,10 @@ module BexHelper
     Slot.future
         .in_organization(organization)
         .where(appointment_type: appointment_type)
-        .order(date: :asc)
-        .group_by(&:date)
+        .pluck(:date)
+        .uniq
+        .sort
         .first(10)
-        .map(&:first)
   end
 
   def first_day_with_slots(appointment_type, organization)
