@@ -9,6 +9,9 @@ module UsersHelper
       secretary_court
       dir_greff_bex
       greff_co
+      greff_tpe
+      greff_crpc
+      greff_ca
       dir_greff_sap
       greff_sap
       dpip

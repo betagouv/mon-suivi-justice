@@ -26,7 +26,10 @@ RSpec.describe User, type: :model do
         psychologist: 13,
         overseer: 14,
         dpip: 15,
-        secretary_spip: 16
+        secretary_spip: 16,
+        greff_tpe: 17,
+        greff_crpc: 18,
+        greff_ca: 19
       }
     )
   }

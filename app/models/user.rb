@@ -27,7 +27,10 @@ class User < ApplicationRecord
     psychologist: 13,
     overseer: 14,
     dpip: 15,
-    secretary_spip: 16
+    secretary_spip: 16,
+    greff_tpe: 17,
+    greff_crpc: 18,
+    greff_ca: 19
   }
 
   validates :first_name, :last_name, :role, presence: true
@@ -52,7 +55,7 @@ class User < ApplicationRecord
   end
 
   def work_at_bex?
-    %w[prosecutor greff_co dir_greff_bex bex].include? role
+    %w[prosecutor greff_co dir_greff_bex bex greff_tpe greff_crpc greff_ca].include? role
   end
 
   def work_at_sap?

@@ -63,6 +63,9 @@ fr:
           educator: "Educateur"
           psychologist: "Psychologue"
           overseer: "Surveillant"
+          greff_tpe: "Greffier TPE"
+          greff_crpc: "Greffier CRPC"
+          greff_ca: "Greffier CA"
       appointment:
         date: "Date"
         slot: "Créneau"
