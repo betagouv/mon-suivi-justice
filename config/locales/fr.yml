@@ -482,6 +482,9 @@ fr:
           bex: "Agents du BEX"
           gref_co: "Greffe correctionnel"
           pr: "Parquet de l'exécution"
+          greff_tpe: "Greffe TPE"
+          greff_crpc: "Greffe CRPC"
+          greff_ca: "Greffe CA"
       convict:
         title:
           male: "M."
