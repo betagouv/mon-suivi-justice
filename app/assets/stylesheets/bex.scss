@@ -45,6 +45,10 @@
   @media print { background-color: initial !important; }
 }
 
+.bex-agenda-header-title {
+  padding: 0 20px;
+}
+
 .bex-agenda-table {
   display: flex;
   flex-direction: column;

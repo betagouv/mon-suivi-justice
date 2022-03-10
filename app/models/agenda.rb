@@ -14,7 +14,22 @@ class Agenda < ApplicationRecord
       .where(areas_organizations_mappings: { area: department })
   }
 
+  scope :with_open_slots_for_date, lambda { |date, appointment_type|
+    joins(:slots).where('slots.date = ?', date)
+                 .where('slots.appointment_type_id = ?', appointment_type.id).uniq
+  }
+
+  scope :with_open_slots, lambda { |appointment_type|
+    joins(:slots).where('slots.appointment_type_id = ?', appointment_type.id).uniq
+  }
+
   def appointment_type_with_slot_types?
     appointment_type_with_slot_types.length.positive?
+  end
+
+  def available_slots_hours(date)
+    slots.where(date: date)
+         .pluck(:starting_time)
+         .uniq.map { |time| time.to_s(:lettered) }
   end
 end

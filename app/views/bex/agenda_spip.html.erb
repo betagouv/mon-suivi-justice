@@ -11,7 +11,7 @@
     </div>
     <div class='bex-date-select-container'>
       <%= form_tag agenda_spip_path, method: 'get' do %>
-        <%= select_tag :month, options_for_select(formated_month_for_select(six_next_months), params[:month]),
+        <%= select_tag :date, options_for_select(formated_month_for_select(six_next_months), params[:date]),
                                id: 'spip-appointments-month-select',
                                class: 'form-select form-text-input spip-date-select',
                                onchange: 'this.form.submit()' %>
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <% open_days_for_the_month(@current_month).each do |day| %>
+  <% open_days_for_the_month(@current_date).each do |day| %>
     <% days_appointments = appointments_for_a_day(@appointments, day) %>
     <div class='bex-agenda-container'>
       <div class='bex-agenda-header spip-agenda-header'>
@@ -47,7 +47,7 @@
           </div>
         </div>
 
-        <% bex_spip_available_hours.each do |hour| %>
+        <% @agenda.available_slots_hours(day).each do |hour| %>
           <% appointment = appointment_of_the_hour(days_appointments, hour) %>
           <div class='bex-agenda-line'>
             <div class='bex-agenda-column'>
