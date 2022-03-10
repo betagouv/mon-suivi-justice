@@ -5,7 +5,18 @@ RSpec.describe Appointment, type: :model do
 
   it { should belong_to(:convict) }
 
-  it { should define_enum_for(:origin_department).with_values(%i[bex gref_co pr]) }
+  it {
+    should define_enum_for(:origin_department).with_values(
+      {
+        bex: 0,
+        gref_co: 1,
+        pr: 2,
+        greff_tpe: 3,
+        greff_crpc: 4,
+        greff_ca: 5
+      }
+    )
+  }
 
   describe 'state machine' do
     before do
