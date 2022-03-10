@@ -5,71 +5,75 @@
                                       onclick: 'window.print();return false;'%>
   </div>
 
-  <div class='bex-agendas-date-container'>
-    <div class='bex-date-title-container'>
-      <%= t('bex_jap_agendas_title') %>
-    </div>
-    <div class='bex-date-select-container'>
-      <%= form_tag agenda_jap_path, method: 'get' do %>
-        <%= select_tag :date, options_for_select(formated_dates_for_select(current_organization.ten_next_days_with_slots(@appointment_type)), params[:date]),
-                              id: 'jap-appointments-date-select',
-                              class: 'form-select form-text-input jap-date-select',
-                              onchange: 'this.form.submit()' %>
-      <% end %>
-    </div>
-  </div>
-
-  <% @agendas.each_with_index do |agenda, index| %>
-    <% appointments = appointments_by_agenda(@appointments).find { |a| a[0] == agenda.name }&.last %>
-    <div class='bex-agenda-container'>
-      <div class='bex-agenda-header jap-agenda-header<%= index+1%>'>
-        <div class='bex-agenda-header-title'>
-          <%= agenda.name %>
-        </div>
+  <% if @agendas.empty? %>
+    <p class='bex-agenda-spip-no-agenda'><%= t('bex_jap_no_agenda_available', place: current_organization.name) %></p>
+  <% else %>
+    <div class='bex-agendas-date-container'>
+      <div class='bex-date-title-container'>
+        <%= t('bex_jap_agendas_title') %>
       </div>
-
-      <div class='bex-agenda-table'>
-        <div class='bex-agenda-table-header bex-agenda-line'>
-          <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex_jap_agenda_header_hour') %>
-          </div>
-          <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex_jap_agenda_header_last_name') %>
-          </div>
-          <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex_jap_agenda_header_first_name') %>
-          </div>
-          <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex_jap_agenda_header_prosecutor') %>
-          </div>
-          <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex_jap_agenda_header_origin') %>
-          </div>
-        </div>
-
-        <% agenda.available_slots_hours(@current_date).each do |hour| %>
-          <% appointment = select_appointment(appointments, hour) %>
-          <div class='bex-agenda-line'>
-            <div class='bex-agenda-column'>
-              <%= hour %>
-            </div>
-            <div class='bex-agenda-column'>
-              <%= appointment&.convict&.last_name&.upcase %>
-            </div>
-            <div class='bex-agenda-column'>
-              <%= appointment&.convict&.first_name %>
-            </div>
-            <div class='bex-agenda-column'>
-              <%= appointment&.convict&.prosecutor_number %>
-            </div>
-            <div class='bex-agenda-column'>
-              <% if appointment.present? %>
-                <%= t("activerecord.attributes.appointment.origin_departments.#{appointment.origin_department}") %>
-              <% end %>
-            </div>
-          </div>
+      <div class='bex-date-select-container'>
+        <%= form_tag agenda_jap_path, method: 'get' do %>
+          <%= select_tag :date, options_for_select(formated_dates_for_select(current_organization.ten_next_days_with_slots(@appointment_type)), params[:date]),
+                                id: 'jap-appointments-date-select',
+                                class: 'form-select form-text-input jap-date-select',
+                                onchange: 'this.form.submit()' %>
         <% end %>
       </div>
     </div>
+
+    <% @agendas.each_with_index do |agenda, index| %>
+      <% appointments = appointments_by_agenda(@appointments).find { |a| a[0] == agenda.name }&.last %>
+      <div class='bex-agenda-container'>
+        <div class='bex-agenda-header jap-agenda-header<%= index+1%>'>
+          <div class='bex-agenda-header-title'>
+            <%= agenda.name %>
+          </div>
+        </div>
+
+        <div class='bex-agenda-table'>
+          <div class='bex-agenda-table-header bex-agenda-line'>
+            <div class='bex-agenda-header-title bex-agenda-column'>
+              <%= t('bex_jap_agenda_header_hour') %>
+            </div>
+            <div class='bex-agenda-header-title bex-agenda-column'>
+              <%= t('bex_jap_agenda_header_last_name') %>
+            </div>
+            <div class='bex-agenda-header-title bex-agenda-column'>
+              <%= t('bex_jap_agenda_header_first_name') %>
+            </div>
+            <div class='bex-agenda-header-title bex-agenda-column'>
+              <%= t('bex_jap_agenda_header_prosecutor') %>
+            </div>
+            <div class='bex-agenda-header-title bex-agenda-column'>
+              <%= t('bex_jap_agenda_header_origin') %>
+            </div>
+          </div>
+
+          <% agenda.available_slots_hours(@current_date).each do |hour| %>
+            <% appointment = select_appointment(appointments, hour) %>
+            <div class='bex-agenda-line'>
+              <div class='bex-agenda-column'>
+                <%= hour %>
+              </div>
+              <div class='bex-agenda-column'>
+                <%= appointment&.convict&.last_name&.upcase %>
+              </div>
+              <div class='bex-agenda-column'>
+                <%= appointment&.convict&.first_name %>
+              </div>
+              <div class='bex-agenda-column'>
+                <%= appointment&.convict&.prosecutor_number %>
+              </div>
+              <div class='bex-agenda-column'>
+                <% if appointment.present? %>
+                  <%= t("activerecord.attributes.appointment.origin_departments.#{appointment.origin_department}") %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>

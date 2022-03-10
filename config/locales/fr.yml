@@ -402,9 +402,10 @@ fr:
   bex_jap_agenda_header_first_name: Prénom
   bex_jap_agenda_header_prosecutor: Numéro parquet
   bex_jap_agenda_header_origin: "Service d'origine"
-
   bex_spip_appointments_link: "Agenda RDV SPIP"
   bex_spip_appointments_title: "Agenda RDV SPIP pour"
+  bex_spip_no_agenda_available: "Pas de rdv Sortie d'audience SPIP prévu au %{place}"
+  bex_jap_no_agenda_available: "Pas de rdv Sortie d'audience JAP prévu au %{place}"
 
   today_agendas_title: "RDV prévus pour le"
   today_agendas_title_part2: "au"
