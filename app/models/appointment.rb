@@ -20,7 +20,14 @@ class Appointment < ApplicationRecord
 
   attr_accessor :place_id, :agenda_id, :user_is_cpip
 
-  enum origin_department: %i[bex gref_co pr]
+  enum origin_department: {
+    bex: 0,
+    gref_co: 1,
+    pr: 2,
+    greff_tpe: 3,
+    greff_crpc: 4,
+    greff_ca: 5
+  }
 
   scope :for_a_date, ->(date = Date.today) { joins(:slot).where('slots.date' => date) }
 

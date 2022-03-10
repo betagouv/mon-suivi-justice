@@ -75,6 +75,9 @@ fr:
           bex: "BEX"
           gref_co: "Greffe co"
           pr: "PR"
+          greff_tpe: "Greffe TPE"
+          greff_crpc: "Greffe CRPC"
+          greff_ca: "Greffe CA"
       appointment_type:
         name: "Nom"
       notification_type:
