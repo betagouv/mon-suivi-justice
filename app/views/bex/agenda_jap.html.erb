@@ -11,7 +11,7 @@
     </div>
     <div class='bex-date-select-container'>
       <%= form_tag agenda_jap_path, method: 'get' do %>
-        <%= select_tag :date, options_for_select(formated_dates_for_select(ten_next_days_with_slots(@appointment_type, current_organization)), params[:date]),
+        <%= select_tag :date, options_for_select(formated_dates_for_select(current_organization.ten_next_days_with_slots(@appointment_type)), params[:date]),
                               id: 'jap-appointments-date-select',
                               class: 'form-select form-text-input jap-date-select',
                               onchange: 'this.form.submit()' %>
@@ -47,7 +47,7 @@
           </div>
         </div>
 
-        <% available_slots_hours(@current_date, agenda).each do |hour| %>
+        <% agenda.available_slots_hours(@current_date).each do |hour| %>
           <% appointment = select_appointment(appointments, hour) %>
           <div class='bex-agenda-line'>
             <div class='bex-agenda-column'>

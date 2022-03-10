@@ -1,25 +1,5 @@
 module BexHelper
   # Agenda JAP
-  def ten_next_days_with_slots(appointment_type, organization)
-    Slot.future
-        .in_organization(organization)
-        .where(appointment_type: appointment_type)
-        .pluck(:date)
-        .uniq
-        .sort
-        .first(10)
-  end
-
-  def first_day_with_slots(appointment_type, organization)
-    ten_next_days_with_slots(appointment_type, organization).first
-  end
-
-  def available_slots_hours(date, agenda)
-    agenda.slots.where(date: date)
-          .pluck(:starting_time)
-          .uniq.map { |time| time.to_s(:lettered) }
-  end
-
   def appointments_by_agenda(appointments)
     appointments.group_by { |a| a.slot.agenda.name }
   end

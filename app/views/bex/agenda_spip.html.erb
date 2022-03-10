@@ -47,7 +47,7 @@
           </div>
         </div>
 
-        <% available_slots_hours(day, @agenda).each do |hour| %>
+        <% @agenda.available_slots_hours(day).each do |hour| %>
           <% appointment = appointment_of_the_hour(days_appointments, hour) %>
           <div class='bex-agenda-line'>
             <div class='bex-agenda-column'>

@@ -28,7 +28,7 @@ class BexController < ApplicationController
     if params.key?(:date)
       params[:date].to_date
     else
-      helpers.first_day_with_slots(appointment_type, current_organization)
+      current_organization.first_day_with_slots(appointment_type)
     end
   end
 end
