@@ -13,7 +13,7 @@ Outils permettant aux conseillers pénitentiaires de mieux suivre le parcours de
 
 Documentation utilisateur : [documentation.mon-suivi-justice.beta.gouv.fr](documentation.mon-suivi-justice.beta.gouv.fr)
 
-L'outil pour les agents est complété par un site d'information à destination des PPSMJ, pour qu'elle puisse disposer de toute les informations nécessaires. Le code du site public est disponible [ici](https://github.com/betagouv/mon-suivi-justice-public).
+L'outil pour les agents est complété par un site d'information à destination des PPSMJ, pour qu'elles puissent disposer de toute les informations nécessaires. Le code du site public est disponible [ici](https://github.com/betagouv/mon-suivi-justice-public).
 
 ## Contribuer
 
