@@ -20,7 +20,7 @@
   </div>
 
   <% if @agenda.nil? %>
-    <p class='bex-agenda-spip-no-agenda'><%= t('bex_spip_no_agenda_available', place: current_organization.name) %></p>
+    <p class='bex-agenda-spip-no-agenda'><%= t('bex_spip_no_agenda_available') %></p>
   <% else %>
     <% open_days_for_the_month(@current_date).each do |day| %>
       <% days_appointments = appointments_for_a_day(@appointments, day) %>

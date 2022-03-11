@@ -29,6 +29,7 @@ class Agenda < ApplicationRecord
 
   def available_slots_hours(date)
     slots.where(date: date)
+         .order(:date, :starting_time)
          .pluck(:starting_time)
          .uniq.map { |time| time.to_s(:lettered) }
   end
