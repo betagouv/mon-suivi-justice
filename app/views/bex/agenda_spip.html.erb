@@ -24,6 +24,8 @@
   <% else %>
     <% open_days_for_the_month(@current_date).each do |day| %>
       <% days_appointments = appointments_for_a_day(@appointments, day) %>
+      <% next if @agenda.available_slots_hours(day).empty? %>
+
       <div class='bex-agenda-container'>
         <div class='bex-agenda-header spip-agenda-header'>
           <div class='bex-agenda-header-title'>
