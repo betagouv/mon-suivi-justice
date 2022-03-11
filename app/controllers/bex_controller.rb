@@ -4,7 +4,7 @@ class BexController < ApplicationController
   def agenda_jap
     @appointment_type = AppointmentType.find_by(name: "Sortie d'audience SAP")
     @current_date = current_date(@appointment_type, params)
-    @agendas = Agenda.in_organization(current_organization).with_open_slots_for_date(@current_date, @appointment_type)
+    @agendas = policy_scope(Agenda).with_open_slots_for_date(@current_date, @appointment_type)
     @appointments = policy_scope(Appointment).for_a_date(@current_date).active
                                              .joins(slot: [:appointment_type, :agenda])
                                              .where('slots.appointment_type_id = ?', @appointment_type.id)
@@ -15,7 +15,7 @@ class BexController < ApplicationController
   def agenda_spip
     @appointment_type = AppointmentType.find_by(name: "Sortie d'audience SPIP")
     @current_date = current_date(@appointment_type, params)
-    @agenda = Agenda.in_organization(current_organization).with_open_slots(@appointment_type).first
+    @agenda = policy_scope(Agenda).with_open_slots(@appointment_type).first
     @appointments = policy_scope(Appointment).for_a_month(@current_date).active
                                              .joins(slot: [:appointment_type, :agenda])
                                              .where('slots.appointment_type_id = ?', @appointment_type.id)
