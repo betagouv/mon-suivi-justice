@@ -16,6 +16,10 @@
 
 .bex-print-button {
   @include button($light-grey);
+
+  @media print {
+    display: none;
+  }
 }
 
 .bex-agendas-date-container {
