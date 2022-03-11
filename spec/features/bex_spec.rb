@@ -20,6 +20,10 @@ RSpec.feature 'Bex', type: :feature do
                                   last_name: 'Luthor',
                                   prosecutor_number: '205206')
 
+      convict3 = create(:convict, first_name: 'Pat',
+                                  last_name: 'Hibulaire',
+                                  prosecutor_number: '205806')
+
       create :areas_convicts_mapping, convict: convict1, area: @department
       create :areas_convicts_mapping, convict: convict2, area: @department
 
@@ -37,12 +41,14 @@ RSpec.feature 'Bex', type: :feature do
       slot2 = create(:slot, agenda: agenda2,
                             appointment_type: apt_type,
                             date: Date.today.next_occurring(:friday),
-                            starting_time: '17h')
+                            starting_time: '17h',
+                            capacity: 2)
 
       current_date = slot1.date.strftime('%d/%m/%Y')
 
       create(:appointment, slot: slot1, convict: convict1)
       create(:appointment, slot: slot2, convict: convict2)
+      create(:appointment, slot: slot2, convict: convict3)
 
       visit agenda_jap_path
       select current_date, from: :date
@@ -55,10 +61,16 @@ RSpec.feature 'Bex', type: :feature do
       expect(agenda_containers[0]).to have_content('Cabinet Bleu')
       expect(agenda_containers[0]).to have_content('James')
       expect(agenda_containers[0]).to have_content('MORIARTY')
+      expect(agenda_containers[0]).to have_content('203204')
 
       expect(agenda_containers[1]).to have_content('Cabinet Rouge')
       expect(agenda_containers[1]).to have_content('Lex')
       expect(agenda_containers[1]).to have_content('LUTHOR')
+      expect(agenda_containers[1]).to have_content('205206')
+
+      expect(agenda_containers[1]).to have_content('Pat')
+      expect(agenda_containers[1]).to have_content('HIBULAIRE')
+      expect(agenda_containers[1]).to have_content('205806')
     end
   end
 
@@ -75,6 +87,10 @@ RSpec.feature 'Bex', type: :feature do
                                   last_name: 'Malone',
                                   prosecutor_number: '205201')
 
+      convict3 = create(:convict, first_name: 'Darius',
+                                  last_name: 'Garland',
+                                  prosecutor_number: '205202')
+
       create :areas_convicts_mapping, convict: convict1, area: @department
       create :areas_convicts_mapping, convict: convict2, area: @department
 
@@ -86,7 +102,8 @@ RSpec.feature 'Bex', type: :feature do
       slot1 = create(:slot, agenda: agenda,
                             appointment_type: apt_type,
                             date: Date.today.next_occurring(:tuesday),
-                            starting_time: '8h')
+                            starting_time: '8h',
+                            capacity: 2)
 
       slot2 = create(:slot, agenda: agenda,
                             appointment_type: apt_type,
@@ -98,6 +115,7 @@ RSpec.feature 'Bex', type: :feature do
 
       create(:appointment, slot: slot1, convict: convict1)
       create(:appointment, slot: slot2, convict: convict2)
+      create(:appointment, slot: slot1, convict: convict3)
 
       visit agenda_spip_path
       select current_month_label, from: :date
@@ -106,6 +124,10 @@ RSpec.feature 'Bex', type: :feature do
       expect(page).to have_content('Julius')
       expect(page).to have_content('ERVING')
       expect(page).to have_content('203205')
+
+      expect(page).to have_content('Darius')
+      expect(page).to have_content('GARLAND')
+      expect(page).to have_content('205202')
 
       select next_month_label, from: :date
       page.execute_script("$('#spip-appointments-month-select').trigger('change')")

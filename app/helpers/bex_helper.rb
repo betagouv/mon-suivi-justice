@@ -1,18 +1,8 @@
 module BexHelper
-  # Agenda JAP
   def appointments_by_agenda(appointments)
     appointments.group_by { |a| a.slot.agenda.name }
   end
 
-  def select_appointment(appointments, hour)
-    appointments.select do |a|
-      a.slot.starting_time.to_s(:lettered) == hour
-    end.first
-  rescue NoMethodError
-    # returns nil
-  end
-
-  # Agenda SPIP
   def six_next_months
     months = [Date.today]
 
@@ -28,17 +18,5 @@ module BexHelper
                        .map { |h| h[:date] }
 
     week_dates - holidays
-  end
-
-  def appointments_for_a_day(appointments, day)
-    appointments.to_a.select do |a|
-      a.slot.date == day
-    end
-  end
-
-  def appointment_of_the_hour(appointments, hour)
-    appointments.to_a.select do |a|
-      a.slot.starting_time.to_s(:lettered) == hour
-    end.first
   end
 end
