@@ -17,7 +17,8 @@ class Slot < ApplicationRecord
     where(
       agenda_id: agenda.id,
       appointment_type_id: appointment_type.id,
-      available: true
+      available: true,
+      full: false
     )
   }
 
@@ -25,7 +26,8 @@ class Slot < ApplicationRecord
     joins(:agenda).where(
       'agenda.place' => place,
       appointment_type_id: appointment_type.id,
-      available: true
+      available: true,
+      full: false
     )
   }
 
@@ -45,7 +47,7 @@ class Slot < ApplicationRecord
     joins(:appointment_type).merge(AppointmentType.with_slot_types)
   }
 
-  def full?
+  def all_capacity_used?
     used_capacity == capacity
   end
 

@@ -83,14 +83,14 @@ RSpec.describe Slot, type: :model do
 
       slot.reload
       expect(slot.used_capacity).to eq(1)
-      expect(slot.available).to eq(true)
+      expect(slot.full).to eq(false)
 
       create(:appointment, slot: slot).book
       create(:appointment, slot: slot).book
 
       slot.reload
       expect(slot.used_capacity).to eq(3)
-      expect(slot.available).to eq(false)
+      expect(slot.full).to eq(true)
     end
   end
 
