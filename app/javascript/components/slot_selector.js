@@ -94,7 +94,9 @@ function addListenerToAgendaSelect() {
 function allowSubmit () {
   const slotsFields = document.getElementsByName('appointment[slot_id]');
   const submitButtonContainer = document.getElementById('before-submit-modal-option-container');
+  const errorMessage = document.getElementsByClassName('new-appointment-form-no-slot');
 
+  if(errorMessage.length == 1) { return; }
   slotsFields.forEach(field => field.addEventListener('change', () => {
     submitButtonContainer.style.display = 'flex';
   }));

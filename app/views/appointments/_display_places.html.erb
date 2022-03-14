@@ -11,6 +11,6 @@
     </select>
   </div>
 <% else %>
-  <p class='new-appointment-form-no-slot><%= t('new-appointment-no-place') %></p>
+  <p class='new-appointment-form-no-place><%= t('new-appointment-no-place') %></p>
   <%= button_to t('new_appointment_reload'), new_appointment_path, class: 'form-submit-button reload-button', method: :get %>
 <% end %>
