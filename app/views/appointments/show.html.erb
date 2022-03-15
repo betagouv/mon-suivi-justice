@@ -1,6 +1,6 @@
 <h1 class='show-title'><%= t('show_appointment_title') %></h1>
 
-<% if @appointment.in_the_past? && @appointment.booked? %>
+<% if @appointment.in_the_past? && @appointment.booked? && policy(@appointment).fulfil? %>
   <div class='appointment-fulfilment-container'>
     <div class='appointment-fulfilment-prompt-container'>
       <%= t('show-convict-fulfilment-prompt', name: @convict.name,
