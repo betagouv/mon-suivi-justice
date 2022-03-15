@@ -270,7 +270,7 @@ fr:
     of_which: "dont"
     that_is: "soit"
     recorded: "Total rdv enregistrés"
-    passed_no_canceled_with_phone: "rdv passés avec numéro de téléphone"
+    passed_no_canceled_with_phone: "rdv passés avec numéro de tél / rdv rappelés"
     future_booked: "rdv futurs"
     fulfiled: "rdv réussis"
     fulfiled_percentage: "%{data}% de présence aux rdv renseignés"
