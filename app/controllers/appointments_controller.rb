@@ -8,7 +8,7 @@ class AppointmentsController < ApplicationController
     @appointments = @q.result(distinct: true)
                       .joins(:convict, slot: [agenda: [:place]])
                       .includes(:convict, slot: [agenda: [:place]])
-                      .order('slots.date ASC')
+                      .order('slots.date ASC, slots.starting_time ASC')
                       .page(params[:page]).per(25)
 
     authorize @appointments
