@@ -7,14 +7,14 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
   let(:do_request) { get(path.to_s, headers: headers) }
 
   let(:organization1) { create(:organization, name: 'SPIP 92') }
-  let(:cpip) do
+  let(:agent) do
     create(:user, id: 1, first_name: 'Rémy', last_name: 'MAU', phone: '+33606060610',
                   email: 'remy.mau@justice.fr', organization: organization1, role: 2)
   end
 
   let(:convict) do
     create(:convict, id: 1, first_name: 'Damien', last_name: 'LT', phone: '+33606060606',
-                     user: cpip)
+                     user: agent)
   end
 
   let(:appointment_type1) { create(:appointment_type, name: 'RDV DDSE') }
@@ -70,7 +70,7 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
             'first_name' => 'Damien',
             'last_name' => 'LT',
             'phone' => '+33606060606',
-            'cpip' =>
+            'agent' =>
               { 'id' => 1,
                 'first_name' => 'Rémy',
                 'last_name' => 'MAU',

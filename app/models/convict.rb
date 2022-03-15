@@ -12,6 +12,7 @@ class Convict < ApplicationRecord
 
   belongs_to :user, optional: true
   alias_attribute :cpip, :user
+  alias_attribute :agent, :user
 
   attr_accessor :place_id
 
