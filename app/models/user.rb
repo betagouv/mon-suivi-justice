@@ -33,7 +33,7 @@ class User < ApplicationRecord
     greff_ca: 19
   }
 
-  validates :first_name, :last_name, :role, presence: true
+  validates :first_name, :last_name, :role, :share_info_to_convict, presence: true
 
   scope :in_department, lambda { |department|
     joins(organization: :areas_organizations_mappings)

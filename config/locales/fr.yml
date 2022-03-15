@@ -46,6 +46,7 @@ fr:
         role: "Rôle"
         phone: "Numéro de téléphone"
         organization: "Service"
+        share_info_to_convict: "Partager mon téléphone et mon email à mes PPSMJ"
         user_roles:
           admin: "Administrateur central"
           local_admin: "Administrateur local"
