@@ -18,5 +18,12 @@
                        input_html: { class: 'form-select' } %>
   <% end %>
 
+  <% if @user.cpip? %>
+    <%= f.input :share_info_to_convict, as: :boolean,
+                                        input_html: { class: 'form-checkbox' },
+                                        label_html: { class: 'form-checkbox-label' },
+                                        wrapper_html: { class: 'form-checkbox-wrapper'} %>
+  <% end %>
+
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>

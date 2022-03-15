@@ -77,6 +77,7 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
                 'phone' => '+33606060610',
                 'email' => 'remy.mau@justice.fr',
                 'organization_name' => 'SPIP 92',
+                'share_info_to_convict' => true,
                 'role' => 'CPIP' },
             'appointments' =>
               [{ 'id' => 1,
