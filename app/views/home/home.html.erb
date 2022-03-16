@@ -26,16 +26,18 @@
       <% if policy(:appointment).agenda_jap? || policy(:appointment).agenda_spip?  %>
         <div class='home-custom-links-container'>
           <div class='home-custom-links'>
-            <% if policy(:appointment).agenda_jap? %>
-              <%= button_to t('home.bex_jap'), agenda_jap_path,
-                                               class: 'home-agenda-link',
-                                               method: :get %>
-            <% end %>
+            <% if current_user.admin? %>
+              <% if policy(:appointment).agenda_jap? %>
+                <%= button_to t('home.bex_jap'), agenda_jap_path,
+                                                 class: 'home-agenda-link',
+                                                 method: :get %>
+              <% end %>
 
-            <% if policy(:appointment).agenda_spip? %>
-              <%= button_to t('home.bex_spip'), agenda_spip_path,
-                                                class: 'home-agenda-link',
-                                                method: :get %>
+              <% if policy(:appointment).agenda_spip? %>
+                <%= button_to t('home.bex_spip'), agenda_spip_path,
+                                                  class: 'home-agenda-link',
+                                                  method: :get %>
+              <% end %>
             <% end %>
 
             <% if policy(:appointment).index? %>
