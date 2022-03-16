@@ -28,6 +28,10 @@ class Place < ApplicationRecord
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
   }
 
+  def multiple_agendas?
+    agendas.count > 1
+  end
+
   def appointment_type_with_slot_types
     appointment_types.with_slot_types
   end

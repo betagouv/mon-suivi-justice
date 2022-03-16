@@ -102,6 +102,17 @@
         </div>
       </div>
 
+      <% if @appointment.slot.agenda.place.multiple_agendas? %>
+        <div class='show-appointment-summon-data'>
+          <div class='show-appointment-summon-title'>
+            <%= t('appointment_agenda') %>
+          </div>
+          <div class='show-appointment-summon-item'>
+            <%= @appointment.slot.agenda.name %>
+          </div>
+        </div>
+      <% end %>
+
       <div class='show-appointment-summon-data'>
         <div class='show-appointment-summon-title'>
           <%= t('appointment_date') %>
