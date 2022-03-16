@@ -27,8 +27,8 @@ class Agenda < ApplicationRecord
     appointment_type_with_slot_types.length.positive?
   end
 
-  def slots_for_date(date)
-    slots.where(date: date)
+  def slots_for_date(date, appointment_type)
+    slots.where(date: date, appointment_type: appointment_type)
          .order(:date, :starting_time)
          .available
          .uniq

@@ -23,7 +23,6 @@
     </div>
 
     <% @agendas.each_with_index do |agenda, index| %>
-      <% appointments = appointments_by_agenda(@appointments).find { |a| a[0] == agenda.name }&.last %>
       <div class='bex-agenda-container'>
         <div class='bex-agenda-header jap-agenda-header<%= index+1%>'>
           <div class='bex-agenda-header-title'>
@@ -50,8 +49,8 @@
             </div>
           </div>
 
-          <% agenda.slots_for_date(@current_date).each do |slot| %>
-            <% appointments = slot.appointments %>
+          <% agenda.slots_for_date(@current_date, @appointment_type).each do |slot| %>
+            <% appointments = slot.appointments.active %>
             <% slot.capacity.times do |i| %>
               <div class='bex-agenda-line'>
                 <div class='bex-agenda-column'>

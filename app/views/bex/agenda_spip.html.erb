@@ -23,7 +23,7 @@
     <p class='bex-agenda-spip-no-agenda'><%= t('bex_spip_no_agenda_available') %></p>
   <% else %>
     <% open_days_for_the_month(@current_date).each do |day| %>
-      <% next if @agenda.slots_for_date(day).count == 0 %>
+      <% next if @agenda.slots_for_date(day, @appointment_type).count == 0 %>
 
       <div class='bex-agenda-container'>
         <div class='bex-agenda-header spip-agenda-header'>
@@ -51,8 +51,8 @@
             </div>
           </div>
 
-          <% @agenda.slots_for_date(day).each do |slot| %>
-            <% appointments = slot.appointments %>
+          <% @agenda.slots_for_date(day, @appointment_type).each do |slot| %>
+            <% appointments = slot.appointments.active %>
             <% slot.capacity.times do |i| %>
               <div class='bex-agenda-line'>
                 <div class='bex-agenda-column'>
