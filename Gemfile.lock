@@ -134,6 +134,8 @@ GEM
     formatador (1.1.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    groupdate (6.0.1)
+      activesupport (>= 5.2)
     guard (2.18.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -435,6 +437,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.7)
   factory_bot_rails
   font-awesome-rails (~> 4.7)
+  groupdate (~> 6.0, >= 6.0.1)
   guard-rspec
   guard-rubocop
   holidays (~> 8.5)
