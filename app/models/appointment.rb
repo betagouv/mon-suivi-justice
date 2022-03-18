@@ -153,6 +153,11 @@ class Appointment < ApplicationRecord
     end
 
     after_transition on: :cancel do |appointment, transition|
+      appointment.slot.decrement!(:used_capacity, 1)
+      if appointment.slot.all_capacity_used? == false
+        appointment.slot.update(full: false)
+      end
+
       if appointment.reminder_notif.programmed?
         appointment.reminder_notif.cancel!
       end

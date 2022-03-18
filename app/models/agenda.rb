@@ -15,8 +15,8 @@ class Agenda < ApplicationRecord
   }
 
   scope :with_open_slots_for_date, lambda { |date, appointment_type|
-    joins(:slots).where('slots.date = ?', date)
-                 .where('slots.appointment_type_id = ?', appointment_type.id).uniq
+    joins(:slots).where('slots.date = ? AND slots.appointment_type_id = ?', date, appointment_type.id)
+                 .uniq
   }
 
   scope :with_open_slots, lambda { |appointment_type|
