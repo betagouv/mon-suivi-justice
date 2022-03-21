@@ -120,3 +120,15 @@
 .select2-search {
   width: 100%;
 }
+
+.home-survey-container {
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 40px;
+  @include box;
+  border-color: $support-link;
+}
+
+.home-survey-link {
+  color: $link;
+}
