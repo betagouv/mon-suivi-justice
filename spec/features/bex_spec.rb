@@ -102,10 +102,10 @@ RSpec.feature 'Bex', type: :feature do
   end
 
   describe 'Spip appointment index' do
-    let(:frozen_time) { Time.zone.parse('2021-08-01 10:00:00').to_date }
+    # let(:frozen_time) { Time.zone.parse('2021-08-01 10:00:00').to_date }
 
     it "lists all Spip appointments of type Sortie d'audience SPIP", js: true do
-      allow(Date).to receive(:today).and_return frozen_time
+      # allow(Date).to receive(:today).and_return frozen_time
       convict1 = create(:convict, first_name: 'Julius',
                                   last_name: 'Erving',
                                   prosecutor_number: '203205')
