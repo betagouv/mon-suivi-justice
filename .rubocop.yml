@@ -82,3 +82,7 @@ Metrics/AbcSize:
     - app/controllers/appointments_controller.rb
     - app/controllers/home_controller.rb
     - app/services/history_item_factory.rb
+
+Style/IfWithBooleanLiteralBranches:
+  Exclude:
+    - app/policies/appointment_policy.rb
