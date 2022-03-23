@@ -39,26 +39,33 @@
         <div class='edit-place-agenda-form-container'>
           <%= form.hidden_field :place_id, value: @place.id %>
           <%= form.input :name, wrapper_html: { class: 'edit-place-agenda-name'} %>
-          <%= form.button :submit, t('edit_place_update_agenda'), class: 'save-agenda-button' %>
+          <% if policy(:agenda).update? %>
+            <%= form.button :submit, t('edit_place_update_agenda'), class: 'save-agenda-button' %>
+          <% end %>
         </div>
       <% end %>
 
       <div class='edit-place-cta-container'>
         <% if agenda.appointment_type_with_slot_types? %>
-          <%= link_to t('edit_place_slot_types_agenda'), agenda_slot_types_path(agenda) %> |
+          <%= link_to t('edit_place_slot_types_agenda'), agenda_slot_types_path(agenda) %>
         <% end %>
-        <%= link_to t('edit_place_delete_agenda'), agenda_path(agenda), method: :delete %>
+        <% if agenda.appointment_type_with_slot_types? && policy(:agenda).destroy? %> | <% end %>
+        <% if policy(:agenda).destroy? %>
+          <%= link_to t('edit_place_delete_agenda'), agenda_path(agenda), method: :delete %>
+        <% end %>
       </div>
     <% end %>
 
-    <div class='edit-place-new-agenda-container'>
-      <%= simple_form_for Agenda.new(place: @place), html: { class: 'edit-place-form' } do |form| %>
-        <div class='edit-place-agenda-form-container'>
-          <%= form.hidden_field :place_id, value: @place.id %>
-          <%= form.input :name, wrapper_html: { class: 'edit-place-agenda-name'} %>
-          <%= form.button :submit, t('edit_place_add_agenda'), class: 'save-agenda-button' %>
-        </div>
-      <% end %>
-    </div>
+    <% if policy(:agenda).create? %>
+      <div class='edit-place-new-agenda-container'>
+        <%= simple_form_for Agenda.new(place: @place), html: { class: 'edit-place-form' } do |form| %>
+          <div class='edit-place-agenda-form-container'>
+            <%= form.hidden_field :place_id, value: @place.id %>
+            <%= form.input :name, wrapper_html: { class: 'edit-place-agenda-name'} %>
+            <%= form.button :submit, t('edit_place_add_agenda'), class: 'save-agenda-button' %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

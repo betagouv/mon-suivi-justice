@@ -12,7 +12,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    !user.work_at_bex?
   end
 
   def show?
@@ -52,15 +52,15 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def fulfil?
-    appointment_workflow
+    appointment_fulfilment
   end
 
   def miss?
-    appointment_workflow
+    appointment_fulfilment
   end
 
   def excuse?
-    appointment_workflow
+    appointment_fulfilment
   end
 
   private
@@ -69,8 +69,19 @@ class AppointmentPolicy < ApplicationPolicy
     apt_type = AppointmentType.find(record.slot&.appointment_type_id)
 
     if user.work_at_sap? then apt_type.used_at_sap?.include? apt_type.name
-    elsif user.work_at_bex? then apt_type.used_at_bex?.include? apt_type.name
     elsif user.work_at_spip? then apt_type.used_at_spip?.include? apt_type.name
+    elsif user.work_at_bex? then apt_type.used_at_bex?.include? apt_type.name
+    else
+      true
+    end
+  end
+
+  def appointment_fulfilment
+    apt_type = AppointmentType.find(record.slot&.appointment_type_id)
+
+    if user.work_at_sap? then apt_type.used_at_sap?.include? apt_type.name
+    elsif user.work_at_spip? then apt_type.used_at_spip?.include? apt_type.name
+    elsif user.work_at_bex? then false
     else
       true
     end

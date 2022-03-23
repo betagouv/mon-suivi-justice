@@ -49,7 +49,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'prosecutor') }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to permit_action(:index) }
+    it { is_expected.to forbid_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -62,9 +62,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -77,9 +77,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -211,7 +211,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'dir_greff_bex') }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to permit_action(:index) }
+    it { is_expected.to forbid_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -224,9 +224,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -254,9 +254,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
   end
@@ -264,7 +264,7 @@ describe AppointmentPolicy do
   context 'for a bex user' do
     let(:user) { build(:user, role: 'bex') }
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to permit_action(:index) }
+    it { is_expected.to forbid_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -277,9 +277,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -292,9 +292,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -318,7 +318,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'greff_co') }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to permit_action(:index) }
+    it { is_expected.to forbid_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -331,9 +331,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -346,9 +346,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -372,7 +372,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'greff_tpe') }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to permit_action(:index) }
+    it { is_expected.to forbid_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -385,9 +385,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -400,9 +400,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -426,7 +426,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'greff_crpc') }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to permit_action(:index) }
+    it { is_expected.to forbid_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -439,9 +439,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -454,9 +454,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -480,7 +480,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'greff_ca') }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to permit_action(:index) }
+    it { is_expected.to forbid_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -493,9 +493,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -508,9 +508,9 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
       it { is_expected.to permit_action(:cancel) }
-      it { is_expected.to permit_action(:fulfil) }
-      it { is_expected.to permit_action(:miss) }
-      it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to permit_action(:reschedule) }
     end
 

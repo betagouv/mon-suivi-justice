@@ -30,6 +30,8 @@ RSpec.feature 'Bex', type: :feature do
 
       create :areas_convicts_mapping, convict: convict1, area: @department
       create :areas_convicts_mapping, convict: convict2, area: @department
+      create :areas_convicts_mapping, convict: convict3, area: @department
+      create :areas_convicts_mapping, convict: convict4, area: @department
 
       apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
       apt_type2 = create(:appointment_type, name: 'RDV de suivi SAP')
@@ -38,6 +40,7 @@ RSpec.feature 'Bex', type: :feature do
 
       agenda1 = create(:agenda, place: place, name: 'Cabinet Bleu')
       agenda2 = create(:agenda, place: place, name: 'Cabinet Rouge')
+      agenda3 = create(:agenda, place: place, name: 'Cabinet Jaune')
 
       slot1 = create(:slot, agenda: agenda1,
                             appointment_type: apt_type,
@@ -56,12 +59,19 @@ RSpec.feature 'Bex', type: :feature do
                             starting_time: '12h',
                             capacity: 2)
 
+      slot4 = create(:slot, agenda: agenda3,
+                            appointment_type: apt_type2,
+                            date: Date.today.next_occurring(:friday),
+                            starting_time: '12h',
+                            capacity: 2)
+
       current_date = slot1.date.strftime('%d/%m/%Y')
 
       create(:appointment, slot: slot1, convict: convict1)
       create(:appointment, slot: slot2, convict: convict2)
       create(:appointment, slot: slot2, convict: convict3)
       create(:appointment, slot: slot3, convict: convict4)
+      create(:appointment, slot: slot4, convict: convict2)
 
       visit agenda_jap_path
       select current_date, from: :date
@@ -87,14 +97,15 @@ RSpec.feature 'Bex', type: :feature do
 
       expect(page).not_to have_content('Darth')
       expect(page).not_to have_content('Vador')
+      expect(page).not_to have_content('Cabinet Jaune')
     end
   end
 
   describe 'Spip appointment index' do
-    let(:frozen_time) { Time.zone.parse('2021-08-01 10:00:00').to_date }
+    # let(:frozen_time) { Time.zone.parse('2021-08-01 10:00:00').to_date }
 
     it "lists all Spip appointments of type Sortie d'audience SPIP", js: true do
-      allow(Date).to receive(:today).and_return frozen_time
+      # allow(Date).to receive(:today).and_return frozen_time
       convict1 = create(:convict, first_name: 'Julius',
                                   last_name: 'Erving',
                                   prosecutor_number: '203205')
