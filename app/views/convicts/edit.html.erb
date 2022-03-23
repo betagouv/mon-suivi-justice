@@ -8,10 +8,10 @@
   <%= f.input :appi_uuid %>
   <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
     <%= f.association :user, collection: User.cpip.in_organization(current_user.organization),
-                            label: @convict.cpip.present? ? t('.cpip_present_label', cpip_name: @convict.cpip.name) : t('.cpip_label'),
+                            label: t('.cpip_label'),
                             selected: selected_cpip_for(@convict, current_user)&.id,
                             as: :select,
-                            include_blank: true,
+                            include_blank: t('.cpip_blank_option'),
                             label_method: :name,
                             input_html: { class: 'form-select', id: 'agent-name-autocomplete' } %>
   <% end %>

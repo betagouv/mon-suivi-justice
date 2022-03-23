@@ -5,9 +5,10 @@ fr:
   convicts:
     new:
       cpip_label: "CPIP"
+      cpip_blank_option: "Suivi affecté au service"
     edit:
-      cpip_label: "CPIP (aucun pour l'instant)"
-      cpip_present_label: "CPIP (actuel: %{cpip_name})"
+      cpip_label: "CPIP"
+      cpip_blank_option: "Suivi affecté au service"
     index:
       self_assign_link: "S'attribuer cette PPSMJ"
     show:

@@ -11,7 +11,7 @@
                              label: t('.cpip_label'),
                              selected: selected_cpip_for(@convict, current_user)&.id,
                              as: :select,
-                             include_blank: true,
+                             include_blank: t('.cpip_blank_option'),
                              label_method: :name,
                              input_html: { class: 'form-select', id: 'agent-name-autocomplete' } %>
   <% end %>
