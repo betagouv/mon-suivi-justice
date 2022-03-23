@@ -245,7 +245,7 @@ fr:
     stats_global: "Global"
     survey-prompt: "Votre avis nous intéresse : "
     survey-anchor: "remplir notre questionnaire"
-    survey-prompt-2: "(5 min)"
+    survey-prompt-2: "(2 min)"
 
   sidebar:
     home: "Accueil"
