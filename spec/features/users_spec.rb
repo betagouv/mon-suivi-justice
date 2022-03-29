@@ -56,18 +56,22 @@ RSpec.feature 'Users', type: :feature do
 
   describe 'edition' do
     it 'works' do
-      user = create(:user, first_name: 'Jeanne')
+      logout(scope: :user)
+      user = create(:user, first_name: 'Jeanne', role: 'cpip')
+      login_as(user, scope: :user)
 
       visit edit_user_path(user.id)
 
       fill_in 'Prénom', with: 'Mireille'
       fill_in 'Numéro de téléphone', with: '0644444444'
+      uncheck 'Partager mon email à mes PPSMJ'
 
       click_button 'Enregistrer'
 
       user.reload
       expect(user.first_name).to eq('Mireille')
       expect(user.phone).to eq('+33644444444')
+      expect(user.share_email_to_convict).to eq(false)
     end
   end
 
