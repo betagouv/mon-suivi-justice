@@ -9,7 +9,8 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
   let(:organization1) { create(:organization, name: 'SPIP 92') }
   let(:agent) do
     create(:user, id: 1, first_name: 'Rémy', last_name: 'MAU', phone: '+33606060610',
-                  email: 'remy.mau@justice.fr', organization: organization1, role: 2)
+                  email: 'remy.mau@justice.fr', organization: organization1, role: 2,
+                  share_email_to_convict: false)
   end
 
   let(:convict) do
@@ -77,7 +78,8 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
                 'phone' => '+33606060610',
                 'email' => 'remy.mau@justice.fr',
                 'organization_name' => 'SPIP 92',
-                'share_info_to_convict' => true,
+                'share_phone_to_convict' => false,
+                'share_email_to_convict' => true,
                 'role' => 'CPIP' },
             'appointments' =>
               [{ 'id' => 1,

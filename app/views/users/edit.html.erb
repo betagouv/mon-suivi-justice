@@ -19,7 +19,11 @@
   <% end %>
 
   <% if @user.cpip? && @user == current_user %>
-    <%= f.input :share_info_to_convict, as: :boolean,
+    <%= f.input :share_phone_to_convict, as: :boolean,
+                                        input_html: { class: 'form-checkbox' },
+                                        label_html: { class: 'form-checkbox-label' },
+                                        wrapper_html: { class: 'form-checkbox-wrapper'} %>
+    <%= f.input :share_email_to_convict, as: :boolean,
                                         input_html: { class: 'form-checkbox' },
                                         label_html: { class: 'form-checkbox-label' },
                                         wrapper_html: { class: 'form-checkbox-wrapper'} %>
