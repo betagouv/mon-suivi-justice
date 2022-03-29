@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2022_03_29_115507) do
     t.bigint "slot_id", null: false
     t.string "state"
     t.integer "origin_department", default: 0
+    t.string "prosecutor_number"
     t.index ["convict_id"], name: "index_appointments_on_convict_id"
     t.index ["slot_id"], name: "index_appointments_on_slot_id"
   end
