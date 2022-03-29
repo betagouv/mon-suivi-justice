@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_15_081532) do
+ActiveRecord::Schema.define(version: 2022_03_29_122927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2022_03_15_081532) do
     t.bigint "slot_id", null: false
     t.string "state"
     t.integer "origin_department", default: 0
+    t.string "prosecutor_number"
     t.index ["convict_id"], name: "index_appointments_on_convict_id"
     t.index ["slot_id"], name: "index_appointments_on_slot_id"
   end
