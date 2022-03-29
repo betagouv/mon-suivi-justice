@@ -37,7 +37,6 @@ fr:
         phone: "Téléphone portable"
         no_phone: "Ne possède pas de téléphone portable"
         refused_phone: "Refuse de donner son numéro"
-        prosecutor_number: Numéro de parquet
         appi_uuid: "N° dossier APPI"
         cpip: "CPIP"
       user:
@@ -72,6 +71,7 @@ fr:
         date: "Date"
         slot: "Créneau"
         phone: "Téléphone"
+        prosecutor_number: Numéro de parquet
         origin_department: "Service d'origine de la convocation"
         origin_departments:
           bex: "BEX"
