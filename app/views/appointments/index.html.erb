@@ -47,42 +47,43 @@
 </div>
 
 <div class='appointments-container'>
-    <div class='index-sorting-tool-container'>
-      <div class='index-sorting-tool-title'>
-        <%= t('order') %>
-      </div>
-      <div class='index-sorting-tool-item'>
-        <%= sort_link(@q, 'convict_last_name', t('activerecord.models.convict'), default_order: :desc) %>
-      </div>
-
-      <div class='index-sorting-tool-item'>
-        <%= sort_link(@q, 'slot_place_name', t('appointment_place'), default_order: :desc) %>
-      </div>
-
-      <div class='index-sorting-tool-item'>
-        <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
-      </div>
-
-      <div class='index-sorting-tool-item'>
-        <%= sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) %>
-      </div>
-
-      <div class='index-sorting-tool-item'>
-        <%= sort_link(@q, 'slot_agenda', t('activerecord.models.agenda'), default_order: :desc) %>
-      </div>
-
-      <div class='index-sorting-tool-item'>
-        <%= sort_link(@q, 'slot_appointment_type', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) %>
-      </div>
+  <div class='index-sorting-tool-container'>
+    <div class='index-sorting-tool-title'>
+      <%= t('order') %>
     </div>
 
-    <div class='index-cards-wrapper'>
-      <% @appointments.each do |appointment| %>
-        <%= render 'appointment_card', appointment: appointment %>
-      <% end %>
+    <div class='index-sorting-tool-item'>
+      <%= sort_link(@q, 'convict_last_name', t('activerecord.models.convict'), default_order: :desc) %>
     </div>
 
-    <%= paginate @appointments %>
+    <div class='index-sorting-tool-item'>
+      <%= sort_link(@q, 'slot_agenda_place_name', t('appointment_place'), default_order: :desc) %>
+    </div>
+
+    <div class='index-sorting-tool-item'>
+      <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
+    </div>
+
+    <div class='index-sorting-tool-item'>
+      <%= sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) %>
+    </div>
+
+    <div class='index-sorting-tool-item'>
+      <%= sort_link(@q, 'slot_agenda_name', t('activerecord.models.agenda'), default_order: :desc) %>
+    </div>
+
+    <div class='index-sorting-tool-item'>
+      <%= sort_link(@q, 'slot_appointment_type_name', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) %>
+    </div>
+  </div>
+
+  <div class='index-cards-wrapper'>
+    <% @appointments.each do |appointment| %>
+      <%= render 'appointment_card', appointment: appointment %>
+    <% end %>
+  </div>
+
+  <%= paginate @appointments %>
 </div>
 
 <%= javascript_pack_tag 'appointment_index' %>
