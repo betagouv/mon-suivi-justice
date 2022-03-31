@@ -49,6 +49,8 @@ gem 'jbuilder', '~> 2.11', '>= 2.11.5'
 
 gem 'groupdate', '~> 6.0', '>= 6.0.1'
 
+gem "faraday", "~> 2.2"
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'

@@ -28,7 +28,12 @@ class ConvictsController < ApplicationController
   def create
     @convict = Convict.new(convict_params)
     authorize @convict
-    save_and_redirect @convict
+    if @convict.save
+      InviteConvictJob.perform_later(@convict.id)
+      redirect_to @convict, notice: t('.notice')
+    else
+      render :new
+    end
   end
 
   def edit

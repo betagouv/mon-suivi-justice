@@ -3,6 +3,9 @@ fr:
     update:
       notice: "Les modifications ont bien été enregistrées."
   convicts:
+    create:
+      notice: "La PPSMJ a bien été créée."
+  convicts:
     new:
       cpip_label: "CPIP"
       cpip_blank_option: "Suivi affecté au service"
