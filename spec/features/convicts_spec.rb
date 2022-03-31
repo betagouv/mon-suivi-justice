@@ -74,7 +74,9 @@ RSpec.feature 'Convicts', type: :feature do
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'MAU Rémy').click
 
-      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1).and have_enqueued_job(InviteConvictJob).once
+      expect { click_button 'submit-no-appointment' }.to change {
+                                                           Convict.count
+                                                         }.by(1).and have_enqueued_job(InviteConvictJob).once
       expect(Convict.first.cpip).to eq(cpip)
     end
 
