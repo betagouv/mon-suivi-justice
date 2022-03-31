@@ -28,12 +28,7 @@ class ConvictsController < ApplicationController
   def create
     @convict = Convict.new(convict_params)
     authorize @convict
-    if @convict.save
-      InviteConvictJob.perform_later(@convict.id)
-      redirect_to @convict, notice: t('.notice')
-    else
-      render :new
-    end
+    save_and_redirect @convict
   end
 
   def edit
@@ -100,6 +95,7 @@ class ConvictsController < ApplicationController
     if convict.save
       # Wil register the new convict in every department/juridiction of current_user's organization areas
       RegisterLegalAreas.for_convict convict, from: current_organization
+      InviteConvictJob.perform_later(@convict.id)
       redirect_to select_path(params)
     else
       render :new
