@@ -1,4 +1,4 @@
-# rails r bin/sendinblue/get_infos_account.rb
+# rails r scripts/sendinblue/get_infos_account.rb
 
 # Load the gem
 require 'sib-api-v3-sdk'

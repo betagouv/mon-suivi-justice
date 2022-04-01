@@ -1,4 +1,4 @@
-# rails r bin/move_prosecutor.rb
+# rails r scripts/move_prosecutor.rb
 
 require 'ruby-progressbar'
 

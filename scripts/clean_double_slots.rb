@@ -1,4 +1,4 @@
-# rails r bin/clean_double_slots.rb
+# rails r scripts/clean_double_slots.rb
 
 require 'ruby-progressbar'
 
