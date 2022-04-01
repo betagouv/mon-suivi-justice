@@ -341,6 +341,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'McDo des Halles', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
+        fill_in 'Numéro de parquet', with: '7777777'
         fill_in 'appointment_slot_date', with: (Date.today.next_occurring(:friday)).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
@@ -353,6 +354,9 @@ RSpec.feature 'Appointments', type: :feature do
         expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
                                     .and change { Slot.count }.by(1)
                                     .and change { Notification.count }.by(5)
+
+        appointment = Appointment.last
+        expect(appointment.prosecutor_number).to eq('7777777')
       end
 
       it 'does not create appointment if the selected date is a weekend' do
@@ -389,7 +393,7 @@ RSpec.feature 'Appointments', type: :feature do
       convict = create(:convict, first_name: 'Monique', last_name: 'Lassalle')
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
-      appointment = create(:appointment, :with_notifications, slot: slot, convict: convict)
+      appointment = create(:appointment, :with_notifications, slot: slot, convict: convict, prosecutor_number: '12345')
 
       visit appointment_path(appointment)
 
@@ -397,6 +401,7 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_content('17:00')
       expect(page).to have_content('Monique')
       expect(page).to have_content('LASSALLE')
+      expect(page).to have_content('12345')
     end
   end
 

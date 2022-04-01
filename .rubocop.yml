@@ -3,6 +3,7 @@ AllCops:
   Exclude:
     - db/**/*
     - bin/**/*
+    - scripts/**/*
     - config/**/*
     - node_modules/**/*
     - tmp/**/*
