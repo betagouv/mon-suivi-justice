@@ -161,13 +161,18 @@ class Appointment < ApplicationRecord
       if appointment.reminder_notif.programmed?
         appointment.reminder_notif.cancel!
       end
-      send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
-      appointment.cancelation_notif.send_now! if send_sms
+
+      if appointment.convict.phone?
+        send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
+        appointment.cancelation_notif.send_now! if send_sms
+      end
     end
 
     after_transition on: :miss do |appointment, transition|
-      send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
-      appointment.no_show_notif&.send_now! if send_sms
+      if appointment.convict.phone?
+        send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
+        appointment.no_show_notif&.send_now! if send_sms
+      end
     end
   end
 end
