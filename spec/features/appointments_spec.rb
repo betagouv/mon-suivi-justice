@@ -71,7 +71,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       visit appointments_path
 
-      within first('.index-list-controls-container') do
+      within first('.index-card-state-container') do
         click_button 'Honoré'
       end
 

@@ -46,7 +46,8 @@ fr:
         role: "Rôle"
         phone: "Numéro de téléphone"
         organization: "Service"
-        share_info_to_convict: "Partager mon téléphone et mon email à mes PPSMJ"
+        share_phone_to_convict: "Partager mon téléphone à mes PPSMJ"
+        share_email_to_convict: "Partager mon email à mes PPSMJ"
         user_roles:
           admin: "Administrateur central"
           local_admin: "Administrateur local"
@@ -212,6 +213,7 @@ fr:
   see: "Voir"
   select: "Sélectionner"
   add: "Ajouter"
+  order: "Trier"
   see_infos: "Voir les infos"
   see_details: "Voir infos du rdv"
   see_profile: "Voir profil"

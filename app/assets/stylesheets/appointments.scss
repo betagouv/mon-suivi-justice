@@ -74,54 +74,6 @@
   flex-direction: column;
 }
 
-.appointments-column-1 {
-  width: 20%;
-
-  @media print {
-    width: 25%;
-  }
-}
-
-.appointments-column-2 {
-  width: 20%;
-
-  @media print {
-    width: 30%;
-  }
-}
-
-.appointments-column-3 {
-  width: 10%;
-
-  @media print {
-    width: 20%;
-  }
-}
-
-.appointments-column-4 {
-  width: 10%;
-
-  @media print {
-    width: 20%;
-  }
-}
-
-.appointments-column-5 {
-  width: 20%;
-
-  @media print {
-    width: 25%;
-  }
-}
-
-.appointments-column-6 {
-  width: 20%;
-
-  @media print {
-    width: 20%;
-  }
-}
-
 .new-appointment-form-no-slot {
   text-align: center;
   margin-top: 30px;
@@ -277,20 +229,6 @@
   display: flex;
 }
 
-.index-appointments-state-container {
-  display: flex;
-  align-items: center;
-
-  border: 1px solid $table-border;
-  border-bottom: none;
-  padding: 5px 10px;
-}
-
-.index-appointments-state-controls-container {
-  display: flex;
-  margin-right: -5px;
-}
-
 .index-appointments-fulfil-button {
   @include button($light-green)
   font-size: 1.1em;
@@ -310,11 +248,6 @@
   font-size: 1.1em;
   margin-left: 10px;
   padding: .4em .8em;
-}
-
-.index-appointments-see-infos {
-  margin-left: 10px;
-  color: $link;
 }
 
 .index-appointments-state-icon {

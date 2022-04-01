@@ -261,7 +261,8 @@ ActiveRecord::Schema.define(version: 2022_03_29_122927) do
     t.integer "invitations_count", default: 0
     t.bigint "organization_id"
     t.string "phone"
-    t.boolean "share_info_to_convict", default: true, null: false
+    t.boolean "share_email_to_convict", default: true
+    t.boolean "share_phone_to_convict", default: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
