@@ -6,8 +6,8 @@ class AppointmentsController < ApplicationController
   def index
     @q = policy_scope(Appointment).active.ransack(params[:q])
     @appointments = @q.result(distinct: true)
-                      .joins(:convict, slot: [agenda: [:place]])
-                      .includes(:convict, slot: [agenda: [:place]])
+                      .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
+                      .includes(:convict, slot: [:appointment_type, { agenda: [:place] }])
                       .order('slots.date ASC, slots.starting_time ASC')
                       .page(params[:page]).per(25)
 
@@ -77,8 +77,8 @@ class AppointmentsController < ApplicationController
   end
 
   def display_places
-    appointment_type = AppointmentType.find(params[:apt_type_id])
-    @places = policy_scope(Place).joins(:appointment_types).where(appointment_types: appointment_type)
+    @appointment_type = AppointmentType.find(params[:apt_type_id])
+    @places = policy_scope(Place).joins(:appointment_types).where(appointment_types: @appointment_type)
   end
 
   def display_is_cpip
@@ -137,7 +137,7 @@ class AppointmentsController < ApplicationController
 
   def appointment_params
     params.require(:appointment).permit(
-      :slot_id, :convict_id, :appointment_type_id, :place_id, :origin_department,
+      :slot_id, :convict_id, :appointment_type_id, :place_id, :origin_department, :prosecutor_number,
       slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time]
     )
   end

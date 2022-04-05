@@ -68,9 +68,9 @@ class CLI < Thor
     run('scalingo -a mon-suivi-justice-staging run rails db:migrate')
   end
 
-  desc 'deploy_prod', 'launch bin/deploy-prod script'
+  desc 'deploy_prod', 'launch deploy-prod script'
   def deploy_prod
-    run('bin/deploy-prod')
+    run('scripts/deploy-prod')
   end
 
   desc 'console_prod', 'launch MSJ production rails console'

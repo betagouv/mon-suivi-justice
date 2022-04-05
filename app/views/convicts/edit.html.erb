@@ -2,9 +2,6 @@
 <%= simple_form_for @convict, html: { class: 'basic-form' } do |f| %>
   <%= f.input :last_name %>
   <%= f.input :first_name %>
-  <% if current_user.admin? || current_user.work_at_bex? %>
-    <%= f.input :prosecutor_number %>
-  <% end %>
   <%= f.input :appi_uuid %>
   <%= f.association :user, collection: User.cpip.in_organization(current_user.organization),
                           label: t('.cpip_label'),

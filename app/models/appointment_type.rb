@@ -49,6 +49,10 @@ class AppointmentType < ApplicationRecord
      'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'RDV DDSE', 'Convocation stage']
   end
 
+  def sortie_audience?
+    ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
+  end
+
   def with_slot_types?
     WITH_SLOT_TYPES.include? name
   end

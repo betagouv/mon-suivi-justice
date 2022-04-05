@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :appointment do
     convict
     slot
+    prosecutor_number { '302304' }
     state { 'created' }
   end
 

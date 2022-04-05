@@ -1,4 +1,4 @@
-# rails r bin/sendinblue/get_stats.rb
+# rails r scripts/sendinblue/get_stats.rb
 # docs: https://github.com/sendinblue/APIv3-ruby-library/blob/master/docs/TransactionalSMSApi.md#get_transac_sms_report
 
 require 'sib-api-v3-sdk'

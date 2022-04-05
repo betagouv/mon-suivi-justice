@@ -1,3 +1,10 @@
+<% if @appointment_type.sortie_audience? %>
+  <div class="form-input-wrapper string optional appointment_prosecutor_number">
+    <label class="string optional form-label" for="appointment_prosecutor_number"><%= t('activerecord.attributes.appointment.prosecutor_number') %></label>
+    <input class="string optional form-text-input" type="text" name="appointment[prosecutor_number]" id="appointment_prosecutor_number">
+  </div>
+<% end %>
+
 <% if @places.length > 0 %>
   <div class="form-input-wrapper select required appointment_place_id">
     <label class="select required form-label" for="appointment-form-place-select">

@@ -71,7 +71,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       visit appointments_path
 
-      within first('.index-list-controls-container') do
+      within first('.index-card-state-container') do
         click_button 'Honoré'
       end
 
@@ -101,6 +101,7 @@ RSpec.feature 'Appointments', type: :feature do
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'CHERTY Jp').click
         select "Sortie d'audience SAP", from: :appointment_appointment_type_id
+        fill_in 'Numéro de parquet', with: '23456'
         select 'KFC de Chatelet', from: 'Lieu'
         select 'Agenda de Josiane', from: 'Agenda'
         choose '16:00'
@@ -385,11 +386,14 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'show' do
     it 'displays appointment data' do
-      slot = create(:slot, date: Date.today.next_occurring(:wednesday), starting_time: new_time_for(17, 0))
+      appointment_type = create :appointment_type, name: "Sortie d'audience SAP"
+      slot = create(:slot, appointment_type: appointment_type,
+                           date: Date.today.next_occurring(:wednesday),
+                           starting_time: new_time_for(17, 0))
       convict = create(:convict, first_name: 'Monique', last_name: 'Lassalle')
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
-      appointment = create(:appointment, :with_notifications, slot: slot, convict: convict)
+      appointment = create(:appointment, :with_notifications, slot: slot, convict: convict, prosecutor_number: '12345')
 
       visit appointment_path(appointment)
 
@@ -397,6 +401,7 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_content('17:00')
       expect(page).to have_content('Monique')
       expect(page).to have_content('LASSALLE')
+      expect(page).to have_content('12345')
     end
   end
 
