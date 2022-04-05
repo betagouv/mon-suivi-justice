@@ -26,10 +26,8 @@
     <% end %>
 
     <div class='appointment-form-cpip-container' id='cpip-container'>
-      <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
-        <% if can_be_linked_to_user?(@convict, current_user) %>
-          <%= f.input :user_is_cpip, as: :radio_buttons, collection: [['1', 'Oui'], ['0', 'Non']], label_method: :second, value_method: :first, label: t('.is_cpip_label'), checked: '1' %>
-        <% end %>
+      <% if can_be_linked_to_user?(@convict, current_user) %>
+        <%= f.input :user_is_cpip, as: :radio_buttons, collection: [['1', 'Oui'], ['0', 'Non']], label_method: :second, value_method: :first, label: t('.is_cpip_label'), checked: '1' %>
       <% end %>
     </div>
 
