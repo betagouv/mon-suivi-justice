@@ -1,0 +1,108 @@
+.index-cards-wrapper {
+  margin-top: 20px;
+}
+
+.index-card-container {
+  width: 80%;
+  border: 1px solid lightgray;
+  border-radius: 2px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+
+  margin: auto;
+  margin-bottom: 20px;
+
+  &:before { clear:both; }
+  page-break-inside: avoid;
+  box-shadow: 3px 3px 3px lightgray;
+}
+
+.index-card-data-container {
+  display: -webkit-box;
+  -webkit-box-pack: justify;
+  padding: 15px 20px;
+}
+
+.index-card-controls-container {
+  display: -webkit-box;
+  -webkit-box-pack: justify;
+}
+
+.index-sorting-tool-container {
+  display: none;
+}
+
+.index-sorting-tool-title {
+  border-right: 1px solid lightgray;
+  padding: 5px 10px;
+}
+
+.index-sorting-tool-item {
+  padding: 5px 10px;
+  margin-right: 5px;
+
+  &:last-child{
+    margin-right: 0;
+  }
+}
+
+.index-card-see-infos {
+  display: none;
+}
+
+.index-card-state-container {
+  display: -webkit-box;
+  -webkit-box-pack: justify;
+  border-top: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+
+  padding: 5px 10px;
+}
+
+.index-card-state-title {
+  display: -webkit-box;
+  margin-right: 3px;
+}
+
+.index-card-state-data {
+  display: -webkit-box;
+  margin-left: 3px;
+}
+
+.index-card-data-convict {
+  display: -webkit-box;
+  width: 45%;
+}
+
+.index-card-data-appointment {
+  display: -webkit-box;
+  // border: 2px solid red;
+}
+
+.index-card-state-controls-wrapper {
+  display: none;
+}
+
+.index-card-data-content {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  width: 80%;
+}
+
+.index-card-data-title {
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+.index-card-data-title-item {
+  margin-bottom: 5px;
+}
+
+.index-card-data-content-item {
+  margin-bottom: 5px;
+  width: calc(100% - 100px);
+}
+
+.index-appointments-state-icon{
+  display: none;
+}

@@ -5,11 +5,20 @@ class AppointmentsController < ApplicationController
 
   def index
     @q = policy_scope(Appointment).active.ransack(params[:q])
-    @appointments = @q.result(distinct: true)
-                      .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
-                      .includes(:convict, slot: [:appointment_type, { agenda: [:place] }])
-                      .order('slots.date ASC, slots.starting_time ASC')
-                      .page(params[:page]).per(25)
+    @all_appointments = @q.result(distinct: true)
+                          .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
+                          .includes(:convict, slot: [:appointment_type, { agenda: [:place] }])
+                          .order('slots.date ASC, slots.starting_time ASC')
+
+    @appointments = @all_appointments.page(params[:page]).per(25)
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render template: 'appointments/index_pdf.html.erb',
+               pdf: "RDV: #{@all_appointments.count}", footer: { right: '[page]/[topage]' }
+      end
+    end
 
     authorize @appointments
   end

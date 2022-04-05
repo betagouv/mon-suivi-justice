@@ -393,6 +393,7 @@ fr:
   index-appointment-reinit-filter: "RDV du jour"
   index-appointment-see-data: "Voir les infos"
   index-appointment-state: "Statut :"
+  index-appointment-state-pdf: "Statut"
   today_appointments_place_filter: "Lieu de RDV"
   index-slots-appointment-type-filter: "Type de RDV"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"

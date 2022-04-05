@@ -82,9 +82,7 @@
       </div>
     <% else %>
       <div class='index-card-state-container'>
-        <span class='index-card-state-title'><%= t('index-appointment-state') %></span>
-        <%= fa_icon 'circle', class: "index-appointments-state-icon icon_#{appointment.state}" %>
-        <span class='index-card-state-data'><%= appointment.human_state_name %></span>
+        <span class='index-card-state-title'><%= t('index-appointment-state-pdf') %></span> : <span class='index-card-state-data'><%= appointment.human_state_name %></span>
       </div>
     <% end %>
 
