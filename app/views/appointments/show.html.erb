@@ -63,15 +63,6 @@
         <% end %>
       </div>
     </div>
-
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.convict.prosecutor_number')%>
-      </div>
-      <div class='show-data-item'>
-        <%= @appointment.prosecutor_number %>
-      </div>
-    </div>
   </div>
 
   <div class='show-button-to-edit-container'>
@@ -109,6 +100,17 @@
           </div>
           <div class='show-appointment-summon-item'>
             <%= @appointment.slot.agenda.name %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @appointment.slot.appointment_type.sortie_audience? %>
+        <div class='show-appointment-summon-data'>
+          <div class='show-appointment-summon-title'>
+            <%= t('activerecord.attributes.appointment.prosecutor_number')%>
+          </div>
+          <div class='show-appointment-summon-item'>
+            <%= @appointment.prosecutor_number %>
           </div>
         </div>
       <% end %>

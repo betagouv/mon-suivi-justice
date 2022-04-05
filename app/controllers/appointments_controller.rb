@@ -77,8 +77,8 @@ class AppointmentsController < ApplicationController
   end
 
   def display_places
-    appointment_type = AppointmentType.find(params[:apt_type_id])
-    @places = policy_scope(Place).joins(:appointment_types).where(appointment_types: appointment_type)
+    @appointment_type = AppointmentType.find(params[:apt_type_id])
+    @places = policy_scope(Place).joins(:appointment_types).where(appointment_types: @appointment_type)
   end
 
   def display_is_cpip

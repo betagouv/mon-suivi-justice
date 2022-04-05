@@ -101,6 +101,7 @@ RSpec.feature 'Appointments', type: :feature do
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'CHERTY Jp').click
         select "Sortie d'audience SAP", from: :appointment_appointment_type_id
+        fill_in 'Numéro de parquet', with: '23456'
         select 'KFC de Chatelet', from: 'Lieu'
         select 'Agenda de Josiane', from: 'Agenda'
         choose '16:00'
@@ -341,7 +342,6 @@ RSpec.feature 'Appointments', type: :feature do
         select 'McDo des Halles', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
-        fill_in 'Numéro de parquet', with: '7777777'
         fill_in 'appointment_slot_date', with: (Date.today.next_occurring(:friday)).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
@@ -354,9 +354,6 @@ RSpec.feature 'Appointments', type: :feature do
         expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
                                     .and change { Slot.count }.by(1)
                                     .and change { Notification.count }.by(5)
-
-        appointment = Appointment.last
-        expect(appointment.prosecutor_number).to eq('7777777')
       end
 
       it 'does not create appointment if the selected date is a weekend' do
@@ -389,7 +386,10 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'show' do
     it 'displays appointment data' do
-      slot = create(:slot, date: Date.today.next_occurring(:wednesday), starting_time: new_time_for(17, 0))
+      appointment_type = create :appointment_type, name: "Sortie d'audience SAP"
+      slot = create(:slot, appointment_type: appointment_type,
+                           date: Date.today.next_occurring(:wednesday),
+                           starting_time: new_time_for(17, 0))
       convict = create(:convict, first_name: 'Monique', last_name: 'Lassalle')
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
