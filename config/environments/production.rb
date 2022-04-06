@@ -30,6 +30,8 @@ Rails.application.configure do
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
+  config.assets.precompile += ['pdf.css']
+
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = 'http://assets.example.com'
   config.action_mailer.asset_host = ENV['HOST_URL']
