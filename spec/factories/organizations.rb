@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :organization do
+    organization_type { 'spip' }
     sequence(:name) { |seq| "organization_#{seq}" }
 
     trait :with_department do

@@ -2,5 +2,6 @@
 
 <%= simple_form_for @organization, html: { class: 'basic-form' } do |f| %>
   <%= f.input :name %>
+  <%= f.input :organization_type, collection: form_organization_type, input_html: { class: 'form-select' }, include_blank: false %>
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>

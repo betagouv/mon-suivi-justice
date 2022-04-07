@@ -121,6 +121,10 @@ fr:
         name: Nom
       organization:
         name: Nom
+        organization_type: Type
+        organization_types:
+          spip: "SPIP"
+          sap: "SAP"
 
     state_machines:
       states:
