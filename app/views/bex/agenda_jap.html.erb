@@ -1,5 +1,15 @@
 <div class='bex-agendas-container'>
   <div class='bex-agendas-tools-container'>
+    <% unless current_user.organization.jap_modal_content.empty? %>
+      <% if current_user.admin? || current_user.local_admin? || current_user.work_at_bex? || current_user.work_at_sap? %>
+        <section class='bex-agendas-modal-trigger-container'>
+            <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
+                                                             class: 'jap-agendas-modal-trigger',
+                                                             data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
+        </section>
+      <% end %>
+    <% end %>
+
     <%= button_to t('print_button'), 'fake_link',
                                       class: 'bex-print-button',
                                       onclick: 'window.print();return false;'%>
@@ -82,3 +92,5 @@
     <% end %>
   <% end %>
 </div>
+
+<%= render 'shared/jap_agendas_modal' %>

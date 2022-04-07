@@ -12,6 +12,8 @@
 .bex-agendas-tools-container {
   text-align: right;
   margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .bex-print-button {
@@ -93,7 +95,6 @@
 .jap-agenda-header6 { background-color: $jap-cabinet6; }
 .jap-agenda-header7 { background-color: $jap-cabinet7; }
 
-
 .spip-date-select {
   width: 170px;
 
@@ -109,4 +110,12 @@
 
 .bex-agenda-spip-no-agenda {
   text-align: center;
+}
+
+.bex-agendas-modal-trigger-container {
+  margin-right: 10px;
+
+  @media print {
+    display: none;
+  }
 }
