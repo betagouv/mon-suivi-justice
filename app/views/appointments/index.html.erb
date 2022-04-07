@@ -40,10 +40,16 @@
                                                 method: :get %>
     <% end %>
 
-    <%= button_to t('print_button'), appointments_path(format: :pdf),
-                                     method: :get,
-                                     form: { target: '_blank' },
-                                     class: 'bex-print-button' %>
+    <% if ENV['APP'] == 'mon-suivi-justice-prod' %>
+      <%= button_to t('print_button'), 'fake_link',
+                                        class: 'bex-print-button',
+                                        onclick: 'window.print();return false;'%>
+    <% else %>
+      <%= button_to t('print_button'), appointments_path(format: :pdf),
+                                       method: :get,
+                                       form: { target: '_blank' },
+                                       class: 'bex-print-button' %>
+    <% end %>
   </div>
 </div>
 
