@@ -33,24 +33,24 @@ RSpec.feature 'Bex', type: :feature do
 
       slot1 = create(:slot, agenda: agenda1,
                             appointment_type: apt_type,
-                            date: Date.civil(2025,4,18),
+                            date: Date.today.next_occurring(:friday),
                             starting_time: '10h')
 
       slot2 = create(:slot, agenda: agenda2,
                             appointment_type: apt_type,
-                            date: Date.civil(2025,4,18),
+                            date: Date.today.next_occurring(:friday),
                             starting_time: '17h',
                             capacity: 2)
 
       slot3 = create(:slot, agenda: agenda2,
                             appointment_type: apt_type2,
-                            date: Date.civil(2025,4,18),
+                            date: Date.today.next_occurring(:friday),
                             starting_time: '12h',
                             capacity: 2)
 
       slot4 = create(:slot, agenda: agenda3,
                             appointment_type: apt_type2,
-                            date: Date.civil(2025,4,18),
+                            date: Date.today.next_occurring(:friday),
                             starting_time: '12h',
                             capacity: 2)
 
@@ -112,18 +112,18 @@ RSpec.feature 'Bex', type: :feature do
 
       slot1 = create(:slot, agenda: agenda,
                             appointment_type: apt_type,
-                            date: Date.civil(2022,12,15),
+                            date: Date.today.next_occurring(:tuesday),
                             starting_time: '8h',
                             capacity: 2)
 
       slot2 = create(:slot, agenda: agenda,
                             appointment_type: apt_type,
-                            date: Date.civil(2022,12,19),
+                            date: Date.today.next_occurring(:friday) + 1.month,
                             starting_time: '15h')
 
       slot3 = create(:slot, agenda: agenda,
                             appointment_type: apt_type2,
-                            date: Date.civil(2022,12,15),
+                            date: Date.today.next_occurring(:tuesday),
                             starting_time: '15h')
 
       current_month_label = (I18n.l slot1.date, format: '%B %Y').capitalize
