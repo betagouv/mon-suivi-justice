@@ -21,7 +21,7 @@ RSpec.describe Notification, type: :model do
     it 'sends at the proper delivery time' do
       appointment_type = create(:appointment_type)
 
-      slot_date = Date.civil(2025,4,14)
+      slot_date = Date.civil(2025, 4, 14)
       slot_starting_time = Time.new(2021, 6, 21, 0, 0, 0)
 
       slot = create(:slot, date: slot_date, appointment_type: appointment_type, starting_time: slot_starting_time)

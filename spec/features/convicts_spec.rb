@@ -114,7 +114,7 @@ RSpec.feature 'Convicts', type: :feature do
       create(:agenda, place: place, name: 'Agenda de Michel')
       create(:slot, agenda: agenda,
                     appointment_type: appointment_type,
-                    date: Date.civil(2025,4,14),
+                    date: Date.civil(2025, 4, 14),
                     starting_time: '14h')
       create(:notification_type, appointment_type: appointment_type)
 
