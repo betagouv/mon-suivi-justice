@@ -87,6 +87,7 @@ class ConvictsController < ApplicationController
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def save_and_redirect(convict)
     @duplicate_presence = duplicate_convict_presence
     force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
@@ -101,6 +102,7 @@ class ConvictsController < ApplicationController
       render :new
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def duplicate_convict_presence
     Convict.exists?(
