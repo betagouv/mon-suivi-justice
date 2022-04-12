@@ -95,7 +95,7 @@ class ConvictsController < ApplicationController
     if convict.save
       # Wil register the new convict in every department/juridiction of current_user's organization areas
       RegisterLegalAreas.for_convict convict, from: current_organization
-      InviteConvictJob.perform_later(@convict.id)
+      InviteConvictJob.perform_later(@convict.id) unless ENV['APP'] == 'mon-suivi-justice-prod'
       redirect_to select_path(params)
     else
       render :new
