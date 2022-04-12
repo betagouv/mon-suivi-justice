@@ -62,7 +62,7 @@ RSpec.feature 'Convicts', type: :feature do
   end
 
   describe 'creation' do
-    it 'creates a convicts with a phone number and a cpip', js: true do
+    it 'creates a convicts with a phone number and a cpip and calls the job', js: true do
       create(:user, first_name: 'Damien', last_name: 'LET', role: 'cpip')
       cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
 
@@ -74,7 +74,9 @@ RSpec.feature 'Convicts', type: :feature do
       first('.select2-container', minimum: 1).click
       find('li.select2-results__option', text: 'MAU Rémy').click
 
-      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+      expect { click_button 'submit-no-appointment' }.to change {
+                                                           Convict.count
+                                                         }.by(1).and have_enqueued_job(InviteConvictJob).once
       expect(Convict.first.cpip).to eq(cpip)
     end
 

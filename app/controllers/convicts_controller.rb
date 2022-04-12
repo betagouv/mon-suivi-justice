@@ -87,6 +87,7 @@ class ConvictsController < ApplicationController
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def save_and_redirect(convict)
     @duplicate_presence = duplicate_convict_presence
     force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
@@ -95,11 +96,13 @@ class ConvictsController < ApplicationController
     if convict.save
       # Wil register the new convict in every department/juridiction of current_user's organization areas
       RegisterLegalAreas.for_convict convict, from: current_organization
+      InviteConvictJob.perform_later(@convict.id) unless ENV['APP'] == 'mon-suivi-justice-prod'
       redirect_to select_path(params)
     else
       render :new
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def duplicate_convict_presence
     Convict.exists?(
