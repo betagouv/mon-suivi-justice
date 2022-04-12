@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :slot do
-    date { Date.today.next_occurring(:monday) }
+    date { Date.civil(2025,4,14) }
     starting_time { Time.new }
     available { true }
     duration { 60 }

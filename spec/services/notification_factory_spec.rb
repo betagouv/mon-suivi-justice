@@ -10,7 +10,7 @@ RSpec.describe NotificationFactory do
       create(:notification_type, appointment_type: appointment_type,
                                  role: :reminder,
                                  template: 'Rappel: rdv le {rdv.date} à {rdv.heure}')
-      slot = create(:slot, date: Date.today.next_occurring(:monday), starting_time: new_time_for(15, 30),
+      slot = create(:slot, date: Date.civil(2025,4,14), starting_time: new_time_for(15, 30),
                            appointment_type: appointment_type)
       appointment = create(:appointment, slot: slot)
 
@@ -22,8 +22,8 @@ RSpec.describe NotificationFactory do
       summon_notif = appointment.notifications.where(role: :summon).first
       reminder_notif = appointment.notifications.where(role: :reminder).first
 
-      expect(summon_notif.content).to eq("RDV pris le #{Date.today.next_occurring(:monday)} à 15h30")
-      expect(reminder_notif.content).to eq("Rappel: rdv le #{Date.today.next_occurring(:monday)} à 15h30")
+      expect(summon_notif.content).to eq("RDV pris le #{Date.civil(2025,4,14)} à 15h30")
+      expect(reminder_notif.content).to eq("Rappel: rdv le #{Date.civil(2025,4,14)} à 15h30")
     end
   end
 
@@ -49,7 +49,7 @@ RSpec.describe NotificationFactory do
                              preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip92')
       agenda = create(:agenda, place: place)
       slot = create(:slot, agenda: agenda,
-                           date: Date.today.next_occurring(:friday),
+                           date: Date.civil(2025,4,18),
                            starting_time: new_time_for(16, 30), appointment_type: appointment_type)
       sms_template = 'Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}.'\
                      " Merci de venir avec une pièce d'identité au {lieu.adresse}." \
@@ -59,7 +59,7 @@ RSpec.describe NotificationFactory do
 
       appointment = create(:appointment, slot: slot)
 
-      expected = "Vous êtes convoqué au Spip du 03 le #{Date.today.next_occurring(:friday)} à 16h30."\
+      expected = "Vous êtes convoqué au Spip du 03 le #{Date.civil(2025,4,18)} à 16h30."\
                  " Merci de venir avec une pièce d'identité au 38 rue Jean Moulin."\
                  ' Veuillez contacter le 0102030405 (ou test@test.com) en cas de problème.'\
                  " Plus d'informations sur https://mon-suivi-justice.beta.gouv.fr/preparer_spip92."

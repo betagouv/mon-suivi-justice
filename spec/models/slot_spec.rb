@@ -27,7 +27,7 @@ RSpec.describe Slot, type: :model do
 
     it 'is not valid if date is a weekend' do
       slot = build(:slot, agenda: agenda, appointment_type: apt_type,
-                          date: Date.today.next_occurring(:saturday))
+                          date: Date.civil(2025,4,19))
 
       expect(slot).to_not be_valid
       expect(slot.errors.messages[:date]).to eq ["Le jour sélectionné n'est pas un jour ouvrable"]
@@ -35,7 +35,7 @@ RSpec.describe Slot, type: :model do
 
     it 'it is valid if date is not a weekend nor a holiday' do
       slot = build(:slot, agenda: agenda, appointment_type: apt_type,
-                          date: Date.today.next_occurring(:monday))
+                          date: Date.civil(2025,4,14))
 
       expect(slot).to be_valid
     end
