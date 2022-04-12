@@ -1,4 +1,4 @@
-# rails r bin/sendinblue/send_test_sms.rb
+# rails r scripts/sendinblue/send_test_sms.rb
 
 require 'sib-api-v3-sdk'
 

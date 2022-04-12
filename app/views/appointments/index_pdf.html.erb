@@ -1,0 +1,5 @@
+<div class='index-cards-wrapper'>
+  <% @all_appointments.each do |appointment| %>
+    <%= render 'appointment_card_pdf', appointment: appointment %>
+  <% end %>
+</div>

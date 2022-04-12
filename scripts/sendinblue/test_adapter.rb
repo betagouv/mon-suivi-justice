@@ -1,4 +1,4 @@
-# rails r bin/sendinblue/test_adapter.rb
+# rails r scripts/sendinblue/test_adapter.rb
 
 require_relative '../../app/services/sendinblue_adapter.rb'
 

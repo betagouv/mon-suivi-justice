@@ -2,19 +2,14 @@
 <%= simple_form_for @convict, html: { class: 'basic-form' } do |f| %>
   <%= f.input :last_name %>
   <%= f.input :first_name %>
-  <% if current_user.admin? || current_user.work_at_bex? %>
-    <%= f.input :prosecutor_number %>
-  <% end %>
   <%= f.input :appi_uuid %>
-  <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
-    <%= f.association :user, collection: User.cpip.in_organization(current_user.organization),
-                            label: t('.cpip_label'),
-                            selected: selected_cpip_for(@convict, current_user)&.id,
-                            as: :select,
-                            include_blank: t('.cpip_blank_option'),
-                            label_method: :name,
-                            input_html: { class: 'form-select', id: 'agent-name-autocomplete' } %>
-  <% end %>
+  <%= f.association :user, collection: User.cpip.in_organization(current_user.organization),
+                          label: t('.cpip_label'),
+                          selected: selected_cpip_for(@convict, current_user)&.id,
+                          as: :select,
+                          include_blank: t('.cpip_blank_option'),
+                          label_method: :name,
+                          input_html: { class: 'form-select', id: 'agent-name-autocomplete' } %>
   <%= f.input :phone, required: true, input_html: { value: @convict.display_phone } %>
   <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
                          label_html: { class: 'form-checkbox-label' },

@@ -43,6 +43,6 @@ class OrganizationsController < ApplicationController
   private
 
   def organization_params
-    params.require(:organization).permit(:name, :jap_modal_content)
+    params.require(:organization).permit(:name, :jap_modal_content, :organization_type)
   end
 end

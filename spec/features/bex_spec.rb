@@ -12,21 +12,10 @@ RSpec.feature 'Bex', type: :feature do
 
   describe 'JAP appointments index', js: true do
     it "lists appointments of type Sortie d'audience SAP" do
-      convict1 = create(:convict, first_name: 'James',
-                                  last_name: 'Moriarty',
-                                  prosecutor_number: '203204')
-
-      convict2 = create(:convict, first_name: 'Lex',
-                                  last_name: 'Luthor',
-                                  prosecutor_number: '205206')
-
-      convict3 = create(:convict, first_name: 'Pat',
-                                  last_name: 'Hibulaire',
-                                  prosecutor_number: '205806')
-
-      convict4 = create(:convict, first_name: 'Darth',
-                                  last_name: 'Vador',
-                                  prosecutor_number: '205896')
+      convict1 = create(:convict, first_name: 'James', last_name: 'Moriarty')
+      convict2 = create(:convict, first_name: 'Lex', last_name: 'Luthor')
+      convict3 = create(:convict, first_name: 'Pat', last_name: 'Hibulaire')
+      convict4 = create(:convict, first_name: 'Darth', last_name: 'Vador')
 
       create :areas_convicts_mapping, convict: convict1, area: @department
       create :areas_convicts_mapping, convict: convict2, area: @department
@@ -67,11 +56,11 @@ RSpec.feature 'Bex', type: :feature do
 
       current_date = slot1.date.strftime('%d/%m/%Y')
 
-      create(:appointment, slot: slot1, convict: convict1)
-      create(:appointment, slot: slot2, convict: convict2)
-      create(:appointment, slot: slot2, convict: convict3)
-      create(:appointment, slot: slot3, convict: convict4)
-      create(:appointment, slot: slot4, convict: convict2)
+      create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204')
+      create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206')
+      create(:appointment, slot: slot2, convict: convict3, prosecutor_number: '205806')
+      create(:appointment, slot: slot3, convict: convict4, prosecutor_number: '205896')
+      create(:appointment, slot: slot4, convict: convict2, prosecutor_number: '205206')
 
       visit agenda_jap_path
       select current_date, from: :date
@@ -106,21 +95,10 @@ RSpec.feature 'Bex', type: :feature do
 
     it "lists all Spip appointments of type Sortie d'audience SPIP", js: true do
       allow(Date).to receive(:today).and_return frozen_time
-      convict1 = create(:convict, first_name: 'Julius',
-                                  last_name: 'Erving',
-                                  prosecutor_number: '203205')
-
-      convict2 = create(:convict, first_name: 'Moses',
-                                  last_name: 'Malone',
-                                  prosecutor_number: '205201')
-
-      convict3 = create(:convict, first_name: 'Darius',
-                                  last_name: 'Garland',
-                                  prosecutor_number: '205202')
-
-      convict4 = create(:convict, first_name: 'Magic',
-                                  last_name: 'Johnson',
-                                  prosecutor_number: '205282')
+      convict1 = create(:convict, first_name: 'Julius', last_name: 'Erving')
+      convict2 = create(:convict, first_name: 'Moses', last_name: 'Malone')
+      convict3 = create(:convict, first_name: 'Darius', last_name: 'Garland')
+      convict4 = create(:convict, first_name: 'Magic', last_name: 'Johnson')
 
       create :areas_convicts_mapping, convict: convict1, area: @department
       create :areas_convicts_mapping, convict: convict2, area: @department
@@ -151,10 +129,10 @@ RSpec.feature 'Bex', type: :feature do
       current_month_label = (I18n.l slot1.date, format: '%B %Y').capitalize
       next_month_label = (I18n.l slot2.date, format: '%B %Y').capitalize
 
-      create(:appointment, slot: slot1, convict: convict1)
-      create(:appointment, slot: slot2, convict: convict2)
-      create(:appointment, slot: slot1, convict: convict3)
-      create(:appointment, slot: slot3, convict: convict4)
+      create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203205')
+      create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205201')
+      create(:appointment, slot: slot1, convict: convict3, prosecutor_number: '205202')
+      create(:appointment, slot: slot3, convict: convict4, prosecutor_number: '205282')
 
       visit agenda_spip_path
       select current_month_label, from: :date
