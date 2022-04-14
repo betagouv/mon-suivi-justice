@@ -10,7 +10,7 @@ class Appointment < ApplicationRecord
   accepts_nested_attributes_for :slot
 
   delegate :date, :starting_time, :duration, :agenda, :appointment_type, to: :slot
-  delegate :name, to: :appointment_type, prefix: true
+  delegate :name, :share_address_to_convict, to: :appointment_type, prefix: true
   delegate :place, to: :agenda
   delegate :name, to: :agenda, prefix: true
   delegate :organization, to: :place
