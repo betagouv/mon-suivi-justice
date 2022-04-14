@@ -4,6 +4,8 @@ class InviteConvictJob < ApplicationJob
 
   def perform(convict_id)
     @convict = Convict.find(convict_id)
+    return unless @convict.phone.present?
+
     MonSuiviJusticePublicApi::Invitation.create(phone: @convict.phone, msj_id: @convict.id)
   end
 end
