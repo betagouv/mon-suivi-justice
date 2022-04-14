@@ -80,6 +80,10 @@ RSpec.configure do |config|
     stub_request(:any, /api.sendinblue.com/)
     stub_request(:any, /ingest.sentry.io.*/)
   end
+
+  config.after(:each) do
+    FactoryBot.rewind_sequences
+  end
 end
 
 Shoulda::Matchers.configure do |config|
