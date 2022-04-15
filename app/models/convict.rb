@@ -35,12 +35,12 @@ class Convict < ApplicationRecord
     juri_id = Organization.joins(:areas_organizations_mappings)
                           .where(id: organization, areas_organizations_mappings: { area_type: 'Jurisdiction' })
                           .select('areas_organizations_mappings.area_id')
-    Convict.joins(:areas_convicts_mappings)
-           .where(areas_convicts_mappings: { area_type: 'Department', area_id: dpt_id })
-           .or(
-             Convict.joins(:areas_convicts_mappings)
-                    .where(areas_convicts_mappings: { area_type: 'Jurisdiction', area_id: juri_id })
-           ).distinct
+    joins(:areas_convicts_mappings)
+      .where(areas_convicts_mappings: { area_type: 'Department', area_id: dpt_id })
+      .or(
+        joins(:areas_convicts_mappings)
+               .where(areas_convicts_mappings: { area_type: 'Jurisdiction', area_id: juri_id })
+      ).distinct
   }
 
   scope :in_department, lambda { |department|

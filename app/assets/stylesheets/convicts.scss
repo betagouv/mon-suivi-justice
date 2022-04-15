@@ -25,6 +25,11 @@
   @include button($light-blue);
 }
 
+.link-to-my-convicts-button {
+  @include button($light-grey);
+  margin-right: 10px;
+}
+
 .convicts-item-container {
   display: flex;
   align-items: center;

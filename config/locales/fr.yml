@@ -311,6 +311,7 @@ fr:
   edit_organization_jap_modal: "Texte de la liste des agendas JAP"
 
   new_convict_title: "Nouvelle PPSMJ"
+  my_convicts: "Mes PPSMJ suivies"
   new_first_appointment_title: "Créneaux disponibles"
   new_convict_submit: "sans prendre RDV"
   new_convict_first_appointment: "et prendre RDV"

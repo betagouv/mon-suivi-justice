@@ -9,14 +9,21 @@ class ConvictsController < ApplicationController
     authorize @convict
   end
 
+  # rubocop:disable Metrics/AbcSize
   def index
     @all_convicts = policy_scope(Convict)
-    @q = policy_scope(Convict).order('last_name asc').ransack(params[:q])
+    base_filter = if ENV['APP'] == 'mon-suivi-justice-prod'
+                    Convict.all
+                  else
+                    params[:only_mine] == 'true' ? current_user.convicts : Convict.all
+                  end
+    @q = policy_scope(base_filter).order('last_name asc').ransack(params[:q])
     @convicts = @q.result(distinct: true).page params[:page]
 
     authorize @all_convicts
     authorize @convicts
   end
+  # rubocop:enable Metrics/AbcSize
 
   def new
     @convict = Convict.new
