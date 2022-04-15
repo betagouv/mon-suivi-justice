@@ -159,6 +159,7 @@ fr:
             phone:
               blank: "Numéro de téléphone manquant"
               mobile: "Numéro de téléphone portable requis"
+              taken: "Une PPSMJ est déjà enregistrée avec ce numéro de téléphone. Merci de saisir un autre numéro"
             first_name:
               blank: "Prénom manquant"
             last_name:
