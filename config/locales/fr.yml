@@ -178,6 +178,8 @@ fr:
           attributes:
             date:
               not_workday: "Le jour sélectionné n'est pas un jour ouvrable"
+            appointment_type:
+              wrong_organization: "Ce type de rdv n'est pas possible dans ce lieu"
         slot_type:
           multiple_uniqueness: "Un créneau récurrent similaire existe déjà."
           batch_multiple_uniqueness: "Un ou plusieurs créneaux récurrents similaires existent déjà. Les doublons n'ont pas été crées."

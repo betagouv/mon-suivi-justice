@@ -12,32 +12,55 @@ RSpec.describe Slot, type: :model do
   it { should validate_presence_of(:capacity) }
   it { should validate_presence_of(:duration) }
 
-  describe 'custom validations' do
-    let(:place) { create(:place) }
-    let(:agenda) { create(:agenda, place: place) }
-    let(:apt_type) { create(:appointment_type) }
+  describe 'validations' do
+    describe 'workday' do
+      let(:place) { create(:place) }
+      let(:agenda) { create(:agenda, place: place) }
+      let(:apt_type) { create(:appointment_type) }
 
-    it 'is not valid if date is a holiday' do
-      slot = build(:slot, agenda: agenda, appointment_type: apt_type,
-                          date: Date.civil(Date.today.year + 1, 7, 14))
+      it 'is not valid if date is a holiday' do
+        slot = build(:slot, agenda: agenda, appointment_type: apt_type,
+                            date: Date.civil(Date.today.year + 1, 7, 14))
 
-      expect(slot).to_not be_valid
-      expect(slot.errors.messages[:date]).to eq ["Le jour sélectionné n'est pas un jour ouvrable"]
+        expect(slot).to_not be_valid
+        expect(slot.errors.messages[:date]).to eq ["Le jour sélectionné n'est pas un jour ouvrable"]
+      end
+
+      it 'is not valid if date is a weekend' do
+        slot = build(:slot, agenda: agenda, appointment_type: apt_type,
+                            date: Date.today.next_occurring(:saturday))
+
+        expect(slot).to_not be_valid
+        expect(slot.errors.messages[:date]).to eq ["Le jour sélectionné n'est pas un jour ouvrable"]
+      end
+
+      it 'it is valid if date is not a weekend nor a holiday' do
+        slot = build(:slot, agenda: agenda, appointment_type: apt_type,
+                            date: Date.today.next_occurring(:monday))
+
+        expect(slot).to be_valid
+      end
     end
 
-    it 'is not valid if date is a weekend' do
-      slot = build(:slot, agenda: agenda, appointment_type: apt_type,
-                          date: Date.today.next_occurring(:saturday))
+    describe 'coherent_organization_type' do
+      let(:organization) { create(:organization, organization_type: :sap) }
+      let(:place) { create(:place, organization: organization) }
+      let(:agenda) { create(:agenda, place: place) }
 
-      expect(slot).to_not be_valid
-      expect(slot.errors.messages[:date]).to eq ["Le jour sélectionné n'est pas un jour ouvrable"]
-    end
+      it 'is valid if organization has right type' do
+        apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
+        slot = build(:slot, agenda: agenda, appointment_type: apt_type)
 
-    it 'it is valid if date is not a weekend nor a holiday' do
-      slot = build(:slot, agenda: agenda, appointment_type: apt_type,
-                          date: Date.today.next_occurring(:monday))
+        expect(slot).to be_valid
+      end
 
-      expect(slot).to be_valid
+      it 'is not valid if organization has wrong type' do
+        apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
+        slot = build(:slot, agenda: agenda, appointment_type: apt_type)
+
+        expect(slot).to_not be_valid
+        expect(slot.errors.messages[:appointment_type]).to eq ["Ce type de rdv n'est pas possible dans ce lieu"]
+      end
     end
   end
 

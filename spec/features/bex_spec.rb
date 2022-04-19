@@ -31,28 +31,28 @@ RSpec.feature 'Bex', type: :feature do
       agenda2 = create(:agenda, place: place, name: 'Cabinet Rouge')
       agenda3 = create(:agenda, place: place, name: 'Cabinet Jaune')
 
-      slot1 = create(:slot, agenda: agenda1,
-                            appointment_type: apt_type,
-                            date: Date.today.next_occurring(:friday),
-                            starting_time: '10h')
+      slot1 = create(:slot, :without_validations, agenda: agenda1,
+                                                  appointment_type: apt_type,
+                                                  date: Date.today.next_occurring(:friday),
+                                                  starting_time: '10h')
 
-      slot2 = create(:slot, agenda: agenda2,
-                            appointment_type: apt_type,
-                            date: Date.today.next_occurring(:friday),
-                            starting_time: '17h',
-                            capacity: 2)
+      slot2 = create(:slot, :without_validations, agenda: agenda2,
+                                                  appointment_type: apt_type,
+                                                  date: Date.today.next_occurring(:friday),
+                                                  starting_time: '17h',
+                                                  capacity: 2)
 
-      slot3 = create(:slot, agenda: agenda2,
-                            appointment_type: apt_type2,
-                            date: Date.today.next_occurring(:friday),
-                            starting_time: '12h',
-                            capacity: 2)
+      slot3 = create(:slot, :without_validations, agenda: agenda2,
+                                                  appointment_type: apt_type2,
+                                                  date: Date.today.next_occurring(:friday),
+                                                  starting_time: '12h',
+                                                  capacity: 2)
 
-      slot4 = create(:slot, agenda: agenda3,
-                            appointment_type: apt_type2,
-                            date: Date.today.next_occurring(:friday),
-                            starting_time: '12h',
-                            capacity: 2)
+      slot4 = create(:slot, :without_validations, agenda: agenda3,
+                                                  appointment_type: apt_type2,
+                                                  date: Date.today.next_occurring(:friday),
+                                                  starting_time: '12h',
+                                                  capacity: 2)
 
       current_date = slot1.date.strftime('%d/%m/%Y')
 

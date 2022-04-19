@@ -11,9 +11,9 @@ RSpec.feature 'Appointments', type: :feature do
       place = create :place, organization: @user.organization
       @agenda = create :agenda, place: place
 
-      @slot1 = create(:slot, agenda: @agenda,
-                             date: Date.today.next_occurring(:monday),
-                             starting_time: new_time_for(13, 0))
+      @slot1 = create(:slot, :without_validations, agenda: @agenda,
+                                                   date: Date.today.next_occurring(:monday),
+                                                   starting_time: new_time_for(13, 0))
       slot2 = create(:slot, agenda: @agenda,
                             date: Date.today.next_occurring(:wednesday),
                             starting_time: new_time_for(15, 30))
@@ -66,7 +66,7 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'allows to indicate the state of appointments' do
-      @slot1.update(date: Date.today.prev_occurring(:monday))
+      @slot1.update_attribute(:date, Date.today.prev_occurring(:monday))
       @appointment1.book
 
       visit appointments_path
@@ -91,10 +91,10 @@ RSpec.feature 'Appointments', type: :feature do
                                organization: @user.organization
         agenda = create :agenda, place: place, name: 'Agenda de Josiane'
         create :agenda, place: place, name: 'Agenda de Michel'
-        slot = create :slot, agenda: agenda,
-                             appointment_type: appointment_type,
-                             date: Date.today.next_occurring(:monday),
-                             starting_time: '16h'
+        slot = create :slot, :without_validations, agenda: agenda,
+                                                   appointment_type: appointment_type,
+                                                   date: Date.today.next_occurring(:monday),
+                                                   starting_time: '16h'
 
         visit new_appointment_path
 
@@ -129,10 +129,10 @@ RSpec.feature 'Appointments', type: :feature do
         agenda = create :agenda, place: place, name: 'Agenda de Josiane'
         create :agenda, place: place, name: 'Agenda de Michel'
 
-        slot = create :slot, agenda: agenda,
-                             appointment_type: appointment_type,
-                             date: Date.today.next_occurring(:monday),
-                             starting_time: '16h'
+        slot = create :slot, :without_validations, agenda: agenda,
+                                                   appointment_type: appointment_type,
+                                                   date: Date.today.next_occurring(:monday),
+                                                   starting_time: '16h'
 
         visit new_appointment_path
         first('.select2-container', minimum: 1).click
@@ -387,9 +387,9 @@ RSpec.feature 'Appointments', type: :feature do
   describe 'show' do
     it 'displays appointment data' do
       appointment_type = create :appointment_type, name: "Sortie d'audience SAP"
-      slot = create(:slot, appointment_type: appointment_type,
-                           date: Date.today.next_occurring(:wednesday),
-                           starting_time: new_time_for(17, 0))
+      slot = create(:slot, :without_validations, appointment_type: appointment_type,
+                                                 date: Date.today.next_occurring(:wednesday),
+                                                 starting_time: new_time_for(17, 0))
       convict = create(:convict, first_name: 'Monique', last_name: 'Lassalle')
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 

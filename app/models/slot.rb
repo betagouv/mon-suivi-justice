@@ -9,6 +9,7 @@ class Slot < ApplicationRecord
   validates :date, :starting_time, :duration, :capacity, presence: true
   validates_inclusion_of :available, in: [true, false]
   validate :workday?
+  validate :coherent_organization_type?
 
   delegate :place, to: :agenda
   delegate :name, :adress, :display_phone, :contact_detail, :preparation_link, to: :place, prefix: true
@@ -68,5 +69,19 @@ class Slot < ApplicationRecord
     return unless date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
 
     errors.add(:date, I18n.t('activerecord.errors.models.slot.attributes.date.not_workday'))
+  end
+
+  def coherent_organization_type?
+    return unless appointment_type&.sortie_audience?
+
+    case appointment_type.name
+    when "Sortie d'audience SAP"
+      return if agenda.place.organization.organization_type == 'sap'
+    when "Sortie d'audience SPIP"
+      return if agenda.place.organization.organization_type == 'spip'
+    end
+
+    errors.add(:appointment_type,
+               I18n.t('activerecord.errors.models.slot.attributes.appointment_type.wrong_organization'))
   end
 end

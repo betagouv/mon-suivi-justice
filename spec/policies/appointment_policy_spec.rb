@@ -4,7 +4,7 @@ describe AppointmentPolicy do
   subject { AppointmentPolicy.new(user, appointment) }
 
   let(:appointment_type) { create(:appointment_type) }
-  let(:slot) { create :slot, appointment_type: appointment_type }
+  let(:slot) { create :slot, :without_validations, appointment_type: appointment_type }
   let!(:appointment) { create(:appointment, slot: slot) }
 
   context 'for an admin' do
