@@ -28,6 +28,9 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/OpenStructUse:
+  Enabled: false
+
 Bundler/OrderedGems:
   Enabled: false
 

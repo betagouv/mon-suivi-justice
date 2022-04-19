@@ -3,6 +3,9 @@ fr:
     update:
       notice: "Les modifications ont bien été enregistrées."
   convicts:
+    create:
+      notice: "La PPSMJ a bien été créée."
+  convicts:
     new:
       cpip_label: "CPIP"
       cpip_blank_option: "Suivi affecté au service"
@@ -156,6 +159,7 @@ fr:
             phone:
               blank: "Numéro de téléphone manquant"
               mobile: "Numéro de téléphone portable requis"
+              taken: "Une PPSMJ est déjà enregistrée avec ce numéro de téléphone. Merci de saisir un autre numéro"
             first_name:
               blank: "Prénom manquant"
             last_name:
@@ -310,6 +314,7 @@ fr:
   edit_organization_jap_modal: "Texte de la liste des agendas JAP"
 
   new_convict_title: "Nouvelle PPSMJ"
+  my_convicts: "Mes PPSMJ suivies"
   new_first_appointment_title: "Créneaux disponibles"
   new_convict_submit: "sans prendre RDV"
   new_convict_first_appointment: "et prendre RDV"

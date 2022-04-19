@@ -18,7 +18,9 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
                      user: agent)
   end
 
-  let(:appointment_type1) { create(:appointment_type, name: 'RDV DDSE') }
+  let(:appointment_type1) do
+    create(:appointment_type, name: 'RDV DDSE', share_address_to_convict: true)
+  end
   let(:agenda1) { create(:agenda, name: 'Cabinet 12 (JAPAT)', place: place1) }
   let(:slot1) do
     create(:slot, date: Date.new(2026, 2, 24), starting_time: '10:00',
@@ -35,7 +37,9 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
                          state: 'booked', origin_department: 'bex')
   end
 
-  let(:appointment_type2) { create(:appointment_type, name: '1er RDV SPIP') }
+  let(:appointment_type2) do
+    create(:appointment_type, name: '1er RDV SPIP', share_address_to_convict: false)
+  end
   let(:agenda2) { create(:agenda, name: 'Cabinet 11 (JAPAT)', place: place2) }
   let(:slot2) do
     create(:slot, date: Date.new(2026, 2, 23), starting_time: '9:00',
@@ -89,6 +93,7 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
                  'organization_name' => 'SPIP 92',
                  'origin_department' => 'BEX',
                  'appointment_type_name' => 'RDV DDSE',
+                 'display_address' => true,
                  'place' =>
                    { 'name' => 'SPIP 92',
                      'adress' => '94 Boulevard du Général Leclerc, 92000 Nanterre',
@@ -103,6 +108,7 @@ RSpec.describe '/admin/api/v1/accounts', type: :request do
                  'organization_name' => 'SPIP 93',
                  'origin_department' => 'BEX',
                  'appointment_type_name' => '1er RDV SPIP',
+                 'display_address' => false,
                  'place' =>
                    { 'name' => 'SPIP 93',
                      'adress' => '95 Boulevard du Général Leclerc, 93000 Nanterre',

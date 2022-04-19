@@ -12,10 +12,10 @@ RSpec.feature 'Appointments', type: :feature do
       @agenda = create :agenda, place: place
 
       @slot1 = create(:slot, :without_validations, agenda: @agenda,
-                                                   date: Date.today.next_occurring(:monday),
+                                                   date: Date.civil(2025, 4, 14),
                                                    starting_time: new_time_for(13, 0))
       slot2 = create(:slot, agenda: @agenda,
-                            date: Date.today.next_occurring(:wednesday),
+                            date: Date.civil(2025, 4, 16),
                             starting_time: new_time_for(15, 30))
       convict = create(:convict)
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
@@ -27,20 +27,20 @@ RSpec.feature 'Appointments', type: :feature do
     it 'display all appointments' do
       visit appointments_path
 
-      expect(page).to have_content(Date.today.next_occurring(:monday))
+      expect(page).to have_content(Date.civil(2025, 4, 14))
       expect(page).to have_content('13:00')
-      expect(page).to have_content(Date.today.next_occurring(:wednesday))
+      expect(page).to have_content(Date.civil(2025, 4, 16))
       expect(page).to have_content('15:30')
     end
 
     it 'allows to filter appointments' do
       visit appointments_path
 
-      fill_in 'index-appointment-date-filter', with: Date.today.next_occurring(:wednesday)
+      fill_in 'index-appointment-date-filter', with: Date.civil(2025, 4, 16)
       click_button 'Filtrer'
 
-      expect(page).to have_content(Date.today.next_occurring(:wednesday))
-      expect(page).not_to have_content(Date.today.next_occurring(:monday))
+      expect(page).to have_content(Date.civil(2025, 4, 16))
+      expect(page).not_to have_content(Date.civil(2025, 4, 14))
     end
 
     it "doesn't show canceled appointments" do
@@ -48,7 +48,7 @@ RSpec.feature 'Appointments', type: :feature do
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
       apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
-      slot = create(:slot, date: Date.today.next_occurring(:monday),
+      slot = create(:slot, date: Date.civil(2025, 4, 14),
                            agenda: @agenda,
                            appointment_type: apt_type,
                            starting_time: new_time_for(14, 0))
@@ -93,7 +93,7 @@ RSpec.feature 'Appointments', type: :feature do
         create :agenda, place: place, name: 'Agenda de Michel'
         slot = create :slot, :without_validations, agenda: agenda,
                                                    appointment_type: appointment_type,
-                                                   date: Date.today.next_occurring(:monday),
+                                                   date: Date.civil(2025, 4, 14),
                                                    starting_time: '16h'
 
         visit new_appointment_path
@@ -131,7 +131,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         slot = create :slot, :without_validations, agenda: agenda,
                                                    appointment_type: appointment_type,
-                                                   date: Date.today.next_occurring(:monday),
+                                                   date: Date.civil(2025, 4, 14),
                                                    starting_time: '16h'
 
         visit new_appointment_path
@@ -164,7 +164,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         create :slot, agenda: agenda,
                       appointment_type: appointment_type,
-                      date: Date.today.next_occurring(:monday),
+                      date: Date.civil(2025, 4, 14),
                       starting_time: '16h'
 
         visit new_appointment_path
@@ -193,7 +193,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         create :slot, agenda: agenda,
                       appointment_type: appointment_type,
-                      date: Date.today.next_occurring(:monday),
+                      date: Date.civil(2025, 4, 14),
                       starting_time: '16h'
 
         visit new_appointment_path
@@ -231,9 +231,9 @@ RSpec.feature 'Appointments', type: :feature do
         create :place, name: 'place_out_name', appointment_types: [appointment_type]
         agenda_out = create :agenda, name: 'agenda_out_name'
 
-        create :slot, agenda: agenda_in, appointment_type: appointment_type, date: Date.today.next_occurring(:friday),
+        create :slot, agenda: agenda_in, appointment_type: appointment_type, date: Date.civil(2025, 4, 18),
                       starting_time: '14h'
-        create :slot, agenda: agenda_out, appointment_type: appointment_type, date: Date.today.next_occurring(:friday),
+        create :slot, agenda: agenda_out, appointment_type: appointment_type, date: Date.civil(2025, 4, 18),
                       starting_time: '16h'
 
         visit new_appointment_path
@@ -287,20 +287,20 @@ RSpec.feature 'Appointments', type: :feature do
         create :agenda, place: place1, name: 'Cabinet 32'
         create :slot, agenda: agenda,
                       appointment_type: appointment_type,
-                      date: Date.today.next_occurring(:monday),
+                      date: Date.civil(2025, 4, 14),
                       starting_time: '17h'
 
         place2 = create :place, name: 'SPIP 73', appointment_types: [appointment_type]
         agenda2 = create :agenda, place: place2, name: 'Cabinet 74'
         create :slot, agenda: agenda2,
                       appointment_type: appointment_type,
-                      date: Date.today.next_occurring(:monday),
+                      date: Date.civil(2025, 4, 14),
                       starting_time: '19h'
 
         agenda3 = create :agenda, place: place1, name: 'Cabinet 22'
         create :slot, agenda: agenda3,
                       appointment_type: appointment_type,
-                      date: Date.today.next_occurring(:monday),
+                      date: Date.civil(2025, 4, 14),
                       starting_time: '11h'
 
         visit new_appointment_path
@@ -342,7 +342,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'McDo des Halles', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
-        fill_in 'appointment_slot_date', with: (Date.today.next_occurring(:friday)).strftime('%Y-%m-%d')
+        fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
           select '15', from: 'appointment_slot_starting_time_4i'
@@ -366,7 +366,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'McDo des Halles', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
-        fill_in 'appointment_slot_date', with: (Date.today.next_occurring(:saturday)).strftime('%Y-%m-%d')
+        fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 19)).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
           select '15', from: 'appointment_slot_starting_time_4i'
@@ -388,7 +388,7 @@ RSpec.feature 'Appointments', type: :feature do
     it 'displays appointment data' do
       appointment_type = create :appointment_type, name: "Sortie d'audience SAP"
       slot = create(:slot, :without_validations, appointment_type: appointment_type,
-                                                 date: Date.today.next_occurring(:wednesday),
+                                                 date: Date.civil(2025, 4, 16),
                                                  starting_time: new_time_for(17, 0))
       convict = create(:convict, first_name: 'Monique', last_name: 'Lassalle')
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
@@ -397,7 +397,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       visit appointment_path(appointment)
 
-      expect(page).to have_content(Date.today.next_occurring(:wednesday))
+      expect(page).to have_content(Date.civil(2025, 4, 16))
       expect(page).to have_content('17:00')
       expect(page).to have_content('Monique')
       expect(page).to have_content('LASSALLE')
@@ -448,7 +448,7 @@ RSpec.feature 'Appointments', type: :feature do
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
       apt_type = create :appointment_type, :with_notification_types
-      slot = create :slot, date: Date.today.next_occurring(:monday), appointment_type: apt_type
+      slot = create :slot, date: Date.civil(2025, 4, 14), appointment_type: apt_type
       appointment = create :appointment, convict: convict, slot: slot
 
       appointment.book
@@ -561,7 +561,7 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.book
       slot2 = create :slot, agenda: appointment.slot.agenda,
                             appointment_type: apt_type,
-                            date: Date.today.next_occurring(:wednesday),
+                            date: Date.civil(2025, 4, 16),
                             starting_time: '16h'
 
       visit appointment_path(appointment)
@@ -599,7 +599,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       expect(page).to have_content 'Replanifier un rendez-vous'
 
-      fill_in 'appointment_slot_attributes_date', with: (Date.today.next_occurring(:wednesday)).strftime('%Y-%m-%d')
+      fill_in 'appointment_slot_attributes_date', with: (Date.civil(2025, 4, 16)).strftime('%Y-%m-%d')
 
       within first('.form-time-select-fields') do
         select '15', from: 'appointment_slot_attributes_starting_time_4i'
@@ -614,7 +614,7 @@ RSpec.feature 'Appointments', type: :feature do
       expect(appointment.cancelation_notif.state).to eq 'created'
       expect(appointment.history_items).to eq []
 
-      slot2 = Slot.find_by(date: Date.today.next_occurring(:wednesday))
+      slot2 = Slot.find_by(date: Date.civil(2025, 4, 16))
       new_appointment = Appointment.find_by(slot: slot2)
 
       expect(new_appointment.state).to eq 'booked'

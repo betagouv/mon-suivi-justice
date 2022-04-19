@@ -128,6 +128,10 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
+    faraday (2.2.0)
+      faraday-net_http (~> 2.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (2.0.1)
     ffi (1.15.5)
     font-awesome-rails (4.7.0.8)
       railties (>= 3.2, < 8.0)
@@ -200,7 +204,7 @@ GEM
     msgpack (1.4.5)
     nenv (0.3.0)
     nio4r (2.5.8)
-    nokogiri (1.13.3)
+    nokogiri (1.13.4)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -322,6 +326,7 @@ GEM
     ruby-graphviz (1.2.5)
       rexml
     ruby-progressbar (1.11.0)
+    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -439,6 +444,7 @@ DEPENDENCIES
   discard (~> 1.2)
   dotenv-rails (~> 2.7)
   factory_bot_rails
+  faraday (~> 2.2)
   font-awesome-rails (~> 4.7)
   groupdate (~> 6.0, >= 6.0.1)
   guard-rspec

@@ -8,8 +8,8 @@ RSpec.describe DataCollector do
 
       3.times { create :user }
 
-      slot1 = create :slot, date: Date.today.next_occurring(:wednesday)
-      slot2 = create :slot, date: Date.today.last_week.beginning_of_week
+      slot1 = create :slot, date: Date.civil(2025, 4, 14)
+      slot2 = create :slot, date: Date.civil(2022, 4, 11)
 
       apt1 = create :appointment, state: 'booked', convict: convict1, slot: slot1
       create :appointment, :skip_validate, state: 'booked', convict: convict1, slot: slot2

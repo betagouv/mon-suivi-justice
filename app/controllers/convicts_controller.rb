@@ -9,14 +9,21 @@ class ConvictsController < ApplicationController
     authorize @convict
   end
 
+  # rubocop:disable Metrics/AbcSize
   def index
     @all_convicts = policy_scope(Convict)
-    @q = policy_scope(Convict).order('last_name asc').ransack(params[:q])
+    base_filter = if ENV['APP'] == 'mon-suivi-justice-prod'
+                    Convict.all
+                  else
+                    params[:only_mine] == 'true' ? current_user.convicts : Convict.all
+                  end
+    @q = policy_scope(base_filter).order('last_name asc').ransack(params[:q])
     @convicts = @q.result(distinct: true).page params[:page]
 
     authorize @all_convicts
     authorize @convicts
   end
+  # rubocop:enable Metrics/AbcSize
 
   def new
     @convict = Convict.new
@@ -87,6 +94,7 @@ class ConvictsController < ApplicationController
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def save_and_redirect(convict)
     @duplicate_presence = duplicate_convict_presence
     force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
@@ -95,11 +103,13 @@ class ConvictsController < ApplicationController
     if convict.save
       # Wil register the new convict in every department/juridiction of current_user's organization areas
       RegisterLegalAreas.for_convict convict, from: current_organization
+      InviteConvictJob.perform_later(@convict.id) unless ENV['APP'] == 'mon-suivi-justice-prod'
       redirect_to select_path(params)
     else
       render :new
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def duplicate_convict_presence
     Convict.exists?(

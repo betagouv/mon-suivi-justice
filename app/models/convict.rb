@@ -3,6 +3,9 @@ class Convict < ApplicationRecord
   include Discard::Model
   has_paper_trail
 
+  WHITELISTED_PHONES = %w[+33659763117 +33683481555 +33682356466 +33603371085
+                          +33687934479 +33674426177 +33616430756].freeze
+
   has_many :appointments, dependent: :destroy
   has_many :history_items, dependent: :destroy
 
@@ -19,6 +22,7 @@ class Convict < ApplicationRecord
   validates :appi_uuid, allow_blank: true, uniqueness: true
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
+  validates :phone, uniqueness: true, unless: proc { refused_phone? || no_phone? || phone_whitelisted? }
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
   #
@@ -31,12 +35,12 @@ class Convict < ApplicationRecord
     juri_id = Organization.joins(:areas_organizations_mappings)
                           .where(id: organization, areas_organizations_mappings: { area_type: 'Jurisdiction' })
                           .select('areas_organizations_mappings.area_id')
-    Convict.joins(:areas_convicts_mappings)
-           .where(areas_convicts_mappings: { area_type: 'Department', area_id: dpt_id })
-           .or(
-             Convict.joins(:areas_convicts_mappings)
-                    .where(areas_convicts_mappings: { area_type: 'Jurisdiction', area_id: juri_id })
-           ).distinct
+    joins(:areas_convicts_mappings)
+      .where(areas_convicts_mappings: { area_type: 'Department', area_id: dpt_id })
+      .or(
+        joins(:areas_convicts_mappings)
+               .where(areas_convicts_mappings: { area_type: 'Jurisdiction', area_id: juri_id })
+      ).distinct
   }
 
   scope :in_department, lambda { |department|
@@ -78,5 +82,9 @@ class Convict < ApplicationRecord
     return unless phone && !phone.start_with?('+336', '+337')
 
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.mobile')
+  end
+
+  def phone_whitelisted?
+    WHITELISTED_PHONES.include?(phone)
   end
 end

@@ -11,6 +11,7 @@ document.addEventListener('turbolinks:load',function(e) {
     multiple: true,
     maximumSelectionSize: 1,
     width: 'resolve',
+    sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
     language: {
       noResults: function () {
         return 'Aucun résultat trouvé';

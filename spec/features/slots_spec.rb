@@ -9,16 +9,16 @@ RSpec.feature 'Slots', type: :feature do
   describe 'index' do
     before do
       @apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
-      @slot1 = create(:slot, appointment_type: @apt_type, date: Date.today.next_occurring(:monday))
+      @slot1 = create(:slot, appointment_type: @apt_type, date: Date.civil(2025, 4, 14))
     end
 
     it 'lists all slots' do
-      create(:slot, appointment_type: @apt_type, date: Date.today.next_occurring(:wednesday))
+      create(:slot, appointment_type: @apt_type, date: Date.civil(2025, 4, 16))
 
       visit slots_path
 
-      expect(page).to have_content(Date.today.next_occurring(:monday).to_s)
-      expect(page).to have_content(Date.today.next_occurring(:wednesday).to_s)
+      expect(page).to have_content(Date.civil(2025, 4, 14).to_s)
+      expect(page).to have_content(Date.civil(2025, 4, 16).to_s)
     end
 
     it 'allows to close slot' do
@@ -30,7 +30,7 @@ RSpec.feature 'Slots', type: :feature do
 
       @slot1.reload
       expect(@slot1.available).to eq(false)
-      expect(page).not_to have_content(Date.today.next_occurring(:friday))
+      expect(page).not_to have_content(Date.civil(2025, 4, 18))
     end
   end
 
