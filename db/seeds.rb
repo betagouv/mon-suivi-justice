@@ -6,7 +6,7 @@ end
 organization1 = Organization.create!(name: 'SPIP 92', organization_type: 'spip')
 puts "Organization #{organization1.name} created"
 
-organization2 = Organization.create!(name: 'TJ Nanterre', organization_type: 'sap')
+organization2 = Organization.create!(name: 'TJ Nanterre', organization_type: 'tj')
 puts "Organization #{organization2.name} created"
 
 AreasOrganizationsMapping.create organization: organization1, area: Department.find_by(number: '92')

@@ -127,7 +127,7 @@ fr:
         organization_type: Type
         organization_types:
           spip: "SPIP"
-          sap: "SAP"
+          tj: "TJ"
 
     state_machines:
       states:

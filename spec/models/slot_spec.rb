@@ -43,7 +43,7 @@ RSpec.describe Slot, type: :model do
     end
 
     describe 'coherent_organization_type' do
-      let(:organization) { create(:organization, organization_type: :sap) }
+      let(:organization) { create(:organization, organization_type: :tj) }
       let(:place) { create(:place, organization: organization) }
       let(:agenda) { create(:agenda, place: place) }
 

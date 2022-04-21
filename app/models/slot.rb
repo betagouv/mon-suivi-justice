@@ -76,7 +76,7 @@ class Slot < ApplicationRecord
 
     case appointment_type.name
     when "Sortie d'audience SAP"
-      return if agenda.place.organization.organization_type == 'sap'
+      return if agenda.place.organization.organization_type == 'tj'
     when "Sortie d'audience SPIP"
       return if agenda.place.organization.organization_type == 'spip'
     end
