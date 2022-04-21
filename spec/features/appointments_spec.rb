@@ -325,7 +325,7 @@ RSpec.feature 'Appointments', type: :feature do
       before do
         convict = create :convict, first_name: 'Momo', last_name: 'La Fouine'
         create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-        appointment_type = create :appointment_type, :with_notification_types, name: 'RDV de suivi SAP'
+        appointment_type = create :appointment_type, :with_notification_types, name: 'RDV de suivi JAP'
         place = create :place, name: 'McDo des Halles', appointment_types: [appointment_type],
                                organization: @user.organization
         create :agenda, place: place, name: 'Agenda de Jean-Louis'
@@ -338,7 +338,7 @@ RSpec.feature 'Appointments', type: :feature do
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'LA FOUINE Momo').click
 
-        select 'RDV de suivi SAP', from: :appointment_appointment_type_id
+        select 'RDV de suivi JAP', from: :appointment_appointment_type_id
         select 'McDo des Halles', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
@@ -362,7 +362,7 @@ RSpec.feature 'Appointments', type: :feature do
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'LA FOUINE Momo').click
 
-        select 'RDV de suivi SAP', from: :appointment_appointment_type_id
+        select 'RDV de suivi JAP', from: :appointment_appointment_type_id
         select 'McDo des Halles', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 

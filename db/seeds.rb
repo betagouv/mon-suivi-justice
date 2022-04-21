@@ -33,7 +33,7 @@ agenda2 = Agenda.create!(place: place1, name: "Agenda 2 tribunal Nanterre")
 puts "Agenda #{agenda2.name} created"
 appointment_type1 = AppointmentType.create!(name: "Sortie d'audience SAP")
 puts "AppointmentType #{appointment_type1.name} created"
-appointment_type2 = AppointmentType.create!(name: 'RDV de suivi SAP')
+appointment_type2 = AppointmentType.create!(name: 'RDV de suivi JAP')
 puts "AppointmentType #{appointment_type2.name} created"
 PlaceAppointmentType.create!(place: place1, appointment_type: appointment_type1)
 PlaceAppointmentType.create!(place: place1, appointment_type: appointment_type2)

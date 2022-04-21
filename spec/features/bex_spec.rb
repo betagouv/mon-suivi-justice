@@ -23,7 +23,7 @@ RSpec.feature 'Bex', type: :feature do
       create :areas_convicts_mapping, convict: convict4, area: @department
 
       apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
-      apt_type2 = create(:appointment_type, name: 'RDV de suivi SAP')
+      apt_type2 = create(:appointment_type, name: 'RDV de suivi JAP')
 
       place = create(:place, name: 'Tribunal de Nanterre', organization: @organization)
 

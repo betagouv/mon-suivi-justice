@@ -83,8 +83,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -122,8 +122,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -176,8 +176,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -230,8 +230,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -298,8 +298,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -352,8 +352,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -406,8 +406,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -460,8 +460,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -514,8 +514,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -553,8 +553,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -607,8 +607,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -691,8 +691,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -760,8 +760,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -829,8 +829,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -898,8 +898,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -967,8 +967,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -1036,8 +1036,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:reschedule) }
     end
 
-    context 'for an appointment_type RDV de suivi SAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SAP') }
+    context 'for an appointment_type RDV de suivi JAP' do
+      let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }

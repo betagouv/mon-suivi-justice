@@ -90,7 +90,7 @@ Morceaux de scripts utiles / maintenance MSJ
   si plusieurs agenda avec le meme type de RDV & memes horaires
 
   agendas = [32, 33, 34]
-  at = AppointmentType.find_by(name: 'Rdv de suivi SAP')
+  at = AppointmentType.find_by(name: 'Rdv de suivi JAP')
 
   agendas.each do |a|
     ag = Agenda.find(a)
