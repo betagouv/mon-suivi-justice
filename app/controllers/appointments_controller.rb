@@ -16,7 +16,7 @@ class AppointmentsController < ApplicationController
       format.html
       format.pdf do
         render template: 'appointments/index_pdf.html.erb',
-               pdf: "Liste des rdv", footer: { right: '[page]/[topage]' }
+               pdf: 'Liste des rdv', footer: { right: '[page]/[topage]' }
       end
     end
 
