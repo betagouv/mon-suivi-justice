@@ -36,7 +36,7 @@
                                          method: :get %>
     <% end %>
 
-    <% if current_user.admin? %>
+    <% if policy(:slot).update? %>
       <%= button_tag t('index_slots_batch_close'), type: 'submit',
                                                    form: 'index-slots-update-form',
                                                    data: { confirm: t('basic_confirmation') },
@@ -93,7 +93,7 @@
               <%= slot.starting_time.to_s(:time) %>
             </div>
 
-            <% if current_user.admin? %>
+            <% if policy(:slot).update? %>
               <div class='slots-column-6'>
                 <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
               </div>
