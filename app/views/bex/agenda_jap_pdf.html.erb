@@ -1,41 +1,15 @@
-<div class='bex-agendas-container'>
-  <div class='bex-agendas-tools-container'>
-    <% if ENV['APP'] == 'mon-suivi-justice-prod' %>
-      <%= button_to t('print_button'), 'fake_link',
-                                        class: 'bex-print-button',
-                                        onclick: 'window.print();return false;'%>
-    <% else %>
-      <%= button_to t('print_button'), agenda_spip_path(format: :pdf),
-                                       method: :get,
-                                       form: { target: '_blank' },
-                                       class: 'bex-print-button' %>
-    <% end %>
-  </div>
+<%= image_tag wicked_pdf_asset_base64('logo_msj.svg') %>
+<h1 class='pdf-title'><%= t('pdf.bex-jap.title') %></h1>
 
-  <div class='bex-agendas-date-container'>
-    <div class='bex-date-title-container'>
-      <%= t('bex_spip_appointments_title') %>
-    </div>
-    <div class='bex-date-select-container'>
-      <%= form_tag agenda_spip_path, method: 'get' do %>
-        <%= select_tag :date, options_for_select(formated_month_for_select(six_next_months), params[:date]),
-                               id: 'spip-appointments-month-select',
-                               class: 'form-select form-text-input spip-date-select',
-                               onchange: 'this.form.submit()' %>
-      <% end %>
-    </div>
-  </div>
-
-  <% if @agenda.nil? %>
-    <p class='bex-agenda-spip-no-agenda'><%= t('bex_spip_no_agenda_available') %></p>
-  <% else %>
-    <% open_days_for_the_month(@current_date).each do |day| %>
-      <% next if @agenda.slots_for_date(day, @appointment_type).count == 0 %>
-
+<% if @agendas.empty? %>
+  <p class='bex-agenda-spip-no-agenda'><%= t('bex_jap_no_agenda_available') %></p>
+<% else %>
+  <% @agendas.each_with_index do |agenda, index| %>
+    <% unless agenda.slots_for_date(@current_date, @appointment_type).count.zero? %>
       <div class='bex-agenda-container'>
-        <div class='bex-agenda-header spip-agenda-header'>
+        <div class='bex-agenda-header jap-agenda-header<%= index+1%>'>
           <div class='bex-agenda-header-title'>
-            <%= day %>
+            <%= agenda.name %>
           </div>
         </div>
 
@@ -58,7 +32,7 @@
             </div>
           </div>
 
-          <% @agenda.slots_for_date(day, @appointment_type).each do |slot| %>
+          <% agenda.slots_for_date(@current_date, @appointment_type).each do |slot| %>
             <% appointments = slot.appointments.active %>
             <% slot.capacity.times do |i| %>
               <div class='bex-agenda-line'>
@@ -88,4 +62,4 @@
       </div>
     <% end %>
   <% end %>
-</div>
+<% end %>

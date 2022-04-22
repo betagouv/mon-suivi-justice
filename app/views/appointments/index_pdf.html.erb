@@ -1,5 +1,5 @@
 <%= image_tag wicked_pdf_asset_base64('logo_msj.svg') %>
-<h1 class='index-appointments-pdf-title'><%= t('pdf.appointments.title') %></h1>
+<h1 class='pdf-title'><%= t('pdf.appointments.title') %></h1>
 <div class='index-cards-wrapper'>
   <% @all_appointments.each do |appointment| %>
     <%= render 'appointment_card_pdf', appointment: appointment %>

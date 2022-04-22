@@ -303,6 +303,10 @@ fr:
   pdf:
     appointments:
       title: "Liste des rendez-vous"
+    bex-spip:
+      title: "Rendez-vous Sortie d'audience SPIP"
+    bex-jap:
+      title: "Rendez-vous Sortie d'audience JAP"
 
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"
