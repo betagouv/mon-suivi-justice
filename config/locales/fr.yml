@@ -5,7 +5,6 @@ fr:
   convicts:
     create:
       notice: "La PPSMJ a bien été créée."
-  convicts:
     new:
       cpip_label: "CPIP"
       cpip_blank_option: "Suivi affecté au service"
@@ -15,6 +14,7 @@ fr:
     index:
       self_assign_link: "S'attribuer cette PPSMJ"
     show:
+      invite: "Inviter à son espace"
       self_assign_link: "S'attribuer cette PPSMJ"
     self_assign:
       notice: "La PPSMJ vous a bien été attribuée."
@@ -476,6 +476,11 @@ fr:
   new_slot_title: "Nouveau Créneau"
   new_slot_submit: "Enregistrer"
   index_slot_place_filter: "Lieu de RDV"
+
+  convict_invitations:
+    create:
+      invitation_sent: La PPSMJ a bien été invitée à rejoindre son interface
+
 
   errors:
     non_authorized: "Vous n'êtes pas autorisé à effectuer cette action"

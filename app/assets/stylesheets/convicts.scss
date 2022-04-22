@@ -135,6 +135,11 @@
   width: 130px;
 }
 
+.show-button-invite {
+  @include button($light-grey);
+  padding: .4em 1em;
+}
+
 .show-convict-button-to-edit {
   @include button($light-blue);
   padding: .4em 1em;

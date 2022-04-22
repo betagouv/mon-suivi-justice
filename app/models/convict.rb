@@ -87,4 +87,8 @@ class Convict < ApplicationRecord
   def phone_whitelisted?
     WHITELISTED_PHONES.include?(phone)
   end
+
+  def invitable_to_convict_interface?
+    true
+  end
 end

@@ -293,6 +293,14 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_content(@user.name)
       expect(Convict.first.cpip).to eq(@user)
     end
+
+    it 'allow a cpip to invite a convict to his interface' do
+      logout_current_user
+      @user = create_cpip_user_and_login
+      visit convict_path(@convict)
+      expect { click_button('Inviter à son espace') }.to have_enqueued_job(InviteConvictJob).once
+      expect(page).to have_content('La PPSMJ a bien été invitée')
+    end
   end
 
   describe 'archive' do

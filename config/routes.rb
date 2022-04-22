@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     delete 'archive'
     post 'unarchive'
     post 'self_assign'
+    resource :invitation, only: :create, controller: 'convict_invitations'
   end
   resources :appointment_types
   resources :slots

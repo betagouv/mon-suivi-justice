@@ -122,6 +122,14 @@
     <% if policy(@convict).unarchive? %>
       <%= button_to t('unarchive'), convict_unarchive_path(@convict), method: :post, class: 'show-button-archive' %>
     <% end %>
+
+    <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
+      <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
+        <%= button_to t('.invite'), convict_invitation_path(@convict),
+                                    method: :post,
+                                    class: 'show-button-invite' %>
+      <% end %>
+    <% end %>
   </div>
 </div>
 
