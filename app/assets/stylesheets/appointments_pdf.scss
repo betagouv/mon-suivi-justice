@@ -1,3 +1,9 @@
+.pdf-title {
+  font-size: 18px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
 .index-cards-wrapper {
   margin-top: 20px;
 }
@@ -55,7 +61,6 @@
   -webkit-box-pack: justify;
   border-top: 1px solid lightgray;
   border-right: 1px solid lightgray;
-
   padding: 5px 10px;
 }
 
@@ -76,7 +81,6 @@
 
 .index-card-data-appointment {
   display: -webkit-box;
-  // border: 2px solid red;
 }
 
 .index-card-state-controls-wrapper {

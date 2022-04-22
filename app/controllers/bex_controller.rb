@@ -6,12 +6,28 @@ class BexController < ApplicationController
     @appointment_type = AppointmentType.find_by(name: "Sortie d'audience SAP")
     @current_date = current_date(@appointment_type, params)
     @agendas = policy_scope(Agenda).with_open_slots_for_date(@current_date, @appointment_type)
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render template: 'bex/agenda_jap_pdf.html.erb',
+               pdf: "Agenda sortie d'audience JAP", footer: { right: '[page]/[topage]' }
+      end
+    end
   end
 
   def agenda_spip
     @appointment_type = AppointmentType.find_by(name: "Sortie d'audience SPIP")
     @current_date = current_date(@appointment_type, params)
     @agenda = policy_scope(Agenda).with_open_slots(@appointment_type).first
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render template: 'bex/agenda_spip_pdf.html.erb',
+               pdf: "Agenda sortie d'audience SPIP", footer: { right: '[page]/[topage]' }
+      end
+    end
   end
 
   private

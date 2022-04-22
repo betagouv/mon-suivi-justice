@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <%= wicked_pdf_stylesheet_link_tag "pdf" %>
+    <title><%= t('header_title') %></title>
+    <%= wicked_pdf_stylesheet_link_tag 'appointments_pdf' %>
+    <%= wicked_pdf_stylesheet_link_tag 'bex_pdf' %>
   </head>
   <body onload="number_pages">
     <div id="content">

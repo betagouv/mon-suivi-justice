@@ -300,6 +300,14 @@ fr:
     users: "Total agents utilisateurs"
     notifications: "Total SMS envoyés"
 
+  pdf:
+    appointments:
+      title: "Liste des rendez-vous"
+    bex-spip:
+      title: "Rendez-vous Sortie d'audience SPIP"
+    bex-jap:
+      title: "Rendez-vous Sortie d'audience JAP"
+
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"
   show_user_title: "Mes informations"

@@ -26,9 +26,11 @@
     <% @convict.departments.order(:number).each do |department|%>
       <p class='convict-attachment'>
         <%= "(#{department.number}) #{department.name}" %>
-        <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: department, convict: @convict)),
-        method: :delete,
-        class: 'convict-attachment-delete' %>
+        <% if @convict.departments.count > 1 %>
+          <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: department, convict: @convict)),
+                                   method: :delete,
+                                   class: 'convict-attachment-delete' %>
+        <% end %>
       </p>
     <% end %>
 
@@ -47,9 +49,11 @@
       <% @convict.jurisdictions.order(:name).each do |jurisdiction|%>
         <p class='convict-attachment'>
           <%= jurisdiction.name %>
-          <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: jurisdiction, convict: @convict)),
-                                  method: :delete,
-                                  class: 'convict-attachment-delete' %>
+          <% if @convict.jurisdictions.count > 1 %>
+            <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: jurisdiction, convict: @convict)),
+                                    method: :delete,
+                                    class: 'convict-attachment-delete' %>
+          <% end %>
         </p>
       <% end %>
       <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id } %>
