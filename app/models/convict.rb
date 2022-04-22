@@ -20,7 +20,7 @@ class Convict < ApplicationRecord
   attr_accessor :place_id
 
   validates :appi_uuid, allow_blank: true, uniqueness: true
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :invitation_to_convict_interface_count, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
   validates :phone, uniqueness: true, unless: proc { refused_phone? || no_phone? || phone_whitelisted? }
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
@@ -89,6 +89,6 @@ class Convict < ApplicationRecord
   end
 
   def invitable_to_convict_interface?
-    true
+    invitation_to_convict_interface_count < 3
   end
 end

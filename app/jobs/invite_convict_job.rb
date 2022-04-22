@@ -7,5 +7,6 @@ class InviteConvictJob < ApplicationJob
     return unless @convict.phone.present?
 
     MonSuiviJusticePublicApi::Invitation.create(phone: @convict.phone, msj_id: @convict.id)
+    @convict.increment!(:invitation_to_convict_interface_count)
   end
 end
