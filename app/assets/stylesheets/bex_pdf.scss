@@ -3,8 +3,6 @@
   max-width: 800px;
   margin: auto;
   margin-bottom: 50px;
-
-  page-break-inside: avoid;
 }
 
 .bex-agendas-tools-container {
@@ -30,6 +28,7 @@
   display: -webkit-box;
   margin-bottom: 30px;
   border: 1px solid black;
+  page-break-inside: avoid;
 }
 
 .bex-agenda-header {
