@@ -297,6 +297,7 @@ RSpec.feature 'Convicts', type: :feature do
     it 'allow a cpip to invite a convict to his interface' do
       logout_current_user
       @user = create_cpip_user_and_login
+      @convict.update(user: @user)
       visit convict_path(@convict)
       expect { click_button('Inviter à son espace') }.to have_enqueued_job(InviteConvictJob).once
       expect(page).to have_content('La PPSMJ a bien été invitée')
