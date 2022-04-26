@@ -128,12 +128,19 @@ class Appointment < ApplicationRecord
       transition booked: :excused
     end
 
+    event :rebook do
+      transition [:fulfiled, :no_show, :excused] => :booked
+    end
+
     after_transition do |appointment, transition|
-      HistoryItemFactory.perform(
-        appointment: appointment,
-        event: "#{transition.event}_appointment".to_sym,
-        category: 'appointment'
-      )
+      event = "#{transition.event}_appointment".to_sym
+      if HistoryItem.validate_event(event) == true
+        HistoryItemFactory.perform(
+          appointment: appointment,
+          event: event,
+          category: 'appointment'
+        )
+      end
     end
 
     after_transition on: :book do |appointment, transition|
