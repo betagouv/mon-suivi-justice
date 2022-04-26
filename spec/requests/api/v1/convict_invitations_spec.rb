@@ -30,7 +30,7 @@ RSpec.describe '/api/v1/convicts/:convict_id/invitation', type: :request do
         end
 
         it 'has the right content' do
-          expect(JSON.parse(response.body)["id"]).to eq(1)
+          expect(JSON.parse(response.body)['id']).to eq(1)
         end
 
         it 'updates the convict timestamp_convict_interface_creation' do
