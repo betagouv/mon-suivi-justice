@@ -21,8 +21,26 @@
   <%= f.input :refused_phone, input_html: { class: 'form-checkbox' },
                               label_html: { class: 'form-checkbox-label' },
                               wrapper_html: { class: 'form-checkbox-wrapper' } %>
-  <% if @duplicate_presence %>
-    <p class='new-convict-duplicate-warning'><%= t('new_convict_duplicate_warning')%></p>
+
+
+  <% if @local_duplicate&.any? || @global_duplicate&.any? %>
+    <% if @global_duplicate.any? %>
+      <div class='new-convict-duplicate-warning'>
+        <% @global_duplicate.each do |duplicate| %>
+          <% dep = duplicate.departments.first %>
+          <p><%= t('new_convict_duplicate_warning3', name: dep.name, number: dep.number)%></p>
+        <% end %>
+      </div>
+    <% else %>
+      <div class='new-convict-duplicate-warning'>
+        <p><%= t('new_convict_duplicate_warning1')%></p>
+        <% @local_duplicate.each do |duplicate| %>
+          <div class='new-convict-duplicate-link'><%= link_to t('new_convict_duplicate_link', name: duplicate.name), convict_path(duplicate) %></div>
+        <% end %>
+        <p><%= t('new_convict_duplicate_warning2')%></p>
+      </div>
+    <% end %>
+
     <div class='new-convict-submits-container'>
       <%= f.hidden_field :force_duplication, value: true  %>
       <%= f.button :button, id: 'submit-no-appointment', class: 'form-submit-button', name: 'no-appointment' do %>
@@ -42,5 +60,4 @@
       <% end %>
     </div>
   <% end %>
-
 <% end %>

@@ -95,9 +95,8 @@ class ConvictsController < ApplicationController
   private
 
   def save_and_redirect(convict)
-    @duplicate_presence = duplicate_convict_presence
-    force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
-    render(:new) && return if @duplicate_presence && !force_duplication
+    check_for_duplicate
+    render(:new) && return if (@local_duplicate.any? || @global_duplicate.any?) && !@force_duplication
 
     if convict.save
       # Wil register the new convict in every department/juridiction of current_user's organization areas
@@ -108,14 +107,26 @@ class ConvictsController < ApplicationController
     end
   end
 
-  def duplicate_convict_presence
-    Convict.exists?(
-      [
-        'lower(first_name) = ? AND lower(last_name) = ?',
-        convict_params[:first_name].downcase,
-        convict_params[:last_name].downcase
-      ]
+  def check_for_duplicate
+    @local_duplicate = local_duplicate
+    @global_duplicate = global_duplicate
+    @force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
+  end
+
+  def pre_existing_convicts
+    Convict.where(
+      'lower(first_name) = ? AND lower(last_name) = ?',
+      convict_params[:first_name].downcase,
+      convict_params[:last_name].downcase
     )
+  end
+
+  def local_duplicate
+    pre_existing_convicts.under_hand_of(current_user.organization)
+  end
+
+  def global_duplicate
+    pre_existing_convicts.where.not(id: Convict.under_hand_of(current_user.organization))
   end
 
   def convict_params
