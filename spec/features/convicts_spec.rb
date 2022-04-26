@@ -273,7 +273,6 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_content('Café')
       expect(page).to have_content('NOISETTE')
       expect(page).to have_content('06 07 06 07 06')
-      expect(page).to have_content('06 07 06 07 06')
     end
 
     it 'allows to delete convict' do
