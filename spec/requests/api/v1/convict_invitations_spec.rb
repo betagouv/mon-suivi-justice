@@ -20,9 +20,17 @@ RSpec.describe '/api/v1/convicts/:convict_id/invitation', type: :request do
         { 'Authorization' => ActionController::HttpAuthentication::Basic.encode_credentials('username', 'password') }
       end
 
+      let(:expected_response) do
+        { 'error' => 'Not found' }
+      end
+
       context 'basic call' do
         it 'renders a successful response' do
           expect(response).to be_successful
+        end
+
+        it 'has the right content' do
+          expect(JSON.parse(response.body)["id"]).to eq(1)
         end
 
         it 'updates the convict timestamp_convict_interface_creation' do

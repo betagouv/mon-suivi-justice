@@ -5,7 +5,11 @@ module Api
         @convict = Convict.find(params[:convict_id])
         raise ActiveRecord::RecordNotFound unless @convict.present?
 
-        @convict.update(timestamp_convict_interface_creation: Time.zone.now)
+        if @convict.update(timestamp_convict_interface_creation: Time.zone.now)
+          render json: @convict
+        else
+          render json: @convict.errors, status: :unprocessable_entity
+        end
       end
     end
   end
