@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe '/admin/api/v1/accounts', type: :request do
+RSpec.describe '/api/v1/convicts/:id', type: :request do
   with_env('HTTP_BASIC_AUTH_USER', 'username')
   with_env('HTTP_BASIC_AUTH_PSWD', 'password')
 
