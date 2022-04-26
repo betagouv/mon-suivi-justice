@@ -38,7 +38,7 @@ class ConvictPolicy < ApplicationPolicy
   end
 
   def unarchive?
-    (user.admin? || user.local_admin?) && record.discarded?
+    (user.admin? || user.local_admin? || user.dir_greff_sap? || user.greff_sap?) && record.discarded?
   end
 
   def self_assign?
