@@ -1,4 +1,7 @@
 fr:
+  time:
+    formats:
+      clear: "%A %e %B %Y à %kh%M"
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
@@ -14,8 +17,15 @@ fr:
     index:
       self_assign_link: "S'attribuer cette PPSMJ"
     show:
-      invite: "Inviter à son espace"
-      self_assign_link: "S'attribuer cette PPSMJ"
+      invite: Inviter à son espace
+      self_assign_link: S'attribuer cette PPSMJ
+      interface_invitation_state: État de l'invitation
+      accepted: Accepté
+      reinvited: Relancé
+      invited: Invité
+      not_invited: Jamais invité
+      interface_access_timestamp: Date d'acceptation
+      interface_no_access: Aucun accès pour l'instant
     self_assign:
       notice: "La PPSMJ vous a bien été attribuée."
   appointments:
@@ -488,7 +498,7 @@ fr:
 
   convict_invitations:
     create:
-      invitation_sent: La PPSMJ a bien été invitée à rejoindre son interface
+      invitation_sent: L'invitation est en cours d'envoi à la PPSMJ
 
 
   errors:
