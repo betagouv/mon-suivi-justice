@@ -273,6 +273,7 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_content('Café')
       expect(page).to have_content('NOISETTE')
       expect(page).to have_content('06 07 06 07 06')
+      expect(page).to have_content('06 07 06 07 06')
     end
 
     it 'allows to delete convict' do
@@ -294,13 +295,23 @@ RSpec.feature 'Convicts', type: :feature do
       expect(Convict.first.cpip).to eq(@user)
     end
 
-    it 'allow a cpip to invite a convict to his interface' do
+    it 'allow a cpip to invite a convict to his interface and displays the correct content' do
       logout_current_user
       @user = create_cpip_user_and_login
       @convict.update(user: @user)
       visit convict_path(@convict)
+      expect(page).to have_content('Jamais invité')
+      expect(page).to have_content("Aucun accès pour l'instant")
       expect { click_button('Inviter à son espace') }.to have_enqueued_job(InviteConvictJob).once
-      expect(page).to have_content('La PPSMJ a bien été invitée')
+      expect(page).to have_content("L'invitation est en cours d'envoi à la PPSMJ")
+
+      @convict.update(invitation_to_convict_interface_count: 1)
+      visit convict_path(@convict)
+      expect(page).to have_content('Invité')
+
+      @convict.update(timestamp_convict_interface_creation: Time.zone.now)
+      visit convict_path(@convict)
+      expect(page).to have_content('Accepté')
     end
   end
 

@@ -91,4 +91,16 @@ class Convict < ApplicationRecord
   def invitable_to_convict_interface?
     invitation_to_convict_interface_count < 3 && timestamp_convict_interface_creation.nil?
   end
+
+  def can_access_convict_inferface?
+    timestamp_convict_interface_creation.present?
+  end
+
+  def interface_invitation_state
+    return :accepted if can_access_convict_inferface?
+    return :reinvited if invitation_to_convict_interface_count > 1
+    return :invited if invitation_to_convict_interface_count == 1
+
+    :not_invited
+  end
 end

@@ -122,16 +122,47 @@
     <% if policy(@convict).unarchive? %>
       <%= button_to t('unarchive'), convict_unarchive_path(@convict), method: :post, class: 'show-button-archive' %>
     <% end %>
-
-    <% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
-      <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
-        <%= button_to t('.invite'), convict_invitation_path(@convict),
-                                    method: :post,
-                                    class: 'show-button-invite' %>
-      <% end %>
-    <% end %>
   </div>
 </div>
+
+<% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
+  <div class="show-ppsmj-container">
+    <h3 class="mb-20px text-center">Espace PPSMJ</h3>
+    <div class='d-flex'>
+      <div class='show-data-container'>
+        <div class='show-data-item-container'>
+          <div class='show-data-label mr-20px'>
+            <%= t('.interface_invitation_state') %>
+          </div>
+          <div class='show-data-item'>
+            <%= t(".#{@convict.interface_invitation_state}") %>
+          </div>
+        </div>
+
+        <div class='show-data-item-container'>
+          <div class='show-data-label mr-20px'>
+            <%= t('.interface_access_timestamp')%>
+          </div>
+          <div class='show-data-item'>
+            <% if @convict.can_access_convict_inferface? %>
+              <%= l(@convict.timestamp_convict_interface_creation, format: :clear) %>
+            <% else %>
+              <%= t('.interface_no_access') %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class='show-button-to-edit-container'>
+        <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
+          <%= button_to t('.invite'), convict_invitation_path(@convict),
+                                      method: :post,
+                                      class: 'show-button-invite' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <% if @convict.future_appointments.count != 0 %>
   <div class='show-convict-next-appointments-container'>
