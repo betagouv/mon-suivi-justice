@@ -403,6 +403,29 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_content('LASSALLE')
       expect(page).to have_content('12345')
     end
+
+    it 'allows to change state of appointment' do
+      convict = create(:convict, first_name: 'Jean', last_name: 'Lassoulle')
+      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+      appointment = create(:appointment, convict: convict, state: :booked)
+      appointment.fulfil
+
+      visit appointment_path(appointment)
+
+      expect(page).to have_content('Honoré')
+      expect(page).to have_content("s'est bien présenté(e) à son rendez-vous")
+
+      within first('.show-appointment-state-container') do
+        click_link 'Modifier'
+      end
+
+      appointment.reload
+      expect(appointment.state).to eq('booked')
+
+      expect(page).to have_content('Planifié')
+      expect(page).not_to have_content('Modifier')
+      expect(page).not_to have_content("s'est bien présenté(e) à son rendez-vous")
+    end
   end
 
   describe 'cancelation' do

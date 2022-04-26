@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     put 'fulfil'
     put 'miss'
     put 'excuse'
+    put 'rebook'
   end
 
   get '/display_time_options' => 'appointments#display_time_options', as: 'display_time_options'

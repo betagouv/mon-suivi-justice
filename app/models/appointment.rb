@@ -89,6 +89,10 @@ class Appointment < ApplicationRecord
     notifications.find_by(role: :reschedule)
   end
 
+  def state_change_allowed?
+    %w[fulfiled no_show excused].include? state
+  end
+
   state_machine initial: :created do
     state :created do
     end
@@ -129,7 +133,7 @@ class Appointment < ApplicationRecord
     end
 
     event :rebook do
-      transition [:fulfiled, :no_show, :excused] => :booked
+      transition %i[fulfiled no_show excused] => :booked
     end
 
     after_transition do |appointment, transition|
@@ -180,6 +184,15 @@ class Appointment < ApplicationRecord
         send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
         appointment.no_show_notif&.send_now! if send_sms
       end
+    end
+
+    before_transition on: :rebook do |appointment, _|
+      previous_event = appointment.state_paths(from: :booked, to: appointment.state.to_sym)
+                                  .find { |a| a.length == 1 }.first.event.to_s
+
+      history_item = appointment.history_items.where(event: "#{previous_event}_appointment".to_sym)
+                                .order(created_at: :desc).first
+      history_item&.destroy
     end
   end
 end

@@ -210,6 +210,11 @@
   }
 }
 
+.show-appointment-change-state-link {
+  margin-left: 10px;
+  color: $link;
+}
+
 .jap-agendas-modal-trigger {
   @include button($light-grey);
 }
