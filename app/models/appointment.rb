@@ -89,10 +89,6 @@ class Appointment < ApplicationRecord
     notifications.find_by(role: :reschedule)
   end
 
-  def state_change_allowed?
-    %w[fulfiled no_show excused].include? state
-  end
-
   state_machine initial: :created do
     state :created do
     end

@@ -150,7 +150,7 @@
         </div>
         <div class='show-appointment-summon-item'>
           <%= @appointment.human_state_name %>
-          <% if @appointment.state_change_allowed? %>
+          <% if @appointment.can_rebook? %>
             <%= link_to t('edit'), appointment_rebook_path(@appointment), method: :put, class: 'show-appointment-change-state-link' %>
           <% end %>
         </div>
