@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe ConvictPolicy do
+describe ConvictInvitationPolicy do
   subject { ConvictInvitationPolicy.new(user, convict) }
 
   context 'for an admin not whitelisted' do
     let(:user) { build(:user, role: 'admin') }
     let(:convict) { build(:convict) }
 
-    it { is_expected.not_to permit_action(:create) }
+    it { is_expected.to permit_action(:create) }
   end
 
   context 'for an admin' do
@@ -15,6 +15,13 @@ describe ConvictPolicy do
     let(:convict) { build(:convict) }
 
     it { is_expected.to permit_action(:create) }
+  end
+
+  context 'for an local_admin not whitelisted' do
+    let(:user) { build(:user, role: 'local_admin') }
+    let(:convict) { build(:convict) }
+
+    it { is_expected.not_to permit_action(:create) }
   end
 
   context 'for a local_admin' do
