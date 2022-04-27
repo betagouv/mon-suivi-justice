@@ -21,6 +21,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:fulfil) }
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
+    it { is_expected.to permit_action(:rebook) }
     it { is_expected.to permit_action(:reschedule) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
@@ -40,6 +41,7 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:fulfil) }
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
+    it { is_expected.to permit_action(:rebook) }
     it { is_expected.to permit_action(:reschedule) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
@@ -65,6 +67,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -80,6 +83,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -95,6 +99,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -119,6 +124,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -134,6 +140,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -149,6 +156,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -173,6 +181,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -188,6 +197,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -203,6 +213,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -227,6 +238,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -242,6 +254,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
 
@@ -257,6 +270,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
   end
@@ -280,6 +294,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -295,6 +310,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -310,6 +326,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -334,6 +351,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -349,6 +367,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -364,6 +383,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -388,6 +408,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -403,6 +424,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -418,6 +440,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -442,6 +465,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -457,6 +481,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -472,6 +497,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -496,6 +522,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -511,6 +538,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -526,6 +554,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -550,6 +579,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -565,6 +595,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -580,6 +611,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -604,6 +636,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -619,6 +652,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -634,6 +668,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -658,6 +693,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -673,6 +709,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -688,6 +725,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -703,6 +741,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -727,6 +766,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -742,6 +782,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -757,6 +798,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -772,6 +814,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -796,6 +839,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -811,6 +855,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -826,6 +871,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -841,6 +887,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -865,6 +912,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -880,6 +928,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -895,6 +944,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -910,6 +960,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -934,6 +985,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -949,6 +1001,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -964,6 +1017,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -979,6 +1033,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end
@@ -1003,6 +1058,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -1018,6 +1074,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -1033,6 +1090,7 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
+      it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
     end
 
@@ -1048,6 +1106,7 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
       it { is_expected.to forbid_action(:reschedule) }
     end
   end

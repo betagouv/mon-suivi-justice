@@ -63,6 +63,10 @@ class AppointmentPolicy < ApplicationPolicy
     appointment_fulfilment
   end
 
+  def rebook?
+    appointment_fulfilment
+  end
+
   private
 
   def appointment_workflow

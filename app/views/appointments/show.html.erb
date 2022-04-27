@@ -144,12 +144,15 @@
         </div>
       <% end %>
 
-      <div class='show-appointment-summon-data'>
+      <div class='show-appointment-summon-data show-appointment-state-container'>
         <div class='show-appointment-summon-title'>
           <%= t('appointment_state') %>
         </div>
         <div class='show-appointment-summon-item'>
           <%= @appointment.human_state_name %>
+          <% if @appointment.can_rebook? %>
+            <%= link_to t('edit'), appointment_rebook_path(@appointment), method: :put, class: 'show-appointment-change-state-link' %>
+          <% end %>
         </div>
       </div>
     </div>
