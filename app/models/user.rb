@@ -3,6 +3,11 @@ class User < ApplicationRecord
 
   has_paper_trail
 
+  CAN_INVITE_TO_CONVICT_INTERFACE =
+    %w[bapt.nts@gmail.com damien.le-thiec@beta.gouv.fr alexia.chaslot@beta.gouv.fr
+       delphine.deneubourg@justice.fr johan.goncalves@beta.gouv
+       remy.maucourt@beta.gouv.fr].freeze
+
   belongs_to :organization
   has_many :convicts
 
@@ -70,5 +75,9 @@ class User < ApplicationRecord
 
   def profile_path
     Rails.application.routes.url_helpers.user_path(id)
+  end
+
+  def can_invite_to_convict_interface?
+    CAN_INVITE_TO_CONVICT_INTERFACE.include?(email)
   end
 end

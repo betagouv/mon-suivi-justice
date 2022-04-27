@@ -1,5 +1,5 @@
 class ConvictInvitationPolicy < ApplicationPolicy
   def create?
-    ((user.cpip? && record.cpip == user) || user.admin?) && record.invitable_to_convict_interface?
+    record.invitable_to_convict_interface? && user.can_invite_to_convict_interface?
   end
 end
