@@ -78,6 +78,6 @@ class User < ApplicationRecord
   end
 
   def can_invite_to_convict_interface?
-    CAN_INVITE_TO_CONVICT_INTERFACE.include?(email) || user.admin?
+    CAN_INVITE_TO_CONVICT_INTERFACE.include?(email) || admin?
   end
 end
