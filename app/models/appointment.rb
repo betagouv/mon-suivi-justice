@@ -128,12 +128,19 @@ class Appointment < ApplicationRecord
       transition booked: :excused
     end
 
+    event :rebook do
+      transition %i[fulfiled no_show excused] => :booked
+    end
+
     after_transition do |appointment, transition|
-      HistoryItemFactory.perform(
-        appointment: appointment,
-        event: "#{transition.event}_appointment".to_sym,
-        category: 'appointment'
-      )
+      event = "#{transition.event}_appointment".to_sym
+      if HistoryItem.validate_event(event) == true
+        HistoryItemFactory.perform(
+          appointment: appointment,
+          event: event,
+          category: 'appointment'
+        )
+      end
     end
 
     after_transition on: :book do |appointment, transition|
@@ -173,6 +180,15 @@ class Appointment < ApplicationRecord
         send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
         appointment.no_show_notif&.send_now! if send_sms
       end
+    end
+
+    before_transition on: :rebook do |appointment, _|
+      previous_event = appointment.state_paths(from: :booked, to: appointment.state.to_sym)
+                                  .find { |a| a.length == 1 }.first.event.to_s
+
+      history_item = appointment.history_items.where(event: "#{previous_event}_appointment".to_sym)
+                                .order(created_at: :desc).first
+      history_item&.destroy
     end
   end
 end

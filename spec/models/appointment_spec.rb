@@ -34,6 +34,7 @@ RSpec.describe Appointment, type: :model do
 
     it { is_expected.to transition_from :booked, to_state: :fulfiled, on_event: :fulfil }
     it { is_expected.to transition_from :booked, to_state: :excused, on_event: :excuse }
+    it { is_expected.to transition_from :excused, :fulfiled, :no_show, to_state: :booked, on_event: :rebook }
 
     it do
       allow(subject).to receive(:reminder_notif).and_return(create(:notification, state: 'programmed'))
