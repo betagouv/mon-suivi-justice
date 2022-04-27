@@ -17,6 +17,7 @@
     <% else %>
       <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
                                        method: :get,
+                                       params: {date: params[:date]},
                                        form: { target: '_blank' },
                                        class: 'bex-print-button' %>
     <% end %>
