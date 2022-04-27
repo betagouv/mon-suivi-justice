@@ -49,6 +49,10 @@ class Convict < ApplicationRecord
   }
 
   scope :with_phone, -> { where.not(phone: '') }
+  scope :never_invited, -> { where(invitation_to_convict_interface_count: 0) }
+  scope :with_past_appointments, (lambda do
+    joins(appointments: :slot).where(appointments: { slots: { date: ..Date.today } })
+  end)
 
   delegate :name, to: :cpip, allow_nil: true, prefix: true
 
@@ -89,7 +93,8 @@ class Convict < ApplicationRecord
   end
 
   def invitable_to_convict_interface?
-    invitation_to_convict_interface_count < 2 && timestamp_convict_interface_creation.nil?
+    phone.present? && invitation_to_convict_interface_count < 2 &&
+      timestamp_convict_interface_creation.nil?
   end
 
   def can_access_convict_inferface?
