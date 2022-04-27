@@ -297,7 +297,7 @@ RSpec.feature 'Convicts', type: :feature do
     it 'allow a cpip to invite a convict to his interface and displays the correct content' do
       logout_current_user
       @user = create_cpip_user_and_login
-      @user.update(email: "delphine.deneubourg@justice.fr")
+      @user.update(email: 'delphine.deneubourg@justice.fr')
       visit convict_path(@convict)
       expect(page).to have_content('Jamais invité')
       expect(page).to have_content("Aucun accès pour l'instant")
