@@ -135,7 +135,7 @@
             <%= t('.interface_invitation_state') %>
           </div>
           <div class='show-data-item'>
-            <%= t(".#{@convict.interface_invitation_state}") %>
+            <%= t(".#{@convict.interface_invitation_state}", last_invite: @convict.last_invite_to_convict_interface.present? ? l(@convict.last_invite_to_convict_interface, format: :clear) : nil) %>
           </div>
         </div>
 

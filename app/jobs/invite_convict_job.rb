@@ -8,5 +8,6 @@ class InviteConvictJob < ApplicationJob
 
     MonSuiviJusticePublicApi::Invitation.create(phone: @convict.phone, msj_id: @convict.id)
     @convict.increment!(:invitation_to_convict_interface_count)
+    @convict.update(last_invite_to_convict_interface: Time.zone.now)
   end
 end

@@ -21,8 +21,8 @@ fr:
       self_assign_link: S'attribuer cette PPSMJ
       interface_invitation_state: État de l'invitation
       accepted: Accepté
-      reinvited: Relancé
-      invited: Invité
+      reinvited: Relancé le %{last_invite}
+      invited: Invité le %{last_invite}
       not_invited: Jamais invité
       interface_access_timestamp: Date d'acceptation
       interface_no_access: Aucun accès pour l'instant
