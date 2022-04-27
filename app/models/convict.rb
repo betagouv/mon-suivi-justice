@@ -89,7 +89,7 @@ class Convict < ApplicationRecord
   end
 
   def invitable_to_convict_interface?
-    invitation_to_convict_interface_count < 3 && timestamp_convict_interface_creation.nil?
+    invitation_to_convict_interface_count < 2 && timestamp_convict_interface_creation.nil?
   end
 
   def can_access_convict_inferface?
