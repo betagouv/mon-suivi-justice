@@ -33,7 +33,7 @@ class BexController < ApplicationController
   private
 
   def current_date(appointment_type, params)
-    if params.key?(:date)
+    if params.key?(:date) && !params[:date].empty?
       params[:date].to_date
     elsif current_organization.first_day_with_slots(appointment_type).nil?
       Date.today
