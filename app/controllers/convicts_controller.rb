@@ -95,17 +95,20 @@ class ConvictsController < ApplicationController
   private
 
   def save_and_redirect(convict)
-    convict.duplicates ||= pre_existing_convicts
+    detect_duplicates(convict)
     force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
     render(:new) && return if convict.duplicates.any? && !force_duplication
 
     if convict.save
-      # Wil register the new convict in every department/juridiction of current_user's organization areas
       RegisterLegalAreas.for_convict convict, from: current_organization
       redirect_to select_path(params)
     else
       render :new
     end
+  end
+
+  def detect_duplicates(convict)
+    convict.duplicates ||= pre_existing_convicts
   end
 
   def pre_existing_convicts
