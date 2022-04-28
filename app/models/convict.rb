@@ -17,12 +17,12 @@ class Convict < ApplicationRecord
   alias_attribute :cpip, :user
   alias_attribute :agent, :user
 
-  attr_accessor :place_id
+  attr_accessor :place_id, :duplicates
 
   validates :appi_uuid, allow_blank: true, uniqueness: true
   validates :first_name, :last_name, :invitation_to_convict_interface_count, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
-  validates :phone, uniqueness: true, unless: proc { refused_phone? || no_phone? || phone_whitelisted? }
+  validate :phone_uniqueness
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
   #
@@ -90,5 +90,15 @@ class Convict < ApplicationRecord
 
   def invitable_to_convict_interface?
     invitation_to_convict_interface_count < 3
+  end
+
+  def phone_uniqueness
+    return if refused_phone? || no_phone? || phone_whitelisted?
+
+    self.duplicates = Convict.where(phone: phone).where.not(id: id)
+
+    return if duplicates.empty?
+
+    errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.taken')
   end
 end

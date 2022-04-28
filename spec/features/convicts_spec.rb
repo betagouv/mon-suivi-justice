@@ -115,7 +115,7 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
     end
 
-    describe 'with a pre-existing convict with the same name' do
+    describe 'with a potentially duplicated convict' do
       it 'shows a warning with link to pre-existing convict profile' do
         convict = create(:convict, first_name: 'roberta', last_name: 'dupond')
         create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
@@ -127,7 +127,7 @@ RSpec.feature 'Convicts', type: :feature do
         fill_in 'Téléphone', with: '0606060606'
         expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
 
-        expect(page).to have_content('Une PPSMJ existe déjà avec ce nom et prénom.')
+        expect(page).to have_content('Un doublon potentiel a été détecté :')
         expect(page).to have_link('Profil de DUPOND Roberta', href: convict_path(convict))
         expect(page).to have_content(
           "Merci de vérifier qu'il s'agit bien de deux personnes distinctes avant d'enregistrer ce nouveau profil."
@@ -154,6 +154,24 @@ RSpec.feature 'Convicts', type: :feature do
         )
 
         expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
+      end
+
+      it 'shows a warning when the phone number is already taken' do
+        convict = create(:convict, first_name: 'Robert', last_name: 'Dupond', phone: '+33606060606')
+        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+
+        visit new_convict_path
+
+        fill_in 'Prénom', with: 'Roberta'
+        fill_in 'Nom', with: 'Dupond'
+        fill_in 'Téléphone', with: '0606060606'
+        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
+
+        expect(page).to have_content('Un doublon potentiel a été détecté :')
+        expect(page).to have_link('Profil de DUPOND Robert', href: convict_path(convict))
+        expect(page).to have_content(
+          "Merci de vérifier qu'il s'agit bien de deux personnes distinctes avant d'enregistrer ce nouveau profil."
+        )
       end
     end
 

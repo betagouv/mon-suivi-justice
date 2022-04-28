@@ -23,10 +23,10 @@
                               wrapper_html: { class: 'form-checkbox-wrapper' } %>
 
 
-  <% if @duplicates&.any? %>
-    <% if policy_scope(@duplicates).empty? %>
+  <% if !@convict.duplicates.nil? %>
+    <% if policy_scope(@convict.duplicates).empty? %>
       <div class='new-convict-duplicate-warning'>
-        <% @duplicates.each do |duplicate| %>
+        <% @convict.duplicates.each do |duplicate| %>
           <% dep = duplicate.departments.first %>
           <p><%= t('new_convict_duplicate_warning3', name: dep.name, number: dep.number)%></p>
         <% end %>
@@ -34,8 +34,10 @@
     <% else %>
       <div class='new-convict-duplicate-warning'>
         <p><%= t('new_convict_duplicate_warning1')%></p>
-        <% @duplicates.each do |duplicate| %>
-          <div class='new-convict-duplicate-link'><%= link_to t('new_convict_duplicate_link', name: duplicate.name), convict_path(duplicate) %></div>
+        <% @convict.duplicates.each do |duplicate| %>
+          <div class='new-convict-duplicate-link'>
+            <%= link_to t('new_convict_duplicate_link', name: duplicate.name), convict_path(duplicate) %>
+          </div>
         <% end %>
         <p><%= t('new_convict_duplicate_warning2')%></p>
       </div>

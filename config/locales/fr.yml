@@ -327,7 +327,7 @@ fr:
   new_first_appointment_title: "Créneaux disponibles"
   new_convict_submit: "sans prendre RDV"
   new_convict_first_appointment: "et prendre RDV"
-  new_convict_duplicate_warning1: "Une PPSMJ existe déjà avec ce nom et prénom."
+  new_convict_duplicate_warning1: "Un doublon potentiel a été détecté :"
   new_convict_duplicate_link: "Profil de %{name}"
   new_convict_duplicate_warning2: "Merci de vérifier qu'il s'agit bien de deux personnes distinctes avant d'enregistrer ce nouveau profil."
   new_convict_duplicate_warning3: "Cette PPSMJ existe déjà dans le département %{name} (%{number}), merci de contacter le support."
