@@ -22,13 +22,12 @@
                               label_html: { class: 'form-checkbox-label' },
                               wrapper_html: { class: 'form-checkbox-wrapper' } %>
 
-
-  <% if !@convict.duplicates.nil? %>
+  <% if @convict.duplicates.present? %>
     <% if policy_scope(@convict.duplicates).empty? %>
       <div class='new-convict-duplicate-warning'>
         <% @convict.duplicates.each do |duplicate| %>
           <% dep = duplicate.departments.first %>
-          <p><%= t('new_convict_duplicate_warning3', name: dep.name, number: dep.number)%></p>
+          <p><%= t('new_convict_duplicate_warning5', name: dep.name, number: dep.number)%></p>
         <% end %>
       </div>
     <% else %>
@@ -39,7 +38,9 @@
             <%= link_to t('new_convict_duplicate_link', name: duplicate.name), convict_path(duplicate) %>
           </div>
         <% end %>
-        <p><%= t('new_convict_duplicate_warning2')%></p>
+        <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning2')%></p>
+        <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
+        <p><%= t('new_convict_duplicate_warning4')%></p>
       </div>
     <% end %>
 

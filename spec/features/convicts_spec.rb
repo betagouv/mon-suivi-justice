@@ -129,9 +129,6 @@ RSpec.feature 'Convicts', type: :feature do
 
         expect(page).to have_content('Un doublon potentiel a été détecté :')
         expect(page).to have_link('Profil de DUPOND Roberta', href: convict_path(convict))
-        expect(page).to have_content(
-          "Merci de vérifier qu'il s'agit bien de deux personnes distinctes avant d'enregistrer ce nouveau profil."
-        )
 
         expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
       end
@@ -169,9 +166,6 @@ RSpec.feature 'Convicts', type: :feature do
 
         expect(page).to have_content('Un doublon potentiel a été détecté :')
         expect(page).to have_link('Profil de DUPOND Robert', href: convict_path(convict))
-        expect(page).to have_content(
-          "Merci de vérifier qu'il s'agit bien de deux personnes distinctes avant d'enregistrer ce nouveau profil."
-        )
       end
     end
 
