@@ -155,9 +155,7 @@
 
       <div class='show-button-to-edit-container'>
         <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
-          <%= button_to t('.invite'), convict_invitation_path(@convict),
-                                      method: :post,
-                                      class: 'show-button-invite' %>
+          <%= button_to @convict.invitation_to_convict_interface_count == 1 ? t('.reinvite') : t('.invite'), convict_invitation_path(@convict), method: :post, class: 'show-button-invite' %>
         <% end %>
       </div>
     </div>

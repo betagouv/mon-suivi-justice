@@ -18,6 +18,7 @@ fr:
       self_assign_link: "S'attribuer cette PPSMJ"
     show:
       invite: Inviter à son espace
+      reinvite: Relancer l'invitation
       self_assign_link: S'attribuer cette PPSMJ
       interface_invitation_state: État de l'invitation
       accepted: Accepté
