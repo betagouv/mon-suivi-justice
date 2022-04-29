@@ -35,7 +35,7 @@
         <p><%= t('new_convict_duplicate_warning1')%></p>
         <% @convict.duplicates.each do |duplicate| %>
           <div class='new-convict-duplicate-link'>
-            <%= link_to t('new_convict_duplicate_link', name: duplicate.name), convict_path(duplicate) %>
+            <%= link_to t('new_convict_duplicate_link', name: duplicate.name), convict_path(duplicate), target: "_blank" %>
           </div>
         <% end %>
         <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning2')%></p>
