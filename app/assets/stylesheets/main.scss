@@ -24,3 +24,9 @@ body {
 .alert {
   background-color: $alert;
 }
+
+.fake-link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: $link;
+}

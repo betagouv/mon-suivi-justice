@@ -150,7 +150,13 @@
         </div>
         <div class='show-appointment-summon-item'>
           <%= @appointment.human_state_name %>
-          <% if @appointment.can_rebook? %>
+          <% if @appointment.can_rebook? && @appointment.no_show? %>
+            <%= content_tag(:span, t('edit'),
+                                   class: 'show-appointment-change-state-link fake-link',
+                                   data: { 'micromodal-trigger': "rebook-missed-appointment-modal-#{@appointment.id}" }) %>
+
+            <%= render 'rebook_missed_appointment_modal', apt: @appointment %>
+          <% elsif @appointment.can_rebook? %>
             <%= link_to t('edit'), appointment_rebook_path(@appointment), method: :put, class: 'show-appointment-change-state-link' %>
           <% end %>
         </div>

@@ -1,0 +1,17 @@
+<div class='modal micromodal-slide' id=<%="rebook-missed-appointment-modal-#{apt.id}"%> aria-hidden='true'>
+  <div class='modal__overlay' tabindex='-1' data-micromodal-close>
+    <div class='modal__container missed-appointment-modal-container' role='dialog' aria-modal='true' aria-labelledby='modal-1-title'>
+      <header class='modal__header'>
+        <h2 class="modal__title" id="modal-1-title"></h2>
+        <button class='modal__close' aria-label='Close modal' data-micromodal-close></button>
+      </header>
+      <div class=''><%= t('rebook_missed_appointment1') %></div><br/>
+      <div class=''><%= t('rebook_missed_appointment2') %></div>
+      <div class='appointment-fulfilment-controls-container'>
+        <%= button_to t('continue'), appointment_rebook_path(apt),
+                                     method: :put,
+                                     class: 'show-convict-fulfil-button' %>
+      </div>
+    </div>
+  </div>
+</div>

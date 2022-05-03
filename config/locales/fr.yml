@@ -229,6 +229,7 @@ fr:
   submit: "Enregistrer"
   cancel: "Annuler"
   reschedule: "Replanifier"
+  continue: "Continuer"
   search: "Recherche"
   filter: "Filtrer"
   see: "Voir"
@@ -439,6 +440,8 @@ fr:
   cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ, et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
   appointment-reschedule-title: 'Replanifier un rendez-vous'
   new-appointment-jap-agendas: "Liste agendas JAP"
+  rebook_missed_appointment1: "Si vous aviez marqué le rdv comme manqué, vous avez peut-être envoyé un SMS à la PPSMJ concernée. Vous pouvez le vérifier dans l'historique."
+  rebook_missed_appointment2: "Si besoin, merci de contacter cette personne pour clarifier la situation."
 
   bex_jap_agendas_title: "Agenda Sortie d'audience JAP pour le"
   bex_jap_agenda_header_hour: Heure
