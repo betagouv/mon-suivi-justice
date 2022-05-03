@@ -37,17 +37,24 @@ RSpec.describe Convict, type: :model do
     it 'denies a non-mobile phone' do
       expect(build(:convict, phone: '0561083731')).not_to be_valid
     end
-    it 'denies a phone already existing' do
-      create(:convict, phone: '0612458745')
-      expect(build(:convict, phone: '0612458745')).not_to be_valid
-    end
-    it 'accepts a phone already existing in the whitelist' do
-      create(:convict, phone: '0659763117')
-      expect(build(:convict, phone: '0659763117')).to be_valid
-    end
     it 'accepts multiples user with no-data for appi uuid' do
       create(:convict, appi_uuid: nil)
       expect(build(:convict, appi_uuid: nil)).to be_valid
+    end
+  end
+
+  describe 'phone_uniqueness' do
+    it 'denies a phone already existing' do
+      convict1 = create(:convict, phone: '0612458744')
+      convict2 = build(:convict, phone: '0612458744')
+
+      expect(convict2).not_to be_valid
+      expect(convict2.duplicates).to eq([convict1])
+    end
+
+    it 'accepts a phone already existing in the whitelist' do
+      create(:convict, phone: '0659763117')
+      expect(build(:convict, phone: '0659763117')).to be_valid
     end
   end
 

@@ -81,47 +81,6 @@ RSpec.feature 'Convicts', type: :feature do
   end
 
   describe 'creation' do
-    it 'creates a convicts with a phone number and a cpip and calls the job', js: true do
-      create(:user, first_name: 'Damien', last_name: 'LET', role: 'cpip')
-      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
-
-      visit new_convict_path
-
-      fill_in 'Prénom', with: 'Robert'
-      fill_in 'Nom', with: 'Durand'
-      fill_in 'Téléphone', with: '0606060606'
-      first('.select2-container', minimum: 1).click
-      find('li.select2-results__option', text: 'MAU Rémy').click
-
-      click_button 'submit-no-appointment'
-
-      expect(Convict.first.cpip).to eq(cpip)
-    end
-
-    it 'creates a convicts with a duplicate name' do
-      visit new_convict_path
-
-      fill_in 'Prénom', with: 'Robert'
-      fill_in 'Nom', with: 'Durand'
-      fill_in 'Téléphone', with: '0606060606'
-
-      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
-    end
-
-    it 'allows to create a convict without a phone number' do
-      create(:convict, first_name: 'roberta', last_name: 'dupond')
-      visit new_convict_path
-
-      fill_in 'Prénom', with: 'Roberta'
-      fill_in 'Nom', with: 'Dupond'
-      fill_in 'Téléphone', with: '0606060606'
-      expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
-      expect(page).to have_content(
-        'Une PPSMJ existe déjà avec ce nom et prénom. Êtes-vous sur(e) de vouloir enregistrer cette PPSMJ ?'
-      )
-      expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
-    end
-
     it 'creates a convict with his first appointment', js: true do
       appointment_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
       place = create :place, name: 'McDo de Clichy',
@@ -154,6 +113,77 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_button('Enregistrer')
       click_button 'Enregistrer'
       expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
+    end
+
+    describe 'with a potentially duplicated convict' do
+      it 'shows a warning with link to pre-existing convict profile' do
+        convict = create(:convict, first_name: 'roberta', last_name: 'dupond')
+        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+
+        visit new_convict_path
+
+        fill_in 'Prénom', with: 'Roberta'
+        fill_in 'Nom', with: 'Dupond'
+        fill_in 'Téléphone', with: '0606060606'
+        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
+
+        expect(page).to have_content('Un doublon potentiel a été détecté :')
+        expect(page).to have_link('Profil de DUPOND Roberta', href: convict_path(convict))
+
+        expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
+      end
+
+      it 'shows a generic warning if the pre-existing convict is outside of department' do
+        convict = create(:convict, first_name: 'Roberto', last_name: 'Durand')
+        department = create(:department, name: 'Sarthe', number: '72')
+        create :areas_convicts_mapping, convict: convict, area: department
+
+        visit new_convict_path
+
+        fill_in 'Prénom', with: 'Roberto'
+        fill_in 'Nom', with: 'Durand'
+        fill_in 'Téléphone', with: '0606060606'
+        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
+
+        expect(page).to have_content(
+          "Cette PPSMJ existe déjà dans le département #{department.name} (#{department.number})," \
+          ' merci de contacter le support.'
+        )
+
+        expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
+      end
+
+      it 'shows a warning when the phone number is already taken' do
+        convict = create(:convict, first_name: 'Robert', last_name: 'Dupond', phone: '+33606060606')
+        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+
+        visit new_convict_path
+
+        fill_in 'Prénom', with: 'Roberta'
+        fill_in 'Nom', with: 'Dupond'
+        fill_in 'Téléphone', with: '0606060606'
+        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
+
+        expect(page).to have_content('Un doublon potentiel a été détecté :')
+        expect(page).to have_link('Profil de DUPOND Robert', href: convict_path(convict))
+      end
+    end
+
+    it 'creates a convicts with a cpip relation', js: true do
+      create(:user, first_name: 'Damien', last_name: 'LET', role: 'cpip')
+      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
+
+      visit new_convict_path
+
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      fill_in 'Téléphone', with: '0606060606'
+      first('.select2-container', minimum: 1).click
+      find('li.select2-results__option', text: 'MAU Rémy').click
+
+      click_button 'submit-no-appointment'
+
+      expect(Convict.first.cpip).to eq(cpip)
     end
 
     it 'rataches a convict to user organization jurisdiction & department at creation' do

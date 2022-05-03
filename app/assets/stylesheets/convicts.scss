@@ -1,7 +1,7 @@
 .new-convict-duplicate-warning {
   margin-top: 10px;
-  border: 2px solid $important;
-  color: $important;
+  border: 2px solid $error;
+  color: $error;
   border-radius: 2px;
   padding: 10px;
   text-align: justify;
@@ -252,4 +252,14 @@
 
   text-transform: uppercase;
   font-weight: bold;
+}
+
+.new-convict-duplicate-link {
+  text-align: center;
+  margin: 10px 0;
+  a { color: $link; }
+}
+
+.new-convict-duplicate-explanation {
+  margin-bottom: 5px;
 }
