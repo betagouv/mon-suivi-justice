@@ -108,11 +108,11 @@ class ConvictsController < ApplicationController
   end
 
   def detect_duplicates(convict)
-    if convict.duplicates.present?
-      convict.duplicates.merge(pre_existing_convicts)
-    else
-      convict.duplicates = pre_existing_convicts
-    end
+    convict.duplicates = if convict.duplicates.present?
+                           convict.duplicates.merge(pre_existing_convicts)
+                         else
+                           pre_existing_convicts
+                         end
   end
 
   def pre_existing_convicts
