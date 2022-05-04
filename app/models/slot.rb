@@ -34,6 +34,7 @@ class Slot < ApplicationRecord
 
   scope :future, -> { where('date >= ?', Date.today) }
   scope :available, -> { where(available: true) }
+  scope :not_full, -> { where(full: false) }
 
   scope :in_department, lambda { |department|
     joins(agenda: { place: { organization: :areas_organizations_mappings } })

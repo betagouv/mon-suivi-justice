@@ -4,9 +4,9 @@ class SlotPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.admin?
-        scope.available
+        scope.available.not_full
       elsif ALLOWED_TO_EDIT.include? user.role
-        scope.available.in_organization(user.organization)
+        scope.available.not_full.in_organization(user.organization)
       end
     end
   end
