@@ -12,7 +12,7 @@
   <%= f.association :agenda, collection: Agenda.in_organization(current_user.organization).select(&:appointment_type_with_slot_types?),
                              label: t('activerecord.models.agenda'),
                              input_html: { class: 'form-select' } %>
-  <%= f.association :appointment_type, collection: AppointmentType.with_slot_types,
+  <%= f.association :appointment_type, collection: appointment_types_for_slot_creation(current_user),
                                        label: t('activerecord.models.appointment_type'),
                                        input_html: { class: 'form-select' } %>
   <%= f.input :date, input_html: { class: 'form-select' }, wrapper: :custom_date, start_year: Time.zone.now.year %>
