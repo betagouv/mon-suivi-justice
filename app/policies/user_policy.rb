@@ -10,7 +10,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    user.admin? || user.local_admin?
+    user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
   end
 
   def update?
@@ -22,10 +22,10 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin? || user.local_admin?
+    user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
   end
 
   def destroy?
-    user.admin? || user.local_admin?
+    user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
   end
 end
