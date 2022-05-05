@@ -154,8 +154,8 @@ class Appointment < ApplicationRecord
         if appointment.convict.phone?
           send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
           appointment.summon_notif.send_now! if send_sms
-          appointment.reminder_notif.program!
         end
+        appointment.reminder_notif.program!
       end
     end
 
