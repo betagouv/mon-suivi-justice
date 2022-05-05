@@ -1,0 +1,12 @@
+<div class='appointments-container'>
+<div class='index-sorting-tool-container'>
+  <div class='index-cards-wrapper'>
+    <% @appointments.each do |appointment| %>
+      <%= render '/appointments/appointment_card', appointment: appointment %>
+    <% end %>
+  </div>
+
+  <%= paginate @appointments %>
+</div>
+
+<%= javascript_pack_tag 'appointment_index' %>
