@@ -151,10 +151,9 @@ class Appointment < ApplicationRecord
 
       appointment.transaction do
         NotificationFactory.perform(appointment)
-        if appointment.convict.phone?
-          send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
-          appointment.summon_notif.send_now! if send_sms
-        end
+
+        send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
+        appointment.summon_notif.send_now! if send_sms
         appointment.reminder_notif.program!
       end
     end
@@ -169,17 +168,13 @@ class Appointment < ApplicationRecord
         appointment.reminder_notif.cancel!
       end
 
-      if appointment.convict.phone?
-        send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
-        appointment.cancelation_notif.send_now! if send_sms
-      end
+      send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
+      appointment.cancelation_notif.send_now! if send_sms
     end
 
     after_transition on: :miss do |appointment, transition|
-      if appointment.convict.phone?
-        send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
-        appointment.no_show_notif&.send_now! if send_sms
-      end
+      send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
+      appointment.no_show_notif&.send_now! if send_sms
     end
 
     before_transition on: :rebook do |appointment, _|
