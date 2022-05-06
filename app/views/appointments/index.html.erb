@@ -34,10 +34,12 @@
 
   <div class='index-header-controls-container'>
     <div class="index-header-controls-appointments-buttons-wrapper">
-      <% if current_user.cpip? %>
-        <%= button_to t('my_appointments_title'), user_appointments_path,
-                      class: 'link-to-my-appointments-button',
-                      method: :get %>
+      <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+        <% if current_user.cpip? %>
+          <%= button_to t('my_appointments_title'), user_appointments_path,
+                        class: 'link-to-my-appointments-button',
+                        method: :get %>
+        <% end %>
       <% end %>
 
       <% if policy(:appointment).new? %>
