@@ -6,32 +6,39 @@ RSpec.feature 'Users::Appointments', type: :feature do
   end
 
   describe 'index' do
-    before do
+    it 'displays user appointments' do
       place = create :place, organization: @user.organization
-      @agenda = create :agenda, place: place
+      agenda = create :agenda, place: place
 
-      @slot1 = create(:slot, :without_validations, agenda: @agenda,
-                                                   date: Date.civil(2025, 4, 14),
-                                                   starting_time: new_time_for(13, 0))
-      slot2 = create(:slot, agenda: @agenda,
+      user2 = create(:user, role: :cpip, organization: @user.organization)
+
+      slot1 = create(:slot, agenda: agenda,
+                            date: Date.civil(2025, 4, 14),
+                            starting_time: new_time_for(13, 0))
+
+      slot2 = create(:slot, agenda: agenda,
                             date: Date.civil(2025, 4, 16),
                             starting_time: new_time_for(15, 30))
+
+      slot3 = create(:slot, agenda: agenda,
+                            date: Date.civil(2025, 4, 18),
+                            starting_time: new_time_for(17, 30))
+
       convict = create(:convict, user: @user)
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-
-      @appointment1 = create(:appointment, :with_notifications, convict: convict, slot: @slot1)
+      convict2 = create(:convict, user: user2)
+      create(:appointment, convict: convict, slot: slot1)
       create(:appointment, convict: convict, slot: slot2)
-    end
+      create(:appointment, convict: convict2, slot: slot3)
 
-    it 'displays user appointments' do
       visit user_appointments_path
 
       expect(page).to have_selector('.index-card-container', count: 2)
-
       expect(page).to have_content(Date.civil(2025, 4, 14))
       expect(page).to have_content('13:00')
       expect(page).to have_content(Date.civil(2025, 4, 16))
       expect(page).to have_content('15:30')
+      expect(page).not_to have_content(Date.civil(2025, 4, 18))
+      expect(page).not_to have_content('17:30')
     end
   end
 end
