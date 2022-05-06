@@ -1,0 +1,13 @@
+<h1 class="show-title"><%=  t('my_appointments_title') %></h1>
+
+<div class='appointments-container'>
+  <div class='index-cards-wrapper'>
+    <% @appointments.each do |appointment| %>
+      <%= render '/appointments/appointment_card', appointment: appointment %>
+    <% end %>
+  </div>
+
+  <%= paginate @appointments %>
+</div>
+
+<%= javascript_pack_tag 'appointment_index' %>

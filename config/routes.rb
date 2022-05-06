@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   end
 
   resources :organizations
-  resources :users
+  resources :users 
+
+  resource :user do
+    resources :appointments, only: [:index], controller: 'users/appointments'
+  end
+
   resources :places
   resources :convicts do
     delete 'archive'
