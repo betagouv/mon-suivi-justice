@@ -35,13 +35,12 @@
   padding-left: 30px;
 }
 
-.link-to-new-appointment-form {
-  text-align: right;
-  margin-bottom: 10px;
-}
-
 .link-to-new-appointment-button {
   @include button($light-blue);
+}
+
+.link-to-my-appointments-button {
+  @include button($light-grey);
 }
 
 .link-to-today-appointment-button {
@@ -235,21 +234,21 @@
 }
 
 .index-appointments-fulfil-button {
-  @include button($light-green)
+  @include button($light-green);
   font-size: 1.1em;
   margin-left: 10px;
   padding: .4em .8em;
 }
 
 .index-appointments-miss-button {
-  @include button($light-red)
+  @include button($light-red);
   font-size: 1.1em;
   margin-left: 10px;
   padding: .4em .8em;
 }
 
 .index-appointments-excuse-button {
-  @include button($light-grey)
+  @include button($light-grey);
   font-size: 1.1em;
   margin-left: 10px;
   padding: .4em .8em;
@@ -272,4 +271,8 @@
 .appointment-form-cpip-input-label {
   display: flex;
   align-items: center;
+}
+
+.users-appointments-title {
+  margin: 10px;
 }

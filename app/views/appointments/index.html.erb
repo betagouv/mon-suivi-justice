@@ -33,13 +33,19 @@
   </div>
 
   <div class='index-header-controls-container'>
-    <% if policy(:appointment).new? %>
-      <%= button_to t('new_appointment_title'), new_appointment_path,
-                                                class: 'link-to-new-appointment-button',
-                                                form_class: 'link-to-new-appointment-form',
-                                                method: :get %>
-    <% end %>
+    <div class="index-header-controls-appointments-buttons-wrapper">
+      <% if current_user.cpip? %>
+        <%= button_to t('my_appointments_title'), user_appointments_path,
+                      class: 'link-to-my-appointments-button',
+                      method: :get %>
+      <% end %>
 
+      <% if policy(:appointment).new? %>
+        <%= button_to t('new_appointment_title'), new_appointment_path,
+                                                  class: 'link-to-new-appointment-button',
+                                                  method: :get %>
+      <% end %>
+    </div>
     <% if ENV['APP'] == 'mon-suivi-justice-prod' %>
       <%= button_to t('print_button'), 'fake_link',
                                         class: 'bex-print-button',

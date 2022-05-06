@@ -66,6 +66,15 @@
   padding: 10px 0;
 }
 
+.index-header-controls-appointments-buttons-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  form {
+    margin-left: 10px;
+  }
+}
+
 .index-table-container {
   margin-top: 110px;
   width: calc(100vw - #{$sidebar-width});

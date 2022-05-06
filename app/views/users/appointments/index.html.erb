@@ -1,5 +1,6 @@
+<h1 class="users-appointments-title"><%=  t('my_appointments_title') %></h1>
+
 <div class='appointments-container'>
-<div class='index-sorting-tool-container'>
   <div class='index-cards-wrapper'>
     <% @appointments.each do |appointment| %>
       <%= render '/appointments/appointment_card', appointment: appointment %>
