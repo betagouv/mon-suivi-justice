@@ -6,17 +6,8 @@ RSpec.describe SmsDeliveryJob, type: :job do
   let(:notification) { create :notification, appointment: appointment }
 
   context 'with a phone number' do
-    describe '#perform_later' do
-      let(:tested_method) { SmsDeliveryJob.perform_later(notification) }
-
-      it 'queues the job' do
-        tested_method
-        expect(SmsDeliveryJob).to have_been_enqueued.once.with(notification)
-      end
-    end
-
     describe '#perform' do
-      let(:tested_method) { SmsDeliveryJob.new.perform(notification) }
+      let(:tested_method) { SmsDeliveryJob.perform_now(notification) }
       let(:adapter_dbl) { instance_double SendinblueAdapter, send_sms: true }
 
       before do
@@ -39,29 +30,17 @@ RSpec.describe SmsDeliveryJob, type: :job do
   end
 
   context 'without a phone number' do
-    before do
-      convict.update(phone: '')
-    end
-
-    describe '#perform_later' do
-      let(:tested_method) { SmsDeliveryJob.perform_later(notification) }
-
-      it 'queues the job' do
-        tested_method
-        expect(SmsDeliveryJob).to have_been_enqueued.once.with(notification)
-      end
-    end
-
     describe '#perform' do
-      let(:tested_method) { SmsDeliveryJob.new.perform(notification) }
+      let(:tested_method) { SmsDeliveryJob.perform_now(notification) }
       let(:adapter_dbl) { instance_double SendinblueAdapter, send_sms: true }
 
       before do
+        convict.update(phone: '')
         allow(SendinblueAdapter).to receive(:new).and_return adapter_dbl
         tested_method
       end
 
-      it 'instantiates SendinblueAdapter' do
+      it "don't instantiates SendinblueAdapter" do
         expect(SendinblueAdapter).not_to have_received(:new)
       end
 

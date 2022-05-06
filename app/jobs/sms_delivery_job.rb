@@ -5,7 +5,7 @@ class SmsDeliveryJob < ApplicationJob
 
   def perform(notification)
     return if notification.canceled?
-    return if notification.appointment.convict.phone.empty?
+    return if notification.convict_phone.empty?
 
     notification.send_then if notification.programmed?
 
