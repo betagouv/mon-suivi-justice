@@ -20,7 +20,7 @@ RSpec.describe SmsDeliveryJob, type: :job do
       end
 
       it 'send sms' do
-        expect(adapter_dbl).to have_received(:send_sms).once.with(notification, {resent: false})
+        expect(adapter_dbl).to have_received(:send_sms).once.with(notification, { resent: false })
       end
 
       it 'get sms events' do
