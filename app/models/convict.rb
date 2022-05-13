@@ -3,6 +3,8 @@ class Convict < ApplicationRecord
   include Discard::Model
   has_paper_trail
 
+  after_destroy :destroy_convict_interface
+
   WHITELISTED_PHONES = %w[+33659763117 +33683481555 +33682356466 +33603371085
                           +33687934479 +33674426177 +33616430756 +33613254126].freeze
 
@@ -117,5 +119,9 @@ class Convict < ApplicationRecord
     return if duplicates.empty?
 
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.taken')
+  end
+
+  def destroy_convict_interface
+    DestroyConvictInterfaceJob.perform_now(id)
   end
 end
