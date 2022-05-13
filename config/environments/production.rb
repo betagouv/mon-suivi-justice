@@ -136,3 +136,5 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 end
+
+Rails.application.default_url_options = { host: ENV['HOST_URL'] }

@@ -1,4 +1,6 @@
 class SendinblueAdapter
+  include Rails.application.routes.url_helpers
+
   def initialize
     SibApiV3Sdk.configure do |config|
       config.api_key['api-key'] = ENV['SIB_API_KEY']
@@ -8,20 +10,22 @@ class SendinblueAdapter
     @client = SibApiV3Sdk::TransactionalSMSApi.new
   end
 
-  def send_sms(notification)
-    sms_data = format_data(notification)
+  def send_sms(notification, resent: false)
+    sms_data = format_data(notification, resent)
     sms = SibApiV3Sdk::SendTransacSms.new(sms_data)
 
     result = @client.send_transac_sms(sms)
     notification.update(external_id: result.message_id)
   end
 
-  def format_data(notification)
-    {
-      sender: ENV['SMS_SENDER'],
-      recipient: notification.appointment.convict.phone,
-      content: notification.content
-    }
+  def format_data(notification, resent)
+    if resent
+      { sender: ENV['SMS_SENDER'], recipient: notification.appointment.convict.phone,
+        content: notification.content }
+    else
+      { sender: ENV['SMS_SENDER'], recipient: notification.appointment.convict.phone,
+        content: notification.content, webUrl: sms_webhook_url }
+    end
   end
 
   def get_sms_status(notification)

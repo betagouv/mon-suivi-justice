@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :organizations
-  resources :users 
+  resources :users
 
   resource :user do
     resources :appointments, only: [:index], controller: 'users/appointments'
@@ -87,6 +87,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  post :sms_webhook, to: "convicts/sms_webhooks#receive"
 
   match '/404' => 'errors#not_found', via: :all
   match '/422' => 'errors#unprocessable_entity', via: :all

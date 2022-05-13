@@ -51,7 +51,7 @@ RSpec.describe SendinblueAdapter do
         content: 'Bonjour'
       }
 
-      result = SendinblueAdapter.new.format_data(notif)
+      result = SendinblueAdapter.new.format_data(notif, {resent: false})
 
       expect(result).to eq(expected)
     end

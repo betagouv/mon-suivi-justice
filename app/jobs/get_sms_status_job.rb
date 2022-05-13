@@ -9,5 +9,6 @@ class GetSmsStatusJob < ApplicationJob
     return if %w[received failed].include?(notification.state)
 
     SendinblueAdapter.new.get_sms_status(notification)
+    GetSmsStatusJob.set(wait: 10.minutes).perform_later(notification.id)
   end
 end
