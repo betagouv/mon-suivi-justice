@@ -6,6 +6,8 @@ class Notification < ApplicationRecord
 
   attr_readonly :content
 
+  delegate :convict_phone, to: :appointment
+
   enum role: %i[summon reminder cancelation no_show reschedule]
   enum reminder_period: %i[one_day two_days]
 

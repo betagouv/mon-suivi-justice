@@ -70,7 +70,7 @@
                 </div>
                 <div class='bex-agenda-column'>
                   <% unless appointments[i].nil? %>
-                    <%= link_to convict_path(appointments[i]&.convict), class: 'index-control', target: "_blank" do %>
+                    <%= link_to convict_path(appointments[i]&.convict), class: 'index-control' do %>
                       <%= appointments[i]&.convict&.last_name&.upcase %>
                     <% end %>
                   <% end %>
