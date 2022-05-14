@@ -17,6 +17,7 @@ class Appointment < ApplicationRecord
   delegate :name, :adress, :phone, :contact_email, :main_contact_method,
            to: :place, prefix: true
   delegate :name, to: :organization, prefix: true
+  delegate :phone, to: :convict, prefix: true
 
   attr_accessor :place_id, :agenda_id, :user_is_cpip
 
@@ -151,11 +152,8 @@ class Appointment < ApplicationRecord
 
       appointment.transaction do
         NotificationFactory.perform(appointment)
-        if appointment.convict.phone?
-          send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
-          appointment.summon_notif.send_now! if send_sms
-          appointment.reminder_notif.program!
-        end
+        appointment.summon_notif.send_now! if send_sms?(transition)
+        appointment.reminder_notif.program!
       end
     end
 
@@ -169,17 +167,11 @@ class Appointment < ApplicationRecord
         appointment.reminder_notif.cancel!
       end
 
-      if appointment.convict.phone?
-        send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
-        appointment.cancelation_notif.send_now! if send_sms
-      end
+      appointment.cancelation_notif.send_now! if send_sms?(transition)
     end
 
     after_transition on: :miss do |appointment, transition|
-      if appointment.convict.phone?
-        send_sms = ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
-        appointment.no_show_notif&.send_now! if send_sms
-      end
+      appointment.no_show_notif&.send_now! if send_sms?(transition)
     end
 
     before_transition on: :rebook do |appointment, _|
@@ -189,6 +181,11 @@ class Appointment < ApplicationRecord
       history_item = appointment.history_items.where(event: "#{previous_event}_appointment".to_sym)
                                 .order(created_at: :desc).first
       history_item&.destroy
+    end
+
+    def send_sms?(transition)
+      # user can chose to send sms or not, this generates a boolean from a transition parameter
+      ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
     end
   end
 end

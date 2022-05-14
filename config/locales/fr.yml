@@ -341,7 +341,7 @@ fr:
   new_convict_duplicate_warning1: "Un doublon potentiel a été détecté :"
   new_convict_duplicate_link: "Profil de %{name}"
   new_convict_duplicate_warning2: "- Si le numéro de téléphone est déjà pris, vous ne pourrez pas enregistrer cette PPSMJ : le numéro de téléphone doit être unique."
-  new_convict_duplicate_warning3: "- Si le nom existe déjà, merci de vérifier qu'il s'agit bien de deux personnes distinctes avant d'enregistrer ce nouveau profil."
+  new_convict_duplicate_warning3: "- Si le nom/prénom existe déjà, merci de vérifier qu'il s'agit bien de deux personnes distinctes avant d'enregistrer ce nouveau profil."
   new_convict_duplicate_warning4: "N'hésitez pas à contacter le support en cas de problème."
   new_convict_duplicate_warning5: "Cette PPSMJ existe déjà dans le département %{name} (%{number}), merci de contacter le support."
   edit_convict_title: "Modifier PPSMJ"

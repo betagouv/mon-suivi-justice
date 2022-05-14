@@ -48,21 +48,21 @@
     <% end %>
 
     <h2 class='convict-secondary-title'><%= t('edit_convict_jurisdiction_title') %></h2>
-    <%= simple_form_for AreasConvictsMapping.new, html: { id: 'jurisdiction-form', class: 'single-line-form' } do |f| %>
-      <% @convict.jurisdictions.order(:name).each do |jurisdiction|%>
-        <p class='convict-attachment'>
-          <%= jurisdiction.name %>
-          <% if @convict.jurisdictions.count > 1 %>
-            <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: jurisdiction, convict: @convict)),
-                                    method: :delete,
-                                    class: 'convict-attachment-delete' %>
-          <% end %>
-        </p>
+    <% @convict.jurisdictions.order(:name).each do |jurisdiction|%>
+    <p class='convict-attachment'>
+      <%= jurisdiction.name %>
+      <% if @convict.jurisdictions.count > 1 %>
+      <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: jurisdiction, convict: @convict)),
+      method: :delete,
+      class: 'convict-attachment-delete' %>
       <% end %>
+    </p>
+    <% end %>
+    <%= simple_form_for AreasConvictsMapping.new, html: { id: 'jurisdiction-form', class: 'single-line-form' } do |f| %>
       <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id } %>
       <%= f.input :area_type, as: :hidden, input_html: { value: 'Jurisdiction' } %>
       <%= f.input :area_id, collection: Jurisdiction.order(:name),
-                            label: t('edit_convict_department'),
+                            label: t('edit_convict_jurisdiction'),
                             wrapper_html: {class: 'single-line-input'},
                             input_html: {class: 'form-select'} %>
       <%= f.button :submit, t('add'), class: 'form-submit-button convict-attachment-submit' %>
