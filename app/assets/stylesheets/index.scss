@@ -31,6 +31,7 @@
   padding: 10px;
   margin-right: 10px;
   border: 1px solid $table-border;
+  color: grey;
 }
 
 .index-header-filter-field {
@@ -40,9 +41,13 @@
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid $table-border;
-
   background-color: $main-background;
   color: grey;
+}
+
+.in-use {
+  border-color: #92dff3 !important;
+  border-width: medium !important;
 }
 
 .index-header-filters-button-container {
@@ -70,6 +75,14 @@
   display: flex;
   flex-direction: row;
   margin-bottom: 10px;
+  form {
+    margin-left: 10px;
+  }
+}
+
+.index-header-controls-filter-buttons-wrapper {
+  display: flex;
+  flex-direction: row;
   form {
     margin-left: 10px;
   }

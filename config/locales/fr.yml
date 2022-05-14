@@ -427,6 +427,7 @@ fr:
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-agenda-filter: "Agenda"
   index-appointment-reinit-filter: "RDV du jour"
+  index-appointment-clear-filters: "Supprimer les filtres"
   index-appointment-see-data: "Voir les infos"
   index-appointment-state: "Statut :"
   index-appointment-state-pdf: "Statut"
