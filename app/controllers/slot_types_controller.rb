@@ -26,7 +26,10 @@ class SlotTypesController < ApplicationController
   end
 
   def create
+    t = Time.now.change({ hour: slot_type_params["starting_time(4i)"].to_i, min: slot_type_params["starting_time(5i)"].to_i })    
+
     slot_type = SlotType.new slot_type_params
+    slot_type.starting_time = t
     authorize slot_type
     flash[:alert] = slot_type.errors.map(&:message).join(' - ') unless slot_type.save
     redirect_to agenda_slot_types_path slot_type.agenda, appointment_type_id: slot_type.appointment_type_id
