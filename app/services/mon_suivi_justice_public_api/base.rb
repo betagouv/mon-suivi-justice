@@ -18,7 +18,7 @@ module MonSuiviJusticePublicApi
         when 404
           nil
         else
-          raise "Error while fetching data from #{CONNECTOR} API"
+          raise "Error while fetching data from #{BASE_URL} API"
         end
       end
     end
