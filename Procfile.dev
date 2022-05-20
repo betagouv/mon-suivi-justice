@@ -1,2 +1,2 @@
-web: rails s
+web: rails s -p 3001
 worker: bundle exec sidekiq
