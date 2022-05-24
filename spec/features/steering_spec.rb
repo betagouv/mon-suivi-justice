@@ -17,7 +17,7 @@ RSpec.feature 'Steering', type: :feature do
 
       visit steering_convict_app_path
 
-      expect(page).to have_content('Total PPSMJ invitées')
+      expect(page).to have_content('PPSMJ invitées')
     end
   end
 end
