@@ -1,0 +1,13 @@
+<div class='steering-header-container'>
+  <%= link_to steering_user_app_path, class: 'steering-header-link-container' do %>
+    <div class="steering-header-link <%= 'steering-header-link-active' if current_page?(controller: 'steerings', action: 'user_app_stats') %>">
+      <%= t('stats.user_app') %>
+    </div>
+  <% end %>
+
+  <%= link_to steering_convict_app_path, class: 'steering-header-link-container' do %>
+    <div class="steering-header-link <%= 'steering-header-link-active' if current_page?(controller: 'steerings', action: 'convict_app_stats') %>">
+      <%= t('stats.convict_app') %>
+    </div>
+  <% end %>
+</div>

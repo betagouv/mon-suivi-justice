@@ -291,6 +291,8 @@ fr:
     modal_thanks: "Merci de nous aider à améliorer Mon Suivi Justice."
 
   stats:
+    user_app: "Stats App agents"
+    convict_app: "Stats App PPSMJ"
     steering_title: "Global"
     of_which: "dont"
     that_is: "soit"
@@ -311,6 +313,9 @@ fr:
     convicts_with_phone: "Total PPSMJ avec numéro de téléphone"
     users: "Total agents utilisateurs"
     notifications: "Total SMS envoyés"
+    invites: "PPSMJ invitées"
+    reminder: "dont PPSMJ relancées"
+    account_created: "Comptes créés"
 
   pdf:
     appointments:

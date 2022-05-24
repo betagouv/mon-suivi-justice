@@ -61,8 +61,8 @@
     <% end %>
   <% end %>
 
-  <% if policy(:steering).show? %>
-    <%= link_to steering_path, class: 'sidebar-item-link' do %>
+  <% if policy(:steering).user_app_stats? %>
+    <%= link_to steering_user_app_path, class: 'sidebar-item-link' do %>
       <div class="sidebar-item <%= active_class_if_controller('steerings') %>">
         <%= t('sidebar.steering') %>
       </div>
