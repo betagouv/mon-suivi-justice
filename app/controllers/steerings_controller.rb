@@ -15,8 +15,8 @@ class SteeringsController < ApplicationController
   def convict_app_stats
     authorize :steering, :convict_app_stats?
 
-    @invites = Convict.where(invitation_to_convict_interface_count: ..1).count
-    @reminder = Convict.where(invitation_to_convict_interface_count: ..2).count
+    @invites = Convict.where(invitation_to_convict_interface_count: 1..).count
+    @reminder = Convict.where(invitation_to_convict_interface_count: 2..).count
     @account_created = Convict.where.not(timestamp_convict_interface_creation: nil).count
   end
 end
