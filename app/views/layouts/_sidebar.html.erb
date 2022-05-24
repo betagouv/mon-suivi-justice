@@ -14,7 +14,7 @@
   <% end %>
 
   <% if policy(:appointment).index? %>
-    <%= link_to appointments_path, class: 'sidebar-item-link' do %>
+    <%= link_to appointments_path({ q: {slot_date_eq: Date.today.to_s }}), class: 'sidebar-item-link' do %>
       <div class="sidebar-item <%= active_class_if_controller(['appointments', 'bex']) %>">
         <%= t('sidebar.appointments') %>
       </div>
