@@ -6,7 +6,8 @@ class User < ApplicationRecord
   CAN_INVITE_TO_CONVICT_INTERFACE =
     %w[bapt.nts@gmail.com charles.marcoin@beta.gouv.fr alexia.chaslot@beta.gouv.fr
        delphine.deneubourg@justice.fr johan.goncalves@beta.gouv remy.maucourt@beta.gouv.fr
-       melanie.plassais@justice.fr clement.roulet@justice.fr abel.diouf@justice.fr].freeze
+       melanie.plassais@justice.fr clement.roulet@justice.fr abel.diouf@justice.fr
+       anne-sophie.genet@justice.fr anna.grinsnir@justice.fr pauline.guilloton@justice.fr].freeze
 
   belongs_to :organization
   has_many :convicts
