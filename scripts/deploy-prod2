@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+set -e
+
+readarray -t COMMIT_LIST <<< "$(git --no-pager log -10 --oneline --no-decorate --abbrev-commit)"
+
+echo ""
+echo "These commits are waiting to be deployed to production :"
+echo ""
+
+for key in "${!COMMIT_LIST[@]}"
+do
+  echo "[$key] ${COMMIT_LIST[$key]}"
+done
+
+echo ""
+read -r -p "To deploy them all, type 'all', to select commits to deploy type 'partial'"$'\n' choice
+
+
+if [ $choice = "all" ]
+then
+  echo "Deploying all to production"
+fi
+
+if [ $choice = "partial" ]
+then
+  read -r -p "Type the index of commits to deploy (ex: '1 4 5 7')"$'\n' -a selection
+
+  for i in ${selection[@]}
+  do
+     echo ${COMMIT_LIST[$i]}
+  done
+fi
+
+
+# echo ""
+# git --no-pager log -10 --oneline --no-decorate --abbrev-commit
+
+# echo "${COMMIT_LIST[@]}"
+# printf '%s\n' "${COMMIT_LIST[@]}"
+
+# case "$choice" in
+#   all ) echo "yes";;
+#   n|N ) echo "no";;
+#   * ) echo "invalid";;
+# esac
