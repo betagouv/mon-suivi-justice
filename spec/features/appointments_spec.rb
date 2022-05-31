@@ -17,11 +17,17 @@ RSpec.feature 'Appointments', type: :feature do
       slot2 = create(:slot, agenda: @agenda,
                             date: Date.civil(2025, 4, 16),
                             starting_time: new_time_for(15, 30))
+
+      slot3 = create(:slot, agenda: @agenda,
+                            date: Date.today,
+                            starting_time: new_time_for(14, 30))
+
       convict = create(:convict)
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
       @appointment1 = create(:appointment, :with_notifications, convict: convict, slot: @slot1)
       create(:appointment, convict: convict, slot: slot2)
+      create(:appointment, convict: convict, slot: slot3)
     end
 
     it 'display all appointments' do
@@ -31,6 +37,15 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_content('13:00')
       expect(page).to have_content(Date.civil(2025, 4, 16))
       expect(page).to have_content('15:30')
+      expect(page).to have_content(Date.today)
+      expect(page).to have_content('14:30')
+    end
+
+    it 'can display today\'s appointments using a query string' do
+      visit appointments_path({ q: { slot_date_eq: Date.today.to_s } })
+
+      expect(page).to have_content(Date.today)
+      expect(page).to have_content('14:30')
     end
 
     it 'allows to filter appointments' do

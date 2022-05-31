@@ -125,7 +125,7 @@
   </div>
 </div>
 
-<% unless ENV['APP'] == 'mon-suivi-justice-prod' %>
+<% if ENV['APP'] != 'mon-suivi-justice-prod' || current_user.can_invite_to_convict_interface? %>
   <div class="show-ppsmj-container">
     <h3 class="mb-20px text-center">Espace PPSMJ</h3>
     <div class='d-flex'>

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :organizations
-  resources :users 
+  resources :users
 
   resource :user do
     resources :appointments, only: [:index], controller: 'users/appointments'
@@ -69,6 +69,9 @@ Rails.application.routes.draw do
   end
 
   resource :steering, only: :show
+
+  get '/steering_user_app' => 'steerings#user_app_stats', as: 'steering_user_app'
+  get '/steering_convict_app' => 'steerings#convict_app_stats', as: 'steering_convict_app'
 
   unauthenticated do
     devise_scope :user do
