@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_27_203023) do
+ActiveRecord::Schema.define(version: 2022_05_31_131636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,7 +156,9 @@ ActiveRecord::Schema.define(version: 2022_04_27_203023) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "reminder_period", default: 0
+    t.bigint "organization_id"
     t.index ["appointment_type_id"], name: "index_notification_types_on_appointment_type_id"
+    t.index ["organization_id"], name: "index_notification_types_on_organization_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -298,6 +300,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_203023) do
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
   add_foreign_key "notification_types", "appointment_types"
+  add_foreign_key "notification_types", "organizations"
   add_foreign_key "notifications", "appointments"
   add_foreign_key "places", "organizations"
   add_foreign_key "previous_passwords", "users"

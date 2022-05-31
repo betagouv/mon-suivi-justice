@@ -2,6 +2,7 @@ class NotificationType < ApplicationRecord
   has_paper_trail
 
   belongs_to :appointment_type
+  belongs_to :organization, optional: true
   validates :template, presence: true
   validate :template_format
 
