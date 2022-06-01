@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   belongs_to :organization
   has_many :convicts
+  has_many :appointments
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :trackable and :omniauthable

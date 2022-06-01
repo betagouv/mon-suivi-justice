@@ -42,13 +42,18 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(appointment_params)
+
+    if (%w(cpip psychologist overseer).include? current_user.role) && @appointment.slot&.appointment_type&.assignable_to_cpip?
+      @appointment.user = current_user
+    end
+
     authorize @appointment
     if @appointment.save
       @appointment.convict.update(user: current_user) if params.dig(:appointment, :user_is_cpip) == '1'
       @appointment.book(send_notification: params[:send_sms])
       redirect_to appointment_path(@appointment)
     else
-      @appointment.errors.each { |error| flash[:alert] = error.message }
+      puts @appointment.errors.full_messages
       render :new
     end
   end

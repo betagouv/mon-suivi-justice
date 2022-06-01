@@ -53,6 +53,10 @@ class AppointmentType < ApplicationRecord
     ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
   end
 
+  def assignable_to_cpip?
+    ['1er RDV SPIP', 'RDV de suivi SPIP', 'RDV DDSE', 'RDV téléphonique', 'Visite à domicile'].include? name
+  end
+
   def with_slot_types?
     WITH_SLOT_TYPES.include? name
   end
