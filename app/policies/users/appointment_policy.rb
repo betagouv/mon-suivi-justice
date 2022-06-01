@@ -2,12 +2,12 @@ module Users
   class AppointmentPolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
-        scope.includes(:convict, slot: [:appointment_type, { agenda: [:place] }]).where(convict: { user: user })
+        if user.cpip? || user.psychologist? || user.overseer?
+          scope.includes(:convict, slot: [:appointment_type, { agenda: [:place] }]).where(convict: { user: user })
+        else
+          raise Pundit::NotAuthorizedError
+        end
       end
-    end
-
-    def index?
-      user.cpip?
     end
   end
 end
