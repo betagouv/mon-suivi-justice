@@ -53,8 +53,9 @@ class AppointmentType < ApplicationRecord
     ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
   end
 
-  def assignable_to_cpip?
-    ['1er RDV SPIP', 'RDV de suivi SPIP', 'RDV DDSE', 'RDV téléphonique', 'Visite à domicile'].include? name
+  def assignable_to_current_user?
+    (['1er RDV SPIP', 'RDV de suivi SPIP', 'RDV DDSE', 'RDV téléphonique',
+      'Visite à domicile'].include? name) && (%w[cpip psychologist overseer].include? current_user.role)
   end
 
   def with_slot_types?

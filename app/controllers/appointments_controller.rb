@@ -43,10 +43,7 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(appointment_params)
 
-    if (%w[cpip psychologist
-           overseer].include? current_user.role) && @appointment.slot&.appointment_type&.assignable_to_cpip?
-      @appointment.user = current_user
-    end
+    @appointment.user = current_user if @appointment.slot&.appointment_type&.assignable_to_current_user?
 
     authorize @appointment
     if @appointment.save

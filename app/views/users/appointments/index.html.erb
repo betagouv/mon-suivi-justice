@@ -1,6 +1,6 @@
 <div class='index-header-container'>
   <div class='index-header-filters-container'>
-    <%= search_form_for @q, class: 'index-header-filters-form', id: 'index-header-filters-form' do |f| %>
+    <%= search_form_for @q, url: user_appointments_path, class: 'index-header-filters-form', id: 'index-header-filters-form' do |f| %>
       <div class='index-header-filters-fields-container'>
         <%= f.date_field :slot_date_eq, id: 'index-appointment-date-filter',
                             class: "index-header-search-field #{@q.slot_date_eq ? 'in-use' : ''}",
@@ -27,7 +27,7 @@
         <%= button_tag t('filter'), type: 'submit', class: 'index-header-filters-button', form: 'index-header-filters-form' %>
 
         <% if @q.conditions.any? %>
-          <%= button_to "#{t('index-appointment-clear-filters')} (#{@q.conditions.length})", appointments_path,
+          <%= button_to "#{t('index-appointment-clear-filters')} (#{@q.conditions.length})", user_appointments_path,
                                                             class: 'index-header-filters-button',
                                                             method: :get %>
         <% end %>
@@ -37,14 +37,6 @@
 
   <div class='index-header-controls-container'>
     <div class="index-header-controls-appointments-buttons-wrapper">
-      <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
-        <% if policy([:users, :appointment]).index? %>
-          <%= button_to t('my_appointments_title'), user_appointments_path,
-                        class: 'link-to-my-appointments-button',
-                        method: :get %>
-        <% end %>
-      <% end %>
-
       <% if policy(:appointment).new? %>
         <%= button_to t('new_appointment_title'), new_appointment_path,
                                                   class: 'link-to-new-appointment-button',
@@ -93,7 +85,7 @@
 
   <div class='index-cards-wrapper'>
     <% @appointments.each do |appointment| %>
-      <%= render 'appointment_card', appointment: appointment %>
+      <%= render 'appointments/appointment_card', appointment: appointment %>
     <% end %>
   </div>
 

@@ -76,6 +76,10 @@ class User < ApplicationRecord
     %w[dpip cpip educator psychologist overseer secretary_spip].include? role
   end
 
+  def can_see_own_appointments?
+    %w[cpip psychologist overseer].include? role
+  end
+
   def profile_path
     Rails.application.routes.url_helpers.user_path(id)
   end
