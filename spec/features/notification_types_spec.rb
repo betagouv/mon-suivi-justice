@@ -6,7 +6,7 @@ RSpec.feature 'NotificationType', type: :feature do
   end
 
   describe 'Text message construction' do
-    it 'uses a specific template for an organization', js: true do
+    it 'uses a local template for an organization', js: true do
       orga1 = create :organization, :with_department, name: 'SPIP 65'
       orga2 = create :organization, :with_department, name: 'SPIP 42'
 
@@ -18,6 +18,7 @@ RSpec.feature 'NotificationType', type: :feature do
                                  organization: orga1,
                                  role: :summon,
                                  template: 'Bienvenue au SPIP 65'
+
       create :notification_type, appointment_type: apt_type,
                                  organization: orga2,
                                  role: :summon,
@@ -53,16 +54,16 @@ RSpec.feature 'NotificationType', type: :feature do
     end
   end
 
-  # xdescribe '#update' do
-  #   it 'updates a default template set' do
-  #
-  #   end
-  #
-  #   it 'updates an organization specific template set' do
-  #
-  #   end
-  # end
-  #
+  xdescribe '#update' do
+    it 'updates a default template set' do
+
+    end
+
+    it 'updates a local template set' do
+
+    end
+  end
+
   # xdescribe '#create' do
   #   it 'creates a batch of notification_type after organization creation' do
   #

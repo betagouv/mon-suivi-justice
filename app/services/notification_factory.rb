@@ -16,13 +16,12 @@ module NotificationFactory
     end
 
     def select_notification_types(appointment)
-      orga = appointment.slot.agenda.place.organization
-      notif_types = appointment.slot.appointment_type.notification_types.where(organization: orga)
+      notif_types = appointment.appointment_type.notification_types.where(organization: appointment.organization)
       fill_with_default(appointment, notif_types)
     end
 
     def fill_with_default(appointment, notif_types)
-      default_notif_types = appointment.slot.appointment_type.notification_types.where(organization: nil)
+      default_notif_types = appointment.appointment_type.notification_types.where(organization: nil)
 
       NotificationType.roles.each_key do |role|
         if notif_types.find_by(role: role).nil?
