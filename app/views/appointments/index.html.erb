@@ -93,7 +93,7 @@
 
   <div class='index-cards-wrapper'>
     <% @appointments.each do |appointment| %>
-      <%= render 'appointment_card', appointment: appointment %>
+      <%= render '/appointments/appointment_card', appointment: appointment %>
     <% end %>
   </div>
 
