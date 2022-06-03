@@ -43,7 +43,7 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(appointment_params)
 
-    @appointment.user = current_user if @appointment.slot&.appointment_type&.assignable_to_current_user?
+    @appointment.user = current_user if @appointment.slot&.appointment_type&.assignable_to_spip_current_user?
 
     authorize @appointment
     if @appointment.save

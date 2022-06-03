@@ -17,7 +17,7 @@
                                          { include_blank: t('index-appointment-agenda-filter') },
                                          { class: "form-select index-header-filter-field #{@q.slot_agenda_id_eq ? 'in-use' : ''}" } %>
 
-        <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_user(current_user), 'id', 'name', @q.slot_appointment_type_id_eq),
+        <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(current_user.assignable_appointments_types, 'id', 'name', @q.slot_appointment_type_id_eq),
                                                    { include_blank: t('index-slots-appointment-type-filter') },
                                                    { class: "form-select index-header-filter-field #{@q.slot_appointment_type_id_eq ? 'in-use' : ''}" } %>
       </div>
