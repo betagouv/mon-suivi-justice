@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'AppointmentType', type: :feature do
   before do
-    create_admin_user_and_login
+    @user = create_admin_user_and_login
   end
 
   describe 'index' do
@@ -19,29 +19,40 @@ RSpec.feature 'AppointmentType', type: :feature do
 
   describe 'update' do
     let(:appointment_type) { create(:appointment_type, name: '1er contact') }
+
     let!(:notif_type1) do
       create(:notification_type, appointment_type: appointment_type,
-                                 role: :summon, template: 'Yo')
+                                 role: :summon, template: 'Default summon')
     end
     let!(:notif_type2) do
       create(:notification_type, appointment_type: appointment_type,
-                                 role: :reminder, template: 'Man')
+                                 role: :reminder, template: 'Default reminder')
     end
     let!(:notif_type3) do
       create(:notification_type, appointment_type: appointment_type,
-                                 role: :cancelation, template: 'Bruh')
+                                 role: :cancelation, template: 'Default cancelation')
     end
     let!(:notif_type4) do
       create(:notification_type, appointment_type: appointment_type,
-                                 role: :no_show, template: 'Dude')
+                                 role: :no_show, template: 'Default no_show')
     end
     let!(:notif_type5) do
       create(:notification_type, appointment_type: appointment_type,
-                                 role: :reschedule, template: 'Meh')
+                                 role: :reschedule, template: 'Default reschedule')
     end
 
-    it 'allows to update notification types' do
-      visit edit_appointment_type_path(appointment_type)
+    it 'updates default template set', js: true do
+      visit appointment_types_path
+
+      select 'Défaut', from: :orga
+      page.execute_script("$('#apt-type-organization-select').trigger('change')")
+      page.driver.browser.navigate.refresh
+
+      within first('.index-controls-container') do
+        click_link 'Modifier'
+      end
+
+      expect(page).to have_content('Modifier templates')
 
       within first('.summon-container') do
         fill_in 'Template', with: 'Yolo'
@@ -61,19 +72,38 @@ RSpec.feature 'AppointmentType', type: :feature do
 
       click_button 'Enregistrer'
 
-      notif_type1.reload
-      expect(notif_type1.template).to eq('Yolo')
-
-      notif_type2.reload
-      expect(notif_type2.template).to eq('Girl')
-
-      notif_type3.reload
-      expect(notif_type3.template).to eq('Bwah')
-
-      notif_type4.reload
-      expect(notif_type4.template).to eq('Dudette')
+      expect(notif_type1.reload.template).to eq('Yolo')
+      expect(notif_type2.reload.template).to eq('Girl')
+      expect(notif_type3.reload.template).to eq('Bwah')
+      expect(notif_type4.reload.template).to eq('Dudette')
 
       expect(page).to have_content('Les modifications ont bien été enregistrées.')
+    end
+
+    it 'updates local template set', js: true do
+      local_notif1 = create :notification_type, appointment_type: appointment_type,
+                                                organization: @user.organization,
+                                                role: :summon,
+                                                template: 'Local summon'
+
+      visit appointment_types_path
+
+      select @user.organization.name, from: :orga
+      page.execute_script("$('#apt-type-organization-select').trigger('change')")
+      expect(page).to have_current_path(appointment_types_path(orga: @user.organization.id))
+      page.driver.browser.navigate.refresh
+
+      within first('.appointment-types-item-container') do
+        click_link 'Modifier'
+      end
+
+      within first('.summon-container') do
+        fill_in 'Template', with: 'updated local summon'
+      end
+
+      click_button 'Enregistrer'
+
+      expect(local_notif1.reload.template).to eq('updated local summon')
     end
 
     it 'does not allow to update notification types with incorrect template' do
@@ -86,7 +116,7 @@ RSpec.feature 'AppointmentType', type: :feature do
       click_button 'Enregistrer'
 
       notif_type1.reload
-      expect(notif_type1.template).to eq('Yo')
+      expect(notif_type1.template).to eq('Default summon')
 
       expected_content = "Le format de ce modèle n'est pas valide. " \
                          "Merci d'utiliser uniquement les clés documentées."

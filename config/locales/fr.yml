@@ -244,6 +244,8 @@ fr:
   log_out: "Déconnexion"
   print_button: "Imprimer"
   contact: "Contacter l'équipe"
+  get_back: "Retour"
+  default: "Défaut"
 
   monday: lundi
   tuesday: mardi
@@ -273,7 +275,7 @@ fr:
     home: "Accueil"
     convicts: "PPSMJ"
     appointments: "Rendez-vous"
-    appointment_types: "Types de RDV"
+    message_templates: "Templates SMS"
     places: "Lieux"
     slots: "Créneaux"
     slot_types: 'Créneaux récurrents'
@@ -464,8 +466,8 @@ fr:
   today_agendas_title: "RDV prévus pour le"
   today_agendas_title_part2: "au"
 
-  edit_appointment_type_title: Modifier Type de RDV
-  edit_appointment_type_notifications: Notifications
+  appointment_types_header_title: Templates
+  edit_appointment_type_title: Modifier templates
   edit_appointment_type_slots: Créneaux récurrents
   edit_appointment_type_add_slot: Ajouter créneau
   edit_appointment_type_slot_type_duration: "Durée (minutes)"

@@ -54,16 +54,6 @@ RSpec.feature 'NotificationType', type: :feature do
     end
   end
 
-  xdescribe '#update' do
-    it 'updates a default template set' do
-
-    end
-
-    it 'updates a local template set' do
-
-    end
-  end
-
   # xdescribe '#create' do
   #   it 'creates a batch of notification_type after organization creation' do
   #

@@ -1,4 +1,24 @@
-.appointment-types-header {
+.appointment-types-header-container {
+  display: flex;
+  justify-content: center;
+}
+
+.appointment-types-title-container {
+  margin-right: 20px;
+  padding-top: 11px;
+}
+
+.aappointment-types-organization-select-container {
+  max-width: 200px;
+  margin: auto;
+}
+
+.appointment-types-table-container {
+  width: 400px;
+  margin: 50px auto;
+}
+
+.appointment-types-table-header {
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -94,14 +114,7 @@
   height: 40px;
   border-bottom: 1px solid $table-border;
   padding-left: 30px;
-}
-
-.appointment-types-column-1 {
-  width: 30%;
-}
-
-.appointment-types-column-2 {
-  width: 30%;
+  justify-content: space-between;
 }
 
 .notification-type-role {
@@ -151,4 +164,5 @@
 .appointment-type-edit-subtitle {
   text-align: center;
   font-size: 18px;
+  margin-bottom: 30px;
 }

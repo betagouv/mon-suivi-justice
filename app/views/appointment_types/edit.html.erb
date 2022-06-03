@@ -1,63 +1,73 @@
-<h1 class='form-title'><%= t('edit_appointment_type_title') %></h1>
+<%= link_to t('get_back'), appointment_types_path, class: 'index-slot-types-back-button' %>
 
+<h1 class='form-title'><%= t('edit_appointment_type_title') %></h1>
 
 <%= simple_form_for @appointment_type, html: { class: 'appointment-type-form' } do |f| %>
   <div class='edit-appointment-type-container'>
-    <p class='appointment-type-edit-subtitle'><%= @appointment_type.name %></p>
-    <h2 class='form-secondary-title'><%= t('edit_appointment_type_notifications') %></h2>
+    <p class='appointment-type-edit-subtitle'><%= edit_notification_type_page_title(@appointment_type, @organization) %></p>
 
     <% if @appointment_type.errors.present? %>
       <p class='errors-box'><%= @appointment_type.errors.map(&:message).join(" - ") %></p>
     <% end %>
 
-    <%= f.simple_fields_for :notification_types, @appointment_type.summon_notif do |p| %>
-      <div class='notification-type-container summon-container'>
-        <p class='notification-type-role'>
-          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.summon_notif.role}").capitalize %>
-        </p>
-        <%= p.input :template, input_html: { class: 'form-textarea' } %>
-      </div>
+    <% if @notification_types.find_by(role: :summon).present? %>
+      <%= f.simple_fields_for :notification_types, @notification_types.find_by(role: :summon) do |p| %>
+        <div class='notification-type-container summon-container'>
+          <p class='notification-type-role'>
+            - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.summon_notif.role}").capitalize %>
+          </p>
+          <%= p.input :template, input_html: { class: 'form-textarea' } %>
+        </div>
+      <% end %>
     <% end %>
 
-    <%= f.simple_fields_for :notification_types, @appointment_type.reminder_notif do |p| %>
-      <div class='notification-type-container reminder-container'>
-        <p class='notification-type-role'>
-          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.reminder_notif.role}").capitalize %>
-        </p>
+    <% if @notification_types.find_by(role: :reminder).present? %>
+      <%= f.simple_fields_for :notification_types, @notification_types.find_by(role: :reminder) do |p| %>
+        <div class='notification-type-container reminder-container'>
+          <p class='notification-type-role'>
+            - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.reminder_notif.role}").capitalize %>
+          </p>
 
-        <%= p.input :reminder_period, collection: NotificationType.reminder_periods.symbolize_keys.keys,
-                                      input_html: { class: 'form-select' },
-                                      required: true %>
+          <%= p.input :reminder_period, collection: NotificationType.reminder_periods.symbolize_keys.keys,
+                                        input_html: { class: 'form-select' },
+                                        required: true %>
 
-        <%= p.input :template, input_html: { class: 'form-textarea' } %>
-      </div>
+          <%= p.input :template, input_html: { class: 'form-textarea' } %>
+        </div>
+      <% end %>
     <% end %>
 
-    <%= f.simple_fields_for :notification_types, @appointment_type.cancelation_notif do |p| %>
-      <div class='notification-type-container cancelation-container'>
-        <p class='notification-type-role'>
-          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.cancelation_notif.role}").capitalize %>
-        </p>
-        <%= p.input :template, input_html: { class: 'form-textarea' } %>
-      </div>
+    <% if @notification_types.find_by(role: :cancelation).present? %>
+      <%= f.simple_fields_for :notification_types, @notification_types.find_by(role: :cancelation) do |p| %>
+        <div class='notification-type-container cancelation-container'>
+          <p class='notification-type-role'>
+            - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.cancelation_notif.role}").capitalize %>
+          </p>
+          <%= p.input :template, input_html: { class: 'form-textarea' } %>
+        </div>
+      <% end %>
     <% end %>
 
-    <%= f.simple_fields_for :notification_types, @appointment_type.no_show_notif do |p| %>
-      <div class='notification-type-container no-show-container'>
-        <p class='notification-type-role'>
-          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.no_show_notif.role}").capitalize %>
-        </p>
-        <%= p.input :template, input_html: { class: 'form-textarea' } %>
-      </div>
+    <% if @notification_types.find_by(role: :no_show).present? %>
+      <%= f.simple_fields_for :notification_types, @notification_types.find_by(role: :no_show) do |p| %>
+        <div class='notification-type-container no-show-container'>
+          <p class='notification-type-role'>
+            - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.no_show_notif.role}").capitalize %>
+          </p>
+          <%= p.input :template, input_html: { class: 'form-textarea' } %>
+        </div>
+      <% end %>
     <% end %>
 
-    <%= f.simple_fields_for :notification_types, @appointment_type.reschedule_notif do |p| %>
-      <div class='notification-type-container no-show-container'>
-        <p class='notification-type-role'>
-          - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.reschedule_notif.role}").capitalize %>
-        </p>
-        <%= p.input :template, input_html: { class: 'form-textarea' } %>
-      </div>
+    <% if @notification_types.find_by(role: :reschedule).present? %>
+      <%= f.simple_fields_for :notification_types, @notification_types.find_by(role: :reschedule) do |p| %>
+        <div class='notification-type-container no-show-container'>
+          <p class='notification-type-role'>
+            - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.reschedule_notif.role}").capitalize %>
+          </p>
+          <%= p.input :template, input_html: { class: 'form-textarea' } %>
+        </div>
+      <% end %>
     <% end %>
 
     <div class='appointment-type-tutorial-container'>

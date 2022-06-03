@@ -1,19 +1,33 @@
 <div class='appointment-types-container'>
-  <div class='index-basic-table-container'>
-    <div class='appointment-types-header'>
-      <div class='appointment-types-header-title appointment-types-column-1'>
-        <%= t('activerecord.attributes.appointment_type.name') %>
+  <div class='appointment-types-header-container'>
+    <div class='appointment-types-title-container'>
+      <%= t('appointment_types_header_title') %>
+    </div>
+    <div class='appointment-types-organization-select-container'>
+      <%= form_tag appointment_types_path, method: 'get' do %>
+        <%= select_tag :orga, options_for_select(formated_orgas_for_select(@organizations), params[:orga]),
+                              id: 'apt-type-organization-select',
+                              class: 'form-select form-text-input',
+                              onchange: 'this.form.submit()' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='appointment-types-table-container'>
+    <div class='appointment-types-table-header'>
+      <div class=appointment-types-column-1'>
+        <%= t('activerecord.models.appointment_type') %>
       </div>
     </div>
 
     <% @appointment_types.each do |appointment_type| %>
       <div class='appointment-types-item-container'>
-        <div class='appointment_type-data appointment-types-column-1'>
+        <div class='appointment_type-data'>
           <%= appointment_type.name %>
         </div>
 
         <div class='index-controls-container'>
-          <%= link_to t('edit'), edit_appointment_type_path(appointment_type), class: 'index-control' %>
+          <%= link_to t('edit'), edit_appointment_type_path(appointment_type, orga: params[:orga]), class: 'index-control' %>
         </div>
       </div>
     <% end %>
