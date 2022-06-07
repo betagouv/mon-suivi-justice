@@ -92,4 +92,8 @@ class User < ApplicationRecord
   def can_invite_to_convict_interface?
     CAN_INVITE_TO_CONVICT_INTERFACE.include?(email) || admin?
   end
+
+  def can_have_appointments_assigned?
+    %w[cpip psychologist overseer].include? role
+  end
 end

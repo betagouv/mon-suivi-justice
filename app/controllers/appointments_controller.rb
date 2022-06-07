@@ -43,15 +43,15 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(appointment_params)
 
-    @appointment.user = current_user if @appointment.slot&.appointment_type&.assignable_to_spip_current_user?
-
+    @appointment.user = current_user unless @appointment.slot&.appointment_type&.assignable? && current_user.can_have_appointments_assigned?
+      
     authorize @appointment
     if @appointment.save
       @appointment.convict.update(user: current_user) if params.dig(:appointment, :user_is_cpip) == '1'
       @appointment.book(send_notification: params[:send_sms])
       redirect_to appointment_path(@appointment)
     else
-      puts @appointment.errors.full_messages
+      @appointment.errors.each { |error| flash[:alert] = error.message }
       render :new
     end
   end
