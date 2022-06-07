@@ -369,6 +369,8 @@ RSpec.feature 'Appointments', type: :feature do
         expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
                                     .and change { Slot.count }.by(1)
                                     .and change { Notification.count }.by(5)
+
+        expect(Appointment.last.user).to eq(@user)
       end
 
       it 'does not create appointment if the selected date is a weekend' do

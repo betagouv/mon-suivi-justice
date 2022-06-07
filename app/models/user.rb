@@ -82,7 +82,7 @@ class User < ApplicationRecord
 
   def assignable_appointments_types
     AppointmentType.where(name: ['1er RDV SPIP', 'RDV de suivi SPIP', 'RDV DDSE', 'RDV téléphonique',
-      'Visite à domicile'])
+                                 'Visite à domicile'])
   end
 
   def profile_path
