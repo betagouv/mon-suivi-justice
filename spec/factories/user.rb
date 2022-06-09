@@ -8,7 +8,6 @@ FactoryBot.define do
     password_confirmation { '1mot2passeSecurise!' }
     association :organization, factory: %i[organization with_department]
 
-
     factory :user_with_appointments do
       after(:create) do |user|
         create_list(:appointment, 3, user: user)
