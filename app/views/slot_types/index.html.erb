@@ -45,7 +45,7 @@
                                  label: t('slot_types_batch_opening'),
                                  label_html: { class: 'slot-type-time-input-label' },
                                  wrapper: :custom_time,
-                                 start_hour: 7,
+                                 start_hour: 6,
                                  end_hour: 20,
                                  minute_step: 15 %>
       </div>
@@ -57,7 +57,7 @@
                                 label: t('slot_types_batch_closing'),
                                 label_html: { class: 'slot-type-time-input-label' },
                                 wrapper: :custom_time,
-                                start_hour: 7,
+                                start_hour: 6,
                                 end_hour: 20,
                                 minute_step: 15 %>
       </div>
@@ -120,7 +120,7 @@
                 <%= f.input :starting_time, input_html: { value: f.object.starting_time.to_s, class: 'form-select' },
                                             label_html: { class: 'slot-type-time-input-label' },
                                             wrapper: :custom_time,
-                                            start_hour: 7,
+                                            start_hour: 6,
                                             end_hour: 20,
                                             minute_step: 5 %>
               </div>
@@ -144,7 +144,7 @@
                                           include_blank: true,
                                           input_html: { class: 'form-select' },
                                           label_html: { class: 'slot-type-time-input-label' },
-                                          start_hour: 7,
+                                          start_hour: 6,
                                           end_hour: 20,
                                           minute_step: 5 %>
             </div>
