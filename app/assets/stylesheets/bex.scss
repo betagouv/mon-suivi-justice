@@ -45,6 +45,7 @@
 .bex-agenda-header {
   display: flex;
   width: 15%;
+  border-right: 1px solid black;
   align-items: center;
   justify-content: center;
 
@@ -71,6 +72,10 @@
   padding: 0 5px;
   display: flex;
   align-items: center;
+
+  &:first-child{
+    border-left: none;
+  }
 }
 
 .bex-agenda-line {
