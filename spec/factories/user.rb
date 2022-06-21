@@ -11,7 +11,6 @@ FactoryBot.define do
     factory :user_with_appointments do
       after(:create) do |user|
         create_list(:appointment, 3, user: user)
-        user.reload
       end
     end
   end

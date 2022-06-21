@@ -14,12 +14,11 @@ describe Users::AppointmentPolicy do
 
   %w[cpip psychologist overseer].each do |role|
     context "for a #{role} user" do
-      let(:appointments) { create(:user_with_appointments, role: role).appointments }
-
-      let(:scope) { Users::AppointmentPolicy::Scope.new(appointments.last.user, Appointment).resolve }
+      let(:user) { create(:user_with_appointments, role: role) }
+      let(:scope) { Users::AppointmentPolicy::Scope.new(user, Appointment).resolve }
 
       it 'Policy scope should return proper appointments' do
-        expect(scope.to_a).to match_array(appointments)
+        expect(scope.to_a).to match_array(user.appointments)
       end
     end
   end
