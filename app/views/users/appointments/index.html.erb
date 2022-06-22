@@ -1,9 +1,91 @@
-<h1 class="show-title"><%=  t('my_appointments_title') %></h1>
+<div class='index-header-container'>
+  <div class='index-header-filters-container'>
+    <%= search_form_for @q, url: user_appointments_path, class: 'index-header-filters-form', id: 'index-header-filters-form' do |f| %>
+      <div class='index-header-filters-fields-container'>
+        <%= f.date_field :slot_date_eq, id: 'index-appointment-date-filter',
+                            class: "index-header-search-field #{@q.slot_date_eq ? 'in-use' : ''}",
+                            value: @q.slot_date_eq ? @q.slot_date_eq.strftime('%Y-%m-%d') : '',
+                            placeholder: t('search-appointment-placeholder') %>
+
+        <%# TODO: there is for the moment only one department per organization.
+        When there will be more, this logic will need to be adapted. %>
+        <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_place_id_eq),
+                                               { include_blank: t('index_slot_place_filter') },
+                                               { class: "form-select index-header-filter-field #{@q.slot_agenda_place_id_eq ? 'in-use' : ''}" } %>
+
+        <%= f.select :slot_agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_id_eq),
+                                         { include_blank: t('index-appointment-agenda-filter') },
+                                         { class: "form-select index-header-filter-field #{@q.slot_agenda_id_eq ? 'in-use' : ''}" } %>
+
+        <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(AppointmentType.assignable, 'id', 'name', @q.slot_appointment_type_id_eq),
+                                                   { include_blank: t('index-slots-appointment-type-filter') },
+                                                   { class: "form-select index-header-filter-field #{@q.slot_appointment_type_id_eq ? 'in-use' : ''}" } %>
+      </div>
+    <% end %>
+
+    <div class='index-header-filters-button-container'>
+        <%= button_tag t('filter'), type: 'submit', class: 'index-header-filters-button', form: 'index-header-filters-form' %>
+
+        <% if @q.conditions.any? %>
+          <%= button_to "#{t('index-appointment-clear-filters')} (#{@q.conditions.length})", user_appointments_path,
+                                                            class: 'index-header-filters-button',
+                                                            method: :get %>
+        <% end %>
+
+    </div>
+  </div>
+
+  <div class='index-header-controls-container'>
+    <div class="index-header-controls-appointments-buttons-wrapper">
+      <% if policy(:appointment).new? %>
+        <%= button_to t('new_appointment_title'), new_appointment_path,
+                                                  class: 'link-to-new-appointment-button',
+                                                  method: :get %>
+      <% end %>
+    </div>
+    <% if ENV['APP'] == 'mon-suivi-justice-prod' %>
+      <%= button_to t('print_button'), 'fake_link',
+                                        class: 'bex-print-button',
+                                        onclick: 'window.print();return false;'%>
+    <% else %>
+      <%= button_to t('print_button'), appointments_path(format: :pdf),
+                                       method: :get,
+                                       form: { target: '_blank' },
+                                       class: 'bex-print-button' %>
+    <% end %>
+  </div>
+</div>
 
 <div class='appointments-container'>
+  <div class='index-sorting-tool-container'>
+    <div class='index-sorting-tool-title'>
+      <%= t('order') %>
+    </div>
+
+    <div class='index-sorting-tool-item'>
+      <%= sort_link(@q, 'slot_agenda_place_name', t('appointment_place'), default_order: :desc) %>
+    </div>
+
+    <div class='index-sorting-tool-item'>
+      <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
+    </div>
+
+    <div class='index-sorting-tool-item'>
+      <%= sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) %>
+    </div>
+
+    <div class='index-sorting-tool-item'>
+      <%= sort_link(@q, 'slot_agenda_name', t('activerecord.models.agenda'), default_order: :desc) %>
+    </div>
+
+    <div class='index-sorting-tool-item'>
+      <%= sort_link(@q, 'slot_appointment_type_name', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) %>
+    </div>
+  </div>
+
   <div class='index-cards-wrapper'>
     <% @appointments.each do |appointment| %>
-      <%= render '/appointments/appointment_card', appointment: appointment %>
+      <%= render 'appointments/appointment_card', appointment: appointment %>
     <% end %>
   </div>
 

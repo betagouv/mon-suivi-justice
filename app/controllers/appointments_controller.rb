@@ -42,6 +42,9 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(appointment_params)
+
+    assign_appointment_to_user
+
     authorize @appointment
     if @appointment.save
       @appointment.convict.update(user: current_user) if params.dig(:appointment, :user_is_cpip) == '1'
@@ -157,5 +160,11 @@ class AppointmentsController < ApplicationController
       :slot_id, :convict_id, :appointment_type_id, :place_id, :origin_department, :prosecutor_number,
       slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time]
     )
+  end
+
+  def assign_appointment_to_user
+    return unless @appointment.slot&.appointment_type&.assignable? && current_user.can_have_appointments_assigned?
+
+    @appointment.user = current_user
   end
 end

@@ -1,2 +1,4 @@
 web: rails s -p 3001
 worker: bundle exec sidekiq
+assets: bin/webpack-dev-server --watch --colors --progress
+
