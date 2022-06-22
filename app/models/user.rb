@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   belongs_to :organization
   has_many :convicts
+  has_many :appointments
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :trackable and :omniauthable
@@ -81,5 +82,9 @@ class User < ApplicationRecord
 
   def can_invite_to_convict_interface?
     CAN_INVITE_TO_CONVICT_INTERFACE.include?(email) || admin?
+  end
+
+  def can_have_appointments_assigned?
+    %w[cpip psychologist overseer].include? role
   end
 end
