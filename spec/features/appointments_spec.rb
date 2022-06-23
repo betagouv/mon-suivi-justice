@@ -127,11 +127,11 @@ RSpec.feature 'Appointments', type: :feature do
         expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
 
         expect(SmsDeliveryJob).to have_been_enqueued.once.with(
-          Notification.find_by(role: :summon, appointment: Appointment.find_by(slot: slot))
+          Notification.find_by(role: :summon, appointment: Appointment.find_by(slot: slot)).id
         )
 
         expect(SmsDeliveryJob).to have_been_enqueued.once.with(
-          Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
+          Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot)).id
         )
       end
 
@@ -163,7 +163,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         expect { click_button 'Non' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
         expect(SmsDeliveryJob).to have_been_enqueued.once.with(
-          Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot))
+          Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot)).id
         )
       end
 
@@ -547,7 +547,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         appointment.reload
         expect(appointment.state).to eq('no_show')
-        expect(SmsDeliveryJob).to have_been_enqueued.once.with(appointment.no_show_notif)
+        expect(SmsDeliveryJob).to have_been_enqueued.once.with(appointment.no_show_notif.id)
       end
 
       it "change appointment state and don't send sms", js: true do

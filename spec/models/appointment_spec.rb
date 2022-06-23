@@ -49,7 +49,7 @@ RSpec.describe Appointment, type: :model do
       appointment.miss(send_notification: false)
 
       expect(appointment.state).to eq('no_show')
-      expect(SmsDeliveryJob).not_to have_been_enqueued.with(appointment.no_show_notif)
+      expect(SmsDeliveryJob).not_to have_been_enqueued.with(appointment.no_show_notif.id)
     end
 
     it 'transitions from booked to missed and sending sms' do
@@ -60,7 +60,7 @@ RSpec.describe Appointment, type: :model do
       appointment.miss(send_notification: true)
 
       expect(appointment.state).to eq('no_show')
-      expect(SmsDeliveryJob).to have_been_enqueued.once.with(appointment.no_show_notif)
+      expect(SmsDeliveryJob).to have_been_enqueued.once.with(appointment.no_show_notif.id)
     end
   end
 
