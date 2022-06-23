@@ -45,7 +45,7 @@
         <%= form.input :date, as: :date, html5: true, input_html: { class: 'form-text-input' }, min: Time.zone.now %>
         <%= form.input :starting_time, input_html: { class: 'form-select', value: form.object.starting_time.to_s },
                                         wrapper: :custom_time,
-                                        start_hour: 7,
+                                        start_hour: 6,
                                         end_hour: 20,
                                         minute_step: 5 %>
       <% end %>
