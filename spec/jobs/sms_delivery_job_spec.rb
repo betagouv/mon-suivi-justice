@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe SmsDeliveryJob, type: :job do
-  let(:convict) { create :convict, phone: '+33606060606' }
-  let(:appointment) { create :appointment, convict: convict }
-  let(:notification) { create :notification, appointment: appointment }
-
   context 'with a phone number' do
+    let(:convict) { create :convict, phone: '+33606060607' }
+    let(:appointment) { create :appointment, convict: convict }
+    let(:notification) { create :notification, appointment: appointment }
+
     describe '#perform' do
       let(:tested_method) { SmsDeliveryJob.perform_now(notification.id) }
       let(:adapter_dbl) { instance_double LinkMobilityAdapter, send_sms: true }
@@ -29,14 +29,18 @@ RSpec.describe SmsDeliveryJob, type: :job do
     end
   end
 
-  xcontext 'without a phone number' do
+  context 'without a phone number' do
+    let(:convict) { create :convict, phone: '', no_phone: true }
+    let(:appointment) { create :appointment, convict: convict }
+    let(:notification) { create :notification, appointment: appointment }
+
     describe '#perform' do
+      let(:tested_method) { SmsDeliveryJob.perform_now(notification.id) }
       let(:adapter_dbl) { instance_double LinkMobilityAdapter, send_sms: true }
 
       before do
-        convict.update(phone: '')
         allow(LinkMobilityAdapter).to receive(:new).and_return adapter_dbl
-        SmsDeliveryJob.perform_now(notification.id)
+        tested_method
       end
 
       it "don't instantiates LinkMobilityAdapter" do
