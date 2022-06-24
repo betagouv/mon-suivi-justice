@@ -7,10 +7,10 @@ RSpec.feature 'Notifications', type: :feature do
   end
 
   describe 'Reminder' do
-    let(:adapter_dbl) { instance_double SendinblueAdapter, send_sms: true }
+    let(:adapter_dbl) { instance_double LinkMobilityAdapter, send_sms: true }
 
     it "is programmed even if the convict don't have a phone", js: true do
-      allow(SendinblueAdapter).to receive(:new).and_return adapter_dbl
+      allow(LinkMobilityAdapter).to receive(:new).and_return adapter_dbl
 
       convict = create(:convict, first_name: 'Bobby', last_name: 'Lapointe', phone: '', no_phone: true)
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first

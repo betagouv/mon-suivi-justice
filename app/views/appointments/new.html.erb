@@ -37,7 +37,7 @@
                                       input_html: { class: 'form-select' } %>
     <% end %>
 
-    <%= f.input :appointment_appointment_type_id, collection: my_appointment_types_for_user(current_user),
+    <%= f.input :appointment_appointment_type_id, collection: appointment_types_for_user(current_user),
                                          label: t('activerecord.models.appointment_type'),
                                          as: :fake_select,
                                          label_method: :name,
