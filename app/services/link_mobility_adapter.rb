@@ -4,7 +4,7 @@ class LinkMobilityAdapter
     @client = Faraday.new(
       url: 'https://europe.ipx.com'
     ) do |conn|
-      conn.request :authorization, :basic, ENV['LM_ACCOUNT'], ENV['LM_PWD']
+      conn.request :authorization, :basic, ENV.fetch('LM_ACCOUNT', nil), ENV.fetch('LM_PWD', nil)
     end
   end
 
@@ -24,7 +24,7 @@ class LinkMobilityAdapter
       destinationAddress: notification.appointment.convict.phone,
       messageText: notification.content,
       originatorTON: 1,
-      originatingAddress: ENV['SMS_SENDER'],
+      originatingAddress: ENV.fetch('SMS_SENDER', nil),
       maxConcatenatedMessages: 10
     }
   end

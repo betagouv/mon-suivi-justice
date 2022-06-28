@@ -1,8 +1,8 @@
 class SendinblueAdapter
   def initialize
     SibApiV3Sdk.configure do |config|
-      config.api_key['api-key'] = ENV['SIB_API_KEY']
-      config.api_key['partner-key'] = ENV['SIB_API_KEY']
+      config.api_key['api-key'] = ENV.fetch('SIB_API_KEY', nil)
+      config.api_key['partner-key'] = ENV.fetch('SIB_API_KEY', nil)
     end
 
     @client = SibApiV3Sdk::TransactionalSMSApi.new
@@ -18,7 +18,7 @@ class SendinblueAdapter
 
   def format_data(notification)
     {
-      sender: ENV['SMS_SENDER'],
+      sender: ENV.fetch('SMS_SENDER', nil),
       recipient: notification.appointment.convict.phone,
       content: notification.content
     }

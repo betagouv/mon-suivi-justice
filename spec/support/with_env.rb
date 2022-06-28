@@ -1,7 +1,7 @@
 module WithEnv
   def with_env(key, value)
     around do |example|
-      old_value = ENV[key]
+      old_value = ENV.fetch(key, nil)
       ENV[key] = value
       example.run
     ensure

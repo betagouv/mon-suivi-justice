@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(_)
-    ENV['PUBLIC_SITE_ROOT']
+    ENV.fetch('PUBLIC_SITE_ROOT', nil)
   end
 
   def current_organization

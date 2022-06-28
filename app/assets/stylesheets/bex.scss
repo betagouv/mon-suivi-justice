@@ -39,12 +39,12 @@
 .bex-agenda-container {
   display: flex;
   margin-bottom: 30px;
-  border: 1px solid black;
 }
 
 .bex-agenda-header {
   display: flex;
   width: 15%;
+  border: 1px solid black;
   align-items: center;
   justify-content: center;
 
@@ -63,24 +63,25 @@
 
 .bex-agenda-table-header {
   font-weight: bold;
+  border-top: 1px solid black;
 }
 
 .bex-agenda-column {
   width: 20%;
-  border-left: 1px solid black;
+  border-right: 1px solid black;
   padding: 0 5px;
   display: flex;
   align-items: center;
+
+  &:first-child{
+    border-left: none;
+  }
 }
 
 .bex-agenda-line {
   display: flex;
   min-height: 30px;
   border-bottom: 1px solid black;
-
-  &:last-child{
-    border: 0;
-  }
 }
 
 .jap-date-select {
