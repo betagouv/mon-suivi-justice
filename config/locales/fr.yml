@@ -32,6 +32,8 @@ fr:
   appointments:
     new:
       is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
+    index:
+      only_passed_uninformed: "Seuls les rendez-vous passés dont le statut n'a pas été complété sont affichés"
   activerecord:
     models:
       user: "Agent"
@@ -148,6 +150,7 @@ fr:
         fulfiled: "Honoré"
         no_show: "Manqué"
         excused: "Excusé"
+        created: "Créé"
       events:
         book: "Plannifier"
 
@@ -269,7 +272,7 @@ fr:
     stats_from_informed: "Parmi les rdv renseignés :"
     stats_global: "Global"
     notice:
-      fill_out_appointments: "Attention, il y a %{data}% rendez-vous dont le statut n'est pas complété pour votre service. Cliquez ici."
+      fill_out_appointments: "Attention, il y a %{data}% de rendez-vous dont le statut n'est pas complété pour votre service."
 
   sidebar:
     home: "Accueil"
@@ -433,6 +436,7 @@ fr:
   new_appointment_reload: "Recharger"
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-agenda-filter: "Agenda"
+  index-appointment-state-filter: "Statut du RDV"
   index-appointment-reinit-filter: "RDV du jour"
   index-appointment-clear-filters: "Supprimer les filtres"
   index-appointment-see-data: "Voir les infos"

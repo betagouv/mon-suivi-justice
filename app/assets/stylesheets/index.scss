@@ -9,6 +9,20 @@
   padding: 0 10px;
 }
 
+.index-title-container {
+  width: calc(100vw - #{$sidebar-width});
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  background-color: $main-background;
+  padding: 0 10px;
+
+  h1 {
+    padding-top: 20px;
+  }
+}
+
 .index-header-filters-container {
   display: flex;
   justify-content: flex-start;
