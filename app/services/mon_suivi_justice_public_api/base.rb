@@ -1,9 +1,9 @@
 module MonSuiviJusticePublicApi
   class Base
     class << self
-      BASE_URL = ENV['MSJ_API_URL']
-      USERNAME = ENV['MSJ_API_USERNAME']
-      PASSWORD = ENV['MSJ_API_PASSWORD']
+      BASE_URL = ENV.fetch('MSJ_API_URL', nil)
+      USERNAME = ENV.fetch('MSJ_API_USERNAME', nil)
+      PASSWORD = ENV.fetch('MSJ_API_PASSWORD', nil)
 
       def connection
         Faraday.new { |conn| conn.request :authorization, :basic, USERNAME, PASSWORD }
