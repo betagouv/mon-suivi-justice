@@ -25,4 +25,12 @@ class Organization < ApplicationRecord
   def first_day_with_slots(appointment_type)
     ten_next_days_with_slots(appointment_type).first
   end
+
+  def passed_uninformed_percentage
+    passed_no_canceled_with_phone = Appointment.in_organization(self).joins(:slot, :convict)
+                                                 .where('slots.date < ? AND convicts.phone != ? AND state != ?', Date.today, '', 'canceled')                             
+    return 0 if passed_no_canceled_with_phone.size.zero?
+
+    (passed_no_canceled_with_phone.where(state: 'booked').size * 100.fdiv(passed_no_canceled_with_phone.size)).round
+  end
 end
