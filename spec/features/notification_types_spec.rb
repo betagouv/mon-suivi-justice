@@ -53,10 +53,4 @@ RSpec.feature 'NotificationType', type: :feature do
       expect(notif.content).to eq('Bienvenue au SPIP 65')
     end
   end
-
-  # xdescribe '#create' do
-  #   it 'creates a batch of notification_type after organization creation' do
-  #
-  #   end
-  # end
 end

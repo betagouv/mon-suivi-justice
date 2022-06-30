@@ -132,3 +132,11 @@ end
 def new_time_for(hour, min)
   Time.new(2021, 6, 21, hour, min, 0)
 end
+
+def create_default_notification_types
+  AppointmentType.all.each do |apt_type|
+    NotificationType.roles.keys.each do |role|
+      create(:notification_type, appointment_type: apt_type, role: role)
+    end
+  end
+end

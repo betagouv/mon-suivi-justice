@@ -26,4 +26,18 @@ class Organization < ApplicationRecord
   def first_day_with_slots(appointment_type)
     ten_next_days_with_slots(appointment_type).first
   end
+
+  def setup_notification_types
+    all_default = NotificationType.default
+
+    AppointmentType.all.each do |apt_type|
+      default = all_default.where(appointment_type: apt_type)
+
+      NotificationType.roles.each_key do |role|
+        new_notif_type = default.where(role: role).first.dup
+        new_notif_type.organization = self
+        new_notif_type.save!
+      end
+    end
+  end
 end
