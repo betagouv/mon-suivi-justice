@@ -15,7 +15,7 @@
 
 .appointment-types-table-container {
   width: 400px;
-  margin: 50px auto;
+  margin: 30px auto 0;
 }
 
 .appointment-types-table-header {
@@ -104,8 +104,12 @@
   margin-bottom: 20px;
 }
 
-.appointment-types-container {
-  padding-top: 60px;
+
+.appointment-types-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - #{$header-height});
 }
 
 .appointment-types-item-container {
@@ -165,4 +169,9 @@
   text-align: center;
   font-size: 18px;
   margin-bottom: 30px;
+}
+
+.appointment-types-warning-container {
+  text-align: center;
+  margin-top: 20px;
 }
