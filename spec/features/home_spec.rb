@@ -21,7 +21,7 @@ RSpec.feature 'Home', type: :feature do
     appointment_type = create :appointment_type
     create :notification_type, role: :no_show, appointment_type: appointment_type
     create :notification_type, role: :reminder, appointment_type: appointment_type
-                               
+
     place = create :place, organization: @user.organization
     agenda = create :agenda, place: place
 
