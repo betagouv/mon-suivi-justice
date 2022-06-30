@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SendinblueAdapter do
   before :each do
-    @cached_sms_sender = ENV['SMS_SENDER']
+    @cached_sms_sender = ENV.fetch('SMS_SENDER', nil)
     ENV['SMS_SENDER'] = 'MSJ'
   end
 

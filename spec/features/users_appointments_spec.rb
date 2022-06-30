@@ -26,9 +26,9 @@ RSpec.feature 'Users::Appointments', type: :feature do
 
       convict = create(:convict, user: @user)
       convict2 = create(:convict, user: user2)
-      create(:appointment, convict: convict, slot: slot1)
-      create(:appointment, convict: convict, slot: slot2)
-      create(:appointment, convict: convict2, slot: slot3)
+      create(:appointment, convict: convict, user: @user, slot: slot1)
+      create(:appointment, convict: convict, user: @user, slot: slot2)
+      create(:appointment, convict: convict2, user: user2, slot: slot3)
 
       visit user_appointments_path
 

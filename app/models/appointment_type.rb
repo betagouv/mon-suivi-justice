@@ -2,6 +2,8 @@ class AppointmentType < ApplicationRecord
   has_paper_trail
 
   WITH_SLOT_TYPES = ["Sortie d'audience SAP", "Sortie d'audience SPIP"].freeze
+  ASSIGNABLE = ['1er RDV SPIP', 'RDV de suivi SPIP', 'RDV DDSE', 'RDV téléphonique',
+                'Visite à domicile'].freeze
 
   has_many :notification_types, inverse_of: :appointment_type, dependent: :destroy
   has_many :slot_types, inverse_of: :appointment_type, dependent: :destroy
@@ -15,6 +17,8 @@ class AppointmentType < ApplicationRecord
   validates :name, presence: true
 
   scope :with_slot_types, -> { where name: WITH_SLOT_TYPES }
+
+  scope :assignable, -> { where name: ASSIGNABLE }
 
   def summon_notif
     notification_types.find_by(role: :summon)
@@ -51,6 +55,11 @@ class AppointmentType < ApplicationRecord
 
   def sortie_audience?
     ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
+  end
+
+  def assignable?
+    ['1er RDV SPIP', 'RDV de suivi SPIP', 'RDV DDSE', 'RDV téléphonique',
+     'Visite à domicile'].include? name
   end
 
   def with_slot_types?

@@ -3,13 +3,14 @@ class SmsDeliveryJob < ApplicationJob
 
   queue_as :default
 
-  def perform(notification)
+  def perform(notification_id)
+    notification = notification_id.is_a?(Integer) ? Notification.find(notification_id) : notification_id
     return if notification.canceled?
     return if notification.convict_phone.empty?
 
     notification.send_then if notification.programmed?
 
-    SendinblueAdapter.new.send_sms(notification)
-    GetSmsStatusJob.set(wait: 5.hours).perform_later(notification.id)
+    LinkMobilityAdapter.new.send_sms(notification)
+    # GetSmsStatusJob.set(wait: 5.hours).perform_later(notification.id)
   end
 end

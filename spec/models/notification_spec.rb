@@ -13,7 +13,7 @@ RSpec.describe Notification, type: :model do
     it 'trigger sms delivery job' do
       notif = create(:notification)
       notif.send_now
-      expect(SmsDeliveryJob).to have_been_enqueued.once.with(notif)
+      expect(SmsDeliveryJob).to have_been_enqueued.once.with(notif.id)
     end
   end
 
