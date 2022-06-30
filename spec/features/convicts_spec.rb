@@ -146,8 +146,8 @@ RSpec.feature 'Convicts', type: :feature do
         expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
 
         expect(page).to have_content(
-          "Cette PPSMJ existe déjà dans le département #{department.name} (#{department.number})," \
-          ' merci de contacter le support.'
+          "Cette PPSMJ existe déjà dans le département #{department.name} (#{department.number}), " \
+          'merci de contacter le support.'
         )
 
         expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
@@ -270,8 +270,8 @@ RSpec.feature 'Convicts', type: :feature do
 
       visit convict_path(convict)
 
-      expected_content = "Le numéro de téléphone de #{convict.name} a été modifié par #{@user.name} (#{@user.role})." \
-                         ' Ancien numéro : 06 06 06 06 06 / Nouveau numéro : 07 07 07 07 07'
+      expected_content = "Le numéro de téléphone de #{convict.name} a été modifié par #{@user.name} (#{@user.role}). " \
+                         'Ancien numéro : 06 06 06 06 06 / Nouveau numéro : 07 07 07 07 07'
 
       expect(page).to have_content(expected_content)
     end
