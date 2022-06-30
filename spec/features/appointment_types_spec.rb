@@ -52,22 +52,22 @@ RSpec.feature 'AppointmentType', type: :feature do
         click_link 'Modifier'
       end
 
-      expect(page).to have_content('Modifier templates')
+      expect(page).to have_content('Modifier modèles')
 
       within first('.summon-container') do
-        fill_in 'Template', with: 'Yolo'
+        fill_in 'Modèle', with: 'Yolo'
       end
 
       within first('.reminder-container') do
-        fill_in 'Template', with: 'Girl'
+        fill_in 'Modèle', with: 'Girl'
       end
 
       within first('.cancelation-container') do
-        fill_in 'Template', with: 'Bwah'
+        fill_in 'Modèle', with: 'Bwah'
       end
 
       within first('.no-show-container') do
-        fill_in 'Template', with: 'Dudette'
+        fill_in 'Modèle', with: 'Dudette'
       end
 
       click_button 'Enregistrer'
@@ -98,7 +98,7 @@ RSpec.feature 'AppointmentType', type: :feature do
       end
 
       within first('.summon-container') do
-        fill_in 'Template', with: 'updated local summon'
+        fill_in 'Modèle', with: 'updated local summon'
       end
 
       click_button 'Enregistrer'
@@ -110,7 +110,7 @@ RSpec.feature 'AppointmentType', type: :feature do
       visit edit_appointment_type_path(appointment_type)
 
       within first('.summon-container') do
-        fill_in 'Template', with: 'Mince {incorrect_key}'
+        fill_in 'Modèle', with: 'Mince {incorrect_key}'
       end
 
       click_button 'Enregistrer'
