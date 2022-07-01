@@ -12,11 +12,11 @@ class AgendaPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    user.admin? || user.local_admin?
   end
 
   def update?
-    user.admin?
+    user.admin? || user.local_admin?
   end
 
   def destroy?
