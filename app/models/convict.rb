@@ -80,6 +80,7 @@ class Convict < ApplicationRecord
     appointments.joins(:slot)
                 .where(state: 'booked')
                 .where('slots.date': ..Date.today)
+                .where('starting_time::time < ?', Time.now)
   end
 
   def mobile_phone_number
