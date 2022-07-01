@@ -24,7 +24,7 @@
   <% if policy(:appointment_type).index? %>
     <%= link_to appointment_types_path, class: 'sidebar-item-link' do %>
       <div class="sidebar-item <%= active_class_if_controller('appointment_types') %>">
-        <%= t('sidebar.appointment_types') %>
+        <%= t('sidebar.message_templates') %>
       </div>
     <% end %>
   <% end %>

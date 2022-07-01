@@ -30,4 +30,12 @@
   <% end %>
 
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
+
+  <% if current_user.admin? %>
+    <%= button_to t('delete'), user_path(@user),
+                              data: { confirm: t('basic_confirmation') },
+                              class: 'delete-user-button',
+                              method: :delete %>
+  <% end %>
+
 <% end %>
