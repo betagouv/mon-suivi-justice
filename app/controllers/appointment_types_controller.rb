@@ -2,18 +2,20 @@ class AppointmentTypesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @q = AppointmentType.order('name asc').ransack(params[:q])
-    @appointment_types = @q.result(distinct: true)
+    @appointment_types = AppointmentType.all.order('name asc')
+    @organizations = Organization.all
+
     authorize @appointment_types
   end
 
   def edit
-    @appointment_type = AppointmentType.find(params[:id])
+    setup_edit
+
     authorize @appointment_type
   end
 
   def update
-    @appointment_type = AppointmentType.find(params[:id])
+    setup_edit
     authorize @appointment_type
 
     if @appointment_type.update(appointment_type_params)
@@ -25,9 +27,15 @@ class AppointmentTypesController < ApplicationController
 
   private
 
+  def setup_edit
+    @appointment_type = AppointmentType.find(params[:id])
+    @organization = Organization.find(params[:orga]) if params[:orga].present?
+    @notification_types = NotificationType.where(appointment_type: @appointment_type, organization: @organization)
+  end
+
   def appointment_type_params
     params.require(:appointment_type).permit(
-      :name, notification_types_attributes: [:id, :template, :reminder_period]
+      :name, :orga, notification_types_attributes: [:id, :template, :reminder_period]
     )
   end
 end

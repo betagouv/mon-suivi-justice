@@ -98,7 +98,7 @@ fr:
       appointment_type:
         name: "Nom"
       notification_type:
-        template: "Template"
+        template: "Modèle"
         reminder_period: "Délai avant le rdv"
         notification_type_roles:
           summon: convocation
@@ -244,6 +244,8 @@ fr:
   log_out: "Déconnexion"
   print_button: "Imprimer"
   contact: "Contacter l'équipe"
+  get_back: "Retour"
+  default: "Défaut"
 
   monday: lundi
   tuesday: mardi
@@ -273,7 +275,7 @@ fr:
     home: "Accueil"
     convicts: "PPSMJ"
     appointments: "Rendez-vous"
-    appointment_types: "Types de RDV"
+    message_templates: "Modèles SMS"
     places: "Lieux"
     slots: "Créneaux"
     slot_types: 'Créneaux récurrents'
@@ -464,8 +466,10 @@ fr:
   today_agendas_title: "RDV prévus pour le"
   today_agendas_title_part2: "au"
 
-  edit_appointment_type_title: Modifier Type de RDV
-  edit_appointment_type_notifications: Notifications
+  appointment_types_header_title: Modèles SMS
+  appointment_types_warning: "Vous allez modifier les modèles SMS pour le %{orga}."
+  appointment_types_warning_default: "Vous allez modifier les modèles SMS par défaut."
+  edit_appointment_type_title: Modifier modèles SMS
   edit_appointment_type_slots: Créneaux récurrents
   edit_appointment_type_add_slot: Ajouter créneau
   edit_appointment_type_slot_type_duration: "Durée (minutes)"

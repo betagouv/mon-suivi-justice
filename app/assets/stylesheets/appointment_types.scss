@@ -1,4 +1,24 @@
-.appointment-types-header {
+.appointment-types-header-container {
+  display: flex;
+  justify-content: center;
+}
+
+.appointment-types-title-container {
+  margin-right: 20px;
+  padding-top: 11px;
+}
+
+.aappointment-types-organization-select-container {
+  max-width: 200px;
+  margin: auto;
+}
+
+.appointment-types-table-container {
+  width: 400px;
+  margin: 30px auto 0;
+}
+
+.appointment-types-table-header {
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -84,8 +104,12 @@
   margin-bottom: 20px;
 }
 
-.appointment-types-container {
-  padding-top: 60px;
+
+.appointment-types-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - #{$header-height});
 }
 
 .appointment-types-item-container {
@@ -94,14 +118,7 @@
   height: 40px;
   border-bottom: 1px solid $table-border;
   padding-left: 30px;
-}
-
-.appointment-types-column-1 {
-  width: 30%;
-}
-
-.appointment-types-column-2 {
-  width: 30%;
+  justify-content: space-between;
 }
 
 .notification-type-role {
@@ -151,4 +168,10 @@
 .appointment-type-edit-subtitle {
   text-align: center;
   font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.appointment-types-warning-container {
+  text-align: center;
+  margin-top: 20px;
 }

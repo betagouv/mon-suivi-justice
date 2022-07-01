@@ -158,7 +158,9 @@ ActiveRecord::Schema.define(version: 2022_06_01_174932) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "reminder_period", default: 0
+    t.bigint "organization_id"
     t.index ["appointment_type_id"], name: "index_notification_types_on_appointment_type_id"
+    t.index ["organization_id"], name: "index_notification_types_on_organization_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -301,6 +303,7 @@ ActiveRecord::Schema.define(version: 2022_06_01_174932) do
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
   add_foreign_key "notification_types", "appointment_types"
+  add_foreign_key "notification_types", "organizations"
   add_foreign_key "notifications", "appointments"
   add_foreign_key "places", "organizations"
   add_foreign_key "previous_passwords", "users"
