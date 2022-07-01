@@ -48,7 +48,7 @@ RSpec.feature 'Home', type: :feature do
 
     expect(page).to have_content("Attention, il y a 50% de rendez-vous dont le statut n'est pas complété")
 
-    within first('p.alert', text: 'Attention') do
+    within first('p.warning', text: 'Attention') do
       click_on('Cliquez-ici')
     end
 
