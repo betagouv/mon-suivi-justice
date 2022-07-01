@@ -17,6 +17,6 @@ class HomeController < ApplicationController
                      data: @stats[:passed_uninformed_percentage])
     link = view_context.link_to 'Cliquez-ici',
                                 appointments_path({ q: { state_eq: 'booked', slot_date_lt: Date.today.to_s } })
-    flash.now[:alert] = "#{message}&nbsp#{link}".html_safe
+    flash.now[:warning] = "#{message}&nbsp#{link}".html_safe
   end
 end
