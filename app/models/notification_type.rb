@@ -2,6 +2,7 @@ class NotificationType < ApplicationRecord
   has_paper_trail
 
   belongs_to :appointment_type
+  belongs_to :organization, optional: true
   validates :template, presence: true
   validate :template_format
 
@@ -10,6 +11,8 @@ class NotificationType < ApplicationRecord
 
   VALID_NOTIFICATION_KEYS = %w[{rdv.heure} {rdv.date} {lieu.nom} {lieu.adresse}
                                {lieu.téléphone} {lieu.contact} {lieu.lien_info}].freeze
+
+  scope :default, -> { where(organization: nil) }
 
   private
 
