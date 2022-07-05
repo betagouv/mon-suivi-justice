@@ -33,7 +33,7 @@ fr:
     new:
       is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
     index:
-      only_passed_uninformed: "Seuls les rendez-vous passés dont le statut n'a pas été complété sont affichés"
+      only_passed_uninformed: "Seuls les rendez-vous passés dont le statut n'a pas été renseigné sont affichés"
       my_appointments: "Mes rendez-vous"
       no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
   activerecord:
@@ -276,7 +276,7 @@ fr:
     stats_from_informed: "Parmi les rdv renseignés :"
     stats_global: "Global"
     notice:
-      fill_out_appointments: "Attention, il y a %{data}% de rendez-vous dont le statut n'est pas complété pour votre service."
+      fill_out_appointments: "Attention, il y a %{data}% de rendez-vous dont le statut n'est pas renseigné pour votre service."
 
   sidebar:
     home: "Accueil"
