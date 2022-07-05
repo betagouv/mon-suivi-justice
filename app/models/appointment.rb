@@ -63,7 +63,7 @@ class Appointment < ApplicationRecord
   end
 
   def in_the_past?
-    slot.date <= Date.today
+    date <= Date.today && starting_time.strftime('%H:%M') <= Time.now.strftime('%H:%M')
   end
 
   def datetime

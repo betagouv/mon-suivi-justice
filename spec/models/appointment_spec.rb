@@ -99,7 +99,7 @@ RSpec.describe Appointment, type: :model do
     before { allow(Date).to receive(:today).and_return frozen_date }
 
     it 'returns true if appointment is in the past' do
-      slot = Slot.new(date: Date.new(2018, 1, 1))
+      slot = Slot.new(date: Date.new(2018, 1, 1), starting_time: Time.now - 1.minutes)
       appointment = Appointment.new(slot: slot)
 
       expect(appointment.in_the_past?).to eq(true)

@@ -79,7 +79,14 @@ class Convict < ApplicationRecord
   def passed_appointments
     appointments.joins(:slot)
                 .where(state: 'booked')
-                .where('slots.date': ..Date.today)
+                .where('slots.date < ?', Date.today).or(passed_today_appointments)
+  end
+
+  def passed_today_appointments
+    appointments.joins(:slot)
+                .where(state: 'booked')
+                .where('slots.date = ?', Date.today)
+                .where('starting_time <= ?', Time.now.strftime('%H:%M'))
   end
 
   def mobile_phone_number
