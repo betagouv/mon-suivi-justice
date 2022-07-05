@@ -23,6 +23,14 @@
   }
 }
 
+.user-appointments-index-title-container {
+  width: calc(100vw - #{$sidebar-width});
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
 .index-header-filters-container {
   display: flex;
   justify-content: flex-start;

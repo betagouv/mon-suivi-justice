@@ -56,7 +56,11 @@
   </div>
 </div>
 
+
+
 <div class='appointments-container'>
+
+
   <div class='index-sorting-tool-container'>
     <div class='index-sorting-tool-title'>
       <%= t('order') %>
@@ -81,9 +85,16 @@
     <div class='index-sorting-tool-item'>
       <%= sort_link(@q, 'slot_appointment_type_name', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) %>
     </div>
+ 
   </div>
 
-  <div class='index-cards-wrapper'>
+  <% if current_page?(user_appointments_path) %>
+    <div class="user-appointments-index-title-container">
+        <h1><%= @appointments.any? ? t('appointments.index.my_appointments') : t('appointments.index.no_appointments')  %></h1>
+    </div>
+  <% end %>
+
+  <div class='user-appointments-index-cards-wrapper '>
     <% @appointments.each do |appointment| %>
       <%= render 'appointments/appointment_card', appointment: appointment %>
     <% end %>

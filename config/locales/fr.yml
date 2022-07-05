@@ -34,6 +34,8 @@ fr:
       is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
     index:
       only_passed_uninformed: "Seuls les rendez-vous passés dont le statut n'a pas été complété sont affichés"
+      my_appointments: "Mes rendez-vous"
+      no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
   activerecord:
     models:
       user: "Agent"
