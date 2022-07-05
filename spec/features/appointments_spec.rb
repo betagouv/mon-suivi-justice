@@ -424,9 +424,22 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'allows to change state of appointment' do
+      appointment_type = create :appointment_type, name: "Sortie d'audience SAP"
+
+      slot = create(:slot, :without_validations, appointment_type: appointment_type,
+                                                 date: Date.today - 1.days,
+                                                 starting_time: Time.now)
+
       convict = create(:convict, first_name: 'Jean', last_name: 'Lassoulle')
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-      appointment = create(:appointment, convict: convict, state: :booked)
+      appointment = build(:appointment, :with_notifications, convict: convict, state: :booked, slot: slot)
+
+      appointment.save validate: false
+
+      create(:notification, appointment: appointment,
+                            role: 'no_show',
+                            content: "Sérieusement, vous n'êtes pas venu ?")
+
       appointment.fulfil
 
       visit appointment_path(appointment)
