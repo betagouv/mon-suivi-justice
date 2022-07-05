@@ -11,8 +11,8 @@ class User < ApplicationRecord
        claire.becanne@justice.fr].freeze
 
   belongs_to :organization
-  has_many :convicts
-  has_many :appointments
+  has_many :convicts, dependent: :nullify
+  has_many :appointments, dependent: :nullify
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :trackable and :omniauthable
