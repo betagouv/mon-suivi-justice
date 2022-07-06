@@ -55,13 +55,33 @@
   flex-wrap: wrap;
 }
 
+.index-header-slots-filters-fields-container {
+  height: 110px;
+  width: 425px;
+  padding: 10px 0;
+}
+
 .index-header-filters-form {
-width: 100%
+  width: 100%
+}
+
+.index-header-slots-filters-form {
+  display: flex;
+  align-items: center;
 }
 
 .index-header-search-field {
   height: 40px;
   width: 130px;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid $table-border;
+  color: grey;
+}
+
+.index-header-slots-earch-field {
+  height: 40px;
+  width: 200px;
   padding: 10px;
   margin-right: 10px;
   border: 1px solid $table-border;

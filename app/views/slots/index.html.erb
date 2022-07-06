@@ -1,9 +1,9 @@
 <div class='index-header-container'>
   <div class='index-header-filters-container'>
-    <%= search_form_for @q, class: 'index-header-filters-form', id: 'index-header-filters-form' do |f| %>
-      <div class='index-header-filters-fields-container'>
+    <%= search_form_for @q, class: 'index-header-slots-filters-form', id: 'index-header-filters-form' do |f| %>
+      <div class='index-header-slots-filters-fields-container'>
         <%= f.date_field :date_eq, id: 'search-field',
-                            class: 'index-header-search-field',
+                            class: 'index-header-slots-earch-field',
                             value: @q.date_eq ? @q.date_eq.strftime('%Y-%m-%d') : '',
                             placeholder: t('search-appointment-placeholder') %>
 
