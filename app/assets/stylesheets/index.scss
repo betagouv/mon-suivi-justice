@@ -31,25 +31,37 @@
   margin-top: 5px;
 }
 
+.appointments-container {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.index-header-action-buttons-container {
+  width: calc(100vw - #{$sidebar-width});
+  display: flex;
+  justify-content: right;
+  padding: 5px;
+}
+
 .index-header-filters-container {
   display: flex;
   justify-content: flex-start;
 }
 
 .index-header-filters-fields-container {
-  height: 110px;
-  width: 425px;
   padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .index-header-filters-form {
-  display: flex;
-  align-items: center;
+width: 100%
 }
 
 .index-header-search-field {
   height: 40px;
-  width: 200px;
+  width: 130px;
   padding: 10px;
   margin-right: 10px;
   border: 1px solid $table-border;
@@ -65,6 +77,20 @@
   border: 1px solid $table-border;
   background-color: $main-background;
   color: grey;
+}
+
+.index-header-my-appointments-filter-field-container {
+  width: 200px;
+}
+
+.index-header-my-appointments-filter-field {
+  position: absolute;
+  margin-top: 8px;
+  width: 180px;
+  input[type="checkbox"] {
+    position: relative;
+    top: 2px;
+  }
 }
 
 .in-use {
@@ -84,7 +110,6 @@
 .index-header-filters-button {
   @include button($light-grey);
   height: 40px;
-  margin-bottom: 10px;
 }
 
 .index-header-controls-container {
@@ -97,7 +122,6 @@
 .index-header-controls-appointments-buttons-wrapper {
   display: flex;
   flex-direction: row;
-  margin-bottom: 10px;
   form {
     margin-left: 10px;
   }

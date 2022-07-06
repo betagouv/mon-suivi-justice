@@ -52,7 +52,9 @@ RSpec.feature 'Appointments', type: :feature do
       visit appointments_path
 
       fill_in 'index-appointment-date-filter', with: Date.civil(2025, 4, 16)
-      click_button 'Filtrer'
+
+      form = page.find('#index-header-filters-form')
+      Capybara::RackTest::Form.new(page.driver, form.native).submit({})
 
       expect(page).to have_content(Date.civil(2025, 4, 16))
       expect(page).not_to have_content(Date.civil(2025, 4, 14))

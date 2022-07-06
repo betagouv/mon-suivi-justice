@@ -2,9 +2,9 @@
   <div class='index-header-filters-container'>
     <%= search_form_for @q, class: 'index-header-filters-form', id: 'index-header-filters-form' do |f| %>
       <div class='index-header-filters-fields-container'>
-        <%= f.search_field :date_eq, id: 'search-field',
+        <%= f.date_field :date_eq, id: 'search-field',
                             class: 'index-header-search-field',
-                            value: @q.date_eq ? @q.date_eq.strftime('%d/%m/%Y') : '',
+                            value: @q.date_eq ? @q.date_eq.strftime('%Y-%m-%d') : '',
                             placeholder: t('search-appointment-placeholder') %>
 
         <%# TODO: there is for the moment only one department per organization.
