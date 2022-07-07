@@ -338,6 +338,8 @@ fr:
   send_invitation: "Envoyer invitation"
   show_user_title: "Mes informations"
   edit_user_title: "Modifier informations"
+  edit_slot_title: "Infos créneau"
+  edit_slot_capacity: "Modifier la capacité"
 
   new_organization_title: "Nouveau service"
   edit_organization_title: "Modifier le service"

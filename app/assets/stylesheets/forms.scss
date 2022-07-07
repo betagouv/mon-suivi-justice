@@ -44,6 +44,10 @@
   width: 50%;
 }
 
+input:invalid {
+  border: 2px dashed red;
+}
+
 .form-submit-button {
   @include button($light-blue);
   margin: 15px auto 30px;
@@ -237,4 +241,8 @@
 
 .checkbox-label input:checked ~ span:after {
   display: block;
+}
+
+.field_with_hint .hint {
+  color: grey;
 }

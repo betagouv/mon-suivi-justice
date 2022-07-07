@@ -28,12 +28,21 @@ class SlotsController < ApplicationController
     end
   end
 
+  def edit
+    @slot = Slot.find(params[:id])
+    authorize @slot
+  end
+
   def update
     @slot = Slot.find(params[:id])
     authorize @slot
 
-    @slot.update(slot_params)
-    redirect_to slots_path
+    if @slot.update(slot_params)
+      flash[:notice] = "la capacité du créneau a été modifiée"
+      redirect_to slots_path
+    else
+      render :edit
+    end
   end
 
   private

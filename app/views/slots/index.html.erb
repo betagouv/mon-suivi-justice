@@ -63,6 +63,9 @@
       <div class='slots-column-5'>
         <%= t('activerecord.attributes.slot.starting_time') %>
       </div>
+      <div class='slots-column-7'>
+        <%= t('activerecord.attributes.slot.capacity') %>
+      </div>
       <div class='slots-column-6'>
         <%= t('select') %>
       </div>
@@ -93,6 +96,10 @@
               <%= slot.starting_time.to_s(:time) %>
             </div>
 
+            <div class='slot-data slots-column-7'>
+              <%= slot.capacity %>
+            </div>
+
             <% if policy(:slot).update? %>
               <div class='slots-column-6'>
                 <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
@@ -104,6 +111,9 @@
                                       method: :put,
                                       data: { confirm: t('basic_confirmation') },
                                       class: 'slots-index-control' %>
+              <% if policy(:slot).update? && !slot.full? %>
+                <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
+              <% end %>
             </div>
           </div>
         <% end %>
