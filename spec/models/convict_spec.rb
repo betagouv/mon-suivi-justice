@@ -45,11 +45,10 @@ RSpec.describe Convict, type: :model do
 
   describe 'phone_uniqueness' do
     it 'denies a phone already existing' do
-      convict1 = create(:convict, phone: '0612458744')
+      create(:convict, phone: '0612458744')
       convict2 = build(:convict, phone: '0612458744')
 
       expect(convict2).not_to be_valid
-      expect(convict2.duplicates).to eq([convict1])
     end
 
     it 'accepts a phone already existing in the whitelist' do
@@ -189,6 +188,26 @@ RSpec.describe Convict, type: :model do
       create :areas_convicts_mapping, convict: convict3, area: department2
 
       expect(Convict.in_department(department1)).to eq [convict1, convict2]
+    end
+  end
+
+  describe '.check_duplicates' do
+    it 'adds duplicate if names are the same' do
+      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
+      convict2 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
+
+      convict1.check_duplicates
+
+      expect(convict1.duplicates).to eq([convict2])
+    end
+
+    it "doesn't add duplicate if appi_uuid are different" do
+      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '1234')
+      create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '5678')
+
+      convict1.check_duplicates
+
+      expect(convict1.duplicates).to be_empty
     end
   end
 end
