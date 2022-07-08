@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <title><%= t('header_title') %></title>
+    <title><%= ENV['APP'] == 'mon-suivi-justice-staging' ? 'Staging - ' : '' %><%= t('header_title') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
