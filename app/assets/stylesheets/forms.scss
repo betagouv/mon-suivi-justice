@@ -44,10 +44,6 @@
   width: 50%;
 }
 
-input:invalid {
-  border: 2px dashed red;
-}
-
 .form-submit-button {
   @include button($light-blue);
   margin: 15px auto 30px;

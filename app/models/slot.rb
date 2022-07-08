@@ -7,7 +7,9 @@ class Slot < ApplicationRecord
   has_many :appointments, dependent: :destroy
 
   validates :date, :starting_time, :duration, :capacity, presence: true
-  validates :capacity, :numericality => { greater_than: :used_capacity }
+  validates :capacity, numericality: { greater_than: 0 }
+  validates :capacity, numericality: { greater_than_or_equal_to: :used_capacity }
+
   validates_inclusion_of :available, in: [true, false]
   validate :workday?
   validate :coherent_organization_type?

@@ -525,6 +525,10 @@ fr:
   new_slot_submit: "Enregistrer"
   index_slot_place_filter: "Lieu de RDV"
 
+  edit_slot_used_capacity:  "%{data} RDV déjà pris."
+  edit_slot_minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} places."
+  edit_slot_warning_slot_will_be_clossed: "Si vous choisissez %{data}, le créneau sera fermé."
+
   convict_invitations:
     create:
       invitation_sent: L'invitation est en cours d'envoi à la PPSMJ

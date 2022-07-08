@@ -30,6 +30,14 @@ class SlotsController < ApplicationController
 
   def edit
     @slot = Slot.find(params[:id])
+
+    min_capacity = @slot.used_capacity.zero? ? @slot.used_capacity + 1 : @slot.used_capacity
+
+    @hint1 = t('edit_slot_used_capacity', data: @slot.used_capacity)
+    @hint2 = t('edit_slot_minimum_capacity', data: min_capacity)
+    @hint3 = t('edit_slot_warning_slot_will_be_clossed', data: @slot.used_capacity)
+    @hint = "#{@hint1}<br/>#{@hint2}<br/>#{min_capacity == 1 ? '' : @hint3}".html_safe
+
     authorize @slot
   end
 
@@ -38,7 +46,8 @@ class SlotsController < ApplicationController
     authorize @slot
 
     if @slot.update(slot_params)
-      flash[:notice] = "la capacité du créneau a été modifiée"
+      flash[:notice] = 'la capacité du créneau a été modifiée'
+      check_if_slot_should_be_closed
       redirect_to slots_path
     else
       render :edit
@@ -50,5 +59,12 @@ class SlotsController < ApplicationController
   def slot_params
     params.require(:slot).permit(:agenda_id, :appointment_type_id,
                                  :date, :starting_time, :available, :capacity, :duration)
+  end
+
+  def check_if_slot_should_be_closed
+    return unless @slot.all_capacity_used? == true
+
+    @slot.update(full: true)
+    flash[:notice] = 'Le créneau a été fermé'
   end
 end

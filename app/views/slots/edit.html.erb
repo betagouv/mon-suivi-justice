@@ -48,7 +48,7 @@
 <h2 class="show-secondary-title"><%= t('edit_slot_capacity') %></h2>
 
 <%= simple_form_for @slot, html: { class: 'basic-form' } do |f| %>
-  <%= f.input :capacity, hint: @slot.errors.any? ? "" : "#{@slot.used_capacity} RDV déjà pris. La nouvelle capacité doit être au minimum de #{@slot.used_capacity + 1} places", input_html: { min: @slot.used_capacity + 1, step: 1 } %>
+  <%= f.input :capacity, hint: @slot.errors.any? ? "" : @hint, input_html: { min: @slot.used_capacity + 1, step: 1 } %>
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>
 
