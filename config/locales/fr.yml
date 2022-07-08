@@ -442,6 +442,7 @@ fr:
   index-appointment-agenda-filter: "Agenda"
   index-appointment-state-filter: "Statut du RDV"
   index-appointment-reinit-filter: "RDV du jour"
+  index-appointment-only-my-appointments: "Uniquement mes RDV"
   index-appointment-clear-filters: "Supprimer les filtres"
   index-appointment-see-data: "Voir les infos"
   index-appointment-state: "Statut :"
