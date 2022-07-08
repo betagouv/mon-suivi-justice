@@ -37,7 +37,7 @@
     <%= search_form_for @q, class: 'index-header-filters-form', id: 'index-header-filters-form' do |f| %>
       <div class='index-header-filters-fields-container'>
         <%= f.date_field :slot_date_eq, id: 'index-appointment-date-filter',
-                            class: "index-header-search-field #{@q.slot_date_eq ? 'in-use' : ''}",
+                            class: "index-header-search-field index-appointment-date-filter #{@q.slot_date_eq ? 'in-use' : ''}",
                             value: @q.slot_date_eq ? @q.slot_date_eq.strftime('%Y-%m-%d') : '',
                             placeholder: t('search-appointment-placeholder') %>
 
