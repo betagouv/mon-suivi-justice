@@ -130,8 +130,19 @@ class Convict < ApplicationRecord
       first_name.downcase, last_name.downcase
     ).where.not(id: id)
 
-    homonyms = homonyms.reject { |i| i.appi_uuid.present? } if appi_uuid.present?
+    homonyms = homonyms.where(appi_uuid: nil) if appi_uuid.present?
+    homonyms = check_duplicates_without_phones(homonyms)
 
     self.duplicates = homonyms
+  end
+
+  def check_duplicates_without_phones(homonyms)
+    homonyms = homonyms.in_department(departments.first) if refused_phone? || no_phone?
+
+    homonyms = homonyms.reject do |i|
+      (i.refused_phone? || i.no_phone?) && i.departments.first != departments.first
+    end
+
+    Convict.where(id: homonyms.pluck(:id))
   end
 end

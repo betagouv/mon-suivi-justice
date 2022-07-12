@@ -46,9 +46,8 @@ RSpec.describe Convict, type: :model do
   describe 'phone_uniqueness' do
     it 'denies a phone already existing' do
       create(:convict, phone: '0612458744')
-      convict2 = build(:convict, phone: '0612458744')
 
-      expect(convict2).not_to be_valid
+      expect(build(:convict, phone: '0612458744')).not_to be_valid
     end
 
     it 'accepts a phone already existing in the whitelist' do
@@ -204,6 +203,34 @@ RSpec.describe Convict, type: :model do
     it "doesn't add duplicate if appi_uuid are different" do
       convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '1234')
       create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '5678')
+
+      convict1.check_duplicates
+
+      expect(convict1.duplicates).to be_empty
+    end
+
+    it "doesn't add duplicate in other department if new convict don't have phone number" do
+      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin', phone: nil, no_phone: true)
+      department1 = create :department, number: '01', name: 'Ain'
+      create :areas_convicts_mapping, convict: convict1, area: department1
+
+      convict2 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
+      department2 = create :department, number: '02', name: 'Aisne'
+      create :areas_convicts_mapping, convict: convict2, area: department2
+
+      convict1.check_duplicates
+
+      expect(convict1.duplicates).to be_empty
+    end
+
+    it "doesn't add duplicate in other department if they don't have phone number" do
+      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
+      department1 = create :department, number: '01', name: 'Ain'
+      create :areas_convicts_mapping, convict: convict1, area: department1
+
+      convict2 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin', phone: nil, no_phone: true)
+      department2 = create :department, number: '02', name: 'Aisne'
+      create :areas_convicts_mapping, convict: convict2, area: department2
 
       convict1.check_duplicates
 

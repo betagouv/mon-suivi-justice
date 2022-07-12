@@ -115,7 +115,7 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
     end
 
-    describe 'with a potentially duplicated convict' do
+    describe 'with potentially duplicated convicts' do
       it 'shows a warning with link to pre-existing convict profile' do
         convict = create(:convict, first_name: 'roberta', last_name: 'dupond')
         create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
@@ -146,8 +146,7 @@ RSpec.feature 'Convicts', type: :feature do
         expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
 
         expect(page).to have_content(
-          "Cette PPSMJ existe déjà dans le département #{department.name} (#{department.number}), " \
-          'merci de contacter le support.'
+          "Un homonyme existe dans le département #{department.name} (#{department.number})."
         )
 
         expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
