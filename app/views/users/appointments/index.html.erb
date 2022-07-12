@@ -43,16 +43,11 @@
                                                   method: :get %>
       <% end %>
     </div>
-    <% if ENV['APP'] == 'mon-suivi-justice-prod' %>
-      <%= button_to t('print_button'), 'fake_link',
-                                        class: 'bex-print-button',
-                                        onclick: 'window.print();return false;'%>
-    <% else %>
-      <%= button_to t('print_button'), appointments_path(format: :pdf),
-                                       method: :get,
-                                       form: { target: '_blank' },
-                                       class: 'bex-print-button' %>
-    <% end %>
+
+    <%= button_to t('print_button'), appointments_path(format: :pdf),
+                                     method: :get,
+                                     form: { target: '_blank' },
+                                     class: 'bex-print-button' %>
   </div>
 </div>
 
@@ -85,7 +80,7 @@
     <div class='index-sorting-tool-item'>
       <%= sort_link(@q, 'slot_appointment_type_name', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) %>
     </div>
- 
+
   </div>
 
   <% if current_page?(user_appointments_path) %>
