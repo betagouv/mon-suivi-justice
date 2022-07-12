@@ -1,26 +1,28 @@
 <div class='appointment-types-wrapper'>
   <div class='appointment-types-container'>
-    <div class='appointment-types-header-container'>
-      <div class='appointment-types-title-container'>
-        <%= t('appointment_types_header_title') %>
+    <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+      <div class='appointment-types-header-container'>
+        <div class='appointment-types-title-container'>
+          <%= t('appointment_types_header_title') %>
+        </div>
+        <div class='appointment-types-organization-select-container'>
+          <%= form_tag appointment_types_path, method: 'get' do %>
+            <%= select_tag :orga, options_for_select(formated_orgas_for_select(@organizations), params[:orga]),
+                                  id: 'apt-type-organization-select',
+                                  class: 'form-select form-text-input',
+                                  onchange: 'this.form.submit()' %>
+          <% end %>
+        </div>
       </div>
-      <div class='appointment-types-organization-select-container'>
-        <%= form_tag appointment_types_path, method: 'get' do %>
-          <%= select_tag :orga, options_for_select(formated_orgas_for_select(@organizations), params[:orga]),
-                                id: 'apt-type-organization-select',
-                                class: 'form-select form-text-input',
-                                onchange: 'this.form.submit()' %>
+
+      <div class='appointment-types-warning-container'>
+        <% if params[:orga].present? %>
+          <%= t('appointment_types_warning', orga: Organization.find(params[:orga]).name) %>
+        <% else %>
+          <%= t('appointment_types_warning_default') %>
         <% end %>
       </div>
-    </div>
-
-    <div class='appointment-types-warning-container'>
-      <% if params[:orga].present? %>
-        <%= t('appointment_types_warning', orga: Organization.find(params[:orga]).name) %>
-      <% else %>
-        <%= t('appointment_types_warning_default') %>
-      <% end %>
-    </div>
+    <% end %>
 
     <div class='appointment-types-table-container'>
       <div class='appointment-types-table-header'>
