@@ -48,13 +48,14 @@
                                                   { include_blank: t('index-slots-appointment-type-filter') },
                                                   { class: "form-select index-header-filter-field #{@q.slot_appointment_type_id_eq ? 'in-use' : ''}" } %>
 
-        <div class="index-header-my-appointments-filter-field-container">
-          <div class="index-header-my-appointments-filter-field">
-            <input type="checkbox" name="q[user_id_eq]" id="q_user_id_eq" value="<%= current_user.id %>" <%= @q.user_id_eq ? 'checked' : ''%>>
-              <label for="q_user_id_eq"><%= t('index-appointment-only-my-appointments') %></label>
+        <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+          <div class="index-header-my-appointments-filter-field-container">
+            <div class="index-header-my-appointments-filter-field">
+              <input type="checkbox" name="q[user_id_eq]" id="q_user_id_eq" value="<%= current_user.id %>" <%= @q.user_id_eq ? 'checked' : ''%>>
+                <label for="q_user_id_eq"><%= t('index-appointment-only-my-appointments') %></label>
+            </div>
           </div>
-        </div>
-
+        <% end %>
       </div>
     <% end %>
 <% end %>
