@@ -32,6 +32,10 @@ fr:
   appointments:
     new:
       is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
+    index:
+      only_passed_uninformed: "Seuls les rendez-vous passés dont le statut n'a pas été renseigné sont affichés"
+      my_appointments: "Mes rendez-vous"
+      no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
   activerecord:
     models:
       user: "Agent"
@@ -98,7 +102,7 @@ fr:
       appointment_type:
         name: "Nom"
       notification_type:
-        template: "Template"
+        template: "Modèle"
         reminder_period: "Délai avant le rdv"
         notification_type_roles:
           summon: convocation
@@ -148,6 +152,7 @@ fr:
         fulfiled: "Honoré"
         no_show: "Manqué"
         excused: "Excusé"
+        created: "Créé"
       events:
         book: "Plannifier"
 
@@ -244,6 +249,8 @@ fr:
   log_out: "Déconnexion"
   print_button: "Imprimer"
   contact: "Contacter l'équipe"
+  get_back: "Retour"
+  default: "Défaut"
 
   monday: lundi
   tuesday: mardi
@@ -268,12 +275,14 @@ fr:
     stats_passed_booked: "de rdv non renseignés"
     stats_from_informed: "Parmi les rdv renseignés :"
     stats_global: "Global"
+    notice:
+      fill_out_appointments: "Attention, il y a %{data}% de rendez-vous dont le statut n'est pas renseigné pour votre service."
 
   sidebar:
     home: "Accueil"
     convicts: "PPSMJ"
     appointments: "Rendez-vous"
-    appointment_types: "Types de RDV"
+    message_templates: "Modèles SMS"
     places: "Lieux"
     slots: "Créneaux"
     slot_types: 'Créneaux récurrents'
@@ -329,6 +338,10 @@ fr:
   send_invitation: "Envoyer invitation"
   show_user_title: "Mes informations"
   edit_user_title: "Modifier informations"
+  edit_slot_title: "Infos créneau"
+  edit_slot_capacity: "Modifier la capacité"
+  edit_slot_slot_has_been_closed: "Le créneau a été fermé."
+  edit_slot_slot_capacity_has_been_modified: "La capacité du créneau a été modifiée."
 
   new_organization_title: "Nouveau service"
   edit_organization_title: "Modifier le service"
@@ -431,7 +444,9 @@ fr:
   new_appointment_reload: "Recharger"
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-agenda-filter: "Agenda"
+  index-appointment-state-filter: "Statut du RDV"
   index-appointment-reinit-filter: "RDV du jour"
+  index-appointment-only-my-appointments: "Uniquement mes RDV"
   index-appointment-clear-filters: "Supprimer les filtres"
   index-appointment-see-data: "Voir les infos"
   index-appointment-state: "Statut :"
@@ -464,8 +479,10 @@ fr:
   today_agendas_title: "RDV prévus pour le"
   today_agendas_title_part2: "au"
 
-  edit_appointment_type_title: Modifier Type de RDV
-  edit_appointment_type_notifications: Notifications
+  appointment_types_header_title: Modèles SMS
+  appointment_types_warning: "Vous allez modifier les modèles SMS pour le %{orga}."
+  appointment_types_warning_default: "Vous allez modifier les modèles SMS par défaut."
+  edit_appointment_type_title: Modifier modèles SMS
   edit_appointment_type_slots: Créneaux récurrents
   edit_appointment_type_add_slot: Ajouter créneau
   edit_appointment_type_slot_type_duration: "Durée (minutes)"
@@ -510,6 +527,10 @@ fr:
   new_slot_title: "Nouveau Créneau"
   new_slot_submit: "Enregistrer"
   index_slot_place_filter: "Lieu de RDV"
+
+  edit_slot_used_capacity:  "%{data} RDV déjà pris."
+  edit_slot_minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} places."
+  edit_slot_warning_slot_will_be_clossed: "Si vous choisissez %{data}, le créneau sera fermé."
 
   convict_invitations:
     create:

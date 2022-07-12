@@ -16,6 +16,12 @@
   @include button($light-blue);
 }
 
+.delete-user-button {
+  @include button($important);
+  margin: 15px auto 30px;
+  color: white
+}
+
 .users-item-container {
   display: flex;
   align-items: center;

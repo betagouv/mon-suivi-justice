@@ -238,3 +238,7 @@
 .checkbox-label input:checked ~ span:after {
   display: block;
 }
+
+.field_with_hint .hint {
+  color: grey;
+}

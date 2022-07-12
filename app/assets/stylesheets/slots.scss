@@ -18,6 +18,7 @@
 
 .slots-index-control {
   color: $link;
+  margin-right: 10px;
 }
 
 .slots-column {
@@ -25,15 +26,15 @@
 }
 
 .slots-column-1 {
-  width: 20%;
+  width: 15%;
 }
 
 .slots-column-2 {
-  width: 20%;
+  width: 15%;
 }
 
 .slots-column-3 {
-  width: 20%;
+  width: 15%;
 }
 
 .slots-column-4 {
@@ -45,6 +46,11 @@
 }
 
 .slots-column-6 {
+  width: 10%;
+  text-align: center;
+}
+
+.slots-column-7 {
   width: 10%;
   text-align: center;
 }

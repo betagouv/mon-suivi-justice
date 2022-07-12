@@ -2,7 +2,7 @@
 
 <% if @convict.passed_appointments.present? %>
   <% policy_scope(@convict.passed_appointments).each do |apt| %>
-    <% if apt.booked? && policy(apt).fulfil?%>
+    <% if apt.booked? && policy(apt).fulfil? %>
       <div class='appointment-fulfilment-container'>
         <div class='appointment-fulfilment-prompt-container'>
           <%= t('show-convict-fulfilment-prompt', name: @convict.name,

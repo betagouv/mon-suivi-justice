@@ -9,23 +9,76 @@
   padding: 0 10px;
 }
 
+.index-title-container {
+  width: calc(100vw - #{$sidebar-width});
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  background-color: $main-background;
+  padding: 0 10px;
+
+  h1 {
+    padding-top: 20px;
+  }
+}
+
+.user-appointments-index-title-container {
+  width: calc(100vw - #{$sidebar-width});
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.appointments-container {
+  text-align: center;
+}
+
+.index-header-action-buttons-container {
+  width: calc(100vw - #{$sidebar-width});
+  display: flex;
+  justify-content: right;
+  padding: 5px;
+}
+
 .index-header-filters-container {
   display: flex;
   justify-content: flex-start;
 }
 
 .index-header-filters-fields-container {
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.index-header-slots-filters-fields-container {
   height: 110px;
   width: 425px;
   padding: 10px 0;
 }
 
 .index-header-filters-form {
+  width: 100%
+}
+
+.index-header-slots-filters-form {
   display: flex;
   align-items: center;
 }
 
 .index-header-search-field {
+  height: 40px;
+  width: 130px;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid $table-border;
+  color: grey;
+}
+
+.index-header-slots-earch-field {
   height: 40px;
   width: 200px;
   padding: 10px;
@@ -45,6 +98,20 @@
   color: grey;
 }
 
+.index-header-my-appointments-filter-field-container {
+  width: 200px;
+}
+
+.index-header-my-appointments-filter-field {
+  position: absolute;
+  margin-top: 8px;
+  width: 180px;
+  input[type="checkbox"] {
+    position: relative;
+    top: 2px;
+  }
+}
+
 .in-use {
   border-color: #92dff3;
   border-width: medium;
@@ -62,7 +129,6 @@
 .index-header-filters-button {
   @include button($light-grey);
   height: 40px;
-  margin-bottom: 10px;
 }
 
 .index-header-controls-container {
@@ -75,7 +141,6 @@
 .index-header-controls-appointments-buttons-wrapper {
   display: flex;
   flex-direction: row;
-  margin-bottom: 10px;
   form {
     margin-left: 10px;
   }

@@ -4,7 +4,7 @@ class SmsDeliveryJob < ApplicationJob
   queue_as :default
 
   def perform(notification_id)
-    notification = notification_id.kind_of?(Integer) ? Notification.find(notification_id) : notification_id
+    notification = notification_id.is_a?(Integer) ? Notification.find(notification_id) : notification_id
     return if notification.canceled?
     return if notification.convict_phone.empty?
 

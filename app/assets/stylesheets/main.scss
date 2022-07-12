@@ -9,7 +9,7 @@ body {
   font-size: 0.9em;
 }
 
-.notice, .alert {
+.notice, .alert, .warning {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,6 +23,10 @@ body {
 
 .alert {
   background-color: $alert;
+}
+
+.warning {
+  background-color: $warning;
 }
 
 .fake-link {

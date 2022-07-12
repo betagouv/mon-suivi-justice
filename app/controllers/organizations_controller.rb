@@ -37,6 +37,7 @@ class OrganizationsController < ApplicationController
     authorize organization
 
     organization.save
+    organization.setup_notification_types
     redirect_to organizations_path
   end
 
