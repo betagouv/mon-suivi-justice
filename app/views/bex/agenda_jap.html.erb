@@ -10,17 +10,11 @@
       <% end %>
     <% end %>
 
-    <% if ENV['APP'] == 'mon-suivi-justice-prod' %>
-      <%= button_to t('print_button'), 'fake_link',
-                                        class: 'bex-print-button',
-                                        onclick: 'window.print();return false;'%>
-    <% else %>
-      <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
-                                       method: :get,
-                                       params: {date: params[:date]},
-                                       form: { target: '_blank' },
-                                       class: 'bex-print-button' %>
-    <% end %>
+    <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
+                                     method: :get,
+                                     params: {date: params[:date]},
+                                     form: { target: '_blank' },
+                                     class: 'bex-print-button' %>
   </div>
 
   <% if @agendas.empty? %>
