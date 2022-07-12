@@ -111,8 +111,10 @@
                                       method: :put,
                                       data: { confirm: t('basic_confirmation') },
                                       class: 'slots-index-control' %>
-              <% if policy(:slot).update? %>
-                <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
+              <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+                <% if policy(:slot).update? %>
+                  <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
+                <% end %>
               <% end %>
             </div>
           </div>
