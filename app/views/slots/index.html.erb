@@ -1,10 +1,10 @@
 <div class='index-header-container'>
   <div class='index-header-filters-container'>
-    <%= search_form_for @q, class: 'index-header-filters-form', id: 'index-header-filters-form' do |f| %>
-      <div class='index-header-filters-fields-container'>
-        <%= f.search_field :date_eq, id: 'search-field',
-                            class: 'index-header-search-field',
-                            value: @q.date_eq ? @q.date_eq.strftime('%d/%m/%Y') : '',
+    <%= search_form_for @q, class: 'index-header-slots-filters-form', id: 'index-header-filters-form' do |f| %>
+      <div class='index-header-slots-filters-fields-container'>
+        <%= f.date_field :date_eq, id: 'search-field',
+                            class: 'index-header-slots-earch-field',
+                            value: @q.date_eq ? @q.date_eq.strftime('%Y-%m-%d') : '',
                             placeholder: t('search-appointment-placeholder') %>
 
         <%# TODO: there is for the moment only one department per organization.
@@ -63,6 +63,9 @@
       <div class='slots-column-5'>
         <%= t('activerecord.attributes.slot.starting_time') %>
       </div>
+      <div class='slots-column-7'>
+        <%= t('activerecord.attributes.slot.capacity') %>
+      </div>
       <div class='slots-column-6'>
         <%= t('select') %>
       </div>
@@ -93,6 +96,10 @@
               <%= slot.starting_time.to_s(:time) %>
             </div>
 
+            <div class='slot-data slots-column-7'>
+              <%= slot.capacity %>
+            </div>
+
             <% if policy(:slot).update? %>
               <div class='slots-column-6'>
                 <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
@@ -104,6 +111,11 @@
                                       method: :put,
                                       data: { confirm: t('basic_confirmation') },
                                       class: 'slots-index-control' %>
+              <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+                <% if policy(:slot).update? %>
+                  <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
+                <% end %>
+              <% end %>
             </div>
           </div>
         <% end %>
@@ -113,3 +125,6 @@
     <%= paginate @slots %>
   </div>
 </div>
+
+<%= javascript_pack_tag 'slots_index' %>
+

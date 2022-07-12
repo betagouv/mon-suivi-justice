@@ -46,7 +46,7 @@ RSpec.feature 'Home', type: :feature do
   it 'should display a flash alert and link to a page which lists only uninformed appointments' do
     visit home_path
 
-    expect(page).to have_content("Attention, il y a 50% de rendez-vous dont le statut n'est pas complété")
+    expect(page).to have_content("Attention, il y a 50% de rendez-vous dont le statut n'est pas renseigné")
 
     within first('p.warning', text: 'Attention') do
       click_on('Cliquez-ici')

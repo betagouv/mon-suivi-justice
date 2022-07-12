@@ -1,0 +1,54 @@
+<h1 class='form-title'><%= t('edit_slot_title') %></h1>
+
+<div class='show-profile-container'>
+  <div class='show-data-container'>
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.slot.place') %>
+      </div>
+      <div class='show-data-item'>
+        <%= @slot.agenda.place.name %>
+      </div>
+    </div>
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.models.agenda') %>
+      </div>
+      <div class='show-data-item'>
+        <%= @slot.agenda.name %>
+      </div>
+    </div>
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.slot.appointment_type') %>
+      </div>
+      <div class='show-data-item'>
+        <%= @slot.appointment_type.name %>
+      </div>
+    </div>
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.slot.date') %>
+      </div>
+      <div class='show-data-item'>
+        <%= @slot.date.to_s(:base_date_format) %>
+      </div>
+    </div>
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.slot.starting_time') %>
+      </div>
+      <div class='show-data-item'>
+        <%= @slot.starting_time.to_s(:time) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 class="show-secondary-title"><%= t('edit_slot_capacity') %></h2>
+
+<%= simple_form_for @slot, html: { class: 'basic-form' } do |f| %>
+  <%= f.input :capacity, hint: @slot.errors.any? ? "" : @hint, input_html: { min: @slot.used_capacity + 1, step: 1 } %>
+  <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
+<% end %>
+

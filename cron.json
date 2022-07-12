@@ -1,7 +1,0 @@
-{
-  "jobs": [
-    {
-      "command": "0 8 * * * rake invite_convicts_to_interface"
-    }
-  ]
-}

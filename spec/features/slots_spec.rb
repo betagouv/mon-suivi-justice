@@ -78,6 +78,35 @@ RSpec.feature 'Slots', type: :feature do
     end
   end
 
+  describe 'edition' do
+    before do
+      @apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
+      @slot1 = create(:slot, appointment_type: @apt_type, date: Date.civil(2025, 4, 14))
+    end
+
+    it 'works' do
+      visit edit_slot_path(@slot1.id)
+      fill_in 'Capacité', with: 7
+      click_button 'Enregistrer'
+      @slot1.reload
+      expect(@slot1.capacity).to eq(7)
+    end
+
+    it 'prevents user from filling in a capacity which is lower than used_capacity' do
+      @slot1.capacity = 10
+      @slot1.used_capacity = 5
+      @slot1.save
+
+      visit edit_slot_path(@slot1.id)
+      fill_in 'Capacité', with: 4
+      click_button 'Enregistrer'
+
+      @slot1.reload
+
+      expect(@slot1.capacity).to eq(10)
+    end
+  end
+
   describe 'batch close' do
     it 'allows to select slots to close' do
       apt_type = AppointmentType.create(name: "Sortie d'audience SPIP")

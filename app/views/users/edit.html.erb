@@ -30,12 +30,13 @@
   <% end %>
 
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
+<% end %>
 
-  <% if current_user.admin? %>
+<% if policy(:user).index? && current_user != @user %>
+  <div class="text-center">
     <%= button_to t('delete'), user_path(@user),
                               data: { confirm: t('basic_confirmation') },
                               class: 'delete-user-button',
                               method: :delete %>
-  <% end %>
-
+  </div>
 <% end %>

@@ -33,7 +33,9 @@ fr:
     new:
       is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
     index:
-      only_passed_uninformed: "Seuls les rendez-vous passés dont le statut n'a pas été complété sont affichés"
+      only_passed_uninformed: "Seuls les rendez-vous passés dont le statut n'a pas été renseigné sont affichés"
+      my_appointments: "Mes rendez-vous"
+      no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
   activerecord:
     models:
       user: "Agent"
@@ -274,7 +276,7 @@ fr:
     stats_from_informed: "Parmi les rdv renseignés :"
     stats_global: "Global"
     notice:
-      fill_out_appointments: "Attention, il y a %{data}% de rendez-vous dont le statut n'est pas complété pour votre service."
+      fill_out_appointments: "Attention, il y a %{data}% de rendez-vous dont le statut n'est pas renseigné pour votre service."
 
   sidebar:
     home: "Accueil"
@@ -336,6 +338,10 @@ fr:
   send_invitation: "Envoyer invitation"
   show_user_title: "Mes informations"
   edit_user_title: "Modifier informations"
+  edit_slot_title: "Infos créneau"
+  edit_slot_capacity: "Modifier la capacité"
+  edit_slot_slot_has_been_closed: "Le créneau a été fermé."
+  edit_slot_slot_capacity_has_been_modified: "La capacité du créneau a été modifiée."
 
   new_organization_title: "Nouveau service"
   edit_organization_title: "Modifier le service"
@@ -440,6 +446,7 @@ fr:
   index-appointment-agenda-filter: "Agenda"
   index-appointment-state-filter: "Statut du RDV"
   index-appointment-reinit-filter: "RDV du jour"
+  index-appointment-only-my-appointments: "Uniquement mes RDV"
   index-appointment-clear-filters: "Supprimer les filtres"
   index-appointment-see-data: "Voir les infos"
   index-appointment-state: "Statut :"
@@ -520,6 +527,10 @@ fr:
   new_slot_title: "Nouveau Créneau"
   new_slot_submit: "Enregistrer"
   index_slot_place_filter: "Lieu de RDV"
+
+  edit_slot_used_capacity:  "%{data} RDV déjà pris."
+  edit_slot_minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} places."
+  edit_slot_warning_slot_will_be_clossed: "Si vous choisissez %{data}, le créneau sera fermé."
 
   convict_invitations:
     create:

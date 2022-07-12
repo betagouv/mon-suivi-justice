@@ -48,11 +48,12 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_content('14:30')
     end
 
-    it 'allows to filter appointments' do
+    it 'allows to filter appointments', js: true do
       visit appointments_path
 
       fill_in 'index-appointment-date-filter', with: Date.civil(2025, 4, 16)
-      click_button 'Filtrer'
+
+      page.execute_script("document.getElementById('index-header-filters-form').submit()")
 
       expect(page).to have_content(Date.civil(2025, 4, 16))
       expect(page).not_to have_content(Date.civil(2025, 4, 14))
