@@ -46,7 +46,8 @@ class SlotsController < ApplicationController
     authorize @slot
 
     if @slot.update(slot_params)
-      flash[:notice] = 'la capacité du créneau a été modifiée'
+      flash[:notice] = t('edit_slot_slot_capacity_has_been_modified')
+
       check_if_slot_should_be_closed
       redirect_to slots_path
     else
@@ -65,6 +66,6 @@ class SlotsController < ApplicationController
     return unless @slot.all_capacity_used? == true
 
     @slot.update(full: true)
-    flash[:notice] = 'Le créneau a été fermé'
+    flash[:notice] = t('edit_slot_slot_has_been_closed')
   end
 end
