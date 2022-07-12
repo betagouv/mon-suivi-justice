@@ -338,6 +338,10 @@ fr:
   send_invitation: "Envoyer invitation"
   show_user_title: "Mes informations"
   edit_user_title: "Modifier informations"
+  edit_slot_title: "Infos créneau"
+  edit_slot_capacity: "Modifier la capacité"
+  edit_slot_slot_has_been_closed: "Le créneau a été fermé."
+  edit_slot_slot_capacity_has_been_modified: "La capacité du créneau a été modifiée."
 
   new_organization_title: "Nouveau service"
   edit_organization_title: "Modifier le service"
@@ -523,6 +527,10 @@ fr:
   new_slot_title: "Nouveau Créneau"
   new_slot_submit: "Enregistrer"
   index_slot_place_filter: "Lieu de RDV"
+
+  edit_slot_used_capacity:  "%{data} RDV déjà pris."
+  edit_slot_minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} places."
+  edit_slot_warning_slot_will_be_clossed: "Si vous choisissez %{data}, le créneau sera fermé."
 
   convict_invitations:
     create:
