@@ -36,7 +36,7 @@ class SlotsController < ApplicationController
     @hint1 = t('edit_slot_used_capacity', data: @slot.used_capacity)
     @hint2 = t('edit_slot_minimum_capacity', data: min_capacity)
     @hint3 = t('edit_slot_warning_slot_will_be_clossed', data: @slot.used_capacity)
-    @hint = "#{@hint1}<br/>#{@hint2}<br/>#{min_capacity == 1 ? '' : @hint3}".html_safe
+    @hint = "#{@hint1}<br/>#{@hint2}<br/>#{@slot.used_capacity == 0 ? '' : @hint3}".html_safe
 
     authorize @slot
   end
