@@ -36,6 +36,14 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def generate_invitation_link
+    @user = User.find(params[:user_id])
+    authorize @user
+
+    @invitation_url = "pouet 2"
+    render :show
+  end
+
   private
 
   def user_params

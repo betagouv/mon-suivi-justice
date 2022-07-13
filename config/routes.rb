@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   end
 
   resources :organizations
-  resources :users
+  resources :users do
+    get :generate_invitation_link
+  end 
 
   resource :user do
     resources :appointments, only: [:index], controller: 'users/appointments'

@@ -62,5 +62,14 @@
                                   method: :delete %>
       </div>
     <% end %>
+    <% if policy(:user).generate_invitation_link? && current_user != @user %>
+      <div class="text-center">
+        <%= button_to t('edit_user_generate_invitation_url'), user_generate_invitation_link_path(@user),
+                                  class: 'delete-user-button', method: :get %>
+      </div>
+    <% end %>
   </div>
 </div>
+
+  <p>Invitation URL : <%= @invitation_url %></p>
+
