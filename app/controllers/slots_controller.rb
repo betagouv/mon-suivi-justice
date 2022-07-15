@@ -63,6 +63,7 @@ class SlotsController < ApplicationController
 
   def check_if_slot_should_be_closed
     return unless @slot.all_capacity_used? == true
+
     @slot.update(full: true)
   end
 end
