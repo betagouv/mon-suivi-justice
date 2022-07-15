@@ -36,12 +36,27 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def generate_invitation_link
+  def invitation_link
     @user = User.find(params[:user_id])
     authorize @user
 
-    @invitation_url = "pouet 2"
-    render :show
+    @user.invite!
+    token = @user.raw_invitation_token
+
+    @invitation_link = request.base_url + "/users/invitation/accept?invitation_token=#{token}"
+  end
+
+  def reset_pwd_link
+    authorize @user = User.find(params[:user_id])
+    authorize @user
+
+    raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
+    
+    if @user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
+      @reset_pwd_link = request.base_url + "/users/password/edit?reset_password_token=#{raw_token}"
+    else
+      redirect_to user_path(@user)
+    end
   end
 
   private

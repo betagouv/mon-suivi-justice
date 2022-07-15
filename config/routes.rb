@@ -11,7 +11,8 @@ Rails.application.routes.draw do
 
   resources :organizations
   resources :users do
-    get :generate_invitation_link
+    get :invitation_link
+    get :reset_pwd_link
   end 
 
   resource :user do
