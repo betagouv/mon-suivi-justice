@@ -340,8 +340,6 @@ fr:
   edit_user_title: "Modifier informations"
   edit_slot_title: "Infos créneau"
   edit_slot_capacity: "Modifier la capacité"
-  edit_slot_slot_has_been_closed: "Le créneau a été fermé."
-  edit_slot_slot_capacity_has_been_modified: "La capacité du créneau a été modifiée."
 
   new_organization_title: "Nouveau service"
   edit_organization_title: "Modifier le service"
