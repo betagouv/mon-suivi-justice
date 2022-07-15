@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     authorize @user
 
     raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
-    
+
     if @user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
       @reset_pwd_link = request.base_url + "/users/password/edit?reset_password_token=#{raw_token}"
     else
