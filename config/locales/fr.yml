@@ -339,7 +339,7 @@ fr:
   show_user_title: "Mes informations"
   edit_user_title: "Modifier informations"
   edit_user_generate_invitation_link: "Invitation agent"
-  edit_user_generate_reset_pwd_link: "Reset pwd agent"
+  edit_user_generate_reset_pwd_link: "Reset mdp agent"
   invitation_link_title: "Lien d'invitation agent"
   reset_pwd_link_title: "Lien de réinitialisation de mot de passe agent"
   edit_slot_title: "Infos créneau"
