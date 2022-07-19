@@ -90,8 +90,9 @@ class ConvictsController < ApplicationController
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def save_and_redirect(convict)
-    convict.check_duplicates
+    convict.check_duplicates(current_user)
     force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
     render(:new) && return if convict.duplicates.present? && !force_duplication
 
@@ -102,6 +103,7 @@ class ConvictsController < ApplicationController
       render :new
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def convict_params
     params.require(:convict).permit(

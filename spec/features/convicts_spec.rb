@@ -115,6 +115,16 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
     end
 
+    it 'creates a convict without a phone number' do
+      visit new_convict_path
+
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      check 'Ne possède pas de téléphone portable'
+
+      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+    end
+
     describe 'with potentially duplicated convicts' do
       it 'shows a warning with link to pre-existing convict profile' do
         convict = create(:convict, first_name: 'roberta', last_name: 'dupond')

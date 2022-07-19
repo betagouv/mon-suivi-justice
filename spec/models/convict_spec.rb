@@ -191,11 +191,15 @@ RSpec.describe Convict, type: :model do
   end
 
   describe '.check_duplicates' do
+    before do
+      @user = create_admin_user_and_login
+    end
+
     it 'adds duplicate if names are the same' do
       convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
       convict2 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
 
-      convict1.check_duplicates
+      convict1.check_duplicates(@user)
 
       expect(convict1.duplicates).to eq([convict2])
     end
@@ -204,7 +208,7 @@ RSpec.describe Convict, type: :model do
       convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '1234')
       create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '5678')
 
-      convict1.check_duplicates
+      convict1.check_duplicates(@user)
 
       expect(convict1.duplicates).to be_empty
     end
@@ -218,7 +222,7 @@ RSpec.describe Convict, type: :model do
       department2 = create :department, number: '02', name: 'Aisne'
       create :areas_convicts_mapping, convict: convict2, area: department2
 
-      convict1.check_duplicates
+      convict1.check_duplicates(@user)
 
       expect(convict1.duplicates).to be_empty
     end
@@ -232,7 +236,7 @@ RSpec.describe Convict, type: :model do
       department2 = create :department, number: '02', name: 'Aisne'
       create :areas_convicts_mapping, convict: convict2, area: department2
 
-      convict1.check_duplicates
+      convict1.check_duplicates(@user)
 
       expect(convict1.duplicates).to be_empty
     end
