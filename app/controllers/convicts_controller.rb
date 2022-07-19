@@ -91,7 +91,7 @@ class ConvictsController < ApplicationController
   private
 
   def save_and_redirect(convict)
-    detect_duplicates(convict)
+    convict.check_duplicates
     force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
     render(:new) && return if convict.duplicates.present? && !force_duplication
 
@@ -101,22 +101,6 @@ class ConvictsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def detect_duplicates(convict)
-    convict.duplicates = if convict.duplicates.present?
-                           convict.duplicates.merge(pre_existing_convicts)
-                         else
-                           pre_existing_convicts
-                         end
-  end
-
-  def pre_existing_convicts
-    Convict.where(
-      'lower(first_name) = ? AND lower(last_name) = ?',
-      convict_params[:first_name].downcase,
-      convict_params[:last_name].downcase
-    )
   end
 
   def convict_params

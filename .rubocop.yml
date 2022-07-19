@@ -72,6 +72,7 @@ Metrics/MethodLength:
 Metrics/ClassLength:
   Exclude:
     - app/models/appointment.rb
+    - app/models/convict.rb
     - app/controllers/appointments_controller.rb
     - app/controllers/convicts_controller.rb
     - app/services/data_collector.rb

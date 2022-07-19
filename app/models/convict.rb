@@ -119,10 +119,30 @@ class Convict < ApplicationRecord
   def phone_uniqueness
     return if refused_phone? || no_phone? || phone_whitelisted?
 
-    self.duplicates = Convict.where(phone: phone).where.not(id: id)
-
-    return if duplicates.empty?
+    return if Convict.where(phone: phone).where.not(id: id).empty?
 
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.taken')
+  end
+
+  def check_duplicates
+    homonyms = Convict.where(
+      'lower(first_name) = ? AND lower(last_name) = ?',
+      first_name.downcase, last_name.downcase
+    ).where.not(id: id)
+
+    homonyms = homonyms.where(appi_uuid: nil) if appi_uuid.present?
+    homonyms = check_duplicates_without_phones(homonyms)
+
+    self.duplicates = homonyms
+  end
+
+  def check_duplicates_without_phones(homonyms)
+    homonyms = homonyms.in_department(departments.first) if refused_phone? || no_phone?
+
+    homonyms = homonyms.reject do |i|
+      (i.refused_phone? || i.no_phone?) && i.departments.first != departments.first
+    end
+
+    Convict.where(id: homonyms.pluck(:id))
   end
 end
