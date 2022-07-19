@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   get '/display_places' => 'appointments#display_places', as: 'display_places'
   get '/display_is_cpip' => 'appointments#display_is_cpip', as: 'display_is_cpip'
   get '/display_agendas' => 'appointments#display_agendas', as: 'display_agendas'
+  get '/display_submit_button' => 'appointments#display_submit_button', as: 'display_submit_button'
 
   get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
 

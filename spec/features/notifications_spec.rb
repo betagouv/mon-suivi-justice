@@ -35,7 +35,6 @@ RSpec.feature 'Notifications', type: :feature do
       end
 
       click_button 'Enregistrer'
-      click_button 'Non'
 
       expect(SmsDeliveryJob).to have_been_enqueued.once
     end

@@ -1,4 +1,5 @@
 import Rails from '@rails/ujs';
+import MicroModal from 'micromodal';
 
 document.addEventListener('turbolinks:load',function() {
   const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
@@ -6,9 +7,7 @@ document.addEventListener('turbolinks:load',function() {
   const agendas_container = document.getElementById('agendas-container');
   const slot_fields_container = document.getElementById('slot-fields-container');
 
-  const submitButtonContainer = document.getElementById('before-submit-modal-option-container');
-  const submitBtnWithSms = document.getElementById('btn-modal-with-sms');
-  const submitBtnWithoutSms = document.getElementById('btn-modal-without-sms');
+  const submitButtonContainer = document.getElementById('submit-button-container');
 
   aptTypeSelect.addEventListener('change', (e) => {
     submitButtonContainer.style.display = 'none';
@@ -18,9 +17,6 @@ document.addEventListener('turbolinks:load',function() {
 
     displayPlaces(aptTypeSelect.value);
   });
-
-  submitBtnWithSms.addEventListener('click', (e) => { submitFormNewAppointment('true') });
-  submitBtnWithoutSms.addEventListener('click', (e) => { submitFormNewAppointment('false') });
 });
 
 function submitFormNewAppointment (with_sms) {
@@ -48,10 +44,18 @@ function displayAgendas (place_id, appointment_type_id) {
   });
 }
 
-function displayTimeOptions (place_id, agenda_id, appointment_type_id) {
+function displayTimeOptions (place_id, agenda_id, appointment_type_id, convict_id) {
   Rails.ajax({
     type: 'GET',
     url: '/display_time_options?place_id=' + place_id + '&agenda_id=' + agenda_id + '&apt_type_id=' + appointment_type_id,
+    success: function() { displaySubmitButton (convict_id); }
+  });
+}
+
+function displaySubmitButton (convict_id) {
+  Rails.ajax({
+    type: 'GET',
+    url: '/display_submit_button?convict_id=' + convict_id,
     success: function() { allowSubmit(); }
   });
 }
@@ -62,7 +66,7 @@ function addListenerToPlaceSelect() {
 
   const slots_container = document.getElementById('slots-container');
   const agendas_container = document.getElementById('agendas-container');
-  const submitButtonContainer = document.getElementById('before-submit-modal-option-container');
+  const submitButtonContainer = document.getElementById('submit-button-container');
 
   placeSelect.addEventListener('change', (e) => {
     submitButtonContainer.style.display = 'none';
@@ -74,12 +78,14 @@ function addListenerToPlaceSelect() {
 }
 
 function addListenerToAgendaSelect() {
+  const convictId = getConvictId()
+  const convictSelect = document.getElementById('convict-name-autocomplete');
   const placeSelect = document.getElementById('appointment-form-place-select');
   const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
   const agendaSelect = document.getElementById('appointment-form-agenda-select');
-  const submitButtonContainer = document.getElementById('before-submit-modal-option-container');
+  const submitButtonContainer = document.getElementById('submit-button-container');
 
-  if(agendaSelect == null) { allowSubmit(); return; }
+  if(agendaSelect == null) { displaySubmitButton (convictId); return; }
 
   const slots_container = document.getElementById('slots-container');
 
@@ -87,13 +93,28 @@ function addListenerToAgendaSelect() {
     submitButtonContainer.style.display = 'none';
     if(slots_container) { slots_container.innerHTML = '';}
 
-    displayTimeOptions(placeSelect.value, agendaSelect.value, aptTypeSelect.value);
+    displayTimeOptions(placeSelect.value, agendaSelect.value, aptTypeSelect.value, convictId);
   });
 }
 
+function getConvictId () {
+  const convictSelect = document.getElementById('convict-name-autocomplete');
+
+  if(convictSelect == null) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    return urlParams.get('convict_id');
+  }
+
+  return convictSelect.value
+}
+
 function allowSubmit () {
+  MicroModal.init();
+
   const slotsFields = document.getElementsByName('appointment[slot_id]');
-  const submitButtonContainer = document.getElementById('before-submit-modal-option-container');
+  const submitButtonContainer = document.getElementById('submit-button-container');
   const errorMessage = document.getElementsByClassName('new-appointment-form-no-slot');
 
   if(errorMessage.length == 1) { return; }
@@ -102,4 +123,14 @@ function allowSubmit () {
   }));
 
   if(slotsFields.length == 0) { submitButtonContainer.style.display = 'flex'; }
+
+  const submitBtnWithSms = document.getElementById('btn-modal-with-sms');
+  const submitBtnWithoutSms = document.getElementById('btn-modal-without-sms');
+
+  submitBtnWithSms.addEventListener('click', (e) => { submitFormNewAppointment('true') });
+  submitBtnWithoutSms.addEventListener('click', (e) => { submitFormNewAppointment('false') });
+
+  const submitBtnWithoutModal = document.getElementById('submit-without-modal');
+  if(submitBtnWithoutModal == null) { return; }
+  submitBtnWithoutModal.addEventListener('click', (e) => { submitFormNewAppointment('false') });
 }

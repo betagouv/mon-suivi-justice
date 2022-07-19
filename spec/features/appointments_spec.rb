@@ -315,6 +315,31 @@ RSpec.feature 'Appointments', type: :feature do
                                     .and change { Notification.count }.by(5)
       end
 
+      it "doesn't propose convocation SMS if the convict has no phone" do
+        convict2 = create :convict, first_name: 'Momo', last_name: 'Le renard', phone: nil, no_phone: true
+        create :areas_convicts_mapping, convict: convict2, area: @user.organization.departments.first
+
+        visit new_appointment_path
+
+        first('.select2-container', minimum: 1).click
+        find('li.select2-results__option', text: 'LE RENARD Momo').click
+
+        select 'RDV de suivi JAP', from: :appointment_appointment_type_id
+        select 'McDo des Halles', from: 'Lieu'
+        select 'Agenda de Jean-Louis', from: 'Agenda'
+
+        fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
+
+        within first('.form-time-select-fields') do
+          select '15', from: 'appointment_slot_starting_time_4i'
+          select '00', from: 'appointment_slot_starting_time_5i'
+        end
+
+        expect { click_button 'Enregistrer' }.to change { Appointment.count }.by(1)
+                                             .and change { Slot.count }.by(1)
+                                             .and change { Notification.count }.by(5)
+      end
+
       it 'does not create appointment if the selected date is a weekend' do
         visit new_appointment_path
 

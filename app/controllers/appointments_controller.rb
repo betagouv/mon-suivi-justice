@@ -1,7 +1,7 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :skip_authorization, only: [:display_places, :display_agendas, :display_time_options, :display_is_cpip,
-                                            :display_slots, :display_slot_fields]
+                                            :display_slots, :display_slot_fields, :display_submit_button]
 
   def index
     @q = policy_scope(Appointment).active.ransack(params[:q])
@@ -151,6 +151,10 @@ class AppointmentsController < ApplicationController
   def display_slot_fields
     @agenda = policy_scope(Agenda).find(params[:agenda_id])
     @appointment_type = AppointmentType.find(params[:apt_type_id])
+  end
+
+  def display_submit_button
+    @convict = Convict.find(params[:convict_id])
   end
 
   private
