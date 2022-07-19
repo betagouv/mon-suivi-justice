@@ -255,7 +255,25 @@ RSpec.feature 'Convicts', type: :feature do
       visit convict_path(convict)
 
       expected_content = "Le numéro de téléphone de #{convict.name} a été modifié par #{@user.name} (#{@user.role}). " \
-                         'Ancien numéro : 06 06 06 06 06 / Nouveau numéro : 07 07 07 07 07'
+                         'Ancien numéro : 06 06 06 06 06 / Nouveau numéro : 07 07 07 07 07.'
+
+      expect(page).to have_content(expected_content)
+    end
+
+    it 'creates a history_item if a new phone number is added' do
+      convict = create(:convict, phone: nil, no_phone: true)
+      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+
+      visit edit_convict_path(convict)
+
+      fill_in 'Téléphone portable', with: '0707070707'
+
+      expect { click_button('Enregistrer') }.to change { HistoryItem.count }.by(1)
+
+      visit convict_path(convict)
+
+      expected_content = "Un numéro de téléphone pour #{convict.name} a été ajouté " \
+                         "par #{@user.name} (#{@user.role}). Nouveau numéro : 07 07 07 07 07."
 
       expect(page).to have_content(expected_content)
     end

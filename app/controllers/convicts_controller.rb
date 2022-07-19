@@ -119,10 +119,12 @@ class ConvictsController < ApplicationController
   end
 
   def record_phone_change(old_phone)
-    return if @convict.phone == old_phone || old_phone.blank?
+    return if @convict.phone == old_phone
+
+    item_event = old_phone.blank? ? 'add_phone_convict' : 'update_phone_convict'
 
     HistoryItemFactory.perform(
-      category: 'convict', convict: @convict, event: 'update_phone_convict',
+      category: 'convict', convict: @convict, event: item_event,
       data: { old_phone: old_phone, user_name: current_user.name, user_role: current_user.role }
     )
   end
