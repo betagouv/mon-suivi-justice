@@ -120,9 +120,19 @@ class ConvictsController < ApplicationController
     end
   end
 
+  def allow_new_phone(old_phone)
+    return unless old_phone.blank?
+    return unless @convict.no_phone? || @convict.refused_phone?
+
+    @convict.no_phone = false
+    @convict.refused_phone = false
+    @convict.save
+  end
+
   def record_phone_change(old_phone)
     return if @convict.phone == old_phone
 
+    allow_new_phone(old_phone)
     item_event = select_history_item_event(old_phone)
 
     HistoryItemFactory.perform(
