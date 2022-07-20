@@ -62,5 +62,19 @@
                                   method: :delete %>
       </div>
     <% end %>
+    <% if policy(:user).invitation_link? && current_user != @user %>
+      <div class="text-center">
+        <%= button_to t('edit_user_generate_invitation_link'), user_invitation_link_path(@user),
+                                  class: 'submit', method: :get %>
+      </div>
+    <% end %>
+    <% if policy(:user).reset_pwd_link? && current_user != @user %>
+      <div class="text-center">
+        <%= button_to t('edit_user_generate_reset_pwd_link'), user_reset_pwd_link_path(@user),
+                                  class: 'submit', method: :get %>
+      </div>
+    <% end %>
   </div>
 </div>
+
+
