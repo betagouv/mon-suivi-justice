@@ -36,6 +36,9 @@ module HistoryItemFactory
       when 'add_phone_convict'
         I18n.t('show_history_add_phone_convict', name: convict.name, new_phone: convict.display_phone,
                                                  user_name: data[:user_name], user_role: data[:user_role])
+      when 'remove_phone_convict'
+        I18n.t('show_history_remove_phone_convict', name: convict.name, old_phone: data[:old_phone].phony_formatted,
+                                                    user_name: data[:user_name], user_role: data[:user_role])
       end
     end
 

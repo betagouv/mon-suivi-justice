@@ -24,7 +24,8 @@ class HistoryItem < ApplicationRecord
     archive_convict: 13,
     unarchive_convict: 14,
     update_phone_convict: 15,
-    add_phone_convict: 16
+    add_phone_convict: 16,
+    remove_phone_convict: 17
   }
 
   def self.validate_event(event)

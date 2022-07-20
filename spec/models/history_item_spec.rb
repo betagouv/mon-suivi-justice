@@ -26,7 +26,8 @@ RSpec.describe HistoryItem, type: :model do
         archive_convict: 13,
         unarchive_convict: 14,
         update_phone_convict: 15,
-        add_phone_convict: 16
+        add_phone_convict: 16,
+        remove_phone_convict: 17
       }
     )
   }

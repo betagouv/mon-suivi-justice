@@ -287,6 +287,25 @@ RSpec.feature 'Convicts', type: :feature do
 
       expect(page).to have_content(expected_content)
     end
+
+    it 'creates a history_item if the phone number is removed' do
+      convict = create(:convict, phone: '0606060606')
+      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+
+      visit edit_convict_path(convict)
+
+      fill_in 'Téléphone portable', with: ''
+      check 'Ne possède pas de téléphone portable'
+
+      expect { click_button('Enregistrer') }.to change { HistoryItem.count }.by(1)
+
+      visit convict_path(convict)
+
+      expected = "Le numéro de téléphone de #{convict.name} a été supprimé par #{@user.name} (#{@user.role}). " \
+                 'Ancien numéro : 06 06 06 06 06.'
+
+      expect(page).to have_content(expected)
+    end
   end
 
   describe 'show' do

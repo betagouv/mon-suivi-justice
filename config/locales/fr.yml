@@ -395,6 +395,8 @@ fr:
   show_history_update_phone_convict: "Le numéro de téléphone de %{name} a été modifié par %{user_name} (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}."
   show_history_add_phone_convict_title: "Nouveau numéro"
   show_history_add_phone_convict: "Un numéro de téléphone pour %{name} a été ajouté par %{user_name} (%{user_role}). Nouveau numéro : %{new_phone}."
+  show_history_remove_phone_convict_title: "Numéro supprimé"
+  show_history_remove_phone_convict: "Le numéro de téléphone de %{name} a été supprimé par %{user_name} (%{user_role}). Ancien numéro : %{old_phone}."
 
   show_history_book_appointment_title: "Nouveau RDV"
   show_history_book_appointment: "%{name} a été convoqué(e) le %{date} à %{time} au lieu suivant : %{place}."
