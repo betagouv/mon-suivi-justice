@@ -466,7 +466,7 @@ fr:
   new-appointment-confirmation-warning: "Voulez-vous également envoyer immédiatement un SMS de confirmation à la PPSMJ pour ce rendez-vous ?."
   new-appointment-bex-warning: "Attention, le créneau de 9h est réservé aux DDSE."
   show_appointment_title: "Infos rendez-vous"
-  cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ, et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
+  cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ (si elle a un numéro de téléphone), et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
   appointment-reschedule-title: 'Replanifier un rendez-vous'
   new-appointment-jap-agendas: "Liste agendas JAP"
   rebook_missed_appointment1: "Si vous aviez marqué le rdv comme manqué, vous avez peut-être envoyé un SMS à la PPSMJ concernée. Vous pouvez le vérifier dans l'historique."

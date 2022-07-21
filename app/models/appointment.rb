@@ -168,7 +168,9 @@ class Appointment < ApplicationRecord
         appointment.reminder_notif.cancel!
       end
 
-      appointment.cancelation_notif.send_now! if send_sms?(transition)
+      if send_sms?(transition) && appointment.convict.phone.present?
+        appointment.cancelation_notif.send_now!
+      end
     end
 
     after_transition on: :miss do |appointment, transition|
