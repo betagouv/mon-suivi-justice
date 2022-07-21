@@ -17,7 +17,6 @@ class AppointmentType < ApplicationRecord
   validates :name, presence: true
 
   scope :with_slot_types, -> { where name: WITH_SLOT_TYPES }
-
   scope :assignable, -> { where name: ASSIGNABLE }
 
   def summon_notif
@@ -50,7 +49,8 @@ class AppointmentType < ApplicationRecord
 
   def used_at_spip?
     ["Sortie d'audience SPIP", '1er RDV SPIP', 'RDV de suivi SPIP', 'Convocation 741-1',
-     'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'RDV DDSE', 'Convocation stage']
+     'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'RDV DDSE', 'Convocation stage',
+     'Convocation rappel SPIP']
   end
 
   def sortie_audience?
@@ -58,8 +58,7 @@ class AppointmentType < ApplicationRecord
   end
 
   def assignable?
-    ['1er RDV SPIP', 'RDV de suivi SPIP', 'RDV DDSE', 'RDV téléphonique',
-     'Visite à domicile'].include? name
+    ASSIGNABLE.include? name
   end
 
   def with_slot_types?

@@ -147,9 +147,7 @@ class Appointment < ApplicationRecord
 
     after_transition on: :book do |appointment, transition|
       appointment.slot.increment!(:used_capacity, 1)
-      if appointment.slot.all_capacity_used?
-        appointment.slot.update(full: true)
-      end
+      appointment.slot.update(full: true) if appointment.slot.all_capacity_used?
 
       appointment.transaction do
         NotificationFactory.perform(appointment)
@@ -160,13 +158,9 @@ class Appointment < ApplicationRecord
 
     after_transition on: :cancel do |appointment, transition|
       appointment.slot.decrement!(:used_capacity, 1)
-      if appointment.slot.all_capacity_used? == false
-        appointment.slot.update(full: false)
-      end
+      appointment.slot.update(full: false) if appointment.slot.all_capacity_used? == false
 
-      if appointment.reminder_notif.programmed?
-        appointment.reminder_notif.cancel!
-      end
+      appointment.reminder_notif.cancel! if appointment.reminder_notif.programmed?
 
       if send_sms?(transition) && appointment.convict.phone.present?
         appointment.cancelation_notif.send_now!
