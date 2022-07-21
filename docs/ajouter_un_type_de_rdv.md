@@ -31,10 +31,10 @@ Déployer ce code.
 ```
 default = NotificationType.where(appointment_type: at)
 
-Organization.all.each.do |o|
+Organization.all.each do |o|
   NotificationType.roles.each_key do |role|
     new_notif_type = default.where(role: role).first.dup
-    new_notif_type.organization = self
+    new_notif_type.organization = o
     new_notif_type.save!
   end
 end
