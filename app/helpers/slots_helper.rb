@@ -10,4 +10,12 @@ module SlotsHelper
            end
     AppointmentType.where(name: list)
   end
+
+  def agendas_for_slot_creation(user)
+    if user.work_at_bex? || user.admin?
+      Agenda.in_department(user.organization.departments.first).select(&:appointment_type_with_slot_types?)
+    else
+      Agenda.in_organization(user.organization).select(&:appointment_type_with_slot_types?)
+    end
+  end
 end
