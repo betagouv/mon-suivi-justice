@@ -23,6 +23,7 @@ class UsersController < ApplicationController
     authorize @user
 
     if @user.update(user_params)
+      remove_linked_convicts(@user)
       redirect_to @user == current_user ? user_path(params[:id]) : users_path
     else
       render :edit
@@ -66,5 +67,11 @@ class UsersController < ApplicationController
       :first_name, :last_name, :email, :role, :organization_id,
       :password, :password_confirmation, :phone, :share_email_to_convict, :share_phone_to_convict
     )
+  end
+
+  def remove_linked_convicts(user)
+    return if %w[cpip dpip].include? user.role
+
+    user.convicts.each { |c| Convict.update(c.id, user_id: nil) }
   end
 end

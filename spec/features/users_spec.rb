@@ -55,12 +55,15 @@ RSpec.feature 'Users', type: :feature do
   end
 
   describe 'edition' do
+    before do
+      @user = create(:user, first_name: 'Jeanne', role: 'cpip')
+    end
+
     it 'works' do
       logout(scope: :user)
-      user = create(:user, first_name: 'Jeanne', role: 'cpip')
-      login_as(user, scope: :user)
+      login_as(@user, scope: :user)
 
-      visit edit_user_path(user.id)
+      visit edit_user_path(@user.id)
 
       fill_in 'Prénom', with: 'Mireille'
       fill_in 'Numéro de téléphone', with: '0644444444'
@@ -68,10 +71,25 @@ RSpec.feature 'Users', type: :feature do
 
       click_button 'Enregistrer'
 
-      user.reload
-      expect(user.first_name).to eq('Mireille')
-      expect(user.phone).to eq('+33644444444')
-      expect(user.share_email_to_convict).to eq(false)
+      @user.reload
+      expect(@user.first_name).to eq('Mireille')
+      expect(@user.phone).to eq('+33644444444')
+      expect(@user.share_email_to_convict).to eq(false)
+    end
+
+    it 'remove linked convict if role is changed' do
+      convict = create(:convict, user: @user)
+      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+
+      expect(@user.convicts.count).to eq(1)
+
+      visit edit_user_path(@user.id)
+
+      select 'Secrétariat SPIP', from: :user_role
+
+      click_button 'Enregistrer'
+
+      expect(@user.convicts.count).to eq(0)
     end
   end
 
