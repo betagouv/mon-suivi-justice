@@ -355,6 +355,19 @@ RSpec.feature 'Convicts', type: :feature do
       expect(Convict.first.cpip).to eq(@user)
     end
 
+    it 'allows a dpip to assign himself to a convict' do
+      logout_current_user
+      dpip = create(:user, role: 'dpip')
+      login_as(dpip, scope: :user)
+
+      visit convict_path(@convict)
+
+      click_link('attribuer cette PPSMJ')
+      expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
+      expect(page).to have_content(dpip.name)
+      expect(Convict.first.cpip).to eq(dpip)
+    end
+
     it 'allow a cpip to invite a convict to his interface and displays the correct content' do
       logout_current_user
       @user = create_cpip_user_and_login
