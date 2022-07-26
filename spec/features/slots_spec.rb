@@ -2,18 +2,20 @@ require 'rails_helper'
 
 RSpec.feature 'Slots', type: :feature do
   before do
-    create_admin_user_and_login
+    @user = create_admin_user_and_login
     allow(Place).to receive(:in_department).and_return(Place.all)
   end
 
   describe 'index' do
     before do
+      place = create :place, organization: @user.organization
+      @agenda = create :agenda, place: place
       @apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
-      @slot1 = create(:slot, appointment_type: @apt_type, date: Date.civil(2025, 4, 14))
+      @slot1 = create(:slot, appointment_type: @apt_type, agenda: @agenda, date: Date.civil(2025, 4, 14))
     end
 
     it 'lists all slots' do
-      create(:slot, appointment_type: @apt_type, date: Date.civil(2025, 4, 16))
+      create(:slot, appointment_type: @apt_type, agenda: @agenda, date: Date.civil(2025, 4, 16))
 
       visit slots_path
 
@@ -109,13 +111,15 @@ RSpec.feature 'Slots', type: :feature do
 
   describe 'batch close' do
     it 'allows to select slots to close' do
+      place = create :place, organization: @user.organization
+      agenda = create :agenda, place: place
       apt_type = AppointmentType.create(name: "Sortie d'audience SPIP")
 
-      slot1 = create(:slot, appointment_type: apt_type, starting_time: new_time_for(9, 0))
-      slot2 = create(:slot, appointment_type: apt_type, starting_time: new_time_for(9, 0))
-      slot3 = create(:slot, appointment_type: apt_type, starting_time: new_time_for(9, 0))
-      slot4 = create(:slot, appointment_type: apt_type, starting_time: new_time_for(10, 0))
-      slot5 = create(:slot, appointment_type: apt_type, starting_time: new_time_for(10, 0))
+      slot1 = create(:slot, appointment_type: apt_type, agenda: agenda, starting_time: new_time_for(9, 0))
+      slot2 = create(:slot, appointment_type: apt_type, agenda: agenda, starting_time: new_time_for(9, 0))
+      slot3 = create(:slot, appointment_type: apt_type, agenda: agenda, starting_time: new_time_for(9, 0))
+      slot4 = create(:slot, appointment_type: apt_type, agenda: agenda, starting_time: new_time_for(10, 0))
+      slot5 = create(:slot, appointment_type: apt_type, agenda: agenda, starting_time: new_time_for(10, 0))
 
       visit slots_path
 

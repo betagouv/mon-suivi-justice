@@ -1,6 +1,6 @@
 .bex-agendas-container {
-  width: 70%;
-  max-width: 800px;
+  width: 90%;
+  max-width: 900px;
   margin: auto;
   margin-bottom: 50px;
 
@@ -119,4 +119,8 @@
   @media print {
     display: none;
   }
+}
+
+.bex-agenda-case-prepared-form {
+  margin: auto;
 }

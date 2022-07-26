@@ -4,6 +4,7 @@ FactoryBot.define do
     slot
     prosecutor_number { '302304' }
     state { 'created' }
+    case_prepared { false }
   end
 
   trait :with_notifications do

@@ -2,10 +2,10 @@
 
 1. Créer les données
 
-D'abord l'objet AppointmentType lui même :
+D'abord créer en console l'objet AppointmentType lui même :
 
 ```
-at = AppointmentType.create!(name: 'Convocation rappel SPIP')
+at = AppointmentType.create!(name: 'Action collective')
 ```
 
 puis tous les templates par défaut associés au nouveau type de rdv :

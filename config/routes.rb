@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :users do
     get :invitation_link
     get :reset_pwd_link
-  end 
+  end
 
   resource :user do
     resources :appointments, only: [:index], controller: 'users/appointments'
@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     put 'miss'
     put 'excuse'
     put 'rebook'
+    put 'prepare'
   end
 
   get '/display_time_options' => 'appointments#display_time_options', as: 'display_time_options'

@@ -60,6 +60,9 @@
               <div class='bex-agenda-header-title bex-agenda-column'>
                 <%= t('bex_jap_agenda_header_origin') %>
               </div>
+              <div class='bex-agenda-header-title bex-agenda-column'>
+                <%= t('bex_jap_agenda_header_case_prepared') %>
+              </div>
             </div>
 
             <% agenda.slots_for_date(@current_date, @appointment_type).each do |slot| %>
@@ -87,6 +90,17 @@
                   <div class='bex-agenda-column'>
                     <% if appointments[i].present? %>
                       <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
+                    <% end %>
+                  </div>
+                  <div class='bex-agenda-column'>
+                    <% if appointments[i].present? %>
+                      <%= form_tag appointment_prepare_path(appointments[i]), method: 'put', class: 'bex-agenda-case-prepared-form' do %>
+                        <%= check_box_tag "case-prepared-#{appointments[i].id}",
+                                          true,
+                                          appointments[i].case_prepared,
+                                          class: 'bex-agenda-case-prepared-checkbox',
+                                          onchange: 'this.form.submit()' %>
+                      <% end %>
                     <% end %>
                   </div>
                 </div>

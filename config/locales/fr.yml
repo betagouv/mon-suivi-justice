@@ -479,6 +479,7 @@ fr:
   bex_jap_agenda_header_first_name: Prénom
   bex_jap_agenda_header_prosecutor: Numéro parquet
   bex_jap_agenda_header_origin: "Service d'origine"
+  bex_jap_agenda_header_case_prepared: "Dossier traité"
   bex_spip_appointments_link: "Agenda RDV SPIP"
   bex_spip_appointments_title: "Agenda RDV SPIP pour"
   bex_spip_no_agenda_available: "Pas de rdv Sortie d'audience SPIP prévu"

@@ -96,6 +96,16 @@ class AppointmentsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def prepare
+    @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    value = params["case-prepared-#{@appointment.id}"]
+
+    @appointment.case_prepared = value ? true : false
+    @appointment.save
+
+    authorize @appointment
+  end
+
   def display_places
     @appointment_type = AppointmentType.find(params[:apt_type_id])
     @places = policy_scope(Place).joins(:appointment_types).where(appointment_types: @appointment_type)
