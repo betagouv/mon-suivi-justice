@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   end
 
   resources :organizations
-  resources :users
+  resources :users do
+    get :invitation_link
+    get :reset_pwd_link
+  end
 
   resource :user do
     resources :appointments, only: [:index], controller: 'users/appointments'
@@ -44,6 +47,7 @@ Rails.application.routes.draw do
     put 'miss'
     put 'excuse'
     put 'rebook'
+    put 'prepare'
   end
 
   get '/display_time_options' => 'appointments#display_time_options', as: 'display_time_options'
@@ -52,6 +56,7 @@ Rails.application.routes.draw do
   get '/display_places' => 'appointments#display_places', as: 'display_places'
   get '/display_is_cpip' => 'appointments#display_is_cpip', as: 'display_is_cpip'
   get '/display_agendas' => 'appointments#display_agendas', as: 'display_agendas'
+  get '/display_submit_button' => 'appointments#display_submit_button', as: 'display_submit_button'
 
   get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
 

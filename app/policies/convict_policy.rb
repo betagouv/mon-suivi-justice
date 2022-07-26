@@ -42,7 +42,7 @@ class ConvictPolicy < ApplicationPolicy
   end
 
   def self_assign?
-    user.cpip? && record.cpip.nil?
+    (user.cpip? || user.dpip?) && record.cpip.nil?
   end
 
   def destroy?

@@ -23,9 +23,10 @@ RSpec.describe SmsDeliveryJob, type: :job do
         expect(adapter_dbl).to have_received(:send_sms).once.with(notification)
       end
 
-      xit 'get sms events' do
-        expect(GetSmsStatusJob).to have_been_enqueued.once.with(notification.id)
-      end
+      # TODO: rework the notification status system with new provider
+      # it 'get sms events' do
+      #   expect(GetSmsStatusJob).to have_been_enqueued.once.with(notification.id)
+      # end
     end
   end
 
@@ -50,10 +51,10 @@ RSpec.describe SmsDeliveryJob, type: :job do
       it "don't send sms" do
         expect(adapter_dbl).not_to have_received(:send_sms)
       end
-
-      xit "don't get sms events" do
-        expect(GetSmsStatusJob).not_to have_been_enqueued
-      end
+      # TODO: rework the notification status system with new provider
+      # it "don't get sms events" do
+      #   expect(GetSmsStatusJob).not_to have_been_enqueued
+      # end
     end
   end
 end

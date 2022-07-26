@@ -115,7 +115,17 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
     end
 
-    describe 'with a potentially duplicated convict' do
+    it 'creates a convict without a phone number' do
+      visit new_convict_path
+
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      check 'Ne possède pas de téléphone portable'
+
+      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+    end
+
+    describe 'with potentially duplicated convicts' do
       it 'shows a warning with link to pre-existing convict profile' do
         convict = create(:convict, first_name: 'roberta', last_name: 'dupond')
         create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
@@ -146,26 +156,10 @@ RSpec.feature 'Convicts', type: :feature do
         expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
 
         expect(page).to have_content(
-          "Cette PPSMJ existe déjà dans le département #{department.name} (#{department.number}), " \
-          'merci de contacter le support.'
+          "Un homonyme existe dans le département #{department.name} (#{department.number})."
         )
 
         expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
-      end
-
-      it 'shows a warning when the phone number is already taken' do
-        convict = create(:convict, first_name: 'Robert', last_name: 'Dupond', phone: '+33606060606')
-        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-
-        visit new_convict_path
-
-        fill_in 'Prénom', with: 'Roberta'
-        fill_in 'Nom', with: 'Dupond'
-        fill_in 'Téléphone', with: '0606060606'
-        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
-
-        expect(page).to have_content('Un doublon potentiel a été détecté :')
-        expect(page).to have_link('Profil de DUPOND Robert', href: convict_path(convict))
       end
     end
 
@@ -271,9 +265,46 @@ RSpec.feature 'Convicts', type: :feature do
       visit convict_path(convict)
 
       expected_content = "Le numéro de téléphone de #{convict.name} a été modifié par #{@user.name} (#{@user.role}). " \
-                         'Ancien numéro : 06 06 06 06 06 / Nouveau numéro : 07 07 07 07 07'
+                         'Ancien numéro : 06 06 06 06 06 / Nouveau numéro : 07 07 07 07 07.'
 
       expect(page).to have_content(expected_content)
+    end
+
+    it 'creates a history_item if a new phone number is added' do
+      convict = create(:convict, phone: nil, no_phone: true)
+      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+
+      visit edit_convict_path(convict)
+
+      fill_in 'Téléphone portable', with: '0707070707'
+
+      expect { click_button('Enregistrer') }.to change { HistoryItem.count }.by(1)
+
+      visit convict_path(convict)
+
+      expected_content = "Un numéro de téléphone pour #{convict.name} a été ajouté " \
+                         "par #{@user.name} (#{@user.role}). Nouveau numéro : 07 07 07 07 07."
+
+      expect(page).to have_content(expected_content)
+    end
+
+    it 'creates a history_item if the phone number is removed' do
+      convict = create(:convict, phone: '0606060606')
+      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+
+      visit edit_convict_path(convict)
+
+      fill_in 'Téléphone portable', with: ''
+      check 'Ne possède pas de téléphone portable'
+
+      expect { click_button('Enregistrer') }.to change { HistoryItem.count }.by(1)
+
+      visit convict_path(convict)
+
+      expected = "Le numéro de téléphone de #{convict.name} a été supprimé par #{@user.name} (#{@user.role}). " \
+                 'Ancien numéro : 06 06 06 06 06.'
+
+      expect(page).to have_content(expected)
     end
   end
 
@@ -322,6 +353,19 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
       expect(page).to have_content(@user.name)
       expect(Convict.first.cpip).to eq(@user)
+    end
+
+    it 'allows a dpip to assign himself to a convict' do
+      logout_current_user
+      dpip = create(:user, role: 'dpip')
+      login_as(dpip, scope: :user)
+
+      visit convict_path(@convict)
+
+      click_link('attribuer cette PPSMJ')
+      expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
+      expect(page).to have_content(dpip.name)
+      expect(Convict.first.cpip).to eq(dpip)
     end
 
     it 'allow a cpip to invite a convict to his interface and displays the correct content' do

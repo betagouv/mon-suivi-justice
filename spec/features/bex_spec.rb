@@ -88,13 +88,44 @@ RSpec.feature 'Bex', type: :feature do
       expect(page).not_to have_content('Vador')
       expect(page).not_to have_content('Cabinet Jaune')
     end
+
+    it 'allows user to mark a case as prepared', js: true do
+      convict = create(:convict, first_name: 'Julius', last_name: 'Erving')
+      create :areas_convicts_mapping, convict: convict, area: @department
+      apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
+      place = create(:place, name: 'SPIP 91', organization: @organization)
+      agenda = create(:agenda, place: place, name: 'Agenda SPIP 91')
+
+      slot = create(:slot, :without_validations, agenda: agenda,
+                                                 appointment_type: apt_type,
+                                                 date: Date.today.next_occurring(:tuesday))
+
+      appointment = create(:appointment, slot: slot, convict: convict)
+      current_date = slot.date.strftime('%d/%m/%Y')
+
+      visit agenda_jap_path
+      # save_and_open_page
+      select current_date, from: :date
+      page.execute_script("$('#jap-appointments-date-select').trigger('change')")
+
+      expect(appointment.case_prepared).to eq(false)
+
+      check "case-prepared-#{appointment.id}"
+
+      appointment.reload
+
+      expect(appointment.case_prepared).to eq(true)
+    end
   end
 
   describe 'Spip appointment index' do
     let(:frozen_time) { Time.zone.parse('2021-08-01 10:00:00').to_date }
 
-    it "lists all Spip appointments of type Sortie d'audience SPIP", js: true do
+    before do
       allow(Date).to receive(:today).and_return frozen_time
+    end
+
+    it "lists all Spip appointments of type Sortie d'audience SPIP", js: true do
       convict1 = create(:convict, first_name: 'Julius', last_name: 'Erving')
       convict2 = create(:convict, first_name: 'Moses', last_name: 'Malone')
       convict3 = create(:convict, first_name: 'Darius', last_name: 'Garland')

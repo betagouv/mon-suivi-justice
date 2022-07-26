@@ -90,8 +90,9 @@ class ConvictsController < ApplicationController
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def save_and_redirect(convict)
-    detect_duplicates(convict)
+    convict.check_duplicates(current_user)
     force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
     render(:new) && return if convict.duplicates.present? && !force_duplication
 
@@ -102,22 +103,7 @@ class ConvictsController < ApplicationController
       render :new
     end
   end
-
-  def detect_duplicates(convict)
-    convict.duplicates = if convict.duplicates.present?
-                           convict.duplicates.merge(pre_existing_convicts)
-                         else
-                           pre_existing_convicts
-                         end
-  end
-
-  def pre_existing_convicts
-    Convict.where(
-      'lower(first_name) = ? AND lower(last_name) = ?',
-      convict_params[:first_name].downcase,
-      convict_params[:last_name].downcase
-    )
-  end
+  # rubocop:enable Metrics/AbcSize
 
   def convict_params
     params.require(:convict).permit(
@@ -134,12 +120,34 @@ class ConvictsController < ApplicationController
     end
   end
 
+  def allow_new_phone(old_phone)
+    return unless old_phone.blank?
+    return unless @convict.no_phone? || @convict.refused_phone?
+
+    @convict.no_phone = false
+    @convict.refused_phone = false
+    @convict.save
+  end
+
   def record_phone_change(old_phone)
-    return if @convict.phone == old_phone || old_phone.blank?
+    return if @convict.phone == old_phone
+
+    allow_new_phone(old_phone)
+    item_event = select_history_item_event(old_phone)
 
     HistoryItemFactory.perform(
-      category: 'convict', convict: @convict, event: 'update_phone_convict',
+      category: 'convict', convict: @convict, event: item_event,
       data: { old_phone: old_phone, user_name: current_user.name, user_role: current_user.role }
     )
+  end
+
+  def select_history_item_event(old_phone)
+    if old_phone.blank?
+      'add_phone_convict'
+    elsif @convict.phone.blank?
+      'remove_phone_convict'
+    else
+      'update_phone_convict'
+    end
   end
 end

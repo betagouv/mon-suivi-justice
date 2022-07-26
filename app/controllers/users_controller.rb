@@ -23,6 +23,7 @@ class UsersController < ApplicationController
     authorize @user
 
     if @user.update(user_params)
+      remove_linked_convicts(@user)
       redirect_to @user == current_user ? user_path(params[:id]) : users_path
     else
       render :edit
@@ -36,6 +37,29 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def invitation_link
+    @user = User.find(params[:user_id])
+    authorize @user
+
+    @user.invite!
+    token = @user.raw_invitation_token
+
+    @invitation_link = request.base_url + "/users/invitation/accept?invitation_token=#{token}"
+  end
+
+  def reset_pwd_link
+    authorize @user = User.find(params[:user_id])
+    authorize @user
+
+    raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
+
+    if @user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
+      @reset_pwd_link = request.base_url + "/users/password/edit?reset_password_token=#{raw_token}"
+    else
+      redirect_to user_path(@user)
+    end
+  end
+
   private
 
   def user_params
@@ -43,5 +67,11 @@ class UsersController < ApplicationController
       :first_name, :last_name, :email, :role, :organization_id,
       :password, :password_confirmation, :phone, :share_email_to_convict, :share_phone_to_convict
     )
+  end
+
+  def remove_linked_convicts(user)
+    return if %w[cpip dpip].include? user.role
+
+    user.convicts.each { |c| Convict.update(c.id, user_id: nil) }
   end
 end

@@ -338,10 +338,12 @@ fr:
   send_invitation: "Envoyer invitation"
   show_user_title: "Mes informations"
   edit_user_title: "Modifier informations"
+  edit_user_generate_invitation_link: "Invitation agent"
+  edit_user_generate_reset_pwd_link: "Reset mdp agent"
+  invitation_link_title: "Lien d'invitation agent"
+  reset_pwd_link_title: "Lien de réinitialisation de mot de passe agent"
   edit_slot_title: "Infos créneau"
   edit_slot_capacity: "Modifier la capacité"
-  edit_slot_slot_has_been_closed: "Le créneau a été fermé."
-  edit_slot_slot_capacity_has_been_modified: "La capacité du créneau a été modifiée."
 
   new_organization_title: "Nouveau service"
   edit_organization_title: "Modifier le service"
@@ -357,11 +359,13 @@ fr:
   new_convict_submit: "sans prendre RDV"
   new_convict_first_appointment: "et prendre RDV"
   new_convict_duplicate_warning1: "Un doublon potentiel a été détecté :"
+  new_convict_duplicate_warning2: "Plusieurs doublons potentiels ont été détectés."
+  new_convict_duplicate_warning_local: "Dans votre ressort :"
+  new_convict_duplicate_warning_global: "Hors de votre ressort :"
   new_convict_duplicate_link: "Profil de %{name}"
-  new_convict_duplicate_warning2: "- Si le numéro de téléphone est déjà pris, vous ne pourrez pas enregistrer cette PPSMJ : le numéro de téléphone doit être unique."
-  new_convict_duplicate_warning3: "- Si le nom/prénom existe déjà, merci de vérifier qu'il s'agit bien de deux personnes distinctes avant d'enregistrer ce nouveau profil."
-  new_convict_duplicate_warning4: "N'hésitez pas à contacter le support en cas de problème."
-  new_convict_duplicate_warning5: "Cette PPSMJ existe déjà dans le département %{name} (%{number}), merci de contacter le support."
+  new_convict_duplicate_warning3: "Merci de vérifier qu'il s'agit bien de deux personnes distinctes avant d'enregistrer ce nouveau profil."
+  new_convict_duplicate_warning4: "Si un homonyme existe dans un autre département, et que vous pensez que c'est la même personne, merci de contacter le support."
+  new_convict_duplicate_warning5: "Un homonyme existe dans le département %{name} (%{number})."
   edit_convict_title: "Modifier PPSMJ"
   edit_convict_department_title: "Département(s) de la PPSMJ"
   edit_convict_jurisdiction_title: "Juridiction(s) de la PPSMJ"
@@ -388,7 +392,11 @@ fr:
   show_history_unarchive_convict_title: "Désarchivage"
   show_history_unarchive_convict: "Le profil de %{name} a été désarchivé."
   show_history_update_phone_convict_title: "Nouveau numéro"
-  show_history_update_phone_convict: "Le numéro de téléphone de %{name} a été modifié par %{user_name} (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}"
+  show_history_update_phone_convict: "Le numéro de téléphone de %{name} a été modifié par %{user_name} (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}."
+  show_history_add_phone_convict_title: "Nouveau numéro"
+  show_history_add_phone_convict: "Un numéro de téléphone pour %{name} a été ajouté par %{user_name} (%{user_role}). Nouveau numéro : %{new_phone}."
+  show_history_remove_phone_convict_title: "Numéro supprimé"
+  show_history_remove_phone_convict: "Le numéro de téléphone de %{name} a été supprimé par %{user_name} (%{user_role}). Ancien numéro : %{old_phone}."
 
   show_history_book_appointment_title: "Nouveau RDV"
   show_history_book_appointment: "%{name} a été convoqué(e) le %{date} à %{time} au lieu suivant : %{place}."
@@ -458,7 +466,7 @@ fr:
   new-appointment-confirmation-warning: "Voulez-vous également envoyer immédiatement un SMS de confirmation à la PPSMJ pour ce rendez-vous ?."
   new-appointment-bex-warning: "Attention, le créneau de 9h est réservé aux DDSE."
   show_appointment_title: "Infos rendez-vous"
-  cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ, et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
+  cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ (si elle a un numéro de téléphone), et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
   appointment-reschedule-title: 'Replanifier un rendez-vous'
   new-appointment-jap-agendas: "Liste agendas JAP"
   rebook_missed_appointment1: "Si vous aviez marqué le rdv comme manqué, vous avez peut-être envoyé un SMS à la PPSMJ concernée. Vous pouvez le vérifier dans l'historique."
@@ -471,6 +479,7 @@ fr:
   bex_jap_agenda_header_first_name: Prénom
   bex_jap_agenda_header_prosecutor: Numéro parquet
   bex_jap_agenda_header_origin: "Service d'origine"
+  bex_jap_agenda_header_case_prepared: "Dossier traité"
   bex_spip_appointments_link: "Agenda RDV SPIP"
   bex_spip_appointments_title: "Agenda RDV SPIP pour"
   bex_spip_no_agenda_available: "Pas de rdv Sortie d'audience SPIP prévu"
@@ -529,7 +538,7 @@ fr:
   index_slot_place_filter: "Lieu de RDV"
 
   edit_slot_used_capacity:  "%{data} RDV déjà pris."
-  edit_slot_minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} places."
+  edit_slot_minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} place(s)."
   edit_slot_warning_slot_will_be_clossed: "Si vous choisissez %{data}, le créneau sera fermé."
 
   convict_invitations:

@@ -1,0 +1,8 @@
+try {
+  console.log(typeof submitButtonContainer);
+  submitButtonContainer = document.getElementById('submit-button-container');
+} catch (error) {
+  let submitButtonContainer = document.getElementById('submit-button-container');
+}
+
+submitButtonContainer.innerHTML = "<%= j render partial: 'display_submit_button', locals: {convict: @convict} %>";

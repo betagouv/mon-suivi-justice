@@ -9,7 +9,7 @@
 <h1 class='form-title'><%= t('new_slot_title') %></h1>
 
 <%= simple_form_for @slot, html: { class: 'basic-form' } do |f| %>
-  <%= f.association :agenda, collection: Agenda.in_organization(current_user.organization).select(&:appointment_type_with_slot_types?),
+  <%= f.association :agenda, collection: agendas_for_slot_creation(current_user),
                              label: t('activerecord.models.agenda'),
                              input_html: { class: 'form-select' } %>
   <%= f.association :appointment_type, collection: appointment_types_for_slot_creation(current_user),

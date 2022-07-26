@@ -1,7 +1,7 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :skip_authorization, only: [:display_places, :display_agendas, :display_time_options, :display_is_cpip,
-                                            :display_slots, :display_slot_fields]
+                                            :display_slots, :display_slot_fields, :display_submit_button]
 
   def index
     @q = policy_scope(Appointment).active.ransack(params[:q])
@@ -58,7 +58,7 @@ class AppointmentsController < ApplicationController
 
   def cancel
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
-    @appointment.cancel! send_notification: true
+    @appointment.cancel send_notification: true
 
     authorize @appointment
     redirect_back(fallback_location: root_path)
@@ -66,7 +66,7 @@ class AppointmentsController < ApplicationController
 
   def fulfil
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
-    @appointment.fulfil!
+    @appointment.fulfil
 
     authorize @appointment
     redirect_back(fallback_location: root_path)
@@ -74,7 +74,7 @@ class AppointmentsController < ApplicationController
 
   def miss
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
-    @appointment.miss!(send_notification: params[:send_sms])
+    @appointment.miss(send_notification: params[:send_sms])
 
     authorize @appointment
     redirect_back(fallback_location: root_path)
@@ -82,7 +82,7 @@ class AppointmentsController < ApplicationController
 
   def excuse
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
-    @appointment.excuse!
+    @appointment.excuse
 
     authorize @appointment
     redirect_back(fallback_location: root_path)
@@ -90,10 +90,20 @@ class AppointmentsController < ApplicationController
 
   def rebook
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
-    @appointment.rebook!
+    @appointment.rebook
 
     authorize @appointment
     redirect_back(fallback_location: root_path)
+  end
+
+  def prepare
+    @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    value = params["case-prepared-#{@appointment.id}"]
+
+    @appointment.case_prepared = value ? true : false
+    @appointment.save
+
+    authorize @appointment
   end
 
   def display_places
@@ -151,6 +161,10 @@ class AppointmentsController < ApplicationController
   def display_slot_fields
     @agenda = policy_scope(Agenda).find(params[:agenda_id])
     @appointment_type = AppointmentType.find(params[:apt_type_id])
+  end
+
+  def display_submit_button
+    @convict = Convict.find(params[:convict_id])
   end
 
   private

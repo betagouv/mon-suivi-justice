@@ -23,26 +23,34 @@
                               wrapper_html: { class: 'form-checkbox-wrapper' } %>
 
   <% if @convict.duplicates.present? %>
-    <% if policy_scope(@convict.duplicates).empty? %>
-      <div class='new-convict-duplicate-warning'>
-        <% @convict.duplicates.each do |duplicate| %>
-          <% dep = duplicate.departments.first %>
-          <p><%= t('new_convict_duplicate_warning5', name: dep.name, number: dep.number)%></p>
-        <% end %>
-      </div>
-    <% else %>
-      <div class='new-convict-duplicate-warning'>
-        <p><%= t('new_convict_duplicate_warning1')%></p>
-        <% @convict.duplicates.each do |duplicate| %>
+    <div class='new-convict-duplicate-warning'>
+      <% if @convict.duplicates.count == 1 %>
+        <p class='new-convict-duplicate-header'><%= t('new_convict_duplicate_warning1')%></p>
+      <% else %>
+        <p class='new-convict-duplicate-header'><%= t('new_convict_duplicate_warning2')%></p>
+      <% end %>
+
+      <% if policy_scope(@convict.duplicates).any? %>
+        <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning_local')%></p>
+        <% policy_scope(@convict.duplicates).each do |duplicate| %>
           <div class='new-convict-duplicate-link'>
             <%= link_to t('new_convict_duplicate_link', name: duplicate.name), convict_path(duplicate), target: "_blank" %>
           </div>
         <% end %>
-        <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning2')%></p>
-        <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
-        <p><%= t('new_convict_duplicate_warning4')%></p>
-      </div>
-    <% end %>
+      <% end %>
+
+      <% duplicates_other_department = @convict.duplicates - policy_scope(@convict.duplicates) %>
+      <% if duplicates_other_department.any? %>
+        <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning_global')%></p>
+        <% duplicates_other_department.each do |duplicate| %>
+          <% dep = duplicate.departments.first %>
+          <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_warning5', name: dep.name, number: dep.number)%></p>
+        <% end %>
+      <% end %>
+
+      <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
+      <p><%= t('new_convict_duplicate_warning4')%></p>
+    </div>
 
     <div class='new-convict-submits-container'>
       <%= f.hidden_field :force_duplication, value: true  %>

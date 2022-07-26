@@ -17,7 +17,7 @@
                                     { include_blank: t('index-appointment-agenda-filter') },
                                     { class: 'form-select index-header-filter-field' } %>
 
-        <%= f.select :appointment_type_id_eq, options_from_collection_for_select(AppointmentType.with_slot_types, 'id', 'name', @q.appointment_type_id_eq),
+        <%= f.select :appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_slot_creation(current_user), 'id', 'name', @q.appointment_type_id_eq),
                                     { include_blank: t('index-slots-appointment-type-filter') },
                                     { class: 'form-select index-header-filter-field' } %>
       </div>

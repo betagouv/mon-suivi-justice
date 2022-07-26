@@ -17,9 +17,8 @@
 }
 
 .delete-user-button {
-  @include button($important);
-  margin: 15px auto 30px;
-  color: white
+  @include button($light-red);
+  margin-bottom: 10px;
 }
 
 .users-item-container {
@@ -48,4 +47,16 @@
 
 .users-column-5 {
   width: 20%;
+}
+
+.invitation-and-pwd-link-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.show-user-account-controls {
+  @include button($light-grey);
+  margin-top: 10px;
+  width: 180px;
 }

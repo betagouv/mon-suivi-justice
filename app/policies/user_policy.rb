@@ -28,4 +28,12 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
   end
+
+  def invitation_link?
+    user.admin?
+  end
+
+  def reset_pwd_link?
+    user.admin?
+  end
 end

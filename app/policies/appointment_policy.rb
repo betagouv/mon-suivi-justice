@@ -67,6 +67,10 @@ class AppointmentPolicy < ApplicationPolicy
     appointment_fulfilment
   end
 
+  def prepare?
+    true
+  end
+
   private
 
   def appointment_workflow
