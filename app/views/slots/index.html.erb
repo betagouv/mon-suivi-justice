@@ -64,7 +64,7 @@
         <%= t('activerecord.attributes.slot.starting_time') %>
       </div>
       <div class='slots-column-7'>
-        <%= t('activerecord.attributes.slot.capacity') %>
+        <%= t('index-slots-available-capacity') %>
       </div>
       <div class='slots-column-6'>
         <%= t('select') %>
@@ -97,7 +97,7 @@
             </div>
 
             <div class='slot-data slots-column-7'>
-              <%= slot.capacity %>
+              <%= slot.capacity - slot.used_capacity %> / <%= slot.capacity %>
             </div>
 
             <% if policy(:slot).update? %>
@@ -127,4 +127,3 @@
 </div>
 
 <%= javascript_pack_tag 'slots_index' %>
-

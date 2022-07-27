@@ -60,7 +60,7 @@
               <div class='bex-agenda-header-title bex-agenda-column'>
                 <%= t('bex_jap_agenda_header_origin') %>
               </div>
-              <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+              <% if ENV['APP'] != 'mon-suivi-justice-prod' && current_user.work_at_bex? %>
                 <div class='bex-agenda-header-title bex-agenda-column'>
                   <%= t('bex_jap_agenda_header_case_prepared') %>
                 </div>
@@ -94,7 +94,7 @@
                       <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
                     <% end %>
                   </div>
-                  <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+                  <% if ENV['APP'] != 'mon-suivi-justice-prod' && current_user.work_at_bex? %>
                     <div class='bex-agenda-column'>
                       <% if appointments[i].present? %>
                         <%= form_tag appointment_prepare_path(appointments[i]), method: 'put', class: 'bex-agenda-case-prepared-form' do %>
