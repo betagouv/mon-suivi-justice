@@ -5,7 +5,7 @@
   <%= f.input :appi_uuid %>
 
   <% if current_user.work_at_spip? || current_user.admin? %>
-    <%= f.association :user, collection: User.cpip.in_organization(current_user.organization),
+    <%= f.association :user, collection: cpip_for_select(current_user.organization),
                              label: t('.cpip_label'),
                              selected: @convict.user&.id,
                              as: :select,

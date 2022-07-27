@@ -10,4 +10,8 @@ module ConvictsHelper
   def can_be_linked_to_user?(convict, current_user)
     (current_user.cpip? || current_user.dpip?) && convict.present? && convict.cpip.nil?
   end
+
+  def cpip_for_select(organization)
+    User.in_organization(organization).where(role: ['cpip','dpip'])
+  end
 end
