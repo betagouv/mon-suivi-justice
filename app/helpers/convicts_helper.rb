@@ -12,6 +12,6 @@ module ConvictsHelper
   end
 
   def cpip_for_select(organization)
-    User.in_organization(organization).where(role: ['cpip','dpip'])
+    User.in_organization(organization).where(role: %w[cpip dpip])
   end
 end
