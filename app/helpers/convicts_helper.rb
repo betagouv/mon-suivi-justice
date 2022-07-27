@@ -8,6 +8,6 @@ module ConvictsHelper
   end
 
   def can_be_linked_to_user?(convict, current_user)
-    current_user.cpip? && convict.present? && convict.cpip.nil?
+    (current_user.cpip? || current_user.dpip?) && convict.present? && convict.cpip.nil?
   end
 end

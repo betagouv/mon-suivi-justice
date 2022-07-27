@@ -6,12 +6,12 @@
 
   <% if current_user.work_at_spip? || current_user.admin? %>
     <%= f.association :user, collection: User.cpip.in_organization(current_user.organization),
-                            label: t('.cpip_label'),
-                            selected: selected_cpip_for(@convict, current_user)&.id,
-                            as: :select,
-                            include_blank: t('.cpip_blank_option'),
-                            label_method: :name,
-                            input_html: { class: 'form-select', id: 'agent-name-autocomplete' } %>
+                             label: t('.cpip_label'),
+                             selected: @convict.user&.id,
+                             as: :select,
+                             include_blank: t('.cpip_blank_option'),
+                             label_method: :name,
+                             input_html: { class: 'form-select', id: 'agent-name-autocomplete' } %>
   <% end %>
   <%= f.input :phone, required: true, input_html: { value: @convict.display_phone } %>
   <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
