@@ -12,7 +12,7 @@
 
     <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
                                      method: :get,
-                                     params: {date: params[:date]},
+                                     params: { date: params[:date] },
                                      form: { target: '_blank' },
                                      class: 'bex-print-button' %>
   </div>
@@ -26,7 +26,7 @@
       </div>
       <div class='bex-date-select-container'>
         <%= form_tag agenda_jap_path, method: 'get' do %>
-          <%= select_tag :date, options_for_select(formated_dates_for_select(current_organization.ten_next_days_with_slots(@appointment_type)), params[:date]),
+          <%= select_tag :date, options_for_select(formated_dates_for_select(current_department.tribunal.ten_next_days_with_slots(@appointment_type)), params[:date]),
                                 id: 'jap-appointments-date-select',
                                 class: 'form-select form-text-input jap-date-select',
                                 onchange: 'this.form.submit()' %>

@@ -12,4 +12,14 @@ RSpec.describe Department, type: :model do
   it { should have_many(:organizations).through(:areas_organizations_mappings) }
   it { should have_many(:areas_convicts_mappings).dependent(:destroy) }
   it { should have_many(:convicts).through(:areas_convicts_mappings) }
+
+  describe 'tribunal' do
+    it 'returns the first tribunal of the department' do
+      department = create(:department)
+      organization = create(:organization, organization_type: 'tj')
+      create :areas_organizations_mapping, organization: organization, area: department, area_type: 'Department'
+
+      expect(department.tribunal).to eq(organization)
+    end
+  end
 end

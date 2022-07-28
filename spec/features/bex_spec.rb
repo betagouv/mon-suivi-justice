@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.feature 'Bex', type: :feature do
   before do
     @department = create :department
-    @organization = create :organization
-    create :areas_organizations_mapping, organization: @organization, area: @department
+    @organization = create :organization, organization_type: 'tj'
+    create :areas_organizations_mapping, organization: @organization, area: @department, area_type: 'Department'
     bex_user = create(:user, role: :bex, organization: @organization)
     logout_current_user
     login_user(bex_user)
@@ -104,7 +104,7 @@ RSpec.feature 'Bex', type: :feature do
       current_date = slot.date.strftime('%d/%m/%Y')
 
       visit agenda_jap_path
-      # save_and_open_page
+
       select current_date, from: :date
       page.execute_script("$('#jap-appointments-date-select').trigger('change')")
 
@@ -141,21 +141,21 @@ RSpec.feature 'Bex', type: :feature do
 
       agenda = create(:agenda, place: place, name: 'Agenda SPIP 91')
 
-      slot1 = create(:slot, agenda: agenda,
-                            appointment_type: apt_type,
-                            date: Date.today.next_occurring(:tuesday),
-                            starting_time: '8h',
-                            capacity: 2)
+      slot1 = create(:slot, :without_validations, agenda: agenda,
+                                                  appointment_type: apt_type,
+                                                  date: Date.today.next_occurring(:tuesday),
+                                                  starting_time: '8h',
+                                                  capacity: 2)
 
-      slot2 = create(:slot, agenda: agenda,
-                            appointment_type: apt_type,
-                            date: Date.today.next_occurring(:friday) + 1.month,
-                            starting_time: '15h')
+      slot2 = create(:slot, :without_validations, agenda: agenda,
+                                                  appointment_type: apt_type,
+                                                  date: Date.today.next_occurring(:friday) + 1.month,
+                                                  starting_time: '15h')
 
-      slot3 = create(:slot, agenda: agenda,
-                            appointment_type: apt_type2,
-                            date: Date.today.next_occurring(:tuesday),
-                            starting_time: '15h')
+      slot3 = create(:slot, :without_validations, agenda: agenda,
+                                                  appointment_type: apt_type2,
+                                                  date: Date.today.next_occurring(:tuesday),
+                                                  starting_time: '15h')
 
       current_month_label = (I18n.l slot1.date, format: '%B %Y').capitalize
       next_month_label = (I18n.l slot2.date, format: '%B %Y').capitalize
