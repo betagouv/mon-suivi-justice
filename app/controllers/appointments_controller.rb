@@ -24,7 +24,7 @@ class AppointmentsController < ApplicationController
   end
 
   def show
-    @appointment = policy_scope(Appointment).find(params[:id])
+    @appointment = Appointment.find(params[:id])
     @convict = @appointment.convict
     @history_items = HistoryItem.where(appointment: @appointment)
                                 .order(created_at: :desc)
