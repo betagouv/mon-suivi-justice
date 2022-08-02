@@ -12,7 +12,7 @@
 
     <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
                                      method: :get,
-                                     params: {date: params[:date]},
+                                     params: { date: params[:date] },
                                      form: { target: '_blank' },
                                      class: 'bex-print-button' %>
   </div>
@@ -26,7 +26,7 @@
       </div>
       <div class='bex-date-select-container'>
         <%= form_tag agenda_jap_path, method: 'get' do %>
-          <%= select_tag :date, options_for_select(formated_dates_for_select(current_organization.ten_next_days_with_slots(@appointment_type)), params[:date]),
+          <%= select_tag :date, options_for_select(formated_dates_for_select(current_department.tribunal.ten_next_days_with_slots(@appointment_type)), params[:date]),
                                 id: 'jap-appointments-date-select',
                                 class: 'form-select form-text-input jap-date-select',
                                 onchange: 'this.form.submit()' %>
@@ -60,7 +60,7 @@
               <div class='bex-agenda-header-title bex-agenda-column'>
                 <%= t('bex_jap_agenda_header_origin') %>
               </div>
-              <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+              <% if ENV['APP'] != 'mon-suivi-justice-prod' && current_user.work_at_bex? %>
                 <div class='bex-agenda-header-title bex-agenda-column'>
                   <%= t('bex_jap_agenda_header_case_prepared') %>
                 </div>
@@ -94,7 +94,7 @@
                       <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
                     <% end %>
                   </div>
-                  <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+                  <% if ENV['APP'] != 'mon-suivi-justice-prod' && current_user.work_at_bex? %>
                     <div class='bex-agenda-column'>
                       <% if appointments[i].present? %>
                         <%= form_tag appointment_prepare_path(appointments[i]), method: 'put', class: 'bex-agenda-case-prepared-form' do %>

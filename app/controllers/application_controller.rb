@@ -31,6 +31,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_organization
 
+  def current_department
+    @current_department ||= current_user.organization.departments.first
+  end
+  helper_method :current_department
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private

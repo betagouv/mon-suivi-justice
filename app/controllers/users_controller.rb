@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     authorize @user
 
-    @user.invite!
+    @user.invite! { |u| u.skip_invitation = true }
     token = @user.raw_invitation_token
 
     @invitation_link = request.base_url + "/users/invitation/accept?invitation_token=#{token}"

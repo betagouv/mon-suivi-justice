@@ -20,7 +20,7 @@ if Rails.env.development?
       system "dot -Tpng #{file} > docs/erd.png"
       File.delete('erd.dot')
 
-      say 'Entity-Relationship Diagram saved to docs/erd.png.'
+      puts 'Entity-Relationship Diagram saved to docs/erd.png.'
     end
   end
 end
