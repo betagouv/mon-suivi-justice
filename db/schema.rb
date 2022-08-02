@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_26_080727) do
+ActiveRecord::Schema.define(version: 2022_07_29_130717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(version: 2022_07_26_080727) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "reminder_period", default: 0
     t.bigint "organization_id"
+    t.boolean "is_default", default: false, null: false
+    t.boolean "still_default", default: true, null: false
     t.index ["appointment_type_id"], name: "index_notification_types_on_appointment_type_id"
     t.index ["organization_id"], name: "index_notification_types_on_organization_id"
   end
