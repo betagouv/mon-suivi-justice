@@ -33,7 +33,7 @@ fr:
     new:
       is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
     index:
-      only_passed_uninformed: "Seuls les rendez-vous passés dont le statut n'a pas été renseigné sont affichés"
+      only_passed_uninformed: "Rendez-vous au statut inconnu"
       my_appointments: "Mes rendez-vous"
       no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
   activerecord:
@@ -489,13 +489,52 @@ fr:
   today_agendas_title: "RDV prévus pour le"
   today_agendas_title_part2: "au"
 
-  appointment_types_header_title: Modèles SMS
-  appointment_types_warning: "Vous allez modifier les modèles SMS pour le %{orga}."
-  appointment_types_warning_default: "Vous allez modifier les modèles SMS par défaut."
-  edit_appointment_type_title: Modifier modèles SMS
-  edit_appointment_type_slots: Créneaux récurrents
-  edit_appointment_type_add_slot: Ajouter créneau
-  edit_appointment_type_slot_type_duration: "Durée (minutes)"
+  appointment_type:
+    header_title: Modèles SMS
+    warning: "Vous allez modifier les modèles SMS pour le %{orga}."
+    warning_default: "Vous allez modifier les modèles SMS par défaut."
+    edit_title: Modifier modèles SMS
+    type_title: Type de rendez-vous
+    organization_title: Service
+    default_templates: Modèles par défaut
+    default_template: Modèle par défaut
+    still_default_template: Défaut
+    replanification: Replanification
+    custom_template: Personnalisé
+    updated_at: "Modifié le %{date}"
+    imported_at: "Mis à jour le %{date}"
+    tutorial:
+      title: "Mode d'emploi"
+      text1: "Les modèles de SMS permettent d'insérer les données de Mon Suivi Justice dans le contenu des SMS envoyés. Pour cela on utilise des clés, comme par exemple {lieu.nom}, qui insère le nom du lieu de rendez-vous."
+      text2: "Les changements apportés ici sont répercutés sur les nouveaux rendez-vous pris. Si un SMS de rappel a été plannifié avant un changement des modèles de SMS, son contenu ne changera pas."
+      text3: "Les modèles marqués comme 'Défaut' sont mis à jour depuis des modèles utilisés nationalement. Une fois qu'une modification locale a été effectuée, le modèle est marqué comme 'Personnalisé', et n'est plus mis à jour de manière centrale."
+      title2: Exemple
+      sample1_title: "Modèle :"
+      sample1_data: "Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}."
+      sample2_title: "Résultat :"
+      sample2_data: "Vous êtes convoqué au SPIP 92 le 27/06/2021 à 15h15. Merci de venir avec une pièce d'identité au 94 Bvd du Géneral Leclerc 92000 Nanterre."
+      title3: Liste des clés disponibles
+      key1_title: "{lieu.nom}"
+      key1_meaning: "Nom du lieu"
+      key1_sample: "Ex : SPIP 92"
+      key2_title: "{lieu.adresse}"
+      key2_meaning: "Adresse du lieu"
+      key2_sample: "Ex : 25 Avenue de la libération"
+      key3_title: "{lieu.téléphone}"
+      key3_meaning: "Numéro de téléphone du lieu"
+      key3_sample: "Ex : 0102030405"
+      key4_title: "{lieu.contact}"
+      key4_meaning: "Moyen de contact du lieu (téléphone ou email selon les préférences)"
+      key4_sample: "Ex : 0102030405 ou test@test.com"
+      key5_title: "{lieu.lien_info}"
+      key5_meaning: "Lien d'information sur le lieu du RDV"
+      key5_sample: "Ex : https://mon-suivi-justice.beta.gouv.fr/preparer_spip92"
+      key6_title: "{rdv.date}"
+      key6_meaning: "Date du RDV"
+      key6_sample: "Ex : 06/08/2021"
+      key7_title: "{rdv.heure}"
+      key7_meaning: "Heure du RDV"
+      key7_sample: "Ex : 18h20"
 
   new_place_title: "Nouveau Lieu"
   new_place_submit: "Enregistrer"

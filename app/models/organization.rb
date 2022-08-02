@@ -35,6 +35,7 @@ class Organization < ApplicationRecord
 
       NotificationType.roles.each_key do |role|
         new_notif_type = default.where(role: role).first.dup
+        new_notif_type.assign_attributes(is_default: false, still_default: true)
         new_notif_type.organization = self
         new_notif_type.save!
       end

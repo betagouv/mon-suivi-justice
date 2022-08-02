@@ -1,128 +1,213 @@
 <%= link_to t('get_back'), appointment_types_path, class: 'index-slot-types-back-button' %>
 
-<h1 class='form-title'><%= t('edit_appointment_type_title') %></h1>
+<h1 class='form-title'><%= t('appointment_type.edit_title') %></h1>
 
 <%= simple_form_for @appointment_type, html: { class: 'appointment-type-form' } do |f| %>
+  <% if @organization %><%= f.input :orga, as: :hidden, input_html: { value: params[:orga] } %><% end %>
+
   <div class='edit-appointment-type-container'>
-    <p class='appointment-type-edit-subtitle'><%= edit_notification_type_page_title(@appointment_type, @organization) %></p>
+    <div class='edit-appointment-type-header'>
+      <div class='edit-appointment-type-header-type'>
+        <div class='edit-appointment-type-header-type-title'><%= t('appointment_type.type_title') %></div>
+        <div class='edit-appointment-type-header-type-value'><%= @appointment_type.name %></div>
+      </div>
+      <div class='edit-appointment-type-header-organization'>
+        <div class='edit-appointment-type-header-organization-title'><%= t('appointment_type.organization_title') %></div>
+        <% if @organization.nil? %>
+          <div class='edit-appointment-type-header-organization-value'><%= t('appointment_type.default_templates') %></div>
+        <% else %>
+          <div class='edit-appointment-type-header-organization-value'><%= @organization.name %></div>
+        <% end %>
+      </div>
+    </div>
 
     <% if @appointment_type.errors.present? %>
       <p class='errors-box'><%= @appointment_type.errors.map(&:message).join(" - ") %></p>
     <% end %>
 
     <% if @notification_types.find_by(role: :summon).present? %>
-      <%= f.simple_fields_for :notification_types, @notification_types.find_by(role: :summon) do |p| %>
+      <% summon_notif = @notification_types.find_by(role: :summon) %>
+      <%= f.simple_fields_for :notification_types, summon_notif do |p| %>
         <div class='notification-type-container summon-container'>
-          <p class='notification-type-role'>
-            - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.summon_notif.role}").capitalize %>
-          </p>
+          <div class='notification-type-header'>
+            <p class='notification-type-role'>
+              <%= t("activerecord.attributes.notification_type.notification_type_roles.#{summon_notif.role}").capitalize %>
+            </p>
+
+            <div class='notification-type-status-title'>
+              <%= template_status(summon_notif) %>
+            </div>
+          </div>
+
           <%= p.input :template, input_html: { class: 'form-textarea' } %>
+
+          <div class='notification-type-status-updated-at'>
+            <%= template_updated_at(summon_notif) %>
+          </div>
         </div>
       <% end %>
     <% end %>
 
+    <hr class='notification-type-separator' noshade=true>
+
     <% if @notification_types.find_by(role: :reminder).present? %>
-      <%= f.simple_fields_for :notification_types, @notification_types.find_by(role: :reminder) do |p| %>
+      <% reminder_notif = @notification_types.find_by(role: :reminder) %>
+      <%= f.simple_fields_for :notification_types, reminder_notif do |p| %>
         <div class='notification-type-container reminder-container'>
-          <p class='notification-type-role'>
-            - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.reminder_notif.role}").capitalize %>
-          </p>
+          <div class='notification-type-header'>
+            <p class='notification-type-role'>
+              <%= t("activerecord.attributes.notification_type.notification_type_roles.#{reminder_notif.role}").capitalize %>
+            </p>
+
+            <div class='notification-type-status'>
+              <%= template_status(reminder_notif) %>
+            </div>
+          </div>
 
           <%= p.input :reminder_period, collection: NotificationType.reminder_periods.symbolize_keys.keys,
                                         input_html: { class: 'form-select' },
                                         required: true %>
 
           <%= p.input :template, input_html: { class: 'form-textarea' } %>
+
+          <div class='notification-type-status-updated-at'>
+            <%= template_updated_at(reminder_notif) %>
+          </div>
         </div>
       <% end %>
     <% end %>
+
+    <hr class='notification-type-separator' noshade=true>
 
     <% if @notification_types.find_by(role: :cancelation).present? %>
-      <%= f.simple_fields_for :notification_types, @notification_types.find_by(role: :cancelation) do |p| %>
+      <% cancelation_notif = @notification_types.find_by(role: :cancelation) %>
+      <%= f.simple_fields_for :notification_types, cancelation_notif do |p| %>
         <div class='notification-type-container cancelation-container'>
-          <p class='notification-type-role'>
-            - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.cancelation_notif.role}").capitalize %>
-          </p>
+          <div class='notification-type-header'>
+            <p class='notification-type-role'>
+              <%= t("activerecord.attributes.notification_type.notification_type_roles.#{cancelation_notif.role}").capitalize %>
+            </p>
+
+            <div class='notification-type-status'>
+              <%= template_status(cancelation_notif) %>
+            </div>
+          </div>
+
           <%= p.input :template, input_html: { class: 'form-textarea' } %>
+
+          <div class='notification-type-status-updated-at'>
+            <%= template_updated_at(cancelation_notif) %>
+          </div>
         </div>
       <% end %>
     <% end %>
+
+    <hr class='notification-type-separator' noshade=true>
 
     <% if @notification_types.find_by(role: :no_show).present? %>
-      <%= f.simple_fields_for :notification_types, @notification_types.find_by(role: :no_show) do |p| %>
+      <% no_show_notif = @notification_types.find_by(role: :no_show) %>
+      <%= f.simple_fields_for :notification_types, no_show_notif do |p| %>
         <div class='notification-type-container no-show-container'>
-          <p class='notification-type-role'>
-            - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.no_show_notif.role}").capitalize %>
-          </p>
+          <div class='notification-type-header'>
+            <p class='notification-type-role'>
+              <%= t("activerecord.attributes.notification_type.notification_type_roles.#{no_show_notif.role}").capitalize %>
+            </p>
+
+            <div class='notification-type-status'>
+              <%= template_status(no_show_notif) %>
+            </div>
+          </div>
+
           <%= p.input :template, input_html: { class: 'form-textarea' } %>
+
+          <div class='notification-type-status-updated-at'>
+            <%= template_updated_at(no_show_notif) %>
+          </div>
         </div>
       <% end %>
     <% end %>
+
+    <hr class='notification-type-separator' noshade=true>
 
     <% if @notification_types.find_by(role: :reschedule).present? %>
-      <%= f.simple_fields_for :notification_types, @notification_types.find_by(role: :reschedule) do |p| %>
+      <% reschedule_notif = @notification_types.find_by(role: :reschedule) %>
+      <%= f.simple_fields_for :notification_types, reschedule_notif do |p| %>
         <div class='notification-type-container no-show-container'>
-          <p class='notification-type-role'>
-            - <%=  t("activerecord.attributes.notification_type.notification_type_roles.#{@appointment_type.reschedule_notif.role}").capitalize %>
-          </p>
+          <div class='notification-type-header'>
+            <p class='notification-type-role'>
+              <%= t("appointment_type.replanification") %>
+            </p>
+
+            <div class='notification-type-status'>
+              <%= template_status(reschedule_notif) %>
+            </div>
+          </div>
+
           <%= p.input :template, input_html: { class: 'form-textarea' } %>
+
+          <div class='notification-type-status-updated-at'>
+            <%= template_updated_at(reschedule_notif) %>
+          </div>
         </div>
       <% end %>
     <% end %>
 
+    <hr class='notification-type-separator' noshade=true>
+
     <div class='appointment-type-tutorial-container'>
-      <h2 class='appointment-type-tutorial-title'>Mode d'emploi des modèles SMS</h2>
+      <h2 class='appointment-type-tutorial-title'><%= t("appointment_type.tutorial.title") %></h2>
 
-      <p>Les modèles de SMS permettent d'insérer les données de Mon Suivi Justice dans le contenu des SMS envoyés. Pour cela on utilise des clés, comme par exemple {lieu.nom}, qui insère le nom du lieu de rendez-vous.</p>
+      <p class='appointment-type-tutrial-text'><%= t("appointment_type.tutorial.text1") %></p>
+      <p class='appointment-type-tutrial-text'><%= t("appointment_type.tutorial.text2") %></p>
+      <p class='appointment-type-tutrial-text'><%= t("appointment_type.tutorial.text3") %></p>
 
-      <p class='appointment-type-tutorial-secondary-title'>Liste des clés disponibles</p>
+      <p class='appointment-type-tutorial-secondary-title'><%= t("appointment_type.tutorial.title2") %></p>
+
+      <p class='appointment-type-tutorial-sample-title'><%= t("appointment_type.tutorial.sample1_title") %></p>
+      <p class='appointment-type-tutorial-sample'><%= t("appointment_type.tutorial.sample1_data") %></p>
+      <p class='appointment-type-tutorial-sample-title'><%= t("appointment_type.tutorial.sample2_title") %></p>
+      <p class='appointment-type-tutorial-sample'><%= t("appointment_type.tutorial.sample2_data") %></p>
+
+      <p class='appointment-type-tutorial-secondary-title'><%= t("appointment_type.tutorial.title3") %></p>
 
       <div class='appointment-type-tutorial-key-table'>
         <div class='appointment-type-tutorial-key-table-line'>
-          <div class='appointment-type-tutorial-key-name'>{lieu.nom}</div>
-          <div class='appointment-type-tutorial-key-content'>Nom du lieu</div>
-          <div class='appointment-type-tutorial-key-sample'>Ex : SPIP 92</div>
+          <div class='appointment-type-tutorial-key-name'><%= t("appointment_type.tutorial.key1_title") %></div>
+          <div class='appointment-type-tutorial-key-content'><%= t("appointment_type.tutorial.key1_meaning") %></div>
+          <div class='appointment-type-tutorial-key-sample'><%= t("appointment_type.tutorial.key1_sample") %></div>
         </div>
         <div class='appointment-type-tutorial-key-table-line'>
-          <div class='appointment-type-tutorial-key-name'>{lieu.adresse}</div>
-          <div class='appointment-type-tutorial-key-content'>Adresse du lieu</div>
-          <div class='appointment-type-tutorial-key-sample'>Ex : 25 Avenue de la libération</div>
+          <div class='appointment-type-tutorial-key-name'><%= t("appointment_type.tutorial.key2_title") %></div>
+          <div class='appointment-type-tutorial-key-content'><%= t("appointment_type.tutorial.key2_meaning") %></div>
+          <div class='appointment-type-tutorial-key-sample'><%= t("appointment_type.tutorial.key2_sample") %></div>
         </div>
         <div class='appointment-type-tutorial-key-table-line'>
-          <div class='appointment-type-tutorial-key-name'>{lieu.téléphone}</div>
-          <div class='appointment-type-tutorial-key-content'>Numéro de téléphone du lieu</div>
-          <div class='appointment-type-tutorial-key-sample'>Ex : 0102030405</div>
+          <div class='appointment-type-tutorial-key-name'><%= t("appointment_type.tutorial.key3_title") %></div>
+          <div class='appointment-type-tutorial-key-content'><%= t("appointment_type.tutorial.key3_meaning") %></div>
+          <div class='appointment-type-tutorial-key-sample'><%= t("appointment_type.tutorial.key3_sample") %></div>
         </div>
         <div class='appointment-type-tutorial-key-table-line'>
-          <div class='appointment-type-tutorial-key-name'>{lieu.contact}</div>
-          <div class='appointment-type-tutorial-key-content'>Moyen de contact du lieu (téléphone ou email selon ses préférences)</div>
-          <div class='appointment-type-tutorial-key-sample'>Ex : 0102030405 ou test@test.com</div>
+          <div class='appointment-type-tutorial-key-name'><%= t("appointment_type.tutorial.key4_title") %></div>
+          <div class='appointment-type-tutorial-key-content'>M<%= t("appointment_type.tutorial.key4_meaning") %></div>
+          <div class='appointment-type-tutorial-key-sample'><%= t("appointment_type.tutorial.key4_sample") %></div>
         </div>
         <div class='appointment-type-tutorial-key-table-line'>
-          <div class='appointment-type-tutorial-key-name'>{lieu.lien_info}</div>
-          <div class='appointment-type-tutorial-key-content'>Lien d'information sur le lien du RDV</div>
-          <div class='appointment-type-tutorial-key-sample'>Ex : https://mon-suivi-justice.beta.gouv.fr/preparer_spip92</div>
+          <div class='appointment-type-tutorial-key-name'><%= t("appointment_type.tutorial.key5_title") %></div>
+          <div class='appointment-type-tutorial-key-content'><%= t("appointment_type.tutorial.key5_meaning") %></div>
+          <div class='appointment-type-tutorial-key-sample'><%= t("appointment_type.tutorial.key5_sample") %></div>
         </div>
         <div class='appointment-type-tutorial-key-table-line'>
-          <div class='appointment-type-tutorial-key-name'>{rdv.date}</div>
-          <div class='appointment-type-tutorial-key-content'>Date du RDV</div>
-          <div class='appointment-type-tutorial-key-sample'>Ex : 06/08/2021</div>
+          <div class='appointment-type-tutorial-key-name'><%= t("appointment_type.tutorial.key6_title") %></div>
+          <div class='appointment-type-tutorial-key-content'><%= t("appointment_type.tutorial.key6_meaning") %></div>
+          <div class='appointment-type-tutorial-key-sample'><%= t("appointment_type.tutorial.key6_sample") %></div>
         </div>
         <div class='appointment-type-tutorial-key-table-line'>
-          <div class='appointment-type-tutorial-key-name'>{rdv.heure}</div>
-          <div class='appointment-type-tutorial-key-content'>Heure du RDV</div>
-          <div class='appointment-type-tutorial-key-sample'>Ex : 18h20</div>
+          <div class='appointment-type-tutorial-key-name'><%= t("appointment_type.tutorial.key7_title") %></div>
+          <div class='appointment-type-tutorial-key-content'><%= t("appointment_type.tutorial.key7_meaning") %></div>
+          <div class='appointment-type-tutorial-key-sample'><%= t("appointment_type.tutorial.key7_sample") %></div>
         </div>
       </div>
-
-      <p class='appointment-type-tutorial-secondary-title'>Exemple</p>
-
-      <p class='appointment-type-tutorial-sample-title'>Modèle :</p>
-      <p class='appointment-type-tutorial-sample'>Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}.</p>
-      <p class='appointment-type-tutorial-sample-title'>Résultat :</p>
-      <p class='appointment-type-tutorial-sample'>Vous êtes convoqué au SPIP 92 le 27/06/2021 à 15h15. Merci de venir avec une pièce d'identité au 94 Bvd du Géneral Leclerc 92000 Nanterre.</p>
     </div>
-
   </div>
 
   <div class='edit-appointment-type-container-submit-container'>

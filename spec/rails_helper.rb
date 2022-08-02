@@ -137,7 +137,7 @@ end
 def create_default_notification_types
   AppointmentType.all.each do |apt_type|
     NotificationType.roles.keys.each do |role|
-      create(:notification_type, appointment_type: apt_type, role: role)
+      create(:notification_type, appointment_type: apt_type, role: role, is_default: true)
     end
   end
 end
