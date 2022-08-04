@@ -21,10 +21,6 @@
   margin-right: 10px;
 }
 
-.slots-column {
-  width: 20%;
-}
-
 .slots-column-1 {
   width: 15%;
 }
@@ -34,15 +30,16 @@
 }
 
 .slots-column-3 {
-  width: 15%;
+  width: 20%;
 }
 
 .slots-column-4 {
-  width: 15%;
+  width: 10%;
 }
 
 .slots-column-5 {
   width: 10%;
+  text-align: center;
 }
 
 .slots-column-6 {
@@ -53,4 +50,8 @@
 .slots-column-7 {
   width: 10%;
   text-align: center;
+}
+
+.index-controls-container {
+  width: 10%;
 }

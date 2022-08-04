@@ -63,10 +63,10 @@
       <div class='slots-column-5'>
         <%= t('activerecord.attributes.slot.starting_time') %>
       </div>
-      <div class='slots-column-7'>
+      <div class='slots-column-6'>
         <%= t('index-slots-available-capacity') %>
       </div>
-      <div class='slots-column-6'>
+      <div class='slots-column-7'>
         <%= t('select') %>
       </div>
       <div class='index-controls-container'></div>
@@ -96,12 +96,12 @@
               <%= slot.starting_time.to_s(:time) %>
             </div>
 
-            <div class='slot-data slots-column-7'>
+            <div class='slot-data slots-column-6'>
               <%= slot.capacity - slot.used_capacity %> / <%= slot.capacity %>
             </div>
 
             <% if policy(:slot).update? %>
-              <div class='slots-column-6'>
+              <div class='slots-column-7'>
                 <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
               </div>
             <% end %>
