@@ -23,7 +23,7 @@ fr:
         subject: 'Vous avez reçu une invitation de Mon Suivi Justice'
         hello: "Bonjour %{first_name},"
         greetings: 'Bienvenue sur Mon Suivi Justice.'
-        description: "Mon Suivi Justice vise à créer un outil numérique destiné à diminuer l’absentéisme des personnes condamnées à leurs convocations, devant les juges d’application des peines et le service pénitentiaire d’insertion et de probation."
+        description: "Mon Suivi Justice est un outil numérique destiné à diminuer l’absentéisme des personnes condamnées à leurs convocations, devant les juges d’application des peines et le service pénitentiaire d’insertion et de probation."
         someone_invited_you: "Pour activer votre compte et commencer à utiliser Mon Suivi Justice, veuillez copier-coller le lien suivant dans le navigateur Edge : %{url}."
         someone_invited_you_html: "Pour activer votre compte et commencer à utiliser Mon Suivi Justice, <b>veuillez copier-coller le lien suivant dans le navigateur Edge </b> : %{url}"
         accept: "Accepter l'invitation"
