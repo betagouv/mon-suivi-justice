@@ -67,6 +67,7 @@ Metrics/MethodLength:
     - app/helpers/users_helper.rb
     - app/controllers/home_controller.rb
     - app/services/history_item_factory.rb
+    - app/services/data_collector/sda.rb
     - app/controllers/appointments_controller.rb
 
 Metrics/ClassLength:
@@ -75,7 +76,7 @@ Metrics/ClassLength:
     - app/models/convict.rb
     - app/controllers/appointments_controller.rb
     - app/controllers/convicts_controller.rb
-    - app/services/data_collector.rb
+    - app/services/data_collector/user.rb
 
 Metrics/AbcSize:
   Exclude:
@@ -87,6 +88,7 @@ Metrics/AbcSize:
     - app/controllers/appointments_controller.rb
     - app/controllers/home_controller.rb
     - app/services/history_item_factory.rb
+    - app/services/data_collector/sda.rb
 
 Style/IfWithBooleanLiteralBranches:
   Exclude:

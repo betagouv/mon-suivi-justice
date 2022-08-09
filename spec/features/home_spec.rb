@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.feature 'Home', type: :feature do
   describe 'Home page' do
     it 'loads' do
-      allow(DataCollector).to receive_message_chain(:new, :perform)
-                          .and_return({ passed_uninformed_percentage: 40 })
+      allow(DataCollector::User).to receive_message_chain(:new, :perform)
+                                .and_return({ passed_uninformed_percentage: 40 })
       jap_user = create(:user, role: :jap)
       login_user(jap_user)
 

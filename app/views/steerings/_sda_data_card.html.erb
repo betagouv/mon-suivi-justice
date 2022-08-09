@@ -1,0 +1,165 @@
+<div class='stats-card-container'>
+  <p class='stats-card-title'><%= title %></p>
+
+  <p class='stats-card-subtitle'><%= t('stats.sda_sap')%></p>
+  <% sap_data = data[:sortie_audience_sap] %>
+
+  <div class='stat-card-container'>
+    <p class='stat-card-title'><%= t('stats.recorded') %></p>
+    <p class='stat-card-value'><%= sap_data[:recorded] %></p>
+  </div>
+
+  <div class='stat-card-subsection'>
+    <div class='stat-card-of-which'>
+      <p class='stat-card-title'><%= t('stats.of_which') %></p>
+    </div>
+
+    <div class='stat-card-subsection-content'>
+      <div class='stat-card-container'>
+        <p class='stat-card-title'><%= t('stats.future_booked') %></p>
+        <p class='stat-card-value'><%= sap_data[:future_booked] %></p>
+      </div>
+
+      <div class='stat-card-container'>
+        <p class='stat-card-title'><%= t('stats.passed_no_canceled_with_phone') %></p>
+        <p class='stat-card-value'><%= sap_data[:passed_no_canceled_with_phone] %></p>
+      </div>
+
+      <div class='stat-card-subsection'>
+        <div class='stat-card-of-which'>
+          <p class='stat-card-title'><%= t('stats.of_which') %></p>
+        </div>
+
+        <div class='stat-card-subsection-content'>
+          <div class='stat-card-container'>
+            <p class='stat-card-title'><%= t('stats.informed') %></p>
+            <p class='stat-card-value'><%= sap_data[:passed_informed] %></p>
+          </div>
+
+            <div class='stat-card-subsection'>
+          <div class='stat-card-of-which'>
+            <p class='stat-card-title'><%= t('stats.of_which') %></p>
+          </div>
+
+          <div class='stat-card-subsection-content'>
+            <div class='stat-card-container'>
+              <p class='stat-card-title'><%= t('stats.fulfiled') %></p>
+              <p class='stat-card-value'><%= sap_data[:fulfiled] %></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.fulfiled_percentage', data: sap_data[:fulfiled_percentage]) %></b></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-title'><%= t('stats.excused') %></p>
+              <p class='stat-card-value'><%= sap_data[:excused] %></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.excused_percentage', data: sap_data[:excused_percentage]) %></b></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-title'><%= t('stats.no_show') %></p>
+              <p class='stat-card-value'><%= sap_data[:no_show] %></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.no_show_percentage', data: sap_data[:no_show_percentage]) %></b></p>
+            </div>
+          </div>
+          </div>
+          <div class='stat-card-container'>
+            <p class='stat-card-title'><%= t('stats.uninformed') %></p>
+            <p class='stat-card-value'><%= sap_data[:passed_uninformed] %></p>
+          </div>
+          <div class='stat-card-container'>
+            <p class='stat-card-percentage'> <%= t('stats.that_is') %> <b><%= t('stats.uninformed_percentage', data: sap_data[:passed_uninformed_percentage]) %></b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class='stats-card-subtitle'><%= t('stats.sda_spip')%></p>
+  <% spip_data = data[:sortie_audience_spip] %>
+
+  <div class='stat-card-container'>
+    <p class='stat-card-title'><%= t('stats.recorded') %></p>
+    <p class='stat-card-value'><%= spip_data[:recorded] %></p>
+  </div>
+
+  <div class='stat-card-subsection'>
+    <div class='stat-card-of-which'>
+      <p class='stat-card-title'><%= t('stats.of_which') %></p>
+    </div>
+
+    <div class='stat-card-subsection-content'>
+      <div class='stat-card-container'>
+        <p class='stat-card-title'><%= t('stats.future_booked') %></p>
+        <p class='stat-card-value'><%= spip_data[:future_booked] %></p>
+      </div>
+
+      <div class='stat-card-container'>
+        <p class='stat-card-title'><%= t('stats.passed_no_canceled_with_phone') %></p>
+        <p class='stat-card-value'><%= spip_data[:passed_no_canceled_with_phone] %></p>
+      </div>
+
+      <div class='stat-card-subsection'>
+        <div class='stat-card-of-which'>
+          <p class='stat-card-title'><%= t('stats.of_which') %></p>
+        </div>
+
+        <div class='stat-card-subsection-content'>
+          <div class='stat-card-container'>
+            <p class='stat-card-title'><%= t('stats.informed') %></p>
+            <p class='stat-card-value'><%= spip_data[:passed_informed] %></p>
+          </div>
+
+            <div class='stat-card-subsection'>
+          <div class='stat-card-of-which'>
+            <p class='stat-card-title'><%= t('stats.of_which') %></p>
+          </div>
+
+          <div class='stat-card-subsection-content'>
+            <div class='stat-card-container'>
+              <p class='stat-card-title'><%= t('stats.fulfiled') %></p>
+              <p class='stat-card-value'><%= spip_data[:fulfiled] %></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.fulfiled_percentage', data: spip_data[:fulfiled_percentage]) %></b></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-title'><%= t('stats.excused') %></p>
+              <p class='stat-card-value'><%= spip_data[:excused] %></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.excused_percentage', data: spip_data[:excused_percentage]) %></b></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-title'><%= t('stats.no_show') %></p>
+              <p class='stat-card-value'><%= spip_data[:no_show] %></p>
+            </div>
+
+            <div class='stat-card-container'>
+              <p class='stat-card-percentage'><%= t('stats.that_is') %> <b><%= t('stats.no_show_percentage', data: spip_data[:no_show_percentage]) %></b></p>
+            </div>
+          </div>
+          </div>
+          <div class='stat-card-container'>
+            <p class='stat-card-title'><%= t('stats.uninformed') %></p>
+            <p class='stat-card-value'><%= spip_data[:passed_uninformed] %></p>
+          </div>
+          <div class='stat-card-container'>
+            <p class='stat-card-percentage'> <%= t('stats.that_is') %> <b><%= t('stats.uninformed_percentage', data: spip_data[:passed_uninformed_percentage]) %></b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

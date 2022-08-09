@@ -6,4 +6,8 @@ class SteeringPolicy < ApplicationPolicy
   def convict_app_stats?
     user.admin?
   end
+
+  def sda_stats?
+    user.admin?
+  end
 end

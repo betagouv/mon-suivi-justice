@@ -19,13 +19,14 @@ Rails.application.routes.draw do
     resources :appointments, only: [:index], controller: 'users/appointments'
   end
 
-  resources :places
   resources :convicts do
     delete 'archive'
     post 'unarchive'
     post 'self_assign'
     resource :invitation, only: :create, controller: 'convict_invitations'
   end
+
+  resources :places
   resources :appointment_types
   resources :slots
   resource :slots_batch, only: [:new, :create, :update]
@@ -78,6 +79,7 @@ Rails.application.routes.draw do
 
   get '/steering_user_app' => 'steerings#user_app_stats', as: 'steering_user_app'
   get '/steering_convict_app' => 'steerings#convict_app_stats', as: 'steering_convict_app'
+  get '/steering_sda' => 'steerings#sda_stats', as: 'steering_sda'
 
   unauthenticated do
     devise_scope :user do

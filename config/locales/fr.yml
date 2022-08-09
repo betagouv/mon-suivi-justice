@@ -301,8 +301,9 @@ fr:
     modal_thanks: "Merci de nous aider à améliorer Mon Suivi Justice."
 
   stats:
-    user_app: "Stats App agents"
-    convict_app: "Stats App PPSMJ"
+    user_app: "App agents"
+    convict_app: "App PPSMJ"
+    sda_stats: "Sortie d'audience"
     steering_title: "Global"
     of_which: "dont"
     that_is: "soit"
@@ -326,6 +327,8 @@ fr:
     invites: "PPSMJ invitées"
     reminder: "dont PPSMJ relancées"
     account_created: "Comptes créés"
+    sda_sap: "Sortie d'audience SAP"
+    sda_spip: "Sortie d'audience SPIP"
 
   pdf:
     appointments:
