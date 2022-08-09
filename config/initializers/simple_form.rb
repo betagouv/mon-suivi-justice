@@ -188,6 +188,7 @@ SimpleForm.setup do |config|
     b.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
   end
 end
+
 class FakeSelectInput < SimpleForm::Inputs::CollectionSelectInput
   def input(wrapper_options = nil)
     label_method, value_method = detect_collection_methods

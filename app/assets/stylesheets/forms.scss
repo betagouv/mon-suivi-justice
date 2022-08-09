@@ -22,6 +22,11 @@
   color: $dark-grey;
 }
 
+.form-manual {
+  max-width: 400px;
+  margin: 0 auto 40px;
+}
+
 .form-input-wrapper {
   display: flex;
   flex-direction: column;

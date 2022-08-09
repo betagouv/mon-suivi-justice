@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   end
   resources :appointment_types
   resources :slots
-  resource :slots_batch, only: :update
+  resource :slots_batch, only: [:new, :create, :update]
 
   resources :slot_types, only: [:create, :destroy, :update]
 
@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   get '/display_is_cpip' => 'appointments#display_is_cpip', as: 'display_is_cpip'
   get '/display_agendas' => 'appointments#display_agendas', as: 'display_agendas'
   get '/display_submit_button' => 'appointments#display_submit_button', as: 'display_submit_button'
+  get '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'
 
   get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
 

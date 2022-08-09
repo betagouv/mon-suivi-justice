@@ -30,10 +30,17 @@
 
   <div class='index-header-controls-container'>
     <% if policy(:slot).new? %>
-      <%= button_to t('new_slot_title'), new_slot_path,
-                                         class: 'link-to-new-slot-button',
-                                         form_class: 'link-to-new-slot-form',
-                                         method: :get %>
+      <% if ENV['APP'] == 'mon-suivi-justice-prod' %>
+        <%= button_to t('new_slot_title'), new_slot_path,
+                                           class: 'link-to-new-slot-button',
+                                           form_class: 'link-to-new-slot-form',
+                                           method: :get %>
+      <% else %>
+        <%= button_to t('new_slot_title'), new_slots_batch_path,
+                                           class: 'link-to-new-slot-button',
+                                           form_class: 'link-to-new-slot-form',
+                                           method: :get %>
+      <% end %>
     <% end %>
 
     <% if policy(:slot).update? %>

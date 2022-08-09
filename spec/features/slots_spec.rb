@@ -37,29 +37,27 @@ RSpec.feature 'Slots', type: :feature do
   end
 
   describe 'creation' do
-    it 'works' do
+    before do
       place = create(:place, name: 'McDo de Clichy', organization: @user.organization)
-      agenda = create(:agenda, place: place, name: 'Agenda de Michel')
-      appointment_type = create(:appointment_type, name: "Sortie d'audience SPIP")
-      create(:place_appointment_type, place: place, appointment_type: appointment_type)
+      @agenda = create(:agenda, place: place, name: 'Agenda de Michel')
+      @appointment_type = create(:appointment_type, name: "Sortie d'audience SPIP")
+      create(:place_appointment_type, place: place, appointment_type: @appointment_type)
 
       create(:appointment_type, name: 'RDV de suivi SPIP')
+    end
 
-      visit new_slot_path
+    it 'creates one slot' do
+      visit new_slots_batch_path
 
       select 'Agenda de Michel', from: 'Agenda'
       expect(page).to have_select('Type de rendez-vous', options: ['', "Sortie d'audience SPIP"])
       select "Sortie d'audience SPIP", from: 'Type de rendez-vous'
 
-      within '.form-date-select-fields' do
-        select '14', from: 'slot_date_3i'
-        select 'octobre', from: 'slot_date_2i'
-        select '2024', from: 'slot_date_1i'
-      end
+      fill_in 'Date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
 
       within first('.form-time-select-fields') do
-        select '15', from: 'slot_starting_time_4i'
-        select '00', from: 'slot_starting_time_5i'
+        select '15', from: 'slot_batch_starting_time_4i'
+        select '00', from: 'slot_batch_starting_time_5i'
       end
 
       fill_in 'Durée', with: '40'
@@ -69,14 +67,41 @@ RSpec.feature 'Slots', type: :feature do
 
       created_slot = Slot.last
 
-      expect(created_slot.agenda).to eq(agenda)
-      expect(created_slot.appointment_type).to eq(appointment_type)
-      expect(created_slot.appointment_type).to eq(appointment_type)
-      expect(created_slot.date).to eq(Date.parse('Mon, 14 Oct 2024'))
+      expect(created_slot.agenda).to eq(@agenda)
+      expect(created_slot.appointment_type).to eq(@appointment_type)
+      expect(created_slot.appointment_type).to eq(@appointment_type)
+      expect(created_slot.date).to eq(Date.parse('Fri, 18 Apr 2025'))
       expect(created_slot.starting_time.hour).to eq(15)
       expect(created_slot.starting_time.min).to eq(0)
       expect(created_slot.duration).to eq(40)
       expect(created_slot.capacity).to eq(10)
+    end
+
+    it 'creates a batch of slots', js: true do
+      visit new_slots_batch_path
+
+      select 'Agenda de Michel', from: 'Agenda'
+      expect(page).to have_select('Type de rendez-vous', options: ['', "Sortie d'audience SPIP"])
+      select "Sortie d'audience SPIP", from: 'Type de rendez-vous'
+
+      fill_in 'Date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
+
+      within first('.form-time-select-fields') do
+        select '15', from: 'slot_batch_starting_time_4i'
+        select '00', from: 'slot_batch_starting_time_5i'
+      end
+
+      click_on 'Ajouter une heure'
+
+      within all('.form-time-select-fields')[0] do
+        select '16', from: 'slot_batch_starting_time_4i'
+        select '00', from: 'slot_batch_starting_time_5i'
+      end
+
+      fill_in 'Durée', with: '40'
+      fill_in 'Capacité', with: '10'
+
+      expect { click_button 'Enregistrer' }.to change { Slot.count }.by(2)
     end
   end
 

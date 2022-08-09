@@ -39,7 +39,7 @@
 
   <% if policy(:slot).index? %>
     <%= link_to slots_path, class: 'sidebar-item-link' do %>
-      <div class="sidebar-item <%= active_class_if_controller('slots') %>">
+      <div class="sidebar-item <%= active_class_if_controller(['slots', 'slots_batches']) %>">
         <%= t('sidebar.slots') %>
       </div>
     <% end %>

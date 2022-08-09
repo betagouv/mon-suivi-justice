@@ -55,3 +55,21 @@
 .index-controls-container {
   width: 10%;
 }
+
+.new-slots-add-starting-time {
+  @include button($light-grey);
+  font-size: 17px;
+  margin: 15px auto 30px;
+}
+
+.new-slots-time-fields-container {
+  .form-time-select-fields {
+    justify-content: flex-start;
+    padding-left: 110px;
+  }
+}
+
+.new-slot-delete-time-fields {
+  color: $dark-grey;
+  cursor: pointer;
+}
