@@ -35,6 +35,7 @@ Organization.all.each do |o|
   NotificationType.roles.each_key do |role|
     new_notif_type = default.where(role: role).first.dup
     new_notif_type.organization = o
+    new_notif_type.is_default = false
     new_notif_type.save!
   end
 end
