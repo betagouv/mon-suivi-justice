@@ -208,18 +208,6 @@ fr:
             template:
               invalid_format: "Le format de ce modèle n'est pas valide. Merci d'utiliser uniquement les clés documentées."
 
-  login_sub_title: "Espace agents"
-  login_tutorial: "Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial présent dans la liste suivante :"
-  login_tutorial_special: "! @ # $ % ^ & * ( ) _ + - = [ ] { } | '"
-  login_password_error: "Mot de passe invalide"
-
-  ie_warning1: "Mon Suivi Justice n'est pas compatible avec Internet Explorer. Merci d'utiliser Edge."
-  ie_warning2: "Vous pouvez copier - coller le lien qui est dans la barre d'adresse dans un autre navigateur."
-
-  header_title: "Mon Suivi Justice"
-  header_staging: "Staging"
-  back_to_public_site: "Retour sur le site public"
-
   "yes": "Oui"
   "no": "Non"
   "true": "Oui"
@@ -257,6 +245,19 @@ fr:
   wednesday: mercredi
   thursday: jeudi
   friday: vendredi
+
+  login:
+    sub_title: "Espace agents"
+    tutorial: "Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial présent dans la liste suivante :"
+    tutorial_special: "! @ # $ % ^ & * ( ) _ + - = [ ] { } | '"
+    password_error: "Mot de passe invalide"
+    back_to_public_site: "Retour sur le site public"
+
+  ie_warning1: "Mon Suivi Justice n'est pas compatible avec Internet Explorer. Merci d'utiliser Edge."
+  ie_warning2: "Vous pouvez copier - coller le lien qui est dans la barre d'adresse dans un autre navigateur."
+
+  header_title: "Mon Suivi Justice"
+  header_staging: "Staging"
 
   home:
     find_convict: "Trouver une PPSMJ :"
@@ -387,54 +388,55 @@ fr:
   edit_convict_jurisdiction: "Juridiction"
   archive_convict_confirmation: "Cette PPSMJ restera accessible pendant 6 mois avant d'être définitivement supprimée."
 
-  show_history_archive_convict_title: "Archivage"
-  show_history_archive_convict: "Le profil de %{name} a été archivé. Pour le désarchiver, contactez votre administrateur local."
-  show_history_unarchive_convict_title: "Désarchivage"
-  show_history_unarchive_convict: "Le profil de %{name} a été désarchivé."
-  show_history_update_phone_convict_title: "Nouveau numéro"
-  show_history_update_phone_convict: "Le numéro de téléphone de %{name} a été modifié par %{user_name} (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}."
-  show_history_add_phone_convict_title: "Nouveau numéro"
-  show_history_add_phone_convict: "Un numéro de téléphone pour %{name} a été ajouté par %{user_name} (%{user_role}). Nouveau numéro : %{new_phone}."
-  show_history_remove_phone_convict_title: "Numéro supprimé"
-  show_history_remove_phone_convict: "Le numéro de téléphone de %{name} a été supprimé par %{user_name} (%{user_role}). Ancien numéro : %{old_phone}."
+  history_item:
+    archive_convict_title: "Archivage"
+    archive_convict: "Le profil de %{name} a été archivé. Pour le désarchiver, contactez votre administrateur local."
+    unarchive_convict_title: "Désarchivage"
+    unarchive_convict: "Le profil de %{name} a été désarchivé."
+    update_phone_convict_title: "Nouveau numéro"
+    update_phone_convict: "Le numéro de téléphone de %{name} a été modifié par %{user_name} (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}."
+    add_phone_convict_title: "Nouveau numéro"
+    add_phone_convict: "Un numéro de téléphone pour %{name} a été ajouté par %{user_name} (%{user_role}). Nouveau numéro : %{new_phone}."
+    remove_phone_convict_title: "Numéro supprimé"
+    remove_phone_convict: "Le numéro de téléphone de %{name} a été supprimé par %{user_name} (%{user_role}). Ancien numéro : %{old_phone}."
 
-  show_history_book_appointment_title: "Nouveau RDV"
-  show_history_book_appointment: "%{name} a été convoqué(e) le %{date} à %{time} au lieu suivant : %{place}."
-  show_history_book_phone_appointment: "%{name} a été convoqué(e) pour un rendez-vous téléphonique le %{date} à %{time}."
-  show_history_cancel_appointment_title: "RDV annulé"
-  show_history_cancel_appointment: "Le rendez-vous au %{place} le %{date} à %{time} a été annulé."
-  show_history_fulfil_appointment_title: "RDV honoré"
-  show_history_fulfil_appointment: "%{name} s'est bien présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}."
-  show_history_miss_appointment_title: "RDV manqué"
-  show_history_miss_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}."
-  show_history_excuse_appointment_title: "RDV excusé"
-  show_history_excuse_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}, mais a présenté une justification valide."
+    book_appointment_title: "Nouveau RDV"
+    book_appointment: "%{name} a été convoqué(e) le %{date} à %{time} au lieu suivant : %{place}."
+    book_phone_appointment: "%{name} a été convoqué(e) pour un rendez-vous téléphonique le %{date} à %{time}."
+    cancel_appointment_title: "RDV annulé"
+    cancel_appointment: "Le rendez-vous au %{place} le %{date} à %{time} a été annulé."
+    fulfil_appointment_title: "RDV honoré"
+    fulfil_appointment: "%{name} s'est bien présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}."
+    miss_appointment_title: "RDV manqué"
+    miss_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}."
+    excuse_appointment_title: "RDV excusé"
+    excuse_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}, mais a présenté une justification valide."
 
-  show_history_send_now_summon_notification_title: "SMS envoyé (convocation)"
-  show_history_send_now_summon_notification: "[Texte du SMS] %{content}"
-  show_history_receive_summon_notification_title: "SMS reçu (convocation)"
-  show_history_receive_summon_notification: "Le SMS de convocation a bien été reçu par %{name}."
-  show_history_failed_send_summon_notification_title: "Echec du SMS (convocation)"
-  show_history_failed_send_summon_notification: "Le SMS de convocation n'a pas été reçu par %{name}."
-  show_history_send_then_reminder_notification_title: "SMS envoyé (rappel)"
-  show_history_send_then_reminder_notification: "[Texte du SMS] %{content}"
-  show_history_receive_reminder_notification_title: "SMS reçu (rappel)"
-  show_history_receive_reminder_notification: "Le SMS de rappel a bien été reçu par %{name}."
-  show_history_failed_send_reminder_notification_title: "Echec du SMS (rappel)"
-  show_history_failed_send_reminder_notification: "Le SMS de rappel n'a pas été reçu par %{name}."
-  show_history_send_now_cancelation_notification_title: "SMS envoyé (annulation)"
-  show_history_send_now_cancelation_notification: "[Texte du SMS] %{content}"
-  show_history_receive_cancelation_notification_title: "SMS reçu (annulation)"
-  show_history_receive_cancelation_notification: "Le SMS d'annulation a bien été reçu par %{name}."
-  show_history_failed_send_cancelation_notification_title: "Echec du SMS (annulation)"
-  show_history_failed_send_cancelation_notification: "Le SMS d'annulation n'a pas été reçu par %{name}."
-  show_history_send_now_no_show_notification_title: "SMS envoyé (rdv manqué)"
-  show_history_send_now_no_show_notification: "[Texte du SMS] %{content}"
-  show_history_send_now_reschedule_notification_title: "SMS envoyé (rdv replanifié)"
-  show_history_send_now_reschedule_notification: "[Texte du SMS] %{content}"
+    send_now_summon_notification_title: "SMS envoyé (convocation)"
+    send_now_summon_notification: "[Texte du SMS] %{content}"
+    receive_summon_notification_title: "SMS reçu (convocation)"
+    receive_summon_notification: "Le SMS de convocation a bien été reçu par %{name}."
+    failed_send_summon_notification_title: "Echec du SMS (convocation)"
+    failed_send_summon_notification: "Le SMS de convocation n'a pas été reçu par %{name}."
+    send_then_reminder_notification_title: "SMS envoyé (rappel)"
+    send_then_reminder_notification: "[Texte du SMS] %{content}"
+    receive_reminder_notification_title: "SMS reçu (rappel)"
+    receive_reminder_notification: "Le SMS de rappel a bien été reçu par %{name}."
+    failed_send_reminder_notification_title: "Echec du SMS (rappel)"
+    failed_send_reminder_notification: "Le SMS de rappel n'a pas été reçu par %{name}."
+    send_now_cancelation_notification_title: "SMS envoyé (annulation)"
+    send_now_cancelation_notification: "[Texte du SMS] %{content}"
+    receive_cancelation_notification_title: "SMS reçu (annulation)"
+    receive_cancelation_notification: "Le SMS d'annulation a bien été reçu par %{name}."
+    failed_send_cancelation_notification_title: "Echec du SMS (annulation)"
+    failed_send_cancelation_notification: "Le SMS d'annulation n'a pas été reçu par %{name}."
+    send_now_no_show_notification_title: "SMS envoyé (rdv manqué)"
+    send_now_no_show_notification: "[Texte du SMS] %{content}"
+    send_now_reschedule_notification_title: "SMS envoyé (rdv replanifié)"
+    send_now_reschedule_notification: "[Texte du SMS] %{content}"
 
-  show_history_reschedule_appointment_title: "RDV replanifié"
-  show_history_reschedule_appointment: "Le RDV a été replanifié."
+    reschedule_appointment_title: "RDV replanifié"
+    reschedule_appointment: "Le RDV a été replanifié."
 
   appointment_place: "Lieu de RDV"
   appointment_agenda: "Agenda"
@@ -503,6 +505,7 @@ fr:
     custom_template: Personnalisé
     updated_at: "Modifié le %{date}"
     imported_at: "Mis à jour le %{date}"
+
     tutorial:
       title: "Mode d'emploi"
       text1: "Les modèles de SMS permettent d'insérer les données de Mon Suivi Justice dans le contenu des SMS envoyés. Pour cela on utilise des clés, comme par exemple {lieu.nom}, qui insère le nom du lieu de rendez-vous."
@@ -573,16 +576,14 @@ fr:
   edit_slot_type_title: "Modifier"
   delete_slot_type_confirmation: "Attention, en supprimant ce créneau récurent, vous supprimez tous les créneaux associés."
 
-  new_slot_title: "Nouveau Créneau"
-  index_slot_place_filter: "Lieu de RDV"
   slots:
     new_batch_title: "Nouveau Créneau"
     new_batch_manual: "Si vous ajoutez plusieurs heures, vous créez une série de créneaux avec les mêmes caractéristiques."
     failed_batch_creation: "Une erreur a bloqué la création, merci de vérifier les données saisies."
-
-  edit_slot_used_capacity:  "%{data} RDV déjà pris."
-  edit_slot_minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} place(s)."
-  edit_slot_warning_slot_will_be_clossed: "Si vous choisissez %{data}, le créneau sera fermé."
+    index_place_filter: "Lieu de RDV"
+    edit_used_capacity:  "%{data} RDV déjà pris."
+    edit_minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} place(s)."
+    edit_warning: "Si vous choisissez %{data}, le créneau sera fermé."
 
   convict_invitations:
     create:
