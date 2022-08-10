@@ -12,7 +12,7 @@ then
   echo ""
   echo "Merge develop in master"
   git checkout master
-  git merge develop
+  git merge develop --no-edit
 
   CONFLICTS=$(git ls-files -u | wc -l)
   if [ "$CONFLICTS" -gt 0 ] ; then

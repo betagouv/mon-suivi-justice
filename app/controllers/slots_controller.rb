@@ -12,22 +12,6 @@ class SlotsController < ApplicationController
     authorize @slots
   end
 
-  def new
-    @slot = Slot.new
-    authorize @slot
-  end
-
-  def create
-    @slot = Slot.new(slot_params)
-    authorize @slot
-
-    if @slot.save
-      redirect_to slots_path
-    else
-      render :new
-    end
-  end
-
   def edit
     @slot = Slot.find(params[:id])
 
