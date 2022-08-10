@@ -19,16 +19,17 @@ Rails.application.routes.draw do
     resources :appointments, only: [:index], controller: 'users/appointments'
   end
 
-  resources :places
   resources :convicts do
     delete 'archive'
     post 'unarchive'
     post 'self_assign'
     resource :invitation, only: :create, controller: 'convict_invitations'
   end
+
+  resources :places
   resources :appointment_types
   resources :slots
-  resource :slots_batch, only: :update
+  resource :slots_batch, only: [:new, :create, :update]
 
   resources :slot_types, only: [:create, :destroy, :update]
 
@@ -57,6 +58,7 @@ Rails.application.routes.draw do
   get '/display_is_cpip' => 'appointments#display_is_cpip', as: 'display_is_cpip'
   get '/display_agendas' => 'appointments#display_agendas', as: 'display_agendas'
   get '/display_submit_button' => 'appointments#display_submit_button', as: 'display_submit_button'
+  get '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'
 
   get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
 
@@ -77,6 +79,7 @@ Rails.application.routes.draw do
 
   get '/steering_user_app' => 'steerings#user_app_stats', as: 'steering_user_app'
   get '/steering_convict_app' => 'steerings#convict_app_stats', as: 'steering_convict_app'
+  get '/steering_sda' => 'steerings#sda_stats', as: 'steering_sda'
 
   unauthenticated do
     devise_scope :user do

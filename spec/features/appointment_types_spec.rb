@@ -21,27 +21,27 @@ RSpec.feature 'AppointmentType', type: :feature do
     let(:appointment_type) { create(:appointment_type, name: '1er contact') }
 
     let!(:notif_type1) do
-      create(:notification_type, appointment_type: appointment_type,
+      create(:notification_type, appointment_type: appointment_type, is_default: true,
                                  role: :summon, template: 'Default summon')
     end
 
     let!(:notif_type2) do
-      create(:notification_type, appointment_type: appointment_type,
+      create(:notification_type, appointment_type: appointment_type, is_default: true,
                                  role: :reminder, template: 'Default reminder')
     end
 
     let!(:notif_type3) do
-      create(:notification_type, appointment_type: appointment_type,
+      create(:notification_type, appointment_type: appointment_type, is_default: true,
                                  role: :cancelation, template: 'Default cancelation')
     end
 
     let!(:notif_type4) do
-      create(:notification_type, appointment_type: appointment_type,
+      create(:notification_type, appointment_type: appointment_type, is_default: true,
                                  role: :no_show, template: 'Default no_show')
     end
 
     let!(:notif_type5) do
-      create(:notification_type, appointment_type: appointment_type,
+      create(:notification_type, appointment_type: appointment_type, is_default: true,
                                  role: :reschedule, template: 'Default reschedule')
     end
 
@@ -110,7 +110,7 @@ RSpec.feature 'AppointmentType', type: :feature do
       expect(local_notif1.reload.template).to eq('updated local summon')
     end
 
-    xit 'updates local notification_types that stayed default when updating default notification_types', js: true do
+    it 'updates local notification_types that stayed default when updating default notification_types', js: true do
       @user.organization.setup_notification_types
 
       visit edit_appointment_type_path(id: appointment_type.id, orga: @user.organization.id)
@@ -127,7 +127,7 @@ RSpec.feature 'AppointmentType', type: :feature do
 
       visit edit_appointment_type_path(id: appointment_type.id, orga: @user.organization.id)
 
-      expect(first('.summon-container')).to have_content('Modifié')
+      expect(first('.summon-container')).to have_content('Personnalisé')
       expect(first('.summon-container')).to have_content('updated local summon')
       expect(first('.reminder-container')).to have_content('Défaut')
       expect(first('.reminder-container')).to have_content('Default reminder')

@@ -8,14 +8,9 @@
   padding-top: 11px;
 }
 
-.aappointment-types-organization-select-container {
-  max-width: 200px;
-  margin: auto;
-}
-
 .appointment-types-table-container {
   width: 400px;
-  margin: 30px auto 0;
+  margin: 30px auto 70px;
 }
 
 .appointment-types-table-header {
@@ -123,28 +118,28 @@
   justify-content: space-between;
 }
 
-.notification-type-role {
-  height: 40px;
-}
-
 .appointment-type-tutorial-container {
   margin: 40px auto 100px;
 }
 
 .appointment-type-tutorial-title {
-  font-size: 1.1em;
+  font-size: 1.2em;
   text-align: center;
   margin: 30px 0;
 }
 
 .appointment-type-tutorial-secondary-title {
-  text-align: center;
   font-weight: bold;
   margin: 30px 0;
 }
 
+.appointment-type-tutrial-text {
+  margin-bottom: 10px;
+}
+
 .appointment-type-tutorial-key-table-line {
   display: flex;
+  margin-bottom: 10px;
 }
 
 .appointment-type-tutorial-key-name {
@@ -160,20 +155,60 @@
 }
 
 .appointment-type-tutorial-sample-title {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .appointment-type-tutorial-sample {
   margin-bottom: 20px;
-}
-
-.appointment-type-edit-subtitle {
-  text-align: center;
-  font-size: 18px;
-  margin-bottom: 30px;
+  padding-left: 40px;
 }
 
 .appointment-types-warning-container {
   text-align: center;
   margin-top: 20px;
+}
+
+.edit-appointment-type-header {
+  border: 2px solid $table-border;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 0 auto 30px;
+  white-space: nowrap;
+  width: 80%;
+}
+
+.edit-appointment-type-header-type,
+.edit-appointment-type-header-organization {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+
+.notification-type-status-updated-at {
+  text-align: center;
+  font-size: 0.85em;
+}
+
+.notification-type-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  margin-bottom: 15px;
+}
+
+.notification-type-role {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.notification-type-separator {
+  width: 80%;
+  margin: 20px auto 30px;
+  color: $table-border;
 }

@@ -10,7 +10,7 @@
         <%# TODO: there is for the moment only one department per organization.
         When there will be more, this logic will need to be adapted. %>
         <%= f.select :agenda_place_id_eq, options_from_collection_for_select(Place.in_department(current_user.organization.departments.first), 'id', 'name', @q.agenda_place_id_eq),
-                                          { include_blank: t('index_slot_place_filter') },
+                                          { include_blank: t('slots.index_place_filter') },
                                           { class: 'form-select index-header-filter-field' } %>
 
         <%= f.select :agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.agenda_id_eq),
@@ -30,10 +30,17 @@
 
   <div class='index-header-controls-container'>
     <% if policy(:slot).new? %>
-      <%= button_to t('new_slot_title'), new_slot_path,
-                                         class: 'link-to-new-slot-button',
-                                         form_class: 'link-to-new-slot-form',
-                                         method: :get %>
+      <% if ENV['APP'] == 'mon-suivi-justice-prod' %>
+        <%= button_to t('slots.new_batch_title'), new_slot_path,
+                                           class: 'link-to-new-slot-button',
+                                           form_class: 'link-to-new-slot-form',
+                                           method: :get %>
+      <% else %>
+        <%= button_to t('slots.new_batch_title'), new_slots_batch_path,
+                                           class: 'link-to-new-slot-button',
+                                           form_class: 'link-to-new-slot-form',
+                                           method: :get %>
+      <% end %>
     <% end %>
 
     <% if policy(:slot).update? %>
@@ -63,13 +70,13 @@
       <div class='slots-column-5'>
         <%= t('activerecord.attributes.slot.starting_time') %>
       </div>
-      <div class='slots-column-7'>
+      <div class='slots-column-6'>
         <%= t('index-slots-available-capacity') %>
       </div>
-      <div class='slots-column-6'>
+      <div class='slots-column-7'>
         <%= t('select') %>
       </div>
-      <div class='index-controls-container'></div>
+      <div class='slots-index-controls-container'></div>
     </div>
 
     <div class='index-list-container'>
@@ -96,12 +103,12 @@
               <%= slot.starting_time.to_s(:time) %>
             </div>
 
-            <div class='slot-data slots-column-7'>
+            <div class='slot-data slots-column-6'>
               <%= slot.capacity - slot.used_capacity %> / <%= slot.capacity %>
             </div>
 
             <% if policy(:slot).update? %>
-              <div class='slots-column-6'>
+              <div class='slots-column-7'>
                 <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
               </div>
             <% end %>

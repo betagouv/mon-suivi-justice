@@ -5,10 +5,10 @@ class HomeController < ApplicationController
   def home
     @convicts = policy_scope(Convict.all)
     if params[:global_stats]
-      @stats = DataCollector.new.perform
+      @stats = DataCollector::User.new.perform
       @global_stats = true
     else
-      @stats = DataCollector.new(organization_id: current_organization.id).perform
+      @stats = DataCollector::User.new(organization_id: current_organization.id).perform
     end
 
     return unless @stats[:passed_uninformed_percentage] >= 20 && !current_user.work_at_bex?

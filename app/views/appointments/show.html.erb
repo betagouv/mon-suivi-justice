@@ -77,7 +77,7 @@
     <div class='show-appointment-data-container'>
       <div class='show-appointment-summon-data'>
         <div class='show-appointment-summon-title'>
-          <%= t('appointment_type') %>
+          <%= t('activerecord.models.appointment_type') %>
         </div>
         <div class='show-appointment-summon-item'>
           <%= @appointment.slot.appointment_type.name %>
@@ -195,7 +195,7 @@
 
       <div class='show-history-item'>
         <div class='show-history-item-title'>
-          <%= t("show_history_#{history_item.event}_title") %>
+          <%= t("history_item.#{history_item.event}_title") %>
         </div>
 
         <div class='show-history-item-content'>

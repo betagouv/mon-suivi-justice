@@ -13,31 +13,12 @@ class AppointmentType < ApplicationRecord
   has_many :places, through: :place_appointment_types
 
   accepts_nested_attributes_for :notification_types
+  attr_accessor :orga
 
   validates :name, presence: true
 
   scope :with_slot_types, -> { where name: WITH_SLOT_TYPES }
   scope :assignable, -> { where name: ASSIGNABLE }
-
-  def summon_notif
-    notification_types.find_by(role: :summon)
-  end
-
-  def reminder_notif
-    notification_types.find_by(role: :reminder)
-  end
-
-  def cancelation_notif
-    notification_types.find_by(role: :cancelation)
-  end
-
-  def no_show_notif
-    notification_types.find_by(role: :no_show)
-  end
-
-  def reschedule_notif
-    notification_types.find_by(role: :reschedule)
-  end
 
   def used_at_bex?
     ["Sortie d'audience SAP", "Sortie d'audience SPIP"]
@@ -50,7 +31,7 @@ class AppointmentType < ApplicationRecord
   def used_at_spip?
     ["Sortie d'audience SPIP", '1er RDV SPIP', 'RDV de suivi SPIP', 'Convocation 741-1',
      'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'RDV DDSE', 'Convocation stage',
-     'Convocation rappel SPIP']
+     'Convocation rappel SPIP', 'Action collective']
   end
 
   def sortie_audience?

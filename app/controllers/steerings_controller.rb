@@ -4,11 +4,11 @@ class SteeringsController < ApplicationController
   def user_app_stats
     authorize :steering, :user_app_stats?
 
-    @global = DataCollector.new.perform
+    @global = DataCollector::User.new.perform
     @local = []
 
     Organization.all.each do |orga|
-      @local << DataCollector.new(organization_id: orga.id).perform
+      @local << DataCollector::User.new(organization_id: orga.id).perform
     end
   end
 
@@ -18,5 +18,19 @@ class SteeringsController < ApplicationController
     @invites = Convict.where(invitation_to_convict_interface_count: 1..).count
     @reminder = Convict.where(invitation_to_convict_interface_count: 2..).count
     @account_created = Convict.where.not(timestamp_convict_interface_creation: nil).count
+  end
+
+  def sda_stats
+    authorize :steering, :sda_stats?
+
+    @local = []
+    orgs_ids = [2, 3, 4, 6, 7]
+
+    orgs_ids.each do |id|
+      orga = Organization.find_by(id: id)
+      next if orga.nil?
+
+      @local << DataCollector::Sda.new(organization_id: orga.id).perform
+    end
   end
 end

@@ -12,7 +12,7 @@ class NotificationType < ApplicationRecord
   VALID_NOTIFICATION_KEYS = %w[{rdv.heure} {rdv.date} {lieu.nom} {lieu.adresse}
                                {lieu.téléphone} {lieu.contact} {lieu.lien_info}].freeze
 
-  scope :default, -> { where(organization: nil) }
+  scope :default, -> { where(is_default: true) }
 
   private
 

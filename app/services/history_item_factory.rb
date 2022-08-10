@@ -26,29 +26,29 @@ module HistoryItemFactory
     def content_for_convict(event:, convict:, data:)
       case event
       when 'archive_convict'
-        I18n.t('show_history_archive_convict', name: convict.name)
+        I18n.t('history_item.archive_convict', name: convict.name)
       when 'unarchive_convict'
-        I18n.t('show_history_unarchive_convict', name: convict.name)
+        I18n.t('history_item.unarchive_convict', name: convict.name)
       when 'update_phone_convict'
-        I18n.t('show_history_update_phone_convict', name: convict.name, old_phone: data[:old_phone].phony_formatted,
+        I18n.t('history_item.update_phone_convict', name: convict.name, old_phone: data[:old_phone].phony_formatted,
                                                     new_phone: convict.display_phone, user_name: data[:user_name],
                                                     user_role: data[:user_role])
       when 'add_phone_convict'
-        I18n.t('show_history_add_phone_convict', name: convict.name, new_phone: convict.display_phone,
+        I18n.t('history_item.add_phone_convict', name: convict.name, new_phone: convict.display_phone,
                                                  user_name: data[:user_name], user_role: data[:user_role])
       when 'remove_phone_convict'
-        I18n.t('show_history_remove_phone_convict', name: convict.name, old_phone: data[:old_phone].phony_formatted,
+        I18n.t('history_item.remove_phone_convict', name: convict.name, old_phone: data[:old_phone].phony_formatted,
                                                     user_name: data[:user_name], user_role: data[:user_role])
       end
     end
 
     def content_for_appointment(event:, appointment:)
       if appointment.slot.appointment_type.name == 'RDV téléphonique'
-        I18n.t('show_history_book_phone_appointment', name: appointment.convict.name,
+        I18n.t('history_item.book_phone_appointment', name: appointment.convict.name,
                                                       date: appointment.slot.date,
                                                       time: appointment.slot.starting_time.to_s(:time))
       else
-        I18n.t("show_history_#{event}", name: appointment.convict.name,
+        I18n.t("history_item.#{event}", name: appointment.convict.name,
                                         place: appointment.slot.agenda.place.name,
                                         date: appointment.slot.date,
                                         time: appointment.slot.starting_time.to_s(:time))
@@ -56,7 +56,7 @@ module HistoryItemFactory
     end
 
     def content_for_notification(event:, appointment:)
-      I18n.t("show_history_#{event}", name: appointment.convict.name,
+      I18n.t("history_item.#{event}", name: appointment.convict.name,
                                       content: appointment.send(notification_role(event))&.content)
     end
 

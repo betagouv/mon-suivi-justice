@@ -1,6 +1,6 @@
 <% if resource.errors.any? %>
   <div id='error_explanation' class='login-password-error-explanation'>
-    <p class='login-password-error-title'><%= I18n.t('login_password_error') %></p>
+    <p class='login-password-error-title'><%= I18n.t('login.password_error') %></p>
     <ul class='login-password-errors-list'>
       <% resource.errors.full_messages.each do |message| %>
         <li><%= message %></li>
