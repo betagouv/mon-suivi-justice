@@ -30,17 +30,10 @@
 
   <div class='index-header-controls-container'>
     <% if policy(:slot).new? %>
-      <% if ENV['APP'] == 'mon-suivi-justice-prod' %>
-        <%= button_to t('slots.new_batch_title'), new_slot_path,
-                                           class: 'link-to-new-slot-button',
-                                           form_class: 'link-to-new-slot-form',
-                                           method: :get %>
-      <% else %>
-        <%= button_to t('slots.new_batch_title'), new_slots_batch_path,
-                                           class: 'link-to-new-slot-button',
-                                           form_class: 'link-to-new-slot-form',
-                                           method: :get %>
-      <% end %>
+      <%= button_to t('slots.new_batch_title'), new_slots_batch_path,
+                                                class: 'link-to-new-slot-button',
+                                                form_class: 'link-to-new-slot-form',
+                                                method: :get %>
     <% end %>
 
     <% if policy(:slot).update? %>
@@ -118,10 +111,9 @@
                                       method: :put,
                                       data: { confirm: t('basic_confirmation') },
                                       class: 'slots-index-control' %>
-              <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
-                <% if policy(:slot).update? %>
-                  <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
-                <% end %>
+
+              <% if policy(:slot).update? %>
+                <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
               <% end %>
             </div>
           </div>
