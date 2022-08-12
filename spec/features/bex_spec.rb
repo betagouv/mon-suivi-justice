@@ -5,9 +5,9 @@ RSpec.feature 'Bex', type: :feature do
     @department = create :department
     @organization = create :organization, organization_type: 'tj'
     create :areas_organizations_mapping, organization: @organization, area: @department, area_type: 'Department'
-    bex_user = create(:user, role: :bex, organization: @organization)
+    @bex_user = create(:user, role: :bex, organization: @organization)
     logout_current_user
-    login_user(bex_user)
+    login_user(@bex_user)
   end
 
   describe 'JAP appointments index', js: true do
@@ -56,11 +56,11 @@ RSpec.feature 'Bex', type: :feature do
 
       current_date = slot1.date.strftime('%d/%m/%Y')
 
-      create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204')
-      create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206')
-      create(:appointment, slot: slot2, convict: convict3, prosecutor_number: '205806')
-      create(:appointment, slot: slot3, convict: convict4, prosecutor_number: '205896')
-      create(:appointment, slot: slot4, convict: convict2, prosecutor_number: '205206')
+      create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot2, convict: convict3, prosecutor_number: '205806', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot3, convict: convict4, prosecutor_number: '205896', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot4, convict: convict2, prosecutor_number: '205206', inviter_user_id: @bex_user.id)
 
       visit agenda_jap_path
       select current_date, from: :date
@@ -100,7 +100,7 @@ RSpec.feature 'Bex', type: :feature do
                                                  appointment_type: apt_type,
                                                  date: Date.today.next_occurring(:tuesday))
 
-      appointment = create(:appointment, slot: slot, convict: convict)
+      appointment = create(:appointment, slot: slot, convict: convict, inviter_user_id: @bex_user.id)
       current_date = slot.date.strftime('%d/%m/%Y')
 
       visit agenda_jap_path

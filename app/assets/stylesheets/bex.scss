@@ -78,6 +78,18 @@
   }
 }
 
+.bex-agenda-small-column {
+  width: 10%;
+  border-right: 1px solid black;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+
+  &:first-child{
+    border-left: none;
+  }
+}
+
 .bex-agenda-line {
   display: flex;
   min-height: 30px;

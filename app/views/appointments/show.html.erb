@@ -133,16 +133,19 @@
         </div>
       </div>
 
-      <% if current_user.work_at_bex? %>
-        <div class='show-appointment-summon-data'>
-          <div class='show-appointment-summon-title'>
-            <%= t('appointment_origin_department') %>
-          </div>
-          <div class='show-appointment-summon-item'>
-            <%= t("activerecord.attributes.appointment.origin_departments.#{@appointment.origin_department}") %>
-          </div>
+      <div class='show-appointment-summon-data'>
+        <div class='show-appointment-summon-title'>
+          <%= t('appointments.show.inviter_user_role') %>
         </div>
-      <% end %>
+        <div class='show-appointment-summon-item'>
+          <% if @appointment.origin_department.present? %>
+            <%= t("activerecord.attributes.appointment.origin_departments.#{@appointment.origin_department}") %>
+          <% elsif @appointment.inviter_user_id.present? %>
+            <% user = User.find(@appointment.inviter_user_id) %>
+            <%= user.organization.name %>
+          <% end %>
+        </div>
+      </div>
 
       <div class='show-appointment-summon-data show-appointment-state-container'>
         <div class='show-appointment-summon-title'>
