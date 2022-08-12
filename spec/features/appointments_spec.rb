@@ -134,6 +134,9 @@ RSpec.feature 'Appointments', type: :feature do
         expect(SmsDeliveryJob).to have_been_enqueued.once.with(
           Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: slot)).id
         )
+
+        appointment = Appointment.last
+        expect(appointment.inviter_user_id).to eq(@user.id)
       end
 
       it 'create an appointment without a convocation sms' do
