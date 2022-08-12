@@ -48,6 +48,7 @@ class AppointmentsController < ApplicationController
     authorize @appointment
     if @appointment.save
       @appointment.convict.update(user: current_user) if params.dig(:appointment, :user_is_cpip) == '1'
+      @appointment.update(inviter_user_id: current_user.id)
       @appointment.book(send_notification: params[:send_sms])
       redirect_to appointment_path(@appointment)
     else
