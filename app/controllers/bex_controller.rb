@@ -30,6 +30,20 @@ class BexController < ApplicationController
     end
   end
 
+  def agenda_sap_ddse
+    @appointment_type = AppointmentType.find_by(name: 'SAP DDSE')
+    @current_date = current_date(@appointment_type, params)
+    @agendas = policy_scope(Agenda).with_open_slots_for_date(@current_date, @appointment_type)
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render template: 'bex/agenda_sap_ddse_pdf.html.erb', locals: { date: @current_date },
+               pdf: 'Agenda SAP DDSE', footer: { right: '[page]/[topage]' }
+      end
+    end
+  end
+
   private
 
   def current_date(appointment_type, params)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_12_075128) do
+ActiveRecord::Schema.define(version: 2022_08_17_151358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2022_08_12_075128) do
     t.bigint "convict_id", null: false
     t.bigint "slot_id", null: false
     t.string "state"
-    t.integer "origin_department", default: 0
+    t.integer "origin_department"
     t.string "prosecutor_number"
     t.bigint "user_id"
     t.boolean "case_prepared", default: false, null: false

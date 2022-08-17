@@ -77,15 +77,22 @@ class Slot < ApplicationRecord
 
   def coherent_organization_type?
     return unless appointment_type&.sortie_audience?
-
-    case appointment_type.name
-    when "Sortie d'audience SAP"
-      return if agenda.place.organization.organization_type == 'tj'
-    when "Sortie d'audience SPIP"
-      return if agenda.place.organization.organization_type == 'spip'
-    end
+    return if check_organization_type(appointment_type)
 
     errors.add(:appointment_type,
                I18n.t('activerecord.errors.models.slot.attributes.appointment_type.wrong_organization'))
+  end
+
+  def check_organization_type(appointment_type)
+    case appointment_type.name
+    when "Sortie d'audience SAP"
+      return true if agenda.place.organization.organization_type == 'tj'
+    when "Sortie d'audience SPIP"
+      return true if agenda.place.organization.organization_type == 'spip'
+    when 'SAP DDSE'
+      return true
+    end
+
+    false
   end
 end

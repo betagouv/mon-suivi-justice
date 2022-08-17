@@ -1,0 +1,111 @@
+<div class='bex-agendas-container'>
+  <div class='bex-agendas-tools-container'>
+    <%= button_to t('print_button'), agenda_sap_ddse_path(format: :pdf),
+                                     method: :get,
+                                     params: { date: params[:date] },
+                                     form: { target: '_blank' },
+                                     class: 'bex-print-button' %>
+  </div>
+
+  <% if @agendas.empty? %>
+    <p class='bex-agenda-spip-no-agenda'><%= t('bex.sap_ddse.no_agenda_available') %></p>
+  <% else %>
+    <div class='bex-agendas-date-container'>
+      <div class='bex-date-title-container'>
+        <%= t('bex.sap_ddse.agendas_title') %>
+      </div>
+      <div class='bex-date-select-container'>
+        <%= form_tag agenda_sap_ddse_path, method: 'get' do %>
+          <%= select_tag :date, options_for_select(formated_dates_for_select(current_department.spip.ten_next_days_with_slots(@appointment_type)), params[:date]),
+                                id: 'jap-appointments-date-select',
+                                class: 'form-select form-text-input jap-date-select',
+                                onchange: 'this.form.submit()' %>
+        <% end %>
+      </div>
+    </div>
+
+    <% @agendas.each_with_index do |agenda, index| %>
+      <% unless agenda.slots_for_date(@current_date, @appointment_type).count.zero? %>
+        <div class='bex-agenda-container'>
+          <div class='bex-agenda-header jap-agenda-header<%= index+1%>'>
+            <div class='bex-agenda-header-title'>
+              <%= agenda.name %>
+            </div>
+          </div>
+
+          <div class='bex-agenda-table'>
+            <div class='bex-agenda-table-header bex-agenda-line'>
+              <div class='bex-agenda-header-title bex-agenda-small-column'>
+                <%= t('bex.jap.header_hour') %>
+              </div>
+              <div class='bex-agenda-header-title bex-agenda-column'>
+                <%= t('bex.jap.header_last_name') %>
+              </div>
+              <div class='bex-agenda-header-title bex-agenda-column'>
+                <%= t('bex.jap.header_first_name') %>
+              </div>
+              <div class='bex-agenda-header-title bex-agenda-column'>
+                <%= t('bex.jap.header_prosecutor') %>
+              </div>
+              <div class='bex-agenda-header-title bex-agenda-column'>
+                <%= t('bex.jap.header_origin') %>
+              </div>
+              <% if current_user.work_at_bex? || current_user.admin? %>
+                <div class='bex-agenda-header-title bex-agenda-small-column'>
+                  <%= t('bex.jap.header_case_prepared') %>
+                </div>
+              <% end %>
+            </div>
+
+            <% agenda.slots_for_date(@current_date, @appointment_type).each do |slot| %>
+              <% appointments = slot.appointments.active %>
+              <% slot.capacity.times do |i| %>
+                <div class='bex-agenda-line'>
+                  <div class='bex-agenda-small-column'>
+                    <% if i == 0 %>
+                      <%= slot.starting_time.to_s(:lettered) %>
+                    <% end %>
+                  </div>
+                  <div class='bex-agenda-column'>
+                    <% unless appointments[i].nil? %>
+                      <%= link_to convict_path(appointments[i]&.convict), class: 'index-control' do %>
+                        <%= appointments[i]&.convict&.last_name&.upcase %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <div class='bex-agenda-column'>
+                    <%= appointments[i]&.convict&.first_name %>
+                  </div>
+                  <div class='bex-agenda-column'>
+                    <%= appointments[i]&.prosecutor_number %>
+                  </div>
+                  <div class='bex-agenda-column'>
+                    <% if appointments[i].present? && appointments[i].inviter_user_id.present? %>
+                      <% user = User.find(appointments[i].inviter_user_id) %>
+                      <%= user.organization.name %>
+                    <% end %>
+                  </div>
+                  <% if current_user.work_at_bex? || current_user.admin? %>
+                    <div class='bex-agenda-small-column'>
+                      <% if appointments[i].present? %>
+                        <%= form_tag appointment_prepare_path(appointments[i]), method: 'put', class: 'bex-agenda-case-prepared-form' do %>
+                          <%= check_box_tag "case-prepared-#{appointments[i].id}",
+                                            true,
+                                            appointments[i].case_prepared,
+                                            class: 'bex-agenda-case-prepared-checkbox',
+                                            onchange: 'this.form.submit()' %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= render 'shared/jap_agendas_modal' %>

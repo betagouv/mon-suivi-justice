@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   scope controller: :bex do
     get :agenda_jap
     get :agenda_spip
+    get :agenda_sap_ddse
   end
 
   scope controller: :stats do

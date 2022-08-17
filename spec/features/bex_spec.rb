@@ -112,6 +112,7 @@ RSpec.feature 'Bex', type: :feature do
 
       check "case-prepared-#{appointment.id}"
 
+      visit home_path
       appointment.reload
 
       expect(appointment.case_prepared).to eq(true)
@@ -198,8 +199,9 @@ RSpec.feature 'Bex', type: :feature do
     end
   end
 
-  xdescribe 'SAP DDSE appointments index', js: true do
+  describe 'SAP DDSE appointments index', js: true do
     it 'lists appointments of type SAP DDSE' do
+      @organization.update(organization_type: 'spip')
       convict1 = create(:convict, first_name: 'James', last_name: 'Moriarty')
       convict2 = create(:convict, first_name: 'Lex', last_name: 'Luthor')
       convict3 = create(:convict, first_name: 'Pat', last_name: 'Hibulaire')

@@ -256,6 +256,7 @@ fr:
     new_convict: "Nouvelle PPSMJ"
     bex_jap: "Sortie d'audience JAP"
     bex_spip: "Sortie d'audience SPIP"
+    sap_ddse: "SAP DDSE"
     today_appointments: "RDV du jour"
     stats_title: Stats
     stats_users: Agents utilisateurs
@@ -328,6 +329,8 @@ fr:
       title: "Rendez-vous Sortie d'audience SPIP"
     bex-jap:
       title: "Rendez-vous Sortie d'audience JAP"
+    bex-sap-ddse:
+      title: "Rendez-vous SAP DDSE"
 
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"
@@ -495,6 +498,9 @@ fr:
       appointments_link: "Agenda RDV SPIP"
       appointments_title: "Agenda RDV SPIP pour"
       no_agenda_available: "Pas de rdv Sortie d'audience SPIP prévu"
+    sap_ddse:
+      agendas_title: "Agenda SAP DDSE pour le"
+      no_agenda_available: "Pas de rdv SAP DDSE prévu"
 
   today_agendas_title: "RDV prévus pour le"
   today_agendas_title_part2: "au"
