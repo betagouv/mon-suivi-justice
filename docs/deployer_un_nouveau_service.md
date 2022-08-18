@@ -14,9 +14,7 @@ Il faut ensuite relier ce service à un département.
 
 En bas de la page, dans la section "Département(s) rattaché(s)", choisir le bon département et cliquer sur Ajouter.
 
-Il faut également relier le service à une juridiction. Demander aux developpeurs de créer la juridiction pour qu'elle arrive dans le menu déroulant, puis suivre le meme fonctionnement que pour les départements.
-
-(Note pour les devs : `Jurisdiction.create(name: 'TJ Paris')`)
+Il faut également relier le service à une juridiction. Suivre le meme fonctionnement que pour les départements.
 
 ## 2. Créer les comptes des agents
 
