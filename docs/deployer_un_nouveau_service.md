@@ -76,13 +76,11 @@ Données nécessaires :
 
 Note : Si le service pratique des rdv de type "RDV téléphonique" ou "Visite à domicile", il faut créer un lieu de rdv "Domicile de la PPSMJ" pour faire fonctionner ces types de rdv. Voir sur la production pour des exemples, le SPIP 92 dipose d'un lieu "Domicile de la PPSMJ".
 
-## 4. Création des agendas
-
-Chaque lieu doit avoir au moins un agenda pour pouvoir y prendre des rdv. Si il n'y en a qu'un, il n'apparaîtra pas dans le formulaire de prise de rdv, le systême le choisira automatiquement, on peut donc lui donner un nom générique, comme "SPIP 92". Le fonctionnement des agendas est aujourd'hui surtout utilisé pour les SAP, avec la gestion des rdv par cabinet. À terme le fonctionnement des agendas permettra de regrouper les rdv de chaque agent, comme c'est le cas pour les juges au SAP.
+La création du lieu de rdv entraine la création d'un premier agenda standard. Si le fonctionnement du service exige de multiples agendas (comme le SAP de Nanterre et sa gestion par cabinets), il faut aller créer ces agendas sur la page du lieu.
 
 -> Onglet lieux, choisir le bon lieu, cliquer sur modifier, colonne agendas, saisir le nom, cliquer sur ajouter agenda
 
-## 5. Création des créneaux récurrents
+## 4. Création des créneaux récurrents
 
 Dans MSJ, il y a deux principes différents mais faciles à confondre : les créneaux et les créneaux récurrents.
 
@@ -101,6 +99,6 @@ L'ajout de nouveaux créneaux récurrents sur cette page entraine la création d
 
 Quand un créneau récurrent est supprimé, les créneaux liés sont supprimés immédiatement.
 
-## 6. Tester le nouveau service
+## 5. Tester le nouveau service
 
 Une fois toute la procédure executée, on peut se connecter avec un compte de test au nouveau service, puis créer des PPSMJ et prendre des rdv pour vérifier que tout fonctionne.

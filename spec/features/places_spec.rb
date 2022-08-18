@@ -27,7 +27,7 @@ RSpec.feature 'Places', type: :feature do
   end
 
   describe 'creation' do
-    it 'works' do
+    it 'creates a place and its first agenda' do
       visit new_place_path
 
       fill_in 'Nom', with: 'Spip 72'
@@ -36,6 +36,7 @@ RSpec.feature 'Places', type: :feature do
       fill_in "Lien d'information sur le lieu", with: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip92'
 
       expect { click_button 'Enregistrer' }.to change { Place.count }.by(1)
+                                           .and change { Agenda.count }.by(1)
     end
   end
 

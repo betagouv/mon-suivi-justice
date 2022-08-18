@@ -16,6 +16,7 @@ class PlacesController < ApplicationController
     authorize @place
 
     if @place.save
+      create_agenda(@place)
       redirect_to places_path
     else
       render :new
@@ -55,5 +56,9 @@ class PlacesController < ApplicationController
       agendas_attributes: [:id, :name, :_destroy],
       appointment_type_ids: []
     )
+  end
+
+  def create_agenda(place)
+    Agenda.create!(place: place, name: "Agenda #{place.name}")
   end
 end
