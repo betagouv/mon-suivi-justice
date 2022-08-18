@@ -5,9 +5,9 @@ RSpec.feature 'Bex', type: :feature do
     @department = create :department
     @organization = create :organization, organization_type: 'tj'
     create :areas_organizations_mapping, organization: @organization, area: @department, area_type: 'Department'
-    bex_user = create(:user, role: :bex, organization: @organization)
+    @bex_user = create(:user, role: :bex, organization: @organization)
     logout_current_user
-    login_user(bex_user)
+    login_user(@bex_user)
   end
 
   describe 'JAP appointments index', js: true do
@@ -56,11 +56,11 @@ RSpec.feature 'Bex', type: :feature do
 
       current_date = slot1.date.strftime('%d/%m/%Y')
 
-      create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204')
-      create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206')
-      create(:appointment, slot: slot2, convict: convict3, prosecutor_number: '205806')
-      create(:appointment, slot: slot3, convict: convict4, prosecutor_number: '205896')
-      create(:appointment, slot: slot4, convict: convict2, prosecutor_number: '205206')
+      create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot2, convict: convict3, prosecutor_number: '205806', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot3, convict: convict4, prosecutor_number: '205896', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot4, convict: convict2, prosecutor_number: '205206', inviter_user_id: @bex_user.id)
 
       visit agenda_jap_path
       select current_date, from: :date
@@ -100,7 +100,7 @@ RSpec.feature 'Bex', type: :feature do
                                                  appointment_type: apt_type,
                                                  date: Date.today.next_occurring(:tuesday))
 
-      appointment = create(:appointment, slot: slot, convict: convict)
+      appointment = create(:appointment, slot: slot, convict: convict, inviter_user_id: @bex_user.id)
       current_date = slot.date.strftime('%d/%m/%Y')
 
       visit agenda_jap_path
@@ -112,6 +112,7 @@ RSpec.feature 'Bex', type: :feature do
 
       check "case-prepared-#{appointment.id}"
 
+      visit home_path
       appointment.reload
 
       expect(appointment.case_prepared).to eq(true)
@@ -195,6 +196,73 @@ RSpec.feature 'Bex', type: :feature do
       expect(page).not_to have_content('Magic')
       expect(page).not_to have_content('Johnson')
       expect(page).not_to have_content('205282')
+    end
+  end
+
+  describe 'SAP DDSE appointments index', js: true do
+    it 'lists appointments of type SAP DDSE' do
+      @organization.update(organization_type: 'spip')
+      convict1 = create(:convict, first_name: 'James', last_name: 'Moriarty')
+      convict2 = create(:convict, first_name: 'Lex', last_name: 'Luthor')
+      convict3 = create(:convict, first_name: 'Pat', last_name: 'Hibulaire')
+
+      create :areas_convicts_mapping, convict: convict1, area: @department
+      create :areas_convicts_mapping, convict: convict2, area: @department
+      create :areas_convicts_mapping, convict: convict3, area: @department
+
+      apt_type = create(:appointment_type, name: 'SAP DDSE')
+      apt_type2 = create(:appointment_type, name: 'RDV de suivi JAP')
+
+      place = create(:place, name: 'Tribunal de Nanterre', organization: @organization)
+
+      agenda1 = create(:agenda, place: place, name: 'Cabinet Bleu')
+      agenda2 = create(:agenda, place: place, name: 'Cabinet Rouge')
+      agenda3 = create(:agenda, place: place, name: 'Cabinet Jaune')
+
+      slot1 = create(:slot, :without_validations, agenda: agenda1,
+                                                  appointment_type: apt_type,
+                                                  date: Date.today.next_occurring(:friday),
+                                                  starting_time: '10h')
+
+      slot2 = create(:slot, :without_validations, agenda: agenda2,
+                                                  appointment_type: apt_type,
+                                                  date: Date.today.next_occurring(:friday),
+                                                  starting_time: '17h',
+                                                  capacity: 2)
+
+      slot3 = create(:slot, :without_validations, agenda: agenda3,
+                                                  appointment_type: apt_type2,
+                                                  date: Date.today.next_occurring(:friday),
+                                                  starting_time: '12h',
+                                                  capacity: 2)
+
+      current_date = slot1.date.strftime('%d/%m/%Y')
+
+      create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot3, convict: convict3, prosecutor_number: '205806', inviter_user_id: @bex_user.id)
+
+      visit agenda_sap_ddse_path
+      select current_date, from: :date
+      page.execute_script("$('#jap-appointments-date-select').trigger('change')")
+
+      expect(page).to have_current_path(agenda_sap_ddse_path(date: current_date))
+
+      agenda_containers = page.all('.bex-agenda-container', minimum: 2)
+
+      expect(agenda_containers[0]).to have_content('Cabinet Bleu')
+      expect(agenda_containers[0]).to have_content('James')
+      expect(agenda_containers[0]).to have_content('MORIARTY')
+      expect(agenda_containers[0]).to have_content('203204')
+
+      expect(agenda_containers[1]).to have_content('Cabinet Rouge')
+      expect(agenda_containers[1]).to have_content('Lex')
+      expect(agenda_containers[1]).to have_content('LUTHOR')
+      expect(agenda_containers[1]).to have_content('205206')
+
+      expect(page).not_to have_content('Pat')
+      expect(page).not_to have_content('HIBULAIRE')
+      expect(page).not_to have_content('Cabinet Jaune')
     end
   end
 end

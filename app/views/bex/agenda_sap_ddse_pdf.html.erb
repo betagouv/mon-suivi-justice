@@ -1,9 +1,9 @@
 <%= image_tag wicked_pdf_asset_base64('logo_msj.svg') %>
-<h1 class='pdf-bex-title'><%= t('pdf.bex-jap.title') %></h1>
+<h1 class='pdf-bex-title'><%= t('pdf.bex-sap-ddse.title') %></h1>
 <div class='bex-agenda-date'><%= date.strftime('%d/%m/%Y') %></div>
 
 <% if @agendas.empty? %>
-  <p class='bex-agenda-spip-no-agenda'><%= t('bex.jap.no_agenda_available') %></p>
+  <p class='bex-agenda-spip-no-agenda'><%= t('bex.sap_ddse.no_agenda_available') %></p>
 <% else %>
   <% @agendas.each_with_index do |agenda, index| %>
     <% unless agenda.slots_for_date(@current_date, @appointment_type).count.zero? %>
@@ -31,9 +31,6 @@
             <div class='bex-agenda-header-title bex-agenda-column'>
               <%= t('bex.jap.header_origin') %>
             </div>
-            <div class='bex-agenda-header-title bex-agenda-column'>
-              <%= t('bex.jap.header_role') %>
-            </div>
           </div>
 
           <% agenda.slots_for_date(@current_date, @appointment_type).each do |slot| %>
@@ -46,30 +43,22 @@
                   <% end %>
                 </div>
                 <div class='bex-agenda-column'>
-                  <%= appointments[i]&.convict&.last_name&.upcase %>
+                  <% unless appointments[i].nil? %>
+                    <%= link_to convict_path(appointments[i]&.convict), class: 'index-control' do %>
+                      <%= appointments[i]&.convict&.last_name&.upcase %>
+                    <% end %>
+                  <% end %>
                 </div>
                 <div class='bex-agenda-column'>
                   <%= appointments[i]&.convict&.first_name %>
                 </div>
                 <div class='bex-agenda-column'>
+                  <%= appointments[i]&.prosecutor_number %>
+                </div>
+                <div class='bex-agenda-column'>
                   <% if appointments[i].present? && appointments[i].inviter_user_id.present? %>
                     <% user = User.find(appointments[i].inviter_user_id) %>
                     <%= user.organization.name %>
-                  <% end %>
-                </div>
-                <div class='bex-agenda-column'>
-                  <% if appointments[i].present? %>
-                    <% if appointments[i].origin_department.present? %>
-                      <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
-                    <% elsif appointments[i].inviter_user_id.present? %>
-                      <% user = User.find(appointments[i].inviter_user_id) %>
-                      <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
-                    <% end %>
-                  <% end %>
-                </div>
-                <div class='bex-agenda-column'>
-                  <% if appointments[i].present? %>
-                    <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
                   <% end %>
                 </div>
               </div>

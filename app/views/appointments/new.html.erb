@@ -31,12 +31,6 @@
       <% end %>
     </div>
 
-    <% if current_user.admin? || current_user.work_at_bex? %>
-      <%= f.input :origin_department, collection: Appointment.origin_departments.keys,
-                                      label_method: lambda {|k| t("simple_form.options.appointment.origin_department.#{k}")},
-                                      input_html: { class: 'form-select' } %>
-    <% end %>
-
     <%= f.input :appointment_appointment_type_id, collection: appointment_types_for_user(current_user),
                                          label: t('activerecord.models.appointment_type'),
                                          as: :fake_select,

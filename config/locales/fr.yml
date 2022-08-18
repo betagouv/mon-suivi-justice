@@ -1,7 +1,4 @@
 fr:
-  time:
-    formats:
-      clear: "%A %e %B %Y à %kh%M"
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
@@ -29,13 +26,7 @@ fr:
       interface_no_access: Aucun accès pour l'instant
     self_assign:
       notice: "La PPSMJ vous a bien été attribuée."
-  appointments:
-    new:
-      is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
-    index:
-      only_passed_uninformed: "Rendez-vous au statut inconnu"
-      my_appointments: "Mes rendez-vous"
-      no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
+
   activerecord:
     models:
       user: "Agent"
@@ -265,6 +256,7 @@ fr:
     new_convict: "Nouvelle PPSMJ"
     bex_jap: "Sortie d'audience JAP"
     bex_spip: "Sortie d'audience SPIP"
+    sap_ddse: "SAP DDSE"
     today_appointments: "RDV du jour"
     stats_title: Stats
     stats_users: Agents utilisateurs
@@ -337,6 +329,8 @@ fr:
       title: "Rendez-vous Sortie d'audience SPIP"
     bex-jap:
       title: "Rendez-vous Sortie d'audience JAP"
+    bex-sap-ddse:
+      title: "Rendez-vous SAP DDSE"
 
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"
@@ -441,6 +435,16 @@ fr:
     reschedule_appointment_title: "RDV replanifié"
     reschedule_appointment: "Le RDV a été replanifié."
 
+  appointments:
+    new:
+      is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
+    index:
+      only_passed_uninformed: "Rendez-vous au statut inconnu"
+      my_appointments: "Mes rendez-vous"
+      no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
+    show:
+      inviter_user_role: Rôle source
+
   appointment_place: "Lieu de RDV"
   appointment_agenda: "Agenda"
   appointment_type: "Type de RDV"
@@ -479,17 +483,24 @@ fr:
   rebook_missed_appointment2: "Si besoin, merci de contacter cette personne pour clarifier la situation."
   my_appointments_title: "Mes rendez-vous"
 
-  bex_jap_agendas_title: "Agenda Sortie d'audience JAP pour le"
-  bex_jap_agenda_header_hour: Heure
-  bex_jap_agenda_header_last_name: Nom
-  bex_jap_agenda_header_first_name: Prénom
-  bex_jap_agenda_header_prosecutor: Numéro parquet
-  bex_jap_agenda_header_origin: "Service d'origine"
-  bex_jap_agenda_header_case_prepared: "Dossier traité"
-  bex_spip_appointments_link: "Agenda RDV SPIP"
-  bex_spip_appointments_title: "Agenda RDV SPIP pour"
-  bex_spip_no_agenda_available: "Pas de rdv Sortie d'audience SPIP prévu"
-  bex_jap_no_agenda_available: "Pas de rdv Sortie d'audience JAP prévu"
+  bex:
+    jap:
+      agendas_title: "Agenda Sortie d'audience JAP pour le"
+      header_hour: Heure
+      header_last_name: Nom
+      header_first_name: Prénom
+      header_prosecutor: N° parquet
+      header_origin: "Service d'origine"
+      header_role: Rôle
+      no_agenda_available: "Pas de rdv Sortie d'audience JAP prévu"
+      header_case_prepared: "Traité"
+    spip:
+      appointments_link: "Agenda RDV SPIP"
+      appointments_title: "Agenda RDV SPIP pour"
+      no_agenda_available: "Pas de rdv Sortie d'audience SPIP prévu"
+    sap_ddse:
+      agendas_title: "Agenda SAP DDSE pour le"
+      no_agenda_available: "Pas de rdv SAP DDSE prévu"
 
   today_agendas_title: "RDV prévus pour le"
   today_agendas_title_part2: "au"
@@ -628,6 +639,10 @@ fr:
           wednesday: Mercredi
           thursday: Jeudi
           friday: Vendredi
+
+  time:
+    formats:
+      clear: "%A %e %B %Y à %kh%M"
 
   views:
     pagination:

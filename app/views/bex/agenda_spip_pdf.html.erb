@@ -3,7 +3,7 @@
 <div class='bex-agenda-date'><%= (I18n.l date, format: '%B %Y').capitalize %></div>
 
 <% if @agenda.nil? %>
-  <p class='bex-agenda-spip-no-agenda'><%= t('bex_spip_no_agenda_available') %></p>
+  <p class='bex-agenda-spip-no-agenda'><%= t('bex.spip.no_agenda_available') %></p>
 <% else %>
   <% open_days_for_the_month(@current_date).each do |day| %>
     <% next if @agenda.slots_for_date(day, @appointment_type).count == 0 %>
@@ -17,20 +17,23 @@
 
       <div class='bex-agenda-table'>
         <div class='bex-agenda-table-header bex-agenda-line'>
-          <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex_jap_agenda_header_hour') %>
+          <div class='bex-agenda-header-title bex-agenda-small-column'>
+            <%= t('bex.jap.header_hour') %>
           </div>
           <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex_jap_agenda_header_last_name') %>
+            <%= t('bex.jap.header_last_name') %>
           </div>
           <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex_jap_agenda_header_first_name') %>
+            <%= t('bex.jap.header_first_name') %>
           </div>
           <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex_jap_agenda_header_prosecutor') %>
+            <%= t('bex.jap.header_prosecutor') %>
           </div>
           <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex_jap_agenda_header_origin') %>
+            <%= t('bex.jap.header_origin') %>
+          </div>
+          <div class='bex-agenda-header-title bex-agenda-column'>
+            <%= t('bex.jap.header_role') %>
           </div>
         </div>
 
@@ -38,7 +41,7 @@
           <% appointments = slot.appointments.active %>
           <% slot.capacity.times do |i| %>
             <div class='bex-agenda-line'>
-              <div class='bex-agenda-column'>
+              <div class='bex-agenda-small-column'>
                 <% if i == 0 %>
                   <%= slot.starting_time.to_s(:lettered) %>
                 <% end %>
@@ -53,8 +56,19 @@
                 <%= appointments[i]&.prosecutor_number %>
               </div>
               <div class='bex-agenda-column'>
+                <% if appointments[i].present? && appointments[i].inviter_user_id.present? %>
+                  <% user = User.find(appointments[i].inviter_user_id) %>
+                  <%= user.organization.name %>
+                <% end %>
+              </div>
+              <div class='bex-agenda-column'>
                 <% if appointments[i].present? %>
-                  <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
+                  <% if appointments[i].origin_department.present? %>
+                    <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
+                  <% elsif appointments[i].inviter_user_id.present? %>
+                    <% user = User.find(appointments[i].inviter_user_id) %>
+                    <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
+                  <% end %>
                 <% end %>
               </div>
             </div>

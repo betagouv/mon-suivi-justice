@@ -1,7 +1,7 @@
 class AppointmentType < ApplicationRecord
   has_paper_trail
 
-  WITH_SLOT_TYPES = ["Sortie d'audience SAP", "Sortie d'audience SPIP"].freeze
+  WITH_SLOT_TYPES = ["Sortie d'audience SAP", "Sortie d'audience SPIP", 'SAP DDSE'].freeze
   ASSIGNABLE = ['1er RDV SPIP', 'RDV de suivi SPIP', 'RDV DDSE', 'RDV téléphonique',
                 'Visite à domicile'].freeze
 
@@ -25,7 +25,7 @@ class AppointmentType < ApplicationRecord
   end
 
   def used_at_sap?
-    ["Sortie d'audience SAP", 'RDV de suivi JAP', 'SAP débat contradictoire', 'Rdv JAPAT']
+    ["Sortie d'audience SAP", 'RDV de suivi JAP', 'SAP débat contradictoire', 'Rdv JAPAT', 'SAP DDSE']
   end
 
   def used_at_spip?
@@ -35,7 +35,7 @@ class AppointmentType < ApplicationRecord
   end
 
   def sortie_audience?
-    ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
+    ["Sortie d'audience SAP", "Sortie d'audience SPIP", 'SAP DDSE'].include? name
   end
 
   def assignable?

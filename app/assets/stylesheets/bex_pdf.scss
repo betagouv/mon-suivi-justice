@@ -58,8 +58,16 @@
   font-weight: bold;
 }
 
+.bex-agenda-small-column {
+  width: 9%;
+  border-left: 1px solid black;
+  padding: 0 5px;
+  display: -webkit-box;
+  -webkit-box-align: center;
+}
+
 .bex-agenda-column {
-  width: 18%;
+  width: 17%;
   border-left: 1px solid black;
   padding: 0 5px;
   display: -webkit-box;

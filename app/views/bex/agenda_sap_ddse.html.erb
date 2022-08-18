@@ -1,16 +1,6 @@
 <div class='bex-agendas-container'>
   <div class='bex-agendas-tools-container'>
-    <% unless current_user.organization.jap_modal_content.empty? %>
-      <% if current_user.admin? || current_user.local_admin? || current_user.work_at_bex? || current_user.work_at_sap? %>
-        <section class='bex-agendas-modal-trigger-container'>
-            <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
-                                                             class: 'jap-agendas-modal-trigger',
-                                                             data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
-        </section>
-      <% end %>
-    <% end %>
-
-    <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
+    <%= button_to t('print_button'), agenda_sap_ddse_path(format: :pdf),
                                      method: :get,
                                      params: { date: params[:date] },
                                      form: { target: '_blank' },
@@ -18,15 +8,15 @@
   </div>
 
   <% if @agendas.empty? %>
-    <p class='bex-agenda-spip-no-agenda'><%= t('bex.jap.no_agenda_available') %></p>
+    <p class='bex-agenda-spip-no-agenda'><%= t('bex.sap_ddse.no_agenda_available') %></p>
   <% else %>
     <div class='bex-agendas-date-container'>
       <div class='bex-date-title-container'>
-        <%= t('bex.jap.agendas_title') %>
+        <%= t('bex.sap_ddse.agendas_title') %>
       </div>
       <div class='bex-date-select-container'>
-        <%= form_tag agenda_jap_path, method: 'get' do %>
-          <%= select_tag :date, options_for_select(formated_dates_for_select(current_department.tribunal.ten_next_days_with_slots(@appointment_type)), params[:date]),
+        <%= form_tag agenda_sap_ddse_path, method: 'get' do %>
+          <%= select_tag :date, options_for_select(formated_dates_for_select(current_department.spip.ten_next_days_with_slots(@appointment_type)), params[:date]),
                                 id: 'jap-appointments-date-select',
                                 class: 'form-select form-text-input jap-date-select',
                                 onchange: 'this.form.submit()' %>
@@ -59,9 +49,6 @@
               </div>
               <div class='bex-agenda-header-title bex-agenda-column'>
                 <%= t('bex.jap.header_origin') %>
-              </div>
-              <div class='bex-agenda-header-title bex-agenda-column'>
-                <%= t('bex.jap.header_role') %>
               </div>
               <% if current_user.work_at_bex? || current_user.admin? %>
                 <div class='bex-agenda-header-title bex-agenda-small-column'>
@@ -96,16 +83,6 @@
                     <% if appointments[i].present? && appointments[i].inviter_user_id.present? %>
                       <% user = User.find(appointments[i].inviter_user_id) %>
                       <%= user.organization.name %>
-                    <% end %>
-                  </div>
-                  <div class='bex-agenda-column'>
-                    <% if appointments[i].present? %>
-                      <% if appointments[i].origin_department.present? %>
-                        <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
-                      <% elsif appointments[i].inviter_user_id.present? %>
-                        <% user = User.find(appointments[i].inviter_user_id) %>
-                        <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
-                      <% end %>
                     <% end %>
                   </div>
                   <% if current_user.work_at_bex? || current_user.admin? %>

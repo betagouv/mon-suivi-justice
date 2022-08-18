@@ -10,4 +10,8 @@ class Department < ApplicationRecord
   def tribunal
     organizations.where(organization_type: 'tj').first
   end
+
+  def spip
+    organizations.where(organization_type: 'spip').first
+  end
 end
