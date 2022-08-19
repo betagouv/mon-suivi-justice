@@ -70,6 +70,7 @@ class Slot < ApplicationRecord
   private
 
   def workday?
+    return if appointment_type&.allowed_on_weekends?
     return unless date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
 
     errors.add(:date, I18n.t('activerecord.errors.models.slot.attributes.date.not_workday'))
