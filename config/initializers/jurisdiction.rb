@@ -1,5 +1,5 @@
 #
-# Load supported french departments defined in db/department.json
+# Load supported french jurisdictions defined in db/jurisdictions.json
 #
 FRENCH_JURISDICTIONS = Proc.new do
   JSON.parse(File.read('./db/jurisdictions.json'))
