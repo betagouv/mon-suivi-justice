@@ -1,0 +1,17 @@
+<div class='waiting-line-title-container'>
+  <h1><%= waiting_line_title(current_organization) %></h1>
+</div>
+
+<div class='appointments-container'>
+  <div class='index-cards-wrapper'>
+    <% if  @appointments.any? %>
+      <% @appointments.each do |appointment| %>
+        <%= render 'shared/appointment_card', appointment: appointment %>
+      <% end %>
+    <% else %>
+      <%= t('appointments.index.no_appointments') %>
+    <% end %>
+  </div>
+
+  <%= paginate @appointments %>
+</div>

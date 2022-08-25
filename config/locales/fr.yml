@@ -268,8 +268,11 @@ fr:
     stats_passed_booked: "de rdv non renseignés"
     stats_from_informed: "Parmi les rdv renseignés :"
     stats_global: "Global"
+
     notice:
-      fill_out_appointments: "Attention, il y a %{data}% de rendez-vous dont le statut n'est pas renseigné pour votre service."
+      fill_out_appointments: "Attention, %{data}% des rendez-vous de votre service n'ont pas de statut renseigné."
+      fill_out_appointments_cpip: "Attention, %{data}% de vos rendez-vous n'ont pas de statut renseigné."
+      click_here: Cliquez ici
 
   sidebar:
     home: "Accueil"
@@ -444,6 +447,9 @@ fr:
       no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
     show:
       inviter_user_role: Rôle source
+    waiting_line:
+      for_a_service: "Rendez-vous au statut inconnu au %{orga}"
+      for_a_user: "Vos rendez-vous au statut inconnu"
 
   appointment_place: "Lieu de RDV"
   appointment_agenda: "Agenda"
