@@ -40,8 +40,9 @@ class Slot < ApplicationRecord
   scope :not_full, -> { where(full: false) }
 
   scope :in_departments, lambda { |departments|
+    ids = departments.map(&:id)
     joins(agenda: { place: { organization: :areas_organizations_mappings } })
-      .where(areas_organizations_mappings: { area: departments })
+      .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
   }
 
   scope :in_organization, lambda { |organization|
