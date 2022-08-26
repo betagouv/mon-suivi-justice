@@ -50,6 +50,12 @@ class User < ApplicationRecord
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
   }
 
+  scope :in_departments, lambda { |departments|
+    ids = departments.map(&:id)
+    joins(organization: :areas_organizations_mappings)
+      .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
+  }
+
   scope :in_organization, ->(organization) { where(organization: organization) }
 
   delegate :name, to: :organization, prefix: true

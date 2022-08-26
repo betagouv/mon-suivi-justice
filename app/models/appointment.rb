@@ -50,6 +50,12 @@ class Appointment < ApplicationRecord
       .where(convict: { areas_convicts_mappings: { area_type: 'Department', area_id: department.id } })
   }
 
+  scope :in_departments, lambda { |departments|
+    ids = departments.map(&:id)
+    joins(convict: :areas_convicts_mappings)
+      .where(convict: { areas_convicts_mappings: { area_type: 'Department', area_id: ids } })
+  }
+
   scope :active, -> { where.not(state: 'canceled') }
 
   validate :in_the_future, on: :create

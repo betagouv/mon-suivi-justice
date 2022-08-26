@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
   }
 
   describe '.in_department' do
-    it 'returns places scoped by department' do
+    it 'returns users scoped by department' do
       department1 = create :department, number: '01', name: 'Ain'
 
       organization1 = create :organization

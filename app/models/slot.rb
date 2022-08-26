@@ -44,6 +44,11 @@ class Slot < ApplicationRecord
       .where(areas_organizations_mappings: { area: department })
   }
 
+  scope :in_departments, lambda { |departments|
+    joins(agenda: { place: { organization: :areas_organizations_mappings } })
+      .where(areas_organizations_mappings: { area: departments }).distinct
+  }
+
   scope :in_organization, lambda { |organization|
     joins(agenda: :place).where(agendas: { places: { organization: organization } })
   }
