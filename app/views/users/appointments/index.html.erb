@@ -91,7 +91,7 @@
 
   <div class='user-appointments-index-cards-wrapper '>
     <% @appointments.each do |appointment| %>
-      <%= render 'appointments/appointment_card', appointment: appointment %>
+      <%= render 'shared/appointment_card', appointment: appointment %>
     <% end %>
   </div>
 

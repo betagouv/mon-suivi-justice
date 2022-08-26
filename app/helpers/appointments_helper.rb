@@ -29,4 +29,12 @@ module AppointmentsHelper
       AppointmentType.new.used_at_spip?
     end
   end
+
+  def waiting_line_title(organization)
+    if %w[cpip dpip].include?(current_user.role)
+      t('appointments.waiting_line.for_a_user')
+    else
+      t('appointments.waiting_line.for_a_service', orga: organization.name)
+    end
+  end
 end
