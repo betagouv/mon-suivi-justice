@@ -23,11 +23,6 @@ class Place < ApplicationRecord
 
   scope :in_organization, ->(organization) { where(organization: organization) }
 
-  scope :in_department, lambda { |department|
-    joins(organization: :areas_organizations_mappings)
-      .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
-  }
-
   scope :in_departments, lambda { |departments|
     ids = departments.map(&:id)
     joins(organization: :areas_organizations_mappings)

@@ -39,11 +39,6 @@ class Slot < ApplicationRecord
   scope :available, -> { where(available: true) }
   scope :not_full, -> { where(full: false) }
 
-  scope :in_department, lambda { |department|
-    joins(agenda: { place: { organization: :areas_organizations_mappings } })
-      .where(areas_organizations_mappings: { area: department })
-  }
-
   scope :in_departments, lambda { |departments|
     joins(agenda: { place: { organization: :areas_organizations_mappings } })
       .where(areas_organizations_mappings: { area: departments }).distinct

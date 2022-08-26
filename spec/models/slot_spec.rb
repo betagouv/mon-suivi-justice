@@ -117,7 +117,7 @@ RSpec.describe Slot, type: :model do
     end
   end
 
-  describe '.in_department' do
+  describe '.in_departments' do
     it 'returns slots scoped by department' do
       department1 = create :department, number: '01', name: 'Ain'
 
@@ -141,7 +141,7 @@ RSpec.describe Slot, type: :model do
       agenda3 = create :agenda, place: place3
       create :slot, agenda: agenda3
 
-      expect(Slot.in_department(department1)).to eq [slot1, slot2]
+      expect(Slot.in_departments(organization1.departments)).to eq [slot1, slot2]
     end
   end
 
