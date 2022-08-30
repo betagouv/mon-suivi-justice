@@ -43,11 +43,6 @@ class Convict < ApplicationRecord
       ).distinct
   }
 
-  scope :in_department, lambda { |department|
-    joins(:areas_convicts_mappings)
-      .where(areas_convicts_mappings: { area_type: 'Department', area_id: department.id })
-  }
-
   scope :in_departments, lambda { |departments|
     ids = departments.map(&:id)
     joins(:areas_convicts_mappings)
@@ -143,11 +138,11 @@ class Convict < ApplicationRecord
   end
 
   def check_duplicates_without_phones(homonyms, current_user)
-    current_department = current_user.organization.departments.first
-    homonyms = homonyms.in_department(current_department) if refused_phone? || no_phone?
+    current_departments = current_user.organization.departments
+    homonyms = homonyms.in_departments(current_departments) if refused_phone? || no_phone?
 
     homonyms = homonyms.reject do |i|
-      (i.refused_phone? || i.no_phone?) && i.departments.first != current_department
+      (i.refused_phone? || i.no_phone?) && !current_departments.include?(i.departments.first)
     end
 
     Convict.where(id: homonyms.pluck(:id))
