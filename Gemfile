@@ -52,6 +52,9 @@ gem 'faraday', '~> 2.2'
 gem 'wicked_pdf', '~> 2.1'
 gem 'wkhtmltopdf-binary', '~> 0.12'
 
+gem 'tzinfo'
+gem 'tzinfo-data'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
