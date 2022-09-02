@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 2022_08_30_143147) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "organization_type", default: 0
-    t.string "time_zone", default: "Paris", null: false
+    t.string "time_zone", default: "Europe/Paris", null: false
     t.index ["name"], name: "index_organizations_on_name", unique: true
   end
 

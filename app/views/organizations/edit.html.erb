@@ -2,7 +2,7 @@
 <%= simple_form_for @organization, html: { class: 'basic-form' } do |f| %>
   <%= f.input :name %>
   <%= f.input :organization_type, collection: form_organization_type, input_html: { class: 'form-select' }, include_blank: false %>
-  <%= f.input :time_zone , input_html: { class: 'form-select' }, collection: time_zones_for_select, default: 'Paris' %>
+  <%= f.input :time_zone , input_html: { class: 'form-select' }, collection: time_zones_for_select, default: 'Europe/Paris' %>
   <p class='organization-subtitle'><%= t('edit_organization_jap_modal') %></p>
   <%= f.rich_text_area :jap_modal_content %>
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
