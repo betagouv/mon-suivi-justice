@@ -131,6 +131,7 @@ fr:
       organization:
         name: Nom
         organization_type: Type
+        time_zone: Fuseau horaire
         organization_types:
           spip: "SPIP"
           tj: "TJ"

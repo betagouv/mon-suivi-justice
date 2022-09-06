@@ -48,7 +48,7 @@ class SlotsBatchesController < ApplicationController
       agenda_id: params[:agenda_id],
       appointment_type_id: params[:appointment_type_id],
       date: params[:date],
-      starting_time: Time.new(2021, 6, 21, time[0], time[1], 0),
+      starting_time: Time.new(2021, 6, 21, time[0], time[1], 0, current_time_zone),
       capacity: params[:capacity],
       duration: params[:duration]
     }

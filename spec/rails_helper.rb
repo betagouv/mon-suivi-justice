@@ -131,7 +131,8 @@ def login_user(user)
 end
 
 def new_time_for(hour, min)
-  Time.new(2021, 6, 21, hour, min, 0)
+  timezone = TZInfo::Timezone.get('Europe/Paris')
+  Time.new(2021, 6, 21, hour, min, 0, timezone)
 end
 
 def create_default_notification_types

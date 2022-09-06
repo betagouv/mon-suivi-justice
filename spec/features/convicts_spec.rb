@@ -92,7 +92,7 @@ RSpec.feature 'Convicts', type: :feature do
       create(:slot, agenda: agenda,
                     appointment_type: appointment_type,
                     date: Date.civil(2025, 4, 14),
-                    starting_time: '14h')
+                    starting_time: new_time_for(14, 0))
       create(:notification_type, appointment_type: appointment_type)
 
       visit new_convict_path
