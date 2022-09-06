@@ -6,7 +6,7 @@ module SlotsHelper
 
   def agendas_for_slot_creation(user)
     if user.work_at_bex? || user.admin?
-      Agenda.in_department(user.organization.departments.first).select(&:appointment_type_with_slot_types?)
+      Agenda.in_departments(user.organization.departments).select(&:appointment_type_with_slot_types?)
     else
       Agenda.in_organization(user.organization).select(&:appointment_type_with_slot_types?)
     end

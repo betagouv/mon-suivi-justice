@@ -45,9 +45,10 @@ class Appointment < ApplicationRecord
     joins(slot: { agenda: :place }).where(slots: { agendas: { places: { organization: organization } } })
   }
 
-  scope :in_department, lambda { |department|
+  scope :in_departments, lambda { |departments|
+    ids = departments.map(&:id)
     joins(convict: :areas_convicts_mappings)
-      .where(convict: { areas_convicts_mappings: { area_type: 'Department', area_id: department.id } })
+      .where(convict: { areas_convicts_mappings: { area_type: 'Department', area_id: ids } })
   }
 
   scope :active, -> { where.not(state: 'canceled') }
@@ -151,8 +152,8 @@ class Appointment < ApplicationRecord
 
       appointment.transaction do
         NotificationFactory.perform(appointment)
-        appointment.summon_notif.send_now! if send_sms?(transition)
-        appointment.reminder_notif.program!
+        appointment.summon_notif.send_now if send_sms?(transition)
+        appointment.reminder_notif.program
       end
     end
 
@@ -163,12 +164,12 @@ class Appointment < ApplicationRecord
       appointment.reminder_notif.cancel! if appointment.reminder_notif.programmed?
 
       if send_sms?(transition) && appointment.convict.phone.present?
-        appointment.cancelation_notif.send_now!
+        appointment.cancelation_notif.send_now
       end
     end
 
     after_transition on: :miss do |appointment, transition|
-      appointment.no_show_notif&.send_now! if send_sms?(transition)
+      appointment.no_show_notif&.send_now if send_sms?(transition)
     end
 
     before_transition on: :rebook do |appointment, _|

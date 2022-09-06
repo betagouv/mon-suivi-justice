@@ -34,8 +34,8 @@ RSpec.describe User, type: :model do
     )
   }
 
-  describe '.in_department' do
-    it 'returns places scoped by department' do
+  describe '.in_departments' do
+    it 'returns users scoped by department' do
       department1 = create :department, number: '01', name: 'Ain'
 
       organization1 = create :organization
@@ -52,7 +52,7 @@ RSpec.describe User, type: :model do
       create :areas_organizations_mapping, organization: organization3, area: department2
       create :user, organization: organization3
 
-      expect(User.in_department(department1)).to eq [user1, user2]
+      expect(User.in_departments(organization1.departments)).to eq [user1, user2]
     end
   end
 end

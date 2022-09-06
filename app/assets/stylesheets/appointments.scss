@@ -280,3 +280,11 @@
 .missed-appointment-modal-container {
   text-align: left;
 }
+
+.waiting-line-title-container {
+  width: calc(100vw - #{$sidebar-width});
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  padding: 20px 10px;
+}

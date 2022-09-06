@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Appointments', type: :feature do
   before do
     @user = create_admin_user_and_login
-    allow(Place).to receive(:in_department).and_return(Place.all)
+    allow(Place).to receive(:in_departments).and_return(Place.all)
   end
 
   describe 'index' do
@@ -305,6 +305,34 @@ RSpec.feature 'Appointments', type: :feature do
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
         fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
+
+        within first('.form-time-select-fields') do
+          select '15', from: 'appointment_slot_starting_time_4i'
+          select '00', from: 'appointment_slot_starting_time_5i'
+        end
+
+        click_button 'Enregistrer'
+
+        expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
+                                    .and change { Slot.count }.by(1)
+                                    .and change { Notification.count }.by(5)
+      end
+
+      it 'allows to book appointment on weekends for some appointment_types' do
+        appointment_type2 = create :appointment_type, :with_notification_types, name: 'Placement TIG/TNR'
+        place2 = create :place, name: 'Foirfouille de Melun', appointment_types: [appointment_type2],
+                                organization: @user.organization
+        create :agenda, place: place2, name: 'Agenda de Martin'
+
+        visit new_appointment_path
+
+        first('.select2-container', minimum: 1).click
+        find('li.select2-results__option', text: 'LA FOUINE Momo').click
+
+        select 'Placement TIG/TNR', from: :appointment_appointment_type_id
+        select 'Foirfouille de Melun', from: 'Lieu'
+
+        fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 19)).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
           select '15', from: 'appointment_slot_starting_time_4i'

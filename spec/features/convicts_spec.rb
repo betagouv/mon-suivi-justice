@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Convicts', type: :feature do
   before do
     @user = create_admin_user_and_login
-    allow(Place).to receive(:in_department).and_return(Place.all)
+    allow(Place).to receive(:in_departments).and_return(Place.all)
   end
 
   describe 'index' do

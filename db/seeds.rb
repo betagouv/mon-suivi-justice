@@ -1,6 +1,9 @@
 FRENCH_DEPARTMENTS.each do |department|
   Department.find_or_create_by name: department.name, number: department.number
-  puts "Department #{department.name} created"
+end
+
+FRENCH_JURISDICTIONS.each do |name|
+  Jurisdiction.find_or_create_by(name: name)
 end
 
 organization1 = Organization.create!(name: 'SPIP 92', organization_type: 'spip')

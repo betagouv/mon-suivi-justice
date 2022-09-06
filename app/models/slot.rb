@@ -39,9 +39,10 @@ class Slot < ApplicationRecord
   scope :available, -> { where(available: true) }
   scope :not_full, -> { where(full: false) }
 
-  scope :in_department, lambda { |department|
+  scope :in_departments, lambda { |departments|
+    ids = departments.map(&:id)
     joins(agenda: { place: { organization: :areas_organizations_mappings } })
-      .where(areas_organizations_mappings: { area: department })
+      .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
   }
 
   scope :in_organization, lambda { |organization|
@@ -70,6 +71,7 @@ class Slot < ApplicationRecord
   private
 
   def workday?
+    return if appointment_type&.allowed_on_weekends?
     return unless date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
 
     errors.add(:date, I18n.t('activerecord.errors.models.slot.attributes.date.not_workday'))

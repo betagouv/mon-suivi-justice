@@ -9,9 +9,10 @@ class Agenda < ApplicationRecord
 
   scope :in_organization, ->(organization) { joins(:place).where(place: { organization: organization }) }
 
-  scope :in_department, lambda { |department|
+  scope :in_departments, lambda { |departments|
+    ids = departments.map(&:id)
     joins(place: { organization: :areas_organizations_mappings })
-      .where(areas_organizations_mappings: { area: department })
+      .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids }).distinct
   }
 
   scope :with_open_slots_for_date, lambda { |date, appointment_type|

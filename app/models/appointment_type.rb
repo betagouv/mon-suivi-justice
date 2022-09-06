@@ -4,6 +4,7 @@ class AppointmentType < ApplicationRecord
   WITH_SLOT_TYPES = ["Sortie d'audience SAP", "Sortie d'audience SPIP", 'SAP DDSE'].freeze
   ASSIGNABLE = ['1er RDV SPIP', 'RDV de suivi SPIP', 'RDV DDSE', 'RDV téléphonique',
                 'Visite à domicile'].freeze
+  ALLOWED_ON_WEEKENDS = ['Placement TIG/TNR'].freeze
 
   has_many :notification_types, inverse_of: :appointment_type, dependent: :destroy
   has_many :slot_types, inverse_of: :appointment_type, dependent: :destroy
@@ -44,5 +45,9 @@ class AppointmentType < ApplicationRecord
 
   def with_slot_types?
     WITH_SLOT_TYPES.include? name
+  end
+
+  def allowed_on_weekends?
+    ALLOWED_ON_WEEKENDS.include? name
   end
 end

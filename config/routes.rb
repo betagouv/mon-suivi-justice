@@ -51,6 +51,8 @@ Rails.application.routes.draw do
     put 'prepare'
   end
 
+  resources :appointments_waiting_lines, only: :index
+
   get '/display_time_options' => 'appointments#display_time_options', as: 'display_time_options'
   get '/display_slots' => 'appointments#display_slots', as: 'display_slots'
   get '/display_slot_fields' => 'appointments#display_slot_fields', as: 'display_slot_fields'

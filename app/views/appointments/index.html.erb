@@ -1,63 +1,55 @@
-<% if @q.slot_date_lt && @q.state_eq == 'booked' %>
-  <div class="index-title-container">
-      <h1><%= t('appointments.index.only_passed_uninformed') %></h1>
+<div class="index-header-action-buttons-container">
+  <div class='index-header-controls-container'>
+    <div class="index-header-controls-appointments-buttons-wrapper">
+
+      <% if @q.conditions.any? %>
+        <%= button_to "#{t('index-appointment-clear-filters')} (#{@q.conditions.length})", appointments_path,
+                                                          class: 'index-header-filters-button',
+                                                          method: :get %>
+      <% end %>
+
+      <%= button_to t('print_button'), appointments_path(format: :pdf),
+                                      method: :get,
+                                      form: { target: '_blank' },
+                                      class: 'bex-print-button' %>
+
+      <% if policy(:appointment).new? %>
+        <%= button_to t('new_appointment_title'), new_appointment_path,
+                                                  class: 'link-to-new-appointment-button',
+                                                  method: :get %>
+      <% end %>
+    </div>
   </div>
-<% else %>
-    <div class="index-header-action-buttons-container">
-      <div class='index-header-controls-container'>
-        <div class="index-header-controls-appointments-buttons-wrapper">
+</div>
 
-          <% if @q.conditions.any? %>
-            <%= button_to "#{t('index-appointment-clear-filters')} (#{@q.conditions.length})", appointments_path,
-                                                              class: 'index-header-filters-button',
-                                                              method: :get %>
-          <% end %>
+<%= search_form_for @q, class: 'index-header-filters-form', id: 'index-header-filters-form' do |f| %>
+  <div class='index-header-filters-fields-container'>
+    <%= f.date_field :slot_date_eq, id: 'index-appointment-date-filter',
+                        class: "index-header-search-field index-appointment-date-filter #{@q.slot_date_eq ? 'in-use' : ''}",
+                        value: @q.slot_date_eq ? @q.slot_date_eq.strftime('%Y-%m-%d') : '',
+                        placeholder: t('search-appointment-placeholder') %>
 
-          <%= button_to t('print_button'), appointments_path(format: :pdf),
-                                          method: :get,
-                                          form: { target: '_blank' },
-                                          class: 'bex-print-button' %>
+    <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_place_id_eq),
+                                          { include_blank: t('slots.index_place_filter') },
+                                          { class: "form-select index-header-filter-field #{@q.slot_agenda_place_id_eq ? 'in-use' : ''}" } %>
 
-          <% if policy(:appointment).new? %>
-            <%= button_to t('new_appointment_title'), new_appointment_path,
-                                                      class: 'link-to-new-appointment-button',
-                                                      method: :get %>
-          <% end %>
+    <%= f.select :slot_agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_id_eq),
+                                    { include_blank: t('index-appointment-agenda-filter') },
+                                    { class: "form-select index-header-filter-field #{@q.slot_agenda_id_eq ? 'in-use' : ''}" } %>
+
+    <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_user(current_user), 'id', 'name', @q.slot_appointment_type_id_eq),
+                                              { include_blank: t('index-slots-appointment-type-filter') },
+                                              { class: "form-select index-header-filter-field #{@q.slot_appointment_type_id_eq ? 'in-use' : ''}" } %>
+
+    <% if current_user.cpip? || current_user.dpip? %>
+      <div class="index-header-my-appointments-filter-field-container">
+        <div class="index-header-my-appointments-filter-field">
+          <input type="checkbox" name="q[user_id_eq]" id="q_user_id_eq" value="<%= current_user.id %>" <%= @q.user_id_eq ? 'checked' : ''%>>
+            <label for="q_user_id_eq"><%= t('index-appointment-only-my-appointments') %></label>
         </div>
       </div>
-    </div>
-
-    <%= search_form_for @q, class: 'index-header-filters-form', id: 'index-header-filters-form' do |f| %>
-      <div class='index-header-filters-fields-container'>
-        <%= f.date_field :slot_date_eq, id: 'index-appointment-date-filter',
-                            class: "index-header-search-field index-appointment-date-filter #{@q.slot_date_eq ? 'in-use' : ''}",
-                            value: @q.slot_date_eq ? @q.slot_date_eq.strftime('%Y-%m-%d') : '',
-                            placeholder: t('search-appointment-placeholder') %>
-
-        <%# TODO: there is for the moment only one department per organization.
-        When there will be more, this logic will need to be adapted. %>
-        <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_place_id_eq),
-                                              { include_blank: t('slots.index_place_filter') },
-                                              { class: "form-select index-header-filter-field #{@q.slot_agenda_place_id_eq ? 'in-use' : ''}" } %>
-
-        <%= f.select :slot_agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_id_eq),
-                                        { include_blank: t('index-appointment-agenda-filter') },
-                                        { class: "form-select index-header-filter-field #{@q.slot_agenda_id_eq ? 'in-use' : ''}" } %>
-
-        <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_user(current_user), 'id', 'name', @q.slot_appointment_type_id_eq),
-                                                  { include_blank: t('index-slots-appointment-type-filter') },
-                                                  { class: "form-select index-header-filter-field #{@q.slot_appointment_type_id_eq ? 'in-use' : ''}" } %>
-
-        <% if current_user.cpip? || current_user.dpip? %>
-          <div class="index-header-my-appointments-filter-field-container">
-            <div class="index-header-my-appointments-filter-field">
-              <input type="checkbox" name="q[user_id_eq]" id="q_user_id_eq" value="<%= current_user.id %>" <%= @q.user_id_eq ? 'checked' : ''%>>
-                <label for="q_user_id_eq"><%= t('index-appointment-only-my-appointments') %></label>
-            </div>
-          </div>
-        <% end %>
-      </div>
     <% end %>
+  </div>
 <% end %>
 
 <div class='appointments-container'>
@@ -88,14 +80,13 @@
   </div>
 
   <div class='index-cards-wrapper'>
-
-  <% if  @appointments.any? %>
-    <% @appointments.each do |appointment| %>
-      <%= render 'appointment_card', appointment: appointment %>
+    <% if  @appointments.any? %>
+      <% @appointments.each do |appointment| %>
+        <%= render 'shared/appointment_card', appointment: appointment %>
+      <% end %>
+    <% else %>
+      <%= t('appointments.index.no_appointments') %>
     <% end %>
-  <% else %>
-    <%= t('appointments.index.no_appointments') %>
-  <% end %>
   </div>
 
   <%= paginate @appointments %>
