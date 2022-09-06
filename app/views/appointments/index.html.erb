@@ -29,8 +29,6 @@
                         value: @q.slot_date_eq ? @q.slot_date_eq.strftime('%Y-%m-%d') : '',
                         placeholder: t('search-appointment-placeholder') %>
 
-    <%# TODO: there is for the moment only one department per organization.
-    When there will be more, this logic will need to be adapted. %>
     <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_place_id_eq),
                                           { include_blank: t('slots.index_place_filter') },
                                           { class: "form-select index-header-filter-field #{@q.slot_agenda_place_id_eq ? 'in-use' : ''}" } %>

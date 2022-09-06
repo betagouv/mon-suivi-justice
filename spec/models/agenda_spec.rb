@@ -39,4 +39,29 @@ RSpec.describe Agenda, type: :model do
       expect(agenda2.appointment_type_with_slot_types?).to eq false
     end
   end
+
+  describe '.in_departments' do
+    before do
+      @department1 = create :department, number: '01', name: 'Ain'
+
+      @orga = create :organization
+      create :areas_organizations_mapping, organization: @orga, area: @department1
+
+      place1 = create :place, organization: @orga
+      @agenda1 = create :agenda, place: place1
+      @agenda2 = create :agenda, place: place1
+      create :agenda
+    end
+
+    it 'returns agendas for multiple departments' do
+      department2 = create :department, number: '02', name: 'Aisne'
+      create :areas_organizations_mapping, organization: @orga, area: department2
+
+      expect(Agenda.in_departments(@orga.departments)).to eq [@agenda1, @agenda2]
+    end
+
+    it 'works if only one department is provided' do
+      expect(Agenda.in_departments(@orga.departments)).to eq [@agenda1, @agenda2]
+    end
+  end
 end

@@ -8,7 +8,7 @@ RSpec.feature 'SlotTypes', type: :feature do
     @agenda = create :agenda, place: place, name: 'test_agenda_name'
     @appointment_type = create :appointment_type, name: "Sortie d'audience SPIP"
     create :place_appointment_type, place: place, appointment_type: @appointment_type
-    allow(Place).to receive(:in_department).and_return(Place.all)
+    allow(Place).to receive(:in_departments).and_return(Place.all)
   end
 
   describe 'index' do
