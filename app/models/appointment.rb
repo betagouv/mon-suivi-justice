@@ -68,7 +68,12 @@ class Appointment < ApplicationRecord
 
   def datetime
     DateTime.new(date.year, date.month, date.day,
-                 starting_time.hour, starting_time.min, starting_time.sec, starting_time.zone)
+                 localized_time.hour, localized_time.min, localized_time.sec, localized_time.zone)
+  end
+
+  def localized_time
+    time_zone = TZInfo::Timezone.get(slot.place.organization.time_zone)
+    time_zone.to_local(starting_time)
   end
 
   def summon_notif

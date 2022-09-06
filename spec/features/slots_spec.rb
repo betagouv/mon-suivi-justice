@@ -71,7 +71,9 @@ RSpec.feature 'Slots', type: :feature do
       expect(created_slot.appointment_type).to eq(@appointment_type)
       expect(created_slot.appointment_type).to eq(@appointment_type)
       expect(created_slot.date).to eq(Date.parse('Fri, 18 Apr 2025'))
-      expect(created_slot.starting_time.hour).to eq(15)
+
+      time_zone = TZInfo::Timezone.get('Europe/Paris')
+      expect(time_zone.to_local(created_slot.starting_time).hour).to eq(15)
       expect(created_slot.starting_time.min).to eq(0)
       expect(created_slot.duration).to eq(40)
       expect(created_slot.capacity).to eq(10)

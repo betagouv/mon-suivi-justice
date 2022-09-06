@@ -20,10 +20,6 @@ module OrganizationHelper
     end
   end
 
-  def offset_in_hours(time_zone)
-    time_zone.current_period.offset.utc_total_offset.to_f / 3600.0
-  end
-
   def formatted_offset(data)
     offset = offset_in_hours(data)
     sign = offset.positive? ? '+' : '-'
@@ -31,6 +27,10 @@ module OrganizationHelper
 
     minutes = (offset.modulo(1) * 60).to_i.to_s.rjust(2, '0')
     "UTC #{sign} #{hour}:#{minutes}"
+  end
+
+  def offset_in_hours(time_zone)
+    time_zone.current_period.offset.utc_total_offset.to_f / 3600.0
   end
 
   def form_organization_type

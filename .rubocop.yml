@@ -93,3 +93,7 @@ Metrics/AbcSize:
 Style/IfWithBooleanLiteralBranches:
   Exclude:
     - app/policies/appointment_policy.rb
+
+Style/ExplicitBlockArgument:
+  Exclude:
+    - app/controllers/application_controller.rb

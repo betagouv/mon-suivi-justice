@@ -13,9 +13,9 @@ RSpec.feature 'SlotTypes', type: :feature do
 
   describe 'index' do
     it 'lists slot_types for an agenda' do
-      slot_type1 = create :slot_type, week_day: 'monday', starting_time: Time.zone.parse('2012-05-05 10:00:00'),
+      slot_type1 = create :slot_type, week_day: 'monday', starting_time: new_time_for(10, 0),
                                       duration: 30, capacity: 1, appointment_type: @appointment_type, agenda: @agenda
-      slot_type2 = create :slot_type, week_day: 'tuesday', starting_time: Time.zone.parse('2012-05-05 16:00:00'),
+      slot_type2 = create :slot_type, week_day: 'tuesday', starting_time: new_time_for(16, 0),
                                       duration: 60, capacity: 3, appointment_type: @appointment_type, agenda: @agenda
 
       visit places_path
@@ -33,7 +33,7 @@ RSpec.feature 'SlotTypes', type: :feature do
 
   describe 'edition' do
     it 'allows admin to edit slot_types' do
-      slot_type = create :slot_type, week_day: 'monday', starting_time: Time.zone.parse('2012-05-05 10:00:00'),
+      slot_type = create :slot_type, week_day: 'monday', starting_time: new_time_for(10, 0),
                                      duration: 30, capacity: 1, appointment_type: @appointment_type, agenda: @agenda
 
       visit agenda_slot_types_path(@agenda)
@@ -53,10 +53,10 @@ RSpec.feature 'SlotTypes', type: :feature do
     end
 
     it 'does not edit a slot_type with attributes that already exists' do
-      slot_type = create(:slot_type, week_day: 'monday', starting_time: '14:00',
+      slot_type = create(:slot_type, week_day: 'monday', starting_time: new_time_for(14, 0),
                                      duration: 30, capacity: 1, appointment_type: @appointment_type,
                                      agenda: @agenda)
-      create(:slot_type, week_day: 'monday', starting_time: '15:00', duration: 30,
+      create(:slot_type, week_day: 'monday', starting_time: new_time_for(15, 0), duration: 30,
                          capacity: 1, appointment_type: @appointment_type, agenda: @agenda)
 
       visit agenda_slot_types_path(@agenda)
@@ -91,8 +91,8 @@ RSpec.feature 'SlotTypes', type: :feature do
     end
 
     it 'does not create a slot_type that already exists' do
-      create(:slot_type, week_day: 'monday', starting_time: '14:00', duration: 30, capacity: 10,
-                         agenda: @agenda, appointment_type: @appointment_type)
+      create(:slot_type, week_day: 'monday', starting_time: new_time_for(14, 0),
+                         duration: 30, capacity: 10, agenda: @agenda, appointment_type: @appointment_type)
 
       visit agenda_slot_types_path(@agenda)
       within first('#new_slot_type') do
