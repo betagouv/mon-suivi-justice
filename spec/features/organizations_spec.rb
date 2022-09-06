@@ -76,4 +76,19 @@ RSpec.feature 'Organizations', type: :feature do
       end
     end.to change(AreasOrganizationsMapping, :count).from(2).to(1)
   end
+
+  describe 'update' do
+    it 'allows to select a timezone' do
+      orga = create :organization
+
+      visit edit_organization_path(orga)
+
+      select 'UTC + 04:00 - La Réunion', from: 'Fuseau horaire'
+
+      click_button 'Enregistrer'
+
+      orga.reload
+      expect(orga.time_zone).to eq('Europe/Samara')
+    end
+  end
 end
