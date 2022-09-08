@@ -62,10 +62,13 @@ module DataCollector
 
     def average_delay(appointments)
       delays = []
+
       appointments.each do |a|
         delays << (a.date - a.created_at.to_date).to_i
       end
-      return 0 if delays.size == 0
+
+      return 0 if delays.empty?
+
       (delays.sum(0.0) / delays.size).round(1)
     end
 

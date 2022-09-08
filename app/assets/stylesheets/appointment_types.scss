@@ -212,3 +212,14 @@
   margin: 20px auto 30px;
   color: $table-border;
 }
+
+.notification-type-status-title {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin-top: 22px;
+}
+
+.notification-type-reset-link {
+  color: $link;
+}

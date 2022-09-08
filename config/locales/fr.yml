@@ -528,6 +528,7 @@ fr:
     custom_template: Personnalisé
     updated_at: "Modifié le %{date}"
     imported_at: "Mis à jour le %{date}"
+    reset_link: "Restaurer défaut"
 
     tutorial:
       title: "Mode d'emploi"
