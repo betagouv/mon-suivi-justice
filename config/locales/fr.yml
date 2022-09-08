@@ -325,6 +325,8 @@ fr:
     account_created: "Comptes créés"
     sda_sap: "Sortie d'audience SAP"
     sda_spip: "Sortie d'audience SPIP"
+    sda_convicts: "Total PPSMJ convoquées"
+    sda_average_delay: "Délai moyen convocation/rdv (jours)"
 
   pdf:
     appointments:

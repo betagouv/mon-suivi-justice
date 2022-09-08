@@ -5,6 +5,16 @@
   <% sap_data = data[:sortie_audience_sap] %>
 
   <div class='stat-card-container'>
+    <p class='stat-card-title'><%= t('stats.sda_convicts') %></p>
+    <p class='stat-card-value'><%= sap_data[:convicts] %></p>
+  </div>
+
+  <div class='stat-card-container'>
+    <p class='stat-card-title'><%= t('stats.sda_average_delay') %></p>
+    <p class='stat-card-value'><%= sap_data[:average_delay] %></p>
+  </div>
+
+  <div class='stat-card-container'>
     <p class='stat-card-title'><%= t('stats.recorded') %></p>
     <p class='stat-card-value'><%= sap_data[:recorded] %></p>
   </div>
@@ -84,6 +94,16 @@
 
   <p class='stats-card-subtitle'><%= t('stats.sda_spip')%></p>
   <% spip_data = data[:sortie_audience_spip] %>
+
+  <div class='stat-card-container'>
+    <p class='stat-card-title'><%= t('stats.sda_convicts') %></p>
+    <p class='stat-card-value'><%= sap_data[:convicts] %></p>
+  </div>
+
+  <div class='stat-card-container'>
+    <p class='stat-card-title'><%= t('stats.sda_average_delay') %></p>
+    <p class='stat-card-value'><%= sap_data[:average_delay] %></p>
+  </div>
 
   <div class='stat-card-container'>
     <p class='stat-card-title'><%= t('stats.recorded') %></p>

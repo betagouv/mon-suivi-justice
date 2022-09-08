@@ -23,6 +23,7 @@ class SteeringsController < ApplicationController
   def sda_stats
     authorize :steering, :sda_stats?
 
+    @global = DataCollector::Sda.new.perform
     @local = []
     orgs_ids = [2, 3, 4, 6, 7]
 
