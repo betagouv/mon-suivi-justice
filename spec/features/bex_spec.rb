@@ -120,10 +120,12 @@ RSpec.feature 'Bex', type: :feature do
   end
 
   describe 'Spip appointment index' do
-    let(:frozen_time) { Time.zone.parse('2021-08-01 10:00:00').to_date }
+    let!(:frozen_time) { Time.zone.parse('2021-08-01 10:00:00').to_date }
 
     before do
-      allow(Date).to receive(:today).and_return frozen_time
+      zone = ActiveSupport::TimeZone.new('Paris')
+      allow(zone).to receive(:today).and_return(frozen_time)
+      allow(Time).to receive(:zone).and_return(zone)
     end
 
     it "lists all Spip appointments of type Sortie d'audience SPIP", js: true do
@@ -144,18 +146,18 @@ RSpec.feature 'Bex', type: :feature do
 
       slot1 = create(:slot, :without_validations, agenda: agenda,
                                                   appointment_type: apt_type,
-                                                  date: Date.today.next_occurring(:tuesday),
+                                                  date: Time.zone.today.next_occurring(:tuesday),
                                                   starting_time: '8h',
                                                   capacity: 2)
 
       slot2 = create(:slot, :without_validations, agenda: agenda,
                                                   appointment_type: apt_type,
-                                                  date: Date.today.next_occurring(:friday) + 1.month,
+                                                  date: Time.zone.today.next_occurring(:friday) + 1.month,
                                                   starting_time: '15h')
 
       slot3 = create(:slot, :without_validations, agenda: agenda,
                                                   appointment_type: apt_type2,
-                                                  date: Date.today.next_occurring(:tuesday),
+                                                  date: Time.zone.today.next_occurring(:tuesday),
                                                   starting_time: '15h')
 
       current_month_label = (I18n.l slot1.date, format: '%B %Y').capitalize

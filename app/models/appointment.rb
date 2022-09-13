@@ -31,13 +31,13 @@ class Appointment < ApplicationRecord
     greff_ca: 5
   }
 
-  scope :for_a_date, ->(date = Date.today) { joins(:slot).where('slots.date' => date) }
+  scope :for_a_date, ->(date = Time.zone.today) { joins(:slot).where('slots.date' => date) }
 
   scope :for_a_place, lambda { |place|
     joins(slot: { agenda: :place }).where(slots: { agendas: { places: place } })
   }
 
-  scope :for_a_month, lambda { |date = Date.today|
+  scope :for_a_month, lambda { |date = Time.zone.today|
     joins(:slot).where('extract(month from slots.date) = ?', date.month)
   }
 
@@ -58,13 +58,15 @@ class Appointment < ApplicationRecord
   def in_the_future
     if slot.date.nil?
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.blank'))
-    elsif slot.date < Date.today
+    elsif slot.date < Time.zone.today
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.past'))
     end
   end
 
   def in_the_past?
-    date < Date.today || (date == Date.today && starting_time.strftime('%H:%M') <= Time.now.strftime('%H:%M'))
+    return true if date < Time.zone.today
+
+    date == Time.zone.today && starting_time.strftime('%H:%M') <= Time.current.strftime('%H:%M')
   end
 
   def datetime
