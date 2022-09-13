@@ -28,6 +28,7 @@ class AppointmentsReschedulesController < AppointmentsController
   private
 
   def cancel_old_appointment(old_appointment, new_appointment)
+    new_appointment.update(inviter_user_id: old_appointment.inviter_user_id)
     old_appointment.cancel! send_notification: false
     HistoryItem.where(appointment: old_appointment).update_all(appointment_id: new_appointment.id)
   end
