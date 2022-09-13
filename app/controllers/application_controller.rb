@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
 
   after_action :verify_authorized, unless: :skip_pundit?
+  after_action :track_action
   around_action :set_time_zone
 
   layout :layout_by_resource
@@ -56,6 +57,10 @@ class ApplicationController < ActionController::Base
 
   def skip_pundit?
     devise_controller?
+  end
+
+  def track_action
+    ahoy.track 'Ran action', request.query_parameters.merge(request.path_parameters)
   end
 
   def user_not_authorized
