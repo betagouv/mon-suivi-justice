@@ -5,7 +5,7 @@
 
   <%= f.input :first_name %>
   <%= f.input :last_name %>
-  <%= f.input :role, collection: ordered_user_roles,
+  <%= f.input :role, collection: available_user_roles,
                      label_method: lambda {|k| t("activerecord.attributes.user.user_roles.#{k}")},
                      input_html: { class: 'form-select' } %>
   <%= f.input :email, required: true %>
