@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   get '/display_places' => 'appointments#display_places', as: 'display_places'
   get '/display_is_cpip' => 'appointments#display_is_cpip', as: 'display_is_cpip'
   get '/display_agendas' => 'appointments#display_agendas', as: 'display_agendas'
+  get '/display_departments' => 'appointments#display_departments', as: 'display_departments'
   get '/display_submit_button' => 'appointments#display_submit_button', as: 'display_submit_button'
   get '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'
 

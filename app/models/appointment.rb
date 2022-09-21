@@ -20,7 +20,7 @@ class Appointment < ApplicationRecord
   delegate :name, to: :organization, prefix: true
   delegate :phone, to: :convict, prefix: true
 
-  attr_accessor :place_id, :agenda_id, :user_is_cpip
+  attr_accessor :place_id, :agenda_id, :department_id, :user_is_cpip
 
   enum origin_department: {
     bex: 0,

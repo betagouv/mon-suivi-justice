@@ -14,4 +14,8 @@ class Department < ApplicationRecord
   def spip
     organizations.where(organization_type: 'spip').first
   end
+
+  def full_name
+    "#{number} - #{name}"
+  end
 end

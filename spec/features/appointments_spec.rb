@@ -204,7 +204,9 @@ RSpec.feature 'Appointments', type: :feature do
         select 'agenda_in_name', from: 'Agenda'
         choose '14:00'
         expect(page).to have_button('Enregistrer')
+
         click_button 'Enregistrer'
+
         expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
                                      .and change { Notification.count }.by(5)
       end
@@ -267,7 +269,7 @@ RSpec.feature 'Appointments', type: :feature do
         expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
       end
 
-      xit 'allows an agent to setup a meeting in another department' do
+      it 'allows an agent to setup a meeting in another department', :focus do
         department = create :department, number: '09', name: 'Ariège'
         organization = create :organization, name: 'TJ Foix', organization_type: 'tj'
         create :areas_organizations_mapping, organization: organization, area: department
@@ -275,9 +277,10 @@ RSpec.feature 'Appointments', type: :feature do
         place_ariege = create :place, organization: organization, name: 'SAP TJ Foix',
                                       appointment_types: [@appointment_type]
         agenda_ariege = create :agenda, place: place_ariege, name: 'agenda SAP Foix'
+        create :agenda, place: place_ariege, name: 'agenda 2 SAP Foix'
 
         create :slot, agenda: agenda_ariege, appointment_type: @appointment_type, date: Date.civil(2025, 4, 18),
-                      starting_time: new_time_for(14, 0)
+                      starting_time: new_time_for(17, 0)
 
         visit new_appointment_path
 
@@ -287,11 +290,17 @@ RSpec.feature 'Appointments', type: :feature do
 
         expect(page).to have_content('KFC de Chatelet')
 
-        # select ariege
+        click_link 'Prendre RDV hors du ressort'
+        select '09 - Ariège', from: 'appointment-form-department-select'
+        select 'SAP TJ Foix', from: 'Lieu'
+        # save_and_open_page
+        choose '17:00'
+        # expect(page).to have_button('Enregistrer')
 
         click_button 'Enregistrer'
 
-        expect { click_button 'Non' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
+        expect { click_button 'Non' }.to change { Appointment.count }.by(1)
+                                     .and change { Notification.count }.by(5)
       end
     end
 

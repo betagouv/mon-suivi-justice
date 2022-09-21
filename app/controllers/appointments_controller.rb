@@ -1,7 +1,8 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :skip_authorization, only: [:display_places, :display_agendas, :display_time_options, :display_is_cpip,
-                                            :display_slots, :display_slot_fields, :display_submit_button]
+                                            :display_departments, :display_slots, :display_slot_fields,
+                                            :display_submit_button]
 
   def index
     @q = policy_scope(Appointment).active.ransack(params[:q])
@@ -109,7 +110,16 @@ class AppointmentsController < ApplicationController
 
   def display_places
     @appointment_type = AppointmentType.find(params[:apt_type_id])
-    @places = policy_scope(Place).joins(:appointment_types).where(appointment_types: @appointment_type)
+
+    @places = if params[:department_id].present?
+                department = Department.where(id: params[:department_id])
+                Place.in_departments(department)
+                     .joins(:appointment_types)
+                     .where(appointment_types: @appointment_type)
+              else
+                policy_scope(Place).joins(:appointment_types)
+                                   .where(appointment_types: @appointment_type)
+              end
   end
 
   def display_is_cpip
@@ -117,7 +127,7 @@ class AppointmentsController < ApplicationController
   end
 
   def display_agendas
-    place = policy_scope(Place).find(params[:place_id])
+    place = Place.find(params[:place_id])
     @agendas = Agenda.where(place_id: place.id)
     @appointment_type = AppointmentType.find(params[:apt_type_id])
 
@@ -128,9 +138,13 @@ class AppointmentsController < ApplicationController
                                           apt_type_id: params[:apt_type_id])
   end
 
+  def display_departments
+    @departments = Department.all
+  end
+
   def display_time_options
     all_agendas = params[:agenda_id] == 'all'
-    agenda_id = params[:agenda_id] == 'all' ? nil : policy_scope(Agenda).find(params[:agenda_id]).id
+    agenda_id = params[:agenda_id] == 'all' ? nil : params[:agenda_id]
 
     @appointment_type = AppointmentType.find(params[:apt_type_id])
 
@@ -153,7 +167,7 @@ class AppointmentsController < ApplicationController
       @slots_by_date = Slot.future.relevant_and_available_all_agendas(place, @appointment_type)
                            .order(:date).group_by(&:date)
     elsif !params[:agenda_id].nil?
-      agenda = policy_scope(Agenda).find(params[:agenda_id])
+      agenda = Agenda.find(params[:agenda_id])
       @slots_by_date = Slot.future.relevant_and_available(agenda, @appointment_type)
                            .order(:date).group_by(&:date)
     end
