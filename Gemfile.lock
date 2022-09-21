@@ -71,6 +71,10 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    ahoy_matey (4.1.0)
+      activesupport (>= 5.2)
+      device_detector
+      safely_block (>= 0.2.1)
     ast (2.4.2)
     bcrypt (3.1.18)
     bindex (0.8.1)
@@ -99,6 +103,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    device_detector (1.0.7)
     devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -120,6 +125,7 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
+    errbase (0.2.2)
     erubi (1.10.0)
     ethon (0.15.0)
       ffi (>= 1.15.0)
@@ -328,6 +334,8 @@ GEM
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    safely_block (0.3.0)
+      errbase (>= 0.1.1)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.3.0)
@@ -397,6 +405,8 @@ GEM
       ethon (>= 0.9.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    tzinfo-data (1.2022.3)
+      tzinfo (>= 1.0.0)
     unicode-display_width (2.2.0)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -434,6 +444,7 @@ PLATFORMS
 
 DEPENDENCIES
   addressable (~> 2.8)
+  ahoy_matey (~> 4.1)
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
@@ -488,6 +499,8 @@ DEPENDENCIES
   state_machines-graphviz
   state_machines-rspec
   turbolinks (~> 5)
+  tzinfo
+  tzinfo-data
   web-console (>= 4.1.0)
   webdrivers
   webmock

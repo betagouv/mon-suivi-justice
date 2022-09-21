@@ -41,6 +41,7 @@ gem 'holidays', '~> 8.5'
 gem 'discard', '~> 1.2'
 
 gem 'paper_trail', '~> 12.2'
+gem 'ahoy_matey', '~> 4.1'
 gem 'sentry-ruby', '~> 5.1'
 gem 'sentry-rails', '~> 5.1'
 gem 'ruby-progressbar', '~> 1.11'
@@ -51,6 +52,9 @@ gem 'groupdate', '~> 6.0', '>= 6.0.1'
 gem 'faraday', '~> 2.2'
 gem 'wicked_pdf', '~> 2.1'
 gem 'wkhtmltopdf-binary', '~> 0.12'
+
+gem 'tzinfo'
+gem 'tzinfo-data'
 
 group :development, :test do
   gem 'rspec-rails'

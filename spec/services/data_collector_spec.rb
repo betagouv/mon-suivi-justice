@@ -67,25 +67,39 @@ RSpec.describe DataCollector do
         apt_type1 = create :appointment_type, name: "Sortie d'audience SPIP"
         slot1 = create :slot, :skip_validate, appointment_type: apt_type1, date: Date.civil(2022, 4, 11), capacity: 20
 
-        create :appointment, :skip_validate, slot: slot1, convict: convict, state: 'booked'
-        create :appointment, :skip_validate, slot: slot1, convict: convict, state: 'fulfiled'
-        create :appointment, :skip_validate, slot: slot1, convict: convict, state: 'fulfiled'
-        create :appointment, :skip_validate, slot: slot1, convict: convict, state: 'no_show'
-        create :appointment, :skip_validate, slot: slot1, convict: convict, state: 'excused'
-        create :appointment, :skip_validate, slot: slot1, convict: convict, state: 'canceled'
+        create :appointment, :skip_validate, slot: slot1, convict: convict,
+                                             state: 'booked', created_at: Date.civil(2022, 3, 11)
+        create :appointment, :skip_validate, slot: slot1, convict: convict,
+                                             state: 'fulfiled', created_at: Date.civil(2022, 3, 11)
+        create :appointment, :skip_validate, slot: slot1, convict: convict,
+                                             state: 'fulfiled', created_at: Date.civil(2022, 3, 11)
+        create :appointment, :skip_validate, slot: slot1, convict: convict,
+                                             state: 'no_show', created_at: Date.civil(2022, 3, 11)
+        create :appointment, :skip_validate, slot: slot1, convict: convict,
+                                             state: 'excused', created_at: Date.civil(2022, 3, 11)
+        create :appointment, :skip_validate, slot: slot1, convict: convict,
+                                             state: 'canceled', created_at: Date.civil(2022, 3, 11)
 
         apt_type2 = create :appointment_type, name: "Sortie d'audience SAP"
         slot2 = create :slot, :skip_validate, appointment_type: apt_type2, date: Date.civil(2022, 4, 11), capacity: 20
 
-        create :appointment, :skip_validate, slot: slot2, convict: convict, state: 'booked'
-        create :appointment, :skip_validate, slot: slot2, convict: convict, state: 'fulfiled'
-        create :appointment, :skip_validate, slot: slot2, convict: convict, state: 'fulfiled'
-        create :appointment, :skip_validate, slot: slot2, convict: convict, state: 'no_show'
-        create :appointment, :skip_validate, slot: slot2, convict: convict, state: 'excused'
-        create :appointment, :skip_validate, slot: slot2, convict: convict, state: 'canceled'
+        create :appointment, :skip_validate, slot: slot2, convict: convict,
+                                             state: 'booked', created_at: Date.civil(2022, 3, 11)
+        create :appointment, :skip_validate, slot: slot2, convict: convict,
+                                             state: 'fulfiled', created_at: Date.civil(2022, 3, 11)
+        create :appointment, :skip_validate, slot: slot2, convict: convict,
+                                             state: 'fulfiled', created_at: Date.civil(2022, 3, 11)
+        create :appointment, :skip_validate, slot: slot2, convict: convict,
+                                             state: 'no_show', created_at: Date.civil(2022, 3, 11)
+        create :appointment, :skip_validate, slot: slot2, convict: convict,
+                                             state: 'excused', created_at: Date.civil(2022, 3, 11)
+        create :appointment, :skip_validate, slot: slot2, convict: convict,
+                                             state: 'canceled', created_at: Date.civil(2022, 3, 11)
 
         expected = {
           sortie_audience_spip: {
+            average_delay: 31.0,
+            convicts: 1,
             recorded: 6,
             future_booked: 0,
             passed_no_canceled_with_phone: 5,
@@ -100,6 +114,8 @@ RSpec.describe DataCollector do
             excused_percentage: 25
           },
           sortie_audience_sap: {
+            average_delay: 31.0,
+            convicts: 1,
             recorded: 6,
             future_booked: 0,
             passed_no_canceled_with_phone: 5,

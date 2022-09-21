@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
 
   after_action :verify_authorized, unless: :skip_pundit?
+  after_action :track_action
+  around_action :set_time_zone
 
   layout :layout_by_resource
 
@@ -15,6 +17,14 @@ class ApplicationController < ActionController::Base
       'application'
     else
       'agent_interface'
+    end
+  end
+
+  def set_time_zone
+    if user_signed_in?
+      Time.use_zone(current_time_zone) { yield }
+    else
+      yield
     end
   end
 
@@ -36,12 +46,21 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_department
 
+  def current_time_zone
+    @current_time_zone ||= TZInfo::Timezone.get(current_organization.time_zone)
+  end
+  helper_method :current_time_zone
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
   def skip_pundit?
     devise_controller?
+  end
+
+  def track_action
+    ahoy.track 'Ran action', request.query_parameters.merge(request.path_parameters)
   end
 
   def user_not_authorized

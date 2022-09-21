@@ -110,7 +110,7 @@ RSpec.feature 'Appointments', type: :feature do
         slot = create :slot, :without_validations, agenda: agenda,
                                                    appointment_type: appointment_type,
                                                    date: Date.civil(2025, 4, 14),
-                                                   starting_time: '16h'
+                                                   starting_time: new_time_for(16, 0)
 
         visit new_appointment_path
 
@@ -151,7 +151,7 @@ RSpec.feature 'Appointments', type: :feature do
         slot = create :slot, :without_validations, agenda: agenda,
                                                    appointment_type: appointment_type,
                                                    date: Date.civil(2025, 4, 14),
-                                                   starting_time: '16h'
+                                                   starting_time: new_time_for(16, 0)
 
         visit new_appointment_path
         first('.select2-container', minimum: 1).click
@@ -194,9 +194,9 @@ RSpec.feature 'Appointments', type: :feature do
         agenda_out = create :agenda, place: place_out, name: 'agenda_out_name'
 
         create :slot, agenda: agenda_in, appointment_type: appointment_type, date: Date.civil(2025, 4, 18),
-                      starting_time: '14h'
+                      starting_time: new_time_for(14, 0)
         create :slot, agenda: agenda_out, appointment_type: appointment_type, date: Date.civil(2025, 4, 18),
-                      starting_time: '16h'
+                      starting_time: new_time_for(16, 0)
 
         visit new_appointment_path
         first('.select2-container', minimum: 1).click
@@ -214,7 +214,7 @@ RSpec.feature 'Appointments', type: :feature do
         expect(page).to have_button('Enregistrer')
         click_button 'Enregistrer'
         expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
-                                            .and change { Notification.count }.by(5)
+                                     .and change { Notification.count }.by(5)
       end
 
       it 'shows only relevant places for an appointment type' do
@@ -250,20 +250,20 @@ RSpec.feature 'Appointments', type: :feature do
         create :slot, agenda: agenda,
                       appointment_type: appointment_type,
                       date: Date.civil(2025, 4, 14),
-                      starting_time: '17h'
+                      starting_time: new_time_for(17, 0)
 
         place2 = create :place, name: 'SPIP 73', appointment_types: [appointment_type]
         agenda2 = create :agenda, place: place2, name: 'Cabinet 74'
         create :slot, agenda: agenda2,
                       appointment_type: appointment_type,
                       date: Date.civil(2025, 4, 14),
-                      starting_time: '19h'
+                      starting_time: new_time_for(19, 0)
 
         agenda3 = create :agenda, place: place1, name: 'Cabinet 22'
         create :slot, agenda: agenda3,
                       appointment_type: appointment_type,
                       date: Date.civil(2025, 4, 14),
-                      starting_time: '11h'
+                      starting_time: new_time_for(11, 0)
 
         visit new_appointment_path
 
@@ -679,7 +679,7 @@ RSpec.feature 'Appointments', type: :feature do
       slot2 = create :slot, agenda: appointment.slot.agenda,
                             appointment_type: apt_type,
                             date: Date.civil(2025, 4, 16),
-                            starting_time: '16h'
+                            starting_time: new_time_for(16, 0)
 
       visit appointment_path(appointment)
       click_button 'Replanifier'

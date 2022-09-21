@@ -4,7 +4,7 @@ module BexHelper
   end
 
   def six_next_months
-    months = [Date.today]
+    months = [Time.zone.today]
 
     5.times { months << (months[-1] + 1.month) }
 

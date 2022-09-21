@@ -52,6 +52,9 @@
                   <%= appointments[i]&.convict&.first_name %>
                 </div>
                 <div class='bex-agenda-column'>
+                  <%= appointments[i]&.prosecutor_number %>
+                </div>
+                <div class='bex-agenda-column'>
                   <% if appointments[i].present? && appointments[i].inviter_user_id.present? %>
                     <% user = User.find(appointments[i].inviter_user_id) %>
                     <%= user.organization.name %>
@@ -65,11 +68,6 @@
                       <% user = User.find(appointments[i].inviter_user_id) %>
                       <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
                     <% end %>
-                  <% end %>
-                </div>
-                <div class='bex-agenda-column'>
-                  <% if appointments[i].present? %>
-                    <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
                   <% end %>
                 </div>
               </div>

@@ -150,6 +150,25 @@ RSpec.feature 'AppointmentType', type: :feature do
       expect(first('.reminder-container')).to have_content('updated default reminder')
     end
 
+    it 'allows to reset notification type to default' do
+      local_notif = create :notification_type, appointment_type: appointment_type,
+                                               organization: @user.organization,
+                                               role: :summon,
+                                               template: 'Local summon',
+                                               is_default: false,
+                                               still_default: false
+
+      visit edit_appointment_type_path(appointment_type, orga: @user.organization.id)
+
+      within first('.summon-container') do
+        click_link 'Restaurer défaut'
+      end
+
+      click_button 'Enregistrer'
+
+      expect(local_notif.reload.template).to eq('Default summon')
+    end
+
     it 'does not allow to update notification types with incorrect template' do
       visit edit_appointment_type_path(appointment_type)
 

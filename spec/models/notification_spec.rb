@@ -22,7 +22,7 @@ RSpec.describe Notification, type: :model do
       appointment_type = create(:appointment_type)
 
       slot_date = Date.civil(2025, 4, 14)
-      slot_starting_time = Time.new(2021, 6, 21, 0, 0, 0)
+      slot_starting_time = new_time_for(0, 0)
 
       slot = create(:slot, date: slot_date, appointment_type: appointment_type, starting_time: slot_starting_time)
       create(:notification_type, appointment_type: appointment_type,
@@ -34,7 +34,11 @@ RSpec.describe Notification, type: :model do
       NotificationFactory.perform(appointment)
 
       notification = appointment.reminder_notif
-      expected_time = (slot_date - 2).asctime.in_time_zone('Paris')
+
+      reminder_date = slot_date - 2
+      expected_time = Time.new(reminder_date.year, reminder_date.month, reminder_date.day,
+                               slot_starting_time.hour, slot_starting_time.min,
+                               slot_starting_time.sec, slot_starting_time.zone)
 
       expect(SmsDeliveryJob).to receive(:set).with(wait_until: expected_time) { double(perform_later: true) }
 

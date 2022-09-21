@@ -23,6 +23,8 @@ module DataCollector
 
     def sda_base_data(appointments)
       {
+        convicts: appointments.pluck(:convict_id).uniq.count,
+        average_delay: average_delay(appointments),
         recorded: appointments.size,
         future_booked: future_booked(appointments).size,
         passed_no_canceled_with_phone: passed_no_canceled_with_phone(appointments).size,
@@ -56,6 +58,18 @@ module DataCollector
       else
         ::Appointment.joins(:slot).where(slot: { appointment_type: apt_type })
       end
+    end
+
+    def average_delay(appointments)
+      delays = []
+
+      appointments.each do |a|
+        delays << (a.date - a.created_at.to_date).to_i
+      end
+
+      return 0 if delays.empty?
+
+      (delays.sum(0.0) / delays.size).round(1)
     end
 
     def future_booked(appointments)

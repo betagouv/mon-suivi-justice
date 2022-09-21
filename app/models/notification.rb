@@ -80,12 +80,19 @@ class Notification < ApplicationRecord
 
   def delivery_time
     app_date = appointment.slot.date
-    app_time = appointment.slot.starting_time
+    app_time = localized_starting_time
 
     app_datetime = app_date.to_datetime + app_time.seconds_since_midnight.seconds
 
     result = app_datetime.to_time - hour_delay.hours
     result.asctime.in_time_zone('Paris')
+  end
+
+  def localized_starting_time
+    identifier = appointment.slot.place.organization.time_zone
+    time_zone = TZInfo::Timezone.get(identifier)
+
+    time_zone.to_local(appointment.slot.starting_time)
   end
 
   def hour_delay

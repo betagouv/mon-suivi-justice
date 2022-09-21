@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   resources :places
   resources :appointment_types
+  resources :notification_types_reset, only: :update
   resources :slots
   resource :slots_batch, only: [:new, :create, :update]
 

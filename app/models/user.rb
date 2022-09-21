@@ -13,6 +13,7 @@ class User < ApplicationRecord
   belongs_to :organization
   has_many :convicts, dependent: :nullify
   has_many :appointments, dependent: :nullify
+  has_many :visits, class_name: 'Ahoy::Visit'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :trackable and :omniauthable
