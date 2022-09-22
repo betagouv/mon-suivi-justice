@@ -57,6 +57,11 @@ class Slot < ApplicationRecord
     used_capacity == capacity
   end
 
+  def localized_time
+    time_zone = TZInfo::Timezone.get(place.organization.time_zone)
+    time_zone.to_local(starting_time)
+  end
+
   private
 
   def workday?
