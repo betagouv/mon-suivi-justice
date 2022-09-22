@@ -1,4 +1,4 @@
-# $ rake invite_agents -- --filename /path/from/container/root.csv
+# $ rake invite_agents -- --filepath /path/from/container/root.csv
 require 'csv'
 
 desc 'seed and invite agents'
@@ -11,7 +11,7 @@ task :invite_agents, [:filepath] => [:environment] do |_task, args|
       User.invite!(
         first_name: row['FIRST_NAME'],
         last_name: row['LAST_NAME'],
-        phone: row['PHONE'],
+        phone: row['PHONE'].nil? ? '' : row['PHONE'],
         role: row['ROLE'],
         email: row['EMAIL'],
         organization: Organization.find_by_name(row['ORGANIZATION'])
