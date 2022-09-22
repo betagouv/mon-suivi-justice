@@ -39,7 +39,7 @@
         <%= t('activerecord.attributes.slot.starting_time') %>
       </div>
       <div class='show-data-item'>
-        <%= @slot.starting_time.to_s(:time) %>
+        <%= @slot.localized_time.to_s(:time) %>
       </div>
     </div>
   </div>
@@ -51,4 +51,3 @@
   <%= f.input :capacity, hint: @slot.errors.any? ? "" : @hint, input_html: { min: @slot.used_capacity + 1, step: 1 } %>
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>
-
