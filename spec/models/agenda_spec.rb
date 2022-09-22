@@ -57,11 +57,11 @@ RSpec.describe Agenda, type: :model do
       department2 = create :department, number: '02', name: 'Aisne'
       create :areas_organizations_mapping, organization: @orga, area: department2
 
-      expect(Agenda.in_departments(@orga.departments)).to eq [@agenda1, @agenda2]
+      expect(Agenda.in_departments(@orga.departments).to_a).to eq [@agenda1, @agenda2]
     end
 
     it 'works if only one department is provided' do
-      expect(Agenda.in_departments(@orga.departments)).to eq [@agenda1, @agenda2]
+      expect(Agenda.in_departments(@orga.departments).to_a).to eq [@agenda1, @agenda2]
     end
   end
 end

@@ -40,7 +40,8 @@ class SlotTypesController < ApplicationController
   end
 
   def format_slot_type_starting_time(slot_type_params)
-    Time.now.change({ hour: slot_type_params['starting_time(4i)'].to_i,
-                      min: slot_type_params['starting_time(5i)'].to_i, sec: 0 })
+    hour = slot_type_params['starting_time(4i)'].to_i
+    minutes = slot_type_params['starting_time(5i)'].to_i
+    Time.new(2021, 6, 21, hour, minutes, 0, current_time_zone)
   end
 end

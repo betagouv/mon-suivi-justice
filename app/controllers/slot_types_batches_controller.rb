@@ -6,8 +6,8 @@ class SlotTypesBatchesController < ApplicationController
     @agenda = Agenda.find params[:agenda_id]
     @appointment_type = AppointmentType.find_by(id: params[:appointment_type_id])
 
-    success = SlotTypeFactory.perform(appointment_type: @appointment_type,
-                                      agenda: @agenda, data: slot_types_batch_params.to_h)
+    success = SlotTypeFactory.perform(appointment_type: @appointment_type, agenda: @agenda,
+                                      timezone: @current_time_zone, data: slot_types_batch_params.to_h)
     flash[:alert] = I18n.t('activerecord.errors.models.slot_type.batch_multiple_uniqueness') unless success
     redirect_back(fallback_location: root_path)
   end
