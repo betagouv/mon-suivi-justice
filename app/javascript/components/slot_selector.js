@@ -70,7 +70,7 @@ function formElementAppointmentTypeSelect() {
 function formElementPlaceSelect() {
   const placeSelect = document.getElementById('appointment-form-place-select');
   const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
-  // const departmentSelect = = document.getElementById('appointment-form-place-select');
+  // const departmentSelect = document.getElementById('appointment-form-place-select');
 
   const slots_container = document.getElementById('slots-container');
   const agendas_container = document.getElementById('agendas-container');
@@ -102,13 +102,14 @@ function formElementPlaceSelect() {
 function formElementDepartmentSelect() {
   const departments_container = document.getElementById('departments-container');
   const places_container = document.getElementById('places-container');
-
+  const agendas_container = document.getElementById('agendas-container');
   const departmentSelect = document.getElementById('appointment-form-department-select');
   const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
 
   departments_container.after(places_container);
 
   departmentSelect.addEventListener('change', (e) => {
+    if(agendas_container) { places_container.innerHTML = '';}
     displayPlaces(aptTypeSelect.value, departmentSelect.value);
   });
 }

@@ -293,9 +293,9 @@ RSpec.feature 'Appointments', type: :feature do
         click_link 'Prendre RDV hors du ressort'
         select '09 - Ariège', from: 'appointment-form-department-select'
         select 'SAP TJ Foix', from: 'Lieu'
-        # save_and_open_page
+        select 'agenda SAP Foix', from: 'Agenda'
+
         choose '17:00'
-        # expect(page).to have_button('Enregistrer')
 
         click_button 'Enregistrer'
 
