@@ -129,7 +129,7 @@
           <%= t('appointment_starting_time') %>
         </div>
         <div class='show-appointment-summon-item'>
-          <%= @appointment.slot.starting_time.to_s(:time) %>
+          <%= @appointment.localized_time.to_s(:time) %>
         </div>
       </div>
 

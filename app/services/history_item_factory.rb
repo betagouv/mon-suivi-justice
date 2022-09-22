@@ -46,12 +46,12 @@ module HistoryItemFactory
       if appointment.slot.appointment_type.name == 'RDV téléphonique'
         I18n.t('history_item.book_phone_appointment', name: appointment.convict.name,
                                                       date: appointment.slot.date,
-                                                      time: appointment.slot.starting_time.to_s(:time))
+                                                      time: appointment.localized_time.to_s(:time))
       else
         I18n.t("history_item.#{event}", name: appointment.convict.name,
                                         place: appointment.slot.agenda.place.name,
                                         date: appointment.slot.date,
-                                        time: appointment.slot.starting_time.to_s(:time))
+                                        time: appointment.localized_time.to_s(:time))
       end
     end
 
