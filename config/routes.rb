@@ -60,22 +60,18 @@ Rails.application.routes.draw do
     get :display_agendas
     get :display_departments
     get :display_time_options
-    get :display_time_fields
     get :display_slots
     get :display_slot_fields
     get :display_submit_button
   end
 
+  get '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'
   get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
 
   scope controller: :bex do
     get :agenda_jap
     get :agenda_spip
     get :agenda_sap_ddse
-  end
-
-  scope controller: :stats do
-    get :secret_stats
   end
 
   scope controller: :home do
