@@ -55,14 +55,14 @@ Rails.application.routes.draw do
   resources :appointments_waiting_lines, only: :index
 
   scope controller: :appointments_bookings do
-    get :display_places
-    get :display_is_cpip
-    get :display_agendas
-    get :display_departments
-    get :display_time_options
-    get :display_slots
-    get :display_slot_fields
-    get :display_submit_button
+    get :load_places
+    get :load_is_cpip
+    get :load_agendas
+    get :load_departments
+    get :load_time_options
+    get :load_slots
+    get :load_slot_fields
+    get :load_submit_button
   end
 
   get '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'

@@ -18,7 +18,7 @@
     </select>
   </div>
 
-  <% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+  <% if @appointment_type.sortie_audience? && ENV['APP'] != 'mon-suivi-justice-prod' %>
     <div class="appointment-form-out-of-department-container" id='appointment-out-of-department-container'>
       <%= link_to t('appointments.new.out_of_department'), '#', id: 'appointment-out-of-department', class: 'appointment-form-out-of-department-link' %>
     </div>

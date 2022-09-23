@@ -5,4 +5,4 @@ try {
   let departments_container = document.getElementById('departments-container');
 }
 
-departments_container.innerHTML = "<%= j render partial: 'display_departments', locals: {deparments: @departments} %>";
+departments_container.innerHTML = "<%= j render partial: 'load_departments', locals: {deparments: @departments} %>";

@@ -1,0 +1,186 @@
+import Rails from '@rails/ujs';
+import MicroModal from 'micromodal';
+
+document.addEventListener('turbolinks:load',function() {
+  setupForm.appointmentType();
+});
+
+const loadTemplate = new function () {
+  this.places = function(appointment_type_id, department_id = "") {
+    let targetUrl = '/load_places?apt_type_id=' + appointment_type_id
+    if (department_id !== "") { targetUrl += '&department_id=' + department_id }
+
+    Rails.ajax({
+      type: 'GET',
+      url: targetUrl,
+      success: function() { setupForm.place(); }
+    });
+  };
+
+  this.departments = function(appointment_type_id) {
+    Rails.ajax({
+      type: 'GET',
+      url: '/load_departments?apt_type_id=' + appointment_type_id,
+      success: function() { setupForm.department(); }
+    });
+  };
+
+  this.agendas = function(place_id, appointment_type_id) {
+    Rails.ajax({
+      type: 'GET',
+      url: '/load_agendas?place_id=' + place_id + '&apt_type_id=' + appointment_type_id,
+      success: function() { setupForm.agenda(); }
+    });
+  };
+
+  this.timeOptions = function(place_id, agenda_id, appointment_type_id, convict_id) {
+    Rails.ajax({
+      type: 'GET',
+      url: '/load_time_options?place_id=' + place_id + '&agenda_id=' + agenda_id + '&apt_type_id=' + appointment_type_id,
+      success: function() { loadTemplate.submit(convict_id); }
+    });
+  };
+
+  this.submit = function(convict_id) {
+    Rails.ajax({
+      type: 'GET',
+      url: '/load_submit_button?convict_id=' + convict_id,
+      success: function() { setupForm.submit(); }
+    });
+  };
+}
+
+const setupForm = new function() {
+  this.appointmentType = function() {
+    const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
+    const slots_container = document.getElementById('slots-container');
+    const agendas_container = document.getElementById('agendas-container');
+    const departments_container = document.getElementById('departments-container');
+    const slot_fields_container = document.getElementById('slot-fields-container');
+    const submitButtonContainer = document.getElementById('submit-button-container');
+
+    aptTypeSelect.addEventListener('change', (e) => {
+      submitButtonContainer.style.display = 'none';
+      if(agendas_container) { agendas_container.innerHTML = '';}
+      if(departments_container) { departments_container.innerHTML = '';}
+      if(slots_container) { slots_container.innerHTML = '';}
+      if(slot_fields_container) { slot_fields_container.innerHTML = '';}
+
+      loadTemplate.places(aptTypeSelect.value);
+    });
+  };
+
+  this.place = function() {
+    const placeSelect = document.getElementById('appointment-form-place-select');
+    const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
+    const departmentSelect = document.getElementById('appointment-form-department-select');
+
+    const slots_container = document.getElementById('slots-container');
+    const agendas_container = document.getElementById('agendas-container');
+    const places_container = document.getElementById('places-container');
+
+    const out_of_department_container = document.getElementById('appointment-out-of-department-container');
+    const out_of_department_link = document.getElementById('appointment-out-of-department');
+    const submitButtonContainer = document.getElementById('submit-button-container');
+
+    if(departmentSelect) { out_of_department_container.style.display = 'none'; }
+
+    placeSelect.addEventListener('change', (e) => {
+      submitButtonContainer.style.display = 'none';
+      if(agendas_container) { agendas_container.innerHTML = ''; }
+      if(slots_container) { slots_container.innerHTML = ''; }
+
+      loadTemplate.agendas(placeSelect.value, aptTypeSelect.value);
+    });
+
+    out_of_department_link.addEventListener('click', (e) => {
+      e.preventDefault();
+      if(places_container) { places_container.innerHTML = '';}
+      out_of_department_link.style.display = 'none';
+
+      loadTemplate.departments(aptTypeSelect.value);
+    });
+  };
+
+  this.department = function() {
+    const departments_container = document.getElementById('departments-container');
+    const places_container = document.getElementById('places-container');
+    const agendas_container = document.getElementById('agendas-container');
+    const departmentSelect = document.getElementById('appointment-form-department-select');
+    const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
+
+    departments_container.after(places_container);
+
+    departmentSelect.addEventListener('change', (e) => {
+      if(agendas_container) { places_container.innerHTML = '';}
+      loadTemplate.places(aptTypeSelect.value, departmentSelect.value);
+    });
+  };
+
+  this.agenda = function() {
+    const convictId = getConvictId()
+    const convictSelect = document.getElementById('convict-name-autocomplete');
+    const placeSelect = document.getElementById('appointment-form-place-select');
+    const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
+    const agendaSelect = document.getElementById('appointment-form-agenda-select');
+    const submitButtonContainer = document.getElementById('submit-button-container');
+
+    if(agendaSelect == null) { loadTemplate.submit (convictId); return; }
+
+    const slots_container = document.getElementById('slots-container');
+
+    agendaSelect.addEventListener('change', (e) => {
+      submitButtonContainer.style.display = 'none';
+      if(slots_container) { slots_container.innerHTML = '';}
+
+      loadTemplate.timeOptions(placeSelect.value, agendaSelect.value, aptTypeSelect.value, convictId);
+    });
+  };
+
+  this.submit = function() {
+    MicroModal.init();
+
+    const slotsFields = document.getElementsByName('appointment[slot_id]');
+    const submitButtonContainer = document.getElementById('submit-button-container');
+    const errorMessage = document.getElementsByClassName('new-appointment-form-no-slot');
+
+    if(errorMessage.length == 1) { return; }
+    slotsFields.forEach(field => field.addEventListener('change', () => {
+      submitButtonContainer.style.display = 'flex';
+    }));
+
+    if(slotsFields.length == 0) { submitButtonContainer.style.display = 'flex'; }
+
+    const submitBtnWithSms = document.getElementById('btn-modal-with-sms');
+    const submitBtnWithoutSms = document.getElementById('btn-modal-without-sms');
+
+    submitBtnWithSms.addEventListener('click', (e) => { sendSms('true') });
+    submitBtnWithoutSms.addEventListener('click', (e) => { sendSms('false') });
+
+    const submitBtnWithoutModal = document.getElementById('submit-without-modal');
+    if(submitBtnWithoutModal == null) { return; }
+    submitBtnWithoutModal.addEventListener('click', (e) => { sendSms('false') });
+  };
+
+  const sendSms = function(with_sms) {
+    var input = document.createElement("input");
+    input.type = 'hidden';
+    input.name = 'send_sms';
+    input.value = with_sms;
+    document.getElementById('submit-btn-container').prepend(input);
+    document.getElementById('new_appointment').submit();
+  };
+
+  const getConvictId = function() {
+    const convictSelect = document.getElementById('convict-name-autocomplete');
+
+    if(convictSelect == null) {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+
+      return urlParams.get('convict_id');
+    }
+
+    return convictSelect.value
+  };
+};

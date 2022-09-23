@@ -26,6 +26,6 @@ $(document).on('select2:open', () => {
 function displayIsCpip(convict_id) {
   Rails.ajax({
     type: 'GET',
-    url: '/display_is_cpip?convict_id=' + convict_id
+    url: '/load_is_cpip?convict_id=' + convict_id
   });
 }

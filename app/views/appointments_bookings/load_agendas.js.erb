@@ -5,4 +5,4 @@ try {
   let agendas_container = document.getElementById('agendas-container');
 }
 
-agendas_container.innerHTML = "<%= j render partial: 'display_agendas', locals: {agendas: @agendas} %>";
+agendas_container.innerHTML = "<%= j render partial: 'load_agendas', locals: {agendas: @agendas} %>";

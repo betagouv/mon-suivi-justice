@@ -5,4 +5,4 @@ try {
   let cpip_container = document.getElementById('cpip-container');
 }
 
-cpip_container.innerHTML = "<%= j render partial: 'display_is_cpip', locals: {current_user: current_user, convict: @convict} %>";
+cpip_container.innerHTML = "<%= j render partial: 'load_is_cpip', locals: {current_user: current_user, convict: @convict} %>";
