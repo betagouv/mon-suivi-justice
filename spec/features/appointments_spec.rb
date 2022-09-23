@@ -97,7 +97,7 @@ RSpec.feature 'Appointments', type: :feature do
   end
 
   describe 'creation', js: true do
-    context 'appointment_type with predifined slots' do
+    context 'appointment_type with predefined slots' do
       before do
         @convict = create(:convict, first_name: 'Joe', last_name: 'Dalton')
         create :areas_convicts_mapping, convict: @convict, area: @user.organization.departments.first
@@ -269,7 +269,7 @@ RSpec.feature 'Appointments', type: :feature do
         expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
       end
 
-      it 'allows an agent to setup a meeting in another department', :focus do
+      it 'allows an agent to setup a meeting in another department' do
         department = create :department, number: '09', name: 'Ariège'
         organization = create :organization, name: 'TJ Foix', organization_type: 'tj'
         create :areas_organizations_mapping, organization: organization, area: department
