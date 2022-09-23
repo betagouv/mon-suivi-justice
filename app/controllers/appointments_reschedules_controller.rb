@@ -9,6 +9,7 @@ class AppointmentsReschedulesController < AppointmentsController
     if new_appointment.save
       cancel_old_appointment old_appointment, new_appointment
       book_new_appointment new_appointment
+
       redirect_to appointment_path new_appointment
     else
       redirect_to new_appointment_reschedule_path(old_appointment)
@@ -19,6 +20,7 @@ class AppointmentsReschedulesController < AppointmentsController
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
     @appointment_type = @appointment.slot.appointment_type
     authorize @appointment
+
     @slots_by_date = Slot.future
                          .relevant_and_available(@appointment.slot.agenda, @appointment.slot.appointment_type)
                          .order(:date)

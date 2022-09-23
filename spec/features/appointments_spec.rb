@@ -716,11 +716,11 @@ RSpec.feature 'Appointments', type: :feature do
 
       expect(page).to have_content 'Replanifier un rendez-vous'
 
-      fill_in 'appointment_slot_attributes_date', with: (Date.civil(2025, 4, 16)).strftime('%Y-%m-%d')
+      fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 16)).strftime('%Y-%m-%d')
 
       within first('.form-time-select-fields') do
-        select '15', from: 'appointment_slot_attributes_starting_time_4i'
-        select '00', from: 'appointment_slot_attributes_starting_time_5i'
+        select '15', from: 'appointment_slot_starting_time_4i'
+        select '00', from: 'appointment_slot_starting_time_5i'
       end
 
       click_button 'Enregistrer'
@@ -734,6 +734,7 @@ RSpec.feature 'Appointments', type: :feature do
       slot2 = Slot.find_by(date: Date.civil(2025, 4, 16))
       new_appointment = Appointment.find_by(slot: slot2)
 
+      expect(new_appointment.localized_time.hour).to eq 15
       expect(new_appointment.state).to eq 'booked'
       expect(new_appointment.history_items.count).to eq 4
       expect(new_appointment.reschedule_notif.state).to eq 'sent'
