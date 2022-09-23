@@ -8,7 +8,7 @@
           <%= t('show-convict-fulfilment-prompt', name: @convict.name,
                                                   place: apt.slot.agenda.place.name,
                                                   date: apt.slot.date,
-                                                  time: apt.slot.starting_time.to_s(:time)) %>
+                                                  time: apt.slot.localized_time.to_s(:time)) %>
         </div>
 
         <div class='appointment-fulfilment-controls-container'>
@@ -174,7 +174,7 @@
         <p class='show-convict-next-appointment'>
           <%= t('show_convict_next_appointment', place: apt.slot.agenda.place.name,
                                                  date: apt.slot.date,
-                                                 time: apt.slot.starting_time.to_s(:time)) %>
+                                                 time: apt.localized_time.to_s(:time)) %>
           <%= link_to t('see'), appointment_path(apt), class: 'show-convict-next-appointment-link' %>
         </p>
       <% end %>

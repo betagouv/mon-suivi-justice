@@ -1,8 +1,9 @@
 module SlotTypeFactory
   class << self
-    def perform(appointment_type:, agenda:, data:)
+    def perform(appointment_type:, agenda:, timezone:, data:)
       success = true
 
+      @timezone = timezone
       open_days = format_open_days(data)
       starting_times = build_starting_times(
         first_slot: build_first_slot(data),
@@ -23,6 +24,7 @@ module SlotTypeFactory
           success = false unless slot_type.save
         end
       end
+
       success
     end
 
@@ -47,11 +49,11 @@ module SlotTypeFactory
     end
 
     def build_first_slot(data)
-      Time.new(2021, 6, 21, data[:'first_slot(4i)'].to_i, data[:'first_slot(5i)'].to_i, 0, '+01:00')
+      Time.new(2021, 6, 21, data[:'first_slot(4i)'].to_i, data[:'first_slot(5i)'].to_i, 0, @timezone)
     end
 
     def build_last_slot(data)
-      Time.new(2021, 6, 21, data[:'last_slot(4i)'].to_i, data[:'last_slot(5i)'].to_i, 0, '+01:00')
+      Time.new(2021, 6, 21, data[:'last_slot(4i)'].to_i, data[:'last_slot(5i)'].to_i, 0, @timezone)
     end
   end
 end
