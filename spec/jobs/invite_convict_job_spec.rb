@@ -11,12 +11,12 @@ RSpec.describe InviteConvictJob, type: :job do
     end
 
     before do
-      stub_request(:post, 'https://www.msj_public.com/sms_invitations')
+      stub_request(:post, 'https://www.msj_public.com/api/users/invite')
       InviteConvictJob.perform_now(convict.id)
     end
 
     it 'calls the public API with the correct body' do
-      assert_requested :post, 'https://www.msj_public.com/sms_invitations',
+      assert_requested :post, 'https://www.msj_public.com/api/users/invite',
                        headers: { 'Authorization' => 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=' },
                        body: { phone: '+33666666666', msj_id: 1 }.to_json, times: 1
     end
