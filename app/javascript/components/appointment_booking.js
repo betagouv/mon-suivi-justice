@@ -17,6 +17,13 @@ const loadTemplate = new function () {
     });
   };
 
+  this.prosecutor = function(appointment_type_id) {
+    Rails.ajax({
+      type: 'GET',
+      url: '/load_prosecutor?apt_type_id=' + appointment_type_id
+    });
+  };
+
   this.departments = function(appointment_type_id) {
     Rails.ajax({
       type: 'GET',
@@ -65,11 +72,11 @@ const setupForm = new function() {
     const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
     const submitButtonContainer = document.getElementById('submit-button-container');
 
-
     aptTypeSelect.addEventListener('change', (e) => {
       resetFieldsBelow('appointmentType');
       submitButtonContainer.style.display = 'none';
 
+      loadTemplate.prosecutor(aptTypeSelect.value);
       loadTemplate.places(aptTypeSelect.value);
     });
   };
@@ -79,12 +86,10 @@ const setupForm = new function() {
     const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
     const departmentSelect = document.getElementById('appointment-form-department-select');
     const places_container = document.getElementById('places-container');
-
-    const out_of_department_container = document.getElementById('appointment-out-of-department-container');
     const out_of_department_link = document.getElementById('appointment-out-of-department');
     const submitButtonContainer = document.getElementById('submit-button-container');
 
-    if(departmentSelect) { out_of_department_container.style.display = 'none'; }
+    if(departmentSelect && out_of_department_link) { out_of_department_link.style.display = 'none'; }
 
     placeSelect.addEventListener('change', (e) => {
       resetFieldsBelow('place');
@@ -96,6 +101,7 @@ const setupForm = new function() {
     if(out_of_department_link) {
       out_of_department_link.addEventListener('click', (e) => {
         e.preventDefault();
+        resetFieldsBelow('department');
         if(places_container) { places_container.innerHTML = '';}
         out_of_department_link.style.display = 'none';
 

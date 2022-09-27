@@ -16,6 +16,10 @@ class AppointmentsBookingsController < ApplicationController
               end
   end
 
+  def load_prosecutor
+    @appointment_type = AppointmentType.find(params[:apt_type_id])
+  end
+
   def load_is_cpip
     @convict = params[:convict_id].present? ? Convict.find(params[:convict_id]) : nil
   end

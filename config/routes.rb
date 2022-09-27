@@ -56,6 +56,7 @@ Rails.application.routes.draw do
 
   scope controller: :appointments_bookings do
     get :load_places
+    get :load_prosecutor
     get :load_is_cpip
     get :load_agendas
     get :load_departments
