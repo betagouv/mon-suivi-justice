@@ -52,9 +52,9 @@ const loadTemplate = new function () {
 
 const setupForm = new function() {
   const STRUCTURE = {
-    appointmentType: { containerId: '' },
-    place: { containerId: 'places-container' },
+    appointmentType: { containerId: 'appointment-type-container' },
     department: { containerId: 'departments-container' },
+    place: { containerId: 'places-container' },
     agenda: { containerId: 'agendas-container' },
     slot: { containerId: 'slots-container' },
     slotField: { containerId: 'slot-fields-container' },
