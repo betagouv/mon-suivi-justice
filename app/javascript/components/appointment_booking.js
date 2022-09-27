@@ -51,20 +51,24 @@ const loadTemplate = new function () {
 }
 
 const setupForm = new function() {
+  const STRUCTURE = {
+    appointmentType: { containerId: '' },
+    place: { containerId: 'places-container' },
+    department: { containerId: 'departments-container' },
+    agenda: { containerId: 'agendas-container' },
+    slot: { containerId: 'slots-container' },
+    slotField: { containerId: 'slot-fields-container' },
+    submit: { containerId: 'submit-button-container' }
+  }
+
   this.appointmentType = function() {
     const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
-    const slots_container = document.getElementById('slots-container');
-    const agendas_container = document.getElementById('agendas-container');
-    const departments_container = document.getElementById('departments-container');
-    const slot_fields_container = document.getElementById('slot-fields-container');
     const submitButtonContainer = document.getElementById('submit-button-container');
 
+
     aptTypeSelect.addEventListener('change', (e) => {
+      resetFieldsBelow('appointmentType');
       submitButtonContainer.style.display = 'none';
-      if(agendas_container) { agendas_container.innerHTML = '';}
-      if(departments_container) { departments_container.innerHTML = '';}
-      if(slots_container) { slots_container.innerHTML = '';}
-      if(slot_fields_container) { slot_fields_container.innerHTML = '';}
 
       loadTemplate.places(aptTypeSelect.value);
     });
@@ -74,9 +78,6 @@ const setupForm = new function() {
     const placeSelect = document.getElementById('appointment-form-place-select');
     const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
     const departmentSelect = document.getElementById('appointment-form-department-select');
-
-    const slots_container = document.getElementById('slots-container');
-    const agendas_container = document.getElementById('agendas-container');
     const places_container = document.getElementById('places-container');
 
     const out_of_department_container = document.getElementById('appointment-out-of-department-container');
@@ -86,33 +87,33 @@ const setupForm = new function() {
     if(departmentSelect) { out_of_department_container.style.display = 'none'; }
 
     placeSelect.addEventListener('change', (e) => {
+      resetFieldsBelow('place');
       submitButtonContainer.style.display = 'none';
-      if(agendas_container) { agendas_container.innerHTML = ''; }
-      if(slots_container) { slots_container.innerHTML = ''; }
 
       loadTemplate.agendas(placeSelect.value, aptTypeSelect.value);
     });
 
-    out_of_department_link.addEventListener('click', (e) => {
-      e.preventDefault();
-      if(places_container) { places_container.innerHTML = '';}
-      out_of_department_link.style.display = 'none';
+    if(out_of_department_link) {
+      out_of_department_link.addEventListener('click', (e) => {
+        e.preventDefault();
+        if(places_container) { places_container.innerHTML = '';}
+        out_of_department_link.style.display = 'none';
 
-      loadTemplate.departments(aptTypeSelect.value);
-    });
+        loadTemplate.departments(aptTypeSelect.value);
+      });
+    }
   };
 
   this.department = function() {
     const departments_container = document.getElementById('departments-container');
     const places_container = document.getElementById('places-container');
-    const agendas_container = document.getElementById('agendas-container');
     const departmentSelect = document.getElementById('appointment-form-department-select');
     const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
 
     departments_container.after(places_container);
 
     departmentSelect.addEventListener('change', (e) => {
-      if(agendas_container) { places_container.innerHTML = '';}
+      resetFieldsBelow('department');
       loadTemplate.places(aptTypeSelect.value, departmentSelect.value);
     });
   };
@@ -123,15 +124,11 @@ const setupForm = new function() {
     const placeSelect = document.getElementById('appointment-form-place-select');
     const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
     const agendaSelect = document.getElementById('appointment-form-agenda-select');
-    const submitButtonContainer = document.getElementById('submit-button-container');
 
     if(agendaSelect == null) { loadTemplate.submit (convictId); return; }
 
-    const slots_container = document.getElementById('slots-container');
-
     agendaSelect.addEventListener('change', (e) => {
-      submitButtonContainer.style.display = 'none';
-      if(slots_container) { slots_container.innerHTML = '';}
+      resetFieldsBelow('agenda');
 
       loadTemplate.timeOptions(placeSelect.value, agendaSelect.value, aptTypeSelect.value, convictId);
     });
@@ -182,5 +179,21 @@ const setupForm = new function() {
     }
 
     return convictSelect.value
+  };
+
+  const resetFieldsBelow = function(identifier) {
+    const current_index = Object.keys(STRUCTURE).indexOf(identifier)
+    let fields_below = []
+
+    Object.keys(STRUCTURE).forEach((key) => {
+      if(Object.keys(STRUCTURE).indexOf(key) > current_index) {
+        fields_below.push(key);
+      }
+    });
+
+    fields_below.forEach((id) => {
+      const container = document.getElementById(STRUCTURE[id].containerId);
+      if(container) { container.innerHTML = '';}
+    });
   };
 };
