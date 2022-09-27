@@ -1,0 +1,15 @@
+<% if @departments.length > 0 %>
+  <div class="form-input-wrapper select required appointment_place_id">
+    <label class="select required form-label" for="appointment-form-place-select">
+      <abbr title="required">*</abbr> <%= t('appointments.new.home_department') %>
+    </label>
+    <select id="appointment-form-department-select" class="select required form-text-input form-select" required="required" aria-required="true" name="appointment[department_id]">
+      <option value="" label=" "></option>
+      <% @departments.each do |department| %>
+        <option value=<%= department.id %>><%= department.full_name %></option>
+      <% end %>
+    </select>
+  </div>
+<% else %>
+  <p class='new-appointment-form-no-place><%= t('new-appointment-no-place') %></p>
+<% end %>

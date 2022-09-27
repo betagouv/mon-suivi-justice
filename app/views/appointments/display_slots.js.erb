@@ -1,7 +1,0 @@
-try {
-  slots_container = document.getElementById('slots-container');
-} catch (error) {
-  let slots_container = document.getElementById('slots-container');
-}
-
-slots_container.innerHTML = "<%= j render partial: 'display_slots', locals: {slots_by_date: @slots_by_date} %>";

@@ -25,5 +25,4 @@
   </div>
 <% else %>
   <p class='new-appointment-form-no-slot'><%= t('new-appointment-no-slot') %></p>
-  <%= button_tag t('new_appointment_reload'), type: 'button', class: 'form-submit-button reload-button', onclick: "location.href = '#{new_appointment_path()}'" %>
 <% end %>

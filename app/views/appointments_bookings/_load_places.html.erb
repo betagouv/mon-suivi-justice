@@ -1,0 +1,21 @@
+<% if @places.length > 0 %>
+  <div class="form-input-wrapper select required appointment_place_id" id="appointment_place_field">
+    <label class="select required form-label" for="appointment-form-place-select">
+      <abbr title="required">*</abbr> <%= t('activerecord.models.place') %>
+    </label>
+    <select id="appointment-form-place-select" class="select required form-text-input form-select" required="required" aria-required="true" name="appointment[place_id]">
+      <option value="" label=" "></option>
+      <% @places.each do |place| %>
+        <option value=<%= place.id %>><%= place.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <% if @appointment_type.sortie_audience? && ENV['APP'] != 'mon-suivi-justice-prod' %>
+    <div class="appointment-form-out-of-department-container" id='appointment-out-of-department-container'>
+      <%= link_to t('appointments.new.out_of_department'), '#', id: 'appointment-out-of-department', class: 'appointment-form-out-of-department-link' %>
+    </div>
+  <% end %>
+<% else %>
+  <p class='new-appointment-form-no-place'><%= t('new-appointment-no-place') %></p>
+<% end %>

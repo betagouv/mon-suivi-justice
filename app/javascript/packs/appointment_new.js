@@ -1,3 +1,3 @@
-require("components/slot_selector");
+require("components/appointment_booking");
 require("components/convict_selector");
 require("components/modal");
