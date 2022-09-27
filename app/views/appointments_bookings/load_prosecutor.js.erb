@@ -1,7 +1,1 @@
-try {
-  appointment_type_container = document.getElementById('appointment-type-container');
-} catch (error) {
-  let appointment_type_container = document.getElementById('appointment-type-container');
-}
-
-appointment_type_container.insertAdjacentHTML('beforeend', "<%= j render partial: 'load_prosecutor', locals: {appointment_type: @appointment_type} %>");
+document.getElementById('prosecutor-container').innerHTML = "<%= j render partial: 'load_prosecutor', locals: {appointment_type: @appointment_type} %>";

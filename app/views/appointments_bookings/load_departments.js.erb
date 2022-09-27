@@ -1,8 +1,1 @@
-try {
-  console.log(typeof departments_container);
-  departments_container = document.getElementById('departments-container');
-} catch (error) {
-  let departments_container = document.getElementById('departments-container');
-}
-
-departments_container.innerHTML = "<%= j render partial: 'load_departments', locals: {deparments: @departments} %>";
+document.getElementById('departments-container').innerHTML = "<%= j render partial: 'load_departments', locals: {deparments: @departments} %>";

@@ -60,6 +60,7 @@ const loadTemplate = new function () {
 const setupForm = new function() {
   const STRUCTURE = {
     appointmentType: { containerId: 'appointment-type-container' },
+    prosecutor: { containerId: 'prosecutor-container' },
     department: { containerId: 'departments-container' },
     place: { containerId: 'places-container' },
     agenda: { containerId: 'agendas-container' },

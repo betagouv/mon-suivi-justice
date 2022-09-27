@@ -1,8 +1,1 @@
-try {
-  console.log(typeof submitButtonContainer);
-  submitButtonContainer = document.getElementById('submit-button-container');
-} catch (error) {
-  let submitButtonContainer = document.getElementById('submit-button-container');
-}
-
-submitButtonContainer.innerHTML = "<%= j render partial: 'load_submit_button', locals: {convict: @convict} %>";
+document.getElementById('submit-button-container').innerHTML = "<%= j render partial: 'load_submit_button', locals: {convict: @convict} %>";
