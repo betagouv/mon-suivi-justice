@@ -39,7 +39,7 @@ class AppointmentsBookingsController < ApplicationController
   end
 
   def load_departments
-    @departments = Department.joins(:organizations).distinct.order(:name)
+    @departments = Department.joins(:organizations).distinct.order(:number)
   end
 
   def load_time_options
