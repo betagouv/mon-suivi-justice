@@ -34,7 +34,7 @@
   <div class='edit-place-agendas-container'>
     <h2 class='form-secondary-title'><%= t('edit_place_agendas') %></h2>
 
-    <% @place.agendas.each do |agenda| %>
+    <% @place.agendas.kept.each do |agenda| %>
       <%= simple_form_for agenda, html: { class: 'edit-place-form' } do |form| %>
         <div class='edit-place-agenda-form-container'>
           <%= form.hidden_field :place_id, value: @place.id %>

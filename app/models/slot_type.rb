@@ -1,4 +1,5 @@
 class SlotType < ApplicationRecord
+  include Discard::Model
   has_paper_trail
 
   belongs_to :appointment_type
