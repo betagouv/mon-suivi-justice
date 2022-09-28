@@ -8,10 +8,12 @@ class AppointmentsBookingsController < ApplicationController
     @places = if params[:department_id].present?
                 department = Department.where(id: params[:department_id])
                 Place.in_departments(department)
+                     .available
                      .joins(:appointment_types)
                      .where(appointment_types: @appointment_type)
               else
                 policy_scope(Place).joins(:appointment_types)
+                                   .available
                                    .where(appointment_types: @appointment_type)
               end
   end

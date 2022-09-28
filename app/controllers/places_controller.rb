@@ -2,7 +2,7 @@ class PlacesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @places = policy_scope(Place).order(:name).page params[:page]
+    @places = policy_scope(Place).available.order(:name).page params[:page]
     authorize @places
   end
 
@@ -44,6 +44,14 @@ class PlacesController < ApplicationController
     authorize @place
 
     @place.destroy
+    redirect_to places_path
+  end
+
+  def archive
+    @place = Place.find(params[:place_id])
+    authorize @place
+
+    @place.update(archived: true)
     redirect_to places_path
   end
 

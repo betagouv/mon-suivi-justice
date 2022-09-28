@@ -1,3 +1,4 @@
+
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
@@ -26,7 +27,10 @@ Rails.application.routes.draw do
     resource :invitation, only: :create, controller: 'convict_invitations'
   end
 
-  resources :places
+  resources :places do
+    patch :archive
+  end
+
   resources :appointment_types
   resources :notification_types_reset, only: :update
   resources :slots

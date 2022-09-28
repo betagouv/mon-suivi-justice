@@ -29,6 +29,8 @@ class Place < ApplicationRecord
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
   }
 
+  scope :available, -> { where(archived: false) }
+
   def multiple_agendas?
     agendas.count > 1
   end
