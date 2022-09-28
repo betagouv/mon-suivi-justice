@@ -1,4 +1,6 @@
 class Agenda < ApplicationRecord
+  include Discard::Model
+
   belongs_to :place
   has_many :slots, dependent: :destroy
   has_many :slot_types, dependent: :destroy

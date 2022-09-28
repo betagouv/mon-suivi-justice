@@ -4,7 +4,7 @@ module SlotFactory
       @start_date = start_date.to_date
       @end_date = end_date.to_date
 
-      SlotType.find_each do |slot_type|
+      SlotType.kept.find_each do |slot_type|
         open_dates_on(slot_type.week_day).each do |date|
           create_slot date, slot_type
         end
