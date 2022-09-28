@@ -8,7 +8,7 @@ RSpec.feature 'Places', type: :feature do
 
   describe 'index' do
     before do
-      create(:place, name: 'Spip 78')
+      @place1 = create(:place, name: 'Spip 78')
       create(:place, name: 'Spip 83')
 
       visit places_path
@@ -19,10 +19,14 @@ RSpec.feature 'Places', type: :feature do
       expect(page).to have_content('Spip 83')
     end
 
-    it 'allows to delete convict' do
+    it 'allows to archive a place' do
+      expect(@place1.archived).to eq(false)
+
       within first('.places-item-container') do
-        expect { click_link('Supprimer') }.to change { Place.count }.by(-1)
+        click_link('Archiver')
       end
+
+      expect(@place1.reload.archived).to eq(true)
     end
   end
 

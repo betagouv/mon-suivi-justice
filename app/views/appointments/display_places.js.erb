@@ -1,8 +1,0 @@
-try {
-  console.log(typeof places_container);
-  places_container = document.getElementById('places-container');
-} catch (error) {
-  let places_container = document.getElementById('places-container');
-}
-
-places_container.innerHTML = "<%= j render partial: 'display_places', locals: {places: @places} %>";

@@ -19,6 +19,10 @@ class PlacePolicy < ApplicationPolicy
     ALLOWED_TO_EDIT.include? user.role
   end
 
+  def archive?
+    ALLOWED_TO_EDIT.include? user.role
+  end
+
   def show?
     ALLOWED_TO_EDIT.include? user.role
   end
