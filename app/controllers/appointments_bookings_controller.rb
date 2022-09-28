@@ -13,7 +13,7 @@ class AppointmentsBookingsController < ApplicationController
                      .where(appointment_types: @appointment_type)
               else
                 policy_scope(Place).joins(:appointment_types)
-                                   .available
+                                   .kept
                                    .where(appointment_types: @appointment_type)
               end
   end
