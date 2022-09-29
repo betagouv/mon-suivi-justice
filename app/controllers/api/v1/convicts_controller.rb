@@ -7,17 +7,17 @@ module Api
       def show
       end
 
-      def get_agent
-        @agent = @convict.agent
-
-
-        raise ActiveRecord::RecordNotFound unless @agent.present?
+      def get_cpip
+        @cpip = @convict.user
+        raise ActiveRecord::RecordNotFound unless @cpip.present?
       end
 
       private
 
       def get_convict
         @convict = Convict.find(params[:id])
+
+        render json: @convict
 
         raise ActiveRecord::RecordNotFound unless @convict.present?
       end
