@@ -4,7 +4,7 @@ Instructions pour installer Mon Suivi Justice en local.
 
 ## 1. Ruby
 
-MSJ utilise Ruby 2.7.4. L'installation peut être géré avec [RVM](https://rvm.io/): [Installing rubies](https://rvm.io/rubies/installing)
+MSJ utilise Ruby 2.7.6. L'installation peut être géré avec [RVM](https://rvm.io/): [Installing rubies](https://rvm.io/rubies/installing)
 
 ## 2. Bases de données
 
