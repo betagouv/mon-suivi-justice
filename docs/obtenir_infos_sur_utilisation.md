@@ -1,6 +1,6 @@
 # Obtenir des infos sur l'utilisation de MSJ avec Ahoy et Papertrail
 
-Le ministère et la CNIL exige une traçabilité des actions des agents sur MSJ. Le référent CNIL du ministère, Thomas Durantet, a définit le besoin en ces termes :
+Le ministère et la CNIL exigent une traçabilité des actions des agents sur MSJ. Le référent CNIL du ministère, Thomas Durantet, a définit le besoin en ces termes :
 
 > "Tracer les opérations de modification et consultation de tous les utilisateurs, les opérations doivent être horodatées et on doit pouvoir retrouver les fonctions de la personne qui consulte/modifie les données. Conservation des enregistrements pendant un an et suppression automatique."
 
