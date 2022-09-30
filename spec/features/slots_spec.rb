@@ -53,7 +53,7 @@ RSpec.feature 'Slots', type: :feature do
       expect(page).to have_select('Type de rendez-vous', options: ['', "Sortie d'audience SPIP"])
       select "Sortie d'audience SPIP", from: 'Type de rendez-vous'
 
-      fill_in 'Date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
+      fill_in 'Date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
 
       within first('.form-time-select-fields') do
         select '15', from: 'slot_batch_starting_time_4i'
@@ -86,7 +86,7 @@ RSpec.feature 'Slots', type: :feature do
       expect(page).to have_select('Type de rendez-vous', options: ['', "Sortie d'audience SPIP"])
       select "Sortie d'audience SPIP", from: 'Type de rendez-vous'
 
-      fill_in 'Date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
+      fill_in 'Date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
 
       within first('.form-time-select-fields') do
         select '15', from: 'slot_batch_starting_time_4i'
