@@ -5,7 +5,7 @@ module Api
         @convict = Convict.find(params[:id])
       end
 
-      def get_cpip
+      def cpip
         @convict = Convict.find(params[:convict_id])
         @cpip = @convict.user
         raise ActiveRecord::RecordNotFound unless @cpip.present?
