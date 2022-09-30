@@ -31,7 +31,7 @@ days_first_period = [
 days_first_period.each do |day|
   Slot.where(
     agenda_id: agenda.id,
-    appointment_type_id: appointment_type.id,
+    appointment_type_id: apt_type.id,
     date: day[:date],
   ).update_all(available: false)
 end
