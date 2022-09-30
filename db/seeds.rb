@@ -25,6 +25,12 @@ user = User.create!(
       )
 puts "User #{user.email} created"
 
+cpip = User.create!(
+  organization: organization1, email: 'cpip@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Bob', last_name: 'Dupneu'
+)
+puts "CPIP #{cpip.first_name} created"
+
 place1 = Place.create!(
   organization: organization2, name: "Tribunal judiciaire de Nanterre", adress: "179-191 av. Joliot Curie, 92020 NANTERRE", phone: '0606060606'
 )
@@ -52,10 +58,6 @@ NotificationType.create!(appointment_type: appointment_type2, role: :cancelation
 NotificationType.create!(appointment_type: appointment_type2, role: :no_show, template: "Vous n'êtes pas venu :(", is_default: true)
 NotificationType.create!(appointment_type: appointment_type2, role: :reschedule, template: "Changement du rdv de date X a date Y.", is_default: true)
 
-SlotType.create(appointment_type: appointment_type1, agenda: agenda1, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type1, agenda: agenda1, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type1, agenda: agenda1, week_day: :tuesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type1, agenda: agenda1, week_day: :tuesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: appointment_type1, agenda: agenda1, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: appointment_type1, agenda: agenda1, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 
@@ -64,22 +66,27 @@ puts "Place #{place2.name} created"
 agenda3 = Agenda.create!(place: place2, name: "Agenda SPIP 92")
 puts "Agenda #{agenda3.name} created"
 
-appointment_type2 = AppointmentType.create!(name: "RDV de suivi SPIP")
-puts "AppointmentType #{appointment_type2.name} created"
-PlaceAppointmentType.create!(place: place2, appointment_type: appointment_type2)
+appointment_type3 = AppointmentType.create!(name: "RDV de suivi SPIP")
+puts "AppointmentType #{appointment_type3.name} created"
+PlaceAppointmentType.create!(place: place2, appointment_type: appointment_type3)
 
-NotificationType.create!(appointment_type: appointment_type2, role: :summon, template: "Vous êtes convoqué, merci de venir.")
-NotificationType.create!(appointment_type: appointment_type2, role: :reminder, template: "RAPPEL Vous êtes convoqué, vraiment il faut venir.", reminder_period: :two_days)
-NotificationType.create!(appointment_type: appointment_type2, role: :cancelation, template: "Finalement non, c'est pas la peine.")
-NotificationType.create!(appointment_type: appointment_type2, role: :no_show, template: "Vous n'êtes pas venu :(")
-NotificationType.create!(appointment_type: appointment_type2, role: :reschedule, template: "Changement du rdv de date X a date Y.")
+NotificationType.create!(appointment_type: appointment_type3, role: :summon, template: "Vous êtes convoqué, merci de venir.", is_default: true)
+NotificationType.create!(appointment_type: appointment_type3, role: :reminder, template: "RAPPEL Vous êtes convoqué, vraiment il faut venir.", reminder_period: :two_days, is_default: true)
+NotificationType.create!(appointment_type: appointment_type3, role: :cancelation, template: "Finalement non, c'est pas la peine.", is_default: true)
+NotificationType.create!(appointment_type: appointment_type3, role: :no_show, template: "Vous n'êtes pas venu :(", is_default: true)
+NotificationType.create!(appointment_type: appointment_type3, role: :reschedule, template: "Changement du rdv de date X a date Y.", is_default: true)
 
-SlotType.create(appointment_type: appointment_type2, agenda: agenda2, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type2, agenda: agenda2, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type2, agenda: agenda2, week_day: :tuesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type2, agenda: agenda2, week_day: :tuesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type2, agenda: agenda2, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: appointment_type2, agenda: agenda2, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+appointment_type4 = AppointmentType.create!(name: "Sortie d'audience SPIP")
+puts "AppointmentType #{appointment_type4.name} created"
+PlaceAppointmentType.create!(place: place2, appointment_type: appointment_type4)
+NotificationType.create!(appointment_type: appointment_type4, role: :summon, template: "Vous êtes convoqué à votre sortie d'audience SPIP, merci de venir.", is_default: true)
+NotificationType.create!(appointment_type: appointment_type4, role: :reminder, template: "RAPPEL Vous êtes convoqué à votre sortie d'audience SPIP, vraiment il faut venir.", reminder_period: :two_days, is_default: true)
+NotificationType.create!(appointment_type: appointment_type4, role: :cancelation, template: "Finalement non, c'est pas la peine.", is_default: true)
+NotificationType.create!(appointment_type: appointment_type4, role: :no_show, template: "Vous n'êtes pas venu :(", is_default: true)
+NotificationType.create!(appointment_type: appointment_type4, role: :reschedule, template: "Changement du rdv de date X a date Y.", is_default: true)
+
+SlotType.create(appointment_type: appointment_type4, agenda: agenda3, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: appointment_type4, agenda: agenda3, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 
 SlotFactory.perform
 

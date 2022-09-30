@@ -2,7 +2,7 @@ class PlacesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @places = policy_scope(Place).available.order(:name).page params[:page]
+    @places = policy_scope(Place).kept.order(:name).page params[:page]
     authorize @places
   end
 
@@ -51,7 +51,12 @@ class PlacesController < ApplicationController
     @place = Place.find(params[:place_id])
     authorize @place
 
-    @place.update(archived: true)
+    @place.discard
+    @place.agendas.discard_all
+    @place.agendas.each do |a|
+      a.slot_types.discard_all
+    end
+
     redirect_to places_path
   end
 

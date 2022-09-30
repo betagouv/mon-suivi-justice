@@ -20,13 +20,13 @@ RSpec.feature 'Places', type: :feature do
     end
 
     it 'allows to archive a place' do
-      expect(@place1.archived).to eq(false)
+      expect(@place1.discarded?).to eq(false)
 
       within first('.places-item-container') do
         click_link('Archiver')
       end
 
-      expect(@place1.reload.archived).to eq(true)
+      expect(@place1.reload.discarded?).to eq(true)
     end
   end
 

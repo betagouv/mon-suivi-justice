@@ -1,5 +1,6 @@
 class Place < ApplicationRecord
   include NormalizedPhone
+  include Discard::Model
   has_paper_trail
 
   validates :name, :adress, :main_contact_method, presence: true
@@ -28,8 +29,6 @@ class Place < ApplicationRecord
     joins(organization: :areas_organizations_mappings)
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
   }
-
-  scope :available, -> { where(archived: false) }
 
   def multiple_agendas?
     agendas.count > 1

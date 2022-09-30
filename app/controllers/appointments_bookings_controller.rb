@@ -8,12 +8,12 @@ class AppointmentsBookingsController < ApplicationController
     @places = if params[:department_id].present?
                 department = Department.where(id: params[:department_id])
                 Place.in_departments(department)
-                     .available
+                     .kept
                      .joins(:appointment_types)
                      .where(appointment_types: @appointment_type)
               else
                 policy_scope(Place).joins(:appointment_types)
-                                   .available
+                                   .kept
                                    .where(appointment_types: @appointment_type)
               end
   end
@@ -28,7 +28,7 @@ class AppointmentsBookingsController < ApplicationController
 
   def load_agendas
     place = Place.find(params[:place_id])
-    @agendas = Agenda.where(place_id: place.id)
+    @agendas = Agenda.kept.where(place_id: place.id)
     @appointment_type = AppointmentType.find(params[:apt_type_id])
 
     return unless @agendas.count == 1
@@ -39,7 +39,7 @@ class AppointmentsBookingsController < ApplicationController
   end
 
   def load_departments
-    @departments = Department.joins(:organizations).distinct
+    @departments = Department.joins(:organizations).distinct.order(:number)
   end
 
   def load_time_options
