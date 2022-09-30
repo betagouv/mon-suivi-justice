@@ -14,7 +14,7 @@ polymorphism: false
 sort: true
 warn: false
 title: false
-exclude: "ActiveRecord::InternalMetadata,ActiveRecord::SchemaMigration,primary::SchemaMigration, PaperTrail::Version"
+exclude: "ActiveRecord::InternalMetadata,ActiveRecord::SchemaMigration,primary::SchemaMigration,PaperTrail::Version,ActiveStorage::Blob,ActiveStorage::VariantRecord,ActionText::RichText,ActiveStorage::Attachment,Ahoy::Visit,Ahoy::Event,Devise::Models::PreviousPassword"
 only: null
 only_recursion_depth: null
 prepend_primary: false
