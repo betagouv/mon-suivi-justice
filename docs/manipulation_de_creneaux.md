@@ -1,6 +1,6 @@
 # Manipulation de créneaux
 
-Problème : si un lieu de rdv change ses créneaux récurrents, il n'y a pas de mécanisme pour gérer le changement précisément. Le système génère six mois de créneaux de rdv en avance à partir des créneaux récurrents, et on anonce à l'équipe un changement des horaires trois mois en avance, il y a déjà 3 mois de mauvais créneaux en trop dans le système.
+Problème : si un lieu de rdv change ses créneaux récurrents, il n'y a pas de mécanisme pour gérer le changement précisément. Le système génère six mois de créneaux de rdv en avance à partir des créneaux récurrents. Si on anonce à l'équipe un changement des horaires trois mois en avance, il y a déjà 3 mois de mauvais créneaux en trop dans le système.
 
 Le cas utilisé comme exemple ici est réellement arrivé, le tribunal de Nanterre a changé ses horaires pour les rdv sorties d'audience SAP, et le changement était actif à partir du 30 mai. Et donc dès le mois d'avril, les agents sont censé pouvoir prendre rdv en juin sur les nouveaux horaires.
 
