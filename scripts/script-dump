@@ -32,6 +32,27 @@ end
 
 ================================================================================
 
+# trouver les agents qui n'ont pas crée leur compte après l'invitation :
+
+result = []
+users_by_orga = User.where(invitation_accepted_at: nil).group_by { |u| u.organization_id }
+
+users_by_orga.each do |orga|
+  temp = []
+  o = Organization.find(orga[0])
+  temp << o.name
+
+  orga[1].each do |u|
+    temp << [u.last_name, u.first_name, I18n.t("activerecord.attributes.user.user_roles.#{u.role}")]
+  end
+
+  result << temp
+end
+
+result
+
+================================================================================
+
 # Duplication des créneaux récurrents d'un type de rdv vers un autre
 
 slot_types = SlotType.where(appointment_type_id: 4)
