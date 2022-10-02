@@ -9,6 +9,9 @@
         Vous (<%= true_user.last_name %>) êtes connecté  en tant  que <%= current_user.last_name %>
         <%= link_to("Retour à l'admin", stop_impersonating_users_path, method: :post,  class: 'header-link') %>
       <% end %>
+      <% if current_user.admin? %>
+        <%= link_to("Interface admin", admin_root_path, method: :get,  class: 'header-link') %>
+      <% end %>
     <% end %>
     <%= link_to(t('my_profile'), user_path(current_user.id), class: 'header-link') %>
     <%= link_to(t('log_out'), destroy_user_session_path, method: :delete, class: 'header-link') %>
