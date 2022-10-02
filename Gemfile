@@ -56,6 +56,9 @@ gem 'wkhtmltopdf-binary', '~> 0.12'
 gem 'tzinfo'
 gem 'tzinfo-data'
 
+gem 'administrate'
+gem 'pretender'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'

@@ -2,6 +2,13 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  namespace :admin do
+      resources :users do
+        get '/impersonate' => "users#impersonate"
+      end
+      resources :convicts
+      root to: "users#index"
+    end
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   devise_for :users, controllers: { invitations: 'invitations' }
@@ -14,6 +21,7 @@ Rails.application.routes.draw do
   resources :users do
     get :invitation_link
     get :reset_pwd_link
+    post :stop_impersonating, on: :collection
   end
 
   resource :user do
