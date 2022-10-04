@@ -45,6 +45,7 @@ class UserDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     organization
+    role
     first_name
     last_name
     email
