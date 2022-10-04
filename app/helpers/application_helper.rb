@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include FontAwesome::Rails::IconHelper
+
   def active_class_if_controller(controller)
     if controller.is_a?(Array)
       controller.include?(params[:controller]) ? 'sidebar-active-item' : 'sidebar-inactive-item'
