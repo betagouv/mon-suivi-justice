@@ -96,6 +96,10 @@ Layout/LineLength:
   Exclude:
     - app/dashboards/**/*
 
+Style/ClassAndModuleChildren:
+  Exclude:
+    - app/dashboards/**/*
+
 Style/IfWithBooleanLiteralBranches:
   Exclude:
     - app/policies/appointment_policy.rb
