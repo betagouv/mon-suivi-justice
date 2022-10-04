@@ -46,9 +46,6 @@ module Admin
     def impersonate
       user = User.find(params[:user_id])
 
-      puts user
-
-
       impersonate_user(user)
       redirect_to root_path
     end
