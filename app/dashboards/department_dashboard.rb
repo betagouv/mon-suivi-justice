@@ -26,8 +26,9 @@ class DepartmentDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    areas_convicts_mappings
-    areas_organizations_mappings
+    name
+    number
+    organizations
     convicts
   ].freeze
 

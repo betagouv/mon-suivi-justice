@@ -39,8 +39,12 @@ class ConvictDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     appi_uuid
+    first_name
+    last_name
+    phone
     appointments
-    areas_convicts_mappings
+    departments
+    jurisdictions
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -48,23 +52,22 @@ class ConvictDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     appi_uuid
-    appointments
-    areas_convicts_mappings
-    departments
-    discarded_at
     first_name
-    history_items
-    invitation_to_convict_interface_count
-    jurisdictions
-    last_invite_to_convict_interface
     last_name
-    no_phone
     phone
-    prosecutor_number
     refused_phone
-    timestamp_convict_interface_creation
+    appointments
+    departments
+    history_items
+    jurisdictions
+    no_phone
+    prosecutor_number
     user
+    timestamp_convict_interface_creation
+    invitation_to_convict_interface_count
+    last_invite_to_convict_interface
     versions
+    discarded_at
     created_at
     updated_at
   ].freeze

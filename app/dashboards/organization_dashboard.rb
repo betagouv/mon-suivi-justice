@@ -32,7 +32,8 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    areas_organizations_mappings
+    name
+    organization_type
     departments
     jurisdictions
   ].freeze
@@ -41,16 +42,16 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    areas_organizations_mappings
+    organization_type
+    name
+    users
     departments
     jurisdictions
-    name
-    notification_types
-    organization_type
     places
+    areas_organizations_mappings
+    notification_types
     rich_text_jap_modal_content
     time_zone
-    users
     created_at
     updated_at
   ].freeze
@@ -66,7 +67,6 @@ class OrganizationDashboard < Administrate::BaseDashboard
     notification_types
     organization_type
     places
-    rich_text_jap_modal_content
     time_zone
     users
   ].freeze
@@ -86,7 +86,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how organizations are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(organization)
-  #   "Organization ##{organization.id}"
-  # end
+  def display_resource(organization)
+    "##{organization.id} - #{organization.name}"
+  end
 end

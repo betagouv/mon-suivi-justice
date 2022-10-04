@@ -44,8 +44,9 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    appointments
-    convicts
+    organization
+    first_name
+    last_name
     email
   ].freeze
 
@@ -53,11 +54,18 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
+    email
+    first_name
+    last_name
+    organization
+    phone
+    remember_created_at
+    role
     appointments
     convicts
-    email
-    encrypted_password
-    first_name
+    share_email_to_convict
+    share_phone_to_convict
+    visits
     invitation_accepted_at
     invitation_created_at
     invitation_limit
@@ -65,16 +73,8 @@ class UserDashboard < Administrate::BaseDashboard
     invitation_token
     invitations_count
     invited_by
-    last_name
-    organization
-    phone
-    remember_created_at
     reset_password_sent_at
     reset_password_token
-    role
-    share_email_to_convict
-    share_phone_to_convict
-    visits
     created_at
     updated_at
   ].freeze
@@ -121,7 +121,7 @@ class UserDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how users are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(user)
-  #   "User ##{user.id}"
-  # end
+  def display_resource(user)
+    "##{user.id} #{user.first_name} #{user.last_name}"
+  end
 end

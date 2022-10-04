@@ -34,8 +34,8 @@ class AppointmentDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     case_prepared
-    convict
-    history_items
+    state
+    slot
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

@@ -90,7 +90,7 @@ class SlotDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how slots are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(slot)
-  #   "Slot ##{slot.id}"
-  # end
+  def display_resource(slot)
+    "#{slot.date} #{slot.localized_time.to_s(:time)}"
+  end
 end

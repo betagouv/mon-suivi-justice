@@ -7,6 +7,9 @@ Rails.application.routes.draw do
         get '/impersonate' => "users#impersonate"
       end
       resources :convicts
+      resources :organizations
+      resources :departments
+      resources :slots, except: :index
       root to: "users#index"
     end
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
