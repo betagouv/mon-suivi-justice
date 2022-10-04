@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class PlaceDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -14,7 +14,9 @@ class PlaceDashboard < Administrate::BaseDashboard
     appointment_types: Field::HasMany,
     contact_email: Field::String,
     discarded_at: Field::DateTime,
-    main_contact_method: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
+    main_contact_method: Field::Select.with_options(searchable: false, collection: lambda { |field|
+                                                                                     field.resource.class.send(field.attribute.to_s.pluralize).keys
+                                                                                   }),
     name: Field::String,
     organization: Field::BelongsTo,
     phone: Field::String,
@@ -22,7 +24,7 @@ class PlaceDashboard < Administrate::BaseDashboard
     preparation_link: Field::String,
     versions: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

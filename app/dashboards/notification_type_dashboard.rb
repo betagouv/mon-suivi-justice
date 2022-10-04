@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class NotificationTypeDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -12,13 +12,17 @@ class NotificationTypeDashboard < Administrate::BaseDashboard
     appointment_type: Field::BelongsTo,
     is_default: Field::Boolean,
     organization: Field::BelongsTo,
-    reminder_period: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
-    role: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
+    reminder_period: Field::Select.with_options(searchable: false, collection: lambda { |field|
+                                                                                 field.resource.class.send(field.attribute.to_s.pluralize).keys
+                                                                               }),
+    role: Field::Select.with_options(searchable: false, collection: lambda { |field|
+                                                                      field.resource.class.send(field.attribute.to_s.pluralize).keys
+                                                                    }),
     still_default: Field::Boolean,
     template: Field::Text,
     versions: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

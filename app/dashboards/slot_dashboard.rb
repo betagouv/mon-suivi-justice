@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class SlotDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -22,7 +22,7 @@ class SlotDashboard < Administrate::BaseDashboard
     used_capacity: Field::Number,
     versions: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

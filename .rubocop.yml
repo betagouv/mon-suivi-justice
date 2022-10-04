@@ -92,6 +92,10 @@ Metrics/AbcSize:
     - app/services/history_item_factory.rb
     - app/services/data_collector/sda.rb
 
+Layout/LineLength:
+  Exclude:
+    - app/dashboards/**/*
+
 Style/IfWithBooleanLiteralBranches:
   Exclude:
     - app/policies/appointment_policy.rb

@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class HistoryItemDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -10,12 +10,16 @@ class HistoryItemDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     appointment: Field::BelongsTo,
-    category: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
+    category: Field::Select.with_options(searchable: false, collection: lambda { |field|
+                                                                          field.resource.class.send(field.attribute.to_s.pluralize).keys
+                                                                        }),
     content: Field::Text,
     convict: Field::BelongsTo,
-    event: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
+    event: Field::Select.with_options(searchable: false, collection: lambda { |field|
+                                                                       field.resource.class.send(field.attribute.to_s.pluralize).keys
+                                                                     }),
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

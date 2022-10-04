@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class OrganizationDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -14,13 +14,15 @@ class OrganizationDashboard < Administrate::BaseDashboard
     jurisdictions: Field::HasMany,
     name: Field::String,
     notification_types: Field::HasMany,
-    organization_type: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
+    organization_type: Field::Select.with_options(searchable: false, collection: lambda { |field|
+                                                                                   field.resource.class.send(field.attribute.to_s.pluralize).keys
+                                                                                 }),
     places: Field::HasMany,
     rich_text_jap_modal_content: Field::HasOne,
     time_zone: Field::String,
     users: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

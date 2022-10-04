@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class AppointmentDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -14,14 +14,16 @@ class AppointmentDashboard < Administrate::BaseDashboard
     history_items: Field::HasMany,
     inviter_user_id: Field::Number,
     notifications: Field::HasMany,
-    origin_department: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
+    origin_department: Field::Select.with_options(searchable: false, collection: lambda { |field|
+                                                                                   field.resource.class.send(field.attribute.to_s.pluralize).keys
+                                                                                 }),
     prosecutor_number: Field::String,
     slot: Field::BelongsTo,
     state: Field::String,
     user: Field::BelongsTo,
     versions: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

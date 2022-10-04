@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ConvictDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -28,7 +28,7 @@ class ConvictDashboard < Administrate::BaseDashboard
     user: Field::BelongsTo,
     versions: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

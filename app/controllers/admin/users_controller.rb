@@ -49,6 +49,5 @@ module Admin
       impersonate_user(user)
       redirect_to root_path
     end
-
   end
 end

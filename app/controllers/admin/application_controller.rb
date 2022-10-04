@@ -4,9 +4,9 @@
 #
 # If you want to add pagination or other controller-level concerns,
 # you're free to overwrite the RESTful controller actions.
-include FontAwesome::Rails::IconHelper
 
 module Admin
+  include FontAwesome::Rails::IconHelper
   class ApplicationController < Administrate::ApplicationController
     impersonates :user
     before_action :authenticate_admin
