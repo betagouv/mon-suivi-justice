@@ -6,8 +6,8 @@
 # you're free to overwrite the RESTful controller actions.
 
 module Admin
-  include FontAwesome::Rails::IconHelper
   class ApplicationController < Administrate::ApplicationController
+
     impersonates :user
     before_action :authenticate_admin
 
