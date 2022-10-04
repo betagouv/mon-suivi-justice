@@ -2,7 +2,7 @@ json.id appointment.id
 json.datetime appointment.datetime
 json.duration appointment.duration
 json.state appointment.human_state_name
-json.origin_department I18n.translate("activerecord.attributes.appointment.origin_departments.#{appointment.origin_department}") if appointment.origin_department.present? # rubocop:disable Metrics/LineLength
+json.origin_department I18n.translate("activerecord.attributes.appointment.origin_departments.#{appointment.origin_department}") if appointment.origin_department.present? # rubocop:disable Layout/LineLength
 json.place do
   json.partial! 'api/v1/places/place', place: appointment.place
 end

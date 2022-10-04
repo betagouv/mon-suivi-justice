@@ -36,4 +36,8 @@ class UserPolicy < ApplicationPolicy
   def reset_pwd_link?
     user.admin?
   end
+
+  def stop_impersonating?
+    true
+  end
 end
