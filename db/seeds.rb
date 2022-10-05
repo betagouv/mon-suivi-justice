@@ -12,8 +12,12 @@ puts "Organization #{organization1.name} created"
 organization2 = Organization.create!(name: 'TJ Nanterre', organization_type: 'tj')
 puts "Organization #{organization2.name} created"
 
+organization2 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
+puts "Organization #{organization3.name} created"
+
 AreasOrganizationsMapping.create organization: organization1, area: Department.find_by(number: '92')
 AreasOrganizationsMapping.create organization: organization2, area: Department.find_by(number: '92')
+AreasOrganizationsMapping.create organization: organization3, area: Department.find_by(number: '75')
 
 convict = Convict.create!(first_name: "Michel", last_name: "Blabla", phone: "0677777777", appi_uuid: "12345")
 puts "Convict #{convict.phone} created"
@@ -30,6 +34,12 @@ cpip = User.create!(
   password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Bob', last_name: 'Dupneu'
 )
 puts "CPIP #{cpip.first_name} created"
+
+cpip2 = User.create!(
+  organization: organization3, email: 'cpip75@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Luke', last_name: 'Skywalker'
+)
+puts "CPIP #{cpip2.first_name} created"
 
 place1 = Place.create!(
   organization: organization2, name: "Tribunal judiciaire de Nanterre", adress: "179-191 av. Joliot Curie, 92020 NANTERRE", phone: '0606060606'

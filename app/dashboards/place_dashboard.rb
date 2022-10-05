@@ -92,7 +92,7 @@ class PlaceDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how places are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(place)
-  #   "Place ##{place.id}"
-  # end
+  def display_resource(place)
+    "#{place.name}"
+  end
 end

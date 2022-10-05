@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :organizations
       resources :departments
       resources :slots, except: :index
+      resources :places, except: :index
       root to: "users#index"
     end
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
