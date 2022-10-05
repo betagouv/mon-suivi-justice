@@ -50,7 +50,6 @@ class OrganizationDashboard < Administrate::BaseDashboard
     places
     areas_organizations_mappings
     notification_types
-    rich_text_jap_modal_content
     time_zone
     created_at
     updated_at
