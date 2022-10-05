@@ -7,7 +7,6 @@
 
 module Admin
   class ApplicationController < Administrate::ApplicationController
-
     impersonates :user
     before_action :authenticate_admin
 
