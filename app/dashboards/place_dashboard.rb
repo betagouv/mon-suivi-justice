@@ -93,6 +93,6 @@ class PlaceDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(place)
-    "#{place.name}"
+    place.name.to_s
   end
 end
