@@ -12,22 +12,33 @@ puts "Organization #{organization1.name} created"
 organization2 = Organization.create!(name: 'TJ Nanterre', organization_type: 'tj')
 puts "Organization #{organization2.name} created"
 
-organization2 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
-puts "Organization #{organization3.name} created"
+orgSpip75 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
+puts "Organization #{orgSpip75.name} created"
 
+# Un service peut être rattaché à des départements et/ou des juridictions
+# Cela impacte le rattachement des ppsmj à tel  département et/ou juridiction à leur création
 AreasOrganizationsMapping.create organization: organization1, area: Department.find_by(number: '92')
+AreasOrganizationsMapping.create organization: organization1, area: Jurisdiction.find_by(name: 'TJ NANTERRE')
+
 AreasOrganizationsMapping.create organization: organization2, area: Department.find_by(number: '92')
-AreasOrganizationsMapping.create organization: organization3, area: Department.find_by(number: '75')
+
+AreasOrganizationsMapping.create organization: orgSpip75, area: Department.find_by(number: '75')
 
 convict = Convict.create!(first_name: "Michel", last_name: "Blabla", phone: "0677777777", appi_uuid: "12345")
 puts "Convict #{convict.phone} created"
-AreasConvictsMapping.create convict: convict, area: Department.find_by(number: '92')
 
-user = User.create!(
+convict2 = Convict.create!(first_name: "Dark", last_name: "Vador", phone: "0600000000", appi_uuid: "12346")
+puts "Convict #{convict2.phone} created"
+
+AreasConvictsMapping.create convict: convict, area: Department.find_by(number: '92')
+AreasConvictsMapping.create convict: convict2, area: Department.find_by(number: '92')
+
+
+admin = User.create!(
         organization: organization1, email: 'admin@example.com', password: '1mot2passeSecurise!',
         password_confirmation: '1mot2passeSecurise!', role: :admin, first_name: 'Kevin', last_name: 'McCallister'
       )
-puts "User #{user.email} created"
+puts "User #{admin.email} created"
 
 cpip = User.create!(
   organization: organization1, email: 'cpip@example.com', password: '1mot2passeSecurise!',
@@ -36,7 +47,7 @@ cpip = User.create!(
 puts "CPIP #{cpip.first_name} created"
 
 cpip2 = User.create!(
-  organization: organization3, email: 'cpip75@example.com', password: '1mot2passeSecurise!',
+  organization: orgSpip75, email: 'cpip75@example.com', password: '1mot2passeSecurise!',
   password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Luke', last_name: 'Skywalker'
 )
 puts "CPIP #{cpip2.first_name} created"
@@ -97,6 +108,14 @@ NotificationType.create!(appointment_type: appointment_type4, role: :reschedule,
 
 SlotType.create(appointment_type: appointment_type4, agenda: agenda3, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: appointment_type4, agenda: agenda3, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+
+orgSpip75place1 = Place.create!(
+  organization: orgSpip75, name: "SPIP 75", adress: "12-14 rue Charles Fourier, 75 013 PARIS", phone: '0606060606'
+)
+puts "Place #{orgSpip75place1.name} created"
+
+agendaOrgSpip75place1 = Agenda.create!(place: orgSpip75place1, name: "Agenda SPIP 75")
+puts "Agenda #{agenda3.name} created"
 
 SlotFactory.perform
 
