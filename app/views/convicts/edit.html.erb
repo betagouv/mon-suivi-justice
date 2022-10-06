@@ -34,7 +34,7 @@
             <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: department, convict: @convict)),
                         method: :delete,
                         class: 'convict-attachment-delete',
-                        data: { confirm: "Attention, en supprimant ce département vous risquez de perdre les droits d'édition sur cette ppsmj.\n\nSi vous souhaitez également changer la juridiction, pensez à la faire au préalable.\n\nCliquez sur 'Annuler' pour modifier d'abord la juridiction" } %>
+                        data: { confirm: "Attention, en supprimant ce département vous risquez de perdre les droits d'édition sur cette ppsmj.\n\nSi vous souhaitez également changer la juridiction, pensez à le faire au préalable.\n\nCliquez sur 'Annuler' pour modifier d'abord la juridiction" } %>
           <% else %>
             <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: department, convict: @convict)),
                                     method: :delete,
