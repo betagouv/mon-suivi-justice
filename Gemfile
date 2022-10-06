@@ -79,7 +79,7 @@ group :development do
   gem 'letter_opener_web', '~> 2.0'
   gem 'rails-erd'
   gem 'state_machines-graphviz'
-  gem "debug", ">= 1.0.0"
+  gem 'debug', '>= 1.0.0'
 end
 
 group :test do
