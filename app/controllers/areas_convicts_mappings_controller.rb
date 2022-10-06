@@ -6,7 +6,16 @@ class AreasConvictsMappingsController < ApplicationController
     authorize mapping
 
     mapping.destroy
-    redirect_to edit_convict_path(mapping.convict)
+    flash[:notice] = "Les rattachements de la ppsmj ont bien été mis à jour"
+
+    # If current_user can no longer see the convict, redirect the user to the convicts index
+    convict = policy_scope(Convict).find_by_id(mapping.convict.id)
+
+    if convict.present?
+      redirect_to edit_convict_path(mapping.convict)
+    else
+      redirect_to convicts_path
+    end
   end
 
   def create
