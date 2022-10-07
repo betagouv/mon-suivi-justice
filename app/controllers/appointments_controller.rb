@@ -123,7 +123,6 @@ class AppointmentsController < ApplicationController
   end
 
   def assign_appointment_to_creating_organization
-    debugger
     @appointment.creating_organization = current_user.organization
   end
 end
