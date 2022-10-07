@@ -41,9 +41,14 @@ cpip2 = User.create!(
   password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Luke', last_name: 'Skywalker'
 )
 
-localadmin75 = User.create!(
-  organization: org_spip_75, email: 'localadmin75@example.com', password: '1mot2passeSecurise!',
+local_admin_spip_75 = User.create!(
+  organization: org_spip_75, email: 'localadminSpip75@example.com', password: '1mot2passeSecurise!',
   password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'Shia', last_name: 'Leboeuf'
+)
+
+local_admin_tj_nanterre = User.create!(
+  organization: org_tj_nanterre, email: 'localadmintjnanterre@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'André', last_name: 'Dussolier'
 )
 
 place_1 = Place.create!(

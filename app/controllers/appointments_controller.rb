@@ -43,7 +43,8 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new(appointment_params)
 
     assign_appointment_to_user
-
+    assign_appointment_to_creating_organization
+    
     authorize @appointment
     if @appointment.save
       @appointment.convict.update(user: current_user) if params.dig(:appointment, :user_is_cpip) == '1'
@@ -119,5 +120,10 @@ class AppointmentsController < ApplicationController
     return unless @appointment.slot&.appointment_type&.assignable? && current_user.can_have_appointments_assigned?
 
     @appointment.user = current_user
+  end
+
+  def assign_appointment_to_creating_organization
+    debugger
+    @appointment.creating_organization = current_user.organization
   end
 end

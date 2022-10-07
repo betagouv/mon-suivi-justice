@@ -11,6 +11,10 @@ Rails.application.routes.draw do
       resources :departments
       resources :slots, except: :index
       resources :places, except: :index
+      if Rails.env.development?
+        resources :seeds, only: [:index]
+        get '/reset_db' => "seeds#reset_db"
+      end
       root to: "users#index"
     end
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
