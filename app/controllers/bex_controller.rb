@@ -5,7 +5,7 @@ class BexController < ApplicationController
   def agenda_jap
     @appointment_type = AppointmentType.find_by(name: "Sortie d'audience SAP")
     @current_date = current_date(@appointment_type, params)
-    @agendas = policy_scope(Agenda).with_open_slots_for_date(@current_date, @appointment_type)
+    @agendas = policy_scope(Agenda).kept.with_open_slots_for_date(@current_date, @appointment_type)
 
     respond_to do |format|
       format.html
