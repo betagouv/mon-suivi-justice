@@ -43,6 +43,7 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new(appointment_params)
 
     assign_appointment_to_user
+    assign_appointment_to_creating_organization
 
     authorize @appointment
     if @appointment.save
@@ -119,5 +120,9 @@ class AppointmentsController < ApplicationController
     return unless @appointment.slot&.appointment_type&.assignable? && current_user.can_have_appointments_assigned?
 
     @appointment.user = current_user
+  end
+
+  def assign_appointment_to_creating_organization
+    @appointment.creating_organization = current_user.organization
   end
 end

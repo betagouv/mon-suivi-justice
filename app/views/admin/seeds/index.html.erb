@@ -1,0 +1,11 @@
+<div style="padding: 20px">
+  <h1>[ATTENTION] - Reset base de données</h1>
+  <br>
+  <%= link_to(
+          "Clean database and seed it",
+          admin_reset_db_path(),
+          class: "text-color-red",
+          data: { confirm: t("administrate.actions.confirm") }
+        ) %>
+
+</div>
