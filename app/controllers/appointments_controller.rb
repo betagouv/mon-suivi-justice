@@ -44,7 +44,7 @@ class AppointmentsController < ApplicationController
 
     assign_appointment_to_user
     assign_appointment_to_creating_organization
-    
+
     authorize @appointment
     if @appointment.save
       @appointment.convict.update(user: current_user) if params.dig(:appointment, :user_is_cpip) == '1'
