@@ -93,8 +93,8 @@
                     <%= appointments[i]&.prosecutor_number %>
                   </div>
                   <div class='bex-agenda-column'>
-                    <% if appointments[i].present? && appointments[i].creating_organization_id.present? %>
-                      <%= appointments[i].organization.name %>
+                    <% if appointments[i].present? && appointments[i].creating_organization.present? %>
+                      <%= appointments[i].creating_organization.name %>
                     <% elsif appointments[i].present? && appointments[i].inviter_user_id.present? %>
                       <% user = User.find(appointments[i].inviter_user_id) %>
                       <%= user.organization.name %>
