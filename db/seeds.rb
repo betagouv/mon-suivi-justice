@@ -21,10 +21,12 @@ AreasOrganizationsMapping.create organization: org_spip_75, area: Department.fin
 
 convict_1 = Convict.create!(first_name: "Michel", last_name: "Blabla", phone: "0677777777", appi_uuid: "12345")
 convict_2 = Convict.create!(first_name: "Dark", last_name: "Vador", phone: "0600000000", appi_uuid: "12346")
+convict_3 = Convict.create!(first_name: "Bobba", last_name: "Smet", phone: "0611111111", appi_uuid: "12347")
 
 AreasConvictsMapping.create convict: convict_1, area: Department.find_by(number: '92')
 AreasConvictsMapping.create convict: convict_2, area: Department.find_by(number: '92')
 AreasConvictsMapping.create convict: convict_2, area: Jurisdiction.find_by(name: 'TJ NANTERRE')
+AreasConvictsMapping.create convict: convict_3, area: Department.find_by(number: '75')
 
 admin = User.create!(
         organization: org_spip_92, email: 'admin@example.com', password: '1mot2passeSecurise!',

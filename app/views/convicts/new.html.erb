@@ -62,6 +62,18 @@
       <% end %>
     </div>
   <% else %>
+
+    <% if @convict_with_same_appi.present? %>
+      <% convict_with_same_appi = @convict_with_same_appi.first %>
+      <% deps = convict_with_same_appi.departments.map(&:number).join(",") %>
+      <div class='new-convict-duplicate-warning'>
+        <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_appi_uuid', name: convict_with_same_appi.name, deps: deps)%></p>
+        <% if !policy_scope(@convict_with_same_appi).empty? %>
+          <%= link_to t('new_convict_duplicate_link', name: convict_with_same_appi.name), convict_path(convict_with_same_appi), target: "_blank" %>
+        <% end %>
+      </div>
+    <% end %>
+
     <div class='new-convict-submits-container'>
       <%= f.button :button, id: 'submit-no-appointment', class: 'form-submit-button', name: 'no-appointment' do %>
         <%= t('submit') %><br><%= t('new_convict_submit') %>

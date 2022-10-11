@@ -370,6 +370,7 @@ fr:
   new_convict_duplicate_warning3: "Merci de vérifier qu'il s'agit bien de deux personnes distinctes avant d'enregistrer ce nouveau profil."
   new_convict_duplicate_warning4: "Si un homonyme existe dans un autre département, et que vous pensez que c'est la même personne, merci de contacter le support."
   new_convict_duplicate_warning5: "Un homonyme existe dans le département %{name} (%{number})."
+  new_convict_duplicate_appi_uuid: "La ppsmj %{name} dans le(s) département(s): %{deps} possède le même numéro APPI."
   edit_convict_title: "Modifier PPSMJ"
   edit_convict_department_title: "Département(s) de la PPSMJ"
   edit_convict_jurisdiction_title: "Juridiction(s) de la PPSMJ"
