@@ -1,0 +1,11 @@
+{
+    "env": {
+        "IS_REVIEW_APP": {
+          "value": "true"
+        }
+      },
+    "scripts": {
+        "first-deploy": "bin/rails db:schema:load db:migrate",
+        "postdeploy": "bin/rails db:migrate"
+      }
+}
