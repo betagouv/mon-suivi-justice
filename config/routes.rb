@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :departments
       resources :slots, except: :index
       resources :places, except: :index
+      resources :jurisdictions, except: :index
       if Rails.env.development?
         resources :seeds, only: [:index]
         get '/reset_db' => "seeds#reset_db"
