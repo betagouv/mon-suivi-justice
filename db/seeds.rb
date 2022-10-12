@@ -11,7 +11,7 @@ org_tj_nanterre = Organization.create!(name: 'TJ Nanterre', organization_type: '
 org_spip_75 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
 org_spip_77 = Organization.create!(name: 'SPIP 77', organization_type: 'spip')
 org_tj_melun = Organization.create!(name: 'TJ Melun', organization_type: 'tj')
-org_tj_fontainebleau = Organization.create!(name: 'TJ de Fointainebleau', organization_type: 'tj')
+org_tj_fontainebleau = Organization.create!(name: 'TJ de Fontainebleau', organization_type: 'tj')
 
 # Un service peut être rattaché à des départements et/ou des juridictions
 # Cela impacte le rattachement des ppsmj à tel  département et/ou juridiction à leur création

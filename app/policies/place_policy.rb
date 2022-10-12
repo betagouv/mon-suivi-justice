@@ -4,7 +4,7 @@ class PlacePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.admin? || user.local_admin? || user.work_at_bex?
-        scope.in_departments(user.organization.departments)
+        scope.in_organization_or_dep_spips(user.organization.departments)
       else
         scope.in_organization(user.organization)
       end

@@ -30,6 +30,17 @@ class Place < ApplicationRecord
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
   }
 
+  scope :in_organization_or_dep_spips, lambda { |departments|
+    ids = departments.map(&:id)
+    joins(organization: :areas_organizations_mappings)
+      .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
+      .or(
+        joins(organization: :areas_organizations_mappings)
+        .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
+        .where(organizations: { organization_type: 'spip' })
+      )
+  }
+
   def multiple_agendas?
     agendas.count > 1
   end
