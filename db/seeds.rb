@@ -112,6 +112,11 @@ PlaceAppointmentType.create!(place: place_tj_nanterre, appointment_type: apt_typ
 PlaceAppointmentType.create!(place: place_spip_92, appointment_type: apt_type_rdv_suivi_spip)
 PlaceAppointmentType.create!(place: place_spip_92, appointment_type: apt_type_sortie_audience_spip)
 
+PlaceAppointmentType.create!(place: place_tj_melun, appointment_type: apt_type_rdv_suivi_jap)
+PlaceAppointmentType.create!(place: place_tj_melun, appointment_type: apt_type_sortie_audience_sap)
+PlaceAppointmentType.create!(place: place_tj_fontainebleau, appointment_type: apt_type_rdv_suivi_jap)
+PlaceAppointmentType.create!(place: place_tj_fontainebleau, appointment_type: apt_type_sortie_audience_sap)
+
 NotificationType.create!(appointment_type: apt_type_sortie_audience_sap, role: :summon, template: "Vous êtes convoqué, merci de venir.", is_default: true)
 NotificationType.create!(appointment_type: apt_type_sortie_audience_sap, role: :reminder, template: "RAPPEL Vous êtes convoqué, vraiment il faut venir.", reminder_period: :two_days, is_default: true)
 NotificationType.create!(appointment_type: apt_type_sortie_audience_sap, role: :cancelation, template: "Finalement non, c'est pas la peine.", is_default: true)
