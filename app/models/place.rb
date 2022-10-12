@@ -15,9 +15,9 @@ class Place < ApplicationRecord
   belongs_to :organization
 
   enum main_contact_method: {
-         phone: 0,
-         email: 1
-       }, _default: :phone, _suffix: true
+    phone: 0,
+    email: 1
+  }, _default: :phone, _suffix: true
 
   accepts_nested_attributes_for :agendas, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :place_appointment_types

@@ -24,7 +24,7 @@ gem 'cocoon', '~> 1.2'
 
 gem 'phony_rails', '~> 0.15'
 
-gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'ransack', '~>3.2'
 gem 'kaminari', '~> 1.2'
 gem 'font-awesome-rails', '~> 4.7'
 
@@ -56,6 +56,9 @@ gem 'wkhtmltopdf-binary', '~> 0.12'
 gem 'tzinfo'
 gem 'tzinfo-data'
 
+gem 'administrate'
+gem 'pretender'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
@@ -76,6 +79,7 @@ group :development do
   gem 'letter_opener_web', '~> 2.0'
   gem 'rails-erd'
   gem 'state_machines-graphviz'
+  gem 'debug', '>= 1.0.0'
 end
 
 group :test do

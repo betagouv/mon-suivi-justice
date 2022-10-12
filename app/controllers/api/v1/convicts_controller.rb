@@ -3,8 +3,12 @@ module Api
     class ConvictsController < ApiController
       def show
         @convict = Convict.find(params[:id])
+      end
 
-        raise ActiveRecord::RecordNotFound unless @convict.present?
+      def cpip
+        @convict = Convict.find(params[:convict_id])
+        @cpip = @convict.user
+        raise ActiveRecord::RecordNotFound unless @cpip.present?
       end
     end
   end

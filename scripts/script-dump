@@ -3,201 +3,53 @@ Morceaux de scripts utiles / maintenance MSJ
 
 ================================================================================
 
-# Intégration d'un nouveau ressort
+# Exemple de tache rake avec progressbar pour reset les notification_types au défaut
 
-1. Création des Services (Organization)
+require 'ruby-progressbar'
 
-  Onglet services => nouveau service
+desc 'reset notification_types templates to default'
+task reset_notification_types: :environment do
+  progress = ProgressBar.create(total: AppointmentType.count * Organization.count * NotificationType.roles.count)
 
-2. Création des agents
+  AppointmentType.all.each do |at|
+    default = NotificationType.where(appointment_type: at)
 
-  (possible dans l'interface)
+    Organization.all.each do |o|
+      NotificationType.roles.each_key do |role|
+        old_notif_type = NotificationType.where(organization: o, role: role, appointment_type: at)
+        old_notif_type.first.destroy if old_notif_type.first.present?
 
-3. Création des lieux et des agendas associés
+        new_notif_type = default.where(role: role).first.dup
+        new_notif_type.organization = o
+        new_notif_type.is_default = false
+        new_notif_type.save!
 
-  (possible dans l'interface)
-
-4. Création des créneaux recurrents
-
-  à faire pour chaque agenda
-  ajuster les jours et heures d'ouverture et la capacité
-
-  exemple : un créneau tous les jours ouvrés,
-            toutes les 15 minutes entre 8h et 18h, capacité 100
-
-
-  at = AppointmentType.find_by(name: 'RDV de suivi SPIP')
-  agenda = Agenda.find(22)
-  open_days = %i[monday tuesday wednesday thursday friday]
-
-  starts = [
-    Time.new(2021, 6, 21, 8, 00, 0, "+01:00"),
-    Time.new(2021, 6, 21, 8, 15, 0, "+01:00"),
-    Time.new(2021, 6, 21, 8, 30, 0, "+01:00"),
-    Time.new(2021, 6, 21, 8, 45, 0, "+01:00"),
-    Time.new(2021, 6, 21, 9, 00, 0, "+01:00"),
-    Time.new(2021, 6, 21, 9, 15, 0, "+01:00"),
-    Time.new(2021, 6, 21, 9, 30, 0, "+01:00"),
-    Time.new(2021, 6, 21, 9, 45, 0, "+01:00"),
-    Time.new(2021, 6, 21, 10, 00, 0, "+01:00"),
-    Time.new(2021, 6, 21, 10, 15, 0, "+01:00"),
-    Time.new(2021, 6, 21, 10, 30, 0, "+01:00"),
-    Time.new(2021, 6, 21, 10, 45, 0, "+01:00"),
-    Time.new(2021, 6, 21, 11, 00, 0, "+01:00"),
-    Time.new(2021, 6, 21, 11, 15, 0, "+01:00"),
-    Time.new(2021, 6, 21, 11, 30, 0, "+01:00"),
-    Time.new(2021, 6, 21, 11, 45, 0, "+01:00"),
-    Time.new(2021, 6, 21, 12, 00, 0, "+01:00"),
-    Time.new(2021, 6, 21, 12, 15, 0, "+01:00"),
-    Time.new(2021, 6, 21, 12, 30, 0, "+01:00"),
-    Time.new(2021, 6, 21, 12, 45, 0, "+01:00"),
-    Time.new(2021, 6, 21, 13, 00, 0, "+01:00"),
-    Time.new(2021, 6, 21, 13, 15, 0, "+01:00"),
-    Time.new(2021, 6, 21, 13, 30, 0, "+01:00"),
-    Time.new(2021, 6, 21, 13, 45, 0, "+01:00"),
-    Time.new(2021, 6, 21, 14, 00, 0, "+01:00"),
-    Time.new(2021, 6, 21, 14, 15, 0, "+01:00"),
-    Time.new(2021, 6, 21, 14, 30, 0, "+01:00"),
-    Time.new(2021, 6, 21, 14, 45, 0, "+01:00"),
-    Time.new(2021, 6, 21, 15, 00, 0, "+01:00"),
-    Time.new(2021, 6, 21, 15, 15, 0, "+01:00"),
-    Time.new(2021, 6, 21, 15, 30, 0, "+01:00"),
-    Time.new(2021, 6, 21, 15, 45, 0, "+01:00"),
-    Time.new(2021, 6, 21, 16, 00, 0, "+01:00"),
-    Time.new(2021, 6, 21, 16, 15, 0, "+01:00"),
-    Time.new(2021, 6, 21, 16, 30, 0, "+01:00"),
-    Time.new(2021, 6, 21, 16, 45, 0, "+01:00"),
-    Time.new(2021, 6, 21, 17, 00, 0, "+01:00"),
-    Time.new(2021, 6, 21, 17, 15, 0, "+01:00"),
-    Time.new(2021, 6, 21, 17, 30, 0, "+01:00"),
-    Time.new(2021, 6, 21, 17, 45, 0, "+01:00"),
-    Time.new(2021, 6, 21, 18, 00, 0, "+01:00")
-  ]
-
-  open_days.each do |od|
-    starts.each do |st|
-      SlotType.create!(
-        week_day: od,
-        starting_time: st,
-        duration: 15,
-        capacity: 100,
-        appointment_type: at,
-        agenda: agenda
-      )
-    end
-  end
-
-  si plusieurs agenda avec le meme type de RDV & memes horaires
-
-  agendas = [32, 33, 34]
-  at = AppointmentType.find_by(name: 'Rdv de suivi JAP')
-
-  agendas.each do |a|
-    ag = Agenda.find(a)
-    open_days.each do |od|
-      starts3.each do |st|
-        SlotType.create!(
-          week_day: od,
-          starting_time: st,
-          duration: 15,
-          capacity: 1,
-          appointment_type: at,
-          agenda: ag
-        )
+        progress.increment
       end
     end
   end
-
-5. Création des créneaux
-
-  SlotCreationJob.perform_later
-
+end
 
 ================================================================================
 
-# Création type de RDV
+# trouver les agents qui n'ont pas crée leur compte après l'invitation :
 
-at = AppointmentType.create!(name: 'SAP débat contradictoire')
-NotificationType.create!(appointment_type: at, role: :summon, template: "Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}. En cas de problème, contactez le standard au {lieu.téléphone}.")
-NotificationType.create!(appointment_type: at, role: :reminder, template: "RAPPEL Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}. En cas de problème, contactez le standard au {lieu.téléphone}.", reminder_period: :two_days)
-NotificationType.create!(appointment_type: at, role: :cancelation, template: "Votre rendez-vous du {rdv.date} à {rdv.heure} est annulé. Si vous n'avez pas d'autre rendez-vous, merci d'appeler le {lieu.nom} au {lieu.téléphone} pour en fixer un nouveau.")
-NotificationType.create!(appointment_type: at, role: :no_show, template: "Vous avez manqué votre rendez-vous du {rdv.date} à {rdv.heure} au {lieu.nom}, merci de contacter rapidement le {lieu.téléphone}.")
-NotificationType.create!(appointment_type: at, role: :reschedule, template: "Votre rendez-vous a été modifié. Vous êtes désormais convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}. En cas de problème, contactez votre conseiller référent ou le standard au {lieu.téléphone}.")
+result = []
+users_by_orga = User.where(invitation_accepted_at: nil).group_by { |u| u.organization_id }
 
-(si nécessaire, créer un lieu + agenda)
+users_by_orga.each do |orga|
+  temp = []
+  o = Organization.find(orga[0])
+  temp << o.name
 
--> choisir ce type de rdv sur les bons lieux
-
-Ajouter le nom du nouveau type de rdv dans la bonne méthode du modèle appointment_type (par ex : used_at_spip?)
-
-création des créneaux récurrents
-(ex tous les jours, tous les créneaux possibles)
-
-agenda = Agenda.find(22)
-open_days = %i[monday tuesday wednesday thursday friday]
-
-starts = [
-  Time.new(2021, 6, 21, 8, 00, 0, "+01:00"),
-  Time.new(2021, 6, 21, 8, 15, 0, "+01:00"),
-  Time.new(2021, 6, 21, 8, 30, 0, "+01:00"),
-  Time.new(2021, 6, 21, 8, 45, 0, "+01:00"),
-  Time.new(2021, 6, 21, 9, 00, 0, "+01:00"),
-  Time.new(2021, 6, 21, 9, 15, 0, "+01:00"),
-  Time.new(2021, 6, 21, 9, 30, 0, "+01:00"),
-  Time.new(2021, 6, 21, 9, 45, 0, "+01:00"),
-  Time.new(2021, 6, 21, 10, 00, 0, "+01:00"),
-  Time.new(2021, 6, 21, 10, 15, 0, "+01:00"),
-  Time.new(2021, 6, 21, 10, 30, 0, "+01:00"),
-  Time.new(2021, 6, 21, 10, 45, 0, "+01:00"),
-  Time.new(2021, 6, 21, 11, 00, 0, "+01:00"),
-  Time.new(2021, 6, 21, 11, 15, 0, "+01:00"),
-  Time.new(2021, 6, 21, 11, 30, 0, "+01:00"),
-  Time.new(2021, 6, 21, 11, 45, 0, "+01:00"),
-  Time.new(2021, 6, 21, 12, 00, 0, "+01:00"),
-  Time.new(2021, 6, 21, 12, 15, 0, "+01:00"),
-  Time.new(2021, 6, 21, 12, 30, 0, "+01:00"),
-  Time.new(2021, 6, 21, 12, 45, 0, "+01:00"),
-  Time.new(2021, 6, 21, 13, 00, 0, "+01:00"),
-  Time.new(2021, 6, 21, 13, 15, 0, "+01:00"),
-  Time.new(2021, 6, 21, 13, 30, 0, "+01:00"),
-  Time.new(2021, 6, 21, 13, 45, 0, "+01:00"),
-  Time.new(2021, 6, 21, 14, 00, 0, "+01:00"),
-  Time.new(2021, 6, 21, 14, 15, 0, "+01:00"),
-  Time.new(2021, 6, 21, 14, 30, 0, "+01:00"),
-  Time.new(2021, 6, 21, 14, 45, 0, "+01:00"),
-  Time.new(2021, 6, 21, 15, 00, 0, "+01:00"),
-  Time.new(2021, 6, 21, 15, 15, 0, "+01:00"),
-  Time.new(2021, 6, 21, 15, 30, 0, "+01:00"),
-  Time.new(2021, 6, 21, 15, 45, 0, "+01:00"),
-  Time.new(2021, 6, 21, 16, 00, 0, "+01:00"),
-  Time.new(2021, 6, 21, 16, 15, 0, "+01:00"),
-  Time.new(2021, 6, 21, 16, 30, 0, "+01:00"),
-  Time.new(2021, 6, 21, 16, 45, 0, "+01:00"),
-  Time.new(2021, 6, 21, 17, 00, 0, "+01:00"),
-  Time.new(2021, 6, 21, 17, 15, 0, "+01:00"),
-  Time.new(2021, 6, 21, 17, 30, 0, "+01:00"),
-  Time.new(2021, 6, 21, 17, 45, 0, "+01:00"),
-  Time.new(2021, 6, 21, 18, 00, 0, "+01:00")
-]
-
-open_days.each do |od|
-  starts.each do |st|
-    SlotType.create!(
-      week_day: od,
-      starting_time: st,
-      duration: 15,
-      capacity: 100,
-      appointment_type: at,
-      agenda: agenda
-    )
+  orga[1].each do |u|
+    temp << [u.last_name, u.first_name, I18n.t("activerecord.attributes.user.user_roles.#{u.role}")]
   end
+
+  result << temp
 end
 
--> lancer le script de création des créneaux
-
-SlotCreationJob.perform_later
-
-Ajuster les templates des SMS
+result
 
 ================================================================================
 

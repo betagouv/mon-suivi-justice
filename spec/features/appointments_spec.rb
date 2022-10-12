@@ -325,7 +325,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'McDo des Halles', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
-        fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
+        fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
           select '15', from: 'appointment_slot_starting_time_4i'
@@ -353,7 +353,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'Placement TIG/TNR', from: :appointment_appointment_type_id
         select 'Foirfouille de Melun', from: 'Lieu'
 
-        fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 19)).strftime('%Y-%m-%d')
+        fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 19).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
           select '15', from: 'appointment_slot_starting_time_4i'
@@ -380,7 +380,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'McDo des Halles', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
-        fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
+        fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
           select '15', from: 'appointment_slot_starting_time_4i'
@@ -402,7 +402,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'McDo des Halles', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
-        fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 19)).strftime('%Y-%m-%d')
+        fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 19).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
           select '15', from: 'appointment_slot_starting_time_4i'
@@ -436,7 +436,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'KFC de Chatelet', from: 'Lieu'
         select 'Agenda de Josiane', from: 'Agenda'
 
-        fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
+        fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
           select '15', from: 'appointment_slot_starting_time_4i'
@@ -466,7 +466,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'KFC de Chatelet', from: 'Lieu'
         select 'Agenda de Josiane', from: 'Agenda'
 
-        fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
+        fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
           select '15', from: 'appointment_slot_starting_time_4i'
@@ -737,7 +737,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       expect(page).to have_content 'Replanifier un rendez-vous'
 
-      fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 16)).strftime('%Y-%m-%d')
+      fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 16).strftime('%Y-%m-%d')
 
       within first('.form-time-select-fields') do
         select '15', from: 'appointment_slot_starting_time_4i'

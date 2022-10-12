@@ -37,7 +37,7 @@ RSpec.feature 'NotificationType', type: :feature do
       select 'RDV de suivi SPIP', from: :appointment_appointment_type_id
       select 'SPIP 65', from: 'Lieu'
 
-      fill_in 'appointment_slot_date', with: (Date.civil(2025, 4, 18)).strftime('%Y-%m-%d')
+      fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
 
       within first('.form-time-select-fields') do
         select '15', from: 'appointment_slot_starting_time_4i'

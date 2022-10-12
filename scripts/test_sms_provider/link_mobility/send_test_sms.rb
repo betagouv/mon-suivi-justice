@@ -12,7 +12,7 @@ client = Faraday.new(
 end
 
 data = {
-  destinationAddress: '33687934479',
+  destinationAddress: '33600000000',
   messageText: 'SMS test link_mobility 4',
   originatorTON: 1,
   originatingAddress: 'JUSTICETEST'

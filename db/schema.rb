@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_28_134958) do
+ActiveRecord::Schema.define(version: 2022_10_07_081232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,9 @@ ActiveRecord::Schema.define(version: 2022_09_28_134958) do
     t.bigint "user_id"
     t.boolean "case_prepared", default: false, null: false
     t.bigint "inviter_user_id"
+    t.bigint "creating_organization_id"
     t.index ["convict_id"], name: "index_appointments_on_convict_id"
+    t.index ["creating_organization_id"], name: "index_appointments_on_creating_organization_id"
     t.index ["slot_id"], name: "index_appointments_on_slot_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end
@@ -348,6 +350,7 @@ ActiveRecord::Schema.define(version: 2022_09_28_134958) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agendas", "places"
   add_foreign_key "appointments", "convicts"
+  add_foreign_key "appointments", "organizations", column: "creating_organization_id"
   add_foreign_key "appointments", "slots"
   add_foreign_key "appointments", "users"
   add_foreign_key "areas_convicts_mappings", "convicts"

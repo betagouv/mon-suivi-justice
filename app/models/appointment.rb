@@ -4,6 +4,7 @@ class Appointment < ApplicationRecord
   belongs_to :convict
   belongs_to :slot
   belongs_to :user, optional: true
+  belongs_to :creating_organization, class_name: 'Organization', optional: true
 
   has_many :notifications, dependent: :destroy
   has_many :history_items, dependent: :destroy

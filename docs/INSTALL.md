@@ -4,7 +4,7 @@ Instructions pour installer Mon Suivi Justice en local.
 
 ## 1. Ruby
 
-MSJ utilise Ruby 2.7.4. L'installation peut être géré avec [RVM](https://rvm.io/): [Installing rubies](https://rvm.io/rubies/installing)
+MSJ utilise Ruby 2.7.6. L'installation peut être géré avec [RVM](https://rvm.io/): [Installing rubies](https://rvm.io/rubies/installing)
 
 ## 2. Bases de données
 
@@ -21,6 +21,7 @@ MSJ utilise Ruby 2.7.4. L'installation peut être géré avec [RVM](https://rvm.
 - Yarn : voir https://yarnpkg.com/en/docs/install
 - Foreman : voir https://github.com/ddollar/foreman
 - graphviz, pour rails-erd : voir https://voormedia.github.io/rails-erd/install.html
+- webpack-cli : Pour lancer le serveur local avec webpack, il faut avoir installé `webpack-cli` en global.
 
 ## 4. Script d'installation
 
@@ -30,7 +31,7 @@ Une fois les dépendances installées, lancer le script d'installation :
 
 Pour vérifier que tout fonctionne, lancer le serveur local :
 
-`$ foreman start`
+`$ foreman start -f Procfile.dev`
 
 Vous pouvez vous connecter avec l'utilisateur 'admin@example.com', mot de passe : 'password'.
 

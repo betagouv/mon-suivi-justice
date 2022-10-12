@@ -2,6 +2,21 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  namespace :admin do
+      resources :users do
+        get '/impersonate' => "users#impersonate"
+      end
+      resources :convicts
+      resources :organizations
+      resources :departments
+      resources :slots, except: :index
+      resources :places, except: :index
+      if Rails.env.development?
+        resources :seeds, only: [:index]
+        get '/reset_db' => "seeds#reset_db"
+      end
+      root to: "users#index"
+    end
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   devise_for :users, controllers: { invitations: 'invitations' }
@@ -14,6 +29,7 @@ Rails.application.routes.draw do
   resources :users do
     get :invitation_link
     get :reset_pwd_link
+    post :stop_impersonating, on: :collection
   end
 
   resource :user do
@@ -102,6 +118,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: "json"} do
     namespace :v1 do
       resources :convicts, only: :show do
+        get 'cpip'
         resource :invitation, only: :update, controller: 'convict_invitations'
       end
     end

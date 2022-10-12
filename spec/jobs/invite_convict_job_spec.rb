@@ -7,7 +7,8 @@ RSpec.describe InviteConvictJob, type: :job do
 
   describe '#perform' do
     let(:convict) do
-      create(:convict, id: 1, phone: '+33666666666', invitation_to_convict_interface_count: 0)
+      create(:convict, id: 1, phone: '+33666666666', first_name: 'Bob', last_name: 'Dupneu',
+                       invitation_to_convict_interface_count: 0)
     end
 
     before do
@@ -18,7 +19,9 @@ RSpec.describe InviteConvictJob, type: :job do
     it 'calls the public API with the correct body' do
       assert_requested :post, 'https://www.msj_public.com/api/users/invite',
                        headers: { 'Authorization' => 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=' },
-                       body: { phone: '+33666666666', msj_id: 1 }.to_json, times: 1
+                       body: { phone: '+33666666666',
+                               msj_id: 1, first_name: 'Bob',
+                               last_name: 'Dupneu' }.to_json, times: 1
     end
 
     it 'increments the invitation_to_convict_interface_count' do
