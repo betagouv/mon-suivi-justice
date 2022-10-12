@@ -11,7 +11,6 @@ module Admin
     before_action :authenticate_admin
     after_action :track_action
 
-
     def authenticate_admin
       redirect_to root_path unless current_user.admin?
     end
