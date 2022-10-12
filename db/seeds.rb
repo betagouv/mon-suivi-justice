@@ -88,7 +88,11 @@ place_tj_fontainebleau = Place.create!(
 )
 
 place_spip_75 = Place.create!(
-  organization: org_spip_75, name: "SPIP 75", adress: "12-14 rue Charles Fourier, 75 013 PARIS", phone: '0606060606'
+  organization: org_spip_75, name: "SPIP 75", adress: "12-14 rue Charles Fourier, 75013 PARIS", phone: '0606060606'
+)
+
+place_spip_77 = Place.create!(
+  organization: org_spip_77, name: "SPIP 77", adress: "5 rue de la montagne du Mée, 77000 MELUN", phone: '0606060606'
 )
 
 place_spip_92 = Place.create!(organization: org_spip_92, name: "SPIP 92", adress: "94 Boulevard du Général Leclerc, 92000 Nanterre", phone: '0606060606')
@@ -116,6 +120,7 @@ PlaceAppointmentType.create!(place: place_tj_melun, appointment_type: apt_type_r
 PlaceAppointmentType.create!(place: place_tj_melun, appointment_type: apt_type_sortie_audience_sap)
 PlaceAppointmentType.create!(place: place_tj_fontainebleau, appointment_type: apt_type_rdv_suivi_jap)
 PlaceAppointmentType.create!(place: place_tj_fontainebleau, appointment_type: apt_type_sortie_audience_sap)
+PlaceAppointmentType.create!(place: place_spip_77, appointment_type: apt_type_sortie_audience_spip)
 
 NotificationType.create!(appointment_type: apt_type_sortie_audience_sap, role: :summon, template: "Vous êtes convoqué, merci de venir.", is_default: true)
 NotificationType.create!(appointment_type: apt_type_sortie_audience_sap, role: :reminder, template: "RAPPEL Vous êtes convoqué, vraiment il faut venir.", reminder_period: :two_days, is_default: true)
