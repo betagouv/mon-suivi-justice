@@ -9,6 +9,8 @@ module Admin
   class ApplicationController < Administrate::ApplicationController
     impersonates :user
     before_action :authenticate_admin
+    after_action :track_action
+
 
     def authenticate_admin
       redirect_to root_path unless current_user.admin?
@@ -19,5 +21,11 @@ module Admin
     # def records_per_page
     #   params[:per_page] || 20
     # end
+
+    private
+
+    def track_action
+      ahoy.track 'Ran action', request.query_parameters.merge(request.path_parameters)
+    end
   end
 end
