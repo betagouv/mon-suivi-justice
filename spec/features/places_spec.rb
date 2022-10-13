@@ -4,6 +4,7 @@ RSpec.feature 'Places', type: :feature do
   before do
     create_admin_user_and_login
     allow(Place).to receive(:in_departments).and_return(Place.all)
+    allow(Place).to receive(:in_organization_or_dep_spips).and_return(Place.all)
   end
 
   describe 'index' do
