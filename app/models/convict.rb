@@ -4,7 +4,7 @@ class Convict < ApplicationRecord
   has_paper_trail
 
   WHITELISTED_PHONES = %w[+33659763117 +33683481555 +33682356466 +33603371085
-                          +33687934479 +33674426177 +33616430756 +33613254126 +33674212998].freeze
+                          +33687934479 +33674426177 +33616430756 +33613254126 +33674212998 +33607886138].freeze
 
   has_many :appointments, dependent: :destroy
   has_many :history_items, dependent: :destroy
