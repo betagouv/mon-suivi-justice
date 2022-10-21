@@ -35,10 +35,10 @@ class Place < ApplicationRecord
     # joins(organization: :areas_organizations_mappings)
     #   .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
     #   .or(
-        joins(organization: :areas_organizations_mappings)
-        .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
-        .where(organizations: { organization_type: 'spip' })
-      # )
+    joins(organization: :areas_organizations_mappings)
+      .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
+      .where(organizations: { organization_type: 'spip' })
+    # )
   }
 
   def multiple_agendas?
