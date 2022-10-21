@@ -75,6 +75,11 @@ User.create!(
   password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'Robert', last_name: 'Fontaine'
 )
 
+User.create!(
+  organization: org_spip_77, email: 'cpip77@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Bruce', last_name: 'Wayne'
+)
+
 place_tj_nanterre = Place.create!(
   organization: org_tj_nanterre, name: "Tribunal judiciaire de Nanterre", adress: "179-191 av. Joliot Curie, 92020 NANTERRE", phone: '0606060606'
 )
