@@ -1,6 +1,9 @@
 <h1 class='form-title'><%= t('appointment-reschedule-title') %></h1>
 <%= simple_form_for Appointment.new, url: appointment_reschedule_path do |f| %>
   <%= f.hidden_field :convict_id, value: @appointment.convict_id  %>
+  <%= f.hidden_field :user_id, value: @appointment.user_id  %>
+  <%= f.hidden_field :creating_organization_id, value: @appointment.creating_organization_id  %>
+
   <%= f.hidden_field :origin_department, value: @appointment.origin_department  %>
   <%= f.hidden_field :old_appointment_id, value: @appointment.id  %>
 
