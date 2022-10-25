@@ -78,7 +78,7 @@ class AppointmentTypeDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how appointment types are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(appointment_type)
-  #   "AppointmentType ##{appointment_type.id}"
-  # end
+  def display_resource(appointment_type)
+    "#{appointment_type.name}"
+  end
 end
