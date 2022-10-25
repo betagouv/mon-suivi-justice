@@ -62,7 +62,7 @@ fr:
           local_admin: "Administrateur local"
           prosecutor: "Magistrat du parquet"
           jap: "JAP"
-          secretary_court: "Secrétariat commun"
+          secretary_court: "Secrétariat SAP"
           secretary_spip: "Secrétariat SPIP"
           dir_greff_bex: "Directeur de greffe BEX"
           bex: "Agent BEX"
