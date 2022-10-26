@@ -79,6 +79,6 @@ class AppointmentTypeDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(appointment_type)
-    "#{appointment_type.name}"
+    appointment_type.name.to_s
   end
 end

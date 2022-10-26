@@ -70,6 +70,6 @@ class AgendaDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(agenda)
-    "#{agenda.name}"
+    agenda.name.to_s
   end
 end
