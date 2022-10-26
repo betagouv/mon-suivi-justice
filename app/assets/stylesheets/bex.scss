@@ -109,7 +109,7 @@
 .jap-agenda-header7 { background-color: $jap-cabinet7; }
 
 .spip-date-select {
-  width: 170px;
+  width: 220px;
 
   @media print {
     width: inherit;
@@ -135,4 +135,13 @@
 
 .bex-agenda-case-prepared-form {
   margin: auto;
+}
+
+.bex-filters-container form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bex-filters-container select {
+  margin: 5px;
 }

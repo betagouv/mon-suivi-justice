@@ -19,7 +19,9 @@ class BexController < ApplicationController
   def agenda_spip
     @appointment_type = AppointmentType.find_by(name: "Sortie d'audience SPIP")
     @current_date = current_date(@appointment_type, params)
-    @agenda = policy_scope(Agenda).with_open_slots(@appointment_type).first
+
+    @agendas = policy_scope(Agenda).with_open_slots(@appointment_type)
+    @agenda = params[:agenda_id] ? Agenda.find(params[:agenda_id]) : @agendas.first
 
     respond_to do |format|
       format.html

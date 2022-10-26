@@ -2,7 +2,7 @@
   <div class='bex-agendas-tools-container'>
     <%= button_to t('print_button'), agenda_spip_path(format: :pdf),
                                      method: :get,
-                                     params: {date: params[:date]},
+                                     params: {date: params[:date], agenda_id: params[:agenda_id]},
                                      form: { target: '_blank' },
                                      class: 'bex-print-button' %>
   </div>
@@ -11,12 +11,16 @@
     <div class='bex-date-title-container'>
       <%= t('bex.spip.appointments_title') %>
     </div>
-    <div class='bex-date-select-container'>
+    <div class='bex-filters-container'>
       <%= form_tag agenda_spip_path, method: 'get' do %>
         <%= select_tag :date, options_for_select(formated_month_for_select(six_next_months), params[:date]),
                                id: 'spip-appointments-month-select',
                                class: 'form-select form-text-input spip-date-select',
                                onchange: 'this.form.submit()' %>
+
+        <% if @agendas.count > 1 %>
+          <%= select_tag :agenda_id, options_from_collection_for_select(@agendas, 'id', 'name', @agenda.id), class: 'form-select form-text-input', onchange: 'this.form.submit()' %>
+        <% end %>
       <% end %>
     </div>
   </div>
