@@ -1,6 +1,6 @@
 <%= image_tag wicked_pdf_asset_base64('logo_msj.svg') %>
 <h1 class='pdf-bex-title'><%= t('pdf.bex-spip.title') %></h1>
-<div class='bex-agenda-date'><%= (I18n.l date, format: '%B %Y').capitalize %> - <%= @agenda.name %></div>
+<div class='bex-agenda-date'><%= (I18n.l date, format: '%B %Y').capitalize %> - <%= @place.name %> - <%= @agenda.name %></div>
 
 <% if @agenda.nil? %>
   <p class='bex-agenda-spip-no-agenda'><%= t('bex.spip.no_agenda_available') %></p>

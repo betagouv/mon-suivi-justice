@@ -2,7 +2,7 @@
   <div class='bex-agendas-tools-container'>
     <%= button_to t('print_button'), agenda_spip_path(format: :pdf),
                                      method: :get,
-                                     params: {date: params[:date], agenda_id: params[:agenda_id]},
+                                     params: {date: params[:date], agenda_id: @agenda.id, place_id: @place.id},
                                      form: { target: '_blank' },
                                      class: 'bex-print-button' %>
   </div>
@@ -13,13 +13,25 @@
     </div>
     <div class='bex-filters-container'>
       <%= form_tag agenda_spip_path, method: 'get' do %>
-        <%= select_tag :date, options_for_select(formated_month_for_select(six_next_months), params[:date]),
-                               id: 'spip-appointments-month-select',
-                               class: 'form-select form-text-input spip-date-select',
-                               onchange: 'this.form.submit()' %>
+        <div class="bex-form-input-wrapper">
+          <%= label_tag 'date', 'Date :' %>
+          <%= select_tag :date, options_for_select(formated_month_for_select(six_next_months), params[:date]),
+                                id: 'spip-appointments-month-select',
+                                class: 'form-select form-text-input spip-date-select',
+                                onchange: 'this.form.submit()' %>
+        </div>
 
+        <% if @places.count > 0 %>
+          <div class="bex-form-input-wrapper">
+            <%= label_tag 'place_id', 'Lieu :' %>
+            <%= select_tag :place_id, options_from_collection_for_select(@places, 'id', 'name', @place.id), class: 'form-select form-text-input spip-place-select', onchange: 'this.form.submit()' %>
+          </div>
+        <% end %>
         <% if @agendas.count > 1 %>
-          <%= select_tag :agenda_id, options_from_collection_for_select(@agendas, 'id', 'name', @agenda.id), class: 'form-select form-text-input', onchange: 'this.form.submit()' %>
+          <div class="bex-form-input-wrapper">
+            <%= label_tag 'agenda_id', 'Agenda :' %>
+            <%= select_tag :agenda_id, options_from_collection_for_select(@agendas, 'id', 'name', @agenda.id), class: 'form-select form-text-input spip-agenda-select', onchange: 'this.form.submit()' %>
+          </div>
         <% end %>
       <% end %>
     </div>

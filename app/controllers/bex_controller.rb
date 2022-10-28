@@ -19,7 +19,7 @@ class BexController < ApplicationController
   def agenda_spip
     @appointment_type = AppointmentType.find_by(name: "Sortie d'audience SPIP")
     @current_date = current_date(@appointment_type, params)
-    get_spip_agendas(@appointment_type, params)
+    get_places_and_agendas(@appointment_type, params)
 
     respond_to do |format|
       format.html
@@ -56,8 +56,11 @@ class BexController < ApplicationController
     end
   end
 
-  def get_spip_agendas(appointment_type, params)
-    @agendas = policy_scope(Agenda).with_open_slots(appointment_type)
+  def get_places_and_agendas(appointment_type, params)
+    @places = policy_scope(Place).kept.joins(:appointment_types).where(appointment_types: appointment_type)
+    @place = params[:place_id] ? Place.find(params[:place_id]) : @places.first
+
+    @agendas = policy_scope(Agenda).where(place: @place).with_open_slots(appointment_type)
     @agenda = params[:agenda_id] ? Agenda.find(params[:agenda_id]) : @agendas.first
   end
 end

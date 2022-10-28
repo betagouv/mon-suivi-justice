@@ -142,6 +142,7 @@ agenda_spip_75 = Agenda.create!(place: place_spip_75, name: "Agenda SPIP 75")
 agenda_spip_92 = Agenda.create!(place: place_spip_92, name: "Agenda SPIP 92")
 agenda_spip_77 = Agenda.create!(place: place_spip_77, name: "Agenda SPIP 77")
 agenda_spip_77_permanence_tj = Agenda.create!(place: place_spip_77_permanence_tj, name: "Permanence TJ Fontainebleau")
+agenda_spip_77_permanence_tj_2 = Agenda.create!(place: place_spip_77_permanence_tj, name: "Permanence TJ Fontainebleau 2")
 
 apt_type_sortie_audience_sap = AppointmentType.create!(name: "Sortie d'audience SAP")
 apt_type_rdv_suivi_jap = AppointmentType.create!(name: 'RDV de suivi JAP')
@@ -187,11 +188,12 @@ NotificationType.create!(appointment_type: apt_type_sortie_audience_spip, role: 
 SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_92, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_92, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_nanterre, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
-SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_nanterre, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_nanterre_2, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_melun, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_fontainebleau, week_day: :tuesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_77, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_77_permanence_tj, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_77_permanence_tj_2, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 
 SlotFactory.perform
 
