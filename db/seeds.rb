@@ -11,7 +11,7 @@ org_tj_nanterre = Organization.create!(name: 'TJ Nanterre', organization_type: '
 org_spip_75 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
 org_spip_77 = Organization.create!(name: 'SPIP 77', organization_type: 'spip')
 org_tj_melun = Organization.create!(name: 'TJ Melun', organization_type: 'tj')
-org_tj_fontainebleau = Organization.create!(name: 'TJ de Fointainebleau', organization_type: 'tj')
+org_tj_fontainebleau = Organization.create!(name: 'TJ de Fontainebleau', organization_type: 'tj')
 
 # Un service peut être rattaché à des départements et/ou des juridictions
 # Cela impacte le rattachement des ppsmj à tel  département et/ou juridiction à leur création
@@ -23,17 +23,28 @@ AreasOrganizationsMapping.create organization: org_spip_75, area: Department.fin
 
 AreasOrganizationsMapping.create organization: org_spip_77, area: Department.find_by(number: '77')
 AreasOrganizationsMapping.create organization: org_spip_77, area: Jurisdiction.find_by(name: 'TJ MELUN')
+AreasOrganizationsMapping.create organization: org_spip_77, area: Jurisdiction.find_by(name: 'TJ FONTAINEBLEAU')
 AreasOrganizationsMapping.create organization: org_tj_melun, area: Department.find_by(number: '77')
+AreasOrganizationsMapping.create organization: org_tj_melun, area: Jurisdiction.find_by(name: 'TJ MELUN')
 AreasOrganizationsMapping.create organization: org_tj_fontainebleau, area: Department.find_by(number: '77')
+AreasOrganizationsMapping.create organization: org_tj_fontainebleau, area: Jurisdiction.find_by(name: 'TJ FONTAINEBLEAU')
 
 convict_1 = Convict.create!(first_name: "Michel", last_name: "Blabla", phone: "0677777777", appi_uuid: "12345")
 convict_2 = Convict.create!(first_name: "Dark", last_name: "Vador", phone: "0600000000", appi_uuid: "12346")
 convict_3 = Convict.create!(first_name: "Bobba", last_name: "Smet", phone: "0611111111", appi_uuid: "12347")
+convict_4 = Convict.create!(first_name: "Conor", last_name: "McGregor", phone: "0611111112", appi_uuid: "12348")
+convict_5 = Convict.create!(first_name: "Georges", last_name: "Saint-Pierre", phone: "0611111113", appi_uuid: "12349")
+
 
 AreasConvictsMapping.create convict: convict_1, area: Department.find_by(number: '92')
 AreasConvictsMapping.create convict: convict_2, area: Department.find_by(number: '92')
 AreasConvictsMapping.create convict: convict_2, area: Jurisdiction.find_by(name: 'TJ NANTERRE')
 AreasConvictsMapping.create convict: convict_3, area: Department.find_by(number: '75')
+AreasConvictsMapping.create convict: convict_4, area: Department.find_by(number: '77')
+AreasConvictsMapping.create convict: convict_5, area: Department.find_by(number: '77')
+AreasConvictsMapping.create convict: convict_4, area: Jurisdiction.find_by(name: 'TJ MELUN')
+AreasConvictsMapping.create convict: convict_5, area: Jurisdiction.find_by(name: 'TJ FONTAINEBLEAU')
+
 
 User.create!(
         organization: org_spip_92, email: 'admin@example.com', password: '1mot2passeSecurise!',
@@ -75,6 +86,26 @@ User.create!(
   password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'Robert', last_name: 'Fontaine'
 )
 
+User.create!(
+  organization: org_tj_fontainebleau, email: 'bextjfontainebleau@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :bex, first_name: 'Cyril', last_name: 'Gane'
+)
+
+User.create!(
+  organization: org_spip_77, email: 'localadminSpip77@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'Flash', last_name: 'McQueen'
+)
+
+User.create!(
+  organization: org_spip_77, email: 'cpip77@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Henri', last_name: 'Vasnier'
+)
+
+User.create!(
+  organization: org_tj_melun, email: 'bextjmelun@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :bex, first_name: 'Roger', last_name: 'Federer'
+)
+
 place_tj_nanterre = Place.create!(
   organization: org_tj_nanterre, name: "Tribunal judiciaire de Nanterre", adress: "179-191 av. Joliot Curie, 92020 NANTERRE", phone: '0606060606'
 )
@@ -95,6 +126,10 @@ place_spip_77 = Place.create!(
   organization: org_spip_77, name: "SPIP 77", adress: "5 rue de la montagne du Mée, 77000 MELUN", phone: '0606060606'
 )
 
+place_spip_77_permanence_tj = Place.create!(
+  organization: org_spip_77, name: "Permanence TJ Fontainebleau", adress: "5 rue de la montagne du Mée, 77000 MELUN", phone: '0606060606'
+)
+
 place_spip_92 = Place.create!(organization: org_spip_92, name: "SPIP 92", adress: "94 Boulevard du Général Leclerc, 92000 Nanterre", phone: '0606060606')
 
 agenda_tj_nanterre = Agenda.create!(place: place_tj_nanterre, name: "Agenda 1 tribunal Nanterre")
@@ -105,6 +140,8 @@ agenda_tj_fontainebleau = Agenda.create!(place: place_tj_fontainebleau, name: "A
 
 agenda_spip_75 = Agenda.create!(place: place_spip_75, name: "Agenda SPIP 75")
 agenda_spip_92 = Agenda.create!(place: place_spip_92, name: "Agenda SPIP 92")
+agenda_spip_77 = Agenda.create!(place: place_spip_77, name: "Agenda SPIP 77")
+agenda_spip_77_permanence_tj = Agenda.create!(place: place_spip_92, name: "Permanence TJ Fontainebleau")
 
 apt_type_sortie_audience_sap = AppointmentType.create!(name: "Sortie d'audience SAP")
 apt_type_rdv_suivi_jap = AppointmentType.create!(name: 'RDV de suivi JAP')
@@ -121,6 +158,7 @@ PlaceAppointmentType.create!(place: place_tj_melun, appointment_type: apt_type_s
 PlaceAppointmentType.create!(place: place_tj_fontainebleau, appointment_type: apt_type_rdv_suivi_jap)
 PlaceAppointmentType.create!(place: place_tj_fontainebleau, appointment_type: apt_type_sortie_audience_sap)
 PlaceAppointmentType.create!(place: place_spip_77, appointment_type: apt_type_sortie_audience_spip)
+PlaceAppointmentType.create!(place: place_spip_77_permanence_tj, appointment_type: apt_type_sortie_audience_spip)
 
 NotificationType.create!(appointment_type: apt_type_sortie_audience_sap, role: :summon, template: "Vous êtes convoqué, merci de venir.", is_default: true)
 NotificationType.create!(appointment_type: apt_type_sortie_audience_sap, role: :reminder, template: "RAPPEL Vous êtes convoqué, vraiment il faut venir.", reminder_period: :two_days, is_default: true)
@@ -152,6 +190,8 @@ SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_t
 SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_nanterre, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_melun, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_fontainebleau, week_day: :tuesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_77, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_77_permanence_tj, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 
 SlotFactory.perform
 
