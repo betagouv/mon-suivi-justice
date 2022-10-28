@@ -142,6 +142,9 @@ RSpec.feature 'Bex', type: :feature do
 
       place = create(:place, name: 'SPIP 91', organization: @organization)
 
+      create(:place_appointment_type, place: place, appointment_type: apt_type)
+
+
       agenda = create(:agenda, place: place, name: 'Agenda SPIP 91')
 
       slot1 = create(:slot, :without_validations, agenda: agenda,

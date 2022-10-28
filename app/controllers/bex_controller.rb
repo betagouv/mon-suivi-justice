@@ -61,6 +61,6 @@ class BexController < ApplicationController
     @place = params[:place_id] ? Place.find(params[:place_id]) : @places.first
 
     @agendas = policy_scope(Agenda).where(place: @place).with_open_slots(appointment_type)
-    @agenda = params[:agenda_id] ? Agenda.find(params[:agenda_id]) : @agendas.first
+    @agenda = params[:agenda_id] != nil ? Agenda.find(params[:agenda_id]) : @agendas.first
   end
 end
