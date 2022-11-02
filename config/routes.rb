@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :convicts
       resources :organizations
       resources :departments
-      resources :slots, except: :index
+      resources :slots
       resources :places, except: :index
       resources :jurisdictions, except: :index
       if Rails.env.development?
