@@ -7,6 +7,8 @@ FRENCH_JURISDICTIONS.each do |name|
 end
 
 org_spip_92 = Organization.create!(name: 'SPIP 92', organization_type: 'spip')
+org_spip_61_argentan = Organization.create!(name: 'SPIP 61 - Argentan', organization_type: 'spip')
+org_spip_61_alencon = Organization.create!(name: 'SPIP 61 - Alençon', organization_type: 'spip')
 org_tj_nanterre = Organization.create!(name: 'TJ Nanterre', organization_type: 'tj')
 org_spip_75 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
 org_spip_77 = Organization.create!(name: 'SPIP 77', organization_type: 'spip')
@@ -17,6 +19,8 @@ org_tj_fontainebleau = Organization.create!(name: 'TJ de Fontainebleau', organiz
 # Cela impacte le rattachement des ppsmj à tel  département et/ou juridiction à leur création
 AreasOrganizationsMapping.create organization: org_spip_92, area: Department.find_by(number: '92')
 AreasOrganizationsMapping.create organization: org_spip_92, area: Jurisdiction.find_by(name: 'TJ NANTERRE')
+AreasOrganizationsMapping.create organization: org_spip_61_argentan, area: Department.find_by(number: '61')
+AreasOrganizationsMapping.create organization: org_spip_61_alencon, area: Department.find_by(number: '61')
 AreasOrganizationsMapping.create organization: org_tj_nanterre, area: Department.find_by(number: '92')
 
 AreasOrganizationsMapping.create organization: org_spip_75, area: Department.find_by(number: '75')
@@ -35,7 +39,6 @@ convict_3 = Convict.create!(first_name: "Bobba", last_name: "Smet", phone: "0611
 convict_4 = Convict.create!(first_name: "Conor", last_name: "McGregor", phone: "0611111112", appi_uuid: "12348")
 convict_5 = Convict.create!(first_name: "Georges", last_name: "Saint-Pierre", phone: "0611111113", appi_uuid: "12349")
 
-
 AreasConvictsMapping.create convict: convict_1, area: Department.find_by(number: '92')
 AreasConvictsMapping.create convict: convict_2, area: Department.find_by(number: '92')
 AreasConvictsMapping.create convict: convict_2, area: Jurisdiction.find_by(name: 'TJ NANTERRE')
@@ -45,7 +48,6 @@ AreasConvictsMapping.create convict: convict_5, area: Department.find_by(number:
 AreasConvictsMapping.create convict: convict_4, area: Jurisdiction.find_by(name: 'TJ MELUN')
 AreasConvictsMapping.create convict: convict_5, area: Jurisdiction.find_by(name: 'TJ FONTAINEBLEAU')
 
-
 User.create!(
         organization: org_spip_92, email: 'admin@example.com', password: '1mot2passeSecurise!',
         password_confirmation: '1mot2passeSecurise!', role: :admin, first_name: 'Kevin', last_name: 'McCallister'
@@ -54,6 +56,26 @@ User.create!(
 User.create!(
   organization: org_spip_92, email: 'cpip@example.com', password: '1mot2passeSecurise!',
   password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Bob', last_name: 'Dupneu'
+)
+
+User.create!(
+  organization: org_spip_61_argentan, email: 'cpip61argentan@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Sylvain', last_name: 'Chabrier'
+)
+
+User.create!(
+  organization: org_spip_61_argentan, email: 'localadmin61argentan@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'Jacques', last_name: 'Chirac'
+)
+
+User.create!(
+  organization: org_spip_61_alencon, email: 'cpip61alencon@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Tom', last_name: 'Aouate'
+)
+
+User.create!(
+  organization: org_spip_61_alencon, email: 'localadmin61alencon@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'François', last_name: 'Hollande'
 )
 
 User.create!(
@@ -132,6 +154,9 @@ place_spip_77_permanence_tj = Place.create!(
 
 place_spip_92 = Place.create!(organization: org_spip_92, name: "SPIP 92", adress: "94 Boulevard du Général Leclerc, 92000 Nanterre", phone: '0606060606')
 
+place_spip_61_argentan = Place.create!(organization: org_spip_61_argentan, name: "SPIP 61 - Argentan", adress: "17 avenue de l'Industrie, 61200 Argentan", phone: '0606060606')
+place_spip_61_alencon = Place.create!(organization: org_spip_61_alencon, name: "SPIP 61 - Alencon", adress: "4 Ter rue des Poulies, 61007 Alençon", phone: '0606060606')
+
 agenda_tj_nanterre = Agenda.create!(place: place_tj_nanterre, name: "Agenda 1 tribunal Nanterre")
 agenda_tj_nanterre_2 = Agenda.create!(place: place_tj_nanterre, name: "Agenda 2 tribunal Nanterre")
 
@@ -152,6 +177,8 @@ apt_type_sortie_audience_spip = AppointmentType.create!(name: "Sortie d'audience
 PlaceAppointmentType.create!(place: place_tj_nanterre, appointment_type: apt_type_sortie_audience_sap)
 PlaceAppointmentType.create!(place: place_tj_nanterre, appointment_type: apt_type_rdv_suivi_jap)
 PlaceAppointmentType.create!(place: place_spip_92, appointment_type: apt_type_rdv_suivi_spip)
+PlaceAppointmentType.create!(place: place_spip_61_alencon, appointment_type: apt_type_rdv_suivi_spip)
+PlaceAppointmentType.create!(place: place_spip_61_argentan, appointment_type: apt_type_rdv_suivi_spip)
 PlaceAppointmentType.create!(place: place_spip_92, appointment_type: apt_type_sortie_audience_spip)
 
 PlaceAppointmentType.create!(place: place_tj_melun, appointment_type: apt_type_rdv_suivi_jap)
