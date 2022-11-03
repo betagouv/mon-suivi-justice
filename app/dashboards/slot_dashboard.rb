@@ -63,16 +63,13 @@ class SlotDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     agenda
     appointment_type
-    appointments
     available
     capacity
     date
     duration
     full
-    slot_type
     starting_time
     used_capacity
-    versions
   ].freeze
 
   # COLLECTION_FILTERS

@@ -62,7 +62,7 @@ fr:
           local_admin: "Administrateur local"
           prosecutor: "Magistrat du parquet"
           jap: "JAP"
-          secretary_court: "Secrétariat commun"
+          secretary_court: "Secrétariat SAP"
           secretary_spip: "Secrétariat SPIP"
           dir_greff_bex: "Directeur de greffe BEX"
           bex: "Agent BEX"
@@ -509,7 +509,7 @@ fr:
       header_case_prepared: "Traité"
     spip:
       appointments_link: "Agenda RDV SPIP"
-      appointments_title: "Agenda RDV SPIP pour"
+      appointments_title: "RDV SPIP pour"
       no_agenda_available: "Pas de rdv Sortie d'audience SPIP prévu"
     sap_ddse:
       agendas_title: "Agenda SAP DDSE pour le"

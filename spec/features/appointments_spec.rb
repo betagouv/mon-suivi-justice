@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.feature 'Appointments', type: :feature do
   before do
     @user = create_admin_user_and_login
+    # TODO : we should not have to return Place.all. The factory should add places to the user's organization
     allow(Place).to receive(:in_departments).and_return(Place.all)
+    allow(Place).to receive(:in_dep_spips).and_return(Place.all)
   end
 
   describe 'index' do
