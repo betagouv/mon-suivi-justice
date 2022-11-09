@@ -31,6 +31,7 @@
 
 .login-field-container {
   margin-top: 15px;
+  position: relative;
 }
 
 .login-field {
@@ -38,6 +39,19 @@
   padding: 10px;
   margin-top: 10px;
   border: 2px solid $form-input;
+}
+
+.password-icon-container {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  
+  &_top-40 {
+    top: 40%;
+  }
+  &_top-50 {
+    top: 50%;
+  }
 }
 
 .submit {
