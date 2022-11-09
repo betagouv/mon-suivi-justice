@@ -9,7 +9,7 @@ end
 org_spip_92 = Organization.create!(name: 'SPIP 92', organization_type: 'spip')
 org_spip_61_argentan = Organization.create!(name: 'SPIP 61 - Argentan', organization_type: 'spip')
 org_spip_61_alencon = Organization.create!(name: 'SPIP 61 - Alençon', organization_type: 'spip')
-org_tj_nanterre = Organization.create!(name: 'TJ Nanterre', organization_type: 'tj')
+org_tj_nanterre = Organization.create!(name: 'TJ Nanterre', organization_type: 'tj', jap_modal_content: '<b>Pouet</b>')
 org_spip_75 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
 org_spip_77 = Organization.create!(name: 'SPIP 77', organization_type: 'spip')
 org_tj_melun = Organization.create!(name: 'TJ Melun', organization_type: 'tj')
@@ -173,6 +173,7 @@ apt_type_sortie_audience_sap = AppointmentType.create!(name: "Sortie d'audience 
 apt_type_rdv_suivi_jap = AppointmentType.create!(name: 'RDV de suivi JAP')
 apt_type_rdv_suivi_spip = AppointmentType.create!(name: "RDV de suivi SPIP")
 apt_type_sortie_audience_spip = AppointmentType.create!(name: "Sortie d'audience SPIP")
+apt_type_sap_ddse = AppointmentType.create!(name: "SAP DDSE")
 
 PlaceAppointmentType.create!(place: place_tj_nanterre, appointment_type: apt_type_sortie_audience_sap)
 PlaceAppointmentType.create!(place: place_tj_nanterre, appointment_type: apt_type_rdv_suivi_jap)
