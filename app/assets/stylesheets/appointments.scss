@@ -153,12 +153,6 @@
   text-align: center;
 }
 
-.agendas-modal-trigger-container {
-  position: absolute;
-  right: 0;
-  padding: 20px;
-}
-
 .new-appointment-bex-warning {
   text-align: center;
   margin-bottom: 20px;
@@ -216,6 +210,7 @@
 
 .jap-agendas-modal-trigger {
   @include button($light-grey);
+  margin: 5px;
 }
 
 .jap-agendas-modal-close {

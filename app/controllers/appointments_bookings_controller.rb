@@ -27,13 +27,13 @@ class AppointmentsBookingsController < ApplicationController
   end
 
   def load_agendas
-    place = Place.find(params[:place_id])
-    @agendas = Agenda.kept.where(place_id: place.id)
+    @place = Place.find(params[:place_id])
+    @agendas = Agenda.kept.where(place_id: @place.id)
     @appointment_type = AppointmentType.find(params[:apt_type_id])
 
     return unless @agendas.count == 1
 
-    redirect_to load_time_options_path(place_id: place.id,
+    redirect_to load_time_options_path(place_id: @place.id,
                                        agenda_id: @agendas.first.id,
                                        apt_type_id: params[:apt_type_id])
   end
