@@ -1,6 +1,7 @@
 # Installation
 
-Instructions pour installer Mon Suivi Justice en local.
+Instructions pour installer Mon Suivi Justice en local. Vous pouvez
+aussi passer par Docker.
 
 ## 1. Ruby
 
@@ -44,3 +45,9 @@ et exécutez la suite de test :
 ## Conseil
 
 Ce projet dispose d'un Guardfile, n'hésitez à lancer `$ bundle exec guard` pour voir les tests et le linter s'exécuter automatiquement à chaque sauvegarde de fichier.
+
+## Docker
+
+```sh
+docker-compose up
+```
