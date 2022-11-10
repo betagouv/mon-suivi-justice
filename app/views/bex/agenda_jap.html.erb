@@ -7,7 +7,7 @@
                                                              class: 'jap-agendas-modal-trigger',
                                                              data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
         </section>
-        <%= render 'shared/jap_agendas_modal', locals: {jap_modal_content: current_user.organization.jap_modal_content} %>
+        <%= render partial: 'shared/jap_agendas_modal', locals: { jap_modal_content: current_user.organization.jap_modal_content } %>
       <% end %>
     <% end %>
 
