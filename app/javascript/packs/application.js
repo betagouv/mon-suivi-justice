@@ -12,6 +12,7 @@ require("jquery");
 require("@nathanvda/cocoon");
 require("components/profile_search");
 require("components/password_toggle");
+require("@gouvfr/dsfr/dist/dsfr.module")
 
 Rails.start()
 Turbolinks.start()
