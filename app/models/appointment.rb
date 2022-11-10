@@ -48,7 +48,7 @@ class Appointment < ApplicationRecord
 
   scope :in_departments, lambda { |departments|
     ids = departments.map(&:id)
-    joins(convict: :areas_convicts_mappings)
+    joins(:slot, convict: :areas_convicts_mappings)
       .where(convict: { areas_convicts_mappings: { area_type: 'Department', area_id: ids } })
   }
 
