@@ -1,7 +1,7 @@
 function togglePassword() {
   $('[data-action="toggle-password"]').on("click", function(e) {
-    const eyeOn = 'fr-icon-eye-fill';
-    const eyeOff = 'fr-icon-eye-off-fill';
+    const eyeOn = 'fa-eye';
+    const eyeOff = 'fa-eye-slash';
     const icon = $(e.target);
     const target = icon.attr("data-target");
 
