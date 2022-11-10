@@ -927,7 +927,7 @@
 
 "@gouvfr/dsfr@^1.8.2":
   version "1.8.2"
-  resolved "https://registry.npmjs.org/@gouvfr/dsfr/-/dsfr-1.8.2.tgz"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.8.2.tgz#11ba1aa3e5a19f5dadcbdc5ab3bb7ffe077a0b23"
   integrity sha512-F9+M9BAAeFKZ6y/JXSf8CDqsZM61aWMWEJRkdZZCeWuh86SH1tsNZat8XDuB1GS8I/BnvSesnbt7Jvsn71gO0g==
 
 "@jridgewell/gen-mapping@^0.1.0":
