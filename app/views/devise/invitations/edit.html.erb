@@ -7,7 +7,6 @@
 
   <%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: 'login-form' }) do |f| %>
     <%= f.hidden_field :invitation_token %>
-
     <div class='form-inputs'>
       <div class='login-field-container'>
         <%= f.input :password,
@@ -18,6 +17,10 @@
                     input_html: { autocomplete: 'new-password' },
                     class: 'login-field',
                     error: false %>
+        <div class="password-icon-container password-icon-container_top-40">
+          <icon class="fa fa-eye" aria-hidden="true" data-target="user_password" data-action="toggle-password"></icon>
+        </div>
+
       </div>
 
       <div class='login-field-container'>
@@ -27,6 +30,9 @@
                     input_html: { autocomplete: 'new-password' },
                     class: 'login-field',
                     error: false %>
+        <div class="password-icon-container password-icon-container_top-50">
+          <icon class="fa fa-eye" aria-hidden="true" data-target="user_password_confirmation" data-action="toggle-password"></icon>
+        </div>
       </div>
     </div>
 
