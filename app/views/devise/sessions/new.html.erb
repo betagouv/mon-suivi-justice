@@ -14,6 +14,9 @@
     <div class='login-field-container'>
       <%= f.label :password %><br />
       <%= f.password_field :password, autocomplete: 'current-password', :class => 'login-field' %>
+      <div class="password-icon-container password-icon-container_top-50">
+        <icon class="fa fa-eye" aria-hidden="true" data-target="user_password" data-action="toggle-password"></icon>
+      </div>
     </div>
 
     <% if devise_mapping.rememberable? %>

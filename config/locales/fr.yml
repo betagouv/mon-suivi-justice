@@ -491,7 +491,7 @@ fr:
   show_appointment_title: "Infos rendez-vous"
   cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ (si elle a un numéro de téléphone), et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
   appointment-reschedule-title: 'Replanifier un rendez-vous'
-  new-appointment-jap-agendas: "Liste agendas JAP"
+  new-appointment-jap-agendas: "Répartition cabinet JAP"
   rebook_missed_appointment1: "Si vous aviez marqué le rdv comme manqué, vous avez peut-être envoyé un SMS à la PPSMJ concernée. Vous pouvez le vérifier dans l'historique."
   rebook_missed_appointment2: "Si besoin, merci de contacter cette personne pour clarifier la situation."
   my_appointments_title: "Mes rendez-vous"

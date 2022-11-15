@@ -11,6 +11,7 @@ import "channels"
 require("jquery");
 require("@nathanvda/cocoon");
 require("components/profile_search");
+require("components/password_toggle");
 
 Rails.start()
 Turbolinks.start()

@@ -4,6 +4,7 @@
                                                      class: 'jap-agendas-modal-trigger',
                                                      data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
   </section>
+  <%= render partial: 'shared/jap_agendas_modal', locals: {jap_modal_content: current_user.organization.jap_modal_content} %>
 <% end %>
 
 <h1 class='form-title'><%= t('slots.new_batch_title') %></h1>
@@ -45,5 +46,3 @@
 
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>
-
-<%= render 'shared/jap_agendas_modal' %>

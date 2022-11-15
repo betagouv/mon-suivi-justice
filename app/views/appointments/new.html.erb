@@ -1,13 +1,3 @@
-<% unless current_user.organization.jap_modal_content.empty? %>
-  <% if current_user.admin? || current_user.local_admin? || current_user.work_at_bex? || current_user.work_at_sap? %>
-    <section class='agendas-modal-trigger-container'>
-        <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
-                                                         class: 'jap-agendas-modal-trigger',
-                                                         data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
-    </section>
-  <% end %>
-<% end %>
-
 <h1 class='form-title'><%= t('new_appointment_title') %></h1>
 <% if @convict %>
   <h2 class='form-subtitle'><%= @convict.name %></h2>
@@ -55,5 +45,4 @@
 <div class='appointment-form-submit-button-container' id='submit-button-container'></div>
 <%= render 'new_appointment_confirmation_modal' %>
 
-<%= render 'shared/jap_agendas_modal' %>
 <%= javascript_pack_tag 'appointment_new' %>
