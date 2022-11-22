@@ -33,7 +33,6 @@ class Agenda < ApplicationRecord
   def slots_for_date(date, appointment_type)
     slots.where(date: date, appointment_type: appointment_type)
          .order(:date, :starting_time)
-         .available
          .uniq
   end
 end
