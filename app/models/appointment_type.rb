@@ -2,9 +2,10 @@ class AppointmentType < ApplicationRecord
   has_paper_trail
 
   WITH_SLOT_TYPES = ["Sortie d'audience SAP", "Sortie d'audience SPIP", 'SAP DDSE'].freeze
-  ASSIGNABLE = ['1er RDV SPIP', 'RDV de suivi SPIP', 'RDV DDSE', 'RDV téléphonique',
-                'Visite à domicile'].freeze
   ALLOWED_ON_WEEKENDS = ['Placement TIG/TNR'].freeze
+  SPIP_ASSIGNABLE = ['1er RDV SPIP', 'RDV de suivi SPIP', 'Convocation 741-1',
+  'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'RDV DDSE', 'Convocation stage',
+  'Convocation rappel SPIP', 'Action collective'].freeze
 
   has_many :notification_types, inverse_of: :appointment_type, dependent: :destroy
   has_many :slot_types, inverse_of: :appointment_type, dependent: :destroy
@@ -19,7 +20,7 @@ class AppointmentType < ApplicationRecord
   validates :name, presence: true
 
   scope :with_slot_types, -> { where name: WITH_SLOT_TYPES }
-  scope :assignable, -> { where name: ASSIGNABLE }
+  scope :assignable, -> { where name: SPIP_ASSIGNABLE }
 
   def used_at_bex?
     ["Sortie d'audience SAP", "Sortie d'audience SPIP"]
@@ -30,9 +31,7 @@ class AppointmentType < ApplicationRecord
   end
 
   def used_at_spip?
-    ["Sortie d'audience SPIP", '1er RDV SPIP', 'RDV de suivi SPIP', 'Convocation 741-1',
-     'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'RDV DDSE', 'Convocation stage',
-     'Convocation rappel SPIP', 'Action collective']
+    [*SPIP_ASSIGNABLE, "Sortie d'audience SPIP"]
   end
 
   def sortie_audience?
@@ -40,7 +39,7 @@ class AppointmentType < ApplicationRecord
   end
 
   def assignable?
-    ASSIGNABLE.include? name
+    SPIP_ASSIGNABLE.include? name
   end
 
   def with_slot_types?
