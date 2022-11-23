@@ -4,8 +4,8 @@ class AppointmentType < ApplicationRecord
   WITH_SLOT_TYPES = ["Sortie d'audience SAP", "Sortie d'audience SPIP", 'SAP DDSE'].freeze
   ALLOWED_ON_WEEKENDS = ['Placement TIG/TNR'].freeze
   SPIP_ASSIGNABLE = ['1er RDV SPIP', 'RDV de suivi SPIP', 'Convocation 741-1',
-  'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'RDV DDSE', 'Convocation stage',
-  'Convocation rappel SPIP', 'Action collective'].freeze
+                     'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'RDV DDSE', 'Convocation stage',
+                     'Convocation rappel SPIP', 'Action collective'].freeze
 
   has_many :notification_types, inverse_of: :appointment_type, dependent: :destroy
   has_many :slot_types, inverse_of: :appointment_type, dependent: :destroy
