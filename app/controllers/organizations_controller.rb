@@ -2,7 +2,7 @@ class OrganizationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @organizations = Organization.all.page params[:page]
+    @organizations = policy_scope(Organization).page params[:page]
     authorize @organizations
   end
 
