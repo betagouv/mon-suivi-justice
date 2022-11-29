@@ -89,6 +89,8 @@ class AppointmentPolicy < ApplicationPolicy
   def appointment_fulfilment
     apt_type = AppointmentType.find(record.slot&.appointment_type_id)
 
+    return false if record.slot.place.organization != user.organization
+
     if user.work_at_sap? then apt_type.used_at_sap?.include? apt_type.name
     elsif user.work_at_spip? then apt_type.used_at_spip?.include? apt_type.name
     elsif user.work_at_bex? then false

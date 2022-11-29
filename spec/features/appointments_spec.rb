@@ -578,13 +578,17 @@ RSpec.feature 'Appointments', type: :feature do
   end
 
   describe 'fulfilment' do
+    before do
+      place = create :place, organization: @user.organization
+      @agenda = create :agenda, place: place
+    end
     it 'controls are only displayed for passed appointments' do
       convict = create :convict
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
       apt_type = create :appointment_type, :with_notification_types
       slot = create :slot, date: Date.civil(2025, 4, 14), starting_time: Time.now - 1.minutes,
-                           appointment_type: apt_type
+                           appointment_type: apt_type, agenda: @agenda
       appointment = create :appointment, convict: convict, slot: slot
 
       appointment.book
@@ -599,7 +603,7 @@ RSpec.feature 'Appointments', type: :feature do
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
       apt_type = create :appointment_type, :with_notification_types
       slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
-                                                 appointment_type: apt_type
+                                                 appointment_type: apt_type, agenda: @agenda
       appointment = create :appointment, convict: convict, slot: slot
 
       appointment.book
@@ -616,7 +620,7 @@ RSpec.feature 'Appointments', type: :feature do
       create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
 
       apt_type = create :appointment_type, :with_notification_types
-      slot = create :slot, :without_validations, date: Date.today, appointment_type: apt_type
+      slot = create :slot, :without_validations, date: Date.today, appointment_type: apt_type, agenda: @agenda
       appointment = create :appointment, convict: convict, slot: slot
 
       appointment.book
@@ -635,7 +639,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         apt_type = create :appointment_type, :with_notification_types
         slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
-                                                   appointment_type: apt_type
+                                                   appointment_type: apt_type, agenda: @agenda
         appointment = create :appointment, convict: convict, slot: slot
 
         appointment.book
@@ -655,7 +659,7 @@ RSpec.feature 'Appointments', type: :feature do
         create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
         apt_type = create(:appointment_type, :with_notification_types)
         slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
-                                                   appointment_type: apt_type
+                                                   appointment_type: apt_type, agenda: @agenda
         appointment = create :appointment, convict: convict, slot: slot
 
         appointment.book
@@ -675,7 +679,7 @@ RSpec.feature 'Appointments', type: :feature do
         create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
         apt_type = create :appointment_type, :with_notification_types
         slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
-                                                   appointment_type: apt_type
+                                                   appointment_type: apt_type, agenda: @agenda
         appointment = create :appointment, convict: convict, slot: slot
 
         appointment.book
