@@ -22,7 +22,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.admin? || (user.local_admin? && user.organization == record)    
+    user.admin? || (user.local_admin? && user.organization == record)
   end
 
   def update?
