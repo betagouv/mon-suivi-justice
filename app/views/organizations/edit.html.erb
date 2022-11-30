@@ -8,8 +8,12 @@
     <p class='organization-subtitle'><%= t('edit_organization_jap_modal') %></p>  
   <% end %>
 
-  <%= f.rich_text_area :jap_modal_content %>
-  <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
+
+  <% if current_user.admin? || (current_user.local_admin? && current_user.organization.organization_type != 'spip') %>  
+    <%= f.rich_text_area :jap_modal_content %>
+    <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
+  <% end %>
+
 <% end %>
 
 <% if current_user.admin? %>
