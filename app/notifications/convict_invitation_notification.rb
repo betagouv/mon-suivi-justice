@@ -19,7 +19,7 @@ class ConvictInvitationNotification < Noticed::Base
   # Define helper methods to make rendering easier.
   #
   def message
-    t(".convict_invitations.create.invitation_sent")
+    t('.convict_invitations.create.invitation_sent')
   end
   #
   # def url

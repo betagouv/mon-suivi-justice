@@ -95,4 +95,4 @@ group :test do
   gem 'webmock'
 end
 
-gem "noticed", "~> 1.6"
+gem 'noticed', '~> 1.6'
