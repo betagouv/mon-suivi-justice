@@ -616,7 +616,9 @@ fr:
 
   convict_invitations:
     create:
-      invitation_sent: L'invitation est en cours d'envoi à la PPSMJ
+      invitation_pending: L'invitation est en cours d'envoi à la PPSMJ
+      invitation_sent: L'invitation a été à la PPSMJ
+
 
   errors:
     non_authorized: "Vous n'êtes pas autorisé à effectuer cette action"

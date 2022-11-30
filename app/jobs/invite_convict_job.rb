@@ -12,5 +12,6 @@ class InviteConvictJob < ApplicationJob
     MonSuiviJusticePublicApi::Invitation.create(params)
     @convict.increment!(:invitation_to_convict_interface_count)
     @convict.update(last_invite_to_convict_interface: Time.zone.now)
+    ConvictInvitationNotification.with(invitation_params: params, status: :sent).deliver(current_user)
   end
 end
