@@ -665,3 +665,7 @@ fr:
   views:
     pagination:
       truncate: '...'
+  user_notification:
+    convict_invitation:
+      pending: "L'invitation de %{first_name} %{last_name} est en cours d'envoi"
+      sent: "L'invitation de %{first_name} %{last_name} a été envoyée"
