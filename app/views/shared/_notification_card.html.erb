@@ -1,3 +1,8 @@
 <div>
-  <%= t('user_notification.convict_invitation.pending', first_name: notification.params[:invitation_params][:first_name], last_name: notification.params[:invitation_params][:last_name]) %>
+  <span>
+    <%= t("user_notification.convict_invitation.#{notification.params[:status]}", first_name: notification.params[:invitation_params][:first_name], last_name: notification.params[:invitation_params][:last_name]) %>
+  </span>
+  <span>
+  <%= notification.created_at.to_s(:base_date_format) %>
+  </span>
 </div>
