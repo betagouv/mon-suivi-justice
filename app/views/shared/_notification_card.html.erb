@@ -1,8 +1,8 @@
-<div>
-  <span>
-    <%= t("user_notification.convict_invitation.#{notification.params[:status]}", first_name: notification.params[:invitation_params][:first_name], last_name: notification.params[:invitation_params][:last_name]) %>
-  </span>
-  <span>
-  <%= notification.created_at.to_s(:base_date_format) %>
-  </span>
+<div class="fr-alert fr-alert--info">
+    <h3 class="fr-alert__title">
+      <%= t("user_notification.convict_invitation.#{notification.params[:status]}", first_name: notification.params[:invitation_params][:first_name].titlecase, last_name: notification.params[:invitation_params][:last_name].titlecase) %>
+    </h3>
+    <p>
+      <%= notification.created_at.to_s(:base_date_format) %> <icon class="fr-icon-eye-fill" aria-hidden="true" data-target="user_password" data-action="toggle-password"></icon>
+    </p>
 </div>

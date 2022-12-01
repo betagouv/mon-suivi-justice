@@ -1,10 +1,14 @@
-<div style="display: flex; flex-direction: column; align-items: center;">
-  <h1>Notifications</h1>
-  <% if  @user_notifications.any? %>
-    <% @user_notifications.each do |notification| %>
-      <%= render 'shared/notification_card', notification: notification %>
+<div style="display: flex; justify-content: center; padding: 32px;">
+  <div style="display: flex; flex-direction: column; width: 500px;">
+    <div style="display: flex; justify-content: center;">
+      <h1 style="align-item: center;">Notifications</h1>
+    </div>
+    <% if  @user_notifications.any? %>
+      <% @user_notifications.each do |notification| %>
+        <%= render 'shared/notification_card', notification: notification %>
+      <% end %>
+    <% else %>
+      <%= t('user_notifications.index.no_notification') %>
     <% end %>
-  <% else %>
-    <%= t('user_notifications.index.no_notification') %>
-  <% end %>
+  </div>
 </div>
