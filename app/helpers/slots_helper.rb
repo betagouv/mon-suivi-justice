@@ -29,7 +29,7 @@ module SlotsHelper
   end
 
   def spip_apt_types
-    ["Sortie d'audience SPIP", 'SAP DDSE']
+    ["Sortie d'audience SPIP"]
   end
 
   def bex_apt_types
