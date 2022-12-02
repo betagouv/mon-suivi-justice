@@ -16,6 +16,6 @@ class InviteConvictJob < ApplicationJob
     return if current_user.nil?
 
     ConvictInvitationNotification.with(invitation_params: params,
-                                       status: :sent).deliver_later(current_user)
+                                       status: :sent, type: :success).deliver_later(current_user)
   end
 end

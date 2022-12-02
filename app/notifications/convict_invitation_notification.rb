@@ -16,6 +16,7 @@ class ConvictInvitationNotification < Noticed::Base
   #
   param :invitation_params
   param :status
+  param :type
 
   # Define helper methods to make rendering easier.
   #
