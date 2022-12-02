@@ -1,4 +1,4 @@
-<div class="fr-alert fr-alert--info">
+<div class="fr-alert fr-alert--info" <% if notification.unread? %>style="background-color: pink;"<% end %>>
     <h3 class="fr-alert__title">
       <%= t("user_notification.convict_invitation.#{notification.params[:status]}", first_name: notification.params[:invitation_params][:first_name].titlecase, last_name: notification.params[:invitation_params][:last_name].titlecase) %>
     </h3>
