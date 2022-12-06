@@ -17,12 +17,18 @@ consumer.subscriptions.create("Noticed::ConvictInvitationChannel", {
     const container = $("#user-notifications-container");
     const notif = `
     <div class="fr-alert fr-alert--${data.type} fr-alert--sm">
-      <p>
-        l'invitation à ${data.invitation_params.first_name} ${data.invitation_params.last_name} ${data.status === 'pending' ? "est en cours d'envoi" : "a été envoyée"}
-      </p>
+      <h3 class="fr-alert__title">
+        l'invitation ${data.status === 'pending' ? "est en cours d'envoi" : "a été envoyée" } à ${data.invitation_params.first_name} ${data.invitation_params.last_name}
+      </h3>
+      <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="const alert = this.parentNode; alert.parentNode.removeChild(alert)">
+          Masquer le message
+      </button>
     </div>
     `
-    console.log(container)
+    const counterContainer = $("#user-notification-counter-container");
+    const value = Number.parseInt(counterContainer.text())
+    const newValue = value + 1;
+    counterContainer.text(newValue)
     container.append(notif)
   }
 });
