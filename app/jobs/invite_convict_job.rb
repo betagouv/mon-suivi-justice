@@ -13,7 +13,7 @@ class InviteConvictJob < ApplicationJob
     # @convict.increment!(:invitation_to_convict_interface_count)
     # @convict.update(last_invite_to_convict_interface: Time.zone.now)
     return unless current_user.present?
-
+    sleep(1.5)
     ConvictInvitationNotification.with(invitation_params: params,
                                        status: :sent, type: :success).deliver(current_user)
   end

@@ -1,4 +1,5 @@
 import consumer from "./consumer"
+import { v4 as uuidv4 } from 'uuid';
 
 consumer.subscriptions.create("Noticed::ConvictInvitationChannel", {
   connected() {
@@ -15,8 +16,9 @@ consumer.subscriptions.create("Noticed::ConvictInvitationChannel", {
     // Called when there's incoming data on the websocket for this channel
     console.log(data)
     const container = $("#user-notifications-container");
+    const id = uuidv4();
     const notif = `
-    <div class="fr-alert fr-alert--${data.type} fr-alert--sm">
+    <div class="fr-alert fr-alert--${data.type} fr-alert--sm" id="${id}">
       <h3 class="fr-alert__title">
         l'invitation ${data.status === 'pending' ? "est en cours d'envoi" : "a été envoyée" } à ${data.invitation_params.first_name} ${data.invitation_params.last_name}
       </h3>
@@ -30,5 +32,16 @@ consumer.subscriptions.create("Noticed::ConvictInvitationChannel", {
     const newValue = value + 1;
     counterContainer.text(newValue)
     container.append(notif)
+
+    removeNotif(id)
   }
 });
+
+function removeNotif(id) {
+  console.log(id)
+  window.setTimeout(() => {
+    const element = $(`#${id}`)
+    console.log(element)
+    element.remove()
+  }, 2000)
+}
