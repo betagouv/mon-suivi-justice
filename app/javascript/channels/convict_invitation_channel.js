@@ -41,7 +41,8 @@ function removeNotif(id) {
   console.log(id)
   window.setTimeout(() => {
     const element = $(`#${id}`)
-    console.log(element)
-    element.remove()
+    element.fadeOut('slow', () => {
+      element.remove()
+    })
   }, 2000)
 }
