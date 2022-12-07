@@ -667,5 +667,5 @@ fr:
       truncate: '...'
   user_notification:
     convict_invitation:
-      pending: "L'invitation de %{first_name} %{last_name} est en cours d'envoi"
-      sent: "L'invitation de %{first_name} %{last_name} a été envoyée"
+      pending: "L'invitation est en cours d'envoi à %{first_name} %{last_name} "
+      sent: "L'invitation a été envoyée à %{first_name} %{last_name}"

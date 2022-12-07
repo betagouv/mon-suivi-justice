@@ -3,7 +3,7 @@
       <%= t("user_notification.convict_invitation.#{notification.params[:status]}", first_name: notification.params[:invitation_params][:first_name].titlecase, last_name: notification.params[:invitation_params][:last_name].titlecase) %>
     </h3>
     <p>
-      <%= notification.created_at.to_s(:base_date_format) %>
+      <%= l(notification.created_at, format: :clear) %>
     </p>
     <button class="fr-btn--close fr-btn" title="Masquer le message">
       Masquer le message
