@@ -35,12 +35,12 @@ module Admin
         spip_name = params[:spip_name]
 
         # gather info about the image
-        uploaded_image = params[:picture].tempfile
-        uploaded_image.binmode
-        file64 =  Base64.strict_encode64(uploaded_image.read)
-        mime_type = "image/png"
-        uploaded_image_name = params[:picture].original_filename
-        image_path_in_repo = "app/frontend/images/#{uploaded_image_name}"
+        temp_spip_picture = params[:picture].tempfile
+
+        # read ensures files is closed before returning
+        stringified_spip_picture = temp_spip_picture.read
+        spip_picture_name = params[:picture].original_filename
+        image_path_in_repo = "app/frontend/images/#{spip_picture_name}"
 
         sha = gh_api_client.get("/repos/betagouv/mon-suivi-justice-public/git/ref/heads/add-spipXX").object.sha
 
@@ -48,25 +48,29 @@ module Admin
           existing_image = gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: image_path_in_repo, ref: sha})
           
         rescue Octokit::NotFound
+          debugger
           gh_api_client.create_contents("betagouv/mon-suivi-justice-public",
             image_path_in_repo,
             "Adding content",
-            file64,
+            stringified_spip_picture,
             {branch: "add-spipXX"})
         else
-          #debugger
+          debugger
           gh_api_client.update_contents("betagouv/mon-suivi-justice-public",
             image_path_in_repo,
             "Updating image",
             existing_image[:sha],
-            file64,
+            stringified_spip_picture,
             {branch: "add-spipXX"})
         end
       
         reponse = gh_api_client.last_response
 
-        uploaded_image.close
-        uploaded_image.unlink 
+        temp_spip_picture.unlink 
+
+        flash.now[:notice] = "La création de la page de RDV est en cours. Elle sera disponible dans le CMS d'ici quelques minutes"
+
+        redirect_to admin_public_pages_path
         
 
       end
