@@ -35,12 +35,12 @@ module Admin
         spip_name = params[:spip_name]
 
         # gather info about the image
-        temp_spip_picture = params[:picture].tempfile
+        temp_picture = params[:picture].tempfile
 
         # read ensures files is closed before returning
-        stringified_spip_picture = temp_spip_picture.read
-        spip_picture_name = params[:picture].original_filename
-        image_path_in_repo = "app/frontend/images/#{spip_picture_name}"
+        stringified_picture = temp_picture.read
+        org_name = params[:picture].original_filename
+        image_path_in_repo = "app/frontend/images/#{org_name}"
 
         sha = gh_api_client.get("/repos/betagouv/mon-suivi-justice-public/git/ref/heads/add-spipXX").object.sha
 
@@ -52,7 +52,7 @@ module Admin
           gh_api_client.create_contents("betagouv/mon-suivi-justice-public",
             image_path_in_repo,
             "Adding content",
-            stringified_spip_picture,
+            stringified_picture,
             {branch: "add-spipXX"})
         else
           debugger
@@ -60,13 +60,13 @@ module Admin
             image_path_in_repo,
             "Updating image",
             existing_image[:sha],
-            stringified_spip_picture,
+            stringified_picture,
             {branch: "add-spipXX"})
         end
       
         reponse = gh_api_client.last_response
 
-        temp_spip_picture.unlink 
+        temp_picture.unlink 
 
         flash[:notice] = "La création de la page de RDV est en cours. Elle sera disponible dans le CMS d'ici quelques minutes"
 
