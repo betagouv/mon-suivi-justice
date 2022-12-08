@@ -68,7 +68,7 @@ module Admin
 
         temp_spip_picture.unlink 
 
-        flash.now[:notice] = "La création de la page de RDV est en cours. Elle sera disponible dans le CMS d'ici quelques minutes"
+        flash[:notice] = "La création de la page de RDV est en cours. Elle sera disponible dans le CMS d'ici quelques minutes"
 
         redirect_to admin_public_pages_path
         
