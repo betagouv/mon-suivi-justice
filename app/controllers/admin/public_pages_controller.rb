@@ -36,6 +36,7 @@ module Admin
 
         # gather info about the image
         uploaded_image = params[:picture].tempfile
+        uploaded_image.binmode
         file64 =  Base64.strict_encode64(uploaded_image.read)
         mime_type = "image/png"
         uploaded_image_name = params[:picture].original_filename
@@ -53,7 +54,7 @@ module Admin
             file64,
             {branch: "add-spipXX"})
         else
-          debugger
+          #debugger
           gh_api_client.update_contents("betagouv/mon-suivi-justice-public",
             image_path_in_repo,
             "Updating image",
@@ -64,7 +65,8 @@ module Admin
       
         reponse = gh_api_client.last_response
 
-        
+        uploaded_image.close
+        uploaded_image.unlink 
         
 
       end

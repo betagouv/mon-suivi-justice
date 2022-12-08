@@ -3,7 +3,7 @@
   <p><%= @sha_object.inspect %></p>
   <br>
 
-  <%= form_with url: admin_create_page_path, multipart: true, class: 'form' do |form| %>
+  <%= form_with url: admin_create_page_path, class: 'form' do |form| %>
     <div class="field-unit field-unit--string field-unit--optional">
       <%= form.label :spip_name, "Nom du SPIP:", class: 'field-unit__label' %>
       <%= form.text_field :spip_name, class: 'field-unit__field' %>
