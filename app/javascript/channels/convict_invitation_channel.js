@@ -19,12 +19,16 @@ consumer.subscriptions.create("Noticed::ConvictInvitationChannel", {
 });
 
 function handleInvitationNotification(data) {
+  displayToast(data);
+  incrementNotificationCounter()
+  changeInvitationText(data)
+}
+
+function displayToast(data) {
   const container = $("#user-notifications-container");
   const notificationId = uuidv4();
   const notif = getNotif(notificationId, data);
   container.append(notif);
-  incrementNotificationCounter()
-  changeInvitationText(data)
 
   removeNotif(notificationId)
 }
