@@ -62,7 +62,7 @@ function getNotif(id, data) {
   return `
   <div class="fr-alert fr-alert--${data.type} fr-alert--sm" id="${id}">
     <h3 class="fr-alert__title">
-      l'invitation ${data.status === 'pending' ? "est en cours d'envoi" : "a été envoyée" } à ${data.invitation_params.first_name} ${data.invitation_params.last_name}
+      L'invitation ${data.status === 'pending' ? "est en cours d'envoi" : "a été envoyée" } à ${data.invitation_params.first_name} ${data.invitation_params.last_name}
     </h3>
     <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="const alert = this.parentNode; alert.parentNode.removeChild(alert)">
         Masquer le message
