@@ -1,6 +1,6 @@
 <div id="spip_creation_page" style="padding: 20px">
   <h1>Création de page sur le site public - https://www.mon-suivi-justice.beta.gouv.fr</h1>
-  <p><%= @sha.inspect %></p>
+  <p><%= @sha_object.inspect %></p>
   <br>
 
   <%= form_with url: admin_create_page_path, multipart: true, class: 'form' do |form| %>
