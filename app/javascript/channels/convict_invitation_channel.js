@@ -14,15 +14,11 @@ consumer.subscriptions.create("Noticed::ConvictInvitationChannel", {
 
   received(data) {
     // Called when there's incoming data on the websocket for this channel
-    handleInvitationNotification(data)
+    displayToast(data);
+    incrementNotificationCounter();
+    changeInvitationText(data);
   }
 });
-
-function handleInvitationNotification(data) {
-  displayToast(data);
-  incrementNotificationCounter()
-  changeInvitationText(data)
-}
 
 function displayToast(data) {
   const container = $("#user-notifications-container");
@@ -57,7 +53,7 @@ function formatDate(date) {
 
 function incrementNotificationCounter() {
   const counterContainer = $("#user-notification-counter-container");
-  const value = Number.parseInt(counterContainer.text())
+  const value = Number.parseInt(counterContainer.text(), 10) || 0;
   const newValue = value + 1;
   counterContainer.text(newValue)
 }
