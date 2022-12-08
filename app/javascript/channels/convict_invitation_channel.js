@@ -18,7 +18,7 @@ consumer.subscriptions.create("Noticed::ConvictInvitationChannel", {
     const container = $("#user-notifications-container");
     const id = uuidv4();
     const notif = `
-    <div class="fr-alert fr-alert--${data.type} fr-alert--sm" id="${id}" style="background-color: white;">
+    <div class="fr-alert fr-alert--${data.type} fr-alert--sm" id="${id}">
       <h3 class="fr-alert__title">
         l'invitation ${data.status === 'pending' ? "est en cours d'envoi" : "a été envoyée" } à ${data.invitation_params.first_name} ${data.invitation_params.last_name}
       </h3>

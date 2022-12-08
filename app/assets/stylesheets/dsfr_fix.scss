@@ -24,17 +24,22 @@
 
 // target blank icons
 
-[target=_blank]::after {
+[target="_blank"]::after {
   content: none;
   -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/external-link-line.svg"));
-  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/external-link-line.svg"))
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/external-link-line.svg"));
 }
 
-[target=_blank][class^=fr-icon-]::after,
-[target=_blank][class*=" fr-icon-"]::after,
-[target=_blank][class^=fr-fi-]::after,
-[target=_blank][class*=" fr-fi-"]::after {
+[target="_blank"][class^="fr-icon-"]::after,
+[target="_blank"][class*=" fr-icon-"]::after,
+[target="_blank"][class^="fr-fi-"]::after,
+[target="_blank"][class*=" fr-fi-"]::after {
   -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/external-link-line.svg"));
   mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/external-link-line.svg"));
   content: none;
+}
+
+// replace transparent background
+.fr-alert {
+  background-color: white;
 }
