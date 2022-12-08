@@ -1,0 +1,11 @@
+<div class='fr-container static-content-container'>
+  <h1 class='static-title static-title-blue fr-mb-4w'><%= content(:main_title)%></h1>
+
+  <p class='static-intro'><%= content(:main_description) %></p>
+
+  <%= render 'components/direction_collapse', content: content, image: "placeholder.jpg" %>
+
+  <% repeater(:rich_collapse) do |collapse| %>
+    <%= render 'components/collapse', collapse: collapse, collapse_style: "blue"  %>
+  <% end %>
+</div>
