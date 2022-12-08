@@ -1,0 +1,19 @@
+<div id="spip_creation_page" style="padding: 20px">
+  <h1>Création de page sur le site public - https://www.mon-suivi-justice.beta.gouv.fr</h1>
+  <p><%= @sha.inspect %></p>
+  <br>
+
+  <%= form_with url: admin_create_page_path, multipart: true, class: 'form' do |form| %>
+    <div class="field-unit field-unit--string field-unit--optional">
+      <%= form.label :spip_name, "Nom du SPIP:", class: 'field-unit__label' %>
+      <%= form.text_field :spip_name, class: 'field-unit__field' %>
+    </div>
+    <div class="field-unit field-unit--string field-unit--optional">
+      <%= form.label :picture, "Image du SPIP:", class: 'field-unit__label' %> 
+      <%= form.file_field :picture, style: 'margin-left: 2rem;' %>
+    </div>
+    <div class="form-actions">
+      <%= form.submit "Créer" %>
+    </div>
+  <% end %>
+</div>
