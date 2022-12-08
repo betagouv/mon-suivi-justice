@@ -5,6 +5,7 @@ module Users
         user.user_notifications.newest_first
       end
     end
+
     def index?
       true
     end

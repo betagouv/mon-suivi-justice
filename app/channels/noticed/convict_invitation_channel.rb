@@ -9,7 +9,7 @@ module Noticed
     end
 
     def mark_as_read(data)
-      current_user.notifications.where(id: data["ids"]).mark_as_read!
+      current_user.notifications.where(id: data['ids']).mark_as_read!
     end
   end
 end
