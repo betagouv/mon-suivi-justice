@@ -110,26 +110,3 @@
   top: 10%;
   width: 400px;
 }
-
-.fr-btn--close::before,
-.fr-btn--close::after {
-  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/close-line.svg")) !important;
-  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/close-line.svg")) !important;
-}
-
-.fr-alert--info::before,
-.fr-alert--info::after {
-  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--info-fill.svg"));
-  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--info-fill.svg"));
-}
-
-.fr-alert--success::before,
-.fr-alert--success::after {
-  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--success-fill.svg"));
-  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--success-fill.svg"));
-}
-
-[target=_blank]::after {
-  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/external-link-line.svg"));
-  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/external-link-line.svg"))
-}

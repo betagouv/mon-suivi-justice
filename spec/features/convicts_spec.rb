@@ -377,7 +377,6 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_content('Jamais invité')
       expect(page).to have_content("Aucun accès pour l'instant")
       expect { click_button('Inviter à son espace') }.to have_enqueued_job(InviteConvictJob).once
-      expect(page).to have_content("L'invitation est en cours d'envoi à la PPSMJ")
 
       @convict.update(invitation_to_convict_interface_count: 1)
       visit convict_path(@convict)
