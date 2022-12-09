@@ -2,6 +2,7 @@ module Admin
     class PublicPagesController < Admin::ApplicationController
       include Devise::Controllers::Helpers
       require 'octokit'
+      require 'base64'
   
       def index
         render locals: {
@@ -14,19 +15,26 @@ module Admin
 
       def create
         @org_name = params[:organization_name]
+        # image_extension = File.extname(params[:picture].original_filename)
+        # @image_filename = @org_name + image_extension
+
         @gh_api_client = Octokit::Client.new(:access_token => ENV['GITHUB_API_TOKEN'])
+
 
         # Get develop branch hash (https://docs.github.com/fr/rest/git/refs?apiVersion=2022-11-28#get-a-reference)
         develop_sha = @gh_api_client.get("/repos/betagouv/mon-suivi-justice-public/git/ref/heads/develop").object.sha
 
         # Create new branch from develop
-        @gh_api_client.create_ref("betagouv/mon-suivi-justice-public", "heads/add-#{@org_name}-page", develop_sha)
+        # @gh_api_client.create_ref("betagouv/mon-suivi-justice-public", "heads/add-#{@org_name}-page", develop_sha)
 
         @new_page_branch = @gh_api_client.get("/repos/betagouv/mon-suivi-justice-public/git/ref/heads/add-#{@org_name}-page").object.sha
 
-        handle_image
-        handle_template
-        #handle_routes
+        # Build required spina files and commit them to the newly created branch
+        # handle_image
+        # handle_template
+        handle_routes
+
+        # create PR
 
         flash[:notice] = "La création de la page de RDV est en cours. Elle sera disponible dans le CMS d'ici quelques minutes"
 
@@ -36,8 +44,7 @@ module Admin
       private
 
       def handle_image
-        image_extension = File.extname(params[:picture].original_filename)
-        @image_filename = @org_name + image_extension
+
         image_repo_path = "app/frontend/images/#{@image_filename}"
 
         temp_image = params[:picture].tempfile
@@ -96,19 +103,40 @@ module Admin
               f.read,
               {branch: "add-#{@org_name}-page"})
           end
+
           f.close
        end
-
-
-
-
-
-
-
-
-
-
       end
+
+      def handle_routes
+          routes_file = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: "config/routes.rb", ref: @new_page_branch})
+
+          routes_file_content = Base64.decode64(routes_file[:content])
+
+          # testing if I can write content from GH to a locally newly created file
+          Tempfile.create("routes.rb") do |f|
+            f.write(routes_file_content)
+            f.rewind
+            
+            data = f.readlines
+
+
+            insertion_index = data.index "  scope controller: :pages do\n" 
+
+            debugger
+
+
+
+          end
+
+           
+
+
+
+
+        
+      end
+
 
 
       def show_search_bar?
