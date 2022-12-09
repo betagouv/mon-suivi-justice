@@ -6,11 +6,11 @@
   <%= form_with url: admin_create_page_path, class: 'form' do |form| %>
     <div class="field-unit field-unit--string field-unit--optional">
       <%= form.label :organization_name, "Nom du service :", class: 'field-unit__label' %>
-      <%= form.text_field :organization_name, class: 'field-unit__field', placeholder: "Ex: spip78, spip54_val_de_briey, sap_draguignan..." %>
+      <%= form.text_field :organization_name, class: 'field-unit__field', placeholder: "Ex: spip78, spip54_val_de_briey, sap_draguignan...", required: true %>
     </div>
     <div class="field-unit field-unit--string field-unit--optional">
       <%= form.label :picture, "Image du SPIP:", class: 'field-unit__label' %> 
-      <%= form.file_field :picture, style: 'margin-left: 2rem;' %>
+      <%= form.file_field :picture, style: 'margin-left: 2rem;', required: true %>
     </div>
     <div class="form-actions">
       <%= form.submit "Créer" %>
