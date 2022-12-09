@@ -35,7 +35,7 @@ module Admin
         @org_name = params[:spip_name]
         @sha = @gh_api_client.get("/repos/betagouv/mon-suivi-justice-public/git/ref/heads/add-spipXX").object.sha
 
-        handle_image
+        #handle_image
         handle_template
 
 
@@ -78,8 +78,57 @@ module Admin
       end
 
       def handle_template
-        # https://stackoverflow.com/questions/12749101/create-file-using-template-erb
-        # https://apidock.com/ruby/ERB
+
+        # spina_view_erb = Tempfile.new('spip-test.html.erb')
+
+        template_content = File.open("./app/views/admin/public_pages/templates/preparer_page_template.html.erb").read
+
+        Tempfile.create('spina_view') do |f|
+
+          new_content = template_content.gsub(/\bplaceholder.jpg\b/, "pouet-pouet-mon-image.jpg")
+
+          f.write(new_content)
+          f.rewind
+
+          @toto = f.read
+
+
+          view_path_in_repo = "app/views/pages/preparer_test.html.erb"
+
+          begin
+            existing_view = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: view_path_in_repo, ref: @sha})
+            
+          rescue Octokit::NotFound
+            @gh_api_client.create_contents("betagouv/mon-suivi-justice-public",
+              view_path_in_repo,
+              "Adding spina view page for organization",
+              @toto,
+              {branch: "add-spipXX"})
+          else
+            @gh_api_client.update_contents("betagouv/mon-suivi-justice-public",
+              view_path_in_repo,
+              "Updating spina view page for organization",
+              existing_view[:sha],
+              @toto,
+              {branch: "add-spipXX"})
+          end
+
+
+
+
+          #debugger
+          f.close
+       end
+
+
+
+
+
+
+
+
+
+
       end
 
 
