@@ -32,7 +32,9 @@ module Admin
         # Build required spina files and commit them to the newly created branch
         # handle_image
         # handle_template
-        handle_routes
+        # handle_routes
+        # handle_pages_controller
+        handle_spina_conf_file
 
         # create PR
 
@@ -109,32 +111,70 @@ module Admin
       end
 
       def handle_routes
-          routes_file = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: "config/routes.rb", ref: @new_page_branch})
+        routes_file = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: "config/routes.rb", ref: @new_page_branch})
+        @routes_file_rows = Base64.decode64(routes_file[:content]).split("\n")
+        insertion_index = @routes_file_rows.index "  scope controller: :pages do"
+        @routes_file_rows.insert(insertion_index + 1, "    get :preparer_#{@org_name}")
 
-          routes_file_content = Base64.decode64(routes_file[:content])
+        Tempfile.create("routes_temp.rb") do |f|
+          f.write(@routes_file_rows.join("\n"), "\n")
+          f.rewind
 
-          # testing if I can write content from GH to a locally newly created file
-          Tempfile.create("routes.rb") do |f|
-            f.write(routes_file_content)
-            f.rewind
-            
-            data = f.readlines
+          @gh_api_client.update_contents("betagouv/mon-suivi-justice-public",
+            "config/routes.rb",
+            "Updating routing file for #{@org_name}",
+            routes_file[:sha],
+            f.read,
+            {branch: "add-#{@org_name}-page"})
 
+          f.close
+        end
+      end
 
-            insertion_index = data.index "  scope controller: :pages do\n" 
+      def handle_pages_controller
+        pages_controller_file = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: "app/controllers/pages_controller.rb", ref: @new_page_branch})
+        @pages_controller_rows = Base64.decode64(pages_controller_file[:content]).split("\n")
+        insertion_index = @pages_controller_rows.index "  include Spina::Api::Paginable"
+        @pages_controller_rows.insert(insertion_index + 1, "  def preparer_#{@org_name}", "  end")
 
-            debugger
+        Tempfile.create("pages_controller_temp.rb") do |f|
+          f.write(@pages_controller_rows.join("\n"), "\n")
+          f.rewind
 
+          @gh_api_client.update_contents("betagouv/mon-suivi-justice-public",
+            "app/controllers/pages_controller.rb",
+            "Updating pages controller file for #{@org_name}",
+            pages_controller_file[:sha],
+            f.read,
+            {branch: "add-#{@org_name}-page"})
 
+          f.close
+        end
+      end
 
-          end
+      def handle_spina_conf_file
+        spina_conf_file = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: "config/initializers/themes/default.rb", ref: @new_page_branch})
+        @spina_conf_file_rows = Base64.decode64(spina_conf_file[:content]).split("\n")
 
-           
+        view_template_insertion_index = @spina_conf_file_rows.index "  theme.view_templates = ["
+        @spina_conf_file_rows.insert(view_template_insertion_index + 1, "    {name: 'preparer_#{@org_name}', title: 'Preparer #{@org_name}', parts: %w[main_title main_description zip_code_select direction_collapse_title direction_collapse_first_rich_content direction_collapse_second_rich_content direction_collapse_button_text direction_collapse_button_link rich_collapse]},")
 
+        custom_page_insertion_index = @spina_conf_file_rows.index "  theme.custom_pages = ["
+        @spina_conf_file_rows.insert(custom_page_insertion_index + 1, "    {name: 'preparer_#{@org_name}', title: 'Preparer #{@org_name}', view_template: 'preparer_#{@org_name}'},")
 
+        Tempfile.create("pages_controller_temp.rb") do |f|
+          f.write(@spina_conf_file_rows.join("\n"), "\n")
+          f.rewind
 
+          @gh_api_client.update_contents("betagouv/mon-suivi-justice-public",
+            "config/initializers/themes/default.rb",
+            "Updating spina conf file for #{@org_name}",
+            spina_conf_file[:sha],
+            f.read,
+            {branch: "add-#{@org_name}-page"})
 
-        
+          f.close
+        end
       end
 
 
