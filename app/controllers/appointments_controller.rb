@@ -69,7 +69,7 @@ class AppointmentsController < ApplicationController
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
     @appointment.fulfil
 
-    authorize @appointment
+    authorize @appointment, :fulfil_old?
     redirect_back(fallback_location: root_path)
   end
 
@@ -85,7 +85,7 @@ class AppointmentsController < ApplicationController
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
     @appointment.excuse
 
-    authorize @appointment
+    authorize @appointment, :excuse_old?
     redirect_back(fallback_location: root_path)
   end
 

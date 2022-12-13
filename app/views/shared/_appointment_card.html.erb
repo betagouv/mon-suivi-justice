@@ -61,7 +61,7 @@
   </div>
 
   <div class='index-card-controls-container'>
-    <% if appointment.in_the_past? && appointment.booked? && policy(appointment).fulfil?(forbid_old: false) %>
+    <% if appointment.in_the_past? && appointment.booked? && policy(appointment).fulfil_old? %>
       <div class='index-card-state-container index-card-state-controls-wrapper'>
         <%= t('index-appointment-state') %>
         <div class='index-card-state-controls-container'>

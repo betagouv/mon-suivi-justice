@@ -53,26 +53,33 @@ class AppointmentPolicy < ApplicationPolicy
     appointment_workflow
   end
 
-  def fulfil?(forbid_old: true)
-    appointment_fulfilment(forbid_old)
+  def fulfil?
+    appointment_fulfilment
   end
 
-  def miss?(forbid_old: true)
-    appointment_fulfilment(forbid_old)
+  def miss?
+    appointment_fulfilment
   end
 
-  def excuse?(forbid_old: true)
-    appointment_fulfilment(forbid_old)
+  def excuse?
+    appointment_fulfilment
   end
 
-  def rebook?(forbid_old: true)
-    appointment_fulfilment(forbid_old)
+  def rebook?
+    appointment_fulfilment
   end
 
   def prepare?
     true
   end
 
+  def fulfil_old?
+    appointment_fulfilment(allow_old: true)
+  end
+
+  def excuse_old?
+    appointment_fulfilment(allow_old: true)
+  end
   private
 
   def appointment_workflow
@@ -86,14 +93,12 @@ class AppointmentPolicy < ApplicationPolicy
     end
   end
 
-  def appointment_fulfilment(forbid_old = true)
+  def appointment_fulfilment(allow_old: false)
     apt_type = AppointmentType.find(record.slot&.appointment_type_id)
+    
     today = Date.today
     six_m_before_today = today - 6
-    p "===="
-    p six_m_before_today
-    p "===="
-    is_too_old = forbid_old ? record.slot.date < six_m_before_today : false;
+    is_too_old = allow_old ? false : record.slot.date < six_m_before_today;
 
 
     return false if record.slot.place.organization != user.organization || is_too_old
