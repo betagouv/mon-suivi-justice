@@ -93,7 +93,7 @@ class AppointmentsController < ApplicationController
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
     @appointment.rebook
 
-    authorize @appointment
+    authorize @appointment, :rebook_old?
     redirect_back(fallback_location: root_path)
   end
 

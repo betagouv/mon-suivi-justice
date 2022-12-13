@@ -80,6 +80,10 @@ class AppointmentPolicy < ApplicationPolicy
   def excuse_old?
     appointment_fulfilment(allow_old: true)
   end
+
+  def rebook_old?
+    appointment_fulfilment(allow_old: true)
+  end
   private
 
   def appointment_workflow
@@ -97,7 +101,7 @@ class AppointmentPolicy < ApplicationPolicy
     apt_type = AppointmentType.find(record.slot&.appointment_type_id)
     
     today = Date.today
-    six_m_before_today = today - 6
+    six_m_before_today = today << 6
     is_too_old = allow_old ? false : record.slot.date < six_m_before_today;
 
 
