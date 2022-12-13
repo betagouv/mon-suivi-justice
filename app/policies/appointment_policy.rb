@@ -53,20 +53,20 @@ class AppointmentPolicy < ApplicationPolicy
     appointment_workflow
   end
 
-  def fulfil?
-    appointment_fulfilment
+  def fulfil?(forbid_old: true)
+    appointment_fulfilment(forbid_old)
   end
 
-  def miss?
-    appointment_fulfilment
+  def miss?(forbid_old: true)
+    appointment_fulfilment(forbid_old)
   end
 
-  def excuse?
-    appointment_fulfilment
+  def excuse?(forbid_old: true)
+    appointment_fulfilment(forbid_old)
   end
 
-  def rebook?
-    appointment_fulfilment
+  def rebook?(forbid_old: true)
+    appointment_fulfilment(forbid_old)
   end
 
   def prepare?
@@ -86,10 +86,17 @@ class AppointmentPolicy < ApplicationPolicy
     end
   end
 
-  def appointment_fulfilment
+  def appointment_fulfilment(forbid_old = true)
     apt_type = AppointmentType.find(record.slot&.appointment_type_id)
+    today = Date.today
+    six_m_before_today = today - 6
+    p "===="
+    p six_m_before_today
+    p "===="
+    is_too_old = forbid_old ? record.slot.date < six_m_before_today : false;
 
-    return false if record.slot.place.organization != user.organization
+
+    return false if record.slot.place.organization != user.organization || is_too_old
 
     if user.work_at_sap? then AppointmentType.used_at_sap?.include? apt_type.name
     elsif user.work_at_spip? then AppointmentType.used_at_spip?.include? apt_type.name
