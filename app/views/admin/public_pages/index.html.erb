@@ -1,6 +1,5 @@
 <div id="spip_creation_page" style="padding: 20px">
   <h1>Création de page sur le site public - https://www.mon-suivi-justice.beta.gouv.fr</h1>
-  <p><%= @sha_object.inspect %></p>
   <br>
 
   <%= form_with url: admin_create_page_path, class: 'form' do |form| %>
@@ -10,7 +9,7 @@
     </div>
     <div class="field-unit field-unit--string field-unit--optional">
       <%= form.label :picture, "Image du SPIP:", class: 'field-unit__label' %> 
-      <%= form.file_field :picture, style: 'margin-left: 2rem;' %>
+      <%= form.file_field :picture, style: 'margin-left: 2rem;', required: true %>
     </div>
     <div class="form-actions">
       <%= form.submit "Créer" %>
