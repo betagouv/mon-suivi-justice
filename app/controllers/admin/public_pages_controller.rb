@@ -3,6 +3,8 @@ module Admin
       include Devise::Controllers::Helpers
       require 'octokit'
       require 'base64'
+
+      MSJ_PUBLIC_REPO_PATH = "betagouv/mon-suivi-justice-public"
   
       def index
         render locals: {
@@ -15,28 +17,30 @@ module Admin
 
       def create
         @org_name = params[:organization_name]
-        @gh_api_client = Octokit::Client.new(:access_token => ENV['GITHUB_API_TOKEN'])
 
-        develop_sha = @gh_api_client.get("/repos/betagouv/mon-suivi-justice-public/git/ref/heads/develop").object.sha
+        begin
+          @gh_api_client = Octokit::Client.new(:access_token => ENV['GITHUB_API_TOKEN'])
+          develop_sha = @gh_api_client.get("/repos/#{MSJ_PUBLIC_REPO_PATH}/git/ref/heads/develop").object.sha
+          @gh_api_client.create_ref(MSJ_PUBLIC_REPO_PATH, "heads/add-#{@org_name}-page", develop_sha)
+          @new_page_branch = @gh_api_client.get("/repos/#{MSJ_PUBLIC_REPO_PATH}/git/ref/heads/add-#{@org_name}-page").object.sha
 
-        @gh_api_client.create_ref("betagouv/mon-suivi-justice-public", "heads/add-#{@org_name}-page", develop_sha)
+          handle_image
+          handle_template
+          handle_routes
+          handle_pages_controller
+          handle_spina_conf_file
+          handle_spec_file
+          create_pull_request
 
-        @new_page_branch = @gh_api_client.get("/repos/betagouv/mon-suivi-justice-public/git/ref/heads/add-#{@org_name}-page").object.sha
-
-        # Build required spina files and commit them to the newly created branch
-        handle_image
-        handle_template
-        handle_routes
-        handle_pages_controller
-        handle_spina_conf_file
-        handle_spec_file
-        create_pull_request
-
-        flash[:notice] = "Le code de la page a été correctement généré. Demandez à un développeur de la déployer en production"
-
-        # IDEE : pinger l'équipe de dév (Mattermost, mail,...) ?
-
-        redirect_to admin_public_pages_path
+        rescue Octokit::Error => err
+          debugger
+          flash[:error] = "Une erreur s'est produite, contactez un développeur. <br /> #{err.message}"
+        else
+          flash[:success] = "Le code de la page a été correctement généré. Demandez à un développeur de la déployer en production."
+        ensure
+          # IDEE : pinger l'équipe de dév (Mattermost, mail,...) ?
+          redirect_to admin_public_pages_path
+        end
       end
     
       private
@@ -51,7 +55,7 @@ module Admin
         # read ensures files is closed before returning
         org_image = temp_image.read
           
-        @gh_api_client.create_contents("betagouv/mon-suivi-justice-public",
+        @gh_api_client.create_contents(MSJ_PUBLIC_REPO_PATH,
           image_repo_path,
           "[skip actions] Adding image for #{@org_name}",
           org_image,
@@ -69,7 +73,7 @@ module Admin
           f.write(new_content)
           f.rewind
 
-          @gh_api_client.create_contents("betagouv/mon-suivi-justice-public",
+          @gh_api_client.create_contents(MSJ_PUBLIC_REPO_PATH,
             "app/views/pages/preparer_#{@org_name}.html.erb",
             "[skip actions] Adding spina view page for for #{@org_name}",
             f.read,
@@ -78,7 +82,7 @@ module Admin
       end
 
       def handle_routes
-        routes_file = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: "config/routes.rb", ref: @new_page_branch})
+        routes_file = @gh_api_client.contents(MSJ_PUBLIC_REPO_PATH, {path: "config/routes.rb", ref: @new_page_branch})
         @routes_file_rows = Base64.decode64(routes_file[:content]).split("\n")
         insertion_index = @routes_file_rows.index "  scope controller: :pages do"
         @routes_file_rows.insert(insertion_index + 1, "    get :preparer_#{@org_name}")
@@ -87,7 +91,7 @@ module Admin
           f.write(@routes_file_rows.join("\n"), "\n")
           f.rewind
 
-          @gh_api_client.update_contents("betagouv/mon-suivi-justice-public",
+          @gh_api_client.update_contents(MSJ_PUBLIC_REPO_PATH,
             "config/routes.rb",
             "[skip actions] Updating routing file for #{@org_name}",
             routes_file[:sha],
@@ -97,7 +101,7 @@ module Admin
       end
 
       def handle_pages_controller
-        pages_controller_file = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: "app/controllers/pages_controller.rb", ref: @new_page_branch})
+        pages_controller_file = @gh_api_client.contents(MSJ_PUBLIC_REPO_PATH, {path: "app/controllers/pages_controller.rb", ref: @new_page_branch})
         @pages_controller_rows = Base64.decode64(pages_controller_file[:content]).split("\n")
         insertion_index = @pages_controller_rows.index "  include Spina::Api::Paginable"
         @pages_controller_rows.insert(insertion_index + 1, "  def preparer_#{@org_name}", "  end")
@@ -106,7 +110,7 @@ module Admin
           f.write(@pages_controller_rows.join("\n"), "\n")
           f.rewind
 
-          @gh_api_client.update_contents("betagouv/mon-suivi-justice-public",
+          @gh_api_client.update_contents(MSJ_PUBLIC_REPO_PATH,
             "app/controllers/pages_controller.rb",
             "[skip actions] Updating pages controller file for #{@org_name}",
             pages_controller_file[:sha],
@@ -117,7 +121,7 @@ module Admin
       end
 
       def handle_spina_conf_file
-        spina_conf_file = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: "config/initializers/themes/default.rb", ref: @new_page_branch})
+        spina_conf_file = @gh_api_client.contents(MSJ_PUBLIC_REPO_PATH, {path: "config/initializers/themes/default.rb", ref: @new_page_branch})
         @spina_conf_file_rows = Base64.decode64(spina_conf_file[:content]).split("\n")
 
         view_template_insertion_index = @spina_conf_file_rows.index "  theme.view_templates = ["
@@ -130,7 +134,7 @@ module Admin
           f.write(@spina_conf_file_rows.join("\n").force_encoding('utf-8'), "\n")
           f.rewind
 
-          @gh_api_client.update_contents("betagouv/mon-suivi-justice-public",
+          @gh_api_client.update_contents(MSJ_PUBLIC_REPO_PATH,
             "config/initializers/themes/default.rb",
             "[skip actions] Updating spina conf file for #{@org_name}",
             spina_conf_file[:sha],
@@ -140,7 +144,7 @@ module Admin
       end
 
       def handle_spec_file
-        spec_file = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: "spec/requests/pages_spec.rb", ref: @new_page_branch})
+        spec_file = @gh_api_client.contents(MSJ_PUBLIC_REPO_PATH, {path: "spec/requests/pages_spec.rb", ref: @new_page_branch})
         @spec_file_rows = Base64.decode64(spec_file[:content]).split("\n")
         insertion_index = @spec_file_rows.index "    FactoryBot.create(:account)"
         @spec_file_rows.insert(insertion_index + 3, "  describe 'GET /preparer_#{@org_name}' do", "    let(:path) { preparer_#{@org_name}_path }", "    ", "    it do", "      get path", "      is_expected.to be_successful", "    end", "  end")
@@ -149,7 +153,7 @@ module Admin
           f.write(@spec_file_rows.join("\n"), "\n")
           f.rewind
 
-          @gh_api_client.update_contents("betagouv/mon-suivi-justice-public",
+          @gh_api_client.update_contents(MSJ_PUBLIC_REPO_PATH,
             "spec/requests/pages_spec.rb",
             "Updating pages spec file for #{@org_name}",
             spec_file[:sha],
@@ -159,7 +163,7 @@ module Admin
       end
 
       def create_pull_request
-        @gh_api_client.create_pull_request("betagouv/mon-suivi-justice-public", "develop", "add-#{@org_name}-page",
+        @gh_api_client.create_pull_request(MSJ_PUBLIC_REPO_PATH, "develop", "add-#{@org_name}-page",
           "Creation page #{@org_name}", "Création de la page préparer mon rendez-vous pour le service #{@org_name}")
       end
 
