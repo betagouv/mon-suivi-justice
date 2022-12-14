@@ -33,7 +33,6 @@ module Admin
           create_pull_request
 
         rescue Octokit::Error => err
-          debugger
           flash[:error] = "Une erreur s'est produite, contactez un développeur. <br /> #{err.message}"
         else
           flash[:success] = "Le code de la page a été correctement généré. Demandez à un développeur de la déployer en production."
