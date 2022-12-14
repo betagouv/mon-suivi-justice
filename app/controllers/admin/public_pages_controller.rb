@@ -17,10 +17,8 @@ module Admin
         @org_name = params[:organization_name]
         @gh_api_client = Octokit::Client.new(:access_token => ENV['GITHUB_API_TOKEN'])
 
-        # Get develop branch hash (https://docs.github.com/fr/rest/git/refs?apiVersion=2022-11-28#get-a-reference)
         develop_sha = @gh_api_client.get("/repos/betagouv/mon-suivi-justice-public/git/ref/heads/develop").object.sha
 
-        # Create new branch from develop
         @gh_api_client.create_ref("betagouv/mon-suivi-justice-public", "heads/add-#{@org_name}-page", develop_sha)
 
         @new_page_branch = @gh_api_client.get("/repos/betagouv/mon-suivi-justice-public/git/ref/heads/add-#{@org_name}-page").object.sha
@@ -34,9 +32,9 @@ module Admin
         handle_spec_file
         create_pull_request
 
-        # create PR
+        flash[:notice] = "Le code de la page a été correctement généré. Demandez à un développeur de la déployer en production"
 
-        flash[:notice] = "La création de la page de RDV est en cours. Elle sera disponible dans le CMS d'ici quelques minutes"
+        # IDEE : pinger l'équipe de dév (Mattermost, mail,...) ?
 
         redirect_to admin_public_pages_path
       end
@@ -52,20 +50,13 @@ module Admin
         temp_image = params[:picture].tempfile
         # read ensures files is closed before returning
         org_image = temp_image.read
-
-        begin
-          existing_image = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: image_repo_path, ref: @new_page_branch})
           
-        rescue Octokit::NotFound
-          @gh_api_client.create_contents("betagouv/mon-suivi-justice-public",
-            image_repo_path,
-            "[skip actions] Adding image for #{@org_name}",
-            org_image,
-            {branch: "add-#{@org_name}-page"})
-        end
+        @gh_api_client.create_contents("betagouv/mon-suivi-justice-public",
+          image_repo_path,
+          "[skip actions] Adding image for #{@org_name}",
+          org_image,
+          {branch: "add-#{@org_name}-page"})
       
-        reponse = @gh_api_client.last_response
-
         # ensures file is removed from disk
         temp_image.unlink
       end
@@ -78,20 +69,12 @@ module Admin
           f.write(new_content)
           f.rewind
 
-          view_path_in_repo = "app/views/pages/preparer_test.html.erb"
-
-          begin
-            existing_view = @gh_api_client.contents("betagouv/mon-suivi-justice-public", {path: view_path_in_repo, ref: @new_page_branch})
-            
-          rescue Octokit::NotFound
-            @gh_api_client.create_contents("betagouv/mon-suivi-justice-public",
-              view_path_in_repo,
-              "[skip actions] Adding spina view page for for #{@org_name}",
-              f.read,
-              {branch: "add-#{@org_name}-page"})
-          end
-
-       end
+          @gh_api_client.create_contents("betagouv/mon-suivi-justice-public",
+            "app/views/pages/preparer_#{@org_name}.html.erb",
+            "[skip actions] Adding spina view page for for #{@org_name}",
+            f.read,
+            {branch: "add-#{@org_name}-page"})
+        end
       end
 
       def handle_routes
@@ -110,7 +93,6 @@ module Admin
             routes_file[:sha],
             f.read,
             {branch: "add-#{@org_name}-page"})
-
         end
       end
 
@@ -154,7 +136,6 @@ module Admin
             spina_conf_file[:sha],
             f.read,
             {branch: "add-#{@org_name}-page"})
-
         end
       end
 
@@ -174,7 +155,6 @@ module Admin
             spec_file[:sha],
             f.read,
             {branch: "add-#{@org_name}-page"})
-
         end
       end
 
