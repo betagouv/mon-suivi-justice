@@ -19,6 +19,8 @@ module Admin
         @org_name = params[:organization_name]
 
         begin
+          raise StandardError.new "La taille du fichier est supérieur à 2MB" if params[:picture].size > 2.megabytes
+
           @gh_api_client = Octokit::Client.new(:access_token => ENV['GITHUB_API_TOKEN'])
           develop_sha = @gh_api_client.get("/repos/#{MSJ_PUBLIC_REPO_PATH}/git/ref/heads/develop").object.sha
           @gh_api_client.create_ref(MSJ_PUBLIC_REPO_PATH, "heads/add-#{@org_name}-page", develop_sha)
@@ -32,8 +34,10 @@ module Admin
           handle_spec_file
           create_pull_request
 
+        rescue StandardError => err
+          flash[:error] = "Erreur : #{err.message}"
         rescue Octokit::Error => err
-          flash[:error] = "Une erreur s'est produite, contactez un développeur. <br /> #{err.message}"
+          flash[:error] = "Une erreur GitHub s'est produite, contactez un développeur. <br /> #{err.message}"
         else
           flash[:success] = "Le code de la page a été correctement généré. Demandez à un développeur de la déployer en production."
         ensure
@@ -46,6 +50,7 @@ module Admin
 
       def handle_image
         image_extension = File.extname(params[:picture].original_filename)
+
         @image_filename = @org_name + image_extension
 
         image_repo_path = "app/frontend/images/#{@image_filename}"
