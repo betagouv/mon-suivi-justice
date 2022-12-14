@@ -10,8 +10,13 @@
                      input_html: { class: 'form-select' } %>
   <%= f.input :email, required: true %>
   <%= f.input :phone %>
+
+
   <%= f.association :organization, include_blank: false,
-                                   label: t('activerecord.attributes.user.organization'),
-                                   input_html: { class: 'form-select' } %>
+                                  label: t('activerecord.attributes.user.organization'),
+                                  input_html: { class: 'form-select' },
+                                  disabled: !current_user.admin?,
+                                  collection: current_user.admin? ? Organization.all : [current_organization] %>
+
   <%= f.button :submit, t('send_invitation'), class: 'form-submit-button' %>
 <% end %>
