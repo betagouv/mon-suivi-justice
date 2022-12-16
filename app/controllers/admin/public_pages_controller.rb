@@ -17,9 +17,12 @@ module Admin
 
       def create
         @org_name = params[:organization_name]
+        @zip_code = params[:zip_code]
 
         begin
-          raise StandardError.new "La taille du fichier est supérieur à 2MB" if params[:picture].size > 2.megabytes
+          @image_extension = File.extname(params[:picture].original_filename)
+          raise StandardError.new "Seuls les formats jpg, jpeg ou png sont supportés" unless %w( .jpg .jpeg .png ).include? @image_extension.downcase  
+          raise StandardError.new "La taille du fichier doit être inférieure à 2MB" unless params[:picture].size <= 2.megabytes
 
           @gh_api_client = Octokit::Client.new(:access_token => ENV['GITHUB_API_TOKEN'])
           develop_sha = @gh_api_client.get("/repos/#{MSJ_PUBLIC_REPO_PATH}/git/ref/heads/develop").object.sha
@@ -49,9 +52,7 @@ module Admin
       private
 
       def handle_image
-        image_extension = File.extname(params[:picture].original_filename)
-
-        @image_filename = @org_name + image_extension
+        @image_filename = @org_name + @image_extension
 
         image_repo_path = "app/frontend/images/#{@image_filename}"
 
@@ -133,6 +134,14 @@ module Admin
 
         custom_page_insertion_index = @spina_conf_file_rows.index "  theme.custom_pages = ["
         @spina_conf_file_rows.insert(custom_page_insertion_index + 1, "    {name: \'preparer_#{@org_name}\', title: \'Preparer #{@org_name}\', view_template: \'preparer_#{@org_name}\'},")
+
+        departement_insertion_index = @spina_conf_file_rows.index {|r| r =~ /ZIP_CODES/}
+        @deps = @spina_conf_file_rows[6][/\[(.*?)\]/m, 1].split(",")
+
+        if !(@deps.include?(" \"#{@zip_code}\"") || @deps.include?("\"#{@zip_code}\""))
+          @deps.append(" \"#{@zip_code}\"")
+          @spina_conf_file_rows[departement_insertion_index] = "ZIP_CODES ||= [#{@deps.join(",")}].freeze"
+        end
 
         Tempfile.create("spina_conf_file_temp.rb") do |f|
           f.write(@spina_conf_file_rows.join("\n").force_encoding('utf-8'), "\n")

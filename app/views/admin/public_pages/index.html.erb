@@ -8,6 +8,10 @@
       <%= form.text_field :organization_name, class: 'field-unit__field', placeholder: "Ex: spip78, spip54_val_de_briey, sap_draguignan...", required: true %>
     </div>
     <div class="field-unit field-unit--string field-unit--optional">
+      <%= form.label :zip_code, "Département :", class: 'field-unit__label' %>
+      <%= form.text_field :zip_code, class: 'field-unit__field', placeholder: "Ex: 77, 94, 2A, ...", required: true %>
+    </div>
+    <div class="field-unit field-unit--string field-unit--optional">
       <%= form.label :picture, "Image du SPIP  (Max 2MB):", class: 'field-unit__label' %> 
       <%= form.file_field :picture, style: 'margin-left: 2rem;', required: true %>
     </div>
