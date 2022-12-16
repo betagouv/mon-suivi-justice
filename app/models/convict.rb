@@ -26,6 +26,8 @@ class Convict < ApplicationRecord
   validate :phone_uniqueness
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
+  after_update :update_convict_api
+
   #
   # Convict linked to same departement OR same jurisdiction than the user's organization ones
   #
@@ -147,5 +149,9 @@ class Convict < ApplicationRecord
     end
 
     Convict.where(id: homonyms.pluck(:id))
+  end
+
+  def update_convict_api
+    UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
   end
 end

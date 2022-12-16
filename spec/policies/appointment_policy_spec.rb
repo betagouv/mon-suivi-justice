@@ -8,7 +8,7 @@ describe AppointmentPolicy do
   let!(:appointment) { create(:appointment, slot: slot) }
 
   context 'for an admin' do
-    let(:user) { build(:user, role: 'admin') }
+    let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -28,7 +28,7 @@ describe AppointmentPolicy do
   end
 
   context 'for an local_admin' do
-    let(:user) { build(:user, role: 'local_admin') }
+    let(:user) { build(:user, role: 'local_admin', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -48,7 +48,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a prosecutor' do
-    let(:user) { build(:user, role: 'prosecutor') }
+    let(:user) { build(:user, role: 'prosecutor', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -105,7 +105,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a jap user' do
-    let(:user) { build(:user, role: 'jap') }
+    let(:user) { build(:user, role: 'jap', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -162,7 +162,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a court secretary' do
-    let(:user) { build(:user, role: 'secretary_court') }
+    let(:user) { build(:user, role: 'secretary_court', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -219,7 +219,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a dir_greff_bex user' do
-    let(:user) { build(:user, role: 'dir_greff_bex') }
+    let(:user) { build(:user, role: 'dir_greff_bex', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -276,7 +276,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a bex user' do
-    let(:user) { build(:user, role: 'bex') }
+    let(:user) { build(:user, role: 'bex', organization: slot.place.organization) }
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
@@ -389,7 +389,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a greff_tpe user' do
-    let(:user) { build(:user, role: 'greff_tpe') }
+    let(:user) { build(:user, role: 'greff_tpe', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -446,7 +446,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a greff_crpc user' do
-    let(:user) { build(:user, role: 'greff_crpc') }
+    let(:user) { build(:user, role: 'greff_crpc', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -503,7 +503,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a greff_ca user' do
-    let(:user) { build(:user, role: 'greff_ca') }
+    let(:user) { build(:user, role: 'greff_ca', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -560,7 +560,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a dir_greff_sap user' do
-    let(:user) { build(:user, role: 'dir_greff_sap') }
+    let(:user) { build(:user, role: 'dir_greff_sap', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -617,7 +617,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a greff_sap user' do
-    let(:user) { build(:user, role: 'greff_sap') }
+    let(:user) { build(:user, role: 'greff_sap', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -674,7 +674,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a cpip user' do
-    let(:user) { build(:user, role: 'cpip') }
+    let(:user) { build(:user, role: 'cpip', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -695,6 +695,14 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
       it { is_expected.to permit_action(:reschedule) }
+    end
+
+    context 'for an appointment_type 1er RDV SPIP from another service' do
+      let(:organization) { create(:organization) }
+      let(:user) { build(:user, role: 'cpip', organization: organization) }
+      let(:appointment_type) { create(:appointment_type, name: '1er RDV SPIP') }
+
+      it { is_expected.to forbid_action(:fulfil) }
     end
 
     context 'for an appointment_type 1er RDV SPIP' do
@@ -747,7 +755,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a educator user' do
-    let(:user) { build(:user, role: 'educator') }
+    let(:user) { build(:user, role: 'educator', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -820,7 +828,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a psychologist user' do
-    let(:user) { build(:user, role: 'psychologist') }
+    let(:user) { build(:user, role: 'psychologist', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -893,7 +901,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a overseer user' do
-    let(:user) { build(:user, role: 'overseer') }
+    let(:user) { build(:user, role: 'overseer', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -966,7 +974,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a dpip user' do
-    let(:user) { build(:user, role: 'dpip') }
+    let(:user) { build(:user, role: 'dpip', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -1039,7 +1047,7 @@ describe AppointmentPolicy do
   end
 
   context 'for a secretary_spip user' do
-    let(:user) { build(:user, role: 'secretary_spip') }
+    let(:user) { build(:user, role: 'secretary_spip', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }

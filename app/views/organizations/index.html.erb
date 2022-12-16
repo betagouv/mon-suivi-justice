@@ -14,11 +14,11 @@
           <%= organization.name %>
         </div>
         <div class='index-controls-container'>
-          <% if policy(:organization).edit? %>
+          <% if policy(organization).edit? %>
             <%= link_to t('edit'), edit_organization_path(organization), class: 'index-control' %>
           <% end %>
 
-          <% if policy(:organization).destroy? %>
+          <% if policy(organization).destroy? %>
             <%= link_to t('delete'), organization_path(organization),
                                      data: { confirm: t('basic_confirmation') },
                                      class: 'index-control',

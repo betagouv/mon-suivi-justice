@@ -21,7 +21,7 @@ class Organization < ApplicationRecord
         .pluck(:date)
         .uniq
         .sort
-        .first(10)
+        .first(20)
   end
 
   def first_day_with_slots(appointment_type)

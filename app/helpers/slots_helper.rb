@@ -25,7 +25,7 @@ module SlotsHelper
   end
 
   def sap_apt_types
-    ["Sortie d'audience SAP", 'SAP DDSE']
+    ["Sortie d'audience SAP"]
   end
 
   def spip_apt_types
