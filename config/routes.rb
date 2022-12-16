@@ -16,6 +16,9 @@ Rails.application.routes.draw do
         resources :seeds, only: [:index]
         get '/reset_db' => "seeds#reset_db"
       end
+      resources :public_pages, only: [:index]
+      post '/create_page' => "public_pages#create"
+
       root to: "users#index"
     end
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
