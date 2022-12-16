@@ -5,7 +5,19 @@ class BexController < ApplicationController
   def agenda_jap
     @appointment_type = AppointmentType.find_by(name: "Sortie d'audience SAP")
     @current_date = current_date(@appointment_type, params)
-    @agendas = policy_scope(Agenda).kept.with_open_slots_for_date(@current_date, @appointment_type)
+
+
+
+    @selected_month_dates = Slot.future
+    .in_organization(current_user.organization)
+    .where(appointment_type: @appointment_type, date: @current_date.all_month.to_a)
+    .pluck(:date)
+    .uniq
+    .sort
+
+
+    get_places_and_agendas(@appointment_type, params)
+
 
     respond_to do |format|
       format.html
