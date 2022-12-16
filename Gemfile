@@ -59,7 +59,7 @@ gem 'tzinfo-data'
 gem 'administrate'
 gem 'pretender'
 
-gem "octokit", "~> 5.0"
+gem 'octokit', '~> 5.0'
 
 group :development, :test do
   gem 'rspec-rails'
