@@ -31,7 +31,7 @@ module ApplicationHelper
     formated = []
 
     date_array.each do |date|
-      formated << [(I18n.l date, format: '%d %D').capitalize, date]
+      formated << [(I18n.l date, format: '%A %d').capitalize, date]
     end
 
     formated
