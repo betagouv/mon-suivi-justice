@@ -27,6 +27,9 @@ RSpec.feature 'Bex', type: :feature do
 
       place = create(:place, name: 'Tribunal de Nanterre', organization: @organization)
 
+      create(:place_appointment_type, place: place, appointment_type: apt_type)
+      create(:place_appointment_type, place: place, appointment_type: apt_type2)
+
       agenda1 = create(:agenda, place: place, name: 'Cabinet Bleu')
       agenda2 = create(:agenda, place: place, name: 'Cabinet Rouge')
       agenda3 = create(:agenda, place: place, name: 'Cabinet Jaune')
@@ -54,7 +57,8 @@ RSpec.feature 'Bex', type: :feature do
                                                   starting_time: '12h',
                                                   capacity: 2)
 
-      current_date = slot1.date.strftime('%d/%m/%Y')
+
+      current_date = (I18n.l slot1.date, format: '%A %d').capitalize
 
       create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204', inviter_user_id: @bex_user.id)
       create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206', inviter_user_id: @bex_user.id)
@@ -63,10 +67,10 @@ RSpec.feature 'Bex', type: :feature do
       create(:appointment, slot: slot4, convict: convict2, prosecutor_number: '205206', inviter_user_id: @bex_user.id)
 
       visit agenda_jap_path
-      select current_date, from: :date
-      page.execute_script("$('#jap-appointments-date-select').trigger('change')")
 
-      expect(page).to have_current_path(agenda_jap_path(date: current_date))
+      select current_date, from: :date
+
+      expect(page).to have_current_path(agenda_jap_path())
 
       agenda_containers = page.all('.bex-agenda-container', minimum: 2)
 

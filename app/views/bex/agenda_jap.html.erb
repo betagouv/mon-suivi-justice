@@ -35,7 +35,7 @@
             <div class="bex-form-input-wrapper">
               <%= label_tag 'day', 'Jour :' %>
               <%= select_tag :date, options_for_select(formated_days_for_select(@days_with_slots_in_selected_month), params[:date]),
-                                    id: 'spip-appointments-month-select',
+                                    id: 'jap-appointments-date-select',
                                     class: 'form-select form-text-input spip-date-select',
                                     onchange: 'this.form.submit()' %>
             </div>
