@@ -98,6 +98,7 @@ RSpec.feature 'Bex', type: :feature do
       create :areas_convicts_mapping, convict: convict, area: @department
       apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
       place = create(:place, name: 'SPIP 91', organization: @organization)
+      create(:place_appointment_type, place: place, appointment_type: apt_type)
       agenda = create(:agenda, place: place, name: 'Agenda SPIP 91')
 
       slot = create(:slot, :without_validations, agenda: agenda,
@@ -105,12 +106,11 @@ RSpec.feature 'Bex', type: :feature do
                                                  date: Date.today.next_occurring(:tuesday))
 
       appointment = create(:appointment, slot: slot, convict: convict, inviter_user_id: @bex_user.id)
-      current_date = slot.date.strftime('%d/%m/%Y')
+      current_date = (I18n.l slot.date, format: '%A %d').capitalize
 
       visit agenda_jap_path
 
       select current_date, from: :date
-      page.execute_script("$('#jap-appointments-date-select').trigger('change')")
 
       expect(appointment.case_prepared).to eq(false)
 
