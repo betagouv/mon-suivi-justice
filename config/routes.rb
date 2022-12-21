@@ -94,9 +94,9 @@ Rails.application.routes.draw do
   get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
 
   scope controller: :bex do
-    get :agenda_jap
-    get :agenda_spip
-    get :agenda_sap_ddse
+    match :agenda_jap, via: [:get, :post], defaults: { appointment_type: 'Sortie d\'audience SAP', }
+    get :agenda_spip, defaults: { appointment_type: 'Sortie d\'audience SPIP' }
+    get :agenda_sap_ddse, defaults: { appointment_type: 'SAP DDSE' }
   end
 
   scope controller: :home do
