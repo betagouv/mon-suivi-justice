@@ -57,7 +57,6 @@ RSpec.feature 'Bex', type: :feature do
                                                   starting_time: '12h',
                                                   capacity: 2)
 
-
       current_date = (I18n.l slot1.date, format: '%A %d').capitalize
 
       create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204', inviter_user_id: @bex_user.id)
@@ -70,7 +69,7 @@ RSpec.feature 'Bex', type: :feature do
 
       select current_date, from: :date
 
-      expect(page).to have_current_path(agenda_jap_path())
+      expect(page).to have_current_path(agenda_jap_path)
 
       agenda_containers = page.all('.bex-agenda-container', minimum: 2)
 
