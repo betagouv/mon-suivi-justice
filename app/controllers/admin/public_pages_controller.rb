@@ -116,7 +116,7 @@ module Admin
                                                         ref: @new_page_branch })
       @pages_controller_rows = Base64.decode64(pages_controller_file[:content]).split("\n")
       insertion_index = @pages_controller_rows.index '  include Spina::Api::Paginable'
-      @pages_controller_rows.insert(insertion_index + 1, "  def preparer_#{@org_name}", '  end')
+      @pages_controller_rows.insert(insertion_index + 1, "  def preparer_#{@org_name}", '  end', '')
 
       Tempfile.create('pages_controller_temp.rb') do |f|
         f.write(@pages_controller_rows.join("\n"), "\n")
