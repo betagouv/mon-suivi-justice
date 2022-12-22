@@ -129,7 +129,7 @@
                         <% end %>
                       <% end %>
                     </div>
-                    <% if current_user.work_at_bex? || current_user.admin? %>
+                    <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
                       <div class='bex-agenda-small-column'>
                         <% if appointments[i].present? %>
                           <%= form_tag appointment_prepare_path(appointments[i]), method: 'put', class: 'bex-agenda-case-prepared-form' do %>
