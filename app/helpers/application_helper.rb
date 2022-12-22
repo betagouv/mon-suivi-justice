@@ -27,6 +27,16 @@ module ApplicationHelper
     formated
   end
 
+  def formated_days_for_select(date_array)
+    formated = []
+
+    date_array.each do |date|
+      formated << [(I18n.l date, format: '%A %d').capitalize, date]
+    end
+
+    formated
+  end
+
   def ten_next_open_days
     twenty_next_days = (Date.today..Date.today + 20).to_a
     open_days = twenty_next_days.select { |d| !d.on_weekend? && Holidays.on(d, :fr) == [] }

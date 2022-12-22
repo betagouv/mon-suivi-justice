@@ -2,11 +2,9 @@
 <h1 class='pdf-bex-title'><%= t('pdf.bex-jap.title') %></h1>
 <div class='bex-agenda-date'><%= date.strftime('%d/%m/%Y') %></div>
 
-<% if @agendas.empty? %>
-  <p class='bex-agenda-spip-no-agenda'><%= t('bex.jap.no_agenda_available') %></p>
-<% else %>
-  <% @agendas.each_with_index do |agenda, index| %>
-    <% unless agenda.slots_for_date(@current_date, @appointment_type).count.zero? %>
+
+  <% @agendas_to_display.each_with_index do |agenda, index| %>
+    <% unless agenda.slots_for_date(@selected_day, @appointment_type).count.zero? %>
       <div class='bex-agenda-container'>
         <div class='bex-agenda-header jap-agenda-header<%= index+1%>'>
           <div class='bex-agenda-header-title'>
@@ -36,7 +34,7 @@
             </div>
           </div>
 
-          <% agenda.slots_for_date(@current_date, @appointment_type).each do |slot| %>
+          <% agenda.slots_for_date(@selected_day, @appointment_type).each do |slot| %>
             <% appointments = slot.appointments.active %>
             <% slot.capacity.times do |i| %>
               <div class='bex-agenda-line'>
@@ -79,4 +77,3 @@
       </div>
     <% end %>
   <% end %>
-<% end %>
