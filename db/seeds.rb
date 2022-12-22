@@ -181,6 +181,7 @@ PlaceAppointmentType.create!(place: place_spip_92, appointment_type: apt_type_rd
 PlaceAppointmentType.create!(place: place_spip_61_alencon, appointment_type: apt_type_rdv_suivi_spip)
 PlaceAppointmentType.create!(place: place_spip_61_argentan, appointment_type: apt_type_rdv_suivi_spip)
 PlaceAppointmentType.create!(place: place_spip_92, appointment_type: apt_type_sortie_audience_spip)
+PlaceAppointmentType.create!(place: place_spip_92, appointment_type: apt_type_sap_ddse)
 
 PlaceAppointmentType.create!(place: place_tj_melun, appointment_type: apt_type_rdv_suivi_jap)
 PlaceAppointmentType.create!(place: place_tj_melun, appointment_type: apt_type_sortie_audience_sap)
@@ -213,8 +214,15 @@ NotificationType.create!(appointment_type: apt_type_sortie_audience_spip, role: 
 NotificationType.create!(appointment_type: apt_type_sortie_audience_spip, role: :no_show, template: "Vous n'êtes pas venu :(", is_default: true)
 NotificationType.create!(appointment_type: apt_type_sortie_audience_spip, role: :reschedule, template: "Changement du rdv de date X a date Y.", is_default: true)
 
+NotificationType.create!(appointment_type: apt_type_sap_ddse, role: :summon, template: "Vous êtes convoqué à votre rdv SAP DDSE, merci de venir.", is_default: true)
+NotificationType.create!(appointment_type: apt_type_sap_ddse, role: :reminder, template: "RAPPEL Vous êtes convoqué à votre rdv SAP DDSE, vraiment il faut venir.", reminder_period: :two_days, is_default: true)
+NotificationType.create!(appointment_type: apt_type_sap_ddse, role: :cancelation, template: "Finalement non, c'est pas la peine.", is_default: true)
+NotificationType.create!(appointment_type: apt_type_sap_ddse, role: :no_show, template: "Vous n'êtes pas venu :(", is_default: true)
+NotificationType.create!(appointment_type: apt_type_sap_ddse, role: :reschedule, template: "Changement du rdv de date X a date Y.", is_default: true)
+
 SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_92, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_92, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: apt_type_sap_ddse, agenda: agenda_spip_92, week_day: :thursday, starting_time: Time.new(2021, 6, 21, 15, 00, 0), duration: 60, capacity: 5)
 SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_nanterre, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_nanterre_2, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_melun, week_day: :monday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)

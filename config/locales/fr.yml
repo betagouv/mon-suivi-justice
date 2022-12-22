@@ -514,6 +514,7 @@ fr:
     sap_ddse:
       agendas_title: "Agenda SAP DDSE pour le"
       no_agenda_available: "Pas de rdv SAP DDSE prévu"
+      appointments_title: "RDV SAP DDSE pour"
 
   today_agendas_title: "RDV prévus pour le"
   today_agendas_title_part2: "au"
