@@ -82,7 +82,7 @@
                 <div class='bex-agenda-header-title bex-agenda-column'>
                   <%= t('bex.jap.header_role') %>
                 </div>
-                <% if current_user.work_at_bex? || current_user.admin? %>
+                <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
                   <div class='bex-agenda-header-title bex-agenda-small-column'>
                     <%= t('bex.jap.header_case_prepared') %>
                   </div>

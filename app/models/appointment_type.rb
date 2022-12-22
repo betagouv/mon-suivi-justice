@@ -31,7 +31,7 @@ class AppointmentType < ApplicationRecord
   end
 
   def used_at_spip?
-    [*SPIP_ASSIGNABLE, "Sortie d'audience SPIP"]
+    [*SPIP_ASSIGNABLE, "Sortie d'audience SPIP", 'SAP DDSE']
   end
 
   def sortie_audience?

@@ -1,11 +1,18 @@
 module AppointmentsHelper
   def appointment_types_for_user(user)
-    list = if user.work_at_sap? then AppointmentType.new.used_at_sap?
-           elsif user.work_at_bex? then AppointmentType.new.used_at_bex?
-           elsif user.work_at_spip? then AppointmentType.new.used_at_spip?
-           else
-             return AppointmentType.all
-           end
+    if user.work_at_sap?
+      list = AppointmentType.new.used_at_sap?
+    elsif user.work_at_bex?
+      list = AppointmentType.new.used_at_bex?
+    elsif user.work_at_spip?
+      list = if %w[cpip secretary_spip educator psychologist].include? user.role
+               AppointmentType.new.used_at_spip? - ['SAP DDSE']
+             else
+               AppointmentType.new.used_at_spip?
+             end
+    else
+      return AppointmentType.all
+    end
 
     AppointmentType.where(name: list)
   end
