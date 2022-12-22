@@ -33,6 +33,7 @@ class BexController < ApplicationController
   end
 
   def agenda_sap_ddse
+    authorize Appointment
     @current_date = current_date(@appointment_type, params)
     get_places_and_agendas(@appointment_type, params)
 
