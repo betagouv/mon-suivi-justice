@@ -22,16 +22,18 @@ class AppointmentType < ApplicationRecord
   scope :with_slot_types, -> { where name: WITH_SLOT_TYPES }
   scope :assignable, -> { where name: SPIP_ASSIGNABLE }
 
-  def used_at_bex?
-    ["Sortie d'audience SAP", "Sortie d'audience SPIP"]
-  end
+  class << self
+    def used_at_bex?
+      ["Sortie d'audience SAP", "Sortie d'audience SPIP"]
+    end
 
-  def used_at_sap?
-    ["Sortie d'audience SAP", 'RDV de suivi JAP', 'SAP débat contradictoire', 'RDV JAPAT', 'SAP DDSE']
-  end
+    def used_at_sap?
+      ["Sortie d'audience SAP", 'RDV de suivi JAP', 'SAP débat contradictoire', 'RDV JAPAT', 'SAP DDSE']
+    end
 
-  def used_at_spip?
-    [*SPIP_ASSIGNABLE, "Sortie d'audience SPIP", 'SAP DDSE']
+    def used_at_spip?
+      [*SPIP_ASSIGNABLE, "Sortie d'audience SPIP", 'SAP DDSE']
+    end
   end
 
   def sortie_audience?

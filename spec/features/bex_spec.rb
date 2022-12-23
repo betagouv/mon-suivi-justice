@@ -262,7 +262,7 @@ RSpec.feature 'Bex', type: :feature do
       visit agenda_sap_ddse_path
       select current_month_label, from: :date
 
-      expect(page).to have_current_path(agenda_sap_ddse_path())
+      expect(page).to have_current_path(agenda_sap_ddse_path)
 
       agenda_containers = page.all('.bex-agenda-container', minimum: 1)
 

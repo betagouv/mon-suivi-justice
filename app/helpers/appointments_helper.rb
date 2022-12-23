@@ -1,14 +1,15 @@
 module AppointmentsHelper
+  # rubocop:disable Metrics/MethodLength
   def appointment_types_for_user(user)
     if user.work_at_sap?
-      list = AppointmentType.new.used_at_sap?
+      list = AppointmentType.used_at_sap?
     elsif user.work_at_bex?
-      list = AppointmentType.new.used_at_bex?
+      list = AppointmentType.used_at_bex?
     elsif user.work_at_spip?
       list = if %w[cpip secretary_spip educator psychologist].include? user.role
-               AppointmentType.new.used_at_spip? - ['SAP DDSE']
+               AppointmentType.used_at_spip? - ['SAP DDSE']
              else
-               AppointmentType.new.used_at_spip?
+               AppointmentType.used_at_spip?
              end
     else
       return AppointmentType.all
@@ -16,10 +17,11 @@ module AppointmentsHelper
 
     AppointmentType.where(name: list)
   end
+  # rubocop:enable Metrics/MethodLength
 
   def my_appointment_types_for_user(user)
-    list = if user.work_at_sap? then AppointmentType.new.used_at_sap?
-           elsif user.work_at_bex? then AppointmentType.new.used_at_bex?
+    list = if user.work_at_sap? then AppointmentType.used_at_sap?
+           elsif user.work_at_bex? then AppointmentType.used_at_bex?
            elsif user.work_at_spip?
              spip_user_appointments_types_array(user)
            else
@@ -33,7 +35,7 @@ module AppointmentsHelper
     if user.can_have_appointments_assigned?
       AppointmentType.assignable.pluck(:name)
     else
-      AppointmentType.new.used_at_spip?
+      AppointmentType.used_at_spip?
     end
   end
 
