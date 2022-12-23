@@ -12,7 +12,9 @@ class UserDashboard < Administrate::BaseDashboard
     appointments: Field::HasMany,
     convicts: Field::HasMany,
     email: Field::String,
-    encrypted_password: Field::String,
+    encrypted_password: Field::String.with_options(
+      searchable: false
+    ),
     first_name: Field::String,
     invitation_accepted_at: Field::DateTime,
     invitation_created_at: Field::DateTime,
@@ -22,14 +24,17 @@ class UserDashboard < Administrate::BaseDashboard
     invitations_count: Field::Number,
     invited_by: Field::Polymorphic,
     last_name: Field::String,
-    organization: Field::BelongsTo,
+    organization: Field::BelongsTo.with_options(
+      searchable: true,
+      searchable_fields: ['name']
+    ),
     phone: Field::String,
     remember_created_at: Field::DateTime,
     reset_password_sent_at: Field::DateTime,
     reset_password_token: Field::String,
-    role: Field::Select.with_options(searchable: false, collection: lambda { |field|
-                                                                      field.resource.class.send(field.attribute.to_s.pluralize).keys
-                                                                    }),
+    role: Field::Select.with_options(searchable: true, collection: lambda { |field|
+                                                                     field.resource.class.send(field.attribute.to_s.pluralize).keys
+                                                                   }),
     share_email_to_convict: Field::Boolean,
     share_phone_to_convict: Field::Boolean,
     visits: Field::HasMany,

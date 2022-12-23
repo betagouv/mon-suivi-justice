@@ -21,8 +21,7 @@ class BexController < ApplicationController
 
   def agenda_spip
     @current_date = current_date(@appointment_type, params)
-
-    get_spip_places_and_agendas(@appointment_type, params)
+    get_places_and_agendas(@appointment_type, params)
 
     respond_to do |format|
       format.html
@@ -34,8 +33,9 @@ class BexController < ApplicationController
   end
 
   def agenda_sap_ddse
+    authorize Appointment
     @current_date = current_date(@appointment_type, params)
-    @agendas = policy_scope(Agenda).with_open_slots_for_date(@current_date, @appointment_type)
+    get_places_and_agendas(@appointment_type, params)
 
     respond_to do |format|
       format.html
@@ -76,7 +76,7 @@ class BexController < ApplicationController
     @agendas_to_display = @selected_agenda.nil? ? @places_agendas : [@selected_agenda]
   end
 
-  def get_spip_places_and_agendas(appointment_type, params)
+  def get_places_and_agendas(appointment_type, params)
     @places = policy_scope(Place).kept.joins(:appointment_types).where(appointment_types: appointment_type)
     @place = params[:place_id] ? Place.find(params[:place_id]) : @places.first
 

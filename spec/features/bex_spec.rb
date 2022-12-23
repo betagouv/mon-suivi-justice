@@ -5,9 +5,9 @@ RSpec.feature 'Bex', type: :feature do
     @department = create :department
     @organization = create :organization, organization_type: 'tj'
     create :areas_organizations_mapping, organization: @organization, area: @department, area_type: 'Department'
-    @bex_user = create(:user, role: :bex, organization: @organization)
+    @local_admin = create(:user, role: :local_admin, organization: @organization)
     logout_current_user
-    login_user(@bex_user)
+    login_user(@local_admin)
   end
 
   describe 'JAP appointments index', js: true do
@@ -59,11 +59,16 @@ RSpec.feature 'Bex', type: :feature do
 
       current_date = (I18n.l slot1.date, format: '%A %d').capitalize
 
-      create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204', inviter_user_id: @bex_user.id)
-      create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206', inviter_user_id: @bex_user.id)
-      create(:appointment, slot: slot2, convict: convict3, prosecutor_number: '205806', inviter_user_id: @bex_user.id)
-      create(:appointment, slot: slot3, convict: convict4, prosecutor_number: '205896', inviter_user_id: @bex_user.id)
-      create(:appointment, slot: slot4, convict: convict2, prosecutor_number: '205206', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204',
+                           inviter_user_id: @local_admin.id)
+      create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206',
+                           inviter_user_id: @local_admin.id)
+      create(:appointment, slot: slot2, convict: convict3, prosecutor_number: '205806',
+                           inviter_user_id: @local_admin.id)
+      create(:appointment, slot: slot3, convict: convict4, prosecutor_number: '205896',
+                           inviter_user_id: @local_admin.id)
+      create(:appointment, slot: slot4, convict: convict2, prosecutor_number: '205206',
+                           inviter_user_id: @local_admin.id)
 
       visit agenda_jap_path
 
@@ -104,7 +109,7 @@ RSpec.feature 'Bex', type: :feature do
                                                  appointment_type: apt_type,
                                                  date: Date.today.next_occurring(:tuesday))
 
-      appointment = create(:appointment, slot: slot, convict: convict, inviter_user_id: @bex_user.id)
+      appointment = create(:appointment, slot: slot, convict: convict, inviter_user_id: @local_admin.id)
       current_date = (I18n.l slot.date, format: '%A %d').capitalize
 
       visit agenda_jap_path
@@ -222,6 +227,8 @@ RSpec.feature 'Bex', type: :feature do
 
       place = create(:place, name: 'Tribunal de Nanterre', organization: @organization)
 
+      create(:place_appointment_type, place: place, appointment_type: apt_type)
+
       agenda1 = create(:agenda, place: place, name: 'Cabinet Bleu')
       agenda2 = create(:agenda, place: place, name: 'Cabinet Rouge')
       agenda3 = create(:agenda, place: place, name: 'Cabinet Jaune')
@@ -243,33 +250,44 @@ RSpec.feature 'Bex', type: :feature do
                                                   starting_time: '12h',
                                                   capacity: 2)
 
-      current_date = slot1.date.strftime('%d/%m/%Y')
+      current_month_label = (I18n.l slot1.date, format: '%B %Y').capitalize
 
-      create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204', inviter_user_id: @bex_user.id)
-      create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206', inviter_user_id: @bex_user.id)
-      create(:appointment, slot: slot3, convict: convict3, prosecutor_number: '205806', inviter_user_id: @bex_user.id)
+      create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204',
+                           inviter_user_id: @local_admin.id)
+      create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206',
+                           inviter_user_id: @local_admin.id)
+      create(:appointment, slot: slot3, convict: convict3, prosecutor_number: '205806',
+                           inviter_user_id: @local_admin.id)
 
       visit agenda_sap_ddse_path
-      select current_date, from: :date
-      page.execute_script("$('#jap-appointments-date-select').trigger('change')")
+      select current_month_label, from: :date
 
-      expect(page).to have_current_path(agenda_sap_ddse_path(date: current_date))
+      expect(page).to have_current_path(agenda_sap_ddse_path)
 
-      agenda_containers = page.all('.bex-agenda-container', minimum: 2)
+      agenda_containers = page.all('.bex-agenda-container', minimum: 1)
 
-      expect(agenda_containers[0]).to have_content('Cabinet Bleu')
       expect(agenda_containers[0]).to have_content('James')
       expect(agenda_containers[0]).to have_content('MORIARTY')
       expect(agenda_containers[0]).to have_content('203204')
 
-      expect(agenda_containers[1]).to have_content('Cabinet Rouge')
-      expect(agenda_containers[1]).to have_content('Lex')
-      expect(agenda_containers[1]).to have_content('LUTHOR')
-      expect(agenda_containers[1]).to have_content('205206')
+      expect(page).not_to have_content('Lex')
+      expect(page).not_to have_content('LUTHOR')
+      expect(page).not_to have_content('205206')
 
       expect(page).not_to have_content('Pat')
       expect(page).not_to have_content('HIBULAIRE')
       expect(page).not_to have_content('Cabinet Jaune')
+
+      select agenda2.name, from: :agenda_id
+
+      agenda_containers = page.all('.bex-agenda-container', minimum: 1)
+
+      expect(agenda_containers[0]).to have_content('Lex')
+      expect(agenda_containers[0]).to have_content('LUTHOR')
+      expect(agenda_containers[0]).to have_content('205206')
+
+      expect(page).not_to have_content('Pat')
+      expect(page).not_to have_content('HIBULAIRE')
     end
   end
 end
