@@ -399,7 +399,7 @@ fr:
     unarchive_convict_title: "Désarchivage"
     unarchive_convict: "Le profil de %{name} a été désarchivé."
     update_phone_convict_title: "Nouveau numéro"
-    update_phone_convict: "Le numéro de téléphone de %{name} a été modifié par %{user_name} (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}."
+    update_phone_convict: "Le numéro de téléphone de %{name} a été modifié par %{user_name} (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}.  L'accès à son espace personnel se fait désormais à l'aide de ce nouveau numéro"
     add_phone_convict_title: "Nouveau numéro"
     add_phone_convict: "Un numéro de téléphone pour %{name} a été ajouté par %{user_name} (%{user_role}). Nouveau numéro : %{new_phone}."
     remove_phone_convict_title: "Numéro supprimé"
