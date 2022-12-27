@@ -107,13 +107,13 @@ RSpec.feature 'Bex', type: :feature do
 
       slot = create(:slot, :without_validations, agenda: agenda,
                                                  appointment_type: apt_type,
-                                                 date: Date.today.next_occurring(:tuesday))
+                                                 date: Date.today)
 
       appointment = create(:appointment, slot: slot, convict: convict, inviter_user_id: @local_admin.id)
       current_date = (I18n.l slot.date, format: '%A %d').capitalize
-
+      p current_date
       visit agenda_jap_path
-
+      save_and_open_page
       select current_date, from: :date
 
       expect(appointment.case_prepared).to eq(false)
