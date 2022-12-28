@@ -73,6 +73,18 @@ class AppointmentPolicy < ApplicationPolicy
     true
   end
 
+  def fulfil_old?
+    appointment_fulfilment(allow_fulfil_old: true)
+  end
+
+  def excuse_old?
+    appointment_fulfilment(allow_fulfil_old: true)
+  end
+
+  def rebook_old?
+    appointment_fulfilment(allow_fulfil_old: true)
+  end
+
   private
 
   def appointment_workflow
@@ -86,16 +98,18 @@ class AppointmentPolicy < ApplicationPolicy
     end
   end
 
-  def appointment_fulfilment
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def appointment_fulfilment(allow_fulfil_old: false)
     apt_type = AppointmentType.find(record.slot&.appointment_type_id)
+    is_too_old = allow_fulfil_old ? false : record.slot.date < 6.months.ago
+    is_in_organization = record.slot.place.organization == user.organization
 
-    return false if record.slot.place.organization != user.organization
-
-    if user.work_at_sap? then AppointmentType.used_at_sap?.include? apt_type.name
+    if !is_in_organization || is_too_old || user.work_at_bex? then false
+    elsif user.work_at_sap? then AppointmentType.used_at_sap?.include? apt_type.name
     elsif user.work_at_spip? then AppointmentType.used_at_spip?.include? apt_type.name
-    elsif user.work_at_bex? then false
     else
       true
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
