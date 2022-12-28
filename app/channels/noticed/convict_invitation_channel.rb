@@ -8,8 +8,11 @@ module Noticed
       stop_all_streams
     end
 
-    def mark_as_read(data)
-      current_user.notifications.where(id: data['ids']).mark_as_read!
+    def mark_all_as_read()
+      p "============"
+      p "mark all user_notificastion as read for user #{current_user.id}"
+      p "============"
+      current_user.user_notifications.mark_as_read!
     end
   end
 end

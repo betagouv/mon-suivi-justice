@@ -1,15 +1,17 @@
 import consumer from "./consumer"
 import { v4 as uuidv4 } from 'uuid';
 
-consumer.subscriptions.create("Noticed::ConvictInvitationChannel", {
+const subscription = consumer.subscriptions.create("Noticed::ConvictInvitationChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
     console.log("connected")
+    window.addEventListener("beforeunload", this.markAllAsRead)
   },
 
   disconnected() {
     // Called when the subscription has been terminated by the server
     console.log("disconnected")
+    window.removeEventListener("beforeunload", this.markAllAsRead)
   },
 
   received(data) {
@@ -17,7 +19,16 @@ consumer.subscriptions.create("Noticed::ConvictInvitationChannel", {
     displayToast(data);
     incrementNotificationCounter();
     changeInvitationText(data);
-  }
+  },
+
+  markAllAsRead() {
+    const location = getClearLocation();
+    if(location === "/user/user_notifications") {
+      console.log("exiting notifications - mark all notifications as read")
+      // Calls `Noticed::ConvictInvitationChannel#mark_all_as_read` on the server.
+      subscription.perform("mark_all_as_read")
+    }
+  },
 });
 
 function displayToast(data) {
@@ -79,4 +90,9 @@ function removeNotif(id) {
       element.remove()
     })
   }, 2000)
+}
+
+function getClearLocation() {
+  // return /user/user_notifications instead of http://localhost:3001/user/user_notifications
+  return window.location.href.toString().split(window.location.host)[1];
 }
