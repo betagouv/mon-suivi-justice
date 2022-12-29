@@ -33,6 +33,7 @@
   width: 100%;
   padding-top: $header-height;
   padding-left: $sidebar-width;
+  position: relative;
 
   @media print {
     padding: 0;
@@ -88,7 +89,7 @@
 
 .support-modal-list {
   padding-left: 20px;
-  list-style-type: '-  ';
+  list-style-type: "-  ";
 }
 
 .support-modal-bug {

@@ -94,3 +94,5 @@ group :test do
   gem 'state_machines-rspec'
   gem 'webmock'
 end
+
+gem 'noticed', '~> 1.6'

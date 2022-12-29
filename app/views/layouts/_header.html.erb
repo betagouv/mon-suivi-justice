@@ -11,6 +11,9 @@
     <% if current_user.admin? %>
       <%= link_to("Interface admin", admin_root_path, method: :get,  class: 'header-link') %>
     <% end %>
+    <%= link_to user_user_notifications_path, class: 'header-link' do %>
+      <span id="user-notification-counter-container"> <%= current_user.user_notifications.unread.size %></span> Notifications
+    <% end %>
     <%= link_to(t('my_profile'), user_path(current_user.id), class: 'header-link') %>
     <%= link_to(t('log_out'), destroy_user_session_path, method: :delete, class: 'header-link') %>
   </div>

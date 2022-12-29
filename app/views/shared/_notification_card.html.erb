@@ -1,0 +1,8 @@
+<div class="fr-alert fr-alert--<%= notification.params[:type]%>" <% if notification.unread? %><% end %>>
+    <h3 class="fr-alert__title">
+      <%= t("user_notifications.convict_invitation.#{notification.params[:status]}", first_name: notification.params[:invitation_params][:first_name].titlecase, last_name: notification.params[:invitation_params][:last_name].titlecase) %>
+    </h3>
+    <p>
+      <%= l(notification.created_at, format: :clear) %>
+    </p>
+</div>

@@ -226,6 +226,7 @@ fr:
   see_profile: "Voir profil"
   basic_confirmation: "Êtes-vous sûr(e)?"
   my_profile: "Mon profil"
+  notifications: "Notifications"
   log_out: "Déconnexion"
   print_button: "Imprimer"
   contact: "Contacter l'équipe"
@@ -616,7 +617,9 @@ fr:
 
   convict_invitations:
     create:
-      invitation_sent: L'invitation est en cours d'envoi à la PPSMJ
+      invitation_pending: L'invitation est en cours d'envoi à la PPSMJ
+      invitation_sent: L'invitation a été à la PPSMJ
+
 
   errors:
     non_authorized: "Vous n'êtes pas autorisé à effectuer cette action"
@@ -662,3 +665,9 @@ fr:
   views:
     pagination:
       truncate: '...'
+  user_notifications:
+    convict_invitation:
+      pending: "L'invitation est en cours d'envoi à %{first_name} %{last_name} "
+      sent: "L'invitation a été envoyée à %{first_name} %{last_name}"
+    index:
+      no_notification: "Vous êtes à jour"
