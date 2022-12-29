@@ -99,6 +99,7 @@ Capybara.javascript_driver = :selenium_headless
 Capybara.default_max_wait_time = 5
 Capybara.default_normalize_ws = true
 Capybara.asset_host = "http://localhost:3001"
+Capybara.raise_server_errors = false
 
 Selenium::WebDriver.logger.ignore(:browser_options)
 
