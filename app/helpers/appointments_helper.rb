@@ -5,12 +5,14 @@ module AppointmentsHelper
       list = AppointmentType.used_at_sap?
     elsif user.work_at_bex?
       list = AppointmentType.used_at_bex?
-    elsif user.work_at_spip?
+    elsif user.work_at_spip? || user.local_admin_spip?
       list = if %w[cpip secretary_spip educator psychologist].include? user.role
                AppointmentType.used_at_spip? - ['SAP DDSE']
              else
                AppointmentType.used_at_spip?
              end
+    elsif user.local_admin_tj?
+      list = AppointmentType.used_at_sap? + AppointmentType.used_at_bex?
     else
       return AppointmentType.all
     end
@@ -19,11 +21,12 @@ module AppointmentsHelper
   end
   # rubocop:enable Metrics/MethodLength
 
+  # todo: seems to be useless check with @charles
   def my_appointment_types_for_user(user)
     list = if user.work_at_sap? then AppointmentType.used_at_sap?
            elsif user.work_at_bex? then AppointmentType.used_at_bex?
            elsif user.work_at_spip?
-             spip_user_appointments_types_array(user)
+             spip_user_appointments_types_array(user) 
            else
              return AppointmentType.all
            end

@@ -84,6 +84,14 @@ class User < ApplicationRecord
     %w[dpip cpip educator psychologist overseer secretary_spip].include? role
   end
 
+  def local_admin_spip?
+    local_admin? && organization.organization_type == "spip"
+  end
+
+  def local_admin_tj?
+    local_admin? && organization.organization_type == "tj"
+  end
+
   def profile_path
     Rails.application.routes.url_helpers.user_path(id)
   end
