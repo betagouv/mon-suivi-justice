@@ -18,14 +18,23 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def agenda_jap?
-    user.admin? || user.local_admin? || user.work_at_sap? || user.work_at_bex?
+    if user.local_admin?
+      return user.organization.organization_type == "tj"
+    end
+    user.admin? || user.work_at_sap? || user.work_at_bex?
   end
 
   def agenda_sap_ddse?
+    if user.local_admin?
+      return user.organization.organization_type == "tj"
+    end
     user.admin? || user.local_admin? || user.work_at_sap? || user.work_at_spip?
   end
 
   def agenda_spip?
+    if user.local_admin?
+      return user.organization.organization_type == "spip"
+    end
     user.admin? || user.local_admin? || user.work_at_bex? || user.work_at_spip?
   end
 
