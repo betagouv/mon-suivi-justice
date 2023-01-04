@@ -22,7 +22,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def agenda_sap_ddse?
-    user.admin? || user.local_admin_tj? || user.work_at_sap? || user.work_at_spip?
+    user.admin? || user.local_admin? || user.work_at_sap? || user.work_at_spip?
   end
 
   def agenda_spip?
