@@ -27,7 +27,12 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_spip) }
   end
 
-  context 'for an local_admin' do
+  context 'for an local_admin spip' do
+    let(:organization) { build(:organization, organization_type: "spip") }
+    let(:place) { build(:place, organization: organization)}
+    let(:agenda) { build :agenda, place: place }
+    let(:slot) { create :slot, :without_validations, appointment_type: appointment_type, agenda: agenda }
+    let!(:appointment) { create(:appointment, slot: slot) }
     let(:user) { build(:user, role: 'local_admin', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
@@ -43,8 +48,33 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:excuse) }
     it { is_expected.to permit_action(:rebook) }
     it { is_expected.to permit_action(:reschedule) }
-    it { is_expected.to permit_action(:agenda_jap) }
+    it { is_expected.not_to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
+  end
+
+  context 'for an local_admin tj' do
+    let(:organization) { build(:organization, organization_type: "tj") }
+    let(:place) { build(:place, organization: organization)}
+    let(:agenda) { build :agenda, place: place }
+    let(:slot) { create :slot, :without_validations, appointment_type: appointment_type, agenda: agenda }
+    let!(:appointment) { create(:appointment, slot: slot) }
+    let(:user) { build(:user, role: 'local_admin', organization: slot.place.organization) }
+
+    it { is_expected.to permit_action(:show) }
+    it { is_expected.to permit_action(:index) }
+    it { is_expected.to permit_action(:new) }
+    it { is_expected.to permit_action(:create) }
+    it { is_expected.to permit_action(:edit) }
+    it { is_expected.to permit_action(:update) }
+    it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to permit_action(:cancel) }
+    it { is_expected.to permit_action(:fulfil) }
+    it { is_expected.to permit_action(:miss) }
+    it { is_expected.to permit_action(:excuse) }
+    it { is_expected.to permit_action(:rebook) }
+    it { is_expected.to permit_action(:reschedule) }
+    it { is_expected.not_to permit_action(:agenda_spip) }
+    it { is_expected.to permit_action(:agenda_jap) }
   end
 
   context 'for a prosecutor' do
