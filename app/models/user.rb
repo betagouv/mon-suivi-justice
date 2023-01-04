@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :convicts, dependent: :nullify
   has_many :appointments, dependent: :nullify
   has_many :visits, class_name: 'Ahoy::Visit'
+  has_many :user_notifications, as: :recipient, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :trackable and :omniauthable

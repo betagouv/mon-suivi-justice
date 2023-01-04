@@ -1,0 +1,21 @@
+// section containing toast
+#user-notifications-container {
+  position: absolute;
+  right: 5%;
+  top: 10%;
+  width: 400px;
+}
+
+// section containing the notification list
+
+.user-notification-container {
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+
+  .user-notification-container_list {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+  }
+}

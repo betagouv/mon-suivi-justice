@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_07_081232) do
+ActiveRecord::Schema.define(version: 2022_11_30_095103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,6 +152,15 @@ ActiveRecord::Schema.define(version: 2022_10_07_081232) do
     t.index ["organization_id"], name: "index_areas_organizations_mappings_on_organization_id"
   end
 
+  create_table "commune", id: false, force: :cascade do |t|
+    t.text "id"
+    t.string "code_insee", limit: 255
+    t.string "code_postal"
+    t.float "latitude"
+    t.float "longitude"
+    t.text "libelle"
+  end
+
   create_table "convicts", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -197,6 +206,13 @@ ActiveRecord::Schema.define(version: 2022_10_07_081232) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_jurisdictions_on_name", unique: true
+  end
+
+  create_table "ln_commune_structure", id: false, force: :cascade do |t|
+    t.text "id"
+    t.text "commune_id"
+    t.text "structure_id"
+    t.string "mnemo"
   end
 
   create_table "notification_types", force: :cascade do |t|
@@ -302,6 +318,46 @@ ActiveRecord::Schema.define(version: 2022_10_07_081232) do
     t.index ["agenda_id"], name: "index_slots_on_agenda_id"
     t.index ["appointment_type_id"], name: "index_slots_on_appointment_type_id"
     t.index ["slot_type_id"], name: "index_slots_on_slot_type_id"
+  end
+
+  create_table "structure", id: false, force: :cascade do |t|
+    t.text "id"
+    t.string "type_structure_id", limit: 255
+    t.text "libelle_principal"
+    t.string "libelle_adresse_1", limit: 255
+    t.string "libelle_adresse_2", limit: 255
+    t.string "libelle_adresse_3", limit: 255
+    t.string "telephone", limit: 255
+    t.string "telecopie", limit: 255
+    t.string "email", limit: 255
+    t.string "code_insee"
+    t.string "code_postal", limit: 255
+    t.string "ligne_acheminement", limit: 255
+    t.string "mnemo"
+    t.text "ville"
+    t.boolean "competent_matiere_nationale"
+  end
+
+  create_table "type_structure", id: false, force: :cascade do |t|
+    t.string "id", limit: 255
+    t.string "mnemo", limit: 255
+    t.string "type_domaine", limit: 255
+    t.string "libelle_court", limit: 255
+    t.text "libelle_long"
+    t.text "commentaire"
+    t.boolean "is_baj"
+  end
+
+  create_table "user_notifications", force: :cascade do |t|
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.string "type", null: false
+    t.jsonb "params"
+    t.datetime "read_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["read_at"], name: "index_user_notifications_on_read_at"
+    t.index ["recipient_type", "recipient_id"], name: "index_user_notifications_on_recipient"
   end
 
   create_table "users", force: :cascade do |t|
