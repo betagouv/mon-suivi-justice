@@ -18,7 +18,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def agenda_jap?
-    user.admin? || user.local_admin? || user.work_at_sap? || user.work_at_bex?
+    user.admin? || user.local_admin_tj? || user.work_at_sap? || user.work_at_bex?
   end
 
   def agenda_sap_ddse?
@@ -26,7 +26,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def agenda_spip?
-    user.admin? || user.local_admin? || user.work_at_bex? || user.work_at_spip?
+    user.admin? || user.local_admin_spip? || user.work_at_bex? || user.work_at_spip?
   end
 
   def update?
