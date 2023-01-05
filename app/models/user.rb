@@ -85,11 +85,11 @@ class User < ApplicationRecord
   end
 
   def local_admin_spip?
-    local_admin? && organization.organization_type == "spip"
+    local_admin? && organization.organization_type == 'spip'
   end
 
   def local_admin_tj?
-    local_admin? && organization.organization_type == "tj"
+    local_admin? && organization.organization_type == 'tj'
   end
 
   def profile_path

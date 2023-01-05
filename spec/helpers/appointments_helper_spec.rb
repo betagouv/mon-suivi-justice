@@ -35,7 +35,7 @@ describe AppointmentsHelper do
     end
 
     it 'returns right appointments for local_admin user from SPIP' do
-      organization = build(:organization, organization_type: "spip")
+      organization = build(:organization, organization_type: 'spip')
       user = build(:user, role: :local_admin, organization: organization)
       appointment_type1 = create(:appointment_type, name: "Sortie d'audience SPIP")
       appointment_type2 = create(:appointment_type, name: "Sortie d'audience SAP")
@@ -46,7 +46,7 @@ describe AppointmentsHelper do
     end
 
     it 'returns right appointments for local_admin user from TJ' do
-      organization = build(:organization, organization_type: "tj")
+      organization = build(:organization, organization_type: 'tj')
       user = build(:user, role: :local_admin, organization: organization)
       appointment_type1 = create(:appointment_type, name: "Sortie d'audience SPIP")
       appointment_type2 = create(:appointment_type, name: "Sortie d'audience SAP")

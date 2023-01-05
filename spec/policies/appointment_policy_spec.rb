@@ -28,8 +28,8 @@ describe AppointmentPolicy do
   end
 
   context 'for an local_admin spip' do
-    let(:organization) { build(:organization, organization_type: "spip") }
-    let(:place) { build(:place, organization: organization)}
+    let(:organization) { build(:organization, organization_type: 'spip') }
+    let(:place) { build(:place, organization: organization) }
     let(:agenda) { build :agenda, place: place }
     let(:slot) { create :slot, :without_validations, appointment_type: appointment_type, agenda: agenda }
     let!(:appointment) { create(:appointment, slot: slot) }
@@ -53,8 +53,8 @@ describe AppointmentPolicy do
   end
 
   context 'for an local_admin tj' do
-    let(:organization) { build(:organization, organization_type: "tj") }
-    let(:place) { build(:place, organization: organization)}
+    let(:organization) { build(:organization, organization_type: 'tj') }
+    let(:place) { build(:place, organization: organization) }
     let(:agenda) { build :agenda, place: place }
     let(:slot) { create :slot, :without_validations, appointment_type: appointment_type, agenda: agenda }
     let!(:appointment) { create(:appointment, slot: slot) }

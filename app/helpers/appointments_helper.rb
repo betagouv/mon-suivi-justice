@@ -1,5 +1,5 @@
 module AppointmentsHelper
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/AbcSize
   def appointment_types_for_user(user)
     if user.work_at_sap?
       list = AppointmentType.used_at_sap?
@@ -19,20 +19,7 @@ module AppointmentsHelper
 
     AppointmentType.where(name: list)
   end
-  # rubocop:enable Metrics/MethodLength
-
-  # todo: seems to be useless check with @charles
-  def my_appointment_types_for_user(user)
-    list = if user.work_at_sap? then AppointmentType.used_at_sap?
-           elsif user.work_at_bex? then AppointmentType.used_at_bex?
-           elsif user.work_at_spip?
-             spip_user_appointments_types_array(user) 
-           else
-             return AppointmentType.all
-           end
-
-    AppointmentType.where(name: list)
-  end
+  # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/AbcSize
 
   def spip_user_appointments_types_array(user)
     if user.can_have_appointments_assigned?
