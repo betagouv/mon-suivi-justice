@@ -8,6 +8,7 @@ class Organization < ApplicationRecord
   has_many :created_appointments, class_name: 'Appointment', foreign_key: 'creating_organization'
 
   enum organization_type: { spip: 0, tj: 1 }
+  serialize :appointment_added_fields, HashSerializer
 
   validates :organization_type, presence: true
   validates :name, presence: true, uniqueness: true

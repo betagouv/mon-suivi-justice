@@ -249,6 +249,7 @@ ActiveRecord::Schema.define(version: 2023_01_12_100303) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "organization_type", default: 0
     t.string "time_zone", default: "Europe/Paris", null: false
+    t.json "appointment_added_fields", default: "{}", null: false
     t.index ["name"], name: "index_organizations_on_name", unique: true
   end
 
