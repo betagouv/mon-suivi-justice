@@ -1,10 +1,6 @@
 module Admin
   class ImportConvictsController < Admin::ApplicationController
     include Devise::Controllers::Helpers
-    require 'octokit'
-    require 'base64'
-
-    MSJ_PUBLIC_REPO_PATH = 'betagouv/mon-suivi-justice-public'.freeze
 
     def index
       render locals: {
@@ -15,8 +11,16 @@ module Admin
       }
     end
 
-    def create
-
+    def import
+      @file_extension = File.extname(params[:convicts_list].original_filename)
+      raise StandardError, 'Seul le format csv est supporté' unless %w[.csv].include? @file_extension.downcase
+    rescue StandardError => e
+      flash[:error] = "Erreur : #{e.message}"
+    else
+      flash[:success] =
+        'Les ppsmjs ont correctements été importées'
+    ensure
+      redirect_to admin_import_convicts_path
     end
 
     private

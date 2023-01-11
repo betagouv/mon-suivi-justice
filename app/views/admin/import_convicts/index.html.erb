@@ -3,7 +3,14 @@
   <br>
 
   <%= form_with url: admin_import_convicts_path, class: 'form' do |form| %>
-    <%= form.select :city, ["Berlin", "Chicago", "Madrid"] %>
+    <div class="field-unit field-unit--string field-unit--optional">
+        <%= form.label :organization_id, "Nom du service :", class: 'field-unit__label' %>
+        <%= form.select :organization_id, options_from_collection_for_select(Organization.all, 'id', 'name', Organization.all.first.id) %>
+    </div>
+    <div class="field-unit field-unit--string field-unit--optional">
+      <%= form.label :convicts_list, "Liste des ppsmjs (.csv):", class: 'field-unit__label' %> 
+      <%= form.file_field :convicts_list, style: 'margin-left: 2rem;', required: true %>
+    </div>
     <div class="form-actions">
       <%= form.submit "Créer" %>
     </div>
