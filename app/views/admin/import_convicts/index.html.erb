@@ -1,0 +1,11 @@
+<div id="spip_creation_page" style="padding: 20px">
+  <h1>Ajout des ppsmjs de APPI (.csv) dans un service MSJ</h1>
+  <br>
+
+  <%= form_with url: admin_import_convicts_path, class: 'form' do |form| %>
+    <%= form.select :city, ["Berlin", "Chicago", "Madrid"] %>
+    <div class="form-actions">
+      <%= form.submit "Créer" %>
+    </div>
+  <% end %>
+</div>

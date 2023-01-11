@@ -17,7 +17,9 @@ Rails.application.routes.draw do
         get '/reset_db' => "seeds#reset_db"
       end
       resources :public_pages, only: [:index]
+      resources :import_convicts, only: [:index]
       post '/create_page' => "public_pages#create"
+      post '/import_convicts' => "import_convicts#import"
 
       root to: "users#index"
     end
