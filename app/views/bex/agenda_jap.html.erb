@@ -57,7 +57,7 @@
         <% unless agenda.slots_for_date(@selected_day, @appointment_type).count.zero? %>
           <div class="fr-table">
             <table style="overflow: visible">
-                <caption><%= agenda.name %></caption>
+                <caption class='jap-agenda-header<%= index+1%>'><%= agenda.name %></caption>
                 <thead>
                   <th scope="col">
                     <%= t('bex.jap.header_hour') %>
