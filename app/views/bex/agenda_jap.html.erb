@@ -55,76 +55,71 @@
     <% else %>
       <% @agendas_to_display.each_with_index do |agenda, index| %>
         <% unless agenda.slots_for_date(@selected_day, @appointment_type).count.zero? %>
-          <div class='bex-agenda-container'>
-            <div class='bex-agenda-header jap-agenda-header<%= index+1%>'>
-              <div class='bex-agenda-header-title'>
-                <%= agenda.name %>
-              </div>
-            </div>
-
-            <div class='bex-agenda-table'>
-              <div class='bex-agenda-table-header bex-agenda-line'>
-                <div class='bex-agenda-header-title bex-agenda-small-column'>
-                  <%= t('bex.jap.header_hour') %>
-                </div>
-                <div class='bex-agenda-header-title bex-agenda-column'>
-                  <%= t('bex.jap.header_last_name') %>
-                </div>
-                <div class='bex-agenda-header-title bex-agenda-column'>
-                  <%= t('bex.jap.header_first_name') %>
-                </div>
-                <div class='bex-agenda-header-title bex-agenda-column'>
-                  <%= t('bex.jap.header_prosecutor') %>
-                </div>
-                <div class='bex-agenda-header-title bex-agenda-column'>
-                  <%= t('bex.jap.header_origin') %>
-                </div>
-                <div class='bex-agenda-header-title bex-agenda-column'>
-                  <%= t('bex.jap.header_role') %>
-                </div>
-                <% agenda.organization&.appointment_added_field_labels&.each do |label| %>
-                  <div class='bex-agenda-header-title bex-agenda-column'>
-                    <%= label %>
-                  </div>
-                <% end %>
-                <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
-                  <div class='bex-agenda-header-title bex-agenda-small-column'>
-                    <%= t('bex.jap.header_case_prepared') %>
-                  </div>
-                <% end %>
-              </div>
-
+          <div class="fr-table">
+            <table style="overflow: visible">
+                <caption><%= agenda.name %></caption>
+                <thead>
+                  <th scope="col">
+                    <%= t('bex.jap.header_hour') %>
+                  </th>
+                  <th scope="col">
+                    <%= t('bex.jap.header_last_name') %>
+                  </th>
+                  <th scope="col">
+                    <%= t('bex.jap.header_first_name') %>
+                  </th>
+                  <th scope="col">
+                    <%= t('bex.jap.header_prosecutor') %>
+                  </th scope="col">
+                  <th scope="col">
+                    <%= t('bex.jap.header_origin') %>
+                  </th>
+                  <th scope="col">
+                    <%= t('bex.jap.header_role') %>
+                  </th>
+                  <% agenda.organization&.appointment_added_field_labels&.each do |label| %>
+                    <th scope="col">
+                      <%= label %>
+                    </th>
+                  <% end %>
+                  <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
+                    <th scope="col">
+                      <%= t('bex.jap.header_case_prepared') %>
+                    </th>
+                  <% end %>
+                </thead>
+                <tbody>
               <% agenda.slots_for_date(@selected_day, @appointment_type).each do |slot| %>
                 <% appointments = slot.appointments.active %>
                 <% slot.capacity.times do |i| %>
-                  <div class='bex-agenda-line'>
-                    <div class='bex-agenda-small-column'>
+                  <tr>
+                    <th>
                       <% if i == 0 %>
                         <%= slot.localized_time.to_s(:lettered) %>
                       <% end %>
-                    </div>
-                    <div class='bex-agenda-column'>
+                    </th>
+                    <th>
                       <% unless appointments[i].nil? %>
                         <%= link_to convict_path(appointments[i]&.convict), class: 'index-control' do %>
                           <%= appointments[i]&.convict&.last_name&.upcase %>
                         <% end %>
                       <% end %>
-                    </div>
-                    <div class='bex-agenda-column'>
+                    </th>
+                    <th>
                       <%= appointments[i]&.convict&.first_name %>
-                    </div>
-                    <div class='bex-agenda-column'>
+                    </th>
+                    <th>
                       <%= appointments[i]&.prosecutor_number %>
-                    </div>
-                    <div class='bex-agenda-column'>
+                    </th>
+                    <th>
                       <% if appointments[i].present? && appointments[i].creating_organization.present? %>
                         <%= appointments[i].creating_organization.name %>
                       <% elsif appointments[i].present? && appointments[i].inviter_user_id.present? %>
                         <% user = User.find(appointments[i].inviter_user_id) %>
                         <%= user.organization.name %>
                       <% end %>
-                    </div>
-                    <div class='bex-agenda-column'>
+                    </th>
+                    <th>
                       <% if appointments[i].present? %>
                         <% if appointments[i].origin_department.present? %>
                           <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
@@ -133,19 +128,19 @@
                           <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
                         <% end %>
                       <% end %>
-                    </div>
+                    </th>
 
                     <% agenda.organization.appointment_added_field_labels&.each do |label| %>
                       <% if appointments[i]&.organization_specific_data %>
-                        <div class='bex-agenda-column'>
+                        <th>
                           <%= appointments[i]&.organization_specific_data[label]%>
-                        </div>
+                        </th>
                       <% else %>
-                        <div class='bex-agenda-column'></div>
+                        <th></th>
                       <% end %>
                     <% end %>
                     <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
-                      <div class='bex-agenda-small-column'>
+                      <th>
                         <% if appointments[i].present? %>
                           <%= form_tag appointment_prepare_path(appointments[i]), method: 'put', class: 'bex-agenda-case-prepared-form' do %>
                             <%= check_box_tag "case-prepared-#{appointments[i].id}",
@@ -160,7 +155,8 @@
                   </div>
                 <% end %>
               <% end %>
-            </div>
+                </tbody>
+            </table>
           </div>
         <% end %>
       <% end %>
