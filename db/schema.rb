@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_12_100303) do
+ActiveRecord::Schema.define(version: 2023_01_13_154846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,20 @@ ActiveRecord::Schema.define(version: 2023_01_12_100303) do
     t.index ["area_type", "area_id"], name: "index_areas_organizations_mappings_on_area"
     t.index ["organization_id", "area_id", "area_type"], name: "index_areas_organizations_mappings_on_organization_and_area", unique: true
     t.index ["organization_id"], name: "index_areas_organizations_mappings_on_organization_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "zipcode", null: false
+    t.string "code_insee"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "tj_id", null: false
+    t.bigint "spip_id", null: false
+    t.index ["name"], name: "index_cities_on_name"
+    t.index ["spip_id"], name: "index_cities_on_spip_id"
+    t.index ["tj_id"], name: "index_cities_on_tj_id"
+    t.index ["zipcode"], name: "index_cities_on_zipcode"
   end
 
   create_table "commune", id: false, force: :cascade do |t|
@@ -321,6 +335,14 @@ ActiveRecord::Schema.define(version: 2023_01_12_100303) do
     t.index ["slot_type_id"], name: "index_slots_on_slot_type_id"
   end
 
+  create_table "spips", force: :cascade do |t|
+    t.string "name"
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_spips_on_organization_id"
+  end
+
   create_table "structure", id: false, force: :cascade do |t|
     t.text "id"
     t.string "type_structure_id", limit: 255
@@ -337,6 +359,14 @@ ActiveRecord::Schema.define(version: 2023_01_12_100303) do
     t.string "mnemo"
     t.text "ville"
     t.boolean "competent_matiere_nationale"
+  end
+
+  create_table "tjs", force: :cascade do |t|
+    t.string "name"
+    t.bigint "organization_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_tjs_on_organization_id"
   end
 
   create_table "type_structure", id: false, force: :cascade do |t|
@@ -412,6 +442,8 @@ ActiveRecord::Schema.define(version: 2023_01_12_100303) do
   add_foreign_key "appointments", "users"
   add_foreign_key "areas_convicts_mappings", "convicts"
   add_foreign_key "areas_organizations_mappings", "organizations"
+  add_foreign_key "cities", "spips"
+  add_foreign_key "cities", "tjs"
   add_foreign_key "convicts", "users"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
@@ -425,5 +457,7 @@ ActiveRecord::Schema.define(version: 2023_01_12_100303) do
   add_foreign_key "slots", "agendas"
   add_foreign_key "slots", "appointment_types"
   add_foreign_key "slots", "slot_types"
+  add_foreign_key "spips", "organizations"
+  add_foreign_key "tjs", "organizations"
   add_foreign_key "users", "organizations"
 end
