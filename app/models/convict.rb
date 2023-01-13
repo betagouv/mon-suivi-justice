@@ -26,6 +26,9 @@ class Convict < ApplicationRecord
   validate :phone_uniqueness
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
+  validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
+                                          case_sensitive: false, message: 'Une ppsmj avec les mêmes prénom, nom et date de naissance existe déjà'
+
   after_update :update_convict_api
 
   #

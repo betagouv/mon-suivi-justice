@@ -28,7 +28,8 @@ class ConvictDashboard < Administrate::BaseDashboard
     user: Field::BelongsTo,
     versions: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    updated_at: Field::DateTime,
+    date_of_birth: Field::Date
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -45,6 +46,7 @@ class ConvictDashboard < Administrate::BaseDashboard
     appointments
     departments
     jurisdictions
+    date_of_birth
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
