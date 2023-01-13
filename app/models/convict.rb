@@ -7,7 +7,7 @@ class Convict < ApplicationRecord
                           +33687934479 +33674426177 +33616430756 +33613254126
                           +33674212998 +33607886138 +33666228742].freeze
 
-  DOB_UNIQUENESS_MESSAGE =  I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
+  DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
 
   has_many :appointments, dependent: :destroy
   has_many :history_items, dependent: :destroy
