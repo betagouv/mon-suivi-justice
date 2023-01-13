@@ -7,6 +7,8 @@ class Convict < ApplicationRecord
                           +33687934479 +33674426177 +33616430756 +33613254126
                           +33674212998 +33607886138 +33666228742].freeze
 
+  DOB_UNIQUENESS_MESSAGE =  I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
+
   has_many :appointments, dependent: :destroy
   has_many :history_items, dependent: :destroy
 
@@ -27,7 +29,7 @@ class Convict < ApplicationRecord
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
   validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
-                                          case_sensitive: false, message: 'Une ppsmj avec les mêmes prénom, nom et date de naissance existe déjà'
+                                          case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE
 
   after_update :update_convict_api
 
