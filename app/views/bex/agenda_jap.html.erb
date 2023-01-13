@@ -82,6 +82,11 @@
                 <div class='bex-agenda-header-title bex-agenda-column'>
                   <%= t('bex.jap.header_role') %>
                 </div>
+                <% agenda.organization&.appointment_added_field_labels&.each do |label| %>
+                  <div class='bex-agenda-header-title bex-agenda-column'>
+                    <%= label %>
+                  </div>
+                <% end %>
                 <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
                   <div class='bex-agenda-header-title bex-agenda-small-column'>
                     <%= t('bex.jap.header_case_prepared') %>
@@ -129,6 +134,16 @@
                         <% end %>
                       <% end %>
                     </div>
+
+                    <% agenda.organization.appointment_added_field_labels&.each do |label| %>
+                      <% if appointments[i]&.organization_specific_data %>
+                        <div class='bex-agenda-column'>
+                          <%= appointments[i]&.organization_specific_data[label]%>
+                        </div>
+                      <% else %>
+                        <div class='bex-agenda-column'></div>
+                      <% end %>
+                    <% end %>
                     <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
                       <div class='bex-agenda-small-column'>
                         <% if appointments[i].present? %>

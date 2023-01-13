@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_12_100303) do
+ActiveRecord::Schema.define(version: 2023_01_13_104038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 2023_01_12_100303) do
     t.boolean "case_prepared", default: false, null: false
     t.bigint "inviter_user_id"
     t.bigint "creating_organization_id"
+    t.json "organization_specific_data"
     t.index ["convict_id"], name: "index_appointments_on_convict_id"
     t.index ["creating_organization_id"], name: "index_appointments_on_creating_organization_id"
     t.index ["slot_id"], name: "index_appointments_on_slot_id"

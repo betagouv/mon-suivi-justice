@@ -32,6 +32,9 @@
             <div class='bex-agenda-header-title bex-agenda-column'>
               <%= t('bex.jap.header_role') %>
             </div>
+            <div class='bex-agenda-header-title bex-agenda-column'>
+              extra data
+            </div>
           </div>
 
           <% agenda.slots_for_date(@selected_day, @appointment_type).each do |slot| %>
@@ -69,6 +72,9 @@
                       <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
                     <% end %>
                   <% end %>
+                </div>
+                <div class='bex-agenda-column'>
+                  <%= appointments[i]&.organization_specific_data%>
                 </div>
               </div>
             <% end %>

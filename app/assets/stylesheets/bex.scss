@@ -48,7 +48,9 @@
   align-items: center;
   justify-content: center;
 
-  @media print { background-color: initial !important; }
+  @media print {
+    background-color: initial !important;
+  }
 }
 
 .bex-agenda-header-title {
@@ -63,17 +65,18 @@
 
 .bex-agenda-table-header {
   font-weight: bold;
-  border-top: 1px solid black;
 }
 
 .bex-agenda-column {
-  width: 20%;
+  width: 10%;
   border-right: 1px solid black;
   padding: 0 5px;
   display: flex;
   align-items: center;
+  word-break: break-word;
+  border-top: 1px solid black;
 
-  &:first-child{
+  &:first-child {
     border-left: none;
   }
 }
@@ -84,8 +87,9 @@
   padding: 0 5px;
   display: flex;
   align-items: center;
+  border-top: 1px solid black;
 
-  &:first-child{
+  &:first-child {
     border-left: none;
   }
 }
@@ -93,20 +97,40 @@
 .bex-agenda-line {
   display: flex;
   min-height: 30px;
-  border-bottom: 1px solid black;
+
+  &:last-of-type > .bex-agenda-column {
+    border-bottom: 1px solid black;
+  }
+  &:last-of-type > .bex-agenda-small-column {
+    border-bottom: 1px solid black;
+  }
 }
 
 .jap-date-select {
   min-width: 130px;
 }
 
-.jap-agenda-header1 { background-color: $jap-cabinet1; }
-.jap-agenda-header2 { background-color: $jap-cabinet2; }
-.jap-agenda-header3 { background-color: $jap-cabinet3; }
-.jap-agenda-header4 { background-color: $jap-cabinet4; }
-.jap-agenda-header5 { background-color: $jap-cabinet5; }
-.jap-agenda-header6 { background-color: $jap-cabinet6; }
-.jap-agenda-header7 { background-color: $jap-cabinet7; }
+.jap-agenda-header1 {
+  background-color: $jap-cabinet1;
+}
+.jap-agenda-header2 {
+  background-color: $jap-cabinet2;
+}
+.jap-agenda-header3 {
+  background-color: $jap-cabinet3;
+}
+.jap-agenda-header4 {
+  background-color: $jap-cabinet4;
+}
+.jap-agenda-header5 {
+  background-color: $jap-cabinet5;
+}
+.jap-agenda-header6 {
+  background-color: $jap-cabinet6;
+}
+.jap-agenda-header7 {
+  background-color: $jap-cabinet7;
+}
 
 .spip-date-select {
   width: 140px;
