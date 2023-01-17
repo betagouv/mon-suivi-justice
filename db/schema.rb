@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_30_095103) do
+ActiveRecord::Schema.define(version: 2023_01_12_100303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 2022_11_30_095103) do
     t.integer "invitation_to_convict_interface_count", default: 0, null: false
     t.datetime "timestamp_convict_interface_creation"
     t.datetime "last_invite_to_convict_interface"
+    t.date "date_of_birth"
     t.index ["discarded_at"], name: "index_convicts_on_discarded_at"
     t.index ["user_id"], name: "index_convicts_on_user_id"
   end

@@ -71,6 +71,7 @@ Metrics/MethodLength:
     - app/controllers/appointments_controller.rb
     - app/controllers/appointments_bookings_controller.rb
     - app/controllers/admin/public_pages_controller.rb
+    - app/controllers/admin/import_convicts_controller.rb
 
 Metrics/ClassLength:
   Exclude:
@@ -94,6 +95,7 @@ Metrics/AbcSize:
     - app/services/history_item_factory.rb
     - app/services/data_collector/sda.rb
     - app/controllers/admin/public_pages_controller.rb
+    - app/controllers/admin/import_convicts_controller.rb
 
 Layout/LineLength:
   Exclude:
