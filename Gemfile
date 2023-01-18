@@ -96,3 +96,5 @@ group :test do
 end
 
 gem 'noticed', '~> 1.6'
+
+gem "abyme", "~> 0.7.0"

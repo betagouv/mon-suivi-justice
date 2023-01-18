@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_13_103520) do
+ActiveRecord::Schema.define(version: 2023_01_17_144859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,15 @@ ActiveRecord::Schema.define(version: 2023_01_13_103520) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_departments_on_name", unique: true
     t.index ["number"], name: "index_departments_on_number", unique: true
+  end
+
+  create_table "extra_fields", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.string "data_type", default: "text"
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_extra_fields_on_organization_id"
   end
 
   create_table "history_items", force: :cascade do |t|
@@ -413,6 +422,7 @@ ActiveRecord::Schema.define(version: 2023_01_13_103520) do
   add_foreign_key "areas_convicts_mappings", "convicts"
   add_foreign_key "areas_organizations_mappings", "organizations"
   add_foreign_key "convicts", "users"
+  add_foreign_key "extra_fields", "organizations"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
   add_foreign_key "notification_types", "appointment_types"
