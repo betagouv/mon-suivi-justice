@@ -1,0 +1,32 @@
+<div id="spip_creation_page" style="padding: 20px">
+  <h1>Ajout des ppsmjs de APPI (.csv) dans un service MSJ</h1>
+  <br>
+  <%= form_with url: admin_import_convicts_path, class: 'form' do |form| %>
+    <div class="field-unit field-unit--string field-unit--optional">
+      <%= form.label :organization_id, "Service :", class: 'field-unit__label' %>
+      <%= form.select :organization_id, options_from_collection_for_select(Organization.all, 'id', 'name', @organization.nil? ? Organization.all.first.id :  @organization.id), {}, {style: 'margin-left: 2rem;'} %>
+    </div>
+    <div class="field-unit field-unit--string field-unit--optional">
+      <%= form.label :convicts_list, "Liste des ppsmjs (.csv):", class: 'field-unit__label' %>
+      <%= form.file_field :convicts_list, style: 'margin-left: 2rem;', required: true %>
+    </div>
+    <div class="form-actions">
+      <%= form.submit "Créer" %>
+    </div>
+  <% end %>
+  <hr>
+  <ul>
+    <% if !@import_successes.nil? && @import_successes.any? %>
+      <li><%= @import_successes.length %> ppsmjs ont été créées :</li>
+      <% @import_successes.each do |success| %>
+        <li><%= success %></li>
+      <% end %>
+    <% end %>
+    <% if !@import_errors.nil? && @import_errors.any? %>
+      <li><%= @import_errors.length %> ppsmjs n'ont pas pu être créées :</li>
+      <% @import_errors.each do |error| %>
+        <li style="color: red"><%= error %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

@@ -173,6 +173,8 @@ fr:
             last_name:
               blank: "Nom manquant"
               confirmation: "Ne correspond pas au premier mot de passe saisi"
+            dob:
+              taken: "Une ppsmj avec les mêmes prénom, nom et date de naissance existe déjà"
         place:
           attributes:
             name:

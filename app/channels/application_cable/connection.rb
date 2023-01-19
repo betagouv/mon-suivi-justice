@@ -15,6 +15,8 @@ module ApplicationCable
       else
         reject_unauthorized_connection
       end
+    rescue StandardError
+      reject_unauthorized_connection
     end
   end
 end
