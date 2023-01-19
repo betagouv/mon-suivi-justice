@@ -37,6 +37,12 @@
   </div>
 
   <div class='appointment-form-slots-container' id='slots-container'></div>
+
+  <%= f.abyme_for(:appointment_extra_fields) do |abyme| %>
+    <%= abyme.records %>
+    <%= abyme.new_records %>
+    <%= add_associated_record %>
+  <% end %>
   <div id='submit-btn-container'>
     <input type='submit' name='commit' value=<%= t('submit')%> class='form-submit-button new-appointment-submit-button' id='submit-new-appointment' disabled='disabled' data-disable-with='Enregistrer'>
   </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_17_144859) do
+ActiveRecord::Schema.define(version: 2023_01_18_140605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,16 @@ ActiveRecord::Schema.define(version: 2023_01_17_144859) do
     t.datetime "started_at"
     t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
+  end
+
+  create_table "appointment_extra_fields", force: :cascade do |t|
+    t.bigint "appointment_id", null: false
+    t.bigint "extra_field_id", null: false
+    t.string "value", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_id"], name: "index_appointment_extra_fields_on_appointment_id"
+    t.index ["extra_field_id"], name: "index_appointment_extra_fields_on_extra_field_id"
   end
 
   create_table "appointment_types", force: :cascade do |t|
@@ -415,6 +425,8 @@ ActiveRecord::Schema.define(version: 2023_01_17_144859) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agendas", "places"
+  add_foreign_key "appointment_extra_fields", "appointments"
+  add_foreign_key "appointment_extra_fields", "extra_fields"
   add_foreign_key "appointments", "convicts"
   add_foreign_key "appointments", "organizations", column: "creating_organization_id"
   add_foreign_key "appointments", "slots"

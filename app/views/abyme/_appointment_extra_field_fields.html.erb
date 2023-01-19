@@ -1,0 +1,8 @@
+<%# Partial for appointment_extra_field fields %>
+<%= current_user.organization.extra_fields %>
+<%= f.association :extra_field, collection: current_user.organization.extra_fields %>
+<%= f.input :value %>
+
+<%= f.hidden_field :_destroy %>
+<%= remove_associated_record content: "Remove appointmentextrafield" %>
+        

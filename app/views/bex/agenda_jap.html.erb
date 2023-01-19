@@ -77,9 +77,9 @@
                   <th scope="col">
                     <%= t('bex.jap.header_role') %>
                   </th>
-                  <% agenda.organization&.appointment_added_field_labels&.each do |label| %>
+                  <% agenda.organization&.extra_fields&.each do |extra_field| %>
                     <th scope="col">
-                      <%= label %>
+                      <%= extra_field.name %>
                     </th>
                   <% end %>
                   <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
@@ -130,14 +130,10 @@
                       <% end %>
                     </th>
 
-                    <% agenda.organization.appointment_added_field_labels&.each do |label| %>
-                      <% if appointments[i]&.organization_specific_data %>
-                        <th>
-                          <%= appointments[i]&.organization_specific_data[label]%>
-                        </th>
-                      <% else %>
-                        <th></th>
-                      <% end %>
+                    <% agenda.organization.extra_fields&.each do |extra_field| %>
+                      <th>
+                        <%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>
+                      </th>
                     <% end %>
                     <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
                       <th>
