@@ -139,7 +139,7 @@ module Admin
 
       view_template_insertion_index = @spina_conf_file_rows.index '  theme.view_templates = ['
       @spina_conf_file_rows.insert(view_template_insertion_index + 1,
-                                   "    {name: 'preparer_#{@org_name}', title: 'Preparer #{@org_name}', parts: %w[main_title main_description zip_code_select direction_collapse_title direction_collapse_first_rich_content direction_collapse_second_rich_content direction_collapse_button_text direction_collapse_button_link rich_collapse]},")
+                                   "    {name: 'preparer_#{@org_name}', title: 'Preparer #{@org_name}', parts: %w[main_title main_description zip_code_select direction_collapse_title direction_collapse_first_rich_content direction_collapse_second_rich_content collapse_rich_content_good_practice collapse_rich_content_alert direction_collapse_button_text direction_collapse_button_link rich_collapse]},")
 
       custom_page_insertion_index = @spina_conf_file_rows.index '  theme.custom_pages = ['
       @spina_conf_file_rows.insert(custom_page_insertion_index + 1,
