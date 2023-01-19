@@ -162,6 +162,15 @@ ActiveRecord::Schema.define(version: 2023_01_18_103237) do
     t.index ["zipcode"], name: "index_cities_on_zipcode"
   end
 
+  create_table "commune", id: false, force: :cascade do |t|
+    t.text "id"
+    t.string "code_insee", limit: 255
+    t.string "code_postal"
+    t.float "latitude"
+    t.float "longitude"
+    t.text "libelle"
+  end
+
   create_table "convicts", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -208,6 +217,13 @@ ActiveRecord::Schema.define(version: 2023_01_18_103237) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_jurisdictions_on_name", unique: true
+  end
+
+  create_table "ln_commune_structure", id: false, force: :cascade do |t|
+    t.text "id"
+    t.text "commune_id"
+    t.text "structure_id"
+    t.string "mnemo"
   end
 
   create_table "notification_types", force: :cascade do |t|
@@ -325,6 +341,24 @@ ActiveRecord::Schema.define(version: 2023_01_18_103237) do
     t.index ["organization_id"], name: "index_spips_on_organization_id"
   end
 
+  create_table "structure", id: false, force: :cascade do |t|
+    t.text "id"
+    t.string "type_structure_id", limit: 255
+    t.text "libelle_principal"
+    t.string "libelle_adresse_1", limit: 255
+    t.string "libelle_adresse_2", limit: 255
+    t.string "libelle_adresse_3", limit: 255
+    t.string "telephone", limit: 255
+    t.string "telecopie", limit: 255
+    t.string "email", limit: 255
+    t.string "code_insee"
+    t.string "code_postal", limit: 255
+    t.string "ligne_acheminement", limit: 255
+    t.string "mnemo"
+    t.text "ville"
+    t.boolean "competent_matiere_nationale"
+  end
+
   create_table "tjs", force: :cascade do |t|
     t.string "name"
     t.bigint "organization_id"
@@ -333,6 +367,16 @@ ActiveRecord::Schema.define(version: 2023_01_18_103237) do
     t.bigint "city_id", null: false
     t.index ["city_id"], name: "index_tjs_on_city_id"
     t.index ["organization_id"], name: "index_tjs_on_organization_id"
+  end
+
+  create_table "type_structure", id: false, force: :cascade do |t|
+    t.string "id", limit: 255
+    t.string "mnemo", limit: 255
+    t.string "type_domaine", limit: 255
+    t.string "libelle_court", limit: 255
+    t.text "libelle_long"
+    t.text "commentaire"
+    t.boolean "is_baj"
   end
 
   create_table "user_notifications", force: :cascade do |t|
