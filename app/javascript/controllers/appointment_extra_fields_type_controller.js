@@ -7,6 +7,7 @@ export default class extends Controller {
     const selectedIndex = this.selectInputTarget.options.selectedIndex;
     const selected = this.selectInputTarget.options[selectedIndex];
     const dataType = selected.dataset.type;
+    
     this.valueInputTarget.value = "";
     this.valueInputTarget.type = dataType;
   }

@@ -1,6 +1,6 @@
-<div data-controller="appointment-extra-fields">
-<%= f.association :extra_field, collection: current_user.organization.extra_fields.map {|extra_field| [extra_field.name, extra_field.id, {"data-type": extra_field.data_type}]}, label: "Nom de la colonne", input_html: { "data-action": 'change->appointment-extra-fields#change', "data-appointment-extra-fields-target": "selectInput" } %>
-<%= f.input :value, label: "Valeur de la colonne", input_html: { "data-appointment-extra-fields-target": "valueInput" } %>
-<%= f.hidden_field :_destroy %>
-<%= remove_associated_record content: "Retirer cette colonne" %>
+<div data-controller="appointment-extra-fields-type">
+  <%= f.association :extra_field, collection: current_user.organization.extra_fields.map {|extra_field| [extra_field.name, extra_field.id, {"data-type": extra_field.data_type}]}, label: "Nom de la colonne", input_html: { "data-action": 'change->appointment-extra-fields-type#change', "data-appointment-extra-fields-type-target": "selectInput" } %>
+  <%= f.input :value, label: "Valeur de la colonne", input_html: { "data-appointment-extra-fields-type-target": "valueInput" } %>
+  <%= f.hidden_field :_destroy %>
+  <%= remove_associated_record content: "Retirer cette colonne" %>
 </div>
