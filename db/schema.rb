@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_18_103237) do
+ActiveRecord::Schema.define(version: 2023_01_13_153328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -336,8 +336,6 @@ ActiveRecord::Schema.define(version: 2023_01_18_103237) do
     t.bigint "organization_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "city_id", null: false
-    t.index ["city_id"], name: "index_spips_on_city_id"
     t.index ["organization_id"], name: "index_spips_on_organization_id"
   end
 
@@ -364,8 +362,6 @@ ActiveRecord::Schema.define(version: 2023_01_18_103237) do
     t.bigint "organization_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "city_id", null: false
-    t.index ["city_id"], name: "index_tjs_on_city_id"
     t.index ["organization_id"], name: "index_tjs_on_organization_id"
   end
 
@@ -455,9 +451,7 @@ ActiveRecord::Schema.define(version: 2023_01_18_103237) do
   add_foreign_key "slots", "agendas"
   add_foreign_key "slots", "appointment_types"
   add_foreign_key "slots", "slot_types"
-  add_foreign_key "spips", "cities"
   add_foreign_key "spips", "organizations"
-  add_foreign_key "tjs", "cities"
   add_foreign_key "tjs", "organizations"
   add_foreign_key "users", "organizations"
 end
