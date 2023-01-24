@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_24_091314) do
+ActiveRecord::Schema.define(version: 2023_01_24_143900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,6 +193,10 @@ ActiveRecord::Schema.define(version: 2023_01_24_091314) do
     t.datetime "timestamp_convict_interface_creation"
     t.datetime "last_invite_to_convict_interface"
     t.date "date_of_birth"
+    t.boolean "homeless", default: false, null: false
+    t.boolean "lives_abroad", default: false, null: false
+    t.bigint "city_id"
+    t.index ["city_id"], name: "index_convicts_on_city_id"
     t.index ["discarded_at"], name: "index_convicts_on_discarded_at"
     t.index ["user_id"], name: "index_convicts_on_user_id"
   end
@@ -375,6 +379,16 @@ ActiveRecord::Schema.define(version: 2023_01_24_091314) do
     t.index ["structure_id"], name: "index_tjs_on_structure_id"
   end
 
+  create_table "type_structure", id: false, force: :cascade do |t|
+    t.string "id", limit: 255
+    t.string "mnemo", limit: 255
+    t.string "type_domaine", limit: 255
+    t.string "libelle_court", limit: 255
+    t.text "libelle_long"
+    t.text "commentaire"
+    t.boolean "is_baj"
+  end
+
   create_table "user_notifications", force: :cascade do |t|
     t.string "recipient_type", null: false
     t.bigint "recipient_id", null: false
@@ -440,6 +454,7 @@ ActiveRecord::Schema.define(version: 2023_01_24_091314) do
   add_foreign_key "areas_organizations_mappings", "organizations"
   add_foreign_key "cities", "spips"
   add_foreign_key "cities", "tjs"
+  add_foreign_key "convicts", "cities"
   add_foreign_key "convicts", "users"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
