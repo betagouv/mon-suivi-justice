@@ -15,9 +15,10 @@ org_spip_77 = Organization.create!(name: 'SPIP 77', organization_type: 'spip')
 org_tj_melun = Organization.create!(name: 'TJ Melun', organization_type: 'tj')
 org_tj_fontainebleau = Organization.create!(name: 'TJ de Fontainebleau', organization_type: 'tj')
 
-city = City.create(name: "Sévrier", zipcode: "74320")
-srj_tj_nanterre = Tj.create(name: "TJ Nanterre", organization: org_tj_nanterre, city: city)
-srj_spip_92 = Spip.create(name: "SPIP 92", organization: org_spip_92, city: city)
+srj_tj_nanterre = Tj.create(name: "TJ Nanterre", organization: org_tj_nanterre)
+srj_spip_92 = Spip.create(name: "SPIP 92", organization: org_spip_92)
+
+city = City.create(name: "Sévrier", zipcode: "74320", spip: srj_spip_92, tj: srj_tj_nanterre)
 
 # Un service peut être rattaché à des départements et/ou des juridictions
 # Cela impacte le rattachement des ppsmj à tel  département et/ou juridiction à leur création

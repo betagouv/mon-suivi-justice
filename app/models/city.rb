@@ -1,4 +1,4 @@
 class City < ApplicationRecord
-    has_one :tj
-    has_one :spip
+    belongs_to :spip
+    belongs_to :tj
 end

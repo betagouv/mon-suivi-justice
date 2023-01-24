@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_13_153328) do
+ActiveRecord::Schema.define(version: 2023_01_20_165608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,7 +158,13 @@ ActiveRecord::Schema.define(version: 2023_01_13_153328) do
     t.string "code_insee"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "city_id"
+    t.bigint "spip_id"
+    t.bigint "tj_id"
+    t.index ["city_id"], name: "index_cities_on_city_id"
     t.index ["name"], name: "index_cities_on_name"
+    t.index ["spip_id"], name: "index_cities_on_spip_id"
+    t.index ["tj_id"], name: "index_cities_on_tj_id"
     t.index ["zipcode"], name: "index_cities_on_zipcode"
   end
 
@@ -438,6 +444,8 @@ ActiveRecord::Schema.define(version: 2023_01_13_153328) do
   add_foreign_key "appointments", "users"
   add_foreign_key "areas_convicts_mappings", "convicts"
   add_foreign_key "areas_organizations_mappings", "organizations"
+  add_foreign_key "cities", "spips"
+  add_foreign_key "cities", "tjs"
   add_foreign_key "convicts", "users"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
