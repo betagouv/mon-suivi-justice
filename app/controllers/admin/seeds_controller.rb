@@ -16,7 +16,8 @@ module Admin
       sign_out(current_user)
       ActiveRecord::Base.connection.tables.each do |t|
         # We don't want to delete the SRJ tables
-        next if ['cities', 'tjs', 'spips', 'commune', 'structure', 'type_structure', 'ln_commune_structure'].include?(t)
+        next if %w[cities tjs spips commune structure type_structure ln_commune_structure].include?(t)
+
         conn = ActiveRecord::Base.connection
         conn.execute("TRUNCATE TABLE #{t} CASCADE;")
         conn.reset_pk_sequence!(t)

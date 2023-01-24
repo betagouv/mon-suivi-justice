@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class TjDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -14,7 +14,7 @@ class TjDashboard < Administrate::BaseDashboard
     organization: Field::BelongsTo,
     structure_id: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -64,7 +64,7 @@ class TjDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how tjs are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(tj)
-    "Tj ##{tj.name}"
+  def display_resource(resource)
+    "Tj ##{resource.name}"
   end
 end
