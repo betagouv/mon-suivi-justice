@@ -32,8 +32,9 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
-    authorize @appointment
     @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
+    @extra_fields.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field: extra_field) }
+    authorize @appointment
 
     return unless params.key?(:convict_id)
 
@@ -41,8 +42,8 @@ class AppointmentsController < ApplicationController
   end
 
   def create
+    debugger
     @appointment = Appointment.new(appointment_params)
-
     assign_appointment_to_user
     assign_appointment_to_creating_organization
 

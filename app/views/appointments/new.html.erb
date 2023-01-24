@@ -29,6 +29,11 @@
                                                     input_html: { class: 'form-select' } %>
     </div>
 
+    <%= f.fields_for :appointment_extra_fields do |extra_field_form|%>
+      <%= extra_field_form.input :extra_field_id, as: :hidden %>
+      <%= extra_field_form.input :value, label: @extra_fields[extra_field_form.index].name, input_html: { :type => @extra_fields[extra_field_form.index].data_type} %>
+    <% end%>
+
     <div class='appointment-form-prosecutor-container' id='prosecutor-container'></div>
     <div class='appointment-form-places-container' id='places-container'></div>
     <div class='appointment-form-departments-container' id='departments-container'></div>
