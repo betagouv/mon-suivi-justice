@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_20_165608) do
+ActiveRecord::Schema.define(version: 2023_01_24_091314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -342,7 +342,9 @@ ActiveRecord::Schema.define(version: 2023_01_20_165608) do
     t.bigint "organization_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "structure_id"
     t.index ["organization_id"], name: "index_spips_on_organization_id"
+    t.index ["structure_id"], name: "index_spips_on_structure_id"
   end
 
   create_table "structure", id: false, force: :cascade do |t|
@@ -368,17 +370,9 @@ ActiveRecord::Schema.define(version: 2023_01_20_165608) do
     t.bigint "organization_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "structure_id"
     t.index ["organization_id"], name: "index_tjs_on_organization_id"
-  end
-
-  create_table "type_structure", id: false, force: :cascade do |t|
-    t.string "id", limit: 255
-    t.string "mnemo", limit: 255
-    t.string "type_domaine", limit: 255
-    t.string "libelle_court", limit: 255
-    t.text "libelle_long"
-    t.text "commentaire"
-    t.boolean "is_baj"
+    t.index ["structure_id"], name: "index_tjs_on_structure_id"
   end
 
   create_table "user_notifications", force: :cascade do |t|
