@@ -33,6 +33,7 @@ class AppointmentsController < ApplicationController
   def new
     @appointment = Appointment.new
     authorize @appointment
+    @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
 
     return unless params.key?(:convict_id)
 

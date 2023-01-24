@@ -29,13 +29,6 @@
                                                     input_html: { class: 'form-select' } %>
     </div>
 
-    <%= f.abyme_for(:appointment_extra_fields) do |abyme| %>
-      <div data-controller="appointment-extra-fields-select">
-        <%= abyme.records %>
-        <%= abyme.new_records %>
-      </div>
-      <%= add_associated_record content: "Ajouter une colonne" %>
-    <% end %>
     <div class='appointment-form-prosecutor-container' id='prosecutor-container'></div>
     <div class='appointment-form-places-container' id='places-container'></div>
     <div class='appointment-form-departments-container' id='departments-container'></div>

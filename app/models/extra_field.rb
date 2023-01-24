@@ -2,12 +2,15 @@ class ExtraField < ApplicationRecord
   include Abyme::Model
 
   DATA_TYPES = { text: 'texte', date: 'date' }.freeze
+  SCOPES = { appointment_create: 'appointment_create', appointment_update: 'appointment_update' }.freeze
+
   belongs_to :organization
   has_many :appointment, through: :appointment_extra_fields
   has_many :appointment_extra_fields, inverse_of: :extra_field
   abymize :appointment_extra_fields, permit: :all_attributes, limit: 3
 
   enum data_type: DATA_TYPES
+  enum scope: SCOPES
   validates :name, presence: true
   validates :data_type, presence: true
 

@@ -2,6 +2,7 @@
 
 <%= f.input :name, label: "Nom du champs supplémentaire" %>
 <%= f.input :data_type, as: :select, collection: ExtraField::DATA_TYPES.invert, label: "Type de donnée", default: "text", include_blank: false %>
+<%= f.input :scope, as: :radio_buttons, collection: ExtraField::SCOPES.invert %>
 <%= f.hidden_field :_destroy %>
 <%= remove_associated_record(content: "Supprimer ce champ supplementaire", html: {class: "fr-btn fr-btn--tertiary-no-outline fr-btn--icon-left fr-icon-close-line"}) %>
         
