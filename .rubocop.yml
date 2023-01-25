@@ -74,6 +74,7 @@ Metrics/MethodLength:
     - app/controllers/admin/import_convicts_controller.rb
     - app/controllers/admin/users_controller.rb
     - app/jobs/appi_import_job.rb
+    - app/controllers/admin/seeds_controller.rb
 
 Metrics/ClassLength:
   Exclude:
@@ -100,6 +101,7 @@ Metrics/AbcSize:
     - app/controllers/admin/import_convicts_controller.rb
     - app/controllers/admin/users_controller.rb
     - app/jobs/appi_import_job.rb
+    - app/controllers/admin/seeds_controller.rb
 
 Layout/LineLength:
   Exclude:

@@ -162,6 +162,22 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
     t.index ["organization_id"], name: "index_areas_organizations_mappings_on_organization_id"
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "zipcode", null: false
+    t.string "code_insee"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "city_id"
+    t.bigint "spip_id"
+    t.bigint "tj_id"
+    t.index ["city_id"], name: "index_cities_on_city_id"
+    t.index ["name"], name: "index_cities_on_name"
+    t.index ["spip_id"], name: "index_cities_on_spip_id"
+    t.index ["tj_id"], name: "index_cities_on_tj_id"
+    t.index ["zipcode"], name: "index_cities_on_zipcode"
+  end
+
   create_table "commune", id: false, force: :cascade do |t|
     t.text "id"
     t.string "code_insee", limit: 255
@@ -341,6 +357,16 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
     t.index ["slot_type_id"], name: "index_slots_on_slot_type_id"
   end
 
+  create_table "spips", force: :cascade do |t|
+    t.string "name"
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "structure_id"
+    t.index ["organization_id"], name: "index_spips_on_organization_id"
+    t.index ["structure_id"], name: "index_spips_on_structure_id"
+  end
+
   create_table "structure", id: false, force: :cascade do |t|
     t.text "id"
     t.string "type_structure_id", limit: 255
@@ -359,14 +385,14 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
     t.boolean "competent_matiere_nationale"
   end
 
-  create_table "type_structure", id: false, force: :cascade do |t|
-    t.string "id", limit: 255
-    t.string "mnemo", limit: 255
-    t.string "type_domaine", limit: 255
-    t.string "libelle_court", limit: 255
-    t.text "libelle_long"
-    t.text "commentaire"
-    t.boolean "is_baj"
+  create_table "tjs", force: :cascade do |t|
+    t.string "name"
+    t.bigint "organization_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "structure_id"
+    t.index ["organization_id"], name: "index_tjs_on_organization_id"
+    t.index ["structure_id"], name: "index_tjs_on_structure_id"
   end
 
   create_table "user_notifications", force: :cascade do |t|
@@ -434,6 +460,8 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
   add_foreign_key "appointments", "users"
   add_foreign_key "areas_convicts_mappings", "convicts"
   add_foreign_key "areas_organizations_mappings", "organizations"
+  add_foreign_key "cities", "spips"
+  add_foreign_key "cities", "tjs"
   add_foreign_key "convicts", "users"
   add_foreign_key "extra_fields", "organizations"
   add_foreign_key "history_items", "appointments"
@@ -448,5 +476,7 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
   add_foreign_key "slots", "agendas"
   add_foreign_key "slots", "appointment_types"
   add_foreign_key "slots", "slot_types"
+  add_foreign_key "spips", "organizations"
+  add_foreign_key "tjs", "organizations"
   add_foreign_key "users", "organizations"
 end
