@@ -1,4 +1,12 @@
 fr:
+  helpers:
+    label:
+      city:
+        city_id: Id SRJ commune
+        name: Nom
+        zipcode: Code postal
+        tj: TJ (SRJ)
+        spip: SPIP (SRJ)
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
@@ -29,14 +37,32 @@ fr:
 
   activerecord:
     models:
-      user: "Agent"
-      convict: "PPSMJ"
+      user:
+        one: "Agent"
+        other: "Agents"
+      convict:
+        one: "PPSMJ"
+        other: "PPSMJs"
       appointment: "Rendez-vous"
       appointment_type: "Type de rendez-vous"
       place: "Lieu"
       slot:  "Créneau"
       agenda: "Agenda"
-      organization: "Service"
+      organization:
+        one: "Service"
+        other: "Services"
+      city: 
+        one: "Commune"
+        other: "Communes"
+      department:
+        one: "Département"
+        other: "Départements"
+      tj:
+        one: "TJ (SRJ)"
+        other: "TJs (SRJ)"
+      spip:
+        one: "SPIP (SRJ)"
+        other: "SPIPs (SRJ)"
 
     attributes:
       convict:
