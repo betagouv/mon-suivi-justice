@@ -17,6 +17,9 @@ class Convict < ApplicationRecord
   has_many :jurisdictions, through: :areas_convicts_mappings, source: :area, source_type: 'Jurisdiction'
 
   belongs_to :user, optional: true
+
+  belongs_to :city, optional: true
+
   alias_attribute :cpip, :user
   alias_attribute :agent, :user
 
