@@ -21,18 +21,22 @@
       <% end %>
     </div>
 
-    <div class='appointment-form-appointment-type-container' id='appointment-type-container'>
-      <%= f.input :appointment_appointment_type_id, collection: appointment_types_for_user(current_user),
-                                                    label: t('activerecord.models.appointment_type'),
-                                                    as: :fake_select,
-                                                    label_method: :name,
-                                                    input_html: { class: 'form-select' } %>
-    </div>
+    <div data-controller="appointment-extra-field-display">
+      <div class='appointment-form-appointment-type-container' id='appointment-type-container'>
+        <%= f.input :appointment_appointment_type_id, collection: appointment_types_for_user(current_user),
+                                                      label: t('activerecord.models.appointment_type'),
+                                                      as: :fake_select,
+                                                      label_method: :name,
+                                                      input_html: { class: 'form-select', "data-appointment-extra-field-display-target": "selectAppointmentTypeInput", "data-action": "change->appointment-extra-field-display#change" } %>
+      </div>
 
-    <%= f.fields_for :appointment_extra_fields do |extra_field_form|%>
-      <%= extra_field_form.input :extra_field_id, as: :hidden %>
-      <%= extra_field_form.input :value, label: @extra_fields[extra_field_form.index].name, input_html: { :type => @extra_fields[extra_field_form.index].data_type} %>
-    <% end%>
+      <div class="d-none" data-appointment-extra-field-display-target="extraFieldsContainer">
+        <%= f.fields_for :appointment_extra_fields do |extra_field_form|%>
+          <%= extra_field_form.input :extra_field_id, as: :hidden, input_html: {"data-appointment-extra-field-display-target": "extraFieldInputs"}, disabled: true %>
+          <%= extra_field_form.input :value, label: @extra_fields[extra_field_form.index].name, input_html: { :type => @extra_fields[extra_field_form.index].data_type, "data-appointment-extra-field-display-target": "extraFieldInputs"}, disabled: true %>
+        <% end%>
+      </div>
+    </div>
 
     <div class='appointment-form-prosecutor-container' id='prosecutor-container'></div>
     <div class='appointment-form-places-container' id='places-container'></div>
