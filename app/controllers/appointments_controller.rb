@@ -42,7 +42,6 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    debugger
     @appointment = Appointment.new(appointment_params)
     assign_appointment_to_user
     assign_appointment_to_creating_organization

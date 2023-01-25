@@ -131,9 +131,15 @@
                     </th>
 
                     <% agenda.organization.extra_fields&.each do |extra_field| %>
-                      <th>
-                        <%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>
-                      </th>
+                      <% if extra_field.appointment_update? && appointments[i].present? %>
+                        <th>
+                          <input style="min-width: 200px" class="fr-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" /> 
+                        </th>
+                      <% else %>
+                        <th>
+                          <%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>
+                        </th>
+                      <%end%>
                     <% end %>
                     <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
                       <th>

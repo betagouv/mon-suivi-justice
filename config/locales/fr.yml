@@ -673,3 +673,8 @@ fr:
       sent: "L'invitation a été envoyée à %{first_name} %{last_name}"
     index:
       no_notification: "Vous êtes à jour"
+  organization:
+    extra_field:
+      scope:
+        appointment_create: "Renseigner au moment de la création du rdv"
+        appointment_update: "Renseigner dans le tableau de sortie d'audience"

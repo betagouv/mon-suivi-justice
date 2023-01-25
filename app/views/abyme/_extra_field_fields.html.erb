@@ -2,7 +2,7 @@
 
 <%= f.input :name, label: "Nom du champs supplémentaire" %>
 <%= f.input :data_type, as: :select, collection: ExtraField::DATA_TYPES.invert, label: "Type de donnée", default: "text", include_blank: false %>
-<%= f.input :scope, as: :radio_buttons, collection: ExtraField::SCOPES.invert %>
+<%= f.input :scope, as: :radio_buttons, collection: ExtraField::SCOPES.map {|scope| [t("organization.extra_field.scope." + scope[0].to_s).to_sym, scope[1]]}, label: "Option de complétion", input_html: { style: "margin-right: 2px; margin-top: 2px;"}, label_html: { style: "display: flex; align-items: center;"} %>
 <%= f.hidden_field :_destroy %>
 <%= remove_associated_record(content: "Supprimer ce champ supplementaire", html: {class: "fr-btn fr-btn--tertiary-no-outline fr-btn--icon-left fr-icon-close-line"}) %>
         
