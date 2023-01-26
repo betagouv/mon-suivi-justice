@@ -426,6 +426,16 @@ ActiveRecord::Schema.define(version: 2023_03_09_093547) do
     t.index ["structure_id"], name: "index_tjs_on_structure_id"
   end
 
+  create_table "type_structure", id: false, force: :cascade do |t|
+    t.string "id", limit: 255
+    t.string "mnemo", limit: 255
+    t.string "type_domaine", limit: 255
+    t.string "libelle_court", limit: 255
+    t.text "libelle_long"
+    t.text "commentaire"
+    t.boolean "is_baj"
+  end
+
   create_table "user_notifications", force: :cascade do |t|
     t.string "recipient_type", null: false
     t.bigint "recipient_id", null: false
@@ -495,6 +505,7 @@ ActiveRecord::Schema.define(version: 2023_03_09_093547) do
   add_foreign_key "areas_organizations_mappings", "organizations"
   add_foreign_key "cities", "spips"
   add_foreign_key "cities", "tjs"
+  add_foreign_key "convicts", "cities"
   add_foreign_key "convicts", "users"
   add_foreign_key "extra_fields", "organizations"
   add_foreign_key "history_items", "appointments"
