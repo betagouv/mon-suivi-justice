@@ -12,8 +12,9 @@ class Appointment < ApplicationRecord
   has_many :history_items, dependent: :destroy
   has_many :extra_fields, through: :appointment_extra_fields
   has_many :appointment_extra_fields, inverse_of: :appointment, autosave: true, dependent: :destroy
-  abymize :appointment_extra_fields, permit: :all_attributes, limit: 3
 
+  accepts_nested_attributes_for :appointment_extra_fields, reject_if: :all_blank, limit: 3,
+                                                           allow_destroy: true
   accepts_nested_attributes_for :slot
 
   delegate :date, :starting_time, :duration, :agenda, :appointment_type, to: :slot
