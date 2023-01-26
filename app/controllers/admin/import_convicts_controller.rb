@@ -28,7 +28,9 @@ module Admin
       csv.each do |row|
         # TODO : ajout de la commune quand le SRJ sera intégré à l'application
 
-        next if ['emprisonnement'].include?(row['Mesure/Intervention'].split(' (')[0])
+        debugger
+
+        next if ['EMPRISONNEMENT', 'AMÉNAGEMENT DE PEINE', 'Placement en détention provisoire', ].include?(row['Mesure/Intervention'].split(' (')[0])
 
         convict = Convict.new(
           first_name: row['Prénom'],
