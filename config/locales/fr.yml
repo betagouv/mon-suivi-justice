@@ -677,4 +677,4 @@ fr:
     extra_field:
       scope:
         appointment_create: "Renseigner au moment de la création du rdv"
-        appointment_update: "Renseigner dans le tableau de sortie d'audience"
+        appointment_update: "Renseigner directement dans le tableau de sortie d'audience"

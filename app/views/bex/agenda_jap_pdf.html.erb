@@ -5,12 +5,12 @@
 
   <% @agendas_to_display.each_with_index do |agenda, index| %>
     <% unless agenda.slots_for_date(@selected_day, @appointment_type).count.zero? %>
-      <div class='bex-agenda-container'>
         <div class='bex-agenda-header jap-agenda-header<%= index+1%>'>
           <div class='bex-agenda-header-title'>
             <%= agenda.name %>
           </div>
         </div>
+      <div class='bex-agenda-container'>
 
         <div class='bex-agenda-table'>
           <div class='bex-agenda-table-header bex-agenda-line'>
@@ -32,9 +32,11 @@
             <div class='bex-agenda-header-title bex-agenda-column'>
               <%= t('bex.jap.header_role') %>
             </div>
-            <div class='bex-agenda-header-title bex-agenda-column'>
-              extra data
-            </div>
+            <% agenda.organization&.extra_fields&.each do |extra_field| %>
+              <div class='bex-agenda-header-title bex-agenda-column'>
+                <%= extra_field.name %>
+              </div>
+            <% end %>
           </div>
 
           <% agenda.slots_for_date(@selected_day, @appointment_type).each do |slot| %>
@@ -73,9 +75,11 @@
                     <% end %>
                   <% end %>
                 </div>
-                <div class='bex-agenda-column'>
-                  <%= appointments[i]&.organization_specific_data%>
-                </div>
+                <% agenda.organization.extra_fields&.each do |extra_field| %>
+                    <div class="bex-agenda-column">
+                      <%= extra_field.appointment_extra_fields_for_appointment(appointments[i]&.id)&.value%>
+                    </div>
+                <% end %>
               </div>
             <% end %>
           <% end %>

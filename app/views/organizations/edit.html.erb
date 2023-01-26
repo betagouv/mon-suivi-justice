@@ -10,11 +10,11 @@
 
   <% if current_user.admin? || current_user.local_admin_tj? %>  
     <%= f.rich_text_area :jap_modal_content %>
-    <h6 style="margin-top: 32px">Ajouter des champs supplémentaires au formulaire de rendez-vous</h6>
+    <h6 style="margin-top: 32px">Ajouter des colonnes au tableau de sortie d'audience</h6>
     <%= f.abyme_for(:extra_fields, limit: 3) do |abyme| %>
       <%= abyme.records(fields_html: { style: "margin-bottom: 16px" }) %>
       <%= abyme.new_records %>
-      <%= add_associated_record(content: "Ajouter un champ supplémentaire", html: {class: "fr-btn"}) %>
+      <%= add_associated_record(content: "Ajouter une colonne", html: {class: "fr-btn"}) %>
     <% end %>
     <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
   <% end %>

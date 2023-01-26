@@ -39,7 +39,7 @@
 
 .bex-agenda-header {
   display: -webkit-box;
-  width: 15%;
+  width: 100%;
   -webkit-box-align: center;
   -webkit-box-pack: center;
 }
@@ -51,7 +51,7 @@
 .bex-agenda-table {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  width: 85%;
+  width: 100%;
 }
 
 .bex-agenda-table-header {
@@ -59,7 +59,7 @@
 }
 
 .bex-agenda-small-column {
-  width: 9%;
+  width: 5%;
   border-left: 1px solid black;
   padding: 0 5px;
   display: -webkit-box;
@@ -67,11 +67,12 @@
 }
 
 .bex-agenda-column {
-  width: 17%;
+  width: 10%;
   border-left: 1px solid black;
   padding: 0 5px;
   display: -webkit-box;
   -webkit-box-align: center;
+  word-break: break-all;
 }
 
 .bex-agenda-line {
@@ -79,7 +80,7 @@
   min-height: 30px;
   border-bottom: 1px solid black;
 
-  &:last-child{
+  &:last-child {
     border: 0;
   }
 }
@@ -88,16 +89,30 @@
   min-width: 130px;
 }
 
-.jap-agenda-header1 { background-color: #FCA1A3; }
-.jap-agenda-header2 { background-color: #F9B895; }
-.jap-agenda-header3 { background-color: #FCCB90; }
-.jap-agenda-header4 { background-color: #FCE2A6; }
-.jap-agenda-header5 { background-color: #C8DFB7; }
-.jap-agenda-header6 { background-color: #9DD8C6; }
-.jap-agenda-header7 { background-color: #A7BACA; }
+.jap-agenda-header1 {
+  background-color: #fca1a3;
+}
+.jap-agenda-header2 {
+  background-color: #f9b895;
+}
+.jap-agenda-header3 {
+  background-color: #fccb90;
+}
+.jap-agenda-header4 {
+  background-color: #fce2a6;
+}
+.jap-agenda-header5 {
+  background-color: #c8dfb7;
+}
+.jap-agenda-header6 {
+  background-color: #9dd8c6;
+}
+.jap-agenda-header7 {
+  background-color: #a7baca;
+}
 
 .spip-agenda-header {
-  background-color: #FCE2A6;
+  background-color: #fce2a6;
   -webkit-box-pack: center;
 }
 
