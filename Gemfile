@@ -57,6 +57,8 @@ gem 'tzinfo'
 gem 'tzinfo-data'
 
 gem 'administrate'
+gem 'administrate-field-enum'
+
 gem 'pretender'
 
 gem 'octokit', '~> 5.0'

@@ -2,7 +2,31 @@ module Admin
   class UsersController < Admin::ApplicationController
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
-    #
+    
+    def index
+      authorize_resource(resource_class)
+      search_term = params[:search].to_s.strip
+      resources = filter_resources(scoped_resource, search_term: search_term)
+      resources = apply_collection_includes(resources).where(role: User.roles["cpip"])
+
+      if test
+        resources = resources.where(role: User.roles["cpip"])
+      end
+
+      resources = order.apply(resources)
+      resources = paginate_resources(resources)
+      page = Administrate::Page::Collection.new(dashboard, order: order)
+
+      
+      render locals: {
+        resources: resources,
+        search_term: search_term,
+        page: page,
+        show_search_bar: show_search_bar?,
+      }
+    end
+
+
     # def update
     #   super
     #   send_foo_updated_email(requested_resource)

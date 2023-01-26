@@ -32,9 +32,7 @@ class UserDashboard < Administrate::BaseDashboard
     remember_created_at: Field::DateTime,
     reset_password_sent_at: Field::DateTime,
     reset_password_token: Field::String,
-    role: Field::Select.with_options(searchable: true, collection: lambda { |field|
-                                                                     field.resource.class.send(field.attribute.to_s.pluralize).keys
-                                                                   }),
+    role: Field::Enum,
     share_email_to_convict: Field::Boolean,
     share_phone_to_convict: Field::Boolean,
     visits: Field::HasMany,
