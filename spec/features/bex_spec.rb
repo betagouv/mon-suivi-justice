@@ -76,7 +76,7 @@ RSpec.feature 'Bex', type: :feature do
 
       expect(page).to have_current_path(agenda_jap_path)
 
-      agenda_containers = page.all('.bex-agenda-container', minimum: 2)
+      agenda_containers = page.all('.fr-table', minimum: 2)
 
       expect(agenda_containers[0]).to have_content('Cabinet Bleu')
       expect(agenda_containers[0]).to have_content('James')
