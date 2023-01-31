@@ -11,24 +11,22 @@ class ConvictDashboard < Administrate::BaseDashboard
     id: Field::Number.with_options(
       searchable: true
     ),
-    appi_uuid: Field::String,
-    appointments: Field::HasMany,
-    areas_convicts_mappings: Field::HasMany,
-    departments: Field::HasMany,
-    discarded_at: Field::DateTime,
     first_name: Field::String,
-    history_items: Field::HasMany,
-    invitation_to_convict_interface_count: Field::Number,
-    jurisdictions: Field::HasMany,
-    last_invite_to_convict_interface: Field::DateTime,
     last_name: Field::String,
+    appi_uuid: Field::String,
+    city: Field::BelongsTo,
+    appointments: Field::HasMany,
     no_phone: Field::Boolean,
+    homeless: Field::Boolean,
+    lives_abroad: Field::Boolean,
     phone: Field::String,
     prosecutor_number: Field::String,
     refused_phone: Field::Boolean,
     timestamp_convict_interface_creation: Field::DateTime,
     user: Field::BelongsTo,
-    versions: Field::HasMany,
+    invitation_to_convict_interface_count: Field::Number,
+    last_invite_to_convict_interface: Field::DateTime,
+    discarded_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     date_of_birth: Field::Date
@@ -46,8 +44,6 @@ class ConvictDashboard < Administrate::BaseDashboard
     last_name
     phone
     appointments
-    departments
-    jurisdictions
     date_of_birth
   ].freeze
 
@@ -60,17 +56,12 @@ class ConvictDashboard < Administrate::BaseDashboard
     last_name
     phone
     refused_phone
-    appointments
-    departments
-    history_items
-    jurisdictions
     no_phone
     prosecutor_number
     user
     timestamp_convict_interface_creation
     invitation_to_convict_interface_count
     last_invite_to_convict_interface
-    versions
     discarded_at
     created_at
     updated_at
@@ -81,22 +72,19 @@ class ConvictDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     appi_uuid
-    appointments
-    areas_convicts_mappings
-    departments
-    discarded_at
+    city
     first_name
-    history_items
-    invitation_to_convict_interface_count
-    jurisdictions
-    last_invite_to_convict_interface
     last_name
+    refused_phone
     no_phone
     phone
+    homeless
+    lives_abroad
     prosecutor_number
-    refused_phone
-    timestamp_convict_interface_creation
     user
+    timestamp_convict_interface_creation
+    invitation_to_convict_interface_count
+    last_invite_to_convict_interface
   ].freeze
 
   # COLLECTION_FILTERS

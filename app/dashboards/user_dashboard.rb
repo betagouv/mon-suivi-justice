@@ -92,12 +92,12 @@ class UserDashboard < Administrate::BaseDashboard
     convicts
     email
     first_name
-    invitation_limit
-    invitations_count
     last_name
     organization
     phone
     role
+    invitation_limit
+    invitations_count
     share_email_to_convict
     share_phone_to_convict
   ].freeze

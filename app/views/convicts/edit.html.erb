@@ -3,6 +3,7 @@
   <%= f.input :last_name %>
   <%= f.input :first_name %>
   <%= f.input :appi_uuid %>
+  <%= f.select(:city_id, options_for_select(City.all.map { |c| ["#{c.name} - #{c.zipcode}", c.id]}, @convict.city&.id ), {prompt: 'Choisir une commune', html_options: {class: 'test'}}) %>
 
   <% if current_user.work_at_spip? || current_user.admin? %>
     <%= f.association :user, collection: cpip_for_select(current_user.organization),
@@ -76,3 +77,5 @@
     <% end %>
   </div>
 <% end %>
+
+<%= javascript_pack_tag 'convict_new' %>
