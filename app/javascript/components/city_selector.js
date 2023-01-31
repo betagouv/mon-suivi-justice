@@ -4,9 +4,8 @@ import 'select2';
 import 'select2/dist/css/select2.css';
 
 document.addEventListener('turbolinks:load',function() {
-  console.log("Hello from city selector")
   $('#convict_city_id').select2({
-    selectionCssClass : 'custom-select2-input',
+    selectionCssClass : 'custom-select2-input city-selector',
     language: {
       noResults: function () {
         return 'Aucun résultat trouvé';

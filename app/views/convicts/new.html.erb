@@ -3,6 +3,7 @@
   <%= f.input :last_name, autofocus: true %>
   <%= f.input :first_name %>
   <%= f.input :appi_uuid %>
+  <%= f.label :city_id, "Commune", class: "form-label" %>
   <% cache('cities_selector') do %>
       <%= f.select(:city_id, options_for_select(City.all.map { |c| ["#{c.name} - #{c.zipcode}", c.id]}, @convict.city&.id), {prompt: 'Choisir une commune', html_options: {class: 'test'}}) %>
   <% end %>
