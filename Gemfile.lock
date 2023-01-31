@@ -70,6 +70,8 @@ GEM
       kaminari (>= 1.0)
       sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
+    administrate-field-enum (0.0.9)
+      administrate (~> 0.12)
     ahoy_matey (4.1.0)
       activesupport (>= 5.2)
       device_detector
@@ -517,6 +519,7 @@ PLATFORMS
 DEPENDENCIES
   addressable (~> 2.8)
   administrate
+  administrate-field-enum
   ahoy_matey (~> 4.1)
   bootsnap (>= 1.4.4)
   byebug

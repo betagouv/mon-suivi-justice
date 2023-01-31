@@ -32,9 +32,7 @@ class UserDashboard < Administrate::BaseDashboard
     remember_created_at: Field::DateTime,
     reset_password_sent_at: Field::DateTime,
     reset_password_token: Field::String,
-    role: Field::Select.with_options(searchable: true, collection: lambda { |field|
-                                                                     field.resource.class.send(field.attribute.to_s.pluralize).keys
-                                                                   }),
+    role: Field::Enum,
     share_email_to_convict: Field::Boolean,
     share_phone_to_convict: Field::Boolean,
     visits: Field::HasMany,
@@ -89,24 +87,14 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    appointments
     convicts
     email
-    encrypted_password
     first_name
-    invitation_accepted_at
-    invitation_created_at
     invitation_limit
-    invitation_sent_at
-    invitation_token
     invitations_count
-    invited_by
     last_name
     organization
     phone
-    remember_created_at
-    reset_password_sent_at
-    reset_password_token
     role
     share_email_to_convict
     share_phone_to_convict
