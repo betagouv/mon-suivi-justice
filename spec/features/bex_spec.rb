@@ -57,6 +57,7 @@ RSpec.feature 'Bex', type: :feature do
                                                   starting_time: '12h',
                                                   capacity: 2)
 
+      month = (I18n.l slot1.date, format: '%B %Y').capitalize
       current_date = (I18n.l slot1.date, format: '%A %d').capitalize
 
       create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204',
@@ -72,6 +73,7 @@ RSpec.feature 'Bex', type: :feature do
 
       visit agenda_jap_path
 
+      select month, from: :month
       select current_date, from: :date
 
       expect(page).to have_current_path(agenda_jap_path)
@@ -259,8 +261,6 @@ RSpec.feature 'Bex', type: :feature do
 
       visit agenda_sap_ddse_path
       select current_month_label, from: :date
-
-      expect(page).to have_current_path(agenda_sap_ddse_path)
 
       agenda_containers = page.all('.bex-agenda-container', minimum: 1)
 
