@@ -14,19 +14,4 @@
       <%= form.submit "Créer" %>
     </div>
   <% end %>
-  <hr>
-  <ul>
-    <% if !@import_successes.nil? && @import_successes.any? %>
-      <li><%= @import_successes.length %> ppsmjs ont été créées :</li>
-      <% @import_successes.each do |success| %>
-        <li><%= success %></li>
-      <% end %>
-    <% end %>
-    <% if !@import_errors.nil? && @import_errors.any? %>
-      <li><%= @import_errors.length %> ppsmjs n'ont pas pu être créées :</li>
-      <% @import_errors.each do |error| %>
-        <li style="color: red"><%= error %></li>
-      <% end %>
-    <% end %>
-  </ul>
 </div>
