@@ -73,6 +73,7 @@ Metrics/MethodLength:
     - app/controllers/admin/public_pages_controller.rb
     - app/controllers/admin/import_convicts_controller.rb
     - app/controllers/admin/users_controller.rb
+    - app/jobs/appi_import_job.rb
 
 Metrics/ClassLength:
   Exclude:
@@ -98,6 +99,7 @@ Metrics/AbcSize:
     - app/controllers/admin/public_pages_controller.rb
     - app/controllers/admin/import_convicts_controller.rb
     - app/controllers/admin/users_controller.rb
+    - app/jobs/appi_import_job.rb
 
 Layout/LineLength:
   Exclude:
