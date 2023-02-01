@@ -31,6 +31,7 @@ class AppiImportJob < ApplicationJob
   rescue StandardError => e
     @import_errors.push("Erreur : #{e.message}")
   ensure
+    File.delete(temp_csv_path) if File.exist?(temp_csv_path)
     AdminMailer.with(user: user, organization: organization, import_errors: @import_errors,
                      import_successes: @import_successes).appi_import_report.deliver_later
   end

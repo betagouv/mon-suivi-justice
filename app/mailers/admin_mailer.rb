@@ -6,7 +6,6 @@ class AdminMailer < ApplicationMailer
     @organization = params[:organization]
     @import_successes = params[:import_successes]
     @import_errors = params[:import_errors]
-    debugger
     mail(to: @user.email, subject: "Rapport import APPI #{@organization.name}")
   end
 end
