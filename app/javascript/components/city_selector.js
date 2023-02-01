@@ -23,15 +23,12 @@ $(document).on("select2:select", function (e) {
 
   // Make ajax call the tj and spips here ?var menuId = $( "ul.nav" ).first().attr( "id" );
   var request = $.ajax({
-    url: "script.php",
-    method: "POST",
-    data: { city_id : e.target.value },
-    dataType: "html"
+    url: `cities/#{e.target.value}/services`,
+    method: "GET",
   });
   
-  request.done(function( msg ) {
-    console.log("retour rails", msg)
-    $( "#log" ).html( msg );
+  request.done(function( res ) {
+    console.log("retour rails", res)
   });
   
   request.fail(function( jqXHR, textStatus ) {
