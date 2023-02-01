@@ -8,6 +8,14 @@
       <%= f.select(:city_id, options_for_select(City.all.map { |c| ["#{c.name} - #{c.zipcode}", c.id]}, @convict.city&.id), {prompt: 'Choisir une commune', html_options: {class: 'test'}}) %>
   <% end %>
 
+  <%= f.input :homeless, input_html: { class: 'form-checkbox' },
+                              label_html: { class: 'form-checkbox-label' },
+                              wrapper_html: { class: 'form-checkbox-wrapper'} %>
+
+  <%= f.input :lives_abroad, input_html: { class: 'form-checkbox' },
+                              label_html: { class: 'form-checkbox-label' },
+                              wrapper_html: { class: 'form-checkbox-wrapper fr-mb-1w'} %>
+
   <% if current_user.work_at_spip? || current_user.admin? %>
     <%= f.association :user, collection: cpip_for_select(current_user.organization),
                               label: t('.cpip_label'),

@@ -12,6 +12,8 @@ class Organization < ApplicationRecord
   # limit should be 3, but we need to add one more to be able to delete and add an extra_field at the same time
   # abymize :extra_fields, permit: :all_attributes, limit: 4, allow_destroy: true
   accepts_nested_attributes_for :extra_fields, reject_if: :all_blank, allow_destroy: true, limit: 4
+  has_one :tj
+  has_one :spip
 
   enum organization_type: { spip: 0, tj: 1 }
 

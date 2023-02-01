@@ -74,6 +74,8 @@ fr:
         refused_phone: "Refuse de donner son numéro"
         appi_uuid: "N° dossier APPI"
         cpip: "CPIP"
+        homeless: "SDF"
+        lives_abroad: "Habite à l'étranger"
       user:
         name: "Nom"
         first_name: "Prénom"
