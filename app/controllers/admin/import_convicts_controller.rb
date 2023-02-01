@@ -15,17 +15,19 @@ module Admin
     def import
       @file_extension = File.extname(params[:convicts_list].original_filename)
       raise StandardError, 'Seul le format csv est supporté' unless %w[.csv].include? @file_extension.downcase
+
       @organization = Organization.find(params[:organization_id])
 
-      File.open("tmp/import-#{@organization.name}-#{Time.now.to_i}.csv", "w") do |f|     
-        f.write(CSV.read(params[:convicts_list], { headers: true, external_encoding: 'iso-8859-1', internal_encoding: 'utf-8' }))
+      File.open("tmp/import-#{@organization.name}-#{Time.now.to_i}.csv", 'w') do |f|
+        f.write(CSV.read(params[:convicts_list],
+                         { headers: true, external_encoding: 'iso-8859-1', internal_encoding: 'utf-8' }))
         AppiImportJob.perform_later(f.path, @organization, current_user)
       end
     rescue StandardError => e
       flash.now[:error] = "Erreur : #{e.message}"
     else
       flash.now[:success] =
-        "Import en cours ! Vous recevrez le rapport par mail dans quelques minutes"
+        'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
     ensure
       render :index
     end
