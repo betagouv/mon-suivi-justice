@@ -14,6 +14,18 @@ module Admin
     def reset_db
       sign_out(true_user)
       sign_out(current_user)
+
+      truncate_db
+
+      Rails.application.load_seed
+      @admin = User.find_by email: 'admin@example.com'
+      sign_in(@admin)
+      redirect_to admin_root_path
+    end
+
+    private
+
+    def truncate_db
       ActiveRecord::Base.connection.tables.each do |t|
         # We don't want to delete the SRJ tables
         next if %w[schema_migrations cities tjs spips commune structure type_structure ln_commune_structure].include?(t)
@@ -22,13 +34,7 @@ module Admin
         conn.execute("TRUNCATE TABLE #{t} CASCADE;")
         conn.reset_pk_sequence!(t)
       end
-      Rails.application.load_seed
-      @admin = User.find_by email: 'admin@example.com'
-      sign_in(@admin)
-      redirect_to admin_root_path
     end
-
-    private
 
     def show_search_bar?
       false
