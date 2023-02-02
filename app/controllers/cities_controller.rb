@@ -3,7 +3,13 @@ class CitiesController < ApplicationController
 
     def services
         @city = City.find(city_params[:city_id])
+
+
+        
+
         authorize @city
+
+        render json: @city
     end
 
     private
