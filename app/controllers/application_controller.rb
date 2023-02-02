@@ -52,6 +52,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_time_zone
 
+  def user_for_paper_trail
+    true_user.try(:id)
+  end
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
