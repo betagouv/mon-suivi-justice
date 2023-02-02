@@ -23,7 +23,7 @@ $(document).on("select2:select", function (e) {
 
   // Make ajax call the tj and spips here ?var menuId = $( "ul.nav" ).first().attr( "id" );
   var request = $.ajax({
-    url: `cities/#{e.target.value}/services`,
+    url: "/cities/" + e.target.value + "/services",
     method: "GET",
   });
   
