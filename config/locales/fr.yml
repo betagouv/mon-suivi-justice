@@ -14,6 +14,15 @@ fr:
         prosecutor_number: Numéro de parquet
         appointments: rendez-vous
         date_of_birth: date de naissance
+      tj:
+        short_name: nom
+        name: nom
+        organization: service
+        city: commune
+      spip:
+        name: nom
+        organization: service
+        city: commune
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
