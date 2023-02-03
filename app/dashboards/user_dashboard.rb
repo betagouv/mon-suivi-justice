@@ -14,7 +14,10 @@ class UserDashboard < Administrate::BaseDashboard
     appointments: Field::HasMany,
     convicts: Field::HasMany,
     email: Field::String,
-    encrypted_password: Field::String.with_options(
+    password: Field::String.with_options(
+      searchable: false
+    ),
+    password_confirmation: Field::String.with_options(
       searchable: false
     ),
     first_name: Field::String,
@@ -80,7 +83,6 @@ class UserDashboard < Administrate::BaseDashboard
     invitations_count
     invited_by
     reset_password_sent_at
-    reset_password_token
     created_at
     updated_at
   ].freeze
@@ -89,15 +91,14 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    convicts
     email
     first_name
     last_name
+    password
+    password_confirmation
     organization
     phone
     role
-    invitation_limit
-    invitations_count
     share_email_to_convict
     share_phone_to_convict
   ].freeze

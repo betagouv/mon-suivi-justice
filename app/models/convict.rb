@@ -166,4 +166,8 @@ class Convict < ApplicationRecord
   def update_convict_api
     UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

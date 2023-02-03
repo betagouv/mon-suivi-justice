@@ -51,21 +51,18 @@ class ConvictDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
     appi_uuid
+    organizations
+    city
     first_name
     last_name
     phone
     refused_phone
     no_phone
+    homeless
+    lives_abroad
     prosecutor_number
     user
-    timestamp_convict_interface_creation
-    invitation_to_convict_interface_count
-    last_invite_to_convict_interface
-    discarded_at
-    created_at
-    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -77,16 +74,13 @@ class ConvictDashboard < Administrate::BaseDashboard
     city
     first_name
     last_name
+    phone
     refused_phone
     no_phone
-    phone
     homeless
     lives_abroad
     prosecutor_number
     user
-    timestamp_convict_interface_creation
-    invitation_to_convict_interface_count
-    last_invite_to_convict_interface
   ].freeze
 
   # COLLECTION_FILTERS
@@ -104,7 +98,7 @@ class ConvictDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how convicts are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(convict)
-  #   "Convict ##{convict.id}"
-  # end
+  def display_resource(convict)
+    "PPSMJ: #{convict.full_name}"
+  end
 end
