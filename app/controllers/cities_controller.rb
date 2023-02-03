@@ -5,8 +5,8 @@ class CitiesController < ApplicationController
     @city = City.find(city_params[:city_id])
     authorize @city
 
-    @tj = @city.tj.organization
-    @spip = @city.spip.organization
+    @tj = @city.tj&.organization
+    @spip = @city.spip&.organization
 
     @services = [tj: @tj, spip: @spip]
 
