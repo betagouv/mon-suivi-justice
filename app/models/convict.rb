@@ -10,6 +10,9 @@ class Convict < ApplicationRecord
 
   DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
 
+  has_many :convicts_organizations_mappings
+  has_many :organizations, through: :convicts_organizations_mappings
+
   has_many :appointments, dependent: :destroy
   has_many :history_items, dependent: :destroy
 

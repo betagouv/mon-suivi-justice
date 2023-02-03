@@ -15,6 +15,9 @@ class Organization < ApplicationRecord
   has_one :tj
   has_one :spip
 
+  has_many :convicts_organizations_mappings
+  has_many :convicts, through: :convicts_organizations_mappings
+
   enum organization_type: { spip: 0, tj: 1 }
 
   validates :organization_type, presence: true

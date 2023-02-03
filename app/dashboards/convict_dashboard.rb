@@ -13,6 +13,7 @@ class ConvictDashboard < Administrate::BaseDashboard
     ),
     first_name: Field::String,
     last_name: Field::String,
+    organizations: Field::HasMany,
     appi_uuid: Field::String,
     city: Field::BelongsTo,
     appointments: Field::HasMany,
@@ -72,6 +73,7 @@ class ConvictDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     appi_uuid
+    organizations
     city
     first_name
     last_name
