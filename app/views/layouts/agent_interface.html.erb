@@ -1,19 +1,15 @@
 <% content_for :content do %>
   <%= render 'layouts/header' %>
 
-  <section class='agent-interface-container'>
-    <%= render 'layouts/sidebar' %>
 
-    <section class='content-container'>
       <% flash.each do |type, msg| %>
         <p class=<%= type %>><%= msg %></p>
       <% end %>
-
-      <%= yield %>
-      <section id="user-notifications-container">
-      </section>
-    </section>
-  </section>
+      <main id="content">
+        <div class="fr-container--fluid">
+          <%= yield %>
+        </div>
+      </main>
 
   <%= render 'layouts/ie_warning' %>
 

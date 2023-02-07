@@ -30,6 +30,7 @@ class ConvictsController < ApplicationController
 
   def create
     @convict = Convict.new(convict_params)
+    @convict.organizations << current_organization
     authorize @convict
     save_and_redirect @convict
   end
