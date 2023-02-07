@@ -10,10 +10,10 @@
     </div>
     <div class='index-tools-controls-container'>
       <% if current_user.cpip? %>
-        <%= button_to t('my_convicts'), convicts_path, params: { only_mine: true }, class: 'link-to-my-convicts-button', method: :get %>
+        <%= button_to t('my_convicts'), convicts_path, params: { only_mine: true }, class: 'fr-btn fr-btn--secondary fr-mr-1w', method: :get %>
       <% end %>
       <% if policy(:convict).new? %>
-        <%= button_to t('new_convict_title'), new_convict_path, class: 'link-to-new-convict-button', form_class: 'link-to-new-convict-form', method: :get %>
+        <%= button_to t('new_convict_title'), new_convict_path, class: 'fr-btn', form_class: 'link-to-new-convict-form', method: :get %>
       <% end %>
     </div>
   </div>

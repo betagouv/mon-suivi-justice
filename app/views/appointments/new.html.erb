@@ -9,7 +9,7 @@
       <%= f.input :convict_id, as: :hidden, input_html: { value: params[:convict_id] } %>
     <% else %>
       <%= f.association :convict, collection: policy_scope(Convict.all),
-                                  label: t('activerecord.models.convict'),
+                                  label: t('activerecord.models.convict', count: 1),
                                   as: :select,
                                   label_method: :name,
                                   input_html: { class: 'form-select', id: 'convict-name-autocomplete' } %>
