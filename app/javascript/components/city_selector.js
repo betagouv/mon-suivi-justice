@@ -28,7 +28,16 @@ $(document).on("select2:select", function (e) {
   });
   
   request.done(function( res ) {
-    console.log("retour rails", res)
+    console.log("retour rails", res, res.length)
+
+
+    if (res.length === 1) {
+      $("#city-organizations").append( `Attention Mon suivi Justice n’est déployé que pour le ${res[0].name}. Vous ne pourrez poursuivre la prise de rendez-vous que pour ce service` );
+    }
+
+
+
+
   });
   
   request.fail(function( jqXHR, textStatus ) {
@@ -36,6 +45,5 @@ $(document).on("select2:select", function (e) {
   });
 
 
-  $("#city-organizations").append( `<strong>Le SPIP et le TJ ${e.target.value}</strong>` );
  });
 

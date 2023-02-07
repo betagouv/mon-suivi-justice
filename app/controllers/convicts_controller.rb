@@ -30,6 +30,12 @@ class ConvictsController < ApplicationController
 
   def create
     @convict = Convict.new(convict_params)
+
+
+    # TODO : Créer un champ caché avec la liste des ids des organisations liées à la commune sélectionnée
+    # récupérer ici la valeur du champ caché et ajouter les suivis en conséquence 
+
+
     @convict.organizations << current_organization
     authorize @convict
     save_and_redirect @convict

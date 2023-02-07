@@ -6,9 +6,7 @@
   <%= f.label :city_id, "Commune", class: "form-label" %>
   <%= f.select(:city_id, options_for_select(City.all.map { |c| ["#{c.name} - #{c.zipcode}", c.id]}, @convict.city&.id ), {prompt: 'Choisir une commune', html_options: {class: 'city-selector'}}) %>
 
-  <div id="city-organizations">
-    
-  </div>
+  <div id="city-organizations"></div>
 
   <%= f.input :homeless, input_html: { class: 'form-checkbox' },
                               label_html: { class: 'form-checkbox-label' },

@@ -5,11 +5,13 @@ class CitiesController < ApplicationController
     @city = City.find(city_params[:city_id])
     authorize @city
 
+    @services = []
+
     @tj = @city.tj&.organization
     @spip = @city.spip&.organization
 
-    @services = [tj: @tj, spip: @spip]
-
+    @services << @tj unless @tj.nil? 
+    @services << @spip unless @spip.nil?
     render json: @services
   end
 

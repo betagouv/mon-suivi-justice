@@ -55,7 +55,14 @@
   mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-down-s-line.svg"));
 }
 
+// Fixes for header
 .fr-header__navbar .fr-btn--menu::before, .fr-header__navbar .fr-btn--menu::after {
   -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/menu-fill.svg"));
   mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/menu-fill.svg"));
+}
+
+// Fixes for alerts
+.fr-alert--error::before {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--error-fill.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--error-fill.svg"));
 }

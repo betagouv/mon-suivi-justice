@@ -7,6 +7,7 @@
   <% cache('cities_selector') do %>
       <%= f.select(:city_id, options_for_select(City.with_at_least_one_service.map { |c| ["#{c.name} - #{c.zipcode}", c.id]}, @convict.city&.id), {prompt: 'Choisir une commune', html_options: {class: 'test'}}) %>
   <% end %>
+  <div id="city-organizations"></div>
 
   <%= f.input :homeless, input_html: { class: 'form-checkbox' },
                               label_html: { class: 'form-checkbox-label' },
