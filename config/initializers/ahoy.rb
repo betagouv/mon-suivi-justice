@@ -10,3 +10,5 @@ Ahoy.api = false
 Ahoy.geocode = false
 
 Ahoy.user_method = :true_user
+
+Ahoy.exclude_method = -> (controller, request) { Rails.env.development? }
