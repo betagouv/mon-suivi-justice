@@ -14,7 +14,8 @@ class BexController < ApplicationController
       format.html
       format.pdf do
         render template: 'bex/agenda_jap_pdf.html.erb', locals: { date: @selected_day },
-               pdf: "Agenda sortie d'audience JAP", footer: { right: '[page]/[topage]' }
+               pdf: "Agenda sortie d'audience JAP", footer: { right: '[page]/[topage]' },
+               orientation: 'Landscape'
       end
     end
   end
