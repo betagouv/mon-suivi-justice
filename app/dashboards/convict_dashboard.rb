@@ -8,7 +8,9 @@ class ConvictDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    id: Field::Number,
+    id: Field::Number.with_options(
+      searchable: true
+    ),
     appi_uuid: Field::String,
     appointments: Field::HasMany,
     areas_convicts_mappings: Field::HasMany,
