@@ -132,12 +132,13 @@
 
                     <% agenda.organization.extra_fields&.each do |extra_field| %>
                       <% if extra_field.appointment_update? && appointments[i].present? %>
-                        <th>
-                          <input style="min-width: 200px" class="fr-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" /> 
+                        <th data-controller="table-update-field">
+                          <input data-table-update-field-target="inputField" data-action="table-update-field#update" data-appointment="<%= appointments[i].id %>" data-extra-field="<%= extra_field.id %>"
+                           style="min-width: 200px" class="fr-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" /> 
                         </th>
                       <% else %>
                         <th>
-                          <%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>
+                          <%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value.to_date if appointments[i].present? %>
                         </th>
                       <%end%>
                     <% end %>

@@ -77,7 +77,7 @@
                 </div>
                 <% agenda.organization.extra_fields&.each do |extra_field| %>
                     <div class="bex-agenda-column">
-                      <%= extra_field.appointment_extra_fields_for_appointment(appointments[i]&.id)&.value%>
+                      <%= extra_field.appointment_extra_fields_for_appointment(appointments[i]&.id)&.value&.to_date%>
                     </div>
                 <% end %>
               </div>
