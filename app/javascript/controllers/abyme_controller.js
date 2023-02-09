@@ -12,6 +12,8 @@ export default class extends Controller {
 
       this.add_default_associations();
     }
+
+    this.limit_check();
   }
 
   // return the value of the data-count attribute
@@ -53,8 +55,7 @@ export default class extends Controller {
       event.preventDefault();
     }
 
-    if (this.element.dataset.limit && this.limit_check()) {
-      this.create_event("limit-reached");
+    if (this.limit_check()) {
       return false;
     }
 
@@ -62,6 +63,7 @@ export default class extends Controller {
     this.create_event("before-add");
     this.associationsTarget.insertAdjacentHTML(this.position, html);
     this.create_event("after-add");
+    this.limit_check();
   }
 
   // REMOVE_ASSOCIATION
@@ -82,6 +84,7 @@ export default class extends Controller {
     this.create_event("before-remove");
     this.mark_for_destroy(event);
     this.create_event("after-remove");
+    this.limit_check();
   }
 
   // LIFECYCLE EVENTS RELATED
@@ -160,19 +163,32 @@ export default class extends Controller {
     item.classList.add("abyme--marked-for-destroy");
   }
 
+  // COUNT_ASSOCIATIONS
+
+  // count the number of added associations
+  // which are not flagged for destruction
+
+  count_associations() {
+    return this.fieldsTargets.filter(
+      (item) => !item.classList.contains("abyme--marked-for-destroy")
+    ).length;
+  }
+
   // LIMIT_CHECK
 
   // Check if associations limit is reached
-  // based on newFieldsTargets only
-  // persisted fields are ignored
 
   limit_check() {
-    console.log(this.newFieldsTargets)
-    return (
-      this.newFieldsTargets.filter(
-        (item) => !item.classList.contains("abyme--marked-for-destroy")
-      ).length >= parseInt(this.element.dataset.limit)
+    const isOver = this.element.dataset.limit && (
+      this.count_associations() >= parseInt(this.element.dataset.limit)
     );
+
+    if (isOver) {
+      this.create_event("limit-reached");
+    } else {
+      this.create_event("within-limit");
+    }
+    return isOver;
   }
 
   // ADD_DEFAULT_ASSOCIATION

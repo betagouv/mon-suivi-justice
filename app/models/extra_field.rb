@@ -6,7 +6,7 @@ class ExtraField < ApplicationRecord
 
   belongs_to :organization
   has_many :appointment, through: :appointment_extra_fields
-  has_many :appointment_extra_fields, inverse_of: :extra_field
+  has_many :appointment_extra_fields, inverse_of: :extra_field, dependent: :destroy
   abymize :appointment_extra_fields, permit: :all_attributes, limit: 3
 
   enum data_type: DATA_TYPES
