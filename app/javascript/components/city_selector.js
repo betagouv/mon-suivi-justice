@@ -33,6 +33,8 @@ $(document).on("select2:select", function (e) {
 
     if (res.length === 1) {
       $("#city-organizations").html( `Attention Mon suivi Justice n’est déployé que pour le ${res[0].name}. Vous ne pourrez poursuivre la prise de rendez-vous que pour ce service` );
+    } else {
+      $("#city-organizations").html('');
     }
 
 
