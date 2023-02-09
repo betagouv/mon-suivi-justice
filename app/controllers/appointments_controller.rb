@@ -54,6 +54,7 @@ class AppointmentsController < ApplicationController
       redirect_to appointment_path(@appointment)
     else
       @appointment.errors.each { |error| flash.now[:alert] = error.message }
+      @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
       render :new
     end
   end
