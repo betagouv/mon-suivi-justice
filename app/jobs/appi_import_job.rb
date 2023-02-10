@@ -2,36 +2,31 @@ class AppiImportJob < ApplicationJob
   require 'csv'
   queue_as :default
 
-  def perform(temp_csv_path, organization, user)
+  def perform(appi_data, organization, user)
     @import_errors = []
     @import_successes = []
 
-    process_csv(temp_csv_path, organization)
+    process_appi_data(appi_data, organization)
   rescue StandardError => e
     @import_errors.push("Erreur : #{e.message}")
   ensure
-    FileUtils.rm_f(temp_csv_path)
     AdminMailer.with(user: user, organization: organization, import_errors: @import_errors,
                      import_successes: @import_successes).appi_import_report.deliver_later
   end
 
-  def process_csv(temp_csv_path, organization)
-    csv = CSV.read(temp_csv_path, { headers: true, col_sep: ';' })
-    csv.each do |row|
-      next if ['EMPRISONNEMENT', 'AMÉNAGEMENT DE PEINE',
-               'Placement en détention provisoire'].include?(row['Mesure/Intervention'].split(' (')[0])
-
-      create_convict(row, organization)
+  def process_appi_data(appi_data, organization)
+    appi_data.each do |c|
+      create_convict(c, organization)
     end
   end
 
-  def create_convict(row, organization)
+  def create_convict(convict, organization)
     convict = Convict.new(
-      first_name: row['Prénom'],
-      last_name: row['Nom'],
-      date_of_birth: row['Date de naissance'].to_date,
+      first_name: convict[:first_name],
+      last_name: convict[:last_name],
+      date_of_birth: convict[:date_of_birth].to_date,
       no_phone: true,
-      appi_uuid: row['Numéro de dossier'].split('°')[1]
+      appi_uuid: convict[:appi_uuid].split('°')[1]
     )
 
     if convict.save
