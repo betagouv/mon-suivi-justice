@@ -15,17 +15,17 @@ class AppiImportJob < ApplicationJob
                      import_successes: @import_successes).appi_import_report.deliver_later
   end
 
-  def process_csv(temp_csv_path, _organization)
+  def process_csv(temp_csv_path, organization)
     csv = CSV.read(temp_csv_path, { headers: true, col_sep: ';' })
     csv.each do |row|
       next if ['EMPRISONNEMENT', 'AMÉNAGEMENT DE PEINE',
                'Placement en détention provisoire'].include?(row['Mesure/Intervention'].split(' (')[0])
 
-      create_convict(row)
+      create_convict(row, organization)
     end
   end
 
-  def create_convict(row)
+  def create_convict(row, organization)
     convict = Convict.new(
       first_name: row['Prénom'],
       last_name: row['Nom'],
