@@ -359,6 +359,9 @@ fr:
   edit_organization_department: "Département"
   edit_organization_jurisdiction: "Juridiction"
   edit_organization_jap_modal: "Texte de la liste des agendas JAP"
+  edit_organization_extrafields_title: "Ajouter des colonnes au tableau de sortie d'audience"
+  edit_organization_add_extrafield: "Ajouter une colonne"
+  edit_organization_remove_extrafield: "Supprimer cette colonne"
 
   new_convict_title: "Nouvelle PPSMJ"
   my_convicts: "Mes PPSMJ suivies"
