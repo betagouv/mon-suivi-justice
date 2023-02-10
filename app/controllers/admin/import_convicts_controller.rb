@@ -21,6 +21,7 @@ module Admin
       File.open("/tmp/import-#{@organization.name}-#{Time.now.to_i}.csv", 'w') do |f|
         f.write(CSV.read(params[:convicts_list],
                          { headers: true, external_encoding: 'iso-8859-1', internal_encoding: 'utf-8' }))
+
         AppiImportJob.perform_later(f.path, @organization, current_user)
       end
     rescue StandardError => e
