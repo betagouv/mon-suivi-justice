@@ -19,6 +19,7 @@ class BexController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def agenda_spip
     @current_date = current_date(@appointment_type, params)
