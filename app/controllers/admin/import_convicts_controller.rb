@@ -18,26 +18,40 @@ module Admin
 
       @organization = Organization.find(params[:organization_id])
 
-      File.open("/tmp/import-#{@organization.name}-#{Time.now.to_i}.csv", 'w') do |f|
-        f.write(CSV.read(params[:convicts_list],
-                         { headers: true, external_encoding: 'iso-8859-1', internal_encoding: 'utf-8' }))
+      temp_csv = params[:convicts_list].tempfile
+      csv = CSV.read(temp_csv,
+                     { headers: true, col_sep: ';', external_encoding: 'iso-8859-1', internal_encoding: 'utf-8' })
 
-        AppiImportJob.perform_later(f.path, @organization, current_user)
+      @import_errors = []
+      @import_successes = []
+      appi_data = []
+
+      csv.each do |row|
+        next if ['EMPRISONNEMENT', 'AMÉNAGEMENT DE PEINE',
+                 'Placement en détention provisoire'].include?(row['Mesure/Intervention'].split(' (')[0])
+
+        convict = {
+          first_name: row['Prénom'],
+          last_name: row['Nom'],
+          date_of_birth: row['Date de naissance'].to_date,
+          no_phone: true,
+          appi_uuid: row['Numéro de dossier'].split('°')[1]
+        }
+
+        appi_data.push(convict)
       end
     rescue StandardError => e
       flash.now[:error] = "Erreur : #{e.message}"
     else
+      AppiImportJob.perform_later(appi_data, @organization, current_user)
       flash.now[:success] =
         'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
     ensure
+      temp_csv.unlink
       render :index
     end
 
     private
-
-    def import_params
-      params.permit(:convicts_list, :organization_id)
-    end
 
     def show_search_bar?
       false
