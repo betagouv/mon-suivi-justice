@@ -4,9 +4,9 @@ class BexController < ApplicationController
   before_action :month, only: :agenda_jap
   skip_after_action :verify_authorized
 
+  # rubocop:disable Metrics/MethodLength
   def agenda_jap
     get_jap_agendas(@appointment_type, params)
-
     @days_with_slots_in_selected_month = days_with_slots(@appointment_type, params[:month])
     @selected_day = selected_day(@days_with_slots_in_selected_month, params)
 
