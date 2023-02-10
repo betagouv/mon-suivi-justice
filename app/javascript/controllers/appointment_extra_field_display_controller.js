@@ -1,5 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
+// Handle display of the extra field related to the appointment type
+// in the create appointment form
 export default class extends Controller {
   static targets = [ "selectAppointmentTypeInput", "extraFieldsContainer", "extraFieldInputs" ]
   appointmentTypeRelatedToExtraFields = ["Sortie d'audience SAP"] // pas ouf d'avoir cette liste en dur

@@ -1,5 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
+// Toggle the add extra_field button depending on the limit
+// this will become useless when https://github.com/eki-177/abyme/issues is done
 export default class extends Controller {
   static targets = [ "addButton" ]
 

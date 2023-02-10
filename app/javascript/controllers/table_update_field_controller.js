@@ -1,6 +1,7 @@
 import { ApplicationController, useDebounce } from 'stimulus-use'
 import Rails from '@rails/ujs';
 
+// inline update of extra fields in agenda_jap table (bex controller)
 export default class extends ApplicationController {
   static targets = [ "inputField" ]
   static debounces = ['update']
@@ -11,8 +12,6 @@ export default class extends ApplicationController {
 
   update() {
     const inputFieldValue = this.inputFieldTarget.value;
-    console.log(this.inputFieldTarget.dataset.appointment)
-    console.log(this.inputFieldTarget.dataset.extraField)
     const { appointment, extraField } = this.inputFieldTarget.dataset;
     if (inputFieldValue && appointment && extraField) {
       Rails.ajax({
