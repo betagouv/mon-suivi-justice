@@ -1,5 +1,5 @@
 class PlacePolicy < ApplicationPolicy
-  ALLOWED_TO_EDIT = %w[admin local_admin jap dir_greff_bex dir_greff_sap dpip].freeze
+  ALLOWED_TO_EDIT = %w[admin local_admin jap dir_greff_bex dir_greff_sap dpip greff_sap].freeze
 
   class Scope < Scope
     def resolve
