@@ -12,7 +12,7 @@
                                           input_html: { class: 'form-select' },
                                           include_blank: false %>
         <%= f.input :preparation_link %>
-        <%= f.association :organization, include_blank: false,
+        <%= f.association :organization, collection: orga_for_user, include_blank: false,
                                          label: t('activerecord.attributes.user.organization'),
                                          input_html: { class: 'form-select' } %>
         <div class='edit-place-appointment-types-wrapper'>

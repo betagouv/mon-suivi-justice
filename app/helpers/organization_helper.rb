@@ -38,4 +38,10 @@ module OrganizationHelper
       [I18n.t("activerecord.attributes.organization.organization_types.#{k}"), k]
     end.sort_by(&:last)
   end
+
+  def orga_for_user
+    return Organization.all if current_user.admin?
+
+    [current_user.organization]
+  end
 end
