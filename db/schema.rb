@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_12_100303) do
+ActiveRecord::Schema.define(version: 2023_01_24_100610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,16 @@ ActiveRecord::Schema.define(version: 2023_01_12_100303) do
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
   end
 
+  create_table "appointment_extra_fields", force: :cascade do |t|
+    t.bigint "appointment_id", null: false
+    t.bigint "extra_field_id", null: false
+    t.string "value", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_id"], name: "index_appointment_extra_fields_on_appointment_id"
+    t.index ["extra_field_id"], name: "index_appointment_extra_fields_on_extra_field_id"
+  end
+
   create_table "appointment_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -188,6 +198,16 @@ ActiveRecord::Schema.define(version: 2023_01_12_100303) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_departments_on_name", unique: true
     t.index ["number"], name: "index_departments_on_number", unique: true
+  end
+
+  create_table "extra_fields", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.string "data_type", default: "text"
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "scope", default: "appointment_update", null: false
+    t.index ["organization_id"], name: "index_extra_fields_on_organization_id"
   end
 
   create_table "history_items", force: :cascade do |t|
@@ -406,6 +426,8 @@ ActiveRecord::Schema.define(version: 2023_01_12_100303) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agendas", "places"
+  add_foreign_key "appointment_extra_fields", "appointments"
+  add_foreign_key "appointment_extra_fields", "extra_fields"
   add_foreign_key "appointments", "convicts"
   add_foreign_key "appointments", "organizations", column: "creating_organization_id"
   add_foreign_key "appointments", "slots"
@@ -413,6 +435,7 @@ ActiveRecord::Schema.define(version: 2023_01_12_100303) do
   add_foreign_key "areas_convicts_mappings", "convicts"
   add_foreign_key "areas_organizations_mappings", "organizations"
   add_foreign_key "convicts", "users"
+  add_foreign_key "extra_fields", "organizations"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
   add_foreign_key "notification_types", "appointment_types"
