@@ -408,11 +408,11 @@ ActiveRecord::Schema.define(version: 2023_03_09_093547) do
     t.string "telephone", limit: 255
     t.string "telecopie", limit: 255
     t.string "email", limit: 255
-    t.string "code_insee"
+    t.string "code_insee", limit: 255
     t.string "code_postal", limit: 255
     t.string "ligne_acheminement", limit: 255
-    t.string "mnemo"
-    t.text "ville"
+    t.string "mnemo", limit: 255
+    t.bigint "tri"
     t.boolean "competent_matiere_nationale"
   end
 
@@ -433,7 +433,6 @@ ActiveRecord::Schema.define(version: 2023_03_09_093547) do
     t.string "libelle_court", limit: 255
     t.text "libelle_long"
     t.text "commentaire"
-    t.boolean "is_baj"
   end
 
   create_table "user_notifications", force: :cascade do |t|

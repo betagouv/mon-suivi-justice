@@ -1,11 +1,4 @@
-.home-wrapper {
-  height: calc(100vh - #{$header-height});
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
+
 
 .home-container {
   width: 90%;
@@ -66,6 +59,7 @@
   @include box;
   padding: 20px;
   width: 550px;
+  margin: auto;
 }
 
 .home-stats-title {
