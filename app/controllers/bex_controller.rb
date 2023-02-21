@@ -4,9 +4,9 @@ class BexController < ApplicationController
   before_action :month, only: :agenda_jap
   skip_after_action :verify_authorized
 
+  # rubocop:disable Metrics/MethodLength
   def agenda_jap
     get_jap_agendas(@appointment_type, params)
-
     @days_with_slots_in_selected_month = days_with_slots(@appointment_type, params[:month])
     @selected_day = selected_day(@days_with_slots_in_selected_month, params)
 
@@ -14,10 +14,12 @@ class BexController < ApplicationController
       format.html
       format.pdf do
         render template: 'bex/agenda_jap_pdf.html.erb', locals: { date: @selected_day },
-               pdf: "Agenda sortie d'audience JAP", footer: { right: '[page]/[topage]' }
+               pdf: "Agenda sortie d'audience JAP", footer: { right: '[page]/[topage]' },
+               orientation: 'Landscape'
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def agenda_spip
     @current_date = current_date(@appointment_type, params)
@@ -44,6 +46,13 @@ class BexController < ApplicationController
                pdf: 'Agenda SAP DDSE', footer: { right: '[page]/[topage]' }
       end
     end
+  end
+
+  def appointment_extra_field
+    appointment_extra_field = AppointmentExtraField.find_or_create_by(appointment_id: params[:appointment_id],
+                                                                      extra_field_id: params[:extra_field_id])
+    appointment_extra_field.value = params[:value]
+    appointment_extra_field.save(validate: true)
   end
 
   private

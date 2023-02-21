@@ -1,5 +1,5 @@
 class Organization < ApplicationRecord
-  # include Abyme::Model
+  include Abyme::Model
 
   has_many :users, dependent: :destroy
   has_many :places, dependent: :destroy
@@ -10,8 +10,7 @@ class Organization < ApplicationRecord
   has_many :created_appointments, class_name: 'Appointment', foreign_key: 'creating_organization'
   has_many :extra_fields, dependent: :destroy, inverse_of: :organization
   # limit should be 3, but we need to add one more to be able to delete and add an extra_field at the same time
-  # abymize :extra_fields, permit: :all_attributes, limit: 4, allow_destroy: true
-  accepts_nested_attributes_for :extra_fields, reject_if: :all_blank, allow_destroy: true, limit: 4
+  abymize :extra_fields, permit: :all_attributes, limit: 4, allow_destroy: true
 
   enum organization_type: { spip: 0, tj: 1 }
 
