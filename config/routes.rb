@@ -85,6 +85,10 @@ Rails.application.routes.draw do
 
   resources :appointments_waiting_lines, only: :index
 
+  resources :cities do
+    get :services
+  end
+
   scope controller: :appointments_bookings do
     get :load_places
     get :load_prosecutor

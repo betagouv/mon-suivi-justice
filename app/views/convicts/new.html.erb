@@ -3,6 +3,19 @@
   <%= f.input :last_name, autofocus: true %>
   <%= f.input :first_name %>
   <%= f.input :appi_uuid %>
+  <%= f.label :city_id, "Commune", class: "form-label" %>
+  <% cache('cities_selector') do %>
+      <%= f.select(:city_id, options_for_select(City.with_at_least_one_service.map { |c| ["#{c.name} - #{c.zipcode}", c.id]}, @convict.city&.id), {prompt: 'Choisir une commune', html_options: {class: 'test'}}) %>
+  <% end %>
+  <div id="city-organizations"></div>
+
+  <%= f.input :homeless, input_html: { class: 'form-checkbox' },
+                              label_html: { class: 'form-checkbox-label' },
+                              wrapper_html: { class: 'form-checkbox-wrapper'} %>
+
+  <%= f.input :lives_abroad, input_html: { class: 'form-checkbox' },
+                              label_html: { class: 'form-checkbox-label' },
+                              wrapper_html: { class: 'form-checkbox-wrapper fr-mb-1w'} %>
 
   <% if current_user.work_at_spip? || current_user.admin? %>
     <%= f.association :user, collection: cpip_for_select(current_user.organization),
@@ -91,3 +104,6 @@
     </div>
   <% end %>
 <% end %>
+
+<%= javascript_pack_tag 'convict_new' %>
+
