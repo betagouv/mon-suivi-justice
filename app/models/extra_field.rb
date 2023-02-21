@@ -5,7 +5,7 @@ class ExtraField < ApplicationRecord
   SCOPES = { appointment_create: 'appointment_create', appointment_update: 'appointment_update' }.freeze
 
   belongs_to :organization
-  has_many :appointment, through: :appointment_extra_fields
+  has_many :appointments, through: :appointment_extra_fields
   has_many :appointment_extra_fields, inverse_of: :extra_field, dependent: :destroy
   abymize :appointment_extra_fields, permit: :all_attributes, limit: 3
 
