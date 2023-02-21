@@ -11,6 +11,9 @@ class TjDashboard < Administrate::BaseDashboard
     id: Field::Number,
     city: Field::HasOne,
     name: Field::String,
+    short_name: Field::String.with_options(
+      searchable: false
+    ),
     organization: Field::BelongsTo,
     structure_id: Field::String,
     created_at: Field::DateTime,
@@ -25,7 +28,7 @@ class TjDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     city
-    name
+    short_name
     organization
   ].freeze
 
@@ -35,6 +38,7 @@ class TjDashboard < Administrate::BaseDashboard
     id
     city
     name
+    short_name
     organization
     structure_id
     created_at
@@ -45,7 +49,6 @@ class TjDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    name
     organization
   ].freeze
 
@@ -65,6 +68,6 @@ class TjDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(resource)
-    "Tj ##{resource.name}"
+    resource.name.gsub(%r{Tribunal judiciaire / Tribunal de Grande Instance}, 'TJ').to_s
   end
 end
