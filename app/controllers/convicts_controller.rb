@@ -40,6 +40,8 @@ class ConvictsController < ApplicationController
     @convict.organizations.push(@tj) unless @convict.organizations.include?(@tj) || @tj.nil?
     @convict.organizations.push(@spip) unless @convict.organizations.include?(@spip) || @spip.nil?
 
+    @convict.creating_organization = current_organization
+
     authorize @convict
     save_and_redirect @convict
   end
