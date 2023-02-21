@@ -11,6 +11,11 @@ class Organization < ApplicationRecord
   has_many :extra_fields, dependent: :destroy, inverse_of: :organization
   belongs_to :headquarter, optional: true
   abymize :extra_fields, permit: :all_attributes, allow_destroy: true
+  has_one :tj
+  has_one :spip
+
+  has_many :convicts_organizations_mappings
+  has_many :convicts, through: :convicts_organizations_mappings
 
   enum organization_type: { spip: 0, tj: 1 }
 

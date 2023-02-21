@@ -3,6 +3,18 @@
   <%= f.input :last_name %>
   <%= f.input :first_name %>
   <%= f.input :appi_uuid %>
+  <%= f.label :city_id, "Commune", class: "form-label" %>
+  <%= f.select(:city_id, options_for_select(City.with_at_least_one_service.map{ |c| ["#{c.name} - #{c.zipcode}", c.id]}, @convict.city&.id ), {prompt: 'Choisir une commune', html_options: {class: 'city-selector'}}) %>
+
+  <div id="city-organizations"></div>
+
+  <%= f.input :homeless, input_html: { class: 'form-checkbox' },
+                              label_html: { class: 'form-checkbox-label' },
+                              wrapper_html: { class: 'form-checkbox-wrapper'} %>
+
+  <%= f.input :lives_abroad, input_html: { class: 'form-checkbox' },
+                              label_html: { class: 'form-checkbox-label' },
+                              wrapper_html: { class: 'form-checkbox-wrapper fr-mb-1w'} %>
 
   <% if current_user.work_at_spip? || current_user.admin? %>
     <%= f.association :user, collection: cpip_for_select(current_user.organization),
@@ -23,56 +35,4 @@
   <%= f.button :submit, t('edit_convict_submit'), class: 'form-submit-button edit-convict-submit-button' %>
 <% end %>
 
-<% if policy(@convict).destroy? %>
-  <div class='convict-relation-container'>
-    <h2 class='convict-secondary-title'><%= t('edit_convict_department_title') %></h2>
-    <% @convict.departments.order(:number).each do |department|%>
-      <p class='convict-attachment'>
-        <%= "(#{department.number}) #{department.name}" %>
-        <% if @convict.departments.count > 1 %>
-          <% if current_user.organization.departments.pluck(:number).include?(department.number) %>
-            <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: department, convict: @convict)),
-                        method: :delete,
-                        class: 'convict-attachment-delete',
-                        data: { confirm: "Attention, en supprimant ce département vous risquez de perdre les droits d'édition sur cette ppsmj.\n\nSi vous souhaitez également changer la juridiction, pensez à le faire au préalable.\n\nCliquez sur 'Annuler' pour modifier d'abord la juridiction" } %>
-          <% else %>
-            <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: department, convict: @convict)),
-                                    method: :delete,
-                                    class: 'convict-attachment-delete' %>
-          <% end %>
-        <% end %>
-      </p>
-    <% end %>
-
-    <%= simple_form_for AreasConvictsMapping.new, html: { id: 'department-form', class: 'single-line-form' } do |f| %>
-      <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id } %>
-      <%= f.input :area_type, as: :hidden, input_html: { value: 'Department' } %>
-      <%= f.input :area_id, collection: Department.order(:number),
-                            label: t('edit_convict_department'),
-                            wrapper_html: {class: 'single-line-input'},
-                            input_html: {class: 'form-select'} %>
-      <%= f.button :submit, t('add'), class: 'form-submit-button convict-attachment-submit' %>
-    <% end %>
-
-    <h2 class='convict-secondary-title'><%= t('edit_convict_jurisdiction_title') %></h2>
-    <% @convict.jurisdictions.order(:name).each do |jurisdiction|%>
-    <p class='convict-attachment'>
-      <%= jurisdiction.name %>
-      <% if @convict.jurisdictions.count > 1 %>
-      <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: jurisdiction, convict: @convict)),
-      method: :delete,
-      class: 'convict-attachment-delete' %>
-      <% end %>
-    </p>
-    <% end %>
-    <%= simple_form_for AreasConvictsMapping.new, html: { id: 'jurisdiction-form', class: 'single-line-form' } do |f| %>
-      <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id } %>
-      <%= f.input :area_type, as: :hidden, input_html: { value: 'Jurisdiction' } %>
-      <%= f.input :area_id, collection: Jurisdiction.order(:name),
-                            label: t('edit_convict_jurisdiction'),
-                            wrapper_html: {class: 'single-line-input'},
-                            input_html: {class: 'form-select'} %>
-      <%= f.button :submit, t('add'), class: 'form-submit-button convict-attachment-submit' %>
-    <% end %>
-  </div>
-<% end %>
+<%= javascript_pack_tag 'convict_new' %>

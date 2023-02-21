@@ -7,6 +7,22 @@ fr:
         zipcode: Code postal
         tj: TJ (SRJ)
         spip: SPIP (SRJ)
+      convict:
+        organizations: Services
+        city_id: Commune
+        user_id: Agent responsable
+        prosecutor_number: Numéro de parquet
+        appointments: rendez-vous
+        date_of_birth: date de naissance
+      tj:
+        short_name: nom
+        name: nom
+        organization: service
+        city: commune
+      spip:
+        name: nom
+        organization: service
+        city: commune
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
@@ -75,6 +91,8 @@ fr:
         refused_phone: "Refuse de donner son numéro"
         appi_uuid: "N° dossier APPI"
         cpip: "CPIP"
+        homeless: "SDF"
+        lives_abroad: "Habite à l'étranger"
       user:
         name: "Nom"
         first_name: "Prénom"
