@@ -8,6 +8,7 @@ class Agenda < ApplicationRecord
   validates :name, presence: true
 
   delegate :appointment_type_with_slot_types, to: :place
+  delegate :organization, to: :place
 
   scope :in_organization, ->(organization) { joins(:place).where(place: { organization: organization }) }
 
