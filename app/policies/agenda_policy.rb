@@ -10,14 +10,14 @@ class AgendaPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin? || user.local_admin?
+    user.admin? || user.local_admin? || user.greff_sap?
   end
 
   def update?
-    user.admin? || user.local_admin?
+    user.admin? || user.local_admin? || user.greff_sap?
   end
 
   def destroy?
-    user.admin?
+    user.admin? || user.local_admin? || user.greff_sap?
   end
 end
