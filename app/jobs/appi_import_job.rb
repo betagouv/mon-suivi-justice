@@ -26,7 +26,7 @@ class AppiImportJob < ApplicationJob
       last_name: convict[:last_name],
       date_of_birth: convict[:date_of_birth].to_date,
       no_phone: true,
-      appi_uuid: convict[:appi_uuid].split('°')[1]
+      appi_uuid: convict[:appi_uuid]
     )
 
     if convict.save
