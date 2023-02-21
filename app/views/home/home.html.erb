@@ -1,60 +1,68 @@
-<div class='home-wrapper'>
-  <div class='home-container'>
-    <div class='home-convict-search-container'>
-      <p class='home-convict-search-title'><%= t('home.find_convict') %></p>
-      <div class='home-search-field-container'>
-        <%= select_tag '', options_from_collection_for_select(@convicts, :profile_path, 'identity'),
-                           id: 'profile-search-field',
-                           style: "width: 100%",
-                           include_blank: true %>
+<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">    
+
+    <div class="fr-col-12">
+      <div class='home-convict-search-container'>
+        <p class='home-convict-search-title'><%= t('home.find_convict') %></p>
+        <div class='home-search-field-container'>
+          <%= select_tag '', options_from_collection_for_select(@convicts, :profile_path, 'identity'),
+                            id: 'profile-search-field',
+                            style: "width: 100%",
+                            include_blank: true %>
+        </div>
       </div>
     </div>
 
-    <div class='home-controls-container'>
-      <% if policy(:appointment).new? %>
-        <%= button_to t('home.new_appointment'), new_appointment_path,
-                                                 class: 'home-control',
-                                                 method: :get %>
-      <% end %>
+    <div class="fr-col-12">
+      <div class='home-controls-container'>
+        <% if policy(:appointment).new? %>
+          <%= button_to t('home.new_appointment'), new_appointment_path,
+                                                  class: 'home-control',
+                                                  method: :get %>
+        <% end %>
 
-      <% if policy(:convict).new? %>
-        <%= button_to t('home.new_convict'), new_convict_path, class: 'home-control', method: :get %>
-      <% end %>
+        <% if policy(:convict).new? %>
+          <%= button_to t('home.new_convict'), new_convict_path, class: 'home-control', method: :get %>
+        <% end %>
+      </div>
     </div>
 
-    <div class='home-custom-links-wrapper'>
-      <% if policy(:appointment).agenda_jap? || policy(:appointment).agenda_spip?  %>
-        <div class='home-custom-links-container'>
-          <div class='home-custom-links'>
-            <% if policy(:appointment).agenda_jap? %>
-              <%= button_to t('home.bex_jap'), agenda_jap_path,
-                                               class: 'home-agenda-link',
-                                               method: :get %>
-            <% end %>
-
-            <% if policy(:appointment).agenda_sap_ddse? && ENV['APP'] != 'mon-suivi-justice-prod' %>
-              <%= button_to t('home.sap_ddse'), agenda_sap_ddse_path,
+    <div class="fr-col-12">
+      <div class='home-custom-links-wrapper'>
+        <% if policy(:appointment).agenda_jap? || policy(:appointment).agenda_spip?  %>
+          <div class='home-custom-links-container'>
+            <div class='home-custom-links'>
+              <% if policy(:appointment).agenda_jap? %>
+                <%= button_to t('home.bex_jap'), agenda_jap_path,
                                                 class: 'home-agenda-link',
                                                 method: :get %>
-            <% end %>
+              <% end %>
 
-            <% if policy(:appointment).agenda_spip? %>
-              <%= button_to t('home.bex_spip'), agenda_spip_path,
-                                                class: 'home-agenda-link',
-                                                method: :get %>
-            <% end %>
+              <% if policy(:appointment).agenda_sap_ddse? && ENV['APP'] != 'mon-suivi-justice-prod' %>
+                <%= button_to t('home.sap_ddse'), agenda_sap_ddse_path,
+                                                  class: 'home-agenda-link',
+                                                  method: :get %>
+              <% end %>
 
-            <% if policy(:appointment).index? %>
-              <%= button_to t('home.today_appointments'), appointments_path,
-                                                          params: { q: {slot_date_eq: Date.today.to_s }},
-                                                          class: 'home-agenda-link',
-                                                          method: :get %>
-            <% end %>
+              <% if policy(:appointment).agenda_spip? %>
+                <%= button_to t('home.bex_spip'), agenda_spip_path,
+                                                  class: 'home-agenda-link',
+                                                  method: :get %>
+              <% end %>
+
+              <% if policy(:appointment).index? %>
+                <%= button_to t('home.today_appointments'), appointments_path,
+                                                            params: { q: {slot_date_eq: Date.today.to_s }},
+                                                            class: 'home-agenda-link',
+                                                            method: :get %>
+              <% end %>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
-  </div>
 
-  <%= render 'home_stats', data: @stats, title: t('home.stats_title') %>
+    <div class="fr-col-12">
+      <%= render 'home_stats', data: @stats, title: t('home.stats_title') %>
+    </div>
+
 </div>

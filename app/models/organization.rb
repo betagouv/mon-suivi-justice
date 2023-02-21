@@ -11,6 +11,11 @@ class Organization < ApplicationRecord
   has_many :extra_fields, dependent: :destroy, inverse_of: :organization
   # limit should be 3, but we need to add one more to be able to delete and add an extra_field at the same time
   abymize :extra_fields, permit: :all_attributes, limit: 4, allow_destroy: true
+  has_one :tj
+  has_one :spip
+
+  has_many :convicts_organizations_mappings
+  has_many :convicts, through: :convicts_organizations_mappings
 
   enum organization_type: { spip: 0, tj: 1 }
 

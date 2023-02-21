@@ -11,24 +11,23 @@ class ConvictDashboard < Administrate::BaseDashboard
     id: Field::Number.with_options(
       searchable: true
     ),
-    appi_uuid: Field::String,
-    appointments: Field::HasMany,
-    areas_convicts_mappings: Field::HasMany,
-    departments: Field::HasMany,
-    discarded_at: Field::DateTime,
     first_name: Field::String,
-    history_items: Field::HasMany,
-    invitation_to_convict_interface_count: Field::Number,
-    jurisdictions: Field::HasMany,
-    last_invite_to_convict_interface: Field::DateTime,
     last_name: Field::String,
+    organizations: Field::HasMany,
+    appi_uuid: Field::String,
+    city: Field::BelongsTo,
+    appointments: Field::HasMany,
     no_phone: Field::Boolean,
+    homeless: Field::Boolean,
+    lives_abroad: Field::Boolean,
     phone: Field::String,
     prosecutor_number: Field::String,
     refused_phone: Field::Boolean,
     timestamp_convict_interface_creation: Field::DateTime,
     user: Field::BelongsTo,
-    versions: Field::HasMany,
+    invitation_to_convict_interface_count: Field::Number,
+    last_invite_to_convict_interface: Field::DateTime,
+    discarded_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     date_of_birth: Field::Date
@@ -46,34 +45,24 @@ class ConvictDashboard < Administrate::BaseDashboard
     last_name
     phone
     appointments
-    departments
-    jurisdictions
     date_of_birth
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
     appi_uuid
+    organizations
+    city
     first_name
     last_name
     phone
     refused_phone
-    appointments
-    departments
-    history_items
-    jurisdictions
     no_phone
+    homeless
+    lives_abroad
     prosecutor_number
     user
-    timestamp_convict_interface_creation
-    invitation_to_convict_interface_count
-    last_invite_to_convict_interface
-    versions
-    discarded_at
-    created_at
-    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -81,21 +70,16 @@ class ConvictDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     appi_uuid
-    appointments
-    areas_convicts_mappings
-    departments
-    discarded_at
+    organizations
+    city
     first_name
-    history_items
-    invitation_to_convict_interface_count
-    jurisdictions
-    last_invite_to_convict_interface
     last_name
-    no_phone
     phone
-    prosecutor_number
     refused_phone
-    timestamp_convict_interface_creation
+    no_phone
+    homeless
+    lives_abroad
+    prosecutor_number
     user
   ].freeze
 
@@ -114,7 +98,7 @@ class ConvictDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how convicts are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(convict)
-  #   "Convict ##{convict.id}"
-  # end
+  def display_resource(convict)
+    "PPSMJ: #{convict.full_name}"
+  end
 end

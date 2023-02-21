@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_24_143900) do
+ActiveRecord::Schema.define(version: 2023_02_02_152647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,6 +211,16 @@ ActiveRecord::Schema.define(version: 2023_01_24_143900) do
     t.index ["user_id"], name: "index_convicts_on_user_id"
   end
 
+  create_table "convicts_organizations_mappings", force: :cascade do |t|
+    t.bigint "organization_id"
+    t.bigint "convict_id"
+    t.datetime "desactivated_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["convict_id"], name: "index_convicts_organizations_mappings_on_convict_id"
+    t.index ["organization_id"], name: "index_convicts_organizations_mappings_on_organization_id"
+  end
+
   create_table "departments", force: :cascade do |t|
     t.string "number", null: false
     t.string "name", null: false
@@ -381,11 +391,11 @@ ActiveRecord::Schema.define(version: 2023_01_24_143900) do
     t.string "telephone", limit: 255
     t.string "telecopie", limit: 255
     t.string "email", limit: 255
-    t.string "code_insee"
+    t.string "code_insee", limit: 255
     t.string "code_postal", limit: 255
     t.string "ligne_acheminement", limit: 255
-    t.string "mnemo"
-    t.text "ville"
+    t.string "mnemo", limit: 255
+    t.bigint "tri"
     t.boolean "competent_matiere_nationale"
   end
 
@@ -406,7 +416,6 @@ ActiveRecord::Schema.define(version: 2023_01_24_143900) do
     t.string "libelle_court", limit: 255
     t.text "libelle_long"
     t.text "commentaire"
-    t.boolean "is_baj"
   end
 
   create_table "user_notifications", force: :cascade do |t|

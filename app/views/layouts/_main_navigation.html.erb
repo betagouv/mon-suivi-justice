@@ -1,0 +1,80 @@
+    
+<div class="fr-header__menu fr-modal" id="modal-491" aria-labelledby="button-492">
+  <div class="fr-container">
+    <button class="fr-btn--close fr-btn" aria-controls="modal-491" title="Fermer">
+      Fermer
+    </button>
+    <div class="fr-header__menu-links">
+    </div>
+    <nav class="fr-nav" id="header-navigation" role="navigation" aria-label="Menu principal">
+      <ul class="fr-nav__list">
+        <li class="fr-nav__item">
+          <%= link_to home_path, class: "fr-nav__link", 'aria-current': active_class_if_controller('home') == 'fr-nav__item--active' ? 'page' : nil do %>
+            <%= t('sidebar.home') %>
+          <% end %>
+        </li>
+        <% if policy(:convict).index? %>
+          <li class="fr-nav__item">
+            <%= link_to convicts_path, class: 'fr-nav__link', 'aria-current': active_class_if_controller('convicts') == 'fr-nav__item--active' ? 'page' : nil do %>
+              <%= t('sidebar.convicts') %>
+            <% end %>
+          </li>
+        <% end %>
+        <% if policy(:appointment).index? %>
+          <li class="fr-nav__item">
+            <%= link_to appointments_path({ q: {slot_date_eq: Date.today.to_s }}), class: 'fr-nav__link', 'aria-current': active_class_if_controller(['appointments', 'bex']) == 'fr-nav__item--active' ? 'page' : nil do %>
+              <%= t('sidebar.appointments') %>
+            <% end %>
+          </li>
+        <% end %>
+        <% if policy(:appointment_type).index? %>
+          <li class="fr-nav__item">
+            <%= link_to appointment_types_path, class: 'fr-nav__link', 'aria-current': active_class_if_controller('appointment_types') == 'fr-nav__item--active' ? 'page' : nil do %>
+              <%= t('sidebar.message_templates') %>
+            <% end %>
+          </li>
+        <% end %>
+        <% if policy(:place).index? %>
+          <li class="fr-nav__item">
+            <%= link_to places_path, class: 'fr-nav__link', 'aria-current': active_class_if_controller(['places', 'slot_types']) == 'fr-nav__item--active' ? 'page' : nil do %>
+              <%= t('sidebar.places') %>
+            <% end %>
+          </li>
+        <% end %>
+        <% if policy(:slot).index? %>
+          <li class="fr-nav__item">
+            <%= link_to slots_path, class: 'fr-nav__link', 'aria-current': active_class_if_controller(['slots', 'slots_batches']) == 'fr-nav__item--active' ? 'page' : nil do %>
+              <%= t('sidebar.slots') %>
+            <% end %>
+          </li>
+        <% end %>
+        <% if policy(:user).index? %>
+          <li class="fr-nav__item">
+            <%= link_to users_path, class: 'fr-nav__link', 'aria-current': active_class_if_controller('users') == 'fr-nav__item--active' ? 'page' : nil do %>
+              <%= t('sidebar.users') %>
+            <% end %>
+          </li>
+        <% end %>
+        <% if policy(:organization).index? %>
+          <li class="fr-nav__item">
+            <%= link_to organizations_path, class: 'fr-nav__link', 'aria-current': active_class_if_controller('organizations') == 'fr-nav__item--active' ? 'page' : nil do %>
+              <%= t('sidebar.organizations') %>
+            <% end %>
+          </li>
+        <% end %>
+        <% if policy(:steering).user_app_stats? %>
+          <li class="fr-nav__item">
+            <%= link_to steering_user_app_path, class: 'fr-nav__link', 'aria-current': active_class_if_controller('steerings') == 'fr-nav__item--active' ? 'page' : nil do %>
+              <%= t('sidebar.steering') %>
+            <% end %>
+          </li>
+        <% end %>
+        <li class="fr-nav__item">
+          <%= link_to 'https://documentation.mon-suivi-justice.beta.gouv.fr', class: 'fr-nav__link', target: '_blank' do %>
+            <%= t('sidebar.guides') %>
+          <% end %>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
