@@ -100,6 +100,7 @@ Rails.application.routes.draw do
     match :agenda_jap, via: [:get, :post], defaults: { appointment_type: 'Sortie d\'audience SAP', }
     get :agenda_spip, defaults: { appointment_type: 'Sortie d\'audience SPIP' }
     get :agenda_sap_ddse, defaults: { appointment_type: 'SAP DDSE' }
+    put :appointment_extra_field
   end
 
   scope controller: :home do

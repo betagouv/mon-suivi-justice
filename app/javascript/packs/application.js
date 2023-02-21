@@ -12,6 +12,7 @@ require("jquery");
 require("@nathanvda/cocoon");
 require("components/profile_search");
 require("components/password_toggle");
+require("controllers/index");
 
 Rails.start()
 Turbolinks.start()

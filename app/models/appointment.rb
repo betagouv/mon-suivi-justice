@@ -1,6 +1,4 @@
 class Appointment < ApplicationRecord
-  # include Abyme::Model
-
   has_paper_trail
 
   belongs_to :convict
