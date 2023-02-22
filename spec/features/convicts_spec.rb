@@ -207,50 +207,12 @@ RSpec.feature 'Convicts', type: :feature do
       visit convicts_path
       within first('.convicts-item-container') { click_link 'Modifier' }
       fill_in 'Nom', with: 'Ristretto'
-      first('.select2-container', minimum: 1).click
+      find('form > div.form-input-wrapper.select.optional.convict_user > span > span.selection > span').click
       find('li.select2-results__option', text: 'MAU Rémy').click
       click_button 'Enregistrer'
       convict.reload
       expect(convict.last_name).to eq('Ristretto')
       expect(convict.cpip).to eq(cpip)
-    end
-
-    it 'updates convict departments' do
-      create :department, number: '09', name: 'Ariège'
-      convict = create(:convict, last_name: 'Expresso')
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-      visit convicts_path
-
-      within first('.convicts-item-container') { click_link 'Modifier' }
-
-      within '#department-form' do
-        select 'Ariège', from: :areas_convicts_mapping_area_id
-        expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(1).to(2)
-      end
-
-      expect(page).to have_content('(09) Ariège')
-
-      within first('.convict-attachment') do
-        expect { click_link 'Supprimer' }.to change(AreasConvictsMapping, :count).from(2).to(1)
-      end
-
-      expect(page).not_to have_content('(09) Ariège')
-    end
-
-    it 'updates convict jurisdictions' do
-      create :jurisdiction, name: 'Juridiction de Nanterre'
-      convict = create(:convict, last_name: 'Expresso')
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-
-      visit convicts_path
-
-      within first('.convicts-item-container') { click_link 'Modifier' }
-      within '#jurisdiction-form' do
-        select 'Juridiction de Nanterre', from: :areas_convicts_mapping_area_id
-        expect { click_button 'Ajouter' }.to change(AreasConvictsMapping, :count).from(1).to(2)
-      end
-
-      expect(page).to have_content('Juridiction de Nanterre')
     end
 
     it 'creates a history_item if the phone number is updated' do

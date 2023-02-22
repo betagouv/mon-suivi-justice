@@ -31,7 +31,7 @@ class ConvictDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     date_of_birth: Field::Date,
-    creating_organization: Field::BelongsTo,
+    creating_organization: Field::BelongsTo
   }.freeze
 
   # COLLECTION_ATTRIBUTES

@@ -40,6 +40,7 @@ class Convict < ApplicationRecord
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE
 
   after_update :update_convict_api
+  before_save :update_organizations
 
   #
   # Convict linked to same departement OR same jurisdiction than the user's organization ones
@@ -166,6 +167,16 @@ class Convict < ApplicationRecord
 
   def update_convict_api
     UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
+  end
+
+  def update_organizations
+    city = City.find(city_id)
+
+    tj = city.tj&.organization
+    spip = city.spip&.organization
+
+    organizations.push(tj) unless organizations.include?(tj) || tj.nil?
+    organizations.push(spip) unless organizations.include?(spip) || spip.nil?
   end
 
   def full_name
