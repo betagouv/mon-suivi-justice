@@ -62,9 +62,9 @@ class Organization < ApplicationRecord
   private
 
   def linked_organization_type
-    if organization_type.spip? && linked_organization.present? && linked_organization.organization_type != 'tj'
+    if organization_type == 'spip' && linked_organization.present? && linked_organization.organization_type != 'tj'
       errors.add(:linked_organization, 'must be a TJ')
-    elsif organization_type.tj? && linked_organization.present? && linked_organization.organization_type != 'spip'
+    elsif organization_type == 'tj' && linked_organization.present? && linked_organization.organization_type != 'spip'
       errors.add(:linked_organization, 'must be a SPIP')
     end
   end
