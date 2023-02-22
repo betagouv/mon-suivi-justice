@@ -13,6 +13,7 @@ class Organization < ApplicationRecord
   abymize :extra_fields, permit: :all_attributes, limit: 4, allow_destroy: true
   has_one :tj
   has_one :spip
+  has_one :linked_organization, class_name: 'Organization'
 
   has_many :convicts_organizations_mappings
   has_many :convicts, through: :convicts_organizations_mappings
@@ -21,6 +22,7 @@ class Organization < ApplicationRecord
 
   validates :organization_type, presence: true
   validates :name, presence: true, uniqueness: true
+  validate :linked_organization_type
 
   has_rich_text :jap_modal_content
 
@@ -55,5 +57,15 @@ class Organization < ApplicationRecord
 
   def appointment_added_field_labels
     appointment_added_fields.map { |field| field['name'] }
+  end
+
+  private
+
+  def linked_organization_type
+    if organization_type.spip? && linked_organization.present? && linked_organization.organization_type != 'tj'
+      errors.add(:linked_organization, 'must be a TJ')
+    elsif organization_type.tj? && linked_organization.present? && linked_organization.organization_type != 'spip'
+      errors.add(:linked_organization, 'must be a SPIP')
+    end
   end
 end
