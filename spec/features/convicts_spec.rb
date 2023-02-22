@@ -173,7 +173,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
-      first('.select2-container', minimum: 1).click
+      find('#new_convict > div.form-input-wrapper.select.optional.convict_user > span > span.selection > span').click
       find('li.select2-results__option', text: 'MAU Rémy').click
 
       click_button 'submit-no-appointment'

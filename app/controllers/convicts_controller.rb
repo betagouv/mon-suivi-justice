@@ -31,14 +31,16 @@ class ConvictsController < ApplicationController
   def create
     @convict = Convict.new(convict_params)
 
-    @city = City.find(convict_params[:city_id])
+    if convict_params[:city_id] != ''
+      @city = City.find(convict_params[:city_id])
 
-    @tj = @city.tj&.organization
-    @spip = @city.spip&.organization
+      @tj = @city.tj&.organization
+      @spip = @city.spip&.organization
 
-    @convict.organizations.push(current_organization) unless @convict.organizations.include?(current_organization)
-    @convict.organizations.push(@tj) unless @convict.organizations.include?(@tj) || @tj.nil?
-    @convict.organizations.push(@spip) unless @convict.organizations.include?(@spip) || @spip.nil?
+      @convict.organizations.push(current_organization) unless @convict.organizations.include?(current_organization)
+      @convict.organizations.push(@tj) unless @convict.organizations.include?(@tj) || @tj.nil?
+      @convict.organizations.push(@spip) unless @convict.organizations.include?(@spip) || @spip.nil?
+    end
 
     @convict.creating_organization = current_organization
 
