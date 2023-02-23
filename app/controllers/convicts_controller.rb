@@ -101,7 +101,6 @@ class ConvictsController < ApplicationController
     return render :new if convict.duplicates.present? && !force_duplication
 
     if convict.save
-      RegisterLegalAreas.for_convict convict, from: current_organization
       redirect_to select_path(params)
     else
       # TODO : build a real policiy for convicts#show

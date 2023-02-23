@@ -68,9 +68,6 @@ Rails.application.routes.draw do
     resource :slot_types_batch, only: [:create, :destroy]
   end
 
-  resources :areas_organizations_mappings, only: [:create, :destroy]
-  resources :areas_convicts_mappings, only: [:create, :destroy]
-
   resources :appointments do
     resource :reschedule, only: [:new, :create], controller: 'appointments_reschedules'
     put 'cancel'
