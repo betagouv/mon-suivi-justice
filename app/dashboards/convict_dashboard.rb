@@ -30,7 +30,8 @@ class ConvictDashboard < Administrate::BaseDashboard
     discarded_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    date_of_birth: Field::Date
+    date_of_birth: Field::Date,
+    creating_organization: Field::BelongsTo
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -43,6 +44,7 @@ class ConvictDashboard < Administrate::BaseDashboard
     appi_uuid
     first_name
     last_name
+    organizations
     phone
     appointments
     date_of_birth
@@ -52,6 +54,7 @@ class ConvictDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     appi_uuid
+    creating_organization
     organizations
     city
     first_name

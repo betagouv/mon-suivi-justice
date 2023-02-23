@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_02_152647) do
+ActiveRecord::Schema.define(version: 2023_02_21_160236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,7 +206,9 @@ ActiveRecord::Schema.define(version: 2023_02_02_152647) do
     t.boolean "homeless", default: false, null: false
     t.boolean "lives_abroad", default: false, null: false
     t.bigint "city_id"
+    t.bigint "creating_organization_id"
     t.index ["city_id"], name: "index_convicts_on_city_id"
+    t.index ["creating_organization_id"], name: "index_convicts_on_creating_organization_id"
     t.index ["discarded_at"], name: "index_convicts_on_discarded_at"
     t.index ["user_id"], name: "index_convicts_on_user_id"
   end
@@ -391,11 +393,11 @@ ActiveRecord::Schema.define(version: 2023_02_02_152647) do
     t.string "telephone", limit: 255
     t.string "telecopie", limit: 255
     t.string "email", limit: 255
-    t.string "code_insee"
+    t.string "code_insee", limit: 255
     t.string "code_postal", limit: 255
     t.string "ligne_acheminement", limit: 255
-    t.string "mnemo"
-    t.text "ville"
+    t.string "mnemo", limit: 255
+    t.bigint "tri"
     t.boolean "competent_matiere_nationale"
   end
 
@@ -416,7 +418,6 @@ ActiveRecord::Schema.define(version: 2023_02_02_152647) do
     t.string "libelle_court", limit: 255
     t.text "libelle_long"
     t.text "commentaire"
-    t.boolean "is_baj"
   end
 
   create_table "user_notifications", force: :cascade do |t|
@@ -487,6 +488,7 @@ ActiveRecord::Schema.define(version: 2023_02_02_152647) do
   add_foreign_key "cities", "spips"
   add_foreign_key "cities", "tjs"
   add_foreign_key "convicts", "cities"
+  add_foreign_key "convicts", "organizations", column: "creating_organization_id"
   add_foreign_key "convicts", "users"
   add_foreign_key "extra_fields", "organizations"
   add_foreign_key "history_items", "appointments"
