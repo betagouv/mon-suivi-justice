@@ -169,6 +169,7 @@ class Convict < ApplicationRecord
     UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
   end
 
+  # rubocop:disable Metrics/AbcSize
   def update_organizations
     city = City.find(city_id)
 
@@ -178,6 +179,7 @@ class Convict < ApplicationRecord
     organizations.push(tj) unless organizations.include?(tj) || tj.nil?
     organizations.push(spip) unless organizations.include?(spip) || spip.nil?
   end
+  # rubocop:enable Metrics/AbcSize
 
   def full_name
     "#{first_name} #{last_name}"
