@@ -138,7 +138,7 @@
                         </th>
                       <% else %>
                         <th>
-                          <%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value.to_date if appointments[i].present? %>
+                          <%= display_extra_field(extra_field, appointments[i]) %>
                         </th>
                       <%end%>
                     <% end %>
