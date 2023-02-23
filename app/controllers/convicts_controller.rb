@@ -30,15 +30,7 @@ class ConvictsController < ApplicationController
 
   def create
     @convict = Convict.new(convict_params)
-
-    @city = City.find(convict_params[:city_id])
-
-    @tj = @city.tj&.organization
-    @spip = @city.spip&.organization
-
-    @convict.organizations.push(current_organization) unless @convict.organizations.include?(current_organization)
-    @convict.organizations.push(@tj) unless @convict.organizations.include?(@tj) || @tj.nil?
-    @convict.organizations.push(@spip) unless @convict.organizations.include?(@spip) || @spip.nil?
+    @convict.creating_organization = current_organization
 
     authorize @convict
     save_and_redirect @convict
@@ -56,18 +48,6 @@ class ConvictsController < ApplicationController
     old_phone = @convict.phone
 
     if @convict.update(convict_params)
-
-      @city = City.find(convict_params[:city_id])
-
-      @tj = @city.tj&.organization
-      @spip = @city.spip&.organization
-  
-      @convict.organizations.push(current_organization) unless @convict.organizations.include?(current_organization)
-      @convict.organizations.push(@tj) unless @convict.organizations.include?(@tj) || @tj.nil?
-      @convict.organizations.push(@spip) unless @convict.organizations.include?(@spip) || @spip.nil?
-
-      @convict.save
-
       record_phone_change(old_phone)
       flash.now[:success] = 'La PPSMJ a bien été mise à jour'
       redirect_to convict_path(@convict)
