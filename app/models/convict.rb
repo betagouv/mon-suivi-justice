@@ -170,7 +170,10 @@ class Convict < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
   def update_organizations
+    return unless city_id
+
     city = City.find(city_id)
 
     tj = city.tj&.organization
@@ -180,6 +183,7 @@ class Convict < ApplicationRecord
     organizations.push(spip) unless organizations.include?(spip) || spip.nil?
   end
   # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def full_name
     "#{first_name} #{last_name}"
