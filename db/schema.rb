@@ -430,7 +430,6 @@ ActiveRecord::Schema.define(version: 2023_03_23_101114) do
     t.string "libelle_court", limit: 255
     t.text "libelle_long"
     t.text "commentaire"
-    t.boolean "is_baj"
   end
 
   create_table "user_notifications", force: :cascade do |t|
