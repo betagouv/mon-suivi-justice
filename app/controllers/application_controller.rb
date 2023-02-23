@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_paper_trail_whodunnit
+  before_action :set_sentry_context
 
   after_action :verify_authorized, unless: :skip_pundit?
   after_action :track_action
@@ -75,5 +76,9 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:invite, keys: %i[first_name last_name role email organization_id phone])
+  end
+
+  def set_sentry_context
+    Sentry.set_user(email: current_user.email) if user_signed_in?
   end
 end
