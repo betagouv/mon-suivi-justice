@@ -10,7 +10,7 @@ class CitiesController < ApplicationController
     @tj = @city.tj&.organization
     @spip = @city.spip&.organization
 
-    @services << @tj unless @tj.nil? 
+    @services << @tj unless @tj.nil?
     @services << @spip unless @spip.nil?
     render json: @services
   end
