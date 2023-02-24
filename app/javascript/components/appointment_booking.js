@@ -32,6 +32,16 @@ const loadTemplate = new function () {
     });
   };
 
+  // TODO : Loader ici les communes de la PPSMJ choisies ?
+
+  this.load_cities = function(convict_id) {
+    Rails.ajax({
+      type: 'GET',
+      url: '/load_cities?apt_type_id=' + convict_id,
+      success: function() { setupForm.cities(); }
+    });
+  };
+
   this.agendas = function(place_id, appointment_type_id) {
     Rails.ajax({
       type: 'GET',

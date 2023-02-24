@@ -94,6 +94,7 @@ Rails.application.routes.draw do
     get :load_slots
     get :load_slot_fields
     get :load_submit_button
+    get :load_cities
   end
 
   get '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'
