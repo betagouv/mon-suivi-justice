@@ -24,7 +24,7 @@ class AppiImportJob < ApplicationJob
     convict = Convict.new(
       first_name: convict[:first_name],
       last_name: convict[:last_name],
-      date_of_birth: convict[:date_of_birth].to_date,
+      date_of_birth: convict[:date_of_birth].present? ? convict[:date_of_birth].to_date : nil,
       no_phone: true,
       appi_uuid: convict[:appi_uuid]
     )
