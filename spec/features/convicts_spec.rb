@@ -182,8 +182,6 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'fills in the convict creating organization' do
-      dpt81 = create :department, name: 'Tarn', number: '81'
-      juri81 = create :jurisdiction, name: "Tribunal d'Albi"
       orga = create :organization, name: 'test_orga'
       user = create :user, organization: orga
       logout_current_user
