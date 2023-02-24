@@ -100,6 +100,10 @@ class ConvictsController < ApplicationController
 
     return render :new if convict.duplicates.present? && !force_duplication
 
+    if current_user.work_at_bex?
+      convict.valid?(:user_works_at_bex)
+    end
+
     if convict.save
       redirect_to select_path(params)
     else
