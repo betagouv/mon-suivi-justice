@@ -38,8 +38,9 @@ class AppointmentsBookingsController < ApplicationController
                                        apt_type_id: params[:apt_type_id])
   end
 
-  def load_departments
-    @departments = Department.joins(:organizations).distinct.order(:number)
+  def load_cities
+    @convict = params[:convict_id].present? ? Convict.find(params[:convict_id]) : nil
+    @cities = City.with_at_least_one_service
   end
 
   def load_time_options

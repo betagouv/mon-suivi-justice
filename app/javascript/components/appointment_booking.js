@@ -6,6 +6,16 @@ document.addEventListener('turbolinks:load',function() {
 });
 
 const loadTemplate = new function () {
+    
+  this.cities = function (convict_id) {
+    console.log('convict id from cities', convict_id)
+    Rails.ajax({
+      type: 'GET',
+      url: '/load_cities?convict_id=' + convict_id,
+      success: function () { setupForm.cities(); }
+    });
+  };
+
   this.places = function(appointment_type_id, department_id = "") {
     let targetUrl = '/load_places?apt_type_id=' + appointment_type_id
     if (department_id !== "") { targetUrl += '&department_id=' + department_id }
@@ -116,7 +126,9 @@ const setupForm = new function() {
         if(places_container) { places_container.innerHTML = '';}
         out_of_department_link.style.display = 'none';
 
-        loadTemplate.departments(aptTypeSelect.value);
+        const convictId = getConvictId()
+
+        loadTemplate.cities(convictId);
       });
     }
   };
@@ -134,6 +146,20 @@ const setupForm = new function() {
       loadTemplate.places(aptTypeSelect.value, departmentSelect.value);
     });
   };
+
+  this.cities = function () {
+    const citiesSelect = document.getElementById('convict_city_id');
+    const submitButtonContainer = document.getElementById('submit-button-container');
+
+    citiesSelect.addEventListener('change', (e) => {
+      resetFieldsBelow('cities');
+      submitButtonContainer.style.display = 'none';
+
+      // loadTemplate.prosecutor(citiesSelect.value);
+      // loadTemplate.places(citiesSelect.value);
+    });
+
+  }
 
   this.agenda = function() {
     const convictId = getConvictId()
