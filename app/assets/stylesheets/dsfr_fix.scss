@@ -66,3 +66,8 @@
   -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--error-fill.svg"));
   mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--error-fill.svg"));
 }
+
+.fr-alert--warning::before {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--warning-fill.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--warning-fill.svg"));
+}

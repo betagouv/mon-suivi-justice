@@ -1,24 +1,28 @@
 import Rails from '@rails/ujs';
+import $ from 'jquery';
+import 'select2';
 import MicroModal from 'micromodal';
 
 document.addEventListener('turbolinks:load',function() {
+  $('#convict-name-autocomplete').on('select2:select', (e) => {
+
+    console.log(e)
+
+    document.getElementById('appointment-form-title').innerHTML = `Nouveau rendez-vous pour ${e.params.data.text}`
+
+    const aptTypeSelect = document.getElementById('appointment-type-container')
+
+    aptTypeSelect.style.display = 'block';
+
+    console.log("Incoryable")
+
+  })
   setupForm.appointmentType();
 });
 
 const loadTemplate = new function () {
-    
-  this.cities = function (convict_id) {
-    console.log('convict id from cities', convict_id)
-    Rails.ajax({
-      type: 'GET',
-      url: '/load_cities?convict_id=' + convict_id,
-      success: function () { setupForm.cities(); }
-    });
-  };
-
-  this.places = function(appointment_type_id, department_id = "") {
-    let targetUrl = '/load_places?apt_type_id=' + appointment_type_id
-    if (department_id !== "") { targetUrl += '&department_id=' + department_id }
+  this.places = function(appointment_type_id, convictId) {
+    let targetUrl = '/load_places?apt_type_id=' + appointment_type_id + '&convict_id=' + convictId 
 
     Rails.ajax({
       type: 'GET',
@@ -39,16 +43,6 @@ const loadTemplate = new function () {
       type: 'GET',
       url: '/load_departments?apt_type_id=' + appointment_type_id,
       success: function() { setupForm.department(); }
-    });
-  };
-
-  // TODO : Loader ici les communes de la PPSMJ choisies ?
-
-  this.load_cities = function(convict_id) {
-    Rails.ajax({
-      type: 'GET',
-      url: '/load_cities?apt_type_id=' + convict_id,
-      success: function() { setupForm.cities(); }
     });
   };
 
@@ -90,15 +84,20 @@ const setupForm = new function() {
   }
 
   this.appointmentType = function() {
+
     const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
     const submitButtonContainer = document.getElementById('submit-button-container');
 
     aptTypeSelect.addEventListener('change', (e) => {
+      const convictId = getConvictId()
+
+      console.log("id du convict", convictId)
+
       resetFieldsBelow('appointmentType');
       submitButtonContainer.style.display = 'none';
 
       loadTemplate.prosecutor(aptTypeSelect.value);
-      loadTemplate.places(aptTypeSelect.value);
+      loadTemplate.places(aptTypeSelect.value, convictId);
     });
   };
 
@@ -107,28 +106,14 @@ const setupForm = new function() {
     const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
     const departmentSelect = document.getElementById('appointment-form-department-select');
     const places_container = document.getElementById('places-container');
-    const out_of_department_link = document.getElementById('appointment-out-of-department');
     const submitButtonContainer = document.getElementById('submit-button-container');
 
-    if(departmentSelect && out_of_department_link) { out_of_department_link.style.display = 'none'; }
-
-    placeSelect.addEventListener('change', (e) => {
-      resetFieldsBelow('place');
-      submitButtonContainer.style.display = 'none';
-
-      loadTemplate.agendas(placeSelect.value, aptTypeSelect.value);
-    });
-
-    if(out_of_department_link) {
-      out_of_department_link.addEventListener('click', (e) => {
-        e.preventDefault();
-        resetFieldsBelow('department');
-        if(places_container) { places_container.innerHTML = '';}
-        out_of_department_link.style.display = 'none';
-
-        const convictId = getConvictId()
-
-        loadTemplate.cities(convictId);
+    if (placeSelect) {
+      placeSelect.addEventListener('change', (e) => {
+        resetFieldsBelow('place');
+        submitButtonContainer.style.display = 'none';
+  
+        loadTemplate.agendas(placeSelect.value, aptTypeSelect.value);
       });
     }
   };
@@ -146,20 +131,6 @@ const setupForm = new function() {
       loadTemplate.places(aptTypeSelect.value, departmentSelect.value);
     });
   };
-
-  this.cities = function () {
-    const citiesSelect = document.getElementById('convict_city_id');
-    const submitButtonContainer = document.getElementById('submit-button-container');
-
-    citiesSelect.addEventListener('change', (e) => {
-      resetFieldsBelow('cities');
-      submitButtonContainer.style.display = 'none';
-
-      // loadTemplate.prosecutor(citiesSelect.value);
-      // loadTemplate.places(citiesSelect.value);
-    });
-
-  }
 
   this.agenda = function() {
     const convictId = getConvictId()

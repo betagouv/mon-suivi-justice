@@ -3,10 +3,10 @@ class ConvictPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.admin? || user.local_admin?
-        user.organization.convicts
-      elsif user.work_at_bex?
+      if user.work_at_bex?
         scope.all
+      else
+        user.organization.convicts
       end
     end
   end

@@ -68,9 +68,9 @@
     <%= render 'layouts/main_navigation' %>
 </header>
 <% if current_user != true_user %>
-  <div class="fr-alert fr-alert--error">
-    <h3 class="fr-alert__title">
+  <div class="fr-alert fr-alert--info fr-alert--sm">
+    <p>
         ATTENTION : Vous, <%= true_user.first_name %> <%= true_user.last_name %>, êtes connecté  en tant  que <strong><%= current_user.first_name %> <%= current_user.last_name %> (<%= current_user.role %>)</strong>
-    </h3>
+    </p>
   </div>
 <% end %>
