@@ -24,7 +24,8 @@ class OrganizationDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     linked_organization: Field::BelongsTo,
-    associated_organization: Field::HasOne
+    associated_organization: Field::HasOne,
+    get_linked_organization_display_name: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -38,8 +39,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     organization_type
     departments
     jurisdictions
-    linked_organization
-    associated_organization
+    get_linked_organization_display_name
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -57,6 +57,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     time_zone
     created_at
     updated_at
+    get_linked_organization_display_name
   ].freeze
 
   # FORM_ATTRIBUTES

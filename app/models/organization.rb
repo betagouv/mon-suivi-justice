@@ -14,9 +14,9 @@ class Organization < ApplicationRecord
   has_one :tj
   has_one :spip
   has_one :associated_organization, class_name: 'Organization',
-                                    foreign_key: 'linked_organization_id'
+                                    foreign_key: 'linked_organization_id', inverse_of: :linked_organization
 
-  belongs_to :linked_organization, class_name: 'Organization', optional: true
+  belongs_to :linked_organization, class_name: 'Organization', optional: true, inverse_of: :associated_organization
 
   has_many :convicts_organizations_mappings
   has_many :convicts, through: :convicts_organizations_mappings
@@ -62,6 +62,14 @@ class Organization < ApplicationRecord
     appointment_added_fields.map { |field| field['name'] }
   end
 
+  def get_linked_organization
+    linked_organization || associated_organization
+  end
+
+  def get_linked_organization_display_name
+    linked_organization&.name || associated_organization&.name
+  end
+
   private
 
   def linked_organization_type
@@ -70,5 +78,8 @@ class Organization < ApplicationRecord
     elsif organization_type == 'tj' && linked_organization.present? && linked_organization.organization_type != 'spip'
       errors.add(:linked_organization, 'must be a SPIP')
     end
+    return unless associated_organization.present? && linked_organization.id != associated_organization.id
+
+    errors.add(:linked_organization, 'must be the same as the associated organization')
   end
 end
