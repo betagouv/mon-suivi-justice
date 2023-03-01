@@ -305,9 +305,9 @@ ActiveRecord::Schema.define(version: 2023_02_22_133056) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "organization_type", default: 0
     t.string "time_zone", default: "Europe/Paris", null: false
-    t.bigint "organization_id"
+    t.bigint "linked_organization_id"
+    t.index ["linked_organization_id"], name: "index_organizations_on_linked_organization_id"
     t.index ["name"], name: "index_organizations_on_name", unique: true
-    t.index ["organization_id"], name: "index_organizations_on_organization_id"
   end
 
   create_table "place_appointment_types", force: :cascade do |t|
@@ -502,7 +502,7 @@ ActiveRecord::Schema.define(version: 2023_02_22_133056) do
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notification_types", "organizations"
   add_foreign_key "notifications", "appointments"
-  add_foreign_key "organizations", "organizations"
+  add_foreign_key "organizations", "organizations", column: "linked_organization_id"
   add_foreign_key "places", "organizations"
   add_foreign_key "previous_passwords", "users"
   add_foreign_key "slot_types", "agendas"

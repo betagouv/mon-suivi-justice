@@ -23,7 +23,8 @@ class OrganizationDashboard < Administrate::BaseDashboard
     users: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    linked_organization: Field::HasOne
+    linked_organization: Field::BelongsTo,
+    associated_organization: Field::HasOne
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -38,6 +39,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     departments
     jurisdictions
     linked_organization
+    associated_organization
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -70,7 +72,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     places
     time_zone
     users
-    organization_id
+    linked_organization
   ].freeze
 
   # COLLECTION_FILTERS
