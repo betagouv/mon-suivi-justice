@@ -38,13 +38,6 @@ and renders all form fields for a resource's editable attributes.
       <%= render_field attribute, f: f %>
     </div>
   <% end -%>
-  
-  <div class="field-unit field-unit--select">
-    <%= f.label :linked_organization, "Organisation associée: ", class: "field-unit__label"%>
-    <div class="field-unit__field">
-      <%= f.select :linked_organization, Organization.all.reject { |orga| orga.organization_type == page.resource.organization_type }.map { |orga| [orga.name, orga.id] }, include_blank: true, selected: page.resource.linked_organization.id %>
-    </div>
-  </div>
 
   <div class="form-actions">
     <%= f.submit %>

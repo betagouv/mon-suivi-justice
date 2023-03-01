@@ -3,11 +3,11 @@ module Admin
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
-    def update
-      linked_orga_id = params[:organization][:linked_organization]
-      params[:organization][:linked_organization] = Organization.find(linked_orga_id) unless linked_orga_id.blank?
-      super
-    end
+    # def update
+    #   linked_orga_id = params[:organization][:linked_organization]
+    #   params[:organization][:linked_organization] = Organization.find(linked_orga_id) unless linked_orga_id.blank?
+    #   super
+    # end
 
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
