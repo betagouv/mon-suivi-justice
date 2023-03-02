@@ -28,6 +28,8 @@ class ConvictsController < ApplicationController
     @convict.appointments.build
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
   def create
     @convict = Convict.new(convict_params)
 
@@ -49,6 +51,8 @@ class ConvictsController < ApplicationController
     authorize @convict
   end
 
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity
   def update
     @convict = policy_scope(Convict).find(params[:id])
     authorize @convict
@@ -75,6 +79,9 @@ class ConvictsController < ApplicationController
       render :edit
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/MethodLength
 
   def destroy
     @convict = policy_scope(Convict).find(params[:id])
@@ -113,7 +120,6 @@ class ConvictsController < ApplicationController
 
   private
 
-  # rubocop:disable Metrics/AbcSize
   def save_and_redirect(convict)
     convict.check_duplicates(current_user)
     force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))

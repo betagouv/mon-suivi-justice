@@ -62,16 +62,19 @@ class Organization < ApplicationRecord
     appointment_added_fields.map { |field| field['name'] }
   end
 
-  def get_linked_organization
+  def linked_or_associated_organization
     linked_organization || associated_organization
   end
 
-  def get_linked_organization_display_name
+  def linked_or_associated_organization_display_name
     linked_organization&.name || associated_organization&.name
   end
 
   private
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def linked_organization_type
     if organization_type == 'spip' && linked_organization.present? && linked_organization.organization_type != 'tj'
       errors.add(:linked_organization, 'must be a TJ')
@@ -82,4 +85,7 @@ class Organization < ApplicationRecord
 
     errors.add(:linked_organization, 'must be the same as the associated organization')
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 end
