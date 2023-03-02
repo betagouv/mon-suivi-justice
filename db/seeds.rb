@@ -9,7 +9,7 @@ end
 org_spip_92 = Organization.create!(name: 'SPIP 92', organization_type: 'spip')
 org_spip_61_argentan = Organization.create!(name: 'SPIP 61 - Argentan', organization_type: 'spip')
 org_spip_61_alencon = Organization.create!(name: 'SPIP 61 - Alençon', organization_type: 'spip')
-org_tj_nanterre = Organization.create!(name: 'TJ Nanterre', organization_type: 'tj', jap_modal_content: '<b>Pouet</b>')
+org_tj_nanterre = Organization.create!(name: 'TJ Nanterre', organization_type: 'tj', jap_modal_content: '<b>Pouet</b>', linked_organization_id: org_spip_92.id)
 org_spip_75 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
 org_spip_77 = Organization.create!(name: 'SPIP 77', organization_type: 'spip')
 org_tj_melun = Organization.create!(name: 'TJ Melun', organization_type: 'tj')
