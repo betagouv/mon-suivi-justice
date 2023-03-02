@@ -49,6 +49,7 @@ class ConvictsController < ApplicationController
     old_phone = @convict.phone
 
     if @convict.update(convict_params)
+      @convict.update_organizations(current_user)
       record_phone_change(old_phone)
       flash.now[:success] = 'La PPSMJ a bien été mise à jour'
       redirect_to convict_path(@convict)
@@ -103,6 +104,7 @@ class ConvictsController < ApplicationController
     convict.valid?(:user_works_at_bex) if current_user.work_at_bex?
 
     if convict.save
+      convict.update_organizations(current_user)
       redirect_to select_path(params)
     else
       # TODO : build a real policiy for convicts#show

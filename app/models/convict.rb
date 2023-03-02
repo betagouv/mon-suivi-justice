@@ -42,7 +42,6 @@ class Convict < ApplicationRecord
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE
 
   after_update :update_convict_api
-  before_save :update_organizations
 
   #
   # Convict linked to same departement OR same jurisdiction than the user's organization ones
@@ -173,8 +172,13 @@ class Convict < ApplicationRecord
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
-  def update_organizations
-    return unless city_id
+  def update_organizations(current_user)
+
+    if !city_id
+      organizations.push(current_user.organization) unless organizations.include?(current_user.organization)
+      # TODO also add linked tj or spip
+      return
+    end
 
     city = City.find(city_id)
 
@@ -183,6 +187,8 @@ class Convict < ApplicationRecord
 
     organizations.push(tj) unless organizations.include?(tj) || tj.nil?
     organizations.push(spip) unless organizations.include?(spip) || spip.nil?
+
+    self.save
   end
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity
