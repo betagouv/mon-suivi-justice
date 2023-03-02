@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2023_02_21_160236) do
-=======
 ActiveRecord::Schema.define(version: 2023_02_22_133056) do
->>>>>>> 42848986 (Create link between tj and spip)
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -503,6 +499,7 @@ ActiveRecord::Schema.define(version: 2023_02_22_133056) do
   add_foreign_key "notification_types", "organizations"
   add_foreign_key "notifications", "appointments"
   add_foreign_key "organizations", "organizations", column: "linked_organization_id"
+
   add_foreign_key "places", "organizations"
   add_foreign_key "previous_passwords", "users"
   add_foreign_key "slot_types", "agendas"
