@@ -5,12 +5,6 @@
   max-width: 700px;
 }
 
-.home-convict-search-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .home-search-field-container {
   width: 400px;
   margin-left: 30px;
@@ -19,11 +13,6 @@
 .home-control {
   @include button($light-blue);
   margin-right: 20px;
-}
-
-.home-controls-container {
-  display: flex;
-  justify-content: center;
 }
 
 .home-agenda-link {

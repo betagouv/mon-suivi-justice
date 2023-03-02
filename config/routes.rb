@@ -117,6 +117,8 @@ Rails.application.routes.draw do
   get '/steering_convict_app' => 'steerings#convict_app_stats', as: 'steering_convict_app'
   get '/steering_sda' => 'steerings#sda_stats', as: 'steering_sda'
 
+  get '/search_convicts' => 'convicts#search', as: 'search_convicts'
+
   unauthenticated do
     devise_scope :user do
       root to: "devise/sessions#new"

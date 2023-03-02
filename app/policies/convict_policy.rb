@@ -6,6 +6,7 @@ class ConvictPolicy < ApplicationPolicy
       if user.work_at_bex?
         scope.all
       else
+        # TODO : add linked organizations convicts ?
         user.organization.convicts
       end
     end
@@ -45,5 +46,9 @@ class ConvictPolicy < ApplicationPolicy
 
   def destroy?
     ALLOWED_TO_DESTROY.include?(user.role) && record.undiscarded?
+  end
+
+  def search?
+    true
   end
 end

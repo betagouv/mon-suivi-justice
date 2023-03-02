@@ -93,6 +93,13 @@ class ConvictsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def search
+    @convicts = policy_scope(Convict).search_by_name_and_phone(params[:search_convicts])
+    authorize @convicts
+    render :layout => false
+  end
+
+
   private
 
   def save_and_redirect(convict)

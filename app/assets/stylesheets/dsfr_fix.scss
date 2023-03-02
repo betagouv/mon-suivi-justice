@@ -71,3 +71,8 @@
   -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--warning-fill.svg"));
   mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--warning-fill.svg"));
 }
+
+.fr-search-bar .fr-btn::before {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/search-line.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/search-line.svg"));
+}

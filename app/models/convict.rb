@@ -1,6 +1,8 @@
 class Convict < ApplicationRecord
   include NormalizedPhone
   include Discard::Model
+  include PgSearch
+
   has_paper_trail
 
   WHITELISTED_PHONES = %w[+33659763117 +33683481555 +33682356466 +33603371085
@@ -72,6 +74,11 @@ class Convict < ApplicationRecord
   scope :with_past_appointments, (lambda do
     joins(appointments: :slot).where(appointments: { slots: { date: ..Date.today } })
   end)
+
+  pg_search_scope :search_by_name_and_phone, :against => [:first_name, :last_name, :phone],
+  using: {
+    :tsearch => {:prefix => true}
+  }
 
   delegate :name, to: :cpip, allow_nil: true, prefix: true
 
