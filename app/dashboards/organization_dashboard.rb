@@ -27,10 +27,12 @@ class OrganizationDashboard < Administrate::BaseDashboard
     linked_organization_id: Field::Select.with_options(searchable: true, include_blank: true, collection: lambda { |field|
                                                                                                             associated_organization = Organization.includes(:associated_organization).find { |orga| orga.linked_organization_id == field.resource.id }
 
+                                                                                                            # when the organization has an associated organization, we only want to display it in the select
                                                                                                             if associated_organization.present?
                                                                                                               return [[associated_organization.name, associated_organization.id]]
                                                                                                             end
 
+                                                                                                            # otherwise, we want to display all organizations that are not the same type as the current organization and that don't have an associated organization
                                                                                                             Organization.includes(:associated_organization).reject { |o| o.organization_type == field.resource.organization_type || (o.get_linked_organization.present? && o.get_linked_organization.id != field.resource.id) }.map { |o| [o.name, o.id] }
                                                                                                           })
   }.freeze
