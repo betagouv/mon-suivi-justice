@@ -23,9 +23,17 @@ class OrganizationDashboard < Administrate::BaseDashboard
     users: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    linked_organization: Field::BelongsTo,
-    associated_organization: Field::HasOne,
-    get_linked_organization_display_name: Field::String
+    get_linked_organization_display_name: Field::String,
+    linked_organization_id: Field::Select.with_options(searchable: true, include_blank: true, collection: lambda { |field|
+                                                                                                            associated_organization = Organization.includes(:associated_organization).find { |orga| orga.linked_organization_id == field.resource.id }
+
+                                                                                                            if associated_organization.present?
+                                                                                                              return [[associated_organization.name, associated_organization.id]]
+                                                                                                            end
+
+                                                                                                            Organization.includes(:associated_organization).reject { |o| o.organization_type == field.resource.organization_type || (o.get_linked_organization.present? && o.get_linked_organization.id != field.resource.id) }.map { |o| [o.name, o.id] }
+                                                                                                          })
+    # linked_organization: Field::BelongsTo.with_options(scope: -> { Organization.all.reject { |o| o.get_linked_organization.present? } }) # how to display only get_linked_organization if available for org ? how to access field?
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -73,7 +81,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     places
     time_zone
     users
-    linked_organization
+    linked_organization_id
   ].freeze
 
   # COLLECTION_FILTERS
@@ -93,5 +101,10 @@ class OrganizationDashboard < Administrate::BaseDashboard
   #
   def display_resource(organization)
     "##{organization.id} - #{organization.name}"
+  end
+
+  def handle_default(field)
+    [field.resource.associated_organization] if field.resource.associated_organization.present?
+    Organization.all
   end
 end

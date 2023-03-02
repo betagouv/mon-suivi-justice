@@ -61,7 +61,7 @@ class ConvictsController < ApplicationController
 
       @tj = @city.tj&.organization
       @spip = @city.spip&.organization
-  
+
       @convict.organizations.push(current_organization) unless @convict.organizations.include?(current_organization)
       @convict.organizations.push(@tj) unless @convict.organizations.include?(@tj) || @tj.nil?
       @convict.organizations.push(@spip) unless @convict.organizations.include?(@spip) || @spip.nil?
