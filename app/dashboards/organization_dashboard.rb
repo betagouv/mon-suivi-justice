@@ -33,7 +33,6 @@ class OrganizationDashboard < Administrate::BaseDashboard
 
                                                                                                             Organization.includes(:associated_organization).reject { |o| o.organization_type == field.resource.organization_type || (o.get_linked_organization.present? && o.get_linked_organization.id != field.resource.id) }.map { |o| [o.name, o.id] }
                                                                                                           })
-    # linked_organization: Field::BelongsTo.with_options(scope: -> { Organization.all.reject { |o| o.get_linked_organization.present? } }) # how to display only get_linked_organization if available for org ? how to access field?
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -101,10 +100,5 @@ class OrganizationDashboard < Administrate::BaseDashboard
   #
   def display_resource(organization)
     "##{organization.id} - #{organization.name}"
-  end
-
-  def handle_default(field)
-    [field.resource.associated_organization] if field.resource.associated_organization.present?
-    Organization.all
   end
 end
