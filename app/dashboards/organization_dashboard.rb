@@ -23,7 +23,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     users: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    get_linked_organization_display_name: Field::String,
+    linked_or_associated_organization_display_name: Field::String,
     linked_organization_id: Field::Select.with_options(searchable: true, include_blank: true, collection: lambda { |field|
                                                                                                             associated_organization = Organization.includes(:associated_organization).find { |orga| orga.linked_organization_id == field.resource.id }
 
@@ -33,7 +33,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
                                                                                                             end
 
                                                                                                             # otherwise, we want to display all organizations that are not the same type as the current organization and that don't have an associated organization
-                                                                                                            Organization.includes(:associated_organization).reject { |o| o.organization_type == field.resource.organization_type || (o.get_linked_organization.present? && o.get_linked_organization.id != field.resource.id) }.map { |o| [o.name, o.id] }
+                                                                                                            Organization.includes(:associated_organization).reject { |o| o.organization_type == field.resource.organization_type || (o.linked_or_associated_organization.present? && o.linked_or_associated_organization.id != field.resource.id) }.map { |o| [o.name, o.id] }
                                                                                                           })
   }.freeze
 
@@ -48,7 +48,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     organization_type
     departments
     jurisdictions
-    get_linked_organization_display_name
+    linked_or_associated_organization_display_name
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -66,7 +66,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     time_zone
     created_at
     updated_at
-    get_linked_organization_display_name
+    linked_or_associated_organization_display_name
   ].freeze
 
   # FORM_ATTRIBUTES
