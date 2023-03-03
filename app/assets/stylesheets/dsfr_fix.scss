@@ -82,3 +82,9 @@
   -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-down-s-line.svg"));
   mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-down-s-line.svg"));
 }
+
+// Fix breadcrumbs
+.fr-breadcrumb__list li:not(:first-child)::before {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-right-s-line.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-right-s-line.svg"));
+}

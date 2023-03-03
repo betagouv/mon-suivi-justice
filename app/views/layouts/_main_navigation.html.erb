@@ -42,61 +42,58 @@
               <%= t('home.bex_spip') %>
             <% end %>
           <% end %>
-          <% if policy(:appointment).index? %>
-            <%= link_to appointments_path, params: { q: {slot_date_eq: Date.today.to_s }}, class: 'fr-nav__link', 'aria-current': current?("page", appointments_path) do %>
-              <%= t('home.today_appointments') %>
-            <% end %>
-          <% end %>
         <% end %>
-        <li class="fr-nav__item">
-          <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-774" aria-current="true">Administration</button>
-          <div class="fr-collapse fr-menu" id="menu-774">
-            <ul class="fr-menu__list">
-              <% if policy(:appointment_type).index? %>
-                <li class="fr-nav__item">
-                  <%= link_to appointment_types_path, class: 'fr-nav__link', 'aria-current': current?("page", appointment_types_path) do %>
-                    <%= t('sidebar.message_templates') %>
-                  <% end %>
-                </li>
-              <% end %>
-              <% if policy(:place).index? %>
-                <li class="fr-nav__item">
-                  <%= link_to places_path, class: 'fr-nav__link', 'aria-current': current?("page", places_path) do %>
-                    <%= t('sidebar.places') %>
-                  <% end %>
-                </li>
-              <% end %>
-              <% if policy(:slot).index? %>
-                <li class="fr-nav__item">
-                  <%= link_to slots_path, class: 'fr-nav__link', 'aria-current': current?("page", slots_path) do %>
-                    <%= t('sidebar.slots') %>
-                  <% end %>
-                </li>
-              <% end %>
-              <% if policy(:user).index? %>
-                <li class="fr-nav__item">
-                  <%= link_to users_path, class: 'fr-nav__link', 'aria-current': current?("page", users_path) do %>
-                    <%= t('sidebar.users') %>
-                  <% end %>
-                </li>
-              <% end %>
-              <% if policy(:organization).index? %>
-                <li class="fr-nav__item">
-                  <%= link_to organizations_path, class: 'fr-nav__link', 'aria-current': current?("page", organizations_path) do %>
-                    <%= t('sidebar.organizations') %>
-                  <% end %>
-                </li>
-              <% end %>
-              <% if policy(:steering).user_app_stats? %>
-                <li class="fr-nav__item">
-                  <%= link_to steering_user_app_path, class: 'fr-nav__link', 'aria-current': current?("page", steering_user_app_path) do %>
-                    <%= t('sidebar.steering') %>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </li>
+        <% if current_user.admin? || current_user.local_admin_tj? || current_user.local_admin_spip? %>
+          <li class="fr-nav__item">
+            <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-774" <%= (['/appointment_types', '/places', '/slots', '/users', '/organizations', '/steering_user_app'].include? request.path) ? "aria-current=true" : nil %>>Administration</button>
+            <div class="fr-collapse fr-menu" id="menu-774">
+              <ul class="fr-menu__list">
+                <% if policy(:appointment_type).index? %>
+                  <li class="fr-nav__item">
+                    <%= link_to appointment_types_path, class: 'fr-nav__link', 'aria-current': current?("page", appointment_types_path) do %>
+                      <%= t('sidebar.message_templates') %>
+                    <% end %>
+                  </li>
+                <% end %>
+                <% if policy(:place).index? %>
+                  <li class="fr-nav__item">
+                    <%= link_to places_path, class: 'fr-nav__link', 'aria-current': current?("page", places_path) do %>
+                      <%= t('sidebar.places') %>
+                    <% end %>
+                  </li>
+                <% end %>
+                <% if policy(:slot).index? %>
+                  <li class="fr-nav__item">
+                    <%= link_to slots_path, class: 'fr-nav__link', 'aria-current': current?("page", slots_path) do %>
+                      <%= t('sidebar.slots') %>
+                    <% end %>
+                  </li>
+                <% end %>
+                <% if policy(:user).index? %>
+                  <li class="fr-nav__item">
+                    <%= link_to users_path, class: 'fr-nav__link', 'aria-current': current?("page", users_path) do %>
+                      <%= t('sidebar.users') %>
+                    <% end %>
+                  </li>
+                <% end %>
+                <% if policy(:organization).index? %>
+                  <li class="fr-nav__item">
+                    <%= link_to organizations_path, class: 'fr-nav__link', 'aria-current': current?("page", organizations_path) do %>
+                      <%= t('sidebar.organizations') %>
+                    <% end %>
+                  </li>
+                <% end %>
+                <% if policy(:steering).user_app_stats? %>
+                  <li class="fr-nav__item">
+                    <%= link_to steering_user_app_path, class: 'fr-nav__link', 'aria-current': current?("page", steering_user_app_path) do %>
+                      <%= t('sidebar.steering') %>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </li>
+        <% end %>
         <li class="fr-nav__item">
           <%= link_to 'https://documentation.mon-suivi-justice.beta.gouv.fr', class: 'fr-nav__link', target: '_blank' do %>
             <%= t('sidebar.guides') %>

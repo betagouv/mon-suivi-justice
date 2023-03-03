@@ -1,76 +1,79 @@
 <header role="banner" class="fr-header">
-    <div class="fr-header__body">
-        <div class="fr-container">
-            <div class="fr-header__body-row">
-                <div class="fr-header__brand fr-enlarge-link">
-                    <div class="fr-header__brand-top">
-                        <div class="fr-header__logo">
-                            <p class="fr-logo">
-                                Mon Suivi
-                                <br>Justice
-                            </p>
-                        </div>
-                        <div class="fr-header__navbar">
-                            <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-499" aria-haspopup="menu" id="button-500" title="Menu">
-                                Menu
-                            </button>
-                        </div>
-                    </div>
-                    <div class="fr-header__service">
-                      <%= link_to home_path, title: "Accueil - Mon Suivi justice)"  do %>
-                          <p class="fr-header__service-title">
-                              Mon Suivi Justice <%= t('header_staging') if ENV['APP'] == 'mon-suivi-justice-staging' %>
-                          </p>
-                        <% end %>
-                        <p class="fr-header__service-tagline">Service : <%= current_organization&.name %></p>
-                    </div>
-                </div>
-                <div class="fr-header__tools">
-                    <div class="fr-header__tools-links">
-                        <ul class="fr-btns-group">
-                            <li>
-                              <% if current_user != true_user %>
-                                <%= link_to("Retour à l'admin", stop_impersonating_users_path, method: :post,  class: 'fr-btn fr-icon-settings-5-fill') %>
-                              <% end %>
-                            </li>
-                            <li>
-                              <% if current_user.admin? %>
-                                <%= link_to("Interface admin", admin_root_path, method: :get,  class: 'fr-btn fr-icon-settings-5-fill') %>
-                              <% end %>
-                            </li>
-                            <li>
-                              <%= link_to user_user_notifications_path, class: 'fr-btn fr-icon-notification-badge-fill' do %>
-                                <span id="user-notification-counter-container">(<%= current_user.user_notifications.unread.size %>)</span> Notifications
-                              <% end %>
-                            </li>
-                            <li>
-                              <%= link_to(t('my_profile'), user_path(current_user.id), class: 'fr-btn fr-icon-account-circle-fill') %>
-                            </li>
-                            <li>
-                              <%= link_to(t('log_out'), destroy_user_session_path, method: :delete, class: 'fr-btn fr-icon-logout-box-r-fill') %>    
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+  <div class="fr-header__body">
+    <div class="fr-container">
+      <div class="fr-header__body-row">
+        <div class="fr-header__brand fr-enlarge-link">
+          <div class="fr-header__brand-top">
+            <div class="fr-header__logo">
+              <p class="fr-logo">
+                Mon Suivi
+                <br>
+                Justice
+              </p>
             </div>
-        </div>
-    </div>
-    <div class="fr-header__menu fr-modal" id="modal-499" aria-labelledby="button-500">
-        <div class="fr-container">
-            <button class="fr-btn--close fr-btn" aria-controls="modal-499" title="Fermer">
-                Fermer
-            </button>
-            <div class="fr-header__menu-links">
+            <div class="fr-header__navbar">
+              <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-499" aria-haspopup="menu" id="button-500" title="Menu">
+                Menu
+              </button>
             </div>
+          </div>
+          <div class="fr-header__service">
+            <%= link_to home_path, title: "Accueil - Mon Suivi justice)"  do %>
+              <p class="fr-header__service-title">
+                Mon Suivi Justice <%= t('header_staging') if ENV['APP'] == 'mon-suivi-justice-staging' %>
+              </p>
+            <% end %>
+            <p class="fr-header__service-tagline">Service : <%= current_organization&.name %></p>
+          </div>
         </div>
+        <div class="fr-header__tools">
+          <div class="fr-header__tools-links">
+            <ul class="fr-btns-group">
+              <li>
+                <% if current_user != true_user %>
+                  <%= link_to("Retour à l'admin", stop_impersonating_users_path, method: :post,  class: 'fr-btn fr-icon-settings-5-fill') %>
+                <% end %>
+              </li>
+              <li>
+                <% if current_user.admin? %>
+                  <%= link_to("Administration centrale", admin_root_path, method: :get,  class: 'fr-btn fr-icon-settings-5-fill') %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to user_user_notifications_path, class: 'fr-btn fr-icon-notification-badge-fill' do %>
+                  <span id="user-notification-counter-container">(<%= current_user.user_notifications.unread.size %>)</span> Notifications
+                <% end %>
+              </li>
+              <li>
+                <%= link_to(t('my_profile'), user_path(current_user.id), class: 'fr-btn fr-icon-account-circle-fill') %>
+              </li>
+              <li>
+                <%= link_to(t('log_out'), destroy_user_session_path, method: :delete, class: 'fr-btn fr-icon-logout-box-r-fill') %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <%= render 'layouts/main_navigation' %>
+  </div>
+  <div class="fr-header__menu fr-modal" id="modal-499" aria-labelledby="button-500">
+    <div class="fr-container">
+      <button class="fr-btn--close fr-btn" aria-controls="modal-499" title="Fermer">
+        Fermer
+      </button>
+      <div class="fr-header__menu-links">
+      </div>
+    </div>
+  </div>
+  <%= render 'layouts/main_navigation' %>
 </header>
 <% if current_user != true_user %>
   <div class="fr-alert fr-alert--info fr-alert--sm">
     <p>
-        ATTENTION : Vous, <%= true_user.first_name %> <%= true_user.last_name %>, êtes connecté  en tant  que <strong><%= current_user.first_name %> <%= current_user.last_name %> (<%= current_user.role %>)</strong>
+      ATTENTION : Vous, <%= true_user.first_name %> <%= true_user.last_name %>, êtes connecté  en tant  que <strong><%= current_user.first_name %> <%= current_user.last_name %> (<%= current_user.role %>)</strong>
     </p>
   </div>
 <% end %>
+<%= render 'layouts/breadcrumb' %>
+
+
