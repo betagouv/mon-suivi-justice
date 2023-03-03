@@ -12,7 +12,8 @@ class HeadquarterDashboard < Administrate::BaseDashboard
     name: Field::String,
     organizations: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    updated_at: Field::DateTime,
+    users: Field::HasMany
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -24,6 +25,7 @@ class HeadquarterDashboard < Administrate::BaseDashboard
     id
     name
     organizations
+    users
     created_at
   ].freeze
 
@@ -33,6 +35,7 @@ class HeadquarterDashboard < Administrate::BaseDashboard
     id
     name
     organizations
+    users
     created_at
     updated_at
   ].freeze
@@ -43,6 +46,7 @@ class HeadquarterDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     name
     organizations
+    users
   ].freeze
 
   # COLLECTION_FILTERS

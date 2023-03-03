@@ -11,6 +11,7 @@ class User < ApplicationRecord
        claire.becanne@justice.fr].freeze
 
   belongs_to :organization
+  belongs_to :headquarter
   has_many :convicts, dependent: :nullify
   has_many :appointments, dependent: :nullify
   has_many :visits, class_name: 'Ahoy::Visit'

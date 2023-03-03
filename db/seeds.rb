@@ -6,9 +6,10 @@ FRENCH_JURISDICTIONS.each do |name|
   Jurisdiction.find_or_create_by(name: name)
 end
 
+hq_spip_61 = Headquarter.create!(name: 'SPIP 61')
 org_spip_92 = Organization.create!(name: 'SPIP 92', organization_type: 'spip')
-org_spip_61_argentan = Organization.create!(name: 'SPIP 61 - Argentan', organization_type: 'spip')
-org_spip_61_alencon = Organization.create!(name: 'SPIP 61 - Alençon', organization_type: 'spip')
+org_spip_61_argentan = Organization.create!(name: 'SPIP 61 - Argentan', organization_type: 'spip', headquarter: hq_spip_61)
+org_spip_61_alencon = Organization.create!(name: 'SPIP 61 - Alençon', organization_type: 'spip', headquarter: hq_spip_61)
 org_tj_nanterre = Organization.create!(name: 'TJ Nanterre', organization_type: 'tj', jap_modal_content: '<b>Pouet</b>')
 org_spip_75 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
 org_spip_77 = Organization.create!(name: 'SPIP 77', organization_type: 'spip')
@@ -60,12 +61,14 @@ User.create!(
 
 User.create!(
   organization: org_spip_61_argentan, email: 'cpip61argentan@example.com', password: '1mot2passeSecurise!',
-  password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Sylvain', last_name: 'Chabrier'
+  password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Sylvain', last_name: 'Chabrier',
+  headquarter: hq_spip_61
 )
 
 User.create!(
   organization: org_spip_61_argentan, email: 'localadmin61argentan@example.com', password: '1mot2passeSecurise!',
-  password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'Jacques', last_name: 'Chirac'
+  password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'Jacques', last_name: 'Chirac',
+  headquarter: hq_spip_61
 )
 
 User.create!(

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_03_134411) do
+ActiveRecord::Schema.define(version: 2023_03_03_141633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -466,7 +466,9 @@ ActiveRecord::Schema.define(version: 2023_03_03_134411) do
     t.string "phone"
     t.boolean "share_email_to_convict", default: true
     t.boolean "share_phone_to_convict", default: true
+    t.bigint "headquarter_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["headquarter_id"], name: "index_users_on_headquarter_id"
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
@@ -518,5 +520,6 @@ ActiveRecord::Schema.define(version: 2023_03_03_134411) do
   add_foreign_key "slots", "slot_types"
   add_foreign_key "spips", "organizations"
   add_foreign_key "tjs", "organizations"
+  add_foreign_key "users", "headquarters"
   add_foreign_key "users", "organizations"
 end

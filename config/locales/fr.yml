@@ -37,6 +37,7 @@ fr:
       slot:  "Créneau"
       agenda: "Agenda"
       organization: "Service"
+      headquarter: "Siège"
 
     attributes:
       convict:
