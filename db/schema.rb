@@ -395,11 +395,11 @@ ActiveRecord::Schema.define(version: 2023_02_22_133056) do
     t.string "telephone", limit: 255
     t.string "telecopie", limit: 255
     t.string "email", limit: 255
-    t.string "code_insee", limit: 255
+    t.string "code_insee"
     t.string "code_postal", limit: 255
     t.string "ligne_acheminement", limit: 255
-    t.string "mnemo", limit: 255
-    t.bigint "tri"
+    t.string "mnemo"
+    t.text "ville"
     t.boolean "competent_matiere_nationale"
   end
 
@@ -420,6 +420,7 @@ ActiveRecord::Schema.define(version: 2023_02_22_133056) do
     t.string "libelle_court", limit: 255
     t.text "libelle_long"
     t.text "commentaire"
+    t.boolean "is_baj"
   end
 
   create_table "user_notifications", force: :cascade do |t|
@@ -499,7 +500,6 @@ ActiveRecord::Schema.define(version: 2023_02_22_133056) do
   add_foreign_key "notification_types", "organizations"
   add_foreign_key "notifications", "appointments"
   add_foreign_key "organizations", "organizations", column: "linked_organization_id"
-
   add_foreign_key "places", "organizations"
   add_foreign_key "previous_passwords", "users"
   add_foreign_key "slot_types", "agendas"
