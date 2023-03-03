@@ -14,6 +14,10 @@ class Organization < ApplicationRecord
   has_many :agendas, through: :places, dependent: :nullify
   has_one :tj
   has_one :spip
+  has_one :associated_organization, class_name: 'Organization',
+                                    foreign_key: 'linked_organization_id', inverse_of: :linked_organization
+
+  belongs_to :linked_organization, class_name: 'Organization', optional: true, inverse_of: :associated_organization
 
   has_and_belongs_to_many :spips, class_name: 'Organization', foreign_key: 'tj_id', join_table: 'spips_tjs',
                                   association_foreign_key: 'spip_id', optional: true
