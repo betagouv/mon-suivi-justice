@@ -76,3 +76,9 @@
   -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/search-line.svg"));
   mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/search-line.svg"));
 }
+
+// Fixes for main navigation dropdowns
+.fr-nav__btn::after {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-down-s-line.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-down-s-line.svg"));
+}

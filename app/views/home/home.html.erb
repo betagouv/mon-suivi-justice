@@ -1,62 +1,40 @@
 <div data-controller="search-convicts">
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
     <div class="fr-col-8">
-    
-      <%= form_with url: search_convicts_path, method: :get, local: false, data: { action: "ajax:success->search-convicts#handleResults", target: "search-convicts.form" } do |form| %>
-        <div class="fr-search-bar" id="header-search" role="search">
-          <label class="fr-label" for="search_convicts">
-            Recherche
-          </label>
-          <input class="fr-input" placeholder="Rechercher une PPSMJ" type="search" id="search_convicts" name="search_convicts" data-action="input->search-convicts#search">
-          <button class="fr-btn" title="Rechercher">
-            Rechercher
-          </button>
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-4">
+          <%= form_with url: search_convicts_path, method: :get, local: false, data: { action: "ajax:success->search-convicts#handleResults", 'search-convicts-target': "form" } do |form| %>
+            <div class="fr-search-bar" id="header-search" role="search">
+              <label class="fr-label" for="search_convicts">
+                Recherche
+              </label>
+              <input class="fr-input" placeholder="Rechercher une PPSMJ" type="search" id="search_convicts" name="search_convicts" data-action="input->search-convicts#search">
+              <button class="fr-btn" title="Rechercher">
+                Rechercher
+              </button>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-      
-      
-      <div id="search_results" data-target="search-convicts.results">
-
+        <div class="fr-col-4">
+          <% if policy(:convict).new? %>
+            <%= button_to t('new_convict_title'), new_convict_path, class: 'fr-btn', method: :get %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
     <div class="fr-col-8">
+      <div id="search_results" data-search-convicts-target="results">
+      </div>
+    </div>
+    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+      <div class="fr-col-8">
       </div>
     </div>
   </div>
 </div>
 <div class="fr-col-12">
-  <div class='home-custom-links-wrapper'>
-    <% if policy(:appointment).agenda_jap? || policy(:appointment).agenda_spip?  %>
-      <div class='home-custom-links-container'>
-        <div class='home-custom-links'>
-          <% if policy(:appointment).agenda_jap? %>
-            <%= button_to t('home.bex_jap'), agenda_jap_path,
-                                                class: 'home-agenda-link',
-                                                method: :get %>
-          <% end %>
-          <% if policy(:appointment).agenda_sap_ddse? && ENV['APP'] != 'mon-suivi-justice-prod' %>
-            <%= button_to t('home.sap_ddse'), agenda_sap_ddse_path,
-                                                  class: 'home-agenda-link',
-                                                  method: :get %>
-          <% end %>
-          <% if policy(:appointment).agenda_spip? %>
-            <%= button_to t('home.bex_spip'), agenda_spip_path,
-                                                  class: 'home-agenda-link',
-                                                  method: :get %>
-          <% end %>
-          <% if policy(:appointment).index? %>
-            <%= button_to t('home.today_appointments'), appointments_path,
-                                                            params: { q: {slot_date_eq: Date.today.to_s }},
-                                                            class: 'home-agenda-link',
-                                                            method: :get %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-<div class="fr-col-12">
-  <%= render 'home_stats', data: @stats, title: t('home.stats_title') %>
+  <%#render 'home_stats', data: @stats, title: t('home.stats_title') %>
 </div>
 </div>

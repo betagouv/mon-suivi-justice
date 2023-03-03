@@ -1,9 +1,27 @@
 module ApplicationHelper
   def active_class_if_controller(controller)
+
+    puts "BEGIN ==================="
+    puts controller
+    puts ">>>>>>>>>>>>>>>>>>>>>>>>"
+    puts params[:controller]
+    puts "=================== AND"
+
+
     if controller.is_a?(Array)
       controller.include?(params[:controller]) ? 'fr-nav__item--active' : ''
     else
       params[:controller] == controller ? 'fr-nav__item--active' : ''
+    end
+  end
+
+
+
+  def current?(key, path)
+    if current_page? path
+      "#{key}" 
+    else
+      nil
     end
   end
 
