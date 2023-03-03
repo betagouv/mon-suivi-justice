@@ -9,7 +9,7 @@ class Organization < ApplicationRecord
   has_many :jurisdictions, through: :areas_organizations_mappings, source: :area, source_type: 'Jurisdiction'
   has_many :created_appointments, class_name: 'Appointment', foreign_key: 'creating_organization'
   has_many :extra_fields, dependent: :destroy, inverse_of: :organization
-  belongs_to :headquarter
+  belongs_to :headquarter, optional: true
   # limit should be 3, but we need to add one more to be able to delete and add an extra_field at the same time
   abymize :extra_fields, permit: :all_attributes, limit: 4, allow_destroy: true
 
