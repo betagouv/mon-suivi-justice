@@ -1,6 +1,6 @@
 require 'administrate/base_dashboard'
 
-class OrganizationDashboard < Administrate::BaseDashboard
+class HeadquarterDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,21 +9,10 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    areas_organizations_mappings: Field::HasMany,
-    departments: Field::HasMany,
-    jurisdictions: Field::HasMany,
     name: Field::String,
-    notification_types: Field::HasMany,
-    organization_type: Field::Select.with_options(searchable: false, collection: lambda { |field|
-                                                                                   field.resource.class.send(field.attribute.to_s.pluralize).keys
-                                                                                 }),
-    places: Field::HasMany,
-    rich_text_jap_modal_content: Field::HasOne,
-    time_zone: Field::String,
-    users: Field::HasMany,
+    organizations: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-    headquarter: Field::BelongsTo
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -34,44 +23,26 @@ class OrganizationDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     name
-    organization_type
-    departments
-    jurisdictions
-    headquarter
+    organizations
+    created_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    organization_type
     name
-    users
-    departments
-    jurisdictions
-    places
-    areas_organizations_mappings
-    notification_types
-    time_zone
+    organizations
     created_at
     updated_at
-    headquarter
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    areas_organizations_mappings
-    departments
-    jurisdictions
     name
-    notification_types
-    organization_type
-    places
-    time_zone
-    users
-    headquarter
+    organizations
   ].freeze
 
   # COLLECTION_FILTERS
@@ -86,10 +57,10 @@ class OrganizationDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how organizations are displayed
+  # Overwrite this method to customize how headquarters are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(organization)
-    "##{organization.id} - #{organization.name}"
+  def display_resource(headquarter)
+    "#{headquarter.id}-#{headquarter.name}"
   end
 end

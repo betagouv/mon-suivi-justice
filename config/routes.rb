@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :import_convicts, only: [:index]
       post '/create_page' => "public_pages#create"
       post '/import_convicts' => "import_convicts#import"
+      resources :headquarters
 
       root to: "users#index"
     end
