@@ -30,7 +30,7 @@
   <% end %>
 
   <% if @user.local_admin_spip? && @user.headquarter.present? %>
-    <%= f.association :organization, collection: @user.headquarter.organizations %>
+    <%= f.association :organization, collection: @user.headquarter.organizations, include_blank: false %>
   <% end %>
 
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
