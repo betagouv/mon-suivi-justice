@@ -13,6 +13,10 @@ class Organization < ApplicationRecord
   abymize :extra_fields, permit: :all_attributes, allow_destroy: true
   has_one :tj
   has_one :spip
+  has_one :associated_organization, class_name: 'Organization',
+                                    foreign_key: 'linked_organization_id', inverse_of: :linked_organization
+
+  belongs_to :linked_organization, class_name: 'Organization', optional: true, inverse_of: :associated_organization
 
   has_many :convicts_organizations_mappings
   has_many :convicts, through: :convicts_organizations_mappings
