@@ -46,6 +46,14 @@
         <%= @user.display_phone %>
       </div>
     </div>
+    <div class='show-data-item-container'>
+      <div class='show-data-label'>
+        <%= t('activerecord.attributes.user.organization') %>
+      </div>
+      <div class='show-data-item'>
+        <%= @user.organization.name %>
+      </div>
+    </div>
   </div>
 
   <div class='show-button-to-edit-container'>
