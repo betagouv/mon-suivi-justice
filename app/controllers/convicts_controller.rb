@@ -28,6 +28,7 @@ class ConvictsController < ApplicationController
     @convict.appointments.build
   end
 
+  # rubocop:disable Metrics/AbcSize
   def create
     @convict = Convict.new(convict_params)
     @convict.creating_organization = current_organization
@@ -93,7 +94,6 @@ class ConvictsController < ApplicationController
 
   private
 
-  # rubocop:disable Metrics/AbcSize
   def save_and_redirect(convict)
     convict.check_duplicates(current_user)
     force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))

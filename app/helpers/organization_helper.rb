@@ -44,4 +44,9 @@ module OrganizationHelper
 
     [current_user.organization]
   end
+
+  def handle_default_linked_organization_list(organization)
+    [organization.associated_organization] if organization.associated_organization.present?
+    Organization.all
+  end
 end
