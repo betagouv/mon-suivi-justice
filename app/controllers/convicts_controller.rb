@@ -49,6 +49,7 @@ class ConvictsController < ApplicationController
     old_phone = @convict.phone
 
     if @convict.update(convict_params)
+      @convict.update_organizations(current_user)
       record_phone_change(old_phone)
       flash.now[:success] = 'La PPSMJ a bien été mise à jour'
       redirect_to convict_path(@convict)
@@ -92,6 +93,13 @@ class ConvictsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def search
+    @convicts = policy_scope(Convict).search_by_name_and_phone(params[:search_convicts])
+    authorize @convicts
+    render :layout => false
+  end
+
+
   private
 
   def save_and_redirect(convict)
@@ -100,8 +108,10 @@ class ConvictsController < ApplicationController
 
     return render :new if convict.duplicates.present? && !force_duplication
 
+    convict.valid?(:user_works_at_bex) if current_user.work_at_bex?
+
     if convict.save
-      RegisterLegalAreas.for_convict convict, from: current_organization
+      convict.update_organizations(current_user)
       redirect_to select_path(params)
     else
       # TODO : build a real policiy for convicts#show
