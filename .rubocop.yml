@@ -21,6 +21,7 @@ Metrics/BlockLength:
     - spec/**/*
     - app/models/notification.rb
     - app/models/appointment.rb
+    - app/controllers/admin/seeds_controller.rb
 
 Style/Documentation:
   Enabled: false

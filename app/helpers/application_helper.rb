@@ -7,6 +7,14 @@ module ApplicationHelper
     end
   end
 
+  def current?(key, path)
+    if current_page? path
+      "#{key}" 
+    else
+      nil
+    end
+  end
+
   def formated_dates_for_select(date_array)
     formated = []
 

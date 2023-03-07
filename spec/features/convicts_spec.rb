@@ -181,12 +181,8 @@ RSpec.feature 'Convicts', type: :feature do
       expect(Convict.first.cpip).to eq(cpip)
     end
 
-    it 'rataches a convict to user organization jurisdiction & department at creation' do
-      dpt81 = create :department, name: 'Tarn', number: '81'
-      juri81 = create :jurisdiction, name: "Tribunal d'Albi"
+    it 'fills in the convict creating organization' do
       orga = create :organization, name: 'test_orga'
-      create :areas_organizations_mapping, organization: orga, area: dpt81
-      create :areas_organizations_mapping, organization: orga, area: juri81
       user = create :user, organization: orga
       logout_current_user
       login_user user
@@ -195,7 +191,8 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
-      expect { click_button 'submit-no-appointment' }.to change(AreasConvictsMapping, :count).from(0).to(2)
+      click_button 'submit-no-appointment'
+      expect(Convict.last.creating_organization).to eq(orga)
     end
   end
 

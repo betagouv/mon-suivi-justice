@@ -99,6 +99,11 @@ User.create!(
 )
 
 User.create!(
+  organization: org_tj_nanterre, email: 'bexnanterre@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :bex, first_name: 'Max', last_name: 'Verstappen'
+)
+
+User.create!(
   organization: org_tj_melun, email: 'localadmintjmelun@example.com', password: '1mot2passeSecurise!',
   password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'Michel', last_name: 'Melun'
 )
