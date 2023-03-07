@@ -1,14 +1,14 @@
 <% content_for :content do %>
   <%= render 'layouts/header' %>
-
-
-      <% flash.each do |type, msg| %>
-        <p class=<%= type %>><%= msg %></p>
-      <% end %>
-      <main id="content">
-        <div class="fr-container--fluid">
-          <%= yield %>
-        </div>
+      <div id="flash_messages">
+        <% flash.each do |type, msg| %>
+          <div class="fr-alert <%= "fr-alert--#{type == 'notice' ? 'info' : type}" %> fr-alert--sm">
+            <p><%= msg %></p>
+          </div>
+        <% end %>
+      </div>
+      <main class="fr-container--fluid fr-mt-5w">
+        <%= yield %>
       </main>
 
   <%= render 'layouts/ie_warning' %>

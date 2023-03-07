@@ -9,9 +9,6 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    areas_organizations_mappings: Field::HasMany,
-    departments: Field::HasMany,
-    jurisdictions: Field::HasMany,
     name: Field::String,
     notification_types: Field::HasMany,
     organization_type: Field::Select.with_options(searchable: false, collection: lambda { |field|
@@ -49,10 +46,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     organization_type
     name
     users
-    departments
-    jurisdictions
     places
-    areas_organizations_mappings
     notification_types
     time_zone
     created_at
@@ -64,9 +58,6 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    areas_organizations_mappings
-    departments
-    jurisdictions
     name
     notification_types
     organization_type

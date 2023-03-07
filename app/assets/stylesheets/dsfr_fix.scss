@@ -66,3 +66,25 @@
   -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--error-fill.svg"));
   mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--error-fill.svg"));
 }
+
+.fr-alert--warning::before {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--warning-fill.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--warning-fill.svg"));
+}
+
+.fr-search-bar .fr-btn::before {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/search-line.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/search-line.svg"));
+}
+
+// Fixes for main navigation dropdowns
+.fr-nav__btn::after {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-down-s-line.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-down-s-line.svg"));
+}
+
+// Fix breadcrumbs
+.fr-breadcrumb__list li:not(:first-child)::before {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-right-s-line.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-right-s-line.svg"));
+}

@@ -30,8 +30,9 @@ class AppiImportJob < ApplicationJob
       appi_uuid: convict[:appi_uuid]
     )
 
+    convict.organizations.push(organization) unless convict.organizations.include?(organization)
+
     if convict.save
-      RegisterLegalAreas.for_convict convict, from: organization
       @import_successes.push("#{convict.first_name} #{convict.last_name} (id: #{convict.id})")
     else
       @import_errors.push("#{convict.first_name} #{convict.last_name} - #{convict.errors.full_messages.first}")
