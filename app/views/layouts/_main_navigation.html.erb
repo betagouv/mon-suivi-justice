@@ -8,7 +8,7 @@
     <nav class="fr-nav" id="header-navigation" role="navigation" aria-label="Menu principal">
       <ul class="fr-nav__list">
         <li class="fr-nav__item">
-          <%= link_to home_path, class: "fr-nav__link", 'aria-current': current?("page", home_path) do %>
+          <%= link_to home_path, class: "fr-nav__link", 'aria-current': current?("page", home_path) || current?("page", root_path) do %>
             <%= t('sidebar.home') %>
           <% end %>
         </li>
