@@ -51,7 +51,7 @@
   form {
     margin-right: 20px;
 
-    &:last-child{
+    &:last-child {
       margin-right: 0;
     }
   }
@@ -91,7 +91,7 @@
 .home-stats-link {
   @include badge($light-grey);
   margin-bottom: 10px;
-  border: 2px solid darken($light-grey, 8%);;
+  border: 2px solid darken($light-grey, 8%);
   background-color: $main-background;
 }
 
@@ -119,4 +119,21 @@
 
 .select2-search {
   width: 100%;
+}
+.select-organization-container {
+  display: flex;
+  margin-bottom: 32px;
+}
+.select-organization-wrapper {
+  margin-bottom: 0 !important;
+  margin-right: 16px;
+}
+.select-organization-input {
+  min-width: 200px;
+}
+.select-organization-label {
+  display: none;
+}
+.new-appointment-button {
+  margin-right: 16px;
 }

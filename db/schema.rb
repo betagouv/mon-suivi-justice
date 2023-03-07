@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_24_100610) do
+ActiveRecord::Schema.define(version: 2023_03_03_141633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,22 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
     t.index ["organization_id"], name: "index_areas_organizations_mappings_on_organization_id"
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "zipcode", null: false
+    t.string "code_insee"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "city_id"
+    t.bigint "spip_id"
+    t.bigint "tj_id"
+    t.index ["city_id"], name: "index_cities_on_city_id"
+    t.index ["name"], name: "index_cities_on_name"
+    t.index ["spip_id"], name: "index_cities_on_spip_id"
+    t.index ["tj_id"], name: "index_cities_on_tj_id"
+    t.index ["zipcode"], name: "index_cities_on_zipcode"
+  end
+
   create_table "commune", id: false, force: :cascade do |t|
     t.text "id"
     t.string "code_insee", limit: 255
@@ -187,8 +203,24 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
     t.datetime "timestamp_convict_interface_creation"
     t.datetime "last_invite_to_convict_interface"
     t.date "date_of_birth"
+    t.boolean "homeless", default: false, null: false
+    t.boolean "lives_abroad", default: false, null: false
+    t.bigint "city_id"
+    t.bigint "creating_organization_id"
+    t.index ["city_id"], name: "index_convicts_on_city_id"
+    t.index ["creating_organization_id"], name: "index_convicts_on_creating_organization_id"
     t.index ["discarded_at"], name: "index_convicts_on_discarded_at"
     t.index ["user_id"], name: "index_convicts_on_user_id"
+  end
+
+  create_table "convicts_organizations_mappings", force: :cascade do |t|
+    t.bigint "organization_id"
+    t.bigint "convict_id"
+    t.datetime "desactivated_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["convict_id"], name: "index_convicts_organizations_mappings_on_convict_id"
+    t.index ["organization_id"], name: "index_convicts_organizations_mappings_on_organization_id"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -208,6 +240,12 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "scope", default: "appointment_update", null: false
     t.index ["organization_id"], name: "index_extra_fields_on_organization_id"
+  end
+
+  create_table "headquarters", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "history_items", force: :cascade do |t|
@@ -269,6 +307,10 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "organization_type", default: 0
     t.string "time_zone", default: "Europe/Paris", null: false
+    t.bigint "linked_organization_id"
+    t.bigint "headquarter_id"
+    t.index ["headquarter_id"], name: "index_organizations_on_headquarter_id"
+    t.index ["linked_organization_id"], name: "index_organizations_on_linked_organization_id"
     t.index ["name"], name: "index_organizations_on_name", unique: true
   end
 
@@ -341,6 +383,16 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
     t.index ["slot_type_id"], name: "index_slots_on_slot_type_id"
   end
 
+  create_table "spips", force: :cascade do |t|
+    t.string "name"
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "structure_id"
+    t.index ["organization_id"], name: "index_spips_on_organization_id"
+    t.index ["structure_id"], name: "index_spips_on_structure_id"
+  end
+
   create_table "structure", id: false, force: :cascade do |t|
     t.text "id"
     t.string "type_structure_id", limit: 255
@@ -357,6 +409,16 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
     t.string "mnemo"
     t.text "ville"
     t.boolean "competent_matiere_nationale"
+  end
+
+  create_table "tjs", force: :cascade do |t|
+    t.string "name"
+    t.bigint "organization_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "structure_id"
+    t.index ["organization_id"], name: "index_tjs_on_organization_id"
+    t.index ["structure_id"], name: "index_tjs_on_structure_id"
   end
 
   create_table "type_structure", id: false, force: :cascade do |t|
@@ -404,7 +466,9 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
     t.string "phone"
     t.boolean "share_email_to_convict", default: true
     t.boolean "share_phone_to_convict", default: true
+    t.bigint "headquarter_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["headquarter_id"], name: "index_users_on_headquarter_id"
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
@@ -434,6 +498,10 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
   add_foreign_key "appointments", "users"
   add_foreign_key "areas_convicts_mappings", "convicts"
   add_foreign_key "areas_organizations_mappings", "organizations"
+  add_foreign_key "cities", "spips"
+  add_foreign_key "cities", "tjs"
+  add_foreign_key "convicts", "cities"
+  add_foreign_key "convicts", "organizations", column: "creating_organization_id"
   add_foreign_key "convicts", "users"
   add_foreign_key "extra_fields", "organizations"
   add_foreign_key "history_items", "appointments"
@@ -441,6 +509,8 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notification_types", "organizations"
   add_foreign_key "notifications", "appointments"
+  add_foreign_key "organizations", "headquarters"
+  add_foreign_key "organizations", "organizations", column: "linked_organization_id"
   add_foreign_key "places", "organizations"
   add_foreign_key "previous_passwords", "users"
   add_foreign_key "slot_types", "agendas"
@@ -448,5 +518,8 @@ ActiveRecord::Schema.define(version: 2023_01_24_100610) do
   add_foreign_key "slots", "agendas"
   add_foreign_key "slots", "appointment_types"
   add_foreign_key "slots", "slot_types"
+  add_foreign_key "spips", "organizations"
+  add_foreign_key "tjs", "organizations"
+  add_foreign_key "users", "headquarters"
   add_foreign_key "users", "organizations"
 end

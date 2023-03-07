@@ -39,7 +39,8 @@ class UserDashboard < Administrate::BaseDashboard
     share_phone_to_convict: Field::Boolean,
     visits: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    updated_at: Field::DateTime,
+    headquarter: Field::BelongsTo
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -54,6 +55,7 @@ class UserDashboard < Administrate::BaseDashboard
     first_name
     last_name
     email
+    headquarter
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -83,6 +85,7 @@ class UserDashboard < Administrate::BaseDashboard
     reset_password_token
     created_at
     updated_at
+    headquarter
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -100,6 +103,7 @@ class UserDashboard < Administrate::BaseDashboard
     role
     share_email_to_convict
     share_phone_to_convict
+    headquarter
   ].freeze
 
   # COLLECTION_FILTERS

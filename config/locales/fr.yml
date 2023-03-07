@@ -37,6 +37,7 @@ fr:
       slot:  "Créneau"
       agenda: "Agenda"
       organization: "Service"
+      headquarter: "Siège"
 
     attributes:
       convict:
@@ -272,6 +273,7 @@ fr:
     stats_passed_booked: "de rdv non renseignés"
     stats_from_informed: "Parmi les rdv renseignés :"
     stats_global: "Global"
+    select_organization: "Changer d'antenne"
 
     notice:
       fill_out_appointments: "Attention, %{data}% des rendez-vous de votre service n'ont pas de statut renseigné."
