@@ -103,4 +103,8 @@ class User < ApplicationRecord
   def can_have_appointments_assigned?
     %w[cpip psychologist overseer].include? role
   end
+
+  def organizations
+    [organization, *organization.linked_or_associated_organization]
+  end
 end

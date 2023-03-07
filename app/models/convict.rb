@@ -1,8 +1,8 @@
 class Convict < ApplicationRecord
   include NormalizedPhone
   include Discard::Model
-  include PgSearch
-
+  include PgSearch::Model
+  
   has_paper_trail
 
   WHITELISTED_PHONES = %w[+33659763117 +33683481555 +33682356466 +33603371085

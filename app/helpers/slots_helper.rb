@@ -3,15 +3,7 @@ module SlotsHelper
     list = apt_type_list(user)
     AppointmentType.where(name: list)
   end
-
-  def agendas_for_slot_creation(user)
-    if user.work_at_bex? || user.admin?
-      Agenda.in_departments(user.organization.departments).select(&:appointment_type_with_slot_types?)
-    else
-      Agenda.in_organization(user.organization).select(&:appointment_type_with_slot_types?)
-    end
-  end
-
+  
   private
 
   def apt_type_list(user)

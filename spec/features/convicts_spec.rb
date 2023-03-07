@@ -249,9 +249,7 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'creates a history_item if the phone number is removed' do
-      convict = create(:convict, phone: '0606060606')
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-
+      convict = create(:convict_with_organizations, phone: '0606060606')
       visit edit_convict_path(convict)
 
       fill_in 'Téléphone portable', with: ''
