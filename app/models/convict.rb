@@ -1,6 +1,8 @@
 class Convict < ApplicationRecord
   include NormalizedPhone
   include Discard::Model
+  include PgSearch
+
   has_paper_trail
 
   WHITELISTED_PHONES = %w[+33659763117 +33683481555 +33682356466 +33603371085
@@ -36,11 +38,12 @@ class Convict < ApplicationRecord
   validate :phone_uniqueness
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
+  validates :city_id, presence: true, on: :user_works_at_bex
+
   validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE
 
   after_update :update_convict_api
-  before_save :update_organizations
 
   #
   # Convict linked to same departement OR same jurisdiction than the user's organization ones
@@ -71,6 +74,11 @@ class Convict < ApplicationRecord
   scope :with_past_appointments, (lambda do
     joins(appointments: :slot).where(appointments: { slots: { date: ..Date.today } })
   end)
+
+  pg_search_scope :search_by_name_and_phone, :against => [:first_name, :last_name, :phone],
+  using: {
+    :tsearch => {:prefix => true}
+  }
 
   delegate :name, to: :cpip, allow_nil: true, prefix: true
 
@@ -171,8 +179,13 @@ class Convict < ApplicationRecord
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
-  def update_organizations
-    return unless city_id
+  def update_organizations(current_user)
+
+    if !city_id
+      organizations.push(current_user.organization) unless organizations.include?(current_user.organization)
+      # TODO also add linked tj or spip
+      return
+    end
 
     city = City.find(city_id)
 
@@ -181,6 +194,8 @@ class Convict < ApplicationRecord
 
     organizations.push(tj) unless organizations.include?(tj) || tj.nil?
     organizations.push(spip) unless organizations.include?(spip) || spip.nil?
+
+    self.save
   end
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity
