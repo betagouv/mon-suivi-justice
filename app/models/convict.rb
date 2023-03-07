@@ -44,7 +44,6 @@ class Convict < ApplicationRecord
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE
 
   after_update :update_convict_api
-  before_save :update_organizations
 
   #
   # Convict linked to same departement OR same jurisdiction than the user's organization ones
