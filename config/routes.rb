@@ -70,9 +70,6 @@ Rails.application.routes.draw do
     resource :slot_types_batch, only: [:create, :destroy]
   end
 
-  resources :areas_organizations_mappings, only: [:create, :destroy]
-  resources :areas_convicts_mappings, only: [:create, :destroy]
-
   resources :appointments do
     resource :reschedule, only: [:new, :create], controller: 'appointments_reschedules'
     put 'cancel'
@@ -99,6 +96,7 @@ Rails.application.routes.draw do
     get :load_slots
     get :load_slot_fields
     get :load_submit_button
+    get :load_cities
   end
 
   get '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'
@@ -120,6 +118,8 @@ Rails.application.routes.draw do
   get '/steering_user_app' => 'steerings#user_app_stats', as: 'steering_user_app'
   get '/steering_convict_app' => 'steerings#convict_app_stats', as: 'steering_convict_app'
   get '/steering_sda' => 'steerings#sda_stats', as: 'steering_sda'
+
+  get '/search_convicts' => 'convicts#search', as: 'search_convicts'
 
   unauthenticated do
     devise_scope :user do
