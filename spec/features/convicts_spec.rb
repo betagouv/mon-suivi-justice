@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Convicts', type: :feature do
   before do
-    @user = create_admin_user_and_login
+    #@user = create_admin_user_and_login
     # TODO : we should not have to return Place.all. The factory should add places to the user's organization
     allow(Place).to receive(:in_departments).and_return(Place.all)
   end
@@ -81,12 +81,12 @@ RSpec.feature 'Convicts', type: :feature do
     end
   end
 
-  describe 'creation' do
+  describe 'creation', logged_in_as: 'cpip' do
     it 'creates a convict with his first appointment', js: true do
       appointment_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
       place = create :place, name: 'McDo de Clichy',
                              appointment_types: [appointment_type],
-                             organization: @user.organization
+                             organization: @cpip.organization
       agenda = create(:agenda, place: place, name: 'Agenda de Jean-Louis')
 
       create(:agenda, place: place, name: 'Agenda de Michel')
@@ -196,13 +196,11 @@ RSpec.feature 'Convicts', type: :feature do
     end
   end
 
-  describe 'update' do
+  describe 'update', logged_in_as: 'cpip' do
     it 'update convict informations', js: true do
-      convict = create(:convict, last_name: 'Expresso')
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
-      visit convicts_path
-      within first('.convicts-item-container') { click_link 'Modifier' }
+      convict = create(:convict, last_name: 'Expresso', organizations: [@cpip.organization])
+      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @cpip.organization)
+      visit edit_convict_path(convict)
       fill_in 'Nom', with: 'Ristretto'
       find('form > div.form-input-wrapper.select.optional.convict_user > span > span.selection > span').click
       find('li.select2-results__option', text: 'MAU Rémy').click
@@ -213,18 +211,12 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'creates a history_item if the phone number is updated' do
-      convict = create(:convict, phone: '0606060606')
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-
+      convict = create(:convict, phone: '0606060606', organizations: [@cpip.organization])
       visit edit_convict_path(convict)
-
       fill_in 'Téléphone portable', with: '0707070707'
-
       expect { click_button('Enregistrer') }.to change { HistoryItem.count }.by(1)
-
       visit convict_path(convict)
-
-      expected_content = "Le numéro de téléphone de #{convict.name} a été modifié par #{@user.name} (#{@user.role}). " \
+      expected_content = "Le numéro de téléphone de #{convict.name} a été modifié par #{@cpip.name} (#{@cpip.role}). " \
                          'Ancien numéro : 06 06 06 06 06 / Nouveau numéro : 07 07 07 07 07.'
 
       expect(page).to have_content(expected_content)
@@ -266,12 +258,11 @@ RSpec.feature 'Convicts', type: :feature do
     end
   end
 
-  describe 'show' do
+  describe 'show', logged_in_as: 'cpip' do
     before do
       @convict = create(:convict, last_name: 'Noisette',
                                   first_name: 'Café',
-                                  phone: '0607060706')
-      create :areas_convicts_mapping, convict: @convict, area: @user.organization.departments.first
+                                  phone: '0607060706', organizations: [@cpip.organization])
     end
 
     it 'displays infos on convict' do
@@ -326,10 +317,8 @@ RSpec.feature 'Convicts', type: :feature do
       expect(Convict.first.cpip).to eq(dpip)
     end
 
-    it 'allow a cpip to invite a convict to his interface and displays the correct content' do
-      logout_current_user
-      @user = create_cpip_user_and_login
-      @user.update(email: 'delphine.deneubourg@justice.fr')
+    it 'allow a cpip to invite a convict to his interface and displays the correct content', logged_in_as: 'cpip' do
+      @cpip.update(email: 'delphine.deneubourg@justice.fr')
       visit convict_path(@convict)
       expect(page).to have_content('Jamais invité')
       expect(page).to have_content("Aucun accès pour l'instant")
@@ -346,15 +335,8 @@ RSpec.feature 'Convicts', type: :feature do
   end
 
   describe 'archive' do
-    it 'an agent archive a convict' do
-      dpt01 = create :department, number: '01', name: 'Ain'
-      orga = create :organization
-      user = create :user, role: 'cpip', organization: orga
-      create :areas_organizations_mapping, organization: orga, area: dpt01
-      convict_dpt01 = create :convict, first_name: 'babar', last_name: 'BABAR'
-      create :areas_convicts_mapping, convict: convict_dpt01, area: dpt01
-      login_user user
-
+    it 'an agent can archive a convict', logged_in_as: 'cpip' do
+      convict = create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606', organizations: [@cpip.organization])
       visit convicts_path
 
       expect(page).to have_content('BABAR Babar')
@@ -365,9 +347,8 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).not_to have_content('Désarchiver')
     end
 
-    it 'an admin archive and unarchive a convict' do
-      convict = create :convict, first_name: 'babar', last_name: 'BABAR'
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+    it 'an admin can archive and unarchive a convict', logged_in_as: 'admin' do
+      convict = create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606', organizations: [@admin.organization])
 
       visit convicts_path
       expect(page).to have_content('BABAR Babar')
