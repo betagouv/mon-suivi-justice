@@ -95,7 +95,6 @@ RSpec.configure do |config|
 =end
   config.order = :random
 
-
   config.before(:example, :logged_in_as => 'cpip') do
     create_cpip_user_and_login
   end
