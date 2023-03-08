@@ -32,6 +32,8 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
+    @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
+    @extra_fields.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field: extra_field) }
     authorize @appointment
 
     return unless params.key?(:convict_id)
@@ -41,7 +43,6 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(appointment_params)
-
     assign_appointment_to_user
     assign_appointment_to_creating_organization
 
@@ -53,6 +54,7 @@ class AppointmentsController < ApplicationController
       redirect_to appointment_path(@appointment)
     else
       @appointment.errors.each { |error| flash.now[:alert] = error.message }
+      @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
       render :new
     end
   end
@@ -112,7 +114,8 @@ class AppointmentsController < ApplicationController
   def appointment_params
     params.require(:appointment).permit(
       :slot_id, :user_id, :convict_id, :appointment_type_id, :place_id, :origin_department, :prosecutor_number,
-      :creating_organization_id, slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time]
+      :creating_organization_id, slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time],
+                                 appointment_extra_fields_attributes: [:value, :extra_field_id]
     )
   end
 

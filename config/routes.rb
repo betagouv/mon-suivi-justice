@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :import_convicts, only: [:index]
       post '/create_page' => "public_pages#create"
       post '/import_convicts' => "import_convicts#import"
+      resources :headquarters
 
       root to: "users#index"
     end
@@ -100,6 +101,7 @@ Rails.application.routes.draw do
     match :agenda_jap, via: [:get, :post], defaults: { appointment_type: 'Sortie d\'audience SAP', }
     get :agenda_spip, defaults: { appointment_type: 'Sortie d\'audience SPIP' }
     get :agenda_sap_ddse, defaults: { appointment_type: 'SAP DDSE' }
+    put :appointment_extra_field
   end
 
   scope controller: :home do

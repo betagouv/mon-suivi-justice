@@ -1,7 +1,13 @@
 Sentry.init do |config|
-  config.enabled_environments = %w[production]
+  config.enabled_environments = %w[staging production]
   config.dsn = ENV["SENTRY_DNS"]
   config.breadcrumbs_logger = [:active_support_logger, :http_logger]
+
+  if ENV['APP'] == 'mon-suivi-justice-staging'
+    config.environment = 'staging'
+  elsif ENV['APP'] == 'mon-suivi-justice-prod'
+    config.environment = 'production'
+  end
 
   # Set tracesSampleRate to 1.0 to capture 100%
   # of transactions for performance monitoring.
