@@ -6,7 +6,7 @@ FactoryBot.define do
     role { :admin }
     password { '1mot2passeSecurise!' }
     password_confirmation { '1mot2passeSecurise!' }
-    association :organization, factory: %i[organization with_department]
+    association :organization
 
     factory :user_with_appointments do
       after(:create) do |user|

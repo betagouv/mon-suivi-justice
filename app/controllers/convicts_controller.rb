@@ -96,9 +96,8 @@ class ConvictsController < ApplicationController
   def search
     @convicts = policy_scope(Convict).search_by_name_and_phone(params[:search_convicts])
     authorize @convicts
-    render :layout => false
+    render layout: false
   end
-
 
   private
 
