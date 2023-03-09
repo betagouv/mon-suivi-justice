@@ -35,46 +35,42 @@ class PlaceDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     adress
-    agendas
-    appointment_types
+    preparation_link
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
+    organization
+    name
+    preparation_link
     adress
     agendas
     appointment_types
     contact_email
-    discarded_at
     main_contact_method
-    name
-    organization
     phone
     place_appointment_types
-    preparation_link
-    versions
     created_at
     updated_at
+    discarded_at
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
+    organization
+    name
+    preparation_link
     adress
     agendas
     appointment_types
     contact_email
-    discarded_at
     main_contact_method
-    name
-    organization
     phone
     place_appointment_types
-    preparation_link
-    versions
   ].freeze
 
   # COLLECTION_FILTERS
@@ -87,7 +83,9 @@ class PlaceDashboard < Administrate::BaseDashboard
   #   COLLECTION_FILTERS = {
   #     open: ->(resources) { resources.where(open: true) }
   #   }.freeze
-  COLLECTION_FILTERS = {}.freeze
+  COLLECTION_FILTERS = {
+    no_link: ->(resources) { resources.where(preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/') }
+  }.freeze
 
   # Overwrite this method to customize how places are displayed
   # across all pages of the admin dashboard.

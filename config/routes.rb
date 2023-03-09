@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resources :organizations
       resources :departments
       resources :slots
-      resources :places, except: :index
+      resources :places
       resources :jurisdictions, except: :index
       if Rails.env.development?
         resources :seeds, only: [:index]
