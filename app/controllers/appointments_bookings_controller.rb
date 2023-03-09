@@ -35,7 +35,7 @@ class AppointmentsBookingsController < ApplicationController
                                        agenda_id: @agendas.first.id,
                                        apt_type_id: params[:apt_type_id])
   end
-  
+
   def load_time_options
     all_agendas = params[:agenda_id] == 'all'
     agenda_id = params[:agenda_id] == 'all' ? nil : params[:agenda_id]
