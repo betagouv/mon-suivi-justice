@@ -59,7 +59,7 @@ class Organization < ApplicationRecord
     return if extra_fields.count <= 3
 
     grouped_extra_fields = {
-      spip: extra_fields.count(&:relate_to_sip?),
+      spip: extra_fields.count(&:relate_to_spip?),
       sap: extra_fields.count(&:relate_to_sap?)
     }
 
