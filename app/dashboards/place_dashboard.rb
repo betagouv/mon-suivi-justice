@@ -34,6 +34,7 @@ class PlaceDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
+    name
     adress
     preparation_link
   ].freeze
