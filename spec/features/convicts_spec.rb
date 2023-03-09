@@ -2,86 +2,50 @@ require 'rails_helper'
 
 RSpec.feature 'Convicts', type: :feature do
   before do
-    @user = create_admin_user_and_login
+    # @user = create_admin_user_and_login
     # TODO : we should not have to return Place.all. The factory should add places to the user's organization
     allow(Place).to receive(:in_departments).and_return(Place.all)
   end
 
-  describe 'index' do
-    context 'full index' do
-      before do
-        convict1 = create(:convict, first_name: 'michel', phone: '0607080910')
-        create :areas_convicts_mapping, convict: convict1, area: @user.organization.departments.first
-        convict2 = create(:convict, first_name: 'Paul')
-        create :areas_convicts_mapping, convict: convict2, area: @user.organization.departments.first
-        visit convicts_path
+  describe 'index', logged_in_as: 'cpip' do
+    it 'allows an agent to assign himself to a convict' do
+      create(:convict, first_name: 'Bernard', phone: '0607080910', organizations: [@user.organization])
+      visit convicts_path
+      within first('.convicts-item-container') do
+        click_link('attribuer cette PPSMJ')
       end
-
-      it 'an admin lists all convicts' do
-        expect(page).to have_content('Michel').twice
-        expect(page).to have_content('06 07 08 09 10')
-        expect(page).to have_content('Paul').twice
-      end
-
-      it 'an admin can delete convict' do
-        within first('.convicts-item-container') do
-          expect { click_link('Supprimer') }.to change { Convict.count }.by(-1)
-        end
-      end
-
-      it 'allows a cpip to assign himself to a convict' do
-        logout_current_user
-        @user = create_cpip_user_and_login
-        visit convicts_path
-        within first('.convicts-item-container') do
-          click_link('attribuer cette PPSMJ')
-        end
-        expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
-        expect(page).to have_content(@user.name)
-        expect(Convict.first.cpip).to eq(@user)
-      end
-
-      it 'an agent see only convict from his jurisdiction and department' do
-        dpt01 = create :department, number: '01', name: 'Ain'
-        juri01 = create :jurisdiction, name: 'jurisdiction_01'
-        orga = create :organization
-        user = create :user, role: 'cpip', organization: orga
-        create :areas_organizations_mapping, organization: orga, area: dpt01
-        create :areas_organizations_mapping, organization: orga, area: juri01
-        create :user, organization: orga
-        convict_dpt01 = create :convict, first_name: 'babar', last_name: 'BABAR'
-        convict_juri01 = create :convict, first_name: 'bobor', last_name: 'BOBOR'
-        create :areas_convicts_mapping, convict: convict_dpt01, area: dpt01
-        create :areas_convicts_mapping, convict: convict_juri01, area: juri01
-        logout_current_user
-        login_user user
-        visit convicts_path
-        expect(page).not_to have_content('Michel')
-        expect(page).not_to have_content('Paul')
-        expect(page).to have_content('BABAR Babar').twice
-        expect(page).to have_content('BOBOR Bobor').twice
-      end
+      expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
+      expect(page).to have_content(@user.name)
+      expect(Convict.first.cpip).to eq(@user)
     end
 
-    context 'my index' do
-      before do
-        logout_current_user
-        @agent = create_cpip_user_and_login
-        convict1 = create(:convict, first_name: 'Michel', phone: '0607080910')
-        create :areas_convicts_mapping, convict: convict1, area: @user.organization.departments.first
-        convict2 = create(:convict, first_name: 'Paul', user: @agent)
-        create :areas_convicts_mapping, convict: convict2, area: @user.organization.departments.first
-        visit convicts_path(only_mine: true)
-      end
+    it 'an agent see only convict from his organization (TODO : and linked organization ?)' do
+      create(:convict, first_name: 'Michel', last_name: 'Vaillant', organizations: [@user.organization])
+      create(:convict, first_name: 'Paul', last_name: 'Personne', organizations: [@user.organization])
 
-      it 'an admin lists only my convicts' do
-        expect(page).to have_content('Paul').twice
-        expect(page).to have_content('Michel').once
-      end
+      organization = create :organization
+      create(:convict, first_name: 'Max', last_name: 'Dupneu', organizations: [organization])
+      create(:convict, first_name: 'Tom', last_name: 'Dupont', organizations: [organization])
+
+      visit convicts_path
+      expect(page).not_to have_content('Max')
+      expect(page).not_to have_content('Tom')
+      expect(page).to have_content('VAILLANT Michel').twice
+      expect(page).to have_content('PERSONNE Paul').twice
+    end
+
+    it 'an agent can list only the convicts assigned to him' do
+      create(:convict, first_name: 'Michel', last_name: 'Vaillant', organizations: [@user.organization], user: @user)
+      create(:convict, first_name: 'Paul', last_name: 'Personne', organizations: [@user.organization])
+
+      visit convicts_path(only_mine: true)
+
+      expect(page).to have_content('Michel').twice
+      expect(page).to have_content('Paul').once
     end
   end
 
-  describe 'creation' do
+  describe 'creation', logged_in_as: 'cpip' do
     it 'creates a convict with his first appointment', js: true do
       appointment_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
       place = create :place, name: 'McDo de Clichy',
@@ -105,8 +69,8 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'submit-with-appointment' }.to change { Convict.count }.by(1)
       expect(page).to have_current_path(new_appointment_path(convict_id: Convict.last.id))
 
-      select "Sortie d'audience SPIP", from: :appointment_appointment_type_id
-      select 'McDo de Clichy', from: 'Lieu'
+      select "Sortie d'audience SPIP", from: 'appointment_appointment_type_id'
+      select 'McDo de Clichy', from: 'appointment-form-place-select'
       select 'Agenda de Jean-Louis', from: 'Agenda'
 
       choose '14:00'
@@ -128,8 +92,7 @@ RSpec.feature 'Convicts', type: :feature do
 
     describe 'with potentially duplicated convicts' do
       it 'shows a warning with link to pre-existing convict profile' do
-        convict = create(:convict, first_name: 'roberta', last_name: 'dupond')
-        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+        convict = create(:convict, first_name: 'roberta', last_name: 'dupond', organizations: [@user.organization])
 
         visit new_convict_path
 
@@ -196,13 +159,11 @@ RSpec.feature 'Convicts', type: :feature do
     end
   end
 
-  describe 'update' do
+  describe 'update', logged_in_as: 'cpip' do
     it 'update convict informations', js: true do
-      convict = create(:convict, last_name: 'Expresso')
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+      convict = create(:convict, last_name: 'Expresso', organizations: [@user.organization])
       cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
-      visit convicts_path
-      within first('.convicts-item-container') { click_link 'Modifier' }
+      visit edit_convict_path(convict)
       fill_in 'Nom', with: 'Ristretto'
       find('form > div.form-input-wrapper.select.optional.convict_user > span > span.selection > span').click
       find('li.select2-results__option', text: 'MAU Rémy').click
@@ -213,17 +174,11 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'creates a history_item if the phone number is updated' do
-      convict = create(:convict, phone: '0606060606')
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-
+      convict = create(:convict, phone: '0606060606', organizations: [@user.organization])
       visit edit_convict_path(convict)
-
       fill_in 'Téléphone portable', with: '0707070707'
-
       expect { click_button('Enregistrer') }.to change { HistoryItem.count }.by(1)
-
       visit convict_path(convict)
-
       expected_content = "Le numéro de téléphone de #{convict.name} a été modifié par #{@user.name} (#{@user.role}). " \
                          'Ancien numéro : 06 06 06 06 06 / Nouveau numéro : 07 07 07 07 07.'
 
@@ -231,8 +186,7 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'creates a history_item if a new phone number is added' do
-      convict = create(:convict, phone: nil, no_phone: true)
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+      convict = create(:convict, phone: nil, no_phone: true, organizations: [@user.organization])
 
       visit edit_convict_path(convict)
 
@@ -249,9 +203,8 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'creates a history_item if the phone number is removed' do
-      convict = create(:convict, phone: '0606060606')
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
-
+      convict = create(:convict, first_name: 'Bob', last_name: 'Dupneu', phone: '0606060606',
+                                 organizations: [@user.organization])
       visit edit_convict_path(convict)
 
       fill_in 'Téléphone portable', with: ''
@@ -269,94 +222,80 @@ RSpec.feature 'Convicts', type: :feature do
   end
 
   describe 'show' do
-    before do
-      @convict = create(:convict, last_name: 'Noisette',
-                                  first_name: 'Café',
-                                  phone: '0607060706')
-      create :areas_convicts_mapping, convict: @convict, area: @user.organization.departments.first
-    end
+    context 'logged in as cpip', logged_in_as: 'cpip' do
+      before do
+        @convict = create(:convict, last_name: 'Noisette',
+                                    first_name: 'Café',
+                                    phone: '0607060706', organizations: [@user.organization])
+      end
 
-    it 'displays infos on convict' do
-      place = create(:place, name: 'SPIP du 93', organization: @user.organization)
-      agenda = create(:agenda, place: place)
+      it 'displays infos on convict' do
+        visit convict_path(@convict)
 
-      slot1 = create(:slot, agenda: agenda,
-                            starting_time: new_time_for(13, 0))
+        expect(page).to have_content('Café')
+        expect(page).to have_content('NOISETTE')
+        expect(page).to have_content('06 07 06 07 06')
+      end
 
-      slot2 = create(:slot, agenda: agenda,
-                            starting_time: new_time_for(15, 30))
+      it 'allows a cpip to assign himself to a convict' do
+        visit convict_path(@convict)
 
-      create(:appointment, slot: slot1, convict: @convict)
-      create(:appointment, slot: slot2, convict: @convict)
+        click_link('attribuer cette PPSMJ')
+        expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
+        expect(page).to have_content(@user.name)
+        expect(Convict.first.cpip).to eq(@user)
+      end
 
-      visit convict_path(@convict)
+      it 'allow a cpip to invite a convict to his interface and displays the correct content', logged_in_as: 'cpip' do
+        @user.update(email: 'delphine.deneubourg@justice.fr')
+        visit convict_path(@convict)
+        expect(page).to have_content('Jamais invité')
+        expect(page).to have_content("Aucun accès pour l'instant")
+        expect { click_button('Inviter à son espace') }.to have_enqueued_job(InviteConvictJob).once
 
-      expect(page).to have_content('Café')
-      expect(page).to have_content('NOISETTE')
-      expect(page).to have_content('06 07 06 07 06')
-    end
+        @convict.update(invitation_to_convict_interface_count: 1)
+        visit convict_path(@convict)
+        expect(page).to have_content('Invité')
 
-    it 'allows to delete convict' do
-      visit convict_path(@convict)
-
-      within first('.show-profile-container') do
-        expect { click_button('Supprimer') }.to change { Convict.count }.by(-1)
+        @convict.update(timestamp_convict_interface_creation: Time.zone.now)
+        visit convict_path(@convict)
+        expect(page).to have_content('Accepté')
       end
     end
 
-    it 'allows a cpip to assign himself to a convict' do
-      logout_current_user
-      @user = create_cpip_user_and_login
-      visit convict_path(@convict)
+    context 'logged in as admin', logged_in_as: 'admin' do
+      it 'allows to delete convict' do
+        convict = create(:convict, last_name: 'Noisette',
+                                   first_name: 'Café',
+                                   phone: '0607060706', organizations: [@user.organization])
+        visit convict_path(convict)
 
-      click_link('attribuer cette PPSMJ')
-      expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
-      expect(page).to have_content(@user.name)
-      expect(Convict.first.cpip).to eq(@user)
+        within first('.show-profile-container') do
+          expect { click_button('Supprimer') }.to change { Convict.count }.by(-1)
+        end
+      end
     end
 
-    it 'allows a dpip to assign himself to a convict' do
-      logout_current_user
-      dpip = create(:user, role: 'dpip')
-      login_as(dpip, scope: :user)
+    context 'logged in as dpip', logged_in_as: 'dpip' do
+      it 'allows a dpip to assign himself to a convict' do
+        convict = create(:convict, last_name: 'Noisette',
+                                   first_name: 'Café',
+                                   phone: '0607060706', organizations: [@user.organization])
 
-      visit convict_path(@convict)
+        visit convict_path(convict)
 
-      click_link('attribuer cette PPSMJ')
-      expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
-      expect(page).to have_content(dpip.name)
-      expect(Convict.first.cpip).to eq(dpip)
-    end
-
-    it 'allow a cpip to invite a convict to his interface and displays the correct content' do
-      logout_current_user
-      @user = create_cpip_user_and_login
-      @user.update(email: 'delphine.deneubourg@justice.fr')
-      visit convict_path(@convict)
-      expect(page).to have_content('Jamais invité')
-      expect(page).to have_content("Aucun accès pour l'instant")
-      expect { click_button('Inviter à son espace') }.to have_enqueued_job(InviteConvictJob).once
-
-      @convict.update(invitation_to_convict_interface_count: 1)
-      visit convict_path(@convict)
-      expect(page).to have_content('Invité')
-
-      @convict.update(timestamp_convict_interface_creation: Time.zone.now)
-      visit convict_path(@convict)
-      expect(page).to have_content('Accepté')
+        click_link('attribuer cette PPSMJ')
+        expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
+        expect(page).to have_content(@user.name)
+        expect(Convict.first.cpip).to eq(@user)
+      end
     end
   end
 
   describe 'archive' do
-    it 'an agent archive a convict' do
-      dpt01 = create :department, number: '01', name: 'Ain'
-      orga = create :organization
-      user = create :user, role: 'cpip', organization: orga
-      create :areas_organizations_mapping, organization: orga, area: dpt01
-      convict_dpt01 = create :convict, first_name: 'babar', last_name: 'BABAR'
-      create :areas_convicts_mapping, convict: convict_dpt01, area: dpt01
-      login_user user
-
+    it 'an agent can archive a convict', logged_in_as: 'cpip' do
+      create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606',
+                                 organizations: [@user.organization])
       visit convicts_path
 
       expect(page).to have_content('BABAR Babar')
@@ -367,9 +306,9 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).not_to have_content('Désarchiver')
     end
 
-    it 'an admin archive and unarchive a convict' do
-      convict = create :convict, first_name: 'babar', last_name: 'BABAR'
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+    it 'an admin can archive and unarchive a convict', logged_in_as: 'admin' do
+      convict = create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606',
+                                 organizations: [@user.organization])
 
       visit convicts_path
       expect(page).to have_content('BABAR Babar')
