@@ -5,7 +5,9 @@ class ExtraField < ApplicationRecord
   belongs_to :organization
   has_many :appointments, through: :appointment_extra_fields
   has_many :appointment_extra_fields, inverse_of: :extra_field, dependent: :destroy
-  accepts_nested_attributes_for :appointment_extra_fields, reject_if: :all_blank, allow_destroy: true, limit: 3
+  has_and_belongs_to_many :appointment_types, dependent: :destroy
+  accepts_nested_attributes_for :appointment_extra_fields, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :appointment_types, reject_if: :all_blank, allow_destroy: true
 
   enum data_type: DATA_TYPES
   enum scope: SCOPES

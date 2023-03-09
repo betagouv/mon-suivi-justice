@@ -14,6 +14,8 @@ class AppointmentType < ApplicationRecord
   has_many :place_appointment_types, dependent: :destroy
   has_many :places, through: :place_appointment_types
 
+  has_and_belongs_to_many :extra_fields
+
   accepts_nested_attributes_for :notification_types
   attr_accessor :orga
 
@@ -38,6 +40,10 @@ class AppointmentType < ApplicationRecord
 
   def sortie_audience?
     ["Sortie d'audience SAP", "Sortie d'audience SPIP", 'SAP DDSE'].include? name
+  end
+
+  def sortie_audience_without_ddse?
+    ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
   end
 
   def assignable?
