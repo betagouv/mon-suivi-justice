@@ -11,6 +11,7 @@ class Organization < ApplicationRecord
   has_many :extra_fields, dependent: :destroy, inverse_of: :organization
   belongs_to :headquarter, optional: true
   abymize :extra_fields, permit: :all_attributes, allow_destroy: true
+  has_many :agendas, through: :places, dependent: :nullify
   has_one :tj
   has_one :spip
   has_one :associated_organization, class_name: 'Organization',
