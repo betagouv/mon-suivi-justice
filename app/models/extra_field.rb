@@ -17,4 +17,12 @@ class ExtraField < ApplicationRecord
   def appointment_extra_fields_for_appointment(appointment_id)
     appointment_extra_fields.find { |aef| aef.appointment_id == appointment_id } if appointment_id.present?
   end
+
+  def relate_to_sap?
+    appointment_types.any?(&:sortie_audience_sap?)
+  end
+
+  def relate_to_spip?
+    appointment_types.any?(&:sortie_audience_spip?)
+  end
 end

@@ -46,6 +46,14 @@ class AppointmentType < ApplicationRecord
     ["Sortie d'audience SAP", "Sortie d'audience SPIP"].include? name
   end
 
+  def sortie_audience_sap?
+    name == "Sortie d'audience SAP"
+  end
+
+  def sortie_audience_spip?
+    name == "Sortie d'audience SPIP"
+  end
+
   def assignable?
     SPIP_ASSIGNABLE.include? name
   end
