@@ -3,7 +3,7 @@
 <%= f.input :name, label: "Nom de la colonne" %>
 <%= f.input :data_type, as: :select, collection: ExtraField::DATA_TYPES.invert, label: "Type de donnée", default: "text", include_blank: false %>
 <%= f.input :scope, as: :radio_buttons, collection: ExtraField::SCOPES.map {|scope| [t("organization.extra_field.scope." + scope[0].to_s).to_sym, scope[1]]}, label: "" %>
-<%= f.association :appointment_types, as: :check_boxes, collection: AppointmentType.all.select(&:sortie_audience_without_ddse?), include_hidden: false %>
+<%= f.association :appointment_types, as: :check_boxes, collection: AppointmentType.all.select(&:sortie_audience_without_ddse?), include_hidden: false, input_html: {class: "extra-fields-apt-type-input"}, item_label_class: 'extra-fields-apt-type-container' %>
 <%= f.hidden_field :_destroy %>
 <%= remove_associated_record(content: t('edit_organization_remove_extrafield'), html: {class: "fr-btn fr-btn--tertiary-no-outline fr-btn--icon-left fr-icon-close-line"}) %>
         
