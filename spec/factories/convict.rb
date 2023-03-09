@@ -14,6 +14,5 @@ FactoryBot.define do
         Array.new(org_count) { association(:organization) }
       end
     end
-  
   end
 end

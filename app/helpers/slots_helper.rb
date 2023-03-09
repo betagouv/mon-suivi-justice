@@ -3,7 +3,7 @@ module SlotsHelper
     list = apt_type_list(user)
     AppointmentType.where(name: list)
   end
-  
+
   private
 
   def apt_type_list(user)

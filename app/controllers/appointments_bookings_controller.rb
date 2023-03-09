@@ -7,7 +7,8 @@ class AppointmentsBookingsController < ApplicationController
     @convict = Convict.find(params[:convict_id])
 
     # Load places
-    @places = Place.joins(:appointment_types, organization: :convicts).where('convicts.id': @convict.id).where(appointment_types: @appointment_type)
+    @places = Place.joins(:appointment_types,
+                          organization: :convicts).where('convicts.id': @convict.id).where(appointment_types: @appointment_type)
   end
 
   def load_prosecutor
@@ -17,9 +18,10 @@ class AppointmentsBookingsController < ApplicationController
   def load_is_cpip
     @convict = params[:convict_id].present? ? Convict.find(params[:convict_id]) : nil
 
-    if !@convict.city_id
-      flash.now[:warning] = "La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
-    end
+    return if @convict.city_id
+
+    flash.now[:warning] =
+      "La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
   end
 
   def load_agendas
@@ -33,7 +35,7 @@ class AppointmentsBookingsController < ApplicationController
                                        agenda_id: @agendas.first.id,
                                        apt_type_id: params[:apt_type_id])
   end
-  
+
   def load_time_options
     all_agendas = params[:agenda_id] == 'all'
     agenda_id = params[:agenda_id] == 'all' ? nil : params[:agenda_id]

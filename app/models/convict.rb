@@ -2,7 +2,7 @@ class Convict < ApplicationRecord
   include NormalizedPhone
   include Discard::Model
   include PgSearch::Model
-  
+
   has_paper_trail
 
   WHITELISTED_PHONES = %w[+33659763117 +33683481555 +33682356466 +33603371085
@@ -75,10 +75,10 @@ class Convict < ApplicationRecord
     joins(appointments: :slot).where(appointments: { slots: { date: ..Date.today } })
   end)
 
-  pg_search_scope :search_by_name_and_phone, :against => [:first_name, :last_name, :phone],
-  using: {
-    :tsearch => {:prefix => true}
-  }
+  pg_search_scope :search_by_name_and_phone, against: %i[first_name last_name phone],
+                                             using: {
+                                               tsearch: { prefix: true }
+                                             }
 
   delegate :name, to: :cpip, allow_nil: true, prefix: true
 
@@ -180,10 +180,9 @@ class Convict < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
   def update_organizations(current_user)
-
-    if !city_id
+    unless city_id
       organizations.push(current_user.organization) unless organizations.include?(current_user.organization)
-      # TODO also add linked tj or spip
+      # TODO: also add linked tj or spip
       return
     end
 
@@ -195,7 +194,7 @@ class Convict < ApplicationRecord
     organizations.push(tj) unless organizations.include?(tj) || tj.nil?
     organizations.push(spip) unless organizations.include?(spip) || spip.nil?
 
-    self.save
+    save
   end
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity

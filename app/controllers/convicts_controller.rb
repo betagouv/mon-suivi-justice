@@ -16,8 +16,6 @@ class ConvictsController < ApplicationController
     @q = policy_scope(base_filter).order('last_name asc').ransack(params[:q])
     @convicts = @q.result(distinct: true).page params[:page]
 
-    
-
     authorize @all_convicts
     authorize @convicts
   end
@@ -98,9 +96,8 @@ class ConvictsController < ApplicationController
   def search
     @convicts = policy_scope(Convict).search_by_name_and_phone(params[:search_convicts])
     authorize @convicts
-    render :layout => false
+    render layout: false
   end
-
 
   private
 
