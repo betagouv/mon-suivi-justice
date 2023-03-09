@@ -17,11 +17,15 @@ class OrganizationsController < ApplicationController
   end
 
   def update
-    organization = Organization.find params[:id]
-    authorize organization
+    @organization = Organization.find params[:id]
+    authorize @organization
 
-    organization.update organization_params
-    redirect_to organizations_path
+    if @organization.update organization_params
+      redirect_to organizations_path
+    else
+      @organization.errors.each { |error| flash.now[:alert] = error.message }
+      render :edit
+    end
   end
 
   def destroy
@@ -44,6 +48,7 @@ class OrganizationsController < ApplicationController
   private
 
   def organization_params
-    params.require(:organization).permit(:name, :jap_modal_content, :organization_type, :time_zone, abyme_attributes)
+    params.require(:organization).permit(:name, :jap_modal_content, :organization_type, :time_zone,
+                                         { extra_fields_attributes: [:id, :name, :data_type, :scope, :_destroy, { appointment_type_ids: [] }] })
   end
 end

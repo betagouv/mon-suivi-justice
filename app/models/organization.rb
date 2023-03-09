@@ -10,13 +10,13 @@ class Organization < ApplicationRecord
   has_many :created_appointments, class_name: 'Appointment', foreign_key: 'creating_organization'
   has_many :extra_fields, dependent: :destroy, inverse_of: :organization
   belongs_to :headquarter, optional: true
-  # limit should be 3, but we need to add one more to be able to delete and add an extra_field at the same time
-  abymize :extra_fields, permit: :all_attributes, limit: 4, allow_destroy: true
+  abymize :extra_fields, permit: :all_attributes, allow_destroy: true
 
   enum organization_type: { spip: 0, tj: 1 }
 
   validates :organization_type, presence: true
   validates :name, presence: true, uniqueness: true
+  validate :extra_fields_count
 
   has_rich_text :jap_modal_content
 
@@ -51,5 +51,26 @@ class Organization < ApplicationRecord
 
   def appointment_added_field_labels
     appointment_added_fields.map { |field| field['name'] }
+  end
+
+  private
+
+  def extra_fields_count
+    return if extra_fields.count <= 3
+
+    grouped_extra_fields = {
+      spip: extra_fields.count(&:relate_to_sip?),
+      sap: extra_fields.count(&:relate_to_sap?)
+    }
+
+    if grouped_extra_fields[:spip] > 3
+      errors.add(:extra_fields,
+                 "Vous ne pouvez pas avoir plus de 3 champs supplémentaires pour la sortie d'audience SPIP")
+    end
+
+    return unless grouped_extra_fields[:sap] > 3
+
+    errors.add(:extra_fields,
+               "Vous ne pouvez pas avoir plus de 3 champs supplémentaires pour la sortie d'audience SAP")
   end
 end
