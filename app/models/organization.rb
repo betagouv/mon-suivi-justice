@@ -57,19 +57,19 @@ class Organization < ApplicationRecord
 
   # rubocop:disable Metrics/MethodLength
   def extra_fields_count
-    # return if extra_fields.count <= 3
+    return if extra_fields.count <= 3
 
     grouped_extra_fields = {
       spip: extra_fields.count(&:relate_to_spip?),
       sap: extra_fields.count(&:relate_to_sap?)
     }
 
-    if grouped_extra_fields[:spip] > 1
+    if grouped_extra_fields[:spip] > 3
       errors.add(:extra_fields,
                  I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.spip'))
     end
 
-    return unless grouped_extra_fields[:sap] > 1
+    return unless grouped_extra_fields[:sap] > 3
 
     errors.add(:extra_fields,
                I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.sap'))
