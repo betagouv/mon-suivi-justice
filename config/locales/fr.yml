@@ -202,6 +202,12 @@ fr:
           attributes:
             template:
               invalid_format: "Le format de ce modèle n'est pas valide. Merci d'utiliser uniquement les clés documentées."
+        organization:
+          attributes:
+            extra_fields:
+              too_many:
+                spip: "Vous ne pouvez pas avoir plus de 3 champs supplémentaires pour la sortie d'audience SPIP"
+                sap: "Vous ne pouvez pas avoir plus de 3 champs supplémentaires pour la sortie d'audience SAP"
 
   "yes": "Oui"
   "no": "Non"

@@ -12,7 +12,7 @@
     <%= f.rich_text_area :jap_modal_content %>
     <h6 class='extra-fields-title'><%= t('edit_organization_extrafields_title') %></h6>
     <div data-controller="disable-when-abyme-limit-reached">
-      <%= f.abyme_for(:extra_fields, limit: 3) do |abyme| %>
+      <%= f.abyme_for(:extra_fields) do |abyme| %>
         <%= abyme.records(fields_html: { class: "extra-field-spacing" }) %>
         <%= abyme.new_records %>
           <%= add_associated_record(content: t('edit_organization_add_extrafield'), html: {class: "fr-btn", "data-disable-when-abyme-limit-reached-target": "addButton"}) %>

@@ -29,7 +29,8 @@ class BexController < ApplicationController
       format.html
       format.pdf do
         render template: 'bex/agenda_spip_pdf.html.erb', locals: { date: @current_date },
-               pdf: "Agenda sortie d'audience SPIP", footer: { right: '[page]/[topage]' }
+               pdf: "Agenda sortie d'audience SPIP", footer: { right: '[page]/[topage]' },
+               orientation: 'Landscape'
       end
     end
   end
