@@ -53,6 +53,18 @@ class Organization < ApplicationRecord
     appointment_added_fields.map { |field| field['name'] }
   end
 
+  def tj
+    return nil unless spip?
+
+    jurisdictions.first.organizations.select(&:tj?).first
+  end
+
+  def spips
+    return [] unless tj?
+
+    jurisdictions.first.organizations.select(&:spip?)
+  end
+
   private
 
   # rubocop:disable Metrics/MethodLength
