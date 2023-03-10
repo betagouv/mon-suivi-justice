@@ -56,13 +56,13 @@ class Organization < ApplicationRecord
   def tj
     return nil unless spip?
 
-    jurisdictions.first.organizations.select(&:tj?).first
+    jurisdictions.first&.organizations&.select(&:tj?)&.first
   end
 
   def spips
     return [] unless tj?
 
-    jurisdictions.first.organizations.select(&:spip?)
+    jurisdictions.first&.organizations&.select(&:spip?)
   end
 
   private
