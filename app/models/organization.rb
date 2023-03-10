@@ -55,6 +55,7 @@ class Organization < ApplicationRecord
 
   private
 
+  # rubocop:disable Metrics/MethodLength
   def extra_fields_count
     return if extra_fields.count <= 3
 
@@ -73,4 +74,5 @@ class Organization < ApplicationRecord
     errors.add(:extra_fields,
                "Vous ne pouvez pas avoir plus de 3 champs supplémentaires pour la sortie d'audience SAP")
   end
+  # rubocop:enable Metrics/MethodLength
 end
