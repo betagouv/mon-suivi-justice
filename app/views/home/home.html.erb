@@ -45,7 +45,7 @@
                                                method: :get %>
             <% end %>
 
-            <% if policy(:appointment).agenda_sap_ddse? && ENV['APP'] != 'mon-suivi-justice-prod' %>
+            <% if policy(:appointment).agenda_sap_ddse? %>
               <%= button_to t('home.sap_ddse'), agenda_sap_ddse_path,
                                                 class: 'fr-btn fr-btn--secondary',
                                                 method: :get %>
