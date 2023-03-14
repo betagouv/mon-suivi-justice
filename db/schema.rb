@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_22_133056) do
+ActiveRecord::Schema.define(version: 2023_03_14_155118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -252,6 +252,30 @@ ActiveRecord::Schema.define(version: 2023_02_22_133056) do
     t.index ["name"], name: "index_jurisdictions_on_name", unique: true
   end
 
+  create_table "monsuivijustice_commune", id: :integer, default: nil, force: :cascade do |t|
+    t.integer "city_id", null: false
+    t.string "postal_code", limit: 255, null: false
+    t.string "names", limit: 255, null: false
+    t.string "gadm_id", limit: 255, null: false
+    t.integer "geoname_id", null: false
+    t.string "insee_code", limit: 255, null: false
+    t.string "ascii_name", limit: 255, null: false
+    t.boolean "is_analyzed"
+  end
+
+  create_table "monsuivijustice_relation_commune_structure", primary_key: ["commune_id", "structure_id"], force: :cascade do |t|
+    t.integer "commune_id", null: false
+    t.integer "structure_id", null: false
+    t.index ["commune_id"], name: "idx_57202ffd131a4f72"
+    t.index ["structure_id"], name: "idx_57202ffd2534008b"
+  end
+
+  create_table "monsuivijustice_structure", id: :integer, default: nil, force: :cascade do |t|
+    t.string "name", limit: 255, null: false
+    t.string "address", limit: 255, null: false
+    t.string "phone", limit: 255, null: false
+  end
+
   create_table "notification_types", force: :cascade do |t|
     t.bigint "appointment_type_id"
     t.text "template"
@@ -361,7 +385,7 @@ ActiveRecord::Schema.define(version: 2023_02_22_133056) do
 
   create_table "spips", force: :cascade do |t|
     t.string "name"
-    t.bigint "organization_id", null: false
+    t.bigint "organization_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "structure_id"
@@ -452,6 +476,8 @@ ActiveRecord::Schema.define(version: 2023_02_22_133056) do
   add_foreign_key "extra_fields", "organizations"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
+  add_foreign_key "monsuivijustice_relation_commune_structure", "monsuivijustice_commune", column: "commune_id", name: "fk_57202ffd131a4f72", on_delete: :cascade
+  add_foreign_key "monsuivijustice_relation_commune_structure", "monsuivijustice_structure", column: "structure_id", name: "fk_57202ffd2534008b", on_delete: :cascade
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notification_types", "organizations"
   add_foreign_key "notifications", "appointments"
