@@ -19,7 +19,6 @@ class BexController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def agenda_spip
     @current_date = current_date(@appointment_type, params)
@@ -44,10 +43,12 @@ class BexController < ApplicationController
       format.html
       format.pdf do
         render template: 'bex/agenda_sap_ddse_pdf.html.erb', locals: { date: @current_date },
-               pdf: 'Agenda SAP DDSE', footer: { right: '[page]/[topage]' }
+               pdf: 'Agenda SAP DDSE', footer: { right: '[page]/[topage]' },
+               orientation: 'Landscape'
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def appointment_extra_field
     appointment_extra_field = AppointmentExtraField.find_or_create_by(appointment_id: params[:appointment_id],

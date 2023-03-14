@@ -7,13 +7,12 @@
 <% else %>
   <% @agendas.each_with_index do |agenda, index| %>
     <% unless agenda.slots_for_date(@current_date, @appointment_type).count.zero? %>
-      <div class='bex-agenda-container'>
         <div class='bex-agenda-header jap-agenda-header<%= index+1%>'>
           <div class='bex-agenda-header-title'>
             <%= agenda.name %>
           </div>
         </div>
-
+      <div class='bex-agenda-container'>
         <div class='bex-agenda-table'>
           <div class='bex-agenda-table-header bex-agenda-line'>
             <div class='bex-agenda-header-title bex-agenda-small-column'>
