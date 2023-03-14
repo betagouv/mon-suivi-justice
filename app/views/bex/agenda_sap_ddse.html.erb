@@ -13,7 +13,7 @@
       <%= t('bex.sap_ddse.appointments_title') %>
     </div>
     <div class='bex-filters-container'>
-      <%= form_tag agenda_spip_path, method: 'get' do %>
+      <%= form_tag agenda_sap_ddse_path, method: 'get' do %>
         <div class="bex-form-input-wrapper">
           <%= label_tag 'date', 'Date :' %>
           <%= select_tag :date, options_for_select(formated_month_for_select(six_next_months), params[:date]),
