@@ -28,8 +28,7 @@ module Admin
     def truncate_db
       ActiveRecord::Base.connection.tables.each do |t|
         # We don't want to delete the SRJ tables
-        next if %w[schema_migrations cities tjs spips commune structure type_structure
-                   ln_commune_structure].include?(t)
+        next if %w[schema_migrations cities tjs spips monsuivijustice_relation_commune_structure monsuivijustice_commune monsuivijustice_structure].include?(t)
 
         conn = ActiveRecord::Base.connection
         conn.execute("TRUNCATE TABLE #{t} CASCADE;")
@@ -40,35 +39,62 @@ module Admin
         DELETE FROM tjs WHERE 1=1;
 
         INSERT INTO tjs(name, structure_id, updated_at, created_at)
-          SELECT
-            s.libelle_principal AS name,
+          SELECT DISTINCT
+            s.name,
+            s.id AS structure_id,
+            s.address,
+            NOW() as updated_at,
+            NOW() as created_at
+        FROM monsuivijustice_structure s
+        INNER JOIN monsuivijustice_relation_commune_structure rcs ON rcs.structure_id = s.id 
+        WHERE s.name LIKE 'Tribunal judiciaire%'
+        ;")
+
+      ActiveRecord::Base.connection.execute("
+        DELETE FROM spips WHERE 1=1;
+
+        INSERT INTO spips(name, structure_id, updated_at, created_at)
+          SELECT DISTINCT
+            s.name,
             s.id AS structure_id,
             NOW() as updated_at,
             NOW() as created_at
-        FROM structure s
-        INNER JOIN type_structure ts on ts.id = s.type_structure_id
-        WHERE ts.id = '001000002';")
+        FROM monsuivijustice_structure s
+        INNER JOIN monsuivijustice_relation_commune_structure rcs ON rcs.structure_id = s.id 
+        WHERE s.name LIKE 'Service%' OR s.name LIKE 'Antenne de%'
+        ;")
 
       ActiveRecord::Base.connection.execute("
         INSERT INTO cities(name, zipcode, code_insee, city_id, updated_at, created_at)
-          SELECT
-            c.libelle AS name,
-            c.code_postal AS zipcode,
-            c.code_insee,
-            c.id AS city_id,
-            NOW() as upadted_at,
-            NOW() as created_at
-        FROM commune c;")
+        SELECT
+          c.names AS name,
+          c.postal_code AS zipcode,
+          c.insee_code AS code_insee,
+          c.id AS city_id,
+          NOW() as upadted_at,
+          NOW() as created_at
+      FROM monsuivijustice_commune c;")
 
       ActiveRecord::Base.connection.execute("
-        UPDATE cities
-          SET
-            tj_id = tjs.id
-          FROM tjs
-            INNER JOIN ln_commune_structure lns ON tjs.structure_id = lns.structure_id
-            INNER JOIN commune c ON c.id = lns.commune_id
-          WHERE cities.city_id = c.id;")
-    end
+        UPDATE 
+        cities
+        SET 
+          tj_id = tjs.id
+        FROM tjs
+          INNER JOIN monsuivijustice_relation_commune_structure rcs ON CAST(tjs.structure_id AS integer) = rcs.structure_id
+          INNER JOIN monsuivijustice_commune c ON c.id = rcs.commune_id
+        WHERE CAST(cities.city_id AS integer) = c.id;")
+
+      ActiveRecord::Base.connection.execute("
+        UPDATE 
+          cities
+        SET 
+          spip_id = spips.id
+        FROM spips
+          INNER JOIN monsuivijustice_relation_commune_structure rcs ON CAST(spips.structure_id AS integer) = rcs.structure_id
+          INNER JOIN monsuivijustice_commune c ON c.id = rcs.commune_id
+        WHERE CAST(cities.city_id AS integer) = c.id;")
+      end
 
     def show_search_bar?
       false
