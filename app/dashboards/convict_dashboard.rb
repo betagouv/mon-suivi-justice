@@ -81,22 +81,20 @@ class ConvictDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     appi_uuid
-    appointments
-    areas_convicts_mappings
-    departments
-    discarded_at
     first_name
+    last_name
+    phone
+    no_phone
+    user
+    departments
+    jurisdictions
     history_items
     invitation_to_convict_interface_count
-    jurisdictions
     last_invite_to_convict_interface
-    last_name
-    no_phone
-    phone
     prosecutor_number
     refused_phone
     timestamp_convict_interface_creation
-    user
+    discarded_at
   ].freeze
 
   # COLLECTION_FILTERS
