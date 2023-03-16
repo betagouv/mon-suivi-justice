@@ -28,7 +28,7 @@ module Admin
     def truncate_db
       ActiveRecord::Base.connection.tables.each do |t|
         # We don't want to delete the SRJ tables
-        next if %w[schema_migrations cities tjs spips monsuivijustice_relation_commune_structure monsuivijustice_commune monsuivijustice_structure].include?(t)
+        next if %w[schema_migrations monsuivijustice_relation_commune_structure monsuivijustice_commune monsuivijustice_structure].include?(t)
 
         conn = ActiveRecord::Base.connection
         conn.execute("TRUNCATE TABLE #{t} CASCADE;")
@@ -42,7 +42,6 @@ module Admin
           SELECT DISTINCT
             s.name,
             s.id AS structure_id,
-            s.address,
             NOW() as updated_at,
             NOW() as created_at
         FROM monsuivijustice_structure s
@@ -93,7 +92,7 @@ module Admin
         FROM spips
           INNER JOIN monsuivijustice_relation_commune_structure rcs ON CAST(spips.structure_id AS integer) = rcs.structure_id
           INNER JOIN monsuivijustice_commune c ON c.id = rcs.commune_id
-        WHERE CAST(cities.city_id AS integer) = c.id;")
+        WHERE CAST(cities.city_id AS integer) = c.id AND spips.name LIKE 'Antenne%';")
       end
 
     def show_search_bar?
