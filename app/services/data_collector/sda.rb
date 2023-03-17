@@ -91,7 +91,7 @@ module DataCollector
     end
 
     def passed_uninformed_percentage(appointments)
-      return 0 if passed_no_canceled_with_phone(appointments).size.zero?
+      return 0 if passed_no_canceled_with_phone(appointments).empty?
 
       (passed_uninformed(appointments).size * 100.fdiv(passed_no_canceled_with_phone(appointments).size)).round
     end
@@ -105,7 +105,7 @@ module DataCollector
     end
 
     def fulfiled_percentage(appointments)
-      return 0 if passed_informed(appointments).size.zero?
+      return 0 if passed_informed(appointments).empty?
 
       (fulfiled(appointments).size * 100.fdiv(passed_informed(appointments).size)).round
     end
@@ -115,7 +115,7 @@ module DataCollector
     end
 
     def no_show_percentage(appointments)
-      return 0 if passed_informed(appointments).size.zero?
+      return 0 if passed_informed(appointments).empty?
 
       (no_show(appointments).size * 100.fdiv(passed_informed(appointments).size)).round
     end
@@ -125,7 +125,7 @@ module DataCollector
     end
 
     def excused_percentage(appointments)
-      return 0 if passed_informed(appointments).size.zero?
+      return 0 if passed_informed(appointments).empty?
 
       (excused(appointments).size * 100.fdiv(passed_informed(appointments).size)).round
     end
