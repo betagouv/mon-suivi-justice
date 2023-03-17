@@ -67,7 +67,8 @@
                 <th scope="col">
                   <%= t('bex.jap.header_role') %>
                 </th>
-                <% @agenda.organization&.tj&.extra_fields&.select(&:relate_to_spip?)&.each do |extra_field| %>
+                
+                <% @extra_fields&.each do |extra_field| %>
                   <th scope="col">
                     <%= extra_field.name %>
                   </th>
@@ -120,7 +121,7 @@
                     <% end %>
                   </th>
 
-                  <% @agenda.organization&.tj&.extra_fields&.select(&:relate_to_spip?)&.each do |extra_field| %>
+                  <% @extra_fields&.each do |extra_field| %>
                     <% if extra_field.appointment_update? && appointments[i].present? %>
                       <th data-controller="table-update-field">
                         <input data-table-update-field-target="inputField" data-action="table-update-field#update" data-appointment="<%= appointments[i].id %>" data-extra-field="<%= extra_field.id %>"
