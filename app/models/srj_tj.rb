@@ -1,4 +1,4 @@
-class Tj < ApplicationRecord
+class SrjTj < ApplicationRecord
   belongs_to :organization, optional: true
   has_one :city
 

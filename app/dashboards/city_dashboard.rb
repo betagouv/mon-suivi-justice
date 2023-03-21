@@ -12,8 +12,8 @@ class CityDashboard < Administrate::BaseDashboard
     city_id: Field::String,
     code_insee: Field::String,
     name: Field::String,
-    spip: Field::BelongsTo,
-    tj: Field::BelongsTo,
+    srj_spip: Field::BelongsTo,
+    srj_tj: Field::BelongsTo,
     zipcode: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -28,8 +28,8 @@ class CityDashboard < Administrate::BaseDashboard
     id
     zipcode
     name
-    tj
-    spip
+    srj_tj
+    srj_spip
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -39,8 +39,8 @@ class CityDashboard < Administrate::BaseDashboard
     city_id
     code_insee
     name
-    spip
-    tj
+    srj_spip
+    srj_tj
     zipcode
     created_at
     updated_at
@@ -50,8 +50,8 @@ class CityDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    spip
-    tj
+    srj_spip
+    srj_tj
   ].freeze
 
   # COLLECTION_FILTERS

@@ -7,8 +7,8 @@ class CitiesController < ApplicationController
 
     @services = []
 
-    @tj = @city.tj&.organization
-    @spip = @city.spip&.organization
+    @tj = @city.srj_tj&.organization
+    @spip = @city.srj_spip&.organization
 
     @services << @tj unless @tj.nil?
     @services << @spip unless @spip.nil?
