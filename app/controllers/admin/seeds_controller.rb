@@ -80,7 +80,7 @@ module Admin
         UPDATE 
           cities
         SET 
-          tj_id = tjs.id
+          srj_tj_id = tjs.id
         FROM tjs
           INNER JOIN monsuivijustice_relation_commune_structure rcs ON CAST(tjs.structure_id AS integer) = rcs.structure_id
           INNER JOIN monsuivijustice_commune c ON c.id = rcs.commune_id
@@ -90,11 +90,11 @@ module Admin
         UPDATE 
           cities
         SET 
-          spip_id = spips.id
+          srj_spip_id = spips.id
         FROM spips
           INNER JOIN monsuivijustice_relation_commune_structure rcs ON CAST(spips.structure_id AS integer) = rcs.structure_id
           INNER JOIN monsuivijustice_commune c ON c.id = rcs.commune_id
-        WHERE CAST(cities.city_id AS integer) = c.id AND spips.name LIKE 'Antenne%';")
+        WHERE CAST(cities.city_id AS integer) = c.id;")
       end
 
     def show_search_bar?
