@@ -8,12 +8,12 @@ RSpec.feature 'Home', type: :feature do
     end
   end
 
-  describe 'Uninformed appointments alert' do
+  describe 'Uninformed appointments alert', logged_in_as: 'admin' do
     before do
-      @user = create_admin_user_and_login
-
       @appointment_type = create :appointment_type, :with_notification_types
+    end
 
+    it 'should display a link to a page listing uninformed appointments', logged_in_as: 'jap' do
       place = create :place, organization: @user.organization
       @agenda = create :agenda, place: place
 
@@ -32,15 +32,12 @@ RSpec.feature 'Home', type: :feature do
       @appointment2.save validate: false
 
       @appointment2.book
-    end
 
-    it 'should display a link to a page listing uninformed appointments' do
-      @user.update(role: :jap)
       visit home_path
 
       expect(page).to have_content("Attention, 50% des rendez-vous de votre service n'ont pas de statut renseigné")
 
-      within first('p.warning', text: 'Attention') do
+      within first('div.fr-alert', text: 'Attention') do
         click_on('Cliquez ici')
       end
 
