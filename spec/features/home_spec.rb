@@ -1,16 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Home', type: :feature do
-  describe 'Home page' do
+  describe 'Home page', logged_in_as: 'jap' do
     it 'loads' do
-      allow(DataCollector::User).to receive_message_chain(:new, :perform)
-                                .and_return({ passed_uninformed_percentage: 40 })
-      jap_user = create(:user, role: :jap)
-      login_user(jap_user)
-
       visit home_path
-
-      expect(page).to have_content('Trouver une PPSMJ')
+      expect(page).to have_selector("//input", id: "search_convicts")
     end
   end
 
@@ -30,8 +24,7 @@ RSpec.feature 'Home', type: :feature do
                             date: Date.civil(2022, 6, 27),
                             starting_time: new_time_for(15, 30))
 
-      @convict = create :convict
-      create :areas_convicts_mapping, convict: @convict, area: @user.organization.departments.first
+      @convict = create(:convict, organizations: [@user.organization])
 
       @appointment1 = build :appointment, :with_notifications, convict: @convict, slot: slot1
       @appointment2 = build :appointment, :with_notifications, convict: @convict, slot: slot2
