@@ -23,7 +23,7 @@ class BexController < ApplicationController
   def agenda_spip
     @current_date = current_date(@appointment_type, params)
     get_places_and_agendas(@appointment_type, params)
-    @extra_fields = @agenda.organization&.tj&.extra_fields&.includes(:appointment_types)&.select(&:relate_to_spip?)
+    @extra_fields = @agenda&.organization&.tj&.extra_fields&.includes(:appointment_types)&.select(&:relate_to_spip?)
 
     respond_to do |format|
       format.html
