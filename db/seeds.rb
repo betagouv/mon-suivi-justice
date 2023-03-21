@@ -49,6 +49,9 @@ AreasConvictsMapping.create convict: convict_5, area: Department.find_by(number:
 AreasConvictsMapping.create convict: convict_4, area: Jurisdiction.find_by(name: 'TJ MELUN')
 AreasConvictsMapping.create convict: convict_5, area: Jurisdiction.find_by(name: 'TJ FONTAINEBLEAU')
 
+convict_6 = Convict.create!(first_name: "John", last_name: "Jones", no_phone: true, appi_uuid: "123410", organizations: [org_spip_92])
+convict_7 = Convict.create!(first_name: "Dark", last_name: "Vador", no_phone: true, appi_uuid: "123411", organizations: [org_spip_92])
+
 User.create!(
   organization: org_spip_92, email: 'admin@example.com', password: '1mot2passeSecurise!',
   password_confirmation: '1mot2passeSecurise!', role: :admin, first_name: 'Kevin', last_name: 'McCallister'

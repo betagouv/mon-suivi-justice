@@ -2,19 +2,23 @@ require 'rails_helper'
 
 RSpec.feature 'Appointments', type: :feature do
   before do
-    @user = create_admin_user_and_login
+    # @user = create_admin_user_and_login
     # TODO : we should not have to return Place.all. The factory should add places to the user's organization
-    allow(Place).to receive(:in_departments).and_return(Place.all)
-    allow(Place).to receive(:in_dep_spips).and_return(Place.all)
+    # allow(Place).to receive(:in_departments).and_return(Place.all)
+    # allow(Place).to receive(:in_dep_spips).and_return(Place.all)
   end
 
-  describe 'index' do
+  describe 'index', logged_in_as: 'cpip' do
     before do
       place = create :place, organization: @user.organization
       @agenda = create :agenda, place: place
 
+      apt_type = create(:appointment_type, :with_notification_types, name: "RDV de suivi SPIP")
+
+
       @slot1 = create(:slot, :without_validations, agenda: @agenda,
                                                    date: Date.civil(2025, 4, 14),
+                                                   appointment_type: apt_type,
                                                    starting_time: new_time_for(13, 0))
       slot2 = create(:slot, agenda: @agenda,
                             date: Date.civil(2025, 4, 16),
@@ -24,8 +28,7 @@ RSpec.feature 'Appointments', type: :feature do
                             date: Date.today,
                             starting_time: new_time_for(14, 30))
 
-      convict = create(:convict)
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+      convict = create(:convict, organizations: [@user.organization])
 
       @appointment1 = create(:appointment, :with_notifications, convict: convict, slot: @slot1)
       create(:appointment, convict: convict, slot: slot2)
@@ -62,8 +65,7 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it "doesn't show canceled appointments" do
-      convict = create(:convict, last_name: 'Gomez')
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+      convict = create(:convict, last_name: 'Gomez', organizations: [@user.organization])
 
       apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
       slot = create(:slot, date: Date.civil(2025, 4, 14),
@@ -92,19 +94,18 @@ RSpec.feature 'Appointments', type: :feature do
       within first('.index-card-state-container') do
         click_button 'Honoré'
       end
-
+      
       @appointment1.reload
       expect(@appointment1.state).to eq('fulfiled')
     end
   end
 
-  describe 'creation', js: true do
+  describe 'creation', js: true, logged_in_as: 'cpip' do
     context 'appointment_type with predefined slots' do
       before do
-        @convict = create(:convict, first_name: 'Joe', last_name: 'Dalton')
-        create :areas_convicts_mapping, convict: @convict, area: @user.organization.departments.first
+        @convict = create(:convict, first_name: 'Joe', last_name: 'Dalton', organizations: [@user.organization])
 
-        @appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
+        @appointment_type = create :appointment_type, :with_notification_types, name: "RDV de suivi SPIP"
         place = create :place, name: 'KFC de Chatelet', appointment_types: [@appointment_type],
                                organization: @user.organization
         @agenda = create :agenda, place: place, name: 'Agenda de Josiane'
@@ -121,23 +122,25 @@ RSpec.feature 'Appointments', type: :feature do
 
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'DALTON Joe').click
-        select "Sortie d'audience SAP", from: :appointment_appointment_type_id
-        fill_in 'Numéro de parquet', with: '23456'
+        select "RDV de suivi SPIP", from: :appointment_appointment_type_id
         select 'KFC de Chatelet', from: 'Lieu'
         select 'Agenda de Josiane', from: 'Agenda'
-        choose '16:00'
+        fill_in "appointment_slot_date", with:  Date.today.strftime('%Y-%m-%d')
+        select '16', from: 'appointment_slot_starting_time_4i'
+        select '00', from: 'appointment_slot_starting_time_5i'
 
         expect(page).to have_button('Enregistrer')
-        click_button 'Enregistrer'
 
+        click_button 'Enregistrer'
+        
         expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
 
         expect(SmsDeliveryJob).to have_been_enqueued.once.with(
-          Notification.find_by(role: :summon, appointment: Appointment.find_by(slot: @slot)).id
+          Notification.find_by(role: :summon, appointment: Appointment.last).id
         )
 
         expect(SmsDeliveryJob).to have_been_enqueued.once.with(
-          Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: @slot)).id
+          Notification.find_by(role: :reminder, appointment: Appointment.last).id
         )
 
         appointment = Appointment.last
