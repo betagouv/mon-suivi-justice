@@ -1,6 +1,6 @@
 require 'administrate/base_dashboard'
 
-class SpipDashboard < Administrate::BaseDashboard
+class SrjTjDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -11,6 +11,9 @@ class SpipDashboard < Administrate::BaseDashboard
     id: Field::Number,
     city: Field::HasOne,
     name: Field::String,
+    short_name: Field::String.with_options(
+      searchable: false
+    ),
     organization: Field::BelongsTo,
     structure_id: Field::String,
     created_at: Field::DateTime,
@@ -25,7 +28,7 @@ class SpipDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     city
-    name
+    short_name
     organization
   ].freeze
 
@@ -35,6 +38,7 @@ class SpipDashboard < Administrate::BaseDashboard
     id
     city
     name
+    short_name
     organization
     structure_id
     created_at
@@ -45,7 +49,6 @@ class SpipDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    name
     organization
   ].freeze
 
@@ -61,10 +64,10 @@ class SpipDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how spips are displayed
+  # Overwrite this method to customize how tjs are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(spip)
-    "Spip ##{spip.name}"
+  def display_resource(resource)
+    resource.name.gsub(%r{Tribunal judiciaire / Tribunal de Grande Instance}, 'TJ').to_s
   end
 end
