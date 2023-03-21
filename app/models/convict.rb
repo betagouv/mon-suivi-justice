@@ -188,8 +188,8 @@ class Convict < ApplicationRecord
 
     city = City.find(city_id)
 
-    tj = city.tj&.organization
-    spip = city.spip&.organization
+    tj = city.srj_tj&.organization
+    spip = city.srj_spip&.organization
 
     organizations.push(tj) unless organizations.include?(tj) || tj.nil?
     organizations.push(spip) unless organizations.include?(spip) || spip.nil?
