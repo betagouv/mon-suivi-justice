@@ -32,7 +32,7 @@
             <div class='bex-agenda-header-title bex-agenda-column'>
               <%= t('bex.jap.header_role') %>
             </div>
-            <% agenda.organization&.extra_fields&.each do |extra_field| %>
+            <% agenda.organization&.extra_fields.select(&:relate_to_sap?)&.each do |extra_field| %>
               <div class='bex-agenda-header-title bex-agenda-column'>
                 <%= extra_field.name %>
               </div>
@@ -75,9 +75,9 @@
                     <% end %>
                   <% end %>
                 </div>
-                <% agenda.organization.extra_fields&.each do |extra_field| %>
+                <% agenda.organization.extra_fields.select(&:relate_to_sap?)&.each do |extra_field| %>
                     <div class="bex-agenda-column">
-                      <%= extra_field.appointment_extra_fields_for_appointment(appointments[i]&.id)&.value&.to_date%>
+                      <%= display_extra_field(extra_field, appointments[i]) %>
                     </div>
                 <% end %>
               </div>

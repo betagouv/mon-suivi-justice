@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_03_141633) do
+ActiveRecord::Schema.define(version: 2023_03_09_093547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,11 @@ ActiveRecord::Schema.define(version: 2023_03_03_141633) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "share_address_to_convict", default: true, null: false
+  end
+
+  create_table "appointment_types_extra_fields", id: false, force: :cascade do |t|
+    t.bigint "appointment_type_id", null: false
+    t.bigint "extra_field_id", null: false
   end
 
   create_table "appointments", force: :cascade do |t|

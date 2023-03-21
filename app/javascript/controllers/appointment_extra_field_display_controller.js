@@ -4,7 +4,6 @@ import { Controller } from "@hotwired/stimulus"
 // in the create appointment form
 export default class extends Controller {
   static targets = [ "selectAppointmentTypeInput", "extraFieldsContainer", "extraFieldInputs" ]
-  appointmentTypeRelatedToExtraFields = ["Sortie d'audience SAP"] // pas ouf d'avoir cette liste en dur
   connect() {
     this.change();
   }
@@ -13,12 +12,20 @@ export default class extends Controller {
     const selectAppointmentTypeOptions = this.selectAppointmentTypeInputTarget.options;
     const selectedAppointmentTypeIndex = selectAppointmentTypeOptions.selectedIndex;
     const selectedAppointmentType = selectAppointmentTypeOptions[selectedAppointmentTypeIndex];
-    const shouldDisplayExtraFields = this.appointmentTypeRelatedToExtraFields.includes(selectedAppointmentType.text);
 
-    this.extraFieldsContainerTarget.classList.toggle("d-none", !shouldDisplayExtraFields);
+    let shouldDisplayExtraFieldsContainer = false;
     this.extraFieldInputsTargets.forEach((input) => {
-      input.disabled = !shouldDisplayExtraFields;
-    });
+      // we get the appointment type related to the extra field
+      const relatedAppointmentType = input.dataset.aptType.split(' ');
 
+      // if the appointment type related to the extra field is the same as the selected appointment type
+      const shouldDisplayInput = relatedAppointmentType.includes(selectedAppointmentType.value);
+      input.disabled = !shouldDisplayInput;
+
+      if(shouldDisplayInput) {
+        shouldDisplayExtraFieldsContainer = true;
+      }
+    });
+    this.extraFieldsContainerTarget.classList.toggle("d-none", !shouldDisplayExtraFieldsContainer);
   }
 }

@@ -7,14 +7,12 @@
 <% else %>
   <% open_days_for_the_month(@current_date).each do |day| %>
     <% next if @agenda.slots_for_date(day, @appointment_type).count == 0 %>
-
-    <div class='bex-agenda-container'>
       <div class='bex-agenda-header spip-agenda-header'>
         <div class='bex-agenda-header-title'>
           <%= day %>
         </div>
       </div>
-
+    <div class='bex-agenda-container'>
       <div class='bex-agenda-table'>
         <div class='bex-agenda-table-header bex-agenda-line'>
           <div class='bex-agenda-header-title bex-agenda-small-column'>
@@ -35,6 +33,11 @@
           <div class='bex-agenda-header-title bex-agenda-column'>
             <%= t('bex.jap.header_role') %>
           </div>
+          <% @agenda.organization&.tj&.extra_fields&.select(&:relate_to_spip?)&.each do |extra_field| %>
+            <div class='bex-agenda-header-title bex-agenda-column'>
+              <%= extra_field.name %>
+            </div>
+          <% end %>
         </div>
 
         <% @agenda.slots_for_date(day, @appointment_type).each do |slot| %>
@@ -56,21 +59,28 @@
                 <%= appointments[i]&.prosecutor_number %>
               </div>
               <div class='bex-agenda-column'>
-                <% if appointments[i].present? && appointments[i].inviter_user_id.present? %>
+                <% if appointments[i].present? && appointments[i].creating_organization.present? %>
+                  <%= appointments[i].creating_organization.name %>
+                <% elsif appointments[i].present? && appointments[i].inviter_user_id.present? %>
                   <% user = User.find(appointments[i].inviter_user_id) %>
                   <%= user.organization.name %>
                 <% end %>
               </div>
               <div class='bex-agenda-column'>
-                <% if appointments[i].present? %>
-                  <% if appointments[i].origin_department.present? %>
-                    <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
-                  <% elsif appointments[i].inviter_user_id.present? %>
-                    <% user = User.find(appointments[i].inviter_user_id) %>
-                    <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
+                  <% if appointments[i].present? %>
+                    <% if appointments[i].origin_department.present? %>
+                      <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
+                    <% elsif appointments[i].inviter_user_id.present? %>
+                      <% user = User.find(appointments[i].inviter_user_id) %>
+                      <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
+                    <% end %>
                   <% end %>
-                <% end %>
               </div>
+              <% @agenda.organization&.tj&.extra_fields&.select(&:relate_to_spip?)&.each do |extra_field| %>
+                <div class="bex-agenda-column">
+                  <%= display_extra_field(extra_field, appointments[i]) %>
+                </div>
+              <% end %>
             </div>
           <% end %>
         <% end %>
