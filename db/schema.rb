@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_14_155118) do
+ActiveRecord::Schema.define(version: 2023_03_21_150812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,12 +174,12 @@ ActiveRecord::Schema.define(version: 2023_03_14_155118) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "city_id"
-    t.bigint "spip_id"
-    t.bigint "tj_id"
+    t.bigint "srj_spip_id"
+    t.bigint "srj_tj_id"
     t.index ["city_id"], name: "index_cities_on_city_id"
     t.index ["name"], name: "index_cities_on_name"
-    t.index ["spip_id"], name: "index_cities_on_spip_id"
-    t.index ["tj_id"], name: "index_cities_on_tj_id"
+    t.index ["srj_spip_id"], name: "index_cities_on_srj_spip_id"
+    t.index ["srj_tj_id"], name: "index_cities_on_srj_tj_id"
     t.index ["zipcode"], name: "index_cities_on_zipcode"
   end
 
@@ -396,24 +396,24 @@ ActiveRecord::Schema.define(version: 2023_03_14_155118) do
     t.index ["slot_type_id"], name: "index_slots_on_slot_type_id"
   end
 
-  create_table "spips", force: :cascade do |t|
+  create_table "srj_spips", force: :cascade do |t|
     t.string "name"
     t.bigint "organization_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "structure_id"
-    t.index ["organization_id"], name: "index_spips_on_organization_id"
-    t.index ["structure_id"], name: "index_spips_on_structure_id"
+    t.index ["organization_id"], name: "index_srj_spips_on_organization_id"
+    t.index ["structure_id"], name: "index_srj_spips_on_structure_id"
   end
 
-  create_table "tjs", force: :cascade do |t|
+  create_table "srj_tjs", force: :cascade do |t|
     t.string "name"
     t.bigint "organization_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "structure_id"
-    t.index ["organization_id"], name: "index_tjs_on_organization_id"
-    t.index ["structure_id"], name: "index_tjs_on_structure_id"
+    t.index ["organization_id"], name: "index_srj_tjs_on_organization_id"
+    t.index ["structure_id"], name: "index_srj_tjs_on_structure_id"
   end
 
   create_table "user_notifications", force: :cascade do |t|
@@ -483,8 +483,8 @@ ActiveRecord::Schema.define(version: 2023_03_14_155118) do
   add_foreign_key "appointments", "users"
   add_foreign_key "areas_convicts_mappings", "convicts"
   add_foreign_key "areas_organizations_mappings", "organizations"
-  add_foreign_key "cities", "spips"
-  add_foreign_key "cities", "tjs"
+  add_foreign_key "cities", "srj_spips"
+  add_foreign_key "cities", "srj_tjs"
   add_foreign_key "convicts", "cities"
   add_foreign_key "convicts", "organizations", column: "creating_organization_id"
   add_foreign_key "convicts", "users"
@@ -505,8 +505,8 @@ ActiveRecord::Schema.define(version: 2023_03_14_155118) do
   add_foreign_key "slots", "agendas"
   add_foreign_key "slots", "appointment_types"
   add_foreign_key "slots", "slot_types"
-  add_foreign_key "spips", "organizations"
-  add_foreign_key "tjs", "organizations"
+  add_foreign_key "srj_spips", "organizations"
+  add_foreign_key "srj_tjs", "organizations"
   add_foreign_key "users", "headquarters"
   add_foreign_key "users", "organizations"
 end
