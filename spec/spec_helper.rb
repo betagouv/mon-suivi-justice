@@ -106,4 +106,8 @@ RSpec.configure do |config|
   config.before(:example, :logged_in_as => 'dpip') do
     create_user_and_login('dpip')
   end
+
+  config.before(:example, :logged_in_as => 'jap') do
+    create_user_and_login('jap')
+  end
 end
