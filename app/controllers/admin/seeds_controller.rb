@@ -64,6 +64,8 @@ module Admin
         ;")
 
       ActiveRecord::Base.connection.execute("
+        DELETE FROM cities WHERE 1=1;
+
         INSERT INTO cities(name, zipcode, code_insee, city_id, updated_at, created_at)
         SELECT
           c.names AS name,
@@ -76,7 +78,7 @@ module Admin
 
       ActiveRecord::Base.connection.execute("
         UPDATE 
-        cities
+          cities
         SET 
           tj_id = tjs.id
         FROM tjs
