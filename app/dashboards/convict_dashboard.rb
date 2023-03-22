@@ -88,7 +88,6 @@ class ConvictDashboard < Administrate::BaseDashboard
     user
     departments
     jurisdictions
-    history_items
     invitation_to_convict_interface_count
     last_invite_to_convict_interface
     prosecutor_number
