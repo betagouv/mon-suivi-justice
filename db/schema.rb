@@ -183,15 +183,6 @@ ActiveRecord::Schema.define(version: 2023_03_23_101114) do
     t.index ["zipcode"], name: "index_cities_on_zipcode"
   end
 
-  create_table "commune", id: false, force: :cascade do |t|
-    t.text "id"
-    t.string "code_insee", limit: 255
-    t.string "code_postal"
-    t.float "latitude"
-    t.float "longitude"
-    t.text "libelle"
-  end
-
   create_table "convicts", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -270,13 +261,6 @@ ActiveRecord::Schema.define(version: 2023_03_23_101114) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_jurisdictions_on_name", unique: true
-  end
-
-  create_table "ln_commune_structure", id: false, force: :cascade do |t|
-    t.text "id"
-    t.text "commune_id"
-    t.text "structure_id"
-    t.string "mnemo"
   end
 
   create_table "monsuivijustice_commune", id: :integer, default: nil, force: :cascade do |t|
@@ -437,16 +421,6 @@ ActiveRecord::Schema.define(version: 2023_03_23_101114) do
     t.string "structure_id"
     t.index ["organization_id"], name: "index_srj_tjs_on_organization_id"
     t.index ["structure_id"], name: "index_srj_tjs_on_structure_id"
-  end
-
-  create_table "type_structure", id: false, force: :cascade do |t|
-    t.string "id", limit: 255
-    t.string "mnemo", limit: 255
-    t.string "type_domaine", limit: 255
-    t.string "libelle_court", limit: 255
-    t.text "libelle_long"
-    t.text "commentaire"
-    t.boolean "is_baj"
   end
 
   create_table "user_notifications", force: :cascade do |t|
