@@ -694,9 +694,11 @@ RSpec.feature 'Appointments', type: :feature do
   describe 'replanification', logged_in_as: 'cpip' do
     it 're-schedules an appointment to a later date' do
       convict = create(:convict, organizations: [@user.organization])
-
       apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
-      slot1 = create :slot, appointment_type: apt_type
+      place = create :place, name: 'KFC de Chatelet', appointment_types: [apt_type],
+      organization: @user.organization
+      create :agenda, place: place, name: 'Agenda de test'
+      slot1 = create :slot, appointment_type: apt_type, agenda: @user.organization.agendas.first
       appointment = create(:appointment, convict: convict, slot: slot1)
 
       appointment.book
