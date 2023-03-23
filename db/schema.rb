@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_21_150812) do
+ActiveRecord::Schema.define(version: 2023_03_23_101114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -320,10 +320,8 @@ ActiveRecord::Schema.define(version: 2023_03_21_150812) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "organization_type", default: 0
     t.string "time_zone", default: "Europe/Paris", null: false
-    t.bigint "linked_organization_id"
     t.bigint "headquarter_id"
     t.index ["headquarter_id"], name: "index_organizations_on_headquarter_id"
-    t.index ["linked_organization_id"], name: "index_organizations_on_linked_organization_id"
     t.index ["name"], name: "index_organizations_on_name", unique: true
   end
 
@@ -394,6 +392,15 @@ ActiveRecord::Schema.define(version: 2023_03_21_150812) do
     t.index ["agenda_id"], name: "index_slots_on_agenda_id"
     t.index ["appointment_type_id"], name: "index_slots_on_appointment_type_id"
     t.index ["slot_type_id"], name: "index_slots_on_slot_type_id"
+  end
+
+  create_table "spips_tjs", id: false, force: :cascade do |t|
+    t.bigint "tj_id"
+    t.bigint "spip_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["spip_id"], name: "index_spips_tjs_on_spip_id"
+    t.index ["tj_id"], name: "index_spips_tjs_on_tj_id"
   end
 
   create_table "srj_spips", force: :cascade do |t|
@@ -497,7 +504,6 @@ ActiveRecord::Schema.define(version: 2023_03_21_150812) do
   add_foreign_key "notification_types", "organizations"
   add_foreign_key "notifications", "appointments"
   add_foreign_key "organizations", "headquarters"
-  add_foreign_key "organizations", "organizations", column: "linked_organization_id"
   add_foreign_key "places", "organizations"
   add_foreign_key "previous_passwords", "users"
   add_foreign_key "slot_types", "agendas"
@@ -505,6 +511,8 @@ ActiveRecord::Schema.define(version: 2023_03_21_150812) do
   add_foreign_key "slots", "agendas"
   add_foreign_key "slots", "appointment_types"
   add_foreign_key "slots", "slot_types"
+  add_foreign_key "spips_tjs", "organizations", column: "spip_id"
+  add_foreign_key "spips_tjs", "organizations", column: "tj_id"
   add_foreign_key "srj_spips", "organizations"
   add_foreign_key "srj_tjs", "organizations"
   add_foreign_key "users", "headquarters"

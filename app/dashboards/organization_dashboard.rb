@@ -20,7 +20,9 @@ class OrganizationDashboard < Administrate::BaseDashboard
     users: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    headquarter: Field::BelongsTo
+    headquarter: Field::BelongsTo,
+    tjs: Field::HasMany,
+    spips: Field::HasMany
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -35,6 +37,8 @@ class OrganizationDashboard < Administrate::BaseDashboard
     departments
     jurisdictions
     headquarter
+    tjs
+    spips
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -50,6 +54,8 @@ class OrganizationDashboard < Administrate::BaseDashboard
     created_at
     updated_at
     headquarter
+    tjs
+    spips
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -63,6 +69,8 @@ class OrganizationDashboard < Administrate::BaseDashboard
     time_zone
     users
     headquarter
+    tjs
+    spips
   ].freeze
 
   # COLLECTION_FILTERS

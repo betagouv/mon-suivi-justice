@@ -14,10 +14,11 @@ class Organization < ApplicationRecord
   has_many :agendas, through: :places, dependent: :nullify
   has_one :tj
   has_one :spip
-  has_one :associated_organization, class_name: 'Organization',
-                                    foreign_key: 'linked_organization_id', inverse_of: :linked_organization
 
-  belongs_to :linked_organization, class_name: 'Organization', optional: true, inverse_of: :associated_organization
+  has_and_belongs_to_many :spips, class_name: 'Organization', foreign_key: 'tj_id', join_table: 'spips_tjs',
+                                  association_foreign_key: 'spip_id', optional: true
+  has_and_belongs_to_many :tjs, class_name: 'Organization', foreign_key: 'spip_id', join_table: 'spips_tjs',
+                                association_foreign_key: 'tj_id', optional: true
 
   has_many :convicts_organizations_mappings
   has_many :convicts, through: :convicts_organizations_mappings
@@ -27,6 +28,7 @@ class Organization < ApplicationRecord
   validates :organization_type, presence: true
   validates :name, presence: true, uniqueness: true
   validate :extra_fields_count
+  validate :spips_tjs_type
 
   has_rich_text :jap_modal_content
 
@@ -73,6 +75,11 @@ class Organization < ApplicationRecord
     return [] unless tj?
 
     jurisdictions.first&.organizations&.select(&:spip?)
+  def linked_organizations
+    return tjs if organization_type == 'spip'
+    return spips if organization_type == 'tj'
+
+    []
   end
 
   private
@@ -97,4 +104,22 @@ class Organization < ApplicationRecord
                I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.sap'))
   end
   # rubocop:enable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def spips_tjs_type
+    if organization_type == 'tj' && tjs&.present?
+      errors.add(:tjs, 'cannot be set for a TJ')
+    elsif organization_type == 'spip' && spips&.present?
+      errors.add(:spips, 'cannot be set for a SPIP')
+    end
+    if tjs.any? { |tj| tj.organization_type != 'tj' }
+      errors.add(:tjs, 'must be a TJ')
+    elsif spips.any? { |spip| spip.organization_type != 'spip' }
+      errors.add(:spips, 'must be a SPIP')
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 end
