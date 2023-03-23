@@ -548,12 +548,12 @@ RSpec.feature 'Appointments', type: :feature do
 
     it 'change state and cancel notifications' do
       apt_type = create(:appointment_type, :with_notification_types, name: 'RDV de suivi SPIP')
-      slot = create :slot, appointment_type: apt_type
+      place = create :place, name: 'KFC de Chatelet', appointment_types: [apt_type],
+      organization: @user.organization
+      create :agenda, place: place, name: 'Agenda de test'
+      slot = create :slot, appointment_type: apt_type, agenda: @user.organization.agendas.first
 
       appointment = create(:appointment, convict: @convict, slot: slot)
-
-      debugger
-
 
       appointment.book
       expect(appointment.state).to eq('booked')

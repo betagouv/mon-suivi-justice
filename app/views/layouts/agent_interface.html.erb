@@ -1,23 +1,28 @@
 <% content_for :content do %>
   <%= render 'layouts/header' %>
-      <div id="flash_messages">
-        <% flash.each do |type, msg| %>
-          <div class="fr-alert <%= "fr-alert--#{type == 'notice' ? 'info' : type}" %> fr-alert--sm">
-            <p><%= msg %></p>
-          </div>
-        <% end %>
+  <% if current_user != true_user %>
+    <div class="fr-alert fr-alert--info fr-alert--sm">
+      <p>
+        ATTENTION : Vous, <%= true_user.first_name %> <%= true_user.last_name %>, êtes connecté  en tant  que <strong><%= current_user.first_name %> <%= current_user.last_name %> (<%= current_user.role %>)</strong>
+      </p>
+    </div>
+  <% end %>
+  <div id="flash_messages">
+    <% flash.each do |type, msg| %>
+      <div class="fr-alert <%= "fr-alert--#{type == 'notice' ? 'info' : type}" %> fr-alert--sm">
+        <p><%= msg %></p>
       </div>
-      <main class="fr-container--fluid fr-mt-5w">
-        <%= yield %>
-      </main>
-
+    <% end %>
+  </div>
+  <%= render 'layouts/breadcrumb' %>
+  <main class="fr-container--fluid fr-mt-5w">
+    <%= yield %>
+  </main>
   <%= render 'layouts/ie_warning' %>
-
   <div class='support-link' data-micromodal-trigger='support-modal'>
     <%= t('contact') %>
   </div>
   <%= render 'layouts/support_modal' %>
   <%= javascript_pack_tag 'agent_interface' %>
 <% end %>
-
 <%= render template: 'layouts/application' %>

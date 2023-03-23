@@ -71,6 +71,11 @@ GEM
       kaminari (>= 1.0)
       sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
+    administrate-field-belongs_to_search (0.8.0)
+      administrate (>= 0.3, < 1.0)
+      jbuilder (~> 2)
+      rails (>= 4.2, < 7.1)
+      selectize-rails (~> 0.6)
     administrate-field-enum (0.0.9)
       administrate (~> 0.12)
     ahoy_matey (4.1.0)
@@ -524,6 +529,7 @@ DEPENDENCIES
   abyme (~> 0.7.0)
   addressable (~> 2.8)
   administrate
+  administrate-field-belongs_to_search
   administrate-field-enum
   ahoy_matey (~> 4.1)
   bootsnap (>= 1.4.4)
