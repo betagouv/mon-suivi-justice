@@ -64,7 +64,7 @@ class Organization < ApplicationRecord
     appointment_added_fields.map { |field| field['name'] }
   end
 
-  def linked_organization
+  def linked_organizations
     return tjs if organization_type == 'spip'
     return spips if organization_type == 'tj'
 

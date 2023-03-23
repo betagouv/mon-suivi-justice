@@ -105,6 +105,6 @@ class User < ApplicationRecord
   end
 
   def organizations
-    [organization, *organization.linked_organization]
+    [organization, *organization.linked_organizations]
   end
 end
