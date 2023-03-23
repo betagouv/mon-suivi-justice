@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_21_150812) do
+ActiveRecord::Schema.define(version: 2023_03_23_090530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -422,6 +422,15 @@ ActiveRecord::Schema.define(version: 2023_03_21_150812) do
     t.index ["structure_id"], name: "index_srj_spips_on_structure_id"
   end
 
+  create_table "spips_tjs", id: false, force: :cascade do |t|
+    t.bigint "tj_id"
+    t.bigint "spip_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["spip_id"], name: "index_spips_tjs_on_spip_id"
+    t.index ["tj_id"], name: "index_spips_tjs_on_tj_id"
+  end
+
   create_table "srj_tjs", force: :cascade do |t|
     t.string "name"
     t.bigint "organization_id"
@@ -533,6 +542,8 @@ ActiveRecord::Schema.define(version: 2023_03_21_150812) do
   add_foreign_key "slots", "slot_types"
   add_foreign_key "srj_spips", "organizations"
   add_foreign_key "srj_tjs", "organizations"
+  add_foreign_key "spips_tjs", "organizations", column: "spip_id"
+  add_foreign_key "spips_tjs", "organizations", column: "tj_id"
   add_foreign_key "users", "headquarters"
   add_foreign_key "users", "organizations"
 end

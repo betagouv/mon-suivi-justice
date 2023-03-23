@@ -27,7 +27,7 @@ class Organization < ApplicationRecord
 
   validates :organization_type, presence: true
   validates :name, presence: true, uniqueness: true
-  validate :linked_organization_type
+  validate :spips_tjs_type
 
   has_rich_text :jap_modal_content
 
@@ -64,30 +64,31 @@ class Organization < ApplicationRecord
     appointment_added_fields.map { |field| field['name'] }
   end
 
-  def linked_or_associated_organization
-    linked_organization || associated_organization
-  end
+  def linked_organization
+    return tjs if organization_type == 'spip'
+    return spips if organization_type == 'tj'
 
-  def linked_or_associated_organization_display_name
-    linked_organization&.name || associated_organization&.name
+    []
   end
 
   private
 
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
-  def linked_organization_type
-    if organization_type == 'spip' && linked_organization.present? && linked_organization.organization_type != 'tj'
-      errors.add(:linked_organization, 'must be a TJ')
-    elsif organization_type == 'tj' && linked_organization.present? && linked_organization.organization_type != 'spip'
-      errors.add(:linked_organization, 'must be a SPIP')
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def spips_tjs_type
+    if organization_type == 'tj' && tjs&.present?
+      errors.add(:tjs, 'cannot be set for a TJ')
+    elsif organization_type == 'spip' && spips&.present?
+      errors.add(:spips, 'cannot be set for a SPIP')
     end
-    return unless associated_organization.present? && linked_organization.id != associated_organization.id
-
-    errors.add(:linked_organization, 'must be the same as the associated organization')
+    if tjs.any? { |tj| tj.organization_type != 'tj' }
+      errors.add(:tjs, 'must be a TJ')
+    elsif spips.any? { |spip| spip.organization_type != 'spip' }
+      errors.add(:spips, 'must be a SPIP')
+    end
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 end
