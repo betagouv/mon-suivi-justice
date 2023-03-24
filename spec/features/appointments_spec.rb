@@ -106,10 +106,10 @@ RSpec.feature 'Appointments', type: :feature do
         @convict = create(:convict, first_name: 'Joe', last_name: 'Dalton', organizations: [@user.organization])
 
         @appointment_type = create :appointment_type, :with_notification_types, name: "RDV de suivi SPIP"
-        place = create :place, name: 'KFC de Chatelet', appointment_types: [@appointment_type],
+        place = create :place, name: 'Test place', appointment_types: [@appointment_type],
                                organization: @user.organization
         @agenda = create :agenda, place: place, name: 'Agenda de Josiane'
-        create :agenda, place: place, name: 'Agenda de Michel'
+        create :agenda, place: place, name: 'Agenda 2'
 
         @slot = create :slot, :without_validations, agenda: @agenda,
                                                     appointment_type: @appointment_type,
@@ -123,7 +123,7 @@ RSpec.feature 'Appointments', type: :feature do
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'DALTON Joe').click
         select "RDV de suivi SPIP", from: :appointment_appointment_type_id
-        select 'KFC de Chatelet', from: 'Lieu'
+        select 'Test place', from: 'Lieu'
         select 'Agenda de Josiane', from: 'Agenda'
         fill_in "appointment_slot_date", with:  Date.today.strftime('%Y-%m-%d')
         select '16', from: 'appointment_slot_starting_time_4i'
@@ -152,10 +152,15 @@ RSpec.feature 'Appointments', type: :feature do
 
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'DALTON Joe').click
-        select "Sortie d'audience SAP", from: :appointment_appointment_type_id
-        select 'KFC de Chatelet', from: 'Lieu'
+        select "RDV de suivi SPIP", from: :appointment_appointment_type_id
+        select 'Test place', from: 'Lieu'
         select 'Agenda de Josiane', from: 'Agenda'
-        choose '16:00'
+        fill_in "appointment_slot_date", with:  Date.today.strftime('%Y-%m-%d')
+
+        within first('.form-time-select-fields') do
+          select '16', from: 'appointment_slot_starting_time_4i'
+          select '00', from: 'appointment_slot_starting_time_5i'
+        end
 
         expect(page).to have_button('Enregistrer')
 
@@ -164,34 +169,29 @@ RSpec.feature 'Appointments', type: :feature do
         expect { click_button 'Non' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
 
         expect(SmsDeliveryJob).to have_been_enqueued.once.with(
-          Notification.find_by(role: :reminder, appointment: Appointment.find_by(slot: @slot)).id
+          Notification.find_by(role: :reminder, appointment: Appointment.last).id
         )
       end
 
-      it 'allows an agent to create appointment only for his service places & slots' do
-        department = create :department, number: '09', name: 'Ariège'
-        logout_current_user
-        organization = create :organization, organization_type: 'tj'
-        create :areas_organizations_mapping, organization: organization, area: department
-        agent = create :user, role: :jap, organization: organization
-        login_user agent
+      it 'allows an agent to create appointment only for his service places & slots', logged_in_as: 'jap' do
+        appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
+        appointment_type_spip = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
 
-        convict = create :convict, first_name: 'Jack', last_name: 'Dalton'
-        create :areas_convicts_mapping, convict: convict, area: department
+        convict = create :convict, first_name: 'Jack', last_name: 'Dalton', organizations: [@user.organization]
 
-        place_in = create :place, organization: organization, name: 'place_in_name',
-                                  appointment_types: [@appointment_type]
+        place_in = create :place, organization: @user.organization, name: 'place_in_name',
+                                  appointment_types: [appointment_type]
         agenda_in = create :agenda, place: place_in, name: 'agenda_in_name'
         create :agenda, place: place_in, name: 'other_agenda_in_name'
 
-        organization_out = create :organization, organization_type: 'tj'
+        organization_out = create :organization, organization_type: 'spip'
         place_out = create :place, organization: organization_out, name: 'place_out_name',
-                                   appointment_types: [@appointment_type]
+                                   appointment_types: [appointment_type]
         agenda_out = create :agenda, place: place_out, name: 'agenda_out_name'
 
-        create :slot, agenda: agenda_in, appointment_type: @appointment_type, date: Date.civil(2025, 4, 18),
+        create :slot, agenda: agenda_in, appointment_type: appointment_type, date: Date.civil(2025, 4, 18),
                       starting_time: new_time_for(14, 0)
-        create :slot, agenda: agenda_out, appointment_type: @appointment_type, date: Date.civil(2025, 4, 18),
+        create :slot, agenda: agenda_out, appointment_type: appointment_type_spip, date: Date.civil(2025, 4, 18),
                       starting_time: new_time_for(16, 0)
 
         visit new_appointment_path
@@ -217,20 +217,19 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it 'shows only relevant places for an appointment type' do
-        apt_type2 = create(:appointment_type, name: 'RDV de test SAP')
+        appointment_type = create :appointment_type, :with_notification_types, name: "Test appointment type"
 
-        create(:place, name: 'Quick de Montreuil', appointment_types: [apt_type2])
-        create(:place, name: 'McDo de Barbès', appointment_types: [@appointment_type])
+        create(:place, name: 'Quick de Montreuil', appointment_types: [appointment_type], organization: @user.organization)
 
         visit new_appointment_path
 
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'DALTON Joe').click
 
-        select 'RDV de test SAP', from: :appointment_appointment_type_id
+        select 'RDV de suivi SPIP', from: :appointment_appointment_type_id
 
-        expect(page).not_to have_select('Lieu', options: ['', 'McDo de Barbès', 'Quick de Montreuil'])
-        expect(page).to have_select('Lieu', options: ['', 'Quick de Montreuil'])
+        expect(page).not_to have_select('Lieu', options: ['', 'Test appointment type'])
+        expect(page).to have_select('Lieu', options: ['', 'Test place'])
       end
 
       it 'allows to see all agendas at once for some appointment_types' do
@@ -274,17 +273,21 @@ RSpec.feature 'Appointments', type: :feature do
         expect { click_button 'Oui' }.to change { Appointment.count }.by(1).and change { Notification.count }.by(5)
       end
 
-      it 'allows an agent to setup a meeting in another department' do
-        department = create :department, number: '09', name: 'Ariège'
+      it 'allows an agent to setup a meeting in another department', logged_in_as: 'jap' do
+        appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
+        place = create :place, name: 'Test place', appointment_types: [appointment_type],
+                                organization: @user.organization
+
         organization = create :organization, name: 'TJ Foix', organization_type: 'tj'
-        create :areas_organizations_mapping, organization: organization, area: department
+
+        @convict.organizations << organization
 
         place_ariege = create :place, organization: organization, name: 'SAP TJ Foix',
-                                      appointment_types: [@appointment_type]
+                                      appointment_types: [appointment_type]
         agenda_ariege = create :agenda, place: place_ariege, name: 'agenda SAP Foix'
         create :agenda, place: place_ariege, name: 'agenda 2 SAP Foix'
 
-        create :slot, agenda: agenda_ariege, appointment_type: @appointment_type, date: Date.civil(2025, 4, 18),
+        create :slot, agenda: agenda_ariege, appointment_type: appointment_type, date: Date.civil(2025, 4, 18),
                       starting_time: new_time_for(17, 0)
 
         visit new_appointment_path
@@ -293,10 +296,8 @@ RSpec.feature 'Appointments', type: :feature do
         find('li.select2-results__option', text: 'DALTON Joe').click
         select "Sortie d'audience SAP", from: :appointment_appointment_type_id
 
-        expect(page).to have_content('KFC de Chatelet')
+        expect(page).to have_content('Test place')
 
-        click_link 'Prendre RDV hors du ressort'
-        select '09 - Ariège', from: 'appointment-form-department-select'
         select 'SAP TJ Foix', from: 'Lieu'
         select 'agenda SAP Foix', from: 'Agenda'
 
@@ -314,7 +315,7 @@ RSpec.feature 'Appointments', type: :feature do
         convict = create(:convict, first_name: 'Momo', last_name: 'La Fouine', organizations: [@user.organization])
 
         appointment_type = create :appointment_type, :with_notification_types, name: 'RDV de suivi SPIP'
-        place = create :place, name: 'McDo des Halles', appointment_types: [appointment_type],
+        place = create :place, name: 'Lieu test', appointment_types: [appointment_type],
                                organization: @user.organization
         create :agenda, place: place, name: 'Agenda de Jean-Louis'
         create :agenda, place: place, name: 'Agenda de Mireille'
@@ -327,7 +328,7 @@ RSpec.feature 'Appointments', type: :feature do
         find('li.select2-results__option', text: 'LA FOUINE Momo').click
 
         select 'RDV de suivi SPIP', from: :appointment_appointment_type_id
-        select 'McDo des Halles', from: 'Lieu'
+        select 'Lieu test', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
         fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
@@ -373,16 +374,15 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it "doesn't propose convocation SMS if the convict has no phone" do
-        convict2 = create :convict, first_name: 'Momo', last_name: 'Le renard', phone: nil, no_phone: true
-        create :areas_convicts_mapping, convict: convict2, area: @user.organization.departments.first
+        convict2 = create :convict, first_name: 'Momo', last_name: 'Le renard', phone: nil, no_phone: true, organizations: [@user.organization]
 
         visit new_appointment_path
 
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'LE RENARD Momo').click
 
-        select 'RDV de suivi JAP', from: :appointment_appointment_type_id
-        select 'McDo des Halles', from: 'Lieu'
+        select 'RDV de suivi SPIP', from: :appointment_appointment_type_id
+        select 'Lieu test', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
         fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
@@ -403,8 +403,8 @@ RSpec.feature 'Appointments', type: :feature do
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'LA FOUINE Momo').click
 
-        select 'RDV de suivi JAP', from: :appointment_appointment_type_id
-        select 'McDo des Halles', from: 'Lieu'
+        select 'RDV de suivi SPIP', from: :appointment_appointment_type_id
+        select 'Lieu test', from: 'Lieu'
         select 'Agenda de Jean-Louis', from: 'Agenda'
 
         fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 19).strftime('%Y-%m-%d')
@@ -424,21 +424,19 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it 'links the PPSMJ to the CPIP if wanted' do
-        @user = create_cpip_user_and_login
-        convict = create(:convict, first_name: 'JP', last_name: 'Cherty')
-        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+        convict = create(:convict, first_name: 'JP', last_name: 'Cherty', organizations: [@user.organization])
         appointment_type = create :appointment_type, :with_notification_types, name: '1er RDV SPIP'
-        place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type],
+        place = create :place, name: 'Test place', appointment_types: [appointment_type],
                                organization: @user.organization
         create :agenda, place: place, name: 'Agenda de Josiane'
-        create :agenda, place: place, name: 'Agenda de Michel'
+        create :agenda, place: place, name: 'Agenda 2'
 
         visit new_appointment_path
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'CHERTY Jp').click
         choose('appointment[user_is_cpip]', option: '1')
         select '1er RDV SPIP', from: :appointment_appointment_type_id
-        select 'KFC de Chatelet', from: 'Lieu'
+        select 'Test place', from: 'Lieu'
         select 'Agenda de Josiane', from: 'Agenda'
 
         fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
@@ -454,22 +452,20 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it 'does not link the PPSMJ to the CPIP if not wanted' do
-        @user = create_cpip_user_and_login
-        convict = create(:convict, first_name: 'JP', last_name: 'Cherty')
-        create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+        convict = create(:convict, first_name: 'JP', last_name: 'Cherty', organizations: [@user.organization])
         appointment_type = create :appointment_type, :with_notification_types, name: '1er RDV SPIP'
-        place = create :place, name: 'KFC de Chatelet', appointment_types: [appointment_type],
+        place = create :place, name: 'Test place', appointment_types: [appointment_type],
                                organization: @user.organization
-        create :agenda, place: place, name: 'Agenda de Josiane'
-        create :agenda, place: place, name: 'Agenda de Michel'
+        create :agenda, place: place, name: 'Agenda 1'
+        create :agenda, place: place, name: 'Agenda 2'
 
         visit new_appointment_path
         first('.select2-container', minimum: 1).click
         find('li.select2-results__option', text: 'CHERTY Jp').click
         choose('appointment[user_is_cpip]', option: '0')
         select '1er RDV SPIP', from: :appointment_appointment_type_id
-        select 'KFC de Chatelet', from: 'Lieu'
-        select 'Agenda de Josiane', from: 'Agenda'
+        select 'Test place', from: 'Lieu'
+        select 'Agenda 1', from: 'Agenda'
 
         fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
 
@@ -506,11 +502,16 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'allows to change state of appointment' do
-      appointment_type = create :appointment_type, name: "Sortie d'audience SAP"
+      apt_type = create :appointment_type, name: "Sortie d'audience SAP"
 
-      slot = create(:slot, :without_validations, appointment_type: appointment_type,
+      place = create :place, name: 'Test place', appointment_types: [apt_type],
+      organization: @user.organization
+      create :agenda, place: place, name: 'Agenda de test'
+
+      slot = create(:slot, :without_validations, appointment_type: apt_type,
                                                  date: Date.today - 1.days,
-                                                 starting_time: Time.now)
+                                                 starting_time: Time.now,
+                                                 agenda: @user.organization.agendas.first)
 
       convict = create(:convict, first_name: 'Jean', last_name: 'Lassoulle', organizations: [@user.organization])
       appointment = build(:appointment, :with_notifications, convict: convict, state: :booked, slot: slot)
@@ -548,7 +549,7 @@ RSpec.feature 'Appointments', type: :feature do
 
     it 'change state and cancel notifications' do
       apt_type = create(:appointment_type, :with_notification_types, name: 'RDV de suivi SPIP')
-      place = create :place, name: 'KFC de Chatelet', appointment_types: [apt_type],
+      place = create :place, name: 'Test place', appointment_types: [apt_type],
       organization: @user.organization
       create :agenda, place: place, name: 'Agenda de test'
       slot = create :slot, appointment_type: apt_type, agenda: @user.organization.agendas.first
@@ -562,7 +563,6 @@ RSpec.feature 'Appointments', type: :feature do
       expect(appointment.cancelation_notif.state).to eq('created')
 
       visit appointment_path(appointment)
-
 
       click_button 'Annuler'
 
@@ -603,7 +603,7 @@ RSpec.feature 'Appointments', type: :feature do
 
     it 'works if convict came to appointment' do
       convict = create(:convict, organizations: [@user.organization])
-      apt_type = create :appointment_type, :with_notification_types
+      apt_type = create :appointment_type, :with_notification_types, name: "RDV de suivi SPIP"
       slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
                                                  appointment_type: apt_type, agenda: @agenda
       appointment = create :appointment, convict: convict, slot: slot
@@ -619,7 +619,7 @@ RSpec.feature 'Appointments', type: :feature do
 
     it 'is also available on appointment#show page' do
       convict = create(:convict, organizations: [@user.organization])
-      apt_type = create :appointment_type, :with_notification_types
+      apt_type = create :appointment_type, :with_notification_types, name: "RDV de suivi SPIP"
       slot = create :slot, :without_validations, date: Date.today, appointment_type: apt_type, agenda: @agenda
       appointment = create :appointment, convict: convict, slot: slot
 
@@ -635,7 +635,7 @@ RSpec.feature 'Appointments', type: :feature do
     describe "if convict didn't came to appointment", logged_in_as: 'cpip' do
       it 'change appointment state and sends sms', js: true do
         convict = create(:convict, first_name: 'babar', last_name: 'bobor', organizations: [@user.organization])
-        apt_type = create :appointment_type, :with_notification_types
+        apt_type = create :appointment_type, :with_notification_types, name: "RDV de suivi SPIP"
         slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
                                                    appointment_type: apt_type, agenda: @agenda
         appointment = create :appointment, convict: convict, slot: slot
@@ -654,7 +654,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       it "change appointment state and don't send sms", js: true do
         convict = create(:convict, first_name: 'babar', last_name: 'bobor', organizations: [@user.organization])
-        apt_type = create(:appointment_type, :with_notification_types)
+        apt_type = create(:appointment_type, :with_notification_types, name: "RDV de suivi SPIP")
         slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
                                                    appointment_type: apt_type, agenda: @agenda
         appointment = create :appointment, convict: convict, slot: slot
@@ -674,7 +674,7 @@ RSpec.feature 'Appointments', type: :feature do
       it 'can be excused' do
         convict = create(:convict, organizations: [@user.organization])
 
-        apt_type = create :appointment_type, :with_notification_types
+        apt_type = create :appointment_type, :with_notification_types, name: "RDV de suivi SPIP"
         slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
                                                    appointment_type: apt_type, agenda: @agenda
         appointment = create :appointment, convict: convict, slot: slot
@@ -695,7 +695,7 @@ RSpec.feature 'Appointments', type: :feature do
     it 're-schedules an appointment to a later date' do
       convict = create(:convict, organizations: [@user.organization])
       apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
-      place = create :place, name: 'KFC de Chatelet', appointment_types: [apt_type],
+      place = create :place, name: 'Test place', appointment_types: [apt_type],
       organization: @user.organization
       create :agenda, place: place, name: 'Agenda de test'
       slot1 = create :slot, appointment_type: apt_type, agenda: @user.organization.agendas.first
@@ -730,9 +730,12 @@ RSpec.feature 'Appointments', type: :feature do
 
     it 'works for an appointment type without pre defined slots' do
       convict = create(:convict, organizations: [@user.organization])
-
       apt_type = create(:appointment_type, :with_notification_types, name: 'RDV de suivi SPIP')
-      slot = create :slot, appointment_type: apt_type
+      place = create :place, name: 'Test place', appointment_types: [apt_type],
+      organization: @user.organization
+      create :agenda, place: place, name: 'Agenda de test'
+      slot = create(:slot, :without_validations, appointment_type: apt_type,
+                                                 agenda: @user.organization.agendas.first)
       appointment = create(:appointment, convict: convict, slot: slot)
 
       appointment.book
