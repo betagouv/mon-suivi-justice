@@ -52,7 +52,7 @@ class Appointment < ApplicationRecord
 
   scope :in_jurisdiction, lambda { |user_organization|
     joins(:slot, convict: :organizations)
-      .where(convict: { organizations: full_jurisdiction(user_organization) })
+      .where(convict: { organizations: [user_organization, *user_organization.linked_organizations] })
   }
 
   scope :active, -> { where.not(state: 'canceled') }
