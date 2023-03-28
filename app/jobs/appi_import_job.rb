@@ -2,16 +2,17 @@ class AppiImportJob < ApplicationJob
   require 'csv'
   queue_as :default
 
-  def perform(appi_data, organization, user)
+  def perform(appi_data, organization, user, csv_errors)
     @import_errors = []
     @import_successes = []
+    csv_errors
 
     process_appi_data(appi_data, organization)
   rescue StandardError => e
     @import_errors.push("Erreur : #{e.message}")
   ensure
     AdminMailer.with(user: user, organization: organization, import_errors: @import_errors,
-                     import_successes: @import_successes).appi_import_report.deliver_later
+                     import_successes: @import_successes, csv_errors: csv_errors).appi_import_report.deliver_later
   end
 
   def process_appi_data(appi_data, organization)

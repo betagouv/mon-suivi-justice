@@ -24,26 +24,31 @@ module Admin
 
       @import_errors = []
       @import_successes = []
+      csv_errors = []
       appi_data = []
 
-      csv.each do |row|
-        next if ['EMPRISONNEMENT', 'AMÉNAGEMENT DE PEINE',
-                 'Placement en détention provisoire'].include?(row['Mesure/Intervention'].split(' (')[0])
+      csv.each_with_index do |row, i|
+        begin
+          next if ['EMPRISONNEMENT', 'AMÉNAGEMENT DE PEINE',
+                  'Placement en détention provisoire'].include?(row['Mesure/Intervention'].split(' (')[0])
 
-        convict = {
-          first_name: row['Prénom'],
-          last_name: row['Nom'],
-          date_of_birth: row['Date de naissance'].to_date,
-          no_phone: true,
-          appi_uuid: row['Numéro de dossier'].split('°')[1]
-        }
+          convict = {
+            first_name: row['Prénom'],
+            last_name: row['Nom'],
+            date_of_birth: row['Date de naissance'].to_date,
+            no_phone: true,
+            appi_uuid: row['Numéro de dossier'].split('°')[1]
+          }
 
-        appi_data.push(convict)
+          appi_data.push(convict)
+        rescue StandardError => e
+          csv_errors.push("Erreur : #{e.message} sur la ligne #{i}")
+        end
       end
     rescue StandardError => e
       flash.now[:error] = "Erreur : #{e.message}"
     else
-      AppiImportJob.perform_later(appi_data, @organization, current_user)
+      AppiImportJob.perform_later(appi_data, @organization, current_user, csv_errors)
       flash.now[:success] =
         'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
     ensure
