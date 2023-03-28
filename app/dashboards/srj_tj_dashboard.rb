@@ -9,7 +9,7 @@ class SrjTjDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    city: Field::HasOne,
+    cities: Field::HasMany,
     name: Field::String,
     short_name: Field::String.with_options(
       searchable: false
@@ -27,7 +27,7 @@ class SrjTjDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    city
+    cities
     short_name
     organization
   ].freeze
@@ -36,7 +36,7 @@ class SrjTjDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    city
+    cities
     name
     short_name
     organization

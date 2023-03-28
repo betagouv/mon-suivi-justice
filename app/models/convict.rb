@@ -181,8 +181,9 @@ class Convict < ApplicationRecord
   # rubocop:disable Metrics/CyclomaticComplexity
   def update_organizations(current_user)
     unless city_id
-      organizations.push(current_user.organization) unless organizations.include?(current_user.organization)
-      # TODO: also add linked tj or spip
+      [current_user.organization, *current_user.organization.linked_organizations].each do |org|
+        organizations.push(org) unless organizations.include?(org)
+      end
       return
     end
 
