@@ -28,22 +28,20 @@ module Admin
       appi_data = []
 
       csv.each_with_index do |row, i|
-        begin
-          next if ['EMPRISONNEMENT', 'AMÉNAGEMENT DE PEINE',
-                  'Placement en détention provisoire'].include?(row['Mesure/Intervention'].split(' (')[0])
+        next if ['EMPRISONNEMENT', 'AMÉNAGEMENT DE PEINE',
+                 'Placement en détention provisoire'].include?(row['Mesure/Intervention'].split(' (')[0])
 
-          convict = {
-            first_name: row['Prénom'],
-            last_name: row['Nom'],
-            date_of_birth: row['Date de naissance'].to_date,
-            no_phone: true,
-            appi_uuid: row['Numéro de dossier'].split('°')[1]
-          }
+        convict = {
+          first_name: row['Prénom'],
+          last_name: row['Nom'],
+          date_of_birth: row['Date de naissance'].to_date,
+          no_phone: true,
+          appi_uuid: row['Numéro de dossier'].split('°')[1]
+        }
 
-          appi_data.push(convict)
-        rescue StandardError => e
-          csv_errors.push("Erreur : #{e.message} sur la ligne #{i}")
-        end
+        appi_data.push(convict)
+      rescue StandardError => e
+        csv_errors.push("Erreur : #{e.message} sur la ligne #{i}")
       end
     rescue StandardError => e
       flash.now[:error] = "Erreur : #{e.message}"

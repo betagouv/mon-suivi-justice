@@ -5,7 +5,6 @@ class AppiImportJob < ApplicationJob
   def perform(appi_data, organization, user, csv_errors)
     @import_errors = []
     @import_successes = []
-    csv_errors
 
     process_appi_data(appi_data, organization)
   rescue StandardError => e
