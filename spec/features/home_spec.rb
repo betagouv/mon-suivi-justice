@@ -4,7 +4,7 @@ RSpec.feature 'Home', type: :feature do
   describe 'Home page', logged_in_as: 'jap' do
     it 'loads' do
       visit home_path
-      expect(page).to have_selector("//input", id: "search_convicts")
+      expect(page).to have_selector('//input', id: 'search_convicts')
     end
   end
 
@@ -65,7 +65,6 @@ RSpec.feature 'Home', type: :feature do
       @appointment2.save validate: false
 
       @appointment2.book
-
 
       slot3 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
                             date: Date.civil(2022, 6, 30),

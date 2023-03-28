@@ -295,7 +295,7 @@ RSpec.feature 'Convicts', type: :feature do
   describe 'archive' do
     it 'an agent can archive a convict', logged_in_as: 'cpip' do
       create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606',
-                                 organizations: [@user.organization])
+                       organizations: [@user.organization])
       visit convicts_path
 
       expect(page).to have_content('BABAR Babar')
