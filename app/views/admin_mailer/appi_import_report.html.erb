@@ -6,17 +6,23 @@
   <body>
     <h1>Rapport d'import APPI dans msj pour, <%= @organization.name %></h1>
     <ul>
-        <% if !@import_successes.nil? && @import_successes.any? %>
-        <li><%= @import_successes.length %> ppsmjs ont été créées :</li>
-        <% @import_successes.each do |success| %>
-            <li><%= success %></li>
+          <% if !@csv_errors.nil? && @csv_errors.any? %>
+          <h1><%= @csv_errors.length %> erreurs de syntaxe dans le fichier :</h1>
+          <% @csv_errors.each do |error| %>
+              <li style="color: red"><%= error %></li>
+          <% end %>
         <% end %>
+        <% if !@import_successes.nil? && @import_successes.any? %>
+          <h1><%= @import_successes.length %> ppsmjs ont été créées :</h1>
+          <% @import_successes.each do |success| %>
+              <li><%= success %></li>
+          <% end %>
         <% end %>
         <% if !@import_errors.nil? && @import_errors.any? %>
-        <li><%= @import_errors.length %> ppsmjs n'ont pas pu être créées :</li>
-        <% @import_errors.each do |error| %>
-            <li style="color: red"><%= error %></li>
-        <% end %>
+          <h1><%= @import_errors.length %> ppsmjs n'ont pas pu être créées :</h1>
+          <% @import_errors.each do |error| %>
+              <li style="color: red"><%= error %></li>
+          <% end %>
         <% end %>
     </ul>
   </body>
