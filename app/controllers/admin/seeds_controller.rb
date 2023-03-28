@@ -36,9 +36,9 @@ module Admin
       end
 
       ActiveRecord::Base.connection.execute("
-        DELETE FROM tjs WHERE 1=1;
+        DELETE FROM srj_tjs WHERE 1=1;
 
-        INSERT INTO tjs(name, structure_id, updated_at, created_at)
+        INSERT INTO srj_tjs(name, structure_id, updated_at, created_at)
           SELECT DISTINCT
             s.name,
             s.id AS structure_id,
@@ -50,9 +50,9 @@ module Admin
         ;")
 
       ActiveRecord::Base.connection.execute("
-        DELETE FROM spips WHERE 1=1;
+        DELETE FROM srj_spips WHERE 1=1;
 
-        INSERT INTO spips(name, structure_id, updated_at, created_at)
+        INSERT INTO srj_spips(name, structure_id, updated_at, created_at)
           SELECT DISTINCT
             s.name,
             s.id AS structure_id,
@@ -80,9 +80,9 @@ module Admin
         UPDATE 
           cities
         SET 
-          srj_tj_id = tjs.id
-        FROM tjs
-          INNER JOIN monsuivijustice_relation_commune_structure rcs ON CAST(tjs.structure_id AS integer) = rcs.structure_id
+          srj_tj_id = srj_tjs.id
+        FROM srj_tjs
+          INNER JOIN monsuivijustice_relation_commune_structure rcs ON CAST(srj_tjs.structure_id AS integer) = rcs.structure_id
           INNER JOIN monsuivijustice_commune c ON c.id = rcs.commune_id
         WHERE CAST(cities.city_id AS integer) = c.id;")
 
@@ -90,9 +90,9 @@ module Admin
         UPDATE 
           cities
         SET 
-          srj_spip_id = spips.id
-        FROM spips
-          INNER JOIN monsuivijustice_relation_commune_structure rcs ON CAST(spips.structure_id AS integer) = rcs.structure_id
+          srj_spip_id = srj_spips.id
+        FROM srj_spips
+          INNER JOIN monsuivijustice_relation_commune_structure rcs ON CAST(srj_spips.structure_id AS integer) = rcs.structure_id
           INNER JOIN monsuivijustice_commune c ON c.id = rcs.commune_id
         WHERE CAST(cities.city_id AS integer) = c.id;")
       end

@@ -15,7 +15,7 @@ class ConvictDashboard < Administrate::BaseDashboard
     last_name: Field::String,
     organizations: Field::HasMany,
     appi_uuid: Field::String,
-    city: Field::BelongsTo,
+    city: Field::BelongsToSearch,
     appointments: Field::HasMany,
     no_phone: Field::Boolean,
     homeless: Field::Boolean,
