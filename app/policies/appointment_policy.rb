@@ -2,8 +2,7 @@ class AppointmentPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.work_at_bex?
-        # TODO : add linked organizations appointments / all appointments / do nothing ?
-        scope.in_organization(user.organization)
+        scope.in_jurisdiction(user.organization)
       else
         scope.in_organization(user.organization)
       end
