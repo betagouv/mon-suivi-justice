@@ -44,8 +44,4 @@ module OrganizationHelper
 
     [current_user.organization]
   end
-
-  def full_juridiction(organization)
-    [organization, *organization.linked_organizations]
-  end
 end
