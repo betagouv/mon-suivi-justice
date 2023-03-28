@@ -68,13 +68,11 @@ class Organization < ApplicationRecord
   def tj
     return nil unless spip?
 
-    jurisdictions.first&.organizations&.select(&:tj?)&.first
+    # In most cases spip will only have 1 associated tj
+    # we use this to avoid to handle the case where a spip has multiple tjs for optionnal fields
+    tjs.first
   end
 
-  def spips
-    return [] unless tj?
-
-    jurisdictions.first&.organizations&.select(&:spip?)
   def linked_organizations
     return tjs if organization_type == 'spip'
     return spips if organization_type == 'tj'
@@ -103,6 +101,7 @@ class Organization < ApplicationRecord
     errors.add(:extra_fields,
                I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.sap'))
   end
+
   # rubocop:enable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/PerceivedComplexity
