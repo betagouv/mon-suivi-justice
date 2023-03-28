@@ -28,7 +28,8 @@ module Admin
     def truncate_db
       ActiveRecord::Base.connection.tables.each do |t|
         # We don't want to delete the SRJ tables
-        next if %w[schema_migrations monsuivijustice_relation_commune_structure monsuivijustice_commune monsuivijustice_structure].include?(t)
+        next if %w[schema_migrations monsuivijustice_relation_commune_structure monsuivijustice_commune
+                   monsuivijustice_structure].include?(t)
 
         conn = ActiveRecord::Base.connection
         conn.execute("TRUNCATE TABLE #{t} CASCADE;")
@@ -45,7 +46,7 @@ module Admin
             NOW() as updated_at,
             NOW() as created_at
         FROM monsuivijustice_structure s
-        INNER JOIN monsuivijustice_relation_commune_structure rcs ON rcs.structure_id = s.id 
+        INNER JOIN monsuivijustice_relation_commune_structure rcs ON rcs.structure_id = s.id
         WHERE s.name LIKE 'Tribunal judiciaire%'
         ;")
 
@@ -59,7 +60,7 @@ module Admin
             NOW() as updated_at,
             NOW() as created_at
         FROM monsuivijustice_structure s
-        INNER JOIN monsuivijustice_relation_commune_structure rcs ON rcs.structure_id = s.id 
+        INNER JOIN monsuivijustice_relation_commune_structure rcs ON rcs.structure_id = s.id
         WHERE s.name LIKE 'Service%' OR s.name LIKE 'Antenne de%'
         ;")
 
@@ -77,9 +78,9 @@ module Admin
       FROM monsuivijustice_commune c;")
 
       ActiveRecord::Base.connection.execute("
-        UPDATE 
+        UPDATE
           cities
-        SET 
+        SET
           srj_tj_id = srj_tjs.id
         FROM srj_tjs
           INNER JOIN monsuivijustice_relation_commune_structure rcs ON CAST(srj_tjs.structure_id AS integer) = rcs.structure_id
@@ -87,15 +88,15 @@ module Admin
         WHERE CAST(cities.city_id AS integer) = c.id;")
 
       ActiveRecord::Base.connection.execute("
-        UPDATE 
+        UPDATE
           cities
-        SET 
+        SET
           srj_spip_id = srj_spips.id
         FROM srj_spips
           INNER JOIN monsuivijustice_relation_commune_structure rcs ON CAST(srj_spips.structure_id AS integer) = rcs.structure_id
           INNER JOIN monsuivijustice_commune c ON c.id = rcs.commune_id
         WHERE CAST(cities.city_id AS integer) = c.id;")
-      end
+    end
 
     def show_search_bar?
       false
