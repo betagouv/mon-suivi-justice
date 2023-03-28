@@ -9,6 +9,7 @@ class AppointmentsBookingsController < ApplicationController
     # Load places
     @places = Place.joins(:appointment_types,
                           organization: :convicts).where('convicts.id': @convict.id).where(appointment_types: @appointment_type)
+
   end
 
   def load_prosecutor
