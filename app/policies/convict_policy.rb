@@ -7,7 +7,7 @@ class ConvictPolicy < ApplicationPolicy
         scope.all
       else
         # TODO : add linked organizations convicts ?
-        scope.joins(:organizations).where(organizations: { id: user.organization.id })
+        scope.joins(:organizations).where(organizations: user.organization)
       end
     end
   end
