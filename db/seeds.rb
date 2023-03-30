@@ -15,6 +15,7 @@ org_spip_75 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
 org_spip_77 = Organization.create!(name: 'SPIP 77', organization_type: 'spip')
 org_tj_melun = Organization.create!(name: 'TJ Melun', organization_type: 'tj')
 org_tj_fontainebleau = Organization.create!(name: 'TJ de Fontainebleau', organization_type: 'tj')
+org_tj_paris = Organization.create!(name: 'TJ Paris', organization_type: 'tj')
 
 # Un service peut être rattaché à des départements et/ou des juridictions
 # Cela impacte le rattachement des ppsmj à tel  département et/ou juridiction à leur création
@@ -137,6 +138,11 @@ User.create!(
 User.create!(
   organization: org_tj_melun, email: 'bextjmelun@example.com', password: '1mot2passeSecurise!',
   password_confirmation: '1mot2passeSecurise!', role: :bex, first_name: 'Roger', last_name: 'Federer'
+)
+
+User.create!(
+  organization: org_tj_paris, email: 'bextjparis@example.com', password: '1mot2passeSecurise!',
+  password_confirmation: '1mot2passeSecurise!', role: :bex, first_name: 'Stanislas', last_name: 'Wawrinka'
 )
 
 place_tj_nanterre = Place.create!(
