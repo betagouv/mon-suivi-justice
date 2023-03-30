@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_23_101114) do
+ActiveRecord::Schema.define(version: 2023_03_30_082857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(version: 2023_03_23_101114) do
     t.boolean "lives_abroad", default: false, null: false
     t.bigint "city_id"
     t.bigint "creating_organization_id"
+    t.boolean "japat", default: false, null: false
     t.index ["city_id"], name: "index_convicts_on_city_id"
     t.index ["creating_organization_id"], name: "index_convicts_on_creating_organization_id"
     t.index ["discarded_at"], name: "index_convicts_on_discarded_at"
