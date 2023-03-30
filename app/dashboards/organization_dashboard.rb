@@ -35,8 +35,6 @@ class OrganizationDashboard < Administrate::BaseDashboard
     id
     name
     organization_type
-    departments
-    jurisdictions
     headquarter
     number_of_ppsmj
     tjs

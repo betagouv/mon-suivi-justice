@@ -176,7 +176,7 @@ RSpec.feature 'Appointments', type: :feature do
         appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
         appointment_type_spip = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
 
-        convict = create :convict, first_name: 'Jack', last_name: 'Dalton', organizations: [@user.organization]
+        create :convict, first_name: 'Jack', last_name: 'Dalton', organizations: [@user.organization]
 
         place_in = create :place, organization: @user.organization, name: 'place_in_name',
                                   appointment_types: [appointment_type]
@@ -275,8 +275,8 @@ RSpec.feature 'Appointments', type: :feature do
 
       it 'allows an agent to setup a meeting in another department', logged_in_as: 'jap' do
         appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
-        place = create :place, name: 'Test place', appointment_types: [appointment_type],
-                               organization: @user.organization
+        create :place, name: 'Test place', appointment_types: [appointment_type],
+                       organization: @user.organization
 
         organization = create :organization, name: 'TJ Foix', organization_type: 'tj'
 
@@ -312,7 +312,7 @@ RSpec.feature 'Appointments', type: :feature do
 
     context 'appointment_type without predefined slots', logged_in_as: 'cpip' do
       before do
-        convict = create(:convict, first_name: 'Momo', last_name: 'La Fouine', organizations: [@user.organization])
+        create(:convict, first_name: 'Momo', last_name: 'La Fouine', organizations: [@user.organization])
 
         appointment_type = create :appointment_type, :with_notification_types, name: 'RDV de suivi SPIP'
         place = create :place, name: 'Lieu test', appointment_types: [appointment_type],
@@ -374,8 +374,8 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it "doesn't propose convocation SMS if the convict has no phone" do
-        convict2 = create :convict, first_name: 'Momo', last_name: 'Le renard', phone: nil, no_phone: true,
-                                    organizations: [@user.organization]
+        create :convict, first_name: 'Momo', last_name: 'Le renard', phone: nil, no_phone: true,
+                         organizations: [@user.organization]
 
         visit new_appointment_path
 
@@ -425,7 +425,7 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it 'links the PPSMJ to the CPIP if wanted' do
-        convict = create(:convict, first_name: 'JP', last_name: 'Cherty', organizations: [@user.organization])
+        create(:convict, first_name: 'JP', last_name: 'Cherty', organizations: [@user.organization])
         appointment_type = create :appointment_type, :with_notification_types, name: '1er RDV SPIP'
         place = create :place, name: 'Test place', appointment_types: [appointment_type],
                                organization: @user.organization
@@ -453,7 +453,7 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it 'does not link the PPSMJ to the CPIP if not wanted' do
-        convict = create(:convict, first_name: 'JP', last_name: 'Cherty', organizations: [@user.organization])
+        create(:convict, first_name: 'JP', last_name: 'Cherty', organizations: [@user.organization])
         appointment_type = create :appointment_type, :with_notification_types, name: '1er RDV SPIP'
         place = create :place, name: 'Test place', appointment_types: [appointment_type],
                                organization: @user.organization
