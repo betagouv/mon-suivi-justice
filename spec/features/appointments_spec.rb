@@ -173,7 +173,6 @@ RSpec.feature 'Appointments', type: :feature do
       end
 
       it 'allows an agent to create appointment only for his service places & slots', logged_in_as: 'jap' do
-        debugger
         appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
         appointment_type_spip = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
 
