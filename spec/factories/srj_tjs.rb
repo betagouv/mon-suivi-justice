@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :spip do
-    name { 'MyString' }
+  factory :srj_tj do
+    name { 'Tj XX' }
     organization { nil }
   end
 end
