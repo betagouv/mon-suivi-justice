@@ -90,6 +90,69 @@ RSpec.feature 'Convicts', type: :feature do
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
     end
 
+    it 'it assigns the current user organizations to the convict if no city specified' do
+      tj = create(:organization, organization_type: 'tj')
+      @user.organization.tjs.push(tj)
+
+      visit new_convict_path
+
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      check 'Ne possède pas de téléphone portable'
+
+      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+      expect(Convict.first.organizations).to eq([@user.organization, tj])
+    end
+
+    it 'it assigns the city organizations to the convict if a city is selected', js: true do
+      tj = create(:organization, organization_type: 'tj')
+      srj_tj = create(:srj_tj, organization: tj)
+      srj_spip = create(:srj_spip, organization: @user.organization)
+
+      city = create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
+
+      visit new_convict_path
+
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+
+      find('#new_convict > span').click
+      find('body > span > span > span.select2-search.select2-search--dropdown > input').set('Melun')
+      find('li', text: '77000 Melun (France) - 77000').click
+
+      check 'Ne possède pas de téléphone portable'
+
+      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+
+      expect(Convict.first.organizations.pluck(:id)).to match_array(city.organizations.pluck(:id))
+    end
+
+    it 'it assigns the city spip and TJ Paris to the convict if a city is selected and japat is selected', js: true do
+      tj = create(:organization, organization_type: 'tj')
+      tj_paris = create(:organization, name: 'TJ Paris', organization_type: 'tj')
+      srj_tj = create(:srj_tj, organization: tj)
+      srj_spip = create(:srj_spip, organization: @user.organization)
+
+      city = create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
+
+      visit new_convict_path
+
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+
+      find('#new_convict > span').click
+      find('body > span > span > span.select2-search.select2-search--dropdown > input').set('Melun')
+      find('li', text: '77000 Melun (France) - 77000').click
+
+      check 'Japat'
+      check 'Ne possède pas de téléphone portable'
+
+      expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
+
+      expect(Convict.first.organizations).to match_array([@user.organization, tj_paris])
+    end
+
+
     describe 'with potentially duplicated convicts' do
       it 'shows a warning with link to pre-existing convict profile' do
         convict = create(:convict, first_name: 'roberta', last_name: 'dupond', organizations: [@user.organization])
