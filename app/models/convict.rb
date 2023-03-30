@@ -180,20 +180,19 @@ class Convict < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
   def update_organizations(current_user)
-    unless city_id
-      organizations.push(current_user.organization) unless organizations.include?(current_user.organization)
-      # TODO: also add linked tj or spip
-      return
+    if city_id
+      city = City.find(city_id)
+
+      tj = city.srj_tj&.organization
+      spip = city.srj_spip&.organization
+
+      organizations.push(tj) unless organizations.include?(tj) || tj.nil?
+      organizations.push(spip) unless organizations.include?(spip) || spip.nil?
+    else
+      [current_user.organization, *current_user.organization.linked_organizations].each do |org|
+        organizations.push(org) unless organizations.include?(org)
+      end
     end
-
-    city = City.find(city_id)
-
-    tj = city.srj_tj&.organization
-    spip = city.srj_spip&.organization
-
-    organizations.push(tj) unless organizations.include?(tj) || tj.nil?
-    organizations.push(spip) unless organizations.include?(spip) || spip.nil?
-
     save
   end
   # rubocop:enable Metrics/AbcSize

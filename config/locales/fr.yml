@@ -343,6 +343,8 @@ fr:
     organizations: "Services"
     steering: "Pilotage"
     guides: "Documentation"
+    appointmentsnew: "Nouveau rendez-vous"
+    convictsnew: "Nouvelle PPSMJ"
 
   support:
     modal_title: Support
