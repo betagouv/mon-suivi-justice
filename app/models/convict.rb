@@ -177,26 +177,16 @@ class Convict < ApplicationRecord
     UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
   end
 
-  # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
   def update_organizations(current_user)
-    unless city_id
-      organizations.push(current_user.organization) unless organizations.include?(current_user.organization)
-      # TODO: also add linked tj or spip
-      return
+    if city_id
+      city = City.find(city_id)
+      city.organizations.each { |c| organizations.push(c) unless organizations.include?(c) }
+    else
+      current_user.organizations.each { |c| organizations.push(c) unless organizations.include?(c)}
     end
-
-    city = City.find(city_id)
-
-    tj = city.srj_tj&.organization
-    spip = city.srj_spip&.organization
-
-    organizations.push(tj) unless organizations.include?(tj) || tj.nil?
-    organizations.push(spip) unless organizations.include?(spip) || spip.nil?
-
     save
   end
-  # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def full_name
