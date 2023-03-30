@@ -34,8 +34,6 @@ class OrganizationDashboard < Administrate::BaseDashboard
     id
     name
     organization_type
-    departments
-    jurisdictions
     headquarter
     tjs
     spips
