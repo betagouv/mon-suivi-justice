@@ -17,7 +17,7 @@ module Admin
 
       truncate_db
 
-      return unless Rails.env.development?
+      return redirect_to admin_root_path unless Rails.env.development?
 
       Rails.application.load_seed
       @admin = User.find_by email: 'admin@example.com'
@@ -40,11 +40,13 @@ module Admin
         end
       end
 
-      ActiveRecord::Base.connection.execute("
-        TRUNCATE TABLE cities RESTART IDENTITY CASCADE;
-        TRUNCATE TABLE srj_tjs RESTART IDENTITY CASCADE;
-        TRUNCATE TABLE srj_spips RESTART IDENTITY CASCADE;
-      ")
+      City.destroy_all
+      SrjTj.destroy_all
+      SrjSpip.destroy_all
+
+      ActiveRecord::Base.connection.reset_pk_sequence!('cities')
+      ActiveRecord::Base.connection.reset_pk_sequence!('srj_tjs')
+      ActiveRecord::Base.connection.reset_pk_sequence!('srj_spips')
 
       ActiveRecord::Base.connection.execute("
         INSERT INTO cities(name, zipcode, code_insee, city_id, updated_at, created_at)
@@ -81,6 +83,8 @@ module Admin
         INNER JOIN monsuivijustice_relation_commune_structure rcs ON rcs.structure_id = s.id
         WHERE s.name LIKE 'Tribunal judiciaire%'
         ;")
+
+      # TODO, populate cities with rails/active record
 
       ActiveRecord::Base.connection.execute("
         UPDATE
