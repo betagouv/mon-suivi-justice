@@ -17,6 +17,8 @@ module Admin
 
       truncate_db
 
+      return unless Rails.env.development?
+
       Rails.application.load_seed
       @admin = User.find_by email: 'admin@example.com'
       sign_in(@admin)
@@ -26,32 +28,36 @@ module Admin
     private
 
     def truncate_db
-      ActiveRecord::Base.connection.tables.each do |t|
-        # We don't want to delete the SRJ tables
-        next if %w[schema_migrations monsuivijustice_relation_commune_structure monsuivijustice_commune
-                   monsuivijustice_structure].include?(t)
+      if Rails.env.development?
+        ActiveRecord::Base.connection.tables.each do |t|
+          # We don't want to delete the SRJ tables
+          next if %w[schema_migrations monsuivijustice_relation_commune_structure monsuivijustice_commune
+                     monsuivijustice_structure].include?(t)
 
-        conn = ActiveRecord::Base.connection
-        conn.execute("TRUNCATE TABLE #{t} CASCADE;")
-        conn.reset_pk_sequence!(t)
+          conn = ActiveRecord::Base.connection
+          conn.execute("TRUNCATE TABLE #{t} CASCADE;")
+          conn.reset_pk_sequence!(t)
+        end
       end
 
       ActiveRecord::Base.connection.execute("
-        DELETE FROM srj_tjs WHERE 1=1;
-
-        INSERT INTO srj_tjs(name, structure_id, updated_at, created_at)
-          SELECT DISTINCT
-            s.name,
-            s.id AS structure_id,
-            NOW() as updated_at,
-            NOW() as created_at
-        FROM monsuivijustice_structure s
-        INNER JOIN monsuivijustice_relation_commune_structure rcs ON rcs.structure_id = s.id
-        WHERE s.name LIKE 'Tribunal judiciaire%'
-        ;")
+        TRUNCATE TABLE cities RESTART IDENTITY CASCADE;
+        TRUNCATE TABLE srj_tjs RESTART IDENTITY CASCADE;
+        TRUNCATE TABLE srj_spips RESTART IDENTITY CASCADE;
+      ")
 
       ActiveRecord::Base.connection.execute("
-        DELETE FROM srj_spips WHERE 1=1;
+        INSERT INTO cities(name, zipcode, code_insee, city_id, updated_at, created_at)
+        SELECT
+          c.names AS name,
+          c.postal_code AS zipcode,
+          c.insee_code AS code_insee,
+          c.id AS city_id,
+          NOW() as upadted_at,
+          NOW() as created_at
+      FROM monsuivijustice_commune c;")
+
+      ActiveRecord::Base.connection.execute("
 
         INSERT INTO srj_spips(name, structure_id, updated_at, created_at)
           SELECT DISTINCT
@@ -65,17 +71,16 @@ module Admin
         ;")
 
       ActiveRecord::Base.connection.execute("
-        DELETE FROM cities WHERE 1=1;
-
-        INSERT INTO cities(name, zipcode, code_insee, city_id, updated_at, created_at)
-        SELECT
-          c.names AS name,
-          c.postal_code AS zipcode,
-          c.insee_code AS code_insee,
-          c.id AS city_id,
-          NOW() as upadted_at,
-          NOW() as created_at
-      FROM monsuivijustice_commune c;")
+          INSERT INTO srj_tjs(name, structure_id, updated_at, created_at)
+          SELECT DISTINCT
+            s.name,
+            s.id AS structure_id,
+            NOW() as updated_at,
+            NOW() as created_at
+        FROM monsuivijustice_structure s
+        INNER JOIN monsuivijustice_relation_commune_structure rcs ON rcs.structure_id = s.id
+        WHERE s.name LIKE 'Tribunal judiciaire%'
+        ;")
 
       ActiveRecord::Base.connection.execute("
         UPDATE
