@@ -17,12 +17,12 @@ module Admin
 
       truncate_db
 
-      if Rails.env.development?
-        Rails.application.load_seed 
-        @admin = User.find_by email: 'admin@example.com'
-        sign_in(@admin)
-        redirect_to admin_root_path
-      end
+      return unless Rails.env.development?
+
+      Rails.application.load_seed
+      @admin = User.find_by email: 'admin@example.com'
+      sign_in(@admin)
+      redirect_to admin_root_path
     end
 
     private
