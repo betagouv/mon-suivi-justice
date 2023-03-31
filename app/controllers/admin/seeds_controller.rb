@@ -17,7 +17,7 @@ module Admin
 
       truncate_db
 
-      return redirect_to admin_root_path unless !Rails.env.production?
+      return redirect_to admin_root_path unless !Rails.env.development?
 
       Rails.application.load_seed
       @admin = User.find_by email: 'admin@example.com'
@@ -28,7 +28,7 @@ module Admin
     private
 
     def truncate_db
-      if !Rails.env.production?
+      if Rails.env.development?
         ActiveRecord::Base.connection.tables.each do |t|
           # We don't want to delete the SRJ tables
           next if %w[schema_migrations monsuivijustice_relation_commune_structure monsuivijustice_commune
