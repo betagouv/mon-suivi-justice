@@ -26,14 +26,16 @@ module Admin
     private
 
     def truncate_db
-      ActiveRecord::Base.connection.tables.each do |t|
-        # We don't want to delete the SRJ tables
-        next if %w[schema_migrations monsuivijustice_relation_commune_structure monsuivijustice_commune
-                   monsuivijustice_structure].include?(t)
+      if Rails.env.development?
+        ActiveRecord::Base.connection.tables.each do |t|
+          # We don't want to delete the SRJ tables
+          next if %w[schema_migrations monsuivijustice_relation_commune_structure monsuivijustice_commune
+                    monsuivijustice_structure].include?(t)
 
-        conn = ActiveRecord::Base.connection
-        conn.execute("TRUNCATE TABLE #{t} CASCADE;")
-        conn.reset_pk_sequence!(t)
+          conn = ActiveRecord::Base.connection
+          conn.execute("TRUNCATE TABLE #{t} CASCADE;")
+          conn.reset_pk_sequence!(t)
+        end
       end
 
       ActiveRecord::Base.connection.execute("
