@@ -17,7 +17,7 @@ module Admin
 
       truncate_db
 
-      return redirect_to admin_root_path unless !Rails.env.development?
+      return redirect_to admin_root_path unless Rails.env.development?
 
       Rails.application.load_seed
       @admin = User.find_by email: 'admin@example.com'
