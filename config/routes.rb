@@ -14,10 +14,8 @@ Rails.application.routes.draw do
       resources :cities
       resources :places, except: :index
       resources :jurisdictions, except: :index
-      if Rails.env.development?
-        resources :seeds, only: [:index]
-        get '/reset_db' => "seeds#reset_db"
-      end
+      resources :seeds, only: [:index]
+      get '/reset_db' => "seeds#reset_db"
       resources :public_pages, only: [:index]
       resources :import_convicts, only: [:index]
       post '/create_page' => "public_pages#create"
