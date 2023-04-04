@@ -4,6 +4,8 @@ namespace :convicts do
     convict_migration_errors = []
     convict_migration_success = 0
     Convict.all.each do |convict|
+      next if convict.organizations.present?
+
       departments = convict.departments
       jurisdictions = convict.jurisdictions
       dpt_orga = departments.flat_map(&:organizations).uniq
@@ -11,7 +13,7 @@ namespace :convicts do
 
       organizations = [*dpt_orga, *jdt_orga].uniq
       p "Convict #{convict.id} is linked to #{organizations.map(&:id)}"
-      next unless organizations.count > 0
+      next unless organizations.present?
 
       convict.organizations = organizations
       convict.save!
