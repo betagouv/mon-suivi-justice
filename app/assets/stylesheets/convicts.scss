@@ -266,3 +266,20 @@
 #city-organizations {
   color: red
 }
+
+body.autocomplete #modal-autocomplete {
+  display: block;
+  z-index: 1;
+}
+
+
+#modal-autocomplete {
+  border: 0;
+  left: auto;
+  position: absolute;
+  right: 0;
+  text-align: left;
+  top: 2.5rem;
+  width: 100%;
+  display: block;
+}

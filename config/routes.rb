@@ -117,6 +117,7 @@ Rails.application.routes.draw do
   get '/steering_sda' => 'steerings#sda_stats', as: 'steering_sda'
 
   get '/search_convicts' => 'convicts#search', as: 'search_convicts'
+  get '/search_cities' => 'cities#search', as: 'search_cities'
 
   unauthenticated do
     devise_scope :user do

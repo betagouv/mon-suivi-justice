@@ -1,0 +1,34 @@
+<% if @cities.length > 0 %>
+  <ol>
+    <% @cities.each do |city| %>
+    <div>
+  <div class="fr-container">
+  <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+    <div class="fr-col-8">
+       <li class="fr-mb-2w"><%= city.name %></li>
+
+    </div>
+        <div class="fr-col-4">
+              <button class="fr-btn">
+        Label bouton
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+       
+    
+    </div>
+
+    <% end %>
+  </ol>
+<% else %>
+  <p class="fr-title-no fr-text--bold fr-text--sm fr-mb-1w">Aucun résultat pour «&nbsp;fsqdfds&nbsp;»</p>
+  <p class="fr-text--xs fr-mb-1w">Votre recherche n'a retourné aucun résultat. Pour l'améliorer vous pouvez :</p>
+  <ul class="fr-text--xs">
+    <li class="fr-mb-1w">Vérifier l'orthographe de votre recherche</li>
+    <li>Essayer avec d'autres mots-clés</li>
+  </ul>
+<% end %>

@@ -15,6 +15,12 @@ class CitiesController < ApplicationController
     render json: @services
   end
 
+  def search
+    @cities = City.search_by_name(params[:city_name])
+    authorize @cities
+    render layout: false
+  end
+
   private
 
   def city_params

@@ -9,6 +9,7 @@ export default class extends Controller {
   }
 
   handleResults(e) {
+    console.log(e)
     const [data, status, xhr] = e.detail
     this.resultsTarget.innerHTML = xhr.response
   }
