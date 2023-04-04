@@ -84,6 +84,10 @@ class Organization < ApplicationRecord
     Convict.under_hand_of(self).count
   end
 
+  def number_of_convicts
+    convicts.count
+  end
+
   private
 
   # rubocop:disable Metrics/MethodLength

@@ -23,7 +23,8 @@ class OrganizationDashboard < Administrate::BaseDashboard
     headquarter: Field::BelongsTo,
     number_of_ppsmj: Field::Number,
     tjs: Field::HasMany,
-    spips: Field::HasMany
+    spips: Field::HasMany,
+    number_of_convicts: Field::Number
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -36,9 +37,10 @@ class OrganizationDashboard < Administrate::BaseDashboard
     name
     organization_type
     headquarter
-    number_of_ppsmj
     tjs
     spips
+    number_of_ppsmj
+    number_of_convicts
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
