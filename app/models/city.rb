@@ -9,6 +9,6 @@ class City < ApplicationRecord
   scope :with_at_least_one_service, -> { (with_at_least_one_tj + with_at_least_one_spip).uniq }
 
   def organizations
-    [srj_tj&.organization, srj_spip&.organization]
+    [srj_tj&.organization, srj_spip&.organization].compact!
   end
 end
