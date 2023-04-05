@@ -1,5 +1,5 @@
 <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-  <div class="fr-col-8">
+  <div class="fr-col-6">
     <% if current_user.cpip? %>
       <%= button_to t('my_convicts'), convicts_path, params: { only_mine: true }, class: 'fr-btn fr-btn--secondary fr-mr-1w', method: :get %>
     <% end %>
