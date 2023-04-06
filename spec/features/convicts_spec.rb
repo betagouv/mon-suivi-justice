@@ -152,7 +152,6 @@ RSpec.feature 'Convicts', type: :feature do
       expect(Convict.first.organizations).to match_array([@user.organization, tj_paris])
     end
 
-
     describe 'with potentially duplicated convicts' do
       it 'shows a warning with link to pre-existing convict profile' do
         convict = create(:convict, first_name: 'roberta', last_name: 'dupond', organizations: [@user.organization])
