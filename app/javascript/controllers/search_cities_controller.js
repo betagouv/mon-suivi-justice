@@ -9,11 +9,14 @@ export default class extends ApplicationController {
         useDebounce(this, { wait: 500 })
     }
 
+    get query() {
+        return this.queryTarget.value
+    }
+
     search() {
-        if (this.query == "") {
-            this.reset()
+        if (this.query.length < 3) {
             return
-        }
+          }
 
         if (this.query == this.previousQuery) {
             return
@@ -26,15 +29,12 @@ export default class extends ApplicationController {
         fetch('/search_cities?city_name=' + this.query, { signal: this.abortController.signal })
             .then(response => response.text())
             .then(html => {
-                console.log(html)
                 this.handleResults(html)
             })
             .catch((e) => { 
                 console.log(e)
             })
     }
-
-    // private
     
     reset() {
         this.resultsTarget.innerHTML = ""
@@ -48,11 +48,11 @@ export default class extends ApplicationController {
         }
     }
 
-    get query() {
-        return this.queryTarget.value
-    }
-
     handleResults(data) {
         this.resultsTarget.innerHTML = data
+    }
+
+    clearResults() {
+        this.resultsTarget.innerHTML = ""
     }
 }

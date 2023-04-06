@@ -1,0 +1,12 @@
+<div data-controller="search-cities search-cities-results" data-action="search-cities-results:citySelected->search-cities#clearResults">
+  <div class="fr-input-group">
+    <label class="fr-label" for="convict_city_id"><%= t('activerecord.attributes.convict.city_id')%></label>
+    <input class="fr-input" type="search" name="convict[city_id]" id="convict_city_id" data-search-cities-target="query" data-action="input->search-cities#search">
+  </div>
+  <div id="search_results" data-search-cities-target="results"></div>
+  <p data-search-cities-results-target="selectedCity"></p>
+  <div class="fr-alert fr-alert--error fr-alert--sm" data-search-cities-results-target="organizationsInfo" hidden="true">
+    <p></p>
+  </div>
+  <input value="" autocomplete="off" type="hidden" data-search-cities-results-target="hiddenField" name="convict[city_id]">
+</div>
