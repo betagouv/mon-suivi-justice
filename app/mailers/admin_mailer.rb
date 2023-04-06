@@ -9,4 +9,10 @@ class AdminMailer < ApplicationMailer
     @csv_errors = params[:csv_errors]
     mail(to: @user.email, subject: "Rapport import APPI #{@organization.name}")
   end
+
+  def convict_migration_report
+    @convict_migration_success = params[:convict_migration_success]
+    @convict_migration_errors = params[:convict_migration_errors]
+    mail(to: 'matthieu.faugere@beta.gouv.fr', subject: 'Rapport migration des convicts')
+  end
 end
