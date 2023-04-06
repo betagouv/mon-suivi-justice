@@ -177,15 +177,15 @@ class Convict < ApplicationRecord
     UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def update_organizations(current_user)
     org_source = city_id ? City.find(city_id) : current_user
-    org_source.organizations.each { |c| organizations.push(c) unless  (organizations.include?(c) || (c.organization_type == 'tj' && japat))}
-    organizations.push Organization.find_by name: "TJ Paris" if japat
+    org_source.organizations.each do |c|
+      organizations.push(c) unless organizations.include?(c) || (c.organization_type == 'tj' && japat)
+    end
+    organizations.push Organization.find_by name: 'TJ Paris' if japat
 
     save
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def full_name
     "#{first_name} #{last_name}"

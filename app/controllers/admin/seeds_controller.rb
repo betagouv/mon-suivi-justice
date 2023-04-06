@@ -61,9 +61,9 @@ module Admin
 
       ActiveRecord::Base.connection.execute("
         INSERT INTO srj_spips(name, structure_id, updated_at, created_at)
-          SELECT 
-            ms.name, 
-            ms.id AS structure_id, 
+          SELECT
+            ms.name,
+            ms.id AS structure_id,
             NOW() as updated_at,
             NOW() as created_at
           FROM public.monsuivijustice_commune mc
