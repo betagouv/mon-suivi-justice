@@ -39,7 +39,7 @@
         <div class="fr-checkbox-group">
             <input name="convict[homeless]" id="convict-homeless" type="checkbox" aria-describedby="convict-homeless-messages" value="1" <%= 'checked' if @convict.homeless%>>
             <label class="fr-label" for="convict-homeless">
-                SDF
+              <%= t('activerecord.attributes.convict.homeless')%>
             </label>
             <div class="fr-messages-group" id="convict-homeless-messages" aria-live="assertive">
             </div>
@@ -50,7 +50,7 @@
         <div class="fr-checkbox-group">
             <input name="convict[lives_abroad]" id="convict-lives-abroad" type="checkbox" aria-describedby="convict-lives-abroad-messages" value="1" <%= 'checked' if @convict.lives_abroad %>>
             <label class="fr-label" for="convict-lives-abroad">
-                Habite à l'étranger
+              <%= t('activerecord.attributes.convict.lives_abroad')%>
             </label>
             <div class="fr-messages-group" id="convict-lives-abroad-messages" aria-live="assertive">
             </div>
@@ -76,7 +76,7 @@
         <div class="fr-checkbox-group">
             <input name="convict[no_phone]" id="convict-no-phone" type="checkbox" aria-describedby="convict-no-phone-messages" value="1" <%= 'checked' if @convict.no_phone %>>
             <label class="fr-label" for="convict-no-phone">
-                Ne possède pas de téléphone portable
+              <%= t('activerecord.attributes.convict.no_phone')%>
             </label>
             <div class="fr-messages-group" id="convict-no-phone-messages" aria-live="assertive">
             </div>
@@ -87,7 +87,7 @@
         <div class="fr-checkbox-group">
             <input name="convict[refused_phone]" id="convict-refused-phone" type="checkbox" aria-describedby="convict-refused-phone-messages" value="1" <%= 'checked' if @convict.refused_phone %>>
             <label class="fr-label" for="convict-refused-phone">
-                Refuse de donner son numéro
+              <%= t('activerecord.attributes.convict.refused_phone')%>
             </label>
             <div class="fr-messages-group" id="convict-refused-phone-messages" aria-live="assertive">
             </div>
