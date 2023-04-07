@@ -16,6 +16,6 @@ class City < ApplicationRecord
                                    }
 
   def organizations
-    [srj_tj&.organization, srj_spip&.organization].compact!
+    [srj_tj&.organization, srj_spip&.organization].reject!(&:nil?)
   end
 end
