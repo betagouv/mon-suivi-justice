@@ -94,6 +94,8 @@ fr:
         cpip: "CPIP"
         homeless: "SDF"
         lives_abroad: "Habite à l'étranger"
+        city_id: "Commune"
+        user: "Agent"
       user:
         name: "Nom"
         first_name: "Prénom"
@@ -211,13 +213,8 @@ fr:
         convict:
           attributes:
             phone:
-              blank: "Numéro de téléphone manquant"
               mobile: "Numéro de téléphone portable requis"
               taken: "Une PPSMJ est déjà enregistrée avec ce numéro de téléphone. Merci de saisir un autre numéro"
-            first_name:
-              blank: "Prénom manquant"
-            last_name:
-              blank: "Nom manquant"
               confirmation: "Ne correspond pas au premier mot de passe saisi"
             dob:
               taken: "Une ppsmj avec les mêmes prénom, nom et date de naissance existe déjà"

@@ -88,3 +88,9 @@
   -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-right-s-line.svg"));
   mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/arrow-right-s-line.svg"));
 }
+
+// Fix error messages in forms
+.fr-error-text::before {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--error-fill.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--error-fill.svg"));
+}
