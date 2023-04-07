@@ -1,6 +1,6 @@
 <div data-controller="search-convicts">
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-  <div class="fr-col-12 fr-col-md-8">
+  <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
       <div class="fr-grid-row fr-grid-row--gutters">
         <div class="fr-col-6">
           <%= form_with url: search_convicts_path, method: :get, local: false, data: { action: "ajax:success->search-convicts#handleResults", 'search-convicts-target': "form" } do |form| %>
@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-  <div class="fr-col-12 fr-col-md-8">
+  <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
       <div id="search_results" data-search-convicts-target="results">
       </div>
     </div>

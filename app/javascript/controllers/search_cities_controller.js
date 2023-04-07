@@ -6,6 +6,7 @@ export default class extends ApplicationController {
     static debounces = ['search']
 
     connect() {
+        console.log('search cities controller connected')
         useDebounce(this, { wait: 500 })
     }
 

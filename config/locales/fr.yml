@@ -212,7 +212,6 @@ fr:
         convict:
           attributes:
             phone:
-              blank: "Numéro de téléphone manquant"
               mobile: "Numéro de téléphone portable requis"
               taken: "Une PPSMJ est déjà enregistrée avec ce numéro de téléphone. Merci de saisir un autre numéro"
               confirmation: "Ne correspond pas au premier mot de passe saisi"
