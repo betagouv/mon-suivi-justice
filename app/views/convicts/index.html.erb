@@ -1,11 +1,13 @@
 <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
   <div class="fr-col-8 fr-col-lg-6">
-    <% if current_user.cpip? %>
-      <%= button_to t('my_convicts'), convicts_path, params: { only_mine: true }, class: 'fr-btn fr-btn--secondary fr-mr-1w', method: :get %>
-    <% end %>
-    <% if policy(:convict).new? %>
-      <%= button_to t('new_convict_title'), new_convict_path, class: 'fr-btn', method: :get %>
-    <% end %>
+    <ul class="fr-btns-group fr-btns-group--inline-lg">
+      <% if current_user.cpip? %>
+        <%= button_to t('my_convicts'), convicts_path, params: { only_mine: true }, class: 'fr-btn fr-btn--secondary fr-mr-1w', method: :get %>
+      <% end %>
+      <% if policy(:convict).new? %>
+        <%= button_to t('new_convict_title'), new_convict_path, class: 'fr-btn', method: :get %>
+      <% end %>
+    </ul>
     <div class="fr-table fr-table--bordered">
       <table>
         <caption>Toutes les ppsmjs</caption>

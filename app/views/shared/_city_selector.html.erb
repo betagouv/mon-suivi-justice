@@ -13,7 +13,7 @@
   <div class="fr-alert fr-alert--error fr-alert--sm fr-mb-3w" data-search-cities-results-target="organizationsInfo" <%= 'hidden' if !(city_organizations === 1 || city_organizations === 0) %> >
     <p>
     <% if city_organizations === 1 %>
-      Attention Mon suivi Justice n’est déployé que pour le <%= @convict.city&.organizations.first.name %>. Vous ne pourrez poursuivre la prise de rendez-vous que pour ce service
+      Attention Mon suivi Justice n’est déployé que pour le <%= @convict.city&.organizations.first.name %>. Vous ne pourrez poursuivre la prise de rendez-vous que pour ce service et votre ressort
     <% elsif city_organizations === 0 %>
       Attention, Mon Suivi Justice n' est déployé dans aucun ressort de cette commune. Vous ne pourrez poursuivre la prise de rendez-vous que pour votre ressort
     <% end %>
