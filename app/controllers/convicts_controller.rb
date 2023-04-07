@@ -49,7 +49,6 @@ class ConvictsController < ApplicationController
     old_phone = @convict.phone
 
     if @convict.update(convict_params)
-      debugger
       @convict.update_organizations(current_user)
       record_phone_change(old_phone)
       flash.now[:success] = 'La PPSMJ a bien été mise à jour'
