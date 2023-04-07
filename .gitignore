@@ -45,3 +45,5 @@ notes
 .jshintrc
 
 .DS_Store
+
+.nvmrc
