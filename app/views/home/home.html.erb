@@ -1,8 +1,8 @@
 <div data-controller="search-convicts">
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-    <div class="fr-col-8">
+  <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
       <div class="fr-grid-row fr-grid-row--gutters">
-        <div class="fr-col-4">
+        <div class="fr-col-6">
           <%= form_with url: search_convicts_path, method: :get, local: false, data: { action: "ajax:success->search-convicts#handleResults", 'search-convicts-target': "form" } do |form| %>
             <div class="fr-search-bar" id="header-search" role="search">
               <label class="fr-label" for="search_convicts">
@@ -15,7 +15,7 @@
             </div>
           <% end %>
         </div>
-        <div class="fr-col-4">
+        <div class="fr-col-6">
           <% if policy(:convict).new? %>
             <%= button_to t('new_convict_title'), new_convict_path, class: 'fr-btn', method: :get %>
           <% end %>
@@ -24,12 +24,12 @@
     </div>
   </div>
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-    <div class="fr-col-8">
+  <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
       <div id="search_results" data-search-convicts-target="results">
       </div>
     </div>
     <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-      <div class="fr-col-8">
+      <div class="fr-col-6">
         <% if current_user.local_admin_spip? && current_user.headquarter.present? %>
           <%= simple_form_for current_user, html: { class: 'basic-form' } do |f| %>
             <div class="select-organization-container">

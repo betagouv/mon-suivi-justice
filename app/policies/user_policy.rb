@@ -40,4 +40,8 @@ class UserPolicy < ApplicationPolicy
   def stop_impersonating?
     true
   end
+
+  def search?
+    true
+  end
 end

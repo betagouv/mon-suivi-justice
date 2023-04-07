@@ -178,7 +178,13 @@ class Convict < ApplicationRecord
   end
 
   def update_organizations(current_user)
-    org_source = city_id ? City.find(city_id) : current_user
+    org_source = if city_id
+                   city = City.find(city_id)
+                   city.organizations.any? ? city : current_user
+                 else
+                   current_user
+                 end
+
     org_source.organizations.each do |c|
       organizations.push(c) unless organizations.include?(c) || (c.organization_type == 'tj' && japat)
     end
