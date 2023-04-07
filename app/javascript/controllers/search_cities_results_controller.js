@@ -30,7 +30,7 @@ export default class extends Controller {
     .then(data => {
       if (data.length === 1) {
         this.organizationsInfoTarget.hidden = false;
-        this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = `Attention Mon suivi Justice n’est déployé que pour le ${data[0].name}. Vous ne pourrez poursuivre la prise de rendez-vous que pour ce service`;
+        this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = `Attention Mon suivi Justice n’est déployé que pour le ${data[0].name}. Vous ne pourrez poursuivre la prise de rendez-vous que pour ce service et votre ressort`;
     } else if (data.length === 0) {
         this.organizationsInfoTarget.hidden = false;
         this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = 'Attention, Mon Suivi Justice n\' est déployé dans aucun ressort de cette commune. Vous ne pourrez poursuivre la prise de rendez-vous que pour votre ressort';
