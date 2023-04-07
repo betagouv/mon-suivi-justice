@@ -33,7 +33,11 @@ Rails.application.routes.draw do
   end
 
   resources :organizations
+
   resources :users do
+    collection do
+      get :search
+    end
     get :invitation_link
     get :reset_pwd_link
     post :stop_impersonating, on: :collection
@@ -45,6 +49,9 @@ Rails.application.routes.draw do
   end
 
   resources :convicts do
+    collection do
+      get :search
+    end
     delete 'archive'
     post 'unarchive'
     post 'self_assign'
@@ -80,6 +87,9 @@ Rails.application.routes.draw do
   resources :appointments_waiting_lines, only: :index
 
   resources :cities do
+    collection do
+      get :search
+    end
     get :services
   end
 
@@ -115,9 +125,6 @@ Rails.application.routes.draw do
   get '/steering_user_app' => 'steerings#user_app_stats', as: 'steering_user_app'
   get '/steering_convict_app' => 'steerings#convict_app_stats', as: 'steering_convict_app'
   get '/steering_sda' => 'steerings#sda_stats', as: 'steering_sda'
-
-  get '/search_convicts' => 'convicts#search', as: 'search_convicts'
-  get '/search_cities' => 'cities#search', as: 'search_cities'
 
   unauthenticated do
     devise_scope :user do

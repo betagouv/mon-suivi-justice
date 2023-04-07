@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include NormalizedPhone
+  include PgSearch::Model
 
   has_paper_trail
 
@@ -60,6 +61,11 @@ class User < ApplicationRecord
   }
 
   scope :in_organization, ->(organization) { where(organization: organization) }
+
+  pg_search_scope :search_by_name, against: %i[first_name last_name],
+                                   using: {
+                                     tsearch: { prefix: true }
+                                   }
 
   delegate :name, to: :organization, prefix: true
 

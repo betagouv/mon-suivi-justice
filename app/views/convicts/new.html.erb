@@ -58,6 +58,9 @@
       </div>
 
       <% if current_user.work_at_spip? || current_user.admin? %>
+
+        <%= render partial: 'shared/user_selector' %>
+
         <%= f.association :user, collection: cpip_for_select(current_user.organization),
                                   label: t('.cpip_label'),
                                   selected: selected_cpip_for(@convict, current_user)&.id,

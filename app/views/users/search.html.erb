@@ -1,11 +1,11 @@
-  <% if @cities.length > 0 %>
+  <% if @users.length > 0 %>
   <ol>
-    <% @cities.each do |city| %>
+    <% @users.each do |user| %>
       <div>
         <div class="fr-container">
           <div class="fr-grid-row">
             <div class="fr-col-12">
-              <li class="fr-mb-2w"><a href="#" data-action="click->search-cities-results#selectCity:prevent	" data-search-cities-results-id-param="<%= city.id %>" data-search-cities-results-name-param="<%= city.name %>"><%= city.name %></a></li>
+              <li class="fr-mb-2w"><a href="#" data-action="click->search-users-results#selectUser:prevent	" data-search-users-results-id-param="<%= user.id %>" data-search-users-results-name-param="<%= user.name %>"><%= user.name %></a></li>
             </div>
           </div>
         </div>
@@ -17,6 +17,6 @@
   <p class="fr-text--xs fr-mb-1w">Votre recherche n'a retourné aucun résultat. Pour l'améliorer vous pouvez :</p>
   <ul class="fr-text--xs">
     <li class="fr-mb-1w">Vérifier l'orthographe de votre recherche</li>
-    <li>Essayer avec une orthographe différente ou un code postal</li>
+    <li>Essayer avec d'autres prénoms / noms</li>
   </ul>
 <% end %>

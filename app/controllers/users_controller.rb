@@ -66,6 +66,12 @@ class UsersController < ApplicationController
     redirect_to admin_root_path
   end
 
+  def search
+    @users = policy_scope(User).where(role: %w[cpip dpip]).search_by_name(params[:q])
+    authorize @users
+    render layout: false
+  end
+
   private
 
   def user_params

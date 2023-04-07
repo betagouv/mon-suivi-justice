@@ -95,6 +95,7 @@ fr:
         homeless: "SDF"
         lives_abroad: "Habite à l'étranger"
         city_id: "Commune"
+        user: "Agent"
       user:
         name: "Nom"
         first_name: "Prénom"
