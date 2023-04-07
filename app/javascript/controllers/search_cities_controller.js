@@ -27,7 +27,7 @@ export default class extends ApplicationController {
         this.abortPreviousFetchRequest()
 
         this.abortController = new AbortController()
-        fetch('/cities/search?city_name=' + this.query, { signal: this.abortController.signal })
+        fetch('/cities/search?q=' + this.query, { signal: this.abortController.signal })
             .then(response => response.text())
             .then(html => {
                 this.handleResults(html)

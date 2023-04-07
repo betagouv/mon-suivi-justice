@@ -16,7 +16,7 @@ class CitiesController < ApplicationController
   end
 
   def search
-    @cities = City.search_by_name(params[:city_name])
+    @cities = City.search_by_name(params[:q])
     authorize @cities
     render layout: false
   end

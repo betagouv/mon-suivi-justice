@@ -41,7 +41,7 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
-  def search
+  def search?
     true
   end
 end

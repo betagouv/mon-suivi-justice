@@ -2,7 +2,7 @@
 <div data-controller="search-cities search-cities-results" data-action="search-cities-results:citySelected->search-cities#clearResults">
   <div class="fr-input-group">
     <label class="fr-label" for="convict_city_id"><%= t('activerecord.attributes.convict.city_id')%></label>
-    <input class="fr-input" type="search" name="convict[city_id]" id="convict_city_id" data-search-cities-target="query" data-action="input->search-cities#search">
+    <input class="fr-input" type="search" placeholder="<%= 'Changer de commune' if @convict.city %>" name="convict[city_id]" id="convict_city_id" data-search-cities-target="query" data-action="input->search-cities#search">
   </div>
   <div id="search_results" data-search-cities-target="results"></div>
   <p data-search-cities-results-target="selectedCity">
@@ -10,7 +10,7 @@
     <strong>Commune sélectionnée : </strong><%= @convict.city.name %>
   <% end %>
   </p>
-  <div class="fr-alert fr-alert--error fr-alert--sm" data-search-cities-results-target="organizationsInfo" <%= 'hidden' if !(city_organizations === 1 || city_organizations === 0) %> >
+  <div class="fr-alert fr-alert--error fr-alert--sm fr-mb-3w" data-search-cities-results-target="organizationsInfo" <%= 'hidden' if !(city_organizations === 1 || city_organizations === 0) %> >
     <p>
     <% if city_organizations === 1 %>
       Attention Mon suivi Justice n’est déployé que pour le <%= @convict.city&.organizations.first.name %>. Vous ne pourrez poursuivre la prise de rendez-vous que pour ce service
@@ -19,5 +19,5 @@
     <% end %>
     </p>
   </div>
-  <input value="" autocomplete="off" type="hidden" value="<%= @convict.city&.id %>" data-search-cities-results-target="hiddenField" name="convict[city_id]">
+  <input autocomplete="off" type="hidden" value="<%= @convict.city&.id %>" data-search-cities-results-target="hiddenField" name="convict[city_id]">
 </div>

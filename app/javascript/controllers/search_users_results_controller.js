@@ -1,4 +1,3 @@
-import Rails from "@rails/ujs";
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -17,6 +16,5 @@ export default class extends Controller {
 
     this.selectedUserTarget.innerHTML = `<strong>Agent sélectionné(e) :</strong> ${userName}`
     this.hiddenFieldTarget.value = userId
-
   }
 }

@@ -1,4 +1,3 @@
-import Rails from "@rails/ujs";
 import { ApplicationController, useDebounce } from 'stimulus-use'
 
 export default class extends ApplicationController {
@@ -6,7 +5,7 @@ export default class extends ApplicationController {
     static debounces = ['search']
 
     connect() {
-        console.log('search cities controller connected')
+        console.log('search users controller connected')
         useDebounce(this, { wait: 500 })
     }
 
@@ -27,7 +26,7 @@ export default class extends ApplicationController {
         this.abortPreviousFetchRequest()
 
         this.abortController = new AbortController()
-        fetch('/search_cities?city_name=' + this.query, { signal: this.abortController.signal })
+        fetch('/users/search?q=' + this.query, { signal: this.abortController.signal })
             .then(response => response.text())
             .then(html => {
                 this.handleResults(html)
