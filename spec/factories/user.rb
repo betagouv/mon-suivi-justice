@@ -6,7 +6,15 @@ FactoryBot.define do
     role { :admin }
     password { '1mot2passeSecurise!' }
     password_confirmation { '1mot2passeSecurise!' }
-    association :organization, factory: %i[organization with_department]
+
+    trait :in_organization do
+      transient do
+        type { 'spip' }
+      end
+      after(:build) do |user, evaluator|
+        user.organization = FactoryBot.create(:organization, organization_type: evaluator.type)
+      end
+    end
 
     factory :user_with_appointments do
       after(:create) do |user|

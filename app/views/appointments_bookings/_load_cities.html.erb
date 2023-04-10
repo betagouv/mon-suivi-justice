@@ -1,0 +1,11 @@
+<div class="form-input-wrapper select required appointment_place_id">
+  <label class="select required form-label" for="appointment-form-place-select">
+    <abbr title="required">*</abbr> <%= t('appointments.new.choose_city') %>
+  </label>
+  <select id="appointment-form-department-select" class="select required form-text-input form-select" required="required" aria-required="true" name="appointment[department_id]">
+    <option value="" label=" "></option>
+    <% cities.each do |city| %>
+      <option value=<%= city.id %> selected=<%= city.id == convict.city&.id %>><%= "#{city.name} - #{city.zipcode}" %></option>
+    <% end %>
+  </select>
+</div>

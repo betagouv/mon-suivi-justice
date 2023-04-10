@@ -3,10 +3,11 @@ class ConvictPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.admin? || user.local_admin? || user.work_at_bex?
-        scope.in_departments(user.organization.departments)
+      if user.work_at_bex?
+        scope.all
       else
-        scope.under_hand_of(user.organization)
+        # TODO : add linked organizations convicts ?
+        scope.joins(:organizations).where(organizations: user.organization)
       end
     end
   end
@@ -45,5 +46,9 @@ class ConvictPolicy < ApplicationPolicy
 
   def destroy?
     ALLOWED_TO_DESTROY.include?(user.role) && record.undiscarded?
+  end
+
+  def search?
+    true
   end
 end

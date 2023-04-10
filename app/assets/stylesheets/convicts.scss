@@ -16,15 +16,6 @@
   padding-left: 30px;
 }
 
-.link-to-new-convict-form {
-  text-align: right;
-  margin-bottom: 20px;
-}
-
-.link-to-new-convict-button {
-  @include button($light-blue);
-}
-
 .link-to-my-convicts-button {
   @include button($light-grey);
   margin-right: 10px;
@@ -266,4 +257,29 @@
 
 .new-convict-duplicate-explanation {
   margin-bottom: 5px;
+}
+
+.city-selector {
+  margin-bottom: 20px;
+}
+
+#city-organizations {
+  color: red
+}
+
+body.autocomplete #modal-autocomplete {
+  display: block;
+  z-index: 1;
+}
+
+
+#modal-autocomplete {
+  border: 0;
+  left: auto;
+  position: absolute;
+  right: 0;
+  text-align: left;
+  top: 2.5rem;
+  width: 100%;
+  display: block;
 }

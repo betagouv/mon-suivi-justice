@@ -28,8 +28,11 @@ class ConvictsController < ApplicationController
     @convict.appointments.build
   end
 
+  # rubocop:disable Metrics/AbcSize
   def create
     @convict = Convict.new(convict_params)
+    @convict.creating_organization = current_organization
+
     authorize @convict
     save_and_redirect @convict
   end
@@ -45,8 +48,12 @@ class ConvictsController < ApplicationController
 
     old_phone = @convict.phone
 
+    return render :edit if current_user.work_at_bex? && !@convict.valid?(:user_works_at_bex)
+
     if @convict.update(convict_params)
+      @convict.update_organizations(current_user)
       record_phone_change(old_phone)
+      flash.now[:success] = 'La PPSMJ a bien été mise à jour'
       redirect_to convict_path(@convict)
     else
       render :edit
@@ -88,18 +95,27 @@ class ConvictsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def search
+    @convicts = policy_scope(Convict).search_by_name_and_phone(params[:search_convicts])
+    authorize @convicts
+    render layout: false
+  end
+
   private
 
-  # rubocop:disable Metrics/AbcSize
   def save_and_redirect(convict)
     convict.check_duplicates(current_user)
     force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
 
     return render :new if convict.duplicates.present? && !force_duplication
 
+    return render :new if current_user.work_at_bex? && !convict.valid?(:user_works_at_bex)
+
     if convict.save
-      RegisterLegalAreas.for_convict convict, from: current_organization
+
+      convict.update_organizations(current_user)
       redirect_to select_path(params)
+
     else
       # TODO : build a real policiy for convicts#show
       @convict_with_same_appi = Convict.where appi_uuid: convict.appi_uuid if convict.errors[:appi_uuid].any?
@@ -112,7 +128,7 @@ class ConvictsController < ApplicationController
   def convict_params
     params.require(:convict).permit(
       :first_name, :last_name, :phone, :no_phone,
-      :refused_phone, :place_id, :appi_uuid, :user_id
+      :refused_phone, :place_id, :appi_uuid, :user_id, :city_id, :japat, :homeless, :lives_abroad, :date_of_birth
     )
   end
 
