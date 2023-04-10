@@ -1,12 +1,11 @@
 class User < ApplicationRecord
   include NormalizedPhone
-  include PgSearch::Model
 
   has_paper_trail
 
   CAN_INVITE_TO_CONVICT_INTERFACE =
-    %w[charles.marcoin@beta.gouv.fr
-       delphine.deneubourg@justice.fr
+    %w[bapt.nts@gmail.com charles.marcoin@beta.gouv.fr alexia.chaslot@beta.gouv.fr
+       delphine.deneubourg@justice.fr johan.goncalves@beta.gouv remy.maucourt@beta.gouv.fr
        melanie.plassais@justice.fr clement.roulet@justice.fr abel.diouf@justice.fr
        anne-sophie.genet@justice.fr anna.grinsnir@justice.fr pauline.guilloton@justice.fr
        claire.becanne@justice.fr].freeze
@@ -62,11 +61,6 @@ class User < ApplicationRecord
 
   scope :in_organization, ->(organization) { where(organization: organization) }
 
-  pg_search_scope :search_by_name, against: %i[first_name last_name],
-                                   using: {
-                                     tsearch: { prefix: true }
-                                   }
-
   delegate :name, to: :organization, prefix: true
 
   def name
@@ -109,9 +103,5 @@ class User < ApplicationRecord
 
   def can_have_appointments_assigned?
     %w[cpip psychologist overseer].include? role
-  end
-
-  def organizations
-    [organization, *organization.linked_organizations]
   end
 end

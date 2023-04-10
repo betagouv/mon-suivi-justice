@@ -4,11 +4,18 @@ class AppointmentsBookingsController < ApplicationController
 
   def load_places
     @appointment_type = AppointmentType.find(params[:apt_type_id])
-    @convict = Convict.find(params[:convict_id])
 
-    # Load places
-    @places = Place.joins(:appointment_types,
-                          organization: :convicts).where('convicts.id': @convict.id).where(appointment_types: @appointment_type)
+    @places = if params[:department_id].present?
+                department = Department.where(id: params[:department_id])
+                Place.in_departments(department)
+                     .kept
+                     .joins(:appointment_types)
+                     .where(appointment_types: @appointment_type)
+              else
+                policy_scope(Place).joins(:appointment_types)
+                                   .kept
+                                   .where(appointment_types: @appointment_type)
+              end
   end
 
   def load_prosecutor
@@ -17,11 +24,6 @@ class AppointmentsBookingsController < ApplicationController
 
   def load_is_cpip
     @convict = params[:convict_id].present? ? Convict.find(params[:convict_id]) : nil
-
-    return if @convict.city_id
-
-    flash.now[:warning] =
-      "La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
   end
 
   def load_agendas
@@ -34,6 +36,10 @@ class AppointmentsBookingsController < ApplicationController
     redirect_to load_time_options_path(place_id: @place.id,
                                        agenda_id: @agendas.first.id,
                                        apt_type_id: params[:apt_type_id])
+  end
+
+  def load_departments
+    @departments = Department.joins(:organizations).distinct.order(:number)
   end
 
   def load_time_options

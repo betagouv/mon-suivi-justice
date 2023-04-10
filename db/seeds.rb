@@ -15,7 +15,6 @@ org_spip_75 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
 org_spip_77 = Organization.create!(name: 'SPIP 77', organization_type: 'spip')
 org_tj_melun = Organization.create!(name: 'TJ Melun', organization_type: 'tj')
 org_tj_fontainebleau = Organization.create!(name: 'TJ de Fontainebleau', organization_type: 'tj')
-org_tj_paris = Organization.create!(name: 'TJ Paris', organization_type: 'tj')
 
 # Un service peut être rattaché à des départements et/ou des juridictions
 # Cela impacte le rattachement des ppsmj à tel  département et/ou juridiction à leur création
@@ -49,9 +48,6 @@ AreasConvictsMapping.create convict: convict_4, area: Department.find_by(number:
 AreasConvictsMapping.create convict: convict_5, area: Department.find_by(number: '77')
 AreasConvictsMapping.create convict: convict_4, area: Jurisdiction.find_by(name: 'TJ MELUN')
 AreasConvictsMapping.create convict: convict_5, area: Jurisdiction.find_by(name: 'TJ FONTAINEBLEAU')
-
-convict_6 = Convict.create!(first_name: "John", last_name: "Jones", no_phone: true, appi_uuid: "123410", organizations: [org_spip_92, org_tj_nanterre])
-convict_7 = Convict.create!(first_name: "Dark", last_name: "Vador", no_phone: true, appi_uuid: "123411", organizations: [org_spip_92, org_tj_nanterre])
 
 User.create!(
   organization: org_spip_92, email: 'admin@example.com', password: '1mot2passeSecurise!',
@@ -106,11 +102,6 @@ User.create!(
 )
 
 User.create!(
-  organization: org_tj_nanterre, email: 'bexnanterre@example.com', password: '1mot2passeSecurise!',
-  password_confirmation: '1mot2passeSecurise!', role: :bex, first_name: 'Max', last_name: 'Verstappen'
-)
-
-User.create!(
   organization: org_tj_melun, email: 'localadmintjmelun@example.com', password: '1mot2passeSecurise!',
   password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'Michel', last_name: 'Melun'
 )
@@ -138,11 +129,6 @@ User.create!(
 User.create!(
   organization: org_tj_melun, email: 'bextjmelun@example.com', password: '1mot2passeSecurise!',
   password_confirmation: '1mot2passeSecurise!', role: :bex, first_name: 'Roger', last_name: 'Federer'
-)
-
-User.create!(
-  organization: org_tj_paris, email: 'bextjparis@example.com', password: '1mot2passeSecurise!',
-  password_confirmation: '1mot2passeSecurise!', role: :bex, first_name: 'Stanislas', last_name: 'Wawrinka'
 )
 
 place_tj_nanterre = Place.create!(

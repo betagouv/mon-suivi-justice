@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ develop, feature/inter-ressort ]
+    branches: [ develop ]
   pull_request:
-    branches: [ develop, feature/inter-ressort ]
+    branches: [ develop ]
 
 jobs:
   build:

@@ -113,20 +113,14 @@ driver_urls << "objects.githubusercontent.com"
 WebMock.disable_net_connect!(allow_localhost: true, allow: [*driver_urls])
 
 def create_admin_user_and_login
-  @admin = create(:user, role: :admin)
-  login_as(@admin, scope: :user)
-  @admin
+  @user = create(:user, role: :admin)
+  login_as(@user, scope: :user)
+  @user
 end
 
 def create_cpip_user_and_login
-  @cpip = create(:user, role: :cpip)
-  login_as(@cpip)
-  @cpip
-end
-
-def create_user_and_login(role, org_type)
-  @user = create(:user, :in_organization, type: org_type, role: role)
-  login_as(@user)
+  @user = create(:user, role: :cpip)
+  login_as(@user, scope: :user)
   @user
 end
 

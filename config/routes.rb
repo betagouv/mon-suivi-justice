@@ -9,13 +9,13 @@ Rails.application.routes.draw do
       resources :convicts
       resources :organizations
       resources :departments
-      resources :srj_tjs
-      resources :srj_spips
-      resources :cities
-      resources :places, except: :index
+      resources :slots
+      resources :places
       resources :jurisdictions, except: :index
-      resources :seeds, only: [:index]
-      get '/reset_db' => "seeds#reset_db"
+      if Rails.env.development?
+        resources :seeds, only: [:index]
+        get '/reset_db' => "seeds#reset_db"
+      end
       resources :public_pages, only: [:index]
       resources :import_convicts, only: [:index]
       post '/create_page' => "public_pages#create"
@@ -33,11 +33,7 @@ Rails.application.routes.draw do
   end
 
   resources :organizations
-
   resources :users do
-    collection do
-      get :search
-    end
     get :invitation_link
     get :reset_pwd_link
     post :stop_impersonating, on: :collection
@@ -49,9 +45,6 @@ Rails.application.routes.draw do
   end
 
   resources :convicts do
-    collection do
-      get :search
-    end
     delete 'archive'
     post 'unarchive'
     post 'self_assign'
@@ -74,6 +67,9 @@ Rails.application.routes.draw do
     resource :slot_types_batch, only: [:create, :destroy]
   end
 
+  resources :areas_organizations_mappings, only: [:create, :destroy]
+  resources :areas_convicts_mappings, only: [:create, :destroy]
+
   resources :appointments do
     resource :reschedule, only: [:new, :create], controller: 'appointments_reschedules'
     put 'cancel'
@@ -86,13 +82,6 @@ Rails.application.routes.draw do
 
   resources :appointments_waiting_lines, only: :index
 
-  resources :cities do
-    collection do
-      get :search
-    end
-    get :services
-  end
-
   scope controller: :appointments_bookings do
     get :load_places
     get :load_prosecutor
@@ -103,7 +92,6 @@ Rails.application.routes.draw do
     get :load_slots
     get :load_slot_fields
     get :load_submit_button
-    get :load_cities
   end
 
   get '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'

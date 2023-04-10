@@ -1,0 +1,77 @@
+<section class="sidebar">
+  <%= link_to home_path, class: 'sidebar-item-link' do %>
+    <div class="sidebar-item <%= active_class_if_controller('home') %>">
+      <%= t('sidebar.home') %>
+    </div>
+  <% end %>
+
+  <% if policy(:convict).index? %>
+    <%= link_to convicts_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_controller('convicts') %>">
+        <%= t('sidebar.convicts') %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if policy(:appointment).index? %>
+    <%= link_to appointments_path({ q: {slot_date_eq: Date.today.to_s }}), class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_controller(['appointments', 'bex']) %>">
+        <%= t('sidebar.appointments') %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if policy(:appointment_type).index? %>
+    <%= link_to appointment_types_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_controller('appointment_types') %>">
+        <%= t('sidebar.message_templates') %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if policy(:place).index? %>
+    <%= link_to places_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_controller(['places', 'slot_types']) %>">
+        <%= t('sidebar.places') %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if policy(:slot).index? %>
+    <%= link_to slots_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_controller(['slots', 'slots_batches']) %>">
+        <%= t('sidebar.slots') %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if policy(:user).index? %>
+    <%= link_to users_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_controller('users') %>">
+        <%= t('sidebar.users') %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if policy(:organization).index? %>
+    <%= link_to organizations_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_controller('organizations') %>">
+        <%= t('sidebar.organizations') %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if policy(:steering).user_app_stats? %>
+    <%= link_to steering_user_app_path, class: 'sidebar-item-link' do %>
+      <div class="sidebar-item <%= active_class_if_controller('steerings') %>">
+        <%= t('sidebar.steering') %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= link_to 'https://documentation.mon-suivi-justice.beta.gouv.fr', class: 'sidebar-item-link', target: '_blank' do %>
+    <div class="sidebar-item sidebar-inactive-item">
+      <%= t('sidebar.guides') %>
+    </div>
+  <% end %>
+</section>

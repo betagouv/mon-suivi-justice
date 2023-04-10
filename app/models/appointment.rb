@@ -50,9 +50,10 @@ class Appointment < ApplicationRecord
     joins(slot: { agenda: :place }).where(slots: { agendas: { places: { organization: organization } } })
   }
 
-  scope :in_jurisdiction, lambda { |user_organization|
-    joins(:slot, convict: :organizations)
-      .where(convict: { organizations: [user_organization, *user_organization.linked_organizations] })
+  scope :in_departments, lambda { |departments|
+    ids = departments.map(&:id)
+    joins(:slot, convict: :areas_convicts_mappings)
+      .where(convict: { areas_convicts_mappings: { area_type: 'Department', area_id: ids } })
   }
 
   scope :active, -> { where.not(state: 'canceled') }

@@ -43,7 +43,3 @@ notes
 .env
 
 .jshintrc
-
-.DS_Store
-
-.nvmrc

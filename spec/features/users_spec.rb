@@ -97,13 +97,13 @@ RSpec.feature 'Users', type: :feature do
     it 'allows admin users to access everything' do
       visit convicts_path
 
-      main_nav = find('nav')
+      sidebar = find('section.sidebar')
 
-      expect(main_nav).to have_link('PPSMJ')
-      expect(main_nav).to have_link('Rendez-vous')
-      expect(main_nav).to have_link('Lieux')
-      expect(main_nav).to have_link('Créneaux')
-      expect(main_nav).to have_link('Agents')
+      expect(sidebar).to have_link('PPSMJ')
+      expect(sidebar).to have_link('Rendez-vous')
+      expect(sidebar).to have_link('Lieux')
+      expect(sidebar).to have_link('Créneaux')
+      expect(sidebar).to have_link('Agents')
     end
 
     it 'forbid bex users to access some interfaces' do
@@ -118,13 +118,13 @@ RSpec.feature 'Users', type: :feature do
 
       visit convicts_path
 
-      main_nav = find('nav')
+      sidebar = find('section.sidebar')
 
-      expect(main_nav).to have_link('PPSMJ')
-      expect(main_nav).not_to have_link('Rendez-vous')
-      expect(main_nav).not_to have_link('Lieux')
-      expect(main_nav).not_to have_link('Créneaux')
-      expect(main_nav).not_to have_link('Agents')
+      expect(sidebar).to have_link('PPSMJ')
+      expect(sidebar).not_to have_link('Rendez-vous')
+      expect(sidebar).not_to have_link('Lieux')
+      expect(sidebar).not_to have_link('Créneaux')
+      expect(sidebar).not_to have_link('Agents')
     end
 
     it 'allows cpip users to access appointment interface' do
@@ -134,13 +134,13 @@ RSpec.feature 'Users', type: :feature do
 
       visit convicts_path
 
-      main_nav = find('nav')
+      sidebar = find('section.sidebar')
 
-      expect(main_nav).to have_link('PPSMJ')
-      expect(main_nav).to have_link('Rendez-vous')
-      expect(main_nav).not_to have_link('Lieux')
-      expect(main_nav).not_to have_link('Créneaux')
-      expect(main_nav).not_to have_link('Agents')
+      expect(sidebar).to have_link('PPSMJ')
+      expect(sidebar).to have_link('Rendez-vous')
+      expect(sidebar).not_to have_link('Lieux')
+      expect(sidebar).not_to have_link('Créneaux')
+      expect(sidebar).not_to have_link('Agents')
     end
   end
 end

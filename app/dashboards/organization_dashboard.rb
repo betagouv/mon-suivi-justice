@@ -9,6 +9,9 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
+    areas_organizations_mappings: Field::HasMany,
+    departments: Field::HasMany,
+    jurisdictions: Field::HasMany,
     name: Field::String,
     notification_types: Field::HasMany,
     organization_type: Field::Select.with_options(searchable: false, collection: lambda { |field|
@@ -21,10 +24,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     headquarter: Field::BelongsTo,
-    number_of_ppsmj: Field::Number,
-    tjs: Field::HasMany,
-    spips: Field::HasMany,
-    number_of_convicts: Field::Number
+    number_of_ppsmj: Field::Number
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -36,11 +36,10 @@ class OrganizationDashboard < Administrate::BaseDashboard
     id
     name
     organization_type
+    departments
+    jurisdictions
     headquarter
-    tjs
-    spips
     number_of_ppsmj
-    number_of_convicts
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -50,20 +49,24 @@ class OrganizationDashboard < Administrate::BaseDashboard
     organization_type
     name
     users
+    departments
+    jurisdictions
     places
+    areas_organizations_mappings
     notification_types
     time_zone
     created_at
     updated_at
     headquarter
-    tjs
-    spips
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
+    areas_organizations_mappings
+    departments
+    jurisdictions
     name
     notification_types
     organization_type
@@ -71,8 +74,6 @@ class OrganizationDashboard < Administrate::BaseDashboard
     time_zone
     users
     headquarter
-    tjs
-    spips
   ].freeze
 
   # COLLECTION_FILTERS
