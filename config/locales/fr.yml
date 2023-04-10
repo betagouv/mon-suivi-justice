@@ -96,6 +96,7 @@ fr:
         lives_abroad: "Habite à l'étranger"
         city_id: "Commune"
         user: "Agent"
+        date_of_birth: "Date de naissance"
       user:
         name: "Nom"
         first_name: "Prénom"
@@ -218,6 +219,9 @@ fr:
               confirmation: "Ne correspond pas au premier mot de passe saisi"
             dob:
               taken: "Une ppsmj avec les mêmes prénom, nom et date de naissance existe déjà"
+              not_in_the_future: "La date de naissance ne peut pas être dans le futur"
+            city:
+              all_blanks: "Veuillez renseigner au moins un des champs commune, sdf ou résidant à l'étranger"
         place:
           attributes:
             name:
