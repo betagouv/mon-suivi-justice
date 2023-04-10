@@ -48,6 +48,8 @@ class ConvictsController < ApplicationController
 
     old_phone = @convict.phone
 
+    return render :edit if current_user.work_at_bex? && !@convict.valid?(:user_works_at_bex)
+
     if @convict.update(convict_params)
       @convict.update_organizations(current_user)
       record_phone_change(old_phone)
