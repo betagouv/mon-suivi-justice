@@ -43,6 +43,9 @@ class Convict < ApplicationRecord
   validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE
 
+  validates :date_of_birth, presence: true
+  validate :date_of_birth_date_cannot_be_in_the_past
+
   after_update :update_convict_api
 
   #
@@ -148,6 +151,12 @@ class Convict < ApplicationRecord
     return if Convict.where(phone: phone).where.not(id: id).empty?
 
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.taken')
+  end
+
+  def date_of_birth_date_cannot_be_in_the_past
+    return unless date_of_birth.present? && date_of_birth >= Date.today
+
+    errors.add(:date_of_birth, 'ne peux pas être dans le futur')
   end
 
   def check_duplicates(current_user)

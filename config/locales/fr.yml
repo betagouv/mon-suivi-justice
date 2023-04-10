@@ -96,6 +96,7 @@ fr:
         lives_abroad: "Habite à l'étranger"
         city_id: "Commune"
         user: "Agent"
+        date_of_birth: "Date de naissance"
       user:
         name: "Nom"
         first_name: "Prénom"
