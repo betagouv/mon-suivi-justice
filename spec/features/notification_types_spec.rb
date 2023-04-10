@@ -7,8 +7,8 @@ RSpec.feature 'NotificationType', type: :feature do
 
   describe 'Text message construction' do
     it 'uses a local template for an organization', js: true do
-      orga1 = create :organization, name: 'SPIP 65'
-      orga2 = create :organization, name: 'SPIP 42'
+      orga1 = create :organization, :with_department, name: 'SPIP 65'
+      orga2 = create :organization, :with_department, name: 'SPIP 42'
 
       @user.organization = orga1
 

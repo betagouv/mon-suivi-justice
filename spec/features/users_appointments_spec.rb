@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature 'Users::Appointments', type: :feature do
-  describe 'index', logged_in_as: 'cpip' do
+  before do
+    create_cpip_user_and_login
+  end
+
+  describe 'index' do
     it 'displays user appointments' do
       place = create :place, organization: @user.organization
       agenda = create :agenda, place: place

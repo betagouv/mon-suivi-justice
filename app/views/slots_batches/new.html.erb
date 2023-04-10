@@ -12,7 +12,7 @@
 <p class='form-manual'><%= t('slots.new_batch_manual') %></p>
 
 <%= simple_form_for(:slot_batch, method: :post, url: slots_batch_path, html: { class: 'basic-form' }) do |f| %>
-  <%= f.input :agenda_id, collection: current_user.organization.agendas.select(&:appointment_type_with_slot_types?),
+  <%= f.input :agenda_id, collection: agendas_for_slot_creation(current_user),
                           label: t('activerecord.models.agenda'),
                           input_html: { class: 'form-select' } %>
 

@@ -14,7 +14,6 @@
   position: fixed;
   width: 100%;
   z-index: 1;
-  border-bottom: 1px solid lightgrey;
 }
 
 .header-staging {
@@ -32,7 +31,8 @@
 
 .content-container {
   width: 100%;
-
+  padding-top: $header-height;
+  padding-left: $sidebar-width;
   position: relative;
 
   @media print {

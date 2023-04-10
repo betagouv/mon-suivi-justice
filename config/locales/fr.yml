@@ -1,29 +1,4 @@
 fr:
-  helpers:
-    label:
-      city:
-        city_id: Id SRJ commune
-        name: Nom
-        zipcode: Code postal
-        tj: TJ (SRJ)
-        spip: SPIP (SRJ)
-      convict:
-        organizations: Services
-        city_id: Commune
-        user_id: Agent responsable
-        prosecutor_number: Numéro de parquet
-        appointments: rendez-vous
-        date_of_birth: date de naissance
-        creating_organization: créé par
-      tj:
-        short_name: nom
-        name: nom
-        organization: service
-        city: commune
-      spip:
-        name: nom
-        organization: service
-        city: commune
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
@@ -54,33 +29,15 @@ fr:
 
   activerecord:
     models:
-      user:
-        one: "Agent"
-        other: "Agents"
-      convict:
-        one: "PPSMJ"
-        other: "PPSMJs"
+      user: "Agent"
+      convict: "PPSMJ"
       appointment: "Rendez-vous"
       appointment_type: "Type de rendez-vous"
       place: "Lieu"
       slot:  "Créneau"
       agenda: "Agenda"
+      organization: "Service"
       headquarter: "Siège"
-      organization:
-        one: "Service"
-        other: "Services"
-      city: 
-        one: "Commune"
-        other: "Communes"
-      department:
-        one: "Département"
-        other: "Départements"
-      tj:
-        one: "TJ (SRJ)"
-        other: "TJs (SRJ)"
-      spip:
-        one: "SPIP (SRJ)"
-        other: "SPIPs (SRJ)"
 
     attributes:
       convict:
@@ -92,11 +49,6 @@ fr:
         refused_phone: "Refuse de donner son numéro"
         appi_uuid: "N° dossier APPI"
         cpip: "CPIP"
-        homeless: "SDF"
-        lives_abroad: "Habite à l'étranger"
-        city_id: "Commune"
-        user: "Agent"
-        date_of_birth: "Date de naissance"
       user:
         name: "Nom"
         first_name: "Prénom"
@@ -214,14 +166,16 @@ fr:
         convict:
           attributes:
             phone:
+              blank: "Numéro de téléphone manquant"
               mobile: "Numéro de téléphone portable requis"
               taken: "Une PPSMJ est déjà enregistrée avec ce numéro de téléphone. Merci de saisir un autre numéro"
+            first_name:
+              blank: "Prénom manquant"
+            last_name:
+              blank: "Nom manquant"
               confirmation: "Ne correspond pas au premier mot de passe saisi"
             dob:
               taken: "Une ppsmj avec les mêmes prénom, nom et date de naissance existe déjà"
-              not_in_the_future: "La date de naissance ne peut pas être dans le futur"
-            city:
-              all_blanks: "Veuillez renseigner au moins un des champs commune, sdf ou résidant à l'étranger"
         place:
           attributes:
             name:
@@ -344,8 +298,6 @@ fr:
     organizations: "Services"
     steering: "Pilotage"
     guides: "Documentation"
-    appointmentsnew: "Nouveau rendez-vous"
-    convictsnew: "Nouvelle PPSMJ"
 
   support:
     modal_title: Support
@@ -508,7 +460,7 @@ fr:
   appointments:
     new:
       is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
-      choose_city: "Commune de résidence PPSMJ"
+      home_department: "Département de résidence PPSMJ"
       out_of_department: "Prendre RDV hors du ressort"
     index:
       only_passed_uninformed: "Rendez-vous au statut inconnu"

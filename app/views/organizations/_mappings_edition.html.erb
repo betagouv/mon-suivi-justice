@@ -1,0 +1,45 @@
+  <div class='organization-relation-container'>
+    <h2 class='organization-secondary-title'><%= t('edit_organization_department_title') %></h2>
+    <% @organization.departments.order(:number).each do |department|%>
+      <p class='organization-attachment'>
+        <%= "(#{department.number}) #{department.name}" %>
+        <%= link_to t('delete'), areas_organizations_mapping_path(AreasOrganizationsMapping.find_by(area: department, organization: @organization)),
+                                class: 'organization-attachment-delete',
+                                method: :delete %>
+      </p>
+    <% end %>
+
+    <%= simple_form_for AreasOrganizationsMapping.new, html: { id: 'department-form', class: 'single-line-form' } do |f| %>
+      <%= f.input :organization_id, as: :hidden, input_html: { value: @organization.id } %>
+      <%= f.input :area_type, as: :hidden, input_html: { value: 'Department' } %>
+
+      <%= f.input :area_id, collection: Department.order(:number),
+                            label: t('edit_organization_department'),
+                            wrapper_html: {class: 'single-line-input'},
+                            input_html: {class: 'form-select'} %>
+
+      <%= f.button :submit, t('add'), class: 'form-submit-button organization-attachment-submit' %>
+    <% end %>
+
+    <h2 class='organization-secondary-title'><%= t('edit_organization_jurisdiction_title') %></h2>
+    <% @organization.jurisdictions.order(:name).each do |jurisdiction|%>
+      <p class='organization-attachment'>
+        <%= jurisdiction.name %>
+        <%= link_to t('delete'), areas_organizations_mapping_path(AreasOrganizationsMapping.find_by(area: jurisdiction, organization: @organization)),
+                                class: 'organization-attachment-delete',
+                                method: :delete %>
+      </p>
+    <% end %>
+
+    <%= simple_form_for AreasOrganizationsMapping.new, html: { id: 'jurisdiction-form', class: 'single-line-form' } do |f| %>
+      <%= f.input :organization_id, as: :hidden, input_html: { value: @organization.id } %>
+      <%= f.input :area_type, as: :hidden, input_html: { value: 'Jurisdiction' } %>
+
+      <%= f.input :area_id, collection: Jurisdiction.order(:name),
+                            label: t('edit_organization_jurisdiction'),
+                            wrapper_html: {class: 'single-line-input'},
+                            input_html: {class: 'form-select'} %>
+
+      <%= f.button :submit, t('add'), class: 'form-submit-button organization-attachment-submit' %>
+    <% end %>
+</div>

@@ -25,4 +25,7 @@
 
 <% end %>
 
+<% if current_user.admin? %>
+  <%= render partial: "mappings_edition", locals: {organization: @organization} %>
+<% end %>
 

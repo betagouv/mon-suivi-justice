@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_30_082857) do
+ActiveRecord::Schema.define(version: 2023_03_09_093547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,13 +174,22 @@ ActiveRecord::Schema.define(version: 2023_03_30_082857) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "city_id"
-    t.bigint "srj_spip_id"
-    t.bigint "srj_tj_id"
+    t.bigint "spip_id"
+    t.bigint "tj_id"
     t.index ["city_id"], name: "index_cities_on_city_id"
     t.index ["name"], name: "index_cities_on_name"
-    t.index ["srj_spip_id"], name: "index_cities_on_srj_spip_id"
-    t.index ["srj_tj_id"], name: "index_cities_on_srj_tj_id"
+    t.index ["spip_id"], name: "index_cities_on_spip_id"
+    t.index ["tj_id"], name: "index_cities_on_tj_id"
     t.index ["zipcode"], name: "index_cities_on_zipcode"
+  end
+
+  create_table "commune", id: false, force: :cascade do |t|
+    t.text "id"
+    t.string "code_insee", limit: 255
+    t.string "code_postal"
+    t.float "latitude"
+    t.float "longitude"
+    t.text "libelle"
   end
 
   create_table "convicts", force: :cascade do |t|
@@ -203,7 +212,6 @@ ActiveRecord::Schema.define(version: 2023_03_30_082857) do
     t.boolean "lives_abroad", default: false, null: false
     t.bigint "city_id"
     t.bigint "creating_organization_id"
-    t.boolean "japat", default: false, null: false
     t.index ["city_id"], name: "index_convicts_on_city_id"
     t.index ["creating_organization_id"], name: "index_convicts_on_creating_organization_id"
     t.index ["discarded_at"], name: "index_convicts_on_discarded_at"
@@ -264,28 +272,11 @@ ActiveRecord::Schema.define(version: 2023_03_30_082857) do
     t.index ["name"], name: "index_jurisdictions_on_name", unique: true
   end
 
-  create_table "monsuivijustice_commune", id: :integer, default: nil, force: :cascade do |t|
-    t.integer "city_id", null: false
-    t.string "postal_code", limit: 255, null: false
-    t.string "names", limit: 255, null: false
-    t.string "gadm_id", limit: 255, null: false
-    t.integer "geoname_id", null: false
-    t.string "insee_code", limit: 255, null: false
-    t.string "ascii_name", limit: 255, null: false
-    t.boolean "is_analyzed"
-  end
-
-  create_table "monsuivijustice_relation_commune_structure", primary_key: ["commune_id", "structure_id"], force: :cascade do |t|
-    t.integer "commune_id", null: false
-    t.integer "structure_id", null: false
-    t.index ["commune_id"], name: "idx_57202ffd131a4f72"
-    t.index ["structure_id"], name: "idx_57202ffd2534008b"
-  end
-
-  create_table "monsuivijustice_structure", id: :integer, default: nil, force: :cascade do |t|
-    t.string "name", limit: 255, null: false
-    t.string "address", limit: 255, null: false
-    t.string "phone", limit: 255, null: false
+  create_table "ln_commune_structure", id: false, force: :cascade do |t|
+    t.text "id"
+    t.text "commune_id"
+    t.text "structure_id"
+    t.string "mnemo"
   end
 
   create_table "notification_types", force: :cascade do |t|
@@ -321,8 +312,10 @@ ActiveRecord::Schema.define(version: 2023_03_30_082857) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "organization_type", default: 0
     t.string "time_zone", default: "Europe/Paris", null: false
+    t.bigint "linked_organization_id"
     t.bigint "headquarter_id"
     t.index ["headquarter_id"], name: "index_organizations_on_headquarter_id"
+    t.index ["linked_organization_id"], name: "index_organizations_on_linked_organization_id"
     t.index ["name"], name: "index_organizations_on_name", unique: true
   end
 
@@ -395,33 +388,52 @@ ActiveRecord::Schema.define(version: 2023_03_30_082857) do
     t.index ["slot_type_id"], name: "index_slots_on_slot_type_id"
   end
 
-  create_table "spips_tjs", id: false, force: :cascade do |t|
-    t.bigint "tj_id"
-    t.bigint "spip_id"
+  create_table "spips", force: :cascade do |t|
+    t.string "name"
+    t.bigint "organization_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["spip_id"], name: "index_spips_tjs_on_spip_id"
-    t.index ["tj_id"], name: "index_spips_tjs_on_tj_id"
+    t.string "structure_id"
+    t.index ["organization_id"], name: "index_spips_on_organization_id"
+    t.index ["structure_id"], name: "index_spips_on_structure_id"
   end
 
-  create_table "srj_spips", force: :cascade do |t|
+  create_table "structure", id: false, force: :cascade do |t|
+    t.text "id"
+    t.string "type_structure_id", limit: 255
+    t.text "libelle_principal"
+    t.string "libelle_adresse_1", limit: 255
+    t.string "libelle_adresse_2", limit: 255
+    t.string "libelle_adresse_3", limit: 255
+    t.string "telephone", limit: 255
+    t.string "telecopie", limit: 255
+    t.string "email", limit: 255
+    t.string "code_insee"
+    t.string "code_postal", limit: 255
+    t.string "ligne_acheminement", limit: 255
+    t.string "mnemo"
+    t.text "ville"
+    t.boolean "competent_matiere_nationale"
+  end
+
+  create_table "tjs", force: :cascade do |t|
     t.string "name"
     t.bigint "organization_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "structure_id"
-    t.index ["organization_id"], name: "index_srj_spips_on_organization_id"
-    t.index ["structure_id"], name: "index_srj_spips_on_structure_id"
+    t.index ["organization_id"], name: "index_tjs_on_organization_id"
+    t.index ["structure_id"], name: "index_tjs_on_structure_id"
   end
 
-  create_table "srj_tjs", force: :cascade do |t|
-    t.string "name"
-    t.bigint "organization_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "structure_id"
-    t.index ["organization_id"], name: "index_srj_tjs_on_organization_id"
-    t.index ["structure_id"], name: "index_srj_tjs_on_structure_id"
+  create_table "type_structure", id: false, force: :cascade do |t|
+    t.string "id", limit: 255
+    t.string "mnemo", limit: 255
+    t.string "type_domaine", limit: 255
+    t.string "libelle_court", limit: 255
+    t.text "libelle_long"
+    t.text "commentaire"
+    t.boolean "is_baj"
   end
 
   create_table "user_notifications", force: :cascade do |t|
@@ -491,20 +503,19 @@ ActiveRecord::Schema.define(version: 2023_03_30_082857) do
   add_foreign_key "appointments", "users"
   add_foreign_key "areas_convicts_mappings", "convicts"
   add_foreign_key "areas_organizations_mappings", "organizations"
-  add_foreign_key "cities", "srj_spips"
-  add_foreign_key "cities", "srj_tjs"
+  add_foreign_key "cities", "spips"
+  add_foreign_key "cities", "tjs"
   add_foreign_key "convicts", "cities"
   add_foreign_key "convicts", "organizations", column: "creating_organization_id"
   add_foreign_key "convicts", "users"
   add_foreign_key "extra_fields", "organizations"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
-  add_foreign_key "monsuivijustice_relation_commune_structure", "monsuivijustice_commune", column: "commune_id", name: "fk_57202ffd131a4f72", on_delete: :cascade
-  add_foreign_key "monsuivijustice_relation_commune_structure", "monsuivijustice_structure", column: "structure_id", name: "fk_57202ffd2534008b", on_delete: :cascade
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notification_types", "organizations"
   add_foreign_key "notifications", "appointments"
   add_foreign_key "organizations", "headquarters"
+  add_foreign_key "organizations", "organizations", column: "linked_organization_id"
   add_foreign_key "places", "organizations"
   add_foreign_key "previous_passwords", "users"
   add_foreign_key "slot_types", "agendas"
@@ -512,10 +523,8 @@ ActiveRecord::Schema.define(version: 2023_03_30_082857) do
   add_foreign_key "slots", "agendas"
   add_foreign_key "slots", "appointment_types"
   add_foreign_key "slots", "slot_types"
-  add_foreign_key "spips_tjs", "organizations", column: "spip_id"
-  add_foreign_key "spips_tjs", "organizations", column: "tj_id"
-  add_foreign_key "srj_spips", "organizations"
-  add_foreign_key "srj_tjs", "organizations"
+  add_foreign_key "spips", "organizations"
+  add_foreign_key "tjs", "organizations"
   add_foreign_key "users", "headquarters"
   add_foreign_key "users", "organizations"
 end
