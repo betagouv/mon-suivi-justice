@@ -167,72 +167,49 @@
       </div>
     <% end %>
     <% if policy(:appointment).new? && @convict.undiscarded? %>
-      <div class='show-convict-new-appointment-container'>
-        <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
-                                                        class: 'link-to-new-appointment-button',
-                                                        form_class: 'link-to-new-appointment-form',
+      <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
+        <div class="fr-col-4">
+          <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
+                                                        class: 'fr-btn  fr-btn--lg',
+                                                        
                                                         method: :get %>
+        </div>
       </div>
     <% end %>
-
-
     <div class="fr-grid-row fr-mt-2w">
       <div class="fr-col">
-        <div class="fr-table fr-table--layout-fixed fr-table--bordered">
+        <div class="fr-table fr-table--bordered">
           <table>
-              <caption><%= t('show_convict_history_title') %></caption>
+            <caption><%= t('show_convict_history_title') %></caption>
             <thead>
               <tr>
-                <th scope="col">Lieu</th>
+                <th scope="col"></th>
                 <th scope="col">Date</th>
-                <th scope="col">Horaire</th>
+                <th scope="col">Evènement</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <% @convict.future_appointments.each do |apt| %>
+              <% @history_items.each do |history_item| %>
                 <tr>
-                  <td><%= apt.slot.agenda.place.name %></td>
-                  <td><%= apt.slot.date %></td>
-                  <td><%= apt.localized_time.to_s(:time) %></td>
-                  <td><%= link_to t('see'), appointment_path(apt), class: '' %></td>
+                  <td >
+                    <div  class='show-history-item-icon text-center'>
+                      <%= fa_icon 'circle', class: "icon_#{history_item.event}" %></td>
+                  </div>
+                  <td>
+                    <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
+                  </td>
+                  <td><%= t("history_item.#{history_item.event}_title") %> :               <%= history_item.content %>
+                  </td>
+                  <td>          <% if history_item.appointment? %>
+                      <%= link_to t('see_details'), appointment_path(history_item.appointment), class: '' %>
+                    <% end %></td>
                 </tr>
               <% end %>
             </tbody>
           </table>
         </div>
       </div>
-    </div>
-
-
-
-    <h2 class='show-secondary-title'><%= t('show_convict_history_title') %></h2>
-    <div class='show-history-container'>
-      <% @history_items.each do |history_item| %>
-        <div class='show-history-item-container'>
-          <div class='show-history-item-header'>
-            <div class='show-history-item-icon'>
-              <%= fa_icon 'circle', class: "icon_#{history_item.event}" %>
-            </div>
-            <div class='show-history-item-creation'>
-              <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
-            </div>
-          </div>
-          <div class='show-history-item'>
-            <div class='show-history-item-title'>
-              <%= t("history_item.#{history_item.event}_title") %>
-            </div>
-            <div class='show-history-item-content'>
-              <%= history_item.content %>
-            </div>
-          </div>
-          <% if history_item.appointment? %>
-            <div class='show-history-item-link'>
-              <%= link_to t('see_details'), appointment_path(history_item.appointment), class: 'show-convict-history-control' %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>
