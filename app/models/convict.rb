@@ -38,7 +38,7 @@ class Convict < ApplicationRecord
   validate :phone_uniqueness
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
-  validates :city_id, presence: true, on: :user_works_at_bex
+  validate :either_dob_homeless_lives_abroad_present, on: :user_works_at_bex
 
   validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE
@@ -157,6 +157,11 @@ class Convict < ApplicationRecord
     return unless date_of_birth.present? && date_of_birth >= Date.today
 
     errors.add(:date_of_birth, 'ne peux pas être dans le futur')
+  end
+
+  def either_dob_homeless_lives_abroad_mandatory_if_bex
+
+
   end
 
   def check_duplicates(current_user)
