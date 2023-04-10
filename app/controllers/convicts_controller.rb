@@ -107,11 +107,13 @@ class ConvictsController < ApplicationController
 
     return render :new if convict.duplicates.present? && !force_duplication
 
-    convict.valid?(:user_works_at_bex) if current_user.work_at_bex?
+    return render :new if current_user.work_at_bex? && !convict.valid?(:user_works_at_bex)
 
     if convict.save
+
       convict.update_organizations(current_user)
       redirect_to select_path(params)
+
     else
       # TODO : build a real policiy for convicts#show
       @convict_with_same_appi = Convict.where appi_uuid: convict.appi_uuid if convict.errors[:appi_uuid].any?

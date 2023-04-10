@@ -43,6 +43,26 @@
         <% end %>
       </div>
       <%= render partial: 'shared/city_selector' %>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-checkbox-group">
+          <input name="convict[homeless]" id="convict-homeless" type="checkbox" aria-describedby="convict-homeless-messages" value="1" <%= 'checked' if @convict.homeless%>>
+          <label class="fr-label" for="convict-homeless">
+            <%= t('activerecord.attributes.convict.homeless')%>
+          </label>
+          <div class="fr-messages-group" id="convict-homeless-messages" aria-live="assertive">
+          </div>
+        </div>
+      </div>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-checkbox-group">
+          <input name="convict[lives_abroad]" id="convict-lives-abroad" type="checkbox" aria-describedby="convict-lives-abroad-messages" value="1" <%= 'checked' if @convict.lives_abroad %>>
+          <label class="fr-label" for="convict-lives-abroad">
+            <%= t('activerecord.attributes.convict.lives_abroad')%>
+          </label>
+          <div class="fr-messages-group" id="convict-lives-abroad-messages" aria-live="assertive">
+          </div>
+        </div>
+      </div>
       <% if current_user.work_at_spip? || current_user.admin? %>
         <%= render partial: 'shared/user_selector' %>
       <% end %>
