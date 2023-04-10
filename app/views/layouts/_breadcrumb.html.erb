@@ -8,9 +8,11 @@
             <%= t('sidebar.home') %>
           <% end %>
         </li>
-        <li>
-          <a class="fr-breadcrumb__link" aria-current="page"><%= t("sidebar.#{request.path.tr('/', '')}") %></a>
-        </li>
+        <% if !(current_page?(home_path) || current_page?(authenticated_root_path))%>
+          <li>
+            <a class="fr-breadcrumb__link" aria-current="page"><%= t("sidebar.#{request.path.tr('/', '')}") %></a>
+          </li>
+        <% end %>
       </ol>
     </div>
   </nav>
