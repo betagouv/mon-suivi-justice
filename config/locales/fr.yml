@@ -445,8 +445,8 @@ fr:
   show_convict_history_title: Historique
   show_convict_new_appointment: Prendre rendez-vous
   show_convict_next_appointment: "%{date} à %{time} au %{place}"
-  show-convict-next-appointments-title1: "Prochain rendez-vous :"
-  show-convict-next-appointments-title2: "Prochains rendez-vous :"
+  show-convict-next-appointments-title1: "Prochain rendez-vous"
+  show-convict-next-appointments-title2: "Prochains rendez-vous"
   show-convict-fulfilment-prompt: "Est-ce-que %{name} s'est présenté(e) au %{place} le %{date} à %{time} ?"
   show-convict-fulfilment-send-sms: "Voulez-vous envoyer un SMS à la PPSMJ ?"
   show-convict-fulfilment-sms-content: "Texte du SMS :"
