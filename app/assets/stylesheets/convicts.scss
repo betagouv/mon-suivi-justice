@@ -72,17 +72,12 @@
   margin-left: 10px;
 }
 
-.show-convict-next-appointments-title {
-  text-align: center;
-}
-
 .show-convict-next-appointment {
   margin-bottom: 5px;
 }
 
 .appointment-fulfilment-container {
-  width: 70%;
-  max-width: 650px;
+  width: 100%;
   margin: auto;
   margin-bottom: 20px;
   display: flex;
@@ -157,7 +152,7 @@
 
 .show-history-item-icon {
   margin-right: 10px;
-  font-size: 10px;
+  font-size: 15px;
   color: $dark-grey;
 }
 

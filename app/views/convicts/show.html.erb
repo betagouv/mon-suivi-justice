@@ -1,227 +1,216 @@
-<h1 class='show-title'><%= t('show_convict_title') %></h1>
-
-<% if @convict.passed_appointments.present? %>
-  <% policy_scope(@convict.passed_appointments).each do |apt| %>
-    <% if apt.booked? && policy(apt).fulfil? %>
-      <div class='appointment-fulfilment-container'>
-        <div class='appointment-fulfilment-prompt-container'>
-          <%= t('show-convict-fulfilment-prompt', name: @convict.name,
-                                                  place: apt.slot.agenda.place.name,
-                                                  date: apt.slot.date,
-                                                  time: apt.slot.localized_time.to_s(:time)) %>
-        </div>
-
-        <div class='appointment-fulfilment-controls-container'>
-          <%= button_to t('yes'), appointment_fulfil_path(apt),
-                                  method: :put,
-                                  id: 'show-convict-fulfil-button',
-                                  class: 'show-convict-fulfil-button' %>
-
-          <%= button_tag t('no'), type: 'button',
-                                  class: 'show-convict-miss-button',
-                                  data: { 'micromodal-trigger': "missed-appointment-modal-#{apt.id}" } %>
-
-          <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(apt),
-                                                              method: :put,
-                                                              id: 'show-convict-excuse-button',
-                                                              class: 'show-convict-excuse-button' %>
-        </div>
-      </div>
-
-      <%= render 'missed_appointment_modal', apt: apt %>
-    <% end %>
-  <% end %>
-<% end %>
-
-<% if @convict.discarded? %>
-  <div class='show-convict-achived-container'>
-    <%= t('show_convict_archived') %>
-  </div>
-<% end %>
-
-<div class='show-profile-container'>
-  <div class='show-data-container'>
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.convict.last_name')%>
-      </div>
-      <div class='show-data-item'>
-        <%= @convict.last_name.upcase %>
-      </div>
-    </div>
-
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.convict.first_name') %>
-      </div>
-      <div class='show-data-item'>
-        <%= @convict.first_name.capitalize %>
-      </div>
-    </div>
-
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.convict.cpip') %>
-      </div>
-      <div class='show-data-item'>
-        <% if @convict.cpip.present? %>
-          <%= @convict.cpip_name %>
-        <% elsif policy(@convict).self_assign? %>
-          <%= link_to t('.self_assign_link'), convict_self_assign_path(@convict), method: 'post', class: 'index-control' %>
+<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row fr-mt-2w">
+  <div class="fr-col-12 fr-col-md-8 fr-col-lg-4">
+    <% if @convict.passed_appointments.present? %>
+      <% policy_scope(@convict.passed_appointments).each do |apt| %>
+        <% if apt.booked? && policy(apt).fulfil? %>
+          <div class='appointment-fulfilment-container'>
+            <div class='appointment-fulfilment-prompt-container'>
+              <%= t('show-convict-fulfilment-prompt', name: @convict.name,
+                                                        place: apt.slot.agenda.place.name,
+                                                        date: apt.slot.date,
+                                                        time: apt.slot.localized_time.to_s(:time)) %>
+            </div>
+            <div class='appointment-fulfilment-controls-container'>
+              <%= button_to t('yes'), appointment_fulfil_path(apt),
+                                        method: :put,
+                                        id: 'show-convict-fulfil-button',
+                                        class: 'show-convict-fulfil-button' %>
+              <%= button_tag t('no'), type: 'button',
+                                        class: 'show-convict-miss-button',
+                                        data: { 'micromodal-trigger': "missed-appointment-modal-#{apt.id}" } %>
+              <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(apt),
+                                                                    method: :put,
+                                                                    id: 'show-convict-excuse-button',
+                                                                    class: 'show-convict-excuse-button' %>
+            </div>
+          </div>
+          <%= render 'missed_appointment_modal', apt: apt %>
         <% end %>
-      </div>
-    </div>
-
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.convict.appi_uuid') %>
-      </div>
-      <div class='show-data-item'>
-        <%= @convict.appi_uuid.presence %>
-      </div>
-    </div>
-
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.convict.phone') %>
-      </div>
-      <div class='show-data-item'>
-        <% if @convict.no_phone? %>
-          <%= t('activerecord.attributes.convict.no_phone') %>
-        <% elsif @convict.refused_phone? %>
-          <%= t('activerecord.attributes.convict.refused_phone') %>
-        <% else %>
-          <%= @convict.display_phone %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class='show-button-to-edit-container'>
-    <% if policy(@convict).edit? %>
-      <%= button_to t('edit'), edit_convict_path(params[:id]),
-                               method: :get,
-                               class: 'show-convict-button-to-edit',
-                               "data-turbolinks": false %>
+      <% end %>
     <% end %>
-
-    <% if policy(@convict).destroy? %>
-      <%= button_to t('delete'), convict_path(params[:id]),
-                                 method: :delete,
-                                 data: { confirm: t('basic_confirmation') },
-                                 class: 'show-button-to-delete' %>
+    <% if @convict.discarded? %>
+      <div class='show-convict-achived-container'>
+        <%= t('show_convict_archived') %>
+      </div>
     <% end %>
-
-    <% if policy(@convict).archive? %>
-      <%= button_to t('archive'), convict_archive_path(@convict),
-                                  method: :delete,
-                                  data: { confirm: t('archive_convict_confirmation') },
-                                  class: 'show-button-archive' %>
-    <% end %>
-
-    <% if policy(@convict).unarchive? %>
-      <%= button_to t('unarchive'), convict_unarchive_path(@convict), method: :post, class: 'show-button-archive' %>
-    <% end %>
-  </div>
-</div>
-
-<% if ENV['APP'] != 'mon-suivi-justice-prod' || current_user.can_invite_to_convict_interface? %>
-  <div class="show-ppsmj-container">
-    <h3 class="mb-20px text-center">Espace PPSMJ</h3>
-    <div class='d-flex'>
-      <div class='show-data-container'>
-        <div class='show-data-item-container'>
-          <div class='show-data-label mr-20px'>
-            <%= t('.interface_invitation_state') %>
+    <div class="fr-grid-row">
+      <div class="fr-col">
+        <div class="fr-card fr-p-2w">
+          <div class="fr-grid-row  fr-grid-row--middle">
+            <div class="fr-col-4">
+              <h2 class="fr-mr-2w"><%= t('show_convict_title') %></h2>
+            </div>
+            <div class="fr-col-8 ">
+              <div class="fr-grid-row  fr-grid-row--right">
+                <ul class="fr-btns-group fr-btns-group--inline-lg">
+                  <% if policy(@convict).edit? %>
+                    <%= button_to t('edit'), edit_convict_path(params[:id]),
+                                        method: :get,
+                                        class: 'fr-btn',
+                                        "data-turbolinks": false %>
+                  <% end %>
+                  <% if policy(@convict).destroy? %>
+                    <%= button_to t('delete'), convict_path(params[:id]),
+                                          method: :delete,
+                                          data: { confirm: t('basic_confirmation') },
+                                          class: 'fr-btn fr-btn--secondary' %>
+                  <% end %>
+                  <% if policy(@convict).archive? %>
+                    <%= button_to t('archive'), convict_archive_path(@convict),
+                                            method: :delete,
+                                            data: { confirm: t('archive_convict_confirmation') },
+                                            class: 'fr-btn fr-btn--tertiary' %>
+                  <% end %>
+                  <% if policy(@convict).unarchive? %>
+                    <%= button_to t('unarchive'), convict_unarchive_path(@convict), method: :post, class: 'fr-btn fr-btn--tertiary' %>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
           </div>
-          <div class='show-data-item' id='convict-invitation-text'>
-            <%= t(".#{@convict.interface_invitation_state}", last_invite: @convict.last_invite_to_convict_interface.present? ? l(@convict.last_invite_to_convict_interface, format: :clear) : nil) %>
-          </div>
-        </div>
-
-        <div class='show-data-item-container'>
-          <div class='show-data-label mr-20px'>
-            <%= t('.interface_access_timestamp')%>
-          </div>
-          <div class='show-data-item'>
-            <% if @convict.can_access_convict_inferface? %>
-              <%= l(@convict.timestamp_convict_interface_creation, format: :clear) %>
-            <% else %>
-              <%= t('.interface_no_access') %>
+          <p>
+            <strong><%= t('activerecord.attributes.convict.last_name')%></strong> : <%= @convict.last_name.upcase %>
+          </p>
+          <p>
+            <strong><%= t('activerecord.attributes.convict.first_name') %></strong> : <%= @convict.first_name.capitalize %>
+          </p>
+          <p>
+            <strong><%= t('activerecord.attributes.convict.cpip') %></strong> :             
+            <% if @convict.cpip.present? %>
+              <%= @convict.cpip_name %>
+            <% elsif policy(@convict).self_assign? %>
+              <%= link_to t('.self_assign_link'), convict_self_assign_path(@convict), method: 'post', class: 'index-control' %>
             <% end %>
+          </p>
+          <p>
+            <strong><%= t('activerecord.attributes.convict.appi_uuid') %></strong> : <%= @convict.appi_uuid.presence %>
+          </p>
+          <p>
+            <strong><%= t('activerecord.attributes.convict.phone') %></strong> :
+            <% if @convict.no_phone? %>
+              <%= t('activerecord.attributes.convict.no_phone') %>
+            <% elsif @convict.refused_phone? %>
+              <%= t('activerecord.attributes.convict.refused_phone') %>
+            <% else %>
+              <%= @convict.display_phone %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <% if ENV['APP'] != 'mon-suivi-justice-prod' || current_user.can_invite_to_convict_interface? %>
+      <div class="fr-grid-row fr-mt-2w">
+        <div class="fr-col">
+          <div class="fr-card fr-p-2w">
+            <div class="fr-grid-row  fr-grid-row--middle">
+              <div class="fr-col-4">
+                <h3 class="fr-mr-2w">Espace PPSMJ</h3>
+              </div>
+              <div class="fr-col-8 ">
+                <div class="fr-grid-row  fr-grid-row--right">
+                  <ul class="fr-btns-group fr-btns-group--inline-lg">
+                    <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
+                      <%= button_to @convict.invitation_to_convict_interface_count == 1 ? t('.reinvite') : t('.invite'), convict_invitation_path(@convict), method: :post, class: 'fr-btn fr-btn--secondary', id: 'convict-invitation-button' %>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div>
+              <p>
+                <strong><%= t('.interface_invitation_state') %></strong> : <%= t(".#{@convict.interface_invitation_state}", last_invite: @convict.last_invite_to_convict_interface.present? ? l(@convict.last_invite_to_convict_interface, format: :clear) : nil) %>
+              </p>
+              <p>
+                <strong><%= t('.interface_access_timestamp')%></strong> : 
+                <% if @convict.can_access_convict_inferface? %>
+                  <%= l(@convict.timestamp_convict_interface_creation, format: :clear) %>
+                <% else %>
+                  <%= t('.interface_no_access') %>
+                <% end %>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class='show-button-to-edit-container'>
-        <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
-          <%= button_to @convict.invitation_to_convict_interface_count == 1 ? t('.reinvite') : t('.invite'), convict_invitation_path(@convict), method: :post, class: 'show-button-invite', id: 'convict-invitation-button' %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-<% end %>
-
-<% if @convict.future_appointments.count != 0 %>
-  <div class='show-convict-next-appointments-container'>
-    <% if @convict.future_appointments.count == 1 %>
-      <p class='show-convict-next-appointments-title'><%= t('show-convict-next-appointments-title1') %></p>
-    <% else %>
-      <p class='show-convict-next-appointments-title'><%= t('show-convict-next-appointments-title2') %></p>
     <% end %>
-    <div class='show-convict-next-appointments-item'>
-      <% @convict.future_appointments.each do |apt| %>
-        <p class='show-convict-next-appointment'>
-          <%= t('show_convict_next_appointment', place: apt.slot.agenda.place.name,
-                                                 date: apt.slot.date,
-                                                 time: apt.localized_time.to_s(:time)) %>
-          <%= link_to t('see'), appointment_path(apt), class: 'show-convict-next-appointment-link' %>
-        </p>
-      <% end %>
-    </div>
-  </div>
-<% end %>
-
-<% if policy(:appointment).new? && @convict.undiscarded? %>
-  <div class='show-convict-new-appointment-container'>
-    <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
-                                                   class: 'link-to-new-appointment-button',
-                                                   form_class: 'link-to-new-appointment-form',
-                                                   method: :get %>
-  </div>
-<% end %>
-
-<h2 class='show-secondary-title'><%= t('show_convict_history_title') %></h2>
-
-<div class='show-history-container'>
-  <% @history_items.each do |history_item| %>
-    <div class='show-history-item-container'>
-      <div class='show-history-item-header'>
-        <div class='show-history-item-icon'>
-          <%= fa_icon 'circle', class: "icon_#{history_item.event}" %>
-        </div>
-        <div class='show-history-item-creation'>
-          <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
+    <% if @convict.future_appointments.count != 0 %>
+      <div class="fr-grid-row fr-mt-2w">
+        <div class="fr-col">
+          <div class="fr-table fr-table--layout-fixed fr-table--bordered">
+            <table>
+              <% if @convict.future_appointments.count == 1 %>
+                <caption><%= t('show-convict-next-appointments-title1') %></caption>
+              <% else %>
+                <caption><%= t('show-convict-next-appointments-title2') %></caption>
+              <% end %>
+              <thead>
+                <tr>
+                  <th scope="col">Lieu</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Horaire</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @convict.future_appointments.each do |apt| %>
+                  <tr>
+                    <td><%= apt.slot.agenda.place.name %></td>
+                    <td><%= apt.slot.date %></td>
+                    <td><%= apt.localized_time.to_s(:time) %></td>
+                    <td><%= link_to t('see'), appointment_path(apt), class: '' %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-
-      <div class='show-history-item'>
-        <div class='show-history-item-title'>
-          <%= t("history_item.#{history_item.event}_title") %>
-        </div>
-
-        <div class='show-history-item-content'>
-          <%= history_item.content %>
+    <% end %>
+    <% if policy(:appointment).new? && @convict.undiscarded? %>
+      <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
+        <div class="fr-col-4">
+          <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
+                                                        class: 'fr-btn  fr-btn--lg',
+                                                        
+                                                        method: :get %>
         </div>
       </div>
-
-      <% if history_item.appointment? %>
-        <div class='show-history-item-link'>
-          <%= link_to t('see_details'), appointment_path(history_item.appointment), class: 'show-convict-history-control' %>
+    <% end %>
+    <div class="fr-grid-row fr-mt-2w">
+      <div class="fr-col">
+        <div class="fr-table fr-table--bordered">
+          <table>
+            <caption><%= t('show_convict_history_title') %></caption>
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Date</th>
+                <th scope="col">Evènement</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @history_items.each do |history_item| %>
+                <tr>
+                  <td >
+                    <div  class='show-history-item-icon text-center'>
+                      <%= fa_icon 'circle', class: "icon_#{history_item.event}" %></td>
+                  </div>
+                  <td>
+                    <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
+                  </td>
+                  <td><%= t("history_item.#{history_item.event}_title") %> :               <%= history_item.content %>
+                  </td>
+                  <td>          <% if history_item.appointment? %>
+                      <%= link_to t('see_details'), appointment_path(history_item.appointment), class: '' %>
+                    <% end %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
-      <% end %>
+      </div>
     </div>
-  <% end %>
+  </div>
 </div>
-
 <%= javascript_pack_tag 'convict' %>
