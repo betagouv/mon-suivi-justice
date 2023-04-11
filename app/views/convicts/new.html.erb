@@ -37,9 +37,11 @@
         <label class="fr-label" for="convict_appi_uuid"><%= t('activerecord.attributes.convict.appi_uuid')%></label>
         <input class="fr-input" type="text" value="<%= @convict.appi_uuid %>" name="convict[appi_uuid]" id="convict_appi_uuid">
         <% if invalid %>
-          <p id="text-input-error-desc-error" class="fr-error-text">
-            <%=  @convict.errors.full_messages_for(:appi_uuid).first %>.
-          </p>
+          <% @convict.errors.full_messages_for(:appi_uuid).each do |message| %>
+            <p id="text-input-error-desc-error" class="fr-error-text">
+              <%= message %>.
+            </p>
+          <% end %>
         <% end %>
       </div>
       <%= render partial: 'shared/city_selector' %>
@@ -114,21 +116,13 @@
             <p class='new-convict-duplicate-header'><%= t('new_convict_duplicate_warning2')%></p>
           <% end %>
           <% if policy_scope(@convict.duplicates).any? %>
-            <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning_local')%></p>
             <% policy_scope(@convict.duplicates).each do |duplicate| %>
               <div class='new-convict-duplicate-link'>
                 <%= link_to t('new_convict_duplicate_link', name: duplicate.name), convict_path(duplicate), target: "_blank" %>
               </div>
             <% end %>
           <% end %>
-          <% duplicates_other_department = @convict.duplicates - policy_scope(@convict.duplicates) %>
-          <% if duplicates_other_department.any? %>
-            <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning_global')%></p>
-            <% duplicates_other_department.each do |duplicate| %>
-              <% dep = duplicate.departments.first %>
-              <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_warning5', name: dep.name, number: dep.number)%></p>
-            <% end %>
-          <% end %>
+
           <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
           <p><%= t('new_convict_duplicate_warning4')%></p>
         </div>
@@ -150,16 +144,13 @@
       <% else %>
         <% if @convict_with_same_appi.present? %>
           <% convict_with_same_appi = @convict_with_same_appi.first %>
-          <% deps = convict_with_same_appi.departments.map(&:number).join(",") %>
+          <% orgs = convict_with_same_appi.organizations.map(&:name).join(", ") %>
           <div class='new-convict-duplicate-warning'>
-            <p class='new-convict-duplicate-header'><%= t('new_convict_duplicate_warning1')%></p>
+            <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_appi_uuid_1', orgs: orgs) %></p>
             <% if !policy_scope(@convict_with_same_appi).empty? %>
-              <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_appi_uuid_2') %></p>
               <div class='new-convict-duplicate-link'>
                 <%= link_to t('new_convict_duplicate_link', name: convict_with_same_appi.name), convict_path(convict_with_same_appi), target: "_blank" %>
               </div>
-            <% else %>
-              <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_appi_uuid_1', deps: deps) %></p>
             <% end %>
             <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
           </div>

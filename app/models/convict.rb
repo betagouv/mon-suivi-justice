@@ -33,6 +33,7 @@ class Convict < ApplicationRecord
   attr_accessor :place_id, :duplicates
 
   validates :appi_uuid, allow_blank: true, uniqueness: true
+
   validates :first_name, :last_name, :invitation_to_convict_interface_count, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
   validate :phone_uniqueness
@@ -165,27 +166,20 @@ class Convict < ApplicationRecord
     errors.add(:base, I18n.t('activerecord.errors.models.convict.attributes.city.all_blanks'))
   end
 
-  def check_duplicates(current_user)
-    homonyms = Convict.where(
-      'lower(first_name) = ? AND lower(last_name) = ?',
-      first_name.downcase, last_name.downcase
+  def check_duplicates
+    duplicates = Convict.where(
+      'lower(first_name) = ? AND lower(last_name) = ? AND phone = ?',
+      first_name.downcase, last_name.downcase, phone
+    ).or(
+      Convict.where(
+        'lower(first_name) = ? AND lower(last_name) = ? AND date_of_birth = ?',
+        first_name.downcase, last_name.downcase, date_of_birth
+      )
     ).where.not(id: id)
 
-    homonyms = homonyms.where(appi_uuid: nil) if appi_uuid.present?
-    homonyms = check_duplicates_without_phones(homonyms, current_user)
+    duplicates = duplicates.where(appi_uuid: nil) if appi_uuid.present?
 
-    self.duplicates = homonyms
-  end
-
-  def check_duplicates_without_phones(homonyms, current_user)
-    current_departments = current_user.organization.departments
-    homonyms = homonyms.in_departments(current_departments) if refused_phone? || no_phone?
-
-    homonyms = homonyms.reject do |i|
-      (i.refused_phone? || i.no_phone?) && !current_departments.include?(i.departments.first)
-    end
-
-    Convict.where(id: homonyms.pluck(:id))
+    self.duplicates = duplicates
   end
 
   def update_convict_api
