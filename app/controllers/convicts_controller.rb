@@ -102,10 +102,12 @@ class ConvictsController < ApplicationController
   end
 
   private
+
   def save_and_redirect(convict)
     if duplicate_present?(convict) && !force_duplication?
       return render :new
     elsif !user_works_at_bex?(convict) || convict.valid?(:user_works_at_bex)
+      debugger
       if convict.save
         convict.update_organizations(current_user)
         redirect_to select_path(params)
@@ -119,8 +121,6 @@ class ConvictsController < ApplicationController
     end
   end
   
-  
-
   def convict_params
     params.require(:convict).permit(
       :first_name, :last_name, :phone, :no_phone,
@@ -167,18 +167,16 @@ class ConvictsController < ApplicationController
     end
   end
 
+  def duplicate_present?(convict)
+    convict.check_duplicates
+    convict.duplicates.present?
+  end
 
-    def duplicate_present?(convict)
-      convict.check_duplicates
-      convict.duplicates.present?
-    end
+  def force_duplication?
+    ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
+  end
 
-    def force_duplication?
-      ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
-    end
-
-    def user_works_at_bex?(convict)
-      current_user.work_at_bex? && !convict.valid?(:user_works_at_bex)
-    end
-
+  def user_works_at_bex?(convict)
+    current_user.work_at_bex? && !convict.valid?(:user_works_at_bex)
+  end
 end

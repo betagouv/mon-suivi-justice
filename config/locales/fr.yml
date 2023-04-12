@@ -430,7 +430,7 @@ fr:
   new_convict_duplicate_warning_global: "Hors de votre ressort :"
   new_convict_duplicate_link: "Profil de %{name}"
   new_convict_duplicate_warning3: "Merci de vérifier qu'il s'agit bien de deux personnes distinctes avant d'enregistrer ce nouveau profil."
-  new_convict_duplicate_warning4: "Si un homonyme existe dans un autre département, et que vous pensez que c'est la même personne, merci de contacter le support."
+  new_convict_duplicate_warning4: "Si un homonyme existe dans un autre service, et que vous pensez que c'est la même personne, merci de contacter le support."
   new_convict_duplicate_warning5: "Un homonyme existe dans le département %{name} (%{number})."
   new_convict_duplicate_appi_uuid_1: "Une ppsmj avec le même numéro appi existe dans le(s) service(s): %{orgs}."
   new_convict_duplicate_appi_uuid_2: "Une ppsmj avec le même numéro appi existe dans votre ressort."

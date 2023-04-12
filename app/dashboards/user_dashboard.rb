@@ -97,8 +97,6 @@ class UserDashboard < Administrate::BaseDashboard
     email
     first_name
     last_name
-    password
-    password_confirmation
     organization
     phone
     role
