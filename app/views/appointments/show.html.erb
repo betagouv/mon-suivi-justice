@@ -1,5 +1,4 @@
 <h1 class='show-title'><%= t('show_appointment_title') %></h1>
-
 <% if @appointment.in_the_past? && @appointment.booked? && policy(@appointment).fulfil? %>
   <div class='appointment-fulfilment-container'>
     <div class='appointment-fulfilment-prompt-container'>
@@ -8,205 +7,180 @@
                                               date: @appointment.slot.date,
                                               time: @appointment.localized_time.to_s(:time)) %>
     </div>
-
     <div class='appointment-fulfilment-controls-container'>
       <%= button_to t('yes'), appointment_fulfil_path(@appointment),
                               method: :put,
                               id: 'show-convict-fulfil-button',
                               class: 'show-convict-fulfil-button' %>
-
       <%= button_tag t('no'), type: 'button',
                               class: 'show-convict-miss-button',
                               data: { 'micromodal-trigger': "missed-appointment-modal-#{@appointment.id}" } %>
-
       <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(@appointment),
                                                           method: :put,
                                                           id: 'show-convict-excuse-button',
                                                           class: 'show-convict-excuse-button' %>
     </div>
   </div>
-
   <%= render 'missed_appointment_modal', apt: @appointment %>
 <% end %>
+<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row fr-mt-2w">
+  <div class="fr-col-12 fr-col-md-8 fr-col-lg-4">
+    <div class="fr-grid-row">
 
-<div class='show-profile-container'>
-  <div class='show-data-container'>
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.convict.last_name')%>
-      </div>
-      <div class='show-data-item'>
-        <%= @convict.last_name.upcase %>
+
+
+
+      <div class="fr-col">
+        <div class="fr-card fr-p-2w">
+          <div class="fr-grid-row  fr-grid-row--middle">
+            <div class="col">
+              <div class="fr-grid-row  fr-grid-row--right">
+                <%= button_to t('see_profile'), convict_path(@convict.id),
+                                    method: :get,
+                                    class: 'show-button-to-edit' %>
+              </div>
+            </div>
+          </div>
+            <p>
+              <strong><%= t('activerecord.attributes.convict.last_name')%></strong> : <%= @convict.last_name.upcase %>
+            </p>
+            <p>
+              <strong><%= t('activerecord.attributes.convict.first_name') %></strong> : <%= @convict.first_name.capitalize %>
+            </p>
+            <p>
+              <strong><%= t('activerecord.attributes.convict.phone') %></strong> :
+              <% if @convict.no_phone? %>
+                <%= t('activerecord.attributes.convict.no_phone') %>
+              <% elsif @convict.refused_phone? %>
+                <%= t('activerecord.attributes.convict.refused_phone') %>
+              <% else %>
+                <%= @convict.display_phone %>
+              <% end %>
+            </p>
+        </div>
       </div>
     </div>
-
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.convict.first_name')%>
+  </div>
+  <div class='show-appointment-container'>
+    <div class='show-appointment-summon-container'>
+      <div class='show-appointment-data-container'>
+        <div class='show-appointment-summon-data'>
+          <div class='show-appointment-summon-title'>
+            <%= t('activerecord.models.appointment_type') %>
+          </div>
+          <div class='show-appointment-summon-item'>
+            <%= @appointment.slot.appointment_type.name %>
+          </div>
+        </div>
+        <div class='show-appointment-summon-data'>
+          <div class='show-appointment-summon-title'>
+            <%= t('appointment_place') %>
+          </div>
+          <div class='show-appointment-summon-item'>
+            <%= @appointment.slot.agenda.place.name %>
+          </div>
+        </div>
+        <% if @appointment.slot.agenda.place.multiple_agendas? %>
+          <div class='show-appointment-summon-data'>
+            <div class='show-appointment-summon-title'>
+              <%= t('appointment_agenda') %>
+            </div>
+            <div class='show-appointment-summon-item'>
+              <%= @appointment.slot.agenda.name %>
+            </div>
+          </div>
+        <% end %>
+        <% if @appointment.slot.appointment_type.sortie_audience? %>
+          <div class='show-appointment-summon-data'>
+            <div class='show-appointment-summon-title'>
+              <%= t('activerecord.attributes.appointment.prosecutor_number')%>
+            </div>
+            <div class='show-appointment-summon-item'>
+              <%= @appointment.prosecutor_number %>
+            </div>
+          </div>
+        <% end %>
+        <div class='show-appointment-summon-data'>
+          <div class='show-appointment-summon-title'>
+            <%= t('appointment_date') %>
+          </div>
+          <div class='show-appointment-summon-item'>
+            <%= @appointment.slot.date %>
+          </div>
+        </div>
+        <div class='show-appointment-summon-data'>
+          <div class='show-appointment-summon-title'>
+            <%= t('appointment_starting_time') %>
+          </div>
+          <div class='show-appointment-summon-item'>
+            <%= @appointment.localized_time.to_s(:time) %>
+          </div>
+        </div>
+        <div class='show-appointment-summon-data'>
+          <div class='show-appointment-summon-title'>
+            <%= t('appointments.show.inviter_user_role') %>
+          </div>
+          <div class='show-appointment-summon-item'>
+            <% if @appointment.origin_department.present? %>
+              <%= t("activerecord.attributes.appointment.origin_departments.#{@appointment.origin_department}") %>
+            <% elsif @appointment.inviter_user_id.present? %>
+              <% user = User.find(@appointment.inviter_user_id) %>
+              <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
+            <% end %>
+          </div>
+        </div>
+        <div class='show-appointment-summon-data show-appointment-state-container'>
+          <div class='show-appointment-summon-title'>
+            <%= t('appointment_state') %>
+          </div>
+          <div class='show-appointment-summon-item'>
+            <%= @appointment.human_state_name %>
+            <% if @appointment.can_rebook? && @appointment.no_show? %>
+              <%= content_tag(:span, t('edit'),
+                                   class: 'show-appointment-change-state-link fake-link',
+                                   data: { 'micromodal-trigger': "rebook-missed-appointment-modal-#{@appointment.id}" }) %>
+              <%= render 'rebook_missed_appointment_modal', apt: @appointment %>
+            <% elsif @appointment.can_rebook? %>
+              <%= link_to t('edit'), appointment_rebook_path(@appointment), method: :put, class: 'show-appointment-change-state-link' %>
+            <% end %>
+          </div>
+        </div>
       </div>
-      <div class='show-data-item'>
-        <%= @convict.first_name.capitalize %>
-      </div>
-    </div>
-
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.convict.phone')%>
-      </div>
-      <div class='show-data-item'>
-        <% if @convict.no_phone? %>
-          <%= t('activerecord.attributes.convict.no_phone')%>
-        <% elsif @convict.refused_phone? %>
-          <%= t('activerecord.attributes.convict.refused_phone')%>
-        <% else %>
-          <%= @convict.display_phone %>
+      <div class='show-appointment-controls-container'>
+        <% if @appointment.booked? && policy(@appointment).update? %>
+          <%= button_to t('reschedule'), new_appointment_reschedule_path(@appointment),
+                                       method: :get,
+                                       class: 'show-button-to-reschedule' %>
+          <%= button_to t('cancel'), appointment_cancel_path(@appointment),
+                                   method: :put,
+                                   data: { confirm: t('cancel_appointment_warning') },
+                                   class: 'show-button-to-edit' %>
         <% end %>
       </div>
     </div>
   </div>
-
-  <div class='show-button-to-edit-container'>
-    <%= button_to t('see_profile'), convict_path(@convict.id),
-                                    method: :get,
-                                    class: 'show-button-to-edit' %>
+  <h2 class='show-secondary-title'><%= t('show_convict_history_title') %></h2>
+  <div class='show-history-container'>
+    <% @history_items.each do |history_item| %>
+      <% next if ['program_reminder_notification', 'cancel_reminder_notification'].include?(history_item.event) %>
+      <div class='show-history-item-container'>
+        <div class='show-history-item-header'>
+          <div class='show-history-item-icon'>
+            <%= fa_icon 'circle', class: "icon_#{history_item.event}" %>
+          </div>
+          <div class='show-history-item-creation'>
+            <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
+          </div>
+        </div>
+        <div class='show-history-item'>
+          <div class='show-history-item-title'>
+            <%= t("history_item.#{history_item.event}_title") %>
+          </div>
+          <div class='show-history-item-content'>
+            <%= history_item.content %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
-</div>
-
-<div class='show-appointment-container'>
-  <div class='show-appointment-summon-container'>
-    <div class='show-appointment-data-container'>
-      <div class='show-appointment-summon-data'>
-        <div class='show-appointment-summon-title'>
-          <%= t('activerecord.models.appointment_type') %>
-        </div>
-        <div class='show-appointment-summon-item'>
-          <%= @appointment.slot.appointment_type.name %>
-        </div>
-      </div>
-
-      <div class='show-appointment-summon-data'>
-        <div class='show-appointment-summon-title'>
-          <%= t('appointment_place') %>
-        </div>
-        <div class='show-appointment-summon-item'>
-          <%= @appointment.slot.agenda.place.name %>
-        </div>
-      </div>
-
-      <% if @appointment.slot.agenda.place.multiple_agendas? %>
-        <div class='show-appointment-summon-data'>
-          <div class='show-appointment-summon-title'>
-            <%= t('appointment_agenda') %>
-          </div>
-          <div class='show-appointment-summon-item'>
-            <%= @appointment.slot.agenda.name %>
-          </div>
-        </div>
-      <% end %>
-
-      <% if @appointment.slot.appointment_type.sortie_audience? %>
-        <div class='show-appointment-summon-data'>
-          <div class='show-appointment-summon-title'>
-            <%= t('activerecord.attributes.appointment.prosecutor_number')%>
-          </div>
-          <div class='show-appointment-summon-item'>
-            <%= @appointment.prosecutor_number %>
-          </div>
-        </div>
-      <% end %>
-
-      <div class='show-appointment-summon-data'>
-        <div class='show-appointment-summon-title'>
-          <%= t('appointment_date') %>
-        </div>
-        <div class='show-appointment-summon-item'>
-          <%= @appointment.slot.date %>
-        </div>
-      </div>
-
-      <div class='show-appointment-summon-data'>
-        <div class='show-appointment-summon-title'>
-          <%= t('appointment_starting_time') %>
-        </div>
-        <div class='show-appointment-summon-item'>
-          <%= @appointment.localized_time.to_s(:time) %>
-        </div>
-      </div>
-
-      <div class='show-appointment-summon-data'>
-        <div class='show-appointment-summon-title'>
-          <%= t('appointments.show.inviter_user_role') %>
-        </div>
-        <div class='show-appointment-summon-item'>
-          <% if @appointment.origin_department.present? %>
-            <%= t("activerecord.attributes.appointment.origin_departments.#{@appointment.origin_department}") %>
-          <% elsif @appointment.inviter_user_id.present? %>
-            <% user = User.find(@appointment.inviter_user_id) %>
-            <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
-          <% end %>
-        </div>
-      </div>
-
-      <div class='show-appointment-summon-data show-appointment-state-container'>
-        <div class='show-appointment-summon-title'>
-          <%= t('appointment_state') %>
-        </div>
-        <div class='show-appointment-summon-item'>
-          <%= @appointment.human_state_name %>
-          <% if @appointment.can_rebook? && @appointment.no_show? %>
-            <%= content_tag(:span, t('edit'),
-                                   class: 'show-appointment-change-state-link fake-link',
-                                   data: { 'micromodal-trigger': "rebook-missed-appointment-modal-#{@appointment.id}" }) %>
-
-            <%= render 'rebook_missed_appointment_modal', apt: @appointment %>
-          <% elsif @appointment.can_rebook? %>
-            <%= link_to t('edit'), appointment_rebook_path(@appointment), method: :put, class: 'show-appointment-change-state-link' %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <div class='show-appointment-controls-container'>
-      <% if @appointment.booked? && policy(@appointment).update? %>
-        <%= button_to t('reschedule'), new_appointment_reschedule_path(@appointment),
-                                       method: :get,
-                                       class: 'show-button-to-reschedule' %>
-        <%= button_to t('cancel'), appointment_cancel_path(@appointment),
-                                   method: :put,
-                                   data: { confirm: t('cancel_appointment_warning') },
-                                   class: 'show-button-to-edit' %>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<h2 class='show-secondary-title'><%= t('show_convict_history_title') %></h2>
-
-<div class='show-history-container'>
-  <% @history_items.each do |history_item| %>
-    <% next if ['program_reminder_notification', 'cancel_reminder_notification'].include?(history_item.event) %>
-
-    <div class='show-history-item-container'>
-      <div class='show-history-item-header'>
-        <div class='show-history-item-icon'>
-          <%= fa_icon 'circle', class: "icon_#{history_item.event}" %>
-        </div>
-        <div class='show-history-item-creation'>
-          <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
-        </div>
-      </div>
-
-      <div class='show-history-item'>
-        <div class='show-history-item-title'>
-          <%= t("history_item.#{history_item.event}_title") %>
-        </div>
-
-        <div class='show-history-item-content'>
-          <%= history_item.content %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<%= javascript_pack_tag 'appointment_show' %>
+  <%= javascript_pack_tag 'appointment_show' %>
