@@ -36,7 +36,7 @@
                 <% end %>
               </td>
               <td>
-                <% if policy(:convict).show? %>
+                <% if policy(convict).show? %>
                   <%= link_to t('show_convict'), convict_path(convict), class: 'index-control' %>
                 <% end %>
                 <% if policy(convict).edit? %>

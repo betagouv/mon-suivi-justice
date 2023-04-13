@@ -95,6 +95,9 @@
               <%= @convict.display_phone %>
             <% end %>
           </p>
+          <p>
+            <strong>Suivi par</strong> : <%= @convict.organizations.pluck(:name).join(', ') %>
+          </p>
         </div>
       </div>
     </div>

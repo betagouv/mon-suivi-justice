@@ -77,6 +77,7 @@ class ConvictDashboard < Administrate::BaseDashboard
     city
     first_name
     last_name
+    date_of_birth
     phone
     refused_phone
     no_phone

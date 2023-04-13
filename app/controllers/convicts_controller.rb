@@ -104,26 +104,21 @@ class ConvictsController < ApplicationController
   private
 
   def save_and_redirect(convict)
-    convict.check_duplicates(current_user)
-    force_duplication = ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
-
-    return render :new if convict.duplicates.present? && !force_duplication
-
-    return render :new if current_user.work_at_bex? && !convict.valid?(:user_works_at_bex)
-
-    if convict.save
-
-      convict.update_organizations(current_user)
-      redirect_to select_path(params)
-
+    if duplicate_present?(convict) && !force_duplication?
+      render :new
+    elsif !user_works_at_bex?(convict) || convict.valid?(:user_works_at_bex)
+      if convict.save
+        convict.update_organizations(current_user)
+        redirect_to select_path(params)
+      else
+        @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
+        render :new
+      end
     else
-      # TODO : build a real policiy for convicts#show
-      @convict_with_same_appi = Convict.where appi_uuid: convict.appi_uuid if convict.errors[:appi_uuid].any?
-
+      @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
       render :new
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def convict_params
     params.require(:convict).permit(
@@ -169,5 +164,18 @@ class ConvictsController < ApplicationController
     else
       'update_phone_convict'
     end
+  end
+
+  def duplicate_present?(convict)
+    convict.check_duplicates
+    convict.duplicates.present?
+  end
+
+  def force_duplication?
+    ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
+  end
+
+  def user_works_at_bex?(convict)
+    current_user.work_at_bex? && !convict.valid?(:user_works_at_bex)
   end
 end
