@@ -26,10 +26,6 @@
 <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row fr-mt-2w">
   <div class="fr-col-12 fr-col-md-8 fr-col-lg-4">
     <div class="fr-grid-row">
-
-
-
-
       <div class="fr-col">
         <div class="fr-card fr-p-2w">
           <div class="fr-grid-row  fr-grid-row--middle">
@@ -41,22 +37,58 @@
               </div>
             </div>
           </div>
+          <p>
+            <strong><%= t('activerecord.attributes.convict.last_name')%></strong> : <%= @convict.last_name.upcase %>
+          </p>
+          <p>
+            <strong><%= t('activerecord.attributes.convict.first_name') %></strong> : <%= @convict.first_name.capitalize %>
+          </p>
+          <p>
+            <strong><%= t('activerecord.attributes.convict.phone') %></strong> :
+            <% if @convict.no_phone? %>
+              <%= t('activerecord.attributes.convict.no_phone') %>
+            <% elsif @convict.refused_phone? %>
+              <%= t('activerecord.attributes.convict.refused_phone') %>
+            <% else %>
+              <%= @convict.display_phone %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-grid-row fr-mt-2w">
+      <div class="fr-col">
+        <div class="fr-card fr-p-2w">
+          <p>
+            <strong><%= t('activerecord.models.appointment_type') %></strong> : <%= @appointment.slot.appointment_type.name %>
+          </p>
+          <p>
+            <strong><%= t('appointment_place') %></strong> : <%= @appointment.slot.agenda.place.name %>
+          </p>
+          <% if @appointment.slot.agenda.place.multiple_agendas? %>
             <p>
-              <strong><%= t('activerecord.attributes.convict.last_name')%></strong> : <%= @convict.last_name.upcase %>
+              <strong><%= t('appointment_agenda') %></strong> : <%= @appointment.slot.agenda.name %>
+            </p>
+          <% end %>
+            <p>
+              <strong><%= t('activerecord.attributes.appointment.prosecutor_number') %></strong> : <%= @appointment.prosecutor_number %>
+            </p>
+          <% if @appointment.slot.appointment_type.sortie_audience? %>
+            <p>
+              <strong><%= t('activerecord.attributes.appointment.prosecutor_number') %></strong> : <%= @appointment.prosecutor_number %>
+            </p>
+          <% end %>
+
+            <p>
+              <strong><%= t('appointment_date') %></strong> : <%= @appointment.slot.date %>
             </p>
             <p>
-              <strong><%= t('activerecord.attributes.convict.first_name') %></strong> : <%= @convict.first_name.capitalize %>
+              <strong><%= t('appointment_starting_time') %></strong> : <%= @appointment.localized_time.to_s(:time) %>
             </p>
-            <p>
-              <strong><%= t('activerecord.attributes.convict.phone') %></strong> :
-              <% if @convict.no_phone? %>
-                <%= t('activerecord.attributes.convict.no_phone') %>
-              <% elsif @convict.refused_phone? %>
-                <%= t('activerecord.attributes.convict.refused_phone') %>
-              <% else %>
-                <%= @convict.display_phone %>
-              <% end %>
-            </p>
+
+
+
+
         </div>
       </div>
     </div>
@@ -64,58 +96,9 @@
   <div class='show-appointment-container'>
     <div class='show-appointment-summon-container'>
       <div class='show-appointment-data-container'>
-        <div class='show-appointment-summon-data'>
-          <div class='show-appointment-summon-title'>
-            <%= t('activerecord.models.appointment_type') %>
-          </div>
-          <div class='show-appointment-summon-item'>
-            <%= @appointment.slot.appointment_type.name %>
-          </div>
-        </div>
-        <div class='show-appointment-summon-data'>
-          <div class='show-appointment-summon-title'>
-            <%= t('appointment_place') %>
-          </div>
-          <div class='show-appointment-summon-item'>
-            <%= @appointment.slot.agenda.place.name %>
-          </div>
-        </div>
-        <% if @appointment.slot.agenda.place.multiple_agendas? %>
-          <div class='show-appointment-summon-data'>
-            <div class='show-appointment-summon-title'>
-              <%= t('appointment_agenda') %>
-            </div>
-            <div class='show-appointment-summon-item'>
-              <%= @appointment.slot.agenda.name %>
-            </div>
-          </div>
-        <% end %>
-        <% if @appointment.slot.appointment_type.sortie_audience? %>
-          <div class='show-appointment-summon-data'>
-            <div class='show-appointment-summon-title'>
-              <%= t('activerecord.attributes.appointment.prosecutor_number')%>
-            </div>
-            <div class='show-appointment-summon-item'>
-              <%= @appointment.prosecutor_number %>
-            </div>
-          </div>
-        <% end %>
-        <div class='show-appointment-summon-data'>
-          <div class='show-appointment-summon-title'>
-            <%= t('appointment_date') %>
-          </div>
-          <div class='show-appointment-summon-item'>
-            <%= @appointment.slot.date %>
-          </div>
-        </div>
-        <div class='show-appointment-summon-data'>
-          <div class='show-appointment-summon-title'>
-            <%= t('appointment_starting_time') %>
-          </div>
-          <div class='show-appointment-summon-item'>
-            <%= @appointment.localized_time.to_s(:time) %>
-          </div>
-        </div>
+
+
+
         <div class='show-appointment-summon-data'>
           <div class='show-appointment-summon-title'>
             <%= t('appointments.show.inviter_user_role') %>
