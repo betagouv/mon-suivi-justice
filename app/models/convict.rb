@@ -42,7 +42,8 @@ class Convict < ApplicationRecord
   validate :either_city_homeless_lives_abroad_present, on: :user_works_at_bex
 
   validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
-                                          case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE
+                                          case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE,
+                                          on: :appi_impport
 
   validates :date_of_birth, presence: true
   validate :date_of_birth_date_cannot_be_in_the_past

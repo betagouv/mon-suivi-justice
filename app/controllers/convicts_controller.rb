@@ -105,9 +105,8 @@ class ConvictsController < ApplicationController
 
   def save_and_redirect(convict)
     if duplicate_present?(convict) && !force_duplication?
-      return render :new
+      render :new
     elsif !user_works_at_bex?(convict) || convict.valid?(:user_works_at_bex)
-      debugger
       if convict.save
         convict.update_organizations(current_user)
         redirect_to select_path(params)
@@ -120,7 +119,7 @@ class ConvictsController < ApplicationController
       render :new
     end
   end
-  
+
   def convict_params
     params.require(:convict).permit(
       :first_name, :last_name, :phone, :no_phone,

@@ -127,7 +127,7 @@
             <% @convict.duplicates.each do |duplicate| %>
               <% if policy(duplicate).show? %>
                 <div class='new-convict-duplicate-link'>
-                  <%= link_to t('new_convict_duplicate_link', name: duplicate.name), convict_path(duplicate), target: "_blank" %>
+                  <%= link_to t('new_convict_duplicate_link', name: duplicate.name, orgs: duplicate.organizations.pluck(:name).join(', ')), convict_path(duplicate), target: "_blank" %>
                 </div>
               <% else %>
                 <p><%= duplicate.name %> suivi par : <%= duplicate.organizations.pluck(:name).join(', ') %></p>
@@ -160,7 +160,7 @@
             <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_appi_uuid_1', orgs: orgs) %></p>
             <% if !policy_scope(@convict_with_same_appi).empty? %>
               <div class='new-convict-duplicate-link'>
-                <%= link_to t('new_convict_duplicate_link', name: convict_with_same_appi.name), convict_path(convict_with_same_appi), target: "_blank" %>
+                <%= link_to t('new_convict_duplicate_link', name: convict_with_same_appi.name, orgs: convict_with_same_appi.organizations.pluck(:name).join(', ')), convict_path(convict_with_same_appi), target: "_blank" %>
               </div>
             <% end %>
             <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
