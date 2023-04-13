@@ -2,25 +2,31 @@
   <div class="fr-col-12 fr-col-md-8 fr-col-lg-4">
     <h1 class='form-title'><%= t('new_convict_title') %></h1>
     <%= simple_form_for @convict do |f| %>
-      <% invalid = @convict.errors.include?(:last_name) %>
-      <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
-        <label class="fr-label" for="convict_last_name">*<%= t('activerecord.attributes.convict.last_name')%></label>
-        <input class="fr-input" aria-describedby="text-input-error-desc-error" type="text" value="<%= @convict.last_name %>" name="convict[last_name]" id="convict_last_name">
-        <% if invalid %>
-          <p id="text-input-error-desc-error" class="fr-error-text">
-            <%=  @convict.errors.full_messages_for(:last_name).first %>.
-          </p>
-        <% end %>
-      </div>
-      <% invalid = @convict.errors.include?(:first_name) %>
-      <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
-        <label class="fr-label" for="convict_first_name">*<%= t('activerecord.attributes.convict.first_name')%></label>
-        <input class="fr-input" type="text" value="<%= @convict.first_name %>" name="convict[first_name]" id="convict_first_name">
-        <% if invalid %>
-          <p id="text-input-error-desc-error" class="fr-error-text">
-            <%=  @convict.errors.full_messages_for(:first_name).first %>.
-          </p>
-        <% end %>
+      <div class="fr-grid-row fr-grid-row--gutters fr-mb-2v ">
+        <div class="fr-col">
+          <% invalid = @convict.errors.include?(:last_name) %>
+          <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
+            <label class="fr-label" for="convict_last_name">*<%= t('activerecord.attributes.convict.last_name')%></label>
+            <input class="fr-input" aria-describedby="text-input-error-desc-error" type="text" value="<%= @convict.last_name %>" name="convict[last_name]" id="convict_last_name">
+            <% if invalid %>
+              <p id="text-input-error-desc-error" class="fr-error-text">
+                <%=  @convict.errors.full_messages_for(:last_name).first %>.
+              </p>
+            <% end %>
+          </div>
+        </div>
+        <div class="fr-col">
+          <% invalid = @convict.errors.include?(:first_name) %>
+          <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
+            <label class="fr-label" for="convict_first_name">*<%= t('activerecord.attributes.convict.first_name')%></label>
+            <input class="fr-input" type="text" value="<%= @convict.first_name %>" name="convict[first_name]" id="convict_first_name">
+            <% if invalid %>
+              <p id="text-input-error-desc-error" class="fr-error-text">
+                <%=  @convict.errors.full_messages_for(:first_name).first %>.
+              </p>
+            <% end %>
+          </div>
+        </div>
       </div>
       <% invalid = @convict.errors.include?(:date_of_birth) %>
       <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
@@ -37,32 +43,36 @@
         <label class="fr-label" for="convict_appi_uuid"><%= t('activerecord.attributes.convict.appi_uuid')%></label>
         <input class="fr-input" type="text" value="<%= @convict.appi_uuid %>" name="convict[appi_uuid]" id="convict_appi_uuid">
         <% if invalid %>
-          <p id="text-input-error-desc-error" class="fr-error-text">
-            <%=  @convict.errors.full_messages_for(:appi_uuid).first %>.
-          </p>
+          <% @convict.errors.full_messages_for(:appi_uuid).each do |message| %>
+            <p id="text-input-error-desc-error" class="fr-error-text">
+              <%= message %>.
+            </p>
+          <% end %>
         <% end %>
       </div>
-      <%= render partial: 'shared/city_selector' %>
-      <div class="fr-fieldset__element fr-fieldset__element--inline">
-        <div class="fr-checkbox-group">
-          <input name="convict[homeless]" id="convict-homeless" type="checkbox" aria-describedby="convict-homeless-messages" value="1" <%= 'checked' if @convict.homeless%>>
-          <label class="fr-label" for="convict-homeless">
-            <%= t('activerecord.attributes.convict.homeless')%>
-          </label>
-          <div class="fr-messages-group" id="convict-homeless-messages" aria-live="assertive">
+      <% if current_user.work_at_bex? %>
+        <%= render partial: 'shared/city_selector' %>
+        <div class="fr-fieldset__element fr-fieldset__element--inline">
+          <div class="fr-checkbox-group">
+            <input name="convict[homeless]" id="convict-homeless" type="checkbox" aria-describedby="convict-homeless-messages" value="1" <%= 'checked' if @convict.homeless%>>
+            <label class="fr-label" for="convict-homeless">
+              <%= t('activerecord.attributes.convict.homeless')%>
+            </label>
+            <div class="fr-messages-group" id="convict-homeless-messages" aria-live="assertive">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="fr-fieldset__element fr-fieldset__element--inline">
-        <div class="fr-checkbox-group">
-          <input name="convict[lives_abroad]" id="convict-lives-abroad" type="checkbox" aria-describedby="convict-lives-abroad-messages" value="1" <%= 'checked' if @convict.lives_abroad %>>
-          <label class="fr-label" for="convict-lives-abroad">
-            <%= t('activerecord.attributes.convict.lives_abroad')%>
-          </label>
-          <div class="fr-messages-group" id="convict-lives-abroad-messages" aria-live="assertive">
+        <div class="fr-fieldset__element fr-fieldset__element--inline">
+          <div class="fr-checkbox-group">
+            <input name="convict[lives_abroad]" id="convict-lives-abroad" type="checkbox" aria-describedby="convict-lives-abroad-messages" value="1" <%= 'checked' if @convict.lives_abroad %>>
+            <label class="fr-label" for="convict-lives-abroad">
+              <%= t('activerecord.attributes.convict.lives_abroad')%>
+            </label>
+            <div class="fr-messages-group" id="convict-lives-abroad-messages" aria-live="assertive">
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
       <% if current_user.work_at_spip? || current_user.admin? %>
         <%= render partial: 'shared/user_selector' %>
       <% end %>
@@ -113,20 +123,15 @@
           <% else %>
             <p class='new-convict-duplicate-header'><%= t('new_convict_duplicate_warning2')%></p>
           <% end %>
-          <% if policy_scope(@convict.duplicates).any? %>
-            <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning_local')%></p>
-            <% policy_scope(@convict.duplicates).each do |duplicate| %>
-              <div class='new-convict-duplicate-link'>
-                <%= link_to t('new_convict_duplicate_link', name: duplicate.name), convict_path(duplicate), target: "_blank" %>
-              </div>
-            <% end %>
-          <% end %>
-          <% duplicates_other_department = @convict.duplicates - policy_scope(@convict.duplicates) %>
-          <% if duplicates_other_department.any? %>
-            <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning_global')%></p>
-            <% duplicates_other_department.each do |duplicate| %>
-              <% dep = duplicate.departments.first %>
-              <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_warning5', name: dep.name, number: dep.number)%></p>
+          <% if @convict.duplicates.any? %>
+            <% @convict.duplicates.each do |duplicate| %>
+              <% if policy(duplicate).show? %>
+                <div class='new-convict-duplicate-link'>
+                  <%= link_to t('new_convict_duplicate_link', name: duplicate.name, orgs: duplicate.organizations.pluck(:name).join(', ')), convict_path(duplicate), target: "_blank" %>
+                </div>
+              <% else %>
+                <p><%= duplicate.name %> suivi par : <%= duplicate.organizations.pluck(:name).join(', ') %></p>
+              <% end %>
             <% end %>
           <% end %>
           <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
@@ -137,11 +142,11 @@
             <ul class="fr-btns-group fr-btns-group--inline-lg">
               <%= f.hidden_field :force_duplication, value: true  %>
               <%= f.button :button, id: 'submit-no-appointment', class: 'fr-btn', name: 'no-appointment' do %>
-                <%= t('submit') %><br>
+                Forcer <%= t('submit') %><br>
                 <%= t('new_convict_submit') %>
               <% end %>
               <%= f.button :button, id: 'submit-with-appointment', class: 'fr-btn', name: 'with-appointment' do %>
-                <%= t('submit') %><br>
+                Forcer <%= t('submit') %><br>
                 <%= t('new_convict_first_appointment') %>
               <% end %>
             </ul>
@@ -150,16 +155,13 @@
       <% else %>
         <% if @convict_with_same_appi.present? %>
           <% convict_with_same_appi = @convict_with_same_appi.first %>
-          <% deps = convict_with_same_appi.departments.map(&:number).join(",") %>
+          <% orgs = convict_with_same_appi.organizations.map(&:name).join(", ") %>
           <div class='new-convict-duplicate-warning'>
-            <p class='new-convict-duplicate-header'><%= t('new_convict_duplicate_warning1')%></p>
+            <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_appi_uuid_1', orgs: orgs) %></p>
             <% if !policy_scope(@convict_with_same_appi).empty? %>
-              <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_appi_uuid_2') %></p>
               <div class='new-convict-duplicate-link'>
-                <%= link_to t('new_convict_duplicate_link', name: convict_with_same_appi.name), convict_path(convict_with_same_appi), target: "_blank" %>
+                <%= link_to t('new_convict_duplicate_link', name: convict_with_same_appi.name, orgs: convict_with_same_appi.organizations.pluck(:name).join(', ')), convict_path(convict_with_same_appi), target: "_blank" %>
               </div>
-            <% else %>
-              <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_appi_uuid_1', deps: deps) %></p>
             <% end %>
             <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
           </div>
