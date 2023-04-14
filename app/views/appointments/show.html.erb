@@ -76,9 +76,6 @@
                   <strong><%= t('appointment_agenda') %></strong> : <%= @appointment.slot.agenda.name %>
                 </p>
               <% end %>
-              <p>
-                <strong><%= t('activerecord.attributes.appointment.prosecutor_number') %></strong> : <%= @appointment.prosecutor_number %>
-              </p>
               <% if @appointment.slot.appointment_type.sortie_audience? %>
                 <p>
                   <strong><%= t('activerecord.attributes.appointment.prosecutor_number') %></strong> : <%= @appointment.prosecutor_number %>
