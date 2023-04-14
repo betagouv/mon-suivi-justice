@@ -65,6 +65,10 @@ class Organization < ApplicationRecord
     jurisdictions.first&.organizations&.select(&:spip?)
   end
 
+  def number_of_ppsmj
+    Convict.under_hand_of(self).count
+  end
+
   private
 
   # rubocop:disable Metrics/MethodLength

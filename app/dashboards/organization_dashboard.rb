@@ -23,7 +23,8 @@ class OrganizationDashboard < Administrate::BaseDashboard
     users: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    headquarter: Field::BelongsTo
+    headquarter: Field::BelongsTo,
+    number_of_ppsmj: Field::Number
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -38,6 +39,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     departments
     jurisdictions
     headquarter
+    number_of_ppsmj
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

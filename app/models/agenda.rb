@@ -32,7 +32,7 @@ class Agenda < ApplicationRecord
   end
 
   def slots_for_date(date, appointment_type)
-    slots.where(date: date, appointment_type: appointment_type)
+    slots.where(date: date, appointment_type: appointment_type, available: true)
          .order(:date, :starting_time)
          .uniq
   end
