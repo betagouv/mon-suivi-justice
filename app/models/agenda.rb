@@ -36,6 +36,7 @@ class Agenda < ApplicationRecord
          # we use LEFT JOIN to get slots with or without appointments
          .joins('LEFT JOIN appointments ON appointments.slot_id = slots.id')
          .where('slots.available = true OR appointments.id IS NOT NULL')
-         .distinct
+         .order(:date, :starting_time)
+         .uniq
   end
 end
