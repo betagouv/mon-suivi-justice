@@ -32,7 +32,10 @@ class Agenda < ApplicationRecord
   end
 
   def slots_for_date(date, appointment_type)
-    slots.where(date: date, appointment_type: appointment_type, available: true)
+    slots.where(date: date, appointment_type: appointment_type)
+         # we use LEFT JOIN to get slots with or without appointments
+         .joins('LEFT JOIN appointments ON appointments.slot_id = slots.id')
+         .where('slots.available = true OR appointments.id IS NOT NULL')
          .order(:date, :starting_time)
          .uniq
   end
