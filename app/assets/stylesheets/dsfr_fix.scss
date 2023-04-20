@@ -56,7 +56,8 @@
 }
 
 // Fixes for header
-.fr-header__navbar .fr-btn--menu::before, .fr-header__navbar .fr-btn--menu::after {
+.fr-header__navbar .fr-btn--menu::before,
+.fr-header__navbar .fr-btn--menu::after {
   -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/menu-fill.svg"));
   mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/menu-fill.svg"));
 }
@@ -93,4 +94,14 @@
 .fr-error-text::before {
   -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--error-fill.svg"));
   mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--error-fill.svg"));
+}
+
+.fr-btn--danger {
+  color: #f44336;
+  border: 1px solid #f44336 !important;
+  background-color: white;
+  &:hover {
+    color: white !important;
+    background-color: #f44336 !important;
+  }
 }

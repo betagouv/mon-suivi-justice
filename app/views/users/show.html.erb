@@ -1,82 +1,58 @@
-<h1 class='show-title'><%= t('show_user_title') %></h1>
+<div class="fr-grid-row fr-grid-row--center">
+  <div class="fr-col-12 fr-col-md-8 fr-col-lg-6 fr-mt-2w fr-mb-2w">
+    <div class="fr-grid-row">
+      <div class="fr-col">
+        <div class="fr-card fr-p-2w">
+          <div class="fr-grid-row  fr-grid-row--middle">
+            <div class="fr-col-6">
+              <h2 class="fr-mr-2w"><%= t('show_user_title') %></h2>
+            </div>
+            <div class="fr-col-6">
+              <div class="fr-grid-row  fr-grid-row--right">
+                <ul class="fr-btns-group fr-btns-group--inline-lg">
+                  <%= button_to t('edit'), edit_user_path(@user.id),
+                                                method: :get,
+                                                form_class: 'show-button-to-edit-form',
+                                                class: 'fr-btn' %>
 
-<div class='show-profile-container'>
-  <div class='show-data-container'>
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.user.last_name')%>
-      </div>
-      <div class='show-data-item'>
-        <%= @user.last_name.upcase %>
+                  <% if policy(:user).index? && current_user != @user %>
+                      <%= button_to t('delete'), user_path(@user),
+                                                data: { confirm: t('basic_confirmation') },
+                                                class: 'fr-btn fr-btn--danger',
+                                                method: :delete %>
+                  <% end %>
+                  <% if policy(:user).invitation_link? && current_user != @user %>
+                    <%= button_to t('edit_user_generate_invitation_link'), user_invitation_link_path(@user),
+                                                                          class: 'fr-btn', method: :get %>
+                  <% end %>
+                  <% if policy(:user).reset_pwd_link? && current_user != @user %>
+                      <%= button_to t('edit_user_generate_reset_pwd_link'), user_reset_pwd_link_path(@user),
+                                                                            class: 'fr-btn', method: :get %>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <p>
+            <strong><%= t('activerecord.attributes.user.last_name')%></strong> : <%= @user.last_name.upcase %>
+          </p>
+          <p>
+            <strong><%= t('activerecord.attributes.user.first_name') %></strong> : <%= @user.first_name.capitalize %>
+          </p>
+          <p>
+            <strong><%= t('activerecord.attributes.user.email') %></strong> : <%= @user.email %>            
+          </p>
+          <p>
+            <strong><%= t('activerecord.attributes.user.role') %></strong> : <%= t("activerecord.attributes.user.user_roles.#{@user.role}") %>
+          </p>
+          <p>
+            <strong><%= t('activerecord.attributes.user.phone') %></strong> : <%= @user.display_phone %>
+          </p>
+          <p>
+            <strong><%= t('activerecord.attributes.user.organization') %></strong> : <%= @user.organization.name %>
+          </p>
+        </div>
       </div>
     </div>
-
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.user.first_name')%>
-      </div>
-      <div class='show-data-item'>
-        <%= @user.first_name.capitalize %>
-      </div>
-    </div>
-
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.user.email')%>
-      </div>
-      <div class='show-data-item'>
-        <%= @user.email %>
-      </div>
-    </div>
-
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.user.role') %>
-      </div>
-      <div class='show-data-item'>
-        <%= t("activerecord.attributes.user.user_roles.#{@user.role}") %>
-      </div>
-    </div>
-
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.user.phone') %>
-      </div>
-      <div class='show-data-item'>
-        <%= @user.display_phone %>
-      </div>
-    </div>
-    <div class='show-data-item-container'>
-      <div class='show-data-label'>
-        <%= t('activerecord.attributes.user.organization') %>
-      </div>
-      <div class='show-data-item'>
-        <%= @user.organization.name %>
-      </div>
-    </div>
-  </div>
-
-  <div class='show-button-to-edit-container'>
-    <%= button_to t('edit'), edit_user_path(@user.id),
-                                  method: :get,
-                                  form_class: 'show-button-to-edit-form',
-                                  class: 'show-button-to-edit' %>
-
-    <% if policy(:user).index? && current_user != @user %>
-      <div class="text-center">
-        <%= button_to t('delete'), user_path(@user),
-                                  data: { confirm: t('basic_confirmation') },
-                                  class: 'delete-user-button',
-                                  method: :delete %>
-      </div>
-    <% end %>
-    <% if policy(:user).invitation_link? && current_user != @user %>
-      <%= button_to t('edit_user_generate_invitation_link'), user_invitation_link_path(@user),
-                                                             class: 'show-user-account-controls', method: :get %>
-    <% end %>
-    <% if policy(:user).reset_pwd_link? && current_user != @user %>
-        <%= button_to t('edit_user_generate_reset_pwd_link'), user_reset_pwd_link_path(@user),
-                                                              class: 'show-user-account-controls', method: :get %>
-    <% end %>
   </div>
 </div>
