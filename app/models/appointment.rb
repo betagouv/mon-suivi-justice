@@ -55,6 +55,10 @@ class Appointment < ApplicationRecord
       .where(convict: { organizations: [user_organization, *user_organization.linked_organizations] })
   }
 
+  scope :created_by_organization, lambda { |user_organization|
+    where(creating_organization: user_organization)
+  }
+
   scope :active, -> { where.not(state: 'canceled') }
 
   validate :in_the_future, on: :create

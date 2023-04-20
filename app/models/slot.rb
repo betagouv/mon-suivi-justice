@@ -49,6 +49,12 @@ class Slot < ApplicationRecord
     joins(agenda: :place).where(agendas: { places: { organization: organization } })
   }
 
+  scope :in_jurisdiction, lambda { |user_organization|
+    joins(agenda: :place).where(agendas: {
+                                  places: { organization: [user_organization, *user_organization.linked_organizations] }
+                                })
+  }
+
   scope :with_appointment_type_with_slot_system, lambda {
     joins(:appointment_type).merge(AppointmentType.with_slot_types)
   }

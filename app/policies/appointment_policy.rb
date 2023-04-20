@@ -2,7 +2,7 @@ class AppointmentPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.work_at_bex?
-        scope.in_jurisdiction(user.organization)
+        scope.in_jurisdiction(user.organization).or(scope.created_by_organization(user.organization)).distinct
       else
         scope.in_organization(user.organization)
       end

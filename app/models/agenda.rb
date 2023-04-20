@@ -18,6 +18,10 @@ class Agenda < ApplicationRecord
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids }).distinct
   }
 
+  scope :in_jurisdiction, lambda { |user_organization|
+    joins(:place).where(place: { organization: [user_organization, *user_organization.linked_organizations] })
+  }
+
   scope :with_open_slots_for_date, lambda { |date, appointment_type|
     joins(:slots).where('slots.date = ? AND slots.appointment_type_id = ?', date, appointment_type.id)
                  .uniq
