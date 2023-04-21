@@ -56,7 +56,8 @@ class Appointment < ApplicationRecord
   }
 
   scope :created_by_organization, lambda { |user_organization|
-    where(creating_organization: user_organization)
+    joins(:slot, convict: :organizations)
+      .where(creating_organization: user_organization)
   }
 
   scope :active, -> { where.not(state: 'canceled') }
