@@ -26,7 +26,6 @@ class ConvictPolicy < ApplicationPolicy
 
   def show?
     return true if user.work_at_bex? || record.organizations.include?(user.organization)
-
   end
 
   def create?

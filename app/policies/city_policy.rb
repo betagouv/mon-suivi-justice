@@ -6,5 +6,4 @@ class CityPolicy < ApplicationPolicy
   def search?
     true
   end
-
 end
