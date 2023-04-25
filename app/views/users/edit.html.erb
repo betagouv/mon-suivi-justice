@@ -33,14 +33,14 @@
     <%= f.association :organization, collection: @user.headquarter.organizations, include_blank: false %>
   <% end %>
 
-  <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
+  <%= f.button :submit, t('submit') %>
 <% end %>
 
 <% if policy(:user).index? && current_user != @user %>
   <div class="text-center">
     <%= button_to t('delete'), user_path(@user),
                               data: { confirm: t('basic_confirmation') },
-                              class: 'delete-user-button',
+                              class: 'fr-btn',
                               method: :delete %>
   </div>
 <% end %>
