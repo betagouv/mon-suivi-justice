@@ -20,38 +20,41 @@
     </div>
   </div>
 </div>
-<div class="fr-grid-row">
-
-  <%= search_form_for @q, class: 'index-header-filters-form', id: 'index-header-filters-form' do |f| %>
-    <div class='index-header-filters-fields-container'>
+<%= search_form_for @q, id: 'index-header-filters-form' do |f| %>
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col">
       <%= f.date_field :slot_date_eq, id: 'index-appointment-date-filter',
-                          class: "index-header-search-field index-appointment-date-filter #{@q.slot_date_eq ? 'in-use' : ''}",
+                          class: "fr-input #{@q.slot_date_eq ? 'in-use' : ''}",
                           value: @q.slot_date_eq ? @q.slot_date_eq.strftime('%Y-%m-%d') : '',
                           placeholder: t('search-appointment-placeholder') %>
+    </div>
+    <div class="fr-col">
       <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_place_id_eq),
                                             { include_blank: t('slots.index_place_filter') },
-                                            { class: "form-select index-header-filter-field #{@q.slot_agenda_place_id_eq ? 'in-use' : ''}" } %>
+                                            { class: "fr-select #{@q.slot_agenda_place_id_eq ? 'in-use' : ''}" } %>
+    </div>
+    <div class="fr-col">
       <%= f.select :slot_agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_id_eq),
                                       { include_blank: t('index-appointment-agenda-filter') },
-                                      { class: "form-select index-header-filter-field #{@q.slot_agenda_id_eq ? 'in-use' : ''}" } %>
+                                      { class: "fr-select #{@q.slot_agenda_id_eq ? 'in-use' : ''}" } %>
+    </div>
+    <div class="fr-col">
       <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_user(current_user), 'id', 'name', @q.slot_appointment_type_id_eq),
                                                 { include_blank: t('index-slots-appointment-type-filter') },
-                                                { class: "form-select index-header-filter-field #{@q.slot_appointment_type_id_eq ? 'in-use' : ''}" } %>
-      <% if current_user.cpip? || current_user.dpip? %>
-        <div class="index-header-my-appointments-filter-field-container">
-          <div class="index-header-my-appointments-filter-field">
-            <input type="checkbox" name="q[user_id_eq]" id="q_user_id_eq" value="<%= current_user.id %>" <%= @q.user_id_eq ? 'checked' : ''%>>
-            <label for="q_user_id_eq"><%= t('index-appointment-only-my-appointments') %></label>
+                                                { class: "fr-select #{@q.slot_appointment_type_id_eq ? 'in-use' : ''}" } %>
+    </div>
+    <% if current_user.cpip? || current_user.dpip? %>
+      <div class="fr-col">
+        <div class="fr-fieldset__element fr-fieldset__element--inline fr-mt-1w">
+          <div class="fr-checkbox-group">
+            <input name="q[user_id_eq]" id="q_user_id_eq" type="checkbox" aria-describedby="convict-lives-abroad-messages" value="<%= current_user.id %>" <%= 'checked' if @q.user_id_eq %>>
+            <label  class="fr-label" for="q_user_id_eq"><%= t('index-appointment-only-my-appointments') %></label>
           </div>
         </div>
-      <% end %>
-    </div>
-  <% end %>
-
-</div>
-
-
-
+      </div>
+    <% end %>
+  </div>
+<% end %>
 <div class='appointments-container'>
   <div class='index-sorting-tool-container'>
     <div class='index-sorting-tool-title'>
