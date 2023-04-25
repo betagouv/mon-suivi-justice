@@ -1,156 +1,92 @@
-<div class="fr-grid-row">
-  <div class="fr-col">
-    <div class="fr-grid-row fr-grid-row--right">
-      <ul class="fr-btns-group fr-btns-group--inline-lg">
-        <% if @q.conditions.any? %>
-          <%= button_to "#{t('index-appointment-clear-filters')} (#{@q.conditions.length})", appointments_path,
+<div class="fr-grid-row fr-grid-row--right fr-mb-2w">
+  <ul class="fr-btns-group fr-btns-group--inline-lg">
+    <% if @q.conditions.any? %>
+      <%= button_to "#{t('index-appointment-clear-filters')} (#{@q.conditions.length})", appointments_path,
                                                           class: 'fr-btn fr-btn--tertiary',
                                                           method: :get %>
-        <% end %>
-        <%= button_to t('print_button'), appointments_path(format: :pdf),
+    <% end %>
+    <%= button_to t('print_button'), appointments_path(format: :pdf),
                                       method: :get,
                                       form: { target: '_blank' },
                                       class: 'fr-btn fr-btn--secondary' %>
-        <% if policy(:appointment).new? %>
-          <%= button_to t('new_appointment_title'), new_appointment_path,
+    <% if policy(:appointment).new? %>
+      <%= button_to t('new_appointment_title'), new_appointment_path,
                                                   class: 'fr-btn',
                                                   method: :get %>
-        <% end %>
-      </ul>
-    </div>
-  </div>
+    <% end %>
+  </ul>
 </div>
-<%= search_form_for @q, id: 'index-header-filters-form' do |f| %>
-  <div class="fr-grid-row fr-grid-row--gutters">
-    <div class="fr-col">
-      <%= f.date_field :slot_date_eq, id: 'index-appointment-date-filter',
+<div class="fr-grid-row">
+  <div class="fr-col-xs-12">
+    <%= search_form_for @q, id: 'index-header-filters-form' do |f| %>
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col">
+          <%= f.date_field :slot_date_eq, id: 'index-appointment-date-filter',
                           class: "fr-input #{@q.slot_date_eq ? 'in-use' : ''}",
                           value: @q.slot_date_eq ? @q.slot_date_eq.strftime('%Y-%m-%d') : '',
                           placeholder: t('search-appointment-placeholder') %>
-    </div>
-    <div class="fr-col">
-      <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_place_id_eq),
+        </div>
+        <div class="fr-col">
+          <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_place_id_eq),
                                             { include_blank: t('slots.index_place_filter') },
                                             { class: "fr-select #{@q.slot_agenda_place_id_eq ? 'in-use' : ''}" } %>
-    </div>
-    <div class="fr-col">
-      <%= f.select :slot_agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_id_eq),
+        </div>
+        <div class="fr-col">
+          <%= f.select :slot_agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_id_eq),
                                       { include_blank: t('index-appointment-agenda-filter') },
                                       { class: "fr-select #{@q.slot_agenda_id_eq ? 'in-use' : ''}" } %>
-    </div>
-    <div class="fr-col">
-      <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_user(current_user), 'id', 'name', @q.slot_appointment_type_id_eq),
+        </div>
+        <div class="fr-col">
+          <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_user(current_user), 'id', 'name', @q.slot_appointment_type_id_eq),
                                                 { include_blank: t('index-slots-appointment-type-filter') },
                                                 { class: "fr-select #{@q.slot_appointment_type_id_eq ? 'in-use' : ''}" } %>
-    </div>
-    <% if current_user.cpip? || current_user.dpip? %>
-      <div class="fr-col">
-        <div class="fr-fieldset__element fr-fieldset__element--inline fr-mt-1w">
-          <div class="fr-checkbox-group">
-            <input name="q[user_id_eq]" id="q_user_id_eq" type="checkbox" aria-describedby="convict-lives-abroad-messages" value="<%= current_user.id %>" <%= 'checked' if @q.user_id_eq %>>
-            <label  class="fr-label" for="q_user_id_eq"><%= t('index-appointment-only-my-appointments') %></label>
-          </div>
         </div>
+        <% if current_user.cpip? || current_user.dpip? %>
+          <div class="fr-col">
+            <div class="fr-fieldset__element fr-fieldset__element--inline fr-mt-1w">
+              <div class="fr-checkbox-group">
+                <input name="q[user_id_eq]" id="q_user_id_eq" type="checkbox" aria-describedby="convict-lives-abroad-messages" value="<%= current_user.id %>" <%= 'checked' if @q.user_id_eq %>>
+                <label  class="fr-label" for="q_user_id_eq"><%= t('index-appointment-only-my-appointments') %></label>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     <% end %>
-  </div>
-<% end %>
-<div class="fr-grid-row fr-grid-row--center">
-  <div class="fr-col-sm-12 fr-col-md-10 ">
     <div class="fr-table fr-table--bordered">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
-            <th scope="col"><%= t('activerecord.attributes.slot.date') %></th>
-            <th scope="col"><%= t('activerecord.attributes.slot.starting_time') %></th>
-            <th scope="col"><%= t('appointment_place') %></th>
-            <th scope="col"><%= t('activerecord.models.agenda') %></th>
-            <th scope="col"><%= t('activerecord.attributes.slot.appointment_type') %></th>
-            <th scope="col"><%= t('index-appointment-state') %></th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if  @appointments.any? %>
+      <% if  @appointments.any? %>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
+              <th scope="col">      <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
+              </th>
+              <th scope="col">      <%= sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) %>
+              </th>
+              <th scope="col">      <%= sort_link(@q, 'slot_agenda_place_name', t('activerecord.models.place'), default_order: :desc) %>
+              </th>
+              <th scope="col">      <%= sort_link(@q, 'slot_agenda_name', t('activerecord.models.agenda'), default_order: :desc) %>
+              </th>
+              <th scope="col">      <%= sort_link(@q, 'slot_appointment_type_name', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) %>
+              </th>
+              <th scope="col">
+                <div class="fr-grid-row fr-grid-row--center">
+                  <%= t('index-appointment-state') %>
+                </div>
+              </th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
             <% @appointments.each do |appointment| %>
-              <tr>
-                <td><%= appointment.convict.name %></td>
-                <td><%= appointment.slot.date.to_s(:base_date_format) %></td>
-                <td><%= appointment.localized_time.to_s(:time) %></td>
-                <td><%= appointment.slot.agenda.place.name %></td>
-                <td><%= appointment.slot.agenda.name %></td>
-                <td><%= appointment.slot.appointment_type.name %></td>
-                <td>
-                  <% if appointment.in_the_past? && appointment.booked? && policy(appointment).fulfil_old? %>
-                    <div class='index-card-state-container index-card-state-controls-wrapper'>
-                      <%= t('index-appointment-state') %>
-                      <div class='index-card-state-controls-container'>
-                        <%= button_to t('activerecord.state_machines.states.fulfiled'), appointment_fulfil_path(appointment),
-                                                                          method: :put,
-                                                                          class: 'index-appointments-fulfil-button' %>
-                        <%= button_tag t('activerecord.state_machines.states.no_show'), type: 'button',
-                                                                          class: 'index-appointments-miss-button',
-                                                                          data: { 'micromodal-trigger': "missed-appointment-modal-#{appointment.id}" } %>
-                        <%= button_to t('activerecord.state_machines.states.excused'), appointment_excuse_path(appointment),
-                                                                         method: :put,
-                                                                         class: 'index-appointments-excuse-button' %>
-                      </div>
-                      <%= render 'appointments/missed_appointment_modal', apt: appointment %>
-                    </div>
-                  <% else %>
-                    <div class='index-card-state-container'>
-                      <span class='index-card-state-title'><%= t('index-appointment-state') %></span>
-                      <%= fa_icon 'circle', class: "index-appointments-state-icon icon_#{appointment.state}" %>
-                      <span class='index-card-state-data'><%= appointment.human_state_name %></span>
-                    </div>
-                  <% end %>
-                </td>
-                <td>
-                  <% if policy(:appointment).show? %>
-                    <%= link_to t('index-appointment-see-data'), appointment_path(appointment), class: '' %>
-                  <% end %>
-                </td>
-              </tr>
+              <%= render 'shared/appointment_card', appointment: appointment %>
             <% end %>
-          <% else %>
-            <%= t('appointments.index.no_appointments') %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<div class='appointments-container'>
-  <div class='index-sorting-tool-container'>
-    <div class='index-sorting-tool-title'>
-      <%= t('order') %>
-    </div>
-    <div class='index-sorting-tool-item'>
-      <%= sort_link(@q, 'slot_agenda_place_name', t('appointment_place'), default_order: :desc) %>
-    </div>
-    <div class='index-sorting-tool-item'>
-      <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
-    </div>
-    <div class='index-sorting-tool-item'>
-      <%= sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) %>
-    </div>
-    <div class='index-sorting-tool-item'>
-      <%= sort_link(@q, 'slot_agenda_name', t('activerecord.models.agenda'), default_order: :desc) %>
-    </div>
-    <div class='index-sorting-tool-item'>
-      <%= sort_link(@q, 'slot_appointment_type_name', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) %>
-    </div>
-  </div>
-  <div class='index-cards-wrapper'>
-    <% if @appointments.any? %>
-      <% @appointments.each do |appointment| %>
-        <%= render 'shared/appointment_card', appointment: appointment %>
+          </tbody>
+        </table>
+      <% else %>
+        <span><%= t('appointments.index.no_appointments') %></span>
       <% end %>
-    <% else %>
-      <%= t('appointments.index.no_appointments') %>
-    <% end %>
+    </div>
   </div>
-  <%= paginate @appointments %>
 </div>
 <%= javascript_pack_tag 'appointment_index' %>

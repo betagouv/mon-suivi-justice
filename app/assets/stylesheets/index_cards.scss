@@ -75,11 +75,6 @@
 .index-card-state-container {
   display: flex;
   align-items: center;
-
-  border-top: 1px solid $table-border;
-  border-right: 1px solid $table-border;
-
-  padding: 5px 10px;
 }
 
 .index-card-data-convict {
@@ -99,4 +94,9 @@
   display: flex;
   align-items: center;
   margin-right: -5px;
+}
+
+.appointment-info-link {
+  text-decoration: none !important;
+  background-image: none !important;
 }

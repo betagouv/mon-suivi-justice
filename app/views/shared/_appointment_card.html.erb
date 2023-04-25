@@ -1,95 +1,41 @@
-<div class='index-card-container'>
-  <div class='index-card-data-container'>
-    <div class='index-card-data-convict'>
-      <div class='index-card-data-title'>
-        <div class='index-card-data-title-item'>
-          <%= t('activerecord.models.convict', count: 1) %>
-        </div>
-
-        <div class='index-card-data-title-item'>
-          <%= t('activerecord.attributes.slot.date') %>
-        </div>
-
-        <div class='index-card-data-title-item'>
-          <%= t('activerecord.attributes.slot.starting_time') %>
-        </div>
-      </div>
-
-      <div class='index-card-data-content'>
-        <div class='index-card-data-content-item'>
-          <%= appointment.convict.name %>
-        </div>
-
-        <div class='index-card-data-content-item'>
-          <%= appointment.slot.date.to_s(:base_date_format) %>
-        </div>
-
-        <div class='index-card-data-content-item'>
-          <%= appointment.localized_time.to_s(:time) %>
-        </div>
-      </div>
-    </div>
-    <div class='index-card-data-appointment'>
-      <div class='index-card-data-title'>
-        <div class='index-card-data-title-item'>
-          <%= t('appointment_place') %>
-        </div>
-
-        <div class='index-card-data-title-item'>
-          <%= t('activerecord.models.agenda') %>
-        </div>
-
-        <div class='index-card-data-title-item'>
-          <%= t('activerecord.attributes.slot.appointment_type') %>
-        </div>
-      </div>
-
-      <div class='index-card-data-content'>
-        <div class='index-card-data-content-item'>
-          <%= appointment.slot.agenda.place.name %>
-        </div>
-
-        <div class='index-card-data-content-item'>
-          <%= appointment.slot.agenda.name %>
-        </div>
-
-        <div class='index-card-data-content-item'>
-          <%= appointment.slot.appointment_type.name %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class='index-card-controls-container'>
+              
+<tr>
+  <td><%= appointment.convict.name %></td>
+  <td><%= appointment.slot.date.to_s(:base_date_format) %></td>
+  <td><%= appointment.localized_time.to_s(:time) %></td>
+  <td><%= appointment.slot.agenda.place.name %></td>
+  <td><%= appointment.slot.agenda.name %></td>
+  <td><%= appointment.slot.appointment_type.name %></td>
+  <td>
     <% if appointment.in_the_past? && appointment.booked? && policy(appointment).fulfil_old? %>
       <div class='index-card-state-container index-card-state-controls-wrapper'>
-        <%= t('index-appointment-state') %>
         <div class='index-card-state-controls-container'>
           <%= button_to t('activerecord.state_machines.states.fulfiled'), appointment_fulfil_path(appointment),
                                                                           method: :put,
                                                                           class: 'index-appointments-fulfil-button' %>
-
           <%= button_tag t('activerecord.state_machines.states.no_show'), type: 'button',
                                                                           class: 'index-appointments-miss-button',
                                                                           data: { 'micromodal-trigger': "missed-appointment-modal-#{appointment.id}" } %>
-
           <%= button_to t('activerecord.state_machines.states.excused'), appointment_excuse_path(appointment),
                                                                          method: :put,
                                                                          class: 'index-appointments-excuse-button' %>
         </div>
-
         <%= render 'appointments/missed_appointment_modal', apt: appointment %>
       </div>
     <% else %>
-      <div class='index-card-state-container'>
-        <span class='index-card-state-title'><%= t('index-appointment-state') %></span>
-        <%= fa_icon 'circle', class: "index-appointments-state-icon icon_#{appointment.state}" %>
-        <span class='index-card-state-data'><%= appointment.human_state_name %></span>
+      <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+        <div class='index-card-state-container'>
+          <%= fa_icon 'circle', class: "index-appointments-state-icon icon_#{appointment.state}" %>
+          <span class='index-card-state-data'><%= appointment.human_state_name %></span>
+        </div>
       </div>
     <% end %>
-
+  </td>
+  <td>
     <% if policy(:appointment).show? %>
-      <%= link_to t('index-appointment-see-data'), appointment_path(appointment), class: 'index-card-see-infos' %>
+      <%= link_to appointment_path(appointment), class: 'appointment-info-link' do %>
+        <span class="fr-icon-info-line" aria-hidden="true"></span>
+      <% end %>
     <% end %>
-  </div>
-</div>
+  </td>
+</tr>
