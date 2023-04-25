@@ -6,7 +6,7 @@
           <%= simple_form_for @user, html: { class: 'fr-form' } do |f| %>
             <div class="fr-grid-row  fr-grid-row--middle">
               <div class="fr-col-6">
-                <h2 class="fr-mr-2w"><%= t('edit_user_title') %></h2>
+                <h2 class="fr-mr-2w"><%= current_user?(@user) ? t('edit_user_title_own') :  t('edit_user_title') %></h2>
               </div>
               <div class="fr-col-6">
                 <div class="fr-grid-row  fr-grid-row--right">

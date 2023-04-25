@@ -5,7 +5,7 @@
         <div class="fr-card fr-p-2w">
           <div class="fr-grid-row  fr-grid-row--middle">
             <div class="fr-col-6">
-              <h2 class="fr-mr-2w"><%= t('show_user_title') %></h2>
+              <h2 class="fr-mr-2w"><%= current_user?(@user) ? t('show_user_title_own') :  t('show_user_title') %></h2>
             </div>
             <div class="fr-col-6">
               <div class="fr-grid-row  fr-grid-row--right">

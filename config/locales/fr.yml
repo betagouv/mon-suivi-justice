@@ -399,8 +399,10 @@ fr:
 
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"
-  show_user_title: "Mes informations"
-  edit_user_title: "Modifier informations"
+  show_user_title_own: "Mes informations"
+  edit_user_title_own: "Modifier mes informations"
+  show_user_title: "Informations"
+  edit_user_title: "Modifier les informations"
   edit_user_generate_invitation_link: "Lien invitation"
   edit_user_generate_reset_pwd_link: "Lien nouveau mdp"
   invitation_link_title: "Lien d'invitation agent"
