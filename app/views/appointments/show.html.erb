@@ -1,5 +1,5 @@
-<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-  <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+<div class="fr-grid-row fr-grid-row--center">
+  <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
     <h1 class=''><%= t('show_appointment_title') %></h1>
     <% if @appointment.in_the_past? && @appointment.booked? && policy(@appointment).fulfil? %>
       <div class='appointment-fulfilment-container'>

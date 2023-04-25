@@ -48,16 +48,6 @@
   text-align: right;
 }
 
-.index-sorting-tool-container {
-  border: 1px solid $table-border;
-  margin-top: 110px;
-  display: flex;
-  width: fit-content;
-  margin: 0 auto 40px;
-
-  @media print { display: none; }
-}
-
 .index-sorting-tool-title {
   border-right: 1px solid $table-border;
   padding: 5px 10px;
@@ -85,11 +75,6 @@
 .index-card-state-container {
   display: flex;
   align-items: center;
-
-  border-top: 1px solid $table-border;
-  border-right: 1px solid $table-border;
-
-  padding: 5px 10px;
 }
 
 .index-card-data-convict {
@@ -109,4 +94,9 @@
   display: flex;
   align-items: center;
   margin-right: -5px;
+}
+
+.appointment-info-link {
+  text-decoration: none !important;
+  background-image: none !important;
 }

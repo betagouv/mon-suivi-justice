@@ -35,10 +35,6 @@
   padding-left: 30px;
 }
 
-.link-to-new-appointment-button {
-  @include button($light-blue);
-}
-
 .link-to-my-appointments-button {
   @include button($light-grey);
 }
@@ -265,10 +261,6 @@
 .appointment-form-cpip-input-label {
   display: flex;
   align-items: center;
-}
-
-.index-appointment-date-filter {
-  width: 150px;
 }
 
 .missed-appointment-modal-container {
