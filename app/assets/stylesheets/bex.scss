@@ -16,14 +16,6 @@
   justify-content: flex-end;
 }
 
-.bex-print-button {
-  @include button($light-grey);
-
-  @media print {
-    display: none;
-  }
-}
-
 .bex-agendas-date-container {
   height: 100px;
   margin-bottom: 40px;
