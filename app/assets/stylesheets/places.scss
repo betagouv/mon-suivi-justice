@@ -16,11 +16,6 @@
   margin-bottom: 20px;
 }
 
-.link-to-new-place-button {
-  @include button($light-blue);
-  margin-right: 20px;
-}
-
 .places-item-container {
   display: flex;
   align-items: center;

@@ -1,43 +1,37 @@
-<div class='places-container'>
-  <%= button_to t('new_place_title'), new_place_path, class: 'link-to-new-place-button', form_class: 'link-to-new-place-form', method: :get %>
-
-  <div class='index-basic-table-container'>
-    <div class='places-header'>
-      <div class='places-header-title places-column-1'>
-        <%= t('activerecord.attributes.place.name') %>
-      </div>
-      <div class='places-header-title places-column-2'>
-        <%= t('activerecord.attributes.place.adress') %>
-      </div>
-      <div class='places-header-title places-column-3'>
-        <%= t('activerecord.attributes.place.phone') %>
-      </div>
-      <div class='places-header-title places-column-4'>
-        <%= t('activerecord.attributes.user.organization') %>
-      </div>
-    </div>
-
-    <% @places.each do |place| %>
-      <div class='places-item-container'>
-        <div class='place-data places-column-1'>
-          <%= place.name %>
-        </div>
-        <div class='place-data places-column-2'>
-          <%= place.adress %>
-        </div>
-        <div class='place-data places-column-3'>
-          <%= place.display_phone %>
-        </div>
-        <div class='place-data places-column-4'>
-          <%= place.organization.name %>
-        </div>
-        <div class='index-controls-container'>
-          <%= link_to t('edit'), edit_place_path(place), class: 'index-control' %>
-          <%= link_to t('archive'), place_archive_path(place), class: 'index-control', data: { confirm: t('basic_confirmation') }, method: :patch  %>
-        </div>
-      </div>
-    <% end %>
-
-    <%= paginate @places %>
+<div class="fr-grid-row fr-grid-row--left fr-grid-row--middle fr-grid-row--gutters">
+  <div class="fr-col-4">
+    <h3 class="fr-mr-2w">Lieux</h3>
   </div>
+  <div class="fr-col-8">
+  <div class="fr-grid-row fr-grid-row--right fr-grid-row--middle">
+    <%= button_to t('new_place_title'), new_place_path, class: 'fr-btn', form_class: 'link-to-new-place-form', method: :get %>
+    </div>
+  </div>
+</div>
+<div class="fr-table fr-table--bordered fr-table--layout-fixed">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col"><%= t('activerecord.attributes.place.name') %></th>
+        <th scope="col"><%= t('activerecord.attributes.place.adress') %></th>
+        <th scope="col"><%= t('activerecord.attributes.place.phone') %></th>
+        <th scope="col"><%= t('activerecord.attributes.user.organization') %></th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @places.each do |place| %>
+        <tr>
+          <td><%= place.name %></td>
+          <td><%= place.adress %></td>
+          <td><%= place.display_phone %></td>
+          <td><%= place.organization.name %></td>
+          <td>
+            <%= link_to t('edit'), edit_place_path(place), class: 'index-control' %>
+            <%= link_to t('archive'), place_archive_path(place), class: 'index-control', data: { confirm: t('basic_confirmation') }, method: :patch  %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
