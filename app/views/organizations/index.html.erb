@@ -1,32 +1,43 @@
-<div class='organizations-container'>
-  <%= button_to t('new_organization_title'), new_organization_path, class: 'link-to-new-organization-button', form_class: 'link-to-new-organization-form', method: :get %>
-
-  <div class='index-basic-table-container'>
-    <div class='organizations-header'>
-      <div class='organizations-header-title organizations-column-1'>
-        <%= t('activerecord.attributes.organization.name') %>
-      </div>
+<div class="fr-grid-row fr-grid-row--left fr-grid-row--middle fr-grid-row--gutters">
+  <div class="fr-col-4">
+    <h3 class="fr-mr-2w">Services</h3>
+  </div>
+  <div class="fr-col-8">
+    <div class="fr-grid-row fr-grid-row--right fr-grid-row--middle">
+      <%= button_to t('new_organization_title'), new_organization_path, class: 'fr-btn', form_class: 'link-to-new-organization-form', method: :get %>
     </div>
-
-    <% @organizations.each do |organization| %>
-      <div class='organizations-item-container'>
-        <div class='organization-data organizations-column-1'>
-          <%= organization.name %>
-        </div>
-        <div class='index-controls-container'>
-          <% if policy(organization).edit? %>
-            <%= link_to t('edit'), edit_organization_path(organization), class: 'index-control' %>
-          <% end %>
-
-          <% if policy(organization).destroy? %>
-            <%= link_to t('delete'), organization_path(organization),
+  </div>
+</div>
+<div class="fr-grid-row fr-grid-row--left fr-grid-row--center fr-grid-row--gutters">
+  <div class="col">
+    <div class="fr-table fr-table--bordered fr-table--layout-fixed">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col"><%= t('activerecord.attributes.organization.name') %></th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @organizations.each do |organization| %>
+            <tr>
+              <td><%= organization.name %></td>
+              <td>
+                <% if policy(organization).edit? %>
+                  <%= link_to t('edit'), edit_organization_path(organization), class: 'index-control' %>
+                <% end %>
+                <% if policy(organization).destroy? %>
+                  <%= link_to t('delete'), organization_path(organization),
                                      data: { confirm: t('basic_confirmation') },
                                      class: 'index-control',
                                      method: :delete %>
+                <% end %>
+              </td>
+            </tr>
           <% end %>
-        </div>
-      </div>
-    <% end %>
-    <%= paginate @organizations %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+<%= paginate @organizations %>
