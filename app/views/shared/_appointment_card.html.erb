@@ -33,8 +33,11 @@
   </td>
   <td>
     <% if policy(:appointment).show? %>
+          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+
       <%= link_to appointment_path(appointment), class: 'appointment-info-link' do %>
         <span class="fr-icon-info-line" aria-hidden="true"></span>
+        </div>
       <% end %>
     <% end %>
   </td>

@@ -16,7 +16,7 @@
     <% end %>
   </ul>
 </div>
-<div class="fr-grid-row">
+<div class="fr-grid-row fr-grid-row--center">
   <div class="fr-col-xs-12">
     <%= search_form_for @q, id: 'index-header-filters-form' do |f| %>
       <div class="fr-grid-row fr-grid-row--gutters">
@@ -53,40 +53,11 @@
         <% end %>
       </div>
     <% end %>
-    <div class="fr-table fr-table--bordered">
       <% if  @appointments.any? %>
-        <table>
-          <thead>
-            <tr>
-              <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
-              <th scope="col">      <%= sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) %>
-              </th>
-              <th scope="col">      <%= sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) %>
-              </th>
-              <th scope="col">      <%= sort_link(@q, 'slot_agenda_place_name', t('activerecord.models.place'), default_order: :desc) %>
-              </th>
-              <th scope="col">      <%= sort_link(@q, 'slot_agenda_name', t('activerecord.models.agenda'), default_order: :desc) %>
-              </th>
-              <th scope="col">      <%= sort_link(@q, 'slot_appointment_type_name', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) %>
-              </th>
-              <th scope="col">
-                <div class="fr-grid-row fr-grid-row--center">
-                  <%= t('index-appointment-state') %>
-                </div>
-              </th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @appointments.each do |appointment| %>
-              <%= render 'shared/appointment_card', appointment: appointment %>
-            <% end %>
-          </tbody>
-        </table>
+        <%= render 'shared/appointments_table', appointments: @appointments %>
       <% else %>
         <span><%= t('appointments.index.no_appointments') %></span>
       <% end %>
-    </div>
   </div>
 </div>
 <%= javascript_pack_tag 'appointment_index' %>
