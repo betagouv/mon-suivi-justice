@@ -98,6 +98,7 @@
 
 .fr-btn--danger {
   color: #f44336;
+  box-sizing: border-box;
   border: 1px solid #f44336 !important;
   background-color: white;
   &:hover {
