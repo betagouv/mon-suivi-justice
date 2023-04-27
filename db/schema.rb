@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_12_080952) do
+ActiveRecord::Schema.define(version: 2023_04_27_123309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -323,6 +323,7 @@ ActiveRecord::Schema.define(version: 2023_04_12_080952) do
     t.integer "organization_type", default: 0
     t.string "time_zone", default: "Europe/Paris", null: false
     t.bigint "headquarter_id"
+    t.boolean "use_inter_ressort", default: false
     t.index ["headquarter_id"], name: "index_organizations_on_headquarter_id"
     t.index ["name"], name: "index_organizations_on_name", unique: true
   end
