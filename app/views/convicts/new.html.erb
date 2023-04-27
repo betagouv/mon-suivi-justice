@@ -50,7 +50,7 @@
           <% end %>
         <% end %>
       </div>
-      <% if current_user.work_at_bex? %>
+      <% if current_user.can_use_inter_ressort? %>
         <%= render partial: 'shared/city_selector' %>
         <div class="fr-fieldset__element fr-fieldset__element--inline">
           <div class="fr-checkbox-group">

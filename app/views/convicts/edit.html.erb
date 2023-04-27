@@ -42,7 +42,9 @@
           </p>
         <% end %>
       </div>
-      <%= render partial: 'shared/city_selector' %>
+      <% if current_user.can_use_inter_ressort? %>
+        <%= render partial: 'shared/city_selector' %>
+      <% end %>
       <div class="fr-fieldset__element fr-fieldset__element--inline">
         <div class="fr-checkbox-group">
           <input name="convict[homeless]" id="convict-homeless" type="checkbox" aria-describedby="convict-homeless-messages" value="1" <%= 'checked' if @convict.homeless%>>
