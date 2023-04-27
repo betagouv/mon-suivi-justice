@@ -113,7 +113,7 @@ fr:
       already_signed_out: Déconnecté(e).
       new:
         sign_in: Connexion
-      signed_in: Connecté(e).
+      signed_in: ''
       signed_out: Déconnecté(e).
     shared:
       links:
