@@ -32,13 +32,13 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
-    @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
-    @extra_fields.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field: extra_field) }
     authorize @appointment
 
     return unless params.key?(:convict_id)
 
     @convict = Convict.find(params[:convict_id])
+    @extra_fields = @convict.organizations.tj.first.extra_fields.select(&:appointment_create?)
+    @extra_fields.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field: extra_field) }
   end
 
   def create
