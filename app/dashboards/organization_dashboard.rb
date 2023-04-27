@@ -24,7 +24,8 @@ class OrganizationDashboard < Administrate::BaseDashboard
     number_of_ppsmj: Field::Number,
     tjs: Field::HasMany,
     spips: Field::HasMany,
-    number_of_convicts: Field::Number
+    number_of_convicts: Field::Number,
+    use_inter_ressort: Field::Boolean
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -41,6 +42,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     spips
     number_of_ppsmj
     number_of_convicts
+    use_inter_ressort
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -58,6 +60,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     headquarter
     tjs
     spips
+    use_inter_ressort
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -73,6 +76,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     headquarter
     tjs
     spips
+    use_inter_ressort
   ].freeze
 
   # COLLECTION_FILTERS
@@ -85,7 +89,9 @@ class OrganizationDashboard < Administrate::BaseDashboard
   #   COLLECTION_FILTERS = {
   #     open: ->(resources) { resources.where(open: true) }
   #   }.freeze
-  COLLECTION_FILTERS = {}.freeze
+  COLLECTION_FILTERS = {
+    interressort: ->(resources) { resources.where(use_inter_ressort: true) }
+  }.freeze
 
   # Overwrite this method to customize how organizations are displayed
   # across all pages of the admin dashboard.

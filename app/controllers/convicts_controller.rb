@@ -106,7 +106,7 @@ class ConvictsController < ApplicationController
   def save_and_redirect(convict)
     if duplicate_present?(convict) && !force_duplication?
       render :new
-    elsif !user_works_at_bex?(convict) || convict.valid?(:user_works_at_bex)
+    elsif !current_user.can_use_inter_ressort? || convict.valid?(:user_can_use_inter_ressort)
       if convict.save
         convict.update_organizations(current_user)
         redirect_to select_path(params)
@@ -173,9 +173,5 @@ class ConvictsController < ApplicationController
 
   def force_duplication?
     ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
-  end
-
-  def user_works_at_bex?(convict)
-    current_user.work_at_bex? && !convict.valid?(:user_works_at_bex)
   end
 end

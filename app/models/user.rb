@@ -114,4 +114,8 @@ class User < ApplicationRecord
   def organizations
     [organization, *organization.linked_organizations]
   end
+
+  def can_use_inter_ressort?
+    work_at_bex? && organization.use_inter_ressort?
+  end
 end
