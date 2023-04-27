@@ -82,7 +82,7 @@ class Convict < ApplicationRecord
 
   pg_search_scope :search_by_name_and_phone, against: %i[first_name last_name phone],
                                              using: {
-                                               tsearch: { prefix: true, dictionary: 'french' }
+                                               tsearch: { prefix: true }
                                              },
                                              ignoring: :accents
 
