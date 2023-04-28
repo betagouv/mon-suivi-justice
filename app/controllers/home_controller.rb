@@ -11,7 +11,7 @@ class HomeController < ApplicationController
       @stats = DataCollector::User.new(organization_id: current_organization.id).perform
     end
 
-    #display_uninformed_appointments
+    # display_uninformed_appointments
   end
 
   private
