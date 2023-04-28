@@ -61,7 +61,7 @@ module Admin
 
       ActiveRecord::Base.connection.execute("
         INSERT INTO srj_spips(name, structure_id, updated_at, created_at)
-          SELECT
+          SELECT DISTINCT
             ms.name,
             ms.id AS structure_id,
             NOW() as updated_at,
@@ -83,7 +83,6 @@ module Admin
               GROUP BY c.id
               HAVING count(*) > 2
           )
-          ORDER BY mc.id
         ;")
 
       ActiveRecord::Base.connection.execute("

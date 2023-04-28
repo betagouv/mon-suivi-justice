@@ -12,8 +12,6 @@ class Organization < ApplicationRecord
   belongs_to :headquarter, optional: true
   abymize :extra_fields, permit: :all_attributes, allow_destroy: true
   has_many :agendas, through: :places, dependent: :nullify
-  has_one :tj
-  has_one :spip
 
   has_and_belongs_to_many :spips, class_name: 'Organization', foreign_key: 'tj_id', join_table: 'spips_tjs',
                                   association_foreign_key: 'spip_id', optional: true

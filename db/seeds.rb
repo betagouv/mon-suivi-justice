@@ -35,11 +35,11 @@ AreasOrganizationsMapping.create organization: org_tj_melun, area: Jurisdiction.
 AreasOrganizationsMapping.create organization: org_tj_fontainebleau, area: Department.find_by(number: '77')
 AreasOrganizationsMapping.create organization: org_tj_fontainebleau, area: Jurisdiction.find_by(name: 'TJ FONTAINEBLEAU')
 
-convict_1 = Convict.create!(first_name: "Michel", last_name: "Blabla", phone: "0677777777", appi_uuid: "12345")
-convict_2 = Convict.create!(first_name: "Dark", last_name: "Vador", phone: "0600000000", appi_uuid: "12346")
-convict_3 = Convict.create!(first_name: "Bobba", last_name: "Smet", phone: "0611111111", appi_uuid: "12347")
-convict_4 = Convict.create!(first_name: "Conor", last_name: "McGregor", phone: "0611111112", appi_uuid: "12348")
-convict_5 = Convict.create!(first_name: "Georges", last_name: "Saint-Pierre", phone: "0611111113", appi_uuid: "12349")
+convict_1 = Convict.create!(first_name: "Michel", last_name: "Blabla", phone: "0677777777", appi_uuid: "12345", date_of_birth: "02/01/1986")
+convict_2 = Convict.create!(first_name: "Dark", last_name: "Vador", phone: "0600000000", appi_uuid: "12346", date_of_birth: "02/01/1986")
+convict_3 = Convict.create!(first_name: "Bobba", last_name: "Smet", phone: "0611111111", appi_uuid: "12347", date_of_birth: "02/01/1986")
+convict_4 = Convict.create!(first_name: "Conor", last_name: "McGregor", phone: "0611111112", appi_uuid: "12348", date_of_birth: "02/01/1986")
+convict_5 = Convict.create!(first_name: "Georges", last_name: "Saint-Pierre", phone: "0611111113", appi_uuid: "12349", date_of_birth: "02/01/1986")
 
 AreasConvictsMapping.create convict: convict_1, area: Department.find_by(number: '92')
 AreasConvictsMapping.create convict: convict_2, area: Department.find_by(number: '92')
@@ -50,8 +50,8 @@ AreasConvictsMapping.create convict: convict_5, area: Department.find_by(number:
 AreasConvictsMapping.create convict: convict_4, area: Jurisdiction.find_by(name: 'TJ MELUN')
 AreasConvictsMapping.create convict: convict_5, area: Jurisdiction.find_by(name: 'TJ FONTAINEBLEAU')
 
-convict_6 = Convict.create!(first_name: "John", last_name: "Jones", no_phone: true, appi_uuid: "123410", organizations: [org_spip_92, org_tj_nanterre])
-convict_7 = Convict.create!(first_name: "Dark", last_name: "Vador", no_phone: true, appi_uuid: "123411", organizations: [org_spip_92, org_tj_nanterre])
+convict_6 = Convict.create!(first_name: "John", last_name: "Jones", no_phone: true, appi_uuid: "123410", organizations: [org_spip_92, org_tj_nanterre], date_of_birth: "02/01/1986")
+convict_7 = Convict.create!(first_name: "Dark", last_name: "Vador", no_phone: true, appi_uuid: "123411", organizations: [org_spip_92, org_tj_nanterre], date_of_birth: "02/01/1986")
 
 User.create!(
   organization: org_spip_92, email: 'admin@example.com', password: '1mot2passeSecurise!',
