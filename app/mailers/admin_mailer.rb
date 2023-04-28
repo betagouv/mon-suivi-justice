@@ -14,5 +14,6 @@ class AdminMailer < ApplicationMailer
     @convict_migration_success = params[:convict_migration_success]
     @convict_migration_errors = params[:convict_migration_errors]
     mail(to: 'matthieu.faugere@beta.gouv.fr', subject: 'Rapport migration des convicts')
+    mail(to: 'charles.marcoin@beta.gouv.fr', subject: 'Rapport migration des convicts')
   end
 end
