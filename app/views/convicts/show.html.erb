@@ -78,7 +78,7 @@
             <strong><%= t('activerecord.attributes.convict.date_of_birth')%></strong> : <%= @convict.date_of_birth %>
           </p>
           <p>
-            <strong><%= t('activerecord.attributes.convict.first_name') %></strong> : <%= @convict.first_name.capitalize %>
+            <strong><%= t('activerecord.attributes.convict.city_id') %></strong> : <%= @convict.city ?  @convict.city.name : 'pas de commune renseignée' %>
           </p>
           <p>
             <strong><%= t('activerecord.attributes.convict.cpip') %></strong> :             

@@ -1,4 +1,3 @@
-              
 <tr>
   <td><%= appointment.convict.name %></td>
   <td><%= appointment.slot.date.to_s(:base_date_format) %></td>
@@ -33,12 +32,9 @@
   </td>
   <td>
     <% if policy(:appointment).show? %>
-          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-
-      <%= link_to appointment_path(appointment), class: 'appointment-info-link' do %>
-        <span class="fr-icon-info-line" aria-hidden="true"></span>
-        </div>
-      <% end %>
+      <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+        <%= link_to "Voir", appointment_path(appointment) %>
+      </div>
     <% end %>
   </td>
 </tr>

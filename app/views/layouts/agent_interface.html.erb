@@ -1,5 +1,12 @@
 <% content_for :content do %>
   <%= render 'layouts/header' %>
+  <div class="fr-notice fr-notice--info">
+    <div class="fr-container">
+      <div class="fr-notice__body">
+        <p class="fr-notice__title">Nous avons mis à jour notre interface. Pas de panique, on vous explique tout <a href='https://content-manager-msj.osc-secnum-fr1.scalingo.io/la-nouvelle-version-est-en-ligne/' rel='noopener' target='_blank'>ici</a>.</p>
+      </div>
+    </div>
+  </div>
   <% if current_user != true_user %>
     <div class="fr-alert fr-alert--info fr-alert--sm">
       <p>

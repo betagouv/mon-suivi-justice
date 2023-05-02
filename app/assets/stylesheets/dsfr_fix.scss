@@ -106,3 +106,15 @@
     background-color: #f44336 !important;
   }
 }
+
+
+// Flashes
+.fr-notice .fr-btn--close::before {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/close-line.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/close-line.svg"));
+}
+
+.fr-notice--info .fr-notice__body::before {
+  -webkit-mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--info-fill.svg"));
+  mask-image: url(asset-path("@gouvfr/dsfr/dist/icons/system/fr--info-fill.svg"));
+}
