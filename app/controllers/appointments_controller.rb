@@ -37,6 +37,12 @@ class AppointmentsController < ApplicationController
     return unless params.key?(:convict_id)
 
     @convict = Convict.find(params[:convict_id])
+
+    unless @convict.city_id
+      flash.now[:warning] =
+      "<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
+    end
+
     @extra_fields = @convict.organizations.tj.first.extra_fields.select(&:appointment_create?)
     @extra_fields.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field: extra_field) }
   end
