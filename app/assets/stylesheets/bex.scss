@@ -1,21 +1,3 @@
-.bex-agendas-container {
-  width: 90%;
-  max-width: 900px;
-  margin: auto;
-  margin-bottom: 50px;
-
-  @media print {
-    width: 100%;
-  }
-}
-
-.bex-agendas-tools-container {
-  text-align: right;
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-}
-
 .bex-agendas-date-container {
   height: 100px;
   margin-bottom: 40px;
@@ -124,23 +106,7 @@
   background-color: $jap-cabinet7;
 }
 
-.spip-date-select {
-  width: 140px;
-
-  @media print {
-    width: inherit;
-  }
-}
-
 .spip-place-select {
-  width: 300px;
-
-  @media print {
-    width: inherit;
-  }
-}
-
-.spip-agenda-select {
   width: 300px;
 
   @media print {
