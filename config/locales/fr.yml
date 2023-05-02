@@ -217,6 +217,7 @@ fr:
               mobile: "Numéro de téléphone portable requis"
               taken: "Une PPSMJ est déjà enregistrée avec ce numéro de téléphone. Merci de saisir un autre numéro"
               confirmation: "Ne correspond pas au premier mot de passe saisi"
+              blank: "n'est pas renseigné. Veuillez renseigner au moins un des champs 'téléphone portable', 'ne possède pas de téléphone portable' ou 'refuse de donner son numéro'"
             dob:
               taken: "Une ppsmj avec les mêmes prénom, nom et date de naissance existe déjà"
               not_in_the_future: "La date de naissance ne peut pas être dans le futur"
@@ -543,7 +544,7 @@ fr:
   index-appointment-only-my-appointments: "Uniquement mes RDV"
   index-appointment-clear-filters: "Supprimer les filtres"
   index-appointment-see-data: "Voir les infos"
-  index-appointment-state: "Statut :"
+  index-appointment-state: "Statut"
   index-appointment-state-pdf: "Statut"
   today_appointments_place_filter: "Lieu de RDV"
   index-slots-appointment-type-filter: "Type de RDV"

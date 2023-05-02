@@ -33,7 +33,6 @@ class ConvictsController < ApplicationController
     @convict.appointments.build
   end
 
-  # rubocop:disable Metrics/AbcSize
   def create
     @convict = Convict.new(convict_params)
     @convict.creating_organization = current_organization
