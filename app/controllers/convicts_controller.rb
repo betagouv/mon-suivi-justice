@@ -6,6 +6,11 @@ class ConvictsController < ApplicationController
     @history_items = HistoryItem.where(convict: @convict, category: %w[appointment convict])
                                 .order(created_at: :desc)
 
+    unless @convict.city_id
+      flash.now[:warning] =
+      "<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
+    end
+
     authorize @convict
   end
 
@@ -39,6 +44,12 @@ class ConvictsController < ApplicationController
 
   def edit
     @convict = policy_scope(Convict).find(params[:id])
+
+    unless @convict.city_id
+      flash.now[:warning] =
+        "<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort:  Utilisez le champ commune ci-dessous pour renseigner une commune".html_safe
+    end
+
     authorize @convict
   end
 
