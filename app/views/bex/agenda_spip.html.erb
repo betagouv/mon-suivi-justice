@@ -1,13 +1,18 @@
-<div class='bex-agendas-container'>
-  <div class='bex-agendas-tools-container'>
+<div class="fr-grid-row fr-grid-row--right">
+  <ul class="fr-btns-group fr-btns-group--inline-lg">
     <% if !@agenda.nil? %>
       <%= button_to t('print_button'), agenda_spip_path(format: :pdf),
                                       method: :get,
                                       params: {date: params[:date], agenda_id: @agenda.id, place_id: @place.id},
                                       form: { target: '_blank' },
-                                      class: 'bex-print-button' %>
+                                      class: 'fr-btn' %>
     <% end %>
-  </div>
+  </ul>
+</div>
+
+
+
+<div>
   <div class='bex-agendas-date-container'>
     <div class='bex-date-title-container'>
       <%= t('bex.spip.appointments_title') %>
@@ -18,20 +23,20 @@
           <%= label_tag 'date', 'Date :' %>
           <%= select_tag :date, options_for_select(formated_month_for_select(six_next_months), params[:date]),
                                 id: 'spip-appointments-month-select',
-                                class: 'form-select form-text-input spip-date-select',
+                                class: 'fr-select',
                                 onchange: 'this.form.submit()' %>
         </div>
 
         <% if @places.count > 0 %>
           <div class="bex-form-input-wrapper">
             <%= label_tag 'place_id', 'Lieu :' %>
-            <%= select_tag :place_id, options_from_collection_for_select(@places, 'id', 'name', @place.id), class: 'form-select form-text-input spip-place-select', onchange: 'this.form.submit()' %>
+            <%= select_tag :place_id, options_from_collection_for_select(@places, 'id', 'name', @place.id), class: 'fr-select', onchange: 'this.form.submit()' %>
           </div>
         <% end %>
         <% if @agendas.count > 1 %>
           <div class="bex-form-input-wrapper">
             <%= label_tag 'agenda_id', 'Agenda :' %>
-            <%= select_tag :agenda_id, options_from_collection_for_select(@agendas, 'id', 'name', @agenda.id), class: 'form-select form-text-input spip-agenda-select', onchange: 'this.form.submit()' %>
+            <%= select_tag :agenda_id, options_from_collection_for_select(@agendas, 'id', 'name', @agenda.id), class: 'fr-select', onchange: 'this.form.submit()' %>
           </div>
         <% end %>
       <% end %>
@@ -45,7 +50,7 @@
 
       <% slots_for_date = @agenda.slots_for_date(day, @appointment_type) %>
       <% next if slots_for_date.count == 0 %>
-        <div class="fr-table fr-table--bordered">
+        <div class="fr-table fr-table--bordered fr-table--layout-fixed">
           <table class="agenda-jap-table">
               <caption class='spip-agenda-header'><%= day %></caption>
               <thead>

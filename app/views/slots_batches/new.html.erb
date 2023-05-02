@@ -1,7 +1,7 @@
 <% unless current_user.organization.jap_modal_content.empty? %>
   <section class='agendas-modal-trigger-container'>
     <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
-                                                     class: 'jap-agendas-modal-trigger',
+                                                     class: 'fr-btn fr-btn--secondary',
                                                      data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
   </section>
   <%= render partial: 'shared/jap_agendas_modal', locals: {jap_modal_content: current_user.organization.jap_modal_content} %>

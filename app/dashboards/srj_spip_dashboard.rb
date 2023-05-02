@@ -13,6 +13,9 @@ class SrjSpipDashboard < Administrate::BaseDashboard
     name: Field::String,
     organization: Field::BelongsTo,
     structure_id: Field::String,
+    short_name: Field::String.with_options(
+      searchable: false
+    ),
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -25,7 +28,7 @@ class SrjSpipDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     cities
-    name
+    short_name
     organization
   ].freeze
 

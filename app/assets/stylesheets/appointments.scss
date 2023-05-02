@@ -125,10 +125,6 @@
   display: flex;
 }
 
-.new-appointment-submit-button {
-  margin-top: 30px;
-}
-
 .slot-date-container {
   flex-shrink: 0;
   width: 18%;
@@ -204,7 +200,7 @@
   color: $link;
 }
 
-.jap-agendas-modal-trigger {
+.fr-btn fr-btn--secondary {
   @include button($light-grey);
 }
 
