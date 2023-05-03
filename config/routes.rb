@@ -81,7 +81,6 @@ Rails.application.routes.draw do
     put 'miss'
     put 'excuse'
     put 'rebook'
-    put 'prepare'
   end
 
   resources :appointments_waiting_lines, only: :index

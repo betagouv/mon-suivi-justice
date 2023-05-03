@@ -76,11 +76,6 @@
                     <%= extra_field.name %>
                   </th>
                 <% end %>
-                <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
-                  <th scope="col">
-                    <%= t('bex.jap.header_case_prepared') %>
-                  </th>
-                <% end %>
               </thead>
               <tbody>
             <% slots_for_date.each do |slot| %>

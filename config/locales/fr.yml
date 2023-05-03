@@ -572,7 +572,6 @@ fr:
       header_origin: "Service d'origine"
       header_role: Rôle
       no_agenda_available: "Pas de rdv Sortie d'audience JAP prévu"
-      header_case_prepared: "Traité"
     spip:
       appointments_link: "Agenda RDV SPIP"
       appointments_title: "RDV SPIP pour"

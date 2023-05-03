@@ -78,11 +78,6 @@
                     <%= extra_field.name %>
                   </th>
                 <% end %>
-                <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
-                  <th scope="col">
-                    <%= t('bex.jap.header_case_prepared') %>
-                  </th>
-                <% end %>
               </thead>
               <tbody>
             <% slots_for_date.each do |slot| %>
@@ -137,19 +132,6 @@
                         <%= display_extra_field(extra_field, appointments[i]) %>
                       </th>
                     <%end%>
-                  <% end %>
-                  <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
-                    <th>
-                      <% if appointments[i].present? %>
-                        <%= form_tag appointment_prepare_path(appointments[i]), method: 'put', class: 'bex-agenda-case-prepared-form' do %>
-                          <%= check_box_tag "case-prepared-#{appointments[i].id}",
-                                            true,
-                                            appointments[i].case_prepared,
-                                            class: 'bex-agenda-case-prepared-checkbox',
-                                            onchange: 'this.form.submit()' %>
-                        <% end %>
-                      <% end %>
-                    </div>
                   <% end %>
                 </div>
               <% end %>
