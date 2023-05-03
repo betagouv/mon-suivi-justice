@@ -1,59 +1,64 @@
-<h1 class='form-title'><%= t('new_appointment_title') %></h1>
-<% if @convict %>
-  <h2 class='form-subtitle'><%= @convict.name %></h2>
-<% end %>
-
-<%= simple_form_for @appointment do |f| %>
-  <div class='new-appointment-form'>
-    <% if @convict %>
-      <%= f.input :convict_id, as: :hidden, input_html: { value: params[:convict_id] } %>
-    <% else %>
-      <%= f.association :convict, collection: policy_scope(Convict.all),
-                                  label: t('activerecord.models.convict'),
-                                  as: :select,
-                                  label_method: :name,
-                                  input_html: { class: 'form-select', id: 'convict-name-autocomplete' } %>
-    <% end %>
-
-    <div class='appointment-form-cpip-container' id='cpip-container'>
-      <% if can_be_linked_to_user?(@convict, current_user) %>
-        <%= f.input :user_is_cpip, as: :radio_buttons, collection: [['1', 'Oui'], ['0', 'Non']], label_method: :second, value_method: :first, label: t('.is_cpip_label'), checked: '1' %>
+<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+<div class="fr-col-6">
+  <h2 class='form-title' id="appointment-form-title"><%= t('new_appointment_title') %><%= @convict ? " pour #{@convict.full_name}" : "" %></h2>
+  <%= simple_form_for @appointment do |f| %>
+    <div>
+      <% if @convict %>
+        <%= f.input :convict_id, as: :hidden, input_html: { value: params[:convict_id] } %>
+      <% else %>
+        <%= f.association :convict, collection: policy_scope(Convict.all),
+                                    label: t('activerecord.models.convict', count: 1),
+                                    as: :select,
+                                    label_method: :name,
+                                    input_html: { class: 'form-select', id: 'convict-name-autocomplete' } %>
       <% end %>
-    </div>
 
-    <div data-controller="appointment-extra-field-display">
-      <div class='appointment-form-appointment-type-container' id='appointment-type-container'>
-        <%= f.input :appointment_appointment_type_id, collection: appointment_types_for_user(current_user),
-                                                      label: t('activerecord.models.appointment_type'),
-                                                      as: :fake_select,
-                                                      label_method: :name,
-                                                      input_html: { class: 'form-select', "data-appointment-extra-field-display-target": "selectAppointmentTypeInput", "data-action": "change->appointment-extra-field-display#change" } %>
+      <div class="appointment-form-cpip-container" id="cpip-container">
+        <% if can_be_linked_to_user?(@convict, current_user) %>
+          <div class="form-input-wrapper radio_buttons optional appointment_user_is_cpip">
+            <label class="radio_buttons optional form-label"><%= t('appointments.new.is_cpip_label')%></label>
+            <input type="hidden" name="appointment[user_is_cpip]" value="">
+            <span class="radio appointment-form-cpip-input-container"><label for="appointment_user_is_cpip_1" class="appointment-form-cpip-input-label"><input class="radio_buttons optional form-text-input appointment-form-cpip-input" type="radio" value="1" checked="checked" name="appointment[user_is_cpip]" id="appointment_user_is_cpip_1">Oui</label></span>
+            <span class="radio appointment-form-cpip-input-container"><label for="appointment_user_is_cpip_0" class="appointment-form-cpip-input-label"><input class="radio_buttons optional form-text-input appointment-form-cpip-input" type="radio" value="0" name="appointment[user_is_cpip]" id="appointment_user_is_cpip_0">Non</label></span></div>
+       <% end %>
       </div>
 
-      <div class="d-none" data-appointment-extra-field-display-target="extraFieldsContainer">
-        <%= f.fields_for :appointment_extra_fields do |extra_field_form|%>
-          <%= %>
-          <%= extra_field_form.input :extra_field_id, as: :hidden, input_html: {"data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": @extra_fields[extra_field_form.index].appointment_type_ids}, disabled: true %>
-          <%= extra_field_form.input :value, label: @extra_fields[extra_field_form.index]&.name, input_html: { :type => @extra_fields[extra_field_form.index]&.data_type, "data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": @extra_fields[extra_field_form.index].appointment_type_ids}, disabled: true %>
-        <% end%>
+      <div data-controller="appointment-extra-field-display">
+        <div class='appointment-form-appointment-type-container' id='appointment-type-container' style=<%= @convict ? "display: block" : "display: none" %>>
+          <%= f.input :appointment_appointment_type_id, collection: appointment_types_for_user(current_user),
+                                                        label: t('activerecord.models.appointment_type'),
+                                                        as: :fake_select,
+                                                        label_method: :name,
+                                                        input_html: { class: 'form-select', "data-appointment-extra-field-display-target": "selectAppointmentTypeInput", "data-action": "change->appointment-extra-field-display#change" } %>
+        </div>
+
+        <div class="d-none" data-appointment-extra-field-display-target="extraFieldsContainer">
+          <%= f.fields_for :appointment_extra_fields do |extra_field_form|%>
+            <%= extra_field_form.input :extra_field_id, as: :hidden, input_html: {"data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": @extra_fields[extra_field_form.index].appointment_type_ids }, disabled: true %>
+            <%= extra_field_form.input :value, label: @extra_fields[extra_field_form.index]&.name, input_html: { :type => @extra_fields[extra_field_form.index]&.data_type, "data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": @extra_fields[extra_field_form.index].appointment_type_ids}, disabled: true %>
+          <% end%>
+        </div>
       </div>
+
+      <div class='' id='cities-container'></div>
+      <div class='appointment-form-prosecutor-container' id='prosecutor-container'></div>
+      <div class='appointment-form-places-container' id='places-container'></div>
+      <div class='appointment-form-departments-container' id='departments-container'></div>
+      <div class='appointment-form-agendas-container' id='agendas-container'></div>
+      <div class='appointment-form-slot-fields-container' id='slot-fields-container'></div>
     </div>
 
-    <div class='appointment-form-prosecutor-container' id='prosecutor-container'></div>
-    <div class='appointment-form-places-container' id='places-container'></div>
-    <div class='appointment-form-departments-container' id='departments-container'></div>
-    <div class='appointment-form-agendas-container' id='agendas-container'></div>
-    <div class='appointment-form-slot-fields-container' id='slot-fields-container'></div>
+    <div class='appointment-form-slots-container' id='slots-container'></div>
+
+    <div id='submit-btn-container'>
+      <input type='submit' name='commit' value=<%= t('submit')%> class='fr-btn' id='submit-new-appointment' disabled='disabled' data-disable-with='Enregistrer'>
+    </div>
+  <% end %>
+
+  <div class='fr-grid-row fr-grid-row--center' id='submit-button-container'></div>
   </div>
 
-  <div class='appointment-form-slots-container' id='slots-container'></div>
-
-  <div id='submit-btn-container'>
-    <input type='submit' name='commit' value=<%= t('submit')%> class='form-submit-button new-appointment-submit-button' id='submit-new-appointment' disabled='disabled' data-disable-with='Enregistrer'>
-  </div>
-<% end %>
-
-<div class='appointment-form-submit-button-container' id='submit-button-container'></div>
+</div>
 <%= render 'new_appointment_confirmation_modal' %>
 
 <%= javascript_pack_tag 'appointment_new' %>

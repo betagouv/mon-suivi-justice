@@ -1,81 +1,83 @@
-<div class='users-container'>
-  <div class='index-tools-container'>
-    <div class='index-tools-filter-container'>
-      <div>
-        <%= select_tag '', options_from_collection_for_select(@all_users, :profile_path, 'identity'),
-                           id: 'profile-search-field',
-                           style: "width: 200%",
-                           include_blank: true %>
-      </div>
-    </div>
-    <div class='index-tools-controls-container'>
-      <% if policy(:user).new? %>
-        <%= button_to t('new_user_title'), new_user_invitation_path, class: 'link-to-new-user-button', form_class: 'link-to-new-user-form', method: :get %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class='index-basic-table-container'>
-    <div class='users-header'>
-      <div class='users-header-title users-column-1'>
-        <%= t('activerecord.attributes.user.name') %>
-      </div>
-      <div class='users-header-title users-column-2'>
-        <%= t('activerecord.attributes.user.email') %>
-      </div>
-      <div class='users-header-title users-column-3'>
-        <%= t('activerecord.attributes.user.role') %>
-      </div>
-      <div class='users-header-title users-column-4'>
-        <%= t('activerecord.attributes.user.organization') %>
-      </div>
-
-      <div class='users-column-5'></div>
-    </div>
-
-    <% @users.each do |user| %>
-      <div class='users-item-container'>
-        <div class='user-data users-column-1'>
-          <%= user.name %>
-        </div>
-
-        <div class='user-data users-column-2'>
-          <%= user.email %>
-        </div>
-
-        <div class='user-data users-column-3'>
-          <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
-        </div>
-        <div class='user-data users-column-4'>
-          <%= user.organization.name %>
-        </div>
-
-        <div class='index-controls-container users-column-5'>
-          <%= link_to t('see_profile'), user_path(user), class: 'index-control' %>
-
-          <% if policy(:user).edit? %>
-            <%= link_to t('edit'), edit_user_path(user), class: 'index-control' %>
-          <% end %>
-
-          <% if policy(:user).destroy? %>
-            <% if !user.admin? %>
-              <%= link_to t('delete'), user_path(user),
-                                       data: { confirm: t('basic_confirmation') },
-                                       class: 'index-control',
-                                       method: :delete %>
-            <% else %>
-              <% if current_user.admin? %>
-                <%= link_to t('delete'), user_path(user),
-                                         data: { confirm: t('basic_confirmation') },
-                                         class: 'index-control',
-                                         method: :delete %>
-              <% end %>
+<div class="fr-grid-row fr-grid-row--center">
+  <div class="fr-col-12 fr-mb-2w">
+    <div class="fr-grid-row">
+      <div class="fr-col">
+        <div class='index-tools-container'>
+          <div class='index-tools-filter-container'>
+            <div>
+              <%= select_tag '', options_from_collection_for_select(@all_users, :profile_path, 'identity'),
+                                id: 'profile-search-field',
+                                style: "width: 200%",
+                                include_blank: true %>
+            </div>
+          </div>
+          <div class='index-tools-controls-container'>
+            <% if policy(:user).new? %>
+              <%= button_to t('new_user_title'), new_user_invitation_path, class: 'fr-btn', form_class: 'link-to-new-user-form', method: :get %>
             <% end %>
-          <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
 
-    <%= paginate @users %>
+          <div class="fr-table">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col"><%= t('activerecord.attributes.user.name') %></th>
+                  <th scope="col"><%= t('activerecord.attributes.user.email') %></th>
+                  <th scope="col"><%= t('activerecord.attributes.user.role') %></th>
+                  <th scope="col"><%= t('activerecord.attributes.user.organization') %></th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @users.each do |user| %>
+                  <tr>
+                    <td>
+                      <%= user.name %>
+                    </td>
+
+                    <td>
+                      <%= user.email %>
+                    </td>
+
+                    <td>
+                      <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
+                    </td>
+                    <td>
+                      <%= user.organization.name %>
+                    </td>
+
+                    <td>
+                      <%= link_to t('see_profile'), user_path(user), class: 'index-control' %>
+
+                      <% if policy(:user).edit? %>
+                        <%= link_to t('edit'), edit_user_path(user), class: 'index-control' %>
+                      <% end %>
+
+                      <% if policy(:user).destroy? %>
+                        <% if !user.admin? %>
+                          <%= link_to t('delete'), user_path(user),
+                                                  data: { confirm: t('basic_confirmation') },
+                                                  class: 'index-control',
+                                                  method: :delete %>
+                        <% else %>
+                          <% if current_user.admin? %>
+                            <%= link_to t('delete'), user_path(user),
+                                                    data: { confirm: t('basic_confirmation') },
+                                                    class: 'index-control',
+                                                    method: :delete %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+
+          <%= paginate @users %>
+      </div>
+    </div>
   </div>
 </div>

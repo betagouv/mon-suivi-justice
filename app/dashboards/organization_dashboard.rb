@@ -9,9 +9,6 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    areas_organizations_mappings: Field::HasMany,
-    departments: Field::HasMany,
-    jurisdictions: Field::HasMany,
     name: Field::String,
     notification_types: Field::HasMany,
     organization_type: Field::Select.with_options(searchable: false, collection: lambda { |field|
@@ -24,7 +21,11 @@ class OrganizationDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     headquarter: Field::BelongsTo,
-    number_of_ppsmj: Field::Number
+    number_of_ppsmj: Field::Number,
+    tjs: Field::HasMany,
+    spips: Field::HasMany,
+    number_of_convicts: Field::Number,
+    use_inter_ressort: Field::Boolean
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -36,10 +37,12 @@ class OrganizationDashboard < Administrate::BaseDashboard
     id
     name
     organization_type
-    departments
-    jurisdictions
     headquarter
+    tjs
+    spips
     number_of_ppsmj
+    number_of_convicts
+    use_inter_ressort
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -49,24 +52,21 @@ class OrganizationDashboard < Administrate::BaseDashboard
     organization_type
     name
     users
-    departments
-    jurisdictions
     places
-    areas_organizations_mappings
     notification_types
     time_zone
     created_at
     updated_at
     headquarter
+    tjs
+    spips
+    use_inter_ressort
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    areas_organizations_mappings
-    departments
-    jurisdictions
     name
     notification_types
     organization_type
@@ -74,6 +74,9 @@ class OrganizationDashboard < Administrate::BaseDashboard
     time_zone
     users
     headquarter
+    tjs
+    spips
+    use_inter_ressort
   ].freeze
 
   # COLLECTION_FILTERS
@@ -86,7 +89,9 @@ class OrganizationDashboard < Administrate::BaseDashboard
   #   COLLECTION_FILTERS = {
   #     open: ->(resources) { resources.where(open: true) }
   #   }.freeze
-  COLLECTION_FILTERS = {}.freeze
+  COLLECTION_FILTERS = {
+    interressort: ->(resources) { resources.where(use_inter_ressort: true) }
+  }.freeze
 
   # Overwrite this method to customize how organizations are displayed
   # across all pages of the admin dashboard.

@@ -1,12 +1,4 @@
-.form-title {
-  font-size: 24px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 20px;
-}
+
 
 .form-secondary-title {
   font-size: 1.1em;
@@ -68,18 +60,6 @@
 
 .form-label {
   margin-bottom: 7px;
-}
-
-.form-select {
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background-color: $main-background;
-
-  background-repeat: no-repeat;
-  background-position: calc(100% - 0.5rem) 50%;
-  background-size: 1.5rem 1.5rem;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24' ><path fill='%23a1a1a1' d='M12,13.1l5-4.9l1.4,1.4L12,15.9L5.6,9.5l1.4-1.4L12,13.1z'/></svg>");
 }
 
 .form-date-select-fields {
@@ -144,6 +124,9 @@
 .form-checkbox-wrapper {
   height: 40px;
   margin-bottom: 0;
+  .mb-20 {
+    margin-bottom: 20px;
+  }
 }
 
 // adjustments fo select2 autocomplete

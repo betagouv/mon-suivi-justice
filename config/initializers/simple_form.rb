@@ -74,7 +74,7 @@ SimpleForm.setup do |config|
   config.boolean_style = :nested
 
   # Default class for buttons
-  config.button_class = 'btn'
+  config.button_class = 'fr-btn'
 
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.
@@ -110,7 +110,7 @@ SimpleForm.setup do |config|
   # config.label_text = lambda { |label, required, explicit_label| "#{required} #{label}" }
 
   # You can define the class to use on all labels. Default is nil.
-  config.label_class = 'form-label'
+  config.label_class = 'fr-label'
 
   # You can define the default class to be used on forms. Can be overriden
   # with `html: { :class }`. Defaulting to none.
@@ -158,7 +158,7 @@ SimpleForm.setup do |config|
   # config.cache_discovery = !Rails.env.development?
 
   # Default class for inputs
-  config.input_class = 'form-text-input'
+  config.input_class = 'fr-input'
 
   # Define the default class of the input wrapper of the boolean input.
   config.boolean_label_class = 'checkbox'
@@ -175,14 +175,14 @@ SimpleForm.setup do |config|
   # config.input_field_error_class = 'is-invalid'
 
   config.wrappers :custom_date, error_class: :field_with_errors do |b|
-    b.use :label, :wrap_with => { :class => 'form-label' }
+    b.use :label, :wrap_with => { :class => 'fr-label' }
     b.use :input, :wrap_with => { :tag => 'div', :class => 'form-date-select-fields form-input-wrapper' }
     b.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
     b.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
   end
 
   config.wrappers :custom_time, error_class: :field_with_errors do |b|
-    b.use :label, :wrap_with => { :class => 'form-label' }
+    b.use :label, :wrap_with => { :class => 'fr-label' }
     b.use :input, :wrap_with => { :tag => 'div', :class => 'form-time-select-fields form-input-wrapper' }
     b.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
     b.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }

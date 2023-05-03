@@ -1,126 +1,113 @@
-<div class='index-header-container'>
-  <div class='index-header-filters-container'>
-    <%= search_form_for @q, class: 'index-header-slots-filters-form', id: 'index-header-filters-form' do |f| %>
-      <div class='index-header-slots-filters-fields-container'>
-        <%= f.date_field :date_eq, id: 'search-field',
-                            class: 'index-header-slots-earch-field',
-                            value: @q.date_eq ? @q.date_eq.strftime('%Y-%m-%d') : '',
-                            placeholder: t('search-appointment-placeholder') %>
-
-        <%= f.select :agenda_place_id_eq, options_from_collection_for_select(Place.in_departments(current_user.organization.departments), 'id', 'name', @q.agenda_place_id_eq),
-                                          { include_blank: t('slots.index_place_filter') },
-                                          { class: 'form-select index-header-filter-field' } %>
-
-        <%= f.select :agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.agenda_id_eq),
-                                    { include_blank: t('index-appointment-agenda-filter') },
-                                    { class: 'form-select index-header-filter-field' } %>
-
-        <%= f.select :appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_slot_creation(current_user), 'id', 'name', @q.appointment_type_id_eq),
-                                    { include_blank: t('index-slots-appointment-type-filter') },
-                                    { class: 'form-select index-header-filter-field' } %>
-      </div>
-    <% end %>
-
-    <div class='index-header-filters-button-container'>
-      <%= button_tag t('filter'), type: 'submit', class: 'index-header-filters-button', form: 'index-header-filters-form' %>
-    </div>
+<div class="fr-grid-row fr-grid-row--left fr-grid-row--middle fr-grid-row--gutters">
+  <div class="fr-col-4">
+    <h3 class="fr-mr-2w">Créneaux</h3>
   </div>
-
-  <div class='index-header-controls-container'>
-    <% if policy(:slot).new? %>
-      <%= button_to t('slots.new_batch_title'), new_slots_batch_path,
-                                                class: 'link-to-new-slot-button',
-                                                form_class: 'link-to-new-slot-form',
+  <div class="fr-col-8">
+    <div class="fr-grid-row fr-grid-row--right fr-grid-row--gutters">
+      <ul class="fr-btns-group fr-btns-group--inline-lg">
+        <% if policy(:slot).new? %>
+          <%= link_to t('slots.new_batch_title'), new_slots_batch_path,
+                                                class: 'fr-btn',
                                                 method: :get %>
-    <% end %>
-
-    <% if policy(:slot).update? %>
-      <%= button_tag t('index_slots_batch_close'), type: 'submit',
+        <% end %>
+        <% if policy(:slot).update? %>
+          <%= button_tag t('index_slots_batch_close'), type: 'submit',
                                                    form: 'index-slots-update-form',
                                                    data: { confirm: t('basic_confirmation') },
-                                                   class: 'slots-batch-close-button' %>
-    <% end %>
+                                                   class: 'fr-btn fr-btn--danger' %>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
-
-<div class='slots-container'>
-  <div class='index-table-container'>
-    <div class='index-table-header'>
-      <div class='slots-column-1'>
-        <%= t('activerecord.attributes.slot.place') %>
-      </div>
-      <div class='slots-column-2'>
-        <%= t('activerecord.models.agenda') %>
-      </div>
-      <div class='slots-column-3'>
-        <%= t('activerecord.attributes.slot.appointment_type') %>
-      </div>
-      <div class='slots-column-4'>
-        <%= t('activerecord.attributes.slot.date') %>
-      </div>
-      <div class='slots-column-5'>
-        <%= t('activerecord.attributes.slot.starting_time') %>
-      </div>
-      <div class='slots-column-6'>
-        <%= t('index-slots-available-capacity') %>
-      </div>
-      <div class='slots-column-7'>
-        <%= t('select') %>
-      </div>
-      <div class='slots-index-controls-container'></div>
+<%= search_form_for @q, id: 'index-header-filters-form' do |f| %>
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col">
+      <%= f.date_field :date_eq, id: 'search-field',
+                            class: 'fr-input',
+                            value: @q.date_eq ? @q.date_eq.strftime('%Y-%m-%d') : '',
+                            placeholder: t('search-appointment-placeholder') %>
     </div>
-
-    <div class='index-list-container'>
+    <div class="fr-col">
+      <%= f.select :agenda_place_id_eq, options_from_collection_for_select(Place.in_departments(current_user.organization.departments), 'id', 'name', @q.agenda_place_id_eq),
+                                          { include_blank: t('slots.index_place_filter') },
+                                          { class: 'fr-select' } %>
+    </div>
+    <div class="fr-col">
+      <%= f.select :agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.agenda_id_eq),
+                                    { include_blank: t('index-appointment-agenda-filter') },
+                                    { class: 'fr-select' } %>
+    </div>
+    <div class="fr-col">
+      <%= f.select :appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_slot_creation(current_user), 'id', 'name', @q.appointment_type_id_eq),
+                                    { include_blank: t('index-slots-appointment-type-filter') },
+                                    { class: 'fr-select' } %>
+    </div>
+    <div class="fr-col">
+      <%= button_tag t('filter'), type: 'submit', class: 'fr-btn fr-btn--secondary', form: 'index-header-filters-form' %>
+    </div>
+  </div>
+<% end %>
+<div class="fr-table fr-table--bordered fr-table--layout-fixed">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col"><%= t('activerecord.attributes.slot.place') %></th>
+        <th scope="col"><%= t('activerecord.models.agenda') %></th>
+        <th scope="col"><%= t('activerecord.attributes.slot.appointment_type') %></th>
+        <th scope="col"><%= t('activerecord.attributes.slot.date') %></th>
+        <th scope="col"><%= t('activerecord.attributes.slot.starting_time') %></th>
+        <th scope="col"><%= t('index-slots-available-capacity') %></th>
+        <th scope="col"><%= t('select') %></th>
+      </tr>
+    </thead>
+    <tbody>
       <%= form_tag slots_batch_path, method: :put, id: 'index-slots-update-form' do %>
         <% @slots.each do |slot| %>
-          <div class='index-list-item-container index-list-small-line'>
-            <div class='slot-data slots-column-1'>
-              <%= slot.agenda.place.name %>
-            </div>
-
-            <div class='slot-data slots-column-2'>
-              <%= slot.agenda.name %>
-            </div>
-
-            <div class='slot-data slots-column-3'>
-              <%= slot.appointment_type.name %>
-            </div>
-
-            <div class='slot-data slots-column-4'>
-              <%= slot.date.to_s(:base_date_format) %>
-            </div>
-
-            <div class='slot-data slots-column-5'>
-              <%= slot.localized_time.to_s(:time) %>
-            </div>
-
-            <div class='slot-data slots-column-6'>
-              <%= slot.capacity - slot.used_capacity %> / <%= slot.capacity %>
-            </div>
-
-            <% if policy(:slot).update? %>
-              <div class='slots-column-7'>
-                <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
+          <tr>
+            <td><%= slot.agenda.place.name %></td>
+            <td><%= slot.agenda.name %></td>
+            <td><%= slot.appointment_type.name %></td>
+            <td><%= slot.date.to_s(:base_date_format) %></td>
+            <td><%= slot.localized_time.to_s(:time) %></td>
+            <td>
+              <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
+                <div class="col-fr">
+                  <span>
+                    <%= slot.capacity - slot.used_capacity %> / <%= slot.capacity %>
+                  </span>
+                </div>
               </div>
-            <% end %>
+            </td>
+            <td>
+              <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
+                <% if policy(:slot).update? %>
+                  <div class="col-fr">
 
-            <div class='index-controls-container'>
-              <%= link_to t('close'), slot_path(slot, slot: { available: false }),
-                                      method: :put,
-                                      data: { confirm: t('basic_confirmation') },
-                                      class: 'slots-index-control' %>
-
-              <% if policy(:slot).update? %>
-                <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
-              <% end %>
-            </div>
-          </div>
+                  <div class="fr-mt-1-5v fr-mr-2w">
+                    <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
+                  
+                  </div>
+                  </div>
+                <% end %>
+                <div class="col-fr">
+                  <%= link_to t('close'), slot_path(slot, slot: { available: false }),
+                                        method: :put,
+                                        data: { confirm: t('basic_confirmation') },
+                                        class: 'slots-index-control' %>
+                </div>
+                <% if policy(:slot).update? %>
+                  <div class="col-fr">
+                    <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
+                  </div>
+                <% end %>
+              </div>
+            </td>
+          </tr>
         <% end %>
       <% end %>
-    </div>
-
-    <%= paginate @slots %>
-  </div>
+    </tbody>
+  </table>
+  <%= paginate @slots %>
 </div>
-
 <%= javascript_pack_tag 'slots_index' %>

@@ -1,0 +1,30 @@
+<div class="fr-table fr-table--bordered">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
+        <th scope="col"><%= current_page?(appointments_path) ? sort_link(@q, 'slot_date', t('activerecord.attributes.slot.date'), default_order: :desc) : t('activerecord.attributes.slot.date') %>
+        </th>
+        <th scope="col"><%= current_page?(appointments_path) ? sort_link(@q, 'slot_starting_time', t('activerecord.attributes.slot.starting_time'), default_order: :desc) : t('activerecord.attributes.slot.date') %>
+        </th>
+        <th scope="col"><%= current_page?(appointments_path) ? sort_link(@q, 'slot_agenda_place_name', t('activerecord.models.place'), default_order: :desc) : t('activerecord.attributes.slot.date') %>
+        </th>
+        <th scope="col"><%= current_page?(appointments_path) ? sort_link(@q, 'slot_agenda_name', t('activerecord.models.agenda'), default_order: :desc) : t('activerecord.attributes.slot.date') %>
+        </th>
+        <th scope="col"><%= current_page?(appointments_path) ? sort_link(@q, 'slot_appointment_type_name', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) : t('activerecord.attributes.slot.date') %>
+        </th>
+        <th scope="col">
+          <div class="fr-grid-row fr-grid-row--center">
+            <%= t('index-appointment-state') %>
+          </div>
+        </th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @appointments.each do |appointment| %>
+        <%= render 'shared/appointment_card', appointment: appointment %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

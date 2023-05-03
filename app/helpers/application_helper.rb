@@ -1,10 +1,16 @@
 module ApplicationHelper
   def active_class_if_controller(controller)
     if controller.is_a?(Array)
-      controller.include?(params[:controller]) ? 'sidebar-active-item' : 'sidebar-inactive-item'
+      controller.include?(params[:controller]) ? 'fr-nav__item--active' : ''
     else
-      params[:controller] == controller ? 'sidebar-active-item' : 'sidebar-inactive-item'
+      params[:controller] == controller ? 'fr-nav__item--active' : ''
     end
+  end
+
+  def current?(key, path)
+    return unless current_page? path
+
+    key.to_s
   end
 
   def formated_dates_for_select(date_array)

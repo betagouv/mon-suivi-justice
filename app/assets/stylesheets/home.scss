@@ -1,22 +1,6 @@
-.home-wrapper {
-  height: calc(100vh - #{$header-height});
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 .home-container {
   width: 90%;
   max-width: 700px;
-}
-
-.home-convict-search-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 50px;
 }
 
 .home-search-field-container {
@@ -29,43 +13,15 @@
   margin-right: 20px;
 }
 
-.home-controls-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 50px;
-}
-
 .home-agenda-link {
   @include button($light-grey);
-}
-
-.home-custom-links-container {
-  display: flex;
-  justify-content: space-between;
-  width: fit-content;
-
-  margin: auto;
-  margin-bottom: 20px;
-  @include box;
-
-  form {
-    margin-right: 20px;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-}
-
-.home-custom-links {
-  display: flex;
-  width: 80%;
 }
 
 .home-stats-wrapper {
   @include box;
   padding: 20px;
   width: 550px;
+  margin: auto;
 }
 
 .home-stats-title {

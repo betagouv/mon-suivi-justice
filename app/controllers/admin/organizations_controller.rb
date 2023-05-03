@@ -4,8 +4,9 @@ module Admin
     # For example, you may want to send an email after a foo is updated.
     #
     # def update
+    #   linked_orga_id = params[:organization][:linked_organization]
+    #   params[:organization][:linked_organization] = Organization.find(linked_orga_id) unless linked_orga_id.blank?
     #   super
-    #   send_foo_updated_email(requested_resource)
     # end
 
     # Override this method to specify custom lookup behavior.
