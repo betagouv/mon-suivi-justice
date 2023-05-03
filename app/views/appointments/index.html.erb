@@ -9,11 +9,6 @@
                                       method: :get,
                                       form: { target: '_blank' },
                                       class: 'fr-btn fr-btn--secondary' %>
-    <% if policy(:appointment).new? %>
-      <%= button_to t('new_appointment_title'), new_appointment_path,
-                                                  class: 'fr-btn',
-                                                  method: :get %>
-    <% end %>
   </ul>
 </div>
 <div class="fr-grid-row fr-grid-row--center">
