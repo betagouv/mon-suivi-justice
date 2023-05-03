@@ -96,7 +96,7 @@
                   <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
                 <% end %>
               </p>
-              <p>
+              <p class="show-appointment-state-container">
                 <strong><%= t('appointment_state') %></strong> : <%= @appointment.human_state_name %>
                 <% if @appointment.can_rebook? && @appointment.no_show? %>
                   <%= content_tag(:span, t('edit'),
