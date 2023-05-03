@@ -38,7 +38,7 @@ class AppointmentsController < ApplicationController
 
     @convict = Convict.find(params[:convict_id])
 
-    unless @convict.city_id
+    if current_user.can_use_inter_ressort? && !@convict.city_id
       flash.now[:warning] =
       "<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
     end
