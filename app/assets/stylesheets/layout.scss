@@ -40,6 +40,28 @@
   }
 }
 
+.fr-notice {
+  --title-spacing: 0;
+  --text-spacing: 0;
+  background-color: #eee;
+  background-color: var(--background-contrast-grey);
+  color: #161616;
+  color: var(--text-title-grey);
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  position: relative;
+}
+
+.fr-notice--info {
+  --idle: transparent;
+  --hover: var(--background-contrast-info-hover);
+  --active: var(--background-contrast-info-active);
+  background-color: #e8edff;
+  background-color: var(--background-contrast-info);
+  color: #0063cb;
+  color: var(--text-default-info);
+}
+
 .header-link {
   margin-left: 20px;
   color: $main-font-color;
