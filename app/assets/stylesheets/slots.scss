@@ -1,59 +1,6 @@
-.link-to-new-slot-form {
-  text-align: right;
-  margin-bottom: 10px;
-}
-
-.link-to-new-slot-button {
-  @include button($light-blue);
-  margin-right: 10px;
-  width: 190px;
-}
-
-.slots-batch-close-button {
-  @include button($light-grey);
-  width: 190px;
-  margin-right: 10px;
-  min-height: 40px;
-}
-
 .slots-index-control {
   color: $link;
   margin-right: 10px;
-}
-
-.slots-column-1 {
-  width: 15%;
-}
-
-.slots-column-2 {
-  width: 15%;
-}
-
-.slots-column-3 {
-  width: 20%;
-}
-
-.slots-column-4 {
-  width: 10%;
-}
-
-.slots-column-5 {
-  width: 10%;
-  text-align: center;
-}
-
-.slots-column-6 {
-  width: 10%;
-  text-align: center;
-}
-
-.slots-column-7 {
-  width: 10%;
-  text-align: center;
-}
-
-.slots-index-controls-container {
-  width: 10%;
 }
 
 .new-slots-add-starting-time {

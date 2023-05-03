@@ -1,6 +1,8 @@
 class Convict < ApplicationRecord
   include NormalizedPhone
   include Discard::Model
+  include PgSearch::Model
+
   has_paper_trail
 
   WHITELISTED_PHONES = %w[+33659763117 +33683481555 +33682356466 +33603371085
@@ -10,6 +12,9 @@ class Convict < ApplicationRecord
 
   DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
 
+  has_many :convicts_organizations_mappings
+  has_many :organizations, through: :convicts_organizations_mappings
+
   has_many :appointments, dependent: :destroy
   has_many :history_items, dependent: :destroy
 
@@ -18,19 +23,30 @@ class Convict < ApplicationRecord
   has_many :jurisdictions, through: :areas_convicts_mappings, source: :area, source_type: 'Jurisdiction'
 
   belongs_to :user, optional: true
+
+  belongs_to :city, optional: true
+  belongs_to :creating_organization, class_name: 'Organization', optional: true
+
   alias_attribute :cpip, :user
   alias_attribute :agent, :user
 
   attr_accessor :place_id, :duplicates
 
   validates :appi_uuid, allow_blank: true, uniqueness: true
+
   validates :first_name, :last_name, :invitation_to_convict_interface_count, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
   validate :phone_uniqueness
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
+  validate :either_city_homeless_lives_abroad_present, on: :user_can_use_inter_ressort
+
   validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
-                                          case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE
+                                          case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE,
+                                          on: :appi_impport
+
+  validates :date_of_birth, presence: true
+  validate :date_of_birth_date_cannot_be_in_the_past
 
   after_update :update_convict_api
 
@@ -63,6 +79,12 @@ class Convict < ApplicationRecord
   scope :with_past_appointments, (lambda do
     joins(appointments: :slot).where(appointments: { slots: { date: ..Date.today } })
   end)
+
+  pg_search_scope :search_by_name_and_phone, against: %i[first_name last_name phone],
+                                             using: {
+                                               tsearch: { prefix: true }
+                                             },
+                                             ignoring: :accents
 
   delegate :name, to: :cpip, allow_nil: true, prefix: true
 
@@ -134,30 +156,55 @@ class Convict < ApplicationRecord
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.taken')
   end
 
-  def check_duplicates(current_user)
-    homonyms = Convict.where(
-      'lower(first_name) = ? AND lower(last_name) = ?',
-      first_name.downcase, last_name.downcase
-    ).where.not(id: id)
+  def date_of_birth_date_cannot_be_in_the_past
+    return unless date_of_birth.present? && date_of_birth >= Date.today
 
-    homonyms = homonyms.where(appi_uuid: nil) if appi_uuid.present?
-    homonyms = check_duplicates_without_phones(homonyms, current_user)
-
-    self.duplicates = homonyms
+    errors.add(:date_of_birth, I18n.t('activerecord.errors.models.convict.attributes.dob.not_in_the_future'))
   end
 
-  def check_duplicates_without_phones(homonyms, current_user)
-    current_departments = current_user.organization.departments
-    homonyms = homonyms.in_departments(current_departments) if refused_phone? || no_phone?
+  def either_city_homeless_lives_abroad_present
+    return unless city_id.blank? && homeless.blank? && lives_abroad.blank?
 
-    homonyms = homonyms.reject do |i|
-      (i.refused_phone? || i.no_phone?) && !current_departments.include?(i.departments.first)
-    end
+    errors.add(:base, I18n.t('activerecord.errors.models.convict.attributes.city.all_blanks'))
+  end
 
-    Convict.where(id: homonyms.pluck(:id))
+  def check_duplicates
+    duplicates = Convict.where(
+      'lower(first_name) = ? AND lower(last_name) = ? AND phone = ?',
+      first_name.downcase, last_name.downcase, phone
+    ).or(
+      Convict.where(
+        'lower(first_name) = ? AND lower(last_name) = ? AND date_of_birth = ?',
+        first_name.downcase, last_name.downcase, date_of_birth
+      )
+    ).where.not(id: id)
+
+    duplicates = duplicates.where(appi_uuid: nil) if appi_uuid.present?
+
+    self.duplicates = duplicates
   end
 
   def update_convict_api
     UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
+  end
+
+  def update_organizations(current_user)
+    org_source = if city_id
+                   city = City.find(city_id)
+                   city.organizations.any? ? city : current_user
+                 else
+                   current_user
+                 end
+
+    org_source.organizations.each do |c|
+      organizations.push(c) unless organizations.include?(c) || (c.organization_type == 'tj' && japat)
+    end
+    organizations.push Organization.find_by name: 'TJ Paris' if japat
+
+    save
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 end

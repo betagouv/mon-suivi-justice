@@ -32,13 +32,19 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
-    @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
-    @extra_fields.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field: extra_field) }
     authorize @appointment
 
     return unless params.key?(:convict_id)
 
     @convict = Convict.find(params[:convict_id])
+
+    unless @convict.city_id
+      flash.now[:warning] =
+      "<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
+    end
+
+    @extra_fields = @convict.organizations.tj.first.extra_fields.select(&:appointment_create?)
+    @extra_fields.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field: extra_field) }
   end
 
   def create
@@ -97,16 +103,6 @@ class AppointmentsController < ApplicationController
 
     authorize @appointment, :rebook_old?
     redirect_back(fallback_location: root_path)
-  end
-
-  def prepare
-    @appointment = policy_scope(Appointment).find(params[:appointment_id])
-    value = params["case-prepared-#{@appointment.id}"]
-
-    @appointment.case_prepared = value ? true : false
-    @appointment.save
-
-    authorize @appointment
   end
 
   private

@@ -1,78 +1,107 @@
-<h1 class='form-title'><%= t('edit_convict_title') %></h1>
-<%= simple_form_for @convict, html: { class: 'basic-form' } do |f| %>
-  <%= f.input :last_name %>
-  <%= f.input :first_name %>
-  <%= f.input :appi_uuid %>
-
-  <% if current_user.work_at_spip? || current_user.admin? %>
-    <%= f.association :user, collection: cpip_for_select(current_user.organization),
-                             label: t('.cpip_label'),
-                             selected: @convict.user&.id,
-                             as: :select,
-                             include_blank: t('.cpip_blank_option'),
-                             label_method: :name,
-                             input_html: { class: 'form-select', id: 'agent-name-autocomplete' } %>
-  <% end %>
-  <%= f.input :phone, required: true, input_html: { value: @convict.display_phone } %>
-  <%= f.input :no_phone, input_html: { class: 'form-checkbox' },
-                         label_html: { class: 'form-checkbox-label' },
-                         wrapper_html: { class: 'form-checkbox-wrapper'} %>
-  <%= f.input :refused_phone, input_html: { class: 'form-checkbox' },
-                              label_html: { class: 'form-checkbox-label' },
-                              wrapper_html: { class: 'form-checkbox-wrapper'} %>
-  <%= f.button :submit, t('edit_convict_submit'), class: 'form-submit-button edit-convict-submit-button' %>
-<% end %>
-
-<% if policy(@convict).destroy? %>
-  <div class='convict-relation-container'>
-    <h2 class='convict-secondary-title'><%= t('edit_convict_department_title') %></h2>
-    <% @convict.departments.order(:number).each do |department|%>
-      <p class='convict-attachment'>
-        <%= "(#{department.number}) #{department.name}" %>
-        <% if @convict.departments.count > 1 %>
-          <% if current_user.organization.departments.pluck(:number).include?(department.number) %>
-            <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: department, convict: @convict)),
-                        method: :delete,
-                        class: 'convict-attachment-delete',
-                        data: { confirm: "Attention, en supprimant ce département vous risquez de perdre les droits d'édition sur cette ppsmj.\n\nSi vous souhaitez également changer la juridiction, pensez à le faire au préalable.\n\nCliquez sur 'Annuler' pour modifier d'abord la juridiction" } %>
-          <% else %>
-            <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: department, convict: @convict)),
-                                    method: :delete,
-                                    class: 'convict-attachment-delete' %>
-          <% end %>
+<div class="fr-grid-row fr-grid-row--center">
+  <div class="fr-col-12 fr-col-md-10 fr-col-lg-8 fr-mb-5w">
+    <h1 class='form-title'><%= t('edit_convict_title') %></h1>
+    <%= simple_form_for @convict do |f| %>
+      <% invalid = @convict.errors.include?(:last_name) %>
+      <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
+        <label class="fr-label" for="convict_last_name">*<%= t('activerecord.attributes.convict.last_name')%></label>
+        <input class="fr-input" aria-describedby="text-input-error-desc-error" type="text" value="<%= @convict.last_name %>" name="convict[last_name]" id="convict_last_name">
+        <% if invalid %>
+          <p id="text-input-error-desc-error" class="fr-error-text">
+            <%=  @convict.errors.full_messages_for(:last_name).first %>.
+          </p>
         <% end %>
-      </p>
-    <% end %>
-
-    <%= simple_form_for AreasConvictsMapping.new, html: { id: 'department-form', class: 'single-line-form' } do |f| %>
-      <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id } %>
-      <%= f.input :area_type, as: :hidden, input_html: { value: 'Department' } %>
-      <%= f.input :area_id, collection: Department.order(:number),
-                            label: t('edit_convict_department'),
-                            wrapper_html: {class: 'single-line-input'},
-                            input_html: {class: 'form-select'} %>
-      <%= f.button :submit, t('add'), class: 'form-submit-button convict-attachment-submit' %>
-    <% end %>
-
-    <h2 class='convict-secondary-title'><%= t('edit_convict_jurisdiction_title') %></h2>
-    <% @convict.jurisdictions.order(:name).each do |jurisdiction|%>
-    <p class='convict-attachment'>
-      <%= jurisdiction.name %>
-      <% if @convict.jurisdictions.count > 1 %>
-      <%= link_to t('delete'), areas_convicts_mapping_path(AreasConvictsMapping.find_by(area: jurisdiction, convict: @convict)),
-      method: :delete,
-      class: 'convict-attachment-delete' %>
+      </div>
+      <% invalid = @convict.errors.include?(:first_name) %>
+      <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
+        <label class="fr-label" for="convict_first_name">*<%= t('activerecord.attributes.convict.first_name')%></label>
+        <input class="fr-input" type="text" value="<%= @convict.first_name %>" name="convict[first_name]" id="convict_first_name">
+        <% if invalid %>
+          <p id="text-input-error-desc-error" class="fr-error-text">
+            <%=  @convict.errors.full_messages_for(:first_name).first %>.
+          </p>
+        <% end %>
+      </div>
+      <% invalid = @convict.errors.include?(:date_of_birth) %>
+      <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
+        <label class="fr-label" for="convict_date_of_birth">*<%= t('activerecord.attributes.convict.date_of_birth')%></label>
+        <input class="fr-input" type="date" value="<%= @convict.date_of_birth&.strftime("%Y-%m-%d") %>" max="<%= Date.today.to_s %>" name="convict[date_of_birth]" id="convict_date_of_birth">
+        <% if invalid %>
+          <p id="text-input-error-desc-error" class="fr-error-text">
+            <%=  @convict.errors.full_messages_for(:date_of_birth).first %>.
+          </p>
+        <% end %>
+      </div>
+      <% invalid = @convict.errors.include?(:appi_uuid) %>
+      <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
+        <label class="fr-label" for="convict_appi_uuid"><%= t('activerecord.attributes.convict.appi_uuid')%></label>
+        <input class="fr-input" type="text" value="<%= @convict.appi_uuid %>" name="convict[appi_uuid]" id="convict_appi_uuid">
+        <% if invalid %>
+          <p id="text-input-error-desc-error" class="fr-error-text">
+            <%=  @convict.errors.full_messages_for(:appi_uuid).first %>.
+          </p>
+        <% end %>
+      </div>
+      <% if current_user.can_use_inter_ressort? %>
+        <%= render partial: 'shared/city_selector' %>
       <% end %>
-    </p>
-    <% end %>
-    <%= simple_form_for AreasConvictsMapping.new, html: { id: 'jurisdiction-form', class: 'single-line-form' } do |f| %>
-      <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id } %>
-      <%= f.input :area_type, as: :hidden, input_html: { value: 'Jurisdiction' } %>
-      <%= f.input :area_id, collection: Jurisdiction.order(:name),
-                            label: t('edit_convict_jurisdiction'),
-                            wrapper_html: {class: 'single-line-input'},
-                            input_html: {class: 'form-select'} %>
-      <%= f.button :submit, t('add'), class: 'form-submit-button convict-attachment-submit' %>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-checkbox-group">
+          <input name="convict[homeless]" id="convict-homeless" type="checkbox" aria-describedby="convict-homeless-messages" value="1" <%= 'checked' if @convict.homeless%>>
+          <label class="fr-label" for="convict-homeless">
+            <%= t('activerecord.attributes.convict.homeless')%>
+          </label>
+          <div class="fr-messages-group" id="convict-homeless-messages" aria-live="assertive">
+          </div>
+        </div>
+      </div>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-checkbox-group">
+          <input name="convict[lives_abroad]" id="convict-lives-abroad" type="checkbox" aria-describedby="convict-lives-abroad-messages" value="1" <%= 'checked' if @convict.lives_abroad %>>
+          <label class="fr-label" for="convict-lives-abroad">
+            <%= t('activerecord.attributes.convict.lives_abroad')%>
+          </label>
+          <div class="fr-messages-group" id="convict-lives-abroad-messages" aria-live="assertive">
+          </div>
+        </div>
+      </div>
+      <% if current_user.work_at_spip? || current_user.admin? %>
+        <%= render partial: 'shared/user_selector' %>
+      <% end %>
+      <% invalid = @convict.errors.include?(:phone) %>
+      <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
+        <label class="fr-label" for="convict_phone"><%= t('activerecord.attributes.convict.phone')%></label>
+        <input class="fr-input" type="text" value="<%= @convict.phone %>" name="convict[phone]" id="convict_phone">
+        <% if invalid %>
+          <p id="text-input-error-desc-error" class="fr-error-text">
+            <%=  @convict.errors.full_messages_for(:phone).first %>.
+          </p>
+        <% end %>
+      </div>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-checkbox-group">
+          <input type='hidden' value='0' name='convict[no_phone]'>
+          <input name="convict[no_phone]" id="convict-no-phone" type="checkbox" aria-describedby="convict-no-phone-messages" value="1" <%= 'checked' if @convict.no_phone %>>
+          <label class="fr-label" for="convict-no-phone">
+            <%= t('activerecord.attributes.convict.no_phone')%>
+          </label>
+          <div class="fr-messages-group" id="convict-no-phone-messages" aria-live="assertive">
+          </div>
+        </div>
+      </div>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-checkbox-group">
+          <input type='hidden' value='0' name='convict[refused_phone]'>
+          <input name="convict[refused_phone]" id="convict-refused-phone" type="checkbox" aria-describedby="convict-refused-phone-messages" value="1" <%= 'checked' if @convict.refused_phone %>>
+          <label class="fr-label" for="convict-refused-phone">
+            <%= t('activerecord.attributes.convict.refused_phone')%>
+          </label>
+          <div class="fr-messages-group" id="convict-refused-phone-messages" aria-live="assertive">
+          </div>
+        </div>
+      </div>
+      <%= f.button :submit, t('edit_convict_submit'), class: 'fr-btn' %>
     <% end %>
   </div>
-<% end %>
+</div>
+<%= javascript_pack_tag 'convict_new' %>

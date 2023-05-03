@@ -35,10 +35,6 @@
   padding-left: 30px;
 }
 
-.link-to-new-appointment-button {
-  @include button($light-blue);
-}
-
 .link-to-my-appointments-button {
   @include button($light-grey);
 }
@@ -129,10 +125,6 @@
   display: flex;
 }
 
-.new-appointment-submit-button {
-  margin-top: 30px;
-}
-
 .slot-date-container {
   flex-shrink: 0;
   width: 18%;
@@ -208,7 +200,7 @@
   color: $link;
 }
 
-.jap-agendas-modal-trigger {
+.fr-btn fr-btn--secondary {
   @include button($light-grey);
 }
 
@@ -265,10 +257,6 @@
 .appointment-form-cpip-input-label {
   display: flex;
   align-items: center;
-}
-
-.index-appointment-date-filter {
-  width: 150px;
 }
 
 .missed-appointment-modal-container {

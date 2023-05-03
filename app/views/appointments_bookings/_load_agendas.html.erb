@@ -14,7 +14,7 @@
   <% unless @place.organization.jap_modal_content.empty? %>
     <% if current_user.admin? || current_user.local_admin? || current_user.work_at_bex? || current_user.work_at_sap? %>
           <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
-                                                          class: 'jap-agendas-modal-trigger',
+                                                          class: 'fr-btn fr-btn--secondary',
                                                           data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
           <%= render partial: 'shared/jap_agendas_modal', locals: {jap_modal_content: @place.organization.jap_modal_content} %>
     <% end %>

@@ -9,7 +9,6 @@ class AppointmentDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    case_prepared: Field::Boolean,
     convict: Field::BelongsTo,
     history_items: Field::HasMany,
     inviter_user_id: Field::Number,
@@ -33,7 +32,6 @@ class AppointmentDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    case_prepared
     state
     slot
   ].freeze
@@ -42,7 +40,6 @@ class AppointmentDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    case_prepared
     convict
     history_items
     inviter_user_id
@@ -61,7 +58,6 @@ class AppointmentDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    case_prepared
     convict
     history_items
     inviter_user_id

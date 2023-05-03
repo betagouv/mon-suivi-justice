@@ -94,4 +94,20 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
   config.order = :random
+
+  config.before(:example, :logged_in_as => 'admin') do
+    create_user_and_login('admin', 'spip')
+  end
+
+  config.before(:example, :logged_in_as => 'cpip') do
+    create_user_and_login('cpip', 'spip')
+  end
+
+  config.before(:example, :logged_in_as => 'dpip') do
+    create_user_and_login('dpip', 'spip')
+  end
+
+  config.before(:example, :logged_in_as => 'jap') do
+    create_user_and_login('jap', 'tj')
+  end
 end

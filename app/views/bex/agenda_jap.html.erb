@@ -1,94 +1,87 @@
-<div class='bex-agendas-container'>
-  <div class='bex-agendas-tools-container'>
+<div class="fr-grid-row fr-grid-row--right fr-mb-2w">
+  <ul class="fr-btns-group fr-btns-group--inline-lg">
     <% unless current_user.organization.jap_modal_content.empty? %>
       <% if current_user.admin? || current_user.local_admin? || current_user.work_at_bex? || current_user.work_at_sap? %>
         <section class='bex-agendas-modal-trigger-container'>
-            <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
-                                                             class: 'jap-agendas-modal-trigger',
+          <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
+                                                             class: 'fr-btn fr-btn--secondary',
                                                              data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
         </section>
         <%= render partial: 'shared/jap_agendas_modal', locals: { jap_modal_content: current_user.organization.jap_modal_content } %>
       <% end %>
     <% end %>
-
     <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
                                      method: :get,
                                      params: { date: @selected_day, month: params[:month], agenda_id: params[:agenda_id] },
                                      form: { target: '_blank' },
-                                     class: 'bex-print-button' %>
-  </div>
-    <div class='bex-agendas-date-container'>
-      <div class='bex-date-title-container'>
-        <%= t('bex.jap.agendas_title') %>
-      </div>
-      <div class='bex-filters-container'>
-        <%= form_tag agenda_jap_path, method: 'post' do %>
-          <div class="bex-form-input-wrapper">
-            <%= label_tag 'month', 'Mois :' %>
-            <%= select_tag :month, options_for_select(formated_month_for_select(six_next_months), params[:month]),
+                                     class: 'fr-btn' %>
+  </ul>
+</div>
+<div>
+  <div class='bex-agendas-date-container'>
+    <div class='bex-date-title-container'>
+      <%= t('bex.jap.agendas_title') %>
+    </div>
+    <div class='bex-filters-container'>
+      <%= form_tag agenda_jap_path, method: 'post' do %>
+        <div class="bex-form-input-wrapper">
+          <%= label_tag 'month', 'Mois :' %>
+          <%= select_tag :month, options_for_select(formated_month_for_select(six_next_months), params[:month]),
                                   id: 'spip-appointments-month-select',
-                                  class: 'form-select form-text-input spip-date-select',
+                                  class: 'fr-select',
                                   onchange: 'this.form.submit()' %>
-          </div>
-
-          <% if !@days_with_slots_in_selected_month.empty? %>
-            <div class="bex-form-input-wrapper">
-              <%= label_tag 'day', 'Jour :' %>
-              <%= select_tag :date, options_for_select(formated_days_for_select(@days_with_slots_in_selected_month), params[:date]),
-                                    id: 'jap-appointments-date-select',
-                                    class: 'form-select form-text-input spip-date-select',
-                                    onchange: 'this.form.submit()' %>
-            </div>
-          <% end %>
-          <%= hidden_field_tag :day, @selected_day %>
-
+        </div>
+        <% if !@days_with_slots_in_selected_month.empty? %>
           <div class="bex-form-input-wrapper">
-            <%= label_tag 'agenda_id', 'Agenda :' %>
-            <%= select_tag :agenda_id, options_from_collection_for_select(@places_agendas, 'id', 'name', params[:agenda_id]), prompt: 'Tous les agendas', class: 'form-select form-text-input spip-agenda-select', onchange: 'this.form.submit()' %>
+            <%= label_tag 'day', 'Jour :' %>
+            <%= select_tag :date, options_for_select(formated_days_for_select(@days_with_slots_in_selected_month), params[:date]),
+                                    id: 'jap-appointments-date-select',
+                                    class: 'fr-select',
+                                    onchange: 'this.form.submit()' %>
           </div>
         <% end %>
-      </div>
+        <%= hidden_field_tag :day, @selected_day %>
+        <div class="bex-form-input-wrapper">
+          <%= label_tag 'agenda_id', 'Agenda :' %>
+          <%= select_tag :agenda_id, options_from_collection_for_select(@places_agendas, 'id', 'name', params[:agenda_id]), prompt: 'Tous les agendas', class: 'fr-select', onchange: 'this.form.submit()' %>
+        </div>
+      <% end %>
     </div>
-
-    <% if @days_with_slots_in_selected_month.empty? %>
-      <p class='bex-agenda-spip-no-agenda'>Aucun créneau pour le mois sélectionné</p>
-    <% else %>
-      <% @agendas_to_display.each_with_index do |agenda, index| %>
-        <% unless agenda.slots_for_date(@selected_day, @appointment_type).count.zero? %>
-          <div class="fr-table fr-table--bordered">
-            <table class="agenda-jap-table">
-                <caption class='jap-agenda-header<%= index+1%>'><%= agenda.name %></caption>
-                <thead>
-                  <th scope="col">
-                    <%= t('bex.jap.header_hour') %>
-                  </th>
-                  <th scope="col">
-                    <%= t('bex.jap.header_last_name') %>
-                  </th>
-                  <th scope="col">
-                    <%= t('bex.jap.header_first_name') %>
-                  </th>
-                  <th scope="col">
-                    <%= t('bex.jap.header_prosecutor') %>
-                  </th scope="col">
-                  <th scope="col">
-                    <%= t('bex.jap.header_origin') %>
-                  </th>
-                  <th scope="col">
-                    <%= t('bex.jap.header_role') %>
-                  </th>
-                  <% agenda.organization&.extra_fields.select(&:relate_to_sap?)&.each do |extra_field| %>
-                    <th scope="col">
-                      <%= extra_field.name %>
-                    </th>
-                  <% end %>
-                  <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
-                    <th scope="col">
-                      <%= t('bex.jap.header_case_prepared') %>
-                    </th>
-                  <% end %>
-                </thead>
-                <tbody>
+  </div>
+  <% if @days_with_slots_in_selected_month.empty? %>
+    <p class='bex-agenda-spip-no-agenda'>Aucun créneau pour le mois sélectionné</p>
+  <% else %>
+    <% @agendas_to_display.each_with_index do |agenda, index| %>
+      <% unless agenda.slots_for_date(@selected_day, @appointment_type).count.zero? %>
+        <div class="fr-table fr-table--bordered">
+          <table class="agenda-jap-table">
+            <caption class='jap-agenda-header<%= index+1%>'><%= agenda.name %></caption>
+            <thead>
+              <th scope="col">
+                <%= t('bex.jap.header_hour') %>
+              </th>
+              <th scope="col">
+                <%= t('bex.jap.header_last_name') %>
+              </th>
+              <th scope="col">
+                <%= t('bex.jap.header_first_name') %>
+              </th>
+              <th scope="col">
+                <%= t('bex.jap.header_prosecutor') %>
+              </th scope="col">
+              <th scope="col">
+                <%= t('bex.jap.header_origin') %>
+              </th>
+              <th scope="col">
+                <%= t('bex.jap.header_role') %>
+              </th>
+              <% agenda.organization&.extra_fields.select(&:relate_to_sap?)&.each do |extra_field| %>
+                <th scope="col">
+                  <%= extra_field.name %>
+                </th>
+              <% end %>
+            </thead>
+            <tbody>
               <% agenda.slots_for_date(@selected_day, @appointment_type).each do |slot| %>
                 <% appointments = slot.appointments.active %>
                 <% slot.capacity.times do |i| %>
@@ -129,12 +122,11 @@
                         <% end %>
                       <% end %>
                     </th>
-
                     <% agenda.organization.extra_fields&.select(&:relate_to_sap?).each do |extra_field| %>
                       <% if extra_field.appointment_update? && appointments[i].present? %>
                         <th data-controller="table-update-field">
                           <input data-table-update-field-target="inputField" data-action="table-update-field#update" data-appointment="<%= appointments[i].id %>" data-extra-field="<%= extra_field.id %>"
-                           class="fr-input agenda-jap-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" /> 
+                           class="fr-input agenda-jap-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" />
                         </th>
                       <% else %>
                         <th>
@@ -142,26 +134,13 @@
                         </th>
                       <%end%>
                     <% end %>
-                    <% if current_user.work_at_bex? || current_user.admin? || current_user.local_admin? %>
-                      <th>
-                        <% if appointments[i].present? %>
-                          <%= form_tag appointment_prepare_path(appointments[i]), method: 'put', class: 'bex-agenda-case-prepared-form' do %>
-                            <%= check_box_tag "case-prepared-#{appointments[i].id}",
-                                              true,
-                                              appointments[i].case_prepared,
-                                              class: 'bex-agenda-case-prepared-checkbox',
-                                              onchange: 'this.form.submit()' %>
-                          <% end %>
-                        <% end %>
-                      </div>
-                    <% end %>
                   </div>
                 <% end %>
               <% end %>
-                </tbody>
-            </table>
-          </div>
-        <% end %>
+            </tbody>
+          </table>
+        </div>
       <% end %>
     <% end %>
+  <% end %>
 </div>

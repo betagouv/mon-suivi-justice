@@ -2,7 +2,7 @@ class AgendaPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.admin? || user.local_admin? || user.work_at_bex?
-        scope.in_departments(user.organization.departments)
+        scope.in_jurisdiction(user.organization)
       else
         scope.in_organization(user.organization)
       end

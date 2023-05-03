@@ -1,8 +1,8 @@
 class AppointmentPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.admin? || user.local_admin? || user.work_at_bex?
-        scope.in_departments(user.organization.departments)
+      if user.work_at_bex?
+        scope.in_jurisdiction(user.organization).or(scope.created_by_organization(user.organization)).distinct
       else
         scope.in_organization(user.organization)
       end
@@ -10,7 +10,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def index?
-    !user.work_at_bex?
+    true
   end
 
   def show?

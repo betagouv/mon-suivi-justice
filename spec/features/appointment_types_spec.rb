@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature 'AppointmentType', type: :feature do
-  before do
-    @user = create_admin_user_and_login
-  end
+  # before do
+  #   @user = create_admin_user_and_login
+  # end
 
-  describe 'index' do
+  describe 'index', logged_in_as: 'admin' do
     it 'lists all appointment_types' do
       create(:appointment_type, name: 'type 1')
       create(:appointment_type, name: 'type 2')
@@ -17,7 +17,7 @@ RSpec.feature 'AppointmentType', type: :feature do
     end
   end
 
-  describe 'update' do
+  describe 'update', logged_in_as: 'admin' do
     let(:appointment_type) { create(:appointment_type, name: '1er contact') }
 
     let!(:notif_type1) do
