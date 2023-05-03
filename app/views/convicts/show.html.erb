@@ -77,9 +77,11 @@
           <p>
             <strong><%= t('activerecord.attributes.convict.date_of_birth')%></strong> : <%= @convict.date_of_birth %>
           </p>
-          <p>
-            <strong><%= t('activerecord.attributes.convict.city_id') %></strong> : <%= @convict.city ?  @convict.city.name : 'pas de commune renseignée' %>
-          </p>
+          <% if current_user.can_use_inter_ressort? %>
+            <p>
+              <strong><%= t('activerecord.attributes.convict.city_id') %></strong> : <%= @convict.city ?  @convict.city.name : 'pas de commune renseignée' %>
+            </p>
+          <% end %>
           <p>
             <strong><%= t('activerecord.attributes.convict.cpip') %></strong> :             
             <% if @convict.cpip.present? %>
