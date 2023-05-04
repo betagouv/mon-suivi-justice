@@ -110,4 +110,8 @@ RSpec.configure do |config|
   config.before(:example, :logged_in_as => 'jap') do
     create_user_and_login('jap', 'tj')
   end
+
+  config.before(:example, :logged_in_as => 'local_admin') do
+    create_user_and_login('local_admin', 'tj')
+  end
 end

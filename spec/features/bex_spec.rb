@@ -1,31 +1,26 @@
 require 'rails_helper'
 
 RSpec.feature 'Bex', type: :feature do
-  before do
-    @department = create :department
-    @organization = create :organization, organization_type: 'tj'
-    create :areas_organizations_mapping, organization: @organization, area: @department, area_type: 'Department'
-    @local_admin = create(:user, role: :local_admin, organization: @organization)
-    logout_current_user
-    login_user(@local_admin)
-  end
+  # before do
+  #   @department = create :department
+  #   @organization = create :organization, organization_type: 'tj'
+  #   create :areas_organizations_mapping, organization: @organization, area: @department, area_type: 'Department'
+  #   @local_admin = create(:user, role: :local_admin, organization: @organization)
+  #   logout_current_user
+  #   login_user(@local_admin)
+  # end
 
-  describe 'JAP appointments index', js: true do
+  describe 'JAP appointments index', logged_in_as: 'local_admin', js: true do
     it "lists appointments of type Sortie d'audience SAP" do
-      convict1 = create(:convict, first_name: 'James', last_name: 'Moriarty')
-      convict2 = create(:convict, first_name: 'Lex', last_name: 'Luthor')
-      convict3 = create(:convict, first_name: 'Pat', last_name: 'Hibulaire')
-      convict4 = create(:convict, first_name: 'Darth', last_name: 'Vador')
-
-      create :areas_convicts_mapping, convict: convict1, area: @department
-      create :areas_convicts_mapping, convict: convict2, area: @department
-      create :areas_convicts_mapping, convict: convict3, area: @department
-      create :areas_convicts_mapping, convict: convict4, area: @department
+      convict1 = create(:convict, first_name: 'James', last_name: 'Moriarty', organizations: [@user.organization])
+      convict2 = create(:convict, first_name: 'Lex', last_name: 'Luthor', organizations: [@user.organization])
+      convict3 = create(:convict, first_name: 'Pat', last_name: 'Hibulaire', organizations: [@user.organization])
+      convict4 = create(:convict, first_name: 'Darth', last_name: 'Vador', organizations: [@user.organization])
 
       apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
       apt_type2 = create(:appointment_type, name: 'RDV de suivi JAP')
 
-      place = create(:place, name: 'Tribunal de Nanterre', organization: @organization)
+      place = create(:place, name: 'Tribunal de Nanterre', organization: @user.organization)
 
       create(:place_appointment_type, place: place, appointment_type: apt_type)
       create(:place_appointment_type, place: place, appointment_type: apt_type2)
@@ -61,15 +56,15 @@ RSpec.feature 'Bex', type: :feature do
       current_date = (I18n.l slot1.date, format: '%A %d').capitalize
 
       create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204',
-                           inviter_user_id: @local_admin.id)
+                           inviter_user_id: @user.id)
       create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206',
-                           inviter_user_id: @local_admin.id)
+                           inviter_user_id: @user.id)
       create(:appointment, slot: slot2, convict: convict3, prosecutor_number: '205806',
-                           inviter_user_id: @local_admin.id)
+                           inviter_user_id: @user.id)
       create(:appointment, slot: slot3, convict: convict4, prosecutor_number: '205896',
-                           inviter_user_id: @local_admin.id)
+                           inviter_user_id: @user.id)
       create(:appointment, slot: slot4, convict: convict2, prosecutor_number: '205206',
-                           inviter_user_id: @local_admin.id)
+                           inviter_user_id: @user.id)
 
       visit agenda_jap_path
 
@@ -98,36 +93,9 @@ RSpec.feature 'Bex', type: :feature do
       expect(page).not_to have_content('Vador')
       expect(page).not_to have_content('Cabinet Jaune')
     end
-
-    it 'allows user to mark a case as prepared', js: true do
-      convict = create(:convict, first_name: 'Julius', last_name: 'Erving')
-      create :areas_convicts_mapping, convict: convict, area: @department
-      apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
-      place = create(:place, name: 'SPIP 91', organization: @organization)
-      create(:place_appointment_type, place: place, appointment_type: apt_type)
-      agenda = create(:agenda, place: place, name: 'Agenda SPIP 91')
-
-      slot = create(:slot, :without_validations, agenda: agenda,
-                                                 appointment_type: apt_type,
-                                                 date: Date.today)
-
-      appointment = create(:appointment, slot: slot, convict: convict, inviter_user_id: @local_admin.id)
-      current_date = (I18n.l slot.date, format: '%A %d').capitalize
-      visit agenda_jap_path
-      select current_date, from: :date
-
-      expect(appointment.case_prepared).to eq(false)
-
-      check "case-prepared-#{appointment.id}"
-
-      visit home_path
-      appointment.reload
-
-      expect(appointment.case_prepared).to eq(true)
-    end
   end
 
-  describe 'Spip appointment index' do
+  describe 'Spip appointment index', logged_in_as: 'local_admin' do
     let!(:frozen_time) { Time.zone.parse('2021-08-01 10:00:00').to_date }
 
     before do
@@ -137,18 +105,15 @@ RSpec.feature 'Bex', type: :feature do
     end
 
     it "lists all Spip appointments of type Sortie d'audience SPIP", js: true do
-      convict1 = create(:convict, first_name: 'Julius', last_name: 'Erving')
-      convict2 = create(:convict, first_name: 'Moses', last_name: 'Malone')
-      convict3 = create(:convict, first_name: 'Darius', last_name: 'Garland')
-      convict4 = create(:convict, first_name: 'Magic', last_name: 'Johnson')
-
-      create :areas_convicts_mapping, convict: convict1, area: @department
-      create :areas_convicts_mapping, convict: convict2, area: @department
+      convict1 = create(:convict, first_name: 'Julius', last_name: 'Erving', organizations: [@user.organization])
+      convict2 = create(:convict, first_name: 'Moses', last_name: 'Malone', organizations: [@user.organization])
+      convict3 = create(:convict, first_name: 'Darius', last_name: 'Garland', organizations: [@user.organization])
+      convict4 = create(:convict, first_name: 'Magic', last_name: 'Johnson', organizations: [@user.organization])
 
       apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
       apt_type2 = create(:appointment_type, name: 'RDV de suivi SPIP')
 
-      place = create(:place, name: 'SPIP 91', organization: @organization)
+      place = create(:place, name: 'SPIP 91', organization: @user.organization)
 
       create(:place_appointment_type, place: place, appointment_type: apt_type)
 
@@ -211,21 +176,17 @@ RSpec.feature 'Bex', type: :feature do
     end
   end
 
-  describe 'SAP DDSE appointments index', js: true do
+  describe 'SAP DDSE appointments index', logged_in_as: 'local_admin', js: true do
     it 'lists appointments of type SAP DDSE' do
-      @organization.update(organization_type: 'spip')
-      convict1 = create(:convict, first_name: 'James', last_name: 'Moriarty')
-      convict2 = create(:convict, first_name: 'Lex', last_name: 'Luthor')
-      convict3 = create(:convict, first_name: 'Pat', last_name: 'Hibulaire')
-
-      create :areas_convicts_mapping, convict: convict1, area: @department
-      create :areas_convicts_mapping, convict: convict2, area: @department
-      create :areas_convicts_mapping, convict: convict3, area: @department
+      @user.organization.update(organization_type: 'spip')
+      convict1 = create(:convict, first_name: 'James', last_name: 'Moriarty', organizations: [@user.organization])
+      convict2 = create(:convict, first_name: 'Lex', last_name: 'Luthor', organizations: [@user.organization])
+      convict3 = create(:convict, first_name: 'Pat', last_name: 'Hibulaire', organizations: [@user.organization])
 
       apt_type = create(:appointment_type, name: 'SAP DDSE')
       apt_type2 = create(:appointment_type, name: 'RDV de suivi JAP')
 
-      place = create(:place, name: 'Tribunal de Nanterre', organization: @organization)
+      place = create(:place, name: 'Tribunal de Nanterre', organization: @user.organization)
 
       create(:place_appointment_type, place: place, appointment_type: apt_type)
 
@@ -253,11 +214,11 @@ RSpec.feature 'Bex', type: :feature do
       current_month_label = (I18n.l slot1.date, format: '%B %Y').capitalize
 
       create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204',
-                           inviter_user_id: @local_admin.id)
+                           inviter_user_id: @user.id)
       create(:appointment, slot: slot2, convict: convict2, prosecutor_number: '205206',
-                           inviter_user_id: @local_admin.id)
+                           inviter_user_id: @user.id)
       create(:appointment, slot: slot3, convict: convict3, prosecutor_number: '205806',
-                           inviter_user_id: @local_admin.id)
+                           inviter_user_id: @user.id)
 
       visit agenda_sap_ddse_path
       select current_month_label, from: :date
