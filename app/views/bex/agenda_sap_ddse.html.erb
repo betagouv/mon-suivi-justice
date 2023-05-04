@@ -81,7 +81,7 @@
             <% slots_for_date.each do |slot| %>
               <% appointments = slot.appointments.active %>
               <% slot.capacity.times do |i| %>
-                <tr>
+                <tr class="bex-agenda-container">
                   <th>
                     <% if i == 0 %>
                       <%= slot.localized_time.to_s(:lettered) %>
@@ -118,7 +118,7 @@
                       <% end %>
                     <% end %>
                   </th>
-                </div>
+                </tr>
               <% end %>
             <% end %>
               </tbody>
