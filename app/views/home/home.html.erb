@@ -1,19 +1,17 @@
 <div data-controller="search-convicts">
   <div class="fr-grid-row">
-  <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+    <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
       <div class="fr-grid-row fr-grid-row--gutters">
         <div class="fr-col-6">
-          <%= form_with url: search_convicts_path, method: :get, local: false, data: { action: "ajax:success->search-convicts#handleResults", 'search-convicts-target': "form" } do |form| %>
+          <div>
             <div class="fr-search-bar" id="header-search" role="search">
-              <label class="fr-label" for="search_convicts">
-                Recherche
-              </label>
-              <input class="fr-input" placeholder="Rechercher une PPSMJ" type="search" id="search_convicts" name="search_convicts" data-action="input->search-convicts#search">
+              <label class="fr-label" for="search_convicts">Recherche</label>
+              <input class="fr-input" type="search" placeholder="Rechercher une PPSMJ" name="search_convicts" id="search_convicts" data-search-convicts-target="query" data-action="input->search-convicts#search">
               <button class="fr-btn" title="Rechercher">
                 Rechercher
               </button>
             </div>
-          <% end %>
+          </div>
         </div>
         <div class="fr-col-6">
           <% if policy(:convict).new? %>
@@ -37,7 +35,6 @@
                                               wrapper_html: { class: 'select-organization-wrapper' },
                                               input_html: { class: 'form-input select-organization-input' },
                                               label_html: { class: "select-organization-label" }, include_blank: false %>
-
               <%= f.button :submit, t('home.select_organization'), class: 'fr-btn fr-btn--secondary' %>
             </div>
           <% end %>

@@ -106,7 +106,7 @@ class ConvictsController < ApplicationController
   end
 
   def search
-    @convicts = policy_scope(Convict).search_by_name_and_phone(params[:search_convicts])
+    @convicts = policy_scope(Convict).search_by_name_and_phone(params[:q])
     authorize @convicts
     render layout: false
   end
