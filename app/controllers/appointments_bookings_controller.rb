@@ -7,7 +7,7 @@ class AppointmentsBookingsController < ApplicationController
     @convict = Convict.find(params[:convict_id])
 
     # Load places
-    @places = Place.joins(:appointment_types,
+    @places = Place.kept.joins(:appointment_types,
                           organization: :convicts).where('convicts.id': @convict.id).where(appointment_types: @appointment_type)
   end
 
