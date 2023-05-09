@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :srj_tjs
       resources :srj_spips
       resources :cities
+      resources :appointments, except: :index
       resources :places, except: :index
       resources :jurisdictions, except: :index
       resources :seeds, only: [:index]

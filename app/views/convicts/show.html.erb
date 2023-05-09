@@ -85,8 +85,10 @@
           <p>
             <strong><%= t('activerecord.attributes.convict.cpip') %></strong> :             
             <% if @convict.cpip.present? %>
-              <%= @convict.cpip_name %> -
-              <%= link_to t('.unassign_link'), convict_unassign_path(@convict), method: 'post' %>
+              <%= @convict.cpip_name %>
+              <% if policy(@convict).unassign? %>
+                - <%= link_to t('.unassign_link'), convict_unassign_path(@convict), method: 'post', data: { confirm: t('basic_confirmation') } %>
+              <% end %>
             <% elsif policy(@convict).self_assign? %>
               <%= link_to t('.self_assign_link'), convict_self_assign_path(@convict), method: 'post' %>
             <% end %>

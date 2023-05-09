@@ -45,7 +45,7 @@ class ConvictPolicy < ApplicationPolicy
   end
 
   def unassign?
-    (user.cpip? || user.dpip?) && !record.cpip.nil?
+    (user.cpip? && record.user == user) || user.dpip?
   end
 
   def destroy?
