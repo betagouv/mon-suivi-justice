@@ -55,6 +55,7 @@ Rails.application.routes.draw do
     delete 'archive'
     post 'unarchive'
     post 'self_assign'
+    post 'unassign'
     resource :invitation, only: :create, controller: 'convict_invitations'
   end
 

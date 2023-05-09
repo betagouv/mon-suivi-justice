@@ -30,7 +30,13 @@
               <td><%= convict.display_phone %></td>
               <td>
                 <% if convict.cpip.present? %>
+                <div class="fr-grid-row fr-grid-row--center">
+
                   <%= convict.cpip_name %>
+                  <%= button_to convict_unassign_path(convict), method: 'post' do %>
+                    <span class="fr-icon-close-line" aria-hidden="true"></span>
+                  <% end %>
+                </div>
                 <% elsif policy(convict).self_assign? %>
                   <%= link_to t('.self_assign_link'), convict_self_assign_path(convict), method: 'post', class: 'index-control' %>
                 <% end %>
