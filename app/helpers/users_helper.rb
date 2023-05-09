@@ -34,4 +34,8 @@ module UsersHelper
   def current_user?(user)
     current_user == user
   end
+
+  def access_advanced_nav?
+    policy(:appointment_type).index? || policy(:organization).index? || policy(:place).index? || policy(:user).index? || policy(:slot).index?
+  end
 end
