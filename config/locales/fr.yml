@@ -523,6 +523,7 @@ fr:
       no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
     show:
       inviter_user_role: Rôle source
+      assigned_user: Agent Référent
     waiting_line:
       for_a_service: "Rendez-vous au statut inconnu au %{orga}"
       for_a_user: "Vos rendez-vous au statut inconnu"
