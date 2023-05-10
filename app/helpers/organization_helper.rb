@@ -44,4 +44,19 @@ module OrganizationHelper
 
     [current_user.organization]
   end
+
+  def assignable_user_in_organization
+    organization = current_user.organization
+    organization_users = organization.users
+    assignable_users = organization_users
+                       .select(&:can_have_appointments_assigned?)
+                       .reject { |user| user == current_user }
+                       .sort_by(&:last_name)
+
+    if current_user.can_have_appointments_assigned?
+      assignable_users.unshift(current_user)
+    else
+      assignable_users
+    end
+  end
 end
