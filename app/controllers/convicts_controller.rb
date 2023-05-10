@@ -105,6 +105,15 @@ class ConvictsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def unassign
+    @convict = policy_scope(Convict).find(params[:convict_id])
+    authorize @convict
+    @convict.update_attribute(:user, nil)
+
+    flash[:notice] = t('.notice')
+    redirect_back(fallback_location: root_path)
+  end
+
   def search
     @convicts = policy_scope(Convict).search_by_name_and_phone(params[:q])
     authorize @convicts
