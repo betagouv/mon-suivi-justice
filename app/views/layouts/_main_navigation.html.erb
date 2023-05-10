@@ -34,7 +34,7 @@
               <% end %>
             </li>
           <% end %>
-          <% if policy(:appointment).agenda_sap_ddse? && ENV['APP'] != 'mon-suivi-justice-prod' %>
+          <% if policy(:appointment).agenda_sap_ddse? %>
             <li class="fr-nav__item">
               <%= link_to agenda_sap_ddse_path, class: 'fr-nav__link', 'aria-current': current?("page", agenda_sap_ddse_path) do %>
                 <%= t('home.sap_ddse') %>
