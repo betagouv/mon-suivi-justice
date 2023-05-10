@@ -701,6 +701,8 @@ fr:
       subtitle: Peut-être n'aviez vous pas accès à cette action.
 
   simple_form:
+    error_notification:
+      user: "Le formulaire comporte des erreurs :"
     options:
       notification_types:
         reminder_period:
