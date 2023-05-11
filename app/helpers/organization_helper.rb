@@ -52,8 +52,9 @@ module OrganizationHelper
                        .select(&:can_have_appointments_assigned?)
                        .reject { |user| user == current_user }
                        .sort_by(&:last_name)
-    return assignable_users unless current_user.can_have_appointments_assigned?
 
-    assignable_users.unshift(current_user)
+    assignable_users.unshift(current_user) if current_user.can_have_appointments_assigned?
+
+    assignable_users
   end
 end
