@@ -32,6 +32,7 @@ RSpec.feature 'Home', type: :feature do
       @appointment2.save validate: false
 
       @appointment2.book
+    end
 
     pending 'should display a link to a page listing uninformed appointments' do
       @user.update(role: :jap)
@@ -67,7 +68,8 @@ RSpec.feature 'Home', type: :feature do
       @appointment2.save validate: false
 
       @appointment2.book
-      
+    end
+
     pending 'should display a link to a page with the user uninformed appointments for cpip users' do
       @user.update(role: :cpip)
       @appointment1.update(user: @user)

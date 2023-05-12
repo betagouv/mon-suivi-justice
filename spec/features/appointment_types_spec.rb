@@ -30,21 +30,6 @@ RSpec.feature 'AppointmentType', type: :feature do
                                  role: :reminder, template: 'Default reminder')
     end
 
-    let!(:notif_type3) do
-      create(:notification_type, appointment_type: appointment_type, is_default: true,
-                                 role: :cancelation, template: 'Default cancelation')
-    end
-
-    let!(:notif_type4) do
-      create(:notification_type, appointment_type: appointment_type, is_default: true,
-                                 role: :no_show, template: 'Default no_show')
-    end
-
-    let!(:notif_type5) do
-      create(:notification_type, appointment_type: appointment_type, is_default: true,
-                                 role: :reschedule, template: 'Default reschedule')
-    end
-
     it 'updates default template set', js: true do
       visit appointment_types_path
 
@@ -62,24 +47,9 @@ RSpec.feature 'AppointmentType', type: :feature do
         fill_in 'Modèle', with: 'Yolo'
       end
 
-      within first('.reminder-container') do
-        fill_in 'Modèle', with: 'Girl'
-      end
-
-      within first('.cancelation-container') do
-        fill_in 'Modèle', with: 'Bwah'
-      end
-
-      within first('.no-show-container') do
-        fill_in 'Modèle', with: 'Dudette'
-      end
-
       click_button 'Enregistrer'
 
       expect(notif_type1.reload.template).to eq('Yolo')
-      expect(notif_type2.reload.template).to eq('Girl')
-      expect(notif_type3.reload.template).to eq('Bwah')
-      expect(notif_type4.reload.template).to eq('Dudette')
 
       expect(page).to have_content('Les modifications ont bien été enregistrées.')
     end

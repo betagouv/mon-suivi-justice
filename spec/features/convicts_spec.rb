@@ -9,7 +9,8 @@ RSpec.feature 'Convicts', type: :feature do
 
   describe 'index', logged_in_as: 'cpip' do
     it 'allows an agent to assign himself to a convict' do
-      create(:convict, first_name: 'Bernard', phone: '0607080910', organizations: [@user.organization])
+      create(:convict, first_name: 'Bernard', phone: '0607080910', date_of_birth: '01/01/1980',
+                       organizations: [@user.organization])
       visit convicts_path
       within first('.convicts-item-container') do
         click_link('attribuer cette PPSMJ')
@@ -20,8 +21,10 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'an agent see only convict from his organization (TODO : and linked organization ?)' do
-      create(:convict, first_name: 'Michel', last_name: 'Vaillant', organizations: [@user.organization])
-      create(:convict, first_name: 'Paul', last_name: 'Personne', organizations: [@user.organization])
+      create(:convict, first_name: 'Michel', last_name: 'Vaillant', date_of_birth: '01/01/1980',
+                       organizations: [@user.organization])
+      create(:convict, first_name: 'Paul', last_name: 'Personne', date_of_birth: '01/01/1980',
+                       organizations: [@user.organization])
 
       organization = create :organization
       create(:convict, first_name: 'Max', last_name: 'Dupneu', organizations: [organization])
@@ -35,8 +38,10 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'an agent can list only the convicts assigned to him' do
-      create(:convict, first_name: 'Michel', last_name: 'Vaillant', organizations: [@user.organization], user: @user)
-      create(:convict, first_name: 'Paul', last_name: 'Personne', organizations: [@user.organization])
+      create(:convict, first_name: 'Michel', last_name: 'Vaillant', date_of_birth: '01/01/1980',
+                       organizations: [@user.organization], user: @user)
+      create(:convict, first_name: 'Paul', last_name: 'Personne', date_of_birth: '01/01/1980',
+                       organizations: [@user.organization])
 
       visit convicts_path(only_mine: true)
 
@@ -85,6 +90,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
+      fill_in 'Date de naissance', with: '01/01/1980'
       check 'Ne possède pas de téléphone portable'
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
@@ -98,6 +104,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
+      fill_in 'Date de naissance', with: '01/01/1980'
       check 'Ne possède pas de téléphone portable'
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
@@ -115,6 +122,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
+      fill_in 'Date de naissance', with: '01/01/1980'
 
       find('#new_convict > span').click
       find('body > span > span > span.select2-search.select2-search--dropdown > input').set('Melun')
@@ -127,29 +135,33 @@ RSpec.feature 'Convicts', type: :feature do
       expect(Convict.first.organizations.pluck(:id)).to match_array(city.organizations.pluck(:id))
     end
 
-    it 'it assigns the city spip and TJ Paris to the convict if a city is selected and japat is selected', js: true do
+    it 'it assigns the city spip and TJ Paris to the convict if a city is selected and japat is selected',
+        logged_in_as: 'bex', js: true do
+      @user.organization.use_inter_ressort = true
+      spip = create(:organization, organization_type: 'spip')
+
       tj = create(:organization, organization_type: 'tj')
       tj_paris = create(:organization, name: 'TJ Paris', organization_type: 'tj')
       srj_tj = create(:srj_tj, organization: tj)
-      srj_spip = create(:srj_spip, organization: @user.organization)
+      srj_spip = create(:srj_spip, organization: spip)
 
-      city = create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
+      create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
 
       visit new_convict_path
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
+      fill_in 'Date de naissance', with: '01/01/1980'
 
-      find('#new_convict > span').click
-      find('body > span > span > span.select2-search.select2-search--dropdown > input').set('Melun')
-      find('li', text: '77000 Melun (France) - 77000').click
+      find('#convict_city_id').set('Melun')
+      find('li', text: '77000 Melun (France)').click
 
-      check 'Japat'
-      check 'Ne possède pas de téléphone portable'
+      find(:css, '#convict-japat-checkbox').click
+      find(:css, '#convict-no-phone-checkbox').click
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
 
-      expect(Convict.first.organizations).to match_array([@user.organization, tj_paris])
+      expect(Convict.first.organizations).to match_array([tj_paris])
     end
 
     describe 'with potentially duplicated convicts' do
@@ -160,6 +172,7 @@ RSpec.feature 'Convicts', type: :feature do
 
         fill_in 'Prénom', with: 'Roberta'
         fill_in 'Nom', with: 'Dupond'
+        fill_in 'Date de naissance', with: '01/01/1980'
         fill_in 'Téléphone', with: '0606060606'
         expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
 
@@ -223,7 +236,8 @@ RSpec.feature 'Convicts', type: :feature do
 
   describe 'update', logged_in_as: 'cpip' do
     it 'update convict informations', js: true do
-      convict = create(:convict, last_name: 'Expresso', organizations: [@user.organization])
+      convict = create(:convict, last_name: 'Expresso', date_of_birth: '01/01/1980',
+                                 organizations: [@user.organization])
       cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
       visit edit_convict_path(convict)
       fill_in 'Nom', with: 'Ristretto'
@@ -329,6 +343,7 @@ RSpec.feature 'Convicts', type: :feature do
       it 'allows to delete convict' do
         convict = create(:convict, last_name: 'Noisette',
                                    first_name: 'Café',
+                                   date_of_birth: '01/01/1980',
                                    phone: '0607060706', organizations: [@user.organization])
         visit convict_path(convict)
 

@@ -201,7 +201,8 @@ class Convict < ApplicationRecord
 
       organizations.push organization
     end
-    organizations.push Organization.find_by name: 'TJ Paris' if japat
+
+    organizations.push(Organization.find_by(name: 'TJ Paris')) if japat
 
     save
   end
