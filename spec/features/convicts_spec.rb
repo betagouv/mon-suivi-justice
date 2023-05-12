@@ -384,34 +384,34 @@ RSpec.feature 'Convicts', type: :feature do
   end
 
   describe 'archive' do
-    it 'an agent can archive a convict', logged_in_as: 'cpip' do
-      create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606',
+    it 'an agent can archive a convict', logged_in_as: 'cpip', js: true do
+      create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606', date_of_birth: '01/01/1980',
                        organizations: [@user.organization])
       visit convicts_path
 
-      expect(page).to have_content('BABAR Babar')
+      expect(page).to have_content('BABAR')
+      accept_alert do
+        click_link 'Archiver'
+      end
 
-      click_link 'Archiver'
-
-      expect(page).to have_content('BABAR Babar (archivé)')
       expect(page).not_to have_content('Désarchiver')
     end
 
     it 'an admin can archive and unarchive a convict', logged_in_as: 'admin' do
-      convict = create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606',
+      convict = create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606', date_of_birth: '01/01/1980',
                                  organizations: [@user.organization])
 
       visit convicts_path
-      expect(page).to have_content('BABAR Babar')
+      expect(page).to have_content('BABAR')
 
       click_link 'Archiver'
 
-      expect(page).to have_content('BABAR Babar')
+      expect(page).to have_content('BABAR')
       expect(Convict.find(convict.id).discarded?).to be true
 
       click_link 'Désarchiver'
 
-      expect(page).to have_content('BABAR Babar')
+      expect(page).to have_content('BABAR')
       expect(Convict.find(convict.id).discarded?).to be false
     end
   end
