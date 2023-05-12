@@ -12,15 +12,15 @@ RSpec.feature 'Convicts', type: :feature do
       create(:convict, first_name: 'Bernard', phone: '0607080910', date_of_birth: '01/01/1980',
                        organizations: [@user.organization])
       visit convicts_path
-      within first('.convicts-item-container') do
-        click_link('attribuer cette PPSMJ')
+      within first('tbody') do
+        click_link('S\'attribuer cette PPSMJ')
       end
       expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
       expect(page).to have_content(@user.name)
       expect(Convict.first.cpip).to eq(@user)
     end
 
-    it 'an agent see only convict from his organization (TODO : and linked organization ?)' do
+    it 'an agent see only convict from his organization' do
       create(:convict, first_name: 'Michel', last_name: 'Vaillant', date_of_birth: '01/01/1980',
                        organizations: [@user.organization])
       create(:convict, first_name: 'Paul', last_name: 'Personne', date_of_birth: '01/01/1980',
@@ -31,10 +31,11 @@ RSpec.feature 'Convicts', type: :feature do
       create(:convict, first_name: 'Tom', last_name: 'Dupont', organizations: [organization])
 
       visit convicts_path
-      expect(page).not_to have_content('Max')
-      expect(page).not_to have_content('Tom')
-      expect(page).to have_content('VAILLANT Michel').twice
-      expect(page).to have_content('PERSONNE Paul').twice
+
+      expect(page).not_to have_content('Dupneu')
+      expect(page).not_to have_content('Dupont')
+      expect(page).to have_content('Vaillant')
+      expect(page).to have_content('Personne')
     end
 
     it 'an agent can list only the convicts assigned to him' do
@@ -45,8 +46,8 @@ RSpec.feature 'Convicts', type: :feature do
 
       visit convicts_path(only_mine: true)
 
-      expect(page).to have_content('Michel').twice
-      expect(page).to have_content('Paul').once
+      expect(page).to have_content('Vaillant')
+      expect(page).not_to have_content('Personne')
     end
   end
 
@@ -70,6 +71,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
+      fill_in 'Date de naissance', with: '01/01/1980'
 
       expect { click_button 'submit-with-appointment' }.to change { Convict.count }.by(1)
       expect(page).to have_current_path(new_appointment_path(convict_id: Convict.last.id))
@@ -111,10 +113,12 @@ RSpec.feature 'Convicts', type: :feature do
       expect(Convict.first.organizations).to eq([@user.organization, tj])
     end
 
-    it 'it assigns the city organizations to the convict if a city is selected', js: true do
+    it 'it assigns the city organizations to the convict if a city is selected', logged_in_as: 'bex', js: true do
+      @user.organization.use_inter_ressort = true
+      spip = create(:organization, organization_type: 'spip')
       tj = create(:organization, organization_type: 'tj')
       srj_tj = create(:srj_tj, organization: tj)
-      srj_spip = create(:srj_spip, organization: @user.organization)
+      srj_spip = create(:srj_spip, organization: spip)
 
       city = create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
 
@@ -124,11 +128,12 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Nom', with: 'Durand'
       fill_in 'Date de naissance', with: '01/01/1980'
 
-      find('#new_convict > span').click
-      find('body > span > span > span.select2-search.select2-search--dropdown > input').set('Melun')
-      find('li', text: '77000 Melun (France) - 77000').click
+      find('#convict_city_id').set('Melun')
 
-      check 'Ne possède pas de téléphone portable'
+      page.has_content?('77000 Melun (France)')
+
+      find('a', text: '77000 Melun (France)').click
+      find(:css, '#convict-no-phone-checkbox').click
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
 
@@ -154,7 +159,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Date de naissance', with: '01/01/1980'
 
       find('#convict_city_id').set('Melun')
-      find('li', text: '77000 Melun (France)').click
+      find('a', text: '77000 Melun (France)').click
 
       find(:css, '#convict-japat-checkbox').click
       find(:css, '#convict-no-phone-checkbox').click
