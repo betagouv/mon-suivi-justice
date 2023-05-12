@@ -13,6 +13,7 @@
         </th>
         <th scope="col"><%= current_page?(appointments_path) ? sort_link(@q, 'slot_appointment_type_name', t('activerecord.attributes.slot.appointment_type'), default_order: :desc) : t('activerecord.attributes.slot.date') %>
         </th>
+        <th><%= t('index-user-filter')%></th>
         <th scope="col">
           <div class="fr-grid-row fr-grid-row--center">
             <%= t('index-appointment-state') %>

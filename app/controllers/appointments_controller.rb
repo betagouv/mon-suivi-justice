@@ -4,8 +4,8 @@ class AppointmentsController < ApplicationController
   def index
     @q = policy_scope(Appointment).active.ransack(params[:q])
     @all_appointments = @q.result(distinct: true)
-                          .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
-                          .includes(:convict, slot: [:appointment_type, { agenda: [:place] }])
+                          .joins(:convict, :user, slot: [:appointment_type, { agenda: [:place] }])
+                          .includes(:convict, :user, slot: [:appointment_type, { agenda: [:place] }])
                           .order('slots.date ASC, slots.starting_time ASC')
 
     @appointments = @all_appointments.page(params[:page]).per(25)
@@ -40,7 +40,7 @@ class AppointmentsController < ApplicationController
 
     if current_user.can_use_inter_ressort? && !@convict.city_id
       flash.now[:warning] =
-      "<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
+        "<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
     end
 
     @extra_fields = @convict.organizations.tj&.first&.extra_fields&.select(&:appointment_create?)

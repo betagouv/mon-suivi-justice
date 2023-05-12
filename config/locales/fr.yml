@@ -523,6 +523,7 @@ fr:
       no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
     show:
       inviter_user_role: Rôle source
+      assigned_user: Agent Référent
     waiting_line:
       for_a_service: "Rendez-vous au statut inconnu au %{orga}"
       for_a_user: "Vos rendez-vous au statut inconnu"
@@ -553,6 +554,7 @@ fr:
   today_appointments_place_filter: "Lieu de RDV"
   index-slots-appointment-type-filter: "Type de RDV"
   index-slots-available-capacity: "Capacité dispo"
+  index-user-filter: "Agent Référent"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
   new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi d'un SMS de rappel 48h avant le rendez-vous (si un numéro de téléphone a été donné)."
   new-appointment-confirmation-warning: "Voulez-vous également envoyer immédiatement un SMS de confirmation à la PPSMJ pour ce rendez-vous ?."
@@ -565,6 +567,7 @@ fr:
   rebook_missed_appointment2: "Si besoin, merci de contacter cette personne pour clarifier la situation."
   my_appointments_title: "Mes rendez-vous"
   delete_agenda_confirmation: "Attention, Si vous confirmez, l'ensemble de l'agenda sera définitivement effacé"
+  current_user_title: "moi"
 
   bex:
     jap:

@@ -5,6 +5,9 @@
   <td><%= appointment.slot.agenda.place.name %></td>
   <td><%= appointment.slot.agenda.name %></td>
   <td><%= appointment.slot.appointment_type.name %></td>
+  <% if current_user.work_at_spip? %>
+    <td><%= appointment.user&.name %></td>
+  <% end %>
   <td>
     <% if appointment.in_the_past? && appointment.booked? && policy(appointment).fulfil_old? %>
       <div class='index-card-state-container index-card-state-controls-wrapper'>
