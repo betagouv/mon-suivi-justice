@@ -258,4 +258,28 @@ RSpec.describe Convict, type: :model do
       expect(convict1.duplicates).to be_empty
     end
   end
+
+  describe 'either_city_homeless_lives_abroad_present' do
+    it('is valid when the user is not using inter-ressort') do
+      expect(build(:convict, city: nil, homeless: false, lives_abroad: false)).to be_valid
+    end
+    context 'when the user is using inter-ressort' do
+      it('is invalid when has no city, dont live abroad and is not homeless') do
+        convict = build(:convict, city: nil, homeless: false, lives_abroad: false)
+        expect(convict.valid?(:user_can_use_inter_ressort)).to be false
+      end
+      it('is valid when has a city, dont live abroad and is not homeless') do
+        convict = build(:convict, city_id: '12', homeless: false, lives_abroad: false)
+        expect(convict.valid?(:user_can_use_inter_ressort)).to be true
+      end
+      it('is valid when has no city, lives abroad and is not homeless') do
+        convict = build(:convict, city: nil, homeless: false, lives_abroad: true)
+        expect(convict.valid?(:user_can_use_inter_ressort)).to be true
+      end
+      it('is valid when has a city, dont live abroad and is homeless') do
+        convict = build(:convict, city: nil, homeless: true, lives_abroad: false)
+        expect(convict.valid?(:user_can_use_inter_ressort)).to be true
+      end
+    end
+  end
 end
