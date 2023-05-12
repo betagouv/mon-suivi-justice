@@ -1,5 +1,5 @@
 class InvitationsController < Devise::InvitationsController
-  layout 'agent_interface', only: [:new]
+  layout 'agent_interface', only: [:new, :create]
 
   protected
 
