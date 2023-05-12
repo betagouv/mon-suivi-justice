@@ -141,7 +141,7 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'it assigns the city spip and TJ Paris to the convict if a city is selected and japat is selected',
-        logged_in_as: 'bex', js: true do
+       logged_in_as: 'bex', js: true do
       @user.organization.use_inter_ressort = true
       spip = create(:organization, organization_type: 'spip')
 
@@ -169,9 +169,10 @@ RSpec.feature 'Convicts', type: :feature do
       expect(Convict.first.organizations).to match_array([tj_paris])
     end
 
-    describe 'with potentially duplicated convicts' do
+    describe 'with potentially duplicated convicts', logged_in_as: 'cpip' do
       it 'shows a warning with link to pre-existing convict profile' do
-        convict = create(:convict, first_name: 'roberta', last_name: 'dupond', organizations: [@user.organization])
+        convict = create(:convict, first_name: 'roberta', last_name: 'dupond', date_of_birth: '01/01/1980',
+                                   organizations: [@user.organization])
 
         visit new_convict_path
 
@@ -179,10 +180,12 @@ RSpec.feature 'Convicts', type: :feature do
         fill_in 'Nom', with: 'Dupond'
         fill_in 'Date de naissance', with: '01/01/1980'
         fill_in 'Téléphone', with: '0606060606'
+
         expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
 
         expect(page).to have_content('Un doublon potentiel a été détecté :')
-        expect(page).to have_link('Profil de DUPOND Roberta', href: convict_path(convict))
+        expect(page).to have_link("DUPOND Roberta, suivi(e) par : #{convict.organizations.first.name}",
+                                  href: convict_path(convict))
 
         expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
       end
@@ -245,10 +248,16 @@ RSpec.feature 'Convicts', type: :feature do
                                  organizations: [@user.organization])
       cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
       visit edit_convict_path(convict)
-      fill_in 'Nom', with: 'Ristretto'
-      find('form > div.form-input-wrapper.select.optional.convict_user > span > span.selection > span').click
-      find('li.select2-results__option', text: 'MAU Rémy').click
+
+      find('#convict_last_name').set('').set('Ristretto')
+      find('#convict_user_id').set('Mau')
+
+      page.has_content?('MAU Rémy')
+
+      find('a', text: 'MAU Rémy').click
+
       click_button 'Enregistrer'
+
       convict.reload
       expect(convict.last_name).to eq('Ristretto')
       expect(convict.cpip).to eq(cpip)
