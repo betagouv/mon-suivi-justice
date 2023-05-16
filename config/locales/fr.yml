@@ -331,6 +331,10 @@ fr:
     stats_from_informed: "Parmi les rdv renseignés :"
     stats_global: "Global"
     select_organization: "Changer d'antenne"
+    welcome_title: "Bonjour, %{name}"
+    welcome_text: "Pour convoquer un ou une probationnaire, veuillez saisir les premières lettres de son nom ou prénom dans la barre de recherche ci-dessous :"
+    form_label: "Recherche"
+    button_label: "Rechercher"
 
     notice:
       fill_out_appointments: "Attention, %{data}% des rendez-vous de votre service n'ont pas de statut renseigné."
