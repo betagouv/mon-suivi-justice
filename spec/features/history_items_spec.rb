@@ -1,14 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature 'HistoryItems', type: :feature do
-  before do
-    @user = create_admin_user_and_login
-    @convict = create(:convict, phone: nil, refused_phone: true)
-    create :areas_convicts_mapping, convict: @convict, area: @user.organization.departments.first
-  end
-
-  describe 'for a Convict' do
+  describe 'for a Convict', logged_in_as: 'cpip' do
     before do
+      @convict = create(:convict, phone: nil, refused_phone: true, organizations: [@user.organization])
       @appointment = create(:appointment, :with_notifications, convict: @convict)
     end
 
@@ -48,12 +43,14 @@ RSpec.feature 'HistoryItems', type: :feature do
       expect(page).to have_content('a été archivé. Pour le désarchiver, contactez votre administrateur local.')
     end
 
-    it 'displays when convict is unarchived' do
+    it 'displays when convict is unarchived', logged_in_as: 'local_admin', js: true do
       @convict.discard
 
-      expect do
-        Capybara.current_session.driver.post convict_unarchive_path(@convict)
-      end.to change { HistoryItem.count }.by(1)
+      visit convicts_path
+
+      within first('tbody > tr') do
+        expect { click_link('Désarchiver') }.to change { HistoryItem.count }.by(1)
+      end
 
       visit convict_path(@convict)
 
@@ -61,8 +58,9 @@ RSpec.feature 'HistoryItems', type: :feature do
     end
   end
 
-  describe 'for an appointment' do
+  describe 'for an appointment', logged_in_as: 'cpip' do
     before do
+      @convict = create(:convict, phone: nil, refused_phone: true, organizations: [@user.organization])
       @appointment = create(:appointment, convict: @convict)
       @summon_notif = create(:notification, appointment: @appointment,
                                             role: 'summon',
