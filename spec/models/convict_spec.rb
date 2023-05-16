@@ -284,22 +284,22 @@ RSpec.describe Convict, type: :model do
   end
 
   describe 'update_organizations' do
-    before(:each) do
-      srj_tj_organization = create(:organization, name: 'srj tj organization', organization_type: 'tj')
+    before do
+      srj_tj_organization = create(:organization, organization_type: 'tj')
       @srj_tj = create(:srj_tj, name: 'srj tj', organization: srj_tj_organization)
 
-      srj_spip_organization = create(:organization, name: 'srj spip organization', organization_type: 'spip')
-      @srj_spip = create(:srj_spip, name: 'srj spip', organization: srj_spip_organization)
+      srj_spip_organization = create(:organization, organization_type: 'spip')
+      @srj_spip = create(:srj_spip, organization: srj_spip_organization)
 
       @city = create(:city, srj_tj: @srj_tj, srj_spip: @srj_spip)
 
-      @tj_paris = create(:organization, name: 'TJ Paris', organization_type: 'tj')
+      @tj_paris = Organization.find_or_create_by(name: 'TJ Paris', organization_type: 'tj')
 
-      current_user_organization = create(:organization, name: 'current user organization')
-      @current_user = create(:user, organization: current_user_organization)
+      current_user_organization = create(:organization)
+      @current_user = build(:user, organization: current_user_organization)
     end
     it('contains city organization if city is present') do
-      convict = create(:convict, city: @city)
+      convict = build(:convict, city: @city)
 
       convict.update_organizations(@current_user)
 
@@ -307,14 +307,14 @@ RSpec.describe Convict, type: :model do
     end
 
     it('contains current user organization if city is not present') do
-      convict = create(:convict, city: nil)
+      convict = build(:convict, city: nil)
       convict.update_organizations(@current_user)
 
       expect(convict.organizations).to eq([@current_user.organization])
     end
 
     it('contains TJ Paris if convict is japat') do
-      convict = create(:convict, city: @city, japat: true)
+      convict = build(:convict, city: @city, japat: true)
 
       convict.update_organizations(@current_user)
 
@@ -322,7 +322,7 @@ RSpec.describe Convict, type: :model do
     end
 
     it('add new organization and not remove the previous ones') do
-      convict = create(:convict, city: nil)
+      convict = build(:convict, city: nil)
       convict.update_organizations(@current_user)
       expect(convict.organizations).to eq([@current_user.organization])
 
@@ -333,7 +333,7 @@ RSpec.describe Convict, type: :model do
     end
 
     it('should not add organization if it is already present') do
-      convict = create(:convict, city: nil)
+      convict = build(:convict, city: nil)
       convict.update_organizations(@current_user)
 
       expect(convict.organizations).to eq([@current_user.organization])
