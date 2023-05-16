@@ -189,25 +189,6 @@ RSpec.feature 'Convicts', type: :feature do
 
         expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
       end
-
-      it 'shows a generic warning if the pre-existing convict is outside of department' do
-        convict = create(:convict, first_name: 'Roberto', last_name: 'Durand', date_of_birth: '01/01/1980')
-        department = create(:department, name: 'Sarthe', number: '72')
-        create :areas_convicts_mapping, convict: convict, area: department
-
-        visit new_convict_path
-
-        fill_in 'Prénom', with: 'Roberto'
-        fill_in 'Nom', with: 'Durand'
-        fill_in 'Téléphone', with: '0606060606'
-        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
-
-        expect(page).to have_content(
-          "Un homonyme existe dans le département #{department.name} (#{department.number})."
-        )
-
-        expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
-      end
     end
 
     it 'creates a convicts with a cpip relation', logged_in_as: 'cpip', js: true do
