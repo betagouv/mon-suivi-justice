@@ -38,10 +38,12 @@ fr:
       cpip_blank_option: "Suivi affecté au service"
     index:
       self_assign_link: "S'attribuer cette PPSMJ"
+      unassign_link: Retirer
     show:
       invite: Inviter à son espace
       reinvite: Relancer l'invitation
       self_assign_link: S'attribuer cette PPSMJ
+      unassign_link: Retirer l'attribution
       interface_invitation_state: État de l'invitation
       accepted: Accepté
       reinvited: Relancé le %{last_invite}
@@ -51,6 +53,8 @@ fr:
       interface_no_access: Aucun accès pour l'instant
     self_assign:
       notice: "La PPSMJ vous a bien été attribuée."
+    unassign:
+      notice: "La PPSMJ a été réattribuée au service"
 
   activerecord:
     models:
@@ -519,6 +523,7 @@ fr:
       no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
     show:
       inviter_user_role: Rôle source
+      assigned_user: Agent Référent
     waiting_line:
       for_a_service: "Rendez-vous au statut inconnu au %{orga}"
       for_a_user: "Vos rendez-vous au statut inconnu"
@@ -549,6 +554,7 @@ fr:
   today_appointments_place_filter: "Lieu de RDV"
   index-slots-appointment-type-filter: "Type de RDV"
   index-slots-available-capacity: "Capacité dispo"
+  index-user-filter: "Agent Référent"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
   new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi d'un SMS de rappel 48h avant le rendez-vous (si un numéro de téléphone a été donné)."
   new-appointment-confirmation-warning: "Voulez-vous également envoyer immédiatement un SMS de confirmation à la PPSMJ pour ce rendez-vous ?."
@@ -561,6 +567,7 @@ fr:
   rebook_missed_appointment2: "Si besoin, merci de contacter cette personne pour clarifier la situation."
   my_appointments_title: "Mes rendez-vous"
   delete_agenda_confirmation: "Attention, Si vous confirmez, l'ensemble de l'agenda sera définitivement effacé"
+  current_user_title: "moi"
 
   bex:
     jap:
@@ -697,6 +704,8 @@ fr:
       subtitle: Peut-être n'aviez vous pas accès à cette action.
 
   simple_form:
+    error_notification:
+      user: "Le formulaire comporte des erreurs :"
     options:
       notification_types:
         reminder_period:

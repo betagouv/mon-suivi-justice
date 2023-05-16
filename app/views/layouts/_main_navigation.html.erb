@@ -34,7 +34,7 @@
               <% end %>
             </li>
           <% end %>
-          <% if policy(:appointment).agenda_sap_ddse? && ENV['APP'] != 'mon-suivi-justice-prod' %>
+          <% if policy(:appointment).agenda_sap_ddse? %>
             <li class="fr-nav__item">
               <%= link_to agenda_sap_ddse_path, class: 'fr-nav__link', 'aria-current': current?("page", agenda_sap_ddse_path) do %>
                 <%= t('home.sap_ddse') %>
@@ -49,7 +49,7 @@
             </li>
           <% end %>
         <% end %>
-        <% if current_user.admin? || current_user.local_admin_tj? || current_user.local_admin_spip? %>
+        <% if access_advanced_nav? %>
           <li class="fr-nav__item">
             <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-774" <%= (['/appointment_types', '/places', '/slots', '/users', '/organizations', '/steering_user_app'].include? request.path) ? "aria-current=true" : nil %>>Administration</button>
             <div class="fr-collapse fr-menu" id="menu-774">

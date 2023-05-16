@@ -8,7 +8,7 @@ class AppointmentsBookingsController < ApplicationController
 
     # Load places
     @places = Place.kept.joins(:appointment_types,
-                          organization: :convicts).where('convicts.id': @convict.id).where(appointment_types: @appointment_type)
+                               organization: :convicts).where('convicts.id': @convict.id).where(appointment_types: @appointment_type)
   end
 
   def load_prosecutor
@@ -28,7 +28,6 @@ class AppointmentsBookingsController < ApplicationController
     @place = Place.find(params[:place_id])
     @agendas = Agenda.kept.where(place_id: @place.id)
     @appointment_type = AppointmentType.find(params[:apt_type_id])
-
     return unless @agendas.count == 1
 
     redirect_to load_time_options_path(place_id: @place.id,
@@ -41,7 +40,6 @@ class AppointmentsBookingsController < ApplicationController
     agenda_id = params[:agenda_id] == 'all' ? nil : params[:agenda_id]
 
     @appointment_type = AppointmentType.find(params[:apt_type_id])
-
     if @appointment_type.with_slot_types?
       redirect_to load_slots_path(place_id: params[:place_id],
                                   agenda_id: agenda_id,

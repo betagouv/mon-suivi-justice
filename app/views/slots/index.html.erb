@@ -49,6 +49,7 @@
   </div>
 <% end %>
 <div class="fr-table fr-table--bordered fr-table--layout-fixed">
+      <%= form_tag slots_batch_path, method: 'put', id: 'index-slots-update-form' do %>
   <table>
     <thead>
       <tr>
@@ -62,7 +63,6 @@
       </tr>
     </thead>
     <tbody>
-      <%= form_tag slots_batch_path, method: :put, id: 'index-slots-update-form' do %>
         <% @slots.each do |slot| %>
           <tr>
             <td><%= slot.agenda.place.name %></td>
@@ -105,9 +105,9 @@
             </td>
           </tr>
         <% end %>
-      <% end %>
     </tbody>
   </table>
+      <% end %>
   <%= paginate @slots %>
 </div>
 <%= javascript_pack_tag 'slots_index' %>

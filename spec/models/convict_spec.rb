@@ -258,4 +258,88 @@ RSpec.describe Convict, type: :model do
       expect(convict1.duplicates).to be_empty
     end
   end
+
+  describe 'either_city_homeless_lives_abroad_present' do
+    it('is valid when the user is not using inter-ressort') do
+      expect(build(:convict, city: nil, homeless: false, lives_abroad: false)).to be_valid
+    end
+    context 'when the user is using inter-ressort' do
+      it('is invalid when has no city, dont live abroad and is not homeless') do
+        convict = build(:convict, city: nil, homeless: false, lives_abroad: false)
+        expect(convict.valid?(:user_can_use_inter_ressort)).to be false
+      end
+      it('is valid when has a city, dont live abroad and is not homeless') do
+        convict = build(:convict, city_id: '12', homeless: false, lives_abroad: false)
+        expect(convict.valid?(:user_can_use_inter_ressort)).to be true
+      end
+      it('is valid when has no city, lives abroad and is not homeless') do
+        convict = build(:convict, city: nil, homeless: false, lives_abroad: true)
+        expect(convict.valid?(:user_can_use_inter_ressort)).to be true
+      end
+      it('is valid when has a city, dont live abroad and is homeless') do
+        convict = build(:convict, city: nil, homeless: true, lives_abroad: false)
+        expect(convict.valid?(:user_can_use_inter_ressort)).to be true
+      end
+    end
+  end
+
+  describe 'update_organizations' do
+    before do
+      srj_tj_organization = create(:organization, organization_type: 'tj')
+      @srj_tj = create(:srj_tj, name: 'srj tj', organization: srj_tj_organization)
+
+      srj_spip_organization = create(:organization, organization_type: 'spip')
+      @srj_spip = create(:srj_spip, organization: srj_spip_organization)
+
+      @city = create(:city, srj_tj: @srj_tj, srj_spip: @srj_spip)
+
+      @tj_paris = Organization.find_or_create_by(name: 'TJ Paris', organization_type: 'tj')
+
+      current_user_organization = create(:organization)
+      @current_user = build(:user, organization: current_user_organization)
+    end
+    it('contains city organization if city is present') do
+      convict = build(:convict, city: @city)
+
+      convict.update_organizations(@current_user)
+
+      expect(convict.organizations).to eq(@city.organizations)
+    end
+
+    it('contains current user organization if city is not present') do
+      convict = build(:convict, city: nil)
+      convict.update_organizations(@current_user)
+
+      expect(convict.organizations).to eq([@current_user.organization])
+    end
+
+    it('contains TJ Paris if convict is japat') do
+      convict = build(:convict, city: @city, japat: true)
+
+      convict.update_organizations(@current_user)
+
+      expect(convict.organizations).to match_array([@srj_spip.organization, @tj_paris])
+    end
+
+    it('add new organization and not remove the previous ones') do
+      convict = build(:convict, city: nil)
+      convict.update_organizations(@current_user)
+      expect(convict.organizations).to eq([@current_user.organization])
+
+      convict.update(city: @city)
+      convict.update_organizations(@current_user)
+
+      expect(convict.organizations).to match_array([@city.organizations, @current_user.organization].flatten)
+    end
+
+    it('should not add organization if it is already present') do
+      convict = build(:convict, city: nil)
+      convict.update_organizations(@current_user)
+
+      expect(convict.organizations).to eq([@current_user.organization])
+
+      convict.update_organizations(@current_user)
+      expect(convict.organizations.pluck(:id)).to match_array([@current_user.organization.id])
+    end
+  end
 end

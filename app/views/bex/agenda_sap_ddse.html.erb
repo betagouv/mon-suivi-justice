@@ -1,16 +1,4 @@
-<div class="fr-grid-row fr-grid-row--right">
-  <ul class="fr-btns-group fr-btns-group--inline-lg">
-    <% if !@agenda.nil? %>
-      <%= button_to t('print_button'), agenda_sap_ddse_path(format: :pdf),
-                                      method: :get,
-                                      params: {date: params[:date], agenda_id: @agenda.id, place_id: @place.id},
-                                      form: { target: '_blank' },
-                                      class: 'fr-btn' %>
-    <% end %>
-  </ul>
-</div>
-
-<div>
+<div class='bex-agendas-container'>
   <div class='bex-agendas-date-container'>
     <div class='bex-date-title-container'>
       <%= t('bex.sap_ddse.appointments_title') %>
@@ -21,20 +9,20 @@
           <%= label_tag 'date', 'Date :' %>
           <%= select_tag :date, options_for_select(formated_month_for_select(six_next_months), params[:date]),
                                 id: 'spip-appointments-month-select',
-                                class: 'fr-select',
+                                class: 'form-select form-text-input sap_ddse-date-select',
                                 onchange: 'this.form.submit()' %>
         </div>
 
         <% if @places.count > 0 %>
           <div class="bex-form-input-wrapper">
             <%= label_tag 'place_id', 'Lieu :' %>
-            <%= select_tag :place_id, options_from_collection_for_select(@places, 'id', 'name', @place.id), class: 'fr-select', onchange: 'this.form.submit()' %>
+            <%= select_tag :place_id, options_from_collection_for_select(@places, 'id', 'name', @place.id), class: 'form-select form-text-input spip-place-select', onchange: 'this.form.submit()' %>
           </div>
         <% end %>
         <% if @agendas.count > 1 %>
           <div class="bex-form-input-wrapper">
             <%= label_tag 'agenda_id', 'Agenda :' %>
-            <%= select_tag :agenda_id, options_from_collection_for_select(@agendas, 'id', 'name', @agenda.id), class: 'fr-select', onchange: 'this.form.submit()' %>
+            <%= select_tag :agenda_id, options_from_collection_for_select(@agendas, 'id', 'name', @agenda.id), class: 'form-select form-text-input spip-agenda-select', onchange: 'this.form.submit()' %>
           </div>
         <% end %>
       <% end %>
@@ -42,15 +30,13 @@
   </div>
 
   <% if @agenda.nil? %>
-    <p class='bex-agenda-spip-no-agenda'><%= t('bex.sap_ddse.no_agenda_available') %></p>
+    <p class='bex-agenda-sap_ddse-no-agenda'><%= t('bex.sap_ddse.no_agenda_available') %></p>
   <% else %>
     <% open_days_for_the_month(@current_date).each do |day| %>
-
-      <% slots_for_date = @agenda.slots_for_date(day, @appointment_type) %>
-      <% next if slots_for_date.count == 0 %>
-        <div class="fr-table fr-table--bordered fr-table--layout-fixed">
+      <% next if @agenda.slots_for_date(day, @appointment_type).count == 0 %>
+        <div class="fr-table fr-table--bordered">
           <table class="agenda-jap-table">
-              <caption class='bex-agenda-header-title spip-agenda-header'><%= day %></caption>
+              <caption class='sap_ddse-agenda-header'><%= day %></caption>
               <thead>
                 <th scope="col">
                   <%= t('bex.jap.header_hour') %>
@@ -70,18 +56,12 @@
                 <th scope="col">
                   <%= t('bex.jap.header_role') %>
                 </th>
-                
-                <% @extra_fields&.each do |extra_field| %>
-                  <th scope="col">
-                    <%= extra_field.name %>
-                  </th>
-                <% end %>
               </thead>
               <tbody>
-            <% slots_for_date.each do |slot| %>
+            <% @agenda.slots_for_date(day, @appointment_type).each do |slot| %>
               <% appointments = slot.appointments.active %>
               <% slot.capacity.times do |i| %>
-                <tr class="bex-agenda-container">
+                <tr>
                   <th>
                     <% if i == 0 %>
                       <%= slot.localized_time.to_s(:lettered) %>
@@ -118,7 +98,7 @@
                       <% end %>
                     <% end %>
                   </th>
-                </tr>
+                </div>
               <% end %>
             <% end %>
               </tbody>
@@ -126,6 +106,4 @@
         </div>
     <% end %>
   <% end %>
-
-
 </div>

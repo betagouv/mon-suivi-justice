@@ -43,10 +43,10 @@ class BexController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.pdf do
-        render template: 'bex/agenda_sap_ddse_pdf.html.erb', locals: { date: @current_date },
-               pdf: 'Agenda SAP DDSE', footer: { right: '[page]/[topage]' }
-      end
+      # format.pdf do
+      #   render template: 'bex/agenda_sap_ddse_pdf.html.erb', locals: { date: @current_date },
+      #          pdf: 'Agenda SAP DDSE', footer: { right: '[page]/[topage]' }
+      # end
     end
   end
 
