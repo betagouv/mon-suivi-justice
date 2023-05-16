@@ -97,16 +97,15 @@
 }
 
 .fr-btn--danger {
-  color: #f44336;
+  color: $danger;
   box-sizing: border-box;
-  border: 1px solid #f44336 !important;
+  border: 1px solid $danger !important;
   background-color: white;
   &:hover {
     color: white !important;
-    background-color: #f44336 !important;
+    background-color: $danger !important;
   }
 }
-
 
 // Flashes
 .fr-notice .fr-btn--close::before {
