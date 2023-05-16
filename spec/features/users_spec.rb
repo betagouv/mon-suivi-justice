@@ -1,14 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature 'Users', type: :feature do
-  before do
-    create_admin_user_and_login
-  end
-
-  describe 'index' do
+  describe 'index', logged_in_as: 'admin' do
     before do
-      create(:user, first_name: 'Jeanne', last_name: 'Montirello')
-      create(:user, first_name: 'Michèle')
+      organization = create(:organization)
+      create(:user, first_name: 'Jeanne', last_name: 'Montirello', organization: organization)
+      create(:user, first_name: 'Michèle', organization: organization)
 
       visit users_path
     end
@@ -19,31 +16,34 @@ RSpec.feature 'Users', type: :feature do
     end
 
     it 'allows to delete user' do
-      within first('.users-item-container') do
+      within first('tbody > tr') do
         expect { click_link('Supprimer') }.to change { User.count }.by(-1)
       end
     end
   end
 
-  describe 'creation' do
-    it 'sends invitation to new user' do
+  describe 'creation', logged_in_as: 'admin' do
+    it 'sends invitation to new user', js: true do
       create :organization
       visit new_user_invitation_path
+
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Email', with: 'robertdurand@justice.fr'
       fill_in 'Numéro de téléphone', with: '0644444444'
+
       expect { click_button 'Envoyer invitation' }.to change { User.count }.by(1)
-      expect(User.last.phone).to eq('0644444444')
+      expect(User.last.phone).to eq('+33644444444')
     end
   end
 
-  describe 'show' do
+  describe 'show', logged_in_as: 'admin' do
     it 'displays user data' do
       user = create(:user, first_name: 'Jeanne',
                            last_name: 'Delajungle',
                            email: 'jeanne@delajungle.fr',
-                           phone: '+33644444444')
+                           phone: '+33644444444',
+                           organization: @user.organization)
 
       visit user_path(user.id)
 
@@ -54,11 +54,7 @@ RSpec.feature 'Users', type: :feature do
     end
   end
 
-  describe 'edition' do
-    before do
-      @user = create(:user, first_name: 'Jeanne', role: 'cpip')
-    end
-
+  describe 'edition', logged_in_as: 'cpip' do
     it 'works' do
       logout(scope: :user)
       login_as(@user, scope: :user)
@@ -77,23 +73,23 @@ RSpec.feature 'Users', type: :feature do
       expect(@user.share_email_to_convict).to eq(false)
     end
 
-    it 'remove linked convict if role is changed' do
-      convict = create(:convict, user: @user)
-      create :areas_convicts_mapping, convict: convict, area: @user.organization.departments.first
+    it 'remove linked convict if role is changed', logged_in_as: 'local_admin' do
+      cpip = create(:user, first_name: 'Bob', last_name: 'Dupneu', role: 'cpip', organization: @user.organization)
+      create(:convict, user: cpip, organizations: [cpip.organization])
 
-      expect(@user.convicts.count).to eq(1)
+      expect(cpip.convicts.count).to eq(1)
 
-      visit edit_user_path(@user.id)
+      visit edit_user_path(cpip.id)
 
       select 'Secrétariat SPIP', from: :user_role
 
       click_button 'Enregistrer'
 
-      expect(@user.convicts.count).to eq(0)
+      expect(cpip.convicts.count).to eq(0)
     end
   end
 
-  describe 'roles' do
+  describe 'roles', logged_in_as: 'admin' do
     it 'allows admin users to access everything' do
       visit convicts_path
 
@@ -121,26 +117,17 @@ RSpec.feature 'Users', type: :feature do
       main_nav = find('nav')
 
       expect(main_nav).to have_link('PPSMJ')
-      expect(main_nav).not_to have_link('Rendez-vous')
-      expect(main_nav).not_to have_link('Lieux')
-      expect(main_nav).not_to have_link('Créneaux')
-      expect(main_nav).not_to have_link('Agents')
+      expect(main_nav).not_to have_link('Administration')
     end
 
-    it 'allows cpip users to access appointment interface' do
-      cpip_user = create(:user, role: :cpip)
-      logout_current_user
-      login_user(cpip_user)
-
+    it 'allows cpip users to access appointment interface', logged_in_as: 'cpip' do
       visit convicts_path
 
       main_nav = find('nav')
 
       expect(main_nav).to have_link('PPSMJ')
       expect(main_nav).to have_link('Rendez-vous')
-      expect(main_nav).not_to have_link('Lieux')
-      expect(main_nav).not_to have_link('Créneaux')
-      expect(main_nav).not_to have_link('Agents')
+      expect(main_nav).not_to have_link('Administration')
     end
   end
 end
