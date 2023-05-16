@@ -191,7 +191,7 @@ RSpec.feature 'Convicts', type: :feature do
       end
 
       it 'shows a generic warning if the pre-existing convict is outside of department' do
-        convict = create(:convict, first_name: 'Roberto', last_name: 'Durand')
+        convict = create(:convict, first_name: 'Roberto', last_name: 'Durand', date_of_birth: '01/01/1980')
         department = create(:department, name: 'Sarthe', number: '72')
         create :areas_convicts_mapping, convict: convict, area: department
 
@@ -210,8 +210,7 @@ RSpec.feature 'Convicts', type: :feature do
       end
     end
 
-    it 'creates a convicts with a cpip relation', js: true do
-      create(:user, first_name: 'Damien', last_name: 'LET', role: 'cpip')
+    it 'creates a convicts with a cpip relation', logged_in_as: 'cpip', js: true do
       cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
 
       visit new_convict_path
@@ -219,8 +218,11 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
-      find('#new_convict > div.form-input-wrapper.select.optional.convict_user > span > span.selection > span').click
-      find('li.select2-results__option', text: 'MAU Rémy').click
+      fill_in 'Date de naissance', with: '01/01/1980'
+
+      find('#convict_user_id').set('Mau')
+      page.has_content?('MAU Rémy')
+      find('a', text: 'MAU Rémy').click
 
       click_button 'submit-no-appointment'
 
@@ -237,6 +239,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
+      fill_in 'Date de naissance', with: '01/01/1980'
       click_button 'submit-no-appointment'
       expect(Convict.last.creating_organization).to eq(orga)
     end
@@ -250,10 +253,9 @@ RSpec.feature 'Convicts', type: :feature do
       visit edit_convict_path(convict)
 
       find('#convict_last_name').set('').set('Ristretto')
+
       find('#convict_user_id').set('Mau')
-
       page.has_content?('MAU Rémy')
-
       find('a', text: 'MAU Rémy').click
 
       click_button 'Enregistrer'
@@ -360,10 +362,7 @@ RSpec.feature 'Convicts', type: :feature do
                                    date_of_birth: '01/01/1980',
                                    phone: '0607060706', organizations: [@user.organization])
         visit convict_path(convict)
-
-        within first('.show-profile-container') do
-          expect { click_button('Supprimer') }.to change { Convict.count }.by(-1)
-        end
+        expect { click_button('Supprimer') }.to change { Convict.count }.by(-1)
       end
     end
 
