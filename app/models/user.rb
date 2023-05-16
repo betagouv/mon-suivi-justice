@@ -88,6 +88,8 @@ class User < ApplicationRecord
   end
 
   def work_at_spip?
+    return true if local_admin_spip?
+
     %w[dpip cpip educator psychologist overseer secretary_spip].include? role
   end
 
