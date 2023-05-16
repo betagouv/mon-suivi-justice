@@ -166,7 +166,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
 
-      expect(Convict.first.organizations).to match_array([tj_paris])
+      expect(Convict.last.organizations).to match_array([spip, tj_paris])
     end
 
     describe 'with potentially duplicated convicts', logged_in_as: 'cpip' do
