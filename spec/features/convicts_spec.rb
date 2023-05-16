@@ -71,7 +71,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
-      fill_in 'Date de naissance', with: '01/01/1980'
+      fill_in 'Date de naissance', with: '1980-01-01'
 
       expect { click_button 'submit-with-appointment' }.to change { Convict.count }.by(1)
       expect(page).to have_current_path(new_appointment_path(convict_id: Convict.last.id))
@@ -126,7 +126,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
-      fill_in 'Date de naissance', with: '01/01/1980'
+      fill_in 'Date de naissance', with: '1980-01-01'
 
       find('#convict_city_id').set('Melun')
 
@@ -156,7 +156,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
-      fill_in 'Date de naissance', with: '01/01/1980'
+      fill_in 'Date de naissance', with: '1980-01-01'
 
       find('#convict_city_id').set('Melun')
       find('a', text: '77000 Melun (France)').click
@@ -178,7 +178,7 @@ RSpec.feature 'Convicts', type: :feature do
 
         fill_in 'Prénom', with: 'Roberta'
         fill_in 'Nom', with: 'Dupond'
-        fill_in 'Date de naissance', with: '01/01/1980'
+        fill_in 'Date de naissance', with: '1980-01-01'
         fill_in 'Téléphone', with: '0606060606'
 
         expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
@@ -199,7 +199,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
-      fill_in 'Date de naissance', with: '01/01/1980'
+      fill_in 'Date de naissance', with: '1980-01-01'
 
       find('#convict_user_id').set('Mau')
       page.has_content?('MAU Rémy')
