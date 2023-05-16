@@ -4,7 +4,7 @@ class AppointmentsController < ApplicationController
   def index
     @q = policy_scope(Appointment).active.ransack(params[:q])
     @all_appointments = @q.result(distinct: true)
-                          .joins(:convict, :user, slot: [:appointment_type, { agenda: [:place] }])
+                          .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
                           .includes(:convict, :user, slot: [:appointment_type, { agenda: [:place] }])
                           .order('slots.date ASC, slots.starting_time ASC')
 
