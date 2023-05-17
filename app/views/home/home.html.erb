@@ -2,13 +2,23 @@
   <div class="fr-grid-row">
     <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
       <div class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-12">
+        <h2>
+          <%= t('home.welcome_title', name: current_user.name(reverse: true) )%>
+        </h2>
+        </div>
+        <div class="fr-col-12">
+          <p>
+            <%= t('home.welcome_text')%>
+          </p>
+        </div>
         <div class="fr-col-6">
           <div>
             <div class="fr-search-bar" id="header-search" role="search">
-              <label class="fr-label" for="search_convicts">Recherche</label>
+              <label class="fr-label" for="search_convicts"><%= t('home.form_label') %></label>
               <input class="fr-input" type="search" placeholder="Rechercher une PPSMJ" name="search_convicts" id="search_convicts" data-search-convicts-target="query" data-action="input->search-convicts#search">
-              <button class="fr-btn" title="Rechercher">
-                Rechercher
+              <button class="fr-btn" title="<%= t('home.button_label') %>">
+                <%= t('home.button_label') %>
               </button>
             </div>
           </div>
