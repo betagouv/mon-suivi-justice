@@ -1,5 +1,20 @@
 module Admin
   class OrganizationsController < Admin::ApplicationController
+    def link_convict_from_linked_orga
+      organization = Organization.find(params[:organization_id])
+      linked_organizations = organization.linked_organizations
+      linked = []
+      linked_organizations.each do |linked_organization|
+        linked_organization.convicts.each do |convict|
+          next if convict.organizations.include?(organization)
+
+          convict.organizations.push(organization)
+          convict.save
+          linked << convict
+        end
+      end
+      redirect_back(fallback_location: root_path)
+    end
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #

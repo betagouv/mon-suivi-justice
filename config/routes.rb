@@ -7,7 +7,9 @@ Rails.application.routes.draw do
         get '/impersonate' => "users#impersonate"
       end
       resources :convicts
-      resources :organizations
+      resources :organizations do
+        put '/link_convict_from_linked_orga' => "organizations#link_convict_from_linked_orga"
+      end
       resources :departments
       resources :srj_tjs
       resources :srj_spips
