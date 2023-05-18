@@ -30,7 +30,7 @@ class Convict < ApplicationRecord
   alias_attribute :cpip, :user
   alias_attribute :agent, :user
 
-  attr_accessor :place_id, :duplicates
+  attr_accessor :place_id, :duplicates, :current_user
 
   validates :appi_uuid, allow_blank: true, uniqueness: true
 
@@ -45,7 +45,7 @@ class Convict < ApplicationRecord
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE,
                                           on: :appi_impport
 
-  validates :date_of_birth, presence: true
+  validates :date_of_birth, presence: true, unless: proc { current_user&.admin? }
   validate :date_of_birth_date_cannot_be_in_the_past
 
   after_update :update_convict_api
