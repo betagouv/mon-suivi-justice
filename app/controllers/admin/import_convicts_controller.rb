@@ -17,6 +17,12 @@ module Admin
       raise StandardError, 'Seul le format csv est supporté' unless %w[.csv].include? @file_extension.downcase
 
       @organization = Organization.find(params[:organization_id])
+      @headquarter = Headquarter.find(params[:headquarter_id])
+
+      if params[:organization_id] && params[:headquarter_id]
+        raise StandardError,
+              'Veuillez selectionner 1 organization ou 1 siege'
+      end
 
       temp_csv = params[:convicts_list].tempfile
       csv = CSV.read(temp_csv,
@@ -50,7 +56,7 @@ module Admin
       flash.now[:success] =
         'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
     ensure
-      temp_csv.unlink
+      temp_csv&.unlink
       render :index
     end
 
