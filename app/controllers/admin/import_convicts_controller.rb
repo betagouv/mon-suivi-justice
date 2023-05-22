@@ -16,6 +16,11 @@ module Admin
       @file_extension = File.extname(params[:convicts_list].original_filename)
       raise StandardError, 'Seul le format csv est supporté' unless %w[.csv].include? @file_extension.downcase
 
+      if params[:organization_id].blank? && params[:headquarter_id].blank?
+        raise StandardError,
+              'Veuillez selectionner au moins 1 organization ou 1 siege'
+      end
+
       @organization = Organization.find(params[:organization_id])
       @headquarter = Headquarter.find(params[:headquarter_id])
 
