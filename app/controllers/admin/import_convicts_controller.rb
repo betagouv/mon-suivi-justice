@@ -57,7 +57,13 @@ module Admin
     rescue StandardError => e
       flash.now[:error] = "Erreur : #{e.message}"
     else
-      AppiImportJob.perform_later(appi_data, @organization, current_user, csv_errors)
+      target = @organization
+      other_organizations = nil
+      if @headquarter&.organizations&.any?
+        target = @headquarter.organizations.first
+        other_organizations = @headquarter.organizations.where.not(id: target.id)
+      end
+      AppiImportJob.perform_later(appi_data, target, current_user, csv_errors, other_organizations)
       flash.now[:success] =
         'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
     ensure
