@@ -69,8 +69,9 @@ class User < ApplicationRecord
 
   delegate :name, to: :organization, prefix: true
 
-  def name
-    "#{last_name.upcase} #{first_name.capitalize}"
+  def name(reverse: false)
+    "#{last_name.upcase} #{first_name.capitalize}" unless reverse
+    "#{first_name.capitalize} #{last_name.upcase}"
   end
 
   def identity

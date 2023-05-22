@@ -36,9 +36,10 @@ class ConvictsController < ApplicationController
   def create
     @convict = Convict.new(convict_params)
     @convict.creating_organization = current_organization
-
+    @convict.current_user = current_user
     authorize @convict
-    save_and_redirect @convict
+
+    save_and_redirect(@convict)
   end
 
   def edit
@@ -60,6 +61,7 @@ class ConvictsController < ApplicationController
 
     return render :edit if current_user.work_at_bex? && !@convict.valid?(:user_works_at_bex)
 
+    @convict.current_user = current_user
     if @convict.update(convict_params)
       @convict.update_organizations(current_user)
       record_phone_change(old_phone)
