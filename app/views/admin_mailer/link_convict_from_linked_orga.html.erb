@@ -7,13 +7,10 @@
     <h1>Rapport d'import APPI dans msj pour, <%= @organization.name %></h1>
     <ul>
         <% if !@import_successes.nil? && @import_successes.any? %>
-          <h1><%= @import_successes.length %> ppsmjs ont été créées :</h1>
-          <% @import_successes.each do |success| %>
-              <li><%= success %></li>
-          <% end %>
+          <h1><%= @import_successes.length %> ppsmjs ont été liées :</h1>
         <% end %>
         <% if !@import_errors.nil? && @import_errors.any? %>
-          <h1><%= @import_errors.length %> ppsmjs n'ont pas pu être créées :</h1>
+          <h1><%= @import_errors.length %> ppsmjs n'ont pas pu être liées :</h1>
           <% @import_errors.each do |error| %>
               <li style="color: red"><%= error %></li>
           <% end %>
