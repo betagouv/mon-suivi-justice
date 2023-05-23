@@ -17,7 +17,7 @@ class AdminMailer < ApplicationMailer
     mail(to: 'charles.marcoin@beta.gouv.fr', subject: 'Rapport migration des convicts')
   end
 
-  def link_convict_from_linked_orga
+  def link_convict_from_organizations_source
     @user = params[:user]
     @organization = params[:organization]
     @import_successes = params[:import_successes]

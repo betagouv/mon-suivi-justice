@@ -4,8 +4,8 @@ module Admin
       organization = Organization.find(params[:organization_id])
       raise StandardError, 'Aucune organisation liée' unless organization.linked_organizations.any?
 
-      LinkConvictViaLinkedOrganizationJob.perform_later(organization, current_user,
-                                                        organization.linked_organizations.to_a)
+      LinkConvictFromOrganizationsSourceJob.perform_later(organization, current_user,
+                                                          organization.linked_organizations.to_a)
       flash.now[:success] =
         'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
     end

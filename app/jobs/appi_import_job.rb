@@ -15,7 +15,7 @@ class AppiImportJob < ApplicationJob
                      import_successes: @import_successes, csv_errors: csv_errors).appi_import_report.deliver_later
     if @import_successes.any? && other_organizations.present?
       other_organizations.each do |orga|
-        LinkConvictViaLinkedOrganizationJob.perform_later(orga, user, [organization])
+        LinkConvictFromOrganizationsSourceJob.perform_later(orga, user, [organization])
       end
     end
   end

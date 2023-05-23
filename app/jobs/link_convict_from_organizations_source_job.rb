@@ -1,4 +1,4 @@
-class LinkConvictViaLinkedOrganizationJob < ApplicationJob
+class LinkConvictFromOrganizationsSourceJob < ApplicationJob
   require 'csv'
   queue_as :default
 
@@ -12,7 +12,7 @@ class LinkConvictViaLinkedOrganizationJob < ApplicationJob
   ensure
     AdminMailer.with(user: user, organization: organization, import_errors: @import_errors,
                      import_successes: @import_successes,
-                     sources: organizations_source.pluck(:name)).link_convict_from_linked_orga.deliver_later
+                     sources: organizations_source.pluck(:name)).link_convict_from_organizations_source.deliver_later
   end
 
   def link_convicts(organization, user, organizations_source)
