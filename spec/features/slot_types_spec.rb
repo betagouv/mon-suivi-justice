@@ -1,20 +1,15 @@
 require 'rails_helper'
 
-RSpec.feature 'SlotTypes', type: :feature do
+RSpec.feature 'SlotTypes', type: :feature, logged_in_as: 'admin' do
   before do
-    create_admin_user_and_login
-
-    place = create :place, name: 'test_place_name'
+    place = create :place, name: 'test_place_name', organization: @user.organization
     @agenda = create :agenda, place: place, name: 'test_agenda_name'
     @appointment_type = create :appointment_type, name: "Sortie d'audience SPIP"
     create :place_appointment_type, place: place, appointment_type: @appointment_type
-    # TODO : we should not have to return Place.all. The factory should add places to the user's organization
-    allow(Place).to receive(:in_departments).and_return(Place.all)
-    allow(Place).to receive(:in_dep_spips).and_return(Place.all)
   end
 
   describe 'index' do
-    it 'lists slot_types for an agenda' do
+    it 'lists slot_types for an agenda', js: true do
       slot_type1 = create :slot_type, week_day: 'monday', starting_time: new_time_for(10, 0),
                                       duration: 30, capacity: 1, appointment_type: @appointment_type, agenda: @agenda
       slot_type2 = create :slot_type, week_day: 'tuesday', starting_time: new_time_for(16, 0),
@@ -22,7 +17,10 @@ RSpec.feature 'SlotTypes', type: :feature do
 
       visit places_path
 
-      click_link 'Modifier'
+      within first('tbody > tr') do
+        click_link 'Modifier'
+      end
+
       click_link 'Créneaux récurrents'
 
       expect(page).to have_content 'Créneaux récurrents'

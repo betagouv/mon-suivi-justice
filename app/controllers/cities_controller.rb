@@ -12,6 +12,7 @@ class CitiesController < ApplicationController
 
     @services << @tj unless @tj.nil?
     @services << @spip unless @spip.nil?
+
     render json: @services
   end
 

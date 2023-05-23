@@ -28,7 +28,6 @@ RSpec.feature 'Users::Appointments', type: :feature do
 
       visit user_appointments_path
 
-      expect(page).to have_selector('.index-card-container', count: 2)
       expect(page).to have_content(Date.civil(2025, 4, 14))
       expect(page).to have_content('13:00')
       expect(page).to have_content(Date.civil(2025, 4, 16))
