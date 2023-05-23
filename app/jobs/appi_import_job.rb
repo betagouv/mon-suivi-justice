@@ -3,7 +3,7 @@ class AppiImportJob < ApplicationJob
   require 'digest/bubblebabble'
   queue_as :default
 
-  def perform(appi_data, organization, user, csv_errors, _other_organizations)
+  def perform(appi_data, organization, user, csv_errors, other_organizations)
     @import_errors = []
     @import_successes = []
 
@@ -13,7 +13,11 @@ class AppiImportJob < ApplicationJob
   ensure
     AdminMailer.with(user: user, organization: organization, import_errors: @import_errors,
                      import_successes: @import_successes, csv_errors: csv_errors).appi_import_report.deliver_later
-    # appeler link convicts to organization job
+    if @import_successes.any? && other_organizations.present?
+      other_organizations.each do |orga|
+        LinkConvictViaLinkedOrganizationJob.perform_later(orga, user, [organization])
+      end
+    end
   end
 
   def process_appi_data(appi_data, organization)

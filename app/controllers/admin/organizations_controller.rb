@@ -2,7 +2,10 @@ module Admin
   class OrganizationsController < Admin::ApplicationController
     def link_convict_from_linked_orga
       organization = Organization.find(params[:organization_id])
-      LinkConvictViaLinkedOrganizationJob.perform_later(organization, current_user)
+      raise StandardError, 'Aucune organisation liée' unless organization.linked_organizations.any?
+
+      LinkConvictViaLinkedOrganizationJob.perform_later(organization, current_user,
+                                                        organization.linked_organizations.to_a)
       flash.now[:success] =
         'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
     end

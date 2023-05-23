@@ -2,11 +2,11 @@ class LinkConvictViaLinkedOrganizationJob < ApplicationJob
   require 'csv'
   queue_as :default
 
-  def perform(organization, user)
+  def perform(organization, user, organizations_source)
     @import_errors = []
     @import_successes = []
 
-    link_convicts(organization, user)
+    link_convicts(organization, user, organizations_source)
   rescue StandardError => e
     @import_errors.push("Erreur : #{e.message}")
   ensure
@@ -14,10 +14,9 @@ class LinkConvictViaLinkedOrganizationJob < ApplicationJob
                      import_successes: @import_successes).link_convict_from_linked_orga.deliver_later
   end
 
-  def link_convicts(organization, user)
-    linked_organizations = organization.linked_organizations
-    linked_organizations.each do |linked_organization|
-      linked_organization.convicts.each do |convict|
+  def link_convicts(organization, user, organizations_source)
+    organizations_source.each do |source|
+      source.convicts.each do |convict|
         next if convict.organizations.include?(organization)
 
         convict.current_user = user

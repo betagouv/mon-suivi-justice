@@ -21,13 +21,12 @@ module Admin
               'Veuillez selectionner au moins 1 organization ou 1 siege'
       end
 
-      @organization = Organization.find(params[:organization_id])
-      @headquarter = Headquarter.find(params[:headquarter_id])
-
-      if params[:organization_id] && params[:headquarter_id]
+      if params[:organization_id].present? && params[:headquarter_id].present?
         raise StandardError,
               'Veuillez selectionner 1 organization ou 1 siege'
       end
+      @organization = Organization.find(params[:organization_id]) if params[:organization_id].present?
+      @headquarter = Headquarter.find(params[:headquarter_id]) if params[:headquarter_id].present?
 
       temp_csv = params[:convicts_list].tempfile
       csv = CSV.read(temp_csv,
@@ -61,8 +60,9 @@ module Admin
       other_organizations = nil
       if @headquarter&.organizations&.any?
         target = @headquarter.organizations.first
-        other_organizations = @headquarter.organizations.where.not(id: target.id)
+        other_organizations = @headquarter.organizations.excluding(target)
       end
+
       AppiImportJob.perform_later(appi_data, target, current_user, csv_errors, other_organizations)
       flash.now[:success] =
         'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
