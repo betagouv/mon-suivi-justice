@@ -44,6 +44,7 @@ class PlacesController < ApplicationController
     authorize @place
 
     @place.destroy
+
     redirect_to places_path
   end
 

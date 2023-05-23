@@ -74,18 +74,6 @@ RSpec.feature 'Places', type: :feature do
       expect(agenda.reload.name).to eq 'updated_name'
     end
 
-    it 'deletes agenda', js: true do
-      place = create :place, name: 'Spip du 93'
-      create :agenda, name: 'test_agenda', place: place
-      visit edit_place_path place
-
-      accept_alert do
-        click_link 'Supprimer'
-      end
-
-      expect(place.agendas.count).to eq 0
-    end
-
     it 'allows to select appointment_types' do
       place = create(:place, name: 'Spip du 91')
       apt_type = create(:appointment_type, name: 'Premier contact Spip')

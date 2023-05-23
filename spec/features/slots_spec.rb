@@ -1,12 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Slots', type: :feature do
-  before do
-    @user = create_admin_user_and_login
-    # TODO : we should not have to return Place.all. The factory should add places to the user's organization
-    allow(Place).to receive(:in_departments).and_return(Place.all)
-  end
-
+RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
   describe 'index' do
     before do
       place = create :place, organization: @user.organization
@@ -27,7 +21,7 @@ RSpec.feature 'Slots', type: :feature do
     it 'allows to close slot' do
       visit slots_path
 
-      within first('.index-list-item-container') do
+      within first('tbody > tr') do
         click_link('Fermer')
       end
 

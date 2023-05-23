@@ -1,10 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Organizations', type: :feature do
-  before do
-    create_admin_user_and_login
-  end
-
+RSpec.feature 'Organizations', type: :feature, logged_in_as: 'admin' do
   scenario 'An admin consults organization index' do
     create :organization, name: 'SPIP 92'
     create :organization, name: 'SPIP 93'
@@ -28,7 +24,7 @@ RSpec.feature 'Organizations', type: :feature do
   scenario 'An admin updates an organization' do
     create :organization, name: 'SPIP 92'
     visit organizations_path
-    within first('.organizations-item-container') do
+    within first('tbody > tr') do
       click_link 'Modifier'
     end
     fill_in :organization_name, with: 'SPIP 75'
