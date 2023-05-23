@@ -22,6 +22,7 @@ class AdminMailer < ApplicationMailer
     @organization = params[:organization]
     @import_successes = params[:import_successes]
     @import_errors = params[:import_errors]
-    mail(to: @user.email, subject: "Rapport import APPI #{@organization.name}")
+    @sources = params[:sources]
+    mail(to: @user.email, subject: "Rapport d'import de convict dans #{@organization.name}")
   end
 end

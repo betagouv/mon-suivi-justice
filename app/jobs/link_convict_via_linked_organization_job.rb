@@ -11,7 +11,8 @@ class LinkConvictViaLinkedOrganizationJob < ApplicationJob
     @import_errors.push("Erreur : #{e.message}")
   ensure
     AdminMailer.with(user: user, organization: organization, import_errors: @import_errors,
-                     import_successes: @import_successes).link_convict_from_linked_orga.deliver_later
+                     import_successes: @import_successes,
+                     sources: organizations_source.pluck(:name)).link_convict_from_linked_orga.deliver_later
   end
 
   def link_convicts(organization, user, organizations_source)
