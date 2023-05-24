@@ -38,10 +38,11 @@ as well as a link to its edit page.
       data: { confirm: t("administrate.actions.confirm") }
     ) if accessible_action?(page.resource, :destroy) %>
     <%= button_to(
-      "Importer les PPSMJ de l'organization liée",
+      "Importer les PPSMJ des organizations liées",
       admin_organization_link_convict_from_linked_orga_path(page.resource),
       method: :put,
-      class: "button button--info",
+      class: "button",
+      style: "margin-top: 4px;",
       data: { confirm: t("administrate.actions.confirm") }
     ) if page.resource.linked_organizations.any? %>
   </div>
