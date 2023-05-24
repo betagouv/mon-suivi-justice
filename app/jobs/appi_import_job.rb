@@ -3,11 +3,11 @@ class AppiImportJob < ApplicationJob
   require 'digest/bubblebabble'
   queue_as :default
 
-  def perform(appi_data, organization, user, csv_errors, _other_organizations)
+  def perform(appi_data, organization, user, csv_errors, other_organizations)
     @import_errors = []
     @import_successes = []
 
-    process_appi_data(appi_data, organization)
+    process_appi_data(appi_data, organization, other_organizations)
   rescue StandardError => e
     @import_errors.push("Erreur : #{e.message}")
   ensure
@@ -15,13 +15,13 @@ class AppiImportJob < ApplicationJob
                      import_successes: @import_successes, csv_errors: csv_errors).appi_import_report.deliver_later
   end
 
-  def process_appi_data(appi_data, organization)
+  def process_appi_data(appi_data, organization, other_organizations = [])
     appi_data.each do |c|
-      create_convict(c, organization)
+      create_convict(c, organization, other_organizations)
     end
   end
 
-  def create_convict(convict, organization)
+  def create_convict(convict, organization, other_organizations)
     convict = Convict.new(
       first_name: convict[:first_name],
       last_name: staging? ? anonymize(convict) : convict[:last_name],
@@ -36,7 +36,7 @@ class AppiImportJob < ApplicationJob
       convict.organizations.push(linked_organization) unless convict.organizations.include?(linked_organization)
     end
 
-    organization.other_organizations.each do |orga|
+    other_organizations.each do |orga|
       convict.organizations.push(orga) unless convict.organizations.include?(orga)
     end
 
