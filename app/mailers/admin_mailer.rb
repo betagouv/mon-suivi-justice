@@ -3,11 +3,11 @@ class AdminMailer < ApplicationMailer
 
   def appi_import_report
     @user = params[:user]
-    @organization = params[:organization]
+    @organizations = params[:organizations]
     @import_successes = params[:import_successes]
     @import_errors = params[:import_errors]
     @csv_errors = params[:csv_errors]
-    mail(to: @user.email, subject: "Rapport import APPI #{@organization.name}")
+    mail(to: @user.email, subject: 'Rapport import APPI')
   end
 
   def convict_migration_report
