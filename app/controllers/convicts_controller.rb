@@ -6,10 +6,7 @@ class ConvictsController < ApplicationController
     @history_items = HistoryItem.where(convict: @convict, category: %w[appointment convict])
                                 .order(created_at: :desc)
 
-    if current_user.can_use_inter_ressort? && !@convict.city_id
-      flash.now[:warning] =
-        "<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
-    end
+    set_warning_flash_no_city if current_user.can_use_inter_ressort? && !@convict.city_id
 
     authorize @convict
   end
@@ -194,5 +191,12 @@ class ConvictsController < ApplicationController
 
   def force_duplication?
     ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
+  end
+
+  def set_warning_flash_no_city
+    flash.now[:warning] =
+      "<strong>ATTENTION. Aucune commune renseignée.</strong>
+     La prise de RDV ne sera possible que dans votre ressort:
+      <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
   end
 end
