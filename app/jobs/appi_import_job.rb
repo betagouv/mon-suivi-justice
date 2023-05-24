@@ -3,7 +3,7 @@ class AppiImportJob < ApplicationJob
   require 'digest/bubblebabble'
   queue_as :default
 
-  def perform(appi_data, organization, user, csv_errors, other_organizations)
+  def perform(appi_data, organization, user, csv_errors, _other_organizations)
     @import_errors = []
     @import_successes = []
 
@@ -13,11 +13,6 @@ class AppiImportJob < ApplicationJob
   ensure
     AdminMailer.with(user: user, organization: organization, import_errors: @import_errors,
                      import_successes: @import_successes, csv_errors: csv_errors).appi_import_report.deliver_later
-    if @import_successes.any? && other_organizations.present?
-      other_organizations.each do |orga|
-        LinkConvictFromOrganizationsSourceJob.perform_later(orga, user, [organization])
-      end
-    end
   end
 
   def process_appi_data(appi_data, organization)
@@ -36,6 +31,14 @@ class AppiImportJob < ApplicationJob
     )
 
     convict.organizations.push(organization) unless convict.organizations.include?(organization)
+
+    organization.linked_organizations.each do |linked_organization|
+      convict.organizations.push(linked_organization) unless convict.organizations.include?(linked_organization)
+    end
+
+    organization.other_organizations.each do |orga|
+      convict.organizations.push(orga) unless convict.organizations.include?(orga)
+    end
 
     if convict.save && convict.valid?(:appi_impport)
       @import_successes.push("#{convict.first_name} #{convict.last_name} (id: #{convict.id})")
