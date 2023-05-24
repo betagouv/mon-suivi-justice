@@ -222,7 +222,8 @@ RSpec.describe Convict, type: :model do
     end
 
     it "doesn't add duplicate if appi_uuid are different" do
-      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '1234', date_of_birth: '1980-01-01')
+      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '1234',
+                                  date_of_birth: '1980-01-01')
       create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '5678', date_of_birth: '1980-01-01')
 
       convict1.check_duplicates

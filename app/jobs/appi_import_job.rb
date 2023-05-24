@@ -21,6 +21,8 @@ class AppiImportJob < ApplicationJob
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def create_convict(convict, organizations)
     convict = Convict.new(
       first_name: convict[:first_name],
@@ -44,6 +46,8 @@ class AppiImportJob < ApplicationJob
       @import_errors.push("#{convict.first_name} #{convict.last_name} - #{convict.errors.full_messages.first}")
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 
   private
 

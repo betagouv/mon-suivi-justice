@@ -38,13 +38,9 @@ class AppointmentsController < ApplicationController
 
     @convict = Convict.find(params[:convict_id])
 
-    if current_user.can_use_inter_ressort? && !@convict.city_id
-      flash.now[:warning] =
-        "<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
-    end
+    set_warning_flash_no_city if current_user.can_use_inter_ressort? && !@convict.city_id
 
-    @extra_fields = @convict.organizations.tj&.first&.extra_fields&.select(&:appointment_create?)
-    @extra_fields&.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field: extra_field) }
+    initialize_extra_fields
   end
 
   def create
@@ -123,5 +119,17 @@ class AppointmentsController < ApplicationController
 
   def assign_appointment_to_creating_organization
     @appointment.creating_organization = current_user.organization
+  end
+
+  def set_warning_flash_no_city
+    flash.now[:warning] = "<strong>ATTENTION. Aucune commune renseignée.</strong>
+                           La prise de RDV ne sera possible que dans votre ressort:
+                           <a href='/convicts/#{@convict.id}/edit'>
+                          Ajouter une commune à #{@convict.full_name}</a>".html_safe
+  end
+
+  def initialize_extra_fields
+    @extra_fields = @convict.organizations.tj&.first&.extra_fields&.select(&:appointment_create?)
+    @extra_fields&.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field: extra_field) }
   end
 end

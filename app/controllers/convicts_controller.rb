@@ -6,10 +6,7 @@ class ConvictsController < ApplicationController
     @history_items = HistoryItem.where(convict: @convict, category: %w[appointment convict])
                                 .order(created_at: :desc)
 
-    if current_user.can_use_inter_ressort? && !@convict.city_id
-      flash.now[:warning] =
-        "<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
-    end
+    set_warning_flash_no_city if current_user.can_use_inter_ressort? && !@convict.city_id
 
     authorize @convict
   end
@@ -47,7 +44,8 @@ class ConvictsController < ApplicationController
 
     if current_user.can_use_inter_ressort? && !@convict.city_id
       flash.now[:warning] =
-        '<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort:  Utilisez le champ commune ci-dessous pour renseigner une commune'.html_safe
+        '<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort:
+          Utilisez le champ commune ci-dessous pour renseigner une commune'.html_safe
     end
 
     authorize @convict
@@ -59,14 +57,12 @@ class ConvictsController < ApplicationController
 
     old_phone = @convict.phone
 
-    return render :edit if current_user.work_at_bex? && !@convict.valid?(:user_works_at_bex)
+    return render :edit if bex_user_and_invalid_convict?
 
-    @convict.current_user = current_user
-    if @convict.update(convict_params)
-      @convict.update_organizations(current_user)
-      record_phone_change(old_phone)
-      flash.now[:success] = 'La PPSMJ a bien été mise à jour'
-      redirect_to convict_path(@convict)
+    update_convict
+
+    if @convict.errors.empty?
+      handle_successful_update(old_phone)
     else
       render :edit
     end
@@ -127,17 +123,8 @@ class ConvictsController < ApplicationController
   def save_and_redirect(convict)
     if duplicate_present?(convict) && !force_duplication?
       render :new
-    elsif !current_user.can_use_inter_ressort? || convict.valid?(:user_can_use_inter_ressort)
-      if convict.save
-        convict.update_organizations(current_user)
-        redirect_to select_path(params)
-      else
-        @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
-        render :new
-      end
     else
-      @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
-      render :new
+      handle_save_and_redirect(convict)
     end
   end
 
@@ -194,5 +181,55 @@ class ConvictsController < ApplicationController
 
   def force_duplication?
     ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
+  end
+
+  def set_warning_flash_no_city
+    flash.now[:warning] =
+      "<strong>ATTENTION. Aucune commune renseignée.</strong>
+     La prise de RDV ne sera possible que dans votre ressort:
+      <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
+  end
+
+  def bex_user_and_invalid_convict?
+    current_user.work_at_bex? && !@convict.valid?(:user_works_at_bex)
+  end
+
+  def update_convict
+    @convict.current_user = current_user
+    @convict.update(convict_params)
+    @convict.update_organizations(current_user)
+  end
+
+  def handle_successful_update(old_phone)
+    record_phone_change(old_phone)
+    flash.now[:success] = 'La PPSMJ a bien été mise à jour'
+    redirect_to convict_path(@convict)
+  end
+
+  def handle_save_and_redirect(convict)
+    if user_can_use_inter_ressort?(convict)
+      save_and_redirect_with_inter_ressort(convict)
+    else
+      render_new_with_appi_uuid(convict)
+    end
+  end
+
+  def user_can_use_inter_ressort?(convict)
+    !current_user.can_use_inter_ressort? || convict.valid?(:user_can_use_inter_ressort)
+  end
+
+  def save_and_redirect_with_inter_ressort(convict)
+    if convict.save
+      convict.update_organizations(current_user)
+      redirect_to select_path(params)
+    else
+      @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
+      render :new
+    end
+  end
+
+  def render_new_with_appi_uuid(convict)
+    @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
+    render :new
   end
 end
