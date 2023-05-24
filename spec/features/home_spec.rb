@@ -33,7 +33,6 @@ RSpec.feature 'Home', type: :feature do
 
       @appointment2.book
     end
-
     pending 'should display a link to a page listing uninformed appointments' do
       @user.update(role: :jap)
       visit home_path
@@ -69,7 +68,6 @@ RSpec.feature 'Home', type: :feature do
 
       @appointment2.book
     end
-
     pending 'should display a link to a page with the user uninformed appointments for cpip users' do
       @user.update(role: :cpip)
       @appointment1.update(user: @user)
