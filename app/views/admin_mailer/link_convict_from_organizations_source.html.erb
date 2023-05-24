@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Ajout des ppsmj dans: <%= @organization.name %></h1>
+    <h2>Depuis:</h2>
+    <ul>
+        <% @sources.each do |source| %>
+            <li><%= source %></li>
+        <% end %>
+    </ul>
+    <ul>
+        <% if !@import_successes.nil? && @import_successes.any? %>
+          <h1><%= @import_successes.length %> ppsmjs ont été liées </h1>
+        <% end %>
+        <% if !@import_errors.nil? && @import_errors.any? %>
+          <h1><%= @import_errors.length %> ppsmjs n'ont pas pu être liées :</h1>
+          <% @import_errors.each do |error| %>
+              <li style="color: red"><%= error %></li>
+          <% end %>
+        <% end %>
+    </ul>
+  </body>
+</html>

@@ -3,25 +3,25 @@ class AppiImportJob < ApplicationJob
   require 'digest/bubblebabble'
   queue_as :default
 
-  def perform(appi_data, organization, user, csv_errors)
+  def perform(appi_data, organizations, user, csv_errors)
     @import_errors = []
     @import_successes = []
 
-    process_appi_data(appi_data, organization)
+    process_appi_data(appi_data, organizations)
   rescue StandardError => e
     @import_errors.push("Erreur : #{e.message}")
   ensure
-    AdminMailer.with(user: user, organization: organization, import_errors: @import_errors,
+    AdminMailer.with(user: user, organizations: organizations, import_errors: @import_errors,
                      import_successes: @import_successes, csv_errors: csv_errors).appi_import_report.deliver_later
   end
 
-  def process_appi_data(appi_data, organization)
+  def process_appi_data(appi_data, organizations)
     appi_data.each do |c|
-      create_convict(c, organization)
+      create_convict(c, organizations)
     end
   end
 
-  def create_convict(convict, organization)
+  def create_convict(convict, organizations)
     convict = Convict.new(
       first_name: convict[:first_name],
       last_name: staging? ? anonymize(convict) : convict[:last_name],
@@ -30,7 +30,13 @@ class AppiImportJob < ApplicationJob
       appi_uuid: convict[:appi_uuid]
     )
 
-    convict.organizations.push(organization) unless convict.organizations.include?(organization)
+    organizations.each do |organization|
+      convict.organizations.push(organization) unless convict.organizations.include?(organization)
+
+      organization.linked_organizations.each do |linked_organization|
+        convict.organizations.push(linked_organization) unless convict.organizations.include?(linked_organization)
+      end
+    end
 
     if convict.save && convict.valid?(:appi_impport)
       @import_successes.push("#{convict.first_name} #{convict.last_name} (id: #{convict.id})")
