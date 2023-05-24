@@ -170,7 +170,6 @@ class Convict < ApplicationRecord
 
   def check_duplicates
     duplicates = find_duplicates
-    duplicates = filter_duplicates_by_appi_uuid(duplicates) if appi_uuid.present?
     self.duplicates = duplicates
   end
 
@@ -204,16 +203,14 @@ class Convict < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  private
-
   def find_duplicates
     name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'
-    Convict.where(name_conditions, first_name.downcase, last_name.downcase)
-           .where('phone = ? OR (date_of_birth = ? AND phone IS NOT NULL)', phone, date_of_birth)
-           .where.not(id: id)
-  end
+    duplicates = Convict.where(name_conditions, first_name.downcase, last_name.downcase)
+                        .where('phone = ? OR (date_of_birth = ? AND phone IS NOT NULL)', phone, date_of_birth)
+                        .where.not(id: id)
 
-  def filter_duplicates_by_appi_uuid(duplicates)
-    duplicates.where(appi_uuid: nil)
+    duplicates = duplicates.where(appi_uuid: nil) if appi_uuid.present?
+
+    duplicates
   end
 end
