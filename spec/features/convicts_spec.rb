@@ -379,8 +379,8 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'an admin can archive and unarchive a convict', logged_in_as: 'admin' do
-      convict = create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606', date_of_birth: '01/01/1980',
-                                 organizations: [@user.organization])
+      convict = create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606',
+                                 date_of_birth: '01/01/1980', organizations: [@user.organization])
 
       visit convicts_path
       expect(page).to have_content('BABAR')
