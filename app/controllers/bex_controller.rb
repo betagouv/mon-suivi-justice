@@ -41,13 +41,7 @@ class BexController < ApplicationController
     @current_date = current_date(@appointment_type, params)
     get_places_and_agendas(@appointment_type, params)
 
-    respond_to do |format|
-      format.html
-      # format.pdf do
-      #   render template: 'bex/agenda_sap_ddse_pdf.html.erb', locals: { date: @current_date },
-      #          pdf: 'Agenda SAP DDSE', footer: { right: '[page]/[topage]' }
-      # end
-    end
+    respond_to(&:html)
   end
 
   def appointment_extra_field

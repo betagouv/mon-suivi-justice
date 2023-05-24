@@ -46,6 +46,8 @@ module Admin
           FROM monsuivijustice_commune c;")
     end
 
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Layout/LineLength
     def update_city_associations
       ActiveRecord::Base.connection.execute("
           INSERT INTO srj_spips(name, structure_id, updated_at, created_at)
@@ -104,5 +106,7 @@ module Admin
             INNER JOIN monsuivijustice_commune c ON c.id = rcs.commune_id
           WHERE CAST(cities.city_id AS integer) = c.id;")
     end
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Layout/LineLength
   end
 end

@@ -42,7 +42,8 @@ RSpec.feature 'Places', type: :feature do
 
   describe 'update', logged_in_as: 'local_admin', js: true do
     it 'works' do
-      place = create(:place, name: 'Spip du 78', preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip92', organization: @user.organization)
+      place = create(:place, name: 'Spip du 78',
+                             preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip92', organization: @user.organization)
       visit places_path
 
       within first('tbody > tr') { click_link 'Modifier' }

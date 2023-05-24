@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 describe ConvictPolicy do
-
   context 'for an admin' do
     let(:user) { build(:user, :in_organization, role: 'admin') }
     let(:convict) { build(:convict, organizations: [user.organization]) }
 
     subject { ConvictPolicy.new(user, convict) }
-
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -23,7 +21,6 @@ describe ConvictPolicy do
     let(:convict) { build(:convict, organizations: [user.organization]) }
 
     subject { ConvictPolicy.new(user, convict) }
-
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }

@@ -328,7 +328,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       it "doesn't propose convocation SMS if the convict has no phone" do
         convict = create :convict, first_name: 'Momo', last_name: 'Le renard', phone: nil, no_phone: true,
-                         organizations: [@user.organization]
+                                   organizations: [@user.organization]
 
         visit new_appointment_path({ convict_id: convict.id })
 
