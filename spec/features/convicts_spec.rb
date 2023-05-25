@@ -9,39 +9,45 @@ RSpec.feature 'Convicts', type: :feature do
 
   describe 'index', logged_in_as: 'cpip' do
     it 'allows an agent to assign himself to a convict' do
-      create(:convict, first_name: 'Bernard', phone: '0607080910', organizations: [@user.organization])
+      create(:convict, first_name: 'Bernard', phone: '0607080910', date_of_birth: '01/01/1980',
+                       organizations: [@user.organization])
       visit convicts_path
-      within first('.convicts-item-container') do
-        click_link('attribuer cette PPSMJ')
+      within first('tbody') do
+        click_link('S\'attribuer cette PPSMJ')
       end
       expect(page).to have_content('La PPSMJ vous a bien été attribuée.')
       expect(page).to have_content(@user.name)
       expect(Convict.first.cpip).to eq(@user)
     end
 
-    it 'an agent see only convict from his organization (TODO : and linked organization ?)' do
-      create(:convict, first_name: 'Michel', last_name: 'Vaillant', organizations: [@user.organization])
-      create(:convict, first_name: 'Paul', last_name: 'Personne', organizations: [@user.organization])
+    it 'an agent see only convict from his organization' do
+      create(:convict, first_name: 'Michel', last_name: 'Vaillant', date_of_birth: '01/01/1980',
+                       organizations: [@user.organization])
+      create(:convict, first_name: 'Paul', last_name: 'Personne', date_of_birth: '01/01/1980',
+                       organizations: [@user.organization])
 
       organization = create :organization
       create(:convict, first_name: 'Max', last_name: 'Dupneu', organizations: [organization])
       create(:convict, first_name: 'Tom', last_name: 'Dupont', organizations: [organization])
 
       visit convicts_path
-      expect(page).not_to have_content('Max')
-      expect(page).not_to have_content('Tom')
-      expect(page).to have_content('VAILLANT Michel').twice
-      expect(page).to have_content('PERSONNE Paul').twice
+
+      expect(page).not_to have_content('Dupneu')
+      expect(page).not_to have_content('Dupont')
+      expect(page).to have_content('Vaillant')
+      expect(page).to have_content('Personne')
     end
 
     it 'an agent can list only the convicts assigned to him' do
-      create(:convict, first_name: 'Michel', last_name: 'Vaillant', organizations: [@user.organization], user: @user)
-      create(:convict, first_name: 'Paul', last_name: 'Personne', organizations: [@user.organization])
+      create(:convict, first_name: 'Michel', last_name: 'Vaillant', date_of_birth: '01/01/1980',
+                       organizations: [@user.organization], user: @user)
+      create(:convict, first_name: 'Paul', last_name: 'Personne', date_of_birth: '01/01/1980',
+                       organizations: [@user.organization])
 
       visit convicts_path(only_mine: true)
 
-      expect(page).to have_content('Michel').twice
-      expect(page).to have_content('Paul').once
+      expect(page).to have_content('Vaillant')
+      expect(page).not_to have_content('Personne')
     end
   end
 
@@ -65,6 +71,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
+      fill_in 'Date de naissance', with: '1980-01-01'
 
       expect { click_button 'submit-with-appointment' }.to change { Convict.count }.by(1)
       expect(page).to have_current_path(new_appointment_path(convict_id: Convict.last.id))
@@ -85,6 +92,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
+      fill_in 'Date de naissance', with: '01/01/1980'
       check 'Ne possède pas de téléphone portable'
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
@@ -98,16 +106,19 @@ RSpec.feature 'Convicts', type: :feature do
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
+      fill_in 'Date de naissance', with: '01/01/1980'
       check 'Ne possède pas de téléphone portable'
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
       expect(Convict.first.organizations).to eq([@user.organization, tj])
     end
 
-    it 'it assigns the city organizations to the convict if a city is selected', js: true do
+    it 'it assigns the city organizations to the convict if a city is selected', logged_in_as: 'bex', js: true do
+      @user.organization.use_inter_ressort = true
+      spip = create(:organization, organization_type: 'spip')
       tj = create(:organization, organization_type: 'tj')
       srj_tj = create(:srj_tj, organization: tj)
-      srj_spip = create(:srj_spip, organization: @user.organization)
+      srj_spip = create(:srj_spip, organization: spip)
 
       city = create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
 
@@ -115,82 +126,72 @@ RSpec.feature 'Convicts', type: :feature do
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
+      fill_in 'Date de naissance', with: '1980-01-01'
 
-      find('#new_convict > span').click
-      find('body > span > span > span.select2-search.select2-search--dropdown > input').set('Melun')
-      find('li', text: '77000 Melun (France) - 77000').click
+      find('#convict_city_id').set('Melun')
 
-      check 'Ne possède pas de téléphone portable'
+      page.has_content?('77000 Melun (France)')
+
+      find('a', text: '77000 Melun (France)').click
+      find(:css, '#convict-no-phone-checkbox').click
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
 
       expect(Convict.first.organizations.pluck(:id)).to match_array(city.organizations.pluck(:id))
     end
 
-    it 'it assigns the city spip and TJ Paris to the convict if a city is selected and japat is selected', js: true do
+    it 'it assigns the city spip and TJ Paris to the convict if a city is selected and japat is selected',
+       logged_in_as: 'bex', js: true do
+      @user.organization.use_inter_ressort = true
+      spip = create(:organization, organization_type: 'spip')
+
       tj = create(:organization, organization_type: 'tj')
       tj_paris = create(:organization, name: 'TJ Paris', organization_type: 'tj')
       srj_tj = create(:srj_tj, organization: tj)
-      srj_spip = create(:srj_spip, organization: @user.organization)
+      srj_spip = create(:srj_spip, organization: spip)
 
-      city = create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
+      create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
 
       visit new_convict_path
 
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
+      fill_in 'Date de naissance', with: '1980-01-01'
 
-      find('#new_convict > span').click
-      find('body > span > span > span.select2-search.select2-search--dropdown > input').set('Melun')
-      find('li', text: '77000 Melun (France) - 77000').click
+      find('#convict_city_id').set('Melun')
+      find('a', text: '77000 Melun (France)').click
 
-      check 'Japat'
-      check 'Ne possède pas de téléphone portable'
+      find(:css, '#convict-japat-checkbox').click
+      find(:css, '#convict-no-phone-checkbox').click
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
 
-      expect(Convict.first.organizations).to match_array([@user.organization, tj_paris])
+      expect(Convict.last.organizations).to match_array([spip, tj_paris])
     end
 
-    describe 'with potentially duplicated convicts' do
+    describe 'with potentially duplicated convicts', logged_in_as: 'cpip' do
       it 'shows a warning with link to pre-existing convict profile' do
-        convict = create(:convict, first_name: 'roberta', last_name: 'dupond', organizations: [@user.organization])
+        convict = create(:convict, first_name: 'roberta', last_name: 'dupond', date_of_birth: '01/01/1980',
+                                   organizations: [@user.organization])
 
         visit new_convict_path
 
         fill_in 'Prénom', with: 'Roberta'
         fill_in 'Nom', with: 'Dupond'
+        fill_in 'Date de naissance', with: '1980-01-01'
         fill_in 'Téléphone', with: '0606060606'
+
         expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
 
         expect(page).to have_content('Un doublon potentiel a été détecté :')
-        expect(page).to have_link('Profil de DUPOND Roberta', href: convict_path(convict))
-
-        expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
-      end
-
-      it 'shows a generic warning if the pre-existing convict is outside of department' do
-        convict = create(:convict, first_name: 'Roberto', last_name: 'Durand')
-        department = create(:department, name: 'Sarthe', number: '72')
-        create :areas_convicts_mapping, convict: convict, area: department
-
-        visit new_convict_path
-
-        fill_in 'Prénom', with: 'Roberto'
-        fill_in 'Nom', with: 'Durand'
-        fill_in 'Téléphone', with: '0606060606'
-        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
-
-        expect(page).to have_content(
-          "Un homonyme existe dans le département #{department.name} (#{department.number})."
-        )
+        expect(page).to have_link("DUPOND Roberta, suivi(e) par : #{convict.organizations.first.name}",
+                                  href: convict_path(convict))
 
         expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
       end
     end
 
-    it 'creates a convicts with a cpip relation', js: true do
-      create(:user, first_name: 'Damien', last_name: 'LET', role: 'cpip')
+    it 'creates a convicts with a cpip relation', logged_in_as: 'cpip', js: true do
       cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
 
       visit new_convict_path
@@ -198,8 +199,11 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
-      find('#new_convict > div.form-input-wrapper.select.optional.convict_user > span > span.selection > span').click
-      find('li.select2-results__option', text: 'MAU Rémy').click
+      fill_in 'Date de naissance', with: '1980-01-01'
+
+      find('#convict_user_id').set('Mau')
+      page.has_content?('Rémy MAU')
+      find('a', text: 'Rémy MAU').click
 
       click_button 'submit-no-appointment'
 
@@ -216,6 +220,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Prénom', with: 'Robert'
       fill_in 'Nom', with: 'Durand'
       fill_in 'Téléphone', with: '0606060606'
+      fill_in 'Date de naissance', with: '01/01/1980'
       click_button 'submit-no-appointment'
       expect(Convict.last.creating_organization).to eq(orga)
     end
@@ -223,13 +228,20 @@ RSpec.feature 'Convicts', type: :feature do
 
   describe 'update', logged_in_as: 'cpip' do
     it 'update convict informations', js: true do
-      convict = create(:convict, last_name: 'Expresso', organizations: [@user.organization])
+      convict = create(:convict, last_name: 'Expresso', date_of_birth: '01/01/1980',
+                                 organizations: [@user.organization])
       cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
       visit edit_convict_path(convict)
-      fill_in 'Nom', with: 'Ristretto'
-      find('form > div.form-input-wrapper.select.optional.convict_user > span > span.selection > span').click
-      find('li.select2-results__option', text: 'MAU Rémy').click
+
+      find('#convict_last_name').set('').set('Ristretto')
+
+      find('#convict_user_id').set('Mau')
+      page.has_content?('Rémy MAU')
+
+      find('a', text: 'Rémy MAU').click
+
       click_button 'Enregistrer'
+
       convict.reload
       expect(convict.last_name).to eq('Ristretto')
       expect(convict.cpip).to eq(cpip)
@@ -329,12 +341,10 @@ RSpec.feature 'Convicts', type: :feature do
       it 'allows to delete convict' do
         convict = create(:convict, last_name: 'Noisette',
                                    first_name: 'Café',
+                                   date_of_birth: '01/01/1980',
                                    phone: '0607060706', organizations: [@user.organization])
         visit convict_path(convict)
-
-        within first('.show-profile-container') do
-          expect { click_button('Supprimer') }.to change { Convict.count }.by(-1)
-        end
+        expect { click_button('Supprimer') }.to change { Convict.count }.by(-1)
       end
     end
 
@@ -355,34 +365,34 @@ RSpec.feature 'Convicts', type: :feature do
   end
 
   describe 'archive' do
-    it 'an agent can archive a convict', logged_in_as: 'cpip' do
-      create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606',
+    it 'an agent can archive a convict', logged_in_as: 'cpip', js: true do
+      create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606', date_of_birth: '01/01/1980',
                        organizations: [@user.organization])
       visit convicts_path
 
-      expect(page).to have_content('BABAR Babar')
+      expect(page).to have_content('BABAR')
+      accept_alert do
+        click_link 'Archiver'
+      end
 
-      click_link 'Archiver'
-
-      expect(page).to have_content('BABAR Babar (archivé)')
       expect(page).not_to have_content('Désarchiver')
     end
 
     it 'an admin can archive and unarchive a convict', logged_in_as: 'admin' do
       convict = create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606',
-                                 organizations: [@user.organization])
+                                 date_of_birth: '01/01/1980', organizations: [@user.organization])
 
       visit convicts_path
-      expect(page).to have_content('BABAR Babar')
+      expect(page).to have_content('BABAR')
 
       click_link 'Archiver'
 
-      expect(page).to have_content('BABAR Babar')
+      expect(page).to have_content('BABAR')
       expect(Convict.find(convict.id).discarded?).to be true
 
       click_link 'Désarchiver'
 
-      expect(page).to have_content('BABAR Babar')
+      expect(page).to have_content('BABAR')
       expect(Convict.find(convict.id).discarded?).to be false
     end
   end

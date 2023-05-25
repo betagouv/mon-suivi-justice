@@ -223,7 +223,7 @@ RSpec.feature 'Bex', type: :feature do
       visit agenda_sap_ddse_path
       select current_month_label, from: :date
 
-      agenda_containers = page.all('.bex-agenda-container', minimum: 1)
+      agenda_containers = page.all('.agenda-jap-table', minimum: 1)
 
       expect(agenda_containers[0]).to have_content('James')
       expect(agenda_containers[0]).to have_content('MORIARTY')
@@ -239,7 +239,7 @@ RSpec.feature 'Bex', type: :feature do
 
       select agenda2.name, from: :agenda_id
 
-      agenda_containers = page.all('.bex-agenda-container', minimum: 1)
+      agenda_containers = page.all('.agenda-jap-table', minimum: 1)
 
       expect(agenda_containers[0]).to have_content('Lex')
       expect(agenda_containers[0]).to have_content('LUTHOR')

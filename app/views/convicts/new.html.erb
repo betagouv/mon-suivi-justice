@@ -86,7 +86,7 @@
           </p>
         <% end %>
       </div>
-      <div class="fr-fieldset__element fr-fieldset__element--inline">
+      <div id="convict-no-phone-checkbox" class="fr-fieldset__element fr-fieldset__element--inline">
         <div class="fr-checkbox-group">
           <input name="convict[no_phone]" id="convict-no-phone" type="checkbox" aria-describedby="convict-no-phone-messages" value="1" <%= 'checked' if @convict.no_phone %>>
           <label class="fr-label" for="convict-no-phone">
@@ -96,7 +96,7 @@
           </div>
         </div>
       </div>
-      <div class="fr-fieldset__element fr-fieldset__element--inline">
+      <div id="convict-refused-phone-checkbox" class="fr-fieldset__element fr-fieldset__element--inline">
         <div class="fr-checkbox-group">
           <input name="convict[refused_phone]" id="convict-refused-phone" type="checkbox" aria-describedby="convict-refused-phone-messages" value="1" <%= 'checked' if @convict.refused_phone %>>
           <label class="fr-label" for="convict-refused-phone">
@@ -106,7 +106,7 @@
           </div>
         </div>
       </div>
-      <div class="fr-fieldset__element fr-fieldset__element--inline">
+      <div id="convict-japat-checkbox" class="fr-fieldset__element fr-fieldset__element--inline">
         <div class="fr-checkbox-group">
           <input name="convict[japat]" id="convict-japat" type="checkbox" aria-describedby="convict-japat-messages" value="1" <%= 'checked' if @convict.japat %>>
           <label class="fr-label" for="convict-japat">

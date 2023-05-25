@@ -28,12 +28,12 @@ describe AppointmentPolicy do
   end
 
   context 'for an local_admin spip' do
-    let(:organization) { build(:organization, organization_type: 'spip') }
-    let(:place) { build(:place, organization: organization) }
+    let(:user) { build(:user, :in_organization, type: 'spip', role: 'local_admin') }
+    let(:place) { build(:place, organization: user.organization) }
     let(:agenda) { build :agenda, place: place }
+    let(:appointment_type) { create(:appointment_type, name: 'RDV de suivi SPIP') }
     let(:slot) { create :slot, :without_validations, appointment_type: appointment_type, agenda: agenda }
     let!(:appointment) { create(:appointment, slot: slot) }
-    let(:user) { build(:user, role: 'local_admin', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -81,7 +81,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'prosecutor', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -252,7 +252,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'dir_greff_bex', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -308,7 +308,7 @@ describe AppointmentPolicy do
   context 'for a bex user' do
     let(:user) { build(:user, role: 'bex', organization: slot.place.organization) }
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -365,7 +365,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'greff_co') }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -422,7 +422,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'greff_tpe', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -479,7 +479,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'greff_crpc', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
@@ -536,7 +536,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'greff_ca', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
-    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 

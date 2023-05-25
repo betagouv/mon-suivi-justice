@@ -7,7 +7,7 @@ RSpec.describe DataCollector do
         convict1 = create :convict, phone: '0606060606'
         convict2 = create :convict, phone: nil, refused_phone: true
 
-        3.times { create :user }
+        3.times { create :user, :in_organization }
 
         slot1 = create :slot, date: Date.civil(2025, 4, 14)
         slot2 = create :slot, date: Date.civil(2022, 4, 11)
@@ -51,7 +51,7 @@ RSpec.describe DataCollector do
         orga = create :organization
 
         create :user, organization: orga
-        create :user
+        create :user, :in_organization
 
         result = DataCollector::User.new(organization_id: orga.id).perform
 

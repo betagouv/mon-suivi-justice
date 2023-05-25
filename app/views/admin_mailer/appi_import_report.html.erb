@@ -4,7 +4,10 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Rapport d'import APPI dans msj pour, <%= @organization.name %></h1>
+    <h1>Rapport d'import APPI dans msj pour :</h1>
+    <% @organizations.each do |organization| %>
+        <li><%= organization.name %></li>
+    <% end %>
     <ul>
           <% if !@csv_errors.nil? && @csv_errors.any? %>
           <h1><%= @csv_errors.length %> erreurs de syntaxe dans le fichier :</h1>

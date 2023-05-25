@@ -351,7 +351,7 @@ fr:
     slot_types: 'Créneaux récurrents'
     users: "Agents"
     organizations: "Services"
-    steering: "Pilotage"
+    steering: "Statistiques"
     guides: "Documentation"
     appointmentsnew: "Nouveau rendez-vous"
     convictsnew: "Nouvelle PPSMJ"

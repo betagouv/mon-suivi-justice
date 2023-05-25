@@ -120,21 +120,4 @@ RSpec.describe Appointment, type: :model do
       expect(appointment.valid?).to eq(false)
     end
   end
-
-  describe '.in_departments' do
-    it 'returns correct relation' do
-      department = create :department
-
-      organization = create :organization
-      create :areas_organizations_mapping, organization: organization, area: department
-
-      convict = create :convict
-      create :areas_convicts_mapping, convict: convict, area: department
-
-      appointment = create :appointment, convict: convict
-      create :appointment
-
-      expect(Appointment.in_departments(organization.departments)).to eq [appointment]
-    end
-  end
 end

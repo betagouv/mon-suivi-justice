@@ -7,8 +7,8 @@ class AppointmentsBookingsController < ApplicationController
     @convict = Convict.find(params[:convict_id])
 
     # Load places
-    @places = Place.kept.joins(:appointment_types,
-                               organization: :convicts).where('convicts.id': @convict.id).where(appointment_types: @appointment_type)
+    @places = Place.kept.joins(:appointment_types, organization: :convicts)
+                   .where('convicts.id': @convict.id).where(appointment_types: @appointment_type)
   end
 
   def load_prosecutor
@@ -21,7 +21,8 @@ class AppointmentsBookingsController < ApplicationController
     return if @convict.city_id
 
     flash.now[:warning] =
-      "La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
+      "La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>
+      Ajouter une commune à #{@convict.full_name}</a>".html_safe
   end
 
   def load_agendas
