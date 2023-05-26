@@ -205,7 +205,7 @@ class Convict < ApplicationRecord
 
   def find_duplicates
     name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'
-    duplicates = Convict.where(name_conditions, first_name.downcase, last_name.downcase)
+    duplicates = Convict.kept.where(name_conditions, first_name.downcase, last_name.downcase)
                         .where('phone = ? OR (date_of_birth = ? AND phone IS NOT NULL)', phone, date_of_birth)
                         .where.not(id: id)
 
