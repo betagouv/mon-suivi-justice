@@ -240,6 +240,8 @@ fr:
             date:
               blank: "Date manquante"
               past: "Le rendez-vous ne peut pas être dans le passé"
+              transfert_in: "Ce lieu de rendez-vous sera disponible à partir du %{date}"
+              transfert_out: "Ce lieu de rendez-vous n'est plus disponible après le %{date}"
         slot:
           attributes:
             date:

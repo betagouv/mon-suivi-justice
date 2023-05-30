@@ -63,6 +63,7 @@ class Appointment < ApplicationRecord
   scope :active, -> { where.not(state: 'canceled') }
 
   validate :in_the_future, on: :create
+  validate :handle_transfert, on: %i[create update]
 
   def in_the_future
     if slot.date.nil?
@@ -106,6 +107,18 @@ class Appointment < ApplicationRecord
 
   def reschedule_notif
     notifications.find_by(role: :reschedule)
+  end
+
+  def handle_transfert
+    if place.transfert_in && date < place.transfert_in.date
+      errors.add(:base,
+                 I18n.t('activerecord.errors.models.appointment.attributes.date.transfert_in',
+                        date: place.transfert_in.date))
+    elsif place.transfert_out && date > place.transfert_out.date
+      errors.add(:base,
+                 I18n.t('activerecord.errors.models.appointment.attributes.date.transfert_out',
+                        date: place.transfert_out.date))
+    end
   end
 
   state_machine initial: :created do
