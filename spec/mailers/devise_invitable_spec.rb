@@ -9,7 +9,7 @@ RSpec.describe DeviseInvitable::Mailer, type: :mailer do
     it 'renders the headers' do
       expect(mail.subject).to eq('Vous avez reçu une invitation de Mon Suivi Justice')
       expect(mail.to).to eq(['agent@example.com'])
-      expect(mail.from).to eq(['contact@mon-suivi-justice.beta.gouv.fr'])
+      expect(mail.from).to eq(['support@mon-suivi-justice.beta.gouv.fr'])
     end
 
     # rubocop:disable Layout/LineLength
