@@ -24,6 +24,9 @@ Rails.application.routes.draw do
       post '/create_page' => "public_pages#create"
       post '/import_convicts' => "import_convicts#import"
       resources :headquarters
+      resources :place_transferts do
+        put '/start_transfert' => "place_transferts#start_transfert"
+      end
 
       root to: "users#index"
     end
