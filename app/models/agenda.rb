@@ -4,6 +4,7 @@ class Agenda < ApplicationRecord
   belongs_to :place
   has_many :slots, dependent: :destroy
   has_many :slot_types, dependent: :destroy
+  has_many :appointments, through: :slots
 
   validates :name, presence: true
 
