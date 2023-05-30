@@ -12,6 +12,11 @@ class Place < ApplicationRecord
   has_many :agendas, dependent: :destroy
   has_many :place_appointment_types, dependent: :destroy
   has_many :appointment_types, through: :place_appointment_types
+  has_many :appointments, through: :agendas
+  has_one :transfert_in, dependent: :destroy, class_name: 'PlaceTransfert', foreign_key: :new_place_id
+  has_one :transfert_out, dependent: :destroy, class_name: 'PlaceTransfert', foreign_key: :old_place_id
+  has_one :old_location, dependent: :destroy, through: :transfert_in, source: :old_place
+  has_one :new_location, dependent: :destroy, through: :transfert_out, source: :new_place
   belongs_to :organization
 
   enum main_contact_method: {
@@ -51,5 +56,13 @@ class Place < ApplicationRecord
 
   def contact_detail
     phone_main_contact_method? ? display_phone(spaces: false) : contact_email
+  end
+
+  def transfert_out_date
+    transfert_out&.date
+  end
+
+  def transfert_in_date
+    transfert_in&.date
   end
 end

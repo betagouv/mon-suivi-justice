@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class PlaceTransfertDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -14,7 +14,7 @@ class PlaceTransfertDashboard < Administrate::BaseDashboard
     old_place: Field::BelongsTo,
     status: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -25,8 +25,8 @@ class PlaceTransfertDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     date
-    new_place
     old_place
+    new_place
     status
   ].freeze
 
@@ -35,8 +35,8 @@ class PlaceTransfertDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     date
-    new_place
     old_place
+    new_place
     status
     created_at
     updated_at
@@ -47,8 +47,8 @@ class PlaceTransfertDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     date
-    new_place
     old_place
+    new_place
   ].freeze
 
   # COLLECTION_FILTERS
