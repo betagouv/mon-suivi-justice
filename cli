@@ -38,16 +38,6 @@ class CLI < Thor
     end
   end
 
-  desc 'deploy_staging', 'deploy staging from develop'
-  def deploy_staging
-    run('git push scalingo develop:master')
-    run('scalingo -a mon-suivi-justice-staging run rails db:migrate')
-
-    say
-    say 'Staging deployed'
-    say
-  end
-
   desc 'console_staging', 'launch MSJ staging rails console'
   def console_staging
     run('scalingo -a mon-suivi-justice-staging run rails console')
