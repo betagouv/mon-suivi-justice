@@ -43,6 +43,12 @@ class ConvictsController < ApplicationController
 
   def edit
     @convict = policy_scope(Convict).find(params[:id])
+<<<<<<< HEAD
+=======
+
+    set_inter_ressort_warnings if current_user.can_use_inter_ressort?
+
+>>>>>>> acf2c3d5 (simplified flashes for convict show and edit)
     authorize @convict
   end
 
@@ -182,6 +188,22 @@ class ConvictsController < ApplicationController
     ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
   end
 
+<<<<<<< HEAD
+=======
+  def set_inter_ressort_warnings
+    link_to_edit = "<a href='/convicts/#{@convict.id}/edit'>en cliquant ici</a>"
+
+    flash.now[:warning] =
+      "#{@convict.ir_available_services_message}
+        #{I18n.t('convicts.set_inter_ressort_warnings.how_to_add_services')} #{if action_name == 'show'
+                                                                                 link_to_edit
+                                                                               else
+                                                                                 '.'
+                                                                               end
+                                                                             }".html_safe
+  end
+
+>>>>>>> acf2c3d5 (simplified flashes for convict show and edit)
   def bex_user_and_invalid_convict?
     current_user.work_at_bex? && !@convict.valid?(:user_works_at_bex)
   end
