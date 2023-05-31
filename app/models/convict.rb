@@ -213,4 +213,8 @@ class Convict < ApplicationRecord
 
     duplicates
   end
+
+  def ir_available_services_message
+    "#{I18n.t('convicts.set_inter_ressort_warnings.available_services')} #{organizations.pluck(:name).join(', ')}."
+  end
 end

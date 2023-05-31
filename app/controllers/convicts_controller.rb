@@ -6,7 +6,7 @@ class ConvictsController < ApplicationController
     @history_items = HistoryItem.where(convict: @convict, category: %w[appointment convict])
                                 .order(created_at: :desc)
 
-    set_warning_flash_no_city if current_user.can_use_inter_ressort? && !@convict.city_id
+    set_inter_ressort_warnings if current_user.can_use_inter_ressort?
 
     authorize @convict
   end
@@ -42,11 +42,7 @@ class ConvictsController < ApplicationController
   def edit
     @convict = policy_scope(Convict).find(params[:id])
 
-    if current_user.can_use_inter_ressort? && !@convict.city_id
-      flash.now[:warning] =
-        '<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort:
-          Utilisez le champ commune ci-dessous pour renseigner une commune'.html_safe
-    end
+    set_inter_ressort_warnings if current_user.can_use_inter_ressort?
 
     authorize @convict
   end
@@ -187,11 +183,17 @@ class ConvictsController < ApplicationController
     ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
   end
 
-  def set_warning_flash_no_city
+  def set_inter_ressort_warnings
+    link_to_edit = "<a href='/convicts/#{@convict.id}/edit'>en cliquant ici</a>"
+
     flash.now[:warning] =
-      "<strong>ATTENTION. Aucune commune renseignée.</strong>
-     La prise de RDV ne sera possible que dans votre ressort:
-      <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
+      "#{@convict.ir_available_services_message}
+        #{I18n.t('convicts.set_inter_ressort_warnings.how_to_add_services')} #{if action_name == 'show'
+                                                                                 link_to_edit
+                                                                               else
+                                                                                 '.'
+                                                                               end
+                                                                             }".html_safe
   end
 
   def bex_user_and_invalid_convict?

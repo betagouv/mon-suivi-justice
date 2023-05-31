@@ -55,6 +55,11 @@ fr:
       notice: "La PPSMJ vous a bien été attribuée."
     unassign:
       notice: "La PPSMJ a été réattribuée au service"
+    set_inter_ressort_warnings:
+      convict_no_cities: "La PPSMJ n'a pas de commune."
+      available_services: "Rendez-vous possibles dans les services suivants:"
+      how_to_add_services: "Pour prendre rendez-vous dans un autre service, ajoutez une commune à la PPSMJ ou modifiez la commune existante"
+      convict_has_city: "La PPSMJ est liée à la commune %{city_name}."
 
   activerecord:
     models:
