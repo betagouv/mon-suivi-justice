@@ -100,14 +100,11 @@ class Slot < ApplicationRecord
   end
 
   def handle_transfert
-    if place.transfert_in && date < place.transfert_in.date
-      errors.add(:base,
-                 I18n.t('activerecord.errors.models.slot.attributes.date.transfert_in',
-                        date: place.transfert_in.date))
-    elsif place.transfert_out && date > place.transfert_out.date
-      errors.add(:base,
-                 I18n.t('activerecord.errors.models.slot.attributes.date.transfert_out',
-                        date: place.transfert_out.date))
-    end
+    add_transfert_error(place.transfert_in, :transfert_in) if place.transfert_in && date < place.transfert_in.date
+    add_transfert_error(place.transfert_out, :transfert_out) if place.transfert_out && date > place.transfert_out.date
+  end
+
+  def add_transfert_error(transfert, attribute)
+    errors.add(:base, I18n.t("activerecord.errors.models.slot.attributes.date.#{attribute}", date: transfert.date))
   end
 end
