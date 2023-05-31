@@ -52,7 +52,6 @@ class PlaceDashboard < Administrate::BaseDashboard
     contact_email
     main_contact_method
     phone
-    place_appointment_types
     created_at
     updated_at
     discarded_at
@@ -66,12 +65,9 @@ class PlaceDashboard < Administrate::BaseDashboard
     name
     preparation_link
     adress
-    agendas
-    appointment_types
     contact_email
     main_contact_method
     phone
-    place_appointment_types
   ].freeze
 
   # COLLECTION_FILTERS

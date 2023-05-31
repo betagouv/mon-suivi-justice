@@ -10,7 +10,7 @@ class PlaceTransfertDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     date: Field::Date,
-    new_place: Field::BelongsTo,
+    new_place: Field::HasOne,
     old_place: Field::BelongsTo,
     status: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
     created_at: Field::DateTime,
