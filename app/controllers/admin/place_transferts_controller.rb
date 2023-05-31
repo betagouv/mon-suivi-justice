@@ -8,6 +8,7 @@ module Admin
     end
 
     def create
+      # add logic to duplicate data from the old place to the new place (organization_id, agendas, appointment_types, etc.)
       resource = PlaceTransfert.new(resource_params)
       authorize_resource(resource)
 
