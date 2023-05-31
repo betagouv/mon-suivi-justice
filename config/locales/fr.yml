@@ -253,6 +253,8 @@ fr:
           attributes:
             date:
               not_workday: "Le jour sélectionné n'est pas un jour ouvrable"
+              transfert_in: "Impossible de créer des créneaux pour ce lieu avant le %{date}"
+              transfert_out: "Impossible de créer des créneaux pour ce lieu après le %{date}"
             appointment_type:
               wrong_organization: "Ce type de rdv n'est pas possible dans ce lieu"
         slot_type:

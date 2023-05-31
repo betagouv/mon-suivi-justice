@@ -23,7 +23,7 @@ module SlotFactory
 
     def create_slot(date, slot_type)
       return unless date && slot_type
-
+      return unless valid_date_for_slot(slot_type.place, date)
       return if slot_exists(date, slot_type) || date_invalid?(date)
 
       Slot.create(

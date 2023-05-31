@@ -6,6 +6,8 @@ class SlotType < ApplicationRecord
   belongs_to :agenda
   has_many :slots, dependent: :nullify
 
+  delegate :place, to: :agenda
+
   validates :starting_time,
             uniqueness: { scope: %i[agenda_id appointment_type_id week_day],
                           message: I18n.t('activerecord.errors.models.slot_type.multiple_uniqueness') }
