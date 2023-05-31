@@ -16,6 +16,7 @@ class Slot < ApplicationRecord
 
   delegate :place, to: :agenda
   delegate :name, :adress, :display_phone, :contact_detail, :preparation_link, to: :place, prefix: true
+  validate :handle_transfert, on: %i[create update]
 
   scope :relevant_and_available, lambda { |agenda, appointment_type|
     where(
@@ -96,5 +97,17 @@ class Slot < ApplicationRecord
     end
 
     false
+  end
+
+  def handle_transfert
+    if place.transfert_in && date < place.transfert_in.date
+      errors.add(:base,
+                 I18n.t('activerecord.errors.models.appointment.attributes.date.transfert_in',
+                        date: place.transfert_in.date))
+    elsif place.transfert_out && date > place.transfert_out.date
+      errors.add(:base,
+                 I18n.t('activerecord.errors.models.appointment.attributes.date.transfert_out',
+                        date: place.transfert_out.date))
+    end
   end
 end
