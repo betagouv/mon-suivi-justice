@@ -6,6 +6,22 @@ module Admin
       flash.now[:success] =
         'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
     end
+
+    def create
+      resource = PlaceTransfert.new(resource_params)
+      authorize_resource(resource)
+
+      if resource.save
+        redirect_to(
+          after_resource_created_path(resource),
+          notice: translate_with_resource('create.success')
+        )
+      else
+        render :new, locals: {
+          page: Administrate::Page::Form.new(dashboard, resource)
+        }, status: :unprocessable_entity
+      end
+    end
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #

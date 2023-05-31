@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       resources :srj_spips
       resources :cities
       resources :appointments, except: :index
-      resources :places, except: :index
+      resources :places
       resources :jurisdictions, except: :index
       resources :seeds, only: [:index]
       get '/reset_db' => "seeds#reset_db"
