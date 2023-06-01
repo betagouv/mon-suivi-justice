@@ -11,7 +11,7 @@ class PreparePlaceTransfertJob < ApplicationJob
       new_place_agenda = agenda.dup
       new_place_agenda.place = @new_place
       if new_place_agenda.save
-        agenda.slots.where('date > ?', @transfert_place.date).update_all(agenda_id: new_place_agenda.id)
+        agenda.slots.where('date >= ?', @transfert_place.date).update_all(agenda_id: new_place_agenda.id)
       end
     end
   end
