@@ -12,4 +12,12 @@ module PlaceHelper
       agenda.slot_types.discard_all
     end
   end
+
+  def should_add_transfert_in_error?(place, date)
+    place.transfert_in && date < place.transfert_in.date
+  end
+
+  def should_add_transfert_out_error?(place, date)
+    place.transfert_out && date >= place.transfert_out.date
+  end
 end

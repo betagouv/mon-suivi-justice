@@ -110,8 +110,8 @@ class Appointment < ApplicationRecord
   end
 
   def handle_transfert
-    add_transfert_error(place.transfert_in, :transfert_in) if place.transfert_in && date < place.transfert_in.date
-    add_transfert_error(place.transfert_out, :transfert_out) if place.transfert_out && date >= place.transfert_out.date
+    add_transfert_error(place.transfert_in, :transfert_in) if should_add_transfert_in_error?(place, date)
+    add_transfert_error(place.transfert_out, :transfert_out) if should_add_transfert_out_error?(place, date)
   end
 
   def add_transfert_error(transfert, attribute)
