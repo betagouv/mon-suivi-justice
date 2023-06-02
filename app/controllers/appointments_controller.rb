@@ -1,4 +1,6 @@
 class AppointmentsController < ApplicationController
+  include InterRessortFlashes
+
   before_action :authenticate_user!
 
   def index
@@ -38,7 +40,7 @@ class AppointmentsController < ApplicationController
 
     @convict = Convict.find(params[:convict_id])
 
-    set_warning_flash_no_city if current_user.can_use_inter_ressort? && !@convict.city_id
+    set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     initialize_extra_fields
   end
