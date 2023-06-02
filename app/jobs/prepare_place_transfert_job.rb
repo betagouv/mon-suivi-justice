@@ -12,22 +12,24 @@ class PreparePlaceTransfertJob < ApplicationJob
   end
 
   def transfert_agendas(transfert_place)
-    old_place = transfert_place.old_place
-    new_place = transfert_place.new_place
     # Duplicate agendas from old place to new place
     # Move slots from old place to new place after transfer date
-    old_place.agendas.each do |agenda|
-      new_place_agenda = agenda.dup
-      new_place_agenda.place = new_place
-      new_place_agenda.name = "#{agenda.name} transféré - #{I18n.l(transfert_place.date)}"
-      new_place_agenda.appointment_types.concat(agenda.appointment_types)
-
-      next unless new_place_agenda.save
-
-      @transfert_successes.push("Agenda #{agenda.name} transféré avec succès")
-
-      transfert_slots(agenda, new_place_agenda, transfert_place.date)
+    transfert_place.old_place.agendas.each do |agenda|
+      transfert_agenda(agenda, transfert_place)
     end
+  end
+
+  def transfert_agenda(old_place_agenda, transfert_place)
+    new_place_agenda = old_place_agenda.dup
+    new_place_agenda.place = transfert_place.new_place
+    new_place_agenda.name = "#{old_place_agenda.name} transféré - #{I18n.l(transfert_place.date)}"
+    new_place_agenda.appointment_types.concat(old_place_agenda.appointment_types)
+
+    next unless new_place_agenda.save
+
+    @transfert_successes.push("Agenda #{old_place_agenda.name} transféré avec succès")
+
+    transfert_slots(agenda, new_place_agenda, transfert_place.date)
   end
 
   def transfert_slots(old_place_agenda, new_place_agenda, date)
@@ -50,13 +52,17 @@ class PreparePlaceTransfertJob < ApplicationJob
     new_place = new_place_agenda.place
 
     old_slots.each do |slot|
-      slot.appointments.each do |appointment|
-        appointment.notifications.where(state: %w[programmed created]).update_all(
-          content: ActiveRecord::Base.connection.quote_string(
-            notification.content.gsub(old_place.name, new_place.name).gsub(old_place.address, new_place.address)
-          )
+      transfert_appointment_notifications(old_place, new_place, slot)
+    end
+  end
+
+  def transfert_appointment_notifications(old_place, new_place, slot)
+    slot.appointments.each do |appointment|
+      appointment.notifications.where(state: %w[programmed created]).update_all(
+        content: ActiveRecord::Base.connection.quote_string(
+          notification.content.gsub(old_place.name, new_place.name).gsub(old_place.address, new_place.address)
         )
-      end
+      )
     end
   end
 end
