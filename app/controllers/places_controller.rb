@@ -52,7 +52,7 @@ class PlacesController < ApplicationController
     @place = Place.find(params[:place_id])
     authorize @place
 
-    archive(@place)
+    archive_place(@place)
 
     redirect_to places_path
   end

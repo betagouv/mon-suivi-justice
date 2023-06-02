@@ -4,7 +4,7 @@ class TransfertPlacesJob < ApplicationJob
 
     place_transferts.each do |transfert_place|
       p "TransfertPlacesJob: archive place: #{transfert_place.old_place.name}"
-      archive(transfert_place.old_place)
+      archive_place(transfert_place.old_place)
     end
   end
 end
