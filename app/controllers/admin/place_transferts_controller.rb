@@ -1,12 +1,5 @@
 module Admin
   class PlaceTransfertsController < Admin::ApplicationController
-    def start_transfert
-      place_transfert = PlaceTransfert.find(params[:place_transfert_id])
-      TransfertPlacesJob.perform_later(place_transfert)
-      flash.now[:success] =
-        'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
-    end
-
     # rubocop:disable Metrics/MethodLength
     def create
       resource = PlaceTransfert.new(resource_params)
