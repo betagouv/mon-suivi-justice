@@ -5,7 +5,7 @@ module PlaceHelper
     end.sort_by(&:last)
   end
 
-  def archive(place)
+  def archive_place(place)
     place.discard
     place.agendas.discard_all
     place.agendas.each do |agenda|
