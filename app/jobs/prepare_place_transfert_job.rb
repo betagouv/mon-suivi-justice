@@ -1,7 +1,8 @@
 class PreparePlaceTransfertJob < ApplicationJob
-  def perform(transfert_place)
+  def perform(transfert_place_id)
     @transfert_errors = []
     @transfert_successes = []
+    transfert_place = PlaceTransfert.find(transfert_place_id)
     puts "Start tranfering old_place: #{old_place} to new_place: #{new_place}"
     transfert_agendas(transfert_place)
   rescue StandardError => e
