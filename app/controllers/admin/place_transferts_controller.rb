@@ -6,7 +6,7 @@ module Admin
       authorize_resource(resource)
 
       if resource.save
-        PreparePlaceTransfertJob.set(wait: 1.hour).perform_later(resource.id)
+        PreparePlaceTransfertJob.set(wait: 1.hour).perform_later(resource.id, current_user)
         redirect_to(
           after_resource_created_path(resource),
           notice: translate_with_resource('create.success')
