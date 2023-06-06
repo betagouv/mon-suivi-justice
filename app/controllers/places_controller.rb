@@ -52,7 +52,11 @@ class PlacesController < ApplicationController
     @place = Place.find(params[:place_id])
     authorize @place
 
-    helpers.archive_place(@place)
+    @place.discard
+    @place.agendas.discard_all
+    @place.agendas.each do |agenda|
+      agenda.slot_types.discard_all
+    end
 
     redirect_to places_path
   end

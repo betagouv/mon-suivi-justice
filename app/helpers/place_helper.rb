@@ -4,12 +4,4 @@ module PlaceHelper
       [I18n.t("activerecord.attributes.place.main_contact_methods.#{k}"), k]
     end.sort_by(&:last)
   end
-
-  def archive_place(place)
-    place.discard
-    place.agendas.discard_all
-    place.agendas.each do |agenda|
-      agenda.slot_types.discard_all
-    end
-  end
 end
