@@ -22,14 +22,15 @@ export default class extends ApplicationController {
         if (this.query == this.previousQuery) {
             return
         }
-        
+
         this.previousQuery = this.query
 
-        // Check if the query contains at least four digits
         const digitRegex = /\d/g;
         const digitCount = (this.query.match(digitRegex) || []).length;
-        const nonDigitRegex = /\D/;
+        const nonDigitRegex = /(?!\+)\D/;
         const containsNonDigit = nonDigitRegex.test(this.query);
+        console.log(digitCount, containsNonDigit)
+
         if (digitCount < 4 && !containsNonDigit) {
             return;
         }
