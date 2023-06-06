@@ -1,4 +1,5 @@
 class Appointment < ApplicationRecord
+  include TransfertValidator
   has_paper_trail
 
   belongs_to :convict
@@ -63,7 +64,6 @@ class Appointment < ApplicationRecord
   scope :active, -> { where.not(state: 'canceled') }
 
   validate :in_the_future, on: :create
-  validate :handle_transfert, on: %i[create update]
 
   def in_the_future
     if slot.date.nil?
@@ -107,11 +107,6 @@ class Appointment < ApplicationRecord
 
   def reschedule_notif
     notifications.find_by(role: :reschedule)
-  end
-
-  def handle_transfert
-    add_transfert_error(place.transfert_in, :transfert_in) if should_add_transfert_in_error?(place, date)
-    add_transfert_error(place.transfert_out, :transfert_out) if should_add_transfert_out_error?(place, date)
   end
 
   def add_transfert_error(transfert, attribute)
