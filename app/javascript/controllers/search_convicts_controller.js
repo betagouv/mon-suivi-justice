@@ -5,7 +5,6 @@ export default class extends ApplicationController {
     static debounces = ['search']
 
     connect() {
-        console.log('search convicts controller connected')
         useDebounce(this, { wait: 500 })
     }
 
@@ -29,7 +28,6 @@ export default class extends ApplicationController {
         const digitCount = (this.query.match(digitRegex) || []).length;
         const nonDigitRegex = /(?!\+)\D/;
         const containsNonDigit = nonDigitRegex.test(this.query);
-        console.log(digitCount, containsNonDigit)
 
         if (digitCount < 4 && !containsNonDigit) {
             return;
