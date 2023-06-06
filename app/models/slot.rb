@@ -1,4 +1,6 @@
 class Slot < ApplicationRecord
+  include TransfertValidator
+
   has_paper_trail
 
   belongs_to :agenda
@@ -16,7 +18,6 @@ class Slot < ApplicationRecord
 
   delegate :place, to: :agenda
   delegate :name, :adress, :display_phone, :contact_detail, :preparation_link, to: :place, prefix: true
-  validate :handle_transfert, on: %i[create update]
 
   scope :relevant_and_available, lambda { |agenda, appointment_type|
     where(
@@ -97,11 +98,6 @@ class Slot < ApplicationRecord
     end
 
     false
-  end
-
-  def handle_transfert
-    add_transfert_error(place.transfert_in, :transfert_in) if should_add_transfert_in_error?(place, date)
-    add_transfert_error(place.transfert_out, :transfert_out) if should_add_transfert_out_error?(place, date)
   end
 
   def add_transfert_error(transfert, attribute)
