@@ -113,20 +113,10 @@ class ConvictsController < ApplicationController
   end
 
   def search
-
     query = params[:q]
-
-    if query =~ /\d/
-      query = add_prefix_to_phone(query) unless /^(\+33)/.match?(query)
-    end
-
+    query = add_prefix_to_phone(query) if query =~ (/\d/) && !/^(\+33)/.match?(query)
 
     @convicts = policy_scope(Convict).search_by_name_and_phone(query)
-
-   #PhonyRails.normalize_number(params[:q], country_code: 'FR')
-
-
-
 
     authorize @convicts
     render layout: false
