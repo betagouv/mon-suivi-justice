@@ -12,6 +12,7 @@ class PreparePlaceTransfertJob < ApplicationJob
   rescue StandardError => e
     @transfert_errors.push("Erreur : #{e.message}")
   ensure
+    debugger
     AdminMailer.with(user: user, transfert: transfert_place, transfert_errors: @import_errors,
                      transfert_successes: @import_successes).prepare_place_transfert.deliver_later
   end
@@ -45,27 +46,29 @@ class PreparePlaceTransfertJob < ApplicationJob
       new_slot_type.save
     end
 
-    update_notifications_text(old_place_agenda, new_place_agenda, old_slots)
+    update_notifications_text(old_place_agenda, new_place_agenda)
 
     @transfert_successes.push("Les créneaux de l'agenda #{old_place_agenda.name} ont été transférés avec succès")
   end
 
-  def update_notifications_text(old_place_agenda, new_place_agenda, old_slots)
+  def update_notifications_text(old_place_agenda, new_place_agenda)
     old_place = old_place_agenda.place
     new_place = new_place_agenda.place
 
-    old_slots.each do |slot|
+    new_place_agenda.slots.each do |slot|
       transfert_appointment_notifications(old_place, new_place, slot)
     end
   end
 
   def transfert_appointment_notifications(old_place, new_place, slot)
     slot.appointments.each do |appointment|
-      appointment.notifications.where(state: %w[programmed created]).update_all(
-        content: ActiveRecord::Base.connection.quote_string(
-          notification.content.gsub(old_place.name, new_place.name).gsub(old_place.address, new_place.address)
-        )
-      )
+      appointment.notifications.where(state: %w[programmed created]).each do |notification|
+        notification.content.gsub!(old_place.name, new_place.name)
+        notification.content.gsub!(old_place.adress, new_place.adress)
+        notification.save(validate: false)
+        debugger
+      end
     end
+    debugger
   end
 end
