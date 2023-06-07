@@ -31,8 +31,21 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
     it('transfert slot after to new place') do
       expect(@after_slot.reload.agenda.place).to eq(new_place)
     end
+
     it('should keep slot before') do
       expect(@before_slot.reload.agenda.place).to eq(old_place)
+    end
+
+    it('should create agenda for new place') do
+      expect(new_place.agendas.count).to eq(1)
+    end
+
+    it('should copy old place appointment types to new place') do
+      expect(new_place.appointment_types).to match_array(old_place.appointment_types)
+    end
+
+    it('should copy old place slot types to new place') do
+      expect(new_place.agendas.first.slot_types).to match_array(old_place.agendas.first.slot_types)
     end
   end
 end
