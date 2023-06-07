@@ -14,7 +14,7 @@ module DataCollector
       stats = {
         convicts: all_convicts.size,
         convicts_with_phone: all_convicts.with_phone.size,
-        users: all_users.size,
+        users: all_users.size
       }
 
       stats[:notifications] = all_notifications.all_sent.size if @display_notifications
