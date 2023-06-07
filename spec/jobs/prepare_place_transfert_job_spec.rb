@@ -22,9 +22,12 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
     let(:old_agenda) { create(:agenda) }
     let(:old_place) do
       create(:place, agendas: [old_agenda], appointment_types: [appointment_type], organization: organization,
-                     name: 'SPIP 45 - Montargis')
+                     name: 'SPIP 45 - Montargis', adress: "111, piazza Mont-d'Est, 93160, Noisy-le-Grand")
     end
-    let(:new_place) { create(:place, organization: organization, name: 'Nouveau SPIP 45 - Montargis') }
+    let(:new_place) do
+      create(:place, organization: organization, name: 'Nouveau SPIP 45 - Montargis',
+                     adress: '8 av Adolphe Cochery, 45200 Montargis')
+    end
     let(:place_transfert) { create(:place_transfert, old_place: old_place, new_place: new_place, date: Date.tomorrow) }
     let!(:before_slot) { create(:slot, agenda: old_agenda, date: Date.today, appointment_type: appointment_type) }
     let!(:after_slot) do
