@@ -3,17 +3,22 @@ class PreparePlaceTransfertJob < ApplicationJob
     @transfert_errors = []
     @transfert_successes = []
     transfert_place = PlaceTransfert.find(transfert_place_id)
+
+    start_transfert(transfert_place)
+  rescue StandardError => e
+    @transfert_errors.push("Erreur : #{e.message}")
+  ensure
+    AdminMailer.with(user: user, transfert: transfert_place, transfert_errors: @import_errors,
+                     transfert_successes: @import_successes).prepare_place_transfert.deliver_later
+  end
+
+  def start_transfert(transfert_place)
     new_place = transfert_place.new_place
     old_place = transfert_place.old_place
     puts "Start tranfering old_place: #{old_place} to new_place: #{new_place}"
     new_place.appointment_types.concat(old_place.appointment_types)
 
     transfert_agendas(transfert_place) if new_place.save
-  rescue StandardError => e
-    @transfert_errors.push("Erreur : #{e.message}")
-  ensure
-    AdminMailer.with(user: user, transfert: transfert_place, transfert_errors: @import_errors,
-                     transfert_successes: @import_successes).prepare_place_transfert.deliver_later
   end
 
   def transfert_agendas(transfert_place)
