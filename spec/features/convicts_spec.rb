@@ -133,6 +133,10 @@ RSpec.feature 'Convicts', type: :feature do
       page.has_content?('77000 Melun (France)')
 
       find('a', text: '77000 Melun (France)').click
+
+      orgs_info_div = page.find("div[data-search-cities-results-target='organizationsInfo']")
+      expect(orgs_info_div).to have_content("#{tj.name}, #{spip.name}")
+
       find(:css, '#convict-no-phone-checkbox').click
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
