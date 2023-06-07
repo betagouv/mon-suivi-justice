@@ -11,12 +11,15 @@ module DataCollector
     private
 
     def basic_stats
-      {
+      stats = {
         convicts: all_convicts.size,
         convicts_with_phone: all_convicts.with_phone.size,
         users: all_users.size,
-        notifications: all_notifications.all_sent.size
       }
+
+      stats[:notifications] = all_notifications.all_sent.size if @display_notifications
+
+      stats
     end
 
     def appointments_stats
