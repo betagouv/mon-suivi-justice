@@ -119,6 +119,13 @@ RSpec.feature 'Home', type: :feature do
       expect(page).not_to have_content('Dupneu')
 
       search_input.set('')
+      search_input.set('+337876')
+
+      expect(page).to have_content('Rabbit')
+      expect(page).to have_link('Profil')
+      expect(page).not_to have_content('Dupneu')
+
+      search_input.set('')
       search_input.set('Whatever')
       expect(page).not_to have_content('Dupneu')
       expect(page).not_to have_content('Rabbit')
