@@ -236,7 +236,6 @@ RSpec.feature 'Convicts', type: :feature do
                                  organizations: [@user.organization])
       cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
 
-      
       visit edit_convict_path(convict)
 
       find('#convict_last_name').set('').set('Ristretto')
@@ -300,7 +299,8 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_content(expected)
     end
 
-    it 'displays proper alerts and update convicts organizations correctly when city is updated', logged_in_as: 'bex', js: true do
+    it 'displays proper alerts and update convicts organizations correctly when city is updated', logged_in_as: 'bex',
+                                                                                                  js: true do
       @user.organization.use_inter_ressort = true
 
       spip = create(:organization, organization_type: 'spip')
@@ -324,7 +324,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       orgs_info_div = page.find("div[data-search-cities-results-target='organizationsInfo']")
 
-      expect(orgs_info_div).to have_content("Mon suivi Justice est déployé dans les services suivants pour cette commune: #{tj2.name}, #{spip2.name}")
+      expect(orgs_info_div).to have_content("pour cette commune: #{tj2.name}, #{spip2.name}")
       expect(orgs_info_div).to have_content("les services actuels de la PPSMJ: #{spip.name}, #{tj.name}")
 
       click_button 'Enregistrer'
