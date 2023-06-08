@@ -5,10 +5,10 @@ class HomeController < ApplicationController
   def home
     @convicts = policy_scope(Convict.all)
     if params[:global_stats]
-      @stats = DataCollector::User.new(display_notifications: false).perform
+      @stats = DataCollector::User.new(full_stats: false).perform
       @global_stats = true
     else
-      @stats = DataCollector::User.new(organization_id: current_organization.id, display_notifications: false).perform
+      @stats = DataCollector::User.new(organization_id: current_organization.id, full_stats: false).perform
     end
 
     # display_uninformed_appointments
