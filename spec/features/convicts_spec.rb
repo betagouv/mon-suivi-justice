@@ -235,6 +235,8 @@ RSpec.feature 'Convicts', type: :feature do
       convict = create(:convict, last_name: 'Expresso', date_of_birth: '01/01/1980',
                                  organizations: [@user.organization])
       cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
+
+      
       visit edit_convict_path(convict)
 
       find('#convict_last_name').set('').set('Ristretto')
@@ -296,6 +298,38 @@ RSpec.feature 'Convicts', type: :feature do
                  'Ancien numéro : 06 06 06 06 06.'
 
       expect(page).to have_content(expected)
+    end
+
+    it 'displays proper alerts and update convicts organizations correctly when city is updated', logged_in_as: 'bex', js: true do
+      @user.organization.use_inter_ressort = true
+
+      spip = create(:organization, organization_type: 'spip')
+      tj = create(:organization, organization_type: 'tj')
+
+      convict = create(:convict, phone: nil, no_phone: true, organizations: [spip, tj])
+
+      spip2 = create(:organization, organization_type: 'spip')
+      tj2 = create(:organization, organization_type: 'tj')
+      srj_tj = create(:srj_tj, organization: tj2)
+      srj_spip = create(:srj_spip, organization: spip2)
+
+      create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
+
+      visit edit_convict_path(convict)
+
+      find('#convict_city_id').set('Melun')
+
+      page.has_content?('77000 Melun (France)')
+      find('a', text: '77000 Melun (France)').click
+
+      orgs_info_div = page.find("div[data-search-cities-results-target='organizationsInfo']")
+
+      expect(orgs_info_div).to have_content("Mon suivi Justice est déployé dans les services suivants pour cette commune: #{tj2.name}, #{spip2.name}")
+      expect(orgs_info_div).to have_content("les services actuels de la PPSMJ: #{spip.name}, #{tj.name}")
+
+      click_button 'Enregistrer'
+
+      expect(Convict.last.organizations).to match_array([spip, tj, spip2, tj2])
     end
   end
 
