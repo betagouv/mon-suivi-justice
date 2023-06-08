@@ -43,7 +43,7 @@ module DataCollector
 
     def appointment_states_stats
       stats = {
-        fulfiled_percentage: fulfiled_percentage,
+        fulfilled_percentage: fulfilled_percentage,
         no_show_percentage: no_show_percentage,
         excused_percentage: excused_percentage
       }
@@ -134,14 +134,14 @@ module DataCollector
       passed_no_canceled_with_phone.where.not(state: 'booked')
     end
 
-    def fulfiled
+    def fulfilled
       passed_informed.where(state: 'fulfiled')
     end
 
-    def fulfiled_percentage
+    def fulfilled_percentage
       return 0 if passed_informed.empty?
 
-      (fulfiled.size * 100.fdiv(passed_informed.size)).round
+      (fulfilled.size * 100.fdiv(passed_informed.size)).round
     end
 
     def no_show
