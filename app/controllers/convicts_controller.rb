@@ -211,8 +211,8 @@ class ConvictsController < ApplicationController
   end
 
   def save_and_redirect_with_inter_ressort(convict)
+    convict.update_organizations(current_user)
     if convict.save
-      convict.update_organizations(current_user)
       redirect_to select_path(params)
     else
       @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?

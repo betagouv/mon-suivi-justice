@@ -138,6 +138,7 @@ RSpec.feature 'Convicts', type: :feature do
       expect(orgs_info_div).to have_content("#{tj.name}, #{spip.name}")
 
       find(:css, '#convict-no-phone-checkbox').click
+      check 'Ne possède pas de téléphone portable'
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
 
@@ -165,8 +166,8 @@ RSpec.feature 'Convicts', type: :feature do
       find('#convict_city_id').set('Melun')
       find('a', text: '77000 Melun (France)').click
 
-      find(:css, '#convict-japat-checkbox').click
-      find(:css, '#convict-no-phone-checkbox').click
+      check 'Japat'
+      check 'Ne possède pas de téléphone portable'
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
 

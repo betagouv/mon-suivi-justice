@@ -48,6 +48,9 @@ class Convict < ApplicationRecord
   validates :date_of_birth, presence: true, unless: proc { current_user&.admin? }
   validate :date_of_birth_date_cannot_be_in_the_past
 
+  validate :at_least_one_organization
+  validate :unique_organizations
+
   after_update :update_convict_api
 
   #
@@ -212,5 +215,16 @@ class Convict < ApplicationRecord
     duplicates = duplicates.where(appi_uuid: nil) if appi_uuid.present?
 
     duplicates
+  end
+
+  private
+
+  def at_least_one_organization
+    errors.add(:base, 'must be associated with at least one organization') if organizations.blank?
+  end
+
+  def unique_organizations
+    duplicate_organization_ids = organizations.group_by(&:id).select { |_, v| v.size > 1 }.keys
+    errors.add(:base, 'cannot be linked to the same organization multiple times') if duplicate_organization_ids.any?
   end
 end
