@@ -1,8 +1,8 @@
 module DataCollector
   class Base
-    def initialize(organization_id: nil, display_notifications: true)
+    def initialize(organization_id: nil, full_stats: true)
       @organization = Organization.find(organization_id) if organization_id.present?
-      @display_notifications = display_notifications
+      @full_stats = full_stats
     end
   end
 end

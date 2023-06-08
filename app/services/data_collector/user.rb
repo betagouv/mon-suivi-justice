@@ -13,38 +13,56 @@ module DataCollector
     def basic_stats
       stats = {
         convicts: all_convicts.size,
-        convicts_with_phone: all_convicts.with_phone.size,
         users: all_users.size
       }
 
-      stats[:notifications] = all_notifications.all_sent.size if @display_notifications
+      if @full_stats
+        stats[:notifications] = all_notifications.all_sent.size
+        stats[:convicts_with_phone] = all_convicts.with_phone.size
+      end
 
       stats
     end
 
+    # rubocop:disable Metrics/MethodLength
     def appointments_stats
-      {
-        recorded: all_appointments.size,
-        future_booked: future_booked.size,
+      stats = {
         passed_no_canceled_with_phone: passed_no_canceled_with_phone.size,
-        passed_uninformed: passed_uninformed.size,
         passed_uninformed_percentage: passed_uninformed_percentage,
         passed_informed: passed_informed.size
       }
+
+      if @full_stats
+        stats[:recorded] = all_appointments.size
+        stats[:future_booked] = future_booked.size
+        stats[:passed_uninformed] = passed_uninformed.size
+      end
+
+      stats
     end
 
     def appointment_states_stats
-      {
-        fulfiled: fulfiled.size,
+      stats = {
         fulfiled_percentage: fulfiled_percentage,
-        no_show: no_show.size,
         no_show_percentage: no_show_percentage,
-        excused: excused.size,
         excused_percentage: excused_percentage
       }
+
+      if @full_stats
+        stats[:no_show] = no_show.size
+        stats[:fulfilled] = fulfilled.size
+        stats[:excused] = excused.size
+      end
+
+      stats
     end
+    # rubocop:enable Metrics/MethodLength
 
     def all_convicts
+      @all_convicts ||= fetch_all_convicts
+    end
+
+    def fetch_all_convicts
       if defined?(@organization)
         ::Convict.under_hand_of(@organization)
       else
@@ -53,14 +71,22 @@ module DataCollector
     end
 
     def all_users
+      @all_users ||= fetch_all_users
+    end
+
+    def fetch_all_users
       if defined?(@organization)
-        ::User.where(organization: @organization)
+        ::User.includes(:organization).where(organization: @organization)
       else
         ::User.all
       end
     end
 
     def all_notifications
+      @all_notifications ||= fetch_all_notifications
+    end
+
+    def fetch_all_notifications
       if defined?(@organization)
         ::Notification.in_organization(@organization)
       else
@@ -69,10 +95,14 @@ module DataCollector
     end
 
     def all_appointments
+      @all_appointments ||= fetch_all_appointments
+    end
+
+    def fetch_all_appointments
       if defined?(@organization)
-        ::Appointment.in_organization(@organization)
+        ::Appointment.includes(:slot).in_organization(@organization)
       else
-        ::Appointment.all
+        ::Appointment.includes(:slot).all
       end
     end
 
