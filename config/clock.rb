@@ -13,7 +13,7 @@ module Clockwork
   every(1.day, 'tracking_cleaning.job', at: '02:00') { TrackingCleaningJob.perform_later }
 
   # Populate dedicted pgsql tables for Metabse. Do this one only on production env
-  if ENV['APP'] == 'mon-suivi-justice-production'
+  if ENV['APP'] == 'mon-suivi-justice-prod'
     every(1.day, 'execute_stored_procedures.job', at: '03:00') { ExecuteStoredProceduresJob.perform_later }
   end
 end
