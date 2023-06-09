@@ -5,7 +5,6 @@ export default class extends ApplicationController {
     static debounces = ['search']
 
     connect() {
-        console.log('search convicts controller connected')
         useDebounce(this, { wait: 500 })
     }
 
@@ -14,15 +13,30 @@ export default class extends ApplicationController {
     }
 
     search() {
+        if (this.query.length === 0) {
+            this.reset();
+            return;
+        }
+
         if (this.query == this.previousQuery) {
             return
         }
+
         this.previousQuery = this.query
+
+        const digitRegex = /\d/g;
+        const digitCount = (this.query.match(digitRegex) || []).length;
+        const nonDigitRegex = /(?!\+)\D/;
+        const containsNonDigit = nonDigitRegex.test(this.query);
+
+        if (digitCount < 4 && !containsNonDigit) {
+            return;
+        }
 
         this.abortPreviousFetchRequest()
 
         this.abortController = new AbortController()
-        fetch('/convicts/search?q=' + this.query, { signal: this.abortController.signal })
+        fetch('/convicts/search?q=' + encodeURIComponent(this.query), { signal: this.abortController.signal })
             .then(response => response.text())
             .then(html => {
                 this.handleResults(html)

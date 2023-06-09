@@ -113,7 +113,11 @@ class ConvictsController < ApplicationController
   end
 
   def search
-    @convicts = policy_scope(Convict).search_by_name_and_phone(params[:q])
+    query = params[:q]
+    query = add_prefix_to_phone(query) if query =~ (/\d/) && !/^(\+33)/.match?(query)
+
+    @convicts = policy_scope(Convict).search_by_name_and_phone(query)
+
     authorize @convicts
     render layout: false
   end
@@ -231,5 +235,9 @@ class ConvictsController < ApplicationController
   def render_new_with_appi_uuid(convict)
     @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
     render :new
+  end
+
+  def add_prefix_to_phone(phone)
+    "+33#{phone[1..]}"
   end
 end

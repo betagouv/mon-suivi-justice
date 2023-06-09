@@ -80,7 +80,7 @@ class Convict < ApplicationRecord
     joins(appointments: :slot).where(appointments: { slots: { date: ..Date.today } })
   end)
 
-  pg_search_scope :search_by_name_and_phone, against: %i[first_name last_name],
+  pg_search_scope :search_by_name_and_phone, against: %i[first_name last_name phone],
                                              using: {
                                                tsearch: { prefix: true }
                                              },
