@@ -64,7 +64,7 @@ module DataCollector
 
     def fetch_all_convicts
       if defined?(@organization)
-        ::Convict.under_hand_of(@organization)
+        ::Convict.joins(:organizations).where(organizations: @organization)
       else
         ::Convict.all
       end
