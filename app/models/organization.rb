@@ -1,6 +1,5 @@
 class Organization < ApplicationRecord
   include Abyme::Model
-
   has_many :users, dependent: :destroy
   has_many :places, dependent: :destroy
   has_many :notification_types, dependent: :destroy
