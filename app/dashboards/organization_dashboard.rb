@@ -21,7 +21,6 @@ class OrganizationDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     headquarter: Field::BelongsTo,
-    number_of_ppsmj: Field::Number,
     tjs: Field::HasMany,
     spips: Field::HasMany,
     number_of_convicts: Field::Number,
@@ -40,7 +39,6 @@ class OrganizationDashboard < Administrate::BaseDashboard
     headquarter
     tjs
     spips
-    number_of_ppsmj
     number_of_convicts
     use_inter_ressort
   ].freeze

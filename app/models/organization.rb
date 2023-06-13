@@ -77,10 +77,6 @@ class Organization < ApplicationRecord
     []
   end
 
-  def number_of_ppsmj
-    Convict.under_hand_of(self).count
-  end
-
   def number_of_convicts
     convicts.count
   end

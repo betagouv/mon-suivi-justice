@@ -48,24 +48,6 @@ class Convict < ApplicationRecord
 
   after_update :update_convict_api
 
-  #
-  # Convict linked to same departement OR same jurisdiction than the user's organization ones
-  #
-  scope :under_hand_of, lambda { |organization|
-    dpt_id = Organization.joins(:areas_organizations_mappings)
-                         .where(id: organization, areas_organizations_mappings: { area_type: 'Department' })
-                         .select('areas_organizations_mappings.area_id')
-    juri_id = Organization.joins(:areas_organizations_mappings)
-                          .where(id: organization, areas_organizations_mappings: { area_type: 'Jurisdiction' })
-                          .select('areas_organizations_mappings.area_id')
-    joins(:areas_convicts_mappings)
-      .where(areas_convicts_mappings: { area_type: 'Department', area_id: dpt_id })
-      .or(
-        joins(:areas_convicts_mappings)
-               .where(areas_convicts_mappings: { area_type: 'Jurisdiction', area_id: juri_id })
-      ).distinct
-  }
-
   scope :in_departments, lambda { |departments|
     ids = departments.map(&:id)
     joins(:areas_convicts_mappings)
