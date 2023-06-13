@@ -227,8 +227,7 @@ class Convict < ApplicationRecord
   end
 
   def unique_organizations
-    duplicate_organization_ids = organizations.group_by(&:id).select { |_, v| v.size > 1 }.keys
-    return unless duplicate_organization_ids.any?
+    return unless organizations.uniq.length != organizations.length
 
     errors.add(:organizations,
                I18n.t('activerecord.errors.models.convict.attributes.organizations.multiple_uniqueness'))
