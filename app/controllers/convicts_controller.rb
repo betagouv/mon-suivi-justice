@@ -1,4 +1,6 @@
 class ConvictsController < ApplicationController
+  include InterRessortFlashes
+
   before_action :authenticate_user!
 
   def show
@@ -6,7 +8,7 @@ class ConvictsController < ApplicationController
     @history_items = HistoryItem.where(convict: @convict, category: %w[appointment convict])
                                 .order(created_at: :desc)
 
-    set_warning_flash_no_city if current_user.can_use_inter_ressort? && !@convict.city_id
+    set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     authorize @convict
   end
@@ -41,13 +43,6 @@ class ConvictsController < ApplicationController
 
   def edit
     @convict = policy_scope(Convict).find(params[:id])
-
-    if current_user.can_use_inter_ressort? && !@convict.city_id
-      flash.now[:warning] =
-        '<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort:
-          Utilisez le champ commune ci-dessous pour renseigner une commune'.html_safe
-    end
-
     authorize @convict
   end
 
@@ -185,13 +180,6 @@ class ConvictsController < ApplicationController
 
   def force_duplication?
     ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
-  end
-
-  def set_warning_flash_no_city
-    flash.now[:warning] =
-      "<strong>ATTENTION. Aucune commune renseignée.</strong>
-     La prise de RDV ne sera possible que dans votre ressort:
-      <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
   end
 
   def bex_user_and_invalid_convict?

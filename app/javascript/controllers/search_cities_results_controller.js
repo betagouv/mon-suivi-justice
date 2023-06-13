@@ -4,8 +4,9 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["selectedCity", "organizationsInfo", "hiddenField"]
 
-  connect() {
-    console.log('city selector controller connected')
+  static values = {
+    irCities: String,
+    actionName: String
   }
 
   selectCity(event) {
@@ -28,18 +29,22 @@ export default class extends Controller {
       return response.json();
     })
     .then(data => {
-      if (data.length === 1) {
+      this.organizationsInfoTarget.className = "fr-alert fr-alert--info fr-alert--sm fr-mb-3w"
+      const convictCurrentOrganizations = `les services actuels de la PPSMJ:<strong> ${this.irCitiesValue}</strong>.`
+
+      if (data.length > 0) {        
+        const servicesList = data.map((orga) => orga.name).join(', ')
         this.organizationsInfoTarget.hidden = false;
-        this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = `Attention Mon suivi Justice n’est déployé que pour le ${data[0].name}. Vous ne pourrez poursuivre la prise de rendez-vous que pour ce service et votre ressort`;
-    } else if (data.length === 0) {
-        this.organizationsInfoTarget.hidden = false;
-        this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = 'Attention, Mon Suivi Justice n\' est déployé dans aucun ressort de cette commune. Vous ne pourrez poursuivre la prise de rendez-vous que pour votre ressort';
-    } else {
-        this.organizationsInfoTarget.hidden = true;
-    }
+        this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = `Mon suivi Justice est déployé dans les services suivants pour cette commune: <strong>${servicesList}.</strong> <br /> 
+        Vous pourrez poursuivre la prise de rendez-vous dans ces services${ this.actionNameValue == "new" ? '.' : ' et dans ' + convictCurrentOrganizations}`;
+      } else {
+          this.organizationsInfoTarget.hidden = false;
+          this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = `Mon Suivi Justice n\' est déployé dans aucun service de cette commune. <br />
+          Vous pourrez poursuivre la prise de rendez-vous uniquement dans ${this.actionNameValue == "new" ? 'votre ressort' : convictCurrentOrganizations }`
+      } 
     })
     .catch(error => {
-      console.error("There was a problem with the fetch operation:", error);
+      alert("Il y a eu un problème lors de la récupération des services. Contactez support@mon-suivi-justice.beta.gouv.fr:", error);
     });
 
   }
