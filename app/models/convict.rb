@@ -48,7 +48,7 @@ class Convict < ApplicationRecord
   validates :date_of_birth, presence: true, unless: proc { current_user&.admin? }
   validate :date_of_birth_date_cannot_be_in_the_past
 
-  validate :at_least_one_organization
+  validates :organizations, presence: true
   validate :unique_organizations
 
   after_update :update_convict_api

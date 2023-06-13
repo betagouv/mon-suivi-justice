@@ -56,7 +56,7 @@ RSpec.describe Convict, type: :model do
       context 'when convict does not have any organizations' do
         it 'is invalid' do
           expect(convict).to be_invalid
-          expect(convict.errors[:base]).to include('must be associated with at least one organization')
+          expect(convict.errors[:organizations]).not_to be_empty
         end
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe Convict, type: :model do
           convict.organizations << organization1
           convict.organizations << organization1
           expect(convict).to be_invalid
-          expect(convict.errors[:base]).to include('cannot be linked to the same organization multiple times')
+          expect(convict.errors[:organizations]).not_to be_empty
         end
       end
     end
