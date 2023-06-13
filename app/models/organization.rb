@@ -85,6 +85,15 @@ class Organization < ApplicationRecord
     convicts.count
   end
 
+  def build_attributes
+    p '== the APP =='
+    p ENV.fetch('APP', nil)
+    p '============='
+    return if ENV['APP'].match?(/^mon-suivi-justice-staging-pr/)
+
+    super
+  end
+
   private
 
   # rubocop:disable Metrics/MethodLength
