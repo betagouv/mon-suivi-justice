@@ -49,11 +49,6 @@ RSpec.describe Convict, type: :model do
 
       expect(build(:convict, phone: '0612458744')).not_to be_valid
     end
-
-    it 'accepts a phone already existing in the whitelist' do
-      create(:convict, phone: '0659763117')
-      expect(build(:convict, phone: '0659763117')).to be_valid
-    end
   end
 
   describe 'under_hand_of' do
