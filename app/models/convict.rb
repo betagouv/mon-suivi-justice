@@ -220,11 +220,17 @@ class Convict < ApplicationRecord
   private
 
   def at_least_one_organization
-    errors.add(:base, 'must be associated with at least one organization') if organizations.blank?
+    return unless organizations.blank?
+
+    errors.add(:organizations,
+               I18n.t('activerecord.errors.models.convict.attributes.organizations.blank'))
   end
 
   def unique_organizations
     duplicate_organization_ids = organizations.group_by(&:id).select { |_, v| v.size > 1 }.keys
-    errors.add(:base, 'cannot be linked to the same organization multiple times') if duplicate_organization_ids.any?
+    return unless duplicate_organization_ids.any?
+
+    errors.add(:organizations,
+               I18n.t('activerecord.errors.models.convict.attributes.organizations.multiple_uniqueness'))
   end
 end
