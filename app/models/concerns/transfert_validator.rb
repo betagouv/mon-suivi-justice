@@ -17,6 +17,8 @@ module TransfertValidator
     end
 
     def handle_transfert
+      return unless agenda.present?
+
       add_transfert_error(place.transfert_in, :transfert_in) if should_add_transfert_in_error?
       add_transfert_error(place.transfert_out, :transfert_out) if should_add_transfert_out_error?
     end
