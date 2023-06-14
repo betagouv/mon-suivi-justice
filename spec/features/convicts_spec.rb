@@ -173,8 +173,8 @@ RSpec.feature 'Convicts', type: :feature do
       expect(Convict.last.organizations).to match_array([spip, tj_paris])
     end
 
-    describe 'with potentially duplicated convicts', logged_in_as: 'cpip' do
-      it 'shows a warning with link to pre-existing convict profile' do
+    describe 'with potentially duplicated convicts', logged_in_as: 'cpip', js: true do
+      it 'shows a warning with link to potential first name / last name / date of birth duplicates' do
         convict = create(:convict, first_name: 'roberta', last_name: 'dupond', date_of_birth: '01/01/1980',
                                    organizations: [@user.organization])
 
@@ -183,6 +183,27 @@ RSpec.feature 'Convicts', type: :feature do
         fill_in 'Prénom', with: 'Roberta'
         fill_in 'Nom', with: 'Dupond'
         fill_in 'Date de naissance', with: '1980-01-01'
+        fill_in 'Téléphone', with: '0707070707'
+
+        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
+
+        expect(page).to have_content('Un doublon potentiel a été détecté :')
+        expect(page).to have_link("DUPOND Roberta, suivi(e) par : #{convict.organizations.first.name}",
+                                  href: convict_path(convict))
+
+        expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
+      end
+
+      it 'shows a warning with link to potential first name / last name / phone duplicates' do
+        convict = create(:convict, first_name: 'roberta', last_name: 'dupond', phone: '+33606060606',
+                                   date_of_birth: '01/01/1980',
+                                   organizations: [@user.organization])
+
+        visit new_convict_path
+
+        fill_in 'Prénom', with: 'Roberta'
+        fill_in 'Nom', with: 'Dupond'
+        fill_in 'Date de naissance', with: '1970-01-01'
         fill_in 'Téléphone', with: '0606060606'
 
         expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
@@ -190,6 +211,8 @@ RSpec.feature 'Convicts', type: :feature do
         expect(page).to have_content('Un doublon potentiel a été détecté :')
         expect(page).to have_link("DUPOND Roberta, suivi(e) par : #{convict.organizations.first.name}",
                                   href: convict_path(convict))
+
+        find('submit-no-appointment')
 
         expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
       end
