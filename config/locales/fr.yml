@@ -249,6 +249,10 @@ fr:
               past: "Le rendez-vous ne peut pas être dans le passé"
               transfert_in: "Ce lieu de rendez-vous sera disponible à partir du %{date}"
               transfert_out: "Ce lieu de rendez-vous n'est plus disponible après le %{date}"
+        place_transfert:
+          attributes:
+            date:
+              past: "Le déménagement ne peut pas être dans le passé"
         slot:
           attributes:
             date:
