@@ -1,44 +1,44 @@
 class PreparePlaceTransfertJob < ApplicationJob
-  def perform(transfert_place_id, user)
+  def perform(place_transfert_id, user)
     @transfert_errors = []
     @transfert_successes = []
-    transfert_place = PlaceTransfert.find(transfert_place_id)
+    place_transfert = PlaceTransfert.find(place_transfert_id)
 
-    start_transfert(transfert_place)
+    start_transfert(place_transfert)
   rescue StandardError => e
     @transfert_errors.push("Erreur : #{e.message}")
   ensure
-    AdminMailer.with(user: user, transfert: transfert_place, transfert_errors: @import_errors,
-                     transfert_successes: @import_successes).prepare_place_transfert.deliver_later
+    AdminMailer.with(user: user, transfert: place_transfert, transfert_errors: @transfert_errors,
+                     transfert_successes: @transfert_successes).prepare_place_transfert.deliver_later
   end
 
-  def start_transfert(transfert_place)
-    new_place = transfert_place.new_place
-    old_place = transfert_place.old_place
-    puts "Start tranfering old_place: #{old_place} to new_place: #{new_place}"
+  def start_transfert(place_transfert)
+    new_place = place_transfert.new_place
+    old_place = place_transfert.old_place
+    puts "Start transfering old_place: #{old_place} to new_place: #{new_place}"
     new_place.appointment_types.concat(old_place.appointment_types)
 
-    transfert_agendas(transfert_place) if new_place.save
+    transfert_agendas(place_transfert) if new_place.save
   end
 
-  def transfert_agendas(transfert_place)
+  def transfert_agendas(place_transfert)
     # Duplicate agendas from old place to new place
     # Move slots from old place to new place after transfer date
-    transfert_place.old_place.agendas.each do |agenda|
-      transfert_agenda(agenda, transfert_place)
+    place_transfert.old_place.agendas.each do |agenda|
+      transfert_agenda(agenda, place_transfert)
     end
   end
 
-  def transfert_agenda(old_place_agenda, transfert_place)
+  def transfert_agenda(old_place_agenda, place_transfert)
     new_place_agenda = old_place_agenda.dup
-    new_place_agenda.place = transfert_place.new_place
-    new_place_agenda.name = "#{old_place_agenda.name} transféré - #{I18n.l(transfert_place.date)}"
+    new_place_agenda.place = place_transfert.new_place
+    new_place_agenda.name = "#{old_place_agenda.name} transféré - #{I18n.l(place_transfert.date)}"
 
     return unless new_place_agenda.save
 
     @transfert_successes.push("Agenda #{old_place_agenda.name} transféré avec succès")
 
-    transfert_slots(old_place_agenda, new_place_agenda, transfert_place.date)
+    transfert_slots(old_place_agenda, new_place_agenda, place_transfert.date)
   end
 
   def transfert_slots(old_place_agenda, new_place_agenda, date)
