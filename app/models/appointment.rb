@@ -1,4 +1,5 @@
 class Appointment < ApplicationRecord
+  include TransfertValidator
   has_paper_trail
 
   belongs_to :convict
@@ -106,6 +107,11 @@ class Appointment < ApplicationRecord
 
   def reschedule_notif
     notifications.find_by(role: :reschedule)
+  end
+
+  def add_transfert_error(transfert, attribute)
+    errors.add(:base,
+               I18n.t("activerecord.errors.models.appointment.attributes.date.#{attribute}", date: transfert.date))
   end
 
   state_machine initial: :created do

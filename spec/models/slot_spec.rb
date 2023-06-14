@@ -62,6 +62,41 @@ RSpec.describe Slot, type: :model do
         expect(slot.errors.messages[:appointment_type]).to eq ["Ce type de rdv n'est pas possible dans ce lieu"]
       end
     end
+
+    describe 'place transfert validation' do
+      describe 'tranfert out' do
+        let(:agenda) { create(:agenda) }
+        let(:place) { create(:place, agendas: [agenda]) }
+        it 'is not valid if slot after transfert' do
+          create(:place_transfert, old_place: place, date: Date.tomorrow)
+          slot = build(:slot, agenda: place.agendas.first, date: Date.tomorrow + 1.day)
+
+          expect(slot).to_not be_valid
+        end
+        it 'is valid if slot before transfert' do
+          create(:place_transfert, old_place: place, date: Date.tomorrow)
+          slot = build(:slot, agenda: place.agendas.first, date: Date.today)
+
+          expect(slot).to be_valid
+        end
+      end
+      describe 'tranfert in' do
+        let(:agenda) { create(:agenda) }
+        let(:place) { create(:place, agendas: [agenda]) }
+        it 'is not valid if slot before transfert' do
+          create(:place_transfert, new_place: place, date: Date.tomorrow)
+          slot = build(:slot, agenda: place.agendas.first, date: Date.today)
+
+          expect(slot).to_not be_valid
+        end
+        it 'is valid if slot after transfert' do
+          create(:place_transfert, new_place: place, date: Date.tomorrow)
+          slot = build(:slot, agenda: place.agendas.first, date: Date.tomorrow + 1.day)
+
+          expect(slot).to be_valid
+        end
+      end
+    end
   end
 
   describe '.relevant_and_available' do

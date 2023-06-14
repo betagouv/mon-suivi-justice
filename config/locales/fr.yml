@@ -247,10 +247,18 @@ fr:
             date:
               blank: "Date manquante"
               past: "Le rendez-vous ne peut pas être dans le passé"
+              transfert_in: "Ce lieu de rendez-vous sera disponible à partir du %{date}"
+              transfert_out: "Ce lieu de rendez-vous n'est plus disponible après le %{date}"
+        place_transfert:
+          attributes:
+            date:
+              past: "Le déménagement ne peut pas être dans le passé"
         slot:
           attributes:
             date:
               not_workday: "Le jour sélectionné n'est pas un jour ouvrable"
+              transfert_in: "Impossible de créer des créneaux pour ce lieu avant le %{date}"
+              transfert_out: "Impossible de créer des créneaux pour ce lieu après le %{date}"
             appointment_type:
               wrong_organization: "Ce type de rdv n'est pas possible dans ce lieu"
         slot_type:

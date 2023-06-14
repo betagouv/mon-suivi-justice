@@ -4,8 +4,6 @@ class Notification < ApplicationRecord
   belongs_to :appointment
   validates :content, presence: true
 
-  attr_readonly :content
-
   delegate :convict_phone, to: :appointment
 
   enum role: %i[summon reminder cancelation no_show reschedule]

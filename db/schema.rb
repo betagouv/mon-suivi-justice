@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_27_123309) do
+ActiveRecord::Schema.define(version: 2023_05_26_091613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -335,6 +335,19 @@ ActiveRecord::Schema.define(version: 2023_04_27_123309) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["appointment_type_id"], name: "index_place_appointment_types_on_appointment_type_id"
     t.index ["place_id"], name: "index_place_appointment_types_on_place_id"
+  end
+
+  create_table "place_transferts", force: :cascade do |t|
+    t.bigint "new_place_id"
+    t.bigint "old_place_id"
+    t.integer "status", default: 0
+    t.date "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["new_place_id", "old_place_id"], name: "index_place_transferts_on_new_place_id_and_old_place_id"
+    t.index ["new_place_id"], name: "index_place_transferts_on_new_place_id"
+    t.index ["old_place_id", "new_place_id"], name: "index_place_transferts_on_old_place_id_and_new_place_id"
+    t.index ["old_place_id"], name: "index_place_transferts_on_old_place_id"
   end
 
   create_table "places", force: :cascade do |t|
