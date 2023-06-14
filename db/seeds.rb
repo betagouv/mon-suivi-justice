@@ -1,3 +1,5 @@
+ApplicationRecord.reset_column_information
+
 FRENCH_DEPARTMENTS.each do |department|
   Department.find_or_create_by name: department.name, number: department.number
 end
