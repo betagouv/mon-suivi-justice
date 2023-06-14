@@ -205,8 +205,10 @@ class Convict < ApplicationRecord
 
   def find_duplicates
     name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'
+    normalized_phone = PhonyRails.normalize_number(phone, country_code: 'FR')
+
     duplicates = Convict.kept.where(name_conditions, first_name.downcase, last_name.downcase)
-                        .where('phone = ? OR (date_of_birth = ? AND phone IS NOT NULL)', phone, date_of_birth)
+                        .where('phone = ? OR (date_of_birth = ? AND phone IS NOT NULL)', normalized_phone, date_of_birth)
                         .where.not(id: id)
 
     duplicates = duplicates.where(appi_uuid: nil) if appi_uuid.present?
