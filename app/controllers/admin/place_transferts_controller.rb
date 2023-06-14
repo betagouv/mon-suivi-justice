@@ -53,11 +53,15 @@ module Admin
     # empty values into nil values. It uses other APIs such as `resource_class`
     # and `dashboard`:
     #
-    # def resource_params
-    #   params.require(resource_class.model_name.param_key).
-    #     permit(dashboard.permitted_attributes).
-    #     transform_values { |value| value == "" ? nil : value }
-    # end
+    def resource_params
+      new_params = params.require(resource_class.model_name.param_key)
+                         .permit(dashboard.permitted_attributes)
+                         .transform_values { |value| value == '' ? nil : value }
+
+      old_place = Place.find(new_params[:old_place_id])
+      new_params
+        .merge(new_place_attributes: new_params[:new_place_attributes].merge(organization_id: old_place.organization_id))
+    end
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
