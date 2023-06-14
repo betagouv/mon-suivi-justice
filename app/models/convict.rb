@@ -5,11 +5,6 @@ class Convict < ApplicationRecord
 
   has_paper_trail
 
-  WHITELISTED_PHONES = %w[+33659763117 +33683481555 +33682356466 +33603371085
-                          +33687934479 +33674426177 +33616430756 +33613254126
-                          +33674212998 +33607886138 +33666228742 +33631384053
-                          +33767280303].freeze
-
   DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
 
   has_many :convicts_organizations_mappings
@@ -127,10 +122,6 @@ class Convict < ApplicationRecord
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.mobile')
   end
 
-  def phone_whitelisted?
-    WHITELISTED_PHONES.include?(phone)
-  end
-
   def invitable_to_convict_interface?
     phone.present? && invitation_to_convict_interface_count < 2 &&
       timestamp_convict_interface_creation.nil?
@@ -149,7 +140,7 @@ class Convict < ApplicationRecord
   end
 
   def phone_uniqueness
-    return if refused_phone? || no_phone? || phone_whitelisted?
+    return if refused_phone? || no_phone?
 
     return if Convict.where(phone: phone).where.not(id: id).empty?
 
