@@ -43,7 +43,7 @@ class ConvictsController < ApplicationController
 
   def edit
     @convict = policy_scope(Convict).find(params[:id])
-    set_inter_ressort_warnings if current_user.can_use_inter_ressort?
+    set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     authorize @convict
   end
