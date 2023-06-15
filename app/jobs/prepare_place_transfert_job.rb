@@ -3,8 +3,9 @@ class PreparePlaceTransfertJob < ApplicationJob
     @transfert_errors = []
     @transfert_successes = []
     place_transfert = PlaceTransfert.find(place_transfert_id)
-
-    start_transfert(place_transfert)
+    ActiveRecord::Base.transaction do
+      start_transfert(place_transfert)
+    end
   rescue StandardError => e
     @transfert_errors.push("Erreur : #{e.message}")
   ensure
