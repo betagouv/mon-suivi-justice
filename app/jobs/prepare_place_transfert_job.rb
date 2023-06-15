@@ -70,6 +70,8 @@ class PreparePlaceTransfertJob < ApplicationJob
         content = notification.content.gsub(old_place.name, new_place.name)
                               .gsub(old_place.adress, new_place.adress)
                               .gsub(old_place.display_phone, new_place.display_phone)
+                              .gsub(old_place.contact_email, new_place.contact_email)
+                              .gsub(old_place.preparation_link, new_place.preparation_link)
         notification.update(content: content)
       end
     end
