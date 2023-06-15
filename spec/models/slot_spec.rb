@@ -69,7 +69,7 @@ RSpec.describe Slot, type: :model do
         let(:place) { create(:place, agendas: [agenda]) }
         it 'is not valid if slot after transfert' do
           create(:place_transfert, old_place: place, date: Date.tomorrow)
-          slot = build(:slot, agenda: place.agendas.first, date: Date.tomorrow + 1.day)
+          slot = build(:slot, agenda: place.agendas.first, date: Date.tomorrow.next_occurring(:monday))
 
           expect(slot).to_not be_valid
         end
@@ -91,7 +91,7 @@ RSpec.describe Slot, type: :model do
         end
         it 'is valid if slot after transfert' do
           create(:place_transfert, new_place: place, date: Date.tomorrow)
-          slot = build(:slot, agenda: place.agendas.first, date: Date.tomorrow + 1.day)
+          slot = build(:slot, agenda: place.agendas.first, date: Date.tomorrow.next_occurring(:monday))
 
           expect(slot).to be_valid
         end
