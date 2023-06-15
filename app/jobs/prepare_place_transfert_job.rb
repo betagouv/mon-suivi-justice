@@ -1,4 +1,5 @@
 class PreparePlaceTransfertJob < ApplicationJob
+  # rubocop:disable Metrics/MethodLength
   def perform(place_transfert_id, user)
     @transfert_errors = []
     @transfert_successes = []
@@ -12,14 +13,14 @@ class PreparePlaceTransfertJob < ApplicationJob
     AdminMailer.with(user: user, transfert: place_transfert, transfert_errors: @transfert_errors,
                      transfert_successes: @transfert_successes).prepare_place_transfert.deliver_later
   end
+  # rubocop:enable Metrics/MethodLength
 
   def start_transfert(place_transfert)
     new_place = place_transfert.new_place
     old_place = place_transfert.old_place
     puts "Start transfering old_place: #{old_place} to new_place: #{new_place}"
-    new_place.appointment_types.concat(old_place.appointment_types)
-
-    transfert_agendas(place_transfert) if new_place.save
+    new_place.update!(appointment_types: old_place.appointment_types)
+    transfert_agendas(place_transfert)
   end
 
   def transfert_agendas(place_transfert)
@@ -35,7 +36,8 @@ class PreparePlaceTransfertJob < ApplicationJob
     new_place_agenda.place = place_transfert.new_place
     new_place_agenda.name = "#{old_place_agenda.name} transféré - #{I18n.l(place_transfert.date)}"
 
-    return unless new_place_agenda.save
+    new_place_agenda.update!(place: place_transfert.new_place,
+                             name: "#{old_place_agenda.name} transféré - #{I18n.l(place_transfert.date)}")
 
     @transfert_successes.push("Agenda #{old_place_agenda.name} transféré avec succès")
 
@@ -47,8 +49,7 @@ class PreparePlaceTransfertJob < ApplicationJob
     old_slots.update_all(agenda_id: new_place_agenda.id)
     old_place_agenda.slot_types.each do |slot_type|
       new_slot_type = slot_type.dup
-      new_slot_type.agenda = new_place_agenda
-      new_slot_type.save
+      new_slot_type.update!(agenda: new_place_agenda)
     end
 
     update_notifications_text(old_place_agenda, new_place_agenda)
@@ -69,7 +70,7 @@ class PreparePlaceTransfertJob < ApplicationJob
     slot.appointments.each do |appointment|
       appointment.notifications.where(state: %w[programmed created]).each do |notification|
         content = modify_notif_content(old_place, new_place, notification)
-        notification.update(content: content)
+        notification.update!(content: content)
       end
     end
   end
