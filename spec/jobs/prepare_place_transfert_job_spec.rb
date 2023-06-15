@@ -22,11 +22,15 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
     let(:old_agenda) { create(:agenda) }
     let(:old_place) do
       create(:place, agendas: [old_agenda], appointment_types: [appointment_type], organization: organization,
-                     name: 'SPIP 45 - Montargis', adress: "111, piazza Mont-d'Est, 93160, Noisy-le-Grand")
+                     name: 'SPIP 45 - Montargis', adress: "111, piazza Mont-d'Est, 93160, Noisy-le-Grand",
+                     phone: '0102030405', contact_email: 'mont@rgis.con',
+                     preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip_loiret_montargis')
     end
     let(:new_place) do
       create(:place, organization: organization, name: 'Nouveau SPIP 45 - Montargis',
-                     adress: '8 av Adolphe Cochery, 45200 Montargis')
+                     adress: '8 av Adolphe Cochery, 45200 Montargis',
+                     phone: '0238858585', contact_email: 'new-mont@rgis.con',
+                     preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_new_spip_loiret_montargis')
     end
     let(:place_transfert) { create(:place_transfert, old_place: old_place, new_place: new_place, date: Date.tomorrow) }
     let!(:before_slot) { create(:slot, agenda: old_agenda, date: Date.today, appointment_type: appointment_type) }
@@ -40,11 +44,11 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
     let!(:before_appointment) { create(:appointment, slot: before_slot) }
     let!(:after_notication) do
       create(:notification, appointment: after_appointment,
-                            content: convocation_template(old_place.name, old_place.adress))
+                            content: convocation_template(old_place))
     end
     let!(:before_notication) do
       create(:notification, appointment: before_appointment,
-                            content: convocation_template(old_place.name, old_place.adress))
+                            content: convocation_template(old_place))
     end
 
     before do
@@ -72,8 +76,8 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
     end
 
     it('should update notification text') do
-      expect(before_notication.reload.content).to eq(convocation_template(old_place.name, old_place.adress))
-      expect(after_notication.reload.content).to eq(convocation_template(new_place.name, new_place.adress))
+      expect(before_notication.reload.content).to eq(convocation_template(old_place))
+      expect(after_notication.reload.content).to eq(convocation_template(new_place))
     end
   end
 end
