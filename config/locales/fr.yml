@@ -234,6 +234,9 @@ fr:
               not_in_the_future: "La date de naissance ne peut pas être dans le futur"
             city:
               all_blanks: "Veuillez renseigner au moins un des champs commune, sdf ou résidant à l'étranger"
+            organizations:
+              blank: "Veuillez sélectionner au moins un service"
+              multiple_uniqueness: "Une PPSMJ ne peut pas être suivie par plusieurs fois le même service"
         place:
           attributes:
             name:

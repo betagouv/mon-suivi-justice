@@ -41,6 +41,47 @@ RSpec.describe Convict, type: :model do
       create(:convict, appi_uuid: nil)
       expect(build(:convict, appi_uuid: nil)).to be_valid
     end
+
+    describe '#at_least_one_organization' do
+      let(:organization1) { Organization.create(name: 'Organization 1') }
+      let(:organization2) { Organization.create(name: 'Organization 2') }
+      let(:convict) { build(:convict, organizations: []) }
+      context 'when convict has at least one organization' do
+        it 'is valid' do
+          convict.organizations << organization1
+          expect(convict).to be_valid
+        end
+      end
+
+      context 'when convict does not have any organizations' do
+        it 'is invalid' do
+          expect(convict).to be_invalid
+          expect(convict.errors[:organizations]).not_to be_empty
+        end
+      end
+    end
+
+    describe '#unique_organizations' do
+      let(:organization1) { Organization.create(name: 'Organization 1') }
+      let(:organization2) { Organization.create(name: 'Organization 2') }
+      let(:convict) { build(:convict, organizations: []) }
+      context 'when convict has unique organizations' do
+        it 'is valid' do
+          convict.organizations << organization1
+          convict.organizations << organization2
+          expect(convict).to be_valid
+        end
+      end
+
+      context 'when convict has duplicate organizations' do
+        it 'is invalid' do
+          convict.organizations << organization1
+          convict.organizations << organization1
+          expect(convict).to be_invalid
+          expect(convict.errors[:organizations]).not_to be_empty
+        end
+      end
+    end
   end
 
   describe 'phone_uniqueness' do
@@ -267,7 +308,7 @@ RSpec.describe Convict, type: :model do
       @current_user = build(:user, organization: current_user_organization)
     end
     it('contains city organization if city is present') do
-      convict = build(:convict, city: @city)
+      convict = build(:convict, city: @city, organizations: [])
 
       convict.update_organizations(@current_user)
 
@@ -275,14 +316,14 @@ RSpec.describe Convict, type: :model do
     end
 
     it('contains current user organization if city is not present') do
-      convict = build(:convict, city: nil)
+      convict = build(:convict, city: nil, organizations: [])
       convict.update_organizations(@current_user)
 
       expect(convict.organizations).to eq([@current_user.organization])
     end
 
     it('contains TJ Paris if convict is japat') do
-      convict = build(:convict, city: @city, japat: true)
+      convict = build(:convict, city: @city, japat: true, organizations: [])
 
       convict.update_organizations(@current_user)
 
@@ -290,7 +331,7 @@ RSpec.describe Convict, type: :model do
     end
 
     it('add new organization and not remove the previous ones') do
-      convict = build(:convict, city: nil)
+      convict = build(:convict, city: nil, organizations: [])
       convict.update_organizations(@current_user)
       expect(convict.organizations).to eq([@current_user.organization])
 
@@ -301,7 +342,7 @@ RSpec.describe Convict, type: :model do
     end
 
     it('should not add organization if it is already present') do
-      convict = build(:convict, city: nil)
+      convict = build(:convict, city: nil, organizations: [])
       convict.update_organizations(@current_user)
 
       expect(convict.organizations).to eq([@current_user.organization])
