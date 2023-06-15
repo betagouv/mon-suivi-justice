@@ -67,13 +67,17 @@ class PreparePlaceTransfertJob < ApplicationJob
   def transfert_appointment_notifications(old_place, new_place, slot)
     slot.appointments.each do |appointment|
       appointment.notifications.where(state: %w[programmed created]).each do |notification|
-        content = notification.content.gsub(old_place.name, new_place.name)
-                              .gsub(old_place.adress, new_place.adress)
-                              .gsub(old_place.display_phone, new_place.display_phone)
-                              .gsub(old_place.contact_email, new_place.contact_email)
-                              .gsub(old_place.preparation_link, new_place.preparation_link)
+        content = modify_notif_content(old_place, new_place, notification)
         notification.update(content: content)
       end
     end
+  end
+
+  def modify_notif_content(old_place, new_place, notification)
+    notification.content.gsub(old_place.name, new_place.name)
+                .gsub(old_place.adress, new_place.adress)
+                .gsub(old_place.display_phone, new_place.display_phone)
+                .gsub(old_place.contact_email, new_place.contact_email)
+                .gsub(old_place.preparation_link, new_place.preparation_link)
   end
 end
