@@ -54,8 +54,8 @@ class PlacesController < ApplicationController
 
     @place.discard
     @place.agendas.discard_all
-    @place.agendas.each do |a|
-      a.slot_types.discard_all
+    @place.agendas.each do |agenda|
+      agenda.slot_types.discard_all
     end
 
     redirect_to places_path

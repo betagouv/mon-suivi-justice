@@ -95,15 +95,16 @@ RSpec.describe Appointment, type: :model do
   end
 
   describe '.in_the_past?' do
+    let(:agenda) { build(:agenda) }
     it 'returns true if appointment is in the past' do
-      slot = Slot.new(date: Date.today - 1.days)
+      slot = Slot.new(date: Date.today - 1.days, agenda: agenda)
       appointment = Appointment.new(slot: slot)
 
       expect(appointment.in_the_past?).to eq(true)
     end
 
     it 'returns false if appointment is not in the past' do
-      slot = Slot.new(date: Date.today + 1.days)
+      slot = Slot.new(date: Date.today + 1.days, agenda: agenda)
       appointment = Appointment.new(slot: slot)
 
       appointment.save

@@ -1,4 +1,6 @@
 class Slot < ApplicationRecord
+  include TransfertValidator
+
   has_paper_trail
 
   belongs_to :agenda
@@ -96,5 +98,9 @@ class Slot < ApplicationRecord
     end
 
     false
+  end
+
+  def add_transfert_error(transfert, attribute)
+    errors.add(:base, I18n.t("activerecord.errors.models.slot.attributes.date.#{attribute}", date: transfert.date))
   end
 end

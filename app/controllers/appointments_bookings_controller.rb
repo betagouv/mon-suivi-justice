@@ -19,10 +19,6 @@ class AppointmentsBookingsController < ApplicationController
     @convict = params[:convict_id].present? ? Convict.find(params[:convict_id]) : nil
 
     return if @convict.city_id
-
-    flash.now[:warning] =
-      "La prise de RDV ne sera possible que dans votre ressort: <a href='/convicts/#{@convict.id}/edit'>
-      Ajouter une commune à #{@convict.full_name}</a>".html_safe
   end
 
   def load_agendas

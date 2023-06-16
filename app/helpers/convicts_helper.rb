@@ -14,4 +14,8 @@ module ConvictsHelper
   def cpip_for_select(organization)
     User.in_organization(organization).where(role: %w[cpip dpip])
   end
+
+  def ir_available_services(convict)
+    convict.organizations.pluck(:name).join(', ')
+  end
 end

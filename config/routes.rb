@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       resources :srj_spips
       resources :cities
       resources :appointments, except: :index
-      resources :places, except: :index
+      resources :places
       resources :jurisdictions, except: :index
       resources :seeds, only: [:index]
       get '/reset_db' => "seeds#reset_db"
@@ -24,6 +24,9 @@ Rails.application.routes.draw do
       post '/create_page' => "public_pages#create"
       post '/import_convicts' => "import_convicts#import"
       resources :headquarters
+      resources :place_transferts do
+        put '/start_transfert' => "place_transferts#start_transfert"
+      end
 
       root to: "users#index"
     end

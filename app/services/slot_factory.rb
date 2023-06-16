@@ -23,7 +23,7 @@ module SlotFactory
 
     def create_slot(date, slot_type)
       return unless date && slot_type
-
+      return unless valid_date_for_slot(slot_type.place, date)
       return if slot_exists(date, slot_type) || date_invalid?(date)
 
       Slot.create(
@@ -39,6 +39,13 @@ module SlotFactory
 
     def open_dates
       @open_dates ||= (@start_date..@end_date).to_a - Holidays.between(@start_date, @end_date, :fr).map { |h| h[:date] }
+    end
+
+    def valid_date_for_slot(place, date)
+      before_transfer_in = place.transfert_in && date < place.transfert_in.date
+      after_transfer_out = place.transfert_out && date >= place.transfert_out.date
+
+      !(before_transfer_in || after_transfer_out)
     end
   end
 end

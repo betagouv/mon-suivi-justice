@@ -11,7 +11,7 @@ class SlotsBatchesController < ApplicationController
       flash.discard
       redirect_to slots_path
     else
-      flash[:alert] = I18n.t('slots.failed_batch_creation')
+      flash[:error] = I18n.t('slots.failed_batch_creation')
       render :new
     end
   end

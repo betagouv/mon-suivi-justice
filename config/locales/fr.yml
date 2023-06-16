@@ -55,6 +55,13 @@ fr:
       notice: "La PPSMJ vous a bien été attribuée."
     unassign:
       notice: "La PPSMJ a été réattribuée au service"
+    set_inter_ressort_flashes:
+      convict_no_cities: "La PPSMJ n'a pas de commune."
+      available_organizations: "Rendez-vous possibles dans les services suivants:"
+      how_to_add_organizations: "Pour prendre rendez-vous dans un autre service, %{msg}"
+      convict_has_city: "La PPSMJ est liée à la commune %{city_name}."
+      add_city: "ajoutez une commune à la PPSMJ"
+      change_city: "modifiez la commune de la PPSMJ"
 
   activerecord:
     models:
@@ -227,6 +234,9 @@ fr:
               not_in_the_future: "La date de naissance ne peut pas être dans le futur"
             city:
               all_blanks: "Veuillez renseigner au moins un des champs commune, sdf ou résidant à l'étranger"
+            organizations:
+              blank: "Veuillez sélectionner au moins un service"
+              multiple_uniqueness: "Une PPSMJ ne peut pas être suivie par plusieurs fois le même service"
         place:
           attributes:
             name:
@@ -240,10 +250,18 @@ fr:
             date:
               blank: "Date manquante"
               past: "Le rendez-vous ne peut pas être dans le passé"
+              transfert_in: "Ce lieu de rendez-vous sera disponible à partir du %{date}"
+              transfert_out: "Ce lieu de rendez-vous n'est plus disponible après le %{date}"
+        place_transfert:
+          attributes:
+            date:
+              past: "Le déménagement ne peut pas être dans le passé"
         slot:
           attributes:
             date:
               not_workday: "Le jour sélectionné n'est pas un jour ouvrable"
+              transfert_in: "Impossible de créer des créneaux pour ce lieu avant le %{date}"
+              transfert_out: "Impossible de créer des créneaux pour ce lieu après le %{date}"
             appointment_type:
               wrong_organization: "Ce type de rdv n'est pas possible dans ce lieu"
         slot_type:

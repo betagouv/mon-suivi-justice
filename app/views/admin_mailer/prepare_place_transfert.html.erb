@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Transfert de <%= @old_place %> vers <%= @new_place %></h1>
+    <ul>
+        <% if !@transfert_successes.nil? && @transfert_successes.any? %>
+          <% @transfert_successes.each do |success| %>
+              <li><%= success %></li>
+          <% end %>
+        <% end %>
+        <% if !@transfert_errors.nil? && @transfert_errors.any? %>
+          <h1>Problèmes lors du transfert</h1>
+          <% @transfert_errors.each do |error| %>
+              <li style="color: red"><%= error %></li>
+          <% end %>
+        <% end %>
+    </ul>
+  </body>
+</html>

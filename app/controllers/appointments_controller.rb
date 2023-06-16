@@ -1,4 +1,6 @@
 class AppointmentsController < ApplicationController
+  include InterRessortFlashes
+
   before_action :authenticate_user!
 
   def index
@@ -38,7 +40,7 @@ class AppointmentsController < ApplicationController
 
     @convict = Convict.find(params[:convict_id])
 
-    set_warning_flash_no_city if current_user.can_use_inter_ressort? && !@convict.city_id
+    set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     initialize_extra_fields
   end
@@ -55,7 +57,7 @@ class AppointmentsController < ApplicationController
       @appointment.book(send_notification: params[:send_sms])
       redirect_to appointment_path(@appointment)
     else
-      @appointment.errors.each { |error| flash.now[:alert] = error.message }
+      @appointment.errors.each { |error| flash.now[:warning] = error.message }
       @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
       render :new
     end

@@ -1,4 +1,6 @@
 class ConvictsController < ApplicationController
+  include InterRessortFlashes
+
   before_action :authenticate_user!
 
   def show
@@ -6,7 +8,7 @@ class ConvictsController < ApplicationController
     @history_items = HistoryItem.where(convict: @convict, category: %w[appointment convict])
                                 .order(created_at: :desc)
 
-    set_warning_flash_no_city if current_user.can_use_inter_ressort? && !@convict.city_id
+    set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     authorize @convict
   end
@@ -41,13 +43,6 @@ class ConvictsController < ApplicationController
 
   def edit
     @convict = policy_scope(Convict).find(params[:id])
-
-    if current_user.can_use_inter_ressort? && !@convict.city_id
-      flash.now[:warning] =
-        '<strong>ATTENTION. Aucune commune renseignée.</strong> La prise de RDV ne sera possible que dans votre ressort:
-          Utilisez le champ commune ci-dessous pour renseigner une commune'.html_safe
-    end
-
     authorize @convict
   end
 
@@ -113,7 +108,11 @@ class ConvictsController < ApplicationController
   end
 
   def search
-    @convicts = policy_scope(Convict).search_by_name_and_phone(params[:q])
+    query = params[:q]
+    query = add_prefix_to_phone(query) if query =~ (/\d/) && !/^(\+33)/.match?(query)
+
+    @convicts = policy_scope(Convict).search_by_name_and_phone(query)
+
     authorize @convicts
     render layout: false
   end
@@ -183,13 +182,6 @@ class ConvictsController < ApplicationController
     ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
   end
 
-  def set_warning_flash_no_city
-    flash.now[:warning] =
-      "<strong>ATTENTION. Aucune commune renseignée.</strong>
-     La prise de RDV ne sera possible que dans votre ressort:
-      <a href='/convicts/#{@convict.id}/edit'>Ajouter une commune à #{@convict.full_name}</a>".html_safe
-  end
-
   def bex_user_and_invalid_convict?
     current_user.work_at_bex? && !@convict.valid?(:user_works_at_bex)
   end
@@ -219,8 +211,8 @@ class ConvictsController < ApplicationController
   end
 
   def save_and_redirect_with_inter_ressort(convict)
+    convict.update_organizations(current_user)
     if convict.save
-      convict.update_organizations(current_user)
       redirect_to select_path(params)
     else
       @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
@@ -231,5 +223,9 @@ class ConvictsController < ApplicationController
   def render_new_with_appi_uuid(convict)
     @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
     render :new
+  end
+
+  def add_prefix_to_phone(phone)
+    "+33#{phone[1..]}"
   end
 end

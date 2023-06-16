@@ -5,11 +5,6 @@ class Convict < ApplicationRecord
 
   has_paper_trail
 
-  WHITELISTED_PHONES = %w[+33659763117 +33683481555 +33682356466 +33603371085
-                          +33687934479 +33674426177 +33616430756 +33613254126
-                          +33674212998 +33607886138 +33666228742 +33631384053
-                          +33767280303].freeze
-
   DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
 
   has_many :convicts_organizations_mappings
@@ -48,6 +43,9 @@ class Convict < ApplicationRecord
   validates :date_of_birth, presence: true, unless: proc { current_user&.admin? }
   validate :date_of_birth_date_cannot_be_in_the_past
 
+  validates :organizations, presence: true
+  validate :unique_organizations
+
   after_update :update_convict_api
 
   #
@@ -80,7 +78,7 @@ class Convict < ApplicationRecord
     joins(appointments: :slot).where(appointments: { slots: { date: ..Date.today } })
   end)
 
-  pg_search_scope :search_by_name_and_phone, against: %i[first_name last_name],
+  pg_search_scope :search_by_name_and_phone, against: %i[first_name last_name phone],
                                              using: {
                                                tsearch: { prefix: true }
                                              },
@@ -127,10 +125,6 @@ class Convict < ApplicationRecord
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.mobile')
   end
 
-  def phone_whitelisted?
-    WHITELISTED_PHONES.include?(phone)
-  end
-
   def invitable_to_convict_interface?
     phone.present? && invitation_to_convict_interface_count < 2 &&
       timestamp_convict_interface_creation.nil?
@@ -149,7 +143,7 @@ class Convict < ApplicationRecord
   end
 
   def phone_uniqueness
-    return if refused_phone? || no_phone? || phone_whitelisted?
+    return if refused_phone? || no_phone?
 
     return if Convict.where(phone: phone).where.not(id: id).empty?
 
@@ -212,5 +206,21 @@ class Convict < ApplicationRecord
     duplicates = duplicates.where(appi_uuid: nil) if appi_uuid.present?
 
     duplicates
+  end
+
+  private
+
+  def at_least_one_organization
+    return unless organizations.blank?
+
+    errors.add(:organizations,
+               I18n.t('activerecord.errors.models.convict.attributes.organizations.blank'))
+  end
+
+  def unique_organizations
+    return unless organizations.uniq.length != organizations.length
+
+    errors.add(:organizations,
+               I18n.t('activerecord.errors.models.convict.attributes.organizations.multiple_uniqueness'))
   end
 end
