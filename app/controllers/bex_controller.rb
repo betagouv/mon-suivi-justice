@@ -93,9 +93,7 @@ class BexController < ApplicationController
   def days_with_slots(appointment_type, month)
     Slot.future
         .in_organization(current_organization)
-        .where(appointment_type: appointment_type, date: month.to_date.all_month.to_a)
-        .joins('LEFT JOIN appointments ON appointments.slot_id = slots.id')
-        .where('slots.available = true OR appointments.id IS NOT NULL')
+        .available_or_with_appointments(month.to_date.all_month.to_a, appointment_type)
         .pluck(:date)
         .uniq
         .sort
