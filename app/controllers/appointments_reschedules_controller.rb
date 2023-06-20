@@ -4,7 +4,7 @@ class AppointmentsReschedulesController < AppointmentsController
   def create
     old_appointment = Appointment.find_by id: params.dig(:appointment, :old_appointment_id)
     new_appointment = Appointment.new appointment_params
-    authorize new_appointment
+    authorize new_appointment, policy_class: AppointmentsReschedulesPolicy
 
     if new_appointment.save
       cancel_old_appointment old_appointment, new_appointment
@@ -17,9 +17,9 @@ class AppointmentsReschedulesController < AppointmentsController
   end
 
   def new
-    @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    @appointment = Appointment.find(params[:appointment_id])
     @appointment_type = @appointment.slot.appointment_type
-    authorize @appointment
+    authorize @appointment, policy_class: AppointmentsReschedulesPolicy
 
     @slots_by_date = Slot.future
                          .relevant_and_available(@appointment.slot.agenda, @appointment.slot.appointment_type)
