@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_26_091613) do
+ActiveRecord::Schema.define(version: 2023_06_20_135108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,12 +212,13 @@ ActiveRecord::Schema.define(version: 2023_05_26_091613) do
   end
 
   create_table "convicts_organizations_mappings", force: :cascade do |t|
-    t.bigint "organization_id"
-    t.bigint "convict_id"
+    t.bigint "organization_id", null: false
+    t.bigint "convict_id", null: false
     t.datetime "desactivated_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["convict_id"], name: "index_convicts_organizations_mappings_on_convict_id"
+    t.index ["organization_id", "convict_id"], name: "index_convicts_organizations_mappings_on_org_id_and_convict_id", unique: true
     t.index ["organization_id"], name: "index_convicts_organizations_mappings_on_organization_id"
   end
 
