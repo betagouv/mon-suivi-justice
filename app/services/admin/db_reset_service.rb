@@ -1,15 +1,13 @@
 module Admin
   class DbResetService
-    def reset_database
+    def self.reset_database
       truncate_tables if Rails.env.development?
       clear_records
       populate_cities_with_data
       update_city_associations
     end
 
-    private
-
-    def truncate_tables
+    def self.truncate_tables
       excluded_tables = %w[schema_migrations monsuivijustice_relation_commune_structure monsuivijustice_commune
                            monsuivijustice_structure]
       ActiveRecord::Base.connection.tables.each do |table|
@@ -20,20 +18,20 @@ module Admin
       end
     end
 
-    def clear_records
+    def self.clear_records
       City.destroy_all
       SrjTj.destroy_all
       SrjSpip.destroy_all
       reset_pk_sequence(%w[cities srj_tjs srj_spips])
     end
 
-    def reset_pk_sequence(tables)
+    def self.reset_pk_sequence(tables)
       tables.each do |table|
         ActiveRecord::Base.connection.reset_pk_sequence!(table)
       end
     end
 
-    def populate_cities_with_data
+    def self.populate_cities_with_data
       ActiveRecord::Base.connection.execute("
           INSERT INTO cities(name, zipcode, code_insee, city_id, updated_at, created_at)
           SELECT
@@ -48,7 +46,7 @@ module Admin
 
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Layout/LineLength
-    def update_city_associations
+    def self.update_city_associations
       ActiveRecord::Base.connection.execute("
           INSERT INTO srj_spips(name, structure_id, updated_at, created_at)
           SELECT DISTINCT
