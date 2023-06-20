@@ -72,7 +72,7 @@ class BexController < ApplicationController
   end
 
   def places(appointment_type)
-    policy_scope(Place).kept.joins(:appointment_types).where(appointment_types: appointment_type)
+    place_policy_scope_for_bex.kept.joins(:appointment_types).where(appointment_types: appointment_type)
   end
 
   def get_jap_agendas(appointment_type, params)
@@ -82,7 +82,7 @@ class BexController < ApplicationController
   end
 
   def get_places_and_agendas(appointment_type, params)
-    @places = policy_scope(Place).kept.joins(:appointment_types).where(appointment_types: appointment_type)
+    @places = place_policy_scope_for_bex.kept.joins(:appointment_types).where(appointment_types: appointment_type)
     @place = params[:place_id] ? Place.find(params[:place_id]) : @places.first
 
     @agendas = policy_scope(Agenda).where(place: @place).with_open_slots(appointment_type)
@@ -105,4 +105,12 @@ class BexController < ApplicationController
       days_with_slots_in_selected_month.first
     end
   end
+
+  private
+
+  def place_policy_scope_for_bex
+    policy_scope(Place, policy_scope_class: PublicationPolicy::Scope)
+  end
+
+
 end
