@@ -344,7 +344,7 @@ RSpec.describe Convict, type: :model do
     it('should not add organization if it is already present') do
       convict = build(:convict, city: nil, organizations: [])
       convict.update_organizations(@current_user)
-
+      convict.save
       expect(convict.organizations).to eq([@current_user.organization])
 
       convict.update_organizations(@current_user)

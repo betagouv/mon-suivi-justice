@@ -186,8 +186,6 @@ class Convict < ApplicationRecord
     end
 
     organizations.push(Organization.find_by(name: 'TJ Paris')) if japat
-
-    save
   end
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity
