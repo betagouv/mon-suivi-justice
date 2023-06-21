@@ -11,6 +11,7 @@ describe AppointmentsReschedulesPolicy do
       subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
       it { is_expected.to permit_action(:new) }
+      it { is_expected.to permit_action(:create) }
     end
 
     context "for a #{role} user which does not belong to the same organization as the appointment's" do
@@ -18,6 +19,7 @@ describe AppointmentsReschedulesPolicy do
       subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
       it { is_expected.not_to permit_action(:new) }
+      it { is_expected.to permit_action(:create) }
     end
   end
 end
