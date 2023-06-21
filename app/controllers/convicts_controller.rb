@@ -199,18 +199,11 @@ class ConvictsController < ApplicationController
   end
 
   def handle_save_and_redirect(convict)
-    convict.update_organizations(current_user)
-    if can_redirect?(convict)
+    if convict.update_organizations(current_user)
       redirect_to select_path(params)
     else
       render_new_with_appi_uuid(convict)
     end
-  end
-
-  def can_redirect?(convict)
-    return false if current_user.can_use_inter_ressort? && !convict.valid?(:user_can_use_inter_ressort)
-
-    convict.save
   end
 
   def render_new_with_appi_uuid(convict)

@@ -34,7 +34,7 @@ class Convict < ApplicationRecord
   validate :phone_uniqueness
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
-  validate :either_city_homeless_lives_abroad_present, on: :user_can_use_inter_ressort
+  validate :either_city_homeless_lives_abroad_present, if: proc { creating_organization&.use_inter_ressort? }
 
   validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE,
@@ -186,6 +186,7 @@ class Convict < ApplicationRecord
     end
 
     organizations.push(Organization.find_by(name: 'TJ Paris')) if japat
+    save
   end
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity
@@ -207,13 +208,6 @@ class Convict < ApplicationRecord
   end
 
   private
-
-  def at_least_one_organization
-    return unless organizations.blank?
-
-    errors.add(:organizations,
-               I18n.t('activerecord.errors.models.convict.attributes.organizations.blank'))
-  end
 
   def unique_organizations
     return unless organizations.uniq.length != organizations.length
