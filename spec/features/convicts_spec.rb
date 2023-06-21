@@ -212,9 +212,8 @@ RSpec.feature 'Convicts', type: :feature do
         expect(page).to have_link("DUPOND Roberta, suivi(e) par : #{convict.organizations.first.name}",
                                   href: convict_path(convict))
 
-        find('submit-no-appointment')
-
-        expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
+        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
+        expect(page).to have_content('Téléphone portable Une PPSMJ est déjà enregistrée avec ce numéro de téléphone.')
       end
     end
 
