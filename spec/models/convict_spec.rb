@@ -42,25 +42,6 @@ RSpec.describe Convict, type: :model do
       expect(build(:convict, appi_uuid: nil)).to be_valid
     end
 
-    describe '#at_least_one_organization' do
-      let(:organization1) { Organization.create(name: 'Organization 1') }
-      let(:organization2) { Organization.create(name: 'Organization 2') }
-      let(:convict) { build(:convict, organizations: []) }
-      context 'when convict has at least one organization' do
-        it 'is valid' do
-          convict.organizations << organization1
-          expect(convict).to be_valid
-        end
-      end
-
-      context 'when convict does not have any organizations' do
-        it 'is invalid' do
-          expect(convict).to be_invalid
-          expect(convict.errors[:organizations]).not_to be_empty
-        end
-      end
-    end
-
     describe '#unique_organizations' do
       let(:organization1) { Organization.create(name: 'Organization 1') }
       let(:organization2) { Organization.create(name: 'Organization 2') }
@@ -158,21 +139,23 @@ RSpec.describe Convict, type: :model do
       expect(build(:convict, city: nil, homeless: false, lives_abroad: false)).to be_valid
     end
     context 'when the user is using inter-ressort' do
+      let(:organization) { create(:organization, use_inter_ressort: true) }
       it('is invalid when has no city, dont live abroad and is not homeless') do
-        convict = build(:convict, city: nil, homeless: false, lives_abroad: false)
-        expect(convict.valid?(:user_can_use_inter_ressort)).to be false
+        convict = build(:convict, city: nil, homeless: false, lives_abroad: false, creating_organization: organization)
+        expect(convict.valid?).to be false
       end
       it('is valid when has a city, dont live abroad and is not homeless') do
-        convict = build(:convict, city_id: '12', homeless: false, lives_abroad: false)
-        expect(convict.valid?(:user_can_use_inter_ressort)).to be true
+        convict = build(:convict, city_id: '12', homeless: false, lives_abroad: false,
+                                  creating_organization: organization)
+        expect(convict.valid?).to be true
       end
       it('is valid when has no city, lives abroad and is not homeless') do
-        convict = build(:convict, city: nil, homeless: false, lives_abroad: true)
-        expect(convict.valid?(:user_can_use_inter_ressort)).to be true
+        convict = build(:convict, city: nil, homeless: false, lives_abroad: true, creating_organization: organization)
+        expect(convict.valid?).to be true
       end
       it('is valid when has a city, dont live abroad and is homeless') do
-        convict = build(:convict, city: nil, homeless: true, lives_abroad: false)
-        expect(convict.valid?(:user_can_use_inter_ressort)).to be true
+        convict = build(:convict, city: nil, homeless: true, lives_abroad: false, creating_organization: organization)
+        expect(convict.valid?).to be true
       end
     end
   end
@@ -218,6 +201,7 @@ RSpec.describe Convict, type: :model do
     it('add new organization and not remove the previous ones') do
       convict = build(:convict, city: nil, organizations: [])
       convict.update_organizations(@current_user)
+
       expect(convict.organizations).to eq([@current_user.organization])
 
       convict.update(city: @city)
