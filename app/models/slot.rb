@@ -61,6 +61,13 @@ class Slot < ApplicationRecord
     joins(:appointment_type).merge(AppointmentType.with_slot_types)
   }
 
+  scope :available_or_with_appointments, lambda { |date, appointment_type|
+    where(date: date, appointment_type: appointment_type)
+      # we use LEFT JOIN to get slots with or without appointments
+      .joins('LEFT JOIN appointments ON appointments.slot_id = slots.id')
+      .where('slots.available = true OR appointments.id IS NOT NULL')
+  }
+
   def all_capacity_used?
     used_capacity == capacity
   end

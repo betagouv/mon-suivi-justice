@@ -152,6 +152,29 @@ RSpec.describe Slot, type: :model do
     end
   end
 
+  describe '.available_or_with_appointments' do
+    let(:date) { Date.today }
+    let(:appointment_type) { create(:appointment_type) }
+
+    let!(:available_slot) { create(:slot, date: date, appointment_type: appointment_type, available: true) }
+    let!(:booked_slot) { create(:slot, date: date, appointment_type: appointment_type, available: false) }
+    let!(:slot_without_appointment) { create(:slot, date: date, appointment_type: appointment_type, available: true) }
+    let!(:slot_unavailable_without_appointment) do
+      create(:slot, date: date, appointment_type: appointment_type, available: false)
+    end
+
+    let!(:appointment) { create(:appointment, slot: booked_slot) }
+
+    it 'returns slots with appointments or available slots for the given date and appointment type' do
+      slots = described_class.available_or_with_appointments(date, appointment_type)
+
+      expect(slots).to include(available_slot)
+      expect(slots).to include(booked_slot)
+      expect(slots).to include(slot_without_appointment)
+      expect(slots).not_to include(slot_unavailable_without_appointment)
+    end
+  end
+
   describe '.in_departments' do
     it 'returns slots scoped by department' do
       department1 = create :department, number: '01', name: 'Ain'

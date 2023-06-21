@@ -7,6 +7,7 @@ class BexController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   def agenda_jap
     get_jap_agendas(@appointment_type, params)
+
     @days_with_slots_in_selected_month = days_with_slots(@appointment_type, params[:month])
     @selected_day = selected_day(@days_with_slots_in_selected_month, params)
 
@@ -92,7 +93,7 @@ class BexController < ApplicationController
   def days_with_slots(appointment_type, month)
     Slot.future
         .in_organization(current_organization)
-        .where(appointment_type: appointment_type, date: month.to_date.all_month.to_a)
+        .available_or_with_appointments(month.to_date.all_month.to_a, appointment_type)
         .pluck(:date)
         .uniq
         .sort
