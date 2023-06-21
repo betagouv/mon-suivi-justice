@@ -106,11 +106,7 @@ class BexController < ApplicationController
     end
   end
 
-  private
-
   def place_policy_scope_for_bex
     policy_scope(Place, policy_scope_class: BexPolicy::Scope)
   end
-
-
 end
