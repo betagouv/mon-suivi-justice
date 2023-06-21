@@ -18,8 +18,4 @@ module ConvictsHelper
   def ir_available_services(convict)
     convict.organizations.pluck(:name).join(', ')
   end
-
-  def link_to_convict_show(convict)
-    link_to 'Voir la PPSMJ', convict_path(convict)
-  end
 end
