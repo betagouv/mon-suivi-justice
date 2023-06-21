@@ -30,7 +30,7 @@ export default class extends Controller {
     })
     .then(data => {
       this.organizationsInfoTarget.className = "fr-alert fr-alert--info fr-alert--sm fr-mb-3w"
-      const convictCurrentOrganizations = `les services actuels de la PPSMJ:<strong> ${this.irCitiesValue}</strong>.`
+      const convictCurrentOrganizations = `les services actuels de la PPSMJ: ${this.irCitiesValue}.`
 
       if (data.length > 0) {        
         const servicesList = data.map((orga) => orga.name).join(', ')
