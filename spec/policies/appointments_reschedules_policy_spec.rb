@@ -19,7 +19,7 @@ describe AppointmentsReschedulesPolicy do
       subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
       it { is_expected.not_to permit_action(:new) }
-      it { is_expected.to permit_action(:create) }
+      it { is_expected.not_to permit_action(:create) }
     end
   end
 end
