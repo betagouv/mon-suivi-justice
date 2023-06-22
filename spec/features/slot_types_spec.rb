@@ -132,7 +132,7 @@ RSpec.feature 'SlotTypes', type: :feature, logged_in_as: 'admin' do
         select '12', from: 'slot_types_batch_last_slot_4i'
         select '00', from: 'slot_types_batch_last_slot_5i'
 
-        fill_in 'Intervale', with: 30
+        fill_in 'Intervalle', with: 30
         fill_in 'Capacité', with: 6
         fill_in 'Durée', with: 30
       end
@@ -159,6 +159,26 @@ RSpec.feature 'SlotTypes', type: :feature, logged_in_as: 'admin' do
       within first('.index-slot-types-weekday-wrapper-monday') do
         expect { click_link 'Tout supprimer' }.to change(SlotType, :count).by(-2)
       end
+    end
+
+    it 'does not create slot type with zero interval' do
+      visit agenda_slot_types_path(@agenda)
+
+      within first('.slot-type-batch-creator-container') do
+        check 'lundi'
+        select '09', from: 'slot_types_batch_first_slot_4i'
+        select '00', from: 'slot_types_batch_first_slot_5i'
+
+        select '12', from: 'slot_types_batch_last_slot_4i'
+        select '00', from: 'slot_types_batch_last_slot_5i'
+
+        fill_in 'Intervalle', with: 0
+        fill_in 'Capacité', with: 6
+        fill_in 'Durée', with: 30
+      end
+
+      expect { click_button 'Tout créer' }.to change(SlotType, :count).by(0)
+      expect(page).to have_content('Impossible de créer des créneaux récurrents avec un intervalle de 0 minute')
     end
   end
 end
