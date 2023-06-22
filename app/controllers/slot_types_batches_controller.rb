@@ -10,11 +10,11 @@ class SlotTypesBatchesController < ApplicationController
     data = slot_types_batch_params.to_h
 
     if data[:interval].to_i.zero?
-      flash[:alert] = I18n.t('activerecord.errors.models.slot_type.batch_zero_interval')
+      flash[:error] = I18n.t('activerecord.errors.models.slot_type.batch_zero_interval')
     else
       success = SlotTypeFactory.perform(appointment_type: @appointment_type, agenda: @agenda,
                                         timezone: @current_time_zone, data: data)
-      flash[:alert] = I18n.t('activerecord.errors.models.slot_type.batch_multiple_uniqueness') unless success
+      flash[:error] = I18n.t('activerecord.errors.models.slot_type.batch_multiple_uniqueness') unless success
     end
 
     redirect_back(fallback_location: root_path)
