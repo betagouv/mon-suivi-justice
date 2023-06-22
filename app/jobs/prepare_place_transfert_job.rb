@@ -8,7 +8,6 @@ class PreparePlaceTransfertJob < ApplicationJob
       start_transfert(place_transfert)
     end
   rescue StandardError => e
-    p e
     @transfert_errors.push("Erreur : #{e.message}")
   ensure
     AdminMailer.with(user: user, transfert: place_transfert, transfert_errors: @transfert_errors,

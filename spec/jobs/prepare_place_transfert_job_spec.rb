@@ -37,7 +37,8 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
     let!(:before_slot) { create(:slot, agenda: old_agenda, date: Date.today, appointment_type: appointment_type) }
 
     let!(:after_slot) do
-      slot = build(:slot, agenda: old_agenda, date: Date.today + 2.days, appointment_type: appointment_type, slot_type: nil)
+      slot = build(:slot, agenda: old_agenda, date: Date.today + 2.days, appointment_type: appointment_type,
+                          slot_type: nil)
       slot.save(validate: false)
       slot
     end
