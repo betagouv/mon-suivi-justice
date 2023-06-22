@@ -109,9 +109,10 @@ class Appointment < ApplicationRecord
     notifications.find_by(role: :reschedule)
   end
 
-  def add_transfert_error(transfert, attribute)
+  def add_transfert_error(transfert, attribute, place_name)
     errors.add(:base,
-               I18n.t("activerecord.errors.models.appointment.attributes.date.#{attribute}", date: transfert.date))
+               I18n.t("activerecord.errors.models.appointment.attributes.date.#{attribute}", date: transfert.date,
+                                                                                             place_name: place_name))
   end
 
   state_machine initial: :created do
