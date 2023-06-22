@@ -2,15 +2,25 @@ class SlotTypesBatchesController < ApplicationController
   before_action :authenticate_user!
   skip_after_action :verify_authorized
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def create
-    @agenda = Agenda.find params[:agenda_id]
+    @agenda = Agenda.find(params[:agenda_id])
     @appointment_type = AppointmentType.find_by(id: params[:appointment_type_id])
+    data = slot_types_batch_params.to_h
 
-    success = SlotTypeFactory.perform(appointment_type: @appointment_type, agenda: @agenda,
-                                      timezone: @current_time_zone, data: slot_types_batch_params.to_h)
-    flash[:alert] = I18n.t('activerecord.errors.models.slot_type.batch_multiple_uniqueness') unless success
+    if data[:interval].to_i.zero?
+      flash[:alert] = I18n.t('activerecord.errors.models.slot_type.batch_zero_interval')
+    else
+      success = SlotTypeFactory.perform(appointment_type: @appointment_type, agenda: @agenda,
+                                        timezone: @current_time_zone, data: data)
+      flash[:alert] = I18n.t('activerecord.errors.models.slot_type.batch_multiple_uniqueness') unless success
+    end
+
     redirect_back(fallback_location: root_path)
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   def destroy
     slot_types = if params.key?(:weekday)
