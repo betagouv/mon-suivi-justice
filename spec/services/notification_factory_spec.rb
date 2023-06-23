@@ -62,7 +62,7 @@ RSpec.describe NotificationFactory do
       expected = "Vous êtes convoqué au Spip du 03 le #{Date.civil(2025, 4, 18)} à 16h30. " \
                  "Merci de venir avec une pièce d'identité au 38 rue Jean Moulin. " \
                  'Veuillez contacter le 0102030405 (ou test@test.com) en cas de problème. ' \
-                 "Plus d'informations sur https://mon-suivi-justice.beta.gouv.fr/preparer_spip92."
+                 "Plus d'informations sur https://mon-suivi-justice.beta.gouv.fr/preparer_spip92?mtm_campaign=AgentsApp&mtm_source=sms."
 
       NotificationFactory.perform(appointment)
 
