@@ -52,5 +52,13 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
       expect(user.role).to eq('admin')
     end
+
+    it 'raises a database error when role is null' do
+      user = User.new(organization: organization, email: 'admin@example.com',
+                      password: '1mot2passeSecurise!', password_confirmation: '1mot2passeSecurise!',
+                      first_name: 'Kevin', last_name: 'McCallister')
+
+      expect { user.save(validate: false) }.to raise_error(ActiveRecord::NotNullViolation)
+    end
   end
 end
