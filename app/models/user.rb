@@ -45,7 +45,7 @@ class User < ApplicationRecord
     greff_ca: 19
   }
 
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :role, presence: true
   validates :share_email_to_convict, inclusion: { in: [true, false] }
   validates :share_phone_to_convict, inclusion: { in: [true, false] }
 
