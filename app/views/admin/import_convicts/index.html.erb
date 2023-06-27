@@ -1,5 +1,5 @@
 <div id="spip_creation_page" style="padding: 20px">
-  <h1>Ajout des ppsmjs de APPI (.csv) dans un service MSJ</h1>
+  <h1>Ajout des probationnaires de APPI (.csv) dans un service MSJ</h1>
   <br>
   <%= form_with url: admin_import_convicts_path, class: 'form' do |form| %>
     <div class="field-unit field-unit--string field-unit--optional">
@@ -11,7 +11,7 @@
       <%= form.select :headquarter_id, options_from_collection_for_select(Headquarter.all, 'id', 'name', @headquarter&.id), {include_blank: true}, {style: 'margin-left: 2rem;'} %>
     </div>
     <div class="field-unit field-unit--string field-unit--optional">
-      <%= form.label :convicts_list, "Liste des ppsmjs (.csv):", class: 'field-unit__label' %>
+      <%= form.label :convicts_list, "Liste des probationnaires (.csv):", class: 'field-unit__label' %>
       <%= form.file_field :convicts_list, style: 'margin-left: 2rem;', required: true %>
     </div>
     <div class="form-actions">

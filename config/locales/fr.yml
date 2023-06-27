@@ -29,7 +29,7 @@ fr:
       notice: "Les modifications ont bien été enregistrées."
   convicts:
     create:
-      notice: "La PPSMJ a bien été créée."
+      notice: "Le probationnaire a bien été créé."
     new:
       cpip_label: "CPIP"
       cpip_blank_option: "Suivi affecté au service"
@@ -37,12 +37,12 @@ fr:
       cpip_label: "CPIP"
       cpip_blank_option: "Suivi affecté au service"
     index:
-      self_assign_link: "S'attribuer cette PPSMJ"
+      self_assign_link: "S'attribuer ce probationnaire"
       unassign_link: Retirer
     show:
       invite: Inviter à son espace
       reinvite: Relancer l'invitation
-      self_assign_link: S'attribuer cette PPSMJ
+      self_assign_link: S'attribuer ce probationnaire
       unassign_link: Retirer l'attribution
       interface_invitation_state: État de l'invitation
       accepted: Accepté
@@ -52,16 +52,16 @@ fr:
       interface_access_timestamp: Date d'acceptation
       interface_no_access: Aucun accès pour l'instant
     self_assign:
-      notice: "La PPSMJ vous a bien été attribuée."
+      notice: "Le probationnaire vous a bien été attribué."
     unassign:
-      notice: "La PPSMJ a été réattribuée au service"
+      notice: "Le probationnaire a été réattribué au service"
     set_inter_ressort_flashes:
-      convict_no_cities: "La PPSMJ n'a pas de commune."
-      available_organizations: "Rendez-vous possibles dans les services suivants:"
-      how_to_add_organizations: "Pour prendre rendez-vous dans un autre service, %{msg}"
-      convict_has_city: "La PPSMJ est liée à la commune %{city_name}."
-      add_city: "ajoutez une commune à la PPSMJ"
-      change_city: "modifiez la commune de la PPSMJ"
+      convict_no_cities: "Le probationnaire n'a pas de commune."
+      available_organizations: "Convocation possible dans les services suivants:"
+      how_to_add_organizations: "Pour convoquer dans un autre service, %{msg}"
+      convict_has_city: "Le probationnaire est lié à la commune %{city_name}."
+      add_city: "ajoutez une commune au probationnaire"
+      change_city: "modifiez la commune du probationnaire"
 
   activerecord:
     models:
@@ -69,10 +69,10 @@ fr:
         one: "Agent"
         other: "Agents"
       convict:
-        one: "PPSMJ"
-        other: "PPSMJs"
-      appointment: "Rendez-vous"
-      appointment_type: "Type de rendez-vous"
+        one: "Probationnaire"
+        other: "Probationnaires"
+      appointment: "Convocation"
+      appointment_type: "Type de convocation"
       place: "Lieu"
       slot:  "Créneau"
       agenda: "Agenda"
@@ -115,8 +115,8 @@ fr:
         role: "Rôle"
         phone: "Numéro de téléphone"
         organization: "Service"
-        share_phone_to_convict: "Partager mon téléphone à mes PPSMJ"
-        share_email_to_convict: "Partager mon email à mes PPSMJ"
+        share_phone_to_convict: "Partager mon téléphone à mes probationnaires"
+        share_email_to_convict: "Partager mon email à mes probationnaires"
         user_roles:
           admin: "Administrateur central"
           local_admin: "Administrateur local"
@@ -226,17 +226,17 @@ fr:
           attributes:
             phone:
               mobile: "Numéro de téléphone portable requis"
-              taken: "Une PPSMJ est déjà enregistrée avec ce numéro de téléphone. Merci de saisir un autre numéro"
+              taken: "Un probationnaire est déjà enregistré avec ce numéro de téléphone. Merci de saisir un autre numéro"
               confirmation: "Ne correspond pas au premier mot de passe saisi"
               blank: "n'est pas renseigné. Veuillez renseigner au moins un des champs 'téléphone portable', 'ne possède pas de téléphone portable' ou 'refuse de donner son numéro'"
             dob:
-              taken: "Une ppsmj avec les mêmes prénom, nom et date de naissance existe déjà"
+              taken: "Un probationnaire avec les mêmes prénom, nom et date de naissance existe déjà"
               not_in_the_future: "La date de naissance ne peut pas être dans le futur"
             city:
               all_blanks: "Veuillez renseigner au moins un des champs commune, sdf ou résidant à l'étranger"
             organizations:
               blank: "Veuillez sélectionner au moins un service"
-              multiple_uniqueness: "Une PPSMJ ne peut pas être suivie par plusieurs fois le même service"
+              multiple_uniqueness: "Un probationnaire ne peut pas être suivi par plusieurs fois le même service"
         place:
           attributes:
             name:
@@ -332,22 +332,22 @@ fr:
   header_staging: "Staging"
 
   home:
-    find_convict: "Trouver une PPSMJ :"
-    new_appointment: "Prendre RDV"
-    new_convict: "Nouvelle PPSMJ"
+    find_convict: "Trouver un probationnaire :"
+    new_appointment: "Convoquer"
+    new_convict: "Nouveau probationnaire"
     bex_jap: "Sortie d'audience JAP"
     bex_spip: "Sortie d'audience SPIP"
     sap_ddse: "SAP DDSE"
-    today_appointments: "RDV du jour"
+    today_appointments: "Convocations du jour"
     stats_title: Stats
     stats_users: Agents utilisateurs
-    stats_convicts: PPSMJ enregistrées
-    stats_reminded: "RDV rappelés"
+    stats_convicts: Probationnaires enregistrés
+    stats_reminded: "Convocations rappelées"
     stats_fulfiled: "de présence"
     stats_excused: "d'absence justifiée"
     stats_no_show: "d'absence non justifiée"
-    stats_passed_booked: "de rdv non renseignés"
-    stats_from_informed: "Parmi les rdv renseignés :"
+    stats_passed_booked: "de convocations non renseignés"
+    stats_from_informed: "Parmi les convocations renseignés :"
     stats_global: "Global"
     select_organization: "Changer d'antenne"
     welcome_title: "Bonjour, %{name}"
@@ -449,8 +449,8 @@ fr:
   edit_organization_add_extrafield: "Ajouter une colonne"
   edit_organization_remove_extrafield: "Supprimer cette colonne"
 
-  new_convict_title: "Nouvelle PPSMJ"
-  my_convicts: "Mes PPSMJ suivies"
+  new_convict_title: "Nouveau probationnaire"
+  my_convicts: "Mes probationnaires suivis"
   new_first_appointment_title: "Créneaux disponibles"
   new_convict_submit: "sans prendre RDV"
   new_convict_first_appointment: "et prendre RDV"
@@ -462,15 +462,15 @@ fr:
   new_convict_duplicate_warning3: "Merci de vérifier qu'il s'agit bien de personnes distinctes avant d'enregistrer ce nouveau profil."
   new_convict_duplicate_warning4: "Si un homonyme existe dans un autre service, et que vous pensez que c'est la même personne, merci de contacter le support."
   new_convict_duplicate_warning5: "Un homonyme existe dans le département %{name} (%{number})."
-  new_convict_duplicate_appi_uuid_1: "Une ppsmj avec le même numéro appi existe dans le(s) service(s): %{orgs}."
-  new_convict_duplicate_appi_uuid_2: "Une ppsmj avec le même numéro appi existe dans votre ressort."
-  edit_convict_title: "Modifier PPSMJ"
-  edit_convict_department_title: "Département(s) de la PPSMJ"
-  edit_convict_jurisdiction_title: "Juridiction(s) de la PPSMJ"
+  new_convict_duplicate_appi_uuid_1: "Un probationnaire avec le même numéro appi existe dans le(s) service(s): %{orgs}."
+  new_convict_duplicate_appi_uuid_2: "Un probationnaire avec le même numéro appi existe dans votre ressort."
+  edit_convict_title: "Modifier probationnaire"
+  edit_convict_department_title: "Département(s) du probationnaire"
+  edit_convict_jurisdiction_title: "Juridiction(s) du probationnaire"
   edit_convict_submit: "Enregistrer"
   search_convict_placeholder: "Saisir un nom ou un prénom"
   show_convict: Profil
-  show_convict_title: "Profil PPSMJ"
+  show_convict_title: "Profil probationnaire"
   show_convict_archived: Archivé
   show_convict_history_title: Historique
   show_convict_new_appointment: Prendre rendez-vous
