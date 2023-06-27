@@ -127,8 +127,6 @@ class User < ApplicationRecord
   private
 
   def set_default_role
-    return unless role.blank?
-
-    self.role = organization.organization_type == 'tj' ? 'greff_sap' : 'cpip'
+    self.role ||= organization.organization_type == 'tj' ? 'greff_sap' : 'cpip'
   end
 end

@@ -5,7 +5,6 @@ RSpec.describe Convict, type: :model do
   it { should belong_to(:user).optional }
   it { should have_many(:appointments) }
 
-
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
   it { should validate_presence_of(:invitation_to_convict_interface_count) }

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { create(:user, :in_organization ) }
+  subject { create(:user, :in_organization) }
 
   it { should belong_to(:organization) }
 
@@ -39,13 +39,16 @@ RSpec.describe User, type: :model do
     let(:organization) { create(:organization, organization_type: 'tj') }
 
     it 'sets the default role if role is blank' do
-      user = User.new(organization: organization, email: 'admin@example.com', password: '1mot2passeSecurise!', password_confirmation: '1mot2passeSecurise!', first_name: 'Kevin', last_name: 'McCallister')
+      user = User.new(organization: organization, email: 'admin@example.com', password: '1mot2passeSecurise!',
+                      password_confirmation: '1mot2passeSecurise!', first_name: 'Kevin', last_name: 'McCallister')
       expect(user).to be_valid
       expect(user.role).to eq('greff_sap')
     end
 
     it 'does not change the role if role is already present' do
-      user = User.new(organization: organization, email: 'admin@example.com', password: '1mot2passeSecurise!', password_confirmation: '1mot2passeSecurise!', role: :admin, first_name: 'Kevin', last_name: 'McCallister')
+      user = User.new(organization: organization, email: 'admin@example.com', password: '1mot2passeSecurise!',
+                      password_confirmation: '1mot2passeSecurise!', role: :admin,
+                      first_name: 'Kevin', last_name: 'McCallister')
       expect(user).to be_valid
       expect(user.role).to eq('admin')
     end
