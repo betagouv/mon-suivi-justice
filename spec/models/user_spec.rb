@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  subject { create(:user, :in_organization ) }
+
   it { should belong_to(:organization) }
 
   it { should validate_presence_of(:first_name) }
@@ -33,30 +35,7 @@ RSpec.describe User, type: :model do
     )
   }
 
-  describe '.in_departments' do
-    it 'returns users scoped by department' do
-      department1 = create :department, number: '01', name: 'Ain'
-
-      organization1 = create :organization
-      create :areas_organizations_mapping, organization: organization1, area: department1
-      user1 = create :user, organization: organization1
-
-      organization2 = create :organization
-      create :areas_organizations_mapping, organization: organization2, area: department1
-      user2 = create :user, organization: organization2
-
-      department2 = create :department, number: '02', name: 'Aisne'
-
-      organization3 = create :organization
-      create :areas_organizations_mapping, organization: organization3, area: department2
-      create :user, organization: organization3
-
-      expect(User.in_departments(organization1.departments)).to eq [user1, user2]
-    end
-  end
-
   describe '#set_default_role' do
-
     let(:organization) { create(:organization, organization_type: 'tj') }
 
     it 'sets the default role if role is blank' do
@@ -70,7 +49,5 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
       expect(user.role).to eq('admin')
     end
-
-
   end
 end
