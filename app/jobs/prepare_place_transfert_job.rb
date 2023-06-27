@@ -18,7 +18,6 @@ class PreparePlaceTransfertJob < ApplicationJob
   def start_transfert(place_transfert)
     new_place = place_transfert.new_place
     old_place = place_transfert.old_place
-    puts "Start transfering old_place: #{old_place} to new_place: #{new_place}"
     new_place.update!(appointment_types: old_place.appointment_types)
     transfert_agendas(place_transfert)
   end

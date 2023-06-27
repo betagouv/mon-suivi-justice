@@ -49,6 +49,8 @@ class User < ApplicationRecord
   validates :share_email_to_convict, inclusion: { in: [true, false] }
   validates :share_phone_to_convict, inclusion: { in: [true, false] }
 
+  # before_validation :set_default_role
+
   scope :in_department, lambda { |department|
     joins(organization: :areas_organizations_mappings)
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
@@ -120,5 +122,13 @@ class User < ApplicationRecord
 
   def can_use_inter_ressort?
     work_at_bex? && organization.use_inter_ressort?
+  end
+
+  private
+
+  def set_default_role
+    return unless role.blank?
+
+    self.role = organization.organization_type == 'tj' ? 'greff_sap' : 'cpip'
   end
 end
