@@ -64,10 +64,10 @@
     </div>
 
     <div class='slot-type-batch-data-wrapper'>
-      <%= f.input :interval, as: :numeric,
+      <%= f.input :interval, as: :integer,
                              placeholder: t('slot_types_batch_interval_placeholder'),
                              label: t('slot_types_batch_interval'),
-                             input_html: { class: 'slot-types-batch-field' },
+                             input_html: { class: 'slot-types-batch-field', min: 1 },
                              wrapper_html: { class: 'slot-types-batch-field-wrapper' } %>
 
       <%= f.input :capacity, as: :numeric,
