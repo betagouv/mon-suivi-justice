@@ -45,9 +45,11 @@ class User < ApplicationRecord
     greff_ca: 19
   }
 
-  validates :first_name, :last_name, :role, presence: true
+  validates :first_name, :last_name, presence: true
   validates :share_email_to_convict, inclusion: { in: [true, false] }
   validates :share_phone_to_convict, inclusion: { in: [true, false] }
+
+  before_validation :set_default_role
 
   scope :in_department, lambda { |department|
     joins(organization: :areas_organizations_mappings)
@@ -120,5 +122,11 @@ class User < ApplicationRecord
 
   def can_use_inter_ressort?
     work_at_bex? && organization.use_inter_ressort?
+  end
+
+  private
+
+  def set_default_role
+    self.role ||= organization.organization_type == 'tj' ? 'greff_sap' : 'cpip'
   end
 end

@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  subject { create(:user, :in_organization) }
+
   it { should belong_to(:organization) }
 
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
   it { should validate_presence_of(:email) }
-  it { should validate_presence_of(:role) }
 
   it {
     should define_enum_for(:role).with_values(
@@ -34,25 +35,30 @@ RSpec.describe User, type: :model do
     )
   }
 
-  describe '.in_departments' do
-    it 'returns users scoped by department' do
-      department1 = create :department, number: '01', name: 'Ain'
+  describe '#set_default_role' do
+    let(:organization) { create(:organization, organization_type: 'tj') }
 
-      organization1 = create :organization
-      create :areas_organizations_mapping, organization: organization1, area: department1
-      user1 = create :user, organization: organization1
+    it 'sets the default role if role is blank' do
+      user = User.new(organization: organization, email: 'admin@example.com', password: '1mot2passeSecurise!',
+                      password_confirmation: '1mot2passeSecurise!', first_name: 'Kevin', last_name: 'McCallister')
+      expect(user).to be_valid
+      expect(user.role).to eq('greff_sap')
+    end
 
-      organization2 = create :organization
-      create :areas_organizations_mapping, organization: organization2, area: department1
-      user2 = create :user, organization: organization2
+    it 'does not change the role if role is already present' do
+      user = User.new(organization: organization, email: 'admin@example.com', password: '1mot2passeSecurise!',
+                      password_confirmation: '1mot2passeSecurise!', role: :admin,
+                      first_name: 'Kevin', last_name: 'McCallister')
+      expect(user).to be_valid
+      expect(user.role).to eq('admin')
+    end
 
-      department2 = create :department, number: '02', name: 'Aisne'
+    it 'raises a database error when role is null' do
+      user = User.new(organization: organization, email: 'admin@example.com',
+                      password: '1mot2passeSecurise!', password_confirmation: '1mot2passeSecurise!',
+                      first_name: 'Kevin', last_name: 'McCallister')
 
-      organization3 = create :organization
-      create :areas_organizations_mapping, organization: organization3, area: department2
-      create :user, organization: organization3
-
-      expect(User.in_departments(organization1.departments)).to eq [user1, user2]
+      expect { user.save(validate: false) }.to raise_error(ActiveRecord::NotNullViolation)
     end
   end
 end
