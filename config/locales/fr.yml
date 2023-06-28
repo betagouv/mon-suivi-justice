@@ -356,14 +356,14 @@ fr:
     button_label: "Rechercher"
 
     notice:
-      fill_out_appointments: "Attention, %{data}% des rendez-vous de votre service n'ont pas de statut renseigné."
-      fill_out_appointments_cpip: "Attention, %{data}% de vos rendez-vous n'ont pas de statut renseigné."
+      fill_out_appointments: "Attention, %{data}% des convocations de votre service n'ont pas de statut renseigné."
+      fill_out_appointments_cpip: "Attention, %{data}% de vos convocations n'ont pas de statut renseigné."
       click_here: Cliquez ici
 
   sidebar:
     home: "Accueil"
-    convicts: "PPSMJ"
-    appointments: "Rendez-vous"
+    convicts: "Probationnaires"
+    appointments: "Convocations"
     message_templates: "Modèles SMS"
     places: "Lieux"
     slots: "Créneaux"
@@ -372,8 +372,8 @@ fr:
     organizations: "Services"
     steering: "Statistiques"
     guides: "Documentation"
-    appointmentsnew: "Nouveau rendez-vous"
-    convictsnew: "Nouvelle PPSMJ"
+    appointmentsnew: "Nouvelle convocation"
+    convictsnew: "Nouveau probationnaire"
 
   support:
     modal_title: Support
@@ -385,7 +385,7 @@ fr:
 
   stats:
     user_app: "App agents"
-    convict_app: "App PPSMJ"
+    convict_app: "App probationnaires"
     sda_stats: "Sortie d'audience"
     steering_title: "Global"
     of_which: "dont"
@@ -403,16 +403,16 @@ fr:
     informed: "rdv renseignés"
     uninformed: "rdv passés non-renseignés"
     uninformed_percentage: "%{data}% de rdv non renseignés"
-    convicts: "Total PPSMJ enregistrées"
-    convicts_with_phone: "Total PPSMJ avec numéro de téléphone"
+    convicts: "Total probationnaires enregistrés"
+    convicts_with_phone: "Total probationnaires avec numéro de téléphone"
     users: "Total agents utilisateurs"
     notifications: "Total SMS envoyés"
-    invites: "PPSMJ invitées"
-    reminder: "dont PPSMJ relancées"
+    invites: "Probationnaires invités"
+    reminder: "dont probationnaires relancés"
     account_created: "Comptes créés"
     sda_sap: "Sortie d'audience SAP"
     sda_spip: "Sortie d'audience SPIP"
-    sda_convicts: "Total PPSMJ convoquées"
+    sda_convicts: "Total probationnaires convoqués"
     sda_average_delay: "Délai moyen convocation/rdv (jours)"
 
   pdf:
@@ -478,12 +478,12 @@ fr:
   show-convict-next-appointments-title1: "Prochain rendez-vous"
   show-convict-next-appointments-title2: "Prochains rendez-vous"
   show-convict-fulfilment-prompt: "Est-ce-que %{name} s'est présenté(e) au %{place} le %{date} à %{time} ?"
-  show-convict-fulfilment-send-sms: "Voulez-vous envoyer un SMS à la PPSMJ ?"
+  show-convict-fulfilment-send-sms: "Voulez-vous envoyer un SMS au probationnaire ?"
   show-convict-fulfilment-sms-content: "Texte du SMS :"
   show-convict-fulfilment-excused: "Excusé(e)"
   edit_convict_department: "Département"
   edit_convict_jurisdiction: "Juridiction"
-  archive_convict_confirmation: "Cette PPSMJ restera accessible pendant 6 mois avant d'être définitivement supprimée."
+  archive_convict_confirmation: "Ce probationnaire restera accessible pendant 6 mois avant d'être définitivement supprimée."
 
   history_item:
     archive_convict_title: "Archivage"
@@ -537,19 +537,19 @@ fr:
 
   appointments:
     new:
-      is_cpip_label: "Cette PPSMJ n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
-      choose_city: "Commune de résidence PPSMJ"
-      out_of_department: "Prendre RDV hors du ressort"
+      is_cpip_label: "Ce probationnaire n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?"
+      choose_city: "Commune de résidence du probationnaire"
+      out_of_department: "Convoquer hors du ressort"
     index:
-      only_passed_uninformed: "Rendez-vous au statut inconnu"
-      my_appointments: "Mes rendez-vous"
-      no_appointments: "Vous n'avez pas de rendez-vous correspondants aux filtres choisis"
+      only_passed_uninformed: "Convocations au statut inconnu"
+      my_appointments: "Mes convocations"
+      no_appointments: "Vous n'avez pas de convocations correspondants aux filtres choisis"
     show:
       inviter_user_role: Rôle source
       assigned_user: Agent Référent
     waiting_line:
-      for_a_service: "Rendez-vous au statut inconnu au %{orga}"
-      for_a_user: "Vos rendez-vous au statut inconnu"
+      for_a_service: "Convocation au statut inconnu au %{orga}"
+      for_a_user: "Vos convocations au statut inconnu"
 
   appointment_place: "Lieu de RDV"
   appointment_agenda: "Agenda"
@@ -580,14 +580,14 @@ fr:
   index-slots-available-capacity: "Capacité dispo"
   index-user-filter: "Agent Référent"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
-  new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi d'un SMS de rappel 48h avant le rendez-vous (si un numéro de téléphone a été donné)."
-  new-appointment-confirmation-warning: "Voulez-vous également envoyer immédiatement un SMS de confirmation à la PPSMJ pour ce rendez-vous ?."
+  new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi d'un SMS de rappel 48h avant la convocation (si un numéro de téléphone a été donné)."
+  new-appointment-confirmation-warning: "Voulez-vous également envoyer immédiatement un SMS de confirmation au probationnaire pour cette convocation ?."
   new-appointment-bex-warning: "Attention, le créneau de 9h est réservé aux DDSE."
   show_appointment_title: "Infos rendez-vous"
-  cancel_appointment_warning: "En annulant le RDV, vous envoyez un SMS d'annulation à la PPSMJ (si elle a un numéro de téléphone), et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
+  cancel_appointment_warning: "En annulant la convocation, vous envoyez un SMS d'annulation au probationnaire (si le probationnaire a un numéro de téléphone), et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
   appointment-reschedule-title: 'Replanifier un rendez-vous'
   new-appointment-jap-agendas: "Répartition cabinet JAP"
-  rebook_missed_appointment1: "Si vous aviez marqué le rdv comme manqué, vous avez peut-être envoyé un SMS à la PPSMJ concernée. Vous pouvez le vérifier dans l'historique."
+  rebook_missed_appointment1: "Si vous aviez marqué le rdv comme manqué, vous avez peut-être envoyé un SMS au probationnaire concerné. Vous pouvez le vérifier dans l'historique."
   rebook_missed_appointment2: "Si besoin, merci de contacter cette personne pour clarifier la situation."
   my_appointments_title: "Mes rendez-vous"
   delete_agenda_confirmation: "Attention, Si vous confirmez, l'ensemble de l'agenda sera définitivement effacé"
@@ -712,8 +712,8 @@ fr:
 
   convict_invitations:
     create:
-      invitation_pending: L'invitation est en cours d'envoi à la PPSMJ
-      invitation_sent: L'invitation a été à la PPSMJ
+      invitation_pending: L'invitation est en cours d'envoi au probationnaire
+      invitation_sent: L'invitation a été envoyée au probationnaire
 
 
   errors:

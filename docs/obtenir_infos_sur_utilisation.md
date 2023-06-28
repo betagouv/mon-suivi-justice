@@ -20,11 +20,11 @@ events = Ahoy::Event.where(user_id: 76).where(time: Time.zone.now.beginning_of_d
 
 On peut ensuite explorer ces events, par exemple avec `pp events.pluck(:properties, :time)` pour lister toutes les actions et leurs timestamps.
 
-Ahoy ne donne pas toutes les informations, par exemple on peut voir qu'un agent a modifié les données d'une PPSMJ, mais pour avoir les changements exacts il faut utiliser Papertrail.
+Ahoy ne donne pas toutes les informations, par exemple on peut voir qu'un agent a modifié les données d'un probationnaire, mais pour avoir les changements exacts il faut utiliser Papertrail.
 
 ```
 c = Convict.find(98)
 pp c.versions.last(3)
 ```
 
-Cet exemple sort les trois dernières versions d'une PPSMJ données, avec toutes les modifications et les timestamps.
+Cet exemple sort les trois dernières versions d'un probationnaire donné, avec toutes les modifications et les timestamps.

@@ -371,7 +371,7 @@ RSpec.feature 'Appointments', type: :feature do
         expect(page).to have_content("Le jour sélectionné n'est pas un jour ouvrable")
       end
 
-      it 'links the PPSMJ to the CPIP if wanted' do
+      it 'links the Probationnaire to the CPIP if wanted' do
         convict = create(:convict, first_name: 'JP', last_name: 'Cherty', organizations: [@user.organization])
         appointment_type = create :appointment_type, :with_notification_types, name: '1er RDV SPIP'
         place = create :place, name: 'Test place', appointment_types: [appointment_type],

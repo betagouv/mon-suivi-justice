@@ -72,7 +72,7 @@ Données nécessaires :
 - Service
 - Types de rdv possibles (à cocher dans une liste)
 
-Note : Si le service pratique des rdv de type "RDV téléphonique" ou "Visite à domicile", il faut créer un lieu de rdv "Domicile de la PPSMJ" pour faire fonctionner ces types de rdv. Voir sur la production pour des exemples, le SPIP 92 dipose d'un lieu "Domicile de la PPSMJ".
+Note : Si le service pratique des rdv de type "RDV téléphonique" ou "Visite à domicile", il faut créer un lieu de rdv "Domicile du probationnaire" pour faire fonctionner ces types de rdv. Voir sur la production pour des exemples, le SPIP 92 dipose d'un lieu "Domicile du probationnaire".
 
 La création du lieu de rdv entraine la création d'un premier agenda standard. Si le fonctionnement du service exige de multiples agendas (comme le SAP de Nanterre et sa gestion par cabinets), il faut aller créer ces agendas sur la page du lieu.
 
@@ -99,4 +99,4 @@ Quand un créneau récurrent est supprimé, les créneaux liés sont supprimés 
 
 ## 5. Tester le nouveau service
 
-Une fois toute la procédure executée, on peut se connecter avec un compte de test au nouveau service, puis créer des PPSMJ et prendre des rdv pour vérifier que tout fonctionne.
+Une fois toute la procédure executée, on peut se connecter avec un compte de test au nouveau service, puis créer des probationnaires et créer des convocations pour vérifier que tout fonctionne.
