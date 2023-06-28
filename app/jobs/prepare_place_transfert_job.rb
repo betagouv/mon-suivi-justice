@@ -45,16 +45,27 @@ class PreparePlaceTransfertJob < ApplicationJob
   end
 
   def transfert_slots(old_place_agenda, new_place_agenda, date)
-    old_slots = old_place_agenda.slots.where('date >= ?', date)
+    # transfert slots after transfert date from old place to new place
+    old_slots = old_place_agenda
+                .slots.where('date >= ?', date)
+                .where(slot_type: nil)
+
     old_slots.update_all(agenda_id: new_place_agenda.id)
     old_place_agenda.slot_types.each do |slot_type|
-      new_slot_type = slot_type.dup
-      new_slot_type.update!(agenda: new_place_agenda)
+      transfert_slot_type(slot_type, new_place_agenda, date)
     end
 
     update_notifications_text(old_place_agenda, new_place_agenda)
 
     @transfert_successes.push("Les créneaux de l'agenda #{old_place_agenda.name} ont été transférés avec succès")
+  end
+
+  def transfert_slot_type(slot_type, new_place_agenda, date)
+    new_slot_type = slot_type.dup
+    new_slot_type.update!(agenda: new_place_agenda)
+    slot_type.slots
+             .where('date >= ?', date)
+             .update_all(slot_type_id: new_slot_type.id, agenda_id: new_place_agenda.id)
   end
 
   def update_notifications_text(old_place_agenda, new_place_agenda)
