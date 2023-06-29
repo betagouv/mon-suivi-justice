@@ -1,5 +1,6 @@
 class SlotsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_query_params, only: :index
 
   def index
     @q = policy_scope(Slot).future.with_appointment_type_with_slot_system.ransack(params[:q])
@@ -50,5 +51,9 @@ class SlotsController < ApplicationController
     return unless @slot.all_capacity_used? == true
 
     @slot.update(full: true)
+  end
+
+  def set_query_params
+    params[:q] = { full_true: 0 } if params[:q].nil?
   end
 end
