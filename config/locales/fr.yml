@@ -576,6 +576,7 @@ fr:
   index-appointment-state-pdf: "Statut"
   today_appointments_place_filter: "Lieu de RDV"
   index-slots-appointment-type-filter: "Type de RDV"
+  index-slots-full-filter: "Afficher les créneaux pleins"
   index-slots-available-capacity: "Capacité dispo"
   index-user-filter: "Agent Référent"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
