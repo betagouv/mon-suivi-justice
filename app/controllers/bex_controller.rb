@@ -100,7 +100,7 @@ class BexController < ApplicationController
   end
 
   def selected_day(days_with_slots_in_selected_month, params)
-    if params[:date]&.present?
+    if params[:date]&.present? && days_with_slots_in_selected_month.include?(params[:date].to_date)
       params[:date].to_date
     else
       days_with_slots_in_selected_month.first
