@@ -33,14 +33,13 @@
         </div>
         <% if !@days_with_slots_in_selected_month.empty? %>
           <div class="bex-form-input-wrapper">
-            <%= label_tag 'day', 'Jour :' %>
+            <%= label_tag 'date', 'Jour :' %>
             <%= select_tag :date, options_for_select(formated_days_for_select(@days_with_slots_in_selected_month), params[:date]),
                                     id: 'jap-appointments-date-select',
                                     class: 'fr-select',
                                     onchange: 'this.form.submit()' %>
           </div>
         <% end %>
-        <%= hidden_field_tag :day, @selected_day %>
         <div class="bex-form-input-wrapper">
           <%= label_tag 'agenda_id', 'Agenda :' %>
           <%= select_tag :agenda_id, options_from_collection_for_select(@places_agendas, 'id', 'name', params[:agenda_id]), prompt: 'Tous les agendas', class: 'fr-select', onchange: 'this.form.submit()' %>

@@ -288,7 +288,6 @@ ActiveRecord::Schema.define(version: 2023_06_22_125651) do
     t.string "name", limit: 255, null: false
     t.string "address", limit: 255, null: false
     t.string "phone", limit: 255, null: false
-    t.string "type", limit: 10
   end
 
   create_table "notification_types", force: :cascade do |t|
