@@ -417,13 +417,13 @@ fr:
 
   pdf:
     appointments:
-      title: "Liste des rendez-vous"
+      title: "Liste des convocations"
     bex-spip:
-      title: "Rendez-vous Sortie d'audience SPIP"
+      title: "Convocations Sortie d'audience SPIP"
     bex-jap:
-      title: "Rendez-vous Sortie d'audience JAP"
+      title: "Convocations Sortie d'audience JAP"
     bex-sap-ddse:
-      title: "Rendez-vous SAP DDSE"
+      title: "Convocations SAP DDSE"
 
   new_user_title: "Nouvel Agent"
   send_invitation: "Envoyer invitation"

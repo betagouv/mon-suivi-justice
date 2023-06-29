@@ -43,7 +43,7 @@ RSpec.feature 'Home', type: :feature do
         click_on('Cliquez ici')
       end
 
-      expect(page).to have_content("Rendez-vous au statut inconnu au #{@user.organization.name}")
+      expect(page).to have_content("Convocation au statut inconnu au #{@user.organization.name}")
       expect(page).to have_content(Date.civil(2022, 6, 27))
       expect(page).to have_content('15:30')
     end
