@@ -23,7 +23,7 @@
             <%= f.input :phone %>
 
             <% if current_user.admin? %>
-              <%= f.association :organization, include_blank: false,
+              <%= f.association :organization, collection: Organization.order('name ASC'), include_blank: false,
                                               label: t('activerecord.attributes.user.organization'),
                                               input_html: { class: 'form-select' } %>
             <% end %>

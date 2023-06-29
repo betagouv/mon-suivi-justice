@@ -267,6 +267,7 @@ fr:
         slot_type:
           multiple_uniqueness: "Un créneau récurrent similaire existe déjà."
           batch_multiple_uniqueness: "Un ou plusieurs créneaux récurrents similaires existent déjà. Les doublons n'ont pas été crées."
+          batch_zero_interval: "Impossible de créer des créneaux récurrents avec un intervalle de 0 minute"
         notification_type:
           attributes:
             template:
@@ -575,6 +576,7 @@ fr:
   index-appointment-state-pdf: "Statut"
   today_appointments_place_filter: "Lieu de RDV"
   index-slots-appointment-type-filter: "Type de RDV"
+  index-slots-full-filter: "Afficher les créneaux pleins"
   index-slots-available-capacity: "Capacité dispo"
   index-user-filter: "Agent Référent"
   no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
@@ -684,7 +686,7 @@ fr:
 
   slot_types_batch_opening: "Premier créneau"
   slot_types_batch_closing: "Dernier créneau"
-  slot_types_batch_interval: "Intervale (min)"
+  slot_types_batch_interval: "Intervalle (min)"
   slot_types_batch_capacity: "Capacité"
   slot_types_batch_duration: "Durée (min)"
   slot_types_batch_interval_placeholder: "ex: 15"

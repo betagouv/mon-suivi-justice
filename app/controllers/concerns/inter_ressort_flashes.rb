@@ -11,9 +11,9 @@ module InterRessortFlashes
     organizations_list = @convict.organizations.pluck(:name).join(', ')
     how_to_add_organizations = I18n.t('convicts.set_inter_ressort_flashes.how_to_add_organizations', msg: set_city)
 
-    warning_message = "#{available_organizations} #{organizations_list}.
+    warning_message = "#{available_organizations} #{organizations_list}. <br/>
       #{how_to_add_organizations} #{link_to_edit}".html_safe
 
-    flash.now[:warning] = warning_message
+    flash.now[:info] = warning_message
   end
 end

@@ -19,39 +19,12 @@ org_tj_melun = Organization.create!(name: 'TJ Melun', organization_type: 'tj')
 org_tj_fontainebleau = Organization.create!(name: 'TJ de Fontainebleau', organization_type: 'tj')
 org_tj_paris = Organization.create!(name: 'TJ Paris', organization_type: 'tj')
 
-# Un service peut être rattaché à des départements et/ou des juridictions
-# Cela impacte le rattachement des ppsmj à tel  département et/ou juridiction à leur création
-AreasOrganizationsMapping.create organization: org_spip_92, area: Department.find_by(number: '92')
-AreasOrganizationsMapping.create organization: org_spip_92, area: Jurisdiction.find_by(name: 'TJ NANTERRE')
-AreasOrganizationsMapping.create organization: org_spip_61_argentan, area: Department.find_by(number: '61')
-AreasOrganizationsMapping.create organization: org_spip_61_alencon, area: Department.find_by(number: '61')
-AreasOrganizationsMapping.create organization: org_tj_nanterre, area: Department.find_by(number: '92')
-
-AreasOrganizationsMapping.create organization: org_spip_75, area: Department.find_by(number: '75')
-
-AreasOrganizationsMapping.create organization: org_spip_77, area: Department.find_by(number: '77')
-AreasOrganizationsMapping.create organization: org_spip_77, area: Jurisdiction.find_by(name: 'TJ MELUN')
-AreasOrganizationsMapping.create organization: org_spip_77, area: Jurisdiction.find_by(name: 'TJ FONTAINEBLEAU')
-AreasOrganizationsMapping.create organization: org_tj_melun, area: Department.find_by(number: '77')
-AreasOrganizationsMapping.create organization: org_tj_melun, area: Jurisdiction.find_by(name: 'TJ MELUN')
-AreasOrganizationsMapping.create organization: org_tj_fontainebleau, area: Department.find_by(number: '77')
-AreasOrganizationsMapping.create organization: org_tj_fontainebleau, area: Jurisdiction.find_by(name: 'TJ FONTAINEBLEAU')
 
 convict_1 = Convict.create!(first_name: "Michel", last_name: "Blabla", phone: "0677777777", appi_uuid: "12345", date_of_birth: "02/01/1986", organizations: [org_spip_92])
 convict_2 = Convict.create!(first_name: "Dark", last_name: "Vador", phone: "0600000000", appi_uuid: "12346", date_of_birth: "02/01/1986", organizations: [org_spip_92, org_tj_nanterre])
 convict_3 = Convict.create!(first_name: "Bobba", last_name: "Smet", phone: "0611111111", appi_uuid: "12347", date_of_birth: "02/01/1986", organizations: [org_spip_75])
 convict_4 = Convict.create!(first_name: "Conor", last_name: "McGregor", phone: "0611111112", appi_uuid: "12348", date_of_birth: "02/01/1986", organizations: [org_spip_77, org_tj_melun])
 convict_5 = Convict.create!(first_name: "Georges", last_name: "Saint-Pierre", phone: "0611111113", appi_uuid: "12349", date_of_birth: "02/01/1986", organizations: [org_spip_77, org_tj_fontainebleau])
-
-AreasConvictsMapping.create convict: convict_1, area: Department.find_by(number: '92')
-AreasConvictsMapping.create convict: convict_2, area: Department.find_by(number: '92')
-AreasConvictsMapping.create convict: convict_2, area: Jurisdiction.find_by(name: 'TJ NANTERRE')
-AreasConvictsMapping.create convict: convict_3, area: Department.find_by(number: '75')
-AreasConvictsMapping.create convict: convict_4, area: Department.find_by(number: '77')
-AreasConvictsMapping.create convict: convict_5, area: Department.find_by(number: '77')
-AreasConvictsMapping.create convict: convict_4, area: Jurisdiction.find_by(name: 'TJ MELUN')
-AreasConvictsMapping.create convict: convict_5, area: Jurisdiction.find_by(name: 'TJ FONTAINEBLEAU')
-
 convict_6 = Convict.create!(first_name: "John", last_name: "Jones", no_phone: true, appi_uuid: "123410", organizations: [org_spip_92, org_tj_nanterre], date_of_birth: "02/01/1986")
 convict_7 = Convict.create!(first_name: "Dark", last_name: "Vador", no_phone: true, appi_uuid: "123411", organizations: [org_spip_92, org_tj_nanterre], date_of_birth: "02/01/1986")
 

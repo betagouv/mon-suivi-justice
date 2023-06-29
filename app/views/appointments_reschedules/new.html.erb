@@ -5,86 +5,86 @@
   <%= f.hidden_field :creating_organization_id, value: @appointment.creating_organization_id  %>
   <%= f.hidden_field :origin_department, value: @appointment.origin_department  %>
   <%= f.hidden_field :old_appointment_id, value: @appointment.id  %>
-
-  <% if @appointment_type.with_slot_types? %>
-    <div class='appointment-form-slots-container'>
-      <% if @slots_by_date.length > 0 %>
-        <p class='new-appointment-slots-title'><%= t('new-appointment-available-slots') %></p>
-        <% if @appointment.slot.appointment_type.name == "Sortie d'audience SPIP" %>
-          <p class='new-appointment-bex-warning'><%= t('new-appointment-bex-warning') %></p>
-        <% end %>
-        <div class='new-appointment-slots-container'>
-          <div class='new-appointment-slots-header'>
-            <% @slots_by_date.each do |date| %>
-              <div class='slot-date-title'><%= t('date.day_names')[date.first.wday].capitalize %> <%= date.first %></div>
+  <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+    <div class="fr-col-12">
+      <% if @appointment_type.with_slot_types? %>
+        <div class='appointment-form-slots-container'>
+          <% if @slots_by_date.length > 0 %>
+            <p class='new-appointment-slots-title'><%= t('new-appointment-available-slots') %></p>
+            <% if @appointment.slot.appointment_type.name == "Sortie d'audience SPIP" %>
+              <p class='new-appointment-bex-warning'><%= t('new-appointment-bex-warning') %></p>
             <% end %>
-          </div>
-          <div class='new-appointment-slots-body'>
-            <% @slots_by_date.each do |date| %>
-              <div class='slot-date-container'>
-                <% date.drop(1).first.sort_by(&:starting_time).each do |slot| %>
-                  <div>
-                    <input type='radio' value=<%= slot.id %> name="appointment[slot_id]" id=<%="appointment_slot_id_#{slot.id}"%>>
-                    <label for=<%="appointment_slot_id_#{slot.id}"%>>
+            <div class='new-appointment-slots-container'>
+              <div class='new-appointment-slots-header'>
+                <% @slots_by_date.each do |date| %>
+                  <div class='slot-date-title'><%= t('date.day_names')[date.first.wday].capitalize %> <%= date.first %></div>
+                <% end %>
+              </div>
+              <div class='new-appointment-slots-body'>
+                <% @slots_by_date.each do |date| %>
+                  <div class='slot-date-container'>
+                    <% date.drop(1).first.sort_by(&:starting_time).each do |slot| %>
+                      <div>
+                        <input type='radio' value=<%= slot.id %> name="appointment[slot_id]" id=<%="appointment_slot_id_#{slot.id}"%>>
+                        <label for=<%="appointment_slot_id_#{slot.id}"%>>
                       <%= slot.localized_time.to_s(:time) %>
                     </label>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% else %>
+              <p class='new-appointment-form-no-slot'><%= t('new-appointment-no-slot') %></p>
+            <% end %>
+          </div>
+        <% else %>
+          <div class='appointment-reschedule-form-slot-fields-container'>
+            <div class="hidden appointment_slot_agenda_id">
+              <input class="hidden form-text-input" type="hidden" name="appointment[slot_attributes][agenda_id]" id="appointment_slot_agenda_id" value="<%= @appointment.slot.agenda.id %>"/>
+            </div>
+            <div class="hidden appointment_slot_appointment_type_id">
+              <input class="hidden form-text-input" type="hidden" name="appointment[slot_attributes][appointment_type_id]" id="appointment_slot_appointment_type_id" value="<%= @appointment_type.id %>"/>
+            </div>
+            <div class="date required appointment_slot_date form-input-wrapper">
+              <label class="select required form-label" for="appointment-form-agenda-select">
+                <abbr title="required">*</abbr> <%= t('activerecord.attributes.slot.date') %>
+              </label>
+              <input class="form-text-input" type="date" name="appointment[slot_attributes][date]" id="appointment_slot_date" min=<%= Time.zone.now %>/>
+            </div>
+            <div class="time required appointment_slot_starting_time">
+              <div class="form-label">
+                <label class="time required form-label" for="appointment_slot_starting_time_4i">
+                  <abbr title="required">*</abbr> <%= t('activerecord.attributes.slot.starting_time') %>
+                </label>
+              </div>
+              <div class="form-time-select-fields form-input-wrapper">
+                <input type="hidden" id="appointment_slot_starting_time_1i" name="appointment[slot_attributes][starting_time(1i)]" value="2022" />
+                <input type="hidden" id="appointment_slot_starting_time_2i" name="appointment[slot_attributes][starting_time(2i)]" value="1" />
+                <input type="hidden" id="appointment_slot_starting_time_3i" name="appointment[slot_attributes][starting_time(3i)]" value="20" />
+                <select id="appointment_slot_starting_time_4i" name="appointment[slot_attributes][starting_time(4i)]" class="time required form-text-input form-select" value="">
+                  <% (6..20).each do |o| %>
+                    <option value=<%= o %>><%= o %></option>
+                    <% end %>
+                  </select> :
+                  <select id="appointment_slot_starting_time_5i" name="appointment[slot_attributes][starting_time(5i)]" class="time required form-text-input form-select" value="">
+                    <% ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].each do |o| %>
+                      <option value=<%= o %>><%= o %></option>
+                      <% end %>
+                    </select>
                   </div>
-                <% end %>
+                </div>
               </div>
             <% end %>
           </div>
         </div>
-      <% else %>
-        <p class='new-appointment-form-no-slot'><%= t('new-appointment-no-slot') %></p>
-      <% end %>
-    </div>
-  <% else %>
-    <div class='appointment-reschedule-form-slot-fields-container'>
-      <div class="hidden appointment_slot_agenda_id">
-        <input class="hidden form-text-input" type="hidden" name="appointment[slot_attributes][agenda_id]" id="appointment_slot_agenda_id" value="<%= @appointment.slot.agenda.id %>"/>
-      </div>
-
-      <div class="hidden appointment_slot_appointment_type_id">
-        <input class="hidden form-text-input" type="hidden" name="appointment[slot_attributes][appointment_type_id]" id="appointment_slot_appointment_type_id" value="<%= @appointment_type.id %>"/>
-      </div>
-
-      <div class="date required appointment_slot_date form-input-wrapper">
-        <label class="select required form-label" for="appointment-form-agenda-select">
-          <abbr title="required">*</abbr> <%= t('activerecord.attributes.slot.date') %>
-        </label>
-
-        <input class="form-text-input" type="date" name="appointment[slot_attributes][date]" id="appointment_slot_date" min=<%= Time.zone.now %>/>
-      </div>
-
-      <div class="time required appointment_slot_starting_time">
-        <div class="form-label">
-          <label class="time required form-label" for="appointment_slot_starting_time_4i">
-            <abbr title="required">*</abbr> <%= t('activerecord.attributes.slot.starting_time') %>
-          </label>
-        </div>
-
-        <div class="form-time-select-fields form-input-wrapper">
-          <input type="hidden" id="appointment_slot_starting_time_1i" name="appointment[slot_attributes][starting_time(1i)]" value="2022" />
-          <input type="hidden" id="appointment_slot_starting_time_2i" name="appointment[slot_attributes][starting_time(2i)]" value="1" />
-          <input type="hidden" id="appointment_slot_starting_time_3i" name="appointment[slot_attributes][starting_time(3i)]" value="20" />
-
-          <select id="appointment_slot_starting_time_4i" name="appointment[slot_attributes][starting_time(4i)]" class="time required form-text-input form-select" value="">
-            <% (6..20).each do |o| %>
-              <option value=<%= o %>><%= o %></option>
-            <% end %>
-          </select> :
-
-          <select id="appointment_slot_starting_time_5i" name="appointment[slot_attributes][starting_time(5i)]" class="time required form-text-input form-select" value="">
-            <% ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].each do |o| %>
-              <option value=<%= o %>><%= o %></option>
-            <% end %>
-          </select>
-        </div>
       </div>
     </div>
-  <% end %>
-
-  <div class='appointment-reschedule-form-submit-container'>
-    <%= f.submit t('submit'), class: 'fr-btn'  %>
+  </div>
+  <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+    <div class='fr-mt-2w'>
+      <%= f.submit t('submit'), class: 'fr-btn'  %>
+    </div>
   </div>
 <% end %>

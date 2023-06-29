@@ -7,6 +7,7 @@ class BexController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   def agenda_jap
     get_jap_agendas(@appointment_type, params)
+
     @days_with_slots_in_selected_month = days_with_slots(@appointment_type, params[:month])
     @selected_day = selected_day(@days_with_slots_in_selected_month, params)
 
@@ -72,7 +73,7 @@ class BexController < ApplicationController
   end
 
   def places(appointment_type)
-    policy_scope(Place).kept.joins(:appointment_types).where(appointment_types: appointment_type)
+    place_policy_scope_for_bex.kept.joins(:appointment_types).where(appointment_types: appointment_type)
   end
 
   def get_jap_agendas(appointment_type, params)
@@ -82,7 +83,7 @@ class BexController < ApplicationController
   end
 
   def get_places_and_agendas(appointment_type, params)
-    @places = policy_scope(Place).kept.joins(:appointment_types).where(appointment_types: appointment_type)
+    @places = place_policy_scope_for_bex.kept.joins(:appointment_types).where(appointment_types: appointment_type)
     @place = params[:place_id] ? Place.find(params[:place_id]) : @places.first
 
     @agendas = policy_scope(Agenda).where(place: @place).with_open_slots(appointment_type)
@@ -92,17 +93,21 @@ class BexController < ApplicationController
   def days_with_slots(appointment_type, month)
     Slot.future
         .in_organization(current_organization)
-        .where(appointment_type: appointment_type, date: month.to_date.all_month.to_a)
+        .available_or_with_appointments(month.to_date.all_month.to_a, appointment_type)
         .pluck(:date)
         .uniq
         .sort
   end
 
   def selected_day(days_with_slots_in_selected_month, params)
-    if params.key?(:date) && !params[:date].empty? && (params[:date] != params[:day])
+    if params[:date]&.present? && days_with_slots_in_selected_month.include?(params[:date].to_date)
       params[:date].to_date
     else
       days_with_slots_in_selected_month.first
     end
+  end
+
+  def place_policy_scope_for_bex
+    policy_scope(Place, policy_scope_class: BexPolicy::Scope)
   end
 end

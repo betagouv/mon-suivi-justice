@@ -20,6 +20,7 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
   describe '#perform' do
     let(:appointment_type) { create(:appointment_type) }
     let(:old_agenda) { create(:agenda) }
+    let(:slot_type) { create(:slot_type, appointment_type: appointment_type, agenda: old_agenda) }
     let(:old_place) do
       create(:place, agendas: [old_agenda], appointment_types: [appointment_type], organization: organization,
                      name: 'SPIP 45 - Montargis', adress: "111, piazza Mont-d'Est, 93160, Noisy-le-Grand",
@@ -34,8 +35,17 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
     end
     let(:place_transfert) { create(:place_transfert, old_place: old_place, new_place: new_place, date: Date.tomorrow) }
     let!(:before_slot) { create(:slot, agenda: old_agenda, date: Date.today, appointment_type: appointment_type) }
+
     let!(:after_slot) do
-      slot = build(:slot, agenda: old_agenda, date: Date.today + 2.days, appointment_type: appointment_type)
+      slot = build(:slot, agenda: old_agenda, date: Date.today + 2.days, appointment_type: appointment_type,
+                          slot_type: nil)
+      slot.save(validate: false)
+      slot
+    end
+
+    let!(:after_slot_from_type) do
+      slot = build(:slot, agenda: old_agenda, date: Date.today + 2.days, appointment_type: appointment_type,
+                          slot_type: slot_type)
       slot.save(validate: false)
       slot
     end
@@ -56,7 +66,7 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
     end
 
     it('transfert slot after to new place') do
-      expect(after_slot.reload.agenda.place).to eq(new_place)
+      expect(after_slot.reload.place).to eq(new_place)
     end
 
     it('should keep slot before') do
@@ -72,7 +82,25 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
     end
 
     it('should copy old place slot types to new place') do
-      expect(new_place.agendas.first.slot_types).to match_array(old_place.agendas.first.slot_types)
+      new_agenda = new_place.agendas.first
+      new_recurring_slot = new_agenda.slot_types.first
+
+      old_agenda = old_place.agendas.first
+      old_recuring_slot = old_agenda.slot_types.first
+
+      expect(new_recurring_slot.duration).to eq(old_recuring_slot.duration)
+      expect(new_recurring_slot.capacity).to eq(old_recuring_slot.capacity)
+      expect(new_recurring_slot.starting_time).to eq(old_recuring_slot.starting_time)
+      expect(new_recurring_slot.week_day).to eq(old_recuring_slot.week_day)
+      expect(new_recurring_slot.appointment_type).to eq(old_recuring_slot.appointment_type)
+    end
+
+    it('should update slots, slot_type_id') do
+      new_agenda = new_place.agendas.first
+      new_recurring_slot = new_agenda.slot_types.first
+
+      expect(after_slot_from_type.reload.slot_type_id).to eq(new_recurring_slot.id)
+      expect(after_slot_from_type.place).to eq(new_place)
     end
 
     it('should update notification text') do

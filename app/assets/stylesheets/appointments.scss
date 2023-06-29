@@ -215,10 +215,6 @@
   max-width: 350px;
 }
 
-.appointment-reschedule-form-submit-container {
-  display: flex;
-}
-
 .index-appointments-fulfil-button {
   @include button($light-green);
   font-size: 1.1em;

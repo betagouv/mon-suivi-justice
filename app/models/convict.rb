@@ -34,7 +34,7 @@ class Convict < ApplicationRecord
   validate :phone_uniqueness
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
-  validate :either_city_homeless_lives_abroad_present, on: :user_can_use_inter_ressort
+  validate :either_city_homeless_lives_abroad_present, if: proc { creating_organization&.use_inter_ressort? }
 
   validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE,
@@ -47,24 +47,6 @@ class Convict < ApplicationRecord
   validate :unique_organizations
 
   after_update :update_convict_api
-
-  #
-  # Convict linked to same departement OR same jurisdiction than the user's organization ones
-  #
-  scope :under_hand_of, lambda { |organization|
-    dpt_id = Organization.joins(:areas_organizations_mappings)
-                         .where(id: organization, areas_organizations_mappings: { area_type: 'Department' })
-                         .select('areas_organizations_mappings.area_id')
-    juri_id = Organization.joins(:areas_organizations_mappings)
-                          .where(id: organization, areas_organizations_mappings: { area_type: 'Jurisdiction' })
-                          .select('areas_organizations_mappings.area_id')
-    joins(:areas_convicts_mappings)
-      .where(areas_convicts_mappings: { area_type: 'Department', area_id: dpt_id })
-      .or(
-        joins(:areas_convicts_mappings)
-               .where(areas_convicts_mappings: { area_type: 'Jurisdiction', area_id: juri_id })
-      ).distinct
-  }
 
   scope :in_departments, lambda { |departments|
     ids = departments.map(&:id)
@@ -186,7 +168,6 @@ class Convict < ApplicationRecord
     end
 
     organizations.push(Organization.find_by(name: 'TJ Paris')) if japat
-
     save
   end
   # rubocop:enable Metrics/AbcSize
@@ -199,8 +180,10 @@ class Convict < ApplicationRecord
 
   def find_duplicates
     name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'
+    prefixed_phone = PhonyRails.normalize_number(phone, country_code: 'FR')
+
     duplicates = Convict.kept.where(name_conditions, first_name.downcase, last_name.downcase)
-                        .where('phone = ? OR (date_of_birth = ? AND phone IS NOT NULL)', phone, date_of_birth)
+                        .where('phone = ? OR (date_of_birth = ? AND phone IS NOT NULL)', prefixed_phone, date_of_birth)
                         .where.not(id: id)
 
     duplicates = duplicates.where(appi_uuid: nil) if appi_uuid.present?
@@ -209,13 +192,6 @@ class Convict < ApplicationRecord
   end
 
   private
-
-  def at_least_one_organization
-    return unless organizations.blank?
-
-    errors.add(:organizations,
-               I18n.t('activerecord.errors.models.convict.attributes.organizations.blank'))
-  end
 
   def unique_organizations
     return unless organizations.uniq.length != organizations.length
