@@ -19,7 +19,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
   end
 
   let(:appointment_type1) do
-    create(:appointment_type, name: 'RDV DDSE', share_address_to_convict: true)
+    create(:appointment_type, name: 'Convocation DDSE', share_address_to_convict: true)
   end
   let(:agenda1) { create(:agenda, name: 'Cabinet 12 (JAPAT)', place: place1) }
   let(:slot1) do
@@ -38,7 +38,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
   end
 
   let(:appointment_type2) do
-    create(:appointment_type, name: '1er RDV SPIP', share_address_to_convict: false)
+    create(:appointment_type, name: '1ère convocation de suivi SPIP', share_address_to_convict: false)
   end
   let(:agenda2) { create(:agenda, name: 'Cabinet 11 (JAPAT)', place: place2) }
   let(:slot2) do
@@ -92,7 +92,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
                  'state' => 'Planifié',
                  'organization_name' => 'SPIP 92',
                  'origin_department' => 'BEX',
-                 'appointment_type_name' => 'RDV DDSE',
+                 'appointment_type_name' => 'Convocation DDSE',
                  'display_address' => true,
                  'place' =>
                    { 'name' => 'SPIP 92',
@@ -107,7 +107,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
                  'state' => 'Planifié',
                  'organization_name' => 'SPIP 93',
                  'origin_department' => 'BEX',
-                 'appointment_type_name' => '1er RDV SPIP',
+                 'appointment_type_name' => '1ère convocation de suivi SPIP',
                  'display_address' => false,
                  'place' =>
                    { 'name' => 'SPIP 93',

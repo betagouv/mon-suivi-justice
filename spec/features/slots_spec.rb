@@ -38,15 +38,15 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       @appointment_type = create(:appointment_type, name: "Sortie d'audience SPIP")
       create(:place_appointment_type, place: place, appointment_type: @appointment_type)
 
-      create(:appointment_type, name: 'RDV de suivi SPIP')
+      create(:appointment_type, name: 'Convocation de suivi SPIP')
     end
 
     it 'creates one slot' do
       visit new_slots_batch_path
 
       select 'Agenda de Michel', from: 'Agenda'
-      expect(page).to have_select('Type de rendez-vous', options: ['', "Sortie d'audience SPIP"])
-      select "Sortie d'audience SPIP", from: 'Type de rendez-vous'
+      expect(page).to have_select('Type de convocation', options: ['', "Sortie d'audience SPIP"])
+      select "Sortie d'audience SPIP", from: 'Type de convocation'
 
       fill_in 'Date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
 
@@ -78,8 +78,8 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       visit new_slots_batch_path
 
       select 'Agenda de Michel', from: 'Agenda'
-      expect(page).to have_select('Type de rendez-vous', options: ['', "Sortie d'audience SPIP"])
-      select "Sortie d'audience SPIP", from: 'Type de rendez-vous'
+      expect(page).to have_select('Type de convocation', options: ['', "Sortie d'audience SPIP"])
+      select "Sortie d'audience SPIP", from: 'Type de convocation'
 
       fill_in 'Date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
 

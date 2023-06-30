@@ -12,7 +12,7 @@ fr:
         city_id: Commune
         user_id: Agent responsable
         prosecutor_number: Numéro de parquet
-        appointments: rendez-vous
+        appointments: convocations
         date_of_birth: date de naissance
         creating_organization: créé par
       tj:
@@ -154,7 +154,7 @@ fr:
         name: "Nom"
       notification_type:
         template: "Modèle"
-        reminder_period: "Délai avant le rdv"
+        reminder_period: "Délai avant la convocation"
         notification_type_roles:
           summon: convocation
           reminder: rappel
@@ -162,7 +162,7 @@ fr:
           no_show: rdv manqué
           reschedule: replanifier
       slot_type:
-        appointment_type: "Type de RDV"
+        appointment_type: "Type de convocation"
         agenda: "Agenda"
         week_day: Jour
         starting_time: Heure
@@ -183,7 +183,7 @@ fr:
         date: "Date"
         starting_time: "Heure"
         available: "Disponible"
-        appointment_type: "Type de RDV"
+        appointment_type: "Type de convocation"
         duration: Durée
         capacity: Capacité
       agenda:
@@ -249,9 +249,9 @@ fr:
               required: "Lieu manquant"
             date:
               blank: "Date manquante"
-              past: "Le rendez-vous ne peut pas être dans le passé"
-              transfert_in: "Ce lieu de rendez-vous sera disponible à partir du %{date}, veuillez utiliser %{place_name}"
-              transfert_out: "Ce lieu de rendez-vous n'est plus disponible après le %{date}, veuillez utiliser %{place_name}"
+              past: "La convocation ne peut pas être dans le passé"
+              transfert_in: "Ce lieu de convocation sera disponible à partir du %{date}"
+              transfert_out: "Ce lieu de convocation n'est plus disponible après le %{date}"
         place_transfert:
           attributes:
             date:
@@ -452,8 +452,8 @@ fr:
   new_convict_title: "Nouveau probationnaire"
   my_convicts: "Mes probationnaires suivis"
   new_first_appointment_title: "Créneaux disponibles"
-  new_convict_submit: "sans prendre RDV"
-  new_convict_first_appointment: "et prendre RDV"
+  new_convict_submit: "sans convoquer"
+  new_convict_first_appointment: "et convoquer"
   new_convict_duplicate_warning1: "Un doublon potentiel a été détecté :"
   new_convict_duplicate_warning2: "Plusieurs doublons potentiels ont été détectés."
   new_convict_duplicate_warning_local: "Dans votre ressort :"
@@ -473,10 +473,10 @@ fr:
   show_convict_title: "Profil probationnaire"
   show_convict_archived: Archivé
   show_convict_history_title: Historique
-  show_convict_new_appointment: Prendre rendez-vous
+  show_convict_new_appointment: Convoquer
   show_convict_next_appointment: "%{date} à %{time} au %{place}"
-  show-convict-next-appointments-title1: "Prochain rendez-vous"
-  show-convict-next-appointments-title2: "Prochains rendez-vous"
+  show-convict-next-appointments-title1: "Prochaine convocation"
+  show-convict-next-appointments-title2: "Prochaines convocations"
   show-convict-fulfilment-prompt: "Est-ce-que %{name} s'est présenté(e) au %{place} le %{date} à %{time} ?"
   show-convict-fulfilment-send-sms: "Voulez-vous envoyer un SMS au probationnaire ?"
   show-convict-fulfilment-sms-content: "Texte du SMS :"
@@ -497,17 +497,17 @@ fr:
     remove_phone_convict_title: "Numéro supprimé"
     remove_phone_convict: "Le numéro de téléphone de %{name} a été supprimé par %{user_name} (%{user_role}). Ancien numéro : %{old_phone}."
 
-    book_appointment_title: "Nouveau RDV"
+    book_appointment_title: "Nouvelle convocation"
     book_appointment: "%{name} a été convoqué(e) le %{date} à %{time} au lieu suivant : %{place}."
     book_phone_appointment: "%{name} a été convoqué(e) pour un rendez-vous téléphonique le %{date} à %{time}."
-    cancel_appointment_title: "RDV annulé"
-    cancel_appointment: "Le rendez-vous au %{place} le %{date} à %{time} a été annulé."
-    fulfil_appointment_title: "RDV honoré"
-    fulfil_appointment: "%{name} s'est bien présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}."
-    miss_appointment_title: "RDV manqué"
-    miss_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}."
-    excuse_appointment_title: "RDV excusé"
-    excuse_appointment: "%{name} ne s'est pas présenté(e) à son rendez-vous le %{date} à %{time} au lieu %{place}, mais a présenté une justification valide."
+    cancel_appointment_title: "Convocation annulée"
+    cancel_appointment: "La convocation au %{place} le %{date} à %{time} a été annulée."
+    fulfil_appointment_title: "Convocation honorée"
+    fulfil_appointment: "%{name} s'est bien rendu(e) à sa convocation le %{date} à %{time} au lieu %{place}."
+    miss_appointment_title: "Convocation manquée"
+    miss_appointment: "%{name} ne s'est pas rendu(e) à sa convocation le %{date} à %{time} au lieu %{place}."
+    excuse_appointment_title: "Convocation excusée"
+    excuse_appointment: "%{name} ne s'est pas rendu(e) à sa convocation le %{date} à %{time} au lieu %{place}, mais a présenté une justification valide."
 
     send_now_summon_notification_title: "SMS envoyé (convocation)"
     send_now_summon_notification: "[Texte du SMS] %{content}"
@@ -532,8 +532,8 @@ fr:
     send_now_reschedule_notification_title: "SMS envoyé (rdv replanifié)"
     send_now_reschedule_notification: "[Texte du SMS] %{content}"
 
-    reschedule_appointment_title: "RDV replanifié"
-    reschedule_appointment: "Le RDV a été replanifié."
+    reschedule_appointment_title: "Convocation replanifiée"
+    reschedule_appointment: "La convocation a été replanifiée."
 
   appointments:
     new:
@@ -551,45 +551,45 @@ fr:
       for_a_service: "Convocation au statut inconnu au %{orga}"
       for_a_user: "Vos convocations au statut inconnu"
 
-  appointment_place: "Lieu de RDV"
+  appointment_place: "Lieu de la convocation"
   appointment_agenda: "Agenda"
-  appointment_type: "Type de RDV"
+  appointment_type: "Type de convocation"
   appointment_date: "Date"
   appointment_starting_time: "Heure"
   appointment_state: "Statut"
   appointment_origin_department: "Service d'origine"
-  new_appointment_title: "Nouveau rendez-vous"
-  new-appointment-place: "Lieu de rendez-vous :"
+  new_appointment_title: "Nouvelle convocation"
+  new-appointment-place: "Lieu de convocation :"
   new-appointment-all-agendas: "Tous les agendas"
   new-appointment-available-slots: Créneaux disponibles
   new-appointment-no-slot: "Pas de créneau disponible"
-  new-appointment-no-place: "Vous n'avez accès à aucun lieu proposant ce type de RDV"
+  new-appointment-no-place: "Vous n'avez accès à aucun lieu proposant ce type de convocation"
   new_appointment_reload: "Recharger"
   search-appointment-placeholder: "Saisir une date : dd/mm/yyyy"
   index-appointment-agenda-filter: "Agenda"
-  index-appointment-state-filter: "Statut du RDV"
-  index-appointment-reinit-filter: "RDV du jour"
-  index-appointment-only-my-appointments: "Uniquement mes RDV"
+  index-appointment-state-filter: "Statut de la convocation"
+  index-appointment-reinit-filter: "Convocations du jour"
+  index-appointment-only-my-appointments: "Uniquement mes convocations"
   index-appointment-clear-filters: "Supprimer les filtres"
   index-appointment-see-data: "Voir les infos"
   index-appointment-state: "Statut"
   index-appointment-state-pdf: "Statut"
-  today_appointments_place_filter: "Lieu de RDV"
-  index-slots-appointment-type-filter: "Type de RDV"
+  today_appointments_place_filter: "Lieu de la convocation"
+  index-slots-appointment-type-filter: "Type de convocation"
   index-slots-full-filter: "Afficher les créneaux pleins"
   index-slots-available-capacity: "Capacité dispo"
   index-user-filter: "Agent Référent"
-  no_appointment_today: "Pas de rendez-vous prévu aujourd'hui"
+  no_appointment_today: "Pas de convocation prévue aujourd'hui"
   new-appointment-warning: "En cliquant sur \"Enregistrer\", vous générez l'envoi d'un SMS de rappel 48h avant la convocation (si un numéro de téléphone a été donné)."
   new-appointment-confirmation-warning: "Voulez-vous également envoyer immédiatement un SMS de confirmation au probationnaire pour cette convocation ?."
   new-appointment-bex-warning: "Attention, le créneau de 9h est réservé aux DDSE."
-  show_appointment_title: "Infos rendez-vous"
+  show_appointment_title: "Infos convocation"
   cancel_appointment_warning: "En annulant la convocation, vous envoyez un SMS d'annulation au probationnaire (si le probationnaire a un numéro de téléphone), et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
-  appointment-reschedule-title: 'Replanifier un rendez-vous'
+  appointment-reschedule-title: 'Replanifier une convocation'
   new-appointment-jap-agendas: "Répartition cabinet JAP"
   rebook_missed_appointment1: "Si vous aviez marqué le rdv comme manqué, vous avez peut-être envoyé un SMS au probationnaire concerné. Vous pouvez le vérifier dans l'historique."
   rebook_missed_appointment2: "Si besoin, merci de contacter cette personne pour clarifier la situation."
-  my_appointments_title: "Mes rendez-vous"
+  my_appointments_title: "Mes convocations"
   delete_agenda_confirmation: "Attention, Si vous confirmez, l'ensemble de l'agenda sera définitivement effacé"
   current_user_title: "moi"
 
@@ -602,17 +602,17 @@ fr:
       header_prosecutor: N° parquet
       header_origin: "Service d'origine"
       header_role: Rôle
-      no_agenda_available: "Pas de rdv Sortie d'audience JAP prévu"
+      no_agenda_available: "Pas de convocation Sortie d'audience JAP prévue"
     spip:
-      appointments_link: "Agenda RDV SPIP"
-      appointments_title: "RDV SPIP pour"
-      no_agenda_available: "Pas de rdv Sortie d'audience SPIP prévu"
+      appointments_link: "Agenda convocations SPIP"
+      appointments_title: "Convocations SPIP pour"
+      no_agenda_available: "Pas de convocation Sortie d'audience SPIP prévue"
     sap_ddse:
       agendas_title: "Agenda SAP DDSE pour le"
-      no_agenda_available: "Pas de rdv SAP DDSE prévu"
-      appointments_title: "RDV SAP DDSE pour"
+      no_agenda_available: "Pas de convocation SAP DDSE prévue"
+      appointments_title: "Convocation SAP DDSE pour"
 
-  today_agendas_title: "RDV prévus pour le"
+  today_agendas_title: "Convocations prévues pour le"
   today_agendas_title_part2: "au"
 
   appointment_type:
@@ -620,7 +620,7 @@ fr:
     warning: "Vous allez modifier les modèles SMS pour le %{orga}."
     warning_default: "Vous allez modifier les modèles SMS par défaut."
     edit_title: Modifier modèles SMS
-    type_title: Type de rendez-vous
+    type_title: Type de convocation
     organization_title: Service
     default_templates: Modèles par défaut
     default_template: Modèle par défaut
@@ -633,8 +633,8 @@ fr:
 
     tutorial:
       title: "Mode d'emploi"
-      text1: "Les modèles de SMS permettent d'insérer les données de Mon Suivi Justice dans le contenu des SMS envoyés. Pour cela on utilise des clés, comme par exemple {lieu.nom}, qui insère le nom du lieu de rendez-vous."
-      text2: "Les changements apportés ici sont répercutés sur les nouveaux rendez-vous pris. Si un SMS de rappel a été plannifié avant un changement des modèles de SMS, son contenu ne changera pas."
+      text1: "Les modèles de SMS permettent d'insérer les données de Mon Suivi Justice dans le contenu des SMS envoyés. Pour cela on utilise des clés, comme par exemple {lieu.nom}, qui insère le nom du lieu de convocation."
+      text2: "Les changements apportés ici sont répercutés sur les nouvelles convocations. Si un SMS de rappel a été plannifié avant un changement des modèles de SMS, son contenu ne changera pas."
       text3: "Les modèles marqués comme 'Défaut' sont mis à jour depuis des modèles utilisés nationalement. Une fois qu'une modification locale a été effectuée, le modèle est marqué comme 'Personnalisé', et n'est plus mis à jour de manière centrale."
       title2: Exemple
       sample1_title: "Modèle :"
@@ -655,13 +655,13 @@ fr:
       key4_meaning: "Moyen de contact du lieu (téléphone ou email selon les préférences)"
       key4_sample: "Ex : 0102030405 ou test@test.com"
       key5_title: "{lieu.lien_info}"
-      key5_meaning: "Lien d'information sur le lieu du RDV"
+      key5_meaning: "Lien d'information sur le lieu de la convocation"
       key5_sample: "Ex : https://mon-suivi-justice.beta.gouv.fr/preparer_spip92"
       key6_title: "{rdv.date}"
-      key6_meaning: "Date du RDV"
+      key6_meaning: "Date de la convocation"
       key6_sample: "Ex : 06/08/2021"
       key7_title: "{rdv.heure}"
-      key7_meaning: "Heure du RDV"
+      key7_meaning: "Heure de la convocation"
       key7_sample: "Ex : 18h20"
 
   new_place_title: "Nouveau Lieu"
@@ -673,7 +673,7 @@ fr:
   edit_place_update_agenda: "Enregistrer"
   edit_place_slot_types_agenda: "Créneaux récurrents"
   edit_place_delete_agenda: "Supprimer"
-  delete_place_confirmation: "Attention, en supprimant ce lieu, vous supprimez tous les créneaux associés et les rendez-vous programmés."
+  delete_place_confirmation: "Attention, en supprimant ce lieu, vous supprimez tous les créneaux associés et les convocations programmées."
 
   index_slot_types_title: "Créneaux récurrents"
   index_slot_types_title_place: "%{place} : %{agenda}"
@@ -705,8 +705,8 @@ fr:
     new_batch_title: "Nouveau Créneau"
     new_batch_manual: "Si vous ajoutez plusieurs heures, vous créez une série de créneaux avec les mêmes caractéristiques."
     failed_batch_creation: "Une erreur a bloqué la création, merci de vérifier les données saisies."
-    index_place_filter: "Lieu de RDV"
-    edit_used_capacity:  "%{data} RDV déjà pris."
+    index_place_filter: "Lieu de la convocation"
+    edit_used_capacity:  "%{data} convocations déjà réalisées."
     edit_minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} place(s)."
     edit_warning: "Si vous choisissez %{data}, le créneau sera fermé."
 

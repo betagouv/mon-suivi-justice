@@ -1,10 +1,10 @@
 # Mon Suivi Justice
 
-Un service numérique public pour réduire l'absentéisme lors des rendez-vous avec les agents du ministère de la justice. Construction en cours avec les agents concernés.
+Un service numérique public pour réduire l'absentéisme lors des convocations avec les agents du ministère de la justice. Construction en cours avec les agents concernés.
 
 Fiche sur beta.gouv : [Mon Suivi Justice](https://beta.gouv.fr/startups/justif.html)
 
-Application CRUD qui permet de prendre et suivre des rendez-vous, en envoyant des SMS à différentes étapes du process.
+Application CRUD qui permet de prendre et suivre des convocations, en envoyant des SMS à différentes étapes du process.
 
 Outils permettant aux conseillers pénitentiaires de mieux suivre le parcours des probationnaires.
 

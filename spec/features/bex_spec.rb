@@ -18,7 +18,7 @@ RSpec.feature 'Bex', type: :feature do
       convict4 = create(:convict, first_name: 'Darth', last_name: 'Vador', organizations: [@user.organization])
 
       apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
-      apt_type2 = create(:appointment_type, name: 'RDV de suivi JAP')
+      apt_type2 = create(:appointment_type, name: 'Convocation de suivi JAP')
 
       place = create(:place, name: 'Tribunal de Nanterre', organization: @user.organization)
 
@@ -111,7 +111,7 @@ RSpec.feature 'Bex', type: :feature do
       convict4 = create(:convict, first_name: 'Magic', last_name: 'Johnson', organizations: [@user.organization])
 
       apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
-      apt_type2 = create(:appointment_type, name: 'RDV de suivi SPIP')
+      apt_type2 = create(:appointment_type, name: 'Convocation de suivi SPIP')
 
       place = create(:place, name: 'SPIP 91', organization: @user.organization)
 
@@ -184,7 +184,7 @@ RSpec.feature 'Bex', type: :feature do
       convict3 = create(:convict, first_name: 'Pat', last_name: 'Hibulaire', organizations: [@user.organization])
 
       apt_type = create(:appointment_type, name: 'SAP DDSE')
-      apt_type2 = create(:appointment_type, name: 'RDV de suivi JAP')
+      apt_type2 = create(:appointment_type, name: 'Convocation de suivi JAP')
 
       place = create(:place, name: 'Tribunal de Nanterre', organization: @user.organization)
 

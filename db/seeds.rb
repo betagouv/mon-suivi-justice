@@ -162,8 +162,8 @@ agenda_spip_77_permanence_tj = Agenda.create!(place: place_spip_77_permanence_tj
 agenda_spip_77_permanence_tj_2 = Agenda.create!(place: place_spip_77_permanence_tj, name: "Permanence TJ Fontainebleau 2")
 
 apt_type_sortie_audience_sap = AppointmentType.create!(name: "Sortie d'audience SAP")
-apt_type_rdv_suivi_jap = AppointmentType.create!(name: 'RDV de suivi JAP')
-apt_type_rdv_suivi_spip = AppointmentType.create!(name: "RDV de suivi SPIP")
+apt_type_rdv_suivi_jap = AppointmentType.create!(name: 'Convocation de suivi JAP')
+apt_type_rdv_suivi_spip = AppointmentType.create!(name: "Convocation de suivi SPIP")
 apt_type_sortie_audience_spip = AppointmentType.create!(name: "Sortie d'audience SPIP")
 apt_type_sap_ddse = AppointmentType.create!(name: "SAP DDSE")
 
