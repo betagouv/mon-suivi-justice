@@ -445,7 +445,7 @@ RSpec.feature 'Appointments', type: :feature do
       visit appointment_path(appointment)
 
       expect(page).to have_content('Honoré')
-      expect(page).to have_content("s'est bien rendu(e) à sa convocation")
+      expect(page).to have_content("s'est bien presenté(e) à sa convocation")
 
       within first('.show-appointment-state-container') do
         click_link 'Modifier'
@@ -456,7 +456,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       expect(page).to have_content('Planifié')
       expect(page).not_to have_content('Modifier')
-      expect(page).not_to have_content("s'est bien rendu(e) à sa convocation")
+      expect(page).not_to have_content("s'est bien presenté(e) à sa convocation")
     end
   end
 
