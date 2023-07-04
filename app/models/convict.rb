@@ -34,7 +34,7 @@ class Convict < ApplicationRecord
   validate :phone_uniqueness
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
-  validate :either_city_homeless_lives_abroad_present, if: proc { creating_organization&.use_inter_ressort? }
+  validate :either_city_homeless_lives_abroad_present, if: proc { current_user&.can_use_inter_ressort? }
 
   validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE,

@@ -135,23 +135,34 @@ RSpec.describe Convict, type: :model do
     it('is valid when the user is not using inter-ressort') do
       expect(build(:convict, city: nil, homeless: false, lives_abroad: false)).to be_valid
     end
+    it('is valid when the user is using inter-ressort but is not bex') do
+      organization = create(:organization, use_inter_ressort: true)
+      current_user = create(:user, organization: organization, role: 'greff_sap')
+      convict = build(:convict, city: nil, homeless: false, lives_abroad: false, creating_organization: organization,
+                                current_user: current_user)
+      expect(convict).to be_valid
+    end
     context 'when the user is using inter-ressort' do
       let(:organization) { create(:organization, use_inter_ressort: true) }
+      let(:current_user) { create(:user, organization: organization, role: 'bex') }
       it('is invalid when has no city, dont live abroad and is not homeless') do
-        convict = build(:convict, city: nil, homeless: false, lives_abroad: false, creating_organization: organization)
+        convict = build(:convict, city: nil, homeless: false, lives_abroad: false, creating_organization: organization,
+                                  current_user: current_user)
         expect(convict.valid?).to be false
       end
       it('is valid when has a city, dont live abroad and is not homeless') do
         convict = build(:convict, city_id: '12', homeless: false, lives_abroad: false,
-                                  creating_organization: organization)
+                                  creating_organization: organization, current_user: current_user)
         expect(convict.valid?).to be true
       end
       it('is valid when has no city, lives abroad and is not homeless') do
-        convict = build(:convict, city: nil, homeless: false, lives_abroad: true, creating_organization: organization)
+        convict = build(:convict, city: nil, homeless: false, lives_abroad: true, creating_organization: organization,
+                                  current_user: current_user)
         expect(convict.valid?).to be true
       end
       it('is valid when has a city, dont live abroad and is homeless') do
-        convict = build(:convict, city: nil, homeless: true, lives_abroad: false, creating_organization: organization)
+        convict = build(:convict, city: nil, homeless: true, lives_abroad: false, creating_organization: organization,
+                                  current_user: current_user)
         expect(convict.valid?).to be true
       end
     end
