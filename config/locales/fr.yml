@@ -638,7 +638,7 @@ fr:
       text3: "Les modèles marqués comme 'Défaut' sont mis à jour depuis des modèles utilisés nationalement. Une fois qu'une modification locale a été effectuée, le modèle est marqué comme 'Personnalisé', et n'est plus mis à jour de manière centrale."
       title2: Exemple
       sample1_title: "Modèle :"
-      sample1_data: "Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}."
+      sample1_data: "Vous êtes convoqué au {lieu.nom} le {convocation.date} à {convocation.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}."
       sample2_title: "Résultat :"
       sample2_data: "Vous êtes convoqué au SPIP 92 le 27/06/2021 à 15h15. Merci de venir avec une pièce d'identité au 94 Bvd du Géneral Leclerc 92000 Nanterre."
       title3: Liste des clés disponibles
@@ -660,7 +660,7 @@ fr:
       key6_title: "{rdv.date}"
       key6_meaning: "Date de la convocation"
       key6_sample: "Ex : 06/08/2021"
-      key7_title: "{rdv.heure}"
+      key7_title: "{convocation.heure}"
       key7_meaning: "Heure de la convocation"
       key7_sample: "Ex : 18h20"
 

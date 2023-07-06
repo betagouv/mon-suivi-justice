@@ -189,7 +189,7 @@ module Admin
 
     def create_pull_request
       @gh_api_client.create_pull_request(MSJ_PUBLIC_REPO_PATH, 'develop', "add-#{@org_name}-page",
-                                         "Creation page #{@org_name}", "Création de la page préparer mon rendez-vous pour le service #{@org_name}")
+                                         "Creation page #{@org_name}", "Création de la page préparer ma convocation pour le service #{@org_name}")
     end
 
     def show_search_bar?
