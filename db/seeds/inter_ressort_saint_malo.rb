@@ -5,6 +5,9 @@ org_tj_st_malo = Organization.find_or_create_by!(name: 'TJ St Malo', organizatio
 org_spip_22_st_brieuc = Organization.find_or_create_by!(name: 'SPIP 22 - St Brieuc', organization_type: 'spip') do |org|
   org.tjs = [org_tj_st_brieuc, org_tj_st_malo]
 end
+org_spip_22_guingamp = Organization.find_or_create_by!(name: 'SPIP 22 - Guingamp', organization_type: 'spip') do |org|
+  org.tjs = [org_tj_st_brieuc]
+end
 
 srj_spip_st_brieuc = SrjSpip.find_or_create_by!(name: "Antenne de Saint-Brieuc du Service Pénitentiaire d'Insertion et de Probation des Côtes d'Armor", organization: org_spip_22_st_brieuc)
 srj_tj_st_brieuc = SrjTj.find_or_create_by!(name: "Tribunal judiciaire de Saint-Brieuc", organization: org_tj_st_brieuc)
@@ -12,6 +15,9 @@ City.find_or_create_by!(name: 'Saint-Brieuc', zipcode: '22000', code_insee: '222
 
 srj_tj_st_malo = SrjTj.find_or_create_by!(name: "Tribunal judiciaire de Saint-Malo", organization: org_tj_st_malo)
 City.find_or_create_by!(name: 'Saint-Malo', zipcode: '35400', code_insee: '35288', city_id: '42431', srj_tj: srj_tj_st_malo)
+
+srj_spip_guingamp = SrjSpip.find_or_create_by!(name: "Antenne de Guingamp du Service Pénitentiaire d'Insertion et de Probation des Côtes d'Armor", organization: org_spip_22_guingamp)
+City.find_or_create_by!(name: 'Guingamp', zipcode: '22200', code_insee: '22070', city_id: '41556', srj_tj: srj_tj_st_brieuc, srj_spip: srj_spip_guingamp)
 
 place_spip_22_st_brieuc = Place.find_or_create_by!(organization: org_spip_22_st_brieuc, name: "SPIP St Brieuc", adress: "30 Rue de Paris, 22000 Saint-Brieuc", phone: '+33606060606')
 place_tj_st_brieuc = Place.find_or_create_by!(organization: org_tj_st_brieuc, name: "TJ St Brieuc", adress: "2 Bd de Sévigné, 22000 Saint-Brieuc", phone: '+33606060606')
