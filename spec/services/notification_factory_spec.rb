@@ -23,7 +23,7 @@ RSpec.describe NotificationFactory do
       reminder_notif = appointment.notifications.where(role: :reminder).first
 
       expect(summon_notif.content).to eq("Convocation le #{Date.civil(2025, 4, 14)} à 15h30")
-      expect(reminder_notif.content).to eq("Rappel: rdv le #{Date.civil(2025, 4, 14)} à 15h30")
+      expect(reminder_notif.content).to eq("Rappel: convocation le #{Date.civil(2025, 4, 14)} à 15h30")
     end
   end
 
