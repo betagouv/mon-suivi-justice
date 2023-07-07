@@ -24,12 +24,13 @@ PlaceAppointmentType.find_or_create_by!(place: place_spip_22_st_brieuc, appointm
 PlaceAppointmentType.find_or_create_by!(place: place_tj_st_brieuc, appointment_type: apt_type_sortie_audience_sap)
 PlaceAppointmentType.find_or_create_by!(place: place_tj_st_malo, appointment_type: apt_type_sortie_audience_sap)
 
-Agenda.find_or_create_by!(place: place_spip_22_st_brieuc, name: "Agenda SPIP St Brieuc")
+agenda_spip_st_brieuc = Agenda.find_or_create_by!(place: place_spip_22_st_brieuc, name: "Agenda SPIP St Brieuc")
 agenda_tj_st_brieuc = Agenda.find_or_create_by!(place: place_tj_st_brieuc, name: "Agenda TJ St Brieuc")
 agenda_tj_st_malo = Agenda.find_or_create_by!(place: place_tj_st_malo, name: "Agenda TJ St Malo")
 
 Slot.create!(agenda: agenda_tj_st_brieuc, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
 Slot.create!(agenda: agenda_tj_st_malo, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
+Slot.create!(agenda: agenda_spip_st_brieuc, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_spip)
 
 User.find_or_create_by!(
   organization: org_spip_22_st_brieuc, email: 'cpip22stbrieuc@example.com', role: :cpip
