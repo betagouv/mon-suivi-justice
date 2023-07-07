@@ -1,17 +1,9 @@
 ApplicationRecord.reset_column_information
-
-FRENCH_DEPARTMENTS.each do |department|
-  Department.find_or_create_by name: department.name, number: department.number
+Dir[Rails.root.join('db/seeds/*.rb')].sort.each do |file|
+  puts "Processing #{file.split('/').last}"
+  require file
 end
-
-FRENCH_JURISDICTIONS.each do |name|
-  Jurisdiction.find_or_create_by(name: name)
-end
-
-hq_spip_61 = Headquarter.create!(name: 'SPIP 61')
 org_spip_92 = Organization.create!(name: 'SPIP 92', organization_type: 'spip')
-org_spip_61_argentan = Organization.create!(name: 'SPIP 61 - Argentan', organization_type: 'spip', headquarter: hq_spip_61)
-org_spip_61_alencon = Organization.create!(name: 'SPIP 61 - Alençon', organization_type: 'spip', headquarter: hq_spip_61)
 org_tj_nanterre = Organization.create!(name: 'TJ Nanterre', organization_type: 'tj', jap_modal_content: '<b>Pouet</b>')
 org_spip_75 = Organization.create!(name: 'SPIP 75', organization_type: 'spip')
 org_spip_77 = Organization.create!(name: 'SPIP 77', organization_type: 'spip')
@@ -36,28 +28,6 @@ User.create!(
 User.create!(
   organization: org_spip_92, email: 'cpip@example.com', password: '1mot2passeSecurise!',
   password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Bob', last_name: 'Dupneu'
-)
-
-User.create!(
-  organization: org_spip_61_argentan, email: 'cpip61argentan@example.com', password: '1mot2passeSecurise!',
-  password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Sylvain', last_name: 'Chabrier',
-  headquarter: hq_spip_61
-)
-
-User.create!(
-  organization: org_spip_61_argentan, email: 'localadmin61argentan@example.com', password: '1mot2passeSecurise!',
-  password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'Jacques', last_name: 'Chirac',
-  headquarter: hq_spip_61
-)
-
-User.create!(
-  organization: org_spip_61_alencon, email: 'cpip61alencon@example.com', password: '1mot2passeSecurise!',
-  password_confirmation: '1mot2passeSecurise!', role: :cpip, first_name: 'Tom', last_name: 'Aouate'
-)
-
-User.create!(
-  organization: org_spip_61_alencon, email: 'localadmin61alencon@example.com', password: '1mot2passeSecurise!',
-  password_confirmation: '1mot2passeSecurise!', role: :local_admin, first_name: 'François', last_name: 'Hollande'
 )
 
 User.create!(
@@ -145,9 +115,6 @@ place_spip_77_permanence_tj = Place.create!(
 )
 
 place_spip_92 = Place.create!(organization: org_spip_92, name: "SPIP 92", adress: "94 Boulevard du Général Leclerc, 92000 Nanterre", phone: '0606060606')
-
-place_spip_61_argentan = Place.create!(organization: org_spip_61_argentan, name: "SPIP 61 - Argentan", adress: "17 avenue de l'Industrie, 61200 Argentan", phone: '0606060606')
-place_spip_61_alencon = Place.create!(organization: org_spip_61_alencon, name: "SPIP 61 - Alencon", adress: "4 Ter rue des Poulies, 61007 Alençon", phone: '0606060606')
 
 agenda_tj_nanterre = Agenda.create!(place: place_tj_nanterre, name: "Agenda 1 tribunal Nanterre")
 agenda_tj_nanterre_2 = Agenda.create!(place: place_tj_nanterre, name: "Agenda 2 tribunal Nanterre")
