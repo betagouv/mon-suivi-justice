@@ -64,3 +64,21 @@ SlotType.create(appointment_type: apt_type_sap_ddse, agenda: agenda_spip_bordeau
 SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_bordeaux, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
 
 SlotFactory.perform
+
+Faker::Config.locale = 'fr'
+Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
+  convict.first_name = Faker::Name.first_name
+  convict.last_name = Faker::Name.last_name
+end
+Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
+  convict.first_name = Faker::Name.first_name
+  convict.last_name = Faker::Name.last_name
+end
+Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
+  convict.first_name = Faker::Name.first_name
+  convict.last_name = Faker::Name.last_name
+end
+Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
+  convict.first_name = Faker::Name.first_name
+  convict.last_name = Faker::Name.last_name
+end
