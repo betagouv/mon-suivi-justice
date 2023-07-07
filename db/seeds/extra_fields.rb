@@ -2,7 +2,9 @@ require 'faker'
 
 
 org_spip_37_tours = Organization.find_or_create_by!(name: 'SPIP 37 - Tours', organization_type: 'spip')
-org_tj_tours = Organization.find_or_create_by!(name: 'TJ Tours', organization_type: 'tj')
+org_tj_tours = Organization.find_or_create_by!(name: 'TJ Tours', organization_type: 'tj') do |org|
+  org.spips = [org_spip_37_tours]
+end
 
 place_spip_37_tours = Place.find_or_create_by!(organization_id: org_spip_37_tours.id, name: "SPIP 37 - Tours", adress: "2 rue Albert Dennery BP 2603, 37000 Tours", phone: '+33606060606')
 place_tj_tours = Place.find_or_create_by!(organization_id: org_tj_tours.id, name: "TJ Tours", adress: "2 PLACE JEAN-JAURES 37928 Tours", phone: '+33606060606')
