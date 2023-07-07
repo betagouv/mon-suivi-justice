@@ -17,31 +17,39 @@ Agenda.find_or_create_by!(place: place_spip_61_alencon, name: "Agenda Alencon")
 Agenda.find_or_create_by!(place: place_spip_61_argentan, name: "Agenda Argentan")
 
 User.find_or_create_by!(
-  organization: org_spip_61_argentan, email: 'cpip61argentan@example.com', role: :cpip, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
+  organization: org_spip_61_argentan, email: 'cpip61argentan@example.com', role: :cpip,
   headquarter: hq_spip_61
 ) do |user|
   user.password = '1mot2passeSecurise!'
   user.password_confirmation = '1mot2passeSecurise!'
+  user.first_name = Faker::Name.first_name
+  user.last_name = Faker::Name.last_name
 end
 
 User.find_or_create_by!(
-  organization: org_spip_61_argentan, email: 'localadmin61argentan@example.com', role: :local_admin, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
+  organization: org_spip_61_argentan, email: 'localadmin61argentan@example.com', role: :local_admin,
   headquarter: hq_spip_61
 ) do |user|
   user.password = '1mot2passeSecurise!'
   user.password_confirmation = '1mot2passeSecurise!'
+  user.first_name = Faker::Name.first_name
+  user.last_name = Faker::Name.last_name
 end
 
 User.find_or_create_by!(
-  organization: org_spip_61_alencon, email: 'cpip61alencon@example.com', role: :cpip, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name
+  organization: org_spip_61_alencon, email: 'cpip61alencon@example.com', role: :cpip,
 ) do |user|
   user.password = '1mot2passeSecurise!'
   user.password_confirmation = '1mot2passeSecurise!'
+  user.first_name = Faker::Name.first_name
+  user.last_name = Faker::Name.last_name
 end
 
 User.find_or_create_by!(
-  organization: org_spip_61_alencon, email: 'localadmin61alencon@example.com', role: :local_admin, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name
+  organization: org_spip_61_alencon, email: 'localadmin61alencon@example.com', role: :local_admin,
 ) do |user|
   user.password = '1mot2passeSecurise!'
   user.password_confirmation = '1mot2passeSecurise!'
+  user.first_name = Faker::Name.first_name
+  user.last_name = Faker::Name.last_name
 end
