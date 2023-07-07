@@ -15,7 +15,11 @@ apt_type_rdv_suivi_jap = AppointmentType.find_or_create_by!(name: 'RDV de suivi 
 apt_type_rdv_suivi_spip = AppointmentType.find_or_create_by!(name: "RDV de suivi SPIP")
 
 PlaceAppointmentType.find_or_create_by!(place: place_spip_33_bordeaux, appointment_type: apt_type_sortie_audience_spip)
+PlaceAppointmentType.find_or_create_by!(place: place_spip_33_bordeaux, appointment_type: apt_type_rdv_suivi_spip)
+PlaceAppointmentType.find_or_create_by!(place: place_spip_33_bordeaux, appointment_type: apt_type_sap_ddse)
 PlaceAppointmentType.find_or_create_by!(place: place_tj_bordeaux, appointment_type: apt_type_sortie_audience_sap)
+PlaceAppointmentType.find_or_create_by!(place: place_tj_bordeaux, appointment_type: apt_type_rdv_suivi_jap)
+
 
 agenda_spip_bordeaux = Agenda.find_or_create_by!(place: place_spip_33_bordeaux, name: "Agenda SPIP St Brieuc")
 agenda_tj_bordeaux = Agenda.find_or_create_by!(place: place_tj_bordeaux, name: "Agenda TJ St Brieuc")
