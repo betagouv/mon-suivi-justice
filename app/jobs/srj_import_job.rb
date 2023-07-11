@@ -23,13 +23,9 @@ class SrjImportJob < ApplicationJob
         zipcode: row[:zipcode]
       }
 
-      city = City.new(city_attributes)
-      if city.save
-        @import_successes << "City '#{city.name}' successfully saved."
-        associate_srj(row[:type], row[:service_name], city)
-      else
-        @import_errors << "Error saving city '#{city.name}': #{city.errors.full_messages.join(', ')}"
-      end
+      city = City.find_or_create_by(city_attributes)
+      @import_successes << "City '#{city.name}' successfully saved."
+      associate_srj(row[:type], row[:service_name], city)
     end
   end
   # rubocop:enable Metrics/MethodLength
