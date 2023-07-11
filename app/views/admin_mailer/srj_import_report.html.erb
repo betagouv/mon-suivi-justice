@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Rapport d'import SRJ dans msj :</h1>
+    <ul>
+          <% if !@csv_errors.nil? && @csv_errors.any? %>
+          <h1><%= @csv_errors.length %> erreurs de syntaxe dans le fichier :</h1>
+          <% @csv_errors.each do |error| %>
+              <li style="color: red"><%= error %></li>
+          <% end %>
+        <% end %>
+        <% if !@import_successes.nil? && @import_successes.any? %>
+          <h1><%= @import_successes.length %> erreurs détectées :</h1>
+          <% @import_successes.each do |success| %>
+              <li><%= success %></li>
+          <% end %>
+        <% end %>
+        <% if !@import_errors.nil? && @import_errors.any? %>
+          <h1><%= @import_errors.length %> erreurs détectées :</h1>
+          <% @import_errors.each do |error| %>
+              <li style="color: red"><%= error %></li>
+          <% end %>
+        <% end %>
+    </ul>
+  </body>
+</html>
