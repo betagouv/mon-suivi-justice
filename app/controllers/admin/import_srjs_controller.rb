@@ -12,6 +12,8 @@ module Admin
       }
     end
 
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
     def import
       temp_csv = params[:srj_file].tempfile
       csv = CSV.read(temp_csv,
@@ -23,7 +25,6 @@ module Admin
       srj_data = []
 
       csv.each_with_index do |row, i|
-
         srj_row = {
           name: row['names'],
           code_insee: row['insee_code'],
@@ -39,7 +40,6 @@ module Admin
     rescue StandardError => e
       flash.now[:error] = "Erreur : #{e.message}"
     else
-
       SrjImportJob.perform_later(srj_data, current_user, csv_errors)
 
       flash.now[:success] =
@@ -48,6 +48,8 @@ module Admin
       temp_csv&.unlink
       render :index
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
 
     private
 

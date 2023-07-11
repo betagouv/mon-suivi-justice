@@ -13,7 +13,7 @@
           <% end %>
         <% end %>
         <% if !@import_successes.nil? && @import_successes.any? %>
-          <h1><%= @import_successes.length %> erreurs détectées :</h1>
+          <h1><%= @import_successes.length %> succès :</h1>
           <% @import_successes.each do |success| %>
               <li><%= success %></li>
           <% end %>
