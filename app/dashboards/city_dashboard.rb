@@ -49,6 +49,9 @@ class CityDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
+    code_insee
+    zipcode
+    name
     srj_spip
     srj_tj
   ].freeze
