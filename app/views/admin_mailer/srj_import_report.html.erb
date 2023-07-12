@@ -6,19 +6,19 @@
   <body>
     <h1>Rapport d'import SRJ dans msj :</h1>
     <ul>
-          <% if !@csv_errors.nil? && @csv_errors.any? %>
+          <% if @csv_errors.present? %>
           <h1><%= @csv_errors.length %> erreurs de syntaxe dans le fichier :</h1>
           <% @csv_errors.each do |error| %>
               <li style="color: red"><%= error %></li>
           <% end %>
         <% end %>
-        <% if !@import_successes.nil? && @import_successes.any? %>
+        <% if @import_successes.present? %>
           <h1><%= @import_successes.length %> succès :</h1>
           <% @import_successes.each do |success| %>
               <li><%= success %></li>
           <% end %>
         <% end %>
-        <% if !@import_errors.nil? && @import_errors.any? %>
+        <% if @import_errors.present? %>
           <h1><%= @import_errors.length %> erreurs détectées :</h1>
           <% @import_errors.each do |error| %>
               <li style="color: red"><%= error %></li>
