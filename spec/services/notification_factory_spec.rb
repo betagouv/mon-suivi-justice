@@ -6,10 +6,10 @@ RSpec.describe NotificationFactory do
       appointment_type = create(:appointment_type)
       create(:notification_type, appointment_type: appointment_type,
                                  role: :summon,
-                                 template: 'RDV pris le {rdv.date} à {rdv.heure}')
+                                 template: 'Convocation le {convocation.date} à {convocation.heure}')
       create(:notification_type, appointment_type: appointment_type,
                                  role: :reminder,
-                                 template: 'Rappel: rdv le {rdv.date} à {rdv.heure}')
+                                 template: 'Rappel: convocation le {convocation.date} à {convocation.heure}')
       slot = create(:slot, date: Date.civil(2025, 4, 14), starting_time: new_time_for(15, 30),
                            appointment_type: appointment_type)
       appointment = create(:appointment, slot: slot)
@@ -22,15 +22,15 @@ RSpec.describe NotificationFactory do
       summon_notif = appointment.notifications.where(role: :summon).first
       reminder_notif = appointment.notifications.where(role: :reminder).first
 
-      expect(summon_notif.content).to eq("RDV pris le #{Date.civil(2025, 4, 14)} à 15h30")
-      expect(reminder_notif.content).to eq("Rappel: rdv le #{Date.civil(2025, 4, 14)} à 15h30")
+      expect(summon_notif.content).to eq("Convocation le #{Date.civil(2025, 4, 14)} à 15h30")
+      expect(reminder_notif.content).to eq("Rappel: convocation le #{Date.civil(2025, 4, 14)} à 15h30")
     end
   end
 
   describe 'setup_template' do
     it 'translates human readable template into a ruby usable one' do
-      human_template = 'RDV pris le {rdv.date} à {rdv.heure}'
-      expected = 'RDV pris le %{appointment_date} à %{appointment_hour}'
+      human_template = 'Convocation le {convocation.date} à {convocation.heure}'
+      expected = 'Convocation le %{appointment_date} à %{appointment_hour}'
 
       result = NotificationFactory.setup_template(human_template)
 
@@ -51,7 +51,7 @@ RSpec.describe NotificationFactory do
       slot = create(:slot, agenda: agenda,
                            date: Date.civil(2025, 4, 18),
                            starting_time: new_time_for(16, 30), appointment_type: appointment_type)
-      sms_template = 'Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. ' \
+      sms_template = 'Vous êtes convoqué au {lieu.nom} le {convocation.date} à {convocation.heure}. ' \
                      "Merci de venir avec une pièce d'identité au {lieu.adresse}. " \
                      'Veuillez contacter le {lieu.téléphone} (ou {lieu.contact}) ' \
                      'en cas de problème. Plus d\'informations sur {lieu.lien_info}.'

@@ -103,6 +103,6 @@ class ConvictDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(convict)
-    "PPSMJ: #{convict.full_name}"
+    "Probationnaire: #{convict.full_name}"
   end
 end

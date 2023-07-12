@@ -1,19 +1,19 @@
 # Mon Suivi Justice
 
-Un service numérique public pour réduire l'absentéisme lors des rendez-vous avec les agents du ministère de la justice. Construction en cours avec les agents concernés.
+Un service numérique public pour réduire l'absentéisme lors des convocations avec les agents du ministère de la justice. Construction en cours avec les agents concernés.
 
 Fiche sur beta.gouv : [Mon Suivi Justice](https://beta.gouv.fr/startups/justif.html)
 
-Application CRUD qui permet de prendre et suivre des rendez-vous, en envoyant des SMS à différentes étapes du process.
+Application CRUD qui permet de prendre et suivre des convocations, en envoyant des SMS à différentes étapes du process.
 
-Outils permettant aux conseillers pénitentiaires de mieux suivre le parcours des personnes placées sous main de justice (PPSMJ).
+Outils permettant aux conseillers pénitentiaires de mieux suivre le parcours des probationnaires.
 
 - En démo sur [agents.mon-suivi-justice.incubateur.net](https://agents.mon-suivi-justice.incubateur.net)
 - En production sur [agents.mon-suivi-justice.beta.gouv.fr](https://agents.mon-suivi-justice.beta.gouv.fr)
 
 Documentation utilisateur : [documentation.mon-suivi-justice.beta.gouv.fr](documentation.mon-suivi-justice.beta.gouv.fr)
 
-L'outil pour les agents est complété par un site d'information à destination des PPSMJ, pour qu'elles puissent disposer de toute les informations nécessaires. Le code du site public est disponible [ici](https://github.com/betagouv/mon-suivi-justice-public).
+L'outil pour les agents est complété par un site d'information à destination des probationnaires, pour qu'ils puissent disposer de toute les informations nécessaires. Le code du site public est disponible [ici](https://github.com/betagouv/mon-suivi-justice-public).
 
 ## Contribuer
 

@@ -30,17 +30,17 @@ export default class extends Controller {
     })
     .then(data => {
       this.organizationsInfoTarget.className = "fr-alert fr-alert--info fr-alert--sm fr-mb-3w"
-      const convictCurrentOrganizations = `les services actuels de la PPSMJ: ${this.irCitiesValue}.`
+      const convictCurrentOrganizations = `les services actuels du probationnaire: ${this.irCitiesValue}.`
 
       if (data.length > 0) {        
         const servicesList = data.map((orga) => orga.name).join(', ')
         this.organizationsInfoTarget.hidden = false;
         this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = `Mon suivi Justice est déployé dans les services suivants pour cette commune: <strong>${servicesList}.</strong> <br /> 
-        Vous pourrez poursuivre la prise de rendez-vous dans ces services${ this.actionNameValue == "new" ? '.' : ' et dans ' + convictCurrentOrganizations}`;
+        Vous pourrez poursuivre la convocation dans ces services${ this.actionNameValue == "new" ? '.' : ' et dans ' + convictCurrentOrganizations}`;
       } else {
           this.organizationsInfoTarget.hidden = false;
           this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = `Mon Suivi Justice n\' est déployé dans aucun service de cette commune. <br />
-          Vous pourrez poursuivre la prise de rendez-vous uniquement dans ${this.actionNameValue == "new" ? 'votre ressort' : convictCurrentOrganizations }`
+          Vous pourrez poursuivre la convocation uniquement dans ${this.actionNameValue == "new" ? 'votre ressort' : convictCurrentOrganizations }`
       } 
     })
     .catch(error => {

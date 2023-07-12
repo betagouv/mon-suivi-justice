@@ -20,26 +20,26 @@ N'oubliez pas de vérifier le résultat de la CI sur Github Actions.
 
 ## Code existant
 
-Le métier est centré sur la convocation de personnes placées sous main de justice (PPSMJ) par des agents du Ministère de la Justice.
+Le métier est centré sur la convocation des probationnaires par des agents du Ministère de la Justice.
 
-La première phase du projet contient une interface pour les agents, qui peuvent saisir leurs rendez-vous (rdv) et envoyer des SMS de notification au PPSMJ. Le premier objectif, c'est de réduire l'absentéisme, et l'outil principal, ce sont des SMS.
+La première phase du projet contient une interface pour les agents, qui peuvent saisir leurs convocations et envoyer des SMS de notification au probationnaire. Le premier objectif, c'est de réduire l'absentéisme, et l'outil principal, ce sont des SMS.
 
 MSJ envoie actuellement trois types de SMS :
 
-- Convocation : envoyé immédiatement après la prise de rdv, regroupe les infos utiles.
-- Rappel : envoyé 48h avant le rdv.
-- Annulation : envoyé si un agent annule un rdv prévu.
+- Convocation : envoyé immédiatement après la création de la convocation, regroupe les infos utiles.
+- Rappel : envoyé 48h avant la convocation.
+- Annulation : envoyé si un agent annule une convocation.
 
-Dans la suite du projet, nous allons nous concentrer sur les PPSMJ, avec un site d'information sur les différentes mesures et une interface dédiée.
+Dans la suite du projet, nous allons nous concentrer sur les probationnaires, avec un site d'information sur les différentes mesures et une interface dédiée.
 
 ### Sens métier des principaux modèles:
 
-- Convict : PPSMJ, personne récemment condamnée, soumise à diverses mesures (bracelet électronique, obligation de soins...) ou sortant de prison.
+- Convict : Probationnaire, personne récemment condamnée, soumise à diverses mesures (bracelet électronique, obligation de soins...) ou sortant de prison.
 - User : agent du ministère, peut travailler dans un Spip (Service pénitentiaire d'insertion et de probation) ou un tribunal.
-- Place : lieu de rendez-vous. Pour l'expérimentation en cours, les rdv ont lieu au Spip du 92 et au Tribunal judiciaire de Nanterre.
-- Appointment : rendez-vous d'un PPSMJ dans un lieu, matérialisé par une convocation.
-- Slot : créneau disponible pour un rendez-vous, défini par les agents du lieu de rdv.
-- Notification : SMS envoyé au PPSMJ.
+- Place : lieu de la convocation. Pour l'expérimentation en cours, les convocations ont lieu au Spip du 92 et au Tribunal judiciaire de Nanterre.
+- Appointment : Convocation d'un probationnaire dans un lieu, matérialisé par une convocation.
+- Slot : créneau disponible pour une convocation, défini par les agents du lieu de convocation.
+- Notification : SMS envoyé au probationnaire.
 
 ### Structure de la base de données
 

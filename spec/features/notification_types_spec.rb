@@ -7,7 +7,7 @@ RSpec.feature 'NotificationType', type: :feature do
 
       orga2 = create :organization, name: 'SPIP 42'
 
-      apt_type = create :appointment_type, :with_notification_types, name: 'RDV de suivi SPIP'
+      apt_type = create :appointment_type, :with_notification_types, name: 'Convocation de suivi SPIP'
 
       create :notification_type, appointment_type: apt_type,
                                  organization: @user.organization,
@@ -25,7 +25,7 @@ RSpec.feature 'NotificationType', type: :feature do
 
       visit new_appointment_path({ convict_id: convict.id })
 
-      select 'RDV de suivi SPIP', from: :appointment_appointment_type_id
+      select 'Convocation de suivi SPIP', from: :appointment_appointment_type_id
       select 'SPIP 65', from: 'Lieu'
 
       fill_in 'appointment_slot_date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
