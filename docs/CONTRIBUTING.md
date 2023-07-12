@@ -26,9 +26,9 @@ La première phase du projet contient une interface pour les agents, qui peuvent
 
 MSJ envoie actuellement trois types de SMS :
 
-- Convocation : envoyé immédiatement après la prise de rdv, regroupe les infos utiles.
-- Rappel : envoyé 48h avant le rdv.
-- Annulation : envoyé si un agent annule un rdv prévu.
+- Convocation : envoyé immédiatement après la création de la convocation, regroupe les infos utiles.
+- Rappel : envoyé 48h avant la convocation.
+- Annulation : envoyé si un agent annule une convocation.
 
 Dans la suite du projet, nous allons nous concentrer sur les probationnaires, avec un site d'information sur les différentes mesures et une interface dédiée.
 
@@ -36,9 +36,9 @@ Dans la suite du projet, nous allons nous concentrer sur les probationnaires, av
 
 - Convict : Probationnaire, personne récemment condamnée, soumise à diverses mesures (bracelet électronique, obligation de soins...) ou sortant de prison.
 - User : agent du ministère, peut travailler dans un Spip (Service pénitentiaire d'insertion et de probation) ou un tribunal.
-- Place : lieu de la convocation. Pour l'expérimentation en cours, les rdv ont lieu au Spip du 92 et au Tribunal judiciaire de Nanterre.
+- Place : lieu de la convocation. Pour l'expérimentation en cours, les convocations ont lieu au Spip du 92 et au Tribunal judiciaire de Nanterre.
 - Appointment : Convocation d'un probationnaire dans un lieu, matérialisé par une convocation.
-- Slot : créneau disponible pour une convocation, défini par les agents du lieu de rdv.
+- Slot : créneau disponible pour une convocation, défini par les agents du lieu de convocation.
 - Notification : SMS envoyé au probationnaire.
 
 ### Structure de la base de données

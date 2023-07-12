@@ -60,21 +60,21 @@ Dans les deux cas, les agents reçevront un mail qui les invitera à choisir un 
 
 ## 3. Création des lieux
 
-Cela correspond aux différents lieux de rdv, ils sont donc différents des services. Par exemple, une permanence délocalisée dans le 92 est un lieu de rdv spécifique, rattaché au service SPIP 92. Il est important de bien comprendre qu'il y a deux objets "SPIP 92", un service "SPIP 92" et un lieu de rdv "SPIP 92". Pour déployer MSJ dans un nouveau SPIP, il faut bien créer les deux.
+Cela correspond aux différents lieux de convocation, ils sont donc différents des services. Par exemple, une permanence délocalisée dans le 92 est un lieu de convocation spécifique, rattaché au service SPIP 92. Il est important de bien comprendre qu'il y a deux objets "SPIP 92", un service "SPIP 92" et un lieu de convocation "SPIP 92". Pour déployer MSJ dans un nouveau SPIP, il faut bien créer les deux.
 
 -> Onglet lieux, cliquer sur nouveau lieu.
 
 Données nécessaires :
 
-- Nom du lieu de rdv
+- Nom du lieu de convocation
 - Adresse
 - Numéro de téléphone. Numéro de l'accueil, ou numéro à contacter en cas de pb.
 - Service
-- Types de rdv possibles (à cocher dans une liste)
+- Types de convocations possibles (à cocher dans une liste)
 
-Note : Si le service pratique des rdv de type "RDV téléphonique" ou "Visite à domicile", il faut créer un lieu de rdv "Domicile du probationnaire" pour faire fonctionner ces types de rdv. Voir sur la production pour des exemples, le SPIP 92 dipose d'un lieu "Domicile du probationnaire".
+Note : Si le service pratique des convocations de type "RDV téléphonique" ou "Visite à domicile", il faut créer un lieu de convocation "Domicile du probationnaire" pour faire fonctionner ces types de convocation. Voir sur la production pour des exemples, le SPIP 92 dipose d'un lieu "Domicile du probationnaire".
 
-La création du lieu de rdv entraine la création d'un premier agenda standard. Si le fonctionnement du service exige de multiples agendas (comme le SAP de Nanterre et sa gestion par cabinets), il faut aller créer ces agendas sur la page du lieu.
+La création du lieu de convocation entraine la création d'un premier agenda standard. Si le fonctionnement du service exige de multiples agendas (comme le SAP de Nanterre et sa gestion par cabinets), il faut aller créer ces agendas sur la page du lieu.
 
 -> Onglet lieux, choisir le bon lieu, cliquer sur modifier, colonne agendas, saisir le nom, cliquer sur ajouter agenda
 
@@ -82,12 +82,12 @@ La création du lieu de rdv entraine la création d'un premier agenda standard. 
 
 Dans MSJ, il y a deux principes différents mais faciles à confondre : les créneaux et les créneaux récurrents.
 
-- Créneau : Un emplacement disponible dans un agenda pour prendre un rdv. Exemple : Le mardi 4 juin 2022 à 11h dans l'agenda du cabinet 1 du SAP de Nanterre.
+- Créneau : Un emplacement disponible dans un agenda pour convoquer. Exemple : Le mardi 4 juin 2022 à 11h dans l'agenda du cabinet 1 du SAP de Nanterre.
 - Créneau récurrent : Un emplacement qui est disponible toutes les semaines. Exemple : Le mardi à 11h dans l'agenda du cabinet 1 du SAP de Nanterre.
 
-Dans MSJ, des créneaux sont créés automatiquement à partir des créneaux récurrents. Tout ce fonctionnement n'est utilisé que pour les rdv sortie d'audience (SPIP ou SAP). Il est également possible de créer des créneaux directement, si il ne sont pas récurrents.
+Dans MSJ, des créneaux sont créés automatiquement à partir des créneaux récurrents. Tout ce fonctionnement n'est utilisé que pour les convocations sortie d'audience (SPIP ou SAP). Il est également possible de créer des créneaux directement, si il ne sont pas récurrents.
 
-Lors de la création d'un nouveau service, si il accueille des rdv de sortie d'audience, il faut donc définir sur quels créneaux ces rdv sont possibles.
+Lors de la création d'un nouveau service, si il accueille des convocations de sortie d'audience, il faut donc définir sur quels créneaux ces convocations sont possibles.
 
 -> Onglet lieux, choisir le bon lieu, cliquer sur modifier, colonne agendas, cliquer sur créneaux récurrents
 

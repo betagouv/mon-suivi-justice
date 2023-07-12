@@ -1,4 +1,4 @@
-# Ajouter un type de rdv
+# Ajouter un type de convocation
 
 1. Créer les données
 
@@ -8,7 +8,7 @@ D'abord créer en console l'objet AppointmentType lui même :
 at = AppointmentType.create!(name: 'Action collective')
 ```
 
-puis tous les templates par défaut associés au nouveau type de rdv :
+puis tous les templates par défaut associés au nouveau type de convocation :
 
 ```
 NotificationType.create!(appointment_type: at, role: :summon, template: "Vous êtes convoqué.e par le SPIP le {convocation.date} à {convocation.heure} pour une action collective. Merci de venir avec une pièce d'identité au {lieu.adresse}. En cas de problème, contactez votre conseiller référent ou le standard au {lieu.téléphone}. Plus d'informations sur {lieu.lien_info}", is_default: true)
@@ -18,7 +18,7 @@ NotificationType.create!(appointment_type: at, role: :no_show, template: "Vous n
 NotificationType.create!(appointment_type: at, role: :reschedule, template: "Votre convocation au SPIP a été modifié. Vous êtes désormais convoqué au {lieu.nom} le {convocation.date} à {convocation.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}. Attention, présence impérative. En cas de problème, contactez votre conseiller référent ou le standard au {lieu.téléphone}. Plus d'informations sur {lieu.lien_info}", is_default: true)
 ```
 
-2. Ajouter le nom du nouveau type de convocation dans les bonnes méthodes du modèle AppointmentType
+1. Ajouter le nom du nouveau type de convocation dans les bonnes méthodes du modèle AppointmentType
 
 Selon que le nouveau type de convocation est utilisé par des sap, des spip ou des services bex, ajouter son nom dans la ou les bonnes méthodes (:used_at_bex?, :used_at_sap? et :used_at_spip?).
 

@@ -159,7 +159,7 @@ fr:
           summon: convocation
           reminder: rappel
           cancelation: annulation
-          no_show: rdv manqué
+          no_show: convocation manquée
           reschedule: replanifier
       slot_type:
         appointment_type: "Type de convocation"
@@ -263,7 +263,7 @@ fr:
               transfert_in: "Impossible de créer des créneaux pour ce lieu avant le %{date}, veuillez utiliser %{place_name}"
               transfert_out: "Impossible de créer des créneaux pour ce lieu après le %{date}, veuillez utiliser %{place_name}"
             appointment_type:
-              wrong_organization: "Ce type de rdv n'est pas possible dans ce lieu"
+              wrong_organization: "Ce type de convocation n'est pas possible dans ce lieu"
         slot_type:
           multiple_uniqueness: "Un créneau récurrent similaire existe déjà."
           batch_multiple_uniqueness: "Un ou plusieurs créneaux récurrents similaires existent déjà. Les doublons n'ont pas été crées."
@@ -301,7 +301,7 @@ fr:
   add: "Ajouter"
   order: "Trier"
   see_infos: "Voir les infos"
-  see_details: "Voir infos du rdv"
+  see_details: "Voir infos convocation"
   see_profile: "Voir profil"
   basic_confirmation: "Êtes-vous sûr(e)?"
   my_profile: "Mon profil"
@@ -390,19 +390,19 @@ fr:
     steering_title: "Global"
     of_which: "dont"
     that_is: "soit"
-    recorded: "Total rdv enregistrés"
-    passed_no_canceled_with_phone: "rdv passés avec numéro de tél / rdv rappelés"
-    future_booked: "rdv futurs"
-    fulfiled: "rdv réussis"
-    fulfiled_percentage: "%{data}% de présence aux rdv renseignés"
-    no_show: "rdv manqués"
-    no_show_percentage: "%{data}% d'absence aux rdv renseignés"
-    excused: "rdv excusés"
-    excused_percentage: "%{data}% d'absence justifiée aux rdv renseignés"
-    canceled: "rdv annulés"
-    informed: "rdv renseignés"
-    uninformed: "rdv passés non-renseignés"
-    uninformed_percentage: "%{data}% de rdv non renseignés"
+    recorded: "Total convocations enregistrées"
+    passed_no_canceled_with_phone: "convocations passées avec numéro de tél / convocations rappelés"
+    future_booked: "convocations futures"
+    fulfiled: "convocations réussies"
+    fulfiled_percentage: "%{data}% de présence aux convocations renseignées"
+    no_show: "convocations manqués"
+    no_show_percentage: "%{data}% d'absence aux convocations renseignées"
+    excused: "convocations excusées"
+    excused_percentage: "%{data}% d'absence justifiée aux convocations renseignées"
+    canceled: "convocations annulées"
+    informed: "convocations renseignées"
+    uninformed: "convocations passées non-renseignées"
+    uninformed_percentage: "%{data}% de convocations non renseignées"
     convicts: "Total probationnaires enregistrés"
     convicts_with_phone: "Total probationnaires avec numéro de téléphone"
     users: "Total agents utilisateurs"
@@ -527,9 +527,9 @@ fr:
     receive_cancelation_notification: "Le SMS d'annulation a bien été reçu par %{name}."
     failed_send_cancelation_notification_title: "Echec du SMS (annulation)"
     failed_send_cancelation_notification: "Le SMS d'annulation n'a pas été reçu par %{name}."
-    send_now_no_show_notification_title: "SMS envoyé (rdv manqué)"
+    send_now_no_show_notification_title: "SMS envoyé (convocation manquée)"
     send_now_no_show_notification: "[Texte du SMS] %{content}"
-    send_now_reschedule_notification_title: "SMS envoyé (rdv replanifié)"
+    send_now_reschedule_notification_title: "SMS envoyé (convocation replanifiée)"
     send_now_reschedule_notification: "[Texte du SMS] %{content}"
 
     reschedule_appointment_title: "Convocation replanifiée"
@@ -587,7 +587,7 @@ fr:
   cancel_appointment_warning: "En annulant la convocation, vous envoyez un SMS d'annulation au probationnaire (si le probationnaire a un numéro de téléphone), et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?"
   appointment-reschedule-title: 'Replanifier une convocation'
   new-appointment-jap-agendas: "Répartition cabinet JAP"
-  rebook_missed_appointment1: "Si vous aviez marqué le rdv comme manqué, vous avez peut-être envoyé un SMS au probationnaire concerné. Vous pouvez le vérifier dans l'historique."
+  rebook_missed_appointment1: "Si vous aviez marqué la convocation comme manquée, vous avez peut-être envoyé un SMS au probationnaire concerné. Vous pouvez le vérifier dans l'historique."
   rebook_missed_appointment2: "Si besoin, merci de contacter cette personne pour clarifier la situation."
   my_appointments_title: "Mes convocations"
   delete_agenda_confirmation: "Attention, Si vous confirmez, l'ensemble de l'agenda sera définitivement effacé"
@@ -669,7 +669,7 @@ fr:
   edit_place_title: "Modifier Lieu"
   edit_place_agendas: Agendas
   edit_place_add_agenda: Ajouter agenda
-  edit_place_appointment_types: Types de rdv possibles
+  edit_place_appointment_types: Types de convocations possibles
   edit_place_update_agenda: "Enregistrer"
   edit_place_slot_types_agenda: "Créneaux récurrents"
   edit_place_delete_agenda: "Supprimer"
@@ -677,7 +677,7 @@ fr:
 
   index_slot_types_title: "Créneaux récurrents"
   index_slot_types_title_place: "%{place} : %{agenda}"
-  index_slot_types_warning: "Les modifications sur cette page seront répercutées pour la prise de rdv dans un délai de 24h."
+  index_slot_types_warning: "Les modifications sur cette page seront répercutées pour les convocations dans un délai de 24h."
   index_slot_types_back_link: "Retour %{place}"
   index_slot_types_update: "Enregistrer"
   index_slot_types_delete: "Supprimer"
@@ -694,7 +694,7 @@ fr:
   slot_types_batch_duration_placeholder: "ex: 30"
   slot_types_batch_submit: "Tout créer"
   slot_types_batch_deletion: "Tout supprimer"
-  slot_type_delete_confirmation: "Supprimer un créneau récurrent supprimera également tous les créneaux associés, sauf si un rdv a déjà été pris sur ce créneau. Êtes-vous sûr(e)?"
+  slot_type_delete_confirmation: "Supprimer un créneau récurrent supprimera également tous les créneaux associés, sauf si il existe une convocation sur ce créneau. Êtes-vous sûr(e)?"
 
   new_slot_type_title: "Nouveau Créneau Récurent"
   new_slot_type_submit: "Enregistrer"
@@ -771,5 +771,5 @@ fr:
   organization:
     extra_field:
       scope:
-        appointment_create: "Renseigner au moment de la création du rdv"
+        appointment_create: "Renseigner au moment de la convocation"
         appointment_update: "Renseigner directement dans le tableau de sortie d'audience"
