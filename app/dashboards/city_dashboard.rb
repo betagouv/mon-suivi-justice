@@ -9,7 +9,6 @@ class CityDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    city_id: Field::String,
     code_insee: Field::String,
     name: Field::String,
     srj_spip: Field::BelongsTo,
@@ -26,7 +25,7 @@ class CityDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    city_id
+    code_insee
     zipcode
     name
     srj_tj
@@ -37,12 +36,11 @@ class CityDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    city_id
     code_insee
+    zipcode
     name
     srj_spip
     srj_tj
-    zipcode
     created_at
     updated_at
   ].freeze
