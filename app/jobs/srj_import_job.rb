@@ -14,7 +14,6 @@ class SrjImportJob < ApplicationJob
                      import_successes: @import_successes, csv_errors: csv_errors).srj_import_report.deliver_later
   end
 
-  # rubocop:disable Metrics/MethodLength
   def process_srj_data(srj_data)
     srj_data.each do |row|
       city_attributes = {
@@ -28,7 +27,6 @@ class SrjImportJob < ApplicationJob
       associate_srj(row[:type], row[:service_name], city)
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   private
 
