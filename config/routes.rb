@@ -21,8 +21,10 @@ Rails.application.routes.draw do
       get '/reset_db' => "seeds#reset_db"
       resources :public_pages, only: [:index]
       resources :import_convicts, only: [:index]
+      resources :import_srjs, only: [:index]
       post '/create_page' => "public_pages#create"
       post '/import_convicts' => "import_convicts#import"
+      post '/import_srjs' => "import_srjs#import"
       resources :headquarters
       resources :place_transferts do
         put '/start_transfert' => "place_transferts#start_transfert"

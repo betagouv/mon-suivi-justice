@@ -1,0 +1,13 @@
+<div id="spip_creation_page" style="padding: 20px">
+  <h1>Import des villes et de leur relation avec les services au sens SRJ (.csv)</h1>
+  <br>
+  <%= form_with url: admin_import_srjs_path, class: 'form' do |form| %>
+    <div class="field-unit field-unit--string field-unit--optional">
+      <%= form.label :srj_file, "SRJ (.csv):", class: 'field-unit__label' %>
+      <%= form.file_field :srj_file, style: 'margin-left: 2rem;', required: true %>
+    </div>
+    <div class="form-actions">
+      <%= form.submit "Importer" %>
+    </div>
+  <% end %>
+</div>
