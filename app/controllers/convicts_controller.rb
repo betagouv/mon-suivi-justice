@@ -196,7 +196,7 @@ class ConvictsController < ApplicationController
 
   def handle_successful_update(old_phone)
     record_phone_change(old_phone)
-    flash.now[:success] = 'La PPSMJ a bien été mise à jour'
+    flash.now[:success] = 'Le probationnaire a bien été mise à jour'
     redirect_to convict_path(@convict)
   end
 

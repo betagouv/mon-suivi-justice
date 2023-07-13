@@ -37,13 +37,13 @@ RSpec.feature 'Home', type: :feature do
       @user.update(role: :jap)
       visit home_path
 
-      expect(page).to have_content("Attention, 50% des rendez-vous de votre service n'ont pas de statut renseigné")
+      expect(page).to have_content("Attention, 50% des convocations de votre service n'ont pas de statut renseigné")
 
       within first('div.fr-alert', text: 'Attention') do
         click_on('Cliquez ici')
       end
 
-      expect(page).to have_content("Rendez-vous au statut inconnu au #{@user.organization.name}")
+      expect(page).to have_content("Convocation au statut inconnu au #{@user.organization.name}")
       expect(page).to have_content(Date.civil(2022, 6, 27))
       expect(page).to have_content('15:30')
     end
@@ -83,13 +83,13 @@ RSpec.feature 'Home', type: :feature do
 
       visit home_path
 
-      expect(page).to have_content("Attention, 67% de vos rendez-vous n'ont pas de statut renseigné")
+      expect(page).to have_content("Attention, 67% de vos convocations n'ont pas de statut renseigné")
 
       within first('div.fr-alert', text: 'Attention') do
         click_on('Cliquez ici')
       end
 
-      expect(page).to have_content('Vos rendez-vous au statut inconnu')
+      expect(page).to have_content('Vos convocations au statut inconnu')
       expect(page).to have_content(Date.civil(2022, 6, 30))
       expect(page).to have_content('12:30')
     end

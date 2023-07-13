@@ -59,7 +59,7 @@ RSpec.describe Slot, type: :model do
         slot = build(:slot, agenda: agenda, appointment_type: apt_type)
 
         expect(slot).to_not be_valid
-        expect(slot.errors.messages[:appointment_type]).to eq ["Ce type de rdv n'est pas possible dans ce lieu"]
+        expect(slot.errors.messages[:appointment_type]).to eq ["Ce type de convocation n'est pas possible dans ce lieu"]
       end
     end
 

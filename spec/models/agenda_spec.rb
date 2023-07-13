@@ -30,7 +30,7 @@ RSpec.describe Agenda, type: :model do
 
       expect(agenda1.appointment_type_with_slot_types?).to eq true
 
-      apt_type2 = create(:appointment_type, name: 'RDV de suivi SPIP')
+      apt_type2 = create(:appointment_type, name: 'Convocation de suivi SPIP')
       place2 = create(:place)
       create(:place_appointment_type, place: place2, appointment_type: apt_type2)
       agenda2 = create(:agenda, place: place2)

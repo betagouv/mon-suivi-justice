@@ -63,7 +63,7 @@ RSpec.feature 'Users', type: :feature do
 
       fill_in 'Prénom', with: 'Mireille'
       fill_in 'Numéro de téléphone', with: '0644444444'
-      uncheck 'Partager mon email à mes PPSMJ'
+      uncheck 'Partager mon email à mes probationnaires'
 
       click_button 'Enregistrer'
 
@@ -95,8 +95,8 @@ RSpec.feature 'Users', type: :feature do
 
       main_nav = find('nav')
 
-      expect(main_nav).to have_link('PPSMJ')
-      expect(main_nav).to have_link('Rendez-vous')
+      expect(main_nav).to have_link('Probationnaires')
+      expect(main_nav).to have_link('Convocations')
       expect(main_nav).to have_link('Lieux')
       expect(main_nav).to have_link('Créneaux')
       expect(main_nav).to have_link('Agents')
@@ -116,7 +116,7 @@ RSpec.feature 'Users', type: :feature do
 
       main_nav = find('nav')
 
-      expect(main_nav).to have_link('PPSMJ')
+      expect(main_nav).to have_link('Probationnaires')
       expect(main_nav).not_to have_link('Administration')
     end
 
@@ -125,8 +125,8 @@ RSpec.feature 'Users', type: :feature do
 
       main_nav = find('nav')
 
-      expect(main_nav).to have_link('PPSMJ')
-      expect(main_nav).to have_link('Rendez-vous')
+      expect(main_nav).to have_link('Probationnaires')
+      expect(main_nav).to have_link('Convocations')
       expect(main_nav).not_to have_link('Administration')
     end
   end

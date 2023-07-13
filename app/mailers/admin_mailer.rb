@@ -10,6 +10,14 @@ class AdminMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Rapport import APPI')
   end
 
+  def srj_import_report
+    @user = params[:user]
+    @import_successes = params[:import_successes]
+    @import_errors = params[:import_errors]
+    @csv_errors = params[:csv_errors]
+    mail(to: @user.email, subject: 'Rapport import SRJ')
+  end
+
   def convict_migration_report
     @convict_migration_success = params[:convict_migration_success]
     @convict_migration_errors = params[:convict_migration_errors]

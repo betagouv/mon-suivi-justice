@@ -5,7 +5,7 @@ import MicroModal from 'micromodal';
 
 document.addEventListener('turbolinks:load',function() {
   $('#convict-name-autocomplete').on('select2:select', (e) => {
-    document.getElementById('appointment-form-title').innerHTML = `Nouveau rendez-vous pour ${e.params.data.text}`
+    document.getElementById('appointment-form-title').innerHTML = `Nouvelle convocation pour ${e.params.data.text}`
     const aptTypeSelect = document.getElementById('appointment-type-container')
     aptTypeSelect.style.display = 'block';
   })

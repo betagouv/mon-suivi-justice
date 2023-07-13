@@ -16,11 +16,19 @@ module TransfertValidator
       place.transfert_out && date >= place.transfert_out.date
     end
 
+    # rubocop:disable Metrics/AbcSize
     def handle_transfert
       return unless agenda.present?
 
-      add_transfert_error(place.transfert_in, :transfert_in) if should_add_transfert_in_error?
-      add_transfert_error(place.transfert_out, :transfert_out) if should_add_transfert_out_error?
+      if should_add_transfert_in_error?
+        add_transfert_error(place.transfert_in, :transfert_in,
+                            place.transfert_in.old_place.name)
+      end
+      return unless should_add_transfert_out_error?
+
+      add_transfert_error(place.transfert_out, :transfert_out,
+                          place.transfert_out.new_place.name)
     end
+    # rubocop:enable Metrics/AbcSize
   end
 end

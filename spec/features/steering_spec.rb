@@ -25,7 +25,7 @@ RSpec.feature 'Steering', type: :feature do
     it 'loads' do
       visit steering_convict_app_path
 
-      expect(page).to have_content('PPSMJ invitées')
+      expect(page).to have_content('Probationnaires invités')
     end
   end
 end
