@@ -333,7 +333,6 @@ fr:
 
   home:
     find_convict: "Trouver un probationnaire :"
-    new_appointment: "Convoquer"
     new_convict: "Nouveau probationnaire"
     bex_jap: "Sortie d'audience JAP"
     bex_spip: "Sortie d'audience SPIP"
