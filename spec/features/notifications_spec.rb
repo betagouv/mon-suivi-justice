@@ -14,7 +14,7 @@ RSpec.feature 'Notifications', type: :feature do
       allow(LinkMobilityAdapter).to receive(:new).and_return adapter_dbl
 
       @convict = create(:convict, first_name: 'Bobby', last_name: 'Lapointe', phone: '', no_phone: true,
-                       organizations: [@user.organization])
+                                  organizations: [@user.organization])
       appointment_type = create :appointment_type, :with_notification_types, name: 'Convocation de suivi SPIP'
       place = create :place, name: 'SPIP de Thorigné', appointment_types: [appointment_type],
                              organization: @user.organization
