@@ -154,7 +154,7 @@ RSpec.feature 'Appointments', type: :feature do
         appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
         appointment_type_spip = create :appointment_type, :with_notification_types, name: "Sortie d'audience SPIP"
 
-        create :convict, first_name: 'Jack', last_name: 'Dalton', organizations: [@user.organization]
+        convict = create :convict, first_name: 'Jack', last_name: 'Dalton', organizations: [@user.organization]
 
         place_in = create :place, organization: @user.organization, name: 'place_in_name',
                                   appointment_types: [appointment_type]
@@ -171,10 +171,8 @@ RSpec.feature 'Appointments', type: :feature do
         create :slot, agenda: agenda_out, appointment_type: appointment_type_spip, date: Date.civil(2025, 4, 18),
                       starting_time: new_time_for(16, 0)
 
-        visit new_appointment_path
+        visit new_appointment_path({ convict_id: convict })
 
-        first('.select2-container', minimum: 1).click
-        find('li.select2-results__option', text: 'DALTON Jack').click
         select "Sortie d'audience SAP", from: :appointment_appointment_type_id
         expect(page).not_to have_select('Lieu', options: ['', 'place_in_name', 'place_out_name'])
         expect(page).to have_select('Lieu', options: ['', 'place_in_name'])
@@ -217,10 +215,8 @@ RSpec.feature 'Appointments', type: :feature do
                       date: Date.civil(2025, 4, 14),
                       starting_time: new_time_for(11, 0)
 
-        visit new_appointment_path
+        visit new_appointment_path({ convict_id: @convict.id })
 
-        first('.select2-container', minimum: 1).click
-        find('li.select2-results__option', text: 'DALTON Joe').click
         select "Sortie d'audience SPIP", from: :appointment_appointment_type_id
         select 'SPIP 93', from: 'Lieu'
         select 'Tous les agendas', from: 'Agenda'

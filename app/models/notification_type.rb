@@ -9,7 +9,7 @@ class NotificationType < ApplicationRecord
   enum role: %i[summon reminder cancelation no_show reschedule]
   enum reminder_period: %i[one_day two_days]
 
-  VALID_NOTIFICATION_KEYS = %w[{convocation.heure} {convocation.date} {lieu.nom} {lieu.adresse}
+  VALID_NOTIFICATION_KEYS = %w[{rdv.heure} {rdv.date} {lieu.nom} {lieu.adresse}
                                {lieu.téléphone} {lieu.contact} {lieu.lien_info}].freeze
 
   scope :default, -> { where(is_default: true) }

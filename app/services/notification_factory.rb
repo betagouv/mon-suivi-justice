@@ -35,8 +35,8 @@ module NotificationFactory
 
     def setup_template(notif_type_template)
       notif_type_template.gsub('{', '%{')
-                         .gsub('convocation.heure', 'appointment_hour')
-                         .gsub('convocation.date', 'appointment_date')
+                         .gsub('rdv.heure', 'appointment_hour')
+                         .gsub('rdv.date', 'appointment_date')
                          .gsub('lieu.nom', 'place_name')
                          .gsub('lieu.adresse', 'place_adress')
                          .gsub('lieu.téléphone', 'place_phone')
