@@ -11,8 +11,8 @@ place_tj_bordeaux = Place.find_or_create_by!(organization: org_tj_bordeaux, name
 apt_type_sortie_audience_sap = AppointmentType.find_or_create_by!(name: "Sortie d'audience SAP")
 apt_type_sortie_audience_spip = AppointmentType.find_or_create_by!(name: "Sortie d'audience SPIP")
 apt_type_sap_ddse = AppointmentType.find_or_create_by!(name: "SAP DDSE")
-apt_type_rdv_suivi_jap = AppointmentType.find_or_create_by!(name: 'RDV de suivi JAP')
-apt_type_rdv_suivi_spip = AppointmentType.find_or_create_by!(name: "RDV de suivi SPIP")
+apt_type_rdv_suivi_jap = AppointmentType.find_or_create_by!(name: 'Convocation de suivi JAP')
+apt_type_rdv_suivi_spip = AppointmentType.find_or_create_by!(name: "Convocation de suivi SPIP")
 
 PlaceAppointmentType.find_or_create_by!(place: place_spip_33_bordeaux, appointment_type: apt_type_sortie_audience_spip)
 PlaceAppointmentType.find_or_create_by!(place: place_spip_33_bordeaux, appointment_type: apt_type_rdv_suivi_spip)
