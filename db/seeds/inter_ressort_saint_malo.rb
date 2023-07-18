@@ -41,8 +41,8 @@ Slot.create!(agenda: agenda_spip_st_brieuc, starting_time: Time.zone.now, date: 
 User.find_or_create_by!(
   organization: org_spip_22_st_brieuc, email: 'cpip22stbrieuc@example.com', role: :cpip
 ) do |user|
-  user.password = '1mot2passeSecurise!'
-  user.password_confirmation = '1mot2passeSecurise!'
+  user.password = ENV["DUMMY_PASSWORD"]
+  user.password_confirmation = ENV["DUMMY_PASSWORD"]
   user.first_name = Faker::Name.first_name
   user.last_name = Faker::Name.last_name
 end
@@ -50,8 +50,8 @@ end
 User.find_or_create_by!(
   organization: org_spip_22_st_brieuc, email: 'localadmin22stbrieuc@example.com', role: :local_admin
 ) do |user|
-  user.password = '1mot2passeSecurise!'
-  user.password_confirmation = '1mot2passeSecurise!'
+  user.password = ENV["DUMMY_PASSWORD"]
+  user.password_confirmation = ENV["DUMMY_PASSWORD"]
   user.first_name = Faker::Name.first_name
   user.last_name = Faker::Name.last_name
 end
@@ -59,8 +59,8 @@ end
 User.find_or_create_by!(
   organization: org_tj_st_brieuc, email: 'bexstbrieuc@example.com', role: :bex
 ) do |user|
-  user.password = '1mot2passeSecurise!'
-  user.password_confirmation = '1mot2passeSecurise!'
+  user.password = ENV["DUMMY_PASSWORD"]
+  user.password_confirmation = ENV["DUMMY_PASSWORD"]
   user.first_name = Faker::Name.first_name
   user.last_name = Faker::Name.last_name
 end
@@ -68,8 +68,8 @@ end
 User.find_or_create_by!(
   organization: org_tj_st_brieuc, email: 'localadmintjstbrieuc@example.com', role: :local_admin
 ) do |user|
-  user.password = '1mot2passeSecurise!'
-  user.password_confirmation = '1mot2passeSecurise!'
+  user.password = ENV["DUMMY_PASSWORD"]
+  user.password_confirmation = ENV["DUMMY_PASSWORD"]
   user.first_name = Faker::Name.first_name
   user.last_name = Faker::Name.last_name
 end
@@ -77,8 +77,8 @@ end
 User.find_or_create_by!(
   organization: org_tj_st_malo, email: 'bexstmalo@example.com', role: :bex
 ) do |user|
-  user.password = '1mot2passeSecurise!'
-  user.password_confirmation = '1mot2passeSecurise!'
+  user.password = ENV["DUMMY_PASSWORD"]
+  user.password_confirmation = ENV["DUMMY_PASSWORD"]
   user.first_name = Faker::Name.first_name
   user.last_name = Faker::Name.last_name
 end
@@ -86,8 +86,8 @@ end
 User.find_or_create_by!(
   organization: org_tj_st_malo, email: 'localadmintjstmalo@example.com', role: :local_admin
 ) do |user|
-  user.password = '1mot2passeSecurise!'
-  user.password_confirmation = '1mot2passeSecurise!'
+  user.password = ENV["DUMMY_PASSWORD"]
+  user.password_confirmation = ENV["DUMMY_PASSWORD"]
   user.first_name = Faker::Name.first_name
   user.last_name = Faker::Name.last_name
 end

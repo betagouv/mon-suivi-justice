@@ -23,8 +23,8 @@ Slot.create!(agenda: agenda_tj, starting_time: Time.zone.now, date: Date.tomorro
 User.find_or_create_by!(
   organization: org_spip_37_tours, email: 'cpip37tours@example.com', role: :cpip
 ) do |user|
-  user.password = '1mot2passeSecurise!'
-  user.password_confirmation = '1mot2passeSecurise!'
+  user.password = ENV["DUMMY_PASSWORD"]
+  user.password_confirmation = ENV["DUMMY_PASSWORD"]
   user.first_name = Faker::Name.first_name
   user.last_name = Faker::Name.last_name
 end
@@ -32,8 +32,8 @@ end
 User.find_or_create_by!(
   organization: org_spip_37_tours, email: 'localadmin37tours@example.com', role: :local_admin
 ) do |user|
-  user.password = '1mot2passeSecurise!'
-  user.password_confirmation = '1mot2passeSecurise!'
+  user.password = ENV["DUMMY_PASSWORD"]
+  user.password_confirmation = ENV["DUMMY_PASSWORD"]
   user.first_name = Faker::Name.first_name
   user.last_name = Faker::Name.last_name
 end
@@ -42,8 +42,8 @@ User.find_or_create_by!(
   organization: org_tj_tours, email: 'bextours@example.com', role: :bex
   
 ) do |user|
-  user.password = '1mot2passeSecurise!'
-  user.password_confirmation = '1mot2passeSecurise!'
+  user.password = ENV["DUMMY_PASSWORD"]
+  user.password_confirmation = ENV["DUMMY_PASSWORD"]
   user.first_name = Faker::Name.first_name
   user.last_name = Faker::Name.last_name
 end
@@ -51,8 +51,8 @@ end
 User.find_or_create_by!(
   organization: org_tj_tours, email: 'localadmintjtours@example.com', role: :local_admin
 ) do |user|
-  user.password = '1mot2passeSecurise!'
-  user.password_confirmation = '1mot2passeSecurise!'
+  user.password = ENV["DUMMY_PASSWORD"]
+  user.password_confirmation = ENV["DUMMY_PASSWORD"]
   user.first_name = Faker::Name.first_name
   user.last_name = Faker::Name.last_name
 end
