@@ -70,19 +70,19 @@ SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_t
 SlotFactory.perform
 
 Faker::Config.locale = 'fr'
-Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
+Convict.create!(no_phone: true, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
   convict.first_name = Faker::Name.first_name
   convict.last_name = Faker::Name.last_name
 end
-Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
+Convict.create!(no_phone: true, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
   convict.first_name = Faker::Name.first_name
   convict.last_name = Faker::Name.last_name
 end
-Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
+Convict.create!(no_phone: true, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
   convict.first_name = Faker::Name.first_name
   convict.last_name = Faker::Name.last_name
 end
-Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
+Convict.create!(no_phone: true, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_spip_33_bordeaux, org_tj_bordeaux]) do |convict|
   convict.first_name = Faker::Name.first_name
   convict.last_name = Faker::Name.last_name
 end

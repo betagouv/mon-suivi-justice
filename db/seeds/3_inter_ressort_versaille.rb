@@ -118,22 +118,22 @@ end
 
 
 Faker::Config.locale = 'fr'
-convict_pontoise = Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, city: pontoise, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_pontoise, org_spip_95]) do |convict|
+convict_pontoise = Convict.create!(no_phone: true, city: pontoise, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_pontoise, org_spip_95]) do |convict|
   convict.first_name = Faker::Name.first_name
   convict.last_name = Faker::Name.last_name
 end
 
-convict_versailles = Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, city: versailles, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_versailles, org_spip_78]) do |convict|
+convict_versailles = Convict.create!(no_phone: true, city: versailles, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_versailles, org_spip_78]) do |convict|
   convict.first_name = Faker::Name.first_name
   convict.last_name = Faker::Name.last_name
 end
 
-convict_chartres = Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, city: chartres, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_chartres, org_spip_28]) do |convict|
+convict_chartres = Convict.create!(no_phone: true, city: chartres, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_chartres, org_spip_28]) do |convict|
   convict.first_name = Faker::Name.first_name
   convict.last_name = Faker::Name.last_name
 end
 
-convict_nanterre = Convict.create!(phone: Faker::PhoneNumber.unique.cell_phone, city: nanterre, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_nanterre, org_spip_92]) do |convict|
+convict_nanterre = Convict.create!(no_phone: true, city: nanterre, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_nanterre, org_spip_92]) do |convict|
   convict.first_name = Faker::Name.first_name
   convict.last_name = Faker::Name.last_name
 end

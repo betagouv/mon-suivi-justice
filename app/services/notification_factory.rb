@@ -2,7 +2,6 @@ module NotificationFactory
   class << self
     def perform(appointment)
       notif_types = select_notification_types(appointment)
-
       notif_types.each do |notif_type|
         template = setup_template(notif_type.template)
 
