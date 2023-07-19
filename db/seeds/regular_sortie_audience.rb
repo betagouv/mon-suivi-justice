@@ -21,8 +21,8 @@ PlaceAppointmentType.find_or_create_by!(place: place_tj_bordeaux, appointment_ty
 PlaceAppointmentType.find_or_create_by!(place: place_tj_bordeaux, appointment_type: apt_type_rdv_suivi_jap)
 
 
-agenda_spip_bordeaux = Agenda.find_or_create_by!(place: place_spip_33_bordeaux, name: "Agenda SPIP St Brieuc")
-agenda_tj_bordeaux = Agenda.find_or_create_by!(place: place_tj_bordeaux, name: "Agenda TJ St Brieuc")
+agenda_spip_bordeaux = Agenda.find_or_create_by!(place: place_spip_33_bordeaux, name: "Agenda SPIP Bordeaux")
+agenda_tj_bordeaux = Agenda.find_or_create_by!(place: place_tj_bordeaux, name: "Agenda TJ Bordeaux")
 
 Slot.create!(agenda: agenda_tj_bordeaux, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
 Slot.create!(agenda: agenda_spip_bordeaux, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_spip)

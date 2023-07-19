@@ -176,7 +176,7 @@ class Appointment < ApplicationRecord
       appointment.transaction do
         NotificationFactory.perform(appointment)
         appointment.summon_notif.send_now if send_sms?(transition)
-        appointment.reminder_notif.program
+        appointment.reminder_notif&.program
       end
     end
 
