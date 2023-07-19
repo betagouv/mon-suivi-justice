@@ -1,0 +1,7 @@
+{
+  "jobs": [
+    {
+      "command": "0 0 * * * copy_db_to_scalingo.sh"
+    }
+  ]
+}
