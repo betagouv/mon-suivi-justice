@@ -1,25 +1,15 @@
 require 'faker'
+require_relative '../seed_utils.rb'
 
-org_tj_pontoise = Organization.find_or_create_by!(name: 'TJ Pontoise', organization_type: 'tj', use_inter_ressort: true)
-org_tj_versailles = Organization.find_or_create_by!(name: 'TJ Versailles', organization_type: 'tj', use_inter_ressort: true)
-org_tj_nanterre = Organization.find_or_create_by!(name: 'TJ Nanterre', organization_type: 'tj', use_inter_ressort: true)
-org_tj_chartres = Organization.find_or_create_by!(name: 'TJ Chartres', organization_type: 'tj', use_inter_ressort: true)
+org_tj_pontoise = create_tj(name: 'TJ Pontoise', use_inter_ressort: true)
+org_tj_versailles = create_tj(name: 'TJ Versailles', use_inter_ressort: true)
+org_tj_nanterre = create_tj(name: 'TJ Nanterre', use_inter_ressort: true)
+org_tj_chartres = create_tj(name: 'TJ Chartres', use_inter_ressort: true)
 
-org_spip_95 = Organization.find_or_create_by!(name: 'SPIP 95', organization_type: 'spip') do |org|
-  org.tjs = [org_tj_pontoise]
-end
-
-org_spip_92 = Organization.find_or_create_by!(name: 'SPIP 92', organization_type: 'spip') do |org|
-  org.tjs = [org_tj_nanterre]
-end
-
-org_spip_28 = Organization.find_or_create_by!(name: 'SPIP 28', organization_type: 'spip') do |org|
-  org.tjs = [org_tj_chartres]
-end
-
-org_spip_78 = Organization.find_or_create_by!(name: 'SPIP 78', organization_type: 'spip') do |org|
-  org.tjs = [org_tj_versailles]
-end
+org_spip_95 = create_spip(name: "SPIP 95", tjs: org_tj_pontoise)
+org_spip_92 = create_spip(name: "SPIP 92", tjs: org_tj_nanterre)
+org_spip_28 = create_spip(name: "SPIP 28", tjs: org_tj_chartres)
+org_spip_78 = create_spip(name: "SPIP 78", tjs: org_tj_versailles)
 
 srj_spip_95 = SrjSpip.find_or_create_by!(name: "Service Pénitentiaire d'Insertion et de Probation du Val d'Oise", organization: org_spip_95)
 srj_spip_78 = SrjSpip.find_or_create_by!(name: "Antenne de Versailles-Bois-d'Arcy du Service Pénitentiaire d'Insertion et de Probation des Yvelines", organization: org_spip_78)
@@ -76,70 +66,32 @@ slot_tj_nanterre = Slot.create(agenda: agenda_tj_nanterre, starting_time: Time.z
 slot_tj_chartres = Slot.create(agenda: agenda_tj_chartres, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_sap)
 
 slot_spip_92 = Slot.create(agenda: agenda_spip_92, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
-slot_spip_95 =Slot.create(agenda: agenda_spip_95, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
-slot_spip_28 =Slot.create(agenda: agenda_spip_28, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
 slot_spip_78 = Slot.create(agenda: agenda_spip_78, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
+slot_spip_28 =Slot.create(agenda: agenda_spip_28, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
+slot_spip_95 =Slot.create(agenda: agenda_spip_95, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
 
-user_pontoise = User.find_or_create_by!(
-  organization: org_tj_pontoise, email: 'bextjpontoise@example.com', role: :bex
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+bex_pontoise = create_user(organization: org_tj_pontoise, role: :bex, email:'bextjpontoise@example.com')
+bex_versaille = create_user(organization: org_tj_versailles, role: :bex, email: 'bextjversailles@example.com')
+bex_chartres = create_user(organization: org_tj_chartres, role: :bex, email: 'bextjchartres@example.com')
+bex_nanterre = create_user(organization: org_tj_nanterre, role: :bex, email: 'bextjnanterre@example.com')
 
-user_versaille = User.find_or_create_by!(
-  organization: org_tj_versailles, email: 'bextjversailles@example.com', role: :bex
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+cpip_95 = create_user(organization: org_spip_95, role: :cpip, email: 'cpip95@example.com')
+cpip_78 = create_user(organization: org_spip_78, role: :cpip, email: 'cpip78@example.com')
+cpip_28 = create_user(organization: org_spip_28, role: :cpip, email: 'cpip28@example.com')
+cpip_92 = create_user(organization: org_spip_92, role: :cpip, email: 'cpip92@example.com')
 
-user_chartres = User.find_or_create_by!(
-  organization: org_tj_chartres, email: 'bextjchartres@example.com', role: :bex
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+convict_pontoise = create_convict(organizations: [org_tj_pontoise, org_spip_95], city: pontoise)
+convict_versailles = create_convict(organizations: [org_tj_versailles, org_spip_78], city: versailles)
+convict_chartres = create_convict(organizations: [org_tj_chartres, org_spip_28], city: chartres)
+convict_nanterre = create_convict(organizations: [org_tj_nanterre, org_spip_92], city: nanterre)
 
-user_nanterre = User.find_or_create_by!(
-  organization: org_tj_nanterre, email: 'bextjnanterre@example.com', role: :bex
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+Appointment.create!(slot: slot_tj_pontoise, convict: convict_pontoise, inviter_user_id: bex_pontoise.id).book(send_notification: false)
+Appointment.create!(slot: slot_tj_versailles, convict: convict_versailles, inviter_user_id: bex_versaille.id).book(send_notification: false)
+Appointment.create!(slot: slot_tj_chartres, convict: convict_chartres, inviter_user_id: bex_chartres.id).book(send_notification: false)
+Appointment.create!(slot: slot_tj_nanterre, convict: convict_nanterre, inviter_user_id: bex_nanterre.id).book(send_notification: false)
 
-
-Faker::Config.locale = 'fr'
-convict_pontoise = Convict.create!(no_phone: true, city: pontoise, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_pontoise, org_spip_95]) do |convict|
-  convict.first_name = Faker::Name.first_name
-  convict.last_name = Faker::Name.last_name
-end
-
-convict_versailles = Convict.create!(no_phone: true, city: versailles, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_versailles, org_spip_78]) do |convict|
-  convict.first_name = Faker::Name.first_name
-  convict.last_name = Faker::Name.last_name
-end
-
-convict_chartres = Convict.create!(no_phone: true, city: chartres, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_chartres, org_spip_28]) do |convict|
-  convict.first_name = Faker::Name.first_name
-  convict.last_name = Faker::Name.last_name
-end
-
-convict_nanterre = Convict.create!(no_phone: true, city: nanterre, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989), organizations: [org_tj_nanterre, org_spip_92]) do |convict|
-  convict.first_name = Faker::Name.first_name
-  convict.last_name = Faker::Name.last_name
-end
-
-Appointment.create!(slot: slot_tj_pontoise, convict: convict_pontoise, inviter_user_id: user_pontoise.id).book(send_notification: false)
-Appointment.create!(slot: slot_tj_versailles, convict: convict_versailles, inviter_user_id: user_versaille.id).book(send_notification: false)
-Appointment.create!(slot: slot_tj_chartres, convict: convict_chartres, inviter_user_id: user_chartres.id).book(send_notification: false)
-Appointment.create!(slot: slot_tj_nanterre, convict: convict_nanterre, inviter_user_id: user_nanterre.id).book(send_notification: false)
+Appointment.create!(slot: slot_spip_95, convict: convict_pontoise, inviter_user_id: cpip_95.id).book(send_notification: false)
+Appointment.create!(slot: slot_spip_78, convict: convict_versailles, inviter_user_id: cpip_78.id).book(send_notification: false)
+Appointment.create!(slot: slot_spip_28, convict: convict_chartres, inviter_user_id: cpip_28.id).book(send_notification: false)
+Appointment.create!(slot: slot_spip_92, convict: convict_nanterre, inviter_user_id: cpip_92.id).book(send_notification: false)
 
