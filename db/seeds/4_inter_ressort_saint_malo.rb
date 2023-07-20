@@ -7,10 +7,10 @@ org_spip_22_guingamp = create_spip(name: 'SPIP 22 - Guingamp', tjs: [org_tj_st_b
 
 srj_spip_st_brieuc = SrjSpip.find_or_create_by!(name: "Antenne de Saint-Brieuc du Service Pénitentiaire d'Insertion et de Probation des Côtes d'Armor", organization: org_spip_22_st_brieuc)
 srj_tj_st_brieuc = SrjTj.find_or_create_by!(name: "Tribunal judiciaire de Saint-Brieuc", organization: org_tj_st_brieuc)
-City.find_or_create_by!(name: 'Saint-Brieuc', zipcode: '22000', code_insee: '22278', city_id: '41783', srj_tj: srj_tj_st_brieuc, srj_spip: srj_spip_st_brieuc)
+st_brieuc = City.find_or_create_by!(name: 'Saint-Brieuc', zipcode: '22000', code_insee: '22278', city_id: '41783', srj_tj: srj_tj_st_brieuc, srj_spip: srj_spip_st_brieuc)
 
 srj_tj_st_malo = SrjTj.find_or_create_by!(name: "Tribunal judiciaire de Saint-Malo", organization: org_tj_st_malo)
-City.find_or_create_by!(name: 'Saint-Malo', zipcode: '35400', code_insee: '35288', city_id: '42431', srj_tj: srj_tj_st_malo)
+st_malo = City.find_or_create_by!(name: 'Saint-Malo', zipcode: '35400', code_insee: '35288', city_id: '42431', srj_tj: srj_tj_st_malo)
 
 srj_spip_guingamp = SrjSpip.find_or_create_by!(name: "Antenne de Guingamp du Service Pénitentiaire d'Insertion et de Probation des Côtes d'Armor", organization: org_spip_22_guingamp)
 City.find_or_create_by!(name: 'Guingamp', zipcode: '22200', code_insee: '22070', city_id: '41556', srj_tj: srj_tj_st_brieuc, srj_spip: srj_spip_guingamp)
@@ -30,30 +30,22 @@ agenda_spip_st_brieuc = Agenda.find_or_create_by!(place: place_spip_22_st_brieuc
 agenda_tj_st_brieuc = Agenda.find_or_create_by!(place: place_tj_st_brieuc, name: "Agenda TJ St Brieuc")
 agenda_tj_st_malo = Agenda.find_or_create_by!(place: place_tj_st_malo, name: "Agenda TJ St Malo")
 
-Slot.create!(agenda: agenda_tj_st_brieuc, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
-Slot.create!(agenda: agenda_tj_st_malo, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
-Slot.create!(agenda: agenda_spip_st_brieuc, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_spip)
+slot_tj_st_brieuc = Slot.create!(agenda: agenda_tj_st_brieuc, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
+slot_tj_st_malo = Slot.create!(agenda: agenda_tj_st_malo, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
+slot_spip_22 = Slot.create!(agenda: agenda_spip_st_brieuc, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_spip)
 
-create_user(
-  organization: org_spip_22_st_brieuc, email: 'cpip22stbrieuc@example.com', role: :cpip
-)
+cpip_22 = create_user(organization: org_spip_22_st_brieuc, email: 'cpip22stbrieuc@example.com', role: :cpip)
+create_user(organization: org_spip_22_st_brieuc, email: 'localadmin22stbrieuc@example.com', role: :local_admin)
+bex_tj_st_brieuc = create_user(organization: org_tj_st_brieuc, email: 'bexstbrieuc@example.com', role: :bex)
+create_user(organization: org_tj_st_brieuc, email: 'localadmintjstbrieuc@example.com', role: :local_admin)
+bex_tj_st_malo = create_user(organization: org_tj_st_malo, email: 'bexstmalo@example.com', role: :bex)
+create_user(organization: org_tj_st_malo, email: 'localadmintjstmalo@example.com', role: :local_admin)
+cpip_guingamp = create_user(organization: org_spip_22_guingamp, email: 'cpipguingamp@example.com', role: :cpip)
 
-create_user(
-  organization: org_spip_22_st_brieuc, email: 'localadmin22stbrieuc@example.com', role: :local_admin
-)
+convict_st_brieuc = create_convict(organizations: [org_tj_st_brieuc, org_spip_22_st_brieuc, org_tj_st_malo], city: st_brieuc)
+convict_st_malo = create_convict(organizations: [org_tj_st_brieuc, org_spip_22_st_brieuc, org_tj_st_malo], city: st_malo)
 
-create_user(
-  organization: org_tj_st_brieuc, email: 'bexstbrieuc@example.com', role: :bex
-)
+Appointment.create!(slot: slot_tj_st_brieuc, convict: convict_st_brieuc, inviter_user_id: bex_tj_st_brieuc.id).book(send_notification: false)
+Appointment.create!(slot: slot_spip_22, convict: convict_st_brieuc, inviter_user_id: cpip_22.id).book(send_notification: false)
+Appointment.create!(slot: slot_tj_st_malo, convict: convict_st_malo, inviter_user_id: bex_tj_st_malo.id).book(send_notification: false)
 
-create_user(
-  organization: org_tj_st_brieuc, email: 'localadmintjstbrieuc@example.com', role: :local_admin
-)
-
-create_user(
-  organization: org_tj_st_malo, email: 'bexstmalo@example.com', role: :bex
-)
-
-create_user(
-  organization: org_tj_st_malo, email: 'localadmintjstmalo@example.com', role: :local_admin
-)
