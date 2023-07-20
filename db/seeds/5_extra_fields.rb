@@ -1,10 +1,7 @@
-require 'faker'
+require_relative '../seed_utils.rb'
 
-
-org_spip_37_tours = Organization.find_or_create_by!(name: 'SPIP 37 - Tours', organization_type: 'spip')
-org_tj_tours = Organization.find_or_create_by!(name: 'TJ Tours', organization_type: 'tj') do |org|
-  org.spips = [org_spip_37_tours]
-end
+org_tj_tours = create_tj(name: 'TJ Tours')
+org_spip_37_tours = create_spip(name: 'SPIP 37 - Tours', tjs: org_tj_tours)
 
 place_spip_37_tours = Place.find_or_create_by!(organization_id: org_spip_37_tours.id, name: "SPIP 37 - Tours", adress: "2 rue Albert Dennery BP 2603, 37000 Tours", phone: '+33606060606')
 place_tj_tours = Place.find_or_create_by!(organization_id: org_tj_tours.id, name: "TJ Tours", adress: "2 PLACE JEAN-JAURES 37928 Tours", phone: '+33606060606')
@@ -20,42 +17,21 @@ agenda_tj = Agenda.find_or_create_by!(place: place_tj_tours, name: "Agenda TJ To
 
 Slot.create!(agenda: agenda_tj, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
 
-User.find_or_create_by!(
+create_user(
   organization: org_spip_37_tours, email: 'cpip37tours@example.com', role: :cpip
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+)
 
-User.find_or_create_by!(
+create_user(
   organization: org_spip_37_tours, email: 'localadmin37tours@example.com', role: :local_admin
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+)
 
-User.find_or_create_by!(
-  organization: org_tj_tours, email: 'bextours@example.com', role: :bex
-  
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+create_user(
+  organization: org_tj_tours, email: 'bextours@example.com', role: :bex 
+)
 
-User.find_or_create_by!(
+create_user(
   organization: org_tj_tours, email: 'localadmintjtours@example.com', role: :local_admin
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+)
 
 ExtraField.find_or_create_by!(name: 'Transmission PAP à EP', data_type: :date, scope: :appointment_update, organization: org_tj_tours) do |extra_field|
   extra_field.appointment_types = [apt_type_sortie_audience_sap, apt_type_sortie_audience_spip]

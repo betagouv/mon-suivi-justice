@@ -24,8 +24,8 @@ def create_convict(organizations:, city: nil)
   end
 end
 
-def create_spip(name:, tjs: []) 
-  Organization.find_or_create_by!(name: name, organization_type: :spip) do |org|
+def create_spip(name:, tjs: [], headquarter: nil)
+  Organization.find_or_create_by!(name: name, organization_type: :spip, headquarter: headquarter) do |org|
     org.tjs = tjs.is_a?(Array) ? tjs : [tjs]
   end
 end

@@ -1,13 +1,9 @@
-require 'faker'
+require_relative '../seed_utils.rb'
 
-org_tj_st_brieuc = Organization.find_or_create_by!(name: 'TJ St Brieuc', organization_type: 'tj', use_inter_ressort: true)
-org_tj_st_malo = Organization.find_or_create_by!(name: 'TJ St Malo', organization_type: 'tj', use_inter_ressort: true)
-org_spip_22_st_brieuc = Organization.find_or_create_by!(name: 'SPIP 22 - St Brieuc', organization_type: 'spip') do |org|
-  org.tjs = [org_tj_st_brieuc, org_tj_st_malo]
-end
-org_spip_22_guingamp = Organization.find_or_create_by!(name: 'SPIP 22 - Guingamp', organization_type: 'spip') do |org|
-  org.tjs = [org_tj_st_brieuc]
-end
+org_tj_st_brieuc = create_tj(name: 'TJ St Brieuc', use_inter_ressort: true)
+org_tj_st_malo = create_tj(name: 'TJ St Malo', use_inter_ressort: true)
+org_spip_22_st_brieuc = create_spip(name: 'SPIP 22 - St Brieuc', tjs: [org_tj_st_brieuc, org_tj_st_malo])
+org_spip_22_guingamp = create_spip(name: 'SPIP 22 - Guingamp', tjs: [org_tj_st_brieuc])
 
 srj_spip_st_brieuc = SrjSpip.find_or_create_by!(name: "Antenne de Saint-Brieuc du Service Pénitentiaire d'Insertion et de Probation des Côtes d'Armor", organization: org_spip_22_st_brieuc)
 srj_tj_st_brieuc = SrjTj.find_or_create_by!(name: "Tribunal judiciaire de Saint-Brieuc", organization: org_tj_st_brieuc)
@@ -38,56 +34,26 @@ Slot.create!(agenda: agenda_tj_st_brieuc, starting_time: Time.zone.now, date: Da
 Slot.create!(agenda: agenda_tj_st_malo, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
 Slot.create!(agenda: agenda_spip_st_brieuc, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_spip)
 
-User.find_or_create_by!(
+create_user(
   organization: org_spip_22_st_brieuc, email: 'cpip22stbrieuc@example.com', role: :cpip
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+)
 
-User.find_or_create_by!(
+create_user(
   organization: org_spip_22_st_brieuc, email: 'localadmin22stbrieuc@example.com', role: :local_admin
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+)
 
-User.find_or_create_by!(
+create_user(
   organization: org_tj_st_brieuc, email: 'bexstbrieuc@example.com', role: :bex
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+)
 
-User.find_or_create_by!(
+create_user(
   organization: org_tj_st_brieuc, email: 'localadmintjstbrieuc@example.com', role: :local_admin
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+)
 
-User.find_or_create_by!(
+create_user(
   organization: org_tj_st_malo, email: 'bexstmalo@example.com', role: :bex
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+)
 
-User.find_or_create_by!(
+create_user(
   organization: org_tj_st_malo, email: 'localadmintjstmalo@example.com', role: :local_admin
-) do |user|
-  user.password = ENV["DUMMY_PASSWORD"]
-  user.password_confirmation = ENV["DUMMY_PASSWORD"]
-  user.first_name = Faker::Name.first_name
-  user.last_name = Faker::Name.last_name
-end
+)

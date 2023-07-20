@@ -1,4 +1,3 @@
-require 'faker'
 require_relative '../seed_utils.rb'
 
 org_tj_pontoise = create_tj(name: 'TJ Pontoise', use_inter_ressort: true)
