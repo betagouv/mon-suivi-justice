@@ -21,10 +21,11 @@ PlaceAppointmentType.find_or_create_by!(place: place_tj_bordeaux, appointment_ty
 agenda_spip_bordeaux = Agenda.find_or_create_by!(place: place_spip_33_bordeaux, name: "Agenda SPIP Bordeaux")
 agenda_tj_bordeaux = Agenda.find_or_create_by!(place: place_tj_bordeaux, name: "Agenda TJ Bordeaux")
 
-Slot.create!(agenda: agenda_tj_bordeaux, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
-Slot.create!(agenda: agenda_spip_bordeaux, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_spip)
+slot_bdx_sap = Slot.create!(agenda: agenda_tj_bordeaux, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
+slot_bdx_spip = Slot.create!(agenda: agenda_spip_bordeaux, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_spip)
+slot_bdx_spip_suivi = Slot.create!(agenda: agenda_spip_bordeaux, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:wednesday), appointment_type: apt_type_rdv_suivi_spip)
 
-create_user(
+cpip_bdx = create_user(
   organization: org_spip_33_bordeaux, 
   email: 'cpip33bdx@example.com', 
   role: :cpip
@@ -36,7 +37,7 @@ create_user(
   role: :local_admin
 )
 
-create_user(
+bex_bdx = create_user(
   organization: org_tj_bordeaux, 
   email: 'bextjbdx@example.com', 
   role: :bex
@@ -54,7 +55,11 @@ SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_t
 
 SlotFactory.perform
 
+convict_bdx_1 = create_convict(organizations: [org_tj_bordeaux, org_spip_33_bordeaux])
+convict_bdx_2 = create_convict(organizations: [org_tj_bordeaux, org_spip_33_bordeaux])
 create_convict(organizations: [org_tj_bordeaux, org_spip_33_bordeaux])
 create_convict(organizations: [org_tj_bordeaux, org_spip_33_bordeaux])
-create_convict(organizations: [org_tj_bordeaux, org_spip_33_bordeaux])
-create_convict(organizations: [org_tj_bordeaux, org_spip_33_bordeaux])
+
+Appointment.create!(slot: slot_bdx_sap, convict: convict_bdx_1, inviter_user_id: bex_bdx.id).book(send_notification: false)
+Appointment.create!(slot: slot_bdx_spip, convict: convict_bdx_1, inviter_user_id: bex_bdx.id).book(send_notification: false)
+Appointment.create!(slot: slot_bdx_spip_suivi, convict: convict_bdx_2, inviter_user_id: cpip_bdx.id, user: cpip_bdx, creating_organization: org_spip_33_bordeaux).book(send_notification: false)
