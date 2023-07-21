@@ -46,6 +46,14 @@ class Place < ApplicationRecord
       .where(organizations: { organization_type: 'spip' })
   }
 
+  def transfer_in
+    return self[:transfer_in] if self[:transfer_in].present? && self[:transfer_in].pending?
+  end
+
+  def transfer_out
+    return self[:transfer_out] if self[:transfer_out].present? && self[:transfer_out].pending?
+  end
+
   def multiple_agendas?
     agendas.count > 1
   end
