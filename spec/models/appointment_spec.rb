@@ -18,6 +18,24 @@ RSpec.describe Appointment, type: :model do
     )
   }
 
+  it 'should free the slot when appointment is destroyed' do
+    orga = create(:organization)
+    slot = create(:slot, capacity: 1)
+    convict = create(:convict, organizations: [orga])
+    appointment = create(:appointment, convict: convict, slot: slot)
+    appointment.book(send_notification: false)
+    slot.reload
+
+    expect(slot.full?).to eq(true)
+    expect(slot.used_capacity).to eq(1)
+
+    convict.destroy!
+
+    slot.reload
+    expect(slot.full?).to eq(false)
+    expect(slot.used_capacity).to eq(0)
+  end
+
   describe 'state machine' do
     before do
       allow(subject).to receive(:summon_notif)

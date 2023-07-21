@@ -2,6 +2,11 @@ class Appointment < ApplicationRecord
   include TransfertValidator
   has_paper_trail
 
+  after_destroy do |appointment|
+    appointment.slot.decrement!(:used_capacity, 1)
+    appointment.slot.update(full: false) if appointment.slot.all_capacity_used? == false
+  end
+
   belongs_to :convict
   belongs_to :slot
   belongs_to :user, optional: true
@@ -176,7 +181,7 @@ class Appointment < ApplicationRecord
       appointment.transaction do
         NotificationFactory.perform(appointment)
         appointment.summon_notif.send_now if send_sms?(transition)
-        appointment.reminder_notif.program
+        appointment.reminder_notif&.program
       end
     end
 
