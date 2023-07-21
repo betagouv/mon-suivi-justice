@@ -59,4 +59,18 @@ module ApplicationHelper
 
     list
   end
+
+  def next_valid_day(date: Date.today, day: nil)
+    if day.nil?
+      valid_day = date.tomorrow
+      valid_day = valid_day.tomorrow while valid_day.on_weekend? || Holidays.on(valid_day, :fr)
+    else
+      return if date.next_occurring(day).on_weekend?
+
+      valid_day = date.next_occurring(day)
+      valid_day = valid_day.next_occurring(day) while Holidays.on(valid_day, :fr)
+    end
+
+    valid_day
+  end
 end
