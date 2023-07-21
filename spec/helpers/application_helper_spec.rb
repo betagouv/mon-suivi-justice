@@ -8,8 +8,8 @@ describe ApplicationHelper do
       it 'returns the next valid day, skipping weekends and French holidays' do
         allow(Date).to receive(:today).and_return(Date.new(2023, 7, 21)) # Friday
 
-        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 24), :fr).and_return(true) # Monday
-        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 25), :fr).and_return(false) # Tuesday
+        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 24), :fr).and_return([{ name: 'a holiday' }]) # Monday
+        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 25), :fr).and_return([]) # Tuesday
 
         valid_day = next_valid_day
 
@@ -19,8 +19,8 @@ describe ApplicationHelper do
 
     context 'when a specific day parameter is given' do
       it 'returns the next valid day, skipping French holidays' do
-        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 24), :fr).and_return(true)
-        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 31), :fr).and_return(false)
+        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 24), :fr).and_return([{ name: 'a holiday' }])
+        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 31), :fr).and_return([])
 
         valid_day = next_valid_day(date: Date.new(2023, 7, 21), day: :monday)
 
