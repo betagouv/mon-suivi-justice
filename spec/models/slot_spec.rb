@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Slot, type: :model do
+  include ApplicationHelper
   subject { build(:slot) }
 
   it { should belong_to(:slot_type).optional(true) }
@@ -68,14 +69,18 @@ RSpec.describe Slot, type: :model do
         let(:agenda) { create(:agenda) }
         let(:place) { create(:place, agendas: [agenda]) }
         it 'is not valid if slot after transfert' do
-          create(:place_transfert, old_place: place, date: Date.tomorrow)
-          slot = build(:slot, agenda: place.agendas.first, date: Date.tomorrow.next_occurring(:monday))
+          transfert_date = next_valid_day(date: Date.today)
+          after_transfert_date = next_valid_day(date: transfert_date, day: :monday)
+          create(:place_transfert, old_place: place, date: transfert_date)
+          slot = build(:slot, agenda: place.agendas.first, date: after_transfert_date)
 
           expect(slot).to_not be_valid
         end
         it 'is valid if slot before transfert' do
-          create(:place_transfert, old_place: place, date: Date.tomorrow)
-          slot = build(:slot, agenda: place.agendas.first, date: Date.today)
+          slot_date = next_valid_day(day: :monday)
+          transfert_date = next_valid_day(date: slot_date)
+          create(:place_transfert, old_place: place, date: transfert_date)
+          slot = build(:slot, agenda: place.agendas.first, date: slot_date)
 
           expect(slot).to be_valid
         end
@@ -84,14 +89,18 @@ RSpec.describe Slot, type: :model do
         let(:agenda) { create(:agenda) }
         let(:place) { create(:place, agendas: [agenda]) }
         it 'is not valid if slot before transfert' do
-          create(:place_transfert, new_place: place, date: Date.tomorrow)
-          slot = build(:slot, agenda: place.agendas.first, date: Date.today)
+          slot_date = next_valid_day(day: :monday)
+          transfert_date = next_valid_day(date: slot_date)
+          create(:place_transfert, new_place: place, date: transfert_date)
+          slot = build(:slot, agenda: place.agendas.first, date: slot_date)
 
           expect(slot).to_not be_valid
         end
         it 'is valid if slot after transfert' do
-          create(:place_transfert, new_place: place, date: Date.tomorrow)
-          slot = build(:slot, agenda: place.agendas.first, date: Date.tomorrow.next_occurring(:monday))
+          transfert_date = next_valid_day(date: Date.today)
+          after_transfert_date = next_valid_day(date: transfert_date, day: :monday)
+          create(:place_transfert, new_place: place, date: transfert_date)
+          slot = build(:slot, agenda: place.agendas.first, date: after_transfert_date)
 
           expect(slot).to be_valid
         end

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Bex', type: :feature do
+  include ApplicationHelper
   # before do
   #   @department = create :department
   #   @organization = create :organization, organization_type: 'tj'
@@ -31,24 +32,24 @@ RSpec.feature 'Bex', type: :feature do
 
       slot1 = create(:slot, :without_validations, agenda: agenda1,
                                                   appointment_type: apt_type,
-                                                  date: Date.today.next_occurring(:friday),
+                                                  date: next_valid_day(day: :friday),
                                                   starting_time: '10h')
 
       slot2 = create(:slot, :without_validations, agenda: agenda2,
                                                   appointment_type: apt_type,
-                                                  date: Date.today.next_occurring(:friday),
+                                                  date: next_valid_day(day: :friday),
                                                   starting_time: '17h',
                                                   capacity: 2)
 
       slot3 = create(:slot, :without_validations, agenda: agenda2,
                                                   appointment_type: apt_type2,
-                                                  date: Date.today.next_occurring(:friday),
+                                                  date: next_valid_day(day: :friday),
                                                   starting_time: '12h',
                                                   capacity: 2)
 
       slot4 = create(:slot, :without_validations, agenda: agenda3,
                                                   appointment_type: apt_type2,
-                                                  date: Date.today.next_occurring(:friday),
+                                                  date: next_valid_day(day: :friday),
                                                   starting_time: '12h',
                                                   capacity: 2)
 
@@ -121,18 +122,18 @@ RSpec.feature 'Bex', type: :feature do
 
       slot1 = create(:slot, :without_validations, agenda: agenda,
                                                   appointment_type: apt_type,
-                                                  date: Time.zone.today.next_occurring(:tuesday),
+                                                  date: next_valid_day(day: :tuesday),
                                                   starting_time: '8h',
                                                   capacity: 2)
 
       slot2 = create(:slot, :without_validations, agenda: agenda,
                                                   appointment_type: apt_type,
-                                                  date: Time.zone.today.next_occurring(:friday) + 1.month,
+                                                  date: next_valid_day(day: :friday) + 1.month,
                                                   starting_time: '15h')
 
       slot3 = create(:slot, :without_validations, agenda: agenda,
                                                   appointment_type: apt_type2,
-                                                  date: Time.zone.today.next_occurring(:tuesday),
+                                                  date: next_valid_day(day: :tuesday),
                                                   starting_time: '15h')
 
       current_month_label = (I18n.l slot1.date, format: '%B %Y').capitalize
@@ -196,18 +197,18 @@ RSpec.feature 'Bex', type: :feature do
 
       slot1 = create(:slot, :without_validations, agenda: agenda1,
                                                   appointment_type: apt_type,
-                                                  date: Date.today.next_occurring(:tuesday),
+                                                  date: next_valid_day(day: :tuesday),
                                                   starting_time: '10h')
 
       slot2 = create(:slot, :without_validations, agenda: agenda2,
                                                   appointment_type: apt_type,
-                                                  date: Date.today.next_occurring(:tuesday),
+                                                  date: next_valid_day(day: :tuesday),
                                                   starting_time: '17h',
                                                   capacity: 2)
 
       slot3 = create(:slot, :without_validations, agenda: agenda3,
                                                   appointment_type: apt_type2,
-                                                  date: Date.today.next_occurring(:tuesday),
+                                                  date: next_valid_day(day: :tuesday),
                                                   starting_time: '12h',
                                                   capacity: 2)
 
