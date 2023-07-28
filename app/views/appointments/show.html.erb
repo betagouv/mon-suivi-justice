@@ -91,7 +91,7 @@
                 <strong><%= t('appointments.show.inviter_user_role') %></strong> :   
                 <% if @appointment.origin_department.present? %>
                   <%= t("activerecord.attributes.appointment.origin_departments.#{@appointment.origin_department}") %>
-                <% elsif @appointment.inviter_user_id.present? %>
+                <% elsif @appointment.inviter_user_id.present? && User.find_by(id: @appointment.inviter_user_id).present? %>
                   <% user = User.find(@appointment.inviter_user_id) %>
                   <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
                 <% end %>
