@@ -3,7 +3,7 @@ require 'rails_helper'
 describe UserServiceSwitchPolicy do
   subject { described_class.new(user, nil) }
 
-  let(:organization) { build(:organization, organization_type: "spip") }
+  let(:organization) { build(:organization, organization_type: 'spip') }
 
   context 'for an admin' do
     let(:user) { build(:user, organization: organization, role: 'admin') }
