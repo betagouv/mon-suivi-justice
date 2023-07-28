@@ -45,7 +45,7 @@
                                                   wrapper_html: { class: 'form-checkbox-wrapper'} %>
             <% end %>
 
-            <% if (@user.local_admin_spip? || @user.overseer? || @user.psychologist?) && @user.headquarter.present? %>
+            <% if UserServiceSwitchPolicy.new(@user, nil).create? %>
               <%= f.association :organization, collection: @user.headquarter.organizations, include_blank: false %>
             <% end %>
 
