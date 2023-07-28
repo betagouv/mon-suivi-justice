@@ -14,6 +14,20 @@ def create_user(organization:, role:, email: Faker::Internet.email, headquarter:
   end
 end
 
+def create_admin(email:, first_name:, last_name:)
+  organization = Organization.find_or_create_by!(name: 'TJ Paris', organization_type: 'tj')
+  User.find_or_create_by!(
+    organization: organization,
+    email: email,
+    role: :admin,
+    first_name: first_name,
+    last_name: last_name
+  ) do |user|
+    user.password = ENV["DUMMY_ADMIN_PASSWORD"]
+    user.password_confirmation = ENV["DUMMY_ADMIN_PASSWORD"]
+  end
+end
+
 def create_convict(organizations:, city: nil)
   Faker::Config.locale = 'fr'
   Convict.create!(city: city, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989)) do |convict|
