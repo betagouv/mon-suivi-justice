@@ -6,7 +6,7 @@ describe ApplicationHelper do
   describe '#next_valid_day' do
     context 'when no day parameter is given' do
       it 'returns the next valid day, skipping weekends and French holidays' do
-        allow(Date).to receive(:today).and_return(Date.new(2023, 7, 21)) # Friday
+        allow(Time.zone).to receive(:today).and_return(Date.new(2023, 7, 21)) # Friday
 
         allow(Holidays).to receive(:on).with(Date.new(2023, 7, 24), :fr).and_return([{ name: 'a holiday' }]) # Monday
         allow(Holidays).to receive(:on).with(Date.new(2023, 7, 25), :fr).and_return([]) # Tuesday

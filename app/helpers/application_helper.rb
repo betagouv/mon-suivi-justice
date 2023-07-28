@@ -60,7 +60,7 @@ module ApplicationHelper
     list
   end
 
-  def next_valid_day(date: Date.today, day: nil)
+  def next_valid_day(date: Time.zone.today, day: nil)
     if day.nil?
       valid_day = date.tomorrow
       valid_day = valid_day.tomorrow while valid_day.on_weekend? || Holidays.on(valid_day, :fr).any?
