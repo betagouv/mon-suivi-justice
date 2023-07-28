@@ -70,7 +70,6 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug', '~> 3.9'
   gem 'launchy', '~> 2.4', '>= 2.4.3'
-  gem 'faker'
 end
 
 group :development do
@@ -105,3 +104,4 @@ gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3'
 gem 'administrate-field-belongs_to_search'
+gem 'faker'
