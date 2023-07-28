@@ -27,7 +27,7 @@ describe ApplicationHelper do
         expect(valid_day).to eq(Date.new(2023, 7, 31))
       end
 
-      it 'returns nil if day paramater falls on a weekend' do
+      it 'returns nil if day parameter falls on a weekend' do
         allow(Date).to receive(:today).and_return(Date.new(2023, 7, 21))
         allow(Holidays).to receive(:on).with(Date.new(2023, 7, 23), :fr).and_return(false)
 
