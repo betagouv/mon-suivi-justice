@@ -70,14 +70,29 @@ slot_spip_28 =Slot.create(agenda: agenda_spip_28, starting_time: Time.zone.now, 
 slot_spip_95 =Slot.create(agenda: agenda_spip_95, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
 
 bex_pontoise = create_user(organization: org_tj_pontoise, role: :bex, email:'bextjpontoise@example.com')
-bex_versaille = create_user(organization: org_tj_versailles, role: :bex, email: 'bextjversailles@example.com')
+bex_versailles = create_user(organization: org_tj_versailles, role: :bex, email: 'bextjversailles@example.com')
 bex_chartres = create_user(organization: org_tj_chartres, role: :bex, email: 'bextjchartres@example.com')
 bex_nanterre = create_user(organization: org_tj_nanterre, role: :bex, email: 'bextjnanterre@example.com')
+
+create_user(organization: org_tj_pontoise, email: 'greffsappontoise@example.com', role: :greff_sap)
+create_user(organization: org_tj_versailles, email: 'greffsapversailles@example.com', role: :greff_sap)
+create_user(organization: org_tj_chartres, email: 'greffsapchartres@example.com', role: :greff_sap)
+create_user(organization: org_tj_nanterre, email: 'greffsapnanterre@example.com', role: :greff_sap)
+
+create_user(organization: org_tj_pontoise, email: 'localadminpontoise@example.com', role: :local_admin)
+create_user(organization: org_tj_versailles, email: 'localadminversailles@example.com', role: :local_admin)
+create_user(organization: org_tj_chartres, email: 'localadminchartres@example.com', role: :local_admin)
+create_user(organization: org_tj_nanterre, email: 'localadminnanterre@example.com', role: :local_admin)
 
 cpip_95 = create_user(organization: org_spip_95, role: :cpip, email: 'cpip95@example.com')
 cpip_78 = create_user(organization: org_spip_78, role: :cpip, email: 'cpip78@example.com')
 cpip_28 = create_user(organization: org_spip_28, role: :cpip, email: 'cpip28@example.com')
 cpip_92 = create_user(organization: org_spip_92, role: :cpip, email: 'cpip92@example.com')
+
+create_user(organization: org_spip_95, role: :local_admin, email: 'localadmin95@example.com')
+create_user(organization: org_spip_78, role: :local_admin, email: 'localadmin78@example.com')
+create_user(organization: org_spip_28, role: :local_admin, email: 'localadmin28@example.com')
+create_user(organization: org_spip_92, role: :local_admin, email: 'localadmin92@example.com')
 
 convict_pontoise = create_convict(organizations: [org_tj_pontoise, org_spip_95], city: pontoise)
 convict_versailles = create_convict(organizations: [org_tj_versailles, org_spip_78], city: versailles)
@@ -85,7 +100,7 @@ convict_chartres = create_convict(organizations: [org_tj_chartres, org_spip_28],
 convict_nanterre = create_convict(organizations: [org_tj_nanterre, org_spip_92], city: nanterre)
 
 Appointment.create!(slot: slot_tj_pontoise, convict: convict_pontoise, inviter_user_id: bex_pontoise.id).book(send_notification: false)
-Appointment.create!(slot: slot_tj_versailles, convict: convict_versailles, inviter_user_id: bex_versaille.id).book(send_notification: false)
+Appointment.create!(slot: slot_tj_versailles, convict: convict_versailles, inviter_user_id: bex_versailles.id).book(send_notification: false)
 Appointment.create!(slot: slot_tj_chartres, convict: convict_chartres, inviter_user_id: bex_chartres.id).book(send_notification: false)
 Appointment.create!(slot: slot_tj_nanterre, convict: convict_nanterre, inviter_user_id: bex_nanterre.id).book(send_notification: false)
 

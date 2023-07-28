@@ -32,6 +32,7 @@ create_user(
 create_user(
   organization: org_tj_tours, email: 'localadmintjtours@example.com', role: :local_admin
 )
+create_user(organization: org_tj_tours, email: 'greffsap_tj_tours@example.com', role: :greff_sap)
 
 ExtraField.find_or_create_by!(name: 'Transmission PAP à EP', data_type: :date, scope: :appointment_update, organization: org_tj_tours) do |extra_field|
   extra_field.appointment_types = [apt_type_sortie_audience_sap, apt_type_sortie_audience_spip]

@@ -44,6 +44,12 @@ bex_bdx = create_user(
 )
 
 create_user(
+  organization: org_tj_bordeaux,
+  email: 'greffsap@example.com',
+  role: :greff_sap
+)
+
+create_user(
   organization: org_tj_bordeaux, 
   email: 'localadmintjbdx@example.com', 
   role: :local_admin

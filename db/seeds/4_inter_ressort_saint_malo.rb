@@ -36,10 +36,15 @@ slot_spip_22 = Slot.create!(agenda: agenda_spip_st_brieuc, starting_time: Time.z
 
 cpip_22 = create_user(organization: org_spip_22_st_brieuc, email: 'cpip22stbrieuc@example.com', role: :cpip)
 create_user(organization: org_spip_22_st_brieuc, email: 'localadmin22stbrieuc@example.com', role: :local_admin)
+
 bex_tj_st_brieuc = create_user(organization: org_tj_st_brieuc, email: 'bexstbrieuc@example.com', role: :bex)
 create_user(organization: org_tj_st_brieuc, email: 'localadmintjstbrieuc@example.com', role: :local_admin)
+create_user(organization: org_tj_st_brieuc, email: 'greffsaptjstbrieuc@example.com', role: :greff_sap)
+
 bex_tj_st_malo = create_user(organization: org_tj_st_malo, email: 'bexstmalo@example.com', role: :bex)
 create_user(organization: org_tj_st_malo, email: 'localadmintjstmalo@example.com', role: :local_admin)
+create_user(organization: org_tj_st_malo, email: 'greffsaptjstmalo@example.com', role: :greff_sap)
+
 cpip_guingamp = create_user(organization: org_spip_22_guingamp, email: 'cpipguingamp@example.com', role: :cpip)
 
 convict_st_brieuc = create_convict(organizations: [org_tj_st_brieuc, org_spip_22_st_brieuc, org_tj_st_malo], city: st_brieuc)
