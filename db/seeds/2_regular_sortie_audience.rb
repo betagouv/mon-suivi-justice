@@ -49,6 +49,18 @@ create_user(
   role: :local_admin
 )
 
+create_user(
+  organization: org_spip_33_bordeaux,
+  email: 'overseer33bdx@example.com',
+  role: :overseer
+)
+
+create_user(
+  organization: org_spip_33_bordeaux,
+  email: 'psy33bdx@example.com',
+  role: :psychologist
+)
+
 SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_bordeaux, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
 SlotType.create(appointment_type: apt_type_sap_ddse, agenda: agenda_spip_bordeaux, week_day: :thursday, starting_time: Time.new(2021, 6, 21, 15, 00, 0), duration: 60, capacity: 5)
 SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_bordeaux, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
