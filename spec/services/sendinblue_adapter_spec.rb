@@ -40,9 +40,9 @@ RSpec.describe SendinblueAdapter do
   describe 'format_data' do
     it 'prepares data for SMS' do
       convict = create(:convict, phone: '0622334455')
-      appointment = create(:appointment, convict: convict)
+      appointment = create(:appointment, convict:)
 
-      notif = create(:notification, appointment: appointment)
+      notif = create(:notification, appointment:)
       notif.content = 'Bonjour'
 
       expected = {

@@ -18,7 +18,7 @@ describe OrganizationPolicy do
   end
 
   context 'for a local_admin' do
-    let(:user) { build(:user, role: 'local_admin', organization: organization) }
+    let(:user) { build(:user, role: 'local_admin', organization:) }
 
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }

@@ -161,7 +161,7 @@ class ConvictsController < ApplicationController
 
     HistoryItemFactory.perform(
       category: 'convict', convict: @convict, event: item_event,
-      data: { old_phone: old_phone, user_name: current_user.name, user_role: current_user.role }
+      data: { old_phone:, user_name: current_user.name, user_role: current_user.role }
     )
   end
 

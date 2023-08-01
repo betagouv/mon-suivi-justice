@@ -39,11 +39,11 @@ class AppointmentsBookingsController < ApplicationController
     @appointment_type = AppointmentType.find(params[:apt_type_id])
     if @appointment_type.with_slot_types?
       redirect_to load_slots_path(place_id: params[:place_id],
-                                  agenda_id: agenda_id,
-                                  all_agendas: all_agendas,
+                                  agenda_id:,
+                                  all_agendas:,
                                   apt_type_id: @appointment_type.id)
     else
-      redirect_to load_slot_fields_path(agenda_id: agenda_id, apt_type_id: @appointment_type.id)
+      redirect_to load_slot_fields_path(agenda_id:, apt_type_id: @appointment_type.id)
     end
   end
 

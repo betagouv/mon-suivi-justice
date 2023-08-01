@@ -28,7 +28,7 @@ module DataCollector
     def appointments_stats
       stats = {
         passed_no_canceled_with_phone: passed_no_canceled_with_phone.size,
-        passed_uninformed_percentage: passed_uninformed_percentage,
+        passed_uninformed_percentage:,
         passed_informed: passed_informed.size
       }
 
@@ -43,9 +43,9 @@ module DataCollector
 
     def appointment_states_stats
       stats = {
-        fulfilled_percentage: fulfilled_percentage,
-        no_show_percentage: no_show_percentage,
-        excused_percentage: excused_percentage
+        fulfilled_percentage:,
+        no_show_percentage:,
+        excused_percentage:
       }
 
       if @full_stats

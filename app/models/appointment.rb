@@ -53,7 +53,7 @@ class Appointment < ApplicationRecord
   }
 
   scope :in_organization, lambda { |organization|
-    joins(slot: { agenda: :place }).where(slots: { agendas: { places: { organization: organization } } })
+    joins(slot: { agenda: :place }).where(slots: { agendas: { places: { organization: } } })
   }
 
   scope :in_jurisdiction, lambda { |user_organization|
@@ -117,7 +117,7 @@ class Appointment < ApplicationRecord
   def add_transfert_error(transfert, attribute, place_name)
     errors.add(:base,
                I18n.t("activerecord.errors.models.appointment.attributes.date.#{attribute}", date: transfert.date,
-                                                                                             place_name: place_name))
+                                                                                             place_name:))
   end
 
   state_machine initial: :created do
@@ -167,8 +167,8 @@ class Appointment < ApplicationRecord
       event = "#{transition.event}_appointment".to_sym
       if HistoryItem.validate_event(event) == true
         HistoryItemFactory.perform(
-          appointment: appointment,
-          event: event,
+          appointment:,
+          event:,
           category: 'appointment'
         )
       end

@@ -15,7 +15,7 @@ RSpec.feature 'Home', type: :feature do
 
     it 'should display a link to a page listing uninformed appointments', logged_in_as: 'jap' do
       place = create :place, organization: @user.organization
-      @agenda = create :agenda, place: place
+      @agenda = create(:agenda, place:)
 
       slot1 = create(:slot, :without_validations, agenda: @agenda, appointment_type: @appointment_type,
                                                   date: Date.civil(2022, 5, 26),
@@ -50,7 +50,7 @@ RSpec.feature 'Home', type: :feature do
 
     it 'should display a link to a page with the user uninformed appointments for cpip users', logged_in_as: 'cpip' do
       place = create :place, organization: @user.organization
-      @agenda = create :agenda, place: place
+      @agenda = create(:agenda, place:)
 
       slot1 = create(:slot, :without_validations, agenda: @agenda, appointment_type: @appointment_type,
                                                   date: Date.civil(2022, 5, 26),

@@ -10,8 +10,8 @@ class SrjImportJob < ApplicationJob
   rescue StandardError => e
     @import_errors.push("Erreur : #{e.message}")
   ensure
-    AdminMailer.with(user: user, import_errors: @import_errors,
-                     import_successes: @import_successes, csv_errors: csv_errors).srj_import_report.deliver_later
+    AdminMailer.with(user:, import_errors: @import_errors,
+                     import_successes: @import_successes, csv_errors:).srj_import_report.deliver_later
   end
 
   def process_srj_data(srj_data)
@@ -33,11 +33,11 @@ class SrjImportJob < ApplicationJob
   def associate_srj(type, srj_name, city)
     if %w[SPIP ALIP].include?(type)
       srj_spip = SrjSpip.find_or_create_by(name: srj_name)
-      city.update(srj_spip: srj_spip)
+      city.update(srj_spip:)
       @import_successes << "SrjSpip '#{srj_spip.name}' associated with city '#{city.name}'."
     elsif type == 'TJ'
       srj_tj = SrjTj.find_or_create_by(name: srj_name)
-      city.update(srj_tj: srj_tj)
+      city.update(srj_tj:)
       @import_successes << "SrjTj '#{srj_tj.name}' associated with city '#{city.name}'."
     end
   end

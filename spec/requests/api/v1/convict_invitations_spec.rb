@@ -4,7 +4,7 @@ RSpec.describe '/api/v1/convicts/:convict_id/invitation', type: :request do
   with_env('HTTP_BASIC_AUTH_USER', 'username')
   with_env('HTTP_BASIC_AUTH_PSWD', 'password')
 
-  let(:do_request) { patch(path.to_s, headers: headers) }
+  let(:do_request) { patch(path.to_s, headers:) }
 
   let(:convict) { create(:convict, id: 1, timestamp_convict_interface_creation: nil) }
 

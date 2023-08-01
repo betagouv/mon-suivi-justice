@@ -37,10 +37,10 @@ class AppointmentsReschedulesController < AppointmentsController
 
   def book_new_appointment(appointment)
     HistoryItem.order(created_at: :desc).where(
-      appointment: appointment, event: 'cancel_reminder_notification'
+      appointment:, event: 'cancel_reminder_notification'
     ).first&.destroy
-    HistoryItem.order(created_at: :desc).where(appointment: appointment, event: 'cancel_appointment').first&.destroy
-    HistoryItemFactory.perform(appointment: appointment, event: :reschedule_appointment, category: 'appointment')
+    HistoryItem.order(created_at: :desc).where(appointment:, event: 'cancel_appointment').first&.destroy
+    HistoryItemFactory.perform(appointment:, event: :reschedule_appointment, category: 'appointment')
     appointment.book send_notification: false
     appointment.reschedule_notif.send_now if appointment.convict.phone.present?
   end

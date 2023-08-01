@@ -7,12 +7,12 @@ module Admin
       authorize_resource(resource_class)
       search_term = params[:search].to_s.strip
       resources = find_resources(search_term)
-      page = Administrate::Page::Collection.new(dashboard, order: order)
+      page = Administrate::Page::Collection.new(dashboard, order:)
 
       render locals: {
-        resources: resources,
-        search_term: search_term,
-        page: page,
+        resources:,
+        search_term:,
+        page:,
         show_search_bar: show_search_bar?
       }
     end
@@ -68,7 +68,7 @@ module Admin
       search_terms = search_term.split
       roles = (search_terms & User.roles.keys)
       if roles.empty?
-        resources = filter_resources(scoped_resource, search_term: search_term)
+        resources = filter_resources(scoped_resource, search_term:)
         resources = apply_collection_includes(resources)
       else
         User.roles.each_key { |r| search_terms.delete(r) }

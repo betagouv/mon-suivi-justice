@@ -20,15 +20,15 @@ RSpec.describe TransfertPlacesJob, type: :job do
     let(:appointment_type) { create(:appointment_type) }
     let(:old_agenda) { create(:agenda) }
     let(:old_place) do
-      create(:place, agendas: [old_agenda], appointment_types: [appointment_type], organization: organization)
+      create(:place, agendas: [old_agenda], appointment_types: [appointment_type], organization:)
     end
     let!(:place_transfert) do
-      pt = build(:place_transfert, old_place: old_place, date: Date.today)
+      pt = build(:place_transfert, old_place:, date: Date.today)
       pt.save(validate: false)
       pt
     end
     let!(:place_transfert_later) { create(:place_transfert, date: Date.tomorrow) }
-    let!(:before_slot_type) { create(:slot_type, agenda: old_agenda, appointment_type: appointment_type) }
+    let!(:before_slot_type) { create(:slot_type, agenda: old_agenda, appointment_type:) }
 
     before do
       TransfertPlacesJob.new.perform

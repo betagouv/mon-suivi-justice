@@ -67,33 +67,33 @@ RSpec.describe DataCollector do
         apt_type1 = create :appointment_type, name: "Sortie d'audience SPIP"
         slot1 = create :slot, :skip_validate, appointment_type: apt_type1, date: Date.civil(2022, 4, 11), capacity: 20
 
-        create :appointment, :skip_validate, slot: slot1, convict: convict,
+        create :appointment, :skip_validate, slot: slot1, convict:,
                                              state: 'booked', created_at: Date.civil(2022, 3, 11)
-        create :appointment, :skip_validate, slot: slot1, convict: convict,
+        create :appointment, :skip_validate, slot: slot1, convict:,
                                              state: 'fulfiled', created_at: Date.civil(2022, 3, 11)
-        create :appointment, :skip_validate, slot: slot1, convict: convict,
+        create :appointment, :skip_validate, slot: slot1, convict:,
                                              state: 'fulfiled', created_at: Date.civil(2022, 3, 11)
-        create :appointment, :skip_validate, slot: slot1, convict: convict,
+        create :appointment, :skip_validate, slot: slot1, convict:,
                                              state: 'no_show', created_at: Date.civil(2022, 3, 11)
-        create :appointment, :skip_validate, slot: slot1, convict: convict,
+        create :appointment, :skip_validate, slot: slot1, convict:,
                                              state: 'excused', created_at: Date.civil(2022, 3, 11)
-        create :appointment, :skip_validate, slot: slot1, convict: convict,
+        create :appointment, :skip_validate, slot: slot1, convict:,
                                              state: 'canceled', created_at: Date.civil(2022, 3, 11)
 
         apt_type2 = create :appointment_type, name: "Sortie d'audience SAP"
         slot2 = create :slot, :skip_validate, appointment_type: apt_type2, date: Date.civil(2022, 4, 11), capacity: 20
 
-        create :appointment, :skip_validate, slot: slot2, convict: convict,
+        create :appointment, :skip_validate, slot: slot2, convict:,
                                              state: 'booked', created_at: Date.civil(2022, 3, 11)
-        create :appointment, :skip_validate, slot: slot2, convict: convict,
+        create :appointment, :skip_validate, slot: slot2, convict:,
                                              state: 'fulfiled', created_at: Date.civil(2022, 3, 11)
-        create :appointment, :skip_validate, slot: slot2, convict: convict,
+        create :appointment, :skip_validate, slot: slot2, convict:,
                                              state: 'fulfiled', created_at: Date.civil(2022, 3, 11)
-        create :appointment, :skip_validate, slot: slot2, convict: convict,
+        create :appointment, :skip_validate, slot: slot2, convict:,
                                              state: 'no_show', created_at: Date.civil(2022, 3, 11)
-        create :appointment, :skip_validate, slot: slot2, convict: convict,
+        create :appointment, :skip_validate, slot: slot2, convict:,
                                              state: 'excused', created_at: Date.civil(2022, 3, 11)
-        create :appointment, :skip_validate, slot: slot2, convict: convict,
+        create :appointment, :skip_validate, slot: slot2, convict:,
                                              state: 'canceled', created_at: Date.civil(2022, 3, 11)
 
         expected = {

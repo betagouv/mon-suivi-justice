@@ -4,8 +4,8 @@ describe AppointmentPolicy do
   subject { AppointmentPolicy.new(user, appointment) }
 
   let(:appointment_type) { create(:appointment_type) }
-  let(:slot) { create :slot, :without_validations, appointment_type: appointment_type }
-  let!(:appointment) { create(:appointment, slot: slot) }
+  let(:slot) { create :slot, :without_validations, appointment_type: }
+  let!(:appointment) { create(:appointment, slot:) }
 
   context 'for an admin' do
     let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
@@ -30,10 +30,10 @@ describe AppointmentPolicy do
   context 'for an local_admin spip' do
     let(:user) { build(:user, :in_organization, type: 'spip', role: 'local_admin') }
     let(:place) { build(:place, organization: user.organization) }
-    let(:agenda) { build :agenda, place: place }
+    let(:agenda) { build :agenda, place: }
     let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
-    let(:slot) { create :slot, :without_validations, appointment_type: appointment_type, agenda: agenda }
-    let!(:appointment) { create(:appointment, slot: slot) }
+    let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
+    let!(:appointment) { create(:appointment, slot:) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -54,10 +54,10 @@ describe AppointmentPolicy do
 
   context 'for an local_admin tj' do
     let(:organization) { build(:organization, organization_type: 'tj') }
-    let(:place) { build(:place, organization: organization) }
-    let(:agenda) { build :agenda, place: place }
-    let(:slot) { create :slot, :without_validations, appointment_type: appointment_type, agenda: agenda }
-    let!(:appointment) { create(:appointment, slot: slot) }
+    let(:place) { build(:place, organization:) }
+    let(:agenda) { build :agenda, place: }
+    let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
+    let!(:appointment) { create(:appointment, slot:) }
     let(:user) { build(:user, role: 'local_admin', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
@@ -729,7 +729,7 @@ describe AppointmentPolicy do
 
     context 'for an appointment_type 1ère convocation de suivi SPIP from another service' do
       let(:organization) { create(:organization) }
-      let(:user) { build(:user, role: 'cpip', organization: organization) }
+      let(:user) { build(:user, role: 'cpip', organization:) }
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
       it { is_expected.to forbid_action(:fulfil) }

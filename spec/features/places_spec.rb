@@ -67,7 +67,7 @@ RSpec.feature 'Places', type: :feature do
 
     it 'updates agenda' do
       place = create :place, name: 'Spip du 93'
-      agenda = create :agenda, name: 'test_agenda', place: place
+      agenda = create(:agenda, name: 'test_agenda', place:)
       visit edit_place_path place
       within "#edit_agenda_#{agenda.id}" do
         fill_in :agenda_name, with: 'updated_name'

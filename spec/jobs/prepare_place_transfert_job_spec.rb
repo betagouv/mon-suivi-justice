@@ -7,7 +7,7 @@ end
 
 RSpec.describe PreparePlaceTransfertJob, type: :job do
   let(:organization) { create(:organization) }
-  let(:user) { create(:user, organization: organization) }
+  let(:user) { create(:user, organization:) }
   describe '#perform_later' do
     let(:tested_method) { PreparePlaceTransfertJob.perform_later(12, user) }
 
@@ -20,32 +20,32 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
   describe '#perform' do
     let(:appointment_type) { create(:appointment_type) }
     let(:old_agenda) { create(:agenda) }
-    let(:slot_type) { create(:slot_type, appointment_type: appointment_type, agenda: old_agenda) }
+    let(:slot_type) { create(:slot_type, appointment_type:, agenda: old_agenda) }
     let(:old_place) do
-      create(:place, agendas: [old_agenda], appointment_types: [appointment_type], organization: organization,
+      create(:place, agendas: [old_agenda], appointment_types: [appointment_type], organization:,
                      name: 'SPIP 45 - Montargis', adress: "111, piazza Mont-d'Est, 93160, Noisy-le-Grand",
                      phone: '0102030405', contact_email: 'mont@rgis.con',
                      preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip_loiret_montargis')
     end
     let(:new_place) do
-      create(:place, organization: organization, name: 'Nouveau SPIP 45 - Montargis',
+      create(:place, organization:, name: 'Nouveau SPIP 45 - Montargis',
                      adress: '8 av Adolphe Cochery, 45200 Montargis',
                      phone: '0238858585', contact_email: 'new-mont@rgis.con',
                      preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_new_spip_loiret_montargis')
     end
-    let(:place_transfert) { create(:place_transfert, old_place: old_place, new_place: new_place, date: Date.tomorrow) }
-    let!(:before_slot) { create(:slot, agenda: old_agenda, date: Date.today, appointment_type: appointment_type) }
+    let(:place_transfert) { create(:place_transfert, old_place:, new_place:, date: Date.tomorrow) }
+    let!(:before_slot) { create(:slot, agenda: old_agenda, date: Date.today, appointment_type:) }
 
     let!(:after_slot) do
-      slot = build(:slot, agenda: old_agenda, date: Date.today + 2.days, appointment_type: appointment_type,
+      slot = build(:slot, agenda: old_agenda, date: Date.today + 2.days, appointment_type:,
                           slot_type: nil)
       slot.save(validate: false)
       slot
     end
 
     let!(:after_slot_from_type) do
-      slot = build(:slot, agenda: old_agenda, date: Date.today + 2.days, appointment_type: appointment_type,
-                          slot_type: slot_type)
+      slot = build(:slot, agenda: old_agenda, date: Date.today + 2.days, appointment_type:,
+                          slot_type:)
       slot.save(validate: false)
       slot
     end

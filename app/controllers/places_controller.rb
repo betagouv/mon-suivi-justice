@@ -73,6 +73,6 @@ class PlacesController < ApplicationController
   end
 
   def create_agenda(place)
-    Agenda.create!(place: place, name: "Agenda #{place.name}")
+    Agenda.create!(place:, name: "Agenda #{place.name}")
   end
 end

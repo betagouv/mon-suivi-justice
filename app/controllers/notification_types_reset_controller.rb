@@ -6,7 +6,7 @@ class NotificationTypesResetController < ApplicationController
     apt_type = notification_type.appointment_type
     role = notification_type.role
 
-    default = NotificationType.where(appointment_type: apt_type, role: role, is_default: true).first
+    default = NotificationType.where(appointment_type: apt_type, role:, is_default: true).first
 
     notification_type.update(template: default.template, still_default: true)
 

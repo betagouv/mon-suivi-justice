@@ -39,14 +39,14 @@ RSpec.describe User, type: :model do
     let(:organization) { create(:organization, organization_type: 'tj') }
 
     it 'sets the default role if role is blank' do
-      user = User.new(organization: organization, email: 'admin@example.com', password: '1mot2passeSecurise!',
+      user = User.new(organization:, email: 'admin@example.com', password: '1mot2passeSecurise!',
                       password_confirmation: '1mot2passeSecurise!', first_name: 'Kevin', last_name: 'McCallister')
       expect(user).to be_valid
       expect(user.role).to eq('greff_sap')
     end
 
     it 'does not change the role if role is already present' do
-      user = User.new(organization: organization, email: 'admin@example.com', password: '1mot2passeSecurise!',
+      user = User.new(organization:, email: 'admin@example.com', password: '1mot2passeSecurise!',
                       password_confirmation: '1mot2passeSecurise!', role: :admin,
                       first_name: 'Kevin', last_name: 'McCallister')
       expect(user).to be_valid
@@ -54,7 +54,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'raises a database error when role is null' do
-      user = User.new(organization: organization, email: 'admin@example.com',
+      user = User.new(organization:, email: 'admin@example.com',
                       password: '1mot2passeSecurise!', password_confirmation: '1mot2passeSecurise!',
                       first_name: 'Kevin', last_name: 'McCallister')
 
