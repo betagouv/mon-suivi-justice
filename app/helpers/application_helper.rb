@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def current?(key, path)
-    return unless current_page? path
+    return false unless current_page? path
 
     key.to_s
   end

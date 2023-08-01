@@ -80,15 +80,15 @@ class Slot < ApplicationRecord
   private
 
   def workday?
-    return if appointment_type&.allowed_on_weekends?
-    return unless date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
+    return false if appointment_type&.allowed_on_weekends?
+    return false unless date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
 
     errors.add(:date, I18n.t('activerecord.errors.models.slot.attributes.date.not_workday'))
   end
 
   def coherent_organization_type?
-    return unless appointment_type&.sortie_audience?
-    return if check_organization_type(appointment_type)
+    return false unless appointment_type&.sortie_audience?
+    return false if check_organization_type(appointment_type)
 
     errors.add(:appointment_type,
                I18n.t('activerecord.errors.models.slot.attributes.appointment_type.wrong_organization'))
