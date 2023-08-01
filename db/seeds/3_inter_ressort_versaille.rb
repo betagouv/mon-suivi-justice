@@ -109,3 +109,15 @@ Appointment.create!(slot: slot_spip_78, convict: convict_versailles, inviter_use
 Appointment.create!(slot: slot_spip_28, convict: convict_chartres, inviter_user_id: cpip_28.id).book(send_notification: false)
 Appointment.create!(slot: slot_spip_92, convict: convict_nanterre, inviter_user_id: cpip_92.id).book(send_notification: false)
 
+SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_92, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_nanterre, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
+
+SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_95, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_pontoise, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
+
+SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_78, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_versailles, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
+
+SlotType.create(appointment_type: apt_type_sortie_audience_spip, agenda: agenda_spip_28, week_day: :monday, starting_time: Time.new(2021, 6, 21, 11, 00, 0), duration: 60, capacity: 3)
+SlotType.create(appointment_type: apt_type_sortie_audience_sap, agenda: agenda_tj_chartres, week_day: :wednesday, starting_time: Time.new(2021, 6, 21, 10, 00, 0), duration: 60, capacity: 3)
+SlotFactory.perform
