@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.1.2'
-gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
+gem 'rails', '~> 7.0.0', '>= 7.0.6'
 
 gem 'pg', '~> 1.3'
 gem 'puma', '~> 5.6'
@@ -15,7 +15,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise', '~> 4.8'
 gem 'devise-i18n', '~> 1.10'
 gem 'devise_invitable', '~> 2.0.0'
-gem 'devise-secure_password', '~> 2.0'
+gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.1'
 gem 'simple_form', '~> 5.1'
@@ -80,7 +80,6 @@ group :development do
   gem 'guard-rspec', require: false
   gem 'guard-rubocop'
   gem 'letter_opener'
-  gem 'letter_opener_web', '~> 2.0'
   gem 'rails-erd'
   gem 'state_machines-graphviz'
   gem 'debug', '>= 1.0.0'
