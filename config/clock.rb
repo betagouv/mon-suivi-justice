@@ -18,4 +18,6 @@ module Clockwork
     every(1.day, 'execute_stored_procedures.job', at: '04:00') { ExecuteStoredProceduresJob.perform_later }
   end
 
+  every(1.day, 'delete_place_transfert', at: '05:00') { DeletePlaceTransfertJob.perform_later }
+
 end
