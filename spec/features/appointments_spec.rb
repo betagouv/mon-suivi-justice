@@ -30,11 +30,11 @@ RSpec.feature 'Appointments', type: :feature do
     it 'display all appointments' do
       visit appointments_path
 
-      expect(page).to have_content(Date.civil(2025, 4, 14))
+      expect(page).to have_content(Date.civil(2025, 4, 14).to_fs(:base_date_format))
       expect(page).to have_content('13:00')
-      expect(page).to have_content(Date.civil(2025, 4, 16))
+      expect(page).to have_content(Date.civil(2025, 4, 16).to_fs(:base_date_format))
       expect(page).to have_content('15:30')
-      expect(page).to have_content(Date.today)
+      expect(page).to have_content(Date.today.to_fs(:base_date_format))
       expect(page).to have_content('14:30')
     end
 
@@ -45,8 +45,8 @@ RSpec.feature 'Appointments', type: :feature do
 
       page.execute_script("document.getElementById('index-header-filters-form').submit()")
 
-      expect(page).to have_content(Date.civil(2025, 4, 16))
-      expect(page).not_to have_content(Date.civil(2025, 4, 14))
+      expect(page).to have_content(Date.civil(2025, 4, 16).to_fs(:base_date_format))
+      expect(page).not_to have_content(Date.civil(2025, 4, 14).to_fs(:base_date_format))
     end
 
     it "doesn't show canceled appointments" do
