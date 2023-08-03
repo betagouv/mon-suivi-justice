@@ -21,11 +21,11 @@
         </div>
 
         <div class='index-card-data-content-item'>
-          <%= appointment.slot.date.to_s(:base_date_format) %>
+          <%= appointment.slot.date.to_fs(:base_date_format) %>
         </div>
 
         <div class='index-card-data-content-item'>
-          <%= appointment.localized_time.to_s(:time) %>
+          <%= appointment.localized_time.to_fs(:time) %>
         </div>
       </div>
     </div>

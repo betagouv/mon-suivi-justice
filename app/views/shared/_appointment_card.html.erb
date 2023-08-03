@@ -1,7 +1,7 @@
 <tr>
   <td><%= appointment.convict.name %></td>
-  <td><%= appointment.slot.date.to_s(:base_date_format) %></td>
-  <td><%= appointment.localized_time.to_s(:time) %></td>
+  <td><%= appointment.slot.date.to_fs(:base_date_format) %></td>
+  <td><%= appointment.localized_time.to_fs(:time) %></td>
   <td><%= appointment.slot.agenda.place.name %></td>
   <td><%= appointment.slot.agenda.name %></td>
   <td><%= appointment.slot.appointment_type.name %></td>

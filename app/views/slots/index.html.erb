@@ -74,8 +74,8 @@
             <td><%= slot.agenda.place.name %></td>
             <td><%= slot.agenda.name %></td>
             <td><%= slot.appointment_type.name %></td>
-            <td><%= slot.date.to_s(:base_date_format) %></td>
-            <td><%= slot.localized_time.to_s(:time) %></td>
+            <td><%= slot.date.to_fs(:base_date_format) %></td>
+            <td><%= slot.localized_time.to_fs(:time) %></td>
             <td>
               <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
                 <div class="col-fr">

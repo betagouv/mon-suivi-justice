@@ -11,6 +11,7 @@ gem 'sassc', '2.3.0'
 gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'turbo-rails', '~> 1.4'
 
 gem 'devise', '~> 4.8'
 gem 'devise-i18n', '~> 1.10'
@@ -104,3 +105,6 @@ gem 'abyme', '~> 0.7.0'
 gem 'pg_search', '~> 2.3'
 gem 'administrate-field-belongs_to_search'
 gem 'faker'
+
+# Use Redis for Action Cable
+gem 'redis', '~> 4.0'

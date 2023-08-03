@@ -495,6 +495,10 @@ GEM
     thor (1.2.2)
     tilt (2.2.0)
     timeout (0.4.0)
+    turbo-rails (1.4.0)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -592,6 +596,7 @@ DEPENDENCIES
   rails (~> 7.0.0, >= 7.0.6)
   rails-erd
   ransack (~> 3.2)
+  redis (~> 4.0)
   redis-namespace (~> 1.8)
   rspec-rails
   rspec_junit_formatter
@@ -611,6 +616,7 @@ DEPENDENCIES
   state_machines-activerecord (~> 0.8)
   state_machines-graphviz
   state_machines-rspec
+  turbo-rails (~> 1.4)
   turbolinks (~> 5)
   tzinfo
   tzinfo-data

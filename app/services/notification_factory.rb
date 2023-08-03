@@ -46,8 +46,8 @@ module NotificationFactory
     def sms_data(slot)
       time_zone = TZInfo::Timezone.get(slot.place.organization.time_zone)
       {
-        appointment_hour: time_zone.to_local(slot.starting_time).to_s(:lettered),
-        appointment_date: slot.date.to_s(:base_date_format),
+        appointment_hour: time_zone.to_local(slot.starting_time).to_fs(:lettered),
+        appointment_date: slot.date.to_fs(:base_date_format),
         place_name: slot.place_name,
         place_adress: slot.place_adress,
         place_phone: slot.place_display_phone(spaces: false),
