@@ -47,3 +47,17 @@ end
 def create_tj(name:, use_inter_ressort: false)
   Organization.find_or_create_by!(name: name, organization_type: :tj, use_inter_ressort: use_inter_ressort)
 end
+
+def next_valid_day(date: Time.zone.today, day: nil)
+  if day.nil?
+    valid_day = date.tomorrow
+    valid_day = valid_day.tomorrow while valid_day.on_weekend? || Holidays.on(valid_day, :fr).any?
+  else
+    return if date.next_occurring(day).on_weekend?
+
+    valid_day = date.next_occurring(day)
+    valid_day = valid_day.next_occurring(day) while Holidays.on(valid_day, :fr).any?
+  end
+
+  valid_day
+end

@@ -59,15 +59,15 @@ agenda_spip_28 = Agenda.find_or_create_by!(place: place_spip_28, name: "Agenda S
 agenda_spip_95 = Agenda.find_or_create_by!(place: place_spip_95, name: "Agenda SPIP 95")
 agenda_spip_78 = Agenda.find_or_create_by!(place: place_spip_78, name: "Agenda SPIP 78")
 
-slot_tj_pontoise = Slot.create(agenda: agenda_tj_pontoise, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_sap)
-slot_tj_versailles = Slot.create(agenda: agenda_tj_versailles, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_sap)
-slot_tj_nanterre = Slot.create(agenda: agenda_tj_nanterre, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_sap)
-slot_tj_chartres = Slot.create(agenda: agenda_tj_chartres, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_sap)
+slot_tj_pontoise = Slot.create(agenda: agenda_tj_pontoise, starting_time: Time.zone.now, date: next_valid_day(day: :monday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_sap)
+slot_tj_versailles = Slot.create(agenda: agenda_tj_versailles, starting_time: Time.zone.now, date: next_valid_day(day: :monday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_sap)
+slot_tj_nanterre = Slot.create(agenda: agenda_tj_nanterre, starting_time: Time.zone.now, date: next_valid_day(day: :monday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_sap)
+slot_tj_chartres = Slot.create(agenda: agenda_tj_chartres, starting_time: Time.zone.now, date: next_valid_day(day: :monday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_sap)
 
-slot_spip_92 = Slot.create(agenda: agenda_spip_92, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
-slot_spip_78 = Slot.create(agenda: agenda_spip_78, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
-slot_spip_28 =Slot.create(agenda: agenda_spip_28, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
-slot_spip_95 =Slot.create(agenda: agenda_spip_95, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
+slot_spip_92 = Slot.create(agenda: agenda_spip_92, starting_time: Time.zone.now, date: next_valid_day(day: :tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
+slot_spip_78 = Slot.create(agenda: agenda_spip_78, starting_time: Time.zone.now, date: next_valid_day(day: :tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
+slot_spip_28 =Slot.create(agenda: agenda_spip_28, starting_time: Time.zone.now, date: next_valid_day(day: :tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
+slot_spip_95 =Slot.create(agenda: agenda_spip_95, starting_time: Time.zone.now, date: next_valid_day(day: :tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
 
 bex_pontoise = create_user(organization: org_tj_pontoise, role: :bex, email:'bextjpontoise@example.com')
 bex_versailles = create_user(organization: org_tj_versailles, role: :bex, email: 'bextjversailles@example.com')
