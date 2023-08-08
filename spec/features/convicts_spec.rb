@@ -75,7 +75,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       expect { click_button 'submit-with-appointment' }.to change { Convict.count }.by(1)
       expect(page).to have_current_path(new_appointment_path(convict_id: Convict.last.id))
-      save_and_open_page
+
       select "Sortie d'audience SPIP", from: 'appointment_appointment_type_id'
       select 'McDo de Clichy', from: 'appointment-form-place-select'
       select 'Agenda de Jean-Louis', from: 'Agenda'
