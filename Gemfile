@@ -104,3 +104,4 @@ gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3'
 gem 'administrate-field-belongs_to_search'
+gem 'faker'

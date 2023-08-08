@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ develop, feature/inter-ressort ]
+    branches: [develop, feature/inter-ressort]
   pull_request:
-    branches: [ develop, feature/inter-ressort ]
+    branches: [develop, feature/inter-ressort]
 
 jobs:
   build:
@@ -82,6 +82,8 @@ jobs:
           MSJ_DB_USER: msj
           MSJ_DB_PASSWORD: msj
           MSJ_DB_NAME: msj_test
+          DUMMY_PASSWORD: Dummy$123dummy
+          DUMMY_ADMIN_PASSWORD: Dummy$123dummy
 
       # - name: Deploy staging
       #   run: bin/deploy-staging
