@@ -27,13 +27,12 @@ describe ApplicationHelper do
         expect(valid_day).to eq(Date.new(2023, 7, 31))
       end
 
-      it 'returns nil if day parameter falls on a weekend' do
+      it 'throw if day parameter falls on a weekend' do
         allow(Date).to receive(:today).and_return(Date.new(2023, 7, 21))
         allow(Holidays).to receive(:on).with(Date.new(2023, 7, 23), :fr).and_return(false)
 
-        valid_day = next_valid_day(date: Date.new(2023, 7, 21), day: :sunday)
-
-        expect(valid_day).to be_nil
+        expect { next_valid_day(day: :saturday) }.to raise_error(ArgumentError)
+        expect { next_valid_day(day: :sunday) }.to raise_error(ArgumentError)
       end
     end
   end
