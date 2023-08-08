@@ -36,7 +36,9 @@
               </li>
               <li>
                 <% if current_user.admin? %>
-                  <%= link_to("Administration centrale", admin_root_path, method: :get,  class: 'fr-btn fr-icon-settings-5-fill') %>
+                  <%= link_to admin_root_path,  class: 'fr-btn fr-icon-settings-5-fill' do%>
+                    Administration centrale
+                  <% end %>
                 <% end %>
               </li>
               <li>

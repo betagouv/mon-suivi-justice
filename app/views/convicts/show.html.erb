@@ -183,8 +183,7 @@
     <% if policy(:appointment).new? && @convict.undiscarded? %>
       <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
           <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
-                                                        class: 'fr-btn  fr-btn--lg',                
-                                                        method: :get %>
+                                                        class: 'fr-btn  fr-btn--lg'%>
       </div>
     <% end %>
     <%= render 'shared/history_items' %>
