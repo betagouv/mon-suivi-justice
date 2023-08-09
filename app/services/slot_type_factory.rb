@@ -18,8 +18,8 @@ module SlotTypeFactory
             starting_time: start,
             duration: data[:duration],
             capacity: data[:capacity],
-            appointment_type: appointment_type,
-            agenda: agenda
+            appointment_type:,
+            agenda:
           )
           success = false unless slot_type.save
         end

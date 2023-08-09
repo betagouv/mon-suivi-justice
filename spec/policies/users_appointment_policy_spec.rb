@@ -5,7 +5,7 @@ describe Users::AppointmentPolicy do
     context "for a #{role} user" do
       org_type = %w[educator dpip secretary_spip].include?(role) ? 'spip' : 'tj'
 
-      let(:user) { build(:user, :in_organization, type: org_type, role: role) }
+      let(:user) { build(:user, :in_organization, type: org_type, role:) }
       let(:scope) { Users::AppointmentPolicy::Scope.new(user, Appointment).resolve }
 
       it 'Policy scope should raise an error' do
@@ -34,7 +34,7 @@ describe Users::AppointmentPolicy do
 
   %w[cpip psychologist overseer].each do |role|
     context "for a #{role} user" do
-      let(:user) { create(:user_with_appointments, :in_organization, role: role) }
+      let(:user) { create(:user_with_appointments, :in_organization, role:) }
       let(:scope) { Users::AppointmentPolicy::Scope.new(user, Appointment).resolve }
 
       it 'Policy scope should return proper appointments' do

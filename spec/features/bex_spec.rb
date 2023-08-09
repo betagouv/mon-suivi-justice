@@ -23,12 +23,12 @@ RSpec.feature 'Bex', type: :feature do
 
       place = create(:place, name: 'Tribunal de Nanterre', organization: @user.organization)
 
-      create(:place_appointment_type, place: place, appointment_type: apt_type)
-      create(:place_appointment_type, place: place, appointment_type: apt_type2)
+      create(:place_appointment_type, place:, appointment_type: apt_type)
+      create(:place_appointment_type, place:, appointment_type: apt_type2)
 
-      agenda1 = create(:agenda, place: place, name: 'Cabinet Bleu')
-      agenda2 = create(:agenda, place: place, name: 'Cabinet Rouge')
-      agenda3 = create(:agenda, place: place, name: 'Cabinet Jaune')
+      agenda1 = create(:agenda, place:, name: 'Cabinet Bleu')
+      agenda2 = create(:agenda, place:, name: 'Cabinet Rouge')
+      agenda3 = create(:agenda, place:, name: 'Cabinet Jaune')
 
       slot1 = create(:slot, :without_validations, agenda: agenda1,
                                                   appointment_type: apt_type,
@@ -116,22 +116,22 @@ RSpec.feature 'Bex', type: :feature do
 
       place = create(:place, name: 'SPIP 91', organization: @user.organization)
 
-      create(:place_appointment_type, place: place, appointment_type: apt_type)
+      create(:place_appointment_type, place:, appointment_type: apt_type)
 
-      agenda = create(:agenda, place: place, name: 'Agenda SPIP 91')
+      agenda = create(:agenda, place:, name: 'Agenda SPIP 91')
 
-      slot1 = create(:slot, :without_validations, agenda: agenda,
+      slot1 = create(:slot, :without_validations, agenda:,
                                                   appointment_type: apt_type,
                                                   date: next_valid_day(day: :tuesday),
                                                   starting_time: '8h',
                                                   capacity: 2)
 
-      slot2 = create(:slot, :without_validations, agenda: agenda,
+      slot2 = create(:slot, :without_validations, agenda:,
                                                   appointment_type: apt_type,
                                                   date: next_valid_day(day: :friday) + 1.month,
                                                   starting_time: '15h')
 
-      slot3 = create(:slot, :without_validations, agenda: agenda,
+      slot3 = create(:slot, :without_validations, agenda:,
                                                   appointment_type: apt_type2,
                                                   date: next_valid_day(day: :tuesday),
                                                   starting_time: '15h')
@@ -189,11 +189,11 @@ RSpec.feature 'Bex', type: :feature do
 
       place = create(:place, name: 'Tribunal de Nanterre', organization: @user.organization)
 
-      create(:place_appointment_type, place: place, appointment_type: apt_type)
+      create(:place_appointment_type, place:, appointment_type: apt_type)
 
-      agenda1 = create(:agenda, place: place, name: 'Cabinet Bleu')
-      agenda2 = create(:agenda, place: place, name: 'Cabinet Rouge')
-      agenda3 = create(:agenda, place: place, name: 'Cabinet Jaune')
+      agenda1 = create(:agenda, place:, name: 'Cabinet Bleu')
+      agenda2 = create(:agenda, place:, name: 'Cabinet Rouge')
+      agenda3 = create(:agenda, place:, name: 'Cabinet Jaune')
 
       slot1 = create(:slot, :without_validations, agenda: agenda1,
                                                   appointment_type: apt_type,

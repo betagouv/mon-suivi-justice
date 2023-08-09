@@ -3,10 +3,10 @@ module HistoryItemFactory
     def perform(event:, category:, appointment: nil, convict: nil, data: nil)
       HistoryItem.create!(
         convict: convict.present? ? convict : appointment.convict,
-        appointment: appointment,
-        category: category,
-        event: event,
-        content: build_content(event: event, category: category, appointment: appointment, convict: convict, data: data)
+        appointment:,
+        category:,
+        event:,
+        content: build_content(event:, category:, appointment:, convict:, data:)
       )
     end
 
@@ -15,11 +15,11 @@ module HistoryItemFactory
     def build_content(event:, category:, appointment: nil, convict: nil, data: nil)
       case category
       when 'convict'
-        content_for_convict(event: event, convict: convict, data: data)
+        content_for_convict(event:, convict:, data:)
       when 'appointment'
-        content_for_appointment(event: event, appointment: appointment)
+        content_for_appointment(event:, appointment:)
       when 'notification'
-        content_for_notification(event: event, appointment: appointment)
+        content_for_notification(event:, appointment:)
       end
     end
 

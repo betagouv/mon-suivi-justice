@@ -32,7 +32,7 @@ class Organization < ApplicationRecord
   def ten_next_days_with_slots(appointment_type)
     Slot.future
         .in_organization(self)
-        .where(appointment_type: appointment_type)
+        .where(appointment_type:)
         .pluck(:date)
         .uniq
         .sort
@@ -50,7 +50,7 @@ class Organization < ApplicationRecord
       default = all_default.where(appointment_type: apt_type)
 
       NotificationType.roles.each_key do |role|
-        new_notif_type = default.where(role: role).first.dup
+        new_notif_type = default.where(role:).first.dup
         new_notif_type.assign_attributes(is_default: false, still_default: true)
         new_notif_type.organization = self
         new_notif_type.save!

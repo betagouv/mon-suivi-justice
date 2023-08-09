@@ -13,8 +13,8 @@ RSpec.describe LinkMobilityAdapter do
   describe 'send_sms' do
     it 'calls LinkMobility API' do
       convict = create(:convict, phone: '0600000000')
-      appointment = create(:appointment, convict: convict)
-      notif = create(:notification, content: 'Salut', appointment: appointment)
+      appointment = create(:appointment, convict:)
+      notif = create(:notification, content: 'Salut', appointment:)
 
       response = {
         responseCode: 0,
@@ -33,9 +33,9 @@ RSpec.describe LinkMobilityAdapter do
   describe 'format_data' do
     it 'prepares data for SMS' do
       convict = create(:convict, phone: '0622334455')
-      appointment = create(:appointment, convict: convict)
+      appointment = create(:appointment, convict:)
 
-      notif = create(:notification, appointment: appointment)
+      notif = create(:notification, appointment:)
       notif.content = 'Bonjour'
 
       expected = {

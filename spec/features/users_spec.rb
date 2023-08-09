@@ -4,8 +4,8 @@ RSpec.feature 'Users', type: :feature do
   describe 'index', logged_in_as: 'admin' do
     before do
       organization = create(:organization)
-      create(:user, first_name: 'Jeanne', last_name: 'Montirello', organization: organization)
-      create(:user, first_name: 'Michèle', organization: organization)
+      create(:user, first_name: 'Jeanne', last_name: 'Montirello', organization:)
+      create(:user, first_name: 'Michèle', organization:)
 
       visit users_path
     end
@@ -106,9 +106,9 @@ RSpec.feature 'Users', type: :feature do
       department = create :department, number: '01', name: 'Ain'
 
       organization = create :organization
-      create :areas_organizations_mapping, organization: organization, area: department
+      create :areas_organizations_mapping, organization:, area: department
 
-      bex_user = create(:user, role: :bex, organization: organization)
+      bex_user = create(:user, role: :bex, organization:)
       logout_current_user
       login_user(bex_user)
 

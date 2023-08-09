@@ -28,7 +28,7 @@ class SteeringsController < ApplicationController
     orgs_ids = [2, 3, 4, 6, 7]
 
     orgs_ids.each do |id|
-      orga = Organization.find_by(id: id)
+      orga = Organization.find_by(id:)
       next if orga.nil?
 
       @local << DataCollector::Sda.new(organization_id: orga.id).perform

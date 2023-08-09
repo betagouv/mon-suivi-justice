@@ -10,7 +10,7 @@ class PreparePlaceTransfertJob < ApplicationJob
   rescue StandardError => e
     @transfert_errors.push("Erreur : #{e.message}")
   ensure
-    AdminMailer.with(user: user, transfert: place_transfert, transfert_errors: @transfert_errors,
+    AdminMailer.with(user:, transfert: place_transfert, transfert_errors: @transfert_errors,
                      transfert_successes: @transfert_successes).prepare_place_transfert.deliver_later
   end
   # rubocop:enable Metrics/MethodLength
@@ -81,7 +81,7 @@ class PreparePlaceTransfertJob < ApplicationJob
     slot.appointments.each do |appointment|
       appointment.notifications.where(state: %w[programmed created]).each do |notification|
         content = modify_notif_content(old_place, new_place, notification)
-        notification.update!(content: content)
+        notification.update!(content:)
       end
     end
   end

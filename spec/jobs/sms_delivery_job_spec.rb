@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe SmsDeliveryJob, type: :job do
   context 'with a phone number' do
     let(:convict) { create :convict, phone: '+33606060607' }
-    let(:appointment) { create :appointment, convict: convict }
-    let(:notification) { create :notification, appointment: appointment }
+    let(:appointment) { create :appointment, convict: }
+    let(:notification) { create :notification, appointment: }
 
     describe '#perform' do
       let(:tested_method) { SmsDeliveryJob.perform_now(notification.id) }
@@ -32,8 +32,8 @@ RSpec.describe SmsDeliveryJob, type: :job do
 
   context 'without a phone number' do
     let(:convict) { create :convict, phone: '', no_phone: true }
-    let(:appointment) { create :appointment, convict: convict }
-    let(:notification) { create :notification, appointment: appointment }
+    let(:appointment) { create :appointment, convict: }
+    let(:notification) { create :notification, appointment: }
 
     describe '#perform' do
       let(:tested_method) { SmsDeliveryJob.perform_now(notification.id) }

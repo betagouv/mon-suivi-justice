@@ -11,7 +11,7 @@ class Notification < ApplicationRecord
 
   scope :in_organization, lambda { |organization|
     joins(appointment: { slot: { agenda: :place } })
-      .where(appointment: { slots: { agendas: { places: { organization: organization } } } })
+      .where(appointment: { slots: { agendas: { places: { organization: } } } })
   }
 
   scope :all_sent, -> { where(state: %w[sent received failed]) }
@@ -62,7 +62,7 @@ class Notification < ApplicationRecord
     after_transition do |notification, transition|
       event = "#{transition.event}_#{notification.role}_notification".to_sym
       if HistoryItem.validate_event(event) == true
-        HistoryItemFactory.perform(appointment: notification.appointment, event: event, category: 'notification')
+        HistoryItemFactory.perform(appointment: notification.appointment, event:, category: 'notification')
       end
     end
 

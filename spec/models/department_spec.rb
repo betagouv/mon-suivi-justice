@@ -17,7 +17,7 @@ RSpec.describe Department, type: :model do
     it 'returns the first tribunal of the department' do
       department = create(:department)
       organization = create(:organization, organization_type: 'tj')
-      create :areas_organizations_mapping, organization: organization, area: department, area_type: 'Department'
+      create :areas_organizations_mapping, organization:, area: department, area_type: 'Department'
 
       expect(department.tribunal).to eq(organization)
     end

@@ -10,7 +10,7 @@ module Administrate
 
     def render_field(field, locals = {})
       locals[:field] = field
-      render locals: locals, partial: field.to_partial_path
+      render locals:, partial: field.to_partial_path
     end
 
     def requireness(field)

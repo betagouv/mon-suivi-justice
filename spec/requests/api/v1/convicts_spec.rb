@@ -4,7 +4,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
   with_env('HTTP_BASIC_AUTH_USER', 'username')
   with_env('HTTP_BASIC_AUTH_PSWD', 'password')
 
-  let(:do_request) { get(path.to_s, headers: headers) }
+  let(:do_request) { get(path.to_s, headers:) }
 
   let(:organization1) { create(:organization, name: 'SPIP 92') }
   let(:agent) do
@@ -33,7 +33,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
                    main_contact_method: 'phone')
   end
   let!(:appointment1) do
-    create(:appointment, convict: convict, slot: slot1, id: 1,
+    create(:appointment, convict:, slot: slot1, id: 1,
                          state: 'booked', origin_department: 'bex')
   end
 
@@ -53,7 +53,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
                    main_contact_method: 'phone')
   end
   let!(:appointment2) do
-    create(:appointment, convict: convict, slot: slot2, id: 2, state: 'booked',
+    create(:appointment, convict:, slot: slot2, id: 2, state: 'booked',
                          origin_department: 'bex')
   end
 

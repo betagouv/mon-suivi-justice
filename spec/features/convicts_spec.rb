@@ -57,14 +57,14 @@ RSpec.feature 'Convicts', type: :feature do
       place = create :place, name: 'McDo de Clichy',
                              appointment_types: [appointment_type],
                              organization: @user.organization
-      agenda = create(:agenda, place: place, name: 'Agenda de Jean-Louis')
+      agenda = create(:agenda, place:, name: 'Agenda de Jean-Louis')
 
-      create(:agenda, place: place, name: 'Agenda de Michel')
-      create(:slot, agenda: agenda,
-                    appointment_type: appointment_type,
+      create(:agenda, place:, name: 'Agenda de Michel')
+      create(:slot, agenda:,
+                    appointment_type:,
                     date: Date.civil(2025, 4, 14),
                     starting_time: new_time_for(14, 0))
-      create(:notification_type, appointment_type: appointment_type)
+      create(:notification_type, appointment_type:)
 
       visit new_convict_path
 
@@ -120,7 +120,7 @@ RSpec.feature 'Convicts', type: :feature do
       srj_tj = create(:srj_tj, organization: tj)
       srj_spip = create(:srj_spip, organization: spip)
 
-      city = create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
+      city = create(:city, srj_tj:, srj_spip:)
 
       visit new_convict_path
 
@@ -154,7 +154,7 @@ RSpec.feature 'Convicts', type: :feature do
       srj_tj = create(:srj_tj, organization: tj)
       srj_spip = create(:srj_spip, organization: spip)
 
-      create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
+      create(:city, srj_tj:, srj_spip:)
 
       visit new_convict_path
 
@@ -336,7 +336,7 @@ RSpec.feature 'Convicts', type: :feature do
       srj_tj = create(:srj_tj, organization: tj2)
       srj_spip = create(:srj_spip, organization: spip2)
 
-      create(:city, srj_tj: srj_tj, srj_spip: srj_spip)
+      create(:city, srj_tj:, srj_spip:)
 
       visit edit_convict_path(convict)
 

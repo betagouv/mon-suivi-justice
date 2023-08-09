@@ -3,9 +3,9 @@ require 'rails_helper'
 describe OrganizationHelper do
   describe 'assignable_user_in_organization' do
     let!(:organization) { create(:organization, organization_type: :spip) }
-    let!(:user) { create(:user, organization: organization, last_name: 'Ashe', role: :cpip) }
-    let!(:user2) { create(:user, organization: organization, last_name: 'Bernard', role: :cpip) }
-    let!(:user3) { create(:user, organization: organization, last_name: 'Non CPIP', role: :local_admin) }
+    let!(:user) { create(:user, organization:, last_name: 'Ashe', role: :cpip) }
+    let!(:user2) { create(:user, organization:, last_name: 'Bernard', role: :cpip) }
+    let!(:user3) { create(:user, organization:, last_name: 'Non CPIP', role: :local_admin) }
 
     it 'returns the list of assignable users in the organization' do
       allow(helper).to receive(:current_user).and_return(user3)

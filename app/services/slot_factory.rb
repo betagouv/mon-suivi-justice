@@ -14,7 +14,7 @@ module SlotFactory
     private
 
     def slot_exists(date, slot_type)
-      Slot.exists? date: date, slot_type: slot_type, starting_time: slot_type.starting_time
+      Slot.exists? date:, slot_type:, starting_time: slot_type.starting_time
     end
 
     def date_invalid?(date)
@@ -27,7 +27,7 @@ module SlotFactory
       return if slot_exists(date, slot_type) || date_invalid?(date)
 
       Slot.create(
-        date: date, agenda: slot_type.agenda, slot_type: slot_type,
+        date:, agenda: slot_type.agenda, slot_type:,
         appointment_type: slot_type.appointment_type, starting_time: slot_type.starting_time,
         duration: slot_type.duration, capacity: slot_type.capacity, available: true
       )
