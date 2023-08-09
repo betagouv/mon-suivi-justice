@@ -9,7 +9,7 @@
   <% end %>
   <div id="flash_messages">
     <% flash.each do |type, msg| %>
-      <div class="fr-alert <%= "fr-alert--#{type == 'notice' ? 'info' : type}" %> fr-alert--sm">
+    <div class="fr-alert fr-alert--<%= dsfr_class_for(type) %> fr-alert--sm">
         <p><%= msg %></p>
       </div>
     <% end %>
