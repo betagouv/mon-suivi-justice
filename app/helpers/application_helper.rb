@@ -8,9 +8,7 @@ module ApplicationHelper
   end
 
   def current?(key, path)
-    return false unless current_page? path
-
-    key.to_s
+    return key.to_s if current_page? path
   end
 
   def formated_dates_for_select(date_array)
