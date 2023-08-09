@@ -50,7 +50,7 @@
                 <%= link_to(t('my_profile'), user_path(current_user.id), class: 'fr-btn fr-icon-account-circle-fill') %>
               </li>
               <li>
-                <%= link_to(t('log_out'), destroy_user_session_path, method: :delete, class: 'fr-btn fr-icon-logout-box-r-fill') %>
+                <%= link_to t('log_out'), destroy_user_session_path, method: :delete, class: 'fr-btn fr-icon-logout-box-r-fill', data: { turbo_method: :delete } %>
               </li>
             </ul>
           </div>
