@@ -2,7 +2,7 @@ import $ from 'jquery';
 import 'select2';
 import 'select2/dist/css/select2.css';
 
-document.addEventListener('turbolinks:load',function(e) {
+document.addEventListener('turbo:load',function(e) {
   $('.select2-container').remove();
 
   $('#profile-search-field').select2({

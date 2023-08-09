@@ -3,7 +3,7 @@ import $ from 'jquery';
 import 'select2';
 import MicroModal from 'micromodal';
 
-document.addEventListener('turbolinks:load',function() {
+document.addEventListener('turbo:load',function() {
   $('#convict-name-autocomplete').on('select2:select', (e) => {
     document.getElementById('appointment-form-title').innerHTML = `Nouvelle convocation pour ${e.params.data.text}`
     const aptTypeSelect = document.getElementById('appointment-type-container')

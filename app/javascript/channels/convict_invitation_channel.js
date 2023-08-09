@@ -6,14 +6,14 @@ const subscription = consumer.subscriptions.create("Noticed::ConvictInvitationCh
     // Called when the subscription is ready for use on the server
     console.log("connected")
     window.addEventListener("beforeunload", this.markAllAsRead)
-    window.addEventListener("turbolinks:before-visit", this.markAllAsRead);
+    window.addEventListener("turbo:before-visit", this.markAllAsRead);
   },
 
   disconnected() {
     // Called when the subscription has been terminated by the server
     console.log("disconnected")
     window.removeEventListener("beforeunload", this.markAllAsRead)
-    window.addEventListener("turbolinks:before-visit", this.markAllAsRead);
+    window.addEventListener("turbo:before-visit", this.markAllAsRead);
   },
 
   received(data) {
