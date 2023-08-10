@@ -1,11 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
-import Rails from '@rails/ujs';
 import { getFieldsBelow, sendRequest } from './form_utilities'
 
 // Handle display of the different fields
 // in the create appointment form
 export default class extends Controller {
-  static targets = [ "selectAppointmentTypeInput", "convictSelectInput", "submitButtonContainer", "container", "selectPlaceInput" ]
+  static targets = [ "selectAppointmentTypeInput", "convictSelectInput", "submitButtonContainer", "container", "selectPlaceInput", "selectAgendaInput" ]
 
   connect() {
     console.log("appointment new controller connected");
@@ -29,6 +28,14 @@ export default class extends Controller {
       this.submitButtonContainer.style.display = 'none';
     }
     sendRequest(`/load_agendas?place_id=${placeId}&apt_type_id=${aptTypeId}`);
+  }
+
+  changeAgenda() {
+    const placeId = this.selectPlaceInputTarget.value;
+    const agendaId = this.selectAgendaInputTarget.value;
+    const aptTypeId = this.selectAppointmentTypeInputTarget.value;
+
+    sendRequest(`/load_time_options?place_id=${placeId}&agenda_id=${agendaId}&apt_type_id=${aptTypeId}`);
   }
 
   getConvictId() {
