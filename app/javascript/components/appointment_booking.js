@@ -208,3 +208,8 @@ const setupForm = {
     submitBtnWithoutModal.addEventListener('click', (e) => { sendSms('false') });
   }
 };
+
+// gerer les cas slot (sortie audience) et slot field (rdv de suivi) pour display le bouton submit
+// gerer le reset des container en dessous en cas de changement de valeur en resettant les inputs plutot que les containers
+// gerer le submit avec et sans modal, voir si c'est possible de gerer autrement l'envoi de sms que d'ajouter un input avec la valeur dans le form
+// verifier le bon fonctionnement de la selection d'agenda en creant un second agenda a bordeaux avec des slots

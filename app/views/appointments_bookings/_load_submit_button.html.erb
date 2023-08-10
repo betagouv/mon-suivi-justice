@@ -3,5 +3,5 @@
 <% if @convict && !@convict.phone.blank? %>
   <%= button_tag t('submit'), type: 'button', class: 'fr-btn', data: { :'micromodal-trigger' => 'appointment-send-sms-modal' } %>
 <% else %>
-  <%= button_tag t('submit'), type: 'button', id: 'submit-without-modal', class: 'fr-btn' %>
+  <%= button_tag t('submit'), type: 'button', id: 'submit-without-modal', class: 'fr-btn', input_html: {"data-appointment-new-target": "submitButton"} %>
 <% end %>

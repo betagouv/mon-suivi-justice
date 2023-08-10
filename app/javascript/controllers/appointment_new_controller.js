@@ -38,6 +38,10 @@ export default class extends Controller {
     sendRequest(`/load_time_options?place_id=${placeId}&agenda_id=${agendaId}&apt_type_id=${aptTypeId}`);
   }
 
+  selectSlot() {
+    this.submit();
+  }
+
   getConvictId() {
     return this.convictSelectInputTarget.value
   }
