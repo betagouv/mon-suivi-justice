@@ -3,7 +3,15 @@
     <label class="select required form-label" for="appointment-form-place-select">
       <abbr title="required">*</abbr> <%= t('activerecord.models.place') %>
     </label>
-    <select id="appointment-form-place-select" class="select required form-text-input form-select" required="required" aria-required="true" name="appointment[place_id]">
+    <select 
+      id="appointment-form-place-select" 
+      class="select required form-text-input form-select" 
+      required="required" 
+      aria-required="true" 
+      name="appointment[place_id]" 
+      data-appointment-new-target="selectPlaceInput"
+      data-action="change->appointment-new#changePlace"
+    >
       <option value="" label=" "></option>
       <% @places.each do |place| %>
         <option value=<%= place.id %>><%= place.name %></option>
