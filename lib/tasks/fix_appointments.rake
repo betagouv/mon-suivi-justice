@@ -16,8 +16,8 @@ namespace :appointments do
 
       if conflicting_appointment
         # If conflicting appointment found, delete the 'created' appointment
-        puts "Appointment #{appointment.id} will be destroyed because it is conflicting with appointment 
-            #{conflicting_appointment.id}"
+        puts "Appointment #{appointment.id} will be destroyed because it is conflicting with appointment
+             #{conflicting_appointment.id}"
         appointment.destroy
       else
         # If no conflicting appointment found, change the state
