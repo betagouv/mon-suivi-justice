@@ -4,10 +4,11 @@ import { getFieldsBelow, sendRequest } from './form_utilities'
 // Handle display of the different fields
 // in the create appointment form
 export default class extends Controller {
-  static targets = [ "selectAppointmentTypeInput", "convictSelectInput", "submitButtonContainer", "container", "selectPlaceInput", "selectAgendaInput" ]
+  static targets = [ "selectAppointmentTypeInput", "convictSelectInput", "submitButtonContainer", "container", "selectPlaceInput", "selectAgendaInput", "submitButtonWithoutModal", "newAppointmentForm" ]
 
   connect() {
     console.log("appointment new controller connected");
+    console.log(this.newAppointmentFormTarget)
   }
   
   changeAptType() {
@@ -39,7 +40,11 @@ export default class extends Controller {
   }
 
   selectSlot() {
-    this.submit();
+    sendRequest(`/load_submit_button?convict_id=${this.getConvictId()}`);
+  }
+
+  submit() {
+    this.newAppointmentFormTarget.submit();
   }
 
   getConvictId() {
@@ -56,3 +61,9 @@ export default class extends Controller {
     });
   }
 }
+
+// gerer les cas slot (sortie audience) et slot field (rdv de suivi) pour display le bouton submit
+// gerer le reset des container en dessous en cas de changement de valeur en resettant les inputs plutot que les containers
+// gerer le submit avec et sans modal, voir si c'est possible de gerer autrement l'envoi de sms que d'ajouter un input avec la valeur dans le form
+// verifier le bon fonctionnement de la selection d'agenda en creant un second agenda a bordeaux avec des slots
+// remettre le titre (nouveau rdv pour nom du detenu) dans le formulaire

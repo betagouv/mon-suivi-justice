@@ -60,7 +60,7 @@ class AppointmentsController < ApplicationController
       @appointment.errors.each { |error| flash.now[:warning] = error.message }
       @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
       @convict = Convict.find(params.dig(:appointment, :convict_id))
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
