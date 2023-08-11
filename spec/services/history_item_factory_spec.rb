@@ -8,7 +8,7 @@ RSpec.describe HistoryItemFactory do
       category = 'appointment'
 
       expect do
-        HistoryItemFactory.perform(appointment: appointment, event: event, category: category)
+        HistoryItemFactory.perform(appointment:, event:, category:)
       end.to change { HistoryItem.count }.by(1)
 
       expected_content = "#{appointment.convict.name} a été convoqué(e) " \

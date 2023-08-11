@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.feature 'SlotTypes', type: :feature, logged_in_as: 'admin' do
   before do
     place = create :place, name: 'test_place_name', organization: @user.organization
-    @agenda = create :agenda, place: place, name: 'test_agenda_name'
+    @agenda = create :agenda, place:, name: 'test_agenda_name'
     @appointment_type = create :appointment_type, name: "Sortie d'audience SPIP"
-    create :place_appointment_type, place: place, appointment_type: @appointment_type
+    create :place_appointment_type, place:, appointment_type: @appointment_type
   end
 
   describe 'index' do

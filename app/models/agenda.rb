@@ -11,7 +11,7 @@ class Agenda < ApplicationRecord
   delegate :appointment_type_with_slot_types, to: :place
   delegate :organization, to: :place
 
-  scope :in_organization, ->(organization) { joins(:place).where(place: { organization: organization }) }
+  scope :in_organization, ->(organization) { joins(:place).where(place: { organization: }) }
 
   scope :in_departments, lambda { |departments|
     ids = departments.map(&:id)

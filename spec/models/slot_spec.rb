@@ -16,11 +16,11 @@ RSpec.describe Slot, type: :model do
   describe 'validations' do
     describe 'workday' do
       let(:place) { create(:place) }
-      let(:agenda) { create(:agenda, place: place) }
+      let(:agenda) { create(:agenda, place:) }
       let(:apt_type) { create(:appointment_type) }
 
       it 'is not valid if date is a holiday' do
-        slot = build(:slot, agenda: agenda, appointment_type: apt_type,
+        slot = build(:slot, agenda:, appointment_type: apt_type,
                             date: Date.civil(Date.today.year + 1, 7, 14))
 
         expect(slot).to_not be_valid
@@ -28,7 +28,7 @@ RSpec.describe Slot, type: :model do
       end
 
       it 'is not valid if date is a weekend' do
-        slot = build(:slot, agenda: agenda, appointment_type: apt_type,
+        slot = build(:slot, agenda:, appointment_type: apt_type,
                             date: Date.today.next_occurring(:saturday))
 
         expect(slot).to_not be_valid
@@ -36,7 +36,7 @@ RSpec.describe Slot, type: :model do
       end
 
       it 'it is valid if date is not a weekend nor a holiday' do
-        slot = build(:slot, agenda: agenda, appointment_type: apt_type,
+        slot = build(:slot, agenda:, appointment_type: apt_type,
                             date: Date.civil(2022, 5, 31))
 
         expect(slot).to be_valid
@@ -45,19 +45,19 @@ RSpec.describe Slot, type: :model do
 
     describe 'coherent_organization_type' do
       let(:organization) { create(:organization, organization_type: :tj) }
-      let(:place) { create(:place, organization: organization) }
-      let(:agenda) { create(:agenda, place: place) }
+      let(:place) { create(:place, organization:) }
+      let(:agenda) { create(:agenda, place:) }
 
       it 'is valid if organization has right type' do
         apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
-        slot = build(:slot, agenda: agenda, appointment_type: apt_type)
+        slot = build(:slot, agenda:, appointment_type: apt_type)
 
         expect(slot).to be_valid
       end
 
       it 'is not valid if organization has wrong type' do
         apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
-        slot = build(:slot, agenda: agenda, appointment_type: apt_type)
+        slot = build(:slot, agenda:, appointment_type: apt_type)
 
         expect(slot).to_not be_valid
         expect(slot.errors.messages[:appointment_type]).to eq ["Ce type de convocation n'est pas possible dans ce lieu"]
@@ -145,15 +145,15 @@ RSpec.describe Slot, type: :model do
   describe 'capacity' do
     it 'allows multiple appointments for a slot' do
       appointment_type = create(:appointment_type, :with_notification_types)
-      slot = create(:slot, available: true, capacity: 3, used_capacity: 0, appointment_type: appointment_type)
-      create(:appointment, slot: slot).book
+      slot = create(:slot, available: true, capacity: 3, used_capacity: 0, appointment_type:)
+      create(:appointment, slot:).book
 
       slot.reload
       expect(slot.used_capacity).to eq(1)
       expect(slot.full).to eq(false)
 
-      create(:appointment, slot: slot).book
-      create(:appointment, slot: slot).book
+      create(:appointment, slot:).book
+      create(:appointment, slot:).book
 
       slot.reload
       expect(slot.used_capacity).to eq(3)
@@ -165,11 +165,11 @@ RSpec.describe Slot, type: :model do
     let(:date) { Date.today }
     let(:appointment_type) { create(:appointment_type) }
 
-    let!(:available_slot) { create(:slot, date: date, appointment_type: appointment_type, available: true) }
-    let!(:booked_slot) { create(:slot, date: date, appointment_type: appointment_type, available: false) }
-    let!(:slot_without_appointment) { create(:slot, date: date, appointment_type: appointment_type, available: true) }
+    let!(:available_slot) { create(:slot, date:, appointment_type:, available: true) }
+    let!(:booked_slot) { create(:slot, date:, appointment_type:, available: false) }
+    let!(:slot_without_appointment) { create(:slot, date:, appointment_type:, available: true) }
     let!(:slot_unavailable_without_appointment) do
-      create(:slot, date: date, appointment_type: appointment_type, available: false)
+      create(:slot, date:, appointment_type:, available: false)
     end
 
     let!(:appointment) { create(:appointment, slot: booked_slot) }

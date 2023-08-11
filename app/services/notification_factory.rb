@@ -2,12 +2,11 @@ module NotificationFactory
   class << self
     def perform(appointment)
       notif_types = select_notification_types(appointment)
-
       notif_types.each do |notif_type|
         template = setup_template(notif_type.template)
 
         Notification.create!(
-          appointment: appointment,
+          appointment:,
           role: notif_type.role,
           reminder_period: notif_type.reminder_period,
           content: template % sms_data(appointment.slot)
@@ -24,8 +23,8 @@ module NotificationFactory
       default_notif_types = appointment.appointment_type.notification_types.where(organization: nil)
 
       NotificationType.roles.each_key do |role|
-        if notif_types.find_by(role: role).nil?
-          default = default_notif_types.where(role: role)
+        if notif_types.find_by(role:).nil?
+          default = default_notif_types.where(role:)
           notif_types = notif_types.or(default) unless default.empty?
         end
       end

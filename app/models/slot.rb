@@ -48,7 +48,7 @@ class Slot < ApplicationRecord
   }
 
   scope :in_organization, lambda { |organization|
-    joins(agenda: :place).where(agendas: { places: { organization: organization } })
+    joins(agenda: :place).where(agendas: { places: { organization: } })
   }
 
   scope :in_jurisdiction, lambda { |user_organization|
@@ -62,7 +62,7 @@ class Slot < ApplicationRecord
   }
 
   scope :available_or_with_appointments, lambda { |date, appointment_type|
-    where(date: date, appointment_type: appointment_type)
+    where(date:, appointment_type:)
       # we use LEFT JOIN to get slots with or without appointments
       .joins('LEFT JOIN appointments ON appointments.slot_id = slots.id')
       .where('slots.available = true OR appointments.id IS NOT NULL')
@@ -80,15 +80,15 @@ class Slot < ApplicationRecord
   private
 
   def workday?
-    return if appointment_type&.allowed_on_weekends?
-    return unless date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
+    return false if appointment_type&.allowed_on_weekends?
+    return false unless date.blank? || date.saturday? || date.sunday? || Holidays.on(date, :fr).any?
 
     errors.add(:date, I18n.t('activerecord.errors.models.slot.attributes.date.not_workday'))
   end
 
   def coherent_organization_type?
-    return unless appointment_type&.sortie_audience?
-    return if check_organization_type(appointment_type)
+    return false unless appointment_type&.sortie_audience?
+    return false if check_organization_type(appointment_type)
 
     errors.add(:appointment_type,
                I18n.t('activerecord.errors.models.slot.attributes.appointment_type.wrong_organization'))
@@ -110,6 +110,6 @@ class Slot < ApplicationRecord
   def add_transfert_error(transfert, attribute, place_name)
     errors.add(:base,
                I18n.t("activerecord.errors.models.slot.attributes.date.#{attribute}", date: transfert.date,
-                                                                                      place_name: place_name))
+                                                                                      place_name:))
   end
 end

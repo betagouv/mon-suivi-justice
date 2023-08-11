@@ -17,12 +17,12 @@ RSpec.feature 'AppointmentType', type: :feature do
     let!(:appointment_type) { create(:appointment_type, name: '1er contact') }
 
     let!(:notif_type1) do
-      create(:notification_type, appointment_type: appointment_type, is_default: true,
+      create(:notification_type, appointment_type:, is_default: true,
                                  role: :summon, template: 'Default summon')
     end
 
     let!(:notif_type2) do
-      create(:notification_type, appointment_type: appointment_type, is_default: true,
+      create(:notification_type, appointment_type:, is_default: true,
                                  role: :reminder, template: 'Default reminder')
     end
 
@@ -51,7 +51,7 @@ RSpec.feature 'AppointmentType', type: :feature do
     end
 
     it 'updates local template set', js: true do
-      local_notif1 = create :notification_type, appointment_type: appointment_type,
+      local_notif1 = create :notification_type, appointment_type:,
                                                 organization: @user.organization,
                                                 role: :summon,
                                                 template: 'Local summon'
@@ -77,7 +77,7 @@ RSpec.feature 'AppointmentType', type: :feature do
     end
 
     it 'allows to reset notification type to default' do
-      local_notif = create :notification_type, appointment_type: appointment_type,
+      local_notif = create :notification_type, appointment_type:,
                                                organization: @user.organization,
                                                role: :summon,
                                                template: 'Local summon',

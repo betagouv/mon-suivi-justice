@@ -4,15 +4,15 @@ RSpec.describe NotificationFactory do
   describe 'perform' do
     it 'creates notifications for an appointment' do
       appointment_type = create(:appointment_type)
-      create(:notification_type, appointment_type: appointment_type,
+      create(:notification_type, appointment_type:,
                                  role: :summon,
                                  template: 'Convocation le {rdv.date} à {rdv.heure}')
-      create(:notification_type, appointment_type: appointment_type,
+      create(:notification_type, appointment_type:,
                                  role: :reminder,
                                  template: 'Rappel: convocation le {rdv.date} à {rdv.heure}')
       slot = create(:slot, date: Date.civil(2025, 4, 14), starting_time: new_time_for(15, 30),
-                           appointment_type: appointment_type)
-      appointment = create(:appointment, slot: slot)
+                           appointment_type:)
+      appointment = create(:appointment, slot:)
 
       expect { NotificationFactory.perform(appointment) }.to change { Notification.count }.by(2)
 
@@ -47,17 +47,17 @@ RSpec.describe NotificationFactory do
                              main_contact_method: 1,
                              contact_email: 'test@test.com',
                              preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip92')
-      agenda = create(:agenda, place: place)
-      slot = create(:slot, agenda: agenda,
+      agenda = create(:agenda, place:)
+      slot = create(:slot, agenda:,
                            date: Date.civil(2025, 4, 18),
-                           starting_time: new_time_for(16, 30), appointment_type: appointment_type)
+                           starting_time: new_time_for(16, 30), appointment_type:)
       sms_template = 'Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. ' \
                      "Merci de venir avec une pièce d'identité au {lieu.adresse}. " \
                      'Veuillez contacter le {lieu.téléphone} (ou {lieu.contact}) ' \
                      'en cas de problème. Plus d\'informations sur {lieu.lien_info}.'
-      create(:notification_type, appointment_type: appointment_type, template: sms_template)
+      create(:notification_type, appointment_type:, template: sms_template)
 
-      appointment = create(:appointment, slot: slot)
+      appointment = create(:appointment, slot:)
 
       expected = "Vous êtes convoqué au Spip du 03 le #{Date.civil(2025, 4, 18)} à 16h30. " \
                  "Merci de venir avec une pièce d'identité au 38 rue Jean Moulin. " \

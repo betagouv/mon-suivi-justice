@@ -23,9 +23,9 @@ module AppointmentTypeHelper
     date = notif_type.updated_at.strftime('%d/%m/%Y à %kh%M')
 
     if notif_type.is_default == true || notif_type.still_default == false
-      I18n.t('appointment_type.updated_at', date: date)
+      I18n.t('appointment_type.updated_at', date:)
     elsif notif_type.still_default == true
-      I18n.t('appointment_type.imported_at', date: date)
+      I18n.t('appointment_type.imported_at', date:)
     end
   end
 end

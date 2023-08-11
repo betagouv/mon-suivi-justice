@@ -127,7 +127,7 @@ class Convict < ApplicationRecord
   def phone_uniqueness
     return if refused_phone? || no_phone?
 
-    return if Convict.where(phone: phone).where.not(id: id).empty?
+    return if Convict.where(phone:).where.not(id:).empty?
 
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.taken')
   end
@@ -184,7 +184,7 @@ class Convict < ApplicationRecord
 
     duplicates = Convict.kept.where(name_conditions, first_name.downcase, last_name.downcase)
                         .where('phone = ? OR (date_of_birth = ? AND phone IS NOT NULL)', prefixed_phone, date_of_birth)
-                        .where.not(id: id)
+                        .where.not(id:)
 
     duplicates = duplicates.where(appi_uuid: nil) if appi_uuid.present?
 

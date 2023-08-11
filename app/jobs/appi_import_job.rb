@@ -11,8 +11,8 @@ class AppiImportJob < ApplicationJob
   rescue StandardError => e
     @import_errors.push("Erreur : #{e.message}")
   ensure
-    AdminMailer.with(user: user, organizations: organizations, import_errors: @import_errors,
-                     import_successes: @import_successes, csv_errors: csv_errors).appi_import_report.deliver_later
+    AdminMailer.with(user:, organizations:, import_errors: @import_errors,
+                     import_successes: @import_successes, csv_errors:).appi_import_report.deliver_later
   end
 
   def process_appi_data(appi_data, organizations)

@@ -133,6 +133,6 @@ class AppointmentsController < ApplicationController
 
   def initialize_extra_fields
     @extra_fields = @convict.organizations.tj&.first&.extra_fields&.select(&:appointment_create?)
-    @extra_fields&.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field: extra_field) }
+    @extra_fields&.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field:) }
   end
 end

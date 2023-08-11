@@ -24,12 +24,12 @@ RSpec.describe Notification, type: :model do
       slot_date = Date.civil(2025, 4, 14)
       slot_starting_time = new_time_for(0, 0)
 
-      slot = create(:slot, date: slot_date, appointment_type: appointment_type, starting_time: slot_starting_time)
-      create(:notification_type, appointment_type: appointment_type,
+      slot = create(:slot, date: slot_date, appointment_type:, starting_time: slot_starting_time)
+      create(:notification_type, appointment_type:,
                                  role: :reminder,
                                  reminder_period: :two_days)
 
-      appointment = create(:appointment, slot: slot)
+      appointment = create(:appointment, slot:)
 
       NotificationFactory.perform(appointment)
 
@@ -49,7 +49,7 @@ RSpec.describe Notification, type: :model do
   describe '.in_organization' do
     it 'returns correct relation' do
       organization = create :organization
-      place_in = create :place, organization: organization
+      place_in = create(:place, organization:)
       agenda_in = create :agenda, place: place_in
       slot_in = create :slot, agenda: agenda_in
       appointment_in = create :appointment, slot: slot_in

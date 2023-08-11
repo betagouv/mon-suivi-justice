@@ -21,7 +21,7 @@ RSpec.feature 'NotificationType', type: :feature do
 
       convict = create :convict, first_name: 'JP', last_name: 'Durand', organizations: [@user.organization]
       place = create :place, name: 'SPIP 65', appointment_types: [apt_type], organization: @user.organization
-      create :agenda, place: place, name: 'Agenda SPIP 65'
+      create :agenda, place:, name: 'Agenda SPIP 65'
 
       visit new_appointment_path({ convict_id: convict.id })
 

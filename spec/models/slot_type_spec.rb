@@ -18,14 +18,14 @@ RSpec.describe SlotType, type: :model do
   describe 'Associations' do
     it 'destroys his associated not-booked slots' do
       slot_type = create :slot_type
-      create :slot, slot_type: slot_type
+      create(:slot, slot_type:)
       create :slot
       expect { slot_type.destroy }.to change(Slot, :count).from(2).to(1)
     end
 
     it 'does not destroys his associated booked slots' do
       slot_type = create :slot_type
-      create :appointment, slot: create(:slot, slot_type: slot_type)
+      create :appointment, slot: create(:slot, slot_type:)
       create :slot
       expect { slot_type.destroy }.not_to change(Slot, :count)
     end

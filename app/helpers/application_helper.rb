@@ -8,9 +8,7 @@ module ApplicationHelper
   end
 
   def current?(key, path)
-    return unless current_page? path
-
-    key.to_s
+    return key.to_s if current_page? path
   end
 
   def formated_dates_for_select(date_array)
@@ -65,7 +63,7 @@ module ApplicationHelper
       valid_day = date.tomorrow
       valid_day = valid_day.tomorrow while valid_day.on_weekend? || Holidays.on(valid_day, :fr).any?
     else
-      return if date.next_occurring(day).on_weekend?
+      raise ArgumentError, 'Weekends are not valid days!' if date.next_occurring(day).on_weekend?
 
       valid_day = date.next_occurring(day)
       valid_day = valid_day.next_occurring(day) while Holidays.on(valid_day, :fr).any?

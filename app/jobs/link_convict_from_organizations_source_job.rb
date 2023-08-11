@@ -10,7 +10,7 @@ class LinkConvictFromOrganizationsSourceJob < ApplicationJob
   rescue StandardError => e
     @import_errors.push("Erreur : #{e.message}")
   ensure
-    AdminMailer.with(user: user, organization: organization, import_errors: @import_errors,
+    AdminMailer.with(user:, organization:, import_errors: @import_errors,
                      import_successes: @import_successes,
                      sources: organizations_source.pluck(:name)).link_convict_from_organizations_source.deliver_later
   end

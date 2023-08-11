@@ -13,7 +13,7 @@ class SlotTypesBatchesController < ApplicationController
       flash[:error] = I18n.t('activerecord.errors.models.slot_type.batch_zero_interval')
     else
       success = SlotTypeFactory.perform(appointment_type: @appointment_type, agenda: @agenda,
-                                        timezone: @current_time_zone, data: data)
+                                        timezone: @current_time_zone, data:)
       flash[:error] = I18n.t('activerecord.errors.models.slot_type.batch_multiple_uniqueness') unless success
     end
 

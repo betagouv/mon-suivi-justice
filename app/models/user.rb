@@ -63,7 +63,7 @@ class User < ApplicationRecord
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
   }
 
-  scope :in_organization, ->(organization) { where(organization: organization) }
+  scope :in_organization, ->(organization) { where(organization:) }
 
   pg_search_scope :search_by_name, against: %i[first_name last_name],
                                    using: {

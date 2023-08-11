@@ -6,5 +6,5 @@ json.agent do
   json.partial! 'api/v1/users/user', user: convict.agent
 end
 json.appointments convict.appointments do |appointment|
-  json.partial! 'api/v1/appointments/appointment', appointment: appointment
+  json.partial! 'api/v1/appointments/appointment', appointment:
 end

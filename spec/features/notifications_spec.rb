@@ -18,7 +18,7 @@ RSpec.feature 'Notifications', type: :feature do
       appointment_type = create :appointment_type, :with_notification_types, name: 'Convocation de suivi SPIP'
       place = create :place, name: 'SPIP de Thorigné', appointment_types: [appointment_type],
                              organization: @user.organization
-      create :agenda, place: place, name: 'Agenda du SPIP de Thorigné'
+      create :agenda, place:, name: 'Agenda du SPIP de Thorigné'
 
       visit new_appointment_path({ convict_id: @convict.id })
 

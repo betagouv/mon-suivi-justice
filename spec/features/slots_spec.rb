@@ -4,7 +4,7 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
   describe 'index' do
     before do
       place = create :place, organization: @user.organization
-      @agenda = create :agenda, place: place
+      @agenda = create(:agenda, place:)
       @apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
       @slot1 = create(:slot, appointment_type: @apt_type, agenda: @agenda, date: Date.civil(2025, 4, 14))
     end
@@ -34,9 +34,9 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
   describe 'creation' do
     before do
       place = create(:place, name: 'McDo de Clichy', organization: @user.organization)
-      @agenda = create(:agenda, place: place, name: 'Agenda de Michel')
+      @agenda = create(:agenda, place:, name: 'Agenda de Michel')
       @appointment_type = create(:appointment_type, name: "Sortie d'audience SPIP")
-      create(:place_appointment_type, place: place, appointment_type: @appointment_type)
+      create(:place_appointment_type, place:, appointment_type: @appointment_type)
 
       create(:appointment_type, name: 'Convocation de suivi SPIP')
     end
@@ -90,13 +90,13 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
 
       click_on 'Ajouter une heure'
 
-      within all('.form-time-select-fields')[0] do
+      within all('.form-time-select-fields').last do
         select '16', from: 'slot_batch_starting_time_4i'
         select '00', from: 'slot_batch_starting_time_5i'
       end
 
-      fill_in 'Durée', with: '40'
-      fill_in 'Capacité', with: '10'
+      fill_in 'Durée', with: 40
+      fill_in 'Capacité', with: 10
 
       expect { click_button 'Enregistrer' }.to change { Slot.count }.by(2)
     end
@@ -134,14 +134,14 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
   describe 'batch close' do
     it 'allows to select slots to close' do
       place = create :place, organization: @user.organization
-      agenda = create :agenda, place: place
+      agenda = create(:agenda, place:)
       apt_type = AppointmentType.create(name: "Sortie d'audience SPIP")
 
-      slot1 = create(:slot, appointment_type: apt_type, agenda: agenda, starting_time: new_time_for(9, 0))
-      slot2 = create(:slot, appointment_type: apt_type, agenda: agenda, starting_time: new_time_for(9, 0))
-      slot3 = create(:slot, appointment_type: apt_type, agenda: agenda, starting_time: new_time_for(9, 0))
-      slot4 = create(:slot, appointment_type: apt_type, agenda: agenda, starting_time: new_time_for(10, 0))
-      slot5 = create(:slot, appointment_type: apt_type, agenda: agenda, starting_time: new_time_for(10, 0))
+      slot1 = create(:slot, appointment_type: apt_type, agenda:, starting_time: new_time_for(9, 0))
+      slot2 = create(:slot, appointment_type: apt_type, agenda:, starting_time: new_time_for(9, 0))
+      slot3 = create(:slot, appointment_type: apt_type, agenda:, starting_time: new_time_for(9, 0))
+      slot4 = create(:slot, appointment_type: apt_type, agenda:, starting_time: new_time_for(10, 0))
+      slot5 = create(:slot, appointment_type: apt_type, agenda:, starting_time: new_time_for(10, 0))
 
       visit slots_path
 
