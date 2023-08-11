@@ -56,7 +56,14 @@
     </div>
 
     <div class='appointment-form-slots-container' id='slots-container'></div>
-
+    <% if @convict && !@convict.phone.blank? %>
+      <div>
+          <label for="send_sms" class="boolean optional form-label">
+            <%= t('new-appointment-confirmation-warning')%>
+            <input type="checkbox" name="send_sms" checked>
+          </label>
+      </div>
+    <% end %>
     <div id='submit-btn-container' data-appointment-new-target="submitButtonContainer">
       <input type='submit' name='commit' value=<%= t('submit')%> class='fr-btn' id='submit-new-appointment' disabled='disabled' data-disable-with='Enregistrer'>
     </div>

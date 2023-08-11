@@ -1,7 +1,3 @@
 <p class='new-appointment-form-warning'><%= t('new-appointment-warning') %></p>
+<%= button_tag t('submit'), type: 'button', id: 'submit-without-modal', class: 'fr-btn', "data-appointment-new-target": "submitButtonWithoutModal", "data-action": "click->appointment-new#submit" %>
 
-<% if @convict && !@convict.phone.blank? %>
-  <%= button_tag t('submit'), type: 'button', class: 'fr-btn', data: { :'micromodal-trigger' => 'appointment-send-sms-modal' } %>
-<% else %>
-  <%= button_tag t('submit'), type: 'button', id: 'submit-without-modal', class: 'fr-btn', "data-appointment-new-target": "submitButtonWithoutModal", "data-action": "click->appointment-new#submit" %>
-<% end %>
