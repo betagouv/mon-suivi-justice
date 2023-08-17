@@ -110,9 +110,8 @@ RSpec.feature 'Appointments', type: :feature do
 
         expect(page).to have_button('Enregistrer et envoyer un SMS')
 
-        expect { click_button 'Enregistrer et envoyer un SMS' }.to change { Appointment.count }.by(1).and change {
-                                                                                                            Notification.count
-                                                                                                          }.by(5)
+        expect { click_button 'Enregistrer et envoyer un SMS' }.to change { Appointment.count }
+                                                                .by(1).and change { Notification.count }.by(5)
 
         expect(SmsDeliveryJob).to have_been_enqueued.once.with(
           Notification.find_by(role: :summon, appointment: Appointment.last).id
@@ -141,9 +140,8 @@ RSpec.feature 'Appointments', type: :feature do
 
         expect(page).to have_button('Enregistrer sans envoyer de SMS')
 
-        expect { click_button 'Enregistrer sans envoyer de SMS' }.to change { Appointment.count }.by(1).and change {
-                                                                                                              Notification.count
-                                                                                                            }.by(5)
+        expect { click_button 'Enregistrer sans envoyer de SMS' }.to change { Appointment.count }
+                                                                  .by(1).and change { Notification.count }.by(5)
 
         expect(SmsDeliveryJob).to have_been_enqueued.once.with(
           Notification.find_by(role: :reminder, appointment: Appointment.last).id
@@ -223,9 +221,8 @@ RSpec.feature 'Appointments', type: :feature do
         expect(page).to have_content('11:00 - Cabinet 22')
         expect(page).not_to have_content('19:00 - Cabinet 74')
 
-        expect { click_button 'Enregistrer et envoyer un SMS' }.to change { Appointment.count }.by(1).and change {
-                                                                                                            Notification.count
-                                                                                                          }.by(5)
+        expect { click_button 'Enregistrer et envoyer un SMS' }.to change { Appointment.count }.by(1)
+                                                                .and change { Notification.count }.by(5)
       end
 
       it 'Inter-Ressort: allows an agent to setup an appointment in another service', logged_in_as: 'jap' do
