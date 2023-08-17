@@ -6,9 +6,7 @@
     <div class="fr-grid-row fr-grid-row--right fr-grid-row--gutters">
       <ul class="fr-btns-group fr-btns-group--inline-lg">
         <% if policy(:slot).new? %>
-          <%= link_to t('slots.new_batch_title'), new_slots_batch_path,
-                                                class: 'fr-btn',
-                                                method: :get %>
+          <%= link_to t('slots.new_batch_title'), new_slots_batch_path, class: 'fr-btn'%>
         <% end %>
         <% if policy(:slot).update? %>
           <%= button_tag t('index_slots_batch_close'), type: 'submit',
