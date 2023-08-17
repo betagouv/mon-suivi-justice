@@ -70,7 +70,6 @@ const resetFieldsBelow = function(identifier) {
 };
 
 document.addEventListener('turbo:load',function() {
-  $('#convict-name-autocomplete').on('select2:select', displayAppointmentTypeSelect);
   const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
   if (aptTypeSelect == null) { return; }
   // setupForm.appointmentType();

@@ -10,17 +10,18 @@ export function sendRequest(url, onSuccess = null) {
 }
 
 export function getFieldsBelow(identifier) {
-  const structure = {
-    appointmentType: { containerId: 'appointment-type-container' },
-    prosecutor: { containerId: 'prosecutor-container' },
-    department: { containerId: 'departments-container' },
-    place: { containerId: 'places-container' },
-    agenda: { containerId: 'agendas-container' },
-    slot: { containerId: 'slots-container' },
-    slotField: { containerId: 'slot-fields-container' },
-    submit: { containerId: 'submit-button-container' }
-  };
+  const structure = [
+    "appointmentType",
+    "prosecutor",
+    "place",
+    "agenda",
+    "slot",
+    "slotField"
+  ];
 
-  const currentIndex = Object.keys(structure).indexOf(identifier);
-  return Object.keys(structure).slice(currentIndex + 1);
+  const currentIndex = structure.indexOf(identifier);
+  if(currentIndex === -1) {
+    return [];
+  }
+  return structure.slice(currentIndex + 1);
 }

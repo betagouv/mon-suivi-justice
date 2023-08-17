@@ -4,7 +4,7 @@ import { getFieldsBelow, sendRequest } from './form_utilities'
 // Handle display of the different fields
 // in the create appointment form
 export default class extends Controller {
-  static targets = [ "selectAppointmentTypeInput", "convictSelectInput", "submitButtonContainer", "container", "selectPlaceInput", "selectAgendaInput", "submitButtonWithoutModal", "newAppointmentForm" ]
+  static targets = [ "selectAppointmentTypeInput", "convictSelectInput", "submitButtonContainer", "container", "selectPlaceInput", "selectAgendaInput", "submitButtonWithoutModal", "newAppointmentForm", "container" ]
 
   connect() {
     console.log("appointment new controller connected");
@@ -14,7 +14,7 @@ export default class extends Controller {
   changeAptType() {
     const aptTypeValue = this.selectAppointmentTypeInputTarget.value;
     const convictId = this.getConvictId();
-    // this.resetFieldsBelow('appointmentType');
+    this.resetFieldsBelow('appointmentType');
     if (this.submitButtonContainerTarget) {
       this.submitButtonContainerTarget.style.display = 'none';
     }
@@ -25,6 +25,7 @@ export default class extends Controller {
   changePlace() {
     const aptTypeId = this.selectAppointmentTypeInputTarget.value;
     const placeId = this.selectPlaceInputTarget.value;
+    this.resetFieldsBelow('place');
     if (this.submitButtonContainerTarget) {
       this.submitButtonContainerTarget.style.display = 'none';
     }
@@ -35,7 +36,7 @@ export default class extends Controller {
     const placeId = this.selectPlaceInputTarget.value;
     const agendaId = this.selectAgendaInputTarget.value;
     const aptTypeId = this.selectAppointmentTypeInputTarget.value;
-
+    this.resetFieldsBelow('agenda');
     sendRequest(`/load_time_options?place_id=${placeId}&agenda_id=${agendaId}&apt_type_id=${aptTypeId}`);
   }
 
@@ -56,7 +57,6 @@ export default class extends Controller {
   resetFieldsBelow(identifier) {
     getFieldsBelow(identifier).forEach(field => {
       const container = this.containerTargets.find(target => target.dataset.containerType === field);
-      console.log(container)
       if (container) {
         container.innerHTML = '';
       }
@@ -64,8 +64,4 @@ export default class extends Controller {
   }
 }
 
-// gerer les cas slot (sortie audience) et slot field (rdv de suivi) pour display le bouton submit
-// gerer le reset des container en dessous en cas de changement de valeur en resettant les inputs plutot que les containers
-// gerer le submit avec et sans modal, voir si c'est possible de gerer autrement l'envoi de sms que d'ajouter un input avec la valeur dans le form
 // verifier le bon fonctionnement de la selection d'agenda en creant un second agenda a bordeaux avec des slots
-// remettre le titre (nouveau rdv pour nom du detenu) dans le formulaire
