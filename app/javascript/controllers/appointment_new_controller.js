@@ -15,8 +15,8 @@ export default class extends Controller {
     const aptTypeValue = this.selectAppointmentTypeInputTarget.value;
     const convictId = this.getConvictId();
     // this.resetFieldsBelow('appointmentType');
-    if (this.submitButtonContainer) {
-      this.submitButtonContainer.style.display = 'none';
+    if (this.submitButtonContainerTarget) {
+      this.submitButtonContainerTarget.style.display = 'none';
     }
     sendRequest(`/load_prosecutor?apt_type_id=${aptTypeValue}`);
     sendRequest(`/load_places?apt_type_id=${aptTypeValue}&convict_id=${convictId}`);
@@ -25,8 +25,8 @@ export default class extends Controller {
   changePlace() {
     const aptTypeId = this.selectAppointmentTypeInputTarget.value;
     const placeId = this.selectPlaceInputTarget.value;
-    if (this.submitButtonContainer) {
-      this.submitButtonContainer.style.display = 'none';
+    if (this.submitButtonContainerTarget) {
+      this.submitButtonContainerTarget.style.display = 'none';
     }
     sendRequest(`/load_agendas?place_id=${placeId}&apt_type_id=${aptTypeId}`);
   }
@@ -40,7 +40,9 @@ export default class extends Controller {
   }
 
   selectSlot() {
-    sendRequest(`/load_submit_button?convict_id=${this.getConvictId()}`);
+    if (this.submitButtonContainerTarget) {
+      this.submitButtonContainerTarget.style.display = 'flex';
+    }
   }
 
   submit() {

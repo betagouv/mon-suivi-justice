@@ -56,21 +56,21 @@
     </div>
 
     <div class='appointment-form-slots-container' id='slots-container'></div>
-    <% if @convict && !@convict.phone.blank? %>
-      <div>
-          <label for="send_sms" class="boolean optional form-label">
-            <%= t('new-appointment-confirmation-warning')%>
-            <input type="checkbox" name="send_sms" checked>
-          </label>
-      </div>
-    <% end %>
-    <div id='submit-btn-container' data-appointment-new-target="submitButtonContainer">
-      <input type='submit' name='commit' value=<%= t('submit')%> class='fr-btn' id='submit-new-appointment' disabled='disabled' data-disable-with='Enregistrer'>
+    <div id='submit-btn-container' data-appointment-new-target="submitButtonContainer" class='fr-grid-row fr-grid-row--center'>
+      <% if @convict && !@convict.phone.blank? %>
+        <button type='submit' name='send_sms' value="1" class='fr-btn fr-mr-2w' id='submit-new-appointment-sms'>
+          <%= t('submit_sms')%>
+        </button>
+      <% end %>
+      <button type='submit' name='send_sms' value="0" class='fr-btn fr-btn--secondary' id='submit-new-appointment-no-sms'>
+        <%= t('submit_no_sms')%>
+      </button>
+    </div>
+    <div class="fr-grid-row fr-grid-row--center fr-mt-1w">   
+      <span><%= t('new-appointment-warning') %></span>
+      <span><%= t('new-appointment-confirmation-warning') %></span>
     </div>
   <% end %>
-
-  <div class='fr-grid-row fr-grid-row--center' id='submit-button-container'></div>
-  </div>
 
 </div>
 <%= render 'new_appointment_confirmation_modal' %>

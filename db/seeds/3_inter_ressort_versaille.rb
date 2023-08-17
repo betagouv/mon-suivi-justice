@@ -66,8 +66,8 @@ slot_tj_chartres = Slot.create(agenda: agenda_tj_chartres, starting_time: Time.z
 
 slot_spip_92 = Slot.create(agenda: agenda_spip_92, starting_time: Time.zone.now, date: next_valid_day(day: :tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
 slot_spip_78 = Slot.create(agenda: agenda_spip_78, starting_time: Time.zone.now, date: next_valid_day(day: :tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
-slot_spip_28 =Slot.create(agenda: agenda_spip_28, starting_time: Time.zone.now, date: next_valid_day(day: :tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
-slot_spip_95 =Slot.create(agenda: agenda_spip_95, starting_time: Time.zone.now, date: next_valid_day(day: :tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
+slot_spip_28 = Slot.create(agenda: agenda_spip_28, starting_time: Time.zone.now, date: next_valid_day(day: :tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
+slot_spip_95 = Slot.create(agenda: agenda_spip_95, starting_time: Time.zone.now, date: next_valid_day(day: :tuesday), duration: 15, capacity: 5, appointment_type: apt_type_sortie_audience_spip)
 
 bex_pontoise = create_user(organization: org_tj_pontoise, role: :bex, email:'bextjpontoise@example.com')
 bex_versailles = create_user(organization: org_tj_versailles, role: :bex, email: 'bextjversailles@example.com')
