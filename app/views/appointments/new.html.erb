@@ -57,18 +57,20 @@
 
     <div class='appointment-form-slots-container' id='slots-container'></div>
     <div id='submit-btn-container' data-appointment-new-target="submitButtonContainer" class='fr-grid-row fr-grid-row--center'>
-      <% if @convict && !@convict.phone.blank? %>
-        <button type='submit' name='send_sms' value="1" class='fr-btn fr-mr-2w' id='submit-new-appointment-sms'>
-          <%= t('submit_sms')%>
-        </button>
-      <% end %>
-      <button type='submit' name='send_sms' value="0" class='fr-btn fr-btn--secondary' id='submit-new-appointment-no-sms'>
-        <%= t('submit_no_sms')%>
-      </button>
-    </div>
-    <div class="fr-grid-row fr-grid-row--center fr-mt-1w">   
-      <span><%= t('new-appointment-warning') %></span>
-      <span><%= t('new-appointment-confirmation-warning') %></span>
+        <div>
+          <% if @convict && !@convict.phone.blank? %>
+            <button type='submit' name='send_sms' value="1" class='fr-btn fr-mr-2w' id='submit-new-appointment-sms'>
+              <%= t('submit_sms')%>
+            </button>
+          <% end %>
+          <button type='submit' name='send_sms' value="0" class='fr-btn fr-btn--secondary' id='submit-new-appointment-no-sms'>
+            <%= t('submit_no_sms')%>
+          </button>
+        </div>
+        <div class="fr-grid-row fr-grid-row--center fr-mt-1w">   
+          <span><%= t('new-appointment-warning') %></span>
+          <span><%= t('new-appointment-confirmation-warning') %></span>
+        </div>
     </div>
   <% end %>
 
