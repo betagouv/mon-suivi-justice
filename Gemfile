@@ -108,3 +108,5 @@ gem 'faker'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 4.0'
+
+gem 'trix-rails', '~> 2.4', require: 'trix'
