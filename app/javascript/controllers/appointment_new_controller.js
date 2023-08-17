@@ -62,5 +62,3 @@ export default class extends Controller {
     });
   }
 }
-
-// verifier le bon fonctionnement de la selection d'agenda en creant un second agenda a bordeaux avec des slots
