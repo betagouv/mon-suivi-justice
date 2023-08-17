@@ -8,7 +8,6 @@ export default class extends Controller {
 
   connect() {
     console.log("appointment new controller connected");
-    console.log(this.newAppointmentFormTarget)
   }
   
   changeAptType() {
