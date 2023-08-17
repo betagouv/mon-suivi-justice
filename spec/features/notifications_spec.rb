@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Notifications', type: :feature do
+  before do
+    @user = create_admin_user_and_login
+  end
+
   describe 'Reminder' do
     let(:adapter_dbl) { instance_double LinkMobilityAdapter, send_sms: true }
 
