@@ -55,7 +55,7 @@
     </div>
 
     <div class='appointment-form-slots-container' data-container-type="slot" data-appointment-new-target="container" id='slots-container'></div>
-    <div id='submit-btn-container' data-appointment-new-target="submitButtonContainer" class='fr-grid-row fr-grid-row--center'>
+    <div id='submit-btn-container' data-appointment-new-target="submitButtonContainer" class='fr-grid-row fr-grid-row--center fr-mt-2w'>
         <div>
           <% if @convict && !@convict.phone.blank? %>
             <button type='submit' name='send_sms' value="1" class='fr-btn fr-mr-2w' id='submit-new-appointment-sms'>
