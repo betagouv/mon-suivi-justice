@@ -70,42 +70,6 @@ RSpec.describe Convict, type: :model do
     end
   end
 
-  describe '.in_departments' do
-    before do
-      @department1 = create :department, number: '01', name: 'Ain'
-
-      @convict1 = create :convict
-      create :areas_convicts_mapping, convict: @convict1, area: @department1
-
-      @convict2 = create :convict
-      create :areas_convicts_mapping, convict: @convict2, area: @department1
-    end
-
-    it 'returns convicts for multiple departments' do
-      department2 = create :department, number: '02', name: 'Aisne'
-      department3 = create :department, number: '03', name: 'Allier'
-
-      convict3 = create :convict
-      create :areas_convicts_mapping, convict: convict3, area: department2
-
-      convict4 = create :convict
-      create :areas_convicts_mapping, convict: convict4, area: department3
-
-      orga = create :organization
-      create :areas_organizations_mapping, organization: orga, area: @department1
-      create :areas_organizations_mapping, organization: orga, area: department2
-
-      expect(Convict.in_departments(orga.departments)).to eq [@convict1, @convict2, convict3]
-    end
-
-    it 'works if only one department is provided' do
-      orga = create :organization
-      create :areas_organizations_mapping, organization: orga, area: @department1
-
-      expect(Convict.in_departments(orga.departments)).to eq [@convict1, @convict2]
-    end
-  end
-
   describe '.check_duplicates' do
     before do
       @user = create_admin_user_and_login

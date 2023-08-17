@@ -53,23 +53,4 @@ RSpec.describe Place, type: :model do
       expect(Place.in_organization(@organization)).to eq [@place_in]
     end
   end
-
-  describe '.in_departments' do
-    it 'returns places scoped by department' do
-      department1 = create :department, number: '01', name: 'Ain'
-
-      organization1 = create :organization
-      create :areas_organizations_mapping, organization: organization1, area: department1
-      place1 = create :place, organization: organization1
-      place2 = create :place, organization: organization1
-
-      department2 = create :department, number: '02', name: 'Aisne'
-
-      organization2 = create :organization
-      create :areas_organizations_mapping, organization: organization2, area: department2
-      create :place, organization: organization2
-
-      expect(Place.in_departments(organization1.departments)).to eq [place1, place2]
-    end
-  end
 end

@@ -48,12 +48,6 @@ class Convict < ApplicationRecord
 
   after_update :update_convict_api
 
-  scope :in_departments, lambda { |departments|
-    ids = departments.map(&:id)
-    joins(:areas_convicts_mappings)
-      .where(areas_convicts_mappings: { area_type: 'Department', area_id: ids })
-  }
-
   scope :with_phone, -> { where.not(phone: '') }
   scope :never_invited, -> { where(invitation_to_convict_interface_count: 0) }
   scope :with_past_appointments, (lambda do

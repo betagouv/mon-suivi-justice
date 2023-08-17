@@ -40,31 +40,6 @@ RSpec.describe Agenda, type: :model do
     end
   end
 
-  describe '.in_departments' do
-    before do
-      @department1 = create :department, number: '01', name: 'Ain'
-
-      @orga = create :organization
-      create :areas_organizations_mapping, organization: @orga, area: @department1
-
-      place1 = create :place, organization: @orga
-      @agenda1 = create :agenda, place: place1
-      @agenda2 = create :agenda, place: place1
-      create :agenda
-    end
-
-    it 'returns agendas for multiple departments' do
-      department2 = create :department, number: '02', name: 'Aisne'
-      create :areas_organizations_mapping, organization: @orga, area: department2
-
-      expect(Agenda.in_departments(@orga.departments).to_a).to include(@agenda1, @agenda2)
-    end
-
-    it 'works if only one department is provided' do
-      expect(Agenda.in_departments(@orga.departments).to_a).to include(@agenda1, @agenda2)
-    end
-  end
-
   describe '.slots_for_date' do
     it 'return available slots for a given date' do
       apt_type1 = create(:appointment_type, name: "Sortie d'audience SPIP")
