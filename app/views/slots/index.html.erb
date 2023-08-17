@@ -34,7 +34,7 @@
                                           { class: 'fr-select' } %>
     </div>
     <div class="fr-col">
-      <%= f.select :agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.agenda_id_eq),
+      <%= f.select :agenda_id_eq, options_for_select(agendas_options_for_select(current_user), @q.agenda_id_eq),
                                     { include_blank: t('index-appointment-agenda-filter') },
                                     { class: 'fr-select' } %>
     </div>
