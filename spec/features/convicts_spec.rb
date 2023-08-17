@@ -82,9 +82,8 @@ RSpec.feature 'Convicts', type: :feature do
 
       choose '14:00'
 
-      expect(page).to have_button('Enregistrer')
-      click_button 'Enregistrer'
-      expect { click_button 'Oui' }.to change { Appointment.count }.by(1)
+      expect(page).to have_button('Enregistrer sans envoyer de SMS')
+      expect { click_button 'Enregistrer sans envoyer de SMS' }.to change { Appointment.count }.by(1)
     end
 
     it 'creates a convict without a phone number' do
