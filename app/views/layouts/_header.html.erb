@@ -31,12 +31,12 @@
             <ul class="fr-btns-group">
               <li>
                 <% if current_user != true_user %>
-                  <%= link_to("Retour à l'admin", stop_impersonating_users_path, data:{ turbo_method: :post},  class: 'fr-btn fr-icon-settings-5-fill') %>
+                  <%= button_to("Retour à l'admin", stop_impersonating_users_path, data: {turbo: false},  class: 'fr-btn fr-icon-settings-5-fill') %>
                 <% end %>
               </li>
               <li>
                 <% if current_user.admin? %>
-                  <%= link_to admin_root_path,  class: 'fr-btn fr-icon-settings-5-fill' do%>
+                  <%= link_to admin_root_path,  class: 'fr-btn fr-icon-settings-5-fill', data: {turbo: false} do%>
                     Administration centrale
                   <% end %>
                 <% end %>
