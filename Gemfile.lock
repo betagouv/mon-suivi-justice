@@ -630,7 +630,7 @@ DEPENDENCIES
   webdrivers
   webmock
   webpacker (~> 5.0)
-  wicked_pdf (~> 2.1)
+  wicked_pdf (~> 2.6)
   wkhtmltopdf-binary (~> 0.12)
 
 RUBY VERSION
