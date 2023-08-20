@@ -84,6 +84,13 @@ RSpec.describe Slot, type: :model do
 
           expect(slot).to be_valid
         end
+
+        it 'should not crash with empty slot date' do
+          create(:place_transfert, old_place: place, date: Date.tomorrow)
+          slot = build(:slot, agenda: place.agendas.first, date: '')
+
+          expect(slot).to be_invalid
+        end
       end
       describe 'tranfert in' do
         let(:agenda) { create(:agenda) }
