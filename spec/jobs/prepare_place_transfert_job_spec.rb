@@ -33,7 +33,9 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
                      phone: '0238858585', contact_email: 'new-mont@rgis.con',
                      preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_new_spip_loiret_montargis')
     end
-    let(:place_transfert) { create(:place_transfert, old_place:, new_place:, date: next_valid_day(date: Date.tomorrow)) }
+    let(:place_transfert) do
+      create(:place_transfert, old_place:, new_place:, date: next_valid_day(date: Date.tomorrow))
+    end
     let!(:before_slot) { create(:slot, agenda: old_agenda, date: next_valid_day(date: Date.today), appointment_type:) }
 
     let!(:after_slot) do
