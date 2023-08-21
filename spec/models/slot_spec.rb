@@ -169,7 +169,7 @@ RSpec.describe Slot, type: :model do
   end
 
   describe '.available_or_with_appointments' do
-    let(:date) { Date.today }
+    let(:date) { next_valid_day(date: Date.today) }
     let(:appointment_type) { create(:appointment_type) }
 
     let!(:available_slot) { create(:slot, date:, appointment_type:, available: true) }
