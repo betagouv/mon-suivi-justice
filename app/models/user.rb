@@ -57,12 +57,6 @@ class User < ApplicationRecord
       .where(areas_organizations_mappings: { area_type: 'Department', area_id: department.id })
   }
 
-  scope :in_departments, lambda { |departments|
-    ids = departments.map(&:id)
-    joins(organization: :areas_organizations_mappings)
-      .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
-  }
-
   scope :in_organization, ->(organization) { where(organization:) }
 
   pg_search_scope :search_by_name, against: %i[first_name last_name],
