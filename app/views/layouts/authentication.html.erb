@@ -1,7 +1,8 @@
 <% content_for :content do %>
-  <% flash.each do |type, msg| %>
-    <% next unless msg.is_a? String %>
-    <p class=<%= type %>><%= msg %></p>
+  <% flash.delete(:timedout).each do |type, msg| %>
+    <div class="fr-alert fr-alert--<%= dsfr_class_for(type) %> fr-alert--sm">
+      <p><%= msg %></p>
+    </div>
   <% end %>
 
   <section class="authentication-form-container">
