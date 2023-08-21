@@ -31,8 +31,10 @@ module Admin
       @headquarter = Headquarter.find(params[:headquarter_id]) if params[:headquarter_id].present?
 
       temp_csv = params[:convicts_list].tempfile
+      # rubocop:disable Style/RedundantDoubleSplatHashBraces
       csv = CSV.read(temp_csv,
-                     { headers: true, col_sep: ';', external_encoding: 'iso-8859-1', internal_encoding: 'utf-8' })
+                     **{ headers: true, col_sep: ';', external_encoding: 'iso-8859-1', internal_encoding: 'utf-8' })
+      # rubocop:enable Style/RedundantDoubleSplatHashBraces
 
       @import_errors = []
       @import_successes = []
