@@ -16,8 +16,11 @@ module Admin
     # rubocop:disable Metrics/MethodLength
     def import
       temp_csv = params[:srj_file].tempfile
+
+      # rubocop:disable Style/RedundantDoubleSplatHashBraces
       csv = CSV.read(temp_csv,
-                     { headers: true, col_sep: ',' })
+                     **{ headers: true, col_sep: ',' })
+      # rubocop:enable Style/RedundantDoubleSplatHashBraces
 
       @import_errors = []
       @import_successes = []
