@@ -9,16 +9,20 @@ module TransfertValidator
     validate :handle_transfert, on: %i[create update]
 
     def should_add_transfert_in_error?
-      place.transfert_in && date < place.transfert_in.date
+      return false unless place.transfert_in&.present?
+
+      date < place.transfert_in.date
     end
 
     def should_add_transfert_out_error?
-      place.transfert_out && date >= place.transfert_out.date
+      return false unless place.transfert_out&.present?
+
+      date >= place.transfert_out.date
     end
 
     # rubocop:disable Metrics/AbcSize
     def handle_transfert
-      return unless agenda.present?
+      return unless agenda.present? && date.present?
 
       if should_add_transfert_in_error?
         add_transfert_error(place.transfert_in, :transfert_in,
