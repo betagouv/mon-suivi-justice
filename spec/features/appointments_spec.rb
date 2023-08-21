@@ -17,7 +17,7 @@ RSpec.feature 'Appointments', type: :feature do
                             starting_time: new_time_for(15, 30))
 
       slot3 = create(:slot, agenda: @agenda,
-                            date: Date.today,
+                            date: next_valid_day(date: Date.today),
                             starting_time: new_time_for(14, 30))
 
       convict = create(:convict, organizations: [@user.organization])
@@ -34,7 +34,7 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_content('13:00')
       expect(page).to have_content(Date.civil(2025, 4, 16))
       expect(page).to have_content('15:30')
-      expect(page).to have_content(Date.today)
+      expect(page).to have_content(next_valid_day(date: Date.today))
       expect(page).to have_content('14:30')
     end
 
@@ -104,7 +104,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'Convocation de suivi SPIP', from: :appointment_appointment_type_id
         select 'Test place', from: 'Lieu'
         select 'Agenda de Josiane', from: 'Agenda'
-        fill_in 'appointment_slot_date', with: Date.today.strftime('%Y-%m-%d')
+        fill_in 'appointment_slot_date', with: next_valid_day(date: Date.today).strftime('%Y-%m-%d')
         select '16', from: 'appointment_slot_starting_time_4i'
         select '00', from: 'appointment_slot_starting_time_5i'
 
@@ -132,7 +132,7 @@ RSpec.feature 'Appointments', type: :feature do
         select 'Convocation de suivi SPIP', from: :appointment_appointment_type_id
         select 'Test place', from: 'Lieu'
         select 'Agenda de Josiane', from: 'Agenda'
-        fill_in 'appointment_slot_date', with: Date.today.strftime('%Y-%m-%d')
+        fill_in 'appointment_slot_date', with: next_valid_day(date: Date.today).strftime('%Y-%m-%d')
 
         within first('.form-time-select-fields') do
           select '16', from: 'appointment_slot_starting_time_4i'

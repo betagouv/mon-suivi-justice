@@ -8,7 +8,7 @@ RSpec.describe 'appointments namespace rake tasks' do
   end
 
   describe 'update_state' do
-    let(:today) { Date.today }
+    let(:today) { next_valid_day(date: Date.today) }
 
     let!(:organization) { create(:organization, name: 'Test Organization') }
     let!(:place) { create(:place, organization:) }

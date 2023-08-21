@@ -33,18 +33,18 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
                      phone: '0238858585', contact_email: 'new-mont@rgis.con',
                      preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_new_spip_loiret_montargis')
     end
-    let(:place_transfert) { create(:place_transfert, old_place:, new_place:, date: Date.tomorrow) }
-    let!(:before_slot) { create(:slot, agenda: old_agenda, date: Date.today, appointment_type:) }
+    let(:place_transfert) { create(:place_transfert, old_place:, new_place:, date: next_valid_day(date: Date.tomorrow)) }
+    let!(:before_slot) { create(:slot, agenda: old_agenda, date: next_valid_day(date: Date.today), appointment_type:) }
 
     let!(:after_slot) do
-      slot = build(:slot, agenda: old_agenda, date: Date.today + 2.days, appointment_type:,
+      slot = build(:slot, agenda: old_agenda, date: next_valid_day(date: Date.today + 2.days), appointment_type:,
                           slot_type: nil)
       slot.save(validate: false)
       slot
     end
 
     let!(:after_slot_from_type) do
-      slot = build(:slot, agenda: old_agenda, date: Date.today + 2.days, appointment_type:,
+      slot = build(:slot, agenda: old_agenda, date: next_valid_day(date: Date.today + 2.days), appointment_type:,
                           slot_type:)
       slot.save(validate: false)
       slot
