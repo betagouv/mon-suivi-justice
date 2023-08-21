@@ -22,12 +22,12 @@
                           placeholder: t('search-appointment-placeholder') %>
         </div>
         <div class="fr-col">
-          <%= f.select :slot_agenda_place_id_eq, options_from_collection_for_select(Place.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_place_id_eq),
+          <%= f.select :slot_agenda_place_id_eq, options_for_select(places_options_for_select(current_user), @q.slot_agenda_place_id_eq), 
                                             { include_blank: t('slots.index_place_filter') },
                                             { class: "fr-select #{@q.slot_agenda_place_id_eq ? 'in-use' : ''}" } %>
         </div>
         <div class="fr-col">
-          <%= f.select :slot_agenda_id_eq, options_from_collection_for_select(Agenda.in_organization(current_user.organization), 'id', 'name', @q.slot_agenda_id_eq),
+          <%= f.select :slot_agenda_id_eq, options_for_select(agendas_options_for_select(current_user), @q.slot_agenda_id_eq),
                                       { include_blank: t('index-appointment-agenda-filter') },
                                       { class: "fr-select #{@q.slot_agenda_id_eq ? 'in-use' : ''}" } %>
         </div>
