@@ -12,6 +12,7 @@ module Admin
     end
 
     def reset_db
+      login_email = true_user.email
       sign_out(true_user)
       sign_out(current_user)
 
@@ -20,7 +21,7 @@ module Admin
       return redirect_to admin_root_path unless Rails.env.development?
 
       Rails.application.load_seed
-      @admin = User.find_by(email: 'admin@example.com')
+      @admin = User.find_by(email: login_email)
       sign_in(@admin)
       redirect_to admin_root_path
     end

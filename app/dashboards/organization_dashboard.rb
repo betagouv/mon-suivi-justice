@@ -39,6 +39,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     headquarter
     tjs
     spips
+    places
     number_of_convicts
     use_inter_ressort
   ].freeze
