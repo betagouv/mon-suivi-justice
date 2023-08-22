@@ -3,16 +3,14 @@ class InvitationsController < Devise::InvitationsController
 
   # Overriding devise's create action so that admins can move users to other organizations
   def create
-    email = invite_params[:email]
-    existing_user = User.find_by(email:)
+    @user = User.new(invite_params)
 
-    if existing_user && (existing_user.organization != current_organization)
-      redirect_to new_user_invitation_path,
-                  alert: "Cet agent fait déjà partie d'un autre service : “#{existing_user.organization.name}”. Si cet agent a été muté dans votre service, vous pouvez effectuer sa mutation en cliquant ici : “Muter l’agent dans mon service”. Un email sera envoyé au service actuel pour l’informer"
-      return
+    if @user.valid? && @user.errors[:email].blank?
+      @user.invite!
+      redirect_to some_path, notice: 'Invitation sent!'
+    else
+      render :new
     end
-
-    super
   end
 
   protected

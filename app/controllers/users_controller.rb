@@ -72,6 +72,29 @@ class UsersController < ApplicationController
     render layout: false
   end
 
+  def mutate
+    user = User.find(params[:id])
+    authorize user
+    old_organization = user.organization
+    new_organization = current_user.organization
+
+    if user.update(organization: current_organization)
+
+      user.update(organization: new_organization)
+
+      # removed linked convicts and appointments
+      remove_linked_convicts(user)
+      removed_linked_appointments(user)
+
+      # UserMailer.notify_mutation(user, old_organization, new_organization).deliver_later
+      # UserMailer.notify_admins_of_mutation(user, old_organization).deliver_later
+      redirect_to user_path(user), notice: 'L’agent a bien été muté dans votre service'
+    else
+      flash[:alert] = "Une erreur s'est produite lors de la mutation de l'agent."
+      redirect_to users_path
+    end
+  end
+
   private
 
   def user_params
@@ -85,5 +108,10 @@ class UsersController < ApplicationController
     return if %w[cpip dpip].include? user.role
 
     user.convicts.each { |c| Convict.update(c.id, user_id: nil) }
+  end
+
+  def removed_linked_appointments(user)
+    future_appointments = user.appointments.joins(:slot).where('slots.date > ?', Date.today)
+    future_appointments.update_all(user_id: nil)
   end
 end

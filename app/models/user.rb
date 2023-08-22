@@ -50,6 +50,8 @@ class User < ApplicationRecord
   validates :share_email_to_convict, inclusion: { in: [true, false] }
   validates :share_phone_to_convict, inclusion: { in: [true, false] }
 
+  validate :email_not_taken_by_other_service, on: :create
+
   before_validation :set_default_role
 
   scope :in_department, lambda { |department|
@@ -123,5 +125,21 @@ class User < ApplicationRecord
 
   def set_default_role
     self.role ||= organization.organization_type == 'tj' ? 'greff_sap' : 'cpip'
+  end
+
+  def email_not_taken_by_other_service
+    existing_user = User.find_by(email:)
+    return unless existing_user && existing_user.organization != organization
+
+    errors.delete(:email)
+
+    custom_link = ActionController::Base.helpers.link_to(
+      'Muter l’agent dans mon service',
+      Rails.application.routes.url_helpers.mutate_user_path(existing_user),
+      data: { confirm: "Etes-vous certain de vouloir muter cet agent dans votre service ? Cela le supprimera de son service actuel : #{existing_user.organization.name}. En cas de doute merci de contacter le service actuel au #{existing_user.organization.places&.first&.phone}" }
+    )
+
+    error_message = "est déjà pris par un agent d'un autre service. #{custom_link}".html_safe
+    errors.add(:email, error_message)
   end
 end
