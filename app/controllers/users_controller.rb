@@ -77,7 +77,7 @@ class UsersController < ApplicationController
     authorize user
 
     if user.update(organization: current_organization)
-      remove_linked_convicts(user)
+      remove_linked_convicts(user, mutation: true)
       removed_linked_appointments(user)
 
       send_mutation_emails(user, user.organization)
@@ -96,8 +96,8 @@ class UsersController < ApplicationController
     )
   end
 
-  def remove_linked_convicts(user)
-    return if %w[cpip dpip].include? user.role
+  def remove_linked_convicts(user, mutation: false)
+    return if %w[cpip dpip].include?(user.role) && !mutation
 
     user.convicts.each { |c| Convict.update(c.id, user_id: nil) }
   end
