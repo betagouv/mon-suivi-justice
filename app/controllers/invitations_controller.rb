@@ -4,17 +4,13 @@ class InvitationsController < Devise::InvitationsController
   # Overriding devise's create action so that admins can move users to other organizations
   def create
     @user = User.new(invite_params)
-  
-    # Custom check for email taken by an agent from another service
+
     existing_user = User.find_by(email: @user.email)
     if existing_user && existing_user.organization != current_user.organization
-  
-      # We need this line to remove the default error message from Devise
-      @user.errors.delete(:email)
+
       custom_link = mutation_link(existing_user)
       error_message = "est déjà pris par un agent d'un autre service. #{custom_link}".html_safe
       @user.errors.add(:email, error_message)
-
 
       render :new
     else
