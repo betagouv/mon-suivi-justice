@@ -7,8 +7,8 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Notification de Mutation')
   end
 
-  def notify_admins_of_mutation(user, old_organization)
-    @admins = old_organization.users.where(role: 'admin')
+  def notify_local_admins_of_mutation(user, old_organization)
+    @admins = old_organization.users.where(role: 'local_admin')
     @user = user
     mail(to: @admins.map(&:email), subject: 'Un utilisateur a été muté')
   end

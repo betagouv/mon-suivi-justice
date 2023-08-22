@@ -75,19 +75,15 @@ class UsersController < ApplicationController
   def mutate
     user = User.find(params[:id])
     authorize user
-    old_organization = user.organization
-    new_organization = current_user.organization
 
     if user.update(organization: current_organization)
       remove_linked_convicts(user)
       removed_linked_appointments(user)
 
-      UserMailer.notify_mutation(user, old_organization).deliver_later
-      UserMailer.notify_admins_of_mutation(user, old_organization).deliver_later
+      send_mutation_emails(user, user.organization)
       redirect_to user_path(user), notice: 'L’agent a bien été muté dans votre service'
     else
-      flash[:alert] = "Une erreur s'est produite lors de la mutation de l'agent."
-      redirect_to users_path
+      redirect_to users_path, alert: "Une erreur s'est produite lors de la mutation de l'agent."
     end
   end
 
@@ -109,5 +105,10 @@ class UsersController < ApplicationController
   def removed_linked_appointments(user)
     future_appointments = user.appointments.joins(:slot).where('slots.date > ?', Date.today)
     future_appointments.update_all(user_id: nil)
+  end
+
+  def send_mutation_emails(user, old_organization)
+    UserMailer.notify_mutation(user, old_organization).deliver_later
+    UserMailer.notify_local_admins_of_mutation(user, old_organization).deliver_later
   end
 end
