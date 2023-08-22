@@ -121,25 +121,35 @@ class User < ApplicationRecord
     work_at_bex? && organization.use_inter_ressort?
   end
 
+  def email_not_taken_by_other_service
+    existing_user = User.find_by(email:)
+    return unless existing_user && existing_user.organization != organization
+
+    # We need this line to remove the default error message from Devise
+    errors.delete(:email)
+    custom_link = mutation_link(existing_user)
+    error_message = "est déjà pris par un agent d'un autre service. #{custom_link}".html_safe
+    errors.add(:email, error_message)
+  end
+
   private
 
   def set_default_role
     self.role ||= organization.organization_type == 'tj' ? 'greff_sap' : 'cpip'
   end
 
-  def email_not_taken_by_other_service
-    existing_user = User.find_by(email:)
-    return unless existing_user && existing_user.organization != organization
-
-    errors.delete(:email)
-
-    custom_link = ActionController::Base.helpers.link_to(
-      'Muter l’agent dans mon service',
-      Rails.application.routes.url_helpers.mutate_user_path(existing_user),
-      data: { confirm: "Etes-vous certain de vouloir muter cet agent dans votre service ? Cela le supprimera de son service actuel : #{existing_user.organization.name}. En cas de doute merci de contacter le service actuel au #{existing_user.organization.places&.first&.phone}" }
+  def mutation_link(existing_user)
+    mutation_path = Rails.application.routes.url_helpers.mutate_user_path(existing_user)
+    ActionController::Base.helpers.link_to(
+      I18n.t('users.mutate.call_to_action'),
+      mutation_path,
+      data: { confirm: mutation_confirmation_message(existing_user) }
     )
+  end
 
-    error_message = "est déjà pris par un agent d'un autre service. #{custom_link}".html_safe
-    errors.add(:email, error_message)
+  def mutation_confirmation_message(existing_user)
+    I18n.t('users.mutate.confirmation_message',
+           organization_name: existing_user.organization.name,
+           phone_number: existing_user.organization.places&.first&.phone)
   end
 end
