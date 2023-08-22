@@ -79,15 +79,11 @@ class UsersController < ApplicationController
     new_organization = current_user.organization
 
     if user.update(organization: current_organization)
-
-      user.update(organization: new_organization)
-
-      # removed linked convicts and appointments
       remove_linked_convicts(user)
       removed_linked_appointments(user)
 
-      # UserMailer.notify_mutation(user, old_organization, new_organization).deliver_later
-      # UserMailer.notify_admins_of_mutation(user, old_organization).deliver_later
+      UserMailer.notify_mutation(user, old_organization).deliver_later
+      UserMailer.notify_admins_of_mutation(user, old_organization).deliver_later
       redirect_to user_path(user), notice: 'L’agent a bien été muté dans votre service'
     else
       flash[:alert] = "Une erreur s'est produite lors de la mutation de l'agent."

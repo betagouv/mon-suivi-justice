@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Mon Suivi Justice - mutation dans un nouveau service</h1>
+    <p>
+        Bonjour <%= @user.name %>,<br />
+        Sur demande de votre nouveau service <%= @user.organization.name %>, votre mutation a bien été effectuée dans Mon Suivi Justice. <br /> 
+        Pour vous y connecter et commencer à suivre vos probationnaires dans votre nouveau service, <br />
+        merci de cliquer sur <%= link_to 'ce lien', root_path %>  <br />
+        Très bonne journée, <br />
+        L’équipe Mon Suivi Justice.
+    </p>
+  </body>
+</html>
