@@ -10,7 +10,9 @@
         Sur demande de son nouveau service, <%= @user.organization.name %>, la mutation de <%= @user.name %> a été effectuée sur Mon Suivi Justice. 
         <%= @user.name %>  ne fait donc plus partie de votre service.<br />
         Si c’est une erreur, vous pouvez contacter directement son nouveau service au <%= @user.organization.places&.first&.phone %>. <br />
-        Si l’agent a bien quitté votre service, n’oubliez pas de réattribuer les probationnaires qui étaient suivis par <%= @user.name %> à un nouvel agent <%= link_to 'en cliquant ici', convicts_url %>.<br />
+        <% if @user.cpip? %>
+           Si l’agent a bien quitté votre service, n’oubliez pas de réattribuer les probationnaires qui étaient suivis par <%= @user.name %> à un nouvel agent <%= link_to 'en cliquant ici', convicts_url %>. <br />
+        <% end %>
         Très bonne journée, <br />
         L’équipe Mon Suivi Justice.
     </p>
