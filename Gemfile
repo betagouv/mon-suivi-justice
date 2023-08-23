@@ -7,7 +7,6 @@ gem 'rails', '~> 7.0.0', '>= 7.0.6'
 gem 'pg', '~> 1.3'
 gem 'puma', '~> 5.6'
 gem 'sass-rails', '>= 6'
-gem 'sassc', '2.3.0'
 gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.4.4', require: false

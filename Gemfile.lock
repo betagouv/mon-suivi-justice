@@ -606,7 +606,6 @@ DEPENDENCIES
   rspec_junit_formatter
   ruby-progressbar (~> 1.11)
   sass-rails (>= 6)
-  sassc (= 2.3.0)
   selenium-webdriver
   sentry-rails (~> 5.1)
   sentry-ruby (~> 5.1)
