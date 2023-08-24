@@ -71,4 +71,17 @@ module ApplicationHelper
 
     valid_day
   end
+
+  def dsfr_class_for(flash_type)
+    case flash_type
+    when 'notice'
+      'info'
+    when 'error'
+      'error'
+    when 'alert'
+      'warning'
+    else
+      flash_type.to_s
+    end
+  end
 end
