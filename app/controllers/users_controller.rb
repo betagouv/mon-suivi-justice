@@ -72,20 +72,24 @@ class UsersController < ApplicationController
     render layout: false
   end
 
+  # rubocop:disable Metrics/MethodLength
   def mutate
     user = User.find(params[:id])
     authorize user
 
+    old_organization = user.organization
+
     if user.update(organization: current_organization)
       remove_linked_convicts(user, mutation: true)
-      removed_linked_appointments(user)
+      remove_linked_appointments(user)
+      send_mutation_emails(user, old_organization)
 
-      send_mutation_emails(user, user.organization)
       redirect_to user_path(user), notice: 'L’agent a bien été muté dans votre service'
     else
-      redirect_to users_path, alert: "Une erreur s'est produite lors de la mutation de l'agent."
+      redirect_to users_path, alert: "Erreur lors de la mutation de l'agent : #{user.errors.full_messages}"
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
@@ -102,13 +106,13 @@ class UsersController < ApplicationController
     user.convicts.each { |c| Convict.update(c.id, user_id: nil) }
   end
 
-  def removed_linked_appointments(user)
-    future_appointments = user.appointments.joins(:slot).where('slots.date > ?', Date.today)
+  def remove_linked_appointments(user)
+    future_appointments = user.appointments.joins(:slot).where('slots.date > ?', Time.zone.today)
     future_appointments.update_all(user_id: nil)
   end
 
   def send_mutation_emails(user, old_organization)
-    UserMailer.notify_mutation(user, old_organization).deliver_later
+    UserMailer.notify_mutation(user).deliver_later
     UserMailer.notify_local_admins_of_mutation(user, old_organization).deliver_later
   end
 end
