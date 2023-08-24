@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     get :invitation_link
     get :reset_pwd_link
     post :stop_impersonating, on: :collection
+    get 'mutate', on: :member
   end
 
   resource :user do
