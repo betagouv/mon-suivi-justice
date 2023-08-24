@@ -92,7 +92,10 @@ module Admin
     end
 
     def handle_routes
-      routes_file = @gh_api_client.contents(MSJ_PUBLIC_REPO_PATH, { path: 'config/routes.rb', ref: @new_page_branch })
+      # rubocop:disable Style/RedundantDoubleSplatHashBraces
+      routes_file = @gh_api_client.contents(MSJ_PUBLIC_REPO_PATH, **{ path: 'config/routes.rb', ref: @new_page_branch })
+      # rubocop:enable Style/RedundantDoubleSplatHashBraces
+
       @routes_file_rows = Base64.decode64(routes_file[:content]).split("\n")
       insertion_index = @routes_file_rows.index '  scope controller: :pages do'
       @routes_file_rows.insert(insertion_index + 1, "    get :preparer_#{@org_name}")

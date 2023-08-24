@@ -13,12 +13,6 @@ class Agenda < ApplicationRecord
 
   scope :in_organization, ->(organization) { joins(:place).where(place: { organization: }) }
 
-  scope :in_departments, lambda { |departments|
-    ids = departments.map(&:id)
-    joins(place: { organization: :areas_organizations_mappings })
-      .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids }).distinct
-  }
-
   scope :in_jurisdiction, lambda { |user_organization|
     joins(:place).where(place: { organization: [user_organization, *user_organization.linked_organizations] })
   }

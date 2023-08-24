@@ -84,6 +84,13 @@ RSpec.describe Slot, type: :model do
 
           expect(slot).to be_valid
         end
+
+        it 'should not crash with empty slot date' do
+          create(:place_transfert, old_place: place, date: Date.tomorrow)
+          slot = build(:slot, agenda: place.agendas.first, date: '')
+
+          expect(slot).to be_invalid
+        end
       end
       describe 'tranfert in' do
         let(:agenda) { create(:agenda) }
@@ -162,7 +169,7 @@ RSpec.describe Slot, type: :model do
   end
 
   describe '.available_or_with_appointments' do
-    let(:date) { Date.today }
+    let(:date) { next_valid_day(date: Date.today) }
     let(:appointment_type) { create(:appointment_type) }
 
     let!(:available_slot) { create(:slot, date:, appointment_type:, available: true) }
@@ -181,34 +188,6 @@ RSpec.describe Slot, type: :model do
       expect(slots).to include(booked_slot)
       expect(slots).to include(slot_without_appointment)
       expect(slots).not_to include(slot_unavailable_without_appointment)
-    end
-  end
-
-  describe '.in_departments' do
-    it 'returns slots scoped by department' do
-      department1 = create :department, number: '01', name: 'Ain'
-
-      organization1 = create :organization
-      create :areas_organizations_mapping, organization: organization1, area: department1
-      place1 = create :place, organization: organization1
-      agenda1 = create :agenda, place: place1
-      slot1 = create :slot, agenda: agenda1
-
-      organization2 = create :organization
-      create :areas_organizations_mapping, organization: organization2, area: department1
-      place2 = create :place, organization: organization2
-      agenda2 = create :agenda, place: place2
-      slot2 = create :slot, agenda: agenda2
-
-      department2 = create :department, number: '02', name: 'Aisne'
-
-      organization3 = create :organization
-      create :areas_organizations_mapping, organization: organization3, area: department2
-      place3 = create :place, organization: organization3
-      agenda3 = create :agenda, place: place3
-      create :slot, agenda: agenda3
-
-      expect(Slot.in_departments(organization1.departments)).to eq [slot1, slot2]
     end
   end
 end

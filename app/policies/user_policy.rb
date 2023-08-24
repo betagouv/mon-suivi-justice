@@ -44,4 +44,8 @@ class UserPolicy < ApplicationPolicy
   def search?
     true
   end
+
+  def mutate?
+    user.admin? || user.local_admin?
+  end
 end
