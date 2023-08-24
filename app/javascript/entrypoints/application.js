@@ -7,17 +7,15 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "@hotwired/turbo-rails"
-// import "channels"
 
-require("jquery");
-require("@nathanvda/cocoon");
-require("components/profile_search");
-require("components/password_toggle");
-require("controllers/index");
+import "jquery";
+import "@nathanvda/cocoon"
+import "../components/profile_search"
+import "../components/password_toggle"
+import "../controllers/index"
+import "trix"
+import "@rails/actiontext"
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
-require("trix")
-require("@rails/actiontext")

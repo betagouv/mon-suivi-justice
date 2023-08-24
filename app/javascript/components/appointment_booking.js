@@ -1,6 +1,7 @@
 import Rails from '@rails/ujs';
 import $ from 'jquery';
-import 'select2';
+import select2 from 'select2';
+select2($);
 import MicroModal from 'micromodal';
 
 function displayAppointmentTypeSelect() {

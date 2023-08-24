@@ -1,8 +1,6 @@
 import { Application } from "@hotwired/stimulus"
-import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
-// import { AbymeController } from 'abyme'
+import { registerControllers } from 'stimulus-vite-helpers'
 
 const application = Application.start()
-const context = require.context("controllers", true, /_controller\.js$/)
-application.load(definitionsFromContext(context))
-// application.register('abyme', AbymeController)
+const controllers = import.meta.globEager('./**/*_controller.js')
+registerControllers(application, controllers)

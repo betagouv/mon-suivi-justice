@@ -8,7 +8,7 @@ gem 'pg', '~> 1.3'
 gem 'puma', '~> 5.6'
 gem 'sass-rails', '>= 6'
 gem 'sassc', '2.3.0'
-gem 'webpacker', '~> 5.0'
+gem 'vite_rails', '~> 3.0', '>= 3.0.15'
 gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.4'

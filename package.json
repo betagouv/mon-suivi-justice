@@ -16,6 +16,7 @@
     "micromodal": "^0.4.6",
     "select2": "^4.1.0-rc.0",
     "stimulus-use": "^0.51.3",
+    "stimulus-vite-helpers": "^3.0.1",
     "trix": "^2.0.0",
     "turbolinks": "^5.2.0",
     "uuid": "^9.0.0",
@@ -24,6 +25,9 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@rollup/plugin-inject": "^5.0.3",
+    "vite": "^4.3.0",
+    "vite-plugin-ruby": "^3.2.0",
     "webpack-dev-server": "^3.11.2"
   }
 }
