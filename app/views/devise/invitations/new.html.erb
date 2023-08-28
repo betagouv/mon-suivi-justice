@@ -1,8 +1,7 @@
 <div class="fr-grid-row fr-grid-row--center fr-mb-5w">
   <div class="fr-col-10 fr-col-md-8 fr-col-lg-6">
     <h1><%= t('new_user_title') %></h1>
-    <turbo-frame id="invitation_form">
-      <%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, class: '' }) do |f| %>
+      <%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, class: '', data: { turbo: false } }) do |f| %>
         <%= f.error_notification %>
         <%= f.input :first_name, required: true %>
         <%= f.input :last_name, required: true %>
@@ -22,6 +21,5 @@
         <% end %>
         <%= f.button :submit, t('send_invitation'), class: 'fr-btn' %>
       <% end %>
-    </turbo-frame>
   </div>
 </div>
