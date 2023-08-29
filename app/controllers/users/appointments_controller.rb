@@ -6,8 +6,8 @@ module Users
       respond_to do |format|
         format.html
         format.pdf do
-          render template: 'appointments/index_pdf.html.erb',
-                 pdf: 'Liste des convocations', footer: { right: '[page]/[topage]' }
+          render template: 'appointments/index_pdf',
+                 pdf: 'Liste des convocations', footer: { right: '[page]/[topage]' }, formats: [:html]
         end
       end
       authorize @appointments

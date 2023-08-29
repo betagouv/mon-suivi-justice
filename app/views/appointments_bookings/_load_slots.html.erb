@@ -13,9 +13,15 @@
         <div class='slot-date-container'>
           <% date.drop(1).first.sort_by(&:starting_time).each do |slot| %>
             <div>
-              <input type='radio' value=<%= slot.id %> name="appointment[slot_id]" id=<%="appointment_slot_id_#{slot.id}"%>>
+              <input 
+                type='radio' 
+                value=<%= slot.id %> 
+                name="appointment[slot_id]" 
+                id=<%="appointment_slot_id_#{slot.id}"%>
+                data-action="change->appointment-new#selectSlot"
+              >
               <label for=<%="appointment_slot_id_#{slot.id}"%>>
-                <%= slot.localized_time.to_s(:time) %> <% if @all_agendas %> - <%= slot.agenda.name %> <% end %>
+                <%= slot.localized_time.to_fs(:time) %> <% if @all_agendas %> - <%= slot.agenda.name %> <% end %>
               </label>
             </div>
           <% end %>

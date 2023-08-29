@@ -22,8 +22,9 @@ RSpec.describe NotificationFactory do
       summon_notif = appointment.notifications.where(role: :summon).first
       reminder_notif = appointment.notifications.where(role: :reminder).first
 
-      expect(summon_notif.content).to eq("Convocation le #{Date.civil(2025, 4, 14)} à 15h30")
-      expect(reminder_notif.content).to eq("Rappel: convocation le #{Date.civil(2025, 4, 14)} à 15h30")
+      expect(summon_notif.content).to eq("Convocation le #{Date.civil(2025, 4, 14).to_fs(:base_date_format)} à 15h30")
+      expect(reminder_notif.content).to eq("Rappel: convocation le #{Date.civil(2025, 4,
+                                                                                14).to_fs(:base_date_format)} à 15h30")
     end
   end
 
@@ -49,7 +50,7 @@ RSpec.describe NotificationFactory do
                              preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip92')
       agenda = create(:agenda, place:)
       slot = create(:slot, agenda:,
-                           date: Date.civil(2025, 4, 18),
+                           date: Date.civil(2025, 4, 18).to_fs(:base_date_format),
                            starting_time: new_time_for(16, 30), appointment_type:)
       sms_template = 'Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. ' \
                      "Merci de venir avec une pièce d'identité au {lieu.adresse}. " \
@@ -59,7 +60,7 @@ RSpec.describe NotificationFactory do
 
       appointment = create(:appointment, slot:)
 
-      expected = "Vous êtes convoqué au Spip du 03 le #{Date.civil(2025, 4, 18)} à 16h30. " \
+      expected = "Vous êtes convoqué au Spip du 03 le #{Date.civil(2025, 4, 18).to_fs(:base_date_format)} à 16h30. " \
                  "Merci de venir avec une pièce d'identité au 38 rue Jean Moulin. " \
                  'Veuillez contacter le 0102030405 (ou test@test.com) en cas de problème. ' \
                  "Plus d'informations sur https://mon-suivi-justice.beta.gouv.fr/preparer_spip92?mtm_campaign=AgentsApp&mtm_source=sms."

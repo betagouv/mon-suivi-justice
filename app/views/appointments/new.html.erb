@@ -1,16 +1,20 @@
 <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-<div class="fr-col-6">
+<div class="fr-col-6" data-controller="appointment-new">
   <h2 class='form-title' id="appointment-form-title"><%= t('new_appointment_title') %><%= @convict ? " pour #{@convict.full_name}" : "" %></h2>
-  <%= simple_form_for @appointment, url: appointments_path(convict_id: @convict.id) do |f| %>
+  <%= simple_form_for @appointment, url: appointments_path(convict_id: @convict&.id), html: { "data-appointment-new-target": "newAppointmentForm" } do |f| %>
     <div>
       <% if @convict %>
-        <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id } %>
+        <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id, "data-appointment-new-target": "convictSelectInput" } %>
       <% else %>
         <%= f.association :convict, collection: policy_scope(Convict.all),
                                     label: t('activerecord.models.convict', count: 1),
                                     as: :select,
                                     label_method: :name,
-                                    input_html: { class: 'form-select', id: 'convict-name-autocomplete' } %>
+                                    input_html: {
+                                      class: 'form-select', 
+                                      id: 'convict-name-autocomplete',
+                                      "data-appointment-new-target": "convictSelectInput",
+                                    } %>
       <% end %>
 
       <div class="appointment-form-cpip-container" id="cpip-container">
@@ -24,12 +28,15 @@
       </div>
 
       <div data-controller="appointment-extra-field-display">
-        <div class='appointment-form-appointment-type-container' id='appointment-type-container' style=<%= @convict ? "display: block" : "display: none" %>>
+        <div class='appointment-form-appointment-type-container' id='appointment-type-container' data-appointment-new-target="container" data-container-type="appointmentType" style=<%= @convict ? "display: block" : "display: none" %>>
           <%= f.input :appointment_appointment_type_id, collection: appointment_types_for_user(current_user),
                                                         label: t('activerecord.models.appointment_type'),
                                                         as: :fake_select,
                                                         label_method: :name,
-                                                        input_html: { class: 'form-select', "data-appointment-extra-field-display-target": "selectAppointmentTypeInput", "data-action": "change->appointment-extra-field-display#change" } %>
+                                                        input_html: { class: 'form-select', 
+                                                        "data-appointment-extra-field-display-target": "selectAppointmentTypeInput",
+                                                        "data-appointment-new-target": "selectAppointmentTypeInput", 
+                                                        "data-action": "change->appointment-extra-field-display#change change->appointment-new#changeAptType" } %>
         </div>
 
         <div class="d-none" data-appointment-extra-field-display-target="extraFieldsContainer">
@@ -41,24 +48,29 @@
       </div>
 
       <div class='' id='cities-container'></div>
-      <div class='appointment-form-prosecutor-container' id='prosecutor-container'></div>
-      <div class='appointment-form-places-container' id='places-container'></div>
-      <div class='appointment-form-departments-container' id='departments-container'></div>
-      <div class='appointment-form-agendas-container' id='agendas-container'></div>
-      <div class='appointment-form-slot-fields-container' id='slot-fields-container'></div>
+      <div class='appointment-form-prosecutor-container' data-container-type="prosecutor" id='prosecutor-container' data-appointment-new-target="container"></div>
+      <div class='appointment-form-places-container' data-container-type="place" id='places-container' data-appointment-new-target="container"></div>
+      <div class='appointment-form-agendas-container' data-container-type="agenda" id='agendas-container' data-appointment-new-target="container"></div>
+      <div class='appointment-form-slot-fields-container' data-container-type="slotField" id='slot-fields-container' data-appointment-new-target="container"></div>
     </div>
 
-    <div class='appointment-form-slots-container' id='slots-container'></div>
-
-    <div id='submit-btn-container'>
-      <input type='submit' name='commit' value=<%= t('submit')%> class='fr-btn' id='submit-new-appointment' disabled='disabled' data-disable-with='Enregistrer'>
+    <div class='appointment-form-slots-container' data-container-type="slot" data-appointment-new-target="container" id='slots-container'></div>
+    <div id='submit-btn-container' data-appointment-new-target="submitButtonContainer" class='fr-grid-row fr-grid-row--center fr-mt-2w'>
+        <div>
+          <% if @convict && !@convict.phone.blank? %>
+            <button type='submit' name='send_sms' value="1" class='fr-btn fr-mr-2w' id='submit-new-appointment-sms'>
+              <%= t('submit_sms')%>
+            </button>
+          <% end %>
+          <button type='submit' name='send_sms' value="0" class='fr-btn fr-btn--secondary' id='submit-new-appointment-no-sms'>
+            <%= t('submit_no_sms')%>
+          </button>
+        </div>
+        <div class="fr-grid-row fr-grid-row--center fr-mt-1w">   
+          <span><%= t('new-appointment-warning') %></span>
+          <span><%= t('new-appointment-confirmation-warning') %></span>
+        </div>
     </div>
   <% end %>
 
-  <div class='fr-grid-row fr-grid-row--center' id='submit-button-container'></div>
-  </div>
-
 </div>
-<%= render 'new_appointment_confirmation_modal' %>
-
-<%= javascript_pack_tag 'appointment_new' %>

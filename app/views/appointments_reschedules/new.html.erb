@@ -27,7 +27,7 @@
                       <div>
                         <input type='radio' value=<%= slot.id %> name="appointment[slot_id]" id=<%="appointment_slot_id_#{slot.id}"%>>
                         <label for=<%="appointment_slot_id_#{slot.id}"%>>
-                      <%= slot.localized_time.to_s(:time) %>
+                      <%= slot.localized_time.to_fs(:time) %>
                     </label>
                         </div>
                       <% end %>

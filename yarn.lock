@@ -940,6 +940,19 @@
   resolved "https://registry.yarnpkg.com/@hotwired/stimulus/-/stimulus-3.2.1.tgz#e3de23623b0c52c247aba4cd5d530d257008676b"
   integrity sha512-HGlzDcf9vv/EQrMJ5ZG6VWNs8Z/xMN+1o2OhV1gKiSG6CqZt5MCBB1gRg5ILiN3U0jEAxuDTNPRfBcnZBDmupQ==
 
+"@hotwired/turbo-rails@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@hotwired/turbo-rails/-/turbo-rails-7.3.0.tgz#422c21752509f3edcd6c7b2725bbe9e157815f51"
+  integrity sha512-fvhO64vp/a2UVQ3jue9WTc2JisMv9XilIC7ViZmXAREVwiQ2S4UC7Go8f9A1j4Xu7DBI6SbFdqILk5ImqVoqyA==
+  dependencies:
+    "@hotwired/turbo" "^7.3.0"
+    "@rails/actioncable" "^7.0"
+
+"@hotwired/turbo@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-7.3.0.tgz#2226000fff1aabda9fd9587474565c9929dbf15d"
+  integrity sha512-Dcu+NaSvHLT7EjrDrkEmH4qET2ZJZ5IcCWmNXxNQTBwlnE5tBZfN6WxZ842n5cHV52DH/AKNirbPBtcEXDLW4g==
+
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
   resolved "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz"
@@ -1011,29 +1024,34 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@rails/actioncable@^6.0.0":
-  version "6.1.7"
-  resolved "https://registry.npmjs.org/@rails/actioncable/-/actioncable-6.1.7.tgz"
-  integrity sha512-F6S74NGpxhbbDRFsQFGYqefRfZPgYvePNtz9hHKYOqLturrsqrDoG+UcrxEGHsvqDUorMYfx4Wl3K8smmk/u2g==
+"@rails/actioncable@^7.0":
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.0.6.tgz#60765c8e9c357a0ba0840fb1e409caedc233ea0d"
+  integrity sha512-ybBsUrIsu5geM8BtqnpM7ZA9D8uzSz+e1B4JR57NaCmasHKWap6AX5DT7NHIbp21opVet1qqoVSdsoLDqXeB2A==
 
-"@rails/actiontext@^6.1.4-1":
-  version "6.1.7"
-  resolved "https://registry.npmjs.org/@rails/actiontext/-/actiontext-6.1.7.tgz"
-  integrity sha512-o3TYFeFzDQKR22EGqE9qqJ6SD4DM+cATw8nioPtrRkIlAsBIHeaV0h4Kok1sDXyNjXiJztCr89CsfV7YXnYFmw==
+"@rails/actioncable@^7.0.7":
+  version "7.0.7"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.0.7.tgz#03b5faa8642a80211708e8f1754cf424e9228718"
+  integrity sha512-NqHf4XDkeVaNk/r+TBo2aAMkjPyRPEfZkSqCTijfWukW1zTZ2XLDfvFzbpRCuWZ6gxItgoa/FkILZm27HRh2yg==
+
+"@rails/actiontext@^7.0.7":
+  version "7.0.7"
+  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-7.0.7.tgz#d80ba902aa48c0fe55728d7f3e8f7f0cab926cc6"
+  integrity sha512-2huBCSCdROtu3ouu/anTBEs+hvXKQYZ+gGpE3/DCx9Dg/xWRAI3doEHfF7A8uJhokQZrc0ZDOS8zhwwuh1dNzg==
   dependencies:
-    "@rails/activestorage" "^6.0.0"
+    "@rails/activestorage" ">= 7.0.0-alpha1"
 
-"@rails/activestorage@^6.0.0":
-  version "6.1.7"
-  resolved "https://registry.npmjs.org/@rails/activestorage/-/activestorage-6.1.7.tgz"
-  integrity sha512-h++k8LBLns4O8AqzdaFp1TsCLP9VSc2hgWI37bjzJ+4D995X7Rd8kdkRmXRaNAUlHDJgy6RpnbhBJ5oiIgWTDw==
+"@rails/activestorage@>= 7.0.0-alpha1", "@rails/activestorage@^7.0.7":
+  version "7.0.7"
+  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-7.0.7.tgz#a23e22bccd61756ba52aff3b8cb43b050ae1ecca"
+  integrity sha512-EoiGMWUmRzYQhOQ1ifTFHuYNdOHP3f0YOhrKsFlshrV8vzkRkip1Ks3BMzW98cYOw7v6PUPmEeBxgb4jY2U2+g==
   dependencies:
-    spark-md5 "^3.0.0"
+    spark-md5 "^3.0.1"
 
-"@rails/ujs@^6.0.0":
-  version "6.1.7"
-  resolved "https://registry.npmjs.org/@rails/ujs/-/ujs-6.1.7.tgz"
-  integrity sha512-0e7WQ4LE/+LEfW2zfAw9ppsB6A8RmxbdAUPAF++UT80epY+7emuQDkKXmaK0a9lp6An50RvzezI0cIQjp1A58w==
+"@rails/ujs@^7.0.7":
+  version "7.0.7"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.0.7.tgz#54af8d66160a8a7bf7d8f184703d2bf4b3fab914"
+  integrity sha512-J2v5Ca7HgejO7diGKiDylaVDQKmbQ5FJih6Oo3hXuBKEuXlcaccJu64lj8MNVLaPVyZx0g4gaOQZQz95QEb/hg==
 
 "@rails/webpacker@5.4.0":
   version "5.4.0"
@@ -6305,9 +6323,9 @@ source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.1:
   resolved "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
-spark-md5@^3.0.0:
+spark-md5@^3.0.1:
   version "3.0.2"
-  resolved "https://registry.npmjs.org/spark-md5/-/spark-md5-3.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-3.0.2.tgz#7952c4a30784347abcee73268e473b9c0167e3fc"
   integrity sha512-wcFzz9cDfbuqe0FZzfi2or1sgyIrsDwmPwfZC4hiNidPdPINjeUwNfv5kldczoEAcjl9Y1L3SM7Uz2PUEQzxQw==
 
 spdy-transport@^3.0.0:
@@ -6686,9 +6704,9 @@ toidentifier@1.0.1:
   resolved "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.1.tgz"
   integrity sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==
 
-trix@^1.2.0:
+trix@^1.3.1:
   version "1.3.1"
-  resolved "https://registry.npmjs.org/trix/-/trix-1.3.1.tgz"
+  resolved "https://registry.yarnpkg.com/trix/-/trix-1.3.1.tgz#ccce8d9e72bf0fe70c8c019ff558c70266f8d857"
   integrity sha512-BbH6mb6gk+AV4f2as38mP6Ucc1LE3OD6XxkZnAgPIduWXYtvg2mI3cZhIZSLqmMh9OITEpOBCCk88IVmyjU7bA==
 
 ts-pnp@^1.1.6:

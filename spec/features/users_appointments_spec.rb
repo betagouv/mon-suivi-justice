@@ -28,11 +28,11 @@ RSpec.feature 'Users::Appointments', type: :feature do
 
       visit user_appointments_path
 
-      expect(page).to have_content(Date.civil(2025, 4, 14))
+      expect(page).to have_content(Date.civil(2025, 4, 14).to_fs(:base_date_format))
       expect(page).to have_content('13:00')
-      expect(page).to have_content(Date.civil(2025, 4, 16))
+      expect(page).to have_content(Date.civil(2025, 4, 16).to_fs(:base_date_format))
       expect(page).to have_content('15:30')
-      expect(page).not_to have_content(Date.civil(2025, 4, 18))
+      expect(page).not_to have_content(Date.civil(2025, 4, 18).to_fs(:base_date_format))
       expect(page).not_to have_content('17:30')
     end
   end
