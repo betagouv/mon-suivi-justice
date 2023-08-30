@@ -132,7 +132,10 @@ class AppointmentsController < ApplicationController
   end
 
   def initialize_extra_fields
-    @extra_fields = @convict.organizations.tj&.first&.extra_fields&.select(&:appointment_create?)
+    @extra_fields = @convict.organizations.flat_map do |org|
+      org.extra_fields.select(&:appointment_create?)
+    end
+
     @extra_fields&.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field:) }
   end
 end

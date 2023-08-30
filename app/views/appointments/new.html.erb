@@ -41,8 +41,10 @@
 
         <div class="d-none" data-appointment-extra-field-display-target="extraFieldsContainer">
           <%= f.fields_for :appointment_extra_fields do |extra_field_form|%>
-            <%= extra_field_form.input :extra_field_id, as: :hidden, input_html: {"data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": @extra_fields[extra_field_form.index].appointment_type_ids }, disabled: true %>
-            <%= extra_field_form.input :value, label: @extra_fields[extra_field_form.index]&.name, input_html: { :type => @extra_fields[extra_field_form.index]&.data_type, "data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": @extra_fields[extra_field_form.index].appointment_type_ids}, disabled: true %>
+            <%= extra_field_form.input :extra_field_id, as: :hidden, input_html: {"data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": @extra_fields[extra_field_form.index].appointment_type_ids, "data-organization": @extra_fields[extra_field_form.index].organization.id}, disabled: true %>
+            <%= extra_field_form.input :value, label: @extra_fields[extra_field_form.index]&.name, input_html: { :type => @extra_fields[extra_field_form.index]&.data_type, "data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": @extra_fields[extra_field_form.index].appointment_type_ids, "data-organization": @extra_fields[extra_field_form.index].organization.id}, disabled: true %>
+            <%=  @extra_fields[extra_field_form.index].inspect %>
+          
           <% end%>
         </div>
       </div>

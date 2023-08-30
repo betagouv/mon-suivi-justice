@@ -15,11 +15,12 @@ export default class extends Controller {
 
     let shouldDisplayExtraFieldsContainer = false;
     this.extraFieldInputsTargets.forEach((input) => {
-      // we get the appointment type related to the extra field
+      // we get the appointment type and organization related to the extra field
       const relatedAppointmentType = input.dataset.aptType.split(' ');
+      const relatedOrganization = input.dataset.organization;
 
       // if the appointment type related to the extra field is the same as the selected appointment type
-      const shouldDisplayInput = relatedAppointmentType.includes(selectedAppointmentType.value);
+      const shouldDisplayInput = relatedAppointmentType.includes(selectedAppointmentType.value) && relatedOrganization == selectedOrganization.value;
       input.disabled = !shouldDisplayInput;
 
       if(shouldDisplayInput) {
