@@ -42,7 +42,8 @@ class AppointmentsController < ApplicationController
 
     set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
-    initialize_extra_fields
+    set_extra_fields
+    build_appointment_extra_fields
   end
 
   def create
@@ -51,6 +52,7 @@ class AppointmentsController < ApplicationController
     assign_appointment_to_creating_organization
 
     authorize @appointment
+
     if @appointment.save
       @appointment.convict.update(user: current_user) if params.dig(:appointment, :user_is_cpip) == '1'
       @appointment.update(inviter_user_id: current_user.id)
@@ -58,8 +60,9 @@ class AppointmentsController < ApplicationController
       redirect_to appointment_path(@appointment)
     else
       @appointment.errors.each { |error| flash.now[:warning] = error.message }
-      @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
       @convict = Convict.find(params.dig(:appointment, :convict_id))
+      # We need to set the extra fields but we don't want to build them again
+      set_extra_fields
       render :new, status: :unprocessable_entity
     end
   end
@@ -131,11 +134,16 @@ class AppointmentsController < ApplicationController
                           Ajouter une commune à #{@convict.full_name}</a>".html_safe
   end
 
-  def initialize_extra_fields
-    @extra_fields = @convict.organizations.flat_map do |org|
+  def set_extra_fields
+    @convict ||= Convict.find(params.dig(:appointment, :convict_id)) if params.dig(:appointment, :convict_id)
+    return unless @convict
+
+    @extra_fields = @convict.organizations.includes([:extra_fields]).flat_map do |org|
       org.extra_fields.select(&:appointment_create?)
     end
+  end
 
+  def build_appointment_extra_fields
     @extra_fields&.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field:) }
   end
 end

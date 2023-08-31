@@ -4,7 +4,21 @@ import { Controller } from "@hotwired/stimulus"
 // in the create appointment form
 export default class extends Controller {
   static targets = [ "selectAppointmentTypeInput", "extraFieldsContainer", "extraFieldInputs" ]
+
   connect() {
+
+    this.place = null;
+
+    document.addEventListener('change', (event) => {
+      // Check if the event target is the select element
+      if (event.target && event.target.id === 'appointment-form-place-select') {
+        var selectedValue = event.target.value;
+        console.log('Selected value:', selectedValue);
+        this.place = selectedValue;
+        this.change();
+      }
+    });
+
     this.change();
   }
   
@@ -13,20 +27,29 @@ export default class extends Controller {
     const selectedAppointmentTypeIndex = selectAppointmentTypeOptions.selectedIndex;
     const selectedAppointmentType = selectAppointmentTypeOptions[selectedAppointmentTypeIndex];
 
-    let shouldDisplayExtraFieldsContainer = false;
     this.extraFieldInputsTargets.forEach((input) => {
+      input.parentNode.style.display = "none";
+      input.disabled = true;
+      input.hidden = true;
+
       // we get the appointment type and organization related to the extra field
       const relatedAppointmentType = input.dataset.aptType.split(' ');
-      const relatedOrganization = input.dataset.organization;
+      const relatedPlaces = input.dataset.organizationPlaces.split(' ');
 
-      // if the appointment type related to the extra field is the same as the selected appointment type
-      const shouldDisplayInput = relatedAppointmentType.includes(selectedAppointmentType.value) && relatedOrganization == selectedOrganization.value;
-      input.disabled = !shouldDisplayInput;
+      /* 
+      * if the appointment type related to the extra field is the same as the selected appointment type
+      * and if the organization related to the extra field is the same as the selected organization
+      * (we get this information from the selected place)
+      * then we display the extra field
+      */
+      const shouldDisplayInput = relatedAppointmentType.includes(selectedAppointmentType.value) && relatedPlaces.includes(this.place);
 
-      if(shouldDisplayInput) {
-        shouldDisplayExtraFieldsContainer = true;
+      if (shouldDisplayInput) {
+        console.log("on affiche l'input")
+        input.parentNode.style.display = "block";
+        input.disabled = false;
+        input.hidden = false;
       }
     });
-    this.extraFieldsContainerTarget.classList.toggle("d-none", !shouldDisplayExtraFieldsContainer);
   }
 }
