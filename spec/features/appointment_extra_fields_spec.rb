@@ -7,7 +7,8 @@ RSpec.feature 'ExtraFields', type: :feature, js: true do
     let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
     let(:extra_field_a) do
-      create(:extra_field, name: 'Extra field A', organization: organization_a, data_type: 'text', scope: 'appointment_create',
+      create(:extra_field, name: 'Extra field A', organization: organization_a, data_type: 'text',
+                           scope: 'appointment_create',
                            appointment_types: [appointment_type])
     end
 
@@ -25,7 +26,8 @@ RSpec.feature 'ExtraFields', type: :feature, js: true do
     let(:organization_b) { create(:organization, name: 'Organization B', organization_type: 'tj') }
 
     let(:extra_field_b) do
-      create(:extra_field, name: 'Extra field B', organization: organization_b, data_type: 'text', scope: 'appointment_create',
+      create(:extra_field, name: 'Extra field B', organization: organization_b, data_type: 'text',
+                           scope: 'appointment_create',
                            appointment_types: [appointment_type])
     end
 
