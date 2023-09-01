@@ -135,7 +135,6 @@ class AppointmentsController < ApplicationController
   end
 
   def set_extra_fields
-    @convict ||= Convict.find(params.dig(:appointment, :convict_id)) if params.dig(:appointment, :convict_id)
     return unless @convict
 
     @extra_fields = @convict.organizations.includes([:extra_fields]).flat_map do |org|
