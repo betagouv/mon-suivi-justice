@@ -40,7 +40,7 @@ class AppiImportJob < ApplicationJob
       end
     end
 
-    if convict.save && convict.valid?(:appi_impport)
+    if convict.save(context: :appi_import)
       @import_successes.push("#{convict.first_name} #{convict.last_name} (id: #{convict.id})")
     else
       @import_errors.push("#{convict.first_name} #{convict.last_name} - #{convict.errors.full_messages.first}")
