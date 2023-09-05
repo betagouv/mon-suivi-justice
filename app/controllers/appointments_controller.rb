@@ -59,7 +59,10 @@ class AppointmentsController < ApplicationController
       @appointment.book(send_notification: params[:send_sms])
       redirect_to appointment_path(@appointment)
     else
-      @appointment.errors.each { |error| flash.now[:warning] = error.message }
+      selected_place = Place.find(params.dig(:appointment, :place_id))
+
+      build_error_messages(selected_place)
+
       @convict = Convict.find(params.dig(:appointment, :convict_id))
       # We need to set the extra fields but we don't want to build them again
       set_extra_fields
@@ -144,5 +147,15 @@ class AppointmentsController < ApplicationController
 
   def build_appointment_extra_fields
     @extra_fields&.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field:) }
+  end
+
+  def build_error_messages(place)
+    @appointment.errors.each do |error|
+      flash.now[:warning] = if error.attribute.to_s == 'appointment_extra_fields.value' && error.type == :blank
+                              "Le(s) champ(s) aditionnel(s) du service #{place.name} doivent être renseignés"
+                            else
+                              error.message
+                            end
+    end
   end
 end
