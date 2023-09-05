@@ -27,12 +27,6 @@
        <% end %>
       </div>
 
-
-
-      <div class='' id='cities-container'></div>
-      <div class='appointment-form-prosecutor-container' data-container-type="prosecutor" id='prosecutor-container' data-appointment-new-target="container"></div>
-      <div class='appointment-form-places-container' data-container-type="place" id='places-container' data-appointment-new-target="container"></div>
-
       <div data-controller="appointment-extra-field-display">
         <div class='appointment-form-appointment-type-container' id='appointment-type-container' data-appointment-new-target="container" data-container-type="appointmentType" style=<%= @convict ? "display: block" : "display: none" %>>
           <%= f.input :appointment_appointment_type_id, collection: appointment_types_for_user(current_user),
@@ -44,6 +38,10 @@
                                                         "data-appointment-new-target": "selectAppointmentTypeInput", 
                                                         "data-action": "change->appointment-extra-field-display#change change->appointment-new#changeAptType" } %>
         </div>
+
+        <div class='' id='cities-container'></div>
+        <div class='appointment-form-prosecutor-container' data-container-type="prosecutor" id='prosecutor-container' data-appointment-new-target="container"></div>
+        <div class='appointment-form-places-container' data-container-type="place" id='places-container' data-appointment-new-target="container"></div>
 
         <%= f.fields_for :appointment_extra_fields do |extra_field_form|%>
           <% corresponding_extra_field = @extra_fields.find { |ef| ef.id == extra_field_form.object.extra_field_id } %>
