@@ -7,7 +7,7 @@
           <%= t('show-convict-fulfilment-prompt', name: @convict.name,
                                               place: @appointment.slot.agenda.place.name,
                                               date: @appointment.slot.date,
-                                              time: @appointment.localized_time.to_s(:time)) %>
+                                              time: @appointment.localized_time.to_fs(:time)) %>
         </div>
         <div class='appointment-fulfilment-controls-container'>
           <%= button_to t('yes'), appointment_fulfil_path(@appointment),
@@ -85,7 +85,7 @@
                 <strong><%= t('appointment_date') %></strong> : <%= @appointment.slot.date %>
               </p>
               <p>
-                <strong><%= t('appointment_starting_time') %></strong> : <%= @appointment.localized_time.to_s(:time) %>
+                <strong><%= t('appointment_starting_time') %></strong> : <%= @appointment.localized_time.to_fs(:time) %>
               </p>
               <p>
                 <strong><%= t('appointments.show.inviter_user_role') %></strong> :   

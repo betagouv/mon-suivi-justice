@@ -91,6 +91,6 @@ class SlotDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(slot)
-    "#{slot.date.to_s(:base_date_format)} à #{slot.localized_time.to_s(:time)}"
+    "#{slot.date.to_fs(:base_date_format)} à #{slot.localized_time.to_fs(:time)}"
   end
 end

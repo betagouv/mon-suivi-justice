@@ -14,9 +14,9 @@ class BexController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render template: 'bex/agenda_jap_pdf.html.erb', locals: { date: @selected_day },
+        render template: 'bex/agenda_jap_pdf', locals: { date: @selected_day },
                pdf: "Agenda sortie d'audience JAP", footer: { right: '[page]/[topage]' },
-               orientation: 'Landscape'
+               orientation: 'Landscape', formats: [:html]
       end
     end
   end
@@ -29,8 +29,8 @@ class BexController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render template: 'bex/agenda_spip_pdf.html.erb', locals: { date: @current_date },
-               pdf: "Agenda sortie d'audience SPIP", footer: { right: '[page]/[topage]' },
+        render pdf: "Agenda sortie d'audience SPIP", template: 'bex/agenda_spip_pdf', locals: { date: @current_date },
+               formats: [:html], footer: { right: '[page]/[topage]' },
                orientation: 'Landscape'
       end
     end

@@ -14,8 +14,8 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
 
       visit slots_path
 
-      expect(page).to have_content(Date.civil(2025, 4, 14).to_s)
-      expect(page).to have_content(Date.civil(2025, 4, 16).to_s)
+      expect(page).to have_content(Date.civil(2025, 4, 14).to_fs)
+      expect(page).to have_content(Date.civil(2025, 4, 16).to_fs)
     end
 
     it 'allows to close slot' do
@@ -27,7 +27,7 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
 
       @slot1.reload
       expect(@slot1.available).to eq(false)
-      expect(page).not_to have_content(Date.civil(2025, 4, 18))
+      expect(page).not_to have_content(Date.civil(2025, 4, 18).to_fs)
     end
   end
 

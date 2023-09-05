@@ -13,7 +13,7 @@ RSpec.describe HistoryItemFactory do
 
       expected_content = "#{appointment.convict.name} a été convoqué(e) " \
                          "le #{appointment.slot.date} " \
-                         "à #{appointment.localized_time.to_s(:time)} " \
+                         "à #{appointment.localized_time.to_fs(:time)} " \
                          "au lieu suivant : #{appointment.slot.agenda.place.name}."
 
       last = HistoryItem.last

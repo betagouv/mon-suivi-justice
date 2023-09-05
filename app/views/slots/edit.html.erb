@@ -31,7 +31,7 @@
         <%= t('activerecord.attributes.slot.date') %>
       </div>
       <div class='show-data-item'>
-        <%= @slot.date.to_s(:base_date_format) %>
+        <%= @slot.date.to_fs(:base_date_format) %>
       </div>
     </div>
     <div class='show-data-item-container'>
@@ -39,7 +39,7 @@
         <%= t('activerecord.attributes.slot.starting_time') %>
       </div>
       <div class='show-data-item'>
-        <%= @slot.localized_time.to_s(:time) %>
+        <%= @slot.localized_time.to_fs(:time) %>
       </div>
     </div>
   </div>

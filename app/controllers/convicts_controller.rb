@@ -54,14 +54,14 @@ class ConvictsController < ApplicationController
 
     old_phone = @convict.phone
 
-    return render :edit if bex_user_and_invalid_convict?
+    return render :edit, status: :unprocessable_entity if bex_user_and_invalid_convict?
 
     update_convict
 
     if @convict.errors.empty?
       handle_successful_update(old_phone)
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -123,7 +123,7 @@ class ConvictsController < ApplicationController
 
   def save_and_redirect(convict)
     if duplicate_present?(convict) && !force_duplication?
-      render :new
+      render :new, status: :unprocessable_entity
     else
       handle_save_and_redirect(convict)
     end
@@ -210,7 +210,7 @@ class ConvictsController < ApplicationController
 
   def render_new_with_appi_uuid(convict)
     @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
-    render :new
+    render :new, status: :unprocessable_entity
   end
 
   def add_prefix_to_phone(phone)

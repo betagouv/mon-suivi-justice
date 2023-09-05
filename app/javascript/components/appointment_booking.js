@@ -3,97 +3,139 @@ import $ from 'jquery';
 import 'select2';
 import MicroModal from 'micromodal';
 
-document.addEventListener('turbolinks:load',function() {
-  $('#convict-name-autocomplete').on('select2:select', (e) => {
-    document.getElementById('appointment-form-title').innerHTML = `Nouvelle convocation pour ${e.params.data.text}`
-    const aptTypeSelect = document.getElementById('appointment-type-container')
-    aptTypeSelect.style.display = 'block';
-  })
-  setupForm.appointmentType();
-});
-
-const loadTemplate = new function () {
-  this.places = function(appointment_type_id, convictId) {
-    let targetUrl = '/load_places?apt_type_id=' + appointment_type_id + '&convict_id=' + convictId 
-
-    Rails.ajax({
-      type: 'GET',
-      url: targetUrl,
-      success: function() { setupForm.place(); }
-    });
-  };
-
-  this.prosecutor = function(appointment_type_id) {
-    Rails.ajax({
-      type: 'GET',
-      url: '/load_prosecutor?apt_type_id=' + appointment_type_id
-    });
-  };
-
-  this.departments = function(appointment_type_id) {
-    Rails.ajax({
-      type: 'GET',
-      url: '/load_departments?apt_type_id=' + appointment_type_id,
-      success: function() { setupForm.department(); }
-    });
-  };
-
-  this.agendas = function(place_id, appointment_type_id) {
-    Rails.ajax({
-      type: 'GET',
-      url: '/load_agendas?place_id=' + place_id + '&apt_type_id=' + appointment_type_id,
-      success: function() { setupForm.agenda(); }
-    });
-  };
-
-  this.timeOptions = function(place_id, agenda_id, appointment_type_id, convict_id) {
-    Rails.ajax({
-      type: 'GET',
-      url: '/load_time_options?place_id=' + place_id + '&agenda_id=' + agenda_id + '&apt_type_id=' + appointment_type_id,
-      success: function() { loadTemplate.submit(convict_id); }
-    });
-  };
-
-  this.submit = function(convict_id) {
-    Rails.ajax({
-      type: 'GET',
-      url: '/load_submit_button?convict_id=' + convict_id,
-      success: function() { setupForm.submit(); }
-    });
-  };
+function displayAppointmentTypeSelect() {
+  document.getElementById('appointment-form-title').innerHTML = `Nouvelle convocation pour ${e.params.data.text}`
+  const aptTypeSelect = document.getElementById('appointment-type-container')
+  aptTypeSelect.style.display = 'block';
 }
 
-const setupForm = new function() {
-  const STRUCTURE = {
-    appointmentType: { containerId: 'appointment-type-container' },
-    prosecutor: { containerId: 'prosecutor-container' },
-    department: { containerId: 'departments-container' },
-    place: { containerId: 'places-container' },
-    agenda: { containerId: 'agendas-container' },
-    slot: { containerId: 'slots-container' },
-    slotField: { containerId: 'slot-fields-container' },
-    submit: { containerId: 'submit-button-container' }
+const onChangeAppointmentTypeHandler = (e) => {
+  const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
+  const convictId = getConvictId();
+  console.log("id du convict", convictId);
+  resetFieldsBelow('appointmentType');
+  const submitButtonContainer = document.getElementById('submit-button-container');
+  submitButtonContainer.style.display = 'none';
+  loadTemplate.prosecutor(aptTypeSelect.value);
+  loadTemplate.places(aptTypeSelect.value, convictId);
+};
+
+const STRUCTURE = {
+  appointmentType: { containerId: 'appointment-type-container' },
+  prosecutor: { containerId: 'prosecutor-container' },
+  department: { containerId: 'departments-container' },
+  place: { containerId: 'places-container' },
+  agenda: { containerId: 'agendas-container' },
+  slot: { containerId: 'slots-container' },
+  slotField: { containerId: 'slot-fields-container' },
+  submit: { containerId: 'submit-button-container' }
+}
+
+const sendSms = function(with_sms) {
+  var input = document.createElement("input");
+  input.type = 'hidden';
+  input.name = 'send_sms';
+  input.value = with_sms;
+  document.getElementById('submit-btn-container').prepend(input);
+  document.getElementById('new_appointment').submit();
+};
+
+const getConvictId = function() {
+  const convictSelect = document.getElementById('convict-name-autocomplete');
+
+  if(convictSelect == null) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    return urlParams.get('convict_id');
   }
 
-  this.appointmentType = function() {
+  return convictSelect.value
+};
 
-    const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
-    const submitButtonContainer = document.getElementById('submit-button-container');
+const resetFieldsBelow = function(identifier) {
+  const current_index = Object.keys(STRUCTURE).indexOf(identifier)
+  let fields_below = []
 
-    aptTypeSelect.addEventListener('change', (e) => {
-      const convictId = getConvictId()
+  Object.keys(STRUCTURE).forEach((key) => {
+    if(Object.keys(STRUCTURE).indexOf(key) > current_index) {
+      fields_below.push(key);
+    }
+  });
 
-      console.log("id du convict", convictId)
+  fields_below.forEach((id) => {
+    const container = document.getElementById(STRUCTURE[id].containerId);
+    if(container) { container.innerHTML = '';}
+  });
+};
 
-      resetFieldsBelow('appointmentType');
-      submitButtonContainer.style.display = 'none';
+document.addEventListener('turbo:load',function() {
+  const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
+  if (aptTypeSelect == null) { return; }
+  // setupForm.appointmentType();
+});
 
-      loadTemplate.prosecutor(aptTypeSelect.value);
-      loadTemplate.places(aptTypeSelect.value, convictId);
+function cleanupListener(elementId, eventType, eventHandler) {
+  const element = document.getElementById(elementId);
+  if (element == null) { return; }
+  element.removeEventListener(eventType, eventHandler);
+}
+
+document.addEventListener('turbo:before-cache', function() {
+  $('#convict-name-autocomplete').off('select2:select', displayAppointmentTypeSelect);
+  cleanupListener('appointment_appointment_type_id', 'change', onChangeAppointmentTypeHandler);
+});
+
+const loadTemplate = {
+  sendRequest(url, onSuccess) {
+    Rails.ajax({
+      type: 'GET',
+      url,
+      success: onSuccess
     });
-  };
+  },
 
-  this.place = function() {
+  places(appointment_type_id, convictId) {
+    const targetUrl = `/load_places?apt_type_id=${appointment_type_id}&convict_id=${convictId}`;
+    this.sendRequest(targetUrl, setupForm.place);
+  },
+
+  prosecutor(appointment_type_id) {
+    const targetUrl = `/load_prosecutor?apt_type_id=${appointment_type_id}`;
+    this.sendRequest(targetUrl);
+  },
+
+  departments(appointment_type_id) {
+    const targetUrl = `/load_departments?apt_type_id=${appointment_type_id}`;
+    this.sendRequest(targetUrl, setupForm.department);
+  },
+
+  agendas(place_id, appointment_type_id) {
+    const targetUrl = `/load_agendas?place_id=${place_id}&apt_type_id=${appointment_type_id}`;
+    this.sendRequest(targetUrl, setupForm.agenda);
+  },
+
+  timeOptions(place_id, agenda_id, appointment_type_id, convict_id) {
+    const targetUrl = `/load_time_options?place_id=${place_id}&agenda_id=${agenda_id}&apt_type_id=${appointment_type_id}`;
+    this.sendRequest(targetUrl, () => this.submit(convict_id));
+  },
+
+  submit(convict_id) {
+    const targetUrl = `/load_submit_button?convict_id=${convict_id}`;
+    this.sendRequest(targetUrl, setupForm.submit);
+  }
+};
+
+const setupForm = {
+  appointmentType() {
+    console.count('appointmentType');
+    const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
+    
+    // Add the event listener
+    aptTypeSelect.addEventListener('change', onChangeAppointmentTypeHandler);
+  },
+
+  place() {
     const placeSelect = document.getElementById('appointment-form-place-select');
     const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
     const departmentSelect = document.getElementById('appointment-form-department-select');
@@ -108,9 +150,9 @@ const setupForm = new function() {
         loadTemplate.agendas(placeSelect.value, aptTypeSelect.value);
       });
     }
-  };
+  },
 
-  this.department = function() {
+  department() {
     const departments_container = document.getElementById('departments-container');
     const places_container = document.getElementById('places-container');
     const departmentSelect = document.getElementById('appointment-form-department-select');
@@ -122,9 +164,9 @@ const setupForm = new function() {
       resetFieldsBelow('department');
       loadTemplate.places(aptTypeSelect.value, departmentSelect.value);
     });
-  };
+  },
 
-  this.agenda = function() {
+  agenda() {
     const convictId = getConvictId()
     const convictSelect = document.getElementById('convict-name-autocomplete');
     const placeSelect = document.getElementById('appointment-form-place-select');
@@ -138,9 +180,9 @@ const setupForm = new function() {
 
       loadTemplate.timeOptions(placeSelect.value, agendaSelect.value, aptTypeSelect.value, convictId);
     });
-  };
+  },
 
-  this.submit = function() {
+  submit() {
     MicroModal.init();
 
     const slotsFields = document.getElementsByName('appointment[slot_id]');
@@ -163,43 +205,10 @@ const setupForm = new function() {
     const submitBtnWithoutModal = document.getElementById('submit-without-modal');
     if(submitBtnWithoutModal == null) { return; }
     submitBtnWithoutModal.addEventListener('click', (e) => { sendSms('false') });
-  };
-
-  const sendSms = function(with_sms) {
-    var input = document.createElement("input");
-    input.type = 'hidden';
-    input.name = 'send_sms';
-    input.value = with_sms;
-    document.getElementById('submit-btn-container').prepend(input);
-    document.getElementById('new_appointment').submit();
-  };
-
-  const getConvictId = function() {
-    const convictSelect = document.getElementById('convict-name-autocomplete');
-
-    if(convictSelect == null) {
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-
-      return urlParams.get('convict_id');
-    }
-
-    return convictSelect.value
-  };
-
-  const resetFieldsBelow = function(identifier) {
-    const current_index = Object.keys(STRUCTURE).indexOf(identifier)
-    let fields_below = []
-
-    Object.keys(STRUCTURE).forEach((key) => {
-      if(Object.keys(STRUCTURE).indexOf(key) > current_index) {
-        fields_below.push(key);
-      }
-    });
-
-    fields_below.forEach((id) => {
-      const container = document.getElementById(STRUCTURE[id].containerId);
-      if(container) { container.innerHTML = '';}
-    });
-  };
+  }
 };
+
+// gerer les cas slot (sortie audience) et slot field (rdv de suivi) pour display le bouton submit
+// gerer le reset des container en dessous en cas de changement de valeur en resettant les inputs plutot que les containers
+// gerer le submit avec et sans modal, voir si c'est possible de gerer autrement l'envoi de sms que d'ajouter un input avec la valeur dans le form
+// verifier le bon fonctionnement de la selection d'agenda en creant un second agenda a bordeaux avec des slots

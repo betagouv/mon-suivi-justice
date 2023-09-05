@@ -17,8 +17,6 @@ class AppointmentsBookingsController < ApplicationController
 
   def load_is_cpip
     @convict = params[:convict_id].present? ? Convict.find(params[:convict_id]) : nil
-
-    return if @convict.city_id
   end
 
   def load_agendas

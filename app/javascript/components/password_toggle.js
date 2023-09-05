@@ -24,4 +24,4 @@ function togglePassword() {
 
   })
 }
-document.addEventListener('turbolinks:load', togglePassword)
+document.addEventListener('turbo:load', togglePassword)

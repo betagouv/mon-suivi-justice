@@ -6,9 +6,7 @@
     <div class="fr-grid-row fr-grid-row--right fr-grid-row--gutters">
       <ul class="fr-btns-group fr-btns-group--inline-lg">
         <% if policy(:slot).new? %>
-          <%= link_to t('slots.new_batch_title'), new_slots_batch_path,
-                                                class: 'fr-btn',
-                                                method: :get %>
+          <%= link_to t('slots.new_batch_title'), new_slots_batch_path, class: 'fr-btn'%>
         <% end %>
         <% if policy(:slot).update? %>
           <%= button_tag t('index_slots_batch_close'), type: 'submit',
@@ -74,8 +72,8 @@
             <td><%= slot.agenda.place.name %></td>
             <td><%= slot.agenda.name %></td>
             <td><%= slot.appointment_type.name %></td>
-            <td><%= slot.date.to_s(:base_date_format) %></td>
-            <td><%= slot.localized_time.to_s(:time) %></td>
+            <td><%= slot.date.to_fs(:base_date_format) %></td>
+            <td><%= slot.localized_time.to_fs(:time) %></td>
             <td>
               <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
                 <div class="col-fr">
