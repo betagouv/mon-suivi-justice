@@ -38,7 +38,7 @@ class Convict < ApplicationRecord
 
   validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE,
-                                          on: :appi_impport
+                                          on: :appi_import
 
   validates :date_of_birth, presence: true, unless: proc { current_user&.admin? }
   validate :date_of_birth_date_cannot_be_in_the_past

@@ -23,7 +23,13 @@ RSpec.describe 'Import Convicts', type: :feature, logged_in_as: 'admin' do
     # Using Sidekiq::Testing.inline to perform the job immediately
     perform_enqueued_jobs
 
-    new_convict = Convict.find_by(first_name: 'Bob', last_name: 'DUPNEU', date_of_birth: '15/11/1993'.to_date)
+
+    new_convict = Convict.find_by(first_name: 'Bob', last_name: 'DUPNEU', date_of_birth: '15/11/1993'.to_date, 
+                                  appi_uuid: '111111111111')
+
+    # Check if there is only on convict with the same first_name, last_name and date_of_birth
+    expect(Convict.where(first_name: 'John', last_name: 'DOE', date_of_birth: '02/02/1986'.to_date).count).to eq(1)
+
     expect(new_convict).not_to be_nil
     expect(new_convict.organizations).to include(@organization)
   end
