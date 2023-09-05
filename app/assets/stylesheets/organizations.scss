@@ -73,7 +73,20 @@
   align-items: center;
 }
 
+.extra-fields-scope-container {
+  display: flex;
+  align-items: center;
+}
+
 .extra-fields-apt-type-input {
   margin-right: 10px;
   width: 1.5em;
+  box-shadow: none;
+}
+
+.extra-fields-scope-input {
+  margin-right: 10px;
+  box-shadow: none;
+  display: inline;
+  width: auto;
 }
