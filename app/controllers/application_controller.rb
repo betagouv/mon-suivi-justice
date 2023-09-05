@@ -43,11 +43,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_organization
 
-  def current_department
-    @current_department ||= current_user.organization.departments.first
-  end
-  helper_method :current_department
-
   def current_time_zone
     @current_time_zone ||= TZInfo::Timezone.get(current_organization.time_zone)
   end
