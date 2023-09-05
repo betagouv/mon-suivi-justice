@@ -27,6 +27,12 @@
        <% end %>
       </div>
 
+
+
+      <div class='' id='cities-container'></div>
+      <div class='appointment-form-prosecutor-container' data-container-type="prosecutor" id='prosecutor-container' data-appointment-new-target="container"></div>
+      <div class='appointment-form-places-container' data-container-type="place" id='places-container' data-appointment-new-target="container"></div>
+
       <div data-controller="appointment-extra-field-display">
         <div class='appointment-form-appointment-type-container' id='appointment-type-container' data-appointment-new-target="container" data-container-type="appointmentType" style=<%= @convict ? "display: block" : "display: none" %>>
           <%= f.input :appointment_appointment_type_id, collection: appointment_types_for_user(current_user),
@@ -46,9 +52,6 @@
         <% end %>
       </div>
 
-      <div class='' id='cities-container'></div>
-      <div class='appointment-form-prosecutor-container' data-container-type="prosecutor" id='prosecutor-container' data-appointment-new-target="container"></div>
-      <div class='appointment-form-places-container' data-container-type="place" id='places-container' data-appointment-new-target="container"></div>
       <div class='appointment-form-agendas-container' data-container-type="agenda" id='agendas-container' data-appointment-new-target="container"></div>
       <div class='appointment-form-slot-fields-container' data-container-type="slotField" id='slot-fields-container' data-appointment-new-target="container"></div>
     </div>
