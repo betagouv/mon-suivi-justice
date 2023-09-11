@@ -46,8 +46,8 @@ class BexController < ApplicationController
   end
 
   def appointment_extra_field
-    appointment_extra_field = AppointmentExtraField.find_or_create_by(appointment_id: params[:appointment_id],
-                                                                      extra_field_id: params[:extra_field_id])
+    appointment_extra_field = AppointmentExtraField.find_or_initialize_by(appointment_id: params[:appointment_id],
+                                                                          extra_field_id: params[:extra_field_id])
     appointment_extra_field.value = params[:value]
     appointment_extra_field.save(validate: true)
   end

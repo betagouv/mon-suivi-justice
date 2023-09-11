@@ -7,5 +7,16 @@
   "scripts": {
       "first-deploy": "bin/rails db:migrate db:seed",
       "postdeploy": "bin/rails db:migrate"
+    },
+    "formation": {
+      "worker": {
+        "amount": 1,
+        "size": "S"
+      },
+      "clock": {
+        "amount": 1,
+        "size": "S"
+      
     }
+  }
 }
