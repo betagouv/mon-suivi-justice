@@ -153,6 +153,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :user_alerts do
+    member do
+      put :mark_as_read
+    end
+  end
+
   match '/404' => 'errors#not_found', via: :all
   match '/422' => 'errors#unprocessable_entity', via: :all
   match '/500' => 'errors#internal_server_error', via: :all

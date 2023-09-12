@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_paper_trail_whodunnit
   before_action :set_sentry_context
+  before_action :build_user_alerts
 
   after_action :verify_authorized, unless: :skip_pundit?
   after_action :track_action
@@ -75,5 +76,11 @@ class ApplicationController < ActionController::Base
 
   def set_sentry_context
     Sentry.set_user(email: current_user.email) if user_signed_in?
+  end
+  
+  def build_user_alerts
+    return unless user_signed_in?
+
+    @user_alerts = current_user.user_alerts
   end
 end
