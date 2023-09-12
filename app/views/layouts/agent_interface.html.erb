@@ -7,6 +7,13 @@
       </p>
     </div>
   <% end %>
+  <div id="user_alerts">
+    <% if  @user_alerts.any? %>
+      <% @user_alerts.each do |alert| %>
+        <%= render 'shared/alert_notice', alert: alert %>
+      <% end %>
+    <% end %>
+  </div>
   <div id="flash_messages">
     <% flash.each do |type, msg| %>
       <div class="fr-alert fr-alert--<%= dsfr_class_for(type) %> fr-alert--sm">        

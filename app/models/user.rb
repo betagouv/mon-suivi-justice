@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :invited_appointments, class_name: 'Appointment', foreign_key: :inviter_user_id, dependent: :nullify
   has_many :visits, class_name: 'Ahoy::Visit'
   has_many :user_notifications, as: :recipient, dependent: :destroy
+  has_many :user_alerts, as: :recipient, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :trackable and :omniauthable
