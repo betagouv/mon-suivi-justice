@@ -7,7 +7,7 @@
       </p>
     </div>
   <% end %>
-  <div id="user_alerts">
+  <div id="user_alerts" data-controller="user-alerts">
     <% if  @user_alerts.any? %>
       <% @user_alerts.each do |alert| %>
         <%= render 'shared/alert_notice', alert: alert %>
