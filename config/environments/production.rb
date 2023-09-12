@@ -128,7 +128,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    address: 'smtp-relay.brevo.com',
+    address: 'smtp-relay.sendinblue.com',
     port: 587,
     user_name: ENV['SMTP_SIB_ACCOUNT'],
     password: ENV['SMTP_SIB_PWD'],
