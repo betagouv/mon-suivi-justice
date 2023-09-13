@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       resources :public_pages, only: [:index]
       resources :import_convicts, only: [:index]
       resources :import_srjs, only: [:index]
+      resources :user_alerts, only: [:index]
       post '/create_page' => "public_pages#create"
       post '/import_convicts' => "import_convicts#import"
       post '/import_srjs' => "import_srjs#import"
