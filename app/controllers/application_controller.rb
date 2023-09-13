@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   impersonates :user
   include Pundit::Authorization
+  include TurboStreamHelper
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_paper_trail_whodunnit
@@ -66,8 +67,15 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    flash[:alert] = I18n.t('errors.non_authorized')
-    redirect_to(request.referrer || root_path)
+    respond_to do |format|
+      format.html do
+        flash[:alert] = I18n.t('errors.non_authorized')
+        redirect_to(request.referrer || root_path)
+      end
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace('turbostream_error_messages', partial: 'shared/unauthorized_error')
+      end
+    end
   end
 
   def configure_permitted_parameters
@@ -77,7 +85,7 @@ class ApplicationController < ActionController::Base
   def set_sentry_context
     Sentry.set_user(email: current_user.email) if user_signed_in?
   end
-  
+
   def build_user_alerts
     return unless user_signed_in?
 

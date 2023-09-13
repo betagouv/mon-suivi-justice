@@ -1,12 +1,14 @@
-<div class="fr-notice fr-notice--info" data-user-alerts-target="alert">
-    <div class="fr-container">
-        <div class="fr-notice__body">
-            <p class="fr-notice__title">
-              Titre du bandeau, <a href='#' rel='noopener' target='_blank'>lien au fil du texte</a>
-            </p>
-            <button data-action="click->user-alerts#markAsRead" data-alert-id="<%= alert.id %>">
-                Mark as Read
-            </button>
+<%= turbo_frame_tag "alert_#{alert.id}" do %>
+    <div class="fr-notice fr-notice--info" data-user-alerts-target="alert">
+        <div class="fr-container">
+            <div class="fr-notice__body">
+                <p class="fr-notice__title">
+                    <%= alert.params[:comment] %>
+                </p>
+                <%= form_with url: mark_as_read_user_alert_path(alert), method: :put, data: { turbo_frame: "alert_#{alert.id}" } do |form| %>
+                    <%= form.button nil, type: "submit", :class=> "fr-btn--close fr-btn" %>
+                <% end %>
+            </div>
         </div>
     </div>
-</div>
+<% end %>
