@@ -1,15 +1,22 @@
 class UserAlertsController < ApplicationController
+  before_action :find_alert, only: %i[mark_as_read]
+
   def mark_as_read
-    @alert = UserAlert.find(params[:id])
-
-    authorize @alert, :mark_as_read?
-
     if @alert.mark_as_read!
-      render json: { success: true }
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.remove("alert_#{@alert.id}")
+        end
+      end
     else
-      render json: { success: false, error: 'Impossible de marquer comme lu' }, status: 422
+      stream_error_messages(object)
     end
-  rescue Pundit::NotAuthorizedError
-    render json: { success: false, error: "Vous n'êtes pas autorisé à marquer cette alerte comme lue" }, status: 403
+  end
+
+  private
+
+  def find_alert
+    @alert = UserAlert.find(params[:id])
+    authorize @alert, :mark_as_read?
   end
 end
