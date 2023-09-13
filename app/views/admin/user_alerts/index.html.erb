@@ -1,1 +1,18 @@
-<h1>Création d'alertes</h1>
+<%= form_tag admin_create_user_alert, method: :post do %>
+  <div>
+    <%= label_tag :organization_id, 'Select Organization (optional):' %>
+    <%= select_tag :organization_id, options_from_collection_for_select(Organization.all, 'id', 'name', prompt: 'Any Organization') %>
+  </div>
+
+  <div>
+    <%= label_tag :role, 'Select Role (optional):' %>
+    <%= select_tag :role, options_for_select(User.roles.keys.unshift('Any Role')) %>
+  </div>
+
+  <div>
+    <%= label_tag :comment, 'Alert Content:' %>
+    <%= text_area_tag :comment %>
+  </div>
+
+  <%= submit_tag 'Send Alert' %>
+<% end %>
