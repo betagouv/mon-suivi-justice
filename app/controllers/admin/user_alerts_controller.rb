@@ -12,7 +12,7 @@ module Admin
     def create
       UserAlertDeliveryJob.perform_later(params[:comment], params[:organization_id], params[:role], current_user)
 
-      redirect_to admin_user_alerts_path, notice: 'Les alertes sont en cours de création'
+      redirect_to admin_user_alerts_path, notice: I18n.t('admin.user_alerts.create.notice')
     end
 
     private

@@ -779,3 +779,8 @@ fr:
       scope:
         appointment_create: "Renseigner au moment de la convocation"
         appointment_update: "Renseigner directement dans le tableau de sortie d'audience"
+
+  admin:
+    user_alerts:
+      create: 
+        notice: "Les alertes sont en cours de création. Vous recevrez un mail lorsque l'opération sera terminée."
