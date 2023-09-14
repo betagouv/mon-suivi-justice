@@ -1,4 +1,3 @@
-# TurboStreamHelper
 module TurboStreamHelper
   def stream_error_messages(object)
     respond_to do |format|
