@@ -95,40 +95,40 @@
 }
 
 .show-convict-fulfil-button {
-  @include button($light-green)
+  @include button($light-green);
 }
 
 .show-convict-miss-button {
-  @include button($light-red)
+  @include button($light-red);
   margin-left: 40px;
 }
 
 .show-convict-excuse-button {
-  @include button($light-grey)
+  @include button($light-grey);
   margin-left: 40px;
 }
 
 .show-button-to-delete {
   @include button($light-blue);
-  padding: .4em 1em;
+  padding: 0.4em 1em;
   width: 130px;
   margin-bottom: 10px;
 }
 
 .show-button-archive {
   @include button($light-grey);
-  padding: .4em 1em;
+  padding: 0.4em 1em;
   width: 130px;
 }
 
 .show-button-invite {
   @include button($light-grey);
-  padding: .4em 1em;
+  padding: 0.4em 1em;
 }
 
 .show-convict-button-to-edit {
   @include button($light-blue);
-  padding: .4em 1em;
+  padding: 0.4em 1em;
   width: 130px;
   margin-bottom: 10px;
 }
@@ -182,11 +182,13 @@
   margin-top: 40px;
 }
 
-.icon_fulfil_appointment, .icon_fulfiled {
+.icon_fulfil_appointment,
+.icon_fulfiled {
   color: $fulfiled-appointment;
 }
 
-.icon_miss_appointment, .icon_no_show {
+.icon_miss_appointment,
+.icon_no_show {
   color: $missed-appointment;
 }
 
@@ -243,7 +245,9 @@
 .new-convict-duplicate-link {
   text-align: center;
   margin: 10px 0;
-  a { color: $link; }
+  a {
+    color: $link;
+  }
 }
 
 .new-convict-duplicate-header {
@@ -258,7 +262,6 @@ body.autocomplete #modal-autocomplete {
   display: block;
   z-index: 1;
 }
-
 
 #modal-autocomplete {
   border: 0;
