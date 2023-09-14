@@ -60,6 +60,8 @@ gem 'pretender'
 
 gem 'octokit', '~> 5.0'
 
+gem 'stimulus-rails'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
@@ -106,3 +108,5 @@ gem 'faker'
 gem 'redis', '~> 4.0'
 
 gem 'jsbundling-rails', '~> 1.1'
+
+gem 'cssbundling-rails', '~> 1.3'
