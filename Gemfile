@@ -32,7 +32,7 @@ gem 'state_machines-activerecord', '~> 0.8'
 
 gem 'sib-api-v3-sdk', '~> 8.0'
 gem 'dotenv-rails', '~> 2.7'
-gem 'sidekiq', '~> 6.4'
+gem 'sidekiq', '~> 7.1'
 gem 'redis-namespace', '~> 1.8'
 gem 'clockwork', '~> 3.0'
 
