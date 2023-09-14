@@ -1,5 +1,5 @@
-require("components/modal");
-require("components/keep_scroll");
+import "./components/modal";
+import "./components/keep_scroll";
 
 document.addEventListener("input", function (e) {
   const { target } = e;

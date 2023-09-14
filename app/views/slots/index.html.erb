@@ -114,4 +114,4 @@
       <% end %>
   <%= paginate @slots %>
 </div>
-<%= javascript_pack_tag 'slots_index' %>
+<%= javascript_include_tag 'slots_index', "data-turbo-track": "reload", defer: true %>

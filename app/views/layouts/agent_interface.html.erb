@@ -25,6 +25,6 @@
     <%= t('contact') %>
   </div>
   <%= render 'layouts/support_modal' %>
-  <%= javascript_pack_tag 'agent_interface' %>
+  <%= javascript_include_tag 'agent_interface', "data-turbo-track": "reload", defer: true %>
 <% end %>
 <%= render template: 'layouts/application' %>
