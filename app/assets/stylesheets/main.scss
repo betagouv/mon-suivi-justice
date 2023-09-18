@@ -5,11 +5,13 @@
 }
 
 body {
-  font-family: 'Marianne', 'Arial', 'Open Sans', sans-serif;
+  font-family: "Marianne", "Arial", "Open Sans", sans-serif;
   font-size: 0.9em;
 }
 
-.notice, .alert, .warning {
+.notice,
+.alert,
+.warning {
   display: flex;
   align-items: center;
   justify-content: center;
