@@ -7,15 +7,14 @@ RSpec.describe 'UserAlerts', type: :feature, js: true do
     create(:user, first_name: 'Bob', last_name: 'Dupneu', role: 'overseer', organization: @organization)
 
     visit new_admin_user_alert_path
-    expect(page).to have_content("Création Alertes Utilisateurs")
+    expect(page).to have_content('Création Alertes Utilisateurs')
 
-
-    find(".trix-content").set("Contenu de test")
+    find('.trix-content').set('Contenu de test')
 
     select @organization.name, from: 'service'
     select 'cpip', from: 'rôle'
 
-    click_button "Créer un(e) Alerte utilisateur"
+    click_button 'Créer un(e) Alerte utilisateur'
 
     expect(page).to have_content('Les alertes sont en cours de création')
 
@@ -27,14 +26,14 @@ RSpec.describe 'UserAlerts', type: :feature, js: true do
   end
 
   it 'users can see the alerts and mark them as read', logged_in_as: 'cpip', js: true do
-    alert = create(:user_alert, recipient: @user, read_at: nil, type: 'User', content: 'Contenu de test')
+    alert = create(:user_alert, recipient: @user, read_at: nil, type: 'User',
+                                content: 'Contenu de test', params: { alert_type: 'error' })
 
     visit root_path
 
     expect(page).to have_content('Contenu de test')
-
+    page.find("#alert_#{alert.id}").has_css?('fr-alert fr-alert--error')
     find("#mark_#{alert.id}_as_read").click
-
     expect(page).not_to have_content('Contenu de test')
   end
 end
