@@ -11,6 +11,8 @@ require 'webmock/rspec'
 require 'sidekiq/testing'
 require 'paper_trail/frameworks/rspec'
 require "support/with_env"
+require 'capybara/rspec'
+require 'capybara-screenshot/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -101,6 +103,13 @@ Capybara.default_max_wait_time = 5
 Capybara.default_normalize_ws = true
 Capybara.asset_host = "http://localhost:3001"
 Capybara.raise_server_errors = false
+
+Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
+  "screenshot_#{example.description.gsub(' ', '-').gsub(/^.*\/spec\//,'')}"
+end
+
+Capybara::Screenshot.autosave_on_failure = true
+Capybara.save_path = "./screenshots/"
 
 Selenium::WebDriver.logger.ignore(:browser_options)
 
