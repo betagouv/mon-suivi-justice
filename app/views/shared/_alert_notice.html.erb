@@ -3,7 +3,7 @@
         <div class="fr-container">
             <div class="fr-notice__body">
                 <p class="fr-notice__title">
-                    <%= alert.params[:comment] %>
+                    <%= alert.content %>
                 </p>
                 <%= form_with url: mark_as_read_user_alert_path(alert), method: :put, data: { turbo_frame: "alert_#{alert.id}" } do |form| %>
                     <%= form.button nil, type: "submit", id: "mark_#{alert.id}_as_read", class: "fr-btn--close fr-btn" %>
