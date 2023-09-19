@@ -46,7 +46,7 @@ class AdminMailer < ApplicationMailer
 
   def user_alert_delivery_report
     @user = params[:user]
-    @comment = params[:comment]
+    @content = params[:content]
     @organization = params[:organization]
     @errors = params[:errors]
     @number_of_recipients = params[:number_of_recipients]
