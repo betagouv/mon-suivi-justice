@@ -1,27 +1,28 @@
 require 'rails_helper'
 
-RSpec.describe 'UserAlerts', type: :feature do
+RSpec.describe 'UserAlerts', type: :feature, js: true do
   it 'allows an admin to create a UserAlert with target role and organization', logged_in_as: 'admin' do
     @organization = create(:organization, name: 'Test Organization')
     @user1 = create(:user, first_name: 'Michèle', last_name: 'John Doe', role: 'cpip', organization: @organization)
     create(:user, first_name: 'Bob', last_name: 'Dupneu', role: 'overseer', organization: @organization)
 
-    visit admin_user_alerts_path
-    expect(page).to have_content("Création d'alertes pour les utilisateurs")
+    visit new_admin_user_alert_path
+    expect(page).to have_content("Création Alertes Utilisateurs")
 
-    fill_in 'Contenu', with: 'Contenu de test'
 
-    select @organization.name, from: 'Service'
-    select 'cpip', from: 'Rôle'
+    find(".trix-content").set("Contenu de test")
 
-    click_button 'Créer'
+    select @organization.name, from: 'service'
+    select 'cpip', from: 'rôle'
+
+    click_button "Créer un(e) Alerte utilisateur"
 
     expect(page).to have_content('Les alertes sont en cours de création')
 
     perform_enqueued_jobs
 
     expect(UserAlert.count).to eq(1)
-    expect(UserAlert.last.params[:comment]).to eq('Contenu de test')
+    expect(UserAlert.last.content.to_plain_text).to eq('Contenu de test')
     expect(UserAlert.last.recipient).to eq(@user1)
   end
 
