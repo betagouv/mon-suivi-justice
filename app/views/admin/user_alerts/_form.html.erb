@@ -41,14 +41,14 @@ and renders all form fields for a resource's editable attributes.
 
   <% if action_name == 'new' %>
     <div class="field-unit field-unit--string field-unit--optional">
-      <%= label_tag :organization_id, 'Service :',  class: 'field-unit__label' %>
+      <%= label_tag :organization_id, 'service :',  class: 'field-unit__label' %>
       <div class="field-unit__field">
         <%= select_tag :organization_id, options_from_collection_for_select(Organization.all, 'id', 'name'), include_blank: 'Tous les services' %>
       </div>
     </div>
 
     <div class="field-unit field-unit--string field-unit--optional">
-      <%= label_tag :role, 'Rôle :',  class: 'field-unit__label' %>
+      <%= label_tag :role, 'rôle :',  class: 'field-unit__label' %>
       <div class="field-unit__field">
         <%= select_tag :role, options_for_select(User.roles.keys.unshift(['Tous les rôles', nil])) %>
       </div>
