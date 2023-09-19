@@ -12,7 +12,7 @@
     <p>Voici le rapport détaillé de la création d'alerte utilisateur :</p>
 
     <ul>
-        <li><strong>Contenu de l'alerte :</strong> <%= @comment %></li>
+        <li><strong>Contenu de l'alerte :</strong> <%= @content %></li>
         <li><strong>Service cible :</strong> <%= @organization ? @organization.name : 'Tous les services' %></li>
         <li><strong>Rôle cible :</strong> <%= @role.present? ? @role : 'Tous les rôles' %></li>
         <li><strong>Nombre de destinataires :</strong> <%= @number_of_recipients %></li>
