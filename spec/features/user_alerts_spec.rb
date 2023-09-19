@@ -27,7 +27,7 @@ RSpec.describe 'UserAlerts', type: :feature, js: true do
   end
 
   it 'users can see the alerts and mark them as read', logged_in_as: 'cpip', js: true do
-    alert = create(:user_alert, recipient: @user, read_at: nil, type: 'User', params: { comment: 'Contenu de test' })
+    alert = create(:user_alert, recipient: @user, read_at: nil, type: 'User', content: 'Contenu de test')
 
     visit root_path
 
