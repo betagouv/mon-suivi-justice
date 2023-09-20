@@ -130,7 +130,8 @@ RSpec.feature 'Convicts', type: :feature do
       orgs_info_div = page.find("div[data-search-cities-results-target='organizationsInfo']")
       expect(orgs_info_div).to have_content("#{tj.name}, #{spip.name}")
 
-      find(:css, '#convict-no-phone-checkbox').click
+      no_phone_cb = find('#convict-no-phone-checkbox')
+      no_phone_cb.check(id: 'convict-no-phone', allow_label_click: true)
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
 
@@ -158,10 +159,10 @@ RSpec.feature 'Convicts', type: :feature do
       find('#convict_city_id').set('Melun')
       find('a', text: '77000 Melun (France)').click
 
-      japat_checkbox = find('#convict-japat-checkbox', visible: true)
-      japat_checkbox.set(true)
-      no_phone_cb = find('#convict-no-phone-checkbox', visible: true)
-      no_phone_cb.set(true)
+      japat_checkbox = find('#convict-japat-checkbox')
+      japat_checkbox.check(id: 'convict-japat', allow_label_click: true)
+      no_phone_cb = find('#convict-no-phone-checkbox')
+      no_phone_cb.check(id: 'convict-no-phone', allow_label_click: true)
       save_and_open_screenshot
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
