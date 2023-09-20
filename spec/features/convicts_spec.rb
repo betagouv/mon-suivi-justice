@@ -158,9 +158,12 @@ RSpec.feature 'Convicts', type: :feature do
       find('#convict_city_id').set('Melun')
       find('a', text: '77000 Melun (France)').click
 
-      find('#convict-japat-checkbox').click
-      find('#convict-no-phone-checkbox').click
-
+      japat_checkbox = find('#convict-japat-checkbox')
+      p japat_checkbox
+      japat_checkbox.click
+      no_phone_cb = find('#convict-no-phone-checkbox')
+      p no_phone_cb
+      no_phone_cb.click
       save_and_open_screenshot
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
