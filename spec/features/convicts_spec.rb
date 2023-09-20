@@ -158,10 +158,9 @@ RSpec.feature 'Convicts', type: :feature do
       find('#convict_city_id').set('Melun')
       find('a', text: '77000 Melun (France)').click
 
-      expect(find('#convict-japat-checkbox')).to be_visible
-      japat_checkbox = find('#convict-japat-checkbox')
+      japat_checkbox = find('#convict-japat-checkbox', visible: true)
       japat_checkbox.set(true)
-      no_phone_cb = find('#convict-no-phone-checkbox')
+      no_phone_cb = find('#convict-no-phone-checkbox', visible: true)
       no_phone_cb.set(true)
       save_and_open_screenshot
 
