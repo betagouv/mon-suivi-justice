@@ -163,7 +163,6 @@ RSpec.feature 'Convicts', type: :feature do
       japat_checkbox.check(id: 'convict-japat', allow_label_click: true)
       no_phone_cb = find('#convict-no-phone-checkbox')
       no_phone_cb.check(id: 'convict-no-phone', allow_label_click: true)
-      save_and_open_screenshot
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
 
