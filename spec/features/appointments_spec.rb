@@ -544,8 +544,8 @@ RSpec.feature 'Appointments', type: :feature do
 
         visit convict_path(convict)
 
-        within first('.appointment-fulfilment-container') { click_button 'Non' }
-        within("#missed-appointment-modal-#{appointment.id}") { click_button 'Oui' }
+        within first('.appointment-fulfilment-container') { first('.show-convict-miss-button').click }
+        within("#missed-appointment-modal-#{appointment.id}") { all('.show-convict-fulfil-button').last.click }
 
         appointment.reload
         expect(appointment.state).to eq('no_show')
