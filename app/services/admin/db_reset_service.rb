@@ -2,7 +2,7 @@ module Admin
   class DbResetService
     def self.reset_database
       truncate_tables if Rails.env.development?
-      clear_records
+      clear_records if Rails.env.development?
     end
 
     def self.truncate_tables
