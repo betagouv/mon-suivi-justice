@@ -21,8 +21,6 @@ class AppiImportJob < ApplicationJob
     end
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
   def create_convict(convict, organizations)
     convict = Convict.new(
       first_name: convict[:first_name],
@@ -32,13 +30,9 @@ class AppiImportJob < ApplicationJob
       appi_uuid: convict[:appi_uuid]
     )
 
-    organizations.each do |organization|
-      convict.organizations.push(organization) unless convict.organizations.include?(organization)
-
-      organization.linked_organizations.each do |linked_organization|
-        convict.organizations.push(linked_organization) unless convict.organizations.include?(linked_organization)
-      end
-    end
+    convict.organization_ids = organizations.map do |org|
+      [org.id] + org.linked_organizations.map(&:id)
+    end.flatten.uniq
 
     if convict.save(context: :appi_import)
       @import_successes.push("#{convict.first_name} #{convict.last_name} (id: #{convict.id})")
@@ -46,8 +40,6 @@ class AppiImportJob < ApplicationJob
       @import_errors.push("#{convict.first_name} #{convict.last_name} - #{convict.errors.full_messages.first}")
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/PerceivedComplexity
 
   private
 
