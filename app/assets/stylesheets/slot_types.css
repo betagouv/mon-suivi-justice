@@ -1,5 +1,5 @@
 .index-slot-types-back-button {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
   display: flex;
   width: max-content;
   margin: 20px;
@@ -15,7 +15,7 @@
 
 .index-slot-types-warning {
   text-align: center;
-  color: $important;
+  color: var(--important);
 }
 
 .index-slot-types-title-place {
@@ -35,13 +35,13 @@
 }
 
 .slot-type-apt-type-link-true {
-  color: $link;
+  color: var(--link);
   padding: 0 10px;
   font-weight: bold;
 }
 
 .slot-type-apt-type-link-false {
-  color: $link;
+  color: var(--link);
   padding: 0 10px;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .slot-type-batch-delete-weekday-link {
-  color: $link;
+  color: var(--link);
   margin-right: 30px;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .new-slot-type-form {
-  border-top: 1px solid $table-border;
+  border-top: 1px solid var(--table-border);
 
   &:first-child {
     border: none;
@@ -104,28 +104,28 @@
   margin-top: 10px;
 
   a {
-    color: $link;
+    color: var(--link);
     padding-left: 10px;
   }
 }
 
 .slot-type-submit-button {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
 }
 
 .slot-type-add-button {
-  @include button($light-blue);
+  @mixin button var(--light-blue);
 }
 
 .index-slot-types-weekday-container {
   width: max-content;
   min-width: 715px;
   padding-top: 10px;
-  border: 2px solid $table-border;
+  border: 2px solid var(--table-border);
 }
 
 .slot-type-batch-creator-container {
-  border: 2px solid $table-border;
+  border: 2px solid var(--table-border);
   max-width: 715px;
   margin: auto;
   display: flex;
@@ -190,19 +190,19 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-left: 2px solid $table-border;
+  border-left: 2px solid var(--table-border);
   flex-grow: 1;
   padding: 20px;
 }
 
 .slot-type-batch-submit-button {
-  @include button($light-blue);
+  @mixin button var(--light-blue);
   height: 40px;
   margin-bottom: 20px;
 }
 
 .slot-type-batch-delete-all-button {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
   height: 40px;
   font-size: 17px;
   display: flex;

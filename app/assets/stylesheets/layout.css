@@ -1,16 +1,16 @@
 .agent-interface-container {
-  height: calc(100vh - #{$header-height});
+  height: calc(100vh - var(--header-height));
   width: 100%;
   display: flex;
 }
 
 .header {
-  height: $header-height;
+  height: var(--header-height);
   padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: $header-background;
+  background-color: var(--header-background);
   position: fixed;
   width: 100%;
   z-index: 1;
@@ -18,7 +18,7 @@
 }
 
 .header-staging {
-  background-color: $header-staging-background;
+  background-color: var(--header-staging-background);
 }
 
 .header-title {
@@ -26,7 +26,7 @@
 }
 
 .header-home-link {
-  color: $main-font-color;
+  color: var(--main-font-color);
   text-decoration: none;
 }
 
@@ -64,15 +64,15 @@
 
 .header-link {
   margin-left: 20px;
-  color: $main-font-color;
+  color: var(--main-font-color);
 }
 
 .support-link {
   text-decoration: none;
   padding: 5px 15px;
   border-radius: 2px;
-  color: $main-font-color;
-  background-color: $support-link;
+  color: var(--main-font-color);
+  background-color: var(--support-link);
   position: fixed;
   bottom: 300px;
   right: 0;

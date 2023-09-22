@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   height: 40px;
-  border-bottom: 1px solid $table-border;
+  border-bottom: 1px solid var(--table-border);
   padding-left: 30px;
 }
 
@@ -45,7 +45,7 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  width: calc(100vw - #{$sidebar-width});
+  width: calc(100vw - var(--sidebar-width));
   background-color: white;
 }
 
@@ -58,7 +58,9 @@
   justify-content: space-between;
 
   .form-time-select-fields {
-    select { width: 100%; }
+    select {
+      width: 100%;
+    }
   }
 }
 
@@ -68,11 +70,11 @@
 }
 
 .appointment-type-slot-form-line1 {
-  width: 45%
+  width: 45%;
 }
 
 .appointment-type-slot-form-line2 {
-  width: 30%
+  width: 30%;
 }
 
 .add-slot-button-container {
@@ -80,7 +82,7 @@
 }
 
 .add-slot-button {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
 }
 
 .remove-slot-button-container {
@@ -90,19 +92,19 @@
 
 .remove-slot-button {
   margin-top: 11px;
-  @include button($light-grey);
+  @mixin button var(--light-grey);
 }
 
 .edit-appointment-type-slot-container {
   padding-bottom: 20px;
-  border-bottom: 1px solid $table-border;
+  border-bottom: 1px solid var(--table-border);
   margin-bottom: 20px;
 }
 
 .appointment-types-wrapper {
   display: flex;
   justify-content: center;
-  height: calc(100vh - #{$header-height});
+  height: calc(100vh - var(--header-height));
 }
 
 .appointment-types-container {
@@ -113,7 +115,7 @@
   display: flex;
   align-items: center;
   height: 40px;
-  border-bottom: 1px solid $table-border;
+  border-bottom: 1px solid var(--table-border);
   padding-left: 30px;
   justify-content: space-between;
 }
@@ -169,7 +171,7 @@
 }
 
 .edit-appointment-type-header {
-  border: 2px solid $table-border;
+  border: 2px solid var(--table-border);
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -184,7 +186,7 @@
   justify-content: space-between;
   margin-bottom: 5px;
 
-  &:last-child{
+  &:last-child {
     margin-bottom: 0;
   }
 }
@@ -210,7 +212,7 @@
 .notification-type-separator {
   width: 80%;
   margin: 20px auto 30px;
-  color: $table-border;
+  color: var(--table-border);
 }
 
 .notification-type-status-title {
@@ -221,5 +223,5 @@
 }
 
 .notification-type-reset-link {
-  color: $link;
+  color: var(--link);
 }

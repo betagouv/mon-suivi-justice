@@ -20,19 +20,19 @@ body {
 }
 
 .notice {
-  background-color: $notice;
+  background-color: var(--notice);
 }
 
 .alert {
-  background-color: $alert;
+  background-color: var(--alert);
 }
 
 .warning {
-  background-color: $warning;
+  background-color: var(--warning);
 }
 
 .fake-link {
   cursor: pointer;
   text-decoration: underline;
-  color: $link;
+  color: var(--link);
 }

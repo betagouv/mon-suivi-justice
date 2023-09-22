@@ -7,14 +7,14 @@
 }
 
 .index-card-container {
-  border: 1px solid $table-border;
+  border: 1px solid var(--table-border);
   border-radius: 2px;
   display: flex;
   max-width: 800px;
   margin: 0 20px;
   margin-bottom: 20px;
   flex-direction: column;
-  box-shadow: 3px 3px 3px $table-border;
+  box-shadow: 3px 3px 3px var(--table-border);
 
   @media print {
     box-shadow: none;
@@ -49,7 +49,7 @@
 }
 
 .index-sorting-tool-title {
-  border-right: 1px solid $table-border;
+  border-right: 1px solid var(--table-border);
   padding: 5px 10px;
 }
 
@@ -57,7 +57,7 @@
   padding: 5px 10px;
   margin-right: 5px;
 
-  &:last-child{
+  &:last-child {
     margin-right: 0;
   }
 }
@@ -65,11 +65,13 @@
 .index-card-see-infos {
   margin-right: 10px;
   margin-bottom: 10px;
-  color: $link;
+  color: var(--link);
   display: flex;
   align-items: center;
 
-  @media print { display: none; }
+  @media print {
+    display: none;
+  }
 }
 
 .index-card-state-container {
@@ -87,7 +89,9 @@
 }
 
 .index-card-state-controls-wrapper {
-  @media print { display: none; }
+  @media print {
+    display: none;
+  }
 }
 
 .index-card-state-controls-container {

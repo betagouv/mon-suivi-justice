@@ -1,21 +1,21 @@
 .index-header-container {
-  width: calc(100vw - #{$sidebar-width});
+  width: calc(100vw - var(--sidebar-width));
   position: fixed;
   display: flex;
   justify-content: space-between;
   height: 110px;
-  background-color: $main-background;
-  border-bottom: 1px solid $table-border;
+  background-color: var(--main-background);
+  border-bottom: 1px solid var(--table-border);
   padding: 0 10px;
 }
 
 .index-title-container {
-  width: calc(100vw - #{$sidebar-width});
+  width: calc(100vw - var(--sidebar-width));
   position: fixed;
   display: flex;
   justify-content: center;
   height: 50px;
-  background-color: $main-background;
+  background-color: var(--main-background);
   padding: 0 10px;
 
   h1 {
@@ -24,7 +24,7 @@
 }
 
 .user-appointments-index-title-container {
-  width: calc(100vw - #{$sidebar-width});
+  width: calc(100vw - var(--sidebar-width));
   position: fixed;
   display: flex;
   justify-content: center;
@@ -56,7 +56,7 @@
 
 .index-table-container {
   margin-top: 110px;
-  width: calc(100vw - #{$sidebar-width});
+  width: calc(100vw - var(--sidebar-width));
   display: flow-root;
 
   @media print {
@@ -83,7 +83,7 @@
 }
 
 .index-list-small-line {
-  border-bottom: 1px solid $table-border;
+  border-bottom: 1px solid var(--table-border);
 }
 
 .index-table-header {
@@ -91,13 +91,13 @@
   display: flex;
   align-items: center;
   height: 40px;
-  border-bottom: 1px solid $table-border;
+  border-bottom: 1px solid var(--table-border);
   padding-left: 30px;
   padding-right: 20px;
 
   position: fixed;
   width: inherit;
-  background-color: $main-background;
+  background-color: var(--main-background);
 
   @media print {
     width: 100%;
@@ -108,7 +108,7 @@
 
 .index-control {
   margin-right: 10px;
-  color: $link;
+  color: var(--link);
 }
 
 .index-tools-container {
@@ -140,11 +140,11 @@
   height: 40px;
   padding: 10px;
   margin-right: 10px;
-  border: 1px solid $table-border;
+  border: 1px solid var(--table-border);
 }
 
 .index-search-button {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
 }
 
 .index-pagination-container {
@@ -159,10 +159,10 @@
   margin: 0 8px;
 
   a {
-    color: $link;
+    color: var(--link);
 
     &:visited {
-      color: $link;
+      color: var(--link);
     }
   }
 }
@@ -171,10 +171,10 @@
   font-size: 1.2em;
 
   a {
-    color: $link;
+    color: var(--link);
 
     &:visited {
-      color: $link;
+      color: var(--link);
     }
   }
 }
@@ -183,7 +183,9 @@
   text-decoration: none;
   color: black;
 
-  .fa-sort { margin-left: 5px; }
+  .fa-sort {
+    margin-left: 5px;
+  }
 }
 
 .index-filter-form {
@@ -197,9 +199,9 @@
   height: 40px;
   margin-right: 10px;
   padding: 10px;
-  border: 1px solid $table-border;
+  border: 1px solid var(--table-border);
 
-  background-color: $main-background;
+  background-color: var(--main-background);
   color: grey;
 }
 
@@ -209,9 +211,9 @@
   height: 40px;
   margin-right: 10px;
   padding: 10px;
-  border: 1px solid $table-border;
+  border: 1px solid var(--table-border);
 
-  background-color: $main-background;
+  background-color: var(--main-background);
   color: grey;
 }
 
@@ -221,7 +223,7 @@
 }
 
 .index-list-line-container {
-  border-bottom: 3px solid lighten($table-border, 5%);
+  border-bottom: 3px solid lighten(var(--table-border), 5%);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -239,5 +241,5 @@
 }
 
 .print-button {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
 }

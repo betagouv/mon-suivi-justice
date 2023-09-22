@@ -1,6 +1,6 @@
-@mixin button($color) {
+@define-mixin button $color {
   background-color: $color;
-  color: $main-font-color;
+  color: var(--main-font-color);
   padding: .5em 1em;
   border-radius: 2px;
   font-size: 18px;
@@ -10,24 +10,24 @@
   transition: .3s background-color;
 
   &:hover {
-    background: darken($color, 8%);
+    background-color: color-mod($color shade(8%));
   }
 
-  &:disabled, &[disabled]{
-    background-color: $grey;
+  &:disabled, &[disabled] {
+    background-color: var(--grey);
     cursor: not-allowed;
   }
 }
 
-@mixin box {
-  border: 1px solid $table-border;
+@define-mixin box {
+  border: 1px solid var(--table-border);
   padding: 20px;
   border-radius: 2px;
 }
 
-@mixin badge($color) {
+@define-mixin badge $color {
   background-color: $color;
-  color: $main-font-color;
+  color: var(--main-font-color);
   padding: .2em .5em;
   border-radius: 2px;
   font-size: 14px;
@@ -37,6 +37,6 @@
   transition: .3s background-color;
 
   &:hover {
-    background: darken($color, 8%);
+    background: color-mod($color shade(8%));
   }
 }

@@ -1,7 +1,7 @@
 .new-convict-duplicate-warning {
   margin-top: 10px;
-  border: 2px solid $error;
-  color: $error;
+  border: 2px solid var(--error);
+  color: var(--error);
   border-radius: 2px;
   padding: 10px;
   text-align: justify;
@@ -12,12 +12,12 @@
   display: flex;
   align-items: center;
   height: 40px;
-  border-bottom: 1px solid $table-border;
+  border-bottom: 1px solid var(--table-border);
   padding-left: 30px;
 }
 
 .link-to-my-convicts-button {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
   margin-right: 10px;
 }
 
@@ -25,7 +25,7 @@
   display: flex;
   align-items: center;
   min-height: 40px;
-  border-bottom: 1px solid $table-border;
+  border-bottom: 1px solid var(--table-border);
   padding-left: 30px;
 }
 
@@ -61,7 +61,7 @@
   max-width: 650px;
   margin: auto;
   margin-top: 20px;
-  @include box;
+  @mixin box;
 }
 
 .show-convict-next-appointments-item {
@@ -83,8 +83,8 @@
   display: flex;
   flex-direction: column;
 
-  @include box;
-  border-color: $light-red;
+  @mixin box;
+  border-color: var(--light-red);
   border-width: 2px;
 }
 
@@ -95,39 +95,39 @@
 }
 
 .show-convict-fulfil-button {
-  @include button($light-green);
+  @mixin button var(--light-green);
 }
 
 .show-convict-miss-button {
-  @include button($light-red);
+  @mixin button var(--light-red);
   margin-left: 40px;
 }
 
 .show-convict-excuse-button {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
   margin-left: 40px;
 }
 
 .show-button-to-delete {
-  @include button($light-blue);
+  @mixin button var(--light-blue);
   padding: 0.4em 1em;
   width: 130px;
   margin-bottom: 10px;
 }
 
 .show-button-archive {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
   padding: 0.4em 1em;
   width: 130px;
 }
 
 .show-button-invite {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
   padding: 0.4em 1em;
 }
 
 .show-convict-button-to-edit {
-  @include button($light-blue);
+  @mixin button var(--light-blue);
   padding: 0.4em 1em;
   width: 130px;
   margin-bottom: 10px;
@@ -153,7 +153,7 @@
 .show-history-item-icon {
   margin-right: 10px;
   font-size: 15px;
-  color: $dark-grey;
+  color: var(--dark-grey);
 }
 
 .show-history-item {
@@ -173,7 +173,7 @@
 }
 
 .show-convict-history-control {
-  color: $link;
+  color: var(--link);
 }
 
 .show-convict-new-appointment-container {
@@ -184,12 +184,12 @@
 
 .icon_fulfil_appointment,
 .icon_fulfiled {
-  color: $fulfiled-appointment;
+  color: var(--fulfiled-appointment);
 }
 
 .icon_miss_appointment,
 .icon_no_show {
-  color: $missed-appointment;
+  color: var(--missed-appointment);
 }
 
 .missed-appointment-modal-text {
@@ -206,7 +206,7 @@
   max-width: 500px;
   margin: auto;
   margin-bottom: 30px;
-  @include box;
+  @mixin box;
 }
 
 .convict-attachment {
@@ -227,8 +227,8 @@
 }
 
 .show-convict-achived-container {
-  background-color: $light-grey;
-  color: $dark-grey;
+  background-color: var(--light-grey);
+  color: var(--dark-grey);
   width: 70%;
   max-width: 650px;
   margin: auto;
@@ -246,7 +246,7 @@
   text-align: center;
   margin: 10px 0;
   a {
-    color: $link;
+    color: var(--link);
   }
 }
 

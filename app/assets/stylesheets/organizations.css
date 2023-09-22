@@ -33,7 +33,7 @@
   max-width: 500px;
   margin: auto;
   margin-bottom: 30px;
-  @include box;
+  @mixin box;
 }
 
 .organization-attachment {

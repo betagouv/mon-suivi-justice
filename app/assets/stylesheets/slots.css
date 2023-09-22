@@ -1,10 +1,10 @@
 .slots-index-control {
-  color: $link;
+  color: var(--link);
   margin-right: 10px;
 }
 
 .new-slots-add-starting-time {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
   font-size: 17px;
   margin: 15px auto 30px;
 }
@@ -17,6 +17,6 @@
 }
 
 .new-slot-delete-time-fields {
-  color: $dark-grey;
+  color: var(--dark-grey);
   cursor: pointer;
 }

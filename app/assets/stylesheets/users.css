@@ -13,11 +13,11 @@
 }
 
 .link-to-new-user-button {
-  @include button($light-blue);
+  @mixin button var(--light-blue);
 }
 
 .delete-user-button {
-  @include button($light-red);
+  @mixin button var(--light-red);
   margin-bottom: 10px;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .show-user-account-controls {
-  @include button($light-grey);
+  @mixin button var(--light-grey);
   margin-top: 10px;
   width: 180px;
 }

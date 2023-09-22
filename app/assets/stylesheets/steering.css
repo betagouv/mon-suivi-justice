@@ -3,17 +3,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: lighten($header-background, 20%);
+  background-color: color-mod(var(--header-background), shade(20%));
   height: 40px;
 }
 
 .steering-header-link-container {
   text-decoration: none;
-  color: $main-font-color;
+  color: var(--main-font-color);
 }
 
 .steering-header-link-active {
-  background-color: lighten($header-background, 12%);
+  background-color: color-mod(var(--header-background), shade(12%));
 }
 
 .steering-header-link {
@@ -31,7 +31,7 @@
 }
 
 .stats-card-container {
-  @include box;
+  @mixin box;
   padding: 20px;
   margin-right: 40px;
   min-width: 430px;
@@ -61,7 +61,7 @@
 }
 
 .stat-card-of-which {
-  color: $dark-grey;
+  color: var(--dark-grey);
   width: auto;
 }
 
@@ -74,5 +74,5 @@
 }
 
 .steering-convict-app-data {
-  @include box;
+  @mixin box;
 }

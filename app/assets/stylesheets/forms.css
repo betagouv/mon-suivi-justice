@@ -1,5 +1,3 @@
-
-
 .form-secondary-title {
   font-size: 1.1em;
   text-align: center;
@@ -11,7 +9,7 @@
   text-align: center;
   margin-top: -30px;
   margin-bottom: 20px;
-  color: $dark-grey;
+  color: var(--dark-grey);
 }
 
 .form-manual {
@@ -42,14 +40,14 @@
 }
 
 .form-submit-button {
-  @include button($light-blue);
+  @mixin button var(--light-blue);
   margin: 15px auto 30px;
 }
 
 .form-text-input {
   width: 100%;
   padding: 10px;
-  border: 2px solid $form-input;
+  border: 2px solid var(--form-input);
   height: 45px;
 }
 
@@ -98,12 +96,13 @@
 }
 
 .error {
-  color: $error;
+  color: var(--error);
 }
 
 .field_with_errors {
-  input, select {
-    border: 2px solid $error;
+  input,
+  select {
+    border: 2px solid var(--error);
   }
 }
 
@@ -134,7 +133,7 @@
 .custom-select2-input {
   width: 100%;
   padding: 10px;
-  border: 2px solid $form-input !important;
+  border: 2px solid var(--form-input) !important;
   border-radius: 0 !important;
   height: 45px !important;
   display: flex !important;
@@ -150,12 +149,12 @@
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24' ><path fill='%23a1a1a1' d='M12,13.1l5-4.9l1.4,1.4L12,15.9L5.6,9.5l1.4-1.4L12,13.1z'/></svg>");
 }
 
-.select2-selection__arrow b{
-  display:none !important;
+.select2-selection__arrow b {
+  display: none !important;
 }
 
 .select2-results__option {
-  font-size: .8em !important;
+  font-size: 0.8em !important;
 }
 
 .select2-selection .select2-selection--single {
@@ -164,9 +163,11 @@
   align-items: center !important;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-  color: $main-font-color !important;
-  font-size: .8em !important;
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  color: var(--main-font-color) !important;
+  font-size: 0.8em !important;
   line-height: inherit !important;
   padding-left: 5px !important;
 }
@@ -183,9 +184,9 @@
   cursor: pointer;
 }
 
-.checkbox-label input[type=checkbox] {
+.checkbox-label input[type="checkbox"] {
   position: absolute;
-  opacity:  0;
+  opacity: 0;
   width: 0;
   height: 0;
 }
@@ -196,8 +197,8 @@
   left: 0;
   width: 20px;
   height: 20px;
-  background-color: $light-grey;
-  transition: .3s background-color;
+  background-color: var(--light-grey);
+  transition: 0.3s background-color;
 }
 
 .checkbox-label span:after {
@@ -216,11 +217,11 @@
 }
 
 .checkbox-label:hover span {
-  background: darken($light-grey, 8%);
+  background: darken(var(--light-grey), 8%);
 }
 
 .checkbox-label input:checked ~ span {
-  background-color: $checked;
+  background-color: var(--checked);
 }
 
 .checkbox-label input:checked ~ span:after {

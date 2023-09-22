@@ -1,0 +1,50 @@
+.ie-warning-container {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.ie-warning-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.ie-warning-logo-container {
+  margin-bottom: 25px;
+}
+
+.ie-warning-logo-container img {
+  width: 250px;
+}
+
+.ie-warning-text {
+  margin-bottom: 10px;
+}
+
+/* IE 6, 7, 8 */
+@media \0screen, screen\9 {
+  .agent-interface-container,
+  .header,
+  .authentication-form-container {
+    display: none;
+  }
+
+  .ie-warning-container {
+    display: flex;
+  }
+}
+
+/* IE9+ */
+@media screen and (min-width: 0\0) and (min-resolution: +72dpi) {
+  .agent-interface-container,
+  .header,
+  .authentication-form-container {
+    display: none;
+  }
+
+  .ie-warning-container {
+    display: flex;
+  }
+}

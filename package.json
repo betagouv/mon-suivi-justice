@@ -12,14 +12,17 @@
     "@rails/activestorage": "^7.0.7",
     "@rails/ujs": "^7.0.7",
     "abyme": "^0.7.4",
-    "autoprefixer": "^10.4.15",
+    "autoprefixer": "^10.4.16",
     "esbuild": "^0.19.2",
     "jquery": "^3.7.1",
     "micromodal": "^0.4.6",
-    "postcss": "^8.4.29",
+    "postcss": "^8.4.30",
     "postcss-cli": "^10.1.0",
+    "postcss-color-mod-function": "^3.0.3",
     "postcss-import": "^15.1.0",
+    "postcss-mixins": "^9.0.4",
     "postcss-nesting": "^12.0.1",
+    "postcss-scss": "^4.0.8",
     "sass": "^1.67.0",
     "select2": "^4.1.0-rc.0",
     "stimulus-use": "^0.51.3",
@@ -30,6 +33,6 @@
   "version": "0.1.0",
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",
-    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build:css": "postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css"
   }
 }
