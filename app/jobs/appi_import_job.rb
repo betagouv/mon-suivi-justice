@@ -32,13 +32,17 @@ class AppiImportJob < ApplicationJob
       appi_uuid: convict[:appi_uuid]
     )
 
+    unique_organizations = Set.new
+
     organizations.each do |organization|
-      convict.organizations.push(organization) unless convict.organizations.include?(organization)
+      unique_organizations.add(organization.id)
 
       organization.linked_organizations.each do |linked_organization|
-        convict.organizations.push(linked_organization) unless convict.organizations.include?(linked_organization)
+        unique_organizations.add(linked_organization.id)
       end
     end
+
+    convict.organization_ids = unique_organizations.to_a
 
     if convict.save(context: :appi_import)
       @import_successes.push("#{convict.first_name} #{convict.last_name} (id: #{convict.id})")
