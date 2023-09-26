@@ -9,7 +9,7 @@ RSpec.describe 'UserAlerts', type: :feature, js: true do
     visit new_admin_user_alert_path
     expect(page).to have_content('Création Alertes Utilisateurs')
 
-    find('.trix-content').set('\n  Contenu de test')
+    find('.trix-content').set('Contenu de test')
 
     select @organization.name, from: 'service'
     select 'cpip', from: 'rôle'
