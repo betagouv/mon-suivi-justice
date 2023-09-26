@@ -1,11 +1,11 @@
 class UserAlert < ApplicationRecord
-  include Noticed::Model
-  belongs_to :recipient, polymorphic: true
   before_save :set_target_blank
 
-  scope :unread, -> { where(read_at: nil) }
-
+  has_many :users_user_alerts
+  has_many :users, through: :users_user_alerts
   has_rich_text :content
+
+  scope :unread, -> { where(read_at: nil) }
 
   private
 
