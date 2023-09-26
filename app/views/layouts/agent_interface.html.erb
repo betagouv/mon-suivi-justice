@@ -8,11 +8,9 @@
     </div>
   <% end %>
   <div id="user_alerts">
-    <% if  @user_alerts.any? %>
-      <% @user_alerts.each do |alert| %>
-       <% if alert.unread? %>
-          <%= render 'shared/alert_notice', alert: alert %>
-        <% end %>
+    <% if @unread_alerts.any? %>
+      <% @unread_alerts.each do |alert| %>
+        <%= render 'shared/alert_notice', alert: alert %>
       <% end %>
     <% end %>
   </div>

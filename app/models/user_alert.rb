@@ -3,6 +3,8 @@ class UserAlert < ApplicationRecord
   belongs_to :recipient, polymorphic: true
   before_save :set_target_blank
 
+  scope :unread, -> { where(read_at: nil) }
+
   has_rich_text :content
 
   private
