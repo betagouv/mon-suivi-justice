@@ -1,63 +1,63 @@
 @font-face {
   font-family: Marianne;
-  src: url(asset-url("fonts/Marianne-Regular.woff")) format("woff"),
-    url("fonts/Marianne-Regular.woff2") format("woff2");
+  src: url("Marianne-Regular.woff") format("woff"),
+    url("Marianne-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: Marianne;
-  src: url("fonts/Marianne-Bold.woff") format("woff"),
-    url("fonts/Marianne-Bold.woff2") format("woff2");
+  src: url("Marianne-Bold.woff") format("woff"),
+    url("Marianne-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: Marianne;
-  src: url("fonts/Marianne-ExtraBold.woff") format("woff"),
-    url("fonts/Marianne-ExtraBold.woff2") format("woff2");
+  src: url("Marianne-ExtraBold.woff") format("woff"),
+    url("Marianne-ExtraBold.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
 }
 
 @font-face {
   font-family: Marianne;
-  src: url("fonts/Marianne-ExtraBold_Italic.woff") format("woff"),
-    url("fonts/Marianne-ExtraBold_Italic.woff2") format("woff2");
+  src: url("Marianne-ExtraBold_Italic.woff") format("woff"),
+    url("Marianne-ExtraBold_Italic.woff2") format("woff2");
   font-weight: 800;
   font-style: italic;
 }
 
 @font-face {
   font-family: Marianne;
-  src: url("fonts/Marianne-Light.woff") format("woff"),
-    url("fonts/Marianne-Light.woff2") format("woff2");
+  src: url("Marianne-Light.woff") format("woff"),
+    url("Marianne-Light.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
   font-family: Marianne;
-  src: url("fonts/Marianne-Regular_Italic.woff") format("woff"),
-    url("fonts/Marianne-Regular_Italic.woff2") format("woff2");
+  src: url("Marianne-Regular_Italic.woff") format("woff"),
+    url("Marianne-Regular_Italic.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: Marianne;
-  src: url("fonts/Marianne-Bold_Italic.woff") format("woff"),
-    url("fonts/Marianne-Bold_Italic.woff2") format("woff2");
+  src: url("Marianne-Bold_Italic.woff") format("woff"),
+    url("Marianne-Bold_Italic.woff2") format("woff2");
   font-weight: bold;
   font-style: italic;
 }
 
 @font-face {
   font-family: Marianne;
-  src: url("fonts/Marianne-Medium.woff2") format("woff2"),
-    url("fonts/Marianne-Medium.woff") format("woff");
+  src: url("Marianne-Medium.woff2") format("woff2"),
+    url("Marianne-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -65,8 +65,8 @@
 
 @font-face {
   font-family: Marianne;
-  src: url("fonts/Marianne-Medium_Italic.woff2") format("woff2"),
-    url("fonts/Marianne-Medium_Italic.woff") format("woff");
+  src: url("Marianne-Medium_Italic.woff2") format("woff2"),
+    url("Marianne-Medium_Italic.woff") format("woff");
   font-weight: 500;
   font-style: italic;
   font-display: swap;
@@ -74,16 +74,16 @@
 
 @font-face {
   font-family: "Spectral";
-  src: url("fonts/Spectral-Regular.woff") format("woff"),
-    url("fonts/Spectral-Regular.woff2") format("woff2");
+  src: url("Spectral-Regular.woff") format("woff"),
+    url("Spectral-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Spectral";
-  src: url("fonts/Spectral-ExtraBold.woff") format("woff"),
-    url("fonts/Spectral-ExtraBold.woff2") format("woff2");
+  src: url("Spectral-ExtraBold.woff") format("woff"),
+    url("Spectral-ExtraBold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
 }
