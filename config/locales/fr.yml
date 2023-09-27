@@ -666,7 +666,7 @@ fr:
       key6_title: "{rdv.date}"
       key6_meaning: "Date de la convocation"
       key6_sample: "Ex : 06/08/2021"
-      key7_title: "{convocation.heure}"
+      key7_title: "{rdv.heure}"
       key7_meaning: "Heure de la convocation"
       key7_sample: "Ex : 18h20"
 
