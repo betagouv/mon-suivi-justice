@@ -9,6 +9,6 @@ class ConvictInvitationsController < ApplicationController
 
     ConvictInvitationNotification.with(invitation_params: params, status: :pending,
                                        type: :info).deliver_later(current_user)
-    InviteConvictJob.perform_later(@convict.id, current_user)
+    InviteConvictJob.perform_now(@convict.id, current_user)
   end
 end
