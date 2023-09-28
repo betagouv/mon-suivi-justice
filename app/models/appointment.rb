@@ -3,7 +3,7 @@ class Appointment < ApplicationRecord
   has_paper_trail
 
   after_destroy do |appointment|
-    appointment.slot.decrement!(:used_capacity, 1)
+    appointment.slot.decrement!(:used_capacity, 1) if appointment.slot.used_capacity.positive?
     appointment.slot.update(full: false) if appointment.slot.all_capacity_used? == false
   end
 
@@ -186,10 +186,10 @@ class Appointment < ApplicationRecord
     end
 
     after_transition on: :cancel do |appointment, transition|
-      appointment.slot.decrement!(:used_capacity, 1)
+      appointment.slot.decrement!(:used_capacity, 1) if appointment.slot.used_capacity.positive?
       appointment.slot.update(full: false) if appointment.slot.all_capacity_used? == false
 
-      appointment.reminder_notif.cancel! if appointment.reminder_notif.programmed?
+      appointment.reminder_notif.cancel! if appointment.reminder_notif&.programmed?
 
       if send_sms?(transition) && appointment.convict.phone.present?
         appointment.cancelation_notif.send_now
