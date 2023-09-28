@@ -7,7 +7,7 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "@hotwired/turbo-rails"
-// import "channels"
+import "channels"
 
 require("jquery");
 require("@nathanvda/cocoon");
