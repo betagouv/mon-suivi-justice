@@ -1,5 +1,6 @@
 class Appointment < ApplicationRecord
   include TransfertValidator
+
   has_paper_trail
 
   after_destroy do |appointment|
@@ -31,7 +32,7 @@ class Appointment < ApplicationRecord
   delegate :name, to: :organization, prefix: true
   delegate :phone, to: :convict, prefix: true
 
-  attr_accessor :place_id, :agenda_id, :department_id, :user_is_cpip
+  attr_accessor :place_id, :agenda_id, :department_id, :user_is_cpip, :send_instant_notification
 
   enum origin_department: {
     bex: 0,
@@ -69,6 +70,7 @@ class Appointment < ApplicationRecord
   scope :active, -> { where.not(state: 'canceled') }
 
   validate :in_the_future, on: :create
+  validate :must_choose_to_send_notification, on: :create
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[user_id]
@@ -90,6 +92,12 @@ class Appointment < ApplicationRecord
     return true if date < Time.zone.today
 
     date == Time.zone.today && starting_time.strftime('%H:%M') <= Time.current.strftime('%H:%M')
+  end
+
+  def must_choose_to_send_notification
+    return if convict.phone.blank? || send_instant_notification.present?
+
+    errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.send_instant_notification.blank'))
   end
 
   def datetime

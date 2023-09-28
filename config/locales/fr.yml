@@ -67,7 +67,12 @@ fr:
       convict_has_city: "Le probationnaire est lié à la commune %{city_name}."
       add_city: "ajoutez une commune au probationnaire"
       change_city: "modifiez la commune du probationnaire"
-
+  appointment:
+    create:
+      submit: Convoquer
+      send:
+        sms: "Prévenir immédiatement le probationnaire par SMS puis lui envoyer un rappel avant sa convocation"
+        no_sms: "Envoyer uniquement un rappel par SMS avant sa convocation au probationnaire"
   activerecord:
     models:
       user:

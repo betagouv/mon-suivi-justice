@@ -122,8 +122,8 @@ class AppointmentsController < ApplicationController
   def appointment_params
     params.require(:appointment).permit(
       :slot_id, :user_id, :convict_id, :appointment_type_id, :place_id, :origin_department, :prosecutor_number,
-      :creating_organization_id, slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time],
-                                 appointment_extra_fields_attributes: [:value, :extra_field_id]
+      :creating_organization_id, :send_instant_notification, slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time],
+                                                             appointment_extra_fields_attributes: [:value, :extra_field_id]
     )
   end
 
