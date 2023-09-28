@@ -11,7 +11,7 @@ import "./controllers"
 import "./components/profile_search"
 import "./components/password_toggle"
 import "./icons"
-import "channels"
+import "./channels"
 
 Rails.start()
 Turbolinks.start()
