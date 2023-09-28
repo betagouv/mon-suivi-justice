@@ -1,10 +1,14 @@
 module.exports = {
   syntax: "postcss-scss",
-  plugins: [
-    require('postcss-mixins'),
-    require('postcss-color-mod-function'),
-    require('postcss-import'),
-    require('postcss-nesting'),
-    require('autoprefixer'),
-  ],
+  plugins: {
+    "postcss-mixins": {},
+    "postcss-color-mod-function": {},
+    "postcss-import": {},
+    "postcss-nesting": {},
+    autoprefixer: {},
+    "postcss-replace": {
+      pattern: /(?:\.\.\/){0,2}icons\/\w+\//,
+      data: { replaceAll: '' }
+    },
+  },
 }
