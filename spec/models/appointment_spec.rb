@@ -47,7 +47,7 @@ RSpec.describe Appointment, type: :model do
     expect(slot.full?).to eq(true)
     expect(slot.used_capacity).to eq(1)
     appointment.cancel(send_notification: false)
-    
+
     slot.reload
     expect(slot.used_capacity).to eq(0)
 
