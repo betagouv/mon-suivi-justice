@@ -7,7 +7,7 @@ class ConvictInvitationNotification < Noticed::Base
   # Add your delivery methods
   #
   deliver_by :database, association: :user_notifications
-  # deliver_by :action_cable, channel: Noticed::ConvictInvitationChannel
+  deliver_by :action_cable, channel: Noticed::ConvictInvitationChannel
   # deliver_by :email, mailer: "UserMailer"
   # deliver_by :slack
   # deliver_by :custom, class: "MyDeliveryMethod"
