@@ -190,4 +190,13 @@ RSpec.describe Slot, type: :model do
       expect(slots).not_to include(slot_unavailable_without_appointment)
     end
   end
+
+  describe 'used_capacity' do
+    it 'cant be negative' do
+      appointment_type = create(:appointment_type, :with_notification_types)
+      slot = create(:slot, available: true, capacity: 3, used_capacity: 0, appointment_type:)
+
+      expect(slot.decrement(:used_capacity)).not_to be_valid
+    end
+  end
 end

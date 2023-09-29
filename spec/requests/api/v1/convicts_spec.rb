@@ -123,7 +123,12 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
         end
 
         it 'has the right content' do
-          expect(JSON.parse(response.body)).to match(expected_response)
+          parsed_response = JSON.parse(response.body)
+          sorted_appointments = parsed_response['appointments'].sort_by { |a| a['id'] }
+          sorted_expected_appointments = expected_response['appointments'].sort_by { |a| a['id'] }
+
+          expect(parsed_response.except('appointments')).to eq(expected_response.except('appointments'))
+          expect(sorted_appointments).to eq(sorted_expected_appointments)
         end
       end
 

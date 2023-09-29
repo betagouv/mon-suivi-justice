@@ -20,9 +20,9 @@ class User < ApplicationRecord
   has_many :user_notifications, as: :recipient, dependent: :destroy
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :trackable and :omniauthable
+  # :confirmable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :timeoutable,
-         :recoverable, :rememberable, :secure_validatable
+         :recoverable, :rememberable, :secure_validatable, :lockable
 
   enum role: {
     admin: 0,
