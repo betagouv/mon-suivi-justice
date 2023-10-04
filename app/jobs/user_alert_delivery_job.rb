@@ -3,7 +3,7 @@ class UserAlertDeliveryJob < ApplicationJob
   sidekiq_options retry: false
 
   # rubocop:disable Metrics/MethodLength
-  def perform(content, organization_id, role, alert_type, user)
+  def perform(content, organization_id, role, type, user)
     @errors = []
 
     @organization = Organization.find_by id: organization_id
@@ -11,7 +11,7 @@ class UserAlertDeliveryJob < ApplicationJob
 
     # We bypass noticed gem's standard way of creating notifications because we need the rich text field
     recipients.each do |recipient|
-      UserAlert.create!(recipient:, content:, read_at: nil, type: 'User', params: { alert_type: })
+      recipient.user_alerts.create(content:, read_at: nil, type:)
     rescue StandardError => e
       @errors.push("Error while creating alert for recipient #{recipient.id} (or appropriate identifier): #{e.message}")
     end
@@ -19,7 +19,7 @@ class UserAlertDeliveryJob < ApplicationJob
     @errors.push("Erreur : #{e.message}")
   ensure
     AdminMailer.with(user:, content:, organization: @organization, role:, number_of_recipients: recipients.count,
-                     alert_type:, errors: @errors).user_alert_delivery_report.deliver_later
+                     type:, errors: @errors).user_alert_delivery_report.deliver_later
   end
   # rubocop:enable Metrics/MethodLength
 

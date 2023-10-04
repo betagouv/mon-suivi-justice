@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_26_100258) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_26_095358) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -448,6 +448,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_100258) do
     t.index ["read_at"], name: "index_user_alerts_on_read_at"
   end
 
+  create_table "user_alerts_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "user_alert_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_alert_id"], name: "index_user_alerts_users_on_user_alert_id"
+    t.index ["user_id", "user_alert_id"], name: "index_user_alerts_users_on_user_id_and_user_alert_id", unique: true
+    t.index ["user_id"], name: "index_user_alerts_users_on_user_id"
+  end
+
   create_table "user_notifications", force: :cascade do |t|
     t.string "recipient_type", null: false
     t.bigint "recipient_id", null: false
@@ -493,16 +503,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_100258) do
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "users_user_alerts", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "user_alert_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_alert_id"], name: "index_users_user_alerts_on_user_alert_id"
-    t.index ["user_id", "user_alert_id"], name: "index_users_user_alerts_on_user_id_and_user_alert_id", unique: true
-    t.index ["user_id"], name: "index_users_user_alerts_on_user_id"
   end
 
   create_table "versions", force: :cascade do |t|
@@ -552,8 +552,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_100258) do
   add_foreign_key "spips_tjs", "organizations", column: "tj_id"
   add_foreign_key "srj_spips", "organizations"
   add_foreign_key "srj_tjs", "organizations"
+  add_foreign_key "user_alerts_users", "user_alerts"
+  add_foreign_key "user_alerts_users", "users"
   add_foreign_key "users", "headquarters"
   add_foreign_key "users", "organizations"
-  add_foreign_key "users_user_alerts", "user_alerts"
-  add_foreign_key "users_user_alerts", "users"
 end
