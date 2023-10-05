@@ -33,7 +33,10 @@ class InvitationsController < Devise::InvitationsController
     ActionController::Base.helpers.link_to(
       I18n.t('users.mutate.call_to_action'),
       mutation_path,
-      data: { confirm: mutation_confirmation_message(existing_user) }
+      data: {
+        action: 'click->confirm#confirm',
+        confirm_message_value: 'Are you sure you want to proceed?'
+      }
     )
   end
 

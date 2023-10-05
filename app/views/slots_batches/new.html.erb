@@ -36,7 +36,7 @@
     <% end %>
   </div>
 
-  <%= link_to 'Ajouter une heure', display_time_fields_path, class: 'new-slots-add-starting-time', data: {"turbo-method": :post} %>
+  <%= link_to 'Ajouter une heure', display_time_fields_path, class: 'new-slots-add-starting-time' %>
   
   <%= f.input :duration, label: t('activerecord.attributes.slot.duration') %>
   <%= f.input :capacity, label: t('activerecord.attributes.slot.capacity') %>

@@ -8,7 +8,9 @@
         <%= f.input :role, collection: available_user_roles,
                       label_method: lambda {|k| t("activerecord.attributes.user.user_roles.#{k}")},
                       input_html: { class: 'form-select' } %>
-        <%= f.input :email, required: true %>
+        <div data-controller="confirm">
+          <%= f.input :email, required: true %>
+        </div>
         <%= f.input :phone %>
         <%= f.association :organization, include_blank: false,
                                     label: t('activerecord.attributes.user.organization'),

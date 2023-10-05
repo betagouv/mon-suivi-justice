@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     get :invitation_link
     get :reset_pwd_link
     post :stop_impersonating, on: :collection
-    put 'mutate', on: :member
+    get 'mutate', on: :member
   end
 
   resource :user do
@@ -114,7 +114,7 @@ Rails.application.routes.draw do
     get :load_cities
   end
 
-  post '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'
+  get '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'
   get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
 
   scope controller: :bex do

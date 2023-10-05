@@ -84,7 +84,7 @@ class UsersController < ApplicationController
       remove_linked_appointments(user)
       send_mutation_emails(user, old_organization)
 
-      redirect_to user_path(user), notice: 'L’agent a bien été muté dans votre service'
+      redirect_to user_path(user), notice: 'L\'agent a bien été muté dans votre service'
     else
       redirect_to users_path, alert: "Erreur lors de la mutation de l'agent : #{user.errors.full_messages}"
     end
