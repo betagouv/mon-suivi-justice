@@ -114,7 +114,7 @@ Rails.application.routes.draw do
     get :load_cities
   end
 
-  get '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'
+  post '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'
   get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
 
   scope controller: :bex do
