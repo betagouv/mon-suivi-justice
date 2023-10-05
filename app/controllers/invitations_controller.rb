@@ -12,7 +12,7 @@ class InvitationsController < Devise::InvitationsController
       error_message = "est déjà pris par un agent d'un autre service. #{custom_link}".html_safe
       @user.errors.add(:email, error_message)
 
-      render :new
+      render :new, status: :unprocessable_entity
     else
       super
     end
@@ -30,13 +30,10 @@ class InvitationsController < Devise::InvitationsController
 
   def mutation_link(existing_user)
     mutation_path = Rails.application.routes.url_helpers.mutate_user_path(existing_user)
-    ActionController::Base.helpers.link_to(
+    view_context.link_to(
       I18n.t('users.mutate.call_to_action'),
       mutation_path,
-      data: {
-        action: 'click->confirm#confirm',
-        confirm_message_value: 'Are you sure you want to proceed?'
-      }
+      data: { 'turbo_confirm': mutation_confirmation_message(existing_user), 'turbo-method': :put }
     )
   end
 

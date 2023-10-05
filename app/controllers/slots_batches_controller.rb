@@ -12,7 +12,7 @@ class SlotsBatchesController < ApplicationController
       redirect_to slots_path
     else
       flash[:error] = I18n.t('slots.failed_batch_creation')
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

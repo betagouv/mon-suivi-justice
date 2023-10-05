@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       remove_linked_convicts(@user)
       redirect_to @user == current_user ? user_path(params[:id]) : users_path
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
