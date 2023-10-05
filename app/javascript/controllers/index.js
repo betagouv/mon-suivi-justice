@@ -30,6 +30,3 @@ application.register("search-users-results", SearchUsersResultsController)
 
 import TableUpdateFieldController from "./table_update_field_controller"
 application.register("table-update-field", TableUpdateFieldController)
-
-import ConfirmController from "./confirm_controller"
-application.register("confirm", ConfirmController)
