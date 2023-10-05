@@ -9,9 +9,10 @@ class UserAlertDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    read_at: Field::DateTime,
     content: RichTextAreaField,
     alert_type: Field::String,
+    services: Field::String,
+    roles: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -24,8 +25,9 @@ class UserAlertDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     alert_type
+    services
+    roles
     content
-    read_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -33,8 +35,9 @@ class UserAlertDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     alert_type
+    services
+    roles
     content
-    read_at
     created_at
     updated_at
   ].freeze
@@ -47,7 +50,6 @@ class UserAlertDashboard < Administrate::BaseDashboard
   ].freeze
 
   FORM_ATTRIBUTES_EDIT = %i[
-    read_at
     content
   ].freeze
 

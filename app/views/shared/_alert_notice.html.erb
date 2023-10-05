@@ -1,12 +1,11 @@
-<%= turbo_frame_tag "alert_#{alert.id}" do %>
+<%= turbo_frame_tag "user_user_alert_#{user_user_alert.id}" do %>
     <div class="fr-alert fr-alert--<%= alert.alert_type %>">
         <p>
             <%= alert.content %>
         </p>
-        <%= form_with url: mark_as_read_user_alert_path(alert), method: :put, data: { turbo_frame: "alert_#{alert.id}" } do |form| %>
-            <%= form.button nil, type: "submit", id: "mark_#{alert.id}_as_read", class: "fr-link--close fr-link" %>
+        <%= form_with url: mark_as_read_user_user_alert_path(user_user_alert), method: :put, data: { turbo_frame: "alert_#{user_user_alert.id}" } do |form| %>
+            <%= form.button nil, type: "submit", id: "mark_#{user_user_alert.id}_as_read", class: "fr-link--close fr-link" %>
         <% end %>
     </div>
 <% end %>
-
 
