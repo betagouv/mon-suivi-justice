@@ -33,7 +33,7 @@ class InvitationsController < Devise::InvitationsController
     view_context.link_to(
       I18n.t('users.mutate.call_to_action'),
       mutation_path,
-      data: { 'turbo_confirm': mutation_confirmation_message(existing_user), 'turbo-method': :put }
+      data: { 'turbo-confirm': mutation_confirmation_message(existing_user), 'turbo-method': :put }
     )
   end
 
