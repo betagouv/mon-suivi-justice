@@ -9,11 +9,9 @@ class UserAlertDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    params: Field::String.with_options(searchable: false),
     read_at: Field::DateTime,
-    recipient: Field::Polymorphic,
     content: RichTextAreaField,
-    type: Field::String,
+    alert_type: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -25,16 +23,16 @@ class UserAlertDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
+    alert_type
     content
     read_at
-    recipient
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    recipient
+    alert_type
     content
     read_at
     created_at

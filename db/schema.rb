@@ -441,7 +441,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_095358) do
   end
 
   create_table "user_alerts", force: :cascade do |t|
-    t.string "type", null: false
+    t.string "alert_type", null: false
     t.datetime "read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "alert_#{alert.id}" do %>
-    <div class="fr-alert fr-alert--<%= alert.params[:alert_type] %>">
+    <div class="fr-alert fr-alert--<%= alert.alert_type %>">
         <p>
             <%= alert.content %>
         </p>
