@@ -87,9 +87,9 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
         select '15', from: 'slot_batch_starting_time_4i'
         select '00', from: 'slot_batch_starting_time_5i'
       end
-
+      save_screenshot
       click_on 'Ajouter une heure'
-
+      save_screenshot
       within all('.form-time-select-fields').last do
         select '16', from: 'slot_batch_starting_time_4i'
         select '00', from: 'slot_batch_starting_time_5i'

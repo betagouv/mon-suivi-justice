@@ -23,6 +23,6 @@ document.addEventListener('turbo:load',function(e) {
   $('#profile-search-field').on('select2:select', function (e) {
     $('#profile-search-field').val(null).trigger('change');
     var convict_path = e.params.data.id;
-    Turbolinks.visit(convict_path);
+    Turbo.visit(convict_path);
   });
 });

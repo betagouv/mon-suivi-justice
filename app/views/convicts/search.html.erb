@@ -23,7 +23,7 @@
                 <%= link_to t('show_convict'), convict_path(convict), class: 'index-control' %>
               <% end %>
               <% if policy(convict).edit? %>
-                <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control', "data-turbolinks": false %>
+                <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control' %>
               <% end %>
               <% if policy(convict).archive? %>
                 <%= link_to t('archive'), convict_archive_path(convict), method: :delete,

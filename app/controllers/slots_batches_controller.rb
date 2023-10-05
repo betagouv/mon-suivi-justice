@@ -25,7 +25,14 @@ class SlotsBatchesController < ApplicationController
     authorize slots
   end
 
-  def display_time_fields; end
+  def display_time_fields
+    puts "Request format: #{request.format.symbol}"
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.append('display_time_fields', partial: 'time_fields')
+      end
+    end
+  end
 
   private
 

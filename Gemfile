@@ -6,7 +6,6 @@ gem 'rails', '~> 7.0.0', '>= 7.0.7.2'
 
 gem 'pg', '~> 1.3'
 gem 'puma', '~> 5.6'
-gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.4'
 

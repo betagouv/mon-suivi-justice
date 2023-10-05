@@ -46,8 +46,7 @@
                   <% if policy(@convict).edit? %>
                     <%= button_to t('edit'), edit_convict_path(params[:id]),
                                         method: :get,
-                                        class: 'fr-btn',
-                                        "data-turbolinks": false %>
+                                        class: 'fr-btn' %>
                   <% end %>
                   <% if policy(@convict).destroy? %>
                     <%= button_to t('delete'), convict_path(params[:id]),
