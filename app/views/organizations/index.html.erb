@@ -28,7 +28,7 @@
                 <% end %>
                 <% if policy(organization).destroy? %>
                   <%= link_to t('delete'), organization_path(organization),
-                                     data: { confirm: t('basic_confirmation') },
+                                     data: { 'turbo-confirm': t('basic_confirmation') },
                                      class: 'index-control',
                                      method: :delete %>
                 <% end %>

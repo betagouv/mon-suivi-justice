@@ -52,13 +52,13 @@
                   <% if policy(@convict).destroy? %>
                     <%= button_to t('delete'), convict_path(params[:id]),
                                           method: :delete,
-                                          data: { confirm: t('basic_confirmation') },
+                                          data: { 'turbo-confirm': t('basic_confirmation') },
                                           class: 'fr-btn fr-btn--danger' %>
                   <% end %>
                   <% if policy(@convict).archive? %>
                     <%= button_to t('archive'), convict_archive_path(@convict),
                                             method: :delete,
-                                            data: { confirm: t('archive_convict_confirmation') },
+                                            data: { 'turbo-confirm': t('archive_convict_confirmation') },
                                             class: 'fr-btn fr-btn--tertiary' %>
                   <% end %>
                   <% if policy(@convict).unarchive? %>
@@ -87,10 +87,10 @@
             <% if @convict.cpip.present? %>
               <%= @convict.cpip_name %>
               <% if policy(@convict).unassign? %>
-                - <%= link_to t('.unassign_link'), convict_unassign_path(@convict), method: 'post', data: { confirm: t('basic_confirmation') } %>
+                - <%= link_to t('.unassign_link'), convict_unassign_path(@convict), data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :post } %>
               <% end %>
             <% elsif policy(@convict).self_assign? %>
-              <%= link_to t('.self_assign_link'), convict_self_assign_path(@convict), method: 'post' %>
+              <%= link_to t('.self_assign_link'), convict_self_assign_path(@convict), data: { 'turbo-method': :post } %>
             <% end %>
           </p>
           <p>

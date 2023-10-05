@@ -43,7 +43,7 @@
       <%= link_to t('cancel'), appointment_cancel_path(appointment),
                                     class: 'index-control appointments-link__cancel',
                                     method: :put,
-                                    data: { confirm: t('cancel_appointment_warning') } %>
+                                    data: { 'turbo-confirm': t('cancel_appointment_warning') } %>
     <% end %>
   </td>
 </tr>

@@ -11,7 +11,7 @@
         <% if policy(:slot).update? %>
           <%= button_tag t('index_slots_batch_close'), type: 'submit',
                                                    form: 'index-slots-update-form',
-                                                   data: { confirm: t('basic_confirmation') },
+                                                   data: { 'turbo-confirm': t('basic_confirmation') },
                                                    class: 'fr-btn fr-btn--danger' %>
         <% end %>
       </ul>
@@ -97,7 +97,7 @@
                 <div class="col-fr">
                   <%= link_to t('close'), slot_path(slot, slot: { available: false }),
                                         method: :put,
-                                        data: { confirm: t('basic_confirmation') },
+                                        data: { 'turbo-confirm': t('basic_confirmation') },
                                         class: 'slots-index-control' %>
                 </div>
                 <% if policy(:slot).update? %>

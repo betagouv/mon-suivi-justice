@@ -125,7 +125,7 @@
                   <li>
                     <%= button_to t('cancel'), appointment_cancel_path(@appointment),
                                    method: :put,
-                                   data: { confirm: t('cancel_appointment_warning') },
+                                   data: { 'turbo-confirm': t('cancel_appointment_warning') },
                                    class: 'fr-btn' %>
                   </li>
                 <% end %>
