@@ -21,19 +21,19 @@ RSpec.describe 'UserAlerts', type: :feature, js: true do
     perform_enqueued_jobs
 
     expect(UserAlert.count).to eq(1)
-    expect(UserAlert.last.content.to_plain_text).to eq('Contenu de test')
-    expect(UserAlert.last.recipient).to eq(@user1)
+    expect(UserAlert.last.content.to_plain_text).to eq("\n  Contenu de test")
+    expect(UserUserAlert.last.user).to eq(@user1)
   end
 
   it 'users can see the alerts and mark them as read', logged_in_as: 'cpip', js: true do
-    alert = create(:user_alert, recipient: @user, read_at: nil, type: 'User',
-                                content: 'Contenu de test', params: { alert_type: 'error' })
+    create(:user_alert, users: [@user], alert_type: 'error',
+                        content: 'Contenu de test')
 
     visit root_path
 
     expect(page).to have_content('Contenu de test')
-    page.find("#alert_#{alert.id}").has_css?('fr-alert fr-alert--error')
-    find("#mark_#{alert.id}_as_read").click
+    page.find("#user_user_alert_#{UserUserAlert.last.id}").has_css?('fr-alert fr-alert--error')
+    find("#mark_#{UserUserAlert.last.id}_as_read").click
     expect(page).not_to have_content('Contenu de test')
   end
 end
