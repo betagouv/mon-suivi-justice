@@ -155,7 +155,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_alerts do
+  resources :user_user_alerts do
     member do
       put :mark_as_read
     end

@@ -26,8 +26,9 @@ fr:
         city: commune
       user_alert:
         content: contenu
-        read_at: lue le
-        recipient: destinataire
+        alert_type: type d'alerte
+        services: services destinataires
+        roles: rôles destinataires
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
