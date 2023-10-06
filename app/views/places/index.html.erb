@@ -28,7 +28,7 @@
           <td><%= place.organization.name %></td>
           <td>
             <%= link_to t('edit'), edit_place_path(place), class: 'index-control' %>
-            <%= link_to t('archive'), place_archive_path(place), class: 'index-control', data: { 'turbo-confirm': t('basic_confirmation') }, method: :patch  %>
+            <%= link_to t('archive'), place_archive_path(place), class: 'index-control', data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :patch }  %>
           </td>
         </tr>
       <% end %>
