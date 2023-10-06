@@ -52,7 +52,7 @@
       <% next if slots_for_date.count == 0 %>
         <div class="fr-table fr-table--bordered fr-table--layout-fixed">
           <table class="agenda-jap-table">
-              <caption class='spip-agenda-header'><%= day %></caption>
+              <caption class='spip-agenda-header'><%= day.to_fs %></caption>
               <thead>
                 <th scope="col">
                   <%= t('bex.jap.header_hour') %>

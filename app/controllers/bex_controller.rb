@@ -14,7 +14,7 @@ class BexController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render template: 'bex/agenda_jap_pdf', locals: { date: @selected_day.to_fs },
+        render template: 'bex/agenda_jap_pdf', locals: { date: @selected_day },
                pdf: "Agenda sortie d'audience JAP", footer: { right: '[page]/[topage]' },
                orientation: 'Landscape', formats: [:html]
       end
@@ -29,7 +29,7 @@ class BexController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Agenda sortie d'audience SPIP", template: 'bex/agenda_spip_pdf', locals: { date: @current_date.to_fs },
+        render pdf: "Agenda sortie d'audience SPIP", template: 'bex/agenda_spip_pdf', locals: { date: @current_date },
                formats: [:html], footer: { right: '[page]/[topage]' },
                orientation: 'Landscape'
       end
@@ -55,7 +55,7 @@ class BexController < ApplicationController
   private
 
   def month
-    params[:month] ||= Time.zone.today
+    params[:month] ||= Time.zone.today.to_fs
   end
 
   def appointment_type
@@ -100,10 +100,10 @@ class BexController < ApplicationController
   end
 
   def selected_day(days_with_slots_in_selected_month, params)
-    if params[:date]&.present? && days_with_slots_in_selected_month.include?(params[:date].to_date)
-      params[:date].to_date
+    if params[:date]&.present? && days_with_slots_in_selected_month.include?(params[:date].to_date.to_fs)
+      params[:date].to_date.to_fs
     else
-      days_with_slots_in_selected_month.first
+      days_with_slots_in_selected_month.first.to_fs
     end
   end
 
