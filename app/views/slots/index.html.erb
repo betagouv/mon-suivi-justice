@@ -96,8 +96,7 @@
                 <% end %>
                 <div class="col-fr">
                   <%= link_to t('close'), slot_path(slot, slot: { available: false }),
-                                        method: :put,
-                                        data: { 'turbo-confirm': t('basic_confirmation') },
+                                        data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :put },
                                         class: 'slots-index-control' %>
                 </div>
                 <% if policy(:slot).update? %>
