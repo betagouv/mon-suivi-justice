@@ -13,13 +13,11 @@
       </div>
       <div class='appointment-fulfilment-controls-container'>
         <%= button_to t('yes'), appointment_miss_path(apt),
-                                method: :put,
-                                params: { send_sms: true },
+                                params: { send_sms: true, "turbo-method": :put },
                                 class: 'show-convict-fulfil-button' %>
 
         <%= button_to t('no'), appointment_miss_path(apt),
-                               method: :put,
-                               params: { send_sms: false },
+                               params: { send_sms: false, "turbo-method": :put },
                                class: 'show-convict-miss-button' %>
       </div>
     </div>

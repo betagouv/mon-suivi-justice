@@ -38,7 +38,7 @@
               <%= template_status(summon_notif) %>
 
               <% if summon_notif.is_default == false && summon_notif.still_default == false %>
-                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(summon_notif.id), method: :put, class: 'notification-type-reset-link', data: { 'turbo-confirm': t('basic_confirmation') } %>
+                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(summon_notif.id), class: 'notification-type-reset-link', data: { 'turbo-confirm': t('basic_confirmation'), "turbo-method": :put } %>
               <% end %>
             </div>
           </div>

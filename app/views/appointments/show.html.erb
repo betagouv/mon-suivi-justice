@@ -11,14 +11,14 @@
         </div>
         <div class='appointment-fulfilment-controls-container'>
           <%= button_to t('yes'), appointment_fulfil_path(@appointment),
-                              method: :put,
+                              data: { "turbo-method": :put },
                               id: 'show-convict-fulfil-button',
                               class: 'show-convict-fulfil-button' %>
           <%= button_tag t('no'), type: 'button',
                               class: 'show-convict-miss-button',
                               data: { 'micromodal-trigger': "missed-appointment-modal-#{@appointment.id}" } %>
           <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(@appointment),
-                                                          method: :put,
+                                                          data: { "turbo-method": :put },
                                                           id: 'show-convict-excuse-button',
                                                           class: 'show-convict-excuse-button' %>
         </div>
@@ -110,7 +110,7 @@
                                     data: { 'micromodal-trigger': "rebook-missed-appointment-modal-#{@appointment.id}" }) %>
                   <%= render 'rebook_missed_appointment_modal', apt: @appointment %>
                 <% elsif @appointment.can_rebook? %>
-                  <%= link_to t('edit'), appointment_rebook_path(@appointment), method: :put, class: 'show-appointment-change-state-link' %>
+                  <%= link_to t('edit'), appointment_rebook_path(@appointment), class: 'show-appointment-change-state-link', data: { "turbo-method": :put } %>
                 <% end %>
               </p>
             </div>
@@ -119,13 +119,12 @@
                 <% if @appointment.booked? && policy(@appointment).update? %>
                   <li>
                     <%= button_to t('reschedule'), new_appointment_reschedule_path(@appointment),
-                                       method: :get,
+                                       data: { "turbo-method": :get },
                                        class: 'fr-btn' %>
                   </li>
                   <li>
                     <%= button_to t('cancel'), appointment_cancel_path(@appointment),
-                                   method: :put,
-                                   data: { 'turbo-confirm': t('cancel_appointment_warning') },
+                                   data: { confirm: t('cancel_appointment_warning'), "turbo-method": :put },
                                    class: 'fr-btn' %>
                   </li>
                 <% end %>
@@ -138,4 +137,4 @@
     <%= render 'shared/history_items' %>
   </div>
 </div>
-<%= javascript_include_tag 'appointment_show', "data-turbo-track": "reload", defer: true %>
+<%= javascript_pack_tag 'appointment_show' %>
