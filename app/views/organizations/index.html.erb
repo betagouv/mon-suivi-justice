@@ -4,7 +4,7 @@
   </div>
   <div class="fr-col-8">
     <div class="fr-grid-row fr-grid-row--right fr-grid-row--middle">
-      <%= button_to t('new_organization_title'), new_organization_path, class: 'fr-btn', form_class: 'link-to-new-organization-form', method: :get %>
+      <%= button_to t('new_organization_title'), new_organization_path, class: 'fr-btn', form_class: 'link-to-new-organization-form', data: {"turbo_method": :get} %>
     </div>
   </div>
 </div>
@@ -28,9 +28,8 @@
                 <% end %>
                 <% if policy(organization).destroy? %>
                   <%= link_to t('delete'), organization_path(organization),
-                                     data: { 'turbo-confirm': t('basic_confirmation') },
-                                     class: 'index-control',
-                                     method: :delete %>
+                                     data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :delete },
+                                     class: 'index-control' %>
                 <% end %>
               </td>
             </tr>

@@ -51,7 +51,7 @@
         <% end %>
         <% if agenda.appointment_type_with_slot_types? && policy(:agenda).destroy? %> | <% end %>
         <% if policy(:agenda).destroy? %>
-          <%= link_to t('edit_place_delete_agenda'), agenda_path(agenda), method: :delete, data: { 'turbo-confirm': t('delete_agenda_confirmation') } %>
+          <%= link_to t('edit_place_delete_agenda'), agenda_path(agenda), data: { 'turbo-confirm': t('delete_agenda_confirmation'), "turbo_method": :delete } %>
         <% end %>
       </div>
     <% end %>
