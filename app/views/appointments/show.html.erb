@@ -11,14 +11,14 @@
         </div>
         <div class='appointment-fulfilment-controls-container'>
           <%= button_to t('yes'), appointment_fulfil_path(@appointment),
-                              data: { "turbo-method": :put },
+                              method: :put,
                               id: 'show-convict-fulfil-button',
                               class: 'show-convict-fulfil-button' %>
           <%= button_tag t('no'), type: 'button',
                               class: 'show-convict-miss-button',
                               data: { 'micromodal-trigger': "missed-appointment-modal-#{@appointment.id}" } %>
           <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(@appointment),
-                                                          data: { "turbo-method": :put },
+                                                          method: :put,
                                                           id: 'show-convict-excuse-button',
                                                           class: 'show-convict-excuse-button' %>
         </div>
@@ -119,12 +119,13 @@
                 <% if @appointment.booked? && policy(@appointment).update? %>
                   <li>
                     <%= button_to t('reschedule'), new_appointment_reschedule_path(@appointment),
-                                       data: { "turbo-method": :get },
+                                       method: :get,
                                        class: 'fr-btn' %>
                   </li>
                   <li>
                     <%= button_to t('cancel'), appointment_cancel_path(@appointment),
-                                   data: { confirm: t('cancel_appointment_warning'), "turbo-method": :put },
+                                   method: :put,
+                                   data: { confirm: t('cancel_appointment_warning') },
                                    class: 'fr-btn' %>
                   </li>
                 <% end %>

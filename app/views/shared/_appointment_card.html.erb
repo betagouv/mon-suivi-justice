@@ -13,13 +13,13 @@
       <div class='index-card-state-container index-card-state-controls-wrapper'>
         <div class='index-card-state-controls-container'>
           <%= button_to t('activerecord.state_machines.states.fulfiled'), appointment_fulfil_path(appointment),
-                                                                          data: { 'turbo-method': :put},
+                                                                          method: :put,
                                                                           class: 'index-appointments-fulfil-button' %>
           <%= button_tag t('activerecord.state_machines.states.no_show'), type: 'button',
                                                                           class: 'index-appointments-miss-button',
                                                                           data: { 'micromodal-trigger': "missed-appointment-modal-#{appointment.id}" } %>
           <%= button_to t('activerecord.state_machines.states.excused'), appointment_excuse_path(appointment),
-                                                                         data: { 'turbo-method': :put},
+                                                                         method: :put,
                                                                          class: 'index-appointments-excuse-button' %>
         </div>
         <%= render 'appointments/missed_appointment_modal', apt: appointment %>

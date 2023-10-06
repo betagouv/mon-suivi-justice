@@ -12,14 +12,14 @@
             </div>
             <div class='appointment-fulfilment-controls-container'>
               <%= button_to t('yes'), appointment_fulfil_path(apt),
-                                        data: { "turbo_method": :put },
+                                        method: :put,
                                         id: 'show-convict-fulfil-button',
                                         class: 'show-convict-fulfil-button' %>
               <%= button_tag t('no'), type: 'button',
                                         class: 'show-convict-miss-button',
                                         data: { 'micromodal-trigger': "missed-appointment-modal-#{apt.id}" } %>
               <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(apt),
-                                                                    data: { "turbo_method": :put },
+                                                                    method: :put,
                                                                     id: 'show-convict-excuse-button',
                                                                     class: 'show-convict-excuse-button' %>
             </div>
@@ -50,13 +50,14 @@
                   <% end %>
                   <% if policy(@convict).destroy? %>
                     <%= button_to t('delete'), convict_path(params[:id]),
-                                          data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :delete },
+                                          method: :delete,
+                                          data: { 'turbo-confirm': t('basic_confirmation')},
                                           class: 'fr-btn fr-btn--danger' %>
                   <% end %>
                   <% if policy(@convict).archive? %>
                     <%= button_to t('archive'), convict_archive_path(@convict),
-                                            
-                                            data: { 'turbo-confirm': t('archive_convict_confirmation'), "turbo_method": :delete },
+                                            method: :delete,
+                                            data: { 'turbo-confirm': t('archive_convict_confirmation') },
                                             class: 'fr-btn fr-btn--tertiary' %>
                   <% end %>
                   <% if policy(@convict).unarchive? %>
