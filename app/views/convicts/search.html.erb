@@ -35,7 +35,7 @@
               <% end %>
               <% if policy(convict).destroy? %>
                 <%= link_to t('delete'), convict_path(convict), class: 'index-control',
-                                                            data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :delete },
+                                                            data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :delete }
                                                             %>
               <% end %>
             </td>
