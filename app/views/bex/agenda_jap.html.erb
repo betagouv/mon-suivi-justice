@@ -12,7 +12,7 @@
     <% end %>
     <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
                                      method: :get,
-                                     params: { date: @selected_day, month: params[:month], agenda_id: params[:agenda_id] },
+                                     params: { date: @selected_day.to_fs, month: params[:month], agenda_id: params[:agenda_id] },
                                      form: { target: '_blank' },
                                      class: 'fr-btn' %>
   </ul>

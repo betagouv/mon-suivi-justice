@@ -27,7 +27,10 @@ class ApplicationController < ActionController::Base
       Time.use_zone(current_time_zone) { yield }
     else
       yield
+
     end
+          puts "Controller: #{controller_name}, Action: #{action_name}"
+
   end
 
   def after_sign_in_path_for(_)

@@ -14,7 +14,7 @@ class BexController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render template: 'bex/agenda_jap_pdf', locals: { date: @selected_day },
+        render template: 'bex/agenda_jap_pdf', locals: { date: @selected_day.to_fs },
                pdf: "Agenda sortie d'audience JAP", footer: { right: '[page]/[topage]' },
                orientation: 'Landscape', formats: [:html]
       end
@@ -29,7 +29,7 @@ class BexController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Agenda sortie d'audience SPIP", template: 'bex/agenda_spip_pdf', locals: { date: @current_date },
+        render pdf: "Agenda sortie d'audience SPIP", template: 'bex/agenda_spip_pdf', locals: { date: @current_date.to_fs },
                formats: [:html], footer: { right: '[page]/[topage]' },
                orientation: 'Landscape'
       end
@@ -55,7 +55,7 @@ class BexController < ApplicationController
   private
 
   def month
-    params[:month] ||= Date.today
+    params[:month] ||= Time.zone.today
   end
 
   def appointment_type
@@ -66,7 +66,7 @@ class BexController < ApplicationController
     if params.key?(:date) && !params[:date].empty?
       params[:date].to_date
     elsif current_organization.first_day_with_slots(appointment_type).nil?
-      Date.today
+      Time.zone.today
     else
       current_organization.first_day_with_slots(appointment_type)
     end
