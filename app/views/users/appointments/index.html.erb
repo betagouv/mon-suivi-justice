@@ -27,7 +27,7 @@
         <% if @q.conditions.any? %>
           <%= button_to "#{t('index-appointment-clear-filters')} (#{@q.conditions.length})", user_appointments_path,
                                                             class: 'index-header-filters-button',
-                                                            data: { 'turbo-method': :get } %>
+                                                            method: :get %>
         <% end %>
 
     </div>
@@ -38,12 +38,12 @@
       <% if policy(:appointment).new? %>
         <%= button_to t('new_appointment_title'), new_appointment_path,
                                                   class: 'link-to-new-appointment-button',
-                                                  data: { 'turbo-method': :get } %>
+                                                  method: :get %>
       <% end %>
     </div>
 
     <%= button_to t('print_button'), appointments_path(format: :pdf),
-                                     data: { 'turbo-method': :get },
+                                     method: :get,
                                      form: { target: '_blank' },
                                      class: 'fr-btn' %>
   </div>

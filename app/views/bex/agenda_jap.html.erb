@@ -11,7 +11,7 @@
       <% end %>
     <% end %>
     <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
-                                     data: { "turbo-method": :get },
+                                     method: :get,
                                      params: { date: @selected_day, month: params[:month], agenda_id: params[:agenda_id] },
                                      form: { target: '_blank' },
                                      class: 'fr-btn' %>

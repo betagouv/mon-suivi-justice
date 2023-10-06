@@ -3,11 +3,11 @@
     <% if @q.conditions.any? %>
       <%= button_to "#{t('index-appointment-clear-filters')} (#{@q.conditions.length})", appointments_path,
                                                           class: 'fr-btn fr-btn--tertiary',
-                                                          data: { "turbo-method": :get } %>
+                                                          method: :get %>
     <% end %>
     <%= button_to t('print_button'), appointments_path(format: :pdf),
                                       form: { target: '_blank' },
-                                      data: { "turbo-method": :get },
+                                      method: :get,
                                       class: 'fr-btn fr-btn--secondary' %>
   </ul>
 </div>

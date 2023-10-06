@@ -13,7 +13,7 @@
           </div>
           <div class='index-tools-controls-container'>
             <% if policy(:user).new? %>
-              <%= button_to t('new_user_title'), new_user_invitation_path, class: 'fr-btn', form_class: 'link-to-new-user-form', data: { "turbo_method": :get } %>
+              <%= button_to t('new_user_title'), new_user_invitation_path, class: 'fr-btn', form_class: 'link-to-new-user-form', method: :get %>
             <% end %>
           </div>
         </div>

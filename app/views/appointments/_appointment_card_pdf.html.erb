@@ -66,7 +66,7 @@
         <%= t('index-appointment-state') %>
         <div class='index-card-state-controls-container'>
           <%= button_to t('activerecord.state_machines.states.fulfiled'), appointment_fulfil_path(appointment),
-                                                                          data: { "turbo_method": :put },
+                                                                          method: :put,
                                                                           class: 'index-appointments-fulfil-button' %>
 
           <%= button_tag t('activerecord.state_machines.states.no_show'), type: 'button',
@@ -74,7 +74,7 @@
                                                                           data: { 'micromodal-trigger': "missed-appointment-modal-#{appointment.id}" } %>
 
           <%= button_to t('activerecord.state_machines.states.excused'), appointment_excuse_path(appointment),
-                                                                         data: { "turbo_method": :put },
+                                                                         method: :put,
                                                                          class: 'index-appointments-excuse-button' %>
         </div>
 
