@@ -137,4 +137,4 @@
     <%= render 'shared/history_items' %>
   </div>
 </div>
-<%= javascript_pack_tag 'appointment_show' %>
+<%= javascript_include_tag 'appointment_show', "data-turbo-track": "reload", defer: true %>
