@@ -7,7 +7,7 @@
     <% end %>
     <%= button_to t('print_button'), appointments_path(format: :pdf),
                                       form: { target: '_blank' },
-                                      data: { "turbo-method": :get }
+                                      data: { "turbo-method": :get },
                                       class: 'fr-btn fr-btn--secondary' %>
   </ul>
 </div>

@@ -2,7 +2,7 @@
   <ul class="fr-btns-group fr-btns-group--inline-lg">
     <% if !@agenda.nil? %>
       <%= button_to t('print_button'), agenda_spip_path(format: :pdf),
-                                      data: { "turbo-method": :get }},
+                                      data: { "turbo-method": :get },
                                       params: {date: params[:date], agenda_id: @agenda.id, place_id: @place.id},
                                       form: { target: '_blank' },
                                       class: 'fr-btn' %>
