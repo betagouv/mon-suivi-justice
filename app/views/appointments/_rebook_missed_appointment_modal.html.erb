@@ -9,7 +9,7 @@
       <div class=''><%= t('rebook_missed_appointment2') %></div>
       <div class='appointment-fulfilment-controls-container'>
         <%= button_to t('continue'), appointment_rebook_path(apt),
-                                     method: :put,
+                                     data: { "turbo_method": :put },
                                      class: 'show-convict-fulfil-button' %>
       </div>
     </div>
