@@ -104,7 +104,7 @@ class Slot < ApplicationRecord
 
   def add_transfert_error(transfert, attribute, place_name)
     errors.add(:base,
-               I18n.t("activerecord.errors.models.slot.attributes.date.#{attribute}", date: transfert.date,
+               I18n.t("activerecord.errors.models.slot.attributes.date.#{attribute}", date: transfert.date.to_fs,
                                                                                       place_name:))
   end
 end
