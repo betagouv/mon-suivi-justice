@@ -29,7 +29,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
     it { is_expected.to permit_action(:rebook) }
-    it { is_expected.to permit_action(:reschedule) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
   end
@@ -54,7 +53,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
     it { is_expected.to permit_action(:rebook) }
-    it { is_expected.to permit_action(:reschedule) }
     it { is_expected.not_to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
   end
@@ -79,7 +77,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
     it { is_expected.to permit_action(:rebook) }
-    it { is_expected.to permit_action(:reschedule) }
     it { is_expected.not_to permit_action(:agenda_spip) }
     it { is_expected.to permit_action(:agenda_jap) }
   end
@@ -105,7 +102,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
@@ -121,7 +117,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -137,7 +132,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -162,7 +156,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -178,7 +171,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
@@ -194,7 +186,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -219,7 +210,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -235,7 +225,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
@@ -251,7 +240,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -276,7 +264,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -292,7 +279,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
@@ -308,7 +294,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
   end
 
@@ -332,7 +317,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
@@ -348,7 +332,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -364,7 +347,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -389,7 +371,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
@@ -405,7 +386,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -421,7 +401,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -446,7 +425,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
@@ -462,7 +440,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -478,7 +455,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -503,7 +479,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
@@ -519,7 +494,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -535,7 +509,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -560,7 +533,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
@@ -576,7 +548,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -592,7 +563,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -617,7 +587,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -633,7 +602,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
@@ -649,7 +617,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -690,7 +657,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
@@ -706,7 +672,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -731,7 +696,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP from another service' do
@@ -755,7 +719,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi SPIP' do
@@ -771,7 +734,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -787,7 +749,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -812,7 +773,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
@@ -828,7 +788,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi SPIP' do
@@ -844,7 +803,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -860,7 +818,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -885,7 +842,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
@@ -901,7 +857,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi SPIP' do
@@ -917,7 +872,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -933,7 +887,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -958,7 +911,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
@@ -974,7 +926,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi SPIP' do
@@ -990,7 +941,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -1006,7 +956,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -1031,7 +980,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
@@ -1047,7 +995,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi SPIP' do
@@ -1063,7 +1010,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -1079,7 +1025,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 
@@ -1104,7 +1049,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
@@ -1120,7 +1064,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi SPIP' do
@@ -1136,7 +1079,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
@@ -1152,7 +1094,6 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
-      it { is_expected.to forbid_action(:reschedule) }
     end
   end
 end

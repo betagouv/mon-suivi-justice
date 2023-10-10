@@ -45,10 +45,6 @@ class AppointmentPolicy < ApplicationPolicy
     appointment_workflow
   end
 
-  def reschedule?
-    appointment_workflow
-  end
-
   def cancel?
     return false if record.canceled?
 
