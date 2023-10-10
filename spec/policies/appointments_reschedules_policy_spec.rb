@@ -21,5 +21,14 @@ describe AppointmentsReschedulesPolicy do
       it { is_expected.not_to permit_action(:new) }
       it { is_expected.not_to permit_action(:create) }
     end
+
+    context 'for a canceled appointment' do
+      let(:user) { build(:user, organization: slot.agenda.place.organization, role:) }
+      let(:appointment) { create(:appointment, slot:, state: :canceled) }
+      subject { AppointmentsReschedulesPolicy.new(user, appointment) }
+
+      it { is_expected.not_to permit_action(:new) }
+      it { is_expected.not_to permit_action(:create) }
+    end
   end
 end
