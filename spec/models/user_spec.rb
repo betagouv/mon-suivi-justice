@@ -61,4 +61,30 @@ RSpec.describe User, type: :model do
       expect { user.save(validate: false) }.to raise_error(ActiveRecord::NotNullViolation)
     end
   end
+
+  context 'brevo sync' do
+    before do
+      stub_request(:post, 'https://api.sendinblue.com/v3/contacts').to_return(status: 200)
+      stub_request(:put, 'https://api.sendinblue.com/v3/contacts').to_return(status: 200)
+    end
+
+    describe 'after_create callback' do
+      it 'enqueues the CreateContactInBrevoJob' do
+        create(:user, :in_organization, email: 'test@example.com', first_name: 'Test', last_name: 'User', role: 'admin')
+        perform_enqueued_jobs
+        expect(WebMock).to have_requested(:post, 'https://api.sendinblue.com/v3/contacts')
+      end
+    end
+
+    describe 'after_update callback' do
+      it 'enqueues the UpdateContactInBrevoJob' do
+        user = create(:user, :in_organization, email: 'test@example.com', first_name: 'Test',
+                                               last_name: 'User', role: 'admin')
+        perform_enqueued_jobs
+        user.update(first_name: 'Updated')
+        perform_enqueued_jobs
+        expect(WebMock).to have_requested(:put, 'https://api.sendinblue.com/v3/contacts/test@example.com')
+      end
+    end
+  end
 end

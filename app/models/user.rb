@@ -51,7 +51,7 @@ class User < ApplicationRecord
   }
 
   after_create_commit { CreateContactInBrevoJob.perform_now(id) }
-  after_update_commit { UpdateContactInBrevoJob.perform_now(id) }
+  after_update_commit { UpdateContactInBrevoJob.perform_later(id) }
 
   validates :first_name, :last_name, presence: true
   validates :share_email_to_convict, inclusion: { in: [true, false] }
