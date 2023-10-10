@@ -50,8 +50,9 @@ class User < ApplicationRecord
     greff_ca: 19
   }
 
-  after_invitation_accepted { CreateContactInBrevoJob.perform_now(id) }
+  after_invitation_accepted { CreateContactInBrevoJob.perform_later(id) }
   after_update_commit :trigger_brevo_update_job, unless: :part_of_invitation_process?
+  after_destroy_commit { DeleteContactInBrevoJob.perform_later(id) }
 
   validates :first_name, :last_name, presence: true
   validates :share_email_to_convict, inclusion: { in: [true, false] }
@@ -149,7 +150,7 @@ class User < ApplicationRecord
   end
 
   def trigger_brevo_update_job
-    UpdateContactInBrevoJob.perform_now(id)
+    UpdateContactInBrevoJob.perform_later(id)
   end
 
   def part_of_invitation_process?
