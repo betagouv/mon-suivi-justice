@@ -6,8 +6,6 @@ class AppointmentsReschedulesPolicy < ApplicationPolicy
   end
 
   def create?
-    return false if record.canceled?
-
     new?
   end
 end

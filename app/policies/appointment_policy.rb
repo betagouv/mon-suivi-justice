@@ -50,6 +50,8 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def cancel?
+    return false if record.canceled?
+
     appointment_workflow
   end
 

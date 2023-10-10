@@ -7,6 +7,13 @@ describe AppointmentPolicy do
   let(:slot) { create :slot, :without_validations, appointment_type: }
   let!(:appointment) { create(:appointment, slot:) }
 
+  context 'for a canceled appointment' do
+    let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
+    let!(:appointment) { create(:appointment, slot:, state: 'canceled') }
+    subject { AppointmentPolicy.new(user, appointment) }
+    it { is_expected.not_to permit_action(:cancel) }
+  end
+
   context 'for an admin' do
     let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
 
