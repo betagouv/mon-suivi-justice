@@ -53,4 +53,13 @@ class AdminMailer < ApplicationMailer
     @role = params[:role]
     mail(to: @user.email, subject: "Rapport d'import de création d'alerte utilisateur")
   end
+    
+  def brevo_sync_failure
+    @admin = params[:admin]
+    @user = params[:user]
+    @error = params[:error]
+
+    mail(to: @admin ? @admin.email : 'charles.marcoin@beta.gouv.fr',
+         subject: "Echec de synchronisation avec Brevo pour l'agent #{@user.email}")
+  end
 end
