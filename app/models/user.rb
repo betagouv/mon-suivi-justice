@@ -50,8 +50,8 @@ class User < ApplicationRecord
     greff_ca: 19
   }
 
-  after_create_commit { CreateContactInBrevoJob.perform_now(id) }
-  after_update_commit { UpdateContactInBrevoJob.perform_later(id) }
+  after_invitation_accepted { CreateContactInBrevoJob.perform_now(id) }
+  after_update_commit :trigger_brevo_update_job, unless: :part_of_invitation_process?
 
   validates :first_name, :last_name, presence: true
   validates :share_email_to_convict, inclusion: { in: [true, false] }
@@ -146,5 +146,14 @@ class User < ApplicationRecord
 
   def set_default_role
     self.role ||= organization.organization_type == 'tj' ? 'greff_sap' : 'cpip'
+  end
+
+  def trigger_brevo_update_job
+    UpdateContactInBrevoJob.perform_now(id)
+  end
+
+  def part_of_invitation_process?
+    invitation_related_changes = %w[invitation_token invitation_created_at invitation_accepted_at]
+    previous_changes.keys.intersect?(invitation_related_changes)
   end
 end
