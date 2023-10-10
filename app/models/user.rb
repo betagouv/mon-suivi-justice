@@ -50,6 +50,9 @@ class User < ApplicationRecord
     greff_ca: 19
   }
 
+  after_create_commit { CreateContactInBrevoJob.perform_later(self.id) }
+  after_update_commit { UpdateContactInBrevoJob.perform_later(self.id) }
+
   validates :first_name, :last_name, presence: true
   validates :share_email_to_convict, inclusion: { in: [true, false] }
   validates :share_phone_to_convict, inclusion: { in: [true, false] }
