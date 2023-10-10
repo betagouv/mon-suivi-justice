@@ -19,7 +19,7 @@ class PlacesController < ApplicationController
       create_agenda(@place)
       redirect_to places_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
