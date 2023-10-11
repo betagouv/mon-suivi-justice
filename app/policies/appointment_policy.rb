@@ -1,4 +1,6 @@
 class AppointmentPolicy < ApplicationPolicy
+  include AppointmentHabilityCheckable
+  
   class Scope < Scope
     def resolve
       if user.work_at_bex?
@@ -30,7 +32,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def update?
-    appointment_workflow
+    hability_check
   end
 
   def new?
@@ -42,13 +44,13 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def destroy?
-    appointment_workflow
+    hability_check
   end
 
   def cancel?
     return false if record.canceled?
 
-    appointment_workflow
+    hability_check
   end
 
   def fulfil?
@@ -84,17 +86,6 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   private
-
-  def appointment_workflow
-    apt_type = AppointmentType.find(record.slot&.appointment_type_id)
-
-    if user.work_at_sap? then AppointmentType.used_at_sap?.include? apt_type.name
-    elsif user.work_at_spip? then AppointmentType.used_at_spip?.include? apt_type.name
-    elsif user.work_at_bex? then AppointmentType.used_at_bex?.include? apt_type.name
-    else
-      true
-    end
-  end
 
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def appointment_fulfilment(allow_fulfil_old: false)
