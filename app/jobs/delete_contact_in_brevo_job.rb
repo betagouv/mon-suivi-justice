@@ -1,14 +1,13 @@
 class DeleteContactInBrevoJob < ApplicationJob
   queue_as :default
 
-  def perform(user_id, admin = nil)
-    user = User.find(user_id)
+  def perform(user_email, admin = nil)
     adapter = BrevoAdapter.new
 
     begin
-      adapter.delete_user_contact(user)
+      adapter.delete_user_contact(user_email)
     rescue StandardError => e
-      AdminMailer.with(admin:, user:, error: e).brevo_sync_failure.deliver_now
+      AdminMailer.with(admin:, user_email:, error: e).brevo_sync_failure.deliver_now
     end
   end
 end

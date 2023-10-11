@@ -56,10 +56,10 @@ class AdminMailer < ApplicationMailer
     
   def brevo_sync_failure
     @admin = params[:admin]
-    @user = params[:user]
+    @user_email = params[:user_email]
     @error = params[:error]
 
     mail(to: @admin ? @admin.email : 'charles.marcoin@beta.gouv.fr',
-         subject: "Echec de synchronisation avec Brevo pour l'agent #{@user.email}")
+         subject: "Echec de synchronisation avec Brevo pour l'agent #{@user_email}")
   end
 end

@@ -8,6 +8,15 @@ class BrevoAdapter
     @client = SibApiV3Sdk::ContactsApi.new
   end
 
+  def user_exists_in_brevo?(email)
+    contact = @client.get_contact_info(email)
+    true if contact && contact.email == email
+  rescue SibApiV3Sdk::ApiError => e
+    return false if e.code == 404
+
+    raise e.message
+  end
+
   # rubocop:disable Metrics/MethodLength
   def create_contact_for_user(user)
     create_contact_data = {
@@ -49,4 +58,10 @@ class BrevoAdapter
     end
   end
   # rubocop:enable Metrics/MethodLength
+
+  def delete_user_contact(user_email)
+    @client.delete_contact(user_email)
+  rescue SibApiV3Sdk::ApiError => e
+    puts "Exception when calling ContactsApi->delete_contact: #{e}"
+  end
 end

@@ -66,11 +66,15 @@ RSpec.describe User, type: :model do
     before do
       stub_request(:post, 'https://api.sendinblue.com/v3/contacts').to_return(status: 200)
       stub_request(:put, 'https://api.sendinblue.com/v3/contacts').to_return(status: 200)
+      stub_request(:delete, 'https://api.sendinblue.com/v3/contacts').to_return(status: 200)
     end
 
     describe 'after_create callback' do
       it 'enqueues the CreateContactInBrevoJob' do
-        create(:user, :in_organization, email: 'test@example.com', first_name: 'Test', last_name: 'User', role: 'admin')
+        user = create(:user, :in_organization, email: 'test@example.com', first_name: 'Test', last_name: 'User',
+                                               role: 'admin')
+        user.invite!
+        user.accept_invitation!
         perform_enqueued_jobs
         expect(WebMock).to have_requested(:post, 'https://api.sendinblue.com/v3/contacts')
       end
@@ -84,6 +88,16 @@ RSpec.describe User, type: :model do
         user.update(first_name: 'Updated')
         perform_enqueued_jobs
         expect(WebMock).to have_requested(:put, 'https://api.sendinblue.com/v3/contacts/test@example.com')
+      end
+    end
+
+    describe 'after_destroy callback' do
+      it 'enqueues the DeleteContactInBrevoJob' do
+        user = create(:user, :in_organization, email: 'test@example.com', first_name: 'Test',
+                                               last_name: 'User', role: 'admin')
+        user.destroy
+        perform_enqueued_jobs
+        expect(WebMock).to have_requested(:delete, 'https://api.sendinblue.com/v3/contacts/test@example.com')
       end
     end
   end
