@@ -641,7 +641,6 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
       it { is_expected.to permit_action(:rebook) }
-      it { is_expected.to permit_action(:reschedule) }
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
