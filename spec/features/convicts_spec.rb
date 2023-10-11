@@ -370,7 +370,6 @@ RSpec.feature 'Convicts', type: :feature do
 
       it 'allows a cpip to assign himself to a convict', js: true do
         visit convict_path(@convict)
-        save_screenshot
         click_link('attribuer ce probationnaire')
 
         expect(page).to have_content('Le probationnaire vous a bien été attribué.')
