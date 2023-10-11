@@ -74,7 +74,7 @@
             <strong><%= t('activerecord.attributes.convict.first_name') %></strong> : <%= @convict.first_name.capitalize %>
           </p>
           <p>
-            <strong><%= t('activerecord.attributes.convict.date_of_birth')%></strong> : <%= @convict.date_of_birth.to_fs %>
+            <strong><%= t('activerecord.attributes.convict.date_of_birth')%></strong> : <%= @convict.date_of_birth&.to_fs %>
           </p>
           <% if current_user.can_use_inter_ressort? %>
             <p>

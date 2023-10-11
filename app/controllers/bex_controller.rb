@@ -103,7 +103,7 @@ class BexController < ApplicationController
     if params[:date]&.present? && days_with_slots_in_selected_month.include?(params[:date].to_date.to_fs)
       params[:date].to_date.to_fs
     else
-      days_with_slots_in_selected_month.first.to_fs
+      days_with_slots_in_selected_month.first&.to_fs
     end
   end
 
