@@ -1,6 +1,6 @@
 class AppointmentPolicy < ApplicationPolicy
   include AppointmentHabilityCheckable
-  
+
   class Scope < Scope
     def resolve
       if user.work_at_bex?
