@@ -1,6 +1,7 @@
 module AppointmentHabilityCheckable
   extend ActiveSupport::Concern
 
+  # rubocop:disable Metrics/AbcSize
   def hability_check
     apt_type = AppointmentType.find(record.slot&.appointment_type_id)
 
@@ -11,4 +12,5 @@ module AppointmentHabilityCheckable
       true
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end
