@@ -1,9 +1,14 @@
 class AppointmentsReschedulesPolicy < ApplicationPolicy
+  include AppointmentHabilityCheckable
   def new?
-    user.organization.in?([record.organization, record.creating_organization])
+    return false unless record.booked?
+
+    hability_check && user.organization.in?([record.organization, record.creating_organization])
   end
 
   def create?
-    new?
+    return false unless record.created?
+
+    hability_check && user.organization.in?([record.organization, record.creating_organization])
   end
 end
