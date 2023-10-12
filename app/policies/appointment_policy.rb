@@ -48,7 +48,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def cancel?
-    return false if record.canceled?
+    return false unless record.booked?
 
     hability_check
   end

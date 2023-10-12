@@ -5,13 +5,52 @@ describe AppointmentPolicy do
 
   let(:appointment_type) { create(:appointment_type) }
   let(:slot) { create :slot, :without_validations, appointment_type: }
-  let!(:appointment) { create(:appointment, slot:) }
+  let!(:appointment) { create(:appointment, slot:, state: :booked) }
 
-  context 'for a canceled appointment' do
+  context 'related to appoitnment status' do
     let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
-    let!(:appointment) { create(:appointment, slot:, state: 'canceled') }
-    subject { AppointmentPolicy.new(user, appointment) }
-    it { is_expected.not_to permit_action(:cancel) }
+
+    context 'for a booked appointment' do
+      let!(:appointment) { create(:appointment, slot:, state: 'booked') }
+      subject { AppointmentPolicy.new(user, appointment) }
+
+      it { is_expected.to permit_action(:cancel) }
+    end
+
+    context 'for a canceled appointment' do
+      let!(:appointment) { create(:appointment, slot:, state: 'canceled') }
+      subject { AppointmentPolicy.new(user, appointment) }
+
+      it { is_expected.to forbid_action(:cancel) }
+    end
+
+    context 'for a created appointment' do
+      let!(:appointment) { create(:appointment, slot:, state: 'created') }
+      subject { AppointmentPolicy.new(user, appointment) }
+
+      it { is_expected.to forbid_action(:cancel) }
+    end
+
+    context 'for a fulfiled appointment' do
+      let!(:appointment) { create(:appointment, slot:, state: 'fulfiled') }
+      subject { AppointmentPolicy.new(user, appointment) }
+
+      it { is_expected.to forbid_action(:cancel) }
+    end
+
+    context 'for a no_show appointment' do
+      let!(:appointment) { create(:appointment, slot:, state: 'no_show') }
+      subject { AppointmentPolicy.new(user, appointment) }
+
+      it { is_expected.to forbid_action(:cancel) }
+    end
+
+    context 'for a excused appointment' do
+      let!(:appointment) { create(:appointment, slot:, state: 'excused') }
+      subject { AppointmentPolicy.new(user, appointment) }
+
+      it { is_expected.to forbid_action(:cancel) }
+    end
   end
 
   context 'for an admin' do
@@ -39,7 +78,7 @@ describe AppointmentPolicy do
     let(:agenda) { build :agenda, place: }
     let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
     let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
-    let!(:appointment) { create(:appointment, slot:) }
+    let!(:appointment) { create(:appointment, slot:, state: :booked) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -62,7 +101,7 @@ describe AppointmentPolicy do
     let(:place) { build(:place, organization:) }
     let(:agenda) { build :agenda, place: }
     let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
-    let!(:appointment) { create(:appointment, slot:) }
+    let!(:appointment) { create(:appointment, slot:, state: :booked) }
     let(:user) { build(:user, role: 'local_admin', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
