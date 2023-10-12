@@ -59,7 +59,7 @@ class AdminMailer < ApplicationMailer
     @user_email = params[:user_email]
     @error = params[:error]
 
-    mail(to: @admin ? @admin.email : 'charles.marcoin@beta.gouv.fr',
+    mail(to: @admin ? @admin.email : 'support@mon-suivi-justice.beta.gouv.fr',
          subject: "Echec de synchronisation avec Brevo pour l'agent #{@user_email}")
   end
 end
