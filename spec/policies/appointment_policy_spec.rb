@@ -7,7 +7,7 @@ describe AppointmentPolicy do
   let(:slot) { create :slot, :without_validations, appointment_type: }
   let!(:appointment) { create(:appointment, slot:, state: :booked) }
 
-  context 'related to appoitnment status' do
+  context 'related to appointment status' do
     let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
 
     context 'for a booked appointment' do

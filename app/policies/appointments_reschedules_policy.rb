@@ -7,6 +7,8 @@ class AppointmentsReschedulesPolicy < ApplicationPolicy
   end
 
   def create?
-    new?
+    return false unless record.created?
+
+    hability_check && user.organization.in?([record.organization, record.creating_organization])
   end
 end
