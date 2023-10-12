@@ -1,26 +1,26 @@
-<div class="time required slot_batch_starting_time">
-  <div class="form-label">
-    <label class="time required form-label" for="slot_batch_starting_time_4i">
-      <abbr title="required">*</abbr> <%= t('activerecord.attributes.slot.starting_time') %></label>
-  </div>
-  <div class="form-time-select-fields form-input-wrapper">
-    <input type="hidden" id="slot_batch_starting_time_1i" name="slot_batch[starting_time(1i)]" value="1" autocomplete="off" />
-    <input type="hidden" id="slot_batch_starting_time_2i" name="slot_batch[starting_time(2i)]" value="1" autocomplete="off" />
-    <input type="hidden" id="slot_batch_starting_time_3i" name="slot_batch[starting_time(3i)]" value="1" autocomplete="off" />
+  <div class="time required slot_batch_starting_time">
+    <div class="form-label">
+      <label class="time required form-label" for="slot_batch_starting_time_4i">
+        <abbr title="required">*</abbr> <%= t('activerecord.attributes.slot.starting_time') %></label>
+    </div>
+    <div class="form-time-select-fields form-input-wrapper">
+      <input type="hidden" id="slot_batch_starting_time_1i" name="slot_batch[starting_time(1i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_starting_time_2i" name="slot_batch[starting_time(2i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_starting_time_3i" name="slot_batch[starting_time(3i)]" value="1" autocomplete="off" />
 
-    <select id="slot_batch_starting_time_4i" name="starting_times[]" class="time required form-text-input form-select">
-      <option value="" label=" "></option>
-      <% (6..20).each do |o| %>
-        <option value=<%= o %>><%= o %></option>
-      <% end %>
-    </select> :
-    <select id="slot_batch_starting_time_5i" name="starting_times[]" class="time required form-text-input form-select">
-      <option value="" label=" "></option>
-      <% ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].each do |o| %>
-        <option value=<%= o %>><%= o %></option>
-      <% end %>
-    </select>
+      <select id="slot_batch_starting_time_4i" name="starting_times[]" class="time required form-select fr-input">
+        <option value="" label=" "></option>
+        <% (6..20).each do |o| %>
+          <option value=<%= o %>><%= o %></option>
+        <% end %>
+      </select> :
+      <select id="slot_batch_starting_time_5i" name="starting_times[]" class="time required form-select fr-input">
+        <option value="" label=" "></option>
+        <% ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].each do |o| %>
+          <option value=<%= o %>><%= o %></option>
+        <% end %>
+      </select>
 
-    <div class="new-slot-delete-time-fields" onclick="this.parentNode.parentNode.remove();">Supprimer</div>
+      <div class="new-slot-delete-time-fields" onclick="this.parentNode.parentNode.remove();">Supprimer</div>
+    </div>
   </div>
-</div>

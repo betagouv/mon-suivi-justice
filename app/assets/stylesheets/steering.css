@@ -1,0 +1,78 @@
+.steering-header-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: color-mod(var(--header-background), shade(20%));
+  height: 40px;
+}
+
+.steering-header-link-container {
+  text-decoration: none;
+  color: var(--main-font-color);
+}
+
+.steering-header-link-active {
+  background-color: color-mod(var(--header-background), shade(12%));
+}
+
+.steering-header-link {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.steering-container {
+  display: flex;
+  padding: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.stats-card-container {
+  @mixin box;
+  padding: 20px;
+  margin-right: 40px;
+  min-width: 430px;
+  margin-bottom: 40px;
+}
+
+.stat-card-container {
+  display: flex;
+}
+
+.stats-card-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.stats-card-subtitle {
+  margin: 15px auto;
+  font-size: 1.1em;
+}
+
+.stat-card-value {
+  margin-left: 10px;
+}
+
+.stat-card-subsection {
+  display: flex;
+}
+
+.stat-card-of-which {
+  color: var(--dark-grey);
+  width: auto;
+}
+
+.stat-card-subsection-content {
+  margin-left: 7px;
+}
+
+.stat-card-percentage {
+  margin-left: 10px;
+}
+
+.steering-convict-app-data {
+  @mixin box;
+}

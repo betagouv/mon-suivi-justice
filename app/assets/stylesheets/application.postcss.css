@@ -1,0 +1,37 @@
+/* Entry point for your PostCSS build */
+@import "@gouvfr/dsfr/dist/utility/icons/icons";
+@import "@gouvfr/dsfr/dist/dsfr";
+
+@import "variables";
+@import "mixins";
+@import "fonts";
+@import "main";
+@import "utilities";
+@import "modal";
+
+@import "authentication";
+@import "home";
+@import "steering";
+@import "layout";
+@import "errors";
+
+@import "forms";
+@import "index";
+@import "index_cards";
+@import "show";
+
+@import "appointments";
+@import "convicts";
+@import "users";
+@import "places";
+@import "bex";
+@import "appointment_types";
+@import "slots";
+@import "slot_types";
+@import "organizations";
+
+@import "print";
+@import "actiontext";
+
+@import "ie";
+@import "user_notification";

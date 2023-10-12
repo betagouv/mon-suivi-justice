@@ -36,7 +36,7 @@ class SlotsController < ApplicationController
       check_if_slot_should_be_closed
       redirect_to slots_path
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

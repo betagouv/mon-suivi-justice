@@ -1,0 +1,149 @@
+.bex-agendas-date-container {
+  height: 100px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bex-date-title-container {
+  margin-right: 20px;
+}
+
+.bex-agenda-header {
+  display: flex;
+  width: 15%;
+  border: 1px solid black;
+  align-items: center;
+  justify-content: center;
+
+  @media print {
+    background-color: initial !important;
+  }
+}
+
+.bex-agenda-header-title {
+  padding: 0 20px;
+}
+
+.bex-agenda-table {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.bex-agenda-table-header {
+  font-weight: bold;
+}
+
+.bex-agenda-column {
+  width: 10%;
+  border-right: 1px solid black;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  word-break: break-word;
+  border-top: 1px solid black;
+
+  &:first-child {
+    border-left: none;
+  }
+}
+
+.bex-agenda-small-column {
+  width: 10%;
+  border-right: 1px solid black;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid black;
+
+  &:first-child {
+    border-left: none;
+  }
+}
+
+.bex-agenda-line {
+  display: flex;
+  min-height: 30px;
+
+  &:last-of-type > .bex-agenda-column {
+    border-bottom: 1px solid black;
+  }
+  &:last-of-type > .bex-agenda-small-column {
+    border-bottom: 1px solid black;
+  }
+}
+
+.jap-date-select {
+  min-width: 130px;
+}
+
+.jap-agenda-header1 {
+  background-color: var(--jap-cabinet1);
+}
+.jap-agenda-header2 {
+  background-color: var(--jap-cabinet2);
+}
+.jap-agenda-header3 {
+  background-color: var(--jap-cabinet3);
+}
+.jap-agenda-header4 {
+  background-color: var(--jap-cabinet4);
+}
+.jap-agenda-header5 {
+  background-color: var(--jap-cabinet5);
+}
+.jap-agenda-header6 {
+  background-color: var(--jap-cabinet6);
+}
+.jap-agenda-header7 {
+  background-color: var(--jap-cabinet7);
+}
+
+.spip-place-select {
+  width: 300px;
+
+  @media print {
+    width: inherit;
+  }
+}
+.sap_ddse-agenda-header,
+.spip-agenda-header {
+  background-color: var(--jap-cabinet4);
+  padding: 8px;
+}
+
+.bex-agenda-spip-no-agenda {
+  text-align: center;
+}
+
+.bex-agendas-modal-trigger-container {
+  margin-right: 10px;
+
+  @media print {
+    display: none;
+  }
+}
+
+.bex-filters-container form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bex-filters-container select {
+  margin: 0px;
+}
+
+.bex-form-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+.agenda-jap-table {
+  overflow: visible !important;
+}
+.agenda-jap-input {
+  min-width: 200px;
+}

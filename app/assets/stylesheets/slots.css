@@ -1,0 +1,22 @@
+.slots-index-control {
+  color: var(--link);
+  margin-right: 10px;
+}
+
+.new-slots-add-starting-time {
+  @mixin button var(--light-grey);
+  font-size: 17px;
+  margin: 15px auto 30px;
+}
+
+.new-slots-time-fields-container {
+  .form-time-select-fields {
+    justify-content: flex-start;
+    padding-left: 110px;
+  }
+}
+
+.new-slot-delete-time-fields {
+  color: var(--dark-grey);
+  cursor: pointer;
+}

@@ -1,0 +1,93 @@
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 30px 0;
+}
+
+.login-form {
+  width: 300px;
+}
+
+.login-logo-container {
+  margin-bottom: 10px;
+}
+
+.login-logo-container img {
+  width: 200px;
+}
+
+.login-sub-title {
+  color: var(--home-sub-title);
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.login-button-container {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.login-field-container {
+  margin-top: 15px;
+  position: relative;
+}
+
+.login-field {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid var(--form-input);
+}
+
+.password-icon-container {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+
+.password-icon-container._top-40 {
+  top: 40%;
+}
+
+.password-icon-container._top-50 {
+  top: 50%;
+}
+
+.submit {
+  @mixin button var(--light-grey);
+  margin-top: 10px;
+}
+
+.authentication-link {
+  color: var(--link);
+  margin-top: 10px;
+}
+
+.login-tutorial {
+  width: 300px;
+  margin-top: 15px;
+}
+
+.login-tutorial-special {
+  margin-top: 15px;
+}
+
+.login-password-error-explanation {
+  border: 2px solid var(--error);
+  padding: 20px;
+  margin-top: 15px;
+}
+
+.login-password-error-title {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.login-password-errors-list {
+  padding-left: 20px;
+}

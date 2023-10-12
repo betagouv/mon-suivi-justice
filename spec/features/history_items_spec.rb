@@ -47,7 +47,6 @@ RSpec.feature 'HistoryItems', type: :feature do
       @convict.discard
 
       visit convicts_path
-
       within first('tbody > tr') do
         expect { click_link('Désarchiver') }.to change { HistoryItem.count }.by(1)
       end

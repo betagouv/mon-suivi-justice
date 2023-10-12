@@ -46,23 +46,22 @@
                   <% if policy(@convict).edit? %>
                     <%= button_to t('edit'), edit_convict_path(params[:id]),
                                         method: :get,
-                                        class: 'fr-btn',
-                                        "data-turbolinks": false %>
+                                        class: 'fr-btn' %>
                   <% end %>
                   <% if policy(@convict).destroy? %>
                     <%= button_to t('delete'), convict_path(params[:id]),
                                           method: :delete,
-                                          data: { confirm: t('basic_confirmation') },
+                                          data: { 'turbo-confirm': t('basic_confirmation')},
                                           class: 'fr-btn fr-btn--danger' %>
                   <% end %>
                   <% if policy(@convict).archive? %>
                     <%= button_to t('archive'), convict_archive_path(@convict),
                                             method: :delete,
-                                            data: { confirm: t('archive_convict_confirmation') },
+                                            data: { 'turbo-confirm': t('archive_convict_confirmation') },
                                             class: 'fr-btn fr-btn--tertiary' %>
                   <% end %>
                   <% if policy(@convict).unarchive? %>
-                    <%= button_to t('unarchive'), convict_unarchive_path(@convict), method: :post, class: 'fr-btn fr-btn--tertiary' %>
+                    <%= button_to t('unarchive'), convict_unarchive_path(@convict), class: 'fr-btn fr-btn--tertiary' %>
                   <% end %>
                 </ul>
               </div>
@@ -87,10 +86,10 @@
             <% if @convict.cpip.present? %>
               <%= @convict.cpip_name %>
               <% if policy(@convict).unassign? %>
-                - <%= link_to t('.unassign_link'), convict_unassign_path(@convict), method: 'post', data: { confirm: t('basic_confirmation') } %>
+                - <%= link_to t('.unassign_link'), convict_unassign_path(@convict), data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :post } %>
               <% end %>
             <% elsif policy(@convict).self_assign? %>
-              <%= link_to t('.self_assign_link'), convict_self_assign_path(@convict), method: 'post' %>
+              <%= link_to t('.self_assign_link'), convict_self_assign_path(@convict), data: { 'turbo-method': :post } %>
             <% end %>
           </p>
           <p>
@@ -124,7 +123,7 @@
                 <div class="fr-grid-row  fr-grid-row--right">
                   <ul class="fr-btns-group fr-btns-group--inline-lg">
                     <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
-                      <%= button_to @convict.invitation_to_convict_interface_count == 1 ? t('.reinvite') : t('.invite'), convict_invitation_path(@convict), method: :post, class: 'fr-btn fr-btn--secondary', id: 'convict-invitation-button' %>
+                      <%= button_to @convict.invitation_to_convict_interface_count == 1 ? t('.reinvite') : t('.invite'), convict_invitation_path(@convict), class: 'fr-btn fr-btn--secondary', id: 'convict-invitation-button' %>
                     <% end %>
                   </ul>
                 </div>
@@ -189,4 +188,4 @@
     <%= render 'shared/history_items' %>
   </div>
 </div>
-<%= javascript_pack_tag 'convict' %>
+<%= javascript_include_tag 'convict', "data-turbo-track": "reload", defer: true %>

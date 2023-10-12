@@ -64,6 +64,9 @@ jobs:
       #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
       #     SSH_PASS: ${{ secrets.SSH_PASS }}
 
+      - name: Build ESbuild
+        run: yarn build
+
       - name: Spec suite
         run: bundle exec rspec
         env:
@@ -71,6 +74,13 @@ jobs:
           MSJ_DB_USER: msj
           MSJ_DB_PASSWORD: msj
           MSJ_DB_NAME: msj_test
+
+      - name: Upload screenshots
+        if: always() # This ensures the step is run even if the previous step (tests) fail
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshots
+          path: ./screenshots/
 
       - name: Ruby linter
         run: bundle exec rubocop

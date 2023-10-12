@@ -31,12 +31,12 @@
             <ul class="fr-btns-group">
               <li>
                 <% if current_user != true_user %>
-                  <%= button_to("Retour à l'admin", stop_impersonating_users_path, data: {turbo: false},  class: 'fr-btn fr-icon-settings-5-fill') %>
+                  <%= button_to("Retour à l'admin", stop_impersonating_users_path, data: { turbo: false },  class: 'fr-btn fr-icon-settings-5-fill') %>
                 <% end %>
               </li>
               <li>
                 <% if current_user.admin? %>
-                  <%= link_to admin_root_path,  class: 'fr-btn fr-icon-settings-5-fill', data: {turbo: false} do%>
+                  <%= link_to admin_root_path,  class: 'fr-btn fr-icon-settings-5-fill', data: { turbo: false } do%>
                     Administration centrale
                   <% end %>
                 <% end %>
@@ -50,7 +50,7 @@
                 <%= link_to(t('my_profile'), user_path(current_user.id), class: 'fr-btn fr-icon-account-circle-fill') %>
               </li>
               <li>
-                <%= link_to t('log_out'), destroy_user_session_path, method: :delete, class: 'fr-btn fr-icon-logout-box-r-fill', data: { turbo_method: :delete } %>
+                <%= link_to t('log_out'), destroy_user_session_path, class: 'fr-btn fr-icon-logout-box-r-fill', data: { turbo_method: :delete } %>
               </li>
             </ul>
           </div>

@@ -130,7 +130,8 @@ RSpec.feature 'Convicts', type: :feature do
       orgs_info_div = page.find("div[data-search-cities-results-target='organizationsInfo']")
       expect(orgs_info_div).to have_content("#{tj.name}, #{spip.name}")
 
-      find(:css, '#convict-no-phone-checkbox').click
+      no_phone_cb = find('#convict-no-phone-checkbox')
+      no_phone_cb.check(id: 'convict-no-phone', allow_label_click: true)
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
 
@@ -158,8 +159,10 @@ RSpec.feature 'Convicts', type: :feature do
       find('#convict_city_id').set('Melun')
       find('a', text: '77000 Melun (France)').click
 
-      find(:css, '#convict-japat-checkbox').click
-      find(:css, '#convict-no-phone-checkbox').click
+      japat_checkbox = find('#convict-japat-checkbox')
+      japat_checkbox.check(id: 'convict-japat', allow_label_click: true)
+      no_phone_cb = find('#convict-no-phone-checkbox')
+      no_phone_cb.check(id: 'convict-no-phone', allow_label_click: true)
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
 
@@ -367,7 +370,6 @@ RSpec.feature 'Convicts', type: :feature do
 
       it 'allows a cpip to assign himself to a convict', js: true do
         visit convict_path(@convict)
-
         click_link('attribuer ce probationnaire')
 
         expect(page).to have_content('Le probationnaire vous a bien été attribué.')
@@ -424,7 +426,6 @@ RSpec.feature 'Convicts', type: :feature do
       create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606', date_of_birth: '01/01/1980',
                        organizations: [@user.organization])
       visit convicts_path
-
       expect(page).to have_content('BABAR')
       accept_alert do
         click_link 'Archiver'

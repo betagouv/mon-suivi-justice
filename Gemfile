@@ -6,8 +6,6 @@ gem 'rails', '~> 7.0.0', '>= 7.0.7.2'
 
 gem 'pg', '~> 1.3'
 gem 'puma', '~> 5.6'
-gem 'webpacker', '~> 5.0'
-gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.4'
 
@@ -32,8 +30,7 @@ gem 'state_machines-activerecord', '~> 0.8'
 
 gem 'sib-api-v3-sdk', '~> 8.0'
 gem 'dotenv-rails', '~> 2.7'
-gem 'sidekiq', '~> 6.4'
-gem 'redis-namespace', '~> 1.8'
+gem 'sidekiq', '~> 7.1', '>= 7.1.3'
 gem 'clockwork', '~> 3.0'
 
 gem 'holidays', '~> 8.5'
@@ -62,6 +59,8 @@ gem 'pretender'
 
 gem 'octokit', '~> 5.0'
 
+gem 'stimulus-rails'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
@@ -88,6 +87,7 @@ end
 
 group :test do
   gem 'capybara', '>= 3.26'
+  gem 'capybara-screenshot'
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'shoulda-matchers', '~> 4.0'
@@ -106,3 +106,9 @@ gem 'faker'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 4.0'
+
+gem 'jsbundling-rails', '~> 1.1'
+
+gem 'cssbundling-rails', '~> 1.3'
+
+gem 'sprockets-rails', require: 'sprockets/railtie'
