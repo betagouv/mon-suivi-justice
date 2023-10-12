@@ -1,5 +1,6 @@
 class AppointmentsReschedulesController < AppointmentsController
   before_action :authenticate_user!
+
   def create
     old_appointment = Appointment.find_by id: params.dig(:appointment, :old_appointment_id)
     new_appointment = Appointment.new appointment_params
