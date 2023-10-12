@@ -116,19 +116,22 @@
             </div>
             <div class="fr-col-4">
               <ul class="fr-btns-group fr-btns-group--equisized fr-btns-group--right">
-                <% if @appointment.booked? && policy(@appointment).update? %>
-                  <li>
-                    <%= button_to t('reschedule'), new_appointment_reschedule_path(@appointment),
-                                       method: :get,
-                                       class: 'fr-btn' %>
-                  </li>
-                  <li>
-                    <%= button_to t('cancel'), appointment_cancel_path(@appointment),
-                                   method: :put,
-                                   data: { "turbo-confirm": t('cancel_appointment_warning') },
-                                   class: 'fr-btn' %>
-                  </li>
-                <% end %>
+                  <% ap_reschedules_policy = AppointmentsReschedulesPolicy.new(current_user, @appointment) %>
+                  <% if ap_reschedules_policy.new? %>
+                    <li>
+                      <%= button_to t('reschedule'), new_appointment_reschedule_path(@appointment),
+                                        method: :get,
+                                        class: 'fr-btn' %>
+                    </li>
+                  <% end %>
+                  <% if @appointment.can_cancel? %>
+                    <li>
+                      <%= button_to t('cancel'), appointment_cancel_path(@appointment),
+                                    method: :put,
+                                    data: { "turbo-confirm": t('cancel_appointment_warning') },
+                                    class: 'fr-btn' %>
+                    </li>
+                  <% end %>
               </ul>
             </div>
           </div>
