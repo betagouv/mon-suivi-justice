@@ -124,7 +124,7 @@
                                         class: 'fr-btn' %>
                     </li>
                   <% end %>
-                  <% if @appointment.can_cancel? %>
+                  <% if policy(@appointment).cancel? %>
                     <li>
                       <%= button_to t('cancel'), appointment_cancel_path(@appointment),
                                     method: :put,
