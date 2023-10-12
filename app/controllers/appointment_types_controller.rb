@@ -24,7 +24,7 @@ class AppointmentTypesController < ApplicationController
       check_default_and_update(old_templates)
       redirect_to appointment_types_path, notice: t('.notice')
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

@@ -15,11 +15,4 @@ create_admin(email: 'cyril.ache@beta.gouv.fr', first_name: 'Cyril', last_name: '
 create_admin(email: 'virginie.collignon-ducret@beta.gouv.fr', first_name: 'Virginie', last_name: 'Collignon-Ducret')
 create_admin(email: 'stephanie.langlais@beta.gouv.fr', first_name: 'Stéphanie', last_name: 'Langlais')
 
-
-
-
-
-
-
-
 p 'Database seeded'

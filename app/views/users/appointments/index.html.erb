@@ -96,4 +96,4 @@
   <%= paginate @appointments %>
 </div>
 
-<%= javascript_pack_tag 'appointment_index' %>
+<%= javascript_include_tag 'appointment_index', "data-turbo-track": "reload", defer: true %>

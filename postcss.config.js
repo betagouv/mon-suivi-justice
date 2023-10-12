@@ -1,12 +1,14 @@
 module.exports = {
-  plugins: [
-    require('postcss-import'),
-    require('postcss-flexbugs-fixes'),
-    require('postcss-preset-env')({
-      autoprefixer: {
-        flexbox: 'no-2009'
-      },
-      stage: 3
-    })
-  ]
+  syntax: "postcss-scss",
+  plugins: {
+    "postcss-mixins": {},
+    "postcss-color-mod-function": {},
+    "postcss-import": {},
+    "postcss-nesting": {},
+    autoprefixer: {},
+    "postcss-replace": {
+      pattern: /(?:\.\.\/){0,2}icons\/\w+\//,
+      data: { replaceAll: '' }
+    },
+  },
 }

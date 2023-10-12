@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       remove_linked_convicts(@user)
       redirect_to @user == current_user ? user_path(params[:id]) : users_path
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -84,7 +84,7 @@ class UsersController < ApplicationController
       remove_linked_appointments(user)
       send_mutation_emails(user, old_organization)
 
-      redirect_to user_path(user), notice: 'L’agent a bien été muté dans votre service'
+      redirect_to user_path(user), notice: 'L\'agent a bien été muté dans votre service'
     else
       redirect_to users_path, alert: "Erreur lors de la mutation de l'agent : #{user.errors.full_messages}"
     end

@@ -12,7 +12,7 @@ class SlotsBatchesController < ApplicationController
       redirect_to slots_path
     else
       flash[:error] = I18n.t('slots.failed_batch_creation')
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -25,7 +25,9 @@ class SlotsBatchesController < ApplicationController
     authorize slots
   end
 
-  def display_time_fields; end
+  def display_time_fields
+    render turbo_stream: turbo_stream.append('display_time_fields', partial: 'time_fields')
+  end
 
   private
 

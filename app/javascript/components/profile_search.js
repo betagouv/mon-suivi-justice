@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import 'select2';
+
 import 'select2/dist/css/select2.css';
 
 document.addEventListener('turbo:load',function(e) {
@@ -24,6 +23,6 @@ document.addEventListener('turbo:load',function(e) {
   $('#profile-search-field').on('select2:select', function (e) {
     $('#profile-search-field').val(null).trigger('change');
     var convict_path = e.params.data.id;
-    Turbolinks.visit(convict_path);
+    Turbo.visit(convict_path);
   });
 });

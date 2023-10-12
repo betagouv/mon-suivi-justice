@@ -110,7 +110,7 @@
                                     data: { 'micromodal-trigger': "rebook-missed-appointment-modal-#{@appointment.id}" }) %>
                   <%= render 'rebook_missed_appointment_modal', apt: @appointment %>
                 <% elsif @appointment.can_rebook? %>
-                  <%= link_to t('edit'), appointment_rebook_path(@appointment), method: :put, class: 'show-appointment-change-state-link' %>
+                  <%= link_to t('edit'), appointment_rebook_path(@appointment), class: 'show-appointment-change-state-link', data: { "turbo-method": :put } %>
                 <% end %>
               </p>
             </div>
@@ -125,7 +125,7 @@
                   <li>
                     <%= button_to t('cancel'), appointment_cancel_path(@appointment),
                                    method: :put,
-                                   data: { confirm: t('cancel_appointment_warning') },
+                                   data: { "turbo-confirm": t('cancel_appointment_warning') },
                                    class: 'fr-btn' %>
                   </li>
                 <% end %>
@@ -138,4 +138,4 @@
     <%= render 'shared/history_items' %>
   </div>
 </div>
-<%= javascript_pack_tag 'appointment_show' %>
+<%= javascript_include_tag 'appointment_show', "data-turbo-track": "reload", defer: true %>

@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Marianne", "Arial", "Open Sans", sans-serif;
+  font-size: 0.9em;
+}
+
+.notice,
+.alert,
+.warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 100%;
+}
+
+.notice {
+  background-color: var(--notice);
+}
+
+.alert {
+  background-color: var(--alert);
+}
+
+.warning {
+  background-color: var(--warning);
+}
+
+.fake-link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: var(--link);
+}

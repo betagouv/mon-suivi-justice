@@ -1,0 +1,95 @@
+.home-container {
+  width: 90%;
+  max-width: 700px;
+}
+
+.home-search-field-container {
+  width: 400px;
+  margin-left: 30px;
+}
+
+.home-control {
+  @mixin button var(--light-blue);
+  margin-right: 20px;
+}
+
+.home-agenda-link {
+  @mixin button var(--light-grey);
+}
+
+.home-stats-wrapper {
+  @mixin box;
+  padding: 20px;
+  width: 550px;
+  margin: auto;
+}
+
+.home-stats-title {
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.home-stats-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-stats-appointment-states {
+  padding-left: 20px;
+}
+
+.home-stats-orga {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-stats-link {
+  @mixin badge var(--light-grey);
+  margin-bottom: 10px;
+  border: 2px solid darken(var(--light-grey), 8%);
+  background-color: var(--main-background);
+}
+
+.home_active_stat_link {
+  background-color: var(--light-grey);
+}
+
+.profile-search-select2-input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid var(--form-input) !important;
+  border-radius: 0 !important;
+  height: 45px !important;
+  display: flex !important;
+  align-items: center !important;
+
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+.select2-selection--multiple {
+  padding-bottom: 10px !important;
+}
+
+.select2-search {
+  width: 100%;
+}
+.select-organization-container {
+  display: flex;
+  margin-bottom: 32px;
+}
+.select-organization-wrapper {
+  margin-bottom: 0 !important;
+  margin-right: 16px;
+}
+.select-organization-input {
+  min-width: 200px;
+}
+.select-organization-label {
+  display: none;
+}
+.new-appointment-button {
+  margin-right: 16px;
+}

@@ -38,7 +38,7 @@
               <%= template_status(summon_notif) %>
 
               <% if summon_notif.is_default == false && summon_notif.still_default == false %>
-                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(summon_notif.id), method: :put, class: 'notification-type-reset-link', data: { confirm: t('basic_confirmation') } %>
+                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(summon_notif.id), class: 'notification-type-reset-link', data: { 'turbo-confirm': t('basic_confirmation'), "turbo-method": :put } %>
               <% end %>
             </div>
           </div>
@@ -67,7 +67,7 @@
               <%= template_status(reminder_notif) %>
 
               <% if reminder_notif.is_default == false && reminder_notif.still_default == false %>
-                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(reminder_notif.id), method: :put, class: 'notification-type-reset-link', data: { confirm: t('basic_confirmation') } %>
+                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(reminder_notif.id), class: 'notification-type-reset-link', data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :put } %>
               <% end %>
             </div>
           </div>
@@ -100,7 +100,7 @@
               <%= template_status(cancelation_notif) %>
 
               <% if cancelation_notif.is_default == false && cancelation_notif.still_default == false %>
-                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(cancelation_notif.id), method: :put, class: 'notification-type-reset-link', data: { confirm: t('basic_confirmation') } %>
+                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(cancelation_notif.id), class: 'notification-type-reset-link', data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :put } %>
               <% end %>
             </div>
           </div>
@@ -129,7 +129,7 @@
               <%= template_status(no_show_notif) %>
 
               <% if no_show_notif.is_default == false && no_show_notif.still_default == false %>
-                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(no_show_notif.id), method: :put, class: 'notification-type-reset-link', data: { confirm: t('basic_confirmation') } %>
+                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(no_show_notif.id), class: 'notification-type-reset-link', data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :put } %>
               <% end %>
             </div>
           </div>
@@ -158,7 +158,7 @@
               <%= template_status(reschedule_notif) %>
 
               <% if reschedule_notif.is_default == false && reschedule_notif.still_default == false %>
-                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(reschedule_notif.id), method: :put, class: 'notification-type-reset-link', data: { confirm: t('basic_confirmation') } %>
+                <%= link_to t('appointment_type.reset_link'), notification_types_reset_path(reschedule_notif.id), class: 'notification-type-reset-link', data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :put } %>
               <% end %>
             </div>
           </div>

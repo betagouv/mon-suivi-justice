@@ -43,7 +43,7 @@ RSpec.feature 'UserMutation', type: :feature do
       end
 
       expect(page).to have_current_path(user_path(existing_user))
-      expect(page).to have_content('L’agent a bien été muté dans votre service')
+      expect(page).to have_content("L'agent a bien été muté dans votre service")
       expect(existing_user.reload.organization).to eq(@user.organization)
 
       # Check removal of assigned convicts and future appointments

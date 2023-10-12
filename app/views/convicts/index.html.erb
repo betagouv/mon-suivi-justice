@@ -33,13 +33,13 @@
                   <div class="fr-grid-row fr-grid-row--center">
                     <%= convict.cpip_name %>
                     <% if policy(convict).unassign? %>
-                      <%= button_to convict_unassign_path(convict), method: 'post', data: { confirm: t('basic_confirmation') } do %>
+                      <%= button_to convict_unassign_path(convict), data: { 'turbo-confirm': t('basic_confirmation') } do %>
                         <span class="fr-icon-close-line" aria-hidden="true"></span>
                       <% end %>
                     <% end %>
                   </div>
                 <% elsif policy(convict).self_assign? %>
-                  <%= link_to t('.self_assign_link'), convict_self_assign_path(convict), method: 'post', class: 'index-control' %>
+                  <%= link_to t('.self_assign_link'), convict_self_assign_path(convict), class: 'index-control', data: { 'turbo-method': :post } %>
                 <% end %>
               </td>
               <td>
@@ -47,20 +47,18 @@
                   <%= link_to t('show_convict'), convict_path(convict), class: 'index-control' %>
                 <% end %>
                 <% if policy(convict).edit? %>
-                  <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control', "data-turbolinks": false %>
+                  <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control' %>
                 <% end %>
                 <% if policy(convict).archive? %>
-                  <%= link_to t('archive'), convict_archive_path(convict), method: :delete,
-                                                                          data: { confirm: t('archive_convict_confirmation') },
+                  <%= link_to t('archive'), convict_archive_path(convict), data: { 'turbo-confirm': t('archive_convict_confirmation'), 'turbo-method': :delete },
                                                                           class: 'index-control' %>
                 <% end %>
                 <% if policy(convict).unarchive? %>
-                  <%= link_to t('unarchive'), convict_unarchive_path(convict), method: :post, class: 'index-control' %>
+                  <%= link_to t('unarchive'), convict_unarchive_path(convict), class: 'index-control', data: { 'turbo-method': :post } %>
                 <% end %>
                 <% if policy(convict).destroy? %>
                   <%= link_to t('delete'), convict_path(convict), class: 'index-control',
-                                                                  data: { confirm: t('basic_confirmation') },
-                                                                  method: :delete %>
+                                                                  data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :delete } %>
                 <% end %>
               </td>
             </tr>

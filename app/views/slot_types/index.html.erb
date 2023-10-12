@@ -90,9 +90,8 @@
       <%= t('slot_types_batch_submit') %>
     </button>
     <%= link_to t('slot_types_batch_deletion'), agenda_slot_types_batch_path(@agenda),
-                                                data: { confirm: t('slot_type_delete_confirmation') },
-                                                class: 'slot-type-batch-delete-all-button',
-                                                method: :delete %>
+                                                data: { 'turbo-confirm': t('slot_type_delete_confirmation'), "turbo_method": :delete },
+                                                class: 'slot-type-batch-delete-all-button'%>
   </div>
 </div>
 
@@ -104,8 +103,7 @@
           <h3><%= t("simple_form.options.slot_type.week_day.#{weekday}") %></h3>
           <% if @slot_types.where(week_day: weekday).count != 0 %>
             <%= link_to t('slot_types_batch_deletion'), agenda_slot_types_batch_path(@agenda, weekday: weekday),
-                                                        method: :delete,
-                                                        data: { confirm: t('slot_type_delete_confirmation') },
+                                                        data: { 'turbo-confirm': t('slot_type_delete_confirmation'), "turbo_method": :delete },
                                                         class: 'slot-type-batch-delete-weekday-link' %>
           <% end %>
         </div>
@@ -129,8 +127,7 @@
               <div class='slot-type-input-last'>
                 <%= f.button :submit, t('index_slot_types_update'), class: 'slot-type-submit-button' %>
                 <%= link_to t('index_slot_types_delete'), slot_type_path(slot_type),
-                                                          method: :delete,
-                                                          data: { confirm: t('slot_type_delete_confirmation') } %>
+                                                          data: { 'turbo-confirm': t('slot_type_delete_confirmation'), "turbo_method": :delete } %>
               </div>
             <% end %>
           <% end %>

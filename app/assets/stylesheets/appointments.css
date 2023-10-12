@@ -1,0 +1,280 @@
+.appointment-form-submit-button-container {
+  display: none;
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#submit-btn-container {
+  display: none;
+}
+
+.appointment-send-sms-modal-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.appointment-send-sms-modal-modal-text {
+  margin-bottom: 20px;
+}
+
+.appointment-send-sms-modal-sms-content {
+  font-weight: bold;
+  display: inline;
+}
+
+.appointments-header {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid var(--table-border);
+  padding-left: 30px;
+}
+
+.link-to-my-appointments-button {
+  @mixin button var(--light-grey);
+}
+
+.link-to-today-appointment-button {
+  @mixin button var(--light-grey);
+  margin-right: 20px;
+}
+
+.new-appointment-form {
+  width: 60%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.appointments-item-container {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  border-bottom: 1px solid var(--table-border);
+  padding-left: 30px;
+}
+
+.appointment-form-slots-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.new-appointment-form-no-slot {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.new-appointment-form-no-place {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.new-appointment-form-warning {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.form-load-slots-button {
+  @mixin button var(--light-blue);
+  margin: 15px auto 20px;
+}
+
+.new-appointment-slots-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  border: 2px solid var(--form-input);
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.new-appointment-slots-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  text-align: center;
+}
+
+.slot-date-title {
+  flex-shrink: 0;
+  width: 18%;
+  background-color: var(--grey);
+  padding: 10px 2px;
+  border-right: 1px solid var(--form-input);
+  border-bottom: 1px solid var(--form-input);
+}
+
+.new-appointment-slots-title {
+  text-align: center;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.new-appointment-slots-body {
+  text-align: center;
+  display: flex;
+}
+
+.slot-date-container {
+  flex-shrink: 0;
+  width: 18%;
+  padding: 10px 2px 0;
+  min-height: 192px;
+  border-right: 1px solid var(--form-input);
+
+  div {
+    padding: 5px;
+  }
+}
+
+.reload-button {
+  margin-top: 30px;
+}
+
+.no-appointment-today {
+  text-align: center;
+}
+
+.new-appointment-bex-warning {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.show-appointment-summon-container {
+  display: flex;
+  width: 70%;
+  max-width: 650px;
+  margin: auto;
+  margin-top: 30px;
+  text-align: center;
+  border: 1px solid var(--table-border);
+}
+
+.show-appointment-data-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  padding: 20px;
+  border-right: 1px solid var(--table-border);
+}
+
+.show-appointment-summon-data {
+  display: flex;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.show-appointment-summon-title {
+  width: 50%;
+  font-weight: bold;
+  text-align: left;
+}
+
+.show-appointment-controls-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    padding: 2px;
+  }
+}
+
+.show-appointment-change-state-link {
+  margin-left: 10px;
+  color: var(--link);
+}
+
+.fr-btn fr-btn--secondary {
+  @mixin button var(--light-grey);
+}
+
+.jap-agendas-modal-close {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.appointment-reschedule-form-slot-fields-container {
+  width: 40%;
+  margin: auto;
+  max-width: 350px;
+}
+
+.index-appointments-fulfil-button {
+  @mixin button var(--light-green);
+  font-size: 1.1em;
+  margin-left: 10px;
+  padding: 0.4em 0.8em;
+}
+
+.index-appointments-miss-button {
+  @mixin button var(--light-red);
+  font-size: 1.1em;
+  margin-left: 10px;
+  padding: 0.4em 0.8em;
+}
+
+.index-appointments-excuse-button {
+  @mixin button var(--light-grey);
+  font-size: 1.1em;
+  margin-left: 10px;
+  padding: 0.4em 0.8em;
+}
+
+.index-appointments-state-icon {
+  font-size: 10px;
+  margin: 3px 5px 0 5px;
+  color: var(--dark-grey);
+}
+
+.appointment-form-cpip-input-container {
+  margin-bottom: 5px;
+}
+
+.appointment-form-cpip-input {
+  margin-right: 5px;
+}
+
+.appointment-form-cpip-input-label {
+  display: flex;
+  align-items: center;
+}
+
+.missed-appointment-modal-container {
+  text-align: left;
+}
+
+.waiting-line-title-container {
+  width: calc(100vw - var(--sidebar-width));
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  padding: 20px 10px;
+}
+
+.appointment-form-out-of-department-container {
+  text-align: center;
+}
+
+.appointment-form-out-of-department-link {
+  color: var(--link);
+}
+
+.appointments-link__cancel {
+  color: var(--danger);
+}

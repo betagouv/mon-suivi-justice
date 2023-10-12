@@ -1,0 +1,127 @@
+.agent-interface-container {
+  height: calc(100vh - var(--header-height));
+  width: 100%;
+  display: flex;
+}
+
+.header {
+  height: var(--header-height);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--header-background);
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  border-bottom: 1px solid lightgrey;
+}
+
+.header-staging {
+  background-color: var(--header-staging-background);
+}
+
+.header-title {
+  font-size: 1.4em;
+}
+
+.header-home-link {
+  color: var(--main-font-color);
+  text-decoration: none;
+}
+
+.content-container {
+  width: 100%;
+
+  position: relative;
+
+  @media print {
+    padding: 0;
+  }
+}
+
+.fr-notice {
+  --title-spacing: 0;
+  --text-spacing: 0;
+  background-color: #eee;
+  background-color: var(--background-contrast-grey);
+  color: #161616;
+  color: var(--text-title-grey);
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  position: relative;
+}
+
+.fr-notice--info {
+  --idle: transparent;
+  --hover: var(--background-contrast-info-hover);
+  --active: var(--background-contrast-info-active);
+  background-color: #e8edff;
+  background-color: var(--background-contrast-info);
+  color: #0063cb;
+  color: var(--text-default-info);
+}
+
+.header-link {
+  margin-left: 20px;
+  color: var(--main-font-color);
+}
+
+.support-link {
+  text-decoration: none;
+  padding: 5px 15px;
+  border-radius: 2px;
+  color: var(--main-font-color);
+  background-color: var(--support-link);
+  position: fixed;
+  bottom: 300px;
+  right: 0;
+  transform-origin: right bottom;
+  transform: rotate(-90deg) translateX(-50%);
+  cursor: pointer;
+}
+
+.support-modal-content {
+  margin-top: 0;
+}
+
+.support-modal-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.support-modal-close {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.support-modal-email {
+  text-align: center;
+  width: 100%;
+  outline: none;
+  display: inline-block;
+  margin: 20px 0;
+}
+
+.support-modal-warning {
+  margin-bottom: 10px;
+}
+
+.support-modal-list {
+  padding-left: 20px;
+  list-style-type: "-  ";
+}
+
+.support-modal-bug {
+  margin-bottom: 10px;
+}
+
+.support-modal-evolution {
+  margin-bottom: 10px;
+}
+
+.support-modal-thanks {
+  margin-top: 20px;
+}

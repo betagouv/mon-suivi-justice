@@ -24,7 +24,7 @@ class OrganizationsController < ApplicationController
       redirect_to organizations_path
     else
       @organization.errors.each { |error| flash.now[:alert] = error.message }
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

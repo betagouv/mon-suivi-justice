@@ -1,4 +1,5 @@
 web: rails s -p 3001
 worker: bundle exec sidekiq
 clock: bundle exec clockwork config/clock.rb
-assets: bin/webpack-dev-server --watch --colors --progress
+js: yarn build --watch
+css: yarn build:css --watch

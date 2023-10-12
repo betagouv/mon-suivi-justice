@@ -57,15 +57,13 @@
                       <% if policy(:user).destroy? %>
                         <% if !user.admin? %>
                           <%= link_to t('delete'), user_path(user),
-                                                  data: { confirm: t('basic_confirmation') },
-                                                  class: 'index-control',
-                                                  method: :delete %>
+                                                  data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :delete },
+                                                  class: 'index-control' %>
                         <% else %>
                           <% if current_user.admin? %>
                             <%= link_to t('delete'), user_path(user),
-                                                    data: { confirm: t('basic_confirmation') },
-                                                    class: 'index-control',
-                                                    method: :delete %>
+                                                    data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :delete },
+                                                    class: 'index-control' %>
                           <% end %>
                         <% end %>
                       <% end %>
