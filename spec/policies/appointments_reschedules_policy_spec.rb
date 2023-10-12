@@ -6,7 +6,7 @@ describe AppointmentsReschedulesPolicy do
     let(:slot) { create :slot, :without_validations, appointment_type: }
     let(:user) { build(:user, organization: slot.agenda.place.organization, role: :cpip) }
 
-    context 'for a created appointment' do
+    context 'for a booked appointment' do
       let(:appointment) { create(:appointment, slot:, state: :booked) }
       subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
@@ -24,6 +24,30 @@ describe AppointmentsReschedulesPolicy do
 
     context 'for a canceled appointment' do
       let(:appointment) { create(:appointment, slot:, state: :canceled) }
+      subject { AppointmentsReschedulesPolicy.new(user, appointment) }
+
+      it { is_expected.to forbid_action(:new) }
+      it { is_expected.to forbid_action(:create) }
+    end
+
+    context 'for a fulfiled appointment' do
+      let(:appointment) { create(:appointment, slot:, state: :fulfiled) }
+      subject { AppointmentsReschedulesPolicy.new(user, appointment) }
+
+      it { is_expected.to forbid_action(:new) }
+      it { is_expected.to forbid_action(:create) }
+    end
+
+    context 'for a excused appointment' do
+      let(:appointment) { create(:appointment, slot:, state: :excused) }
+      subject { AppointmentsReschedulesPolicy.new(user, appointment) }
+
+      it { is_expected.to forbid_action(:new) }
+      it { is_expected.to forbid_action(:create) }
+    end
+
+    context 'for a no_show appointment' do
+      let(:appointment) { create(:appointment, slot:, state: :no_show) }
       subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
       it { is_expected.to forbid_action(:new) }
