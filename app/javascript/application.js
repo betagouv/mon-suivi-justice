@@ -9,7 +9,6 @@ import "@rails/actiontext"
 import "./controllers"
 import "./components/profile_search"
 import "./components/password_toggle"
-// import "./icons"
 import "./channels"
 
 Rails.start()
