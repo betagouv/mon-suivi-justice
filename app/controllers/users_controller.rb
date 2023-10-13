@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = policy_scope(User).order('last_name asc').page params[:page]
     @all_users = policy_scope(User)
+    @users = fetch_users
 
     authorize @users
   end
@@ -114,5 +114,21 @@ class UsersController < ApplicationController
   def send_mutation_emails(user, old_organization)
     UserMailer.notify_mutation(user).deliver_later
     UserMailer.notify_local_admins_of_mutation(user, old_organization).deliver_later
+  end
+
+  def fetch_users
+    if params[:search].present?
+      search_users(params[:search])
+    else
+      ordered_users
+    end
+  end
+
+  def search_users(query)
+    policy_scope(User).search_by_name(query).page params[:page]
+  end
+
+  def ordered_users
+    policy_scope(User).order('last_name asc').page params[:page]
   end
 end
