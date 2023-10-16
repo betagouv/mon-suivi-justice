@@ -45,17 +45,18 @@
 
 .password-icon-container {
   position: absolute;
-  right: 15px;
+  right: 5px;
   cursor: pointer;
+  top: 55%;
 }
 
-.password-icon-container._top-40 {
+/* .password-icon-container._top-40 {
   top: 40%;
 }
 
 .password-icon-container._top-50 {
   top: 50%;
-}
+} */
 
 .submit {
   @mixin button var(--light-grey);
