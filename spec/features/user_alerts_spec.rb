@@ -36,4 +36,24 @@ RSpec.describe 'UserAlerts', type: :feature, js: true do
     find("#mark_#{UserUserAlert.last.id}_as_read").click
     expect(page).not_to have_content('Contenu de test')
   end
+
+  it 'users cannot see alerts targeted at another role', logged_in_as: 'cpip', js: true do
+    bex_user = create(:user, first_name: 'Bob', last_name: 'Dupneu', role: 'overseer', organization: @user.organization)
+
+    create(:user_alert, users: [bex_user], alert_type: 'error',
+                        content: 'Contenu de test', roles: 'bex')
+
+    visit root_path
+
+    expect(page).not_to have_content('Contenu de test')
+  end
+
+  it 'users cannot see alerts targeted at another service', logged_in_as: 'cpip', js: true do
+    create(:user_alert, alert_type: 'error',
+                        content: 'Contenu de test', services: create(:organization, name: 'Other org').name)
+
+    visit root_path
+
+    expect(page).not_to have_content('Contenu de test')
+  end
 end
