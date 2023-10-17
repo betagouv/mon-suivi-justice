@@ -29,7 +29,7 @@ class BrevoAdapter
       }
     }
 
-    create_contact_data[:listIds] = [ENV.fetch('BREVO_TEST_LIST_ID').to_i] unless Rails.env.production?
+    create_contact_data[:listIds] = [ENV.fetch('BREVO_TEST_LIST_ID', 9).to_i] unless Rails.env.production?
 
     create_contact = SibApiV3Sdk::CreateContact.new(create_contact_data)
 
