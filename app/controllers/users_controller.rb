@@ -6,6 +6,11 @@ class UsersController < ApplicationController
     @users = fetch_users
 
     authorize @users
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render turbo_stream: turbo_stream.update("users-table", partial: "users_table") }
+    end
   end
 
   def show
