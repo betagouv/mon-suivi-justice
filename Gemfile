@@ -45,7 +45,7 @@ gem 'ruby-progressbar', '~> 1.11'
 gem 'jbuilder', '~> 2.11', '>= 2.11.5'
 gem 'groupdate', '~> 6.0', '>= 6.0.1'
 
-gem 'faraday', '~> 2.2'
+gem 'faraday', '~> 2.7'
 gem 'faraday-retry', '~> 2.2'
 
 gem 'wicked_pdf', '~> 2.6'
