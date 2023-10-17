@@ -55,7 +55,7 @@ class BexController < ApplicationController
   private
 
   def month
-    params[:month] ||= Date.today
+    params[:month] ||= Time.zone.today.to_fs
   end
 
   def appointment_type
@@ -66,7 +66,7 @@ class BexController < ApplicationController
     if params.key?(:date) && !params[:date].empty?
       params[:date].to_date
     elsif current_organization.first_day_with_slots(appointment_type).nil?
-      Date.today
+      Time.zone.today
     else
       current_organization.first_day_with_slots(appointment_type)
     end
@@ -100,10 +100,10 @@ class BexController < ApplicationController
   end
 
   def selected_day(days_with_slots_in_selected_month, params)
-    if params[:date]&.present? && days_with_slots_in_selected_month.include?(params[:date].to_date)
-      params[:date].to_date
+    if params[:date]&.present? && days_with_slots_in_selected_month.include?(params[:date].to_date.to_fs)
+      params[:date].to_date.to_fs
     else
-      days_with_slots_in_selected_month.first
+      days_with_slots_in_selected_month.first&.to_fs
     end
   end
 

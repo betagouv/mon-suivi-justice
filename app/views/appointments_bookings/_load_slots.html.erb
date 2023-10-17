@@ -4,7 +4,7 @@
   <div class='new-appointment-slots-container' id='appointment-slots-container'>
     <div class='new-appointment-slots-header'>
       <% @slots_by_date.each do |date| %>
-        <div class='slot-date-title'><%= t('date.day_names')[date.first.wday].capitalize %> <%= date.first %></div>
+        <div class='slot-date-title'><%= t('date.day_names')[date.first.wday].capitalize %> <%= date.first.to_fs %></div>
       <% end %>
     </div>
 

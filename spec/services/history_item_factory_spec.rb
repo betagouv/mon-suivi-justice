@@ -12,7 +12,7 @@ RSpec.describe HistoryItemFactory do
       end.to change { HistoryItem.count }.by(1)
 
       expected_content = "#{appointment.convict.name} a été convoqué(e) " \
-                         "le #{appointment.slot.date} " \
+                         "le #{appointment.slot.date.to_fs} " \
                          "à #{appointment.localized_time.to_fs(:time)} " \
                          "au lieu suivant : #{appointment.slot.agenda.place.name}."
 

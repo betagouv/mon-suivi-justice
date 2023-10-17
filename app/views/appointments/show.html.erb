@@ -6,7 +6,7 @@
         <div class='appointment-fulfilment-prompt-container'>
           <%= t('show-convict-fulfilment-prompt', name: @convict.name,
                                               place: @appointment.slot.agenda.place.name,
-                                              date: @appointment.slot.date,
+                                              date: @appointment.slot.date.to_fs,
                                               time: @appointment.localized_time.to_fs(:time)) %>
         </div>
         <div class='appointment-fulfilment-controls-container'>
@@ -82,7 +82,7 @@
                 </p>
               <% end %>
               <p>
-                <strong><%= t('appointment_date') %></strong> : <%= @appointment.slot.date %>
+                <strong><%= t('appointment_date') %></strong> : <%= @appointment.slot.date.to_fs %>
               </p>
               <p>
                 <strong><%= t('appointment_starting_time') %></strong> : <%= @appointment.localized_time.to_fs(:time) %>

@@ -36,7 +36,7 @@
       <% next if @agenda.slots_for_date(day, @appointment_type).count == 0 %>
         <div class="fr-table fr-table--bordered">
           <table class="agenda-jap-table">
-              <caption class='sap_ddse-agenda-header'><%= day %></caption>
+              <caption class='sap_ddse-agenda-header'><%= day.to_fs %></caption>
               <thead>
                 <th scope="col">
                   <%= t('bex.jap.header_hour') %>

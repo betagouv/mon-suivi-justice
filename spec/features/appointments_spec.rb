@@ -386,7 +386,7 @@ RSpec.feature 'Appointments', type: :feature do
     it 'displays appointment data' do
       appointment_type = create :appointment_type, name: "Sortie d'audience SAP"
       slot = create(:slot, :without_validations, appointment_type:,
-                                                 date: Date.civil(2025, 4, 16),
+                                                 date: Date.civil(2025, 4, 16).to_fs,
                                                  starting_time: new_time_for(17, 0))
 
       convict = create(:convict, first_name: 'Monique', last_name: 'Lassalle', organizations: [@user.organization])
@@ -394,7 +394,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       visit appointment_path(appointment)
 
-      expect(page).to have_content(Date.civil(2025, 4, 16))
+      expect(page).to have_content(Date.civil(2025, 4, 16).to_fs)
       expect(page).to have_content('17:00')
       expect(page).to have_content('Monique')
       expect(page).to have_content('LASSALLE')
