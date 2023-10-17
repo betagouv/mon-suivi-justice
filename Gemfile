@@ -30,7 +30,7 @@ gem 'state_machines-activerecord', '~> 0.8'
 
 gem 'sib-api-v3-sdk', '~> 8.0'
 gem 'dotenv-rails', '~> 2.7'
-gem 'sidekiq', '~> 7.1', '>= 7.1.3'
+gem 'sidekiq', '~> 7.1'
 gem 'clockwork', '~> 3.0'
 
 gem 'holidays', '~> 8.5'
