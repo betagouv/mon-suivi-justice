@@ -1,5 +1,7 @@
-import consumer from "./consumer"
+import { createConsumer } from "@rails/actioncable";
 import { v4 as uuidv4 } from 'uuid';
+
+const consumer = createConsumer();
 
 const subscription = consumer.subscriptions.create("Noticed::ConvictInvitationChannel", {
   connected() {

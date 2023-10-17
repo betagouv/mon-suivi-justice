@@ -5,10 +5,9 @@
         <div class='index-tools-container'>
           <div class='index-tools-filter-container'>
             <div>
-              <%= select_tag '', options_from_collection_for_select(@all_users, :profile_path, 'identity'),
-                                id: 'profile-search-field',
-                                style: "width: 200%",
-                                include_blank: true %>
+              <%= form_with url: users_path, method: :get, data: { turbo_frame: "users-table", turbo_stream: true, controller: "debounce-submit" } do %>
+                <%= text_field_tag :search, params[:search], class: "fr-input", placeholder: t("search_by_name_placeholder"), data: {action: "input->debounce-submit#submit"}, autofocus: true %>
+              <% end %>
             </div>
           </div>
           <div class='index-tools-controls-container'>
@@ -17,64 +16,11 @@
             <% end %>
           </div>
         </div>
+        <%= turbo_frame_tag "users-table" do %>
+          <%= render partial: 'users_table', locals: { users: @users } %>
+        <% end %>
 
-          <div class="fr-table">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col"><%= t('activerecord.attributes.user.name') %></th>
-                  <th scope="col"><%= t('activerecord.attributes.user.email') %></th>
-                  <th scope="col"><%= t('activerecord.attributes.user.role') %></th>
-                  <th scope="col"><%= t('activerecord.attributes.user.organization') %></th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @users.each do |user| %>
-                  <tr>
-                    <td>
-                      <%= user.name %>
-                    </td>
-
-                    <td>
-                      <%= user.email %>
-                    </td>
-
-                    <td>
-                      <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
-                    </td>
-                    <td>
-                      <%= user.organization.name %>
-                    </td>
-
-                    <td>
-                      <%= link_to t('see_profile'), user_path(user), class: 'index-control' %>
-
-                      <% if policy(:user).edit? %>
-                        <%= link_to t('edit'), edit_user_path(user), class: 'index-control' %>
-                      <% end %>
-
-                      <% if policy(:user).destroy? %>
-                        <% if !user.admin? %>
-                          <%= link_to t('delete'), user_path(user),
-                                                  data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :delete },
-                                                  class: 'index-control' %>
-                        <% else %>
-                          <% if current_user.admin? %>
-                            <%= link_to t('delete'), user_path(user),
-                                                    data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :delete },
-                                                    class: 'index-control' %>
-                          <% end %>
-                        <% end %>
-                      <% end %>
-                    </div>
-                  </div>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-
-          <%= paginate @users %>
+        <%= paginate @users %>
       </div>
     </div>
   </div>

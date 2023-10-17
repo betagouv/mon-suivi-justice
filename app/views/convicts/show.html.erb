@@ -7,7 +7,7 @@
             <div class='appointment-fulfilment-prompt-container'>
               <%= t('show-convict-fulfilment-prompt', name: @convict.name,
                                                         place: apt.slot.agenda.place.name,
-                                                        date: apt.slot.date,
+                                                        date: apt.slot.date.to_fs,
                                                         time: apt.slot.localized_time.to_fs(:time)) %>
             </div>
             <div class='appointment-fulfilment-controls-container'>
@@ -74,7 +74,7 @@
             <strong><%= t('activerecord.attributes.convict.first_name') %></strong> : <%= @convict.first_name.capitalize %>
           </p>
           <p>
-            <strong><%= t('activerecord.attributes.convict.date_of_birth')%></strong> : <%= @convict.date_of_birth %>
+            <strong><%= t('activerecord.attributes.convict.date_of_birth')%></strong> : <%= @convict.date_of_birth&.to_fs %>
           </p>
           <% if current_user.can_use_inter_ressort? %>
             <p>
@@ -168,7 +168,7 @@
                 <% @convict.future_appointments.each do |apt| %>
                   <tr>
                     <td><%= apt.slot.agenda.place.name %></td>
-                    <td><%= apt.slot.date %></td>
+                    <td><%= apt.slot.date.to_fs %></td>
                     <td><%= apt.localized_time.to_fs(:time) %></td>
                     <td><%= link_to t('see'), appointment_path(apt), class: '' %></td>
                   </tr>

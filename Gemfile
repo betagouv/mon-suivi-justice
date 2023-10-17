@@ -9,7 +9,7 @@ gem 'puma', '~> 5.6'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.4'
 
-gem 'devise', '~> 4.8'
+gem 'devise', '~> 4.9'
 gem 'devise-i18n', '~> 1.10'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'devise-security', '>= 0.18.0'
@@ -30,7 +30,7 @@ gem 'state_machines-activerecord', '~> 0.8'
 
 gem 'sib-api-v3-sdk', '~> 8.0'
 gem 'dotenv-rails', '~> 2.7'
-gem 'sidekiq', '~> 7.1', '>= 7.1.3'
+gem 'sidekiq', '~> 7.1'
 gem 'clockwork', '~> 3.0'
 
 gem 'holidays', '~> 8.5'
@@ -45,7 +45,9 @@ gem 'ruby-progressbar', '~> 1.11'
 gem 'jbuilder', '~> 2.11', '>= 2.11.5'
 gem 'groupdate', '~> 6.0', '>= 6.0.1'
 
-gem 'faraday', '~> 2.2'
+gem 'faraday', '~> 2.7'
+gem 'faraday-retry', '~> 2.2'
+
 gem 'wicked_pdf', '~> 2.6'
 gem 'wkhtmltopdf-binary', '~> 0.12'
 
@@ -72,7 +74,7 @@ end
 
 group :development do
   gem 'web-console', '>= 4.1.0'
-  gem 'rack-mini-profiler', '~> 2.0'
+  gem 'rack-mini-profiler', '~> 3.1'
   gem 'listen', '~> 3.3'
   gem 'spring'
   gem 'guard-rspec', require: false

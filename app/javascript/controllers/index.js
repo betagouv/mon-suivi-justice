@@ -30,3 +30,6 @@ application.register("search-users-results", SearchUsersResultsController)
 
 import TableUpdateFieldController from "./table_update_field_controller"
 application.register("table-update-field", TableUpdateFieldController)
+
+import DebounceSubmitController from "./debounce_submit_controller"
+application.register("debounce-submit", DebounceSubmitController)

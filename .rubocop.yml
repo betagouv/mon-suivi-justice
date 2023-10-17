@@ -78,6 +78,7 @@ Metrics/MethodLength:
     - app/controllers/admin/seeds_controller.rb
 
 Metrics/ClassLength:
+  Max: 300
   Exclude:
     - app/models/appointment.rb
     - app/models/convict.rb

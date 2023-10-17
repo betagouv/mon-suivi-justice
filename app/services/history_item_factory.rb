@@ -50,7 +50,7 @@ module HistoryItemFactory
       else
         I18n.t("history_item.#{event}", name: appointment.convict.name,
                                         place: appointment.slot.agenda.place.name,
-                                        date: appointment.slot.date,
+                                        date: appointment.slot.date.to_fs,
                                         time: appointment.localized_time.to_fs(:time))
       end
     end

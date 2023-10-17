@@ -15,7 +15,7 @@ module ApplicationHelper
     formated = []
 
     date_array.each do |date|
-      formated << [date.strftime('%d/%m/%Y'), date]
+      formated << [date.strftime('%d/%m/%Y'), date.to_fs]
     end
 
     formated
@@ -25,7 +25,9 @@ module ApplicationHelper
     formated = []
 
     date_array.each do |date|
-      formated << [(I18n.l date, format: '%B %Y').capitalize, date]
+      localized_date = I18n.l(date, format: '%B %Y')
+
+      formated << [localized_date.capitalize, date.to_fs]
     end
 
     formated
@@ -35,7 +37,9 @@ module ApplicationHelper
     formated = []
 
     date_array.each do |date|
-      formated << [(I18n.l date, format: '%A %d').capitalize, date]
+      localized_date = I18n.l(date, format: '%A %d')
+
+      formated << [localized_date.capitalize, date.to_fs]
     end
 
     formated

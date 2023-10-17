@@ -25,7 +25,7 @@
       <% invalid = @convict.errors.include?(:date_of_birth) %>
       <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
         <label class="fr-label" for="convict_date_of_birth">*<%= t('activerecord.attributes.convict.date_of_birth')%></label>
-        <input class="fr-input" type="date" value="<%= @convict.date_of_birth&.strftime("%Y-%m-%d") %>" max="<%= Date.today.to_s %>" name="convict[date_of_birth]" id="convict_date_of_birth">
+        <input class="fr-input" type="date" value="<%= @convict.date_of_birth&.strftime("%Y-%m-%d") %>" max="<%= Date.today.to_fs %>" name="convict[date_of_birth]" id="convict_date_of_birth">
         <% if invalid %>
           <p id="text-input-error-desc-error" class="fr-error-text">
             <%=  @convict.errors.full_messages_for(:date_of_birth).first %>.

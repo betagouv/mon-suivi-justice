@@ -2,10 +2,15 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = policy_scope(User).order('last_name asc').page params[:page]
     @all_users = policy_scope(User)
+    @users = fetch_users
 
     authorize @users
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render turbo_stream: turbo_stream.update('users-table', partial: 'users_table') }
+    end
   end
 
   def show
@@ -114,5 +119,21 @@ class UsersController < ApplicationController
   def send_mutation_emails(user, old_organization)
     UserMailer.notify_mutation(user).deliver_later
     UserMailer.notify_local_admins_of_mutation(user, old_organization).deliver_later
+  end
+
+  def fetch_users
+    if params[:search].present?
+      search_users(params[:search])
+    else
+      ordered_users
+    end
+  end
+
+  def search_users(query)
+    @all_users.search_by_name(query).page params[:page]
+  end
+
+  def ordered_users
+    @all_users.order('last_name asc').page params[:page]
   end
 end

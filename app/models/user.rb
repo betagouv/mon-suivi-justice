@@ -77,18 +77,34 @@ class User < ApplicationRecord
     "#{name} - #{phone.phony_formatted.delete(' ')}"
   end
 
+  def self.bex_roles
+    %w[prosecutor greff_co dir_greff_bex bex greff_tpe greff_crpc greff_ca]
+  end
+
+  def self.sap_roles
+    %w[jap secretary_court greff_sap dir_greff_sap]
+  end
+
+  def self.spip_roles
+    %w[dpip cpip educator psychologist overseer secretary_spip]
+  end
+
+  def self.tj_roles
+    sap_roles + bex_roles
+  end
+
   def work_at_bex?
-    %w[prosecutor greff_co dir_greff_bex bex greff_tpe greff_crpc greff_ca].include? role
+    User.bex_roles.include? role
   end
 
   def work_at_sap?
-    %w[jap secretary_court greff_sap dir_greff_sap].include? role
+    User.sap_roles.include? role
   end
 
   def work_at_spip?
     return true if local_admin_spip?
 
-    %w[dpip cpip educator psychologist overseer secretary_spip].include? role
+    User.spip_roles.include? role
   end
 
   def local_admin_spip?
