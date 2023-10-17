@@ -29,6 +29,8 @@ class BrevoAdapter
       }
     }
 
+    create_contact_data[:list_ids] = [9] unless Rails.env.production?
+
     create_contact = SibApiV3Sdk::CreateContact.new(create_contact_data)
 
     begin
