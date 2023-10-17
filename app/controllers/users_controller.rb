@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.turbo_stream { render turbo_stream: turbo_stream.update("users-table", partial: "users_table") }
+      format.turbo_stream { render turbo_stream: turbo_stream.update('users-table', partial: 'users_table') }
     end
   end
 

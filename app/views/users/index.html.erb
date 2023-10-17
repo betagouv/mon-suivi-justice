@@ -5,8 +5,8 @@
         <div class='index-tools-container'>
           <div class='index-tools-filter-container'>
             <div>
-              <%= form_with url: users_path, method: :get, data: { turbo_frame: "users-table", turbo_stream: true } do %>
-                <%= text_field_tag :search, params[:search], oninput: "this.form.requestSubmit()", class: "fr-input", placeholder: "nom de famille", autofocus: true %>
+              <%= form_with url: users_path, method: :get, data: { turbo_frame: "users-table", turbo_stream: true, controller: "search" } do %>
+                <%= text_field_tag :search, params[:search], class: "fr-input", placeholder: t("search_by_name_placeholder"), data: {action: "input->search#submit"} %>
               <% end %>
             </div>
           </div>
