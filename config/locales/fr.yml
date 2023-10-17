@@ -469,7 +469,7 @@ fr:
   edit_convict_department_title: "Département(s) du probationnaire"
   edit_convict_jurisdiction_title: "Juridiction(s) du probationnaire"
   edit_convict_submit: "Enregistrer"
-  search_convict_placeholder: "Saisir un nom ou un prénom"
+  search_by_name_placeholder: "Saisir un nom ou un prénom"
   show_convict: Profil
   show_convict_title: "Profil probationnaire"
   show_convict_archived: Archivé
