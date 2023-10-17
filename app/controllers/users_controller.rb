@@ -130,10 +130,10 @@ class UsersController < ApplicationController
   end
 
   def search_users(query)
-    policy_scope(User).search_by_name(query).page params[:page]
+    @all_users.search_by_name(query).page params[:page]
   end
 
   def ordered_users
-    policy_scope(User).order('last_name asc').page params[:page]
+    @all_users.order('last_name asc').page params[:page]
   end
 end
