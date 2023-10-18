@@ -1,6 +1,6 @@
 <%= image_tag wicked_pdf_asset_base64('logo_msj.svg') %>
 <h1 class='pdf-bex-title'><%= t('pdf.bex-jap.title') %></h1>
-<div class='bex-agenda-date'><%= date.strftime('%d/%m/%Y') %></div>
+<div class='bex-agenda-date'><%= date %></div>
 
 
   <% @agendas_to_display.each_with_index do |agenda, index| %>
