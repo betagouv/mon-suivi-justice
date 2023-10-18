@@ -28,10 +28,10 @@
           </td>
 
           <td>
-            <%= link_to t('see_profile'), user_path(user), class: 'index-control' %>
+            <%= link_to t('see_profile'), user_path(user), class: 'index-control', data: { "turbo-frame": "_top" } %>
 
             <% if policy(:user).edit? %>
-              <%= link_to t('edit'), edit_user_path(user), class: 'index-control' %>
+              <%= link_to t('edit'), edit_user_path(user), class: 'index-control', data: { "turbo-frame": "_top" } %>
             <% end %>
 
             <% if policy(:user).destroy? %>
@@ -53,3 +53,4 @@
     </tbody>
   </table>
 </div>
+<%= paginate @users %>

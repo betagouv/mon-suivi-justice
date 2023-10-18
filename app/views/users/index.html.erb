@@ -19,8 +19,6 @@
         <%= turbo_frame_tag "users-table" do %>
           <%= render partial: 'users_table', locals: { users: @users } %>
         <% end %>
-
-        <%= paginate @users %>
       </div>
     </div>
   </div>
