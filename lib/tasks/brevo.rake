@@ -11,6 +11,8 @@ namespace :brevo do
         puts "Creating #{user.email} in Brevo"
         adapter.create_contact_for_user(user)
       end
+    rescue StandardError => e
+      puts "Error processing #{user.email}: #{e.message}"
     end
   end
 end

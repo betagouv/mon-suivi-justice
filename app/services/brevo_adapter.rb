@@ -30,14 +30,9 @@ class BrevoAdapter
     }
 
     create_contact_data[:listIds] = [ENV.fetch('BREVO_TEST_LIST_ID', 9).to_i] unless Rails.env.production?
-
     create_contact = SibApiV3Sdk::CreateContact.new(create_contact_data)
 
-    begin
-      @client.create_contact(create_contact)
-    rescue SibApiV3Sdk::ApiError => e
-      raise e.message
-    end
+    @client.create_contact(create_contact)
   end
 
   def update_user_contact(user)
@@ -53,17 +48,11 @@ class BrevoAdapter
     }
 
     update_contact = SibApiV3Sdk::UpdateContact.new(update_contact_data)
-    begin
-      @client.update_contact(identifier, update_contact)
-    rescue SibApiV3Sdk::ApiError => e
-      raise e.message
-    end
+    @client.update_contact(identifier, update_contact)
   end
   # rubocop:enable Metrics/MethodLength
 
   def delete_user_contact(user_email)
     @client.delete_contact(user_email)
-  rescue SibApiV3Sdk::ApiError => e
-    puts "Exception when calling ContactsApi->delete_contact: #{e}"
   end
 end
