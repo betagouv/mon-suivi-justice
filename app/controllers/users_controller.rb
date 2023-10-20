@@ -77,7 +77,6 @@ class UsersController < ApplicationController
     render layout: false
   end
 
-  # rubocop:disable Metrics/MethodLength
   def mutate
     user = User.find(params[:id])
     authorize user
@@ -94,7 +93,6 @@ class UsersController < ApplicationController
       redirect_to users_path, alert: "Erreur lors de la mutation de l'agent : #{user.errors.full_messages}"
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   private
 

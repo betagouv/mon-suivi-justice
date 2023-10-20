@@ -1,5 +1,4 @@
 class PreparePlaceTransfertJob < ApplicationJob
-  # rubocop:disable Metrics/MethodLength
   def perform(place_transfert_id, user)
     @transfert_errors = []
     @transfert_successes = []
@@ -13,7 +12,6 @@ class PreparePlaceTransfertJob < ApplicationJob
     AdminMailer.with(user:, transfert: place_transfert, transfert_errors: @transfert_errors,
                      transfert_successes: @transfert_successes).prepare_place_transfert.deliver_later
   end
-  # rubocop:enable Metrics/MethodLength
 
   def start_transfert(place_transfert)
     new_place = place_transfert.new_place

@@ -1,16 +1,17 @@
 class RescheduleSmsDeliveryJob < ApplicationJob
   queue_as :default
-  
-  def perform
+
+  def perform(start_date = Date.today)
     # Fetch all scheduled notification IDs from Sidekiq's scheduled set
     scheduled_notification_ids = Sidekiq::ScheduledSet.new.map do |job|
-      job.item.dig("args", 0, "arguments").first if job.item["wrapped"] == "SmsDeliveryJob"
+      job.item.dig('args', 0, 'arguments', 0) if job.item['wrapped'] == 'SmsDeliveryJob'
     end.compact.to_set
 
     # Fetch relevant notifications
-    notifs = Notification.joins(appointment: :slot)
-                         .where('slots.date > ?', Date.today)
+    notifs = Notification.joins(appointment: %i[slot convict])
+                         .where('slots.date > ?', start_date)
                          .where(appointments: { state: 'booked' })
+                         .where(convicts: { no_phone: false })
                          .where(state: 'programmed')
 
     # Hash to track rescheduled jobs per day
@@ -27,5 +28,6 @@ class RescheduleSmsDeliveryJob < ApplicationJob
     end
 
     puts rescheduled_jobs_count
+    puts rescheduled_jobs_count.values.sum
   end
 end
