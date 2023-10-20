@@ -59,8 +59,13 @@ class Notification < ApplicationRecord
       transition sent: :failed
     end
 
+    event :failed_programmed do
+      transition programmed: :failed
+    end
+
     after_transition do |notification, transition|
       event = "#{transition.event}_#{notification.role}_notification".to_sym
+
       if HistoryItem.validate_event(event) == true
         HistoryItemFactory.perform(appointment: notification.appointment, event:, category: 'notification')
       end
