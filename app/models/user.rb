@@ -50,6 +50,10 @@ class User < ApplicationRecord
     greff_ca: 19
   }
 
+  after_invitation_accepted { CreateContactInBrevoJob.perform_later(id) }
+  after_update_commit :trigger_brevo_update_job, if: :relevant_field_changed?
+  after_destroy_commit { DeleteContactInBrevoJob.perform_later(email) }
+
   validates :first_name, :last_name, presence: true
   validates :share_email_to_convict, inclusion: { in: [true, false] }
   validates :share_phone_to_convict, inclusion: { in: [true, false] }
@@ -143,5 +147,13 @@ class User < ApplicationRecord
 
   def set_default_role
     self.role ||= organization.organization_type == 'tj' ? 'greff_sap' : 'cpip'
+  end
+
+  def trigger_brevo_update_job
+    UpdateContactInBrevoJob.perform_later(id)
+  end
+
+  def relevant_field_changed?
+    %i[role organization_id first_name last_name email].any? { |attr| saved_change_to_attribute?(attr) }
   end
 end
