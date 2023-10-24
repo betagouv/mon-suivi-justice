@@ -1,4 +1,6 @@
 class BrevoAdapter
+  include DeploymentEnvironment
+
   def initialize
     SibApiV3Sdk.configure do |config|
       config.api_key['api-key'] = ENV.fetch('SIB_API_KEY', nil)
@@ -21,7 +23,7 @@ class BrevoAdapter
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Layout/LineLength
   def create_contact_for_user(user)
-    return log_event('create_contact_for_user', user) unless ENV['APP'] == 'mon-suivi-justice-production'
+    return log_event('create_contact_for_user', user) unless real_production?
 
     create_contact_data = {
       email: user.email,
@@ -47,7 +49,7 @@ class BrevoAdapter
   end
 
   def update_user_contact(user)
-    return log_event('update_user_contact', user) unless ENV['APP'] == 'mon-suivi-justice-production'
+    return log_event('update_user_contact', user) unless real_production?
 
     identifier = user.email
 
@@ -74,7 +76,7 @@ class BrevoAdapter
   # rubocop:enable Metrics/AbcSize
 
   def delete_user_contact(user_email)
-    return log_event('delete_user_contact', user_email) unless ENV['APP'] == 'mon-suivi-justice-production'
+    return log_event('delete_user_contact', user_email) unless real_production?
 
     @client.delete_contact(user_email)
   rescue SibApiV3Sdk::ApiError => e
