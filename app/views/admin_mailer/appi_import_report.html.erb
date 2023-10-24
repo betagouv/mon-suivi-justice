@@ -9,7 +9,18 @@
         <li><%= organization.name %></li>
     <% end %>
     <ul>
-          <% if !@csv_errors.nil? && @csv_errors.any? %>
+        <% if !@import_update_successes.nil? && @import_update_successes.any? %>
+          <h1><%= @import_update_successes.length %> probationnaires ont été mis à jour :</h1>
+          <% @import_update_successes.each do |success| %>
+              <li><%= success %></li>
+          <% end %>
+        <% end %>
+
+
+
+
+
+        <% if !@csv_errors.nil? && @csv_errors.any? %>
           <h1><%= @csv_errors.length %> erreurs de syntaxe dans le fichier :</h1>
           <% @csv_errors.each do |error| %>
               <li style="color: red"><%= error %></li>
