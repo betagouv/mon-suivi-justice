@@ -64,6 +64,9 @@ RSpec.describe User, type: :model do
 
   context 'brevo sync' do
     before do
+      @original_app_env = ENV.fetch('APP')
+      ENV['APP'] = 'mon-suivi-justice-production'
+
       stub_request(:post, 'https://api.sendinblue.com/v3/contacts').to_return(status: 200)
       stub_request(:put, 'https://api.sendinblue.com/v3/contacts').to_return(status: 200)
       stub_request(:delete, 'https://api.sendinblue.com/v3/contacts').to_return(status: 200)
@@ -99,6 +102,10 @@ RSpec.describe User, type: :model do
         perform_enqueued_jobs
         expect(WebMock).to have_requested(:delete, 'https://api.sendinblue.com/v3/contacts/test@example.com')
       end
+    end
+
+    after do
+      ENV['APP'] = @original_app_env
     end
   end
 end
