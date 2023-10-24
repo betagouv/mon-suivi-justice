@@ -5,7 +5,7 @@
         <div class='index-tools-container'>
           <div class='index-tools-filter-container'>
             <div>
-              <%= form_with url: users_path, method: :get, data: { turbo_frame: "users-table", turbo_stream: true, controller: "debounce-submit" } do %>
+              <%= form_with url: search_users_path, method: :get, data: { turbo_frame: "users-table", turbo_stream: true, controller: "debounce-submit" } do %>
                 <%= text_field_tag :search, params[:search], class: "fr-input", placeholder: t("search_by_name_placeholder"), data: {action: "input->debounce-submit#submit"}, autofocus: true %>
               <% end %>
             </div>

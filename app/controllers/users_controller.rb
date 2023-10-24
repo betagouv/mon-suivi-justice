@@ -2,15 +2,9 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @all_users = policy_scope(User)
-    @users = fetch_users
+    search_users
 
     authorize @users
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream { render turbo_stream: turbo_stream.update('users-table', partial: 'users_table') }
-    end
   end
 
   def show
@@ -72,9 +66,12 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = policy_scope(User).where(role: %w[cpip dpip]).search_by_name(params[:q])
+    search_users
     authorize @users
-    render layout: false
+    respond_to do |format|
+      format.html { redirect_to users_path(search: params[:search])}
+      format.turbo_stream { render turbo_stream: turbo_stream.update('users-table', partial: 'users_table') }
+    end
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -121,19 +118,11 @@ class UsersController < ApplicationController
     UserMailer.notify_local_admins_of_mutation(user, old_organization).deliver_later
   end
 
-  def fetch_users
-    if params[:search].present?
-      search_users(params[:search])
-    else
-      ordered_users
-    end
-  end
-
-  def search_users(query)
-    @all_users.search_by_name(query).page params[:page]
-  end
-
-  def ordered_users
-    @all_users.order('last_name asc').page params[:page]
+  def search_users
+    @users = if params[:search].present?
+               policy_scope(User).search_by_name(params[:search]).page params[:page]
+             else
+               policy_scope(User).order('last_name asc').page params[:page]
+             end
   end
 end
