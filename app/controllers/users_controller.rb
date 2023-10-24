@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    search_users
+    @users = search_users
 
     authorize @users
   end
@@ -66,7 +66,14 @@ class UsersController < ApplicationController
   end
 
   def search
-    search_users
+    @users = policy_scope(User).where(role: %w[cpip dpip]).search_by_name(params[:q])
+    authorize @users
+
+    render layout: false
+  end
+
+  def filter
+    @users = search_users
     authorize @users
     respond_to do |format|
       format.html { redirect_to users_path(search: params[:search])}
@@ -119,10 +126,8 @@ class UsersController < ApplicationController
   end
 
   def search_users
-    @users = if params[:search].present?
-               policy_scope(User).search_by_name(params[:search]).page params[:page]
-             else
-               policy_scope(User).order('last_name asc').page params[:page]
-             end
+    return policy_scope(User).search_by_name(params[:search]).page params[:page] if params[:search].present?
+
+    policy_scope(User).order('last_name asc').page params[:page]
   end
 end
