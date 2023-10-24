@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Rapport de création d'alerte utilisateur</title>
+</head>
+<body>
+    <h1>Rapport de création d'alerte utilisateur</h1>
+
+    <p>Bonjour <%= @user.name %>,</p>
+    
+    <p>Voici le rapport détaillé de la création d'alerte utilisateur :</p>
+
+    <ul>
+        <li><strong>Contenu de l'alerte :</strong> <%= @content %></li>
+        <li><strong>Service cible :</strong> <%= @organization ? @organization.name : 'Tous les services' %></li>
+        <li><strong>Rôle cible :</strong> <%= @role.present? ? @role : 'Tous les rôles' %></li>
+        <li><strong>Nombre de destinataires :</strong> <%= @number_of_recipients %></li>
+    </ul>
+
+    <% if @errors.any? %>
+        <h2>Erreurs rencontrées</h2>
+        <ul>
+            <% @errors.each do |error| %>
+                <li><%= error %></li>
+            <% end %>
+        </ul>
+        <p>Transférez ce mail à l'équipe technique si des erreurs ont été rencontrées.</p>
+    <% else %>
+        <p>Aucune erreur rencontrée pendant la création des alertes.</p>
+    <% end %>
+
+    <p>Cordialement,<br>Equipe technique MSJ</p>
+</body>
+</html>

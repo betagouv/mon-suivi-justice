@@ -7,6 +7,15 @@
       </p>
     </div>
   <% end %>
+  <div id="user_alerts">
+    <% if @unread_alerts.any? %>
+      <% @unread_alerts.each do |alert| %>
+        <% user_user_alert = alert.user_user_alerts.find { |uua| uua.user_id == current_user.id } %>
+        <%= render 'shared/alert_notice', user_user_alert:, alert: %>
+      <% end %>
+    <% end %>
+  </div>
+  <div id="turbostream_error_messages"></div>
   <div id="flash_messages">
     <% flash.each do |type, msg| %>
       <div class="fr-alert fr-alert--<%= dsfr_class_for(type) %> fr-alert--sm">        

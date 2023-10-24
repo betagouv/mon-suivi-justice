@@ -43,4 +43,14 @@ class AdminMailer < ApplicationMailer
 
     mail(to: @user.email, subject: "Rapport d'import de préparation de transfert de #{@old_place} vers #{@new_place}")
   end
+
+  def user_alert_delivery_report
+    @user = params[:user]
+    @content = params[:content]
+    @organization = params[:organization]
+    @errors = params[:errors]
+    @number_of_recipients = params[:number_of_recipients]
+    @role = params[:role]
+    mail(to: @user.email, subject: "Rapport d'import de création d'alerte utilisateur")
+  end
 end
