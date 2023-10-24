@@ -17,6 +17,7 @@ jobs:
           POSTGRES_USER: msj
           POSTGRES_PASSWORD: msj
           POSTGRES_DB: msj_test
+          APP: msj_ci
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
