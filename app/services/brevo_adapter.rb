@@ -21,6 +21,8 @@ class BrevoAdapter
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Layout/LineLength
   def create_contact_for_user(user)
+    return log_event('create_contact_for_user', user) unless Rails.env.production?
+
     create_contact_data = {
       email: user.email,
       attributes: {
@@ -31,7 +33,7 @@ class BrevoAdapter
       }
     }
 
-    create_contact_data[:listIds] = [ENV.fetch('BREVO_TEST_LIST_ID', 9).to_i] unless Rails.env.production?
+    create_contact_data[:listIds] = [ENV.fetch('BREVO_PROD_LIST_ID', 10).to_i]
     create_contact = SibApiV3Sdk::CreateContact.new(create_contact_data)
 
     begin
@@ -45,6 +47,8 @@ class BrevoAdapter
   end
 
   def update_user_contact(user)
+    return log_event('update_user_contact', user) unless Rails.env.production?
+
     identifier = user.email
 
     update_contact_data = {
@@ -70,6 +74,8 @@ class BrevoAdapter
   # rubocop:enable Metrics/AbcSize
 
   def delete_user_contact(user_email)
+    return log_event('delete_user_contact', user_email) unless Rails.env.production?
+
     @client.delete_contact(user_email)
   rescue SibApiV3Sdk::ApiError => e
     error_response = JSON.parse(e.response_body)
@@ -81,5 +87,9 @@ class BrevoAdapter
 
   def contact_not_found_error?(error_response)
     error_response['code'] == 'document_not_found' && error_response['message'] == 'Contact does not exist'
+  end
+
+  def log_event(event, user_or_email)
+    Rails.logger.info("BrevoAdapter: Exécution de '#{event}' pour #{user_or_email.inspect} hors production.")
   end
 end
