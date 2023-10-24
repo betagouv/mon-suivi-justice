@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     @users = search_users
     authorize @users
     respond_to do |format|
-      format.html { redirect_to users_path(search: params[:search])}
+      format.html { redirect_to users_path(search: params[:search]) }
       format.turbo_stream { render turbo_stream: turbo_stream.update('users-table', partial: 'users_table') }
     end
   end
