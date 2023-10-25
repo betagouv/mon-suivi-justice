@@ -22,9 +22,11 @@ Rails.application.routes.draw do
       resources :public_pages, only: [:index]
       resources :import_convicts, only: [:index]
       resources :import_srjs, only: [:index]
+      resources :user_alerts
       post '/create_page' => "public_pages#create"
       post '/import_convicts' => "import_convicts#import"
       post '/import_srjs' => "import_srjs#import"
+      post '/create_user_alert' => "user_alerts#create"
       resources :headquarters
       resources :place_transferts do
         put '/start_transfert' => "place_transferts#start_transfert"
@@ -43,12 +45,13 @@ Rails.application.routes.draw do
 
   resources :users do
     collection do
-      get :search
+      get :search # used for cpip association to convict in the select
     end
     get :invitation_link
     get :reset_pwd_link
     post :stop_impersonating, on: :collection
     put 'mutate', on: :member
+    get :filter, on: :collection
   end
 
   resource :user do
@@ -150,6 +153,12 @@ Rails.application.routes.draw do
         get 'cpip'
         resource :invitation, only: :update, controller: 'convict_invitations'
       end
+    end
+  end
+
+  resources :user_user_alerts do
+    member do
+      put :mark_as_read
     end
   end
 

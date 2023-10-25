@@ -45,6 +45,10 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
+  def filter?
+    index?
+  end
+
   def mutate?
     user.admin? || user.local_admin?
   end

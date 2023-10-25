@@ -74,6 +74,7 @@ jobs:
           MSJ_DB_USER: msj
           MSJ_DB_PASSWORD: msj
           MSJ_DB_NAME: msj_test
+          APP: msj_ci
 
       - name: Upload screenshots
         if: always() # This ensures the step is run even if the previous step (tests) fail

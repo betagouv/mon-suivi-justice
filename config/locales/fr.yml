@@ -24,6 +24,11 @@ fr:
         name: nom
         organization: service
         city: commune
+      user_alert:
+        content: contenu
+        alert_type: type d'alerte
+        services: services destinataires
+        roles: rôles destinataires
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
@@ -92,6 +97,9 @@ fr:
       spip:
         one: "SPIP (SRJ)"
         other: "SPIPs (SRJ)"
+      user_alert:
+        one: "Alerte utilisateur"
+        other: "Alertes utilisateurs"
 
     attributes:
       convict:
@@ -781,3 +789,8 @@ fr:
       scope:
         appointment_create: "Renseigner au moment de la convocation"
         appointment_update: "Renseigner directement dans le tableau de sortie d'audience"
+
+  admin:
+    user_alerts:
+      create: 
+        notice: "Les alertes sont en cours de création. Vous recevrez un mail lorsque l'opération sera terminée."

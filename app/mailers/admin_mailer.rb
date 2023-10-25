@@ -43,4 +43,23 @@ class AdminMailer < ApplicationMailer
 
     mail(to: @user.email, subject: "Rapport d'import de préparation de transfert de #{@old_place} vers #{@new_place}")
   end
+
+  def user_alert_delivery_report
+    @user = params[:user]
+    @content = params[:content]
+    @organization = params[:organization]
+    @errors = params[:errors]
+    @number_of_recipients = params[:number_of_recipients]
+    @role = params[:role]
+    mail(to: @user.email, subject: "Rapport d'import de création d'alerte utilisateur")
+  end
+
+  def brevo_sync_failure
+    @admin = params[:admin]
+    @user_email = params[:user_email]
+    @error = params[:error]
+
+    mail(to: @admin ? @admin.email : 'support@mon-suivi-justice.beta.gouv.fr',
+         subject: "Echec de synchronisation avec Brevo pour l'agent #{@user_email}")
+  end
 end
