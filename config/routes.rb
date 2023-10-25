@@ -45,12 +45,13 @@ Rails.application.routes.draw do
 
   resources :users do
     collection do
-      get :search
+      get :search # used for cpip association to convict in the select
     end
     get :invitation_link
     get :reset_pwd_link
     post :stop_impersonating, on: :collection
     put 'mutate', on: :member
+    get :filter, on: :collection
   end
 
   resource :user do
