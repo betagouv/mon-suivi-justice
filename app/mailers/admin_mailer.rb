@@ -1,6 +1,7 @@
 class AdminMailer < ApplicationMailer
   default from: 'system@mon-suivi-justice.beta.gouv.fr'
 
+  # rubocop:disable Metrics/AbcSize
   def appi_import_report
     @user = params[:user]
     @organizations = params[:organizations]
@@ -11,6 +12,7 @@ class AdminMailer < ApplicationMailer
     @csv_errors = params[:csv_errors]
     mail(to: @user.email, subject: 'Rapport import APPI')
   end
+  # rubocop:enable Metrics/AbcSize
 
   def srj_import_report
     @user = params[:user]
