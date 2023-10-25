@@ -46,7 +46,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def filter?
-    true
+    index?
   end
 
   def mutate?
