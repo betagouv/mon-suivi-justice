@@ -18,7 +18,8 @@ class AppiImportJob < ApplicationJob
                      import_successes: @import_successes, csv_errors:,
                      import_update_successes: @import_update_successes,
                      import_update_failures: @import_update_failures,
-                     calculated_organizations_names: @calculated_organizations_names.uniq).appi_import_report.deliver_later
+                     calculated_organizations_names: @calculated_organizations_names.uniq)
+               .appi_import_report.deliver_later
   end
 
   def process_appi_data(appi_data, target_organizations)
@@ -79,8 +80,8 @@ class AppiImportJob < ApplicationJob
     end.flatten.uniq
 
     @calculated_organizations_names << Organization
-                                  .where(id: convict.organization_ids)
-                                  .pluck(:name).flatten
+                                       .where(id: convict.organization_ids)
+                                       .pluck(:name).flatten
 
     if convict.save(context: :appi_import)
       @import_successes << "#{convict[:first_name]} #{convict[:last_name]} (id: #{convict[:id]})"
