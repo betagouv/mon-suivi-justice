@@ -9,6 +9,7 @@ class AdminMailer < ApplicationMailer
     @import_errors = params[:import_errors]
     @import_update_successes = params[:import_update_successes]
     @import_update_failures = params[:import_update_failures]
+    @target_organizations_names = params[:target_organizations_names]
     @csv_errors = params[:csv_errors]
     mail(to: @user.email, subject: 'Rapport import APPI')
   end

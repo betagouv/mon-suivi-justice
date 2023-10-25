@@ -8,14 +8,41 @@
     <% @organizations.each do |organization| %>
         <li><%= organization.name %></li>
     <% end %>
-    <ul>
-        <% if !@import_update_successes.nil? && @import_update_successes.any? %>
-          <h1><%= @import_update_successes.length %> probationnaires ont été mis à jour :</h1>
-          <% @import_update_successes.each do |success| %>
-              <li><%= success %></li>
+        <h2>Création de probationnaires pour <%= @target_organizations_names&.join(', ') %></h2>
+        <% if !@import_successes.nil? && @import_successes.any? %>
+          <h3><%= @import_successes.length %> probationnaires ont été créées :</h3>
+          <% @import_successes.each do |success| %>
+              <ul>
+                <li><%= success %></li>
+              </ul>
+          <% end %>
+        <% end %>
+        <% if !@import_errors.nil? && @import_errors.any? %>
+          <h3><%= @import_errors.length %> probationnaires n'ont pas pu être créées :</h3>
+          <% @import_errors.each do |error| %>
+            <ul>
+              <li style="color: red"><%= error %></li>
+            </ul>
           <% end %>
         <% end %>
 
+        <h2>Mises à jour de probationnaires</h2>
+        <% if !@import_update_successes.nil? && @import_update_successes.any? %>
+          <h3><%= @import_update_successes.length %> ont été mis à jour :</h3>
+          <% @import_update_successes.each do |success| %>
+              <ul>
+                <li><%= success %></li>
+              </ul>
+          <% end %>
+        <% end %>
+        <% if !@import_update_errors.nil? && @import_update_errors.any? %>
+          <h3><%= @import_update_errors.length %> n'ont pas pu être mis à jour :</h3>
+          <% @import_update_errors.each do |error| %>
+            <ul>
+              <li style="color: red"><%= error %></li>
+            </ul>
+          <% end %>
+        <% end %>
 
 
 
@@ -23,21 +50,12 @@
         <% if !@csv_errors.nil? && @csv_errors.any? %>
           <h1><%= @csv_errors.length %> erreurs de syntaxe dans le fichier :</h1>
           <% @csv_errors.each do |error| %>
+            <ul>
               <li style="color: red"><%= error %></li>
+            </ul>
           <% end %>
         <% end %>
-        <% if !@import_successes.nil? && @import_successes.any? %>
-          <h1><%= @import_successes.length %> probationnaires ont été créées :</h1>
-          <% @import_successes.each do |success| %>
-              <li><%= success %></li>
-          <% end %>
-        <% end %>
-        <% if !@import_errors.nil? && @import_errors.any? %>
-          <h1><%= @import_errors.length %> probationnaires n'ont pas pu être créées :</h1>
-          <% @import_errors.each do |error| %>
-              <li style="color: red"><%= error %></li>
-          <% end %>
-        <% end %>
-    </ul>
+
+
   </body>
 </html>

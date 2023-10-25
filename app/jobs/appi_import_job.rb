@@ -30,11 +30,12 @@ class AppiImportJob < ApplicationJob
     @import_update_successes = []
     @import_update_failures = []
 
-    if existing_convict && existing_convict.organizations.count == 1
-      update_convict(convict, organizations)
-    else
+    unless existing_convict
       create_convict(convict, organizations)
+      return
     end
+
+    update_convict(existing_convict, organizations) if existing_convict.organizations.count == 1
   end
 
   private
@@ -59,6 +60,10 @@ class AppiImportJob < ApplicationJob
 
   # dedicated method for the else part of the process_convict method
   def create_convict(convict, organizations)
+
+
+    debugger
+
     convict = Convict.new(
       first_name: convict[:first_name],
       last_name: convict[:last_name],
