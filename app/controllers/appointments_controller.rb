@@ -71,42 +71,42 @@ class AppointmentsController < ApplicationController
   end
 
   def cancel
-    @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    @appointment = Appointment.find(params[:appointment_id])
+    authorize @appointment
     @appointment.cancel send_notification: true
 
-    authorize @appointment
     redirect_back(fallback_location: root_path)
   end
 
   def fulfil
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    authorize @appointment, :fulfil_old?
     @appointment.fulfil
 
-    authorize @appointment, :fulfil_old?
     redirect_back(fallback_location: root_path)
   end
 
   def miss
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    authorize @appointment
     @appointment.miss(send_notification: params[:send_sms])
 
-    authorize @appointment
     redirect_back(fallback_location: root_path)
   end
 
   def excuse
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    authorize @appointment, :excuse_old?
     @appointment.excuse
 
-    authorize @appointment, :excuse_old?
     redirect_back(fallback_location: root_path)
   end
 
   def rebook
     @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    authorize @appointment, :rebook_old?
     @appointment.rebook
 
-    authorize @appointment, :rebook_old?
     redirect_back(fallback_location: root_path)
   end
 
