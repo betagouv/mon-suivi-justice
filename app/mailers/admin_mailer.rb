@@ -4,12 +4,12 @@ class AdminMailer < ApplicationMailer
   # rubocop:disable Metrics/AbcSize
   def appi_import_report
     @user = params[:user]
-    @organizations = params[:organizations]
+    @target_organizations = params[:target_organizations]
     @import_successes = params[:import_successes]
     @import_errors = params[:import_errors]
     @import_update_successes = params[:import_update_successes]
     @import_update_failures = params[:import_update_failures]
-    @target_organizations_names = params[:target_organizations_names]
+    @calculated_organizations_names = params[:calculated_organizations_names]
     @csv_errors = params[:csv_errors]
     mail(to: @user.email, subject: 'Rapport import APPI')
   end

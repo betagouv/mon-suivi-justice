@@ -3,67 +3,68 @@ class AppiImportJob < ApplicationJob
   require 'digest/bubblebabble'
   queue_as :default
 
-  def perform(appi_data, organizations, user, csv_errors)
+  def perform(appi_data, target_organizations, user, csv_errors)
     @import_errors = []
     @import_successes = []
+    @import_update_successes = Hash.new { |hash, key| hash[key] = [] }
+    @import_update_failures = Hash.new { |hash, key| hash[key] = [] }
+    @calculated_organizations_names = []
 
-    process_appi_data(appi_data, organizations)
+    process_appi_data(appi_data, target_organizations)
   rescue StandardError => e
     @import_errors.push("Erreur : #{e.message}")
   ensure
-    AdminMailer.with(user:, organizations:, import_errors: @import_errors,
+    AdminMailer.with(user:, target_organizations:, import_errors: @import_errors,
                      import_successes: @import_successes, csv_errors:,
                      import_update_successes: @import_update_successes,
                      import_update_failures: @import_update_failures,
-                     target_organizations_names: @target_organizations_names).appi_import_report.deliver_later
+                     calculated_organizations_names: @calculated_organizations_names.uniq).appi_import_report.deliver_later
   end
 
-  def process_appi_data(appi_data, organizations)
+  def process_appi_data(appi_data, target_organizations)
     appi_data.each do |c|
-      process_convict(c, organizations)
+      process_convict(c, target_organizations)
     end
   end
 
-  def process_convict(convict, organizations)
+  def process_convict(convict, target_organizations)
     existing_convict = Convict.find_by(appi_uuid: convict[:appi_uuid])
 
-    @import_update_successes = []
-    @import_update_failures = []
-
     unless existing_convict
-      create_convict(convict, organizations)
+      create_convict(convict, target_organizations)
       return
     end
 
-    update_convict(existing_convict, organizations) if existing_convict.organizations.count == 1
+    update_convict(existing_convict, target_organizations) if existing_convict.organizations.count == 1
   end
 
   private
 
   # rubocop:disable Layout/LineLength
-  def update_convict(existing_convict, organizations)
+  def update_convict(existing_convict, target_organizations)
     existing_organization = existing_convict.organizations.first
 
-    organizations.each do |org|
+    target_organizations.each do |org|
       if org.linked_organizations.include?(existing_organization) && existing_organization.organization_type != org.organization_type
         existing_convict.organizations << org
       end
     end
 
     if existing_convict.save
-      @import_update_successes.push("#{existing_convict.first_name} #{existing_convict.last_name} (id: #{existing_convict.id})")
+      success_message = "#{existing_convict.first_name} #{existing_convict.last_name} (id: #{existing_convict.id})"
+      target_organizations.each do |org|
+        @import_update_successes[org.name] << success_message
+      end
     else
-      @import_update_failures.push("#{existing_convict.first_name} #{existing_convict.last_name} - #{existing_convict.errors.full_messages.first}")
+      failure_message = "#{existing_convict.first_name} #{existing_convict.last_name} - #{existing_convict.errors.full_messages.first}"
+      target_organizations.each do |org|
+        @import_update_failures[org.name] << failure_message
+      end
     end
   end
   # rubocop:enable Layout/LineLength
 
-  # dedicated method for the else part of the process_convict method
   def create_convict(convict, organizations)
-
-
-    debugger
-
     convict = Convict.new(
       first_name: convict[:first_name],
       last_name: convict[:last_name],
@@ -77,9 +78,9 @@ class AppiImportJob < ApplicationJob
       linked_org_ids.size >= 2 ? org.id : [org.id, linked_org_ids].flatten
     end.flatten.uniq
 
-    @target_organizations_names = Organization
+    @calculated_organizations_names << Organization
                                   .where(id: convict.organization_ids)
-                                  .pluck(:name)
+                                  .pluck(:name).flatten
 
     if convict.save(context: :appi_import)
       @import_successes << "#{convict[:first_name]} #{convict[:last_name]} (id: #{convict[:id]})"
