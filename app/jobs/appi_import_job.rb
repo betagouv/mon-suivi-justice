@@ -68,26 +68,28 @@ class AppiImportJob < ApplicationJob
   def create_convict(convict, organizations)
     convict = Convict.new(
       first_name: convict[:first_name],
-      last_name: convict[:last_name],
+      last_name: staging? ? anonymize(convict) : convict[:last_name],
       date_of_birth: convict[:date_of_birth].present? ? convict[:date_of_birth].to_date : nil,
       no_phone: true,
       appi_uuid: convict[:appi_uuid]
     )
 
-    convict.organization_ids = organizations.map do |org|
-      linked_org_ids = org.linked_organizations.map(&:id)
-      linked_org_ids.size >= 2 ? org.id : [org.id, linked_org_ids].flatten
-    end.flatten.uniq
-
-    @calculated_organizations_names << Organization
-                                       .where(id: convict.organization_ids)
-                                       .pluck(:name).flatten
+    assign_organizations_to_convict(convict, organizations)
 
     if convict.save(context: :appi_import)
       @import_successes << "#{convict[:first_name]} #{convict[:last_name]} (id: #{convict[:id]})"
     else
       @import_errors << "#{convict[:first_name]} #{convict[:last_name]} - #{convict[:errors][:full_messages][0]}"
     end
+  end
+
+  def assign_organizations_to_convict(convict, organizations)
+    convict.organization_ids = organizations.flat_map do |org|
+      linked_org_ids = org.linked_organizations.ids
+      linked_org_ids.size >= 2 ? org.id : [org.id, *linked_org_ids]
+    end.uniq
+
+    @calculated_organizations_names.concat(Organization.where(id: convict.organization_ids).pluck(:name))
   end
 
   def staging?
