@@ -6,7 +6,9 @@ describe AppointmentPolicy do
   let(:appointment_type) { create(:appointment_type) }
   let(:slot) { create :slot, :without_validations, appointment_type: }
   let(:convict) { create :convict, organizations: [slot.place.organization] }
-  let!(:appointment) { create(:appointment, slot:, state: :booked, creating_organization: slot.place.organization, convict:) }
+  let!(:appointment) do
+    create(:appointment, slot:, state: :booked, creating_organization: slot.place.organization, convict:)
+  end
 
   context 'related to appointment status' do
     let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
@@ -683,7 +685,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
-      let(:appointment_type) { create(:appointment_type, name: "Convocation de suivi JAP") }
+      let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi JAP') }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
