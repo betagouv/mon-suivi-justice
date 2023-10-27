@@ -384,7 +384,7 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'show', logged_in_as: 'cpip' do
     it 'displays appointment data' do
-      appointment_type = create :appointment_type, name: "Sortie d'audience SAP"
+      appointment_type = create :appointment_type, name: "Sortie d'audience SPIP"
       slot = create(:slot, :without_validations, appointment_type:,
                                                  date: Date.civil(2025, 4, 16).to_fs,
                                                  starting_time: new_time_for(17, 0))
@@ -402,7 +402,7 @@ RSpec.feature 'Appointments', type: :feature do
     end
 
     it 'allows to change state of appointment' do
-      apt_type = create :appointment_type, name: "Sortie d'audience SAP"
+      apt_type = create :appointment_type, name: "Sortie d'audience SPIP"
 
       place = create :place, name: 'Test place', appointment_types: [apt_type],
                              organization: @user.organization
