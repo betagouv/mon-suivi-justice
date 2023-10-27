@@ -79,7 +79,7 @@ class AppointmentsController < ApplicationController
   end
 
   def fulfil
-    @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    @appointment = Appointment.find(params[:appointment_id])
     authorize @appointment, :fulfil_old?
     @appointment.fulfil
 
@@ -87,7 +87,7 @@ class AppointmentsController < ApplicationController
   end
 
   def miss
-    @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    @appointment = Appointment.find(params[:appointment_id])
     authorize @appointment
     @appointment.miss(send_notification: params[:send_sms])
 
@@ -95,7 +95,7 @@ class AppointmentsController < ApplicationController
   end
 
   def excuse
-    @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    @appointment = Appointment.find(params[:appointment_id])
     authorize @appointment, :excuse_old?
     @appointment.excuse
 
@@ -103,7 +103,7 @@ class AppointmentsController < ApplicationController
   end
 
   def rebook
-    @appointment = policy_scope(Appointment).find(params[:appointment_id])
+    @appointment = Appointment.find(params[:appointment_id])
     authorize @appointment, :rebook_old?
     @appointment.rebook
 

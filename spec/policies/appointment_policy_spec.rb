@@ -5,7 +5,8 @@ describe AppointmentPolicy do
 
   let(:appointment_type) { create(:appointment_type) }
   let(:slot) { create :slot, :without_validations, appointment_type: }
-  let!(:appointment) { create(:appointment, slot:, state: :booked) }
+  let(:convict) { create :convict, organizations: [slot.place.organization] }
+  let!(:appointment) { create(:appointment, slot:, state: :booked, creating_organization: slot.place.organization, convict:) }
 
   context 'related to appointment status' do
     let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
@@ -98,11 +99,10 @@ describe AppointmentPolicy do
 
   context 'for an local_admin tj' do
     let(:organization) { build(:organization, organization_type: 'tj') }
-    let(:place) { build(:place, organization:) }
+    let(:user) { build(:user, role: 'local_admin', organization:) }
+    let(:place) { build(:place, organization: user.organization) }
     let(:agenda) { build :agenda, place: }
     let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
-    let!(:appointment) { create(:appointment, slot:, state: :booked) }
-    let(:user) { build(:user, role: 'local_admin', organization: slot.place.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -118,6 +118,24 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:rebook) }
     it { is_expected.not_to permit_action(:agenda_spip) }
     it { is_expected.to permit_action(:agenda_jap) }
+
+    context "for an appointment_type Sortie d'audience SPIP" do
+      let(:organization2) { build :organization, organization_type: 'spip' }
+      let(:place) { build(:place, organization: organization2) }
+      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+      let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
+
+      it { is_expected.to permit_action(:new) }
+      it { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:edit) }
+      it { is_expected.to permit_action(:update) }
+      it { is_expected.to permit_action(:destroy) }
+      it { is_expected.to permit_action(:cancel) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
+    end
   end
 
   context 'for a prosecutor' do
@@ -337,7 +355,12 @@ describe AppointmentPolicy do
   end
 
   context 'for a bex user' do
-    let(:user) { build(:user, role: 'bex', organization: slot.place.organization) }
+    let(:organization) { build(:organization, organization_type: 'tj') }
+    let(:user) { build(:user, role: 'bex', organization:) }
+    let(:place) { build(:place, organization: user.organization) }
+    let(:agenda) { build :agenda, place: }
+    let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
+
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
@@ -359,7 +382,10 @@ describe AppointmentPolicy do
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
+      let(:organization2) { build :organization, organization_type: 'spip' }
+      let(:place) { build(:place, organization: organization2) }
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+      let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -390,7 +416,11 @@ describe AppointmentPolicy do
   end
 
   context 'for a greff_co user' do
-    let(:user) { build(:user, role: 'greff_co') }
+    let(:organization) { build(:organization, organization_type: 'tj') }
+    let(:user) { build(:user, role: 'greff_co', organization:) }
+    let(:place) { build(:place, organization: user.organization) }
+    let(:agenda) { build :agenda, place: }
+    let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -413,7 +443,10 @@ describe AppointmentPolicy do
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
+      let(:organization2) { build :organization, organization_type: 'spip' }
+      let(:place) { build(:place, organization: organization2) }
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+      let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -444,7 +477,11 @@ describe AppointmentPolicy do
   end
 
   context 'for a greff_tpe user' do
-    let(:user) { build(:user, role: 'greff_tpe', organization: slot.place.organization) }
+    let(:organization) { build(:organization, organization_type: 'tj') }
+    let(:user) { build(:user, role: 'greff_tpe', organization:) }
+    let(:place) { build(:place, organization: user.organization) }
+    let(:agenda) { build :agenda, place: }
+    let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -467,7 +504,10 @@ describe AppointmentPolicy do
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
+      let(:organization2) { build :organization, organization_type: 'spip' }
+      let(:place) { build(:place, organization: organization2) }
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+      let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -498,7 +538,11 @@ describe AppointmentPolicy do
   end
 
   context 'for a greff_crpc user' do
-    let(:user) { build(:user, role: 'greff_crpc', organization: slot.place.organization) }
+    let(:organization) { build(:organization, organization_type: 'tj') }
+    let(:user) { build(:user, role: 'greff_crpc', organization:) }
+    let(:place) { build(:place, organization: user.organization) }
+    let(:agenda) { build :agenda, place: }
+    let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -521,7 +565,10 @@ describe AppointmentPolicy do
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
+      let(:organization2) { build :organization, organization_type: 'spip' }
+      let(:place) { build(:place, organization: organization2) }
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+      let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -552,7 +599,11 @@ describe AppointmentPolicy do
   end
 
   context 'for a greff_ca user' do
-    let(:user) { build(:user, role: 'greff_ca', organization: slot.place.organization) }
+    let(:organization) { build(:organization, organization_type: 'tj') }
+    let(:user) { build(:user, role: 'greff_co', organization:) }
+    let(:place) { build(:place, organization: user.organization) }
+    let(:agenda) { build :agenda, place: }
+    let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -575,7 +626,10 @@ describe AppointmentPolicy do
     end
 
     context "for an appointment_type Sortie d'audience SPIP" do
+      let(:organization2) { build :organization, organization_type: 'spip' }
+      let(:place) { build(:place, organization: organization2) }
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+      let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -629,7 +683,7 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type Convocation de suivi JAP' do
-      let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi JAP') }
+      let(:appointment_type) { create(:appointment_type, name: "Convocation de suivi JAP") }
 
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }

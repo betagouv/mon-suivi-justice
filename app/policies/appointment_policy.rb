@@ -3,7 +3,7 @@ class AppointmentPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.work_at_bex?
+      if user.work_at_bex? || user.local_admin_tj?
         scope.in_jurisdiction(user.organization).or(scope.created_by_organization(user.organization)).distinct
       else
         scope.in_organization(user.organization)
@@ -32,7 +32,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def update?
-    hability_check
+    ownership_check && hability_check
   end
 
   def new?
@@ -44,29 +44,29 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def destroy?
-    hability_check
+    ownership_check && hability_check
   end
 
   def cancel?
     return false unless record.booked?
 
-    hability_check
+    ownership_check && hability_check
   end
 
   def fulfil?
-    appointment_fulfilment
+    ownership_check && appointment_fulfilment
   end
 
   def miss?
-    appointment_fulfilment
+    ownership_check && appointment_fulfilment
   end
 
   def excuse?
-    appointment_fulfilment
+    ownership_check && appointment_fulfilment
   end
 
   def rebook?
-    appointment_fulfilment
+    ownership_check && appointment_fulfilment
   end
 
   def prepare?
@@ -74,15 +74,15 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def fulfil_old?
-    appointment_fulfilment(allow_fulfil_old: true)
+    ownership_check && appointment_fulfilment(allow_fulfil_old: true)
   end
 
   def excuse_old?
-    appointment_fulfilment(allow_fulfil_old: true)
+    ownership_check && appointment_fulfilment(allow_fulfil_old: true)
   end
 
   def rebook_old?
-    appointment_fulfilment(allow_fulfil_old: true)
+    ownership_check && appointment_fulfilment(allow_fulfil_old: true)
   end
 
   private
@@ -101,4 +101,11 @@ class AppointmentPolicy < ApplicationPolicy
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  def ownership_check
+    return true if record.created_by_organization?(user.organization)
+    return record.in_jurisdiction?(user.organization) if user.work_at_bex? || user.local_admin_tj?
+
+    record.in_organization?(user.organization)
+  end
 end
