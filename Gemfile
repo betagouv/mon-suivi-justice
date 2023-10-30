@@ -21,7 +21,7 @@ gem 'cocoon', '~> 1.2'
 
 gem 'phony_rails', '~> 0.15'
 
-gem 'ransack', '~>3.2'
+gem 'ransack', '~>4.1'
 gem 'kaminari', '~> 1.2'
 gem 'font-awesome-rails', '~> 4.7'
 
