@@ -6,8 +6,10 @@ module Admin
 
       LinkConvictFromOrganizationsSourceJob.perform_later(organization, current_user,
                                                           organization.linked_organizations.to_a)
-      flash.now[:success] =
+      flash[:success] =
         'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
+
+      redirect_to admin_organization_path(organization)
     end
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
