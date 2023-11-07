@@ -41,15 +41,15 @@ module Admin
         csv_errors.push("Erreur : #{e.message} sur la ligne #{i}")
       end
     rescue StandardError => e
-      flash.now[:error] = "Erreur : #{e.message}"
+      flash[:error] = "Erreur : #{e.message}"
     else
       SrjImportJob.perform_later(srj_data, current_user, csv_errors)
 
-      flash.now[:success] =
+      flash[:success] =
         'Import SRJ en cours ! Vous recevrez le rapport par mail dans quelques minutes'
     ensure
       temp_csv&.unlink
-      render :index
+      redirect_to admin_import_srjs_path
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
