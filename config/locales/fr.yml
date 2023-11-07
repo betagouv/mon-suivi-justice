@@ -542,6 +542,8 @@ fr:
     send_now_reschedule_notification: "[Texte du SMS] %{content}"
     failed_programmed_reminder_notification_title: "Echec de l'envoi du SMS (rappel)"
     failed_programmed_reminder_notification: "Suite à une difficulté technique le SMS de rappel n'a pas été envoyé à %{name}."
+    cancel_reminder_notification_title: "SMS de rappel annulé"
+    cancel_reminder_notification: "Le SMS de rappel ne sera pas envoyé à %{name} car la convocation a été annulée."
 
     reschedule_appointment_title: "Convocation replanifiée"
     reschedule_appointment: "La convocation a été replanifiée."
