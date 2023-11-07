@@ -22,7 +22,10 @@ RSpec.feature 'Appointments', type: :feature do
 
       convict = create(:convict, organizations: [@user.organization])
 
-      @appointment1 = create(:appointment, :with_notifications, convict:, slot: @slot1)
+      @appointment1 = create(:appointment, :with_notifications,
+                             convict:,
+                             slot: @slot1,
+                             creating_organization: @user.organization)
       create(:appointment, convict:, slot: slot2)
       create(:appointment, convict:, slot: slot3)
     end
@@ -384,8 +387,11 @@ RSpec.feature 'Appointments', type: :feature do
 
   describe 'show', logged_in_as: 'cpip' do
     it 'displays appointment data' do
+      place = create :place, organization: @user.organization
+      agenda = create(:agenda, place:)
       appointment_type = create :appointment_type, name: "Sortie d'audience SPIP"
       slot = create(:slot, :without_validations, appointment_type:,
+                                                 agenda:,
                                                  date: Date.civil(2025, 4, 16).to_fs,
                                                  starting_time: new_time_for(17, 0))
 
