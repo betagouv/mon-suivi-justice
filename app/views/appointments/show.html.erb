@@ -104,12 +104,12 @@
               <% end %>
               <p class="show-appointment-state-container">
                 <strong><%= t('appointment_state') %></strong> : <%= @appointment.human_state_name %>
-                <% if @appointment.can_rebook? && @appointment.no_show? %>
+                <% if policy(@appointment).rebook? && @appointment.can_rebook? && @appointment.no_show? %>
                   <%= content_tag(:span, t('edit'),
                                     class: 'show-appointment-change-state-link fake-link',
                                     data: { 'micromodal-trigger': "rebook-missed-appointment-modal-#{@appointment.id}" }) %>
                   <%= render 'rebook_missed_appointment_modal', apt: @appointment %>
-                <% elsif @appointment.can_rebook? %>
+                <% elsif policy(@appointment).rebook? && @appointment.can_rebook? %>
                   <%= link_to t('edit'), appointment_rebook_path(@appointment), class: 'show-appointment-change-state-link', data: { "turbo-method": :put } %>
                 <% end %>
               </p>
