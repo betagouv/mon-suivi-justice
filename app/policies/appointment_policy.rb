@@ -104,6 +104,7 @@ class AppointmentPolicy < ApplicationPolicy
 
   def ownership_check
     return true if record.created_by_organization?(user.organization)
+
     return record.in_jurisdiction?(user.organization) if user.work_at_bex? || user.local_admin_tj?
 
     record.in_organization?(user.organization)
