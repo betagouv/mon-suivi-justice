@@ -1422,7 +1422,6 @@ describe AppointmentPolicy do
     it { is_expected.to forbid_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
-
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
