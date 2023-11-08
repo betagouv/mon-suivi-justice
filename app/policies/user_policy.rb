@@ -10,7 +10,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    check_ownership
+    check_ownership && allow_user_actions?
   end
 
   def update?
@@ -22,11 +22,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    check_ownership
+    check_ownership && allow_user_actions?
   end
 
   def destroy?
-    check_ownership
+    check_ownership && allow_user_actions?
   end
 
   def invitation_link?
@@ -62,5 +62,9 @@ class UserPolicy < ApplicationPolicy
     return record.organization == user.organization if user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
 
     user == record
+  end
+
+  def allow_user_actions?
+    user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
   end
 end

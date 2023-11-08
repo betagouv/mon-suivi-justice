@@ -323,7 +323,7 @@ describe UserPolicy do
   end
 
   context 'for a local_admin' do
-    let(:user) { build(:user, role: 'local_admin') }
+    let(:user) { build(:user, role: 'local_admin', organization: tested_user.organization) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -336,6 +336,7 @@ describe UserPolicy do
 
   context 'for a prosecutor' do
     let(:user) { build(:user, role: 'prosecutor') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -348,6 +349,7 @@ describe UserPolicy do
 
   context 'for a jap user' do
     let(:user) { build(:user, role: 'jap') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -360,6 +362,7 @@ describe UserPolicy do
 
   context 'for a court secretary' do
     let(:user) { build(:user, role: 'secretary_court') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -371,7 +374,9 @@ describe UserPolicy do
   end
 
   context 'for a dir_greff_bex user' do
-    let(:user) { build(:user, role: 'dir_greff_bex') }
+    let(:organization) { build(:organization, organization_type: 'tj') }
+    let(:user) { build(:user, role: 'dir_greff_bex', organization:) }
+    let(:tested_user) { build(:user, organization:) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -384,6 +389,7 @@ describe UserPolicy do
 
   context 'for a bex user' do
     let(:user) { build(:user, role: 'bex') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -396,6 +402,7 @@ describe UserPolicy do
 
   context 'for a greff_co user' do
     let(:user) { build(:user, role: 'greff_co') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -407,7 +414,9 @@ describe UserPolicy do
   end
 
   context 'for a dir_greff_sap user' do
-    let(:user) { build(:user, role: 'dir_greff_sap') }
+    let(:organization) { build(:organization, organization_type: 'tj') }
+    let(:user) { build(:user, role: 'dir_greff_sap', organization:) }
+    let(:tested_user) { build(:user, organization:) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -420,6 +429,7 @@ describe UserPolicy do
 
   context 'for a greff_sap user' do
     let(:user) { build(:user, role: 'greff_sap') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -432,6 +442,7 @@ describe UserPolicy do
 
   context 'for a cpip user' do
     let(:user) { build(:user, role: 'cpip') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -444,6 +455,7 @@ describe UserPolicy do
 
   context 'for a educator user' do
     let(:user) { build(:user, role: 'educator') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -456,6 +468,7 @@ describe UserPolicy do
 
   context 'for a psychologist user' do
     let(:user) { build(:user, role: 'psychologist') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -468,6 +481,7 @@ describe UserPolicy do
 
   context 'for a overseer user' do
     let(:user) { build(:user, role: 'overseer') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -480,6 +494,7 @@ describe UserPolicy do
 
   context 'for a dpip user' do
     let(:user) { build(:user, role: 'dpip') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
@@ -492,6 +507,7 @@ describe UserPolicy do
 
   context 'for a secretary_spip user' do
     let(:user) { build(:user, role: 'secretary_spip') }
+    let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
