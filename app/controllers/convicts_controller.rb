@@ -54,8 +54,6 @@ class ConvictsController < ApplicationController
 
     old_phone = @convict.phone
 
-    return render :edit, status: :unprocessable_entity if bex_user_and_invalid_convict?
-
     update_convict
 
     if @convict.errors.empty?
@@ -182,10 +180,6 @@ class ConvictsController < ApplicationController
 
   def force_duplication?
     ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
-  end
-
-  def bex_user_and_invalid_convict?
-    current_user.work_at_bex? && !@convict.valid?(:user_works_at_bex)
   end
 
   def update_convict
