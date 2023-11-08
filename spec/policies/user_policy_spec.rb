@@ -6,6 +6,21 @@ describe UserPolicy do
   let(:tested_user) { build(:user, :in_organization) }
 
   context 'check_ownership' do
+    context 'should be called by' do
+      let(:user) { build(:user, :in_organization, role: 'local_admin') }
+      it 'show' do
+        expect(subject).to receive(:check_ownership)
+        subject.show?
+      end
+      it 'update' do
+        expect(subject).to receive(:check_ownership)
+        subject.update?
+      end
+      it 'destroy' do
+        expect(subject).to receive(:check_ownership)
+        subject.destroy?
+      end
+    end
     context 'for a local_admin' do
       context 'own self' do
         let(:user) { build(:user, :in_organization, role: 'local_admin') }
@@ -196,10 +211,10 @@ describe UserPolicy do
       end
       context 'own user in organization' do
         let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
-        it { expect(subject.send(:check_ownership)).to eq(false) }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'does not own user outside organization' do
-        it { expect(subject.send(:check_ownership)).to eq(false) }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
       end
     end
 

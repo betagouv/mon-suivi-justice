@@ -10,12 +10,10 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
+    check_ownership
   end
 
   def update?
-    p record
-    p user
     check_ownership
   end
 
@@ -24,11 +22,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
+    check_ownership
   end
 
   def destroy?
-    user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
+    check_ownership
   end
 
   def invitation_link?
@@ -40,7 +38,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def stop_impersonating?
-    true
+    user.admin?
   end
 
   def search?
@@ -52,12 +50,15 @@ class UserPolicy < ApplicationPolicy
   end
 
   def mutate?
-    user.admin? || user.local_admin?
+    return true if user.admin?
+
+    user.local_admin? && user.organization == record.organization
   end
 
   private
 
   def check_ownership
+    return true if user.admin?
     return record.organization == user.organization if user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
 
     user == record
