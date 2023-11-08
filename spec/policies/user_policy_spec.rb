@@ -187,6 +187,112 @@ describe UserPolicy do
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
     end
+    context 'for an admin' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'admin', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+
+    context 'for a cpip' do
+      let(:organization) { build(:organization, organization_type: 'spip') }
+      let(:user) { build(:user, role: 'cpip', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a dpip' do
+      let(:organization) { build(:organization, organization_type: 'spip') }
+      let(:user) { build(:user, role: 'dpip', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for an educator' do
+      let(:organization) { build(:organization, organization_type: 'spip') }
+      let(:user) { build(:user, role: 'educator', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a psychologist' do
+      let(:organization) { build(:organization, organization_type: 'spip') }
+      let(:user) { build(:user, role: 'psychologist', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for an overseer' do
+      let(:organization) { build(:organization, organization_type: 'spip') }
+      let(:user) { build(:user, role: 'overseer', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a secretary_spip' do
+      let(:organization) { build(:organization, organization_type: 'spip') }
+      let(:user) { build(:user, role: 'secretary_spip', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
   end
 
   context 'for an admin' do
