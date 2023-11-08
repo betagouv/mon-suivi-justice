@@ -58,17 +58,17 @@ module Admin
         csv_errors.push("Erreur : #{e.message} sur la ligne #{i}")
       end
     rescue StandardError => e
-      flash.now[:error] = "Erreur : #{e.message}"
+      flash[:error] = "Erreur : #{e.message}"
     else
       target = [@organization] if @organization.present?
       target = @headquarter.organizations.to_a if @headquarter&.organizations&.any?
 
       AppiImportJob.perform_later(appi_data, target, current_user, csv_errors) if target.present?
-      flash.now[:success] =
+      flash[:success] =
         'Import en cours ! Vous recevrez le rapport par mail dans quelques minutes'
     ensure
       temp_csv&.unlink
-      render :index
+      redirect_to admin_import_convicts_path
     end
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity

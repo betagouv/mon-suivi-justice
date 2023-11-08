@@ -86,7 +86,7 @@
       </div>
     <% end %>
 
-    <% if policy(:appointment).show? %>
+    <% if policy(appointment).show? %>
       <%= link_to t('index-appointment-see-data'), appointment_path(appointment), class: 'index-card-see-infos' %>
     <% end %>
   </div>
