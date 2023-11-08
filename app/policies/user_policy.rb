@@ -14,11 +14,13 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    true
+    p record
+    p user
+    check_ownership
   end
 
   def show?
-    true
+    check_ownership
   end
 
   def create?
@@ -51,5 +53,13 @@ class UserPolicy < ApplicationPolicy
 
   def mutate?
     user.admin? || user.local_admin?
+  end
+
+  private
+
+  def check_ownership
+    return record.organization == user.organization if user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
+
+    user == record
   end
 end

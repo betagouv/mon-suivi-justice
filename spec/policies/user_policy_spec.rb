@@ -3,7 +3,56 @@ require 'rails_helper'
 describe UserPolicy do
   subject { UserPolicy.new(user, tested_user) }
 
-  let(:tested_user) { build(:user) }
+  let(:tested_user) { build(:user, :in_organization) }
+
+  context 'check_ownership' do
+    context 'for a local_admin' do
+      context 'own self' do
+        let(:user) { build(:user, :in_organization, role: 'local_admin') }
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:user) { build(:user, role: 'local_admin', organization: tested_user.organization) }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'does not own user outside organization' do
+        let(:organization) { build(:organization) }
+        let(:user) { build(:user, role: 'local_admin', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a dir_greff_bex' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'dir_greff_bex', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a dir_greff_sap' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'dir_greff_sap', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+  end
 
   context 'for an admin' do
     let(:user) { build(:user, role: 'admin') }
