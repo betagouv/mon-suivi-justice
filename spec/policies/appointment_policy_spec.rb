@@ -58,6 +58,354 @@ describe AppointmentPolicy do
     end
   end
 
+  context 'show?' do
+    context 'for an appointment within the organization' do
+      context 'for an admin' do
+        let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
+        it { is_expected.to permit_action(:show) }
+      end
+      context 'for a cpip' do
+        let(:user) { build(:user, role: 'cpip', organization: slot.place.organization) }
+        it { is_expected.to permit_action(:show) }
+      end
+      context 'for a psychologist' do
+        let(:user) { build(:user, role: 'psychologist', organization: slot.place.organization) }
+        it { is_expected.to permit_action(:show) }
+      end
+      context 'for an overseer' do
+        let(:user) { build(:user, role: 'overseer', organization: slot.place.organization) }
+        it { is_expected.to permit_action(:show) }
+      end
+      context 'for a secretary_spip' do
+        let(:user) { build(:user, role: 'secretary_spip', organization: slot.place.organization) }
+        it { is_expected.to permit_action(:show) }
+      end
+      context 'for a dpip' do
+        let(:user) { build(:user, role: 'dpip', organization: slot.place.organization) }
+        it { is_expected.to permit_action(:show) }
+      end
+      context 'for an educator' do
+        let(:user) { build(:user, role: 'educator', organization: slot.place.organization) }
+        it { is_expected.to permit_action(:show) }
+      end
+      context 'for a local_admin spip' do
+        let(:user) { build(:user, role: 'cpip', organization: slot.place.organization) }
+        it { is_expected.to permit_action(:show) }
+      end
+
+      context 'tj' do
+        let(:organization) { build(:organization, organization_type: 'tj') }
+        let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
+
+        context 'for a secretary_court' do
+          let(:user) { build(:user, role: 'secretary_court', organization: slot.place.organization) }
+          it { is_expected.to permit_action(:show) }
+        end
+        context 'for a jap' do
+          let(:user) { build(:user, role: 'jap', organization: slot.place.organization) }
+          it { is_expected.to permit_action(:show) }
+        end
+        context 'for a dir_greff_sap' do
+          let(:user) { build(:user, role: 'dir_greff_sap', organization: slot.place.organization) }
+          it { is_expected.to permit_action(:show) }
+        end
+        context 'for a greff_sap' do
+          let(:user) { build(:user, role: 'greff_sap', organization: slot.place.organization) }
+          it { is_expected.to permit_action(:show) }
+        end
+
+        context 'for a local admin tj' do
+          let(:user) { build(:user, role: 'local_admin', organization: slot.place.organization) }
+          it { is_expected.to permit_action(:show) }
+        end
+
+        context 'work at bex' do
+          context 'for a prosecutor' do
+            let(:user) { build(:user, role: 'prosecutor', organization: slot.place.organization) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a bex' do
+            let(:user) { build(:user, role: 'bex', organization: slot.place.organization) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a dir_greff_bex' do
+            let(:user) { build(:user, role: 'dir_greff_bex', organization: slot.place.organization) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_co' do
+            let(:user) { build(:user, role: 'greff_co', organization: slot.place.organization) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_tpe' do
+            let(:user) { build(:user, role: 'greff_tpe', organization: slot.place.organization) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_crpc' do
+            let(:user) { build(:user, role: 'greff_crpc', organization: slot.place.organization) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_ca' do
+            let(:user) { build(:user, role: 'greff_ca', organization: slot.place.organization) }
+            it { is_expected.to permit_action(:show) }
+          end
+        end
+      end
+    end
+
+    context 'for an appointment created by the organization' do
+      context 'tj' do
+        let(:organization2) { build(:organization, organization_type: 'tj') }
+        let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+        let!(:appointment) do
+          create(:appointment, slot:, state: :booked, creating_organization: organization2, convict:)
+        end
+        context 'for a secretary_court' do
+          let(:user) { build(:user, role: 'secretary_court', organization: organization2) }
+          it { is_expected.to permit_action(:show) }
+        end
+        context 'for a jap' do
+          let(:user) { build(:user, role: 'jap', organization: organization2) }
+          it { is_expected.to permit_action(:show) }
+        end
+        context 'for a dir_greff_sap' do
+          let(:user) { build(:user, role: 'dir_greff_sap', organization: organization2) }
+          it { is_expected.to permit_action(:show) }
+        end
+        context 'for a greff_sap' do
+          let(:user) { build(:user, role: 'greff_sap', organization: organization2) }
+          it { is_expected.to permit_action(:show) }
+        end
+
+        context 'for a local admin tj' do
+          let(:user) { build(:user, role: 'local_admin', organization: organization2) }
+          it { is_expected.to permit_action(:show) }
+        end
+
+        context 'work at bex' do
+          context 'for a prosecutor' do
+            let(:user) { build(:user, role: 'prosecutor', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a bex' do
+            let(:user) { build(:user, role: 'bex', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a dir_greff_bex' do
+            let(:user) { build(:user, role: 'dir_greff_bex', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_co' do
+            let(:user) { build(:user, role: 'greff_co', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_tpe' do
+            let(:user) { build(:user, role: 'greff_tpe', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_crpc' do
+            let(:user) { build(:user, role: 'greff_crpc', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_ca' do
+            let(:user) { build(:user, role: 'greff_ca', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+        end
+      end
+    end
+
+    context 'for an appointment outside of the organization' do
+      let(:organization2) { build(:organization, organization_type: 'spip') }
+      context 'for an admin' do
+        let(:user) { build(:user, role: 'admin', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for a cpip' do
+        let(:user) { build(:user, role: 'cpip', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for a psychologist' do
+        let(:user) { build(:user, role: 'psychologist', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for an overseer' do
+        let(:user) { build(:user, role: 'overseer', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for a secretary_spip' do
+        let(:user) { build(:user, role: 'secretary_spip', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for a dpip' do
+        let(:user) { build(:user, role: 'dpip', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for an educator' do
+        let(:user) { build(:user, role: 'educator', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for a local_admin spip' do
+        let(:user) { build(:user, role: 'cpip', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+
+      context 'tj' do
+        let(:organization) { build(:organization, organization_type: 'spip') }
+        let(:organization2) { build(:organization, organization_type: 'tj') }
+        let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
+
+        context 'for a secretary_court' do
+          let(:user) { build(:user, role: 'secretary_court', organization: organization2) }
+          it { is_expected.to forbid_action(:show) }
+        end
+        context 'for a jap' do
+          let(:user) { build(:user, role: 'jap', organization: organization2) }
+          it { is_expected.to forbid_action(:show) }
+        end
+        context 'for a dir_greff_sap' do
+          let(:user) { build(:user, role: 'dir_greff_sap', organization: organization2) }
+          it { is_expected.to forbid_action(:show) }
+        end
+        context 'for a greff_sap' do
+          let(:user) { build(:user, role: 'greff_sap', organization: organization2) }
+          it { is_expected.to forbid_action(:show) }
+        end
+
+        context 'for a local admin tj' do
+          let(:user) { build(:user, role: 'local_admin', organization: organization2) }
+          it { is_expected.to forbid_action(:show) }
+        end
+
+        context 'work at bex' do
+          context 'for a prosecutor' do
+            let(:user) { build(:user, role: 'prosecutor', organization: organization2) }
+            it { is_expected.to forbid_action(:show) }
+          end
+          context 'for a bex' do
+            let(:user) { build(:user, role: 'bex', organization: organization2) }
+            it { is_expected.to forbid_action(:show) }
+          end
+          context 'for a dir_greff_bex' do
+            let(:user) { build(:user, role: 'dir_greff_bex', organization: organization2) }
+            it { is_expected.to forbid_action(:show) }
+          end
+          context 'for a greff_co' do
+            let(:user) { build(:user, role: 'greff_co', organization: organization2) }
+            it { is_expected.to forbid_action(:show) }
+          end
+          context 'for a greff_tpe' do
+            let(:user) { build(:user, role: 'greff_tpe', organization: organization2) }
+            it { is_expected.to forbid_action(:show) }
+          end
+          context 'for a greff_crpc' do
+            let(:user) { build(:user, role: 'greff_crpc', organization: organization2) }
+            it { is_expected.to forbid_action(:show) }
+          end
+          context 'for a greff_ca' do
+            let(:user) { build(:user, role: 'greff_ca', organization: organization2) }
+            it { is_expected.to forbid_action(:show) }
+          end
+        end
+      end
+    end
+
+    context 'for an appointment in jurisdiction' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
+      let(:organization2) { build(:organization, organization_type: 'spip', tjs: [slot.place.organization]) }
+      context 'for an admin' do
+        let(:user) { build(:user, role: 'admin', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for a cpip' do
+        let(:user) { build(:user, role: 'cpip', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for a psychologist' do
+        let(:user) { build(:user, role: 'psychologist', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for an overseer' do
+        let(:user) { build(:user, role: 'overseer', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for a secretary_spip' do
+        let(:user) { build(:user, role: 'secretary_spip', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for a dpip' do
+        let(:user) { build(:user, role: 'dpip', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for an educator' do
+        let(:user) { build(:user, role: 'educator', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+      context 'for a local_admin spip' do
+        let(:user) { build(:user, role: 'cpip', organization: organization2) }
+        it { is_expected.to forbid_action(:show) }
+      end
+
+      context 'tj' do
+        let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
+        let(:organization2) { build(:organization, organization_type: 'tj', spips: [slot.place.organization]) }
+
+        context 'for a secretary_court' do
+          let(:user) { build(:user, role: 'secretary_court', organization: organization2) }
+          it { is_expected.to forbid_action(:show) }
+        end
+        context 'for a jap' do
+          let(:user) { build(:user, role: 'jap', organization: organization2) }
+          it { is_expected.to forbid_action(:show) }
+        end
+        context 'for a dir_greff_sap' do
+          let(:user) { build(:user, role: 'dir_greff_sap', organization: organization2) }
+          it { is_expected.to forbid_action(:show) }
+        end
+        context 'for a greff_sap' do
+          let(:user) { build(:user, role: 'greff_sap', organization: organization2) }
+          it { is_expected.to forbid_action(:show) }
+        end
+
+        context 'for a local admin tj' do
+          let(:user) { build(:user, role: 'local_admin', organization: organization2) }
+          it { is_expected.to permit_action(:show) }
+        end
+
+        context 'work at bex' do
+          context 'for a prosecutor' do
+            let(:user) { build(:user, role: 'prosecutor', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a bex' do
+            let(:user) { build(:user, role: 'bex', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a dir_greff_bex' do
+            let(:user) { build(:user, role: 'dir_greff_bex', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_co' do
+            let(:user) { build(:user, role: 'greff_co', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_tpe' do
+            let(:user) { build(:user, role: 'greff_tpe', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_crpc' do
+            let(:user) { build(:user, role: 'greff_crpc', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+          context 'for a greff_ca' do
+            let(:user) { build(:user, role: 'greff_ca', organization: organization2) }
+            it { is_expected.to permit_action(:show) }
+          end
+        end
+      end
+    end
+  end
+
   context 'for an admin' do
     let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
 
