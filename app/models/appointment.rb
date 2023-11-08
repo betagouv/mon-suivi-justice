@@ -120,6 +120,18 @@ class Appointment < ApplicationRecord
                                                                                              place_name:))
   end
 
+  def in_organization?(orga)
+    organization == orga
+  end
+
+  def in_jurisdiction?(orga)
+    convict.organizations.include?(orga) || convict.organizations.to_a.intersection(orga.linked_organizations).any?
+  end
+
+  def created_by_organization?(orga)
+    creating_organization == orga
+  end
+
   state_machine initial: :created do
     state :created do
     end
