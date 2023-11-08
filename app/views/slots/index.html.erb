@@ -45,12 +45,13 @@
       <%= button_tag t('filter'), type: 'submit', class: 'fr-btn fr-btn--secondary', form: 'index-header-filters-form' %>
     </div>
   </div>
-  <div class="fr-grid-row fr-grid-row--gutters fr-mb-1w">
-    <div class="fr-col fr-checkbox-group">
-      <%= f.check_box :full_true, { class: 'fr-checkbox' } %>
-      <%= f.label :full_true, t('index-slots-full-filter'), class: 'fr-label' %>
-    </div>
+<div class="fr-grid-row fr-grid-row--gutters fr-mb-1w">
+  <%= @q.inspect %>
+  <div class="fr-col fr-checkbox-group">
+    <%= f.check_box :full_eq, { class: 'fr-checkbox', checked: params.dig(:q, :full_eq).blank? } %>
+    <%= f.label :full_eq, t('index-slots-full-filter'), class: 'fr-label' %>
   </div>
+</div>
 <% end %>
 <div class="fr-table fr-table--bordered fr-table--layout-fixed">
   <%= form_tag slots_batch_path, method: 'put', id: 'index-slots-update-form' do %>

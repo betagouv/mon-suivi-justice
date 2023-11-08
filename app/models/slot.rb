@@ -63,6 +63,14 @@ class Slot < ApplicationRecord
       .where('slots.available = true OR appointments.id IS NOT NULL')
   }
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[full agenda_id appointment_type_id date]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[agenda appointment_type]
+  end
+
   def all_capacity_used?
     used_capacity == capacity
   end

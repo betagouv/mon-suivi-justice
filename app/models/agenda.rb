@@ -26,6 +26,10 @@ class Agenda < ApplicationRecord
     joins(:slots).where('slots.appointment_type_id = ?', appointment_type.id).uniq
   }
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[place_id]
+  end
+
   def appointment_type_with_slot_types?
     appointment_type_with_slot_types.length.positive?
   end

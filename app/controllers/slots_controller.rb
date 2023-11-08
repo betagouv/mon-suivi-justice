@@ -43,7 +43,7 @@ class SlotsController < ApplicationController
   private
 
   def slot_params
-    params.require(:slot).permit(:agenda_id, :appointment_type_id,
+    params.require(:slot).permit(:full, :agenda_id, :appointment_type_id,
                                  :date, :starting_time, :available, :capacity, :duration)
   end
 
@@ -54,6 +54,7 @@ class SlotsController < ApplicationController
   end
 
   def set_query_params
-    params[:q] = { full_true: 0 } if params[:q].nil?
+    params[:q] ||= {}
+    params[:q][:full_eq] = params[:q][:full_eq] == '1' ? nil : '0'
   end
 end
