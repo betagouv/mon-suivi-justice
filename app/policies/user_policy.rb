@@ -10,7 +10,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    check_ownership && allow_user_actions?
+    allow_user_actions?
   end
 
   def update?
@@ -21,12 +21,16 @@ class UserPolicy < ApplicationPolicy
     check_ownership
   end
 
+  def new?
+    allow_user_actions?
+  end
+
   def create?
     check_ownership && allow_user_actions?
   end
 
   def destroy?
-    check_ownership && allow_user_actions?
+    check_ownership && allow_user_actions? && user != record
   end
 
   def invitation_link?

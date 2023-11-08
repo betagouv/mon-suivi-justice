@@ -15,7 +15,7 @@
                                                 form_class: 'show-button-to-edit-form',
                                                 class: 'fr-btn' %>
 
-                  <% if policy(:user).index? && current_user != @user %>
+                  <% if policy(@user).destroy? %>
                       <%= button_to t('delete'), user_path(@user),
                                                 method: :delete,
                                                 data: { 'turbo-confirm': t('basic_confirmation') },

@@ -20,10 +20,6 @@ describe UserPolicy do
         expect(subject).to receive(:check_ownership)
         subject.destroy?
       end
-      it 'index' do
-        expect(subject).to receive(:check_ownership)
-        subject.destroy?
-      end
       it 'create' do
         expect(subject).to receive(:check_ownership)
         subject.destroy?
