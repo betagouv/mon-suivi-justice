@@ -52,6 +52,141 @@ describe UserPolicy do
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
     end
+    context 'for a greff_sap' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'greff_sap', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a greff_co' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'greff_co', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a greff_ca' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'greff_ca', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a greff_crpc' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'greff_crpc', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a greff_tpe' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'greff_tpe', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a prosecutor' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'prosecutor', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a jap' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'jap', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a secretary_court' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'secretary_court', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
+    context 'for a bex' do
+      let(:organization) { build(:organization, organization_type: 'tj') }
+      let(:user) { build(:user, role: 'bex', organization:) }
+      context 'own self' do
+        let(:tested_user) { user }
+        it { expect(subject.send(:check_ownership)).to eq(true) }
+      end
+      context 'own user in organization' do
+        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+      context 'does not own user outside organization' do
+        it { expect(subject.send(:check_ownership)).to eq(false) }
+      end
+    end
   end
 
   context 'for an admin' do
