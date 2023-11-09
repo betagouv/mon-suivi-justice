@@ -46,4 +46,23 @@ RSpec.feature 'Organizations', type: :feature, logged_in_as: 'admin' do
       expect(orga.time_zone).to eq('Europe/Samara')
     end
   end
+
+  scenario 'An admin adds an extra field to an organization', js: true, logged_in_as: 'admin' do
+    place = create :place, organization: @user.organization
+    agenda = create(:agenda, place:)
+
+    apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SAP")
+
+    create(:slot, :without_validations, agenda:,
+                                        date: Date.civil(2025, 4, 14),
+                                        appointment_type: apt_type,
+                                        starting_time: new_time_for(13, 0))
+
+    visit edit_organization_path(@user.organization)
+    click_button 'Ajouter une colonne'
+    fill_in 'Nom de la colonne', with: 'Colonne de test'
+
+    page.check "Sortie d'audience SAP"
+    expect { click_button 'Enregistrer' }.to change { ExtraField.count }.by(1)
+  end
 end
