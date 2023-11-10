@@ -67,7 +67,7 @@ class Slot < ApplicationRecord
     %w[full agenda_id appointment_type_id date]
   end
 
-  def self.ransackable_associations(auth_object = nil)
+  def self.ransackable_associations(_auth_object = nil)
     %w[agenda appointment_type]
   end
 
