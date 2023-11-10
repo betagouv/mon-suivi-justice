@@ -46,7 +46,6 @@
     </div>
   </div>
 <div class="fr-grid-row fr-grid-row--gutters fr-mb-1w">
-  <%= @q.inspect %>
   <div class="fr-col fr-checkbox-group">
     <%= f.check_box :full_eq, { class: 'fr-checkbox', checked: params.dig(:q, :full_eq).blank? } %>
     <%= f.label :full_eq, t('index-slots-full-filter'), class: 'fr-label' %>
