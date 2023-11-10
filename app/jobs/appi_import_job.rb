@@ -31,10 +31,7 @@ class AppiImportJob < ApplicationJob
   def process_convict(convict, target_organizations)
     existing_convict = Convict.find_by(appi_uuid: convict[:appi_uuid])
 
-    unless existing_convict
-      create_convict(convict, target_organizations)
-      return
-    end
+    return create_convict(convict, target_organizations) if existing_convict.blank?
 
     update_convict(existing_convict, target_organizations) if existing_convict.organizations.count == 1
   end
