@@ -71,7 +71,7 @@ class Appointment < ApplicationRecord
   validate :in_the_future, on: :create
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[]
+    %w[user_id]
   end
 
   def self.ransackable_associations(_auth_object = nil)
