@@ -23,7 +23,9 @@ RSpec.describe AppiImportJob, type: :job do
 
     context 'when convict already exists' do
       let!(:existing_organization) { create(:organization, organization_type: 'tj') }
-      let!(:existing_convict) { create(:convict, organizations: [existing_organization], appi_uuid: convict_hash[:appi_uuid]) }
+      let!(:existing_convict) do
+        create(:convict, organizations: [existing_organization], appi_uuid: convict_hash[:appi_uuid])
+      end
 
       it 'does not create a new convict' do
         expect { job.process_convict(convict_hash, target_organizations) }
