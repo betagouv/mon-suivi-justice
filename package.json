@@ -7,7 +7,7 @@
     "@hotwired/stimulus-webpack-helpers": "^1.0.1",
     "@hotwired/turbo-rails": "^7.3.0",
     "@nathanvda/cocoon": "^1.2.14",
-    "@rails/actioncable": "^7.0.7",
+    "@rails/actioncable": "^7.1.2",
     "@rails/actiontext": "^7.0.7",
     "@rails/activestorage": "^7.0.7",
     "@rails/ujs": "^7.0.7",
