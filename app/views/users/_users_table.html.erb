@@ -34,7 +34,7 @@
               <%= link_to t('edit'), edit_user_path(user), class: 'index-control', data: { "turbo-frame": "_top" } %>
             <% end %>
 
-            <% if policy(:user).destroy? %>
+            <% if policy(user).destroy? %>
               <% if !user.admin? %>
                 <%= link_to t('delete'), user_path(user),
                                         data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :delete },
