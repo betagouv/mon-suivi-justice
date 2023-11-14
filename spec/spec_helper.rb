@@ -118,4 +118,10 @@ RSpec.configure do |config|
   config.before(:example, :logged_in_as => 'local_admin') do
     create_user_and_login('local_admin', 'tj')
   end
+  config.before(:example, :logged_in_as => 'local_admin_tj') do
+    create_user_and_login('local_admin', 'tj')
+  end
+  config.before(:example, :logged_in_as => 'local_admin_spip') do
+    create_user_and_login('local_admin', 'spip')
+  end
 end
