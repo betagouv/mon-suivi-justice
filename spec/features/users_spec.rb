@@ -74,7 +74,7 @@ RSpec.feature 'Users', type: :feature do
       expect(@user.share_email_to_convict).to eq(false)
     end
 
-    it 'remove linked convict if role is changed', logged_in_as: 'local_admin' do
+    it 'remove linked convict if role is changed', logged_in_as: 'local_admin_spip' do
       cpip = create(:user, first_name: 'Bob', last_name: 'Dupneu', role: 'cpip', organization: @user.organization)
       create(:convict, user: cpip, organizations: [cpip.organization])
 
