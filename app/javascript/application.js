@@ -11,5 +11,7 @@ import "./components/profile_search"
 import "./components/password_toggle"
 import "./channels"
 
+import "@fortawesome/fontawesome-free/js/all";
+
 Rails.start()
 ActiveStorage.start()
