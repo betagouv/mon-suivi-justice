@@ -2,6 +2,7 @@
 import Rails from "@rails/ujs"
 import { Turbo } from "@hotwired/turbo-rails"
 import * as ActiveStorage from "@rails/activestorage"
+import "./sentry"
 import "./jquery"
 import "@nathanvda/cocoon"
 import "trix"

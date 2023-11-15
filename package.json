@@ -16,6 +16,7 @@
     "@rails/actiontext": "^7.0.7",
     "@rails/activestorage": "^7.0.7",
     "@rails/ujs": "^7.0.7",
+    "@sentry/browser": "^7.80.1",
     "abyme": "^0.7.4",
     "autoprefixer": "^10.4.16",
     "esbuild": "^0.19.9",
@@ -35,7 +36,7 @@
   },
   "version": "0.1.0",
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --loader:.svg=copy --asset-names=[name] --outdir=app/assets/builds --public-path=/assets",
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --loader:.svg=copy --asset-names=[name] --outdir=app/assets/builds --public-path=/assets --define:SENTRY_DSN=\\\"$SENTRY_DNS\\\"",
     "build:css": "postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css"
   },
   "devDependencies": {
