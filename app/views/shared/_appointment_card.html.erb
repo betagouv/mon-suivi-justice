@@ -27,7 +27,7 @@
     <% else %>
       <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
         <div class='index-card-state-container'>
-          <%= fa_icon 'circle', class: "index-appointments-state-icon icon_#{appointment.state}" %>
+          <%= icon('fa', 'circle', class: "index-appointments-state-icon icon_#{appointment.state}" )%>
           <span class='index-card-state-data'><%= appointment.human_state_name %></span>
         </div>
       </div>
