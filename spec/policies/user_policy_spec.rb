@@ -315,7 +315,8 @@ describe UserPolicy do
   end
 
   context 'for an admin' do
-    let(:user) { build(:user, role: 'admin') }
+    let(:organization) { tested_user.organization }
+    let(:user) { build(:user, role: 'admin', organization:) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -324,10 +325,21 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to permit_action(:mutate) }
+
+    context 'for a user in another organization type' do
+      let(:tj) { build(:organization, organization_type: 'tj') }
+      let(:spip) { build(:organization, organization_type: 'spip') }
+      let(:organization) { tj }
+      let(:tested_user) { build(:user, organization: spip) }
+
+      it { is_expected.to forbid_action(:mutate) }
+    end
   end
 
   context 'for a local_admin' do
-    let(:user) { build(:user, role: 'local_admin', organization: tested_user.organization) }
+    let(:organization) { tested_user.organization }
+    let(:user) { build(:user, role: 'local_admin', organization:) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -336,6 +348,16 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to permit_action(:mutate) }
+
+    context 'for a user in another organization type' do
+      let(:tj) { build(:organization, organization_type: 'tj') }
+      let(:spip) { build(:organization, organization_type: 'spip') }
+      let(:organization) { tj }
+      let(:tested_user) { build(:user, organization: spip) }
+
+      it { is_expected.to forbid_action(:mutate) }
+    end
   end
 
   context 'for a prosecutor' do
@@ -349,6 +371,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a jap user' do
@@ -362,6 +385,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a court secretary' do
@@ -375,6 +399,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a dir_greff_bex user' do
@@ -389,6 +414,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a bex user' do
@@ -402,6 +428,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a greff_co user' do
@@ -415,6 +442,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a dir_greff_sap user' do
@@ -429,6 +457,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a greff_sap user' do
@@ -442,6 +471,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a cpip user' do
@@ -455,6 +485,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a educator user' do
@@ -468,6 +499,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a psychologist user' do
@@ -481,6 +513,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a overseer user' do
@@ -494,6 +527,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a dpip user' do
@@ -507,6 +541,7 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 
   context 'for a secretary_spip user' do
@@ -520,5 +555,6 @@ describe UserPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
   end
 end

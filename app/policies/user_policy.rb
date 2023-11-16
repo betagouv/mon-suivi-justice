@@ -56,9 +56,9 @@ class UserPolicy < ApplicationPolicy
   end
 
   def mutate?
-    return false unless record.organization.organization_type == user.organization.organization_type
+    return false unless user.admin? || user.local_admin?
 
-    user.admin? || user.local_admin?
+    record.organization.organization_type == user.organization.organization_type
   end
 
   private
