@@ -20,6 +20,7 @@
     "abyme": "^0.7.4",
     "autoprefixer": "^10.4.16",
     "esbuild": "^0.19.9",
+    "dotenv": "^16.3.1",
     "jquery": "^3.7.1",
     "micromodal": "^0.4.6",
     "postcss": "^8.4.32",
@@ -36,7 +37,7 @@
   },
   "version": "0.1.0",
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --loader:.svg=copy --asset-names=[name] --outdir=app/assets/builds --public-path=/assets --define:SENTRY_DSN=\\\"$SENTRY_DNS\\\"",
+    "build": "node esbuild.config.mjs",
     "build:css": "postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css"
   },
   "devDependencies": {
