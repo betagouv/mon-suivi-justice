@@ -21,12 +21,12 @@
                                                 data: { 'turbo-confirm': t('basic_confirmation') },
                                                 class: 'fr-btn fr-btn--danger' %>
                   <% end %>
-                  <% if policy(@user).invitation_link? && current_user != @user %>
+                  <% if policy(@user).invitation_link? %>
                     <%= button_to t('edit_user_generate_invitation_link'), user_invitation_link_path(@user),
                                                                           class: 'fr-btn', 
                                                                           method: :get %>
                   <% end %>
-                  <% if policy(@user).reset_pwd_link? && current_user != @user %>
+                  <% if policy(@user).reset_pwd_link? %>
                       <%= button_to t('edit_user_generate_reset_pwd_link'), user_reset_pwd_link_path(@user),
                                                                             class: 'fr-btn', 
                                                                             method: :get %>

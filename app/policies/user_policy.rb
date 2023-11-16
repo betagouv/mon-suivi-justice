@@ -36,11 +36,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def invitation_link?
-    user.admin?
+    user.admin? && user != record
   end
 
   def reset_pwd_link?
-    user.admin?
+    user.admin? && user != record
   end
 
   def stop_impersonating?
