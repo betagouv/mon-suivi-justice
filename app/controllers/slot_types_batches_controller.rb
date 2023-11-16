@@ -3,7 +3,6 @@ class SlotTypesBatchesController < ApplicationController
   skip_after_action :verify_authorized
 
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
   def create
     @agenda = Agenda.find(params[:agenda_id])
     @appointment_type = AppointmentType.find_by(id: params[:appointment_type_id])
@@ -19,9 +18,8 @@ class SlotTypesBatchesController < ApplicationController
 
     redirect_back(fallback_location: root_path)
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:enable Metrics/AbcSize
   def destroy
     slot_types = if params.key?(:weekday)
                    SlotType.where(agenda_id: params[:agenda_id], week_day: params[:weekday])

@@ -2,8 +2,12 @@ module UsersHelper
   def available_user_roles
     if current_user.admin?
       ordered_user_roles
+    elsif current_user.local_admin_tj?
+      [:local_admin] + ordered_user_roles.intersection(User.tj_roles)
+    elsif current_user.local_admin_spip?
+      [:local_admin] + ordered_user_roles.intersection(User.spip_roles)
     else
-      ordered_user_roles.reject { |role| role == 'admin' }
+      []
     end
   end
 

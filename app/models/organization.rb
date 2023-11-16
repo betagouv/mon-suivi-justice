@@ -83,7 +83,6 @@ class Organization < ApplicationRecord
 
   private
 
-  # rubocop:disable Metrics/MethodLength
   def extra_fields_count
     return if extra_fields.count <= 3
 
@@ -103,7 +102,6 @@ class Organization < ApplicationRecord
                I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.sap'))
   end
 
-  # rubocop:enable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/PerceivedComplexity
   # rubocop:disable Metrics/CyclomaticComplexity

@@ -4,7 +4,6 @@ class BexController < ApplicationController
   before_action :month, only: :agenda_jap
   skip_after_action :verify_authorized
 
-  # rubocop:disable Metrics/MethodLength
   def agenda_jap
     get_jap_agendas(@appointment_type, params)
 
@@ -35,7 +34,6 @@ class BexController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def agenda_sap_ddse
     authorize Appointment

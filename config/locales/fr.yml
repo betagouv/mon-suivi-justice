@@ -569,7 +569,7 @@ fr:
   users:
     mutate:
       confirmation_message: "Etes-vous certain de vouloir muter cet agent dans votre service ? Cela le supprimera de son service actuel : %{organization_name}. En cas de doute merci de contacter le service actuel au %{phone_number}"
-      call_to_action: "Muter l’agent dans mon service"
+      call_to_action: "Muter l'agent dans mon service"
 
   appointment_place: "Lieu de la convocation"
   appointment_agenda: "Agenda"

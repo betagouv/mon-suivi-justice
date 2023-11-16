@@ -1,5 +1,5 @@
 module AppointmentsHelper
-  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/AbcSize
+  # rubocop:disable Metrics/PerceivedComplexity, Metrics/AbcSize
   def appointment_types_for_user(user)
     if user.work_at_sap?
       list = AppointmentType.used_at_sap?
@@ -19,7 +19,7 @@ module AppointmentsHelper
 
     AppointmentType.where(name: list)
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/AbcSize
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/AbcSize
 
   def spip_user_appointments_types_array(user)
     if user.can_have_appointments_assigned?

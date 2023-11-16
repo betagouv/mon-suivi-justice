@@ -25,7 +25,7 @@ RSpec.feature 'UserMutation', type: :feature do
     ActionMailer::Base.deliveries.clear
   end
 
-  describe 'local admin invites a user from another organization', logged_in_as: 'local_admin', js: true do
+  describe 'local admin invites a user from another organization', logged_in_as: 'local_admin_spip', js: true do
     it 'can invite a user from another organization' do
       visit new_user_invitation_path
 
@@ -34,12 +34,12 @@ RSpec.feature 'UserMutation', type: :feature do
       click_button 'Envoyer invitation'
 
       expect(page).to have_content("est déjà pris par un agent d'un autre service")
-      expect(page).to have_link('Muter l’agent dans mon service')
+      expect(page).to have_link('Muter l\'agent dans mon service')
 
       old_organization = existing_user.organization
 
       accept_alert do
-        click_link 'Muter l’agent dans mon service'
+        click_link 'Muter l\'agent dans mon service'
       end
 
       expect(page).to have_current_path(user_path(existing_user))
