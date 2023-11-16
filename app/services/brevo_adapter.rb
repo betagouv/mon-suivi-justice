@@ -19,7 +19,6 @@ class BrevoAdapter
     raise e.message
   end
 
-  # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Layout/LineLength
   def create_contact_for_user(user)
@@ -72,7 +71,6 @@ class BrevoAdapter
       create_contact_for_user(user)
     end
   end
-  # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/AbcSize
 
   def delete_user_contact(user_email)
