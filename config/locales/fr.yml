@@ -108,7 +108,7 @@ fr:
         last_name: "Nom"
         phone: "Téléphone portable"
         no_phone: "Ne possède pas de téléphone portable"
-        refused_phone: "Refuse de donner son numéro"
+        refused_phone: "Refuse de recevoir des SMS"
         appi_uuid: "N° dossier APPI"
         cpip: "CPIP"
         homeless: "SDF"
@@ -236,7 +236,7 @@ fr:
               mobile: "Numéro de téléphone portable requis"
               taken: "Un probationnaire est déjà enregistré avec ce numéro de téléphone. Merci de saisir un autre numéro"
               confirmation: "Ne correspond pas au premier mot de passe saisi"
-              blank: "n'est pas renseigné. Veuillez renseigner au moins un des champs 'téléphone portable', 'ne possède pas de téléphone portable' ou 'refuse de donner son numéro'"
+              blank: "n'est pas renseigné. Veuillez renseigner au moins un des champs 'téléphone portable', 'ne possède pas de téléphone portable' ou 'refuse de recevoir des SMS'"
             dob:
               taken: "Un probationnaire avec les mêmes prénom, nom et date de naissance existe déjà"
               not_in_the_future: "La date de naissance ne peut pas être dans le futur"
