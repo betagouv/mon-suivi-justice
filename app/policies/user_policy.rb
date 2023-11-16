@@ -30,7 +30,9 @@ class UserPolicy < ApplicationPolicy
   end
 
   def destroy?
-    check_ownership && allow_user_actions? && user != record
+    return false unless check_ownership && allow_user_actions? && user != record
+
+    !record.admin? || user.admin? # only admin can destroy other admins
   end
 
   def invitation_link?
