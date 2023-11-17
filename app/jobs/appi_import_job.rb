@@ -41,24 +41,16 @@ class AppiImportJob < ApplicationJob
   # rubocop:disable Layout/LineLength
   def update_convict(existing_convict, target_organizations)
     existing_organization = existing_convict.organizations.first
+    changes_made = false
 
     target_organizations.each do |org|
       if org.linked_organizations.include?(existing_organization) && existing_organization.organization_type != org.organization_type
         existing_convict.organizations << org
+        changes_made = true
       end
     end
 
-    if existing_convict.save
-      success_message = "#{existing_convict.first_name} #{existing_convict.last_name} (id: #{existing_convict.id})"
-      target_organizations.each do |org|
-        @import_update_successes[org.name] << success_message
-      end
-    else
-      failure_message = "#{existing_convict.first_name} #{existing_convict.last_name} - #{existing_convict.errors.full_messages.first}"
-      target_organizations.each do |org|
-        @import_update_failures[org.name] << failure_message
-      end
-    end
+    process_save_attempt(existing_convict, target_organizations) if changes_made
   end
   # rubocop:enable Layout/LineLength
 
@@ -96,4 +88,20 @@ class AppiImportJob < ApplicationJob
   def anonymize(convict)
     Digest::SHA256.bubblebabble convict[:last_name]
   end
+
+  # rubocop:disable Layout/LineLength
+  def process_save_attempt(existing_convict, target_organizations)
+    if existing_convict.save
+      success_message = "#{existing_convict.first_name} #{existing_convict.last_name} (id: #{existing_convict.id})"
+      target_organizations.each do |org|
+        @import_update_successes[org.name] << success_message
+      end
+    else
+      failure_message = "#{existing_convict.first_name} #{existing_convict.last_name} - #{existing_convict.errors.full_messages.first}"
+      target_organizations.each do |org|
+        @import_update_failures[org.name] << failure_message
+      end
+    end
+  end
+  # rubocop:enable Layout/LineLength
 end
