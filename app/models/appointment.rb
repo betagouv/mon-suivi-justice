@@ -70,6 +70,14 @@ class Appointment < ApplicationRecord
 
   validate :in_the_future, on: :create
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[slot user]
+  end
+
   def in_the_future
     if slot.date.nil?
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.blank'))
