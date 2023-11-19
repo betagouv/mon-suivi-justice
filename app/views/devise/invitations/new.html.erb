@@ -14,7 +14,7 @@
                                     label: t('activerecord.attributes.user.organization'),
                                     input_html: { class: 'form-select' },
                                     disabled: !current_user.admin?,
-                                    collection: current_user.admin? ? Organization.all : [current_organization],
+                                    collection: current_user.admin? ? Organization.all.order(:name) : [current_organization],
                                     selected: current_organization.id %>
         <% if !current_user.admin? %>
           <%= f.hidden_field :organization_id, value: current_organization.id %>
