@@ -168,10 +168,6 @@ class Convict < ApplicationRecord
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
 
-  def full_name
-    "#{first_name} #{last_name}"
-  end
-
   def find_duplicates
     name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'
     prefixed_phone = PhonyRails.normalize_number(phone, country_code: 'FR')
