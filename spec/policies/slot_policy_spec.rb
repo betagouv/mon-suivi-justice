@@ -34,6 +34,21 @@ describe SlotPolicy do
         subject.destroy?
       end
     end
+    context 'for an admin' do
+      context 'own slot in organization' do
+        let(:user) { build(:user, role: 'admin', organization:) }
+        it { expect(subject.send(:check_ownership?)).to eq(true) }
+      end
+      context 'does not own slot outside organization' do
+        let(:other_organization) { build(:organization) }
+        let(:user) { build(:user, role: 'admin', organization: other_organization) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
+      end
+      context 'does own slot in jurisdiction' do
+        let(:user) { build(:user, role: 'admin', organization: tj) }
+        it { expect(subject.send(:check_ownership?)).to eq(true) }
+      end
+    end
     context 'for a local_admin' do
       context 'own slot in organization' do
         let(:user) { build(:user, role: 'local_admin', organization:) }
@@ -49,19 +64,94 @@ describe SlotPolicy do
         it { expect(subject.send(:check_ownership?)).to eq(false) }
       end
     end
-    context 'for an admin' do
+    context 'for a cpip' do
       context 'own slot in organization' do
-        let(:user) { build(:user, role: 'admin', organization:) }
+        let(:user) { build(:user, role: 'cpip', organization:) }
         it { expect(subject.send(:check_ownership?)).to eq(true) }
       end
       context 'does not own slot outside organization' do
-        let(:other_organization) { build(:organization) }
-        let(:user) { build(:user, role: 'admin', organization: other_organization) }
+        let(:other_organization) { build(:organization, organization_type: 'spip') }
+        let(:user) { build(:user, role: 'cpip', organization: other_organization) }
         it { expect(subject.send(:check_ownership?)).to eq(false) }
       end
-      context 'does own slot in jurisdiction' do
-        let(:user) { build(:user, role: 'admin', organization: tj) }
+      context 'does not own slot in jurisdiction' do
+        let(:user) { build(:user, role: 'cpip', organization: tj) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
+      end
+    end
+    context 'for a dpip' do
+      context 'own slot in organization' do
+        let(:user) { build(:user, role: 'dpip', organization:) }
         it { expect(subject.send(:check_ownership?)).to eq(true) }
+      end
+      context 'does not own slot outside organization' do
+        let(:other_organization) { build(:organization, organization_type: 'spip') }
+        let(:user) { build(:user, role: 'dpip', organization: other_organization) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
+      end
+      context 'does not own slot in jurisdiction' do
+        let(:user) { build(:user, role: 'dpip', organization: tj) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
+      end
+    end
+    context 'for a educator' do
+      context 'own slot in organization' do
+        let(:user) { build(:user, role: 'educator', organization:) }
+        it { expect(subject.send(:check_ownership?)).to eq(true) }
+      end
+      context 'does not own slot outside organization' do
+        let(:other_organization) { build(:organization, organization_type: 'spip') }
+        let(:user) { build(:user, role: 'educator', organization: other_organization) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
+      end
+      context 'does not own slot in jurisdiction' do
+        let(:user) { build(:user, role: 'educator', organization: tj) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
+      end
+    end
+    context 'for a psychologist' do
+      context 'own slot in organization' do
+        let(:user) { build(:user, role: 'psychologist', organization:) }
+        it { expect(subject.send(:check_ownership?)).to eq(true) }
+      end
+      context 'does not own slot outside organization' do
+        let(:other_organization) { build(:organization, organization_type: 'spip') }
+        let(:user) { build(:user, role: 'psychologist', organization: other_organization) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
+      end
+      context 'does not own slot in jurisdiction' do
+        let(:user) { build(:user, role: 'psychologist', organization: tj) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
+      end
+    end
+    context 'for a overseer' do
+      context 'own slot in organization' do
+        let(:user) { build(:user, role: 'overseer', organization:) }
+        it { expect(subject.send(:check_ownership?)).to eq(true) }
+      end
+      context 'does not own slot outside organization' do
+        let(:other_organization) { build(:organization, organization_type: 'spip') }
+        let(:user) { build(:user, role: 'overseer', organization: other_organization) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
+      end
+      context 'does not own slot in jurisdiction' do
+        let(:user) { build(:user, role: 'overseer', organization: tj) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
+      end
+    end
+    context 'for a secretary_spip' do
+      context 'own slot in organization' do
+        let(:user) { build(:user, role: 'secretary_spip', organization:) }
+        it { expect(subject.send(:check_ownership?)).to eq(true) }
+      end
+      context 'does not own slot outside organization' do
+        let(:other_organization) { build(:organization, organization_type: 'spip') }
+        let(:user) { build(:user, role: 'secretary_spip', organization: other_organization) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
+      end
+      context 'does not own slot in jurisdiction' do
+        let(:user) { build(:user, role: 'secretary_spip', organization: tj) }
+        it { expect(subject.send(:check_ownership?)).to eq(false) }
       end
     end
   end
