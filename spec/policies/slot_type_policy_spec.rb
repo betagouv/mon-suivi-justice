@@ -13,10 +13,7 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     context 'should be called by' do
       let(:user) { build(:user, :in_organization, role: 'local_admin') }
-      it 'index' do
-        expect(subject).to receive(:check_ownership?)
-        subject.show?
-      end
+
       it 'show' do
         expect(subject).to receive(:check_ownership?)
         subject.show?
