@@ -29,6 +29,13 @@ describe SlotPolicy do
         expect(subject).to receive(:check_ownership?)
         subject.destroy?
       end
+      context 'batch slots' do
+        subject { SlotPolicy.new(user, [slot]) }
+        it 'update_all' do
+          expect(subject).to receive(:check_ownership?)
+          subject.update_all?
+        end
+      end
     end
     context 'for an admin' do
       let(:organization) { spip }
