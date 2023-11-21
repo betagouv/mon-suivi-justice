@@ -12,26 +12,34 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def index?
-    ALLOWED_TO_EDIT.include? user.role
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
   def update?
-    ALLOWED_TO_EDIT.include? user.role
-  end
-
-  def archive?
-    ALLOWED_TO_EDIT.include? user.role
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
   def show?
-    ALLOWED_TO_EDIT.include? user.role
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
   def create?
-    ALLOWED_TO_EDIT.include? user.role
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
   def destroy?
-    ALLOWED_TO_EDIT.include? user.role
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+  end
+
+  def archive?
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+  end
+
+  def check_ownership?
+    if user.admin?
+      return [user.organization, *user.organization.linked_organizations].include?(record.organization)
+    end
+
+    record.organization == user.organization
   end
 end
