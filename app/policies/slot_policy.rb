@@ -53,6 +53,7 @@ class SlotPolicy < ApplicationPolicy
     if user.admin?
       return [user.organization, *user.organization.linked_organizations].include?(slot.agenda.place.organization)
     end
+
     slot.agenda.place.organization == user.organization
   end
 end

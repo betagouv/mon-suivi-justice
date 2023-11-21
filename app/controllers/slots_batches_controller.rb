@@ -22,7 +22,6 @@ class SlotsBatchesController < ApplicationController
     slots.update_all(available: false)
 
     redirect_back(fallback_location: root_path)
-
   end
 
   def display_time_fields

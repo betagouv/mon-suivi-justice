@@ -44,10 +44,16 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def check_ownership?
-    if user.admin?
-      return [user.organization, *user.organization.linked_organizations].include?(record.organization)
-    end
+    return in_user_jurisdiction?(record) if user.admin?
 
-    record.organization == user.organization
+    in_user_organization?(record)
+  end
+
+  def in_user_organization?(place)
+    place.organization == user.organization
+  end
+
+  def in_user_jurisdiction?(place)
+    [user.organization, *user.organization.linked_organizations].include?(place.organization)
   end
 end
