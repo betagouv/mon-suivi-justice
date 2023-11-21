@@ -17,12 +17,12 @@ class SlotsBatchesController < ApplicationController
   end
 
   def update
-    slots = Slot.where(id: params[:slot_ids])
+    slots = Slot.joins(agenda: :place).where(id: params[:slot_ids])
+    authorize slots, :update_all?
     slots.update_all(available: false)
 
     redirect_back(fallback_location: root_path)
 
-    authorize slots
   end
 
   def display_time_fields

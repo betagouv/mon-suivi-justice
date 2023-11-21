@@ -39,15 +39,20 @@ class SlotPolicy < ApplicationPolicy
     check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
+  def update_all?
+    return false unless ALLOWED_TO_EDIT.include?(user.role)
+
+    record.to_a.all? { |slot| check_ownership?(slot) }
+  end
+
   def select?
     true
   end
 
-  def check_ownership?
+  def check_ownership?(slot = record)
     if user.admin?
-      return [user.organization, *user.organization.linked_organizations].include?(record.place.organization)
+      return [user.organization, *user.organization.linked_organizations].include?(slot.agenda.place.organization)
     end
-
-    record.place.organization == user.organization
+    slot.agenda.place.organization == user.organization
   end
 end
