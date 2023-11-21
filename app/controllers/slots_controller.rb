@@ -54,6 +54,7 @@ class SlotsController < ApplicationController
   end
 
   def set_query_params
-    params[:q] = { full_true: 0 } if params[:q].nil?
+    params[:q] ||= {}
+    params[:q][:full_eq] = params[:q][:full_eq] == '1' ? nil : '0'
   end
 end

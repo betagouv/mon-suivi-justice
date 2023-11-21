@@ -10,31 +10,37 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
+    allow_user_actions?
   end
 
   def update?
-    true
+    check_ownership
   end
 
   def show?
-    true
+    check_ownership
+  end
+
+  def new?
+    allow_user_actions?
   end
 
   def create?
-    user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
+    check_ownership && allow_user_actions?
   end
 
   def destroy?
-    user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
+    return false unless check_ownership && allow_user_actions? && user != record
+
+    !record.admin? || user.admin? # only admin can destroy other admins
   end
 
   def invitation_link?
-    user.admin?
+    user.admin? && user != record
   end
 
   def reset_pwd_link?
-    user.admin?
+    user.admin? && user != record
   end
 
   def stop_impersonating?
@@ -50,6 +56,21 @@ class UserPolicy < ApplicationPolicy
   end
 
   def mutate?
-    user.admin? || user.local_admin?
+    return false unless user.admin? || user.local_admin?
+
+    record.organization.organization_type == user.organization.organization_type
+  end
+
+  private
+
+  def check_ownership
+    return true if user.admin?
+    return record.organization == user.organization if user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
+
+    user == record
+  end
+
+  def allow_user_actions?
+    user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
   end
 end

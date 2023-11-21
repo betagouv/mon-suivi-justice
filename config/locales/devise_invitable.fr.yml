@@ -29,7 +29,7 @@ fr:
         accept: "Accepter l'invitation"
         accept_until: "Cette invitation sera valable jusqu'au %{due_date}."
         warning_html: "ATTENTION : l'outil n'est pas compatible avec Internet Explorer."
-        documentation: "Un guide d’utilisation est disponible en ligne afin de vous accompagner dans la prise en main de Mon Suivi Justice : %{url}."
+        documentation: "Pour en savoir plus sur Mon Suivi Justice, découvrir les services déployés ou pour vous former en toute autonomie, cliquez sur le lien suivant : %{url}."
         ignore: "Si vous ne souhaitez pas accepter cette invitation, veuillez ignorer cet e-mail. Votre compte ne sera pas créé tant que vous n'accéderez pas au lien ci-dessous et que vous ayez défini votre mot de passe."
         conclusion: "Nous sommes à votre disposition en cas de questions ou remarques."
         signature_html: "À très bientôt,<br><br>L'équipe Mon Suivi Justice."

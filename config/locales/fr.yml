@@ -108,7 +108,7 @@ fr:
         last_name: "Nom"
         phone: "Téléphone portable"
         no_phone: "Ne possède pas de téléphone portable"
-        refused_phone: "Refuse de donner son numéro"
+        refused_phone: "Refuse de recevoir des SMS"
         appi_uuid: "N° dossier APPI"
         cpip: "CPIP"
         homeless: "SDF"
@@ -236,7 +236,7 @@ fr:
               mobile: "Numéro de téléphone portable requis"
               taken: "Un probationnaire est déjà enregistré avec ce numéro de téléphone. Merci de saisir un autre numéro"
               confirmation: "Ne correspond pas au premier mot de passe saisi"
-              blank: "n'est pas renseigné. Veuillez renseigner au moins un des champs 'téléphone portable', 'ne possède pas de téléphone portable' ou 'refuse de donner son numéro'"
+              blank: "n'est pas renseigné. Veuillez renseigner au moins un des champs 'téléphone portable', 'ne possède pas de téléphone portable' ou 'refuse de recevoir des SMS'"
             dob:
               taken: "Un probationnaire avec les mêmes prénom, nom et date de naissance existe déjà"
               not_in_the_future: "La date de naissance ne peut pas être dans le futur"
@@ -386,7 +386,9 @@ fr:
 
   support:
     modal_title: Support
-    modal_text: "Pour toute demande, vous pouvez écrire à l'équipe de Mon Suivi Justice à l'adresse suivante:"
+    modal_text_1: "En cas de question, n’hésitez pas à consulter "
+    modal_text_2: "notre site d’information."
+    modal_text_3: "Si cela ne répond pas à votre besoin, n’hésitez pas à contacter l’équipe de Mon Suivi Justice à l’adresse suivante :"
     modal_warning: "Quelques recommandations :"
     modal_bug: "Pour signaler un bug, merci de décrire avec précision les dernières actions qui ont menée au bug. Une capture d'écran du problème est également très utile."
     modal_evolution: "Pour demander une évolution, n'hésitez pas à entrer dans les détails. Dites-nous quel est votre poste et quelle partie du processus vous souhaitez changer."
@@ -567,7 +569,7 @@ fr:
   users:
     mutate:
       confirmation_message: "Etes-vous certain de vouloir muter cet agent dans votre service ? Cela le supprimera de son service actuel : %{organization_name}. En cas de doute merci de contacter le service actuel au %{phone_number}"
-      call_to_action: "Muter l’agent dans mon service"
+      call_to_action: "Muter l'agent dans mon service"
 
   appointment_place: "Lieu de la convocation"
   appointment_agenda: "Agenda"

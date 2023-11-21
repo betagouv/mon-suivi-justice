@@ -40,7 +40,7 @@ module OrganizationHelper
   end
 
   def orga_for_user
-    return Organization.all if current_user.admin?
+    return Organization.all.order(:name) if current_user.admin?
 
     [current_user.organization]
   end

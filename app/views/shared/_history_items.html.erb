@@ -14,10 +14,11 @@
             <tbody>
               <% @history_items.each do |history_item| %>
                 <tr>
-                  <td >
+                  <td>
                     <div  class='show-history-item-icon text-center'>
-                      <%= fa_icon 'circle', class: "icon_#{history_item.event}" %></td>
+                      <%= icon('fa', 'circle', class: "icon_#{history_item.event}")%>
                   </div>
+                  </td>
                   <td>
                     <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
                   </td>

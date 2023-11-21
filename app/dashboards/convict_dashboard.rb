@@ -13,6 +13,7 @@ class ConvictDashboard < Administrate::BaseDashboard
     ),
     first_name: Field::String,
     last_name: Field::String,
+    full_name: Field::String,
     organizations: Field::HasMany,
     appi_uuid: Field::String,
     city: Field::BelongsToSearch,

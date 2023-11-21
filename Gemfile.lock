@@ -175,8 +175,8 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    font-awesome-rails (4.7.0.8)
-      railties (>= 3.2, < 8.0)
+    font-awesome-sass (6.4.2)
+      sassc (~> 2.0)
     formatador (1.1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -363,7 +363,7 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
-    ransack (3.2.1)
+    ransack (4.1.1)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
@@ -482,7 +482,7 @@ GEM
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    spring (4.1.1)
+    spring (4.1.2)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -582,7 +582,7 @@ DEPENDENCIES
   faker
   faraday (~> 2.7)
   faraday-retry (~> 2.2)
-  font-awesome-rails (~> 4.7)
+  font-awesome-sass (~> 6.1)
   groupdate (~> 6.4)
   guard-rspec
   guard-rubocop
@@ -607,7 +607,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 3.1)
   rails (~> 7.0.0, >= 7.0.8)
   rails-erd
-  ransack (~> 3.2)
+  ransack (~> 4.1)
   redis (~> 4.0)
   rspec-rails
   rspec_junit_formatter

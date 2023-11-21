@@ -24,7 +24,6 @@ module DataCollector
       stats
     end
 
-    # rubocop:disable Metrics/MethodLength
     def appointments_stats
       stats = {
         passed_no_canceled_with_phone: passed_no_canceled_with_phone.size,
@@ -56,7 +55,6 @@ module DataCollector
 
       stats
     end
-    # rubocop:enable Metrics/MethodLength
 
     def all_convicts
       @all_convicts ||= fetch_all_convicts

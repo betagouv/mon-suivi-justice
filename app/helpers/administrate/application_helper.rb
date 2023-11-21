@@ -1,6 +1,5 @@
 module Administrate
   module ApplicationHelper
-    include FontAwesome::Rails::IconHelper
     PLURAL_MANY_COUNT = 2.1
     SINGULAR_COUNT = 1
 

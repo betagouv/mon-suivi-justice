@@ -1,9 +1,15 @@
 class InvitationsController < Devise::InvitationsController
   layout 'agent_interface', only: [:new, :create]
 
+  def new
+    authorize :user, policy_class: UserPolicy
+    super
+  end
+
   # Overriding devise's create action so that admins can move users to other organizations
   def create
     @user = User.new(invite_params)
+    authorize @user, policy_class: UserPolicy
 
     existing_user = User.find_by(email: @user.email)
     if existing_user && existing_user.organization != current_user.organization

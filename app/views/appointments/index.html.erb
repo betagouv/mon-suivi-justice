@@ -8,6 +8,7 @@
     <%= button_to t('print_button'), appointments_path(format: :pdf),
                                       form: { target: '_blank' },
                                       method: :get,
+                                      params: { q: @search_params },
                                       class: 'fr-btn fr-btn--secondary' %>
   </ul>
 </div>
@@ -36,7 +37,7 @@
                                                 { include_blank: t('index-slots-appointment-type-filter') },
                                                 { class: "fr-select #{@q.slot_appointment_type_id_eq ? 'in-use' : ''}" } %>
         </div>
-        <% if current_user.work_at_spip? %>
+        <% if current_user.work_at_spip? || current_user.admin? %>
           <div class="fr-col">
             <%= f.select :user_id_eq, options_from_collection_for_select(assignable_user_in_organization(), 'id', lambda { |user|
                                                                                   return user.name unless user === current_user

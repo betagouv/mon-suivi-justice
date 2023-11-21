@@ -16,7 +16,8 @@ RSpec.feature 'Users', type: :feature do
     end
 
     it 'allows to delete user' do
-      within first('tbody > tr') do
+      all_rows = all('tbody > tr')
+      within all_rows[1] do # First row is the user and can't be deleted
         expect { click_link('Supprimer') }.to change { User.count }.by(-1)
       end
     end
@@ -73,7 +74,7 @@ RSpec.feature 'Users', type: :feature do
       expect(@user.share_email_to_convict).to eq(false)
     end
 
-    it 'remove linked convict if role is changed', logged_in_as: 'local_admin' do
+    it 'remove linked convict if role is changed', logged_in_as: 'local_admin_spip' do
       cpip = create(:user, first_name: 'Bob', last_name: 'Dupneu', role: 'cpip', organization: @user.organization)
       create(:convict, user: cpip, organizations: [cpip.organization])
 

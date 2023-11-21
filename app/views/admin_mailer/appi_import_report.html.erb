@@ -4,29 +4,62 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Rapport d'import APPI dans msj pour :</h1>
-    <% @organizations.each do |organization| %>
+    <h2>Rapport d'import APPI dans msj pour :</h2>
+    <% @target_organizations.each do |organization| %>
         <li><%= organization.name %></li>
     <% end %>
-    <ul>
-          <% if !@csv_errors.nil? && @csv_errors.any? %>
-          <h1><%= @csv_errors.length %> erreurs de syntaxe dans le fichier :</h1>
-          <% @csv_errors.each do |error| %>
-              <li style="color: red"><%= error %></li>
+    <% if !@import_successes.nil? && @import_successes.any? %>
+      <h3><%= @import_successes.length %> probationnaires ont été créés dans <%= @calculated_organizations_names&.join(', ') %> :</h3>
+      <% @import_successes.each do |success| %>
+          <ul>
+            <li><%= success %></li>
+          </ul>
+      <% end %>
+    <% else %>
+      <ul>
+        <li>Aucun probationnaire n'a été créé.</li>
+      </ul>
+    <% end %>
+    <% if !@import_errors.nil? && @import_errors.any? %>
+      <h3><%= @import_errors.length %> probationnaires n'ont pas pu être créés :</h3>
+      <% @import_errors.each do |error| %>
+        <ul>
+          <li style="color: red"><%= error %></li>
+        </ul>
+      <% end %>
+    <% end %>
+
+    <% if !@import_update_successes.nil? && @import_update_successes.any? %>
+      <h3>Ajout de services réussis :</h3>
+      <% @import_update_successes.each do |org_name, successes| %>
+        <h4><%= successes.length %> probationnaires ont été ajoutés à <%= org_name %></h4>
+        <ul>
+          <% successes.each do |success| %>
+            <li><%= success %></li>
           <% end %>
-        <% end %>
-        <% if !@import_successes.nil? && @import_successes.any? %>
-          <h1><%= @import_successes.length %> probationnaires ont été créées :</h1>
-          <% @import_successes.each do |success| %>
-              <li><%= success %></li>
+        </ul>
+      <% end %>
+    <% end %>
+
+    <% if !@import_update_failures.nil? && @import_update_failures.any? %>
+      <h3>Échecs d'ajouts à des services :</h3>
+      <% @import_update_failures.each do |org_name, failures| %>
+        <h4><%= failures.length %> probationnaires n'ont pas pu être ajoutés à <%= org_name %></h4>
+        <ul>
+          <% failures.each do |failure| %>
+            <li style="color: red"><%= failure %></li>
           <% end %>
-        <% end %>
-        <% if !@import_errors.nil? && @import_errors.any? %>
-          <h1><%= @import_errors.length %> probationnaires n'ont pas pu être créées :</h1>
-          <% @import_errors.each do |error| %>
-              <li style="color: red"><%= error %></li>
-          <% end %>
-        <% end %>
-    </ul>
+        </ul>
+      <% end %>
+    <% end %>
+
+    <% if !@csv_errors.nil? && @csv_errors.any? %>
+      <h1><%= @csv_errors.length %> erreurs de syntaxe dans le fichier :</h1>
+      <% @csv_errors.each do |error| %>
+        <ul>
+          <li style="color: red"><%= error %></li>
+        </ul>
+      <% end %>
+    <% end %>
   </body>
 </html>

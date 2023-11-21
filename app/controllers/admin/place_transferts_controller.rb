@@ -1,6 +1,5 @@
 module Admin
   class PlaceTransfertsController < Admin::ApplicationController
-    # rubocop:disable Metrics/MethodLength
     def create
       resource = PlaceTransfert.new(resource_params)
       authorize_resource(resource)
@@ -17,8 +16,6 @@ module Admin
         }, status: :unprocessable_entity
       end
     end
-    # rubocop:enable Metrics/MethodLength
-
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
