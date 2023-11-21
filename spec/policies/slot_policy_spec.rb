@@ -338,6 +338,11 @@ describe SlotPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to permit_action(:update_all) }
+    end
   end
 
   context 'for a local_admin' do
@@ -351,6 +356,11 @@ describe SlotPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to permit_action(:update_all) }
+    end
   end
 
   context 'for a prosecutor' do
@@ -364,6 +374,11 @@ describe SlotPolicy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to forbid_action(:update_all) }
+    end
   end
 
   context 'for a jap user' do
@@ -377,6 +392,11 @@ describe SlotPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to permit_action(:update_all) }
+    end
   end
 
   context 'for a court secretary' do
@@ -390,6 +410,11 @@ describe SlotPolicy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to forbid_action(:update_all) }
+    end
   end
 
   context 'for a dir_greff_bex user' do
@@ -403,6 +428,11 @@ describe SlotPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to permit_action(:update_all) }
+    end
   end
 
   context 'for a bex user' do
@@ -416,6 +446,11 @@ describe SlotPolicy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to forbid_action(:update_all) }
+    end
   end
 
   context 'for a greff_co user' do
@@ -429,6 +464,11 @@ describe SlotPolicy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to forbid_action(:update_all) }
+    end
   end
 
   context 'for a dir_greff_sap user' do
@@ -442,6 +482,11 @@ describe SlotPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to permit_action(:update_all) }
+    end
   end
 
   context 'for a greff_sap user' do
@@ -455,6 +500,11 @@ describe SlotPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to permit_action(:update_all) }
+    end
   end
 
   context 'for a cpip user' do
@@ -468,6 +518,11 @@ describe SlotPolicy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to forbid_action(:update_all) }
+    end
   end
 
   context 'for a educator user' do
@@ -481,6 +536,11 @@ describe SlotPolicy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to forbid_action(:update_all) }
+    end
   end
 
   context 'for a psychologist user' do
@@ -494,6 +554,11 @@ describe SlotPolicy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to forbid_action(:update_all) }
+    end
   end
 
   context 'for a overseer user' do
@@ -507,6 +572,11 @@ describe SlotPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to permit_action(:update_all) }
+    end
   end
 
   context 'for a dpip user' do
@@ -520,6 +590,11 @@ describe SlotPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to permit_action(:update_all) }
+    end
   end
 
   context 'for a secretary_spip user' do
@@ -533,5 +608,10 @@ describe SlotPolicy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+
+    context 'batch slots' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to forbid_action(:update_all) }
+    end
   end
 end
