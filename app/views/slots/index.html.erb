@@ -8,7 +8,7 @@
         <% if policy(:slot).new? %>
           <%= link_to t('slots.new_batch_title'), new_slots_batch_path, class: 'fr-btn'%>
         <% end %>
-        <% if policy(slots).update_all? %>
+        <% if policy(@slots).update_all? %>
           <%= button_tag t('index_slots_batch_close'), type: 'submit',
                                                    form: 'index-slots-update-form',
                                                    data: { 'turbo-confirm': t('basic_confirmation') },
