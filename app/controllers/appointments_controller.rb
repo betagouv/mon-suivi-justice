@@ -4,6 +4,8 @@ class AppointmentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @search_params = search_params
+
     @q = policy_scope(Appointment).active.ransack(params[:q])
     @all_appointments = @q.result(distinct: true)
                           .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
@@ -111,6 +113,11 @@ class AppointmentsController < ApplicationController
   end
 
   private
+
+  def search_params
+    params.fetch(:q, {}).permit(:slot_date_eq, :slot_agenda_place_id_eq, :slot_agenda_id_eq,
+                                :slot_appointment_type_id_eq, :user_id_eq)
+  end
 
   def appointment_params
     params.require(:appointment).permit(

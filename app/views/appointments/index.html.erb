@@ -8,6 +8,7 @@
     <%= button_to t('print_button'), appointments_path(format: :pdf),
                                       form: { target: '_blank' },
                                       method: :get,
+                                      params: { q: @search_params },
                                       class: 'fr-btn fr-btn--secondary' %>
   </ul>
 </div>
