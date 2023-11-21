@@ -12,26 +12,34 @@ class SlotPolicy < ApplicationPolicy
   end
 
   def index?
-    ALLOWED_TO_EDIT.include? user.role
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
   def update?
-    ALLOWED_TO_EDIT.include? user.role
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
   def show?
-    ALLOWED_TO_EDIT.include? user.role
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
   def create?
-    ALLOWED_TO_EDIT.include? user.role
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
   def destroy?
-    ALLOWED_TO_EDIT.include? user.role
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
   def select?
     true
+  end
+
+  def check_ownership?
+    if user.admin?
+      return [user.organization, *user.organization.linked_organizations].include?(record.place.organization)
+    end
+
+    record.place.organization == user.organization
   end
 end
