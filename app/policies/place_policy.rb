@@ -15,6 +15,14 @@ class PlacePolicy < ApplicationPolicy
     ALLOWED_TO_EDIT.include?(user.role)
   end
 
+  def new?
+    ALLOWED_TO_EDIT.include?(user.role)
+  end
+
+  def edit?
+    ALLOWED_TO_EDIT.include?(user.role)
+  end
+
   def update?
     check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
