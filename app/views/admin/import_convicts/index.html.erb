@@ -4,7 +4,7 @@
   <%= form_with url: admin_import_convicts_path, class: 'form' do |form| %>
     <div class="field-unit field-unit--string field-unit--optional">
       <%= form.label :organization_id, "Service :", class: 'field-unit__label' %>
-      <%= form.select :organization_id, options_from_collection_for_select(Organization.all, 'id', 'name', @organization&.id), {include_blank: true}, {style: 'margin-left: 2rem;'} %>
+      <%= form.select :organization_id, options_from_collection_for_select(Organization.all.order(:name), 'id', 'name', @organization&.id), {include_blank: true}, {style: 'margin-left: 2rem;'} %>
     </div>
     <div class="field-unit field-unit--string field-unit--optional">
       <%= form.label :headquarter_id, "Siège :", class: 'field-unit__label' %>

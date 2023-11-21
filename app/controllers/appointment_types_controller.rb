@@ -3,7 +3,7 @@ class AppointmentTypesController < ApplicationController
 
   def index
     @appointment_types = AppointmentType.all.order('name asc')
-    @organizations = Organization.all
+    @organizations = Organization.all.order(:name)
 
     authorize @appointment_types
   end
