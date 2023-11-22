@@ -51,8 +51,9 @@ RSpec.feature 'Places', type: :feature do
     end
 
     it 'creates agenda' do
-      place = create(:place, name: 'Spip du 93')
+      place = create(:place, name: 'Spip du 93', organization: @user.organization)
       visit edit_place_path(place)
+
       within '#new_agenda' do
         fill_in :agenda_name, with: 'Agenda de Jean-Pierre'
         expect { click_button('Ajouter agenda') }.to change { Agenda.count }.by(1)
@@ -60,7 +61,7 @@ RSpec.feature 'Places', type: :feature do
     end
 
     it 'updates agenda' do
-      place = create :place, name: 'Spip du 93'
+      place = create :place, name: 'Spip du 93', organization: @user.organization
       agenda = create(:agenda, name: 'test_agenda', place:)
       visit edit_place_path place
       within "#edit_agenda_#{agenda.id}" do
