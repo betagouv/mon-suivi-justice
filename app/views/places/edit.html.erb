@@ -56,7 +56,7 @@
       </div>
     <% end %>
 
-    <% if policy(agenda).new? %>
+    <% if policy(:agenda).new? %>
       <div class='edit-place-new-agenda-container'>
         <%= simple_form_for Agenda.new(place: @place), html: { class: 'edit-place-form' } do |form| %>
           <div class='edit-place-agenda-form-container'>
