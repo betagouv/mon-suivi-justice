@@ -9,15 +9,29 @@ class AgendaPolicy < ApplicationPolicy
     end
   end
 
-  def create?
+  def new?
     user.admin? || user.local_admin? || user.greff_sap?
+  end
+
+  def edit?
+    user.admin? || user.local_admin? || user.greff_sap?
+  end
+
+  def create?
+    return false unless user.admin? || user.local_admin? || user.greff_sap?
+
+    record.place.organization == user.organization
   end
 
   def update?
-    user.admin? || user.local_admin? || user.greff_sap?
+    return false unless user.admin? || user.local_admin? || user.greff_sap?
+
+    record.place.organization == user.organization
   end
 
   def destroy?
-    user.admin? || user.local_admin? || user.greff_sap?
+    return false unless user.admin? || user.local_admin? || user.greff_sap?
+
+    record.place.organization == user.organization
   end
 end

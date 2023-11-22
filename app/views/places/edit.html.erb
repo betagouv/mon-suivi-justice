@@ -39,7 +39,7 @@
         <div class='edit-place-agenda-form-container'>
           <%= form.hidden_field :place_id, value: @place.id %>
           <%= form.input :name, wrapper_html: { class: 'edit-place-agenda-name'} %>
-          <% if policy(:agenda).update? %>
+          <% if policy(agenda).edit? %>
             <%= form.button :submit, t('edit_place_update_agenda'), class: 'save-agenda-button' %>
           <% end %>
         </div>
@@ -49,14 +49,14 @@
         <% if agenda.appointment_type_with_slot_types? %>
           <%= link_to t('edit_place_slot_types_agenda'), agenda_slot_types_path(agenda) %>
         <% end %>
-        <% if agenda.appointment_type_with_slot_types? && policy(:agenda).destroy? %> | <% end %>
-        <% if policy(:agenda).destroy? %>
+        <% if agenda.appointment_type_with_slot_types? && policy(agenda).destroy? %> | <% end %>
+        <% if policy(agenda).destroy? %>
           <%= link_to t('edit_place_delete_agenda'), agenda_path(agenda), data: { 'turbo-confirm': t('delete_agenda_confirmation'), "turbo_method": :delete } %>
         <% end %>
       </div>
     <% end %>
 
-    <% if policy(:agenda).create? %>
+    <% if policy(agenda).new? %>
       <div class='edit-place-new-agenda-container'>
         <%= simple_form_for Agenda.new(place: @place), html: { class: 'edit-place-form' } do |form| %>
           <div class='edit-place-agenda-form-container'>
