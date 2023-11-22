@@ -36,6 +36,10 @@ class AppointmentType < ApplicationRecord
     def used_at_spip?
       [*SPIP_ASSIGNABLE, "Sortie d'audience SPIP", 'SAP DDSE']
     end
+
+    def ransackable_attributes(_auth_object = nil)
+      %w[name]
+    end
   end
 
   def sortie_audience?
