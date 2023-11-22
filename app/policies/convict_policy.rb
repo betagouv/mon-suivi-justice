@@ -17,23 +17,27 @@ class ConvictPolicy < ApplicationPolicy
   end
 
   def update?
-    true
+    check_ownership?
   end
 
   def edit?
-    record.undiscarded?
+    record.undiscarded? && check_ownership?
   end
 
   def show?
-    user.work_at_bex? || record.organizations.include?(user.organization)
+    check_ownership?
   end
 
-  def create?
+  def new?
     true
   end
 
+  def create?
+    check_ownership?
+  end
+
   def archive?
-    record.undiscarded?
+    record.undiscarded? && check_ownership?
   end
 
   def unarchive?
@@ -49,10 +53,14 @@ class ConvictPolicy < ApplicationPolicy
   end
 
   def destroy?
-    ALLOWED_TO_DESTROY.include?(user.role) && record.undiscarded?
+    ALLOWED_TO_DESTROY.include?(user.role) && record.undiscarded? && check_ownership?
   end
 
   def search?
     true
+  end
+
+  def check_ownership?
+    user.work_at_bex? || record.organizations.include?(user.organization)
   end
 end
