@@ -161,7 +161,9 @@ class Convict < ApplicationRecord
       organizations.push organization
     end
 
-    organizations.push(Organization.find_by(name: 'TJ Paris')) if japat
+    tj_paris = Organization.find_by(name: 'TJ Paris')
+    organizations.push(tj_paris) if japat && organizations.exclude?(tj_paris)
+
     save if autosave
   end
   # rubocop:enable Metrics/AbcSize
