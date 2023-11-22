@@ -30,6 +30,10 @@ class Agenda < ApplicationRecord
     %w[place_id]
   end
 
+  def self.ransackable_associations(_auth_object = nil)
+    %w[]
+  end
+
   def appointment_type_with_slot_types?
     appointment_type_with_slot_types.length.positive?
   end
