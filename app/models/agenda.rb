@@ -31,7 +31,7 @@ class Agenda < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[agenda]
+    %w[]
   end
 
   def appointment_type_with_slot_types?
