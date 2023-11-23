@@ -5,7 +5,7 @@ class AppointmentsReschedulesController < AppointmentsController
     old_appointment = Appointment.find_by id: params.dig(:appointment, :old_appointment_id)
     new_appointment = Appointment.new appointment_params
     authorize new_appointment, policy_class: AppointmentsReschedulesPolicy
-
+    new_appointment.send_sms = false
     if new_appointment.save
       cancel_old_appointment old_appointment, new_appointment
       book_new_appointment new_appointment

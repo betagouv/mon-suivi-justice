@@ -620,6 +620,7 @@ RSpec.feature 'Appointments', type: :feature do
       expect(page).to have_content 'Replanifier une convocation'
 
       choose '16:00'
+
       click_button 'Enregistrer'
 
       appointment.reload
