@@ -60,25 +60,22 @@
         <abbr title="required">*</abbr>
         Préférences de notification SMS:
       </legend>
-      <div class="fr-fieldset__element">
+
+      <%= f.collection_radio_buttons :send_sms, [['1', 'Prévenir immédiatement par SMS et envoyer un rappel avant la convocation.'], ['0', 'Envoyer uniquement un rappel par SMS avant la convocation']], :first, :last do |b| %>
+        <div class="fr-fieldset__element">
           <div class="fr-radio-group">
-              <%= radio_button_tag 'send_sms', '1', false, id: 'send_summon_notif' %>
-              <%= label_tag 'send_summon_notif', 'Prévenir immédiatement par SMS et envoyer un rappel avant la convocation.', class: 'fr-label' %>
+            <%= b.radio_button(id: "send_sms_#{b.value}") %>
+            <%= b.label(class: 'fr-label', for: "send_sms_#{b.value}") { b.text } %>
           </div>
       </div>
-      <div class="fr-fieldset__element">
-        <div class="fr-radio-group">
-            <%= radio_button_tag 'send_sms', '0', false, id: 'not_send_summon_notif' %>
-            <%= label_tag 'not_send_summon_notif', 'Envoyer uniquement un rappel par SMS avant la convocation', class: 'fr-label' %>
-        </div>
-      </div>
+      <% end %>
       <div class="fr-messages-group" id="radio-hint-element-messages" aria-live="assertive">
       </div>
     </fieldset>
     <div id='submit-btn-container' data-appointment-new-target="submitButtonContainer" class='fr-grid-row fr-grid-row--center fr-mt-2w'>
         <div>
           <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
-            <button type='submit' name='submit-new-appointment' value="0" class='fr-btn fr-btn--primary' id='submit-new-appointment'>
+            <button type='submit' name='submit-new-appointment' class='fr-btn fr-btn--primary' id='submit-new-appointment'>
               <%= t('appointment.create.submit')%>
             </button>
           </div>

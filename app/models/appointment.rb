@@ -32,7 +32,7 @@ class Appointment < ApplicationRecord
   delegate :name, to: :organization, prefix: true
   delegate :phone, to: :convict, prefix: true
 
-  attr_accessor :place_id, :agenda_id, :department_id, :user_is_cpip, :send_instant_notification
+  attr_accessor :place_id, :agenda_id, :department_id, :user_is_cpip, :send_sms
 
   enum origin_department: {
     bex: 0,
@@ -95,7 +95,7 @@ class Appointment < ApplicationRecord
   end
 
   def must_choose_to_send_notification
-    return if convict.phone.blank? || send_instant_notification.present?
+    return if convict.phone.blank? || send_sms.present?
 
     errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.send_instant_notification.blank'))
   end
