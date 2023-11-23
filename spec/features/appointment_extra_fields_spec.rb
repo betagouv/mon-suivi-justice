@@ -55,7 +55,7 @@ RSpec.feature 'ExtraFields', type: :feature, js: true do
       fill_in 'appointment_appointment_extra_fields_attributes_0_value', with: 'Test content extra field A'
 
       choose '14:00'
-      click_button 'Enregistrer et envoyer un SMS'
+      click_button 'Convoquer'
     end
 
     it 'displays proper extra fields in appointment form' do
