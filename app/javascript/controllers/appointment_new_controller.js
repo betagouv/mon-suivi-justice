@@ -4,7 +4,7 @@ import { getFieldsBelow, sendRequest } from './form_utilities'
 // Handle display of the different fields
 // in the create appointment form
 export default class extends Controller {
-  static targets = [ "selectAppointmentTypeInput", "convictSelectInput", "submitButtonContainer", "container", "selectPlaceInput", "selectAgendaInput", "submitButtonWithoutModal", "newAppointmentForm", "container" ]
+  static targets = [ "selectAppointmentTypeInput", "convictSelectInput", "submitButtonContainer", "container", "selectPlaceInput", "selectAgendaInput", "submitButtonWithoutModal", "newAppointmentForm", "container", "sendSmsRBContainer", "sendSmsValue" ]
 
   connect() {
     console.log("appointment new controller connected");
@@ -14,9 +14,7 @@ export default class extends Controller {
     const aptTypeValue = this.selectAppointmentTypeInputTarget.value;
     const convictId = this.getConvictId();
     this.resetFieldsBelow('appointmentType');
-    if (this.submitButtonContainerTarget) {
-      this.submitButtonContainerTarget.style.display = 'none';
-    }
+    this.hideEndOfForm();
     sendRequest(`/load_prosecutor?apt_type_id=${aptTypeValue}`);
     sendRequest(`/load_places?apt_type_id=${aptTypeValue}&convict_id=${convictId}`);
   }
@@ -25,9 +23,7 @@ export default class extends Controller {
     const aptTypeId = this.selectAppointmentTypeInputTarget.value;
     const placeId = this.selectPlaceInputTarget.value;
     this.resetFieldsBelow('place');
-    if (this.submitButtonContainerTarget) {
-      this.submitButtonContainerTarget.style.display = 'none';
-    }
+    this.hideEndOfForm();
     sendRequest(`/load_agendas?place_id=${placeId}&apt_type_id=${aptTypeId}`);
   }
 
@@ -36,10 +32,21 @@ export default class extends Controller {
     const agendaId = this.selectAgendaInputTarget.value;
     const aptTypeId = this.selectAppointmentTypeInputTarget.value;
     this.resetFieldsBelow('agenda');
+    this.hideEndOfForm();
     sendRequest(`/load_time_options?place_id=${placeId}&agenda_id=${agendaId}&apt_type_id=${aptTypeId}`);
   }
 
   selectSlot() {
+    if (this.sendSmsRBContainerTarget) {
+      this.sendSmsRBContainerTarget.style.display = 'flex';
+      const alreadySelectedRB = this.sendSmsValueTargets.some(rb => rb.checked);
+      if (alreadySelectedRB) {
+        this.selectSendSmsOption();
+      }
+    }
+  }
+
+  selectSendSmsOption() {
     if (this.submitButtonContainerTarget) {
       this.submitButtonContainerTarget.style.display = 'flex';
     }
@@ -61,4 +68,14 @@ export default class extends Controller {
       }
     });
   }
+
+  hideEndOfForm() {
+    if (this.submitButtonContainerTarget) {
+      this.submitButtonContainerTarget.style.display = 'none';
+    }
+    if (this.sendSmsRBContainerTarget) {
+      this.sendSmsRBContainerTarget.style.display = 'none';
+    }
+  }
+
 }

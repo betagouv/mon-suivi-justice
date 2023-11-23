@@ -55,8 +55,8 @@
     </div>
 
     <div class='appointment-form-slots-container' data-container-type="slot" data-appointment-new-target="container" id='slots-container'></div>
-    <fieldset class="fr-fieldset" id="radio-hint-element" aria-labelledby="radio-hint-element-legend radio-hint-element-messages">
-      <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="radio-hint-element-legend">
+    <fieldset class="fr-fieldset fr-mt-2w" id="radio-group-container" aria-labelledby="radio-group-container-legend radio-group-container-messages" data-appointment-new-target="sendSmsRBContainer">
+      <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="#radio-group-container-legend">
         <abbr title="required">*</abbr>
         Préférences de notification SMS:
       </legend>
@@ -64,12 +64,12 @@
       <%= f.collection_radio_buttons :send_sms, [['1', 'Prévenir immédiatement par SMS et envoyer un rappel avant la convocation.'], ['0', 'Envoyer uniquement un rappel par SMS avant la convocation']], :first, :last do |b| %>
         <div class="fr-fieldset__element">
           <div class="fr-radio-group">
-            <%= b.radio_button(id: "send_sms_#{b.value}") %>
+            <%= b.radio_button(id: "send_sms_#{b.value}", "data-action":"change->appointment-new#selectSendSmsOption", "data-appointment-new-target":"sendSmsValue") %>
             <%= b.label(class: 'fr-label', for: "send_sms_#{b.value}") { b.text } %>
           </div>
       </div>
       <% end %>
-      <div class="fr-messages-group" id="radio-hint-element-messages" aria-live="assertive">
+      <div class="fr-messages-group" id="radio-group-container-messages" aria-live="assertive">
       </div>
     </fieldset>
     <div id='submit-btn-container' data-appointment-new-target="submitButtonContainer" class='fr-grid-row fr-grid-row--center fr-mt-2w'>
