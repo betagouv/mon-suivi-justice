@@ -46,7 +46,9 @@ RSpec.feature 'ExtraFields', type: :feature, js: true do
       extra_field_b
       organization_c
       convict
+    end
 
+    it 'displays proper extra fields in appointment form' do
       visit new_appointment_path({ convict_id: convict })
 
       select "Sortie d'audience SAP", from: :appointment_appointment_type_id
@@ -55,15 +57,22 @@ RSpec.feature 'ExtraFields', type: :feature, js: true do
       fill_in 'appointment_appointment_extra_fields_attributes_0_value', with: 'Test content extra field A'
 
       choose '14:00'
-      click_button 'Convoquer'
-    end
 
-    it 'displays proper extra fields in appointment form' do
       expect(page).to have_content('Extra field A')
       expect(page).not_to have_content('Extra field B')
     end
 
     it 'creates proprer appointment extra field' do
+      visit new_appointment_path({ convict_id: convict })
+
+      select "Sortie d'audience SAP", from: :appointment_appointment_type_id
+      select 'Place A', from: 'Lieu'
+
+      fill_in 'appointment_appointment_extra_fields_attributes_0_value', with: 'Test content extra field A'
+
+      choose '14:00'
+
+      click_button 'Convoquer'
       last_appointment = Appointment.last
       last_appointment_extra_field = AppointmentExtraField.last
 
@@ -72,6 +81,17 @@ RSpec.feature 'ExtraFields', type: :feature, js: true do
     end
 
     it 'displays extra fields in agenda for Organization A' do
+      visit new_appointment_path({ convict_id: convict })
+
+      select "Sortie d'audience SAP", from: :appointment_appointment_type_id
+      select 'Place A', from: 'Lieu'
+
+      fill_in 'appointment_appointment_extra_fields_attributes_0_value', with: 'Test content extra field A'
+
+      choose '14:00'
+
+      click_button 'Convoquer'
+      
       orga_a_bex_user = create(:user, role: :bex, organization: organization_a)
       login_as(orga_a_bex_user)
 
