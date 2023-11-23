@@ -91,7 +91,7 @@ RSpec.feature 'ExtraFields', type: :feature, js: true do
       choose '14:00'
 
       click_button 'Convoquer'
-      
+
       orga_a_bex_user = create(:user, role: :bex, organization: organization_a)
       login_as(orga_a_bex_user)
 
