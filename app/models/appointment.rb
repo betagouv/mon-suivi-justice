@@ -95,7 +95,7 @@ class Appointment < ApplicationRecord
   end
 
   def must_choose_to_send_notification
-    return if convict.phone.blank? || send_sms.present?
+    return if convict&.phone.blank? || !send_sms.nil?
 
     errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.send_instant_notification.blank'))
   end
