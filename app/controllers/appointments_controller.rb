@@ -52,7 +52,7 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new(appointment_params)
     assign_appointment_to_user
     assign_appointment_to_creating_organization
-
+    p "send_notification: #{params[:send_sms]}"
     authorize @appointment
 
     if @appointment.save
