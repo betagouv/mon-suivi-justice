@@ -24,17 +24,17 @@ RSpec.describe 'appointments namespace rake tasks' do
     end
 
     let!(:booked_appointment) do
-      Appointment.create!(convict:, slot:, state: 'booked')
+      Appointment.create!(convict:, slot:, state: 'booked', send_sms: false)
     end
 
     let!(:created_appointment_conflicting) do
-      Appointment.create!(convict:, slot:, state: 'created', created_at: today)
+      Appointment.create!(convict:, slot:, state: 'created', created_at: today, send_sms: false)
     end
 
     let!(:created_appointment_non_conflicting) do
       slot_non_conflicting = Slot.create!(date: today, starting_time: '11:00', appointment_type:,
                                           agenda:)
-      Appointment.create!(convict:, slot: slot_non_conflicting, state: 'created', created_at: today)
+      Appointment.create!(convict:, slot: slot_non_conflicting, state: 'created', created_at: today, send_sms: false)
     end
 
     it 'should destroy conflicting appointments and book non-conflicting ones' do
