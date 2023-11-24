@@ -35,6 +35,8 @@ RSpec.feature 'NotificationType', type: :feature do
         select '00', from: 'appointment_slot_starting_time_5i'
       end
 
+      page.find('label[for="send_sms_1"]').click
+
       expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
 
       notif = Notification.find_by(role: :summon, appointment: convict.appointments.last)

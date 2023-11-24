@@ -72,6 +72,8 @@ RSpec.feature 'ExtraFields', type: :feature, js: true do
 
       choose '14:00'
 
+      page.find('label[for="send_sms_1"]').click
+
       click_button 'Convoquer'
       last_appointment = Appointment.last
       last_appointment_extra_field = AppointmentExtraField.last
@@ -89,6 +91,8 @@ RSpec.feature 'ExtraFields', type: :feature, js: true do
       fill_in 'appointment_appointment_extra_fields_attributes_0_value', with: 'Test content extra field A'
 
       choose '14:00'
+
+      page.find('label[for="send_sms_1"]').click
 
       click_button 'Convoquer'
 
