@@ -147,12 +147,8 @@ class Convict < ApplicationRecord
     UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
   end
 
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
   def update_organizations(current_user)
-    city = City.find(city_id) if city_id
-    source = city&.organizations&.any? ? city : current_user
+    source = determine_source(current_user)
 
     source.organizations.each do |organization|
       ignore_japat = organization.organization_type == 'tj' && japat
@@ -161,12 +157,9 @@ class Convict < ApplicationRecord
       organizations.push organization
     end
 
-    organizations.push(Organization.find_by(name: 'TJ Paris')) if japat
+    handle_japat
     save
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/PerceivedComplexity
 
   def find_duplicates
     name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'
@@ -188,5 +181,15 @@ class Convict < ApplicationRecord
 
     errors.add(:organizations,
                I18n.t('activerecord.errors.models.convict.attributes.organizations.multiple_uniqueness'))
+  end
+
+  def determine_source(current_user)
+    city = City.find(city_id) if city_id
+    city&.organizations&.any? ? city : current_user
+  end
+
+  def handle_japat
+    tj_paris = Organization.find_by(name: 'TJ Paris')
+    organizations.push(tj_paris) if japat && !organizations.include?(tj_paris)
   end
 end
