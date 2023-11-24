@@ -1,7 +1,7 @@
 import { ApplicationController, useDebounce } from 'stimulus-use'
 
 export default class extends ApplicationController {
-    static targets = ["results", "query"]
+    static targets = ["results", "query", "table"]
     static debounces = ['search']
 
     connect() {
@@ -14,6 +14,7 @@ export default class extends ApplicationController {
 
     search() {
         if (this.query.length === 0) {
+            this.tableTarget.style.display = 'block';
             this.reset();
             return;
         }
@@ -59,10 +60,7 @@ export default class extends ApplicationController {
     }
 
     handleResults(data) {
+        this.tableTarget.style.display = 'none';
         this.resultsTarget.innerHTML = data
-    }
-
-    clearResults() {
-        this.resultsTarget.innerHTML = ""
     }
 }
