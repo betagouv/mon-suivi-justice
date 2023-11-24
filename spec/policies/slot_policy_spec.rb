@@ -27,7 +27,11 @@ describe SlotPolicy do
       end
       it 'create' do
         expect(subject).to receive(:check_ownership?)
-        subject.destroy?
+        subject.create?
+      end
+      it 'edit' do
+        expect(subject).to receive(:check_ownership?)
+        subject.edit?
       end
       context 'batch slots' do
         subject { SlotPolicy.new(user, [slot]) }
