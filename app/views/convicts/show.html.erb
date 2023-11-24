@@ -36,12 +36,16 @@
     <div class="fr-grid-row">
       <div class="fr-col">
         <div class="fr-card fr-p-2w">
-          <div class="fr-grid-row  fr-grid-row--middle">
+          <div class="fr-grid-row">
             <div class="fr-col-12">
               <h2>
                 <%= @convict.first_name.capitalize %>
                 <%= @convict.last_name.upcase %>
               </h2>
+            </div>
+          </div>
+          <div class="fr-grid-row">
+            <div class="fr-col-12">
               <div class="fr-grid-row  fr-grid-row--right">
                 <ul class="fr-btns-group fr-btns-group--inline-lg">
                   <% if policy(:appointment).new? && @convict.undiscarded? %>
