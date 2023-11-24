@@ -347,7 +347,6 @@ RSpec.feature 'Appointments', type: :feature do
 
         expect(page).not_to have_content('Prévenir immédiatement par SMS et envoyer un rappel avant la convocation.')
 
-
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
                                              .and change { Slot.count }.by(1)
                                              .and change { Notification.count }.by(5)
