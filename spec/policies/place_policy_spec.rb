@@ -29,7 +29,11 @@ describe PlacePolicy do
       end
       it 'archive' do
         expect(subject).to receive(:check_ownership?)
-        subject.destroy?
+        subject.archive?
+      end
+      it 'edit' do
+        expect(subject).to receive(:check_ownership?)
+        subject.edit?
       end
     end
     context 'for an admin' do
