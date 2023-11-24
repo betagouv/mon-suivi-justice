@@ -28,11 +28,15 @@ describe SlotTypePolicy do
       end
       it 'create' do
         expect(subject).to receive(:check_ownership?)
-        subject.destroy?
+        subject.create?
       end
-      it 'archive' do
-        expect(subject).to receive(:check_ownership?)
-        subject.destroy?
+
+      context 'batch slots' do
+        subject { SlotTypePolicy.new(user, [slot_type]) }
+        it 'destroy_all' do
+          expect(subject).to receive(:check_ownership?)
+          subject.destroy_all?
+        end
       end
     end
     context 'for an admin' do

@@ -21,11 +21,13 @@ class SlotTypePolicy < ApplicationPolicy
     check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
-  def select?
-    true
+  def destroy_all?
+    return false unless ALLOWED_TO_EDIT.include?(user.role)
+
+    record.to_a.all? { |slot_type| check_ownership?(slot_type) }
   end
 
-  def check_ownership?
-    record.place.organization == user.organization
+  def check_ownership?(slot_type = record)
+    slot_type.place.organization == user.organization
   end
 end
