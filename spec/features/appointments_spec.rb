@@ -114,7 +114,6 @@ RSpec.feature 'Appointments', type: :feature do
         page.find('label[for="send_sms_1"]').click
         expect(page).to have_button('Convoquer')
 
-        page.find('label[for="send_sms_1"]').click
         expect { click_button 'Convoquer' }.to change { Appointment.count }
                                                                 .by(1).and change { Notification.count }.by(5)
 
@@ -143,7 +142,7 @@ RSpec.feature 'Appointments', type: :feature do
           select '00', from: 'appointment_slot_starting_time_5i'
         end
 
-        page.find('label[for="send_sms_1"]').click
+        page.find('label[for="send_sms_0"]').click
 
         expect(page).to have_button('Convoquer')
 

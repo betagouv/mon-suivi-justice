@@ -4,7 +4,7 @@ import { getFieldsBelow, sendRequest } from './form_utilities'
 // Handle display of the different fields
 // in the create appointment form
 export default class extends Controller {
-  static targets = [ "selectAppointmentTypeInput", "convictSelectInput", "submitButtonContainer", "container", "selectPlaceInput", "selectAgendaInput", "submitButtonWithoutModal", "newAppointmentForm", "container", "sendSmsRBContainer", "sendSmsValue" ]
+  static targets = [ "selectAppointmentTypeInput", "convictSelectInput", "submitButtonContainer", "container", "selectPlaceInput", "selectAgendaInput", "submitButtonWithoutModal", "newAppointmentForm", "sendSmsRBContainer", "sendSmsValue" ]
 
   connect() {
     console.log("appointment new controller connected");
@@ -37,17 +37,19 @@ export default class extends Controller {
   }
 
   selectSlot() {
-    if (this.sendSmsRBContainerTarget) {
+    if (this.hasSendSmsRBContainerTarget) {
       this.sendSmsRBContainerTarget.style.display = 'flex';
       const alreadySelectedRB = this.sendSmsValueTargets.some(rb => rb.checked);
       if (alreadySelectedRB) {
         this.selectSendSmsOption();
       }
+    } else if (this.hasSubmitButtonContainerTarget) {
+      this.submitButtonContainerTarget.style.display = 'flex';
     }
   }
 
   selectSendSmsOption() {
-    if (this.submitButtonContainerTarget) {
+    if (this.hasSubmitButtonContainerTarget) {
       this.submitButtonContainerTarget.style.display = 'flex';
     }
   }
@@ -70,10 +72,10 @@ export default class extends Controller {
   }
 
   hideEndOfForm() {
-    if (this.submitButtonContainerTarget) {
+    if (this.hasSubmitButtonContainerTarget) {
       this.submitButtonContainerTarget.style.display = 'none';
     }
-    if (this.sendSmsRBContainerTarget) {
+    if (this.hasSendSmsRBContainerTarget) {
       this.sendSmsRBContainerTarget.style.display = 'none';
     }
   }

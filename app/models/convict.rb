@@ -101,6 +101,10 @@ class Convict < ApplicationRecord
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.mobile')
   end
 
+  def can_receive_sms?
+    !(phone.blank? || no_phone? || refused_phone?)
+  end
+
   def invitable_to_convict_interface?
     phone.present? && invitation_to_convict_interface_count < 2 &&
       timestamp_convict_interface_creation.nil?
