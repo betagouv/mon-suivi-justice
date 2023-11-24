@@ -20,7 +20,7 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def edit?
-    ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
   def update?
