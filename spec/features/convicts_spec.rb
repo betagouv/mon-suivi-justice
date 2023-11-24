@@ -76,6 +76,8 @@ RSpec.feature 'Convicts', type: :feature do
 
       choose '14:00'
 
+      page.find('label[for="send_sms_1"]').click
+
       expect(page).to have_button('Convoquer')
       expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
     end

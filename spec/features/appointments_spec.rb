@@ -111,6 +111,7 @@ RSpec.feature 'Appointments', type: :feature do
         select '16', from: 'appointment_slot_starting_time_4i'
         select '00', from: 'appointment_slot_starting_time_5i'
 
+        page.find('label[for="send_sms_1"]').click
         expect(page).to have_button('Convoquer')
 
         page.find('label[for="send_sms_1"]').click
@@ -141,6 +142,8 @@ RSpec.feature 'Appointments', type: :feature do
           select '16', from: 'appointment_slot_starting_time_4i'
           select '00', from: 'appointment_slot_starting_time_5i'
         end
+
+        page.find('label[for="send_sms_1"]').click
 
         expect(page).to have_button('Convoquer')
 
@@ -185,6 +188,9 @@ RSpec.feature 'Appointments', type: :feature do
                                     options: ['', 'Tous les agendas', 'agenda_in_name', 'other_agenda_in_name'])
         select 'agenda_in_name', from: 'Agenda'
         choose '14:00'
+
+        page.find('label[for="send_sms_1"]').click
+
         expect(page).to have_button('Convoquer')
 
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
@@ -225,6 +231,8 @@ RSpec.feature 'Appointments', type: :feature do
         expect(page).to have_content('11:00 - Cabinet 22')
         expect(page).not_to have_content('19:00 - Cabinet 74')
 
+        page.find('label[for="send_sms_1"]').click
+
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
                                                                 .and change { Notification.count }.by(5)
       end
@@ -257,6 +265,8 @@ RSpec.feature 'Appointments', type: :feature do
 
         choose '17:00'
 
+        page.find('label[for="send_sms_1"]').click
+
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
                                      .and change { Notification.count }.by(5)
       end
@@ -287,6 +297,8 @@ RSpec.feature 'Appointments', type: :feature do
           select '00', from: 'appointment_slot_starting_time_5i'
         end
 
+        page.find('label[for="send_sms_1"]').click
+
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
                                     .and change { Slot.count }.by(1)
                                     .and change { Notification.count }.by(5)
@@ -310,6 +322,8 @@ RSpec.feature 'Appointments', type: :feature do
           select '00', from: 'appointment_slot_starting_time_5i'
         end
 
+        page.find('label[for="send_sms_1"]').click
+
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
                                     .and change { Slot.count }.by(1)
                                     .and change { Notification.count }.by(5)
@@ -332,6 +346,9 @@ RSpec.feature 'Appointments', type: :feature do
           select '00', from: 'appointment_slot_starting_time_5i'
         end
 
+        expect(page).not_to have_content('Prévenir immédiatement par SMS et envoyer un rappel avant la convocation.')
+
+
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
                                              .and change { Slot.count }.by(1)
                                              .and change { Notification.count }.by(5)
@@ -350,6 +367,8 @@ RSpec.feature 'Appointments', type: :feature do
           select '15', from: 'appointment_slot_starting_time_4i'
           select '00', from: 'appointment_slot_starting_time_5i'
         end
+
+        page.find('label[for="send_sms_0"]').click
 
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(0)
                                     .and change { Slot.count }.by(0)
@@ -379,6 +398,8 @@ RSpec.feature 'Appointments', type: :feature do
           select '15', from: 'appointment_slot_starting_time_4i'
           select '00', from: 'appointment_slot_starting_time_5i'
         end
+
+        page.find('label[for="send_sms_0"]').click
 
         click_button 'Convoquer'
         expect(Appointment.last.convict.cpip).to eq(@user)
