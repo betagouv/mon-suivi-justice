@@ -88,6 +88,8 @@ RSpec.configure do |config|
   config.after(:each) do
     FactoryBot.rewind_sequences
   end
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
 end
 
 Shoulda::Matchers.configure do |config|
