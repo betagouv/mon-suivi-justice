@@ -1,11 +1,11 @@
 class AppointmentsController < ApplicationController
   include InterRessortFlashes
-
+  include AppointmentsHelper
   before_action :authenticate_user!
 
   def index
     @search_params = search_params
-
+    @appointment_types = appointment_types_for_user(current_user)
     @q = policy_scope(Appointment).active.ransack(params[:q])
     @all_appointments = @q.result(distinct: true)
                           .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
@@ -41,7 +41,7 @@ class AppointmentsController < ApplicationController
     return unless params.key?(:convict_id)
 
     @convict = Convict.find(params[:convict_id])
-
+    @appointment_types = appointment_types_for_user(current_user)
     set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     set_extra_fields
@@ -165,5 +165,17 @@ class AppointmentsController < ApplicationController
                               error.message
                             end
     end
+  end
+
+  def appointment_types_for_user_places
+    AppointmentType.joins(place_appointment_types: :place)
+                                     .where(places: policy_scope(Place).kept)
+                                     .distinct
+  end
+
+  def appointment_types_for_user(user)
+    available_apt_type = appointment_types_for_user_role(user)
+    places_apt_type = appointment_types_for_user_places
+    available_apt_type.to_a.intersection(places_apt_type.to_a)
   end
 end

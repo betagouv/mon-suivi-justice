@@ -29,7 +29,7 @@
 
       <div data-controller="appointment-extra-field-display">
         <div class='appointment-form-appointment-type-container' id='appointment-type-container' data-appointment-new-target="container" data-container-type="appointmentType" style=<%= @convict ? "display: block" : "display: none" %>>
-          <%= f.input :appointment_appointment_type_id, collection: appointment_types_for_user(current_user),
+          <%= f.input :appointment_appointment_type_id, collection: @appointment_types,
                                                         label: t('activerecord.models.appointment_type'),
                                                         as: :fake_select,
                                                         label_method: :name,

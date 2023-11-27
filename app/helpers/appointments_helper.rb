@@ -1,6 +1,6 @@
 module AppointmentsHelper
   # rubocop:disable Metrics/PerceivedComplexity, Metrics/AbcSize
-  def appointment_types_for_user(user)
+  def appointment_types_for_user_role(user)
     if user.work_at_sap?
       list = AppointmentType.used_at_sap?
     elsif user.work_at_bex?
@@ -17,13 +17,9 @@ module AppointmentsHelper
       return AppointmentType.all
     end
 
-    available_apt_type = AppointmentType.where(name: list)
-    places_apt_type = AppointmentType.joins(place_appointment_types: :place)
-                                     .where(places: policy_scope(Place).kept)
-                                     .distinct
-
-    available_apt_type.to_a.intersection(places_apt_type.to_a)
+    AppointmentType.where(name: list)
   end
+
   # rubocop:enable Metrics/PerceivedComplexity, Metrics/AbcSize
 
   def spip_user_appointments_types_array(user)
