@@ -17,7 +17,12 @@ module AppointmentsHelper
       return AppointmentType.all
     end
 
-    AppointmentType.where(name: list)
+    available_apt_type = AppointmentType.where(name: list)
+    places_apt_type = AppointmentType.joins(place_appointment_types: :place)
+                                     .where(places: policy_scope(Place).kept)
+                                     .distinct
+
+    available_apt_type.to_a.intersection(places_apt_type.to_a)
   end
   # rubocop:enable Metrics/PerceivedComplexity, Metrics/AbcSize
 
