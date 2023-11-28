@@ -152,6 +152,10 @@ RSpec.feature 'Appointments', type: :feature do
         expect(SmsDeliveryJob).to have_been_enqueued.once.with(
           Notification.find_by(role: :reminder, appointment: Appointment.last).id
         )
+
+        expect(SmsDeliveryJob).to have_been_enqueued.at_most(0).with(
+          Notification.find_by(role: :summon, appointment: Appointment.last).id
+        )
       end
 
       it 'allows an agent to create appointment only for his service places & slots', logged_in_as: 'jap' do
