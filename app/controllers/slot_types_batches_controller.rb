@@ -21,11 +21,12 @@ class SlotTypesBatchesController < ApplicationController
 
   # rubocop:enable Metrics/AbcSize
   def destroy
-    slot_types = if params.key?(:weekday)
-                   SlotType.where(agenda_id: params[:agenda_id], week_day: params[:weekday])
-                 else
-                   SlotType.where(agenda_id: params[:agenda_id])
-                 end
+    conditions = { agenda_id: params[:agenda_id] }
+    conditions[:week_day] = params[:weekday] if params.key?(:weekday)
+
+    slot_types = SlotType.where(conditions)
+
+    authorize slot_types, :destroy_all?
 
     slot_types.destroy_all
 

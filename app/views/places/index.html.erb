@@ -27,8 +27,12 @@
           <td><%= place.display_phone %></td>
           <td><%= place.organization.name %></td>
           <td>
-            <%= link_to t('edit'), edit_place_path(place), class: 'index-control' %>
-            <%= link_to t('archive'), place_archive_path(place), class: 'index-control', data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :patch }  %>
+            <% if policy(place).edit? %>
+              <%= link_to t('edit'), edit_place_path(place), class: 'index-control' %>
+            <% end %>
+            <% if policy(place).archive? %>
+              <%= link_to t('archive'), place_archive_path(place), class: 'index-control', data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :patch }  %>
+            <% end%>
           </td>
         </tr>
       <% end %>
