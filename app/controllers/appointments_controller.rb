@@ -169,8 +169,8 @@ class AppointmentsController < ApplicationController
 
   def appointment_types_for_user_places
     AppointmentType.joins(place_appointment_types: :place)
-                                     .where(places: policy_scope(Place).kept)
-                                     .distinct
+                   .where(places: policy_scope(Place).kept)
+                   .distinct
   end
 
   def appointment_types_for_user(user)

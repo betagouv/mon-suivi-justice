@@ -10,9 +10,11 @@ FactoryBot.define do
     trait :in_organization do
       transient do
         type { 'spip' }
+        interressort { false }
       end
       after(:build) do |user, evaluator|
-        user.organization = FactoryBot.create(:organization, organization_type: evaluator.type)
+        user.organization = FactoryBot.create(:organization, organization_type: evaluator.type,
+                                                             use_inter_ressort: evaluator.interressort)
       end
     end
 

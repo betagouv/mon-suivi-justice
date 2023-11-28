@@ -136,8 +136,8 @@ def create_cpip_user_and_login
   @cpip
 end
 
-def create_user_and_login(role, org_type)
-  @user = create(:user, :in_organization, type: org_type, role: role)
+def create_user_and_login(role, org_type, interressort: false)
+  @user = create(:user, :in_organization, type: org_type, role: role, interressort:)
   login_as(@user)
   @user
 end

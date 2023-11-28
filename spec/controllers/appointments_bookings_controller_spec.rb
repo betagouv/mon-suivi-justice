@@ -8,9 +8,13 @@ RSpec.describe AppointmentsBookingsController, type: :controller do
     let(:user) { create(:user, organization: spip1, role: 'cpip') }
     let(:convict) { create(:convict, organizations: [spip1, spip2, tj]) }
     let(:appointment_type) { create(:appointment_type) }
-    let!(:place1) { create(:place, organization: spip1, appointment_types: [appointment_type], name: "place for spip1") }
-    let!(:place2) { create(:place, organization: tj, appointment_types: [appointment_type], name: "place for tj") }
-    let!(:place3) { create(:place, organization: spip2, appointment_types: [appointment_type], name: "place for spip2") }
+    let!(:place1) do
+      create(:place, organization: spip1, appointment_types: [appointment_type], name: 'place for spip1')
+    end
+    let!(:place2) { create(:place, organization: tj, appointment_types: [appointment_type], name: 'place for tj') }
+    let!(:place3) do
+      create(:place, organization: spip2, appointment_types: [appointment_type], name: 'place for spip2')
+    end
 
     before do
       sign_in user
