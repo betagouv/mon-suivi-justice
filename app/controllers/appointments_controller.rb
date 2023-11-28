@@ -66,6 +66,8 @@ class AppointmentsController < ApplicationController
       build_error_messages(selected_place)
 
       @convict = Convict.find(params.dig(:appointment, :convict_id))
+      @appointment_types = appointment_types_for_user(current_user)
+
       # We need to set the extra fields but we don't want to build them again
       set_extra_fields
       render :new, status: :unprocessable_entity
