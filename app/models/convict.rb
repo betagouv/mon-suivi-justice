@@ -150,7 +150,7 @@ class Convict < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
-  def update_organizations(current_user)
+  def update_organizations(current_user, autosave: true)
     city = City.find(city_id) if city_id
     source = city&.organizations&.any? ? city : current_user
 
@@ -161,8 +161,10 @@ class Convict < ApplicationRecord
       organizations.push organization
     end
 
-    organizations.push(Organization.find_by(name: 'TJ Paris')) if japat
-    save
+    tj_paris = Organization.find_by(name: 'TJ Paris')
+    organizations.push(tj_paris) if japat && organizations.exclude?(tj_paris)
+
+    save if autosave
   end
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity

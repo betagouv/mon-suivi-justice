@@ -36,6 +36,7 @@ class ConvictsController < ApplicationController
     @convict = Convict.new(convict_params)
     @convict.creating_organization = current_organization
     @convict.current_user = current_user
+    @convict.update_organizations(current_user, autosave: false)
     authorize @convict
 
     save_and_redirect(@convict)
