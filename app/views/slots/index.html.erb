@@ -92,13 +92,11 @@
                       
                       </div>
                     </div>
-                  <% end %>
-                  <div class="col-fr">
-                    <%= link_to t('close'), slot_path(slot, slot: { available: false }),
-                                          data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :put },
-                                          class: 'slots-index-control' %>
-                  </div>
-                  <% if policy(slot).edit? %>
+                    <div class="col-fr">
+                      <%= link_to t('close'), slot_path(slot, slot: { available: false }),
+                                            data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :put },
+                                            class: 'slots-index-control' %>
+                    </div>
                     <div class="col-fr">
                       <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
                     </div>
