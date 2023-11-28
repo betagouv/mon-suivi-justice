@@ -11,6 +11,10 @@
   display: none;
 }
 
+#radio-group-container {
+  display: none;
+}
+
 .appointment-send-sms-modal-button-container {
   display: flex;
   justify-content: center;

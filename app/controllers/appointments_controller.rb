@@ -58,7 +58,7 @@ class AppointmentsController < ApplicationController
     if @appointment.save
       @appointment.convict.update(user: current_user) if params.dig(:appointment, :user_is_cpip) == '1'
       @appointment.update(inviter_user_id: current_user.id)
-      @appointment.book(send_notification: params[:send_sms])
+      @appointment.book(send_notification: @appointment.send_sms)
       redirect_to appointment_path(@appointment)
     else
       selected_place = Place.find(params.dig(:appointment, :place_id))
@@ -122,8 +122,9 @@ class AppointmentsController < ApplicationController
   def appointment_params
     params.require(:appointment).permit(
       :slot_id, :user_id, :convict_id, :appointment_type_id, :place_id, :origin_department, :prosecutor_number,
-      :creating_organization_id, slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time],
-                                 appointment_extra_fields_attributes: [:value, :extra_field_id]
+      :creating_organization_id, :send_sms,
+      slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time],
+      appointment_extra_fields_attributes: [:value, :extra_field_id]
     )
   end
 

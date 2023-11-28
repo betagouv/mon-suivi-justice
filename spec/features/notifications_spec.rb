@@ -30,7 +30,7 @@ RSpec.feature 'Notifications', type: :feature do
         select '00', from: 'appointment_slot_starting_time_5i'
       end
 
-      click_button 'Enregistrer'
+      click_button 'Convoquer'
 
       expect(SmsDeliveryJob).to have_been_enqueued.once
     end
