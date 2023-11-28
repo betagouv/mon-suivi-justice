@@ -153,6 +153,7 @@ class ConvictsController < ApplicationController
   end
 
   def record_phone_change(old_phone)
+    return if @convict.phone.blank? && old_phone.blank?
     return if @convict.phone == old_phone
 
     allow_new_phone(old_phone)
