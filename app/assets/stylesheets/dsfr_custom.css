@@ -1,4 +1,4 @@
-.fr_btn_red {
+.fr-btn--danger {
     --background-action-high-blue-france: red; /* Normal state */
     --background-action-high-blue-france-hover: darkred; /* Hover state */
     color: white; /* Change text color for better visibility */

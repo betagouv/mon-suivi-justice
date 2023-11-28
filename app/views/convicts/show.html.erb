@@ -62,7 +62,7 @@
                     <%= button_to t('delete'), convict_path(params[:id]),
                                           method: :delete,
                                           data: { 'turbo-confirm': t('basic_confirmation')},
-                                          class: 'fr-btn fr_btn_red' %>
+                                          class: 'fr-btn fr-btn--danger' %>
                   <% end %>
                   <% if policy(@convict).archive? %>
                     <%= button_to t('archive'), convict_archive_path(@convict),
