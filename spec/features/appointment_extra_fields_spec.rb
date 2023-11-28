@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'ExtraFields', type: :feature, js: true do
   describe 'appointment creation with extra_fields', logged_in_as: 'bex' do
-    let(:organization_a) { create(:organization, name: 'Organization A', organization_type: 'tj') }
+    let(:organization_a) { @user.organization }
 
     let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
