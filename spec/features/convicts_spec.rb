@@ -105,7 +105,7 @@ RSpec.feature 'Convicts', type: :feature do
       check 'Ne possède pas de téléphone portable'
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
-      expect(Convict.first.organizations).to eq([@user.organization, tj])
+      expect(Convict.first.organizations).to match_array([@user.organization, tj])
     end
 
     it 'it assigns the city organizations to the convict if a city is selected', logged_in_as: 'bex', js: true do
