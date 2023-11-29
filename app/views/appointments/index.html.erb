@@ -33,7 +33,7 @@
                                       { class: "fr-select #{@q.slot_agenda_id_eq ? 'in-use' : ''}" } %>
         </div>
         <div class="fr-col">
-          <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_user(current_user), 'id', 'name', @q.slot_appointment_type_id_eq),
+          <%= f.select :slot_appointment_type_id_eq, options_from_collection_for_select(@appointment_types, 'id', 'name', @q.slot_appointment_type_id_eq),
                                                 { include_blank: t('index-slots-appointment-type-filter') },
                                                 { class: "fr-select #{@q.slot_appointment_type_id_eq ? 'in-use' : ''}" } %>
         </div>

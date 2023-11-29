@@ -2,8 +2,12 @@ class PlacePolicy < ApplicationPolicy
   ALLOWED_TO_EDIT = %w[admin local_admin jap dir_greff_bex dir_greff_sap dpip greff_sap].freeze
 
   class Scope < Scope
+    # for the inter ressort to work, we need bex user to be able to access all places of the convict
+    # should bex user have access to all places?
     def resolve
-      if user.admin?
+      return scope.all if user.work_at_bex? && user.organization.use_inter_ressort
+
+      if user.admin? || user.work_at_bex? || user.local_admin_tj?
         scope.in_jurisdiction(user.organization)
       else
         scope.in_organization(user.organization)

@@ -240,7 +240,8 @@ RSpec.feature 'Appointments', type: :feature do
                                                                 .and change { Notification.count }.by(5)
       end
 
-      it 'Inter-Ressort allows an agent to setup an appointment in another service', logged_in_as: 'jap' do
+      it 'Inter-Ressort: allows an agent to setup an appointment in another service',
+         logged_in_as: 'bex_interressort' do
         appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
         create :place, name: 'Test place', appointment_types: [appointment_type],
                        organization: @user.organization
