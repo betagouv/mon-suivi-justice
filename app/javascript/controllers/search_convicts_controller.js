@@ -32,8 +32,8 @@ export default class extends ApplicationController {
             return;
         }
 
-        if (this.query == this.previousQuery) {
-            if (!this.hasMineButtonTarget) return;
+        if (this.query === this.previousQuery && !this.hasMineButtonTarget) {
+            return;
         }
 
         this.previousQuery = this.query;

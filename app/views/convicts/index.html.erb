@@ -24,8 +24,8 @@
       </div>
       <div class="fr-col-sm-12 fr-col-md-10">
         <div id="search_results" data-search-convicts-target="results"></div>
-        <div class="fr-table fr-table--bordered">
-          <table data-search-convicts-target="table">
+        <div class="fr-table fr-table--bordered" data-search-convicts-target="table">
+          <table>
             <caption>Tous les probationnaires</caption>
             <thead>
               <tr>
@@ -81,6 +81,7 @@
               <% end %>
             </tbody>
           </table>
+          <%= paginate @convicts %>
         </div>
       </div>
     </div>
@@ -92,5 +93,3 @@
     </div>
   </div>
 </div>
-
-<%= paginate @convicts %>
