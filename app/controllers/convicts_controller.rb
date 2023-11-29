@@ -14,11 +14,9 @@ class ConvictsController < ApplicationController
   end
 
   def index
-    @all_convicts = policy_scope(Convict)
     @q = policy_scope(base_filter).order('last_name asc').ransack(params[:q])
     @convicts = @q.result(distinct: true).page params[:page]
 
-    authorize @all_convicts
     authorize @convicts
   end
 
