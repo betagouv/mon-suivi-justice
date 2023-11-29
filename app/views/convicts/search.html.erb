@@ -8,6 +8,7 @@
           <th scope="col"><%= t('activerecord.attributes.convict.last_name') %></th>
           <th scope="col"><%= t('activerecord.attributes.convict.appi_uuid') %></th>
           <th scope="col"><%= t('activerecord.attributes.convict.phone') %></th>
+          <th scope="col"><%= t('activerecord.attributes.convict.cpip') %></th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -18,6 +19,20 @@
             <td><%= convict.last_name %></td>
             <td><%= convict.appi_uuid %></td>
             <td><%= convict.display_phone %></td>
+            <td>
+              <% if convict.cpip.present? %>
+                <div class="fr-grid-row fr-grid-row--center">
+                  <%= convict.cpip_name %>
+                  <% if policy(convict).unassign? %>
+                    <%= button_to convict_unassign_path(convict), data: { 'turbo-confirm': t('basic_confirmation') } do %>
+                      <span class="fr-icon-close-line" aria-hidden="true"></span>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% elsif policy(convict).self_assign? %>
+                <%= link_to t('.self_assign_link'), convict_self_assign_path(convict), class: 'index-control', data: { 'turbo-method': :post } %>
+              <% end %>
+            </td>
             <td>
               <% if policy(convict).show? %>
                 <%= link_to t('show_convict'), convict_path(convict), class: 'index-control' %>

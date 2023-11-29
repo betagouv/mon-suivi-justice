@@ -13,17 +13,14 @@ class ConvictsController < ApplicationController
     authorize @convict
   end
 
-  # rubocop:disable Metrics/AbcSize
   def index
     @all_convicts = policy_scope(Convict)
-    base_filter = params[:only_mine] == 'true' ? current_user.convicts : Convict.all
     @q = policy_scope(base_filter).order('last_name asc').ransack(params[:q])
     @convicts = @q.result(distinct: true).page params[:page]
 
     authorize @all_convicts
     authorize @convicts
   end
-  # rubocop:enable Metrics/AbcSize
 
   def new
     @convict = Convict.new
@@ -111,8 +108,7 @@ class ConvictsController < ApplicationController
   def search
     query = params[:q]
     query = add_prefix_to_phone(query) if query =~ (/\d/) && !/^(\+33)/.match?(query)
-
-    @convicts = policy_scope(Convict).search_by_name_and_phone(query)
+    @convicts = policy_scope(base_filter).search_by_name_and_phone(query)
 
     authorize @convicts
     render layout: false
@@ -211,5 +207,9 @@ class ConvictsController < ApplicationController
 
   def add_prefix_to_phone(phone)
     "+33#{phone[1..]}"
+  end
+
+  def base_filter
+    params[:only_mine] == 'true' ? current_user.convicts : Convict.all
   end
 end
