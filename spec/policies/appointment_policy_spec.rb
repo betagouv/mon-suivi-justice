@@ -1206,8 +1206,8 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP from another service' do
-      let(:organization) { create(:organization) }
-      let(:user) { build(:user, role: 'cpip', organization:) }
+      let(:spip2) { create(:organization, organization_type: 'spip') }
+      let(:user) { build(:user, role: 'cpip', organization: spip2) }
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
       it { is_expected.to forbid_action(:fulfil) }
