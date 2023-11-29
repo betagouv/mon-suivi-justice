@@ -1,5 +1,5 @@
 web: rails s -p 3001
 worker: bundle exec sidekiq
 clock: bundle exec clockwork config/clock.rb
-js: yarn build --watch
+js: yarn start
 css: yarn build:css --watch

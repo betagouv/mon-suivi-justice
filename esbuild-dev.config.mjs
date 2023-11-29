@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import * as esbuild from 'esbuild'
 
+
 let appEnvironment;
 if (process.env.APP === 'mon-suivi-justice-staging') {
   appEnvironment = 'staging';
@@ -13,9 +14,8 @@ if (process.env.APP === 'mon-suivi-justice-staging') {
 }
 
 let ctx = await esbuild.context({
-  entryPoints: ['app/javascript/application.js'],
+  entryPoints: ['app/javascript/*.js'],
   bundle: true,
-  sourcemap: true,
   loader: { '.svg': 'copy' },
   assetNames: '[name]',
   outdir: 'app/assets/builds',
