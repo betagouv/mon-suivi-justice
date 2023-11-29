@@ -785,6 +785,10 @@ fr:
     formats:
       clear: "%A %e %B %Y à %kh%M"
 
+  date:
+    formats:
+      value: "%Y-%m-%d"
+
   views:
     pagination:
       truncate: '...'
