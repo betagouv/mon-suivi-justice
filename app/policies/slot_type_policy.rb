@@ -13,6 +13,10 @@ class SlotTypePolicy < ApplicationPolicy
     check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
 
+  def new?
+    ALLOWED_TO_EDIT.include?(user.role)
+  end
+
   def create?
     check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
   end
