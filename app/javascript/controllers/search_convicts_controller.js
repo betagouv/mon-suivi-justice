@@ -6,6 +6,7 @@ export default class extends ApplicationController {
 
     connect() {
         useDebounce(this, { wait: 500 })
+        console.log("SearchConvictsController connected")
     }
 
     get query() {
