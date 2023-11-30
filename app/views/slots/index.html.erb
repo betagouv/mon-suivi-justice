@@ -27,12 +27,12 @@
                             placeholder: t('search-appointment-placeholder') %>
     </div>
     <div class="fr-col">
-      <%= f.select :agenda_place_id_eq, options_for_select(options_for_select(places_options_for_select(current_user), @q.agenda_place_id_eq), @q.agenda_place_id_eq),
+      <%= f.select :agenda_place_id_eq, options_for_select(options_for_select(places_options_for_select(@places), @q.agenda_place_id_eq), @q.agenda_place_id_eq),
                                           { include_blank: t('slots.index_place_filter') },
                                           { class: 'fr-select' } %>
     </div>
     <div class="fr-col">
-      <%= f.select :agenda_id_eq, options_for_select(agendas_options_for_select(current_user), @q.agenda_id_eq),
+      <%= f.select :agenda_id_eq, options_for_select(agendas_options_for_select(@agendas), @q.agenda_id_eq),
                                     { include_blank: t('index-appointment-agenda-filter') },
                                     { class: 'fr-select' } %>
     </div>

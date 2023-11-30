@@ -7,12 +7,16 @@ class AppointmentsController < ApplicationController
     @search_params = search_params
     @places = policy_scope(Place)
     @agendas = policy_scope(Agenda)
-    @appointment_types = @places.map(&:appointment_types).flatten.uniq
     @q = policy_scope(Appointment).active.ransack(params[:q])
     @all_appointments = @q.result(distinct: true)
                           .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
                           .includes(:convict, :user, slot: [:appointment_type, { agenda: [:place] }])
                           .order('slots.date ASC, slots.starting_time ASC')
+
+    slots = @all_appointments.map(&:slot).uniq
+    @agendas = slots.map(&:agenda).uniq
+    @places = @agendas.map(&:place).uniq
+    @appointment_types = slots.map(&:appointment_type).uniq
 
     @appointments = @all_appointments.page(params[:page]).per(25)
 
