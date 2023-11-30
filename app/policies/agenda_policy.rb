@@ -36,7 +36,7 @@ class AgendaPolicy < ApplicationPolicy
   end
 
   def can_create_slot_inside?
-    if user.admin? || user.local_admin_tj? || user.work_at_bex?
+    if user.admin?
       return [user.organization, *user.organization.linked_organizations].include?(slot.agenda.place.organization)
     end
 
