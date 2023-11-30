@@ -1,5 +1,5 @@
 class PlacePolicy < ApplicationPolicy
-  ALLOWED_TO_EDIT = %w[admin local_admin jap dir_greff_bex dir_greff_sap dpip greff_sap].freeze
+  ALLOWED_TO_INTERACT = %w[admin local_admin jap dir_greff_bex dir_greff_sap dpip greff_sap].freeze
 
   class Scope < Scope
     # for the inter ressort to work, we need bex user to be able to access all places of the convict
@@ -18,35 +18,35 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def index?
-    ALLOWED_TO_EDIT.include?(user.role)
+    ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def new?
-    ALLOWED_TO_EDIT.include?(user.role)
+    ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def edit?
-    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def update?
-    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def show?
-    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def create?
-    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def destroy?
-    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def archive?
-    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def check_ownership?
