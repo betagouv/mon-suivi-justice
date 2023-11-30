@@ -65,7 +65,7 @@ jobs:
       #     SSH_PASS: ${{ secrets.SSH_PASS }}
 
       - name: Spec suite
-        run: bundle exec rspec
+        run: bundle exec rails test:prepare && bundle exec rspec
         env:
           DATABASE_URL: localhost
           MSJ_DB_USER: msj
