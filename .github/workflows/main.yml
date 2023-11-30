@@ -67,7 +67,6 @@ jobs:
       - name: Spec suite
         run: bundle exec rails test:prepare && bundle exec rspec
         env:
-          RAILS_ENV: production
           DATABASE_URL: localhost
           MSJ_DB_USER: msj
           MSJ_DB_PASSWORD: msj
