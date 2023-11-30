@@ -6,9 +6,9 @@ class SlotsController < ApplicationController
   def index
     @q = policy_scope(Slot).future.with_appointment_type_with_slot_system.ransack(params[:q])
     all_slots = @q.result(distinct: true)
-               .order(:date, :starting_time)
-               .includes(agenda: [:place])
-               .joins(agenda: [:place])
+                  .order(:date, :starting_time)
+                  .includes(agenda: [:place])
+                  .joins(agenda: [:place])
 
     @slots = all_slots.page(params[:page]).per(25)
     @agendas = all_slots.map(&:agenda).uniq
