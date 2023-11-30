@@ -47,8 +47,8 @@ module UsersHelper
       policy(:slot).index?
   end
 
-  def places_options_for_select(user)
-    Place.in_organization(user.organization).map do |place|
+  def places_options_for_select(places)
+    places.map do |place|
       label = place.discarded_at ? "#{place.name} (Archivé)" : place.name
       [label, place.id]
     end
