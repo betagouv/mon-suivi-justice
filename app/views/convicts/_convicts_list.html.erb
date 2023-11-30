@@ -30,7 +30,7 @@
                   <% end %>
                 </div>
               <% elsif policy(convict).self_assign? %>
-                <%= link_to t('.self_assign_link'), convict_self_assign_path(convict), class: 'index-control', data: { 'turbo-method': :post } %>
+                <%= link_to t('self_assign_link'), convict_self_assign_path(convict), class: 'index-control', data: { 'turbo-method': :post } %>
               <% end %>
             </td>
             <td>

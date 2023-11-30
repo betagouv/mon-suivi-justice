@@ -14,10 +14,17 @@ class ConvictsController < ApplicationController
   end
 
   def index
-    @q = policy_scope(base_filter).order('last_name asc').ransack(params[:q])
-    @convicts = @q.result(distinct: true).page params[:page]
+    query = params[:q]
+    query = add_prefix_to_phone(params[:q]) if query =~ (/\d/) && !/^(\+33)/.match?(params[:q])
+
+    @convicts = fetch_convicts(query)
 
     authorize @convicts
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def new
@@ -208,6 +215,12 @@ class ConvictsController < ApplicationController
   end
 
   def base_filter
-    params[:only_mine] == 'true' ? current_user.convicts : Convict.all
+    params[:my_convicts] == '1' ? current_user.convicts : Convict.all
+  end
+
+  def fetch_convicts(query)
+    scope = policy_scope(base_filter)
+    scope = scope.search_by_name_and_phone(query) if query.present?
+    scope.order('last_name asc').page params[:page]
   end
 end
