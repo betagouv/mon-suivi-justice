@@ -67,7 +67,7 @@ jobs:
       - name: Build ESbuild
         run: yarn build
 
-      - name: Build ESbuild
+      - name: Build CSS with postcss
         run: yarn build:css
 
       - name: Spec suite
