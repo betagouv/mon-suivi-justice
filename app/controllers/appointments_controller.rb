@@ -5,7 +5,8 @@ class AppointmentsController < ApplicationController
 
   def index
     @search_params = search_params
-    @appointment_types = appointment_types_for_user(current_user)
+    places = policy_scope(Place).kept
+    @appointment_types = places.map(&:appointment_types).flatten.uniq
     @q = policy_scope(Appointment).active.ransack(params[:q])
     @all_appointments = @q.result(distinct: true)
                           .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
