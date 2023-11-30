@@ -13,6 +13,7 @@ require 'paper_trail/frameworks/rspec'
 require "support/with_env"
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
+require 'axe-rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

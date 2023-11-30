@@ -98,6 +98,7 @@ group :test do
   gem 'pundit-matchers', '~> 1.6.0'
   gem 'state_machines-rspec'
   gem 'webmock'
+  gem 'axe-core-rspec'
 end
 
 gem 'noticed', '~> 1.6'
