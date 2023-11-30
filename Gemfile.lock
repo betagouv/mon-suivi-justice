@@ -627,7 +627,6 @@ DEPENDENCIES
   simple_form (~> 5.1)
   solargraph
   spring
-  sprockets-rails
   state_machines (~> 0.5)
   state_machines-activerecord (~> 0.8)
   state_machines-graphviz
