@@ -2,11 +2,13 @@ class SlotsBatchesController < ApplicationController
   before_action :authenticate_user!
   skip_after_action :verify_authorized
 
-  def new; end
+  def new
+    authorize Slot, :new?
+  end
 
   def create
+    authorize_batch_create(slot_params)
     result = batch_create(params, slot_params)
-
     if result.all?(&:persisted?)
       flash.discard
       redirect_to slots_path
@@ -53,5 +55,11 @@ class SlotsBatchesController < ApplicationController
       capacity: params[:capacity],
       duration: params[:duration]
     }
+  end
+
+  def authorize_batch_create(params)
+    authorize Slot, :new?
+    agenda = Agenda.find(params[:agenda_id])
+    authorize agenda, :can_create_slot_inside?
   end
 end

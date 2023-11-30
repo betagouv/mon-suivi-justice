@@ -34,4 +34,12 @@ class AgendaPolicy < ApplicationPolicy
 
     record.place.organization == user.organization
   end
+
+  def can_create_slot_inside?
+    if user.admin? || user.local_admin_tj? || user.work_at_bex?
+      return [user.organization, *user.organization.linked_organizations].include?(slot.agenda.place.organization)
+    end
+
+    record.place.organization == user.organization
+  end
 end
