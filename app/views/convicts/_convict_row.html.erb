@@ -8,9 +8,9 @@
         <div class="fr-grid-row fr-grid-row--center">
             <%= convict.cpip_name %>
             <% if policy(convict).unassign? %>
-                <%= link_to convict_unassign_path(convict), data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :post } do %>
-                    <span class="fr-icon-close-line" aria-hidden="true"></span>
-                <% end %>
+            <%= link_to convict_unassign_path(convict), data: { turbo_confirm: t('basic_confirmation'), 'turbo-method': :post } do %>
+                <span class="fr-icon-close-line" aria-hidden="true"></span>
+            <% end %>
             <% end %>
         </div>
         <% elsif policy(convict).self_assign? %>

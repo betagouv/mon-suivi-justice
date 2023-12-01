@@ -1,17 +1,20 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["searchForm"]
+  static targets = ["searchForm", "searchField", "myConvictsCheckbox"]
 
   connect() {
     console.log("Convicts search controller connected");
   }
 
-  triggerSearch() {
-    clearTimeout(this.searchTimeout);
-    this.searchTimeout = setTimeout(() => {
-        this.performSearch();
-    }, 300);
+  triggerSearch(event) {
+    if (event.target === this.searchFieldTarget || event.target === this.myConvictsCheckboxTarget) {
+      clearTimeout(this.searchTimeout);
+      this.searchTimeout = setTimeout(() => {
+          console.log("Performing search...");
+          this.performSearch();
+      }, 300);
+    }
   }
 
   performSearch() {
