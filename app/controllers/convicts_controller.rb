@@ -71,7 +71,11 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     @convict.destroy!
-    redirect_to convicts_path
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to convicts_path, notice: 'Le probationnaire a bien été supprimé' }
+    end
   end
 
   def archive
@@ -80,7 +84,11 @@ class ConvictsController < ApplicationController
 
     @convict.discard
     HistoryItemFactory.perform(convict: @convict, event: 'archive_convict', category: 'convict')
-    redirect_back(fallback_location: root_path)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to convicts_path, notice: 'Le probationnaire a bien été archivé' }
+    end
   end
 
   def unarchive
@@ -89,7 +97,11 @@ class ConvictsController < ApplicationController
 
     @convict.undiscard
     HistoryItemFactory.perform(convict: @convict, event: 'unarchive_convict', category: 'convict')
-    redirect_back(fallback_location: root_path)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to convicts_path, notice: 'Le probationnaire a bien été désarchivé' }
+    end
   end
 
   def self_assign
