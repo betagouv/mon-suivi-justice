@@ -109,8 +109,10 @@ class ConvictsController < ApplicationController
     authorize @convict
     @convict.update_attribute(:user, current_user)
 
-    flash[:notice] = t('.notice')
-    redirect_back(fallback_location: root_path)
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to convicts_path, notice: t('.notice') }
+    end
   end
 
   def unassign
@@ -118,8 +120,10 @@ class ConvictsController < ApplicationController
     authorize @convict
     @convict.update_attribute(:user, nil)
 
-    flash[:notice] = t('.notice')
-    redirect_back(fallback_location: root_path)
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to convicts_path, notice: t('.notice') }
+    end
   end
 
   def search

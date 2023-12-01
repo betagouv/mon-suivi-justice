@@ -10,7 +10,17 @@ export default class extends Controller {
   triggerSearch() {
     clearTimeout(this.searchTimeout);
     this.searchTimeout = setTimeout(() => {
-      this.searchFormTarget.requestSubmit();
+        this.performSearch();
     }, 300);
+  }
+
+  performSearch() {
+    try {
+      this.searchFormTarget.requestSubmit();
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        console.error("An unexpected error occurred:", error);
+      }
+    }
   }
 }

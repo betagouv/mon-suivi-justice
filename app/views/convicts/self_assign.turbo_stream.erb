@@ -1,0 +1,2 @@
+<%= turbo_stream.replace "#{dom_id(@convict)}_row", partial: "convicts/convict_row", locals: { convict: @convict } %>
+<%= turbo_stream.update "flash_messages", partial: "shared/flashes", locals: { flash: { success: 'Le probationnaire vous a bien été assigné' } } %>
