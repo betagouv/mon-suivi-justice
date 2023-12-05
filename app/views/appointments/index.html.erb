@@ -39,7 +39,7 @@
         </div>
         <% if current_user.work_at_spip? || current_user.admin? %>
           <div class="fr-col">
-            <%= f.select :user_id_eq, options_from_collection_for_select(assignable_user_in_organization(), 'id', lambda { |user|
+            <%= f.select :user_id_eq, options_from_collection_for_select(@users, 'id', lambda { |user|
                                                                                   return user.name unless user === current_user
                                                                                    user.name + " (#{t('current_user_title')})"
                                                                                  }, @q.user_id_eq),

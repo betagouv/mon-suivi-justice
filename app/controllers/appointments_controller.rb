@@ -17,6 +17,10 @@ class AppointmentsController < ApplicationController
     @agendas = slots.map(&:agenda).uniq
     @places = @agendas.map(&:place).uniq
     @appointment_types = slots.map(&:appointment_type).uniq
+    @users = @all_appointments.map(&:user).uniq.compact
+    @users.delete(current_user)
+
+    @users.unshift(current_user) if current_user.can_have_appointments_assigned?
 
     @appointments = @all_appointments.page(params[:page]).per(25)
 
