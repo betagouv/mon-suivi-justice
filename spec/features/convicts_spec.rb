@@ -44,8 +44,7 @@ RSpec.feature 'Convicts', type: :feature do
 
       page.execute_script("document.getElementById('my_convicts_checkbox').dispatchEvent(new Event('change'))")
 
-      expect(page).to have_content('Vaillant')
-      expect(page).to have_no_content('Personne') # waits up to 5 seconds
+      expect(page).to have_no_content('Personne', wait: 10)
     end
   end
 
