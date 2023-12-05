@@ -376,8 +376,6 @@ RSpec.feature 'Convicts', type: :feature do
         visit convict_path(@convict)
         click_link('attribuer ce probationnaire')
 
-        save_and_open_screenshot
-
         expect(page).to have_content('Le probationnaire vous a bien été assigné')
         expect(page).to have_content(@user.name)
         expect(Convict.first.cpip).to eq(@user)
