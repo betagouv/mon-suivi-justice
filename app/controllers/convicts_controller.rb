@@ -125,7 +125,7 @@ class ConvictsController < ApplicationController
       format.html { redirect_to convicts_path, notice: t('.notice') }
     end
   end
-  
+
   private
 
   def save_and_redirect(convict)

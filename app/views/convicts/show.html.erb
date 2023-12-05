@@ -85,15 +85,10 @@
             </p>
           <% end %>
           <p>
-            <strong><%= t('activerecord.attributes.convict.cpip') %></strong> :             
-            <% if @convict.cpip.present? %>
-              <%= @convict.cpip_name %>
-              <% if policy(@convict).unassign? %>
-                - <%= link_to t('.unassign_link'), convict_unassign_path(@convict), data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :post } %>
-              <% end %>
-            <% elsif policy(@convict).self_assign? %>
-              <%= link_to t('.self_assign_link'), convict_self_assign_path(@convict), data: { 'turbo-method': :post } %>
-            <% end %>
+            <div class="fr-grid-row">
+              <strong><%= t('activerecord.attributes.convict.cpip') %></strong> :  
+              <%= render 'shared/convict_self_assign_link', convict: @convict %>
+            </div>
           </p>
           <p>
             <strong><%= t('activerecord.attributes.convict.appi_uuid') %></strong> : <%= @convict.appi_uuid.presence %>

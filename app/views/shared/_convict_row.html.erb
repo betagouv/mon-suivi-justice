@@ -4,18 +4,20 @@
     <td><%= convict.appi_uuid %></td>
     <td><%= convict.display_phone %></td>
     <td>
-        <% if convict.cpip.present? %>
-        <div class="fr-grid-row fr-grid-row--center">
-            <%= convict.cpip_name %>
-            <% if policy(convict).unassign? %>
-            <%= link_to convict_unassign_path(convict), data: { turbo_confirm: t('basic_confirmation'), 'turbo-method': :post } do %>
-                <span class="fr-icon-close-line" aria-hidden="true"></span>
-            <% end %>
+        <div id="<%= "#{dom_id(convict)}_self_assign_link" %>">
+            <% if convict.cpip.present? %>
+                <div class="fr-grid-row fr-grid-row--center">
+                    <%= convict.cpip_name %>
+                    <% if policy(convict).unassign? %>
+                    <%= link_to convict_unassign_path(convict), data: { turbo_confirm: t('basic_confirmation'), 'turbo-method': :post } do %>
+                        <span class="fr-icon-close-line" aria-hidden="true"></span>
+                    <% end %>
+                    <% end %>
+                </div>
+            <% elsif policy(convict).self_assign? %>
+                <%= link_to t('self_assign_link'), convict_self_assign_path(convict), class: 'index-control', data: { 'turbo-method': :post } %>
             <% end %>
         </div>
-        <% elsif policy(convict).self_assign? %>
-            <%= link_to t('self_assign_link'), convict_self_assign_path(convict), class: 'index-control', data: { 'turbo-method': :post } %>
-        <% end %>
     </td>
     <td>
         <% if policy(convict).show? %>

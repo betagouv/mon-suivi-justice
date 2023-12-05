@@ -97,11 +97,11 @@ RSpec.feature 'Home', type: :feature do
 
   it 'should allow user to search convicts by name or phone number', logged_in_as: 'bex', js: true do
     create(:convict, last_name: 'Dupneu',
-                      first_name: 'Bob',
-                      phone: '0612345678', organizations: [@user.organization])
+                     first_name: 'Bob',
+                     phone: '0612345678', organizations: [@user.organization])
     create(:convict, last_name: 'Rabbit',
-                      first_name: 'Roger',
-                      phone: '0787654321', organizations: [@user.organization])
+                     first_name: 'Roger',
+                     phone: '0787654321', organizations: [@user.organization])
 
     visit home_path
 

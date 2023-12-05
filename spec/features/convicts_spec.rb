@@ -42,9 +42,8 @@ RSpec.feature 'Convicts', type: :feature do
 
       page.find('label[for="my_convicts_checkbox"]').click
 
-      page.execute_script("document.getElementById('my_convicts_checkbox').dispatchEvent(new Event('change'))")
-
-      expect(page).to have_no_content('Personne', wait: 10)
+      expect(page).to have_content('Vaillant')
+      expect(page).to have_no_content('Personne')
     end
   end
 
@@ -377,7 +376,9 @@ RSpec.feature 'Convicts', type: :feature do
         visit convict_path(@convict)
         click_link('attribuer ce probationnaire')
 
-        expect(page).to have_content('Le probationnaire vous a bien été attribué.')
+        save_and_open_screenshot
+
+        expect(page).to have_content('Le probationnaire vous a bien été assigné')
         expect(page).to have_content(@user.name)
         expect(Convict.first.cpip).to eq(@user)
       end
