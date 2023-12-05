@@ -60,6 +60,4 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost' }
   
   config.active_job.queue_adapter = :test
-
-  config.assets.css_compressor = nil
 end

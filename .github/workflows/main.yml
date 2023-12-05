@@ -64,10 +64,12 @@ jobs:
       #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
       #     SSH_PASS: ${{ secrets.SSH_PASS }}
 
+      - name: Build ESbuild
+        run: yarn build
+
       - name: Spec suite
-        run: bundle exec rails test:prepare && bundle exec rspec
+        run: bundle exec rspec
         env:
-          RAILS_ENV: test
           DATABASE_URL: localhost
           MSJ_DB_USER: msj
           MSJ_DB_PASSWORD: msj
