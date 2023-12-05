@@ -8,7 +8,7 @@
         <% if policy(:slot).new? %>
           <%= link_to t('slots.new_batch_title'), new_slots_batch_path, class: 'fr-btn'%>
         <% end %>
-        <% if policy(:slot).update? %>
+        <% if policy(@slots).update_all? %>
           <%= button_tag t('index_slots_batch_close'), type: 'submit',
                                                    form: 'index-slots-update-form',
                                                    data: { 'turbo-confirm': t('basic_confirmation') },
@@ -27,17 +27,17 @@
                             placeholder: t('search-appointment-placeholder') %>
     </div>
     <div class="fr-col">
-      <%= f.select :agenda_place_id_eq, options_for_select(options_for_select(places_options_for_select(current_user), @q.agenda_place_id_eq), @q.agenda_place_id_eq),
+      <%= f.select :agenda_place_id_eq, options_for_select(options_for_select(places_options_for_select(@places), @q.agenda_place_id_eq), @q.agenda_place_id_eq),
                                           { include_blank: t('slots.index_place_filter') },
                                           { class: 'fr-select' } %>
     </div>
     <div class="fr-col">
-      <%= f.select :agenda_id_eq, options_for_select(agendas_options_for_select(current_user), @q.agenda_id_eq),
+      <%= f.select :agenda_id_eq, options_for_select(agendas_options_for_select(@agendas), @q.agenda_id_eq),
                                     { include_blank: t('index-appointment-agenda-filter') },
                                     { class: 'fr-select' } %>
     </div>
     <div class="fr-col">
-      <%= f.select :appointment_type_id_eq, options_from_collection_for_select(appointment_types_for_slot_creation(current_user), 'id', 'name', @q.appointment_type_id_eq),
+      <%= f.select :appointment_type_id_eq, options_from_collection_for_select(@appointment_types, 'id', 'name', @q.appointment_type_id_eq),
                                     { include_blank: t('index-slots-appointment-type-filter') },
                                     { class: 'fr-select' } %>
     </div>
@@ -85,21 +85,18 @@
               </td>
               <td>
                 <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
-                  <% if policy(:slot).update? %>
+                  <% if policy(slot).update? %>
                     <div class="col-fr">
-
-                    <div class="fr-mt-1-5v fr-mr-2w">
-                      <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
-                    
+                      <div class="fr-mt-1-5v fr-mr-2w">
+                        <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
+                      
+                      </div>
                     </div>
+                    <div class="col-fr">
+                      <%= link_to t('close'), slot_path(slot, slot: { available: false }),
+                                            data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :put },
+                                            class: 'slots-index-control' %>
                     </div>
-                  <% end %>
-                  <div class="col-fr">
-                    <%= link_to t('close'), slot_path(slot, slot: { available: false }),
-                                          data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :put },
-                                          class: 'slots-index-control' %>
-                  </div>
-                  <% if policy(:slot).update? %>
                     <div class="col-fr">
                       <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
                     </div>

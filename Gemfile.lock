@@ -162,7 +162,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faker (3.2.1)
+    faker (3.2.2)
       i18n (>= 1.8.11, < 2)
     faraday (2.7.11)
       base64
@@ -342,6 +342,10 @@ GEM
       activesupport (= 7.0.8)
       bundler (>= 1.15.0)
       railties (= 7.0.8)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -483,7 +487,7 @@ GEM
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
     spring (4.1.2)
-    sprockets (4.2.0)
+    sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
     sprockets-rails (3.4.2)
@@ -606,6 +610,7 @@ DEPENDENCIES
   pundit-matchers (~> 1.6.0)
   rack-mini-profiler (~> 3.1)
   rails (~> 7.0.0, >= 7.0.8)
+  rails-controller-testing
   rails-erd
   ransack (~> 4.1)
   redis (~> 4.0)
@@ -622,7 +627,6 @@ DEPENDENCIES
   simple_form (~> 5.1)
   solargraph
   spring
-  sprockets-rails
   state_machines (~> 0.5)
   state_machines-activerecord (~> 0.8)
   state_machines-graphviz

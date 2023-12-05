@@ -34,7 +34,7 @@ RSpec.feature 'Places', type: :feature do
     end
   end
 
-  describe 'update', logged_in_as: 'local_admin', js: true do
+  describe 'update', logged_in_as: 'local_admin_spip', js: true do
     it 'works' do
       place = create(:place, name: 'Spip du 78',
                              preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip92',
@@ -51,8 +51,9 @@ RSpec.feature 'Places', type: :feature do
     end
 
     it 'creates agenda' do
-      place = create(:place, name: 'Spip du 93')
+      place = create(:place, name: 'Spip du 93', organization: @user.organization)
       visit edit_place_path(place)
+
       within '#new_agenda' do
         fill_in :agenda_name, with: 'Agenda de Jean-Pierre'
         expect { click_button('Ajouter agenda') }.to change { Agenda.count }.by(1)
@@ -60,7 +61,7 @@ RSpec.feature 'Places', type: :feature do
     end
 
     it 'updates agenda' do
-      place = create :place, name: 'Spip du 93'
+      place = create :place, name: 'Spip du 93', organization: @user.organization
       agenda = create(:agenda, name: 'test_agenda', place:)
       visit edit_place_path place
       within "#edit_agenda_#{agenda.id}" do
@@ -71,13 +72,12 @@ RSpec.feature 'Places', type: :feature do
     end
 
     it 'allows to select appointment_types' do
-      place = create(:place, name: 'Spip du 91')
+      place = create(:place, name: 'Spip du 91', organization: @user.organization)
       apt_type = create(:appointment_type, name: 'Premier contact Spip')
 
       expect(place.appointment_types).to be_empty
 
       visit edit_place_path(place)
-
       within first('.edit-place-appointment-types-container') do
         check 'Premier contact Spip'
       end

@@ -89,9 +89,11 @@
     <button type='submit' form='slot-types-batch-form' class='slot-type-batch-submit-button'>
       <%= t('slot_types_batch_submit') %>
     </button>
-    <%= link_to t('slot_types_batch_deletion'), agenda_slot_types_batch_path(@agenda),
-                                                data: { 'turbo-confirm': t('slot_type_delete_confirmation'), "turbo_method": :delete },
-                                                class: 'slot-type-batch-delete-all-button'%>
+    <% if policy(@slot_types).destroy_all? %>
+      <%= link_to t('slot_types_batch_deletion'), agenda_slot_types_batch_path(@agenda),
+                                                  data: { 'turbo-confirm': t('slot_type_delete_confirmation'), "turbo_method": :delete },
+                                                  class: 'slot-type-batch-delete-all-button'%>
+    <% end %>
   </div>
 </div>
 
@@ -101,7 +103,7 @@
       <div class=<%= "index-slot-types-weekday-wrapper-#{weekday}"%>>
         <div class='slot-type-weekday-header'>
           <h3><%= t("simple_form.options.slot_type.week_day.#{weekday}") %></h3>
-          <% if @slot_types.where(week_day: weekday).count != 0 %>
+          <% if @slot_types.where(week_day: weekday).count != 0 && policy(@slot_types).destroy_all? %>
             <%= link_to t('slot_types_batch_deletion'), agenda_slot_types_batch_path(@agenda, weekday: weekday),
                                                         data: { 'turbo-confirm': t('slot_type_delete_confirmation'), "turbo_method": :delete },
                                                         class: 'slot-type-batch-delete-weekday-link' %>
@@ -125,9 +127,13 @@
               <div class='slot-type-duration-input'><%= f.input :duration %></div>
               <div class='slot-type-capacity-input'><%= f.input :capacity %></div>
               <div class='slot-type-input-last'>
-                <%= f.button :submit, t('index_slot_types_update'), class: 'slot-type-submit-button' %>
-                <%= link_to t('index_slot_types_delete'), slot_type_path(slot_type),
+                <% if policy(slot_type).update?%>
+                  <%= f.button :submit, t('index_slot_types_update'), class: 'slot-type-submit-button' %>
+                <% end %>
+                <% if policy(slot_type).destroy? %>
+                  <%= link_to t('index_slot_types_delete'), slot_type_path(slot_type),
                                                           data: { 'turbo-confirm': t('slot_type_delete_confirmation'), "turbo_method": :delete } %>
+                <% end %>
               </div>
             <% end %>
           <% end %>
@@ -148,7 +154,9 @@
             <div class='slot-type-duration-input'><%= f.input :duration, input_html: { value: nil } %></div>
             <div class='slot-type-capacity-input'><%= f.input :capacity, input_html: { value: nil } %></div>
             <div class='slot-type-input-last'>
-              <%= f.button :submit, t('index_slot_types_create'), class: 'slot-type-add-button' %>
+              <% if policy(@slot_type).new? %>
+                <%= f.button :submit, t('index_slot_types_create'), class: 'slot-type-add-button' %>
+              <% end %>
             </div>
           <% end %>
         </div>

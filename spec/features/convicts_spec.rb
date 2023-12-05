@@ -76,8 +76,10 @@ RSpec.feature 'Convicts', type: :feature do
 
       choose '14:00'
 
-      expect(page).to have_button('Enregistrer sans envoyer de SMS')
-      expect { click_button 'Enregistrer sans envoyer de SMS' }.to change { Appointment.count }.by(1)
+      page.find('label[for="send_sms_1"]').click
+
+      expect(page).to have_button('Convoquer')
+      expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
     end
 
     it 'creates a convict without a phone number' do
@@ -103,7 +105,7 @@ RSpec.feature 'Convicts', type: :feature do
       check 'Ne possède pas de téléphone portable'
 
       expect { click_button 'submit-no-appointment' }.to change { Convict.count }.by(1)
-      expect(Convict.first.organizations).to eq([@user.organization, tj])
+      expect(Convict.first.organizations).to match_array([@user.organization, tj])
     end
 
     it 'it assigns the city organizations to the convict if a city is selected', logged_in_as: 'bex', js: true do

@@ -71,6 +71,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug', '~> 3.9'
   gem 'launchy', '~> 2.4', '>= 2.4.3'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -113,5 +114,3 @@ gem 'redis', '~> 4.0'
 gem 'jsbundling-rails', '~> 1.1'
 
 gem 'cssbundling-rails', '~> 1.3'
-
-gem 'sprockets-rails', require: 'sprockets/railtie'

@@ -6,7 +6,7 @@ describe AppointmentPolicy do
   let(:place) { build(:place, organization:) }
   let(:agenda) { build :agenda, place: }
   let(:appointment_type) { create(:appointment_type) }
-  let(:slot) { create :slot, :without_validations, appointment_type: }
+  let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
   let(:convict) { create :convict, organizations: [slot.place.organization] }
   let!(:appointment) do
     create(:appointment, slot:, state: :booked, creating_organization: slot.place.organization, convict:)
@@ -402,6 +402,66 @@ describe AppointmentPolicy do
             it { is_expected.to permit_action(:show) }
           end
         end
+      end
+    end
+  end
+
+  context 'create?' do
+    context 'work at bex' do
+      let(:tj) { build(:organization, organization_type: 'tj', spips: [organization]) }
+      let(:user) { build(:user, role: 'bex', organization: tj) }
+      context 'appointment in organization' do
+        let(:place) { build(:place, organization: tj) }
+        it { is_expected.to permit_action(:create) }
+      end
+      context 'appointment in jurisdiction' do
+        it { is_expected.to permit_action(:create) }
+      end
+      context 'inter ressort' do
+        let(:tj) { build(:organization, organization_type: 'tj', use_inter_ressort: true) }
+        it { is_expected.to permit_action(:create) }
+      end
+      context 'outside of organization' do
+        let(:tj) { build(:organization, organization_type: 'tj') }
+        it { is_expected.to forbid_action(:create) }
+      end
+    end
+    context 'work at sap' do
+      let(:tj) { build(:organization, organization_type: 'tj', spips: [organization]) }
+      let(:user) { build(:user, role: 'jap', organization: tj) }
+      context 'appointment in organization' do
+        let(:place) { build(:place, organization: tj) }
+        it { is_expected.to permit_action(:create) }
+      end
+      context 'appointment in jurisdiction' do
+        it { is_expected.to forbid_action(:create) }
+      end
+      context 'inter ressort' do
+        let(:tj) { build(:organization, organization_type: 'tj', use_inter_ressort: true) }
+        it { is_expected.to forbid_action(:create) }
+      end
+      context 'outside of organization' do
+        let(:tj) { build(:organization, organization_type: 'tj') }
+        it { is_expected.to forbid_action(:create) }
+      end
+    end
+    context 'work at spip' do
+      let(:tj) { build(:organization, organization_type: 'tj', spips: [organization]) }
+      let(:user) { build(:user, role: 'cpip', organization: tj) }
+      context 'appointment in organization' do
+        let(:place) { build(:place, organization: tj) }
+        it { is_expected.to permit_action(:create) }
+      end
+      context 'appointment in jurisdiction' do
+        it { is_expected.to forbid_action(:create) }
+      end
+      context 'inter ressort' do
+        let(:tj) { build(:organization, organization_type: 'tj', use_inter_ressort: true) }
+        it { is_expected.to forbid_action(:create) }
+      end
+      context 'outside of organization' do
+        let(:tj) { build(:organization, organization_type: 'tj') }
+        it { is_expected.to forbid_action(:create) }
       end
     end
   end
@@ -1146,8 +1206,8 @@ describe AppointmentPolicy do
     end
 
     context 'for an appointment_type 1ère convocation de suivi SPIP from another service' do
-      let(:organization) { create(:organization) }
-      let(:user) { build(:user, role: 'cpip', organization:) }
+      let(:spip2) { create(:organization, organization_type: 'spip') }
+      let(:user) { build(:user, role: 'cpip', organization: spip2) }
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
       it { is_expected.to forbid_action(:fulfil) }

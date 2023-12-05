@@ -36,6 +36,7 @@ class ConvictsController < ApplicationController
     @convict = Convict.new(convict_params)
     @convict.creating_organization = current_organization
     @convict.current_user = current_user
+    @convict.update_organizations(current_user, autosave: false)
     authorize @convict
 
     save_and_redirect(@convict)
@@ -152,6 +153,7 @@ class ConvictsController < ApplicationController
   end
 
   def record_phone_change(old_phone)
+    return if @convict.phone.blank? && old_phone.blank?
     return if @convict.phone == old_phone
 
     allow_new_phone(old_phone)

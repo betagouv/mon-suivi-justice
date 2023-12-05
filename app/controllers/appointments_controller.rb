@@ -1,16 +1,26 @@
 class AppointmentsController < ApplicationController
   include InterRessortFlashes
-
+  include AppointmentsHelper
   before_action :authenticate_user!
 
   def index
     @search_params = search_params
-
+    @places = policy_scope(Place)
+    @agendas = policy_scope(Agenda)
     @q = policy_scope(Appointment).active.ransack(params[:q])
     @all_appointments = @q.result(distinct: true)
                           .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
                           .includes(:convict, :user, slot: [:appointment_type, { agenda: [:place] }])
                           .order('slots.date ASC, slots.starting_time ASC')
+
+    slots = @all_appointments.map(&:slot).uniq
+    @agendas = slots.map(&:agenda).uniq
+    @places = @agendas.map(&:place).uniq
+    @appointment_types = slots.map(&:appointment_type).uniq
+    @users = @all_appointments.map(&:user).uniq.compact
+    @users.delete(current_user)
+
+    @users.unshift(current_user) if current_user.can_have_appointments_assigned?
 
     @appointments = @all_appointments.page(params[:page]).per(25)
 
@@ -41,7 +51,7 @@ class AppointmentsController < ApplicationController
     return unless params.key?(:convict_id)
 
     @convict = Convict.find(params[:convict_id])
-
+    @appointment_types = appointment_types_for_user(current_user)
     set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     set_extra_fields
@@ -58,7 +68,7 @@ class AppointmentsController < ApplicationController
     if @appointment.save
       @appointment.convict.update(user: current_user) if params.dig(:appointment, :user_is_cpip) == '1'
       @appointment.update(inviter_user_id: current_user.id)
-      @appointment.book(send_notification: params[:send_sms])
+      @appointment.book(send_notification: @appointment.send_sms)
       redirect_to appointment_path(@appointment)
     else
       selected_place = Place.find(params.dig(:appointment, :place_id))
@@ -66,6 +76,8 @@ class AppointmentsController < ApplicationController
       build_error_messages(selected_place)
 
       @convict = Convict.find(params.dig(:appointment, :convict_id))
+      @appointment_types = appointment_types_for_user(current_user)
+
       # We need to set the extra fields but we don't want to build them again
       set_extra_fields
       render :new, status: :unprocessable_entity
@@ -122,8 +134,9 @@ class AppointmentsController < ApplicationController
   def appointment_params
     params.require(:appointment).permit(
       :slot_id, :user_id, :convict_id, :appointment_type_id, :place_id, :origin_department, :prosecutor_number,
-      :creating_organization_id, slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time],
-                                 appointment_extra_fields_attributes: [:value, :extra_field_id]
+      :creating_organization_id, :send_sms,
+      slot_attributes: [:id, :agenda_id, :appointment_type_id, :date, :starting_time],
+      appointment_extra_fields_attributes: [:value, :extra_field_id]
     )
   end
 
@@ -164,5 +177,17 @@ class AppointmentsController < ApplicationController
                               error.message
                             end
     end
+  end
+
+  def appointment_types_for_user_places
+    AppointmentType.joins(place_appointment_types: :place)
+                   .where(places: policy_scope(Place).kept)
+                   .distinct
+  end
+
+  def appointment_types_for_user(user)
+    available_apt_type = appointment_types_for_user_role(user)
+    places_apt_type = appointment_types_for_user_places
+    available_apt_type.to_a.intersection(places_apt_type.to_a)
   end
 end

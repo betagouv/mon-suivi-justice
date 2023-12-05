@@ -105,7 +105,9 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
   describe 'edition' do
     before do
       @apt_type = create(:appointment_type, name: "Sortie d'audience SPIP")
-      @slot1 = create(:slot, appointment_type: @apt_type, date: Date.civil(2025, 4, 14))
+      place = create(:place, organization: @user.organization)
+      agenda = create(:agenda, place:)
+      @slot1 = create(:slot, appointment_type: @apt_type, date: Date.civil(2025, 4, 14), agenda:)
     end
 
     it 'works' do

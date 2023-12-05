@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe AppointmentsHelper do
-  describe 'appointment_types_for_user' do
+  describe 'appointment_types_for_user_role' do
     it 'returns right appointments for jap user' do
       user = build(:user, role: :jap)
       appointment_type1 = create(:appointment_type, name: "Sortie d'audience SAP")
       appointment_type2 = create(:appointment_type, name: '1ère convocation de suivi SPIP')
 
-      result = appointment_types_for_user(user)
+      result = appointment_types_for_user_role(user)
 
       expect(user.work_at_sap?).to eq(true)
       expect(result).to include(appointment_type1)
@@ -19,7 +19,7 @@ describe AppointmentsHelper do
       appointment_type1 = create(:appointment_type, name: "Sortie d'audience SAP")
       appointment_type2 = create(:appointment_type, name: '1ère convocation de suivi SPIP')
 
-      result = appointment_types_for_user(user)
+      result = appointment_types_for_user_role(user)
       expect(result).to include(appointment_type1)
       expect(result).not_to include(appointment_type2)
     end
@@ -29,7 +29,7 @@ describe AppointmentsHelper do
       appointment_type1 = create(:appointment_type, name: "Sortie d'audience SAP")
       appointment_type2 = create(:appointment_type, name: '1ère convocation de suivi SPIP')
 
-      result = appointment_types_for_user(user)
+      result = appointment_types_for_user_role(user)
       expect(result).not_to include(appointment_type1)
       expect(result).to include(appointment_type2)
     end
@@ -40,7 +40,7 @@ describe AppointmentsHelper do
       appointment_type1 = create(:appointment_type, name: "Sortie d'audience SPIP")
       appointment_type2 = create(:appointment_type, name: "Sortie d'audience SAP")
 
-      result = appointment_types_for_user(user)
+      result = appointment_types_for_user_role(user)
       expect(result).to include(appointment_type1)
       expect(result).not_to include(appointment_type2)
     end
@@ -51,7 +51,7 @@ describe AppointmentsHelper do
       appointment_type1 = create(:appointment_type, name: "Sortie d'audience SPIP")
       appointment_type2 = create(:appointment_type, name: "Sortie d'audience SAP")
 
-      result = appointment_types_for_user(user)
+      result = appointment_types_for_user_role(user)
       expect(result).to include(appointment_type1)
       expect(result).to include(appointment_type2)
     end

@@ -67,7 +67,12 @@ fr:
       convict_has_city: "Le probationnaire est lié à la commune %{city_name}."
       add_city: "ajoutez une commune au probationnaire"
       change_city: "modifiez la commune du probationnaire"
-
+  appointment:
+    create:
+      submit: Convoquer
+      send:
+        sms: "Prévenir immédiatement le probationnaire par SMS puis lui envoyer un rappel avant sa convocation"
+        no_sms: "Envoyer uniquement un rappel par SMS avant sa convocation au probationnaire"
   activerecord:
     models:
       user:
@@ -260,6 +265,8 @@ fr:
               past: "La convocation ne peut pas être dans le passé"
               transfert_in: "Ce lieu de convocation sera disponible à partir du %{date}"
               transfert_out: "Ce lieu de convocation n'est plus disponible après le %{date}"
+            send_sms:
+              blank: "Veuillez sélectionner une préférence d'envoi de SMS"
         place_transfert:
           attributes:
             date:
@@ -481,7 +488,6 @@ fr:
   edit_convict_submit: "Enregistrer"
   search_by_name_placeholder: "Saisir un nom ou un prénom"
   show_convict: Profil
-  show_convict_title: "Profil probationnaire"
   show_convict_archived: Archivé
   show_convict_history_title: Historique
   show_convict_new_appointment: Convoquer
@@ -778,6 +784,10 @@ fr:
   time:
     formats:
       clear: "%A %e %B %Y à %kh%M"
+
+  date:
+    formats:
+      value: "%Y-%m-%d"
 
   views:
     pagination:

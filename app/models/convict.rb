@@ -101,6 +101,10 @@ class Convict < ApplicationRecord
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.mobile')
   end
 
+  def can_receive_sms?
+    !(phone.blank? || no_phone? || refused_phone?)
+  end
+
   def invitable_to_convict_interface?
     phone.present? && invitation_to_convict_interface_count < 2 &&
       timestamp_convict_interface_creation.nil?
@@ -150,7 +154,7 @@ class Convict < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
-  def update_organizations(current_user)
+  def update_organizations(current_user, autosave: true)
     city = City.find(city_id) if city_id
     source = city&.organizations&.any? ? city : current_user
 
@@ -161,8 +165,10 @@ class Convict < ApplicationRecord
       organizations.push organization
     end
 
-    organizations.push(Organization.find_by(name: 'TJ Paris')) if japat
-    save
+    tj_paris = Organization.find_by(name: 'TJ Paris')
+    organizations.push(tj_paris) if japat && organizations.exclude?(tj_paris)
+
+    save if autosave
   end
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity
