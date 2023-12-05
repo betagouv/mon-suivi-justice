@@ -32,16 +32,20 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_content('Personne')
     end
 
-    it 'an agent can list only the convicts assigned to him' do
+    it 'an agent can list only the convicts assigned to him', js: true do
       create(:convict, first_name: 'Michel', last_name: 'Vaillant', date_of_birth: '01/01/1980',
                        organizations: [@user.organization], user: @user)
       create(:convict, first_name: 'Paul', last_name: 'Personne', date_of_birth: '01/01/1980',
                        organizations: [@user.organization])
 
-      visit convicts_path(only_mine: true)
+      visit convicts_path
+
+      page.find('label[for="my_convicts_checkbox"]').click
+
+      page.execute_script("document.getElementById('my_convicts_checkbox').dispatchEvent(new Event('change'))")
 
       expect(page).to have_content('Vaillant')
-      expect(page).not_to have_content('Personne')
+      expect(page).to have_no_content('Personne') # waits up to 5 seconds
     end
   end
 

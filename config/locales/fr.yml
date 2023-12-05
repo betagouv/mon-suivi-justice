@@ -474,7 +474,7 @@ fr:
   edit_organization_remove_extrafield: "Supprimer cette colonne"
 
   new_convict_title: "Nouveau probationnaire"
-  my_convicts: "Mes probationnaires suivis"
+  my_convicts: "Afficher uniquement mes probationnaires"
   all_convicts: "Tous les probationnaires"
   new_first_appointment_title: "Créneaux disponibles"
   new_convict_submit: "sans convoquer"

@@ -125,16 +125,7 @@ class ConvictsController < ApplicationController
       format.html { redirect_to convicts_path, notice: t('.notice') }
     end
   end
-
-  def search
-    query = params[:q]
-    query = add_prefix_to_phone(query) if query =~ (/\d/) && !/^(\+33)/.match?(query)
-    @convicts = policy_scope(base_filter).search_by_name_and_phone(query)
-
-    authorize @convicts
-    render layout: false
-  end
-
+  
   private
 
   def save_and_redirect(convict)
@@ -235,6 +226,8 @@ class ConvictsController < ApplicationController
   end
 
   def fetch_convicts(query)
+    debugger if query.present?
+
     scope = policy_scope(base_filter)
     scope = scope.search_by_name_and_phone(query) if query.present?
     scope.order('last_name asc').page params[:page]

@@ -8,13 +8,11 @@ export default class extends Controller {
   }
 
   triggerSearch(event) {
-    if (event.target === this.searchFieldTarget || event.target === this.myConvictsCheckboxTarget) {
-      clearTimeout(this.searchTimeout);
-      this.searchTimeout = setTimeout(() => {
-          console.log("Performing search...");
-          this.performSearch();
-      }, 300);
-    }
+    clearTimeout(this.searchTimeout);
+    this.searchTimeout = setTimeout(() => {
+        console.log("Performing search...");
+        this.performSearch();
+    }, 300);
   }
 
   performSearch() {

@@ -1,4 +1,4 @@
-<div data-controller="search-convicts">
+<div data-controller="convicts-search">
   <div class="fr-grid-row">
     <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
       <div class="fr-grid-row fr-grid-row--gutters">
@@ -13,15 +13,18 @@
           </p>
         </div>
         <div class="fr-col-6">
-          <div>
+          <%= form_with url: convicts_path, method: :get, data: { turbo_frame: "convicts_list", 
+                                                                  action: "keyup->convicts-search#triggerSearch",
+                                                                  convicts_search_target: "searchForm" }, 
+                                                                  id: "convicts_search_form" do |form| %>
             <div class="fr-search-bar" id="header-search" role="search">
-              <label class="fr-label" for="search_convicts"><%= t('home.form_label') %></label>
-              <input class="fr-input" type="search" placeholder="Rechercher un probationnaire" name="search_convicts" id="search_convicts" data-search-convicts-target="query" data-action="input->search-convicts#search">
+              <%= form.label'convicts_search_field', t('home.form_label'), class: 'fr-label' %>
+              <%= form.search_field :q, placeholder: "Rechercher un probationnaire", id: "convicts_search_field", class: 'fr-input', data: { convicts_search_target: "searchField" } %>
               <button class="fr-btn" title="<%= t('home.button_label') %>">
                 <%= t('home.button_label') %>
               </button>
             </div>
-          </div>
+          <% end %>
         </div>
         <div class="fr-col-6">
           <% if policy(:convict).new? %>
@@ -31,12 +34,21 @@
       </div>
     </div>
   </div>
+
+
+
+
   <div class="fr-grid-row fr-grid-row--gutters">
     <div class="fr-col-12 fr-col-md-10 fr-col-lg-8 fr-mt-2w">
-      <div id="search_results" data-search-convicts-target="results">
-      </div>
+      <%= turbo_frame_tag "convicts_list" do %>
+        <%= render partial: "shared/convicts_list", locals: { convicts: @convicts } %>
+      <% end %>
     </div>
   </div>
+
+
+
+
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
     <div class="fr-col-6">
       <% if UserServiceSwitchPolicy.new(current_user, nil).create? %>

@@ -1,8 +1,8 @@
-<div data-controller="convicts-search">
-  <div class="fr-grid-row fr-grid-row--center">
-    <div class="fr-col-12">
-      <div class="fr-grid-row fr-grid-row--gutters">
-        <div class="fr-col-4">
+<div class="fr-grid-row fr-grid-row--center">
+  <div class="fr-col-12">
+    <div class="fr-grid-row fr-grid-row--gutters">
+      <div class="fr-col-4">
+        <div data-controller="convicts-search">
           <%= form_with url: convicts_path, method: :get, data: { turbo_frame: "convicts_list", 
                                                                   action: "keyup->convicts-search#triggerSearch",
                                                                   convicts_search_target: "searchForm" }, 
@@ -15,21 +15,26 @@
               </button>
             </div>
             <% if current_user.cpip? %>
-              <%= form.label :my_convicts, t('my_convicts') %>
-              <%= form.check_box :my_convicts, id: "my_convicts_checkbox",  data: { action: "change->convicts-search#triggerSearch", convicts_search_target: "myConvictsCheckbox" } %>
+              <fieldset class="fr-fieldset fr-fieldset__element--inline fr-mt-2w">
+                <div class="fr-fieldset__element">
+                  <div class="fr-checkbox-group">
+                    <%= form.check_box :my_convicts, id: "my_convicts_checkbox",  data: { action: "change->convicts-search#triggerSearch", convicts_search_target: "myConvictsCheckbox" } %>
+                    <%= form.label :my_convicts_checkbox, t('my_convicts') %>
+                  </div>  
+                </div>
+              </fieldset>
             <% end %>
           <% end %>
         </div>
-        <div class="fr-col-4">
-          <% if policy(:convict).new? %>
-            <%= button_to t('new_convict_title'), new_convict_path, class: 'fr-btn', method: :get, data: { turbo: false } %>
-          <% end %>
-        </div>
       </div>
-
-      <%= turbo_frame_tag "convicts_list" do %>
-        <%= render partial: "convicts_list", locals: { convicts: @convicts } %>
-      <% end %>
+      <div class="fr-col-4">
+        <% if policy(:convict).new? %>
+          <%= button_to t('new_convict_title'), new_convict_path, class: 'fr-btn', method: :get, data: { turbo: false } %>
+        <% end %>
+      </div>
     </div>
+    <%= turbo_frame_tag "convicts_list" do %>
+      <%= render partial: "shared/convicts_list", locals: { convicts: @convicts } %>
+    <% end %>
   </div>
 </div>
