@@ -2,17 +2,22 @@ class SlotsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_query_params, only: :index
 
+  # rubocop:disable Metrics/AbcSize
   def index
     @q = policy_scope(Slot).future.with_appointment_type_with_slot_system.ransack(params[:q])
+    all_slots = @q.result(distinct: true)
+                  .order(:date, :starting_time)
+                  .includes(agenda: [:place])
+                  .joins(agenda: [:place])
 
-    @slots = @q.result(distinct: true)
-               .order(:date, :starting_time)
-               .includes(agenda: [:place])
-               .joins(agenda: [:place])
-               .page(params[:page]).per(25)
+    @slots = all_slots.page(params[:page]).per(25)
+    @agendas = all_slots.map(&:agenda).uniq
+    @places = @agendas.map(&:place).uniq
+    @appointment_types = all_slots.map(&:appointment_type).uniq
 
     authorize @slots
   end
+  # rubocop:enable Metrics/AbcSize
 
   def edit
     @slot = Slot.find(params[:id])
