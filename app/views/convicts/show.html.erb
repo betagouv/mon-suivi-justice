@@ -84,12 +84,10 @@
               <strong><%= t('activerecord.attributes.convict.city_id') %></strong> : <%= @convict.city ?  @convict.city.name : 'pas de commune renseignée' %>
             </p>
           <% end %>
-          <p>
-            <div class="fr-grid-row">
-              <strong><%= t('activerecord.attributes.convict.cpip') %></strong> :  
+          <div class="fr-grid-row">
+              <p class="fr-mr-1w"><strong><%= t('activerecord.attributes.convict.cpip') %> :</strong></p>
               <%= render 'shared/convict_self_assign_link', convict: @convict %>
-            </div>
-          </p>
+          </div>
           <p>
             <strong><%= t('activerecord.attributes.convict.appi_uuid') %></strong> : <%= @convict.appi_uuid.presence %>
           </p>

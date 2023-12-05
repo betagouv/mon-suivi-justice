@@ -1,4 +1,4 @@
-<p id="<%= "#{dom_id(convict)}_self_assign_link" %>">
+<div id="<%= "#{dom_id(convict)}_self_assign_link" %>">
     <% if convict.cpip.present? %>
         <span>
             <%= convict.cpip_name %>
@@ -11,4 +11,4 @@
     <% elsif policy(convict).self_assign? %>
         <%= link_to t('self_assign_link'), convict_self_assign_path(convict), class: 'index-control', data: { 'turbo-method': :post } %>
     <% end %>
-</p>
+</div>
