@@ -5,6 +5,7 @@ class BexController < ApplicationController
   skip_after_action :verify_authorized
 
   def agenda_jap
+    authorize Appointment, :agenda_jap?
     get_jap_agendas(@appointment_type, params)
 
     @days_with_slots_in_selected_month = days_with_slots(@appointment_type, params[:month])
@@ -21,6 +22,7 @@ class BexController < ApplicationController
   end
 
   def agenda_spip
+    authorize Appointment, :agenda_spip?
     @current_date = current_date(@appointment_type, params)
     get_places_and_agendas(@appointment_type, params)
     @extra_fields = @agenda&.organization&.tj&.extra_fields&.includes(:appointment_types)&.select(&:relate_to_spip?)
@@ -36,7 +38,7 @@ class BexController < ApplicationController
   end
 
   def agenda_sap_ddse
-    authorize Appointment
+    authorize Appointment, :agenda_sap_ddse?
     @current_date = current_date(@appointment_type, params)
     get_places_and_agendas(@appointment_type, params)
 
