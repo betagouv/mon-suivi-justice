@@ -42,6 +42,10 @@ class AppointmentType < ApplicationRecord
     end
   end
 
+  def ddse?
+    name == 'SAP DDSE'
+  end
+
   def sortie_audience?
     ["Sortie d'audience SAP", "Sortie d'audience SPIP", 'SAP DDSE'].include? name
   end

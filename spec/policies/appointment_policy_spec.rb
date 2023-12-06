@@ -350,26 +350,52 @@ describe AppointmentPolicy do
         let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
         let(:organization2) { build(:organization, organization_type: 'tj', spips: [slot.place.organization]) }
 
-        context 'for a secretary_court' do
-          let(:user) { build(:user, role: 'secretary_court', organization: organization2) }
-          it { is_expected.to forbid_action(:show) }
-        end
-        context 'for a jap' do
-          let(:user) { build(:user, role: 'jap', organization: organization2) }
-          it { is_expected.to forbid_action(:show) }
-        end
-        context 'for a dir_greff_sap' do
-          let(:user) { build(:user, role: 'dir_greff_sap', organization: organization2) }
-          it { is_expected.to forbid_action(:show) }
-        end
-        context 'for a greff_sap' do
-          let(:user) { build(:user, role: 'greff_sap', organization: organization2) }
-          it { is_expected.to forbid_action(:show) }
-        end
-
         context 'for a local admin tj' do
           let(:user) { build(:user, role: 'local_admin', organization: organization2) }
           it { is_expected.to permit_action(:show) }
+        end
+
+        context 'work_at_sap' do
+          context 'for a secretary_court' do
+            let(:user) { build(:user, role: 'secretary_court', organization: organization2) }
+            it { is_expected.to forbid_action(:show) }
+          end
+          context 'for a jap' do
+            let(:user) { build(:user, role: 'jap', organization: organization2) }
+            it { is_expected.to forbid_action(:show) }
+          end
+          context 'for a dir_greff_sap' do
+            let(:user) { build(:user, role: 'dir_greff_sap', organization: organization2) }
+            it { is_expected.to forbid_action(:show) }
+          end
+          context 'for a greff_sap' do
+            let(:user) { build(:user, role: 'greff_sap', organization: organization2) }
+            it { is_expected.to forbid_action(:show) }
+          end
+
+          context 'appointment_type is SAP DDSE' do
+            let!(:appointment) do
+              create(:appointment, slot:, state: :booked, creating_organization: user.organization, convict:)
+            end
+            let(:appointment_type) { create(:appointment_type, name: 'SAP DDSE') }
+
+            context 'for a secretary_court' do
+              let(:user) { build(:user, role: 'secretary_court', organization: organization2) }
+              it { is_expected.to permit_action(:show) }
+            end
+            context 'for a jap' do
+              let(:user) { build(:user, role: 'jap', organization: organization2) }
+              it { is_expected.to permit_action(:show) }
+            end
+            context 'for a dir_greff_sap' do
+              let(:user) { build(:user, role: 'dir_greff_sap', organization: organization2) }
+              it { is_expected.to permit_action(:show) }
+            end
+            context 'for a greff_sap' do
+              let(:user) { build(:user, role: 'greff_sap', organization: organization2) }
+              it { is_expected.to permit_action(:show) }
+            end
+          end
         end
 
         context 'work at bex' do
