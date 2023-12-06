@@ -5,6 +5,8 @@ class AppointmentPolicy < ApplicationPolicy
     def resolve
       if user.work_at_bex? || user.local_admin_tj?
         scope.in_jurisdiction(user.organization).or(scope.created_by_organization(user.organization)).distinct
+      elsif user.work_at_sap?
+        scope.in_organization(user.organization).or(scope.created_by_organization(user.organization)).distinct
       else
         scope.in_organization(user.organization)
       end
@@ -44,6 +46,8 @@ class AppointmentPolicy < ApplicationPolicy
     # condition would always make it true and we need to handle inter ressort for bex
     return true if user.work_at_bex? && user.organization.use_inter_ressort
     return record.in_jurisdiction?(user.organization) if user.work_at_bex? || user.local_admin_tj?
+    # Les agents SAP doivent pouvoir prendre des convocations SAP DDSE au SPIP
+    return record.in_jurisdiction?(user.organization) if user.work_at_sap? && record.appointment_type.ddse?
 
     record.in_organization?(user.organization)
   end
@@ -111,6 +115,7 @@ class AppointmentPolicy < ApplicationPolicy
     return true if record.created_by_organization?(user.organization)
 
     return record.in_jurisdiction?(user.organization) if user.work_at_bex? || user.local_admin_tj?
+    return record.in_jurisdiction?(user.organization) if user.work_at_sap? && record.appointment_type.ddse?
 
     record.in_organization?(user.organization)
   end

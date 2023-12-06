@@ -9,7 +9,13 @@ class AppointmentsBookingsController < ApplicationController
     # Load places
     convict_places = Place.kept.joins(:appointment_types, organization: :convicts)
                           .where('convicts.id': @convict.id).where(appointment_types: @appointment_type)
-    user_places = policy_scope(Place).kept
+    # Les agents SAP doivent pouvoir prendre des convocations SAP DDSE au SPIP
+    if current_user.work_at_sap? && @appointment_type.ddse?
+      user_places = Place.in_jurisdiction(current_user.organization)
+    else
+      user_places = policy_scope(Place).kept
+    end
+    
     @places = convict_places.and(user_places)
   end
 
