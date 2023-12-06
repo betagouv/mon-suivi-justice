@@ -3,6 +3,7 @@ class NotificationTypesResetController < ApplicationController
 
   def update
     notification_type = NotificationType.find(params[:id])
+    authorize notification_type, :reset?
     apt_type = notification_type.appointment_type
     role = notification_type.role
 
