@@ -46,7 +46,7 @@
       <% end %>
 
       <div class='edit-place-cta-container'>
-        <% if agenda.appointment_type_with_slot_types? %>
+        <% if agenda.appointment_type_with_slot_types? && policy(:slot_types).index? %>
           <%= link_to t('edit_place_slot_types_agenda'), agenda_slot_types_path(agenda) %>
         <% end %>
         <% if agenda.appointment_type_with_slot_types? && policy(agenda).destroy? %> | <% end %>

@@ -15,7 +15,7 @@
               <% @history_items.each do |history_item| %>
                 <tr>
                   <td>
-                    <div  class='show-history-item-icon text-center'>
+                    <div class='show-history-item-icon text-center'>
                       <%= icon('fa', 'circle', class: "icon_#{history_item.event}")%>
                   </div>
                   </td>
@@ -24,9 +24,11 @@
                   </td>
                   <td><%= t("history_item.#{history_item.event}_title") %> :               <%= history_item.content %>
                   </td>
-                  <td>          <% if history_item.appointment? %>
+                  <td>
+                    <% if history_item.appointment? && policy(history_item.appointment).show? %>
                       <%= link_to t('see_details'), appointment_path(history_item.appointment), class: '' %>
-                    <% end %></td>
+                    <% end %>
+                  </td>
                 </tr>
               <% end %>
             </tbody>
