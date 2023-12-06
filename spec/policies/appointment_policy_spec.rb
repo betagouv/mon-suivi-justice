@@ -373,9 +373,12 @@ describe AppointmentPolicy do
             it { is_expected.to forbid_action(:show) }
           end
 
-          context "appointment_type is SAP DDSE" do
+          context 'appointment_type is SAP DDSE' do
+            let!(:appointment) do
+              create(:appointment, slot:, state: :booked, creating_organization: user.organization, convict:)
+            end
             let(:appointment_type) { create(:appointment_type, name: 'SAP DDSE') }
-            
+
             context 'for a secretary_court' do
               let(:user) { build(:user, role: 'secretary_court', organization: organization2) }
               it { is_expected.to permit_action(:show) }

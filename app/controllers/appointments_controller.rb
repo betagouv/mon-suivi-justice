@@ -181,11 +181,11 @@ class AppointmentsController < ApplicationController
 
   def appointment_types_for_user_places
     # Les agents SAP doivent pouvoir prendre des convocations SAP DDSE au SPIP
-    if current_user.work_at_sap?
-      user_places = Place.in_jurisdiction(current_user.organization)
-    else
-      user_places = policy_scope(Place).kept
-    end
+    user_places = if current_user.work_at_sap?
+                    Place.in_jurisdiction(current_user.organization)
+                  else
+                    policy_scope(Place).kept
+                  end
     AppointmentType.joins(place_appointment_types: :place)
                    .where(places: user_places)
                    .distinct
