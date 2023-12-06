@@ -34,10 +34,11 @@
           <div class='appointment_type-data'>
             <%= appointment_type.name %>
           </div>
-
-          <div class='index-controls-container'>
-            <%= link_to t('edit'), edit_appointment_type_path(appointment_type, orga: params[:orga]), class: 'index-control' %>
-          </div>
+          <% if policy(appointment_type).update? %>
+            <div class='index-controls-container'>
+              <%= link_to t('edit'), edit_appointment_type_path(appointment_type, orga: params[:orga]), class: 'index-control' %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>

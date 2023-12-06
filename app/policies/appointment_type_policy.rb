@@ -4,18 +4,24 @@ class AppointmentTypePolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin?
+    check_ownership?
   end
 
   def show?
-    user.admin?
+    check_ownership?
   end
 
   def create?
-    user.admin?
+    check_ownership?
   end
 
   def destroy?
-    user.admin?
+    check_ownership?
+  end
+
+  def check_ownership?
+    return true if user.admin?
+
+    record.organization == user.organization
   end
 end
