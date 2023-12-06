@@ -1,14 +1,12 @@
 <div class="fr-grid-row fr-grid-row--right fr-mb-2w">
   <ul class="fr-btns-group fr-btns-group--inline-lg">
     <% unless current_user.organization.jap_modal_content.empty? %>
-      <% if current_user.admin? || current_user.local_admin? || current_user.work_at_bex? || current_user.work_at_sap? %>
-        <section class='bex-agendas-modal-trigger-container'>
-          <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
-                                                             class: 'fr-btn fr-btn--secondary',
-                                                             data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
-        </section>
-        <%= render partial: 'shared/jap_agendas_modal', locals: { jap_modal_content: current_user.organization.jap_modal_content } %>
-      <% end %>
+      <section class='bex-agendas-modal-trigger-container'>
+        <%= button_tag(t('new-appointment-jap-agendas'), type: 'button',
+                                                            class: 'fr-btn fr-btn--secondary',
+                                                            data: { :'micromodal-trigger' => 'jap-agendas-modal' }) %>
+      </section>
+      <%= render partial: 'shared/jap_agendas_modal', locals: { jap_modal_content: current_user.organization.jap_modal_content } %>
     <% end %>
     <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
                                      method: :get,
@@ -91,7 +89,7 @@
                       <% end %>
                     </th>
                     <th>
-                      <% unless appointments[i].nil? %>
+                      <% if appointments[i].present? && policy(appointments[i]&.convict).show? %>
                         <%= link_to convict_path(appointments[i]&.convict), class: 'index-control' do %>
                           <%= appointments[i]&.convict&.last_name&.upcase %>
                         <% end %>
