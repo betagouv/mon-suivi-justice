@@ -168,7 +168,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% @convict.future_appointments.each do |apt| %>
+                <% policy_scope(@convict.future_appointments).each do |apt| %>
                   <tr>
                     <td><%= apt.slot.agenda.place.name %></td>
                     <td><%= apt.slot.date.to_fs %></td>
