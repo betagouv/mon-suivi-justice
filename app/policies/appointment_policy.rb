@@ -59,6 +59,8 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def fulfil?
+    return false unless record.in_the_past? && record.booked?
+
     ownership_check && appointment_fulfilment
   end
 
@@ -71,6 +73,8 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def rebook?
+    return false unless record.can_rebook?
+
     ownership_check && appointment_fulfilment
   end
 

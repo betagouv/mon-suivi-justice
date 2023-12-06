@@ -1,7 +1,7 @@
 <div class="fr-grid-row fr-grid-row--center">
   <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
     <h1 class=''><%= t('show_appointment_title') %></h1>
-    <% if @appointment.in_the_past? && @appointment.booked? && policy(@appointment).fulfil? %>
+    <% if  policy(@appointment).fulfil? %>
       <div class='appointment-fulfilment-container'>
         <div class='appointment-fulfilment-prompt-container'>
           <%= t('show-convict-fulfilment-prompt', name: @convict.name,
@@ -48,6 +48,7 @@
               </p>
             </div>
             <div class="fr-col-4">
+              <% if policy(convict).show? %>
                 <ul class="fr-btns-group fr-btns-group--equisized fr-btns-group--right">
                   <li>
                     <%= button_to t('see_profile'), convict_path(@convict.id),
@@ -55,6 +56,7 @@
                                     class: 'fr-btn fr-btn--secondary' %>
                   </li>
                 </ul>
+              <% end %>
             </div>
           </div>
         </div>
@@ -104,12 +106,12 @@
               <% end %>
               <p class="show-appointment-state-container">
                 <strong><%= t('appointment_state') %></strong> : <%= @appointment.human_state_name %>
-                <% if policy(@appointment).rebook? && @appointment.can_rebook? && @appointment.no_show? %>
+                <% if policy(@appointment).rebook? && @appointment.no_show? %>
                   <%= content_tag(:span, t('edit'),
                                     class: 'show-appointment-change-state-link fake-link',
                                     data: { 'micromodal-trigger': "rebook-missed-appointment-modal-#{@appointment.id}" }) %>
                   <%= render 'rebook_missed_appointment_modal', apt: @appointment %>
-                <% elsif policy(@appointment).rebook? && @appointment.can_rebook? %>
+                <% elsif policy(@appointment).rebook? %>
                   <%= link_to t('edit'), appointment_rebook_path(@appointment), class: 'show-appointment-change-state-link', data: { "turbo-method": :put } %>
                 <% end %>
               </p>
