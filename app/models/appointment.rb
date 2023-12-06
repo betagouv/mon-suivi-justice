@@ -54,16 +54,16 @@ class Appointment < ApplicationRecord
   }
 
   scope :in_organization, lambda { |organization|
-    joins(slot: { agenda: :place }).where(slots: { agendas: { places: { organization: } } })
+    joins(slot: { agenda: :place }, convict: :organizations).where(slots: { agendas: { places: { organization: } } })
   }
 
   scope :in_jurisdiction, lambda { |user_organization|
-    joins(:slot, convict: :organizations)
+    joins(slot: { agenda: :place }, convict: :organizations)
       .where(convict: { organizations: [user_organization, *user_organization.linked_organizations] })
   }
 
   scope :created_by_organization, lambda { |user_organization|
-    joins(:slot, convict: :organizations)
+    joins(slot: { agenda: :place }, convict: :organizations)
       .where(creating_organization: user_organization)
   }
 
