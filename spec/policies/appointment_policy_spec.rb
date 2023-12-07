@@ -157,7 +157,7 @@ describe AppointmentPolicy do
     context 'for an appointment created by the organization' do
       context 'tj' do
         let(:organization2) { build(:organization, organization_type: 'tj') }
-        let(:appointment_type) { create(:appointment_type, name: "SAP DDSE") }
+        let(:appointment_type) { create(:appointment_type, name: 'SAP DDSE') }
         let!(:appointment) do
           create(:appointment, slot:, state: :booked, creating_organization: organization2, convict:)
         end
