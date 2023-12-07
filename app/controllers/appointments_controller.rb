@@ -3,10 +3,8 @@ class AppointmentsController < ApplicationController
   include AppointmentsHelper
   before_action :authenticate_user!
 
-  def index
+  def index # rubocop:disable Metrics/CyclomaticComplexity
     @search_params = search_params
-    @places = policy_scope(Place)
-    @agendas = policy_scope(Agenda)
     @q = policy_scope(Appointment).active.ransack(params[:q])
     @all_appointments = @q.result(distinct: true)
                           .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
@@ -14,7 +12,7 @@ class AppointmentsController < ApplicationController
                           .order('slots.date ASC, slots.starting_time ASC')
 
     slots = @all_appointments.map(&:slot).uniq
-    @agendas = slots.map(&:agenda).uniq
+    @agendas = slots.map(&:agenda).sort_by(&:name).uniq
     @places = @agendas.map(&:place).uniq
     @appointment_types = slots.map(&:appointment_type).uniq
     @users = @all_appointments.map(&:user).uniq.compact
