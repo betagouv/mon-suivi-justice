@@ -929,7 +929,6 @@ describe AppointmentPolicy do
     let(:agenda) { build :agenda, place: }
     let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
 
-    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
@@ -1107,14 +1106,14 @@ describe AppointmentPolicy do
     let(:organization) { build(:organization, organization_type: 'tj') }
     let(:user) { build(:user, role: 'dir_greff_sap', organization: slot.place.organization) }
 
-    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to forbid_action(:agenda_spip) }
 
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
-
+      
+      it { is_expected.to permit_action(:show) }
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
@@ -1129,7 +1128,8 @@ describe AppointmentPolicy do
 
     context 'for an appointment_type Convocation de suivi JAP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi JAP') }
-
+      
+      it { is_expected.to permit_action(:show) }
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
@@ -1145,6 +1145,7 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      it { is_expected.to forbid_action(:show) }
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
