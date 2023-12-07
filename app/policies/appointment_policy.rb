@@ -8,7 +8,9 @@ class AppointmentPolicy < ApplicationPolicy
       elsif user.work_at_sap?
         scope.joins(:slot,
                     convict: :organizations).in_organization(user.organization)
-             .or(scope.created_by_organization(user.organization).joins(slot: { agenda: :place }))
+             .or(scope.created_by_organization(user.organization)
+                      .joins(slot: { agenda: :place })
+                      .where({ 'appointment_types.name': AppointmentType.used_at_sap? }))
              .distinct
       else
         scope.in_organization(user.organization)
