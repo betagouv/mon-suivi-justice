@@ -1,5 +1,6 @@
 <%= form_with url: convicts_path, method: :get, data: { turbo_frame: "convicts_list",
-                                                        controller: "debounce-submit" },
+                                                        controller: "debounce-submit",
+                                                        action: "search->debounce-submit#submit" },
                                                         id: "convicts_search_form" do |form| %>
     <div class="fr-search-bar" id="header-search" role="search">
         <%= form.label'convicts_search_field', t('home.form_label'), class: 'fr-label' %>
