@@ -6,7 +6,7 @@ class AppointmentPolicy < ApplicationPolicy
       if user.work_at_bex? || user.local_admin_tj?
         scope.in_jurisdiction(user.organization).or(scope.created_by_organization(user.organization)).distinct
       elsif user.work_at_sap?
-        scope.in_organization(user.organization).or(scope.created_by_organization(user.organization)).distinct
+        scope.joins(:slot, convict: :organizations).in_organization(user.organization).or(scope.created_by_organization(user.organization).joins(slot: { agenda: :place })).distinct
       else
         scope.in_organization(user.organization)
       end
