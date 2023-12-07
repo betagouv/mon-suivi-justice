@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative '../support/shared_examples/convict_search_examples'
 
 RSpec.feature 'Convicts', type: :feature do
   describe 'index', logged_in_as: 'cpip' do
@@ -32,17 +33,21 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_content('Personne')
     end
 
-    it 'an agent can list only the convicts assigned to him' do
+    it 'an agent can list only the convicts assigned to him', js: true do
       create(:convict, first_name: 'Michel', last_name: 'Vaillant', date_of_birth: '01/01/1980',
                        organizations: [@user.organization], user: @user)
       create(:convict, first_name: 'Paul', last_name: 'Personne', date_of_birth: '01/01/1980',
                        organizations: [@user.organization])
 
-      visit convicts_path(only_mine: true)
+      visit convicts_path
+
+      page.find('label[for="my_convicts_checkbox"]').click
 
       expect(page).to have_content('Vaillant')
-      expect(page).not_to have_content('Personne')
+      expect(page).to have_no_content('Personne')
     end
+
+    it_behaves_like 'convict search feature'
   end
 
   describe 'creation', logged_in_as: 'cpip' do
@@ -374,7 +379,7 @@ RSpec.feature 'Convicts', type: :feature do
         visit convict_path(@convict)
         click_link('attribuer ce probationnaire')
 
-        expect(page).to have_content('Le probationnaire vous a bien été attribué.')
+        expect(page).to have_content('Le probationnaire vous a bien été assigné')
         expect(page).to have_content(@user.name)
         expect(Convict.first.cpip).to eq(@user)
       end
@@ -436,14 +441,16 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).not_to have_content('Désarchiver')
     end
 
-    it 'an admin can archive and unarchive a convict', logged_in_as: 'admin' do
+    it 'an admin can archive and unarchive a convict', logged_in_as: 'admin', js: true do
       convict = create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606',
                                  date_of_birth: '01/01/1980', organizations: [@user.organization])
 
       visit convicts_path
       expect(page).to have_content('BABAR')
 
-      click_link 'Archiver'
+      accept_alert do
+        click_link 'Archiver'
+      end
 
       expect(page).to have_content('BABAR')
       expect(Convict.find(convict.id).discarded?).to be true

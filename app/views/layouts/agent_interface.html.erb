@@ -17,11 +17,7 @@
   </div>
   <div id="turbostream_error_messages"></div>
   <div id="flash_messages">
-    <% flash.each do |type, msg| %>
-      <div class="fr-alert fr-alert--<%= dsfr_class_for(type) %> fr-alert--sm">        
-        <p><%= msg.html_safe %></p>
-      </div>
-    <% end %>
+    <%= render "shared/flashes" %>
   </div>
   <%# render 'layouts/breadcrumb' %>
   <main class="fr-container fr-pt-5w">

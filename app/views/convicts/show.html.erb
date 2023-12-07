@@ -60,17 +60,17 @@
                   <% if policy(@convict).destroy? %>
                     <%= button_to t('delete'), convict_path(params[:id]),
                                           method: :delete,
-                                          data: { 'turbo-confirm': t('basic_confirmation')},
+                                          data: { 'confirm': t('basic_confirmation'), turbo: false },
                                           class: 'fr-btn fr-btn--danger' %>
                   <% end %>
                   <% if policy(@convict).archive? %>
                     <%= button_to t('archive'), convict_archive_path(@convict),
                                             method: :delete,
-                                            data: { 'turbo-confirm': t('archive_convict_confirmation') },
+                                            data: { 'confirm': t('archive_convict_confirmation'), turbo: false },
                                             class: 'fr-btn fr-btn--tertiary' %>
                   <% end %>
                   <% if policy(@convict).unarchive? %>
-                    <%= button_to t('unarchive'), convict_unarchive_path(@convict), class: 'fr-btn fr-btn--tertiary' %>
+                    <%= button_to t('unarchive'), convict_unarchive_path(@convict), data: { turbo: false }, class: 'fr-btn fr-btn--tertiary' %>
                   <% end %>
                 </ul>
               </div>
@@ -84,17 +84,10 @@
               <strong><%= t('activerecord.attributes.convict.city_id') %></strong> : <%= @convict.city ?  @convict.city.name : 'pas de commune renseignée' %>
             </p>
           <% end %>
-          <p>
-            <strong><%= t('activerecord.attributes.convict.cpip') %></strong> :             
-            <% if @convict.cpip.present? %>
-              <%= @convict.cpip_name %>
-              <% if policy(@convict).unassign? %>
-                - <%= link_to t('.unassign_link'), convict_unassign_path(@convict), data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :post } %>
-              <% end %>
-            <% elsif policy(@convict).self_assign? %>
-              <%= link_to t('.self_assign_link'), convict_self_assign_path(@convict), data: { 'turbo-method': :post } %>
-            <% end %>
-          </p>
+          <div class="fr-grid-row">
+              <p class="fr-mr-1w"><strong><%= t('activerecord.attributes.convict.cpip') %> :</strong></p>
+              <%= render 'shared/convict_self_assign_link', convict: @convict %>
+          </div>
           <p>
             <strong><%= t('activerecord.attributes.convict.appi_uuid') %></strong> : <%= @convict.appi_uuid.presence %>
           </p>

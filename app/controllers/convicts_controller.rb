@@ -13,17 +13,19 @@ class ConvictsController < ApplicationController
     authorize @convict
   end
 
-  # rubocop:disable Metrics/AbcSize
   def index
-    @all_convicts = policy_scope(Convict)
-    base_filter = params[:only_mine] == 'true' ? current_user.convicts : Convict.all
-    @q = policy_scope(base_filter).order('last_name asc').ransack(params[:q])
-    @convicts = @q.result(distinct: true).page params[:page]
+    query = params[:q]
+    query = add_prefix_to_phone(params[:q]) if query =~ (/\d/) && !/^(\+33)/.match?(params[:q])
 
-    authorize @all_convicts
+    @convicts = fetch_convicts(query)
+
     authorize @convicts
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def new
     @convict = Convict.new
@@ -69,7 +71,11 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     @convict.destroy!
-    redirect_to convicts_path
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to convicts_path, notice: 'Le probationnaire a bien été supprimé' }
+    end
   end
 
   def archive
@@ -78,7 +84,11 @@ class ConvictsController < ApplicationController
 
     @convict.discard
     HistoryItemFactory.perform(convict: @convict, event: 'archive_convict', category: 'convict')
-    redirect_back(fallback_location: root_path)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to convict_path(@convict), notice: 'Le probationnaire a bien été archivé' }
+    end
   end
 
   def unarchive
@@ -87,7 +97,11 @@ class ConvictsController < ApplicationController
 
     @convict.undiscard
     HistoryItemFactory.perform(convict: @convict, event: 'unarchive_convict', category: 'convict')
-    redirect_back(fallback_location: root_path)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to convict_path(@convict), notice: 'Le probationnaire a bien été désarchivé' }
+    end
   end
 
   def self_assign
@@ -95,8 +109,10 @@ class ConvictsController < ApplicationController
     authorize @convict
     @convict.update_attribute(:user, current_user)
 
-    flash[:notice] = t('.notice')
-    redirect_back(fallback_location: root_path)
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to convicts_path, notice: t('.notice') }
+    end
   end
 
   def unassign
@@ -104,18 +120,10 @@ class ConvictsController < ApplicationController
     authorize @convict
     @convict.update_attribute(:user, nil)
 
-    flash[:notice] = t('.notice')
-    redirect_back(fallback_location: root_path)
-  end
-
-  def search
-    query = params[:q]
-    query = add_prefix_to_phone(query) if query =~ (/\d/) && !/^(\+33)/.match?(query)
-
-    @convicts = policy_scope(Convict).search_by_name_and_phone(query)
-
-    authorize @convicts
-    render layout: false
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to convicts_path, notice: t('.notice') }
+    end
   end
 
   private
@@ -211,5 +219,15 @@ class ConvictsController < ApplicationController
 
   def add_prefix_to_phone(phone)
     "+33#{phone[1..]}"
+  end
+
+  def base_filter
+    params[:my_convicts] == '1' ? current_user.convicts : Convict.all
+  end
+
+  def fetch_convicts(query)
+    scope = policy_scope(base_filter)
+    scope = scope.search_by_name_and_phone(query) if query.present?
+    scope.order('last_name asc').page params[:page]
   end
 end

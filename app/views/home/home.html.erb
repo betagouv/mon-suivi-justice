@@ -1,4 +1,4 @@
-<div data-controller="search-convicts">
+<div data-controller="convicts-search">
   <div class="fr-grid-row">
     <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
       <div class="fr-grid-row fr-grid-row--gutters">
@@ -13,15 +13,7 @@
           </p>
         </div>
         <div class="fr-col-6">
-          <div>
-            <div class="fr-search-bar" id="header-search" role="search">
-              <label class="fr-label" for="search_convicts"><%= t('home.form_label') %></label>
-              <input class="fr-input" type="search" placeholder="Rechercher un probationnaire" name="search_convicts" id="search_convicts" data-search-convicts-target="query" data-action="input->search-convicts#search">
-              <button class="fr-btn" title="<%= t('home.button_label') %>">
-                <%= t('home.button_label') %>
-              </button>
-            </div>
-          </div>
+          <%= render partial: 'shared/convict_search_form' %>
         </div>
         <div class="fr-col-6">
           <% if policy(:convict).new? %>
@@ -31,12 +23,15 @@
       </div>
     </div>
   </div>
+
   <div class="fr-grid-row fr-grid-row--gutters">
-    <div class="fr-col-12 fr-col-md-10 fr-col-lg-8 fr-mt-2w">
-      <div id="search_results" data-search-convicts-target="results">
-      </div>
+    <div class="fr-col-12 fr-mt-2w">
+      <%= turbo_frame_tag "convicts_list" do %>
+        <%= render partial: "shared/convicts_list", locals: { convicts: @convicts } %>
+      <% end %>
     </div>
   </div>
+  
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
     <div class="fr-col-6">
       <% if UserServiceSwitchPolicy.new(current_user, nil).create? %>
