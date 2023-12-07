@@ -25,7 +25,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def show?
-    ownership_check
+    ownership_check && hability_check
   end
 
   def agenda_jap?

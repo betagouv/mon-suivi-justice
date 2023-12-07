@@ -60,6 +60,8 @@ describe AppointmentPolicy do
 
   context 'show?' do
     context 'for an appointment within the organization' do
+      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+
       context 'for an admin' do
         let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
         it { is_expected.to permit_action(:show) }
@@ -155,7 +157,7 @@ describe AppointmentPolicy do
     context 'for an appointment created by the organization' do
       context 'tj' do
         let(:organization2) { build(:organization, organization_type: 'tj') }
-        let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+        let(:appointment_type) { create(:appointment_type, name: "SAP DDSE") }
         let!(:appointment) do
           create(:appointment, slot:, state: :booked, creating_organization: organization2, convict:)
         end
@@ -182,6 +184,8 @@ describe AppointmentPolicy do
         end
 
         context 'work at bex' do
+          let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+
           context 'for a prosecutor' do
             let(:user) { build(:user, role: 'prosecutor', organization: organization2) }
             it { is_expected.to permit_action(:show) }
@@ -347,7 +351,7 @@ describe AppointmentPolicy do
       end
 
       context 'tj' do
-        let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
+        let(:appointment_type) { create(:appointment_type, name: 'Sortie d\'audience SPIP') }
         let(:organization2) { build(:organization, organization_type: 'tj', spips: [slot.place.organization]) }
 
         context 'for a local admin tj' do
