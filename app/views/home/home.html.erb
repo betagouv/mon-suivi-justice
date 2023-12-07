@@ -17,7 +17,7 @@
         </div>
         <div class="fr-col-6">
           <% if policy(:convict).new? %>
-            <%= button_to t('new_convict_title'), new_convict_path, class: 'fr-btn', method: :get %>
+            <%= button_to t('new_convict_title'), new_convict_path, class: 'fr-btn', method: :get, data: { turbo: false } %>
           <% end %>
         </div>
       </div>
