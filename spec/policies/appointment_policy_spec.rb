@@ -1112,7 +1112,7 @@ describe AppointmentPolicy do
 
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
-      
+
       it { is_expected.to permit_action(:show) }
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
@@ -1128,7 +1128,7 @@ describe AppointmentPolicy do
 
     context 'for an appointment_type Convocation de suivi JAP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi JAP') }
-      
+
       it { is_expected.to permit_action(:show) }
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }

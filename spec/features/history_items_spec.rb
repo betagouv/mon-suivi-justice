@@ -86,7 +86,7 @@ RSpec.feature 'HistoryItems', type: :feature do
       expect { @summon_notif.send_now }.to change { HistoryItem.count }.by(1)
 
       visit appointment_path(@appointment)
-      
+
       expect(page).to have_content('Vous êtes encore convoqué...')
     end
 
