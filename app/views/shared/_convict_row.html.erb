@@ -6,7 +6,7 @@
     <td>
         <div id="<%= "#{dom_id(convict)}_self_assign_link" %>">
             <% if convict.cpip.present? %>
-                <div class="fr-grid-row fr-grid-row--center">
+                <div class="fr-grid-row">
                     <%= convict.cpip_name %>
                     <% if policy(convict).unassign? %>
                     <%= link_to convict_unassign_path(convict), data: { turbo_confirm: t('basic_confirmation'), 'turbo-method': :post } do %>
