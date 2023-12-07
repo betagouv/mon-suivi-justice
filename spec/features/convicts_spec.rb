@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative '../support/shared_examples/convict_search_examples'
 
 RSpec.feature 'Convicts', type: :feature do
   describe 'index', logged_in_as: 'cpip' do
@@ -45,6 +46,8 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_content('Vaillant')
       expect(page).to have_no_content('Personne')
     end
+
+    it_behaves_like 'convict search feature'
   end
 
   describe 'creation', logged_in_as: 'cpip' do

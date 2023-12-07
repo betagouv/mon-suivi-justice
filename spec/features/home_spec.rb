@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative '../support/shared_examples/convict_search_examples'
 
 RSpec.feature 'Home', type: :feature do
   before do
@@ -95,40 +96,5 @@ RSpec.feature 'Home', type: :feature do
     expect(page).to have_content('12:30')
   end
 
-  it 'should allow user to search convicts by name or phone number', logged_in_as: 'bex', js: true do
-    create(:convict, last_name: 'Dupneu',
-                     first_name: 'Bob',
-                     phone: '0612345678', organizations: [@user.organization])
-    create(:convict, last_name: 'Rabbit',
-                     first_name: 'Roger',
-                     phone: '0787654321', organizations: [@user.organization])
-
-    visit home_path
-
-    search_input = find('#convicts_search_field')
-    search_input.set('Bob')
-
-    expect(page).to have_content('Dupneu')
-    expect(page).to have_link('Profil')
-    expect(page).not_to have_content('Rabbit')
-
-    search_input.set('')
-    search_input.set('07876')
-
-    expect(page).to have_content('Rabbit')
-    expect(page).to have_link('Profil')
-    expect(page).not_to have_content('Dupneu')
-
-    search_input.set('')
-    search_input.set('+337876')
-
-    expect(page).to have_content('Rabbit')
-    expect(page).to have_link('Profil')
-    expect(page).not_to have_content('Dupneu')
-
-    search_input.set('')
-    search_input.set('Whatever')
-    expect(page).not_to have_content('Dupneu')
-    expect(page).not_to have_content('Rabbit')
-  end
+  it_behaves_like 'convict search feature'
 end
