@@ -13,15 +13,16 @@ RSpec.describe Organization, type: :model do
   it { should validate_presence_of(:organization_type) }
 
   describe 'destruction with dependent associations' do
-    let(:organization) { create(:organization, tjs: [create(:organization, organization_type: 'tj')]) }
-    let(:convict) { create(:convict, organizations: [organization]) }
+    let!(:organization) { create(:organization, tjs: [create(:organization, organization_type: 'tj')]) }
+    let!(:convict) { create(:convict, organizations: [organization], creating_organization: organization) }
 
     before do
-      create(:user, organization: organization)
-      create(:place, organization: organization)
-      create(:notification_type, organization: organization)
+      create(:user, organization:)
+      create(:place, organization:)
+      create(:notification_type, organization:)
       create(:appointment, creating_organization: organization)
-      create(:extra_field, name: 'Extra field A', organization: organization, data_type: 'text', scope: 'appointment_create', appointment_types: [create(:appointment_type)])
+      create(:extra_field, name: 'Extra field A', organization:, data_type: 'text',
+                           scope: 'appointment_create', appointment_types: [create(:appointment_type)])
     end
 
     it 'can be destroyed along with its dependencies' do
@@ -32,6 +33,7 @@ RSpec.describe Organization, type: :model do
       expect(Appointment.where(creating_organization: organization.id)).to be_empty
       expect(ExtraField.where(organization_id: organization.id)).to be_empty
       convict.reload
+      expect(convict.creating_organization).to be_nil
       expect(convict.organizations).to be_empty
     end
   end
