@@ -340,7 +340,10 @@ describe PlacePolicy do
     let(:tj) { create(:organization, organization_type: 'tj', spips: [spip]) }
     let(:rdv_suivi_jap) { build(:appointment_type, name: 'Convocation de suivi JAP') }
     let!(:place1) { create(:place, organization: tj, name: 'TJ Place', appointment_types: [rdv_suivi_jap]) }
-    let!(:place2) { create(:place, organization: spip, name: 'SPIP1 Place without ddse') }
+    let(:rdv_suivi_spip) { build(:appointment_type, name: 'Convocation de suivi JAP') }
+    let!(:place2) do
+      create(:place, organization: spip, name: 'SPIP1 Place without ddse', appointment_types: [rdv_suivi_spip])
+    end
     let!(:place3) { create(:place, organization: spip2, name: 'SPIP2 Place') }
 
     context 'bex' do
