@@ -513,7 +513,7 @@ GEM
     thor (1.3.0)
     tilt (2.2.0)
     timeout (0.4.0)
-    turbo-rails (1.4.0)
+    turbo-rails (1.5.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
@@ -633,7 +633,7 @@ DEPENDENCIES
   state_machines-graphviz
   state_machines-rspec
   stimulus-rails
-  turbo-rails (~> 1.4)
+  turbo-rails (~> 1.5)
   tzinfo
   tzinfo-data
   web-console (>= 4.1.0)
