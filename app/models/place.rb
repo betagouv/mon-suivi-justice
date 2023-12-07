@@ -27,14 +27,14 @@ class Place < ApplicationRecord
   accepts_nested_attributes_for :agendas, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :place_appointment_types
 
-  scope :in_organization, ->(organization) { joins(:appointment_types, organization: :convicts).where(organization:) }
+  scope :in_organization, ->(organization) { where(organization:) }
 
   scope :in_jurisdiction, lambda { |user_organization|
     where(organization: [user_organization, *user_organization.linked_organizations])
   }
 
   scope :linked_with_ddse, lambda { |user_organization|
-    joins(:appointment_types, organization: :convicts)
+    joins(:appointment_types)
       .where(organization: user_organization.linked_organizations, appointment_types: { name: "SAP DDSE" })
   }
 

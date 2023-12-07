@@ -10,7 +10,7 @@ class PlacePolicy < ApplicationPolicy
       if user.admin? || user.work_at_bex? || user.local_admin_tj?
         scope.in_jurisdiction(user.organization)
       elsif user.work_at_sap?
-        scope.in_organization(user.organization).or(scope.linked_with_ddse(user.organization))
+        scope.joins(:appointment_types).in_organization(user.organization).or(scope.linked_with_ddse(user.organization))
       else
         scope.in_organization(user.organization)
       end
