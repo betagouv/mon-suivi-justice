@@ -438,14 +438,16 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).not_to have_content('Désarchiver')
     end
 
-    it 'an admin can archive and unarchive a convict', logged_in_as: 'admin' do
+    it 'an admin can archive and unarchive a convict', logged_in_as: 'admin', js: true do
       convict = create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606',
                                  date_of_birth: '01/01/1980', organizations: [@user.organization])
 
       visit convicts_path
       expect(page).to have_content('BABAR')
 
-      click_link 'Archiver'
+      accept_alert do
+        click_link 'Archiver'
+      end
 
       expect(page).to have_content('BABAR')
       expect(Convict.find(convict.id).discarded?).to be true
