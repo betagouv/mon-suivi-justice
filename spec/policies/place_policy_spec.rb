@@ -335,13 +335,13 @@ describe PlacePolicy do
 
   context 'scope' do
     subject { PlacePolicy::Scope.new(user, Place).resolve }
-
     let(:spip) { create(:organization, organization_type: 'spip') }
     let(:spip2) { create(:organization, organization_type: 'spip') }
     let(:tj) { create(:organization, organization_type: 'tj', spips: [spip]) }
-    let!(:place1) { create(:place, organization: tj) }
-    let!(:place2) { create(:place, organization: spip) }
-    let!(:place3) { create(:place, organization: spip2) }
+    let(:rdv_suivi_jap) { build(:appointment_type, name: 'Convocation de suivi JAP') }
+    let!(:place1) { create(:place, organization: tj, name: 'TJ Place', appointment_types: [rdv_suivi_jap]) }
+    let!(:place2) { create(:place, organization: spip, name: 'SPIP1 Place without ddse') }
+    let!(:place3) { create(:place, organization: spip2, name: 'SPIP2 Place') }
 
     context 'bex' do
       context 'for a bex user' do
@@ -521,32 +521,35 @@ describe PlacePolicy do
         expect(subject).to match_array([place2])
       end
     end
-
-    context 'for a jap user' do
-      let(:user) { build(:user, role: 'jap', organization: tj) }
-      it 'returns only places in organization' do
-        expect(subject).to match_array([place1])
+    context 'sap' do
+      let(:sap_ddse) { build(:appointment_type, name: 'SAP DDSE') }
+      let!(:place4) { create(:place, organization: spip, appointment_types: [sap_ddse], name: 'SPIP1 Place with DDSE') }
+      context 'for a jap user' do
+        let(:user) { build(:user, role: 'jap', organization: tj) }
+        it 'returns only places in organization' do
+          expect(subject).to match_array([place1, place4])
+        end
       end
-    end
 
-    context 'for a greff_sap user' do
-      let(:user) { build(:user, role: 'greff_sap', organization: tj) }
-      it 'returns only places in organization' do
-        expect(subject).to match_array([place1])
+      context 'for a greff_sap user' do
+        let(:user) { build(:user, role: 'greff_sap', organization: tj) }
+        it 'returns only places in organization' do
+          expect(subject).to match_array([place1, place4])
+        end
       end
-    end
 
-    context 'for a dir_greff_sap user' do
-      let(:user) { build(:user, role: 'dir_greff_sap', organization: tj) }
-      it 'returns only places in organization' do
-        expect(subject).to match_array([place1])
+      context 'for a dir_greff_sap user' do
+        let(:user) { build(:user, role: 'dir_greff_sap', organization: tj) }
+        it 'returns only places in organization' do
+          expect(subject).to match_array([place1, place4])
+        end
       end
-    end
 
-    context 'secretary_court' do
-      let(:user) { build(:user, role: 'secretary_court', organization: tj) }
-      it 'returns only places in organization' do
-        expect(subject).to match_array([place1])
+      context 'secretary_court' do
+        let(:user) { build(:user, role: 'secretary_court', organization: tj) }
+        it 'returns only places in organization' do
+          expect(subject).to match_array([place1, place4])
+        end
       end
     end
   end

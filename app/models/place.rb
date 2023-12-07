@@ -35,7 +35,7 @@ class Place < ApplicationRecord
 
   scope :linked_with_ddse, lambda { |user_organization|
     joins(:appointment_types)
-      .where(organization: user_organization.linked_organizations, appointment_types: { name: "SAP DDSE" })
+      .where(organization: user_organization.linked_organizations, appointment_types: { name: 'SAP DDSE' })
   }
 
   scope :in_dep_spips, lambda { |departments|
