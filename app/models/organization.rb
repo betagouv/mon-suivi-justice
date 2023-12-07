@@ -6,18 +6,19 @@ class Organization < ApplicationRecord
   has_many :areas_organizations_mappings, dependent: :destroy
   has_many :departments, through: :areas_organizations_mappings, source: :area, source_type: 'Department'
   has_many :jurisdictions, through: :areas_organizations_mappings, source: :area, source_type: 'Jurisdiction'
-  has_many :created_appointments, class_name: 'Appointment', foreign_key: 'creating_organization'
+  has_many :created_appointments, class_name: 'Appointment', foreign_key: 'creating_organization', dependent: :destroy
+  has_many :created_convicts, class_name: 'Convict', foreign_key: 'creating_organization', dependent: :destroy
   has_many :extra_fields, dependent: :destroy, inverse_of: :organization
   belongs_to :headquarter, optional: true
   abymize :extra_fields, permit: :all_attributes, allow_destroy: true
-  has_many :agendas, through: :places, dependent: :nullify
+  has_many :agendas, through: :places
 
   has_and_belongs_to_many :spips, class_name: 'Organization', foreign_key: 'tj_id', join_table: 'spips_tjs',
                                   association_foreign_key: 'spip_id', optional: true
   has_and_belongs_to_many :tjs, class_name: 'Organization', foreign_key: 'spip_id', join_table: 'spips_tjs',
                                 association_foreign_key: 'tj_id', optional: true
 
-  has_many :convicts_organizations_mappings
+  has_many :convicts_organizations_mappings, dependent: :destroy
   has_many :convicts, through: :convicts_organizations_mappings
 
   enum organization_type: { spip: 0, tj: 1 }
