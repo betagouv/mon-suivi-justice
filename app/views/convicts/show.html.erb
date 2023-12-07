@@ -60,17 +60,17 @@
                   <% if policy(@convict).destroy? %>
                     <%= button_to t('delete'), convict_path(params[:id]),
                                           method: :delete,
-                                          data: { 'turbo-confirm': t('basic_confirmation')},
+                                          data: { 'confirm': t('basic_confirmation'), turbo: false },
                                           class: 'fr-btn fr-btn--danger' %>
                   <% end %>
                   <% if policy(@convict).archive? %>
                     <%= button_to t('archive'), convict_archive_path(@convict),
                                             method: :delete,
-                                            data: { 'turbo-confirm': t('archive_convict_confirmation') },
+                                            data: { 'confirm': t('archive_convict_confirmation'), turbo: false },
                                             class: 'fr-btn fr-btn--tertiary' %>
                   <% end %>
                   <% if policy(@convict).unarchive? %>
-                    <%= button_to t('unarchive'), convict_unarchive_path(@convict), class: 'fr-btn fr-btn--tertiary' %>
+                    <%= button_to t('unarchive'), convict_unarchive_path(@convict), data: { turbo: false }, class: 'fr-btn fr-btn--tertiary' %>
                   <% end %>
                 </ul>
               </div>

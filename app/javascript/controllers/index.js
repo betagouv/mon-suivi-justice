@@ -19,9 +19,6 @@ application.register("search-cities", SearchCitiesController)
 import SearchCitiesResultsController from "./search_cities_results_controller"
 application.register("search-cities-results", SearchCitiesResultsController)
 
-import ConvictsSearchController from "./convicts_search_controller"
-application.register("convicts-search", ConvictsSearchController)
-
 import SearchUsersController from "./search_users_controller"
 application.register("search-users", SearchUsersController)
 

@@ -2,29 +2,8 @@
   <div class="fr-col-12">
     <div class="fr-grid-row fr-grid-row--gutters">
       <div class="fr-col-4">
-        <div data-controller="convicts-search">
-          <%= form_with url: convicts_path, method: :get, data: { turbo_frame: "convicts_list", 
-                                                                  action: "keyup->convicts-search#triggerSearch",
-                                                                  convicts_search_target: "searchForm" }, 
-                                                                  id: "convicts_search_form" do |form| %>
-            <div class="fr-search-bar" id="header-search" role="search">
-              <%= form.label'convicts_search_field', t('home.form_label'), class: 'fr-label' %>
-              <%= form.search_field :q, placeholder: "Rechercher un probationnaire", id: "convicts_search_field", class: 'fr-input', data: { convicts_search_target: "searchField" } %>
-              <button class="fr-btn" title="<%= t('home.button_label') %>">
-                <%= t('home.button_label') %>
-              </button>
-            </div>
-            <% if current_user.cpip? %>
-              <fieldset class="fr-fieldset fr-fieldset__element--inline fr-mt-2w">
-                <div class="fr-fieldset__element">
-                  <div class="fr-checkbox-group">
-                    <%= form.check_box :my_convicts, id: "my_convicts_checkbox",  data: { action: "change->convicts-search#triggerSearch", convicts_search_target: "myConvictsCheckbox" } %>
-                    <%= form.label :my_convicts_checkbox, t('my_convicts') %>
-                  </div>  
-                </div>
-              </fieldset>
-            <% end %>
-          <% end %>
+        <div>
+          <%= render partial: 'shared/convict_search_form' %>
         </div>
       </div>
       <div class="fr-col-4">

@@ -87,7 +87,7 @@ class ConvictsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to convicts_path, notice: 'Le probationnaire a bien été archivé' }
+      format.html { redirect_to convict_path(@convict), notice: 'Le probationnaire a bien été archivé' }
     end
   end
 
@@ -100,7 +100,7 @@ class ConvictsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to convicts_path, notice: 'Le probationnaire a bien été désarchivé' }
+      format.html { redirect_to convict_path(@convict), notice: 'Le probationnaire a bien été désarchivé' }
     end
   end
 
