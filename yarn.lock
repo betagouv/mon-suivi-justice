@@ -127,10 +127,10 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.5.1.tgz#55cc8410abf1003b726324661ce5b0d1c10de258"
   integrity sha512-CNy5vSwN3fsUStPRLX7fUYojyuzoEMSXPl7zSLJ8TgtRfjv24LOnOWKT2zYwaHZCJGkdyRnTmstR0P+Ah503Gw==
 
-"@gouvfr/dsfr@^1.8.5":
-  version "1.8.5"
-  resolved "https://registry.npmjs.org/@gouvfr/dsfr/-/dsfr-1.8.5.tgz"
-  integrity sha512-29L+THvWmYJXztPa0Os5TS9yD2WQbrH7VnCKxkyUXQZQ+6lsGebtz0GdCnLexOWDfCn1y53Mh7+/ihxI/z0Vjw==
+"@gouvfr/dsfr@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.10.2.tgz#364916777d6e2a54e991c9883d63516918759e20"
+  integrity sha512-twPj+VFMTOKUfI9vbBnK8fH1iDpXuDVWeMJzgmmQ5LKjRtZdUsvSbHNlp7HWcDvhWxDGNHxSboErC7UB3oskYQ==
 
 "@hotwired/stimulus-webpack-helpers@^1.0.1":
   version "1.0.1"
