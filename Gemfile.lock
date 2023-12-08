@@ -375,7 +375,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbs (2.8.4)
-    redis (4.8.1)
+    redis (5.0.8)
+      redis-client (>= 0.17.0)
     redis-client (0.17.0)
       connection_pool
     regexp_parser (2.8.1)
@@ -613,7 +614,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-erd
   ransack (~> 4.1)
-  redis (~> 4.0)
+  redis (~> 5.0)
   rspec-rails
   rspec_junit_formatter
   ruby-progressbar (~> 1.11)
