@@ -16,8 +16,9 @@ RSpec.feature 'Users', type: :feature do
     end
 
     it 'allows to delete user' do
-      all_rows = all('tbody > tr')
-      within all_rows[1] do # First row is the user and can't be deleted
+      user_row = find('tbody > tr', text: 'MONTIRELLO')
+
+      within user_row do
         expect { click_link('Supprimer') }.to change { User.count }.by(-1)
       end
     end
