@@ -33,7 +33,7 @@ class ManageUnsendNotification < ApplicationJob
     @unsend_notifications ||=
       Notification.joins(appointment: :slot)
                   .where('slots.date < ?', Time.zone.now - 1.day)
-                  .where(state: 'programmed')
+                  .where(state: 'programmed', role: 'reminder')
   end
 
   def scheduled_sms_delivery_jobs_notif_ids
@@ -47,6 +47,6 @@ class ManageUnsendNotification < ApplicationJob
     Notification.joins(appointment: :slot)
                 .where('slots.date > ?', Time.zone.now + 1.day)
                 .where(appointments: { state: 'booked' })
-                .where(state: 'programmed')
+                .where(state: 'programmed', role: 'reminder')
   end
 end
