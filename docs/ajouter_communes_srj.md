@@ -20,8 +20,6 @@ psql --dbname $DB_URL  < ~/<path_to_your_srj_files>/monsuivijustice_structure_st
 psql --dbname $DB_URL  < ~/<path_to_your_srj_files>/monsuivijustice_relation_commune_structure_staging.sql
 ```
 
-```bash
-
 ### On récupère les communes dont les informations sont correctes : 
 
 On récupère les informations pour les communes qui sont correctement associées à un spip et un tj grâce à la requête suivante (ici un exemple avec Paris, modifiez le code postal au besoin) :
