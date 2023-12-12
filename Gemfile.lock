@@ -277,7 +277,7 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.5.9)
+    nio4r (2.7.0)
     nokogiri (1.15.5-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.15.5-x86_64-linux)
@@ -316,7 +316,7 @@ GEM
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
     public_suffix (5.0.3)
-    puma (5.6.7)
+    puma (6.4.0)
       nio4r (~> 2.0)
     pundit (2.3.1)
       activesupport (>= 3.0.0)
@@ -609,7 +609,7 @@ DEPENDENCIES
   phony_rails (~> 0.15)
   pretender
   pry-byebug (~> 3.9)
-  puma (~> 5.6)
+  puma (~> 6.4)
   pundit (~> 2.1)
   pundit-matchers (~> 3.1.2)
   rack-mini-profiler (~> 3.1)
