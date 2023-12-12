@@ -10,7 +10,8 @@ RSpec.describe Agenda, type: :model do
   describe '.in_organization' do
     before do
       @organization = create :organization
-      place_in = create :place, organization: @organization
+      appointment_type = create :appointment_type
+      place_in = create :place, organization: @organization, appointment_types: [appointment_type]
       @agenda_in = create :agenda, place: place_in
       create :agenda
     end

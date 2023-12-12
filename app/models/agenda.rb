@@ -11,10 +11,15 @@ class Agenda < ApplicationRecord
   delegate :appointment_type_with_slot_types, to: :place
   delegate :organization, to: :place
 
-  scope :in_organization, ->(organization) { joins(:place).where(place: { organization: }) }
+  scope :in_organization, ->(organization) { joins(place: :appointment_types).where(place: { organization: }) }
 
   scope :in_jurisdiction, lambda { |user_organization|
     joins(:place).where(place: { organization: [user_organization, *user_organization.linked_organizations] })
+  }
+
+  scope :linked_with_ddse, lambda { |user_organization|
+    joins(place: :appointment_types)
+      .where(place: { organization: user_organization.linked_organizations, appointment_types: { name: 'SAP DDSE' } })
   }
 
   scope :with_open_slots_for_date, lambda { |date, appointment_type|
