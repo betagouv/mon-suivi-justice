@@ -12,7 +12,7 @@ L'insertion des informations du SRJ dans l'application Mon Suivi Justice se fait
 
 ## 1/ Génération du .csv
 
-Pour générer le .csv, il faut disposer des tables `monsuivijustice_structure`, `monsuivijustice_communes`, et `monsuivijustice_communes_structures`. Vous pouvez vous rapprocher d'un membre de l'équipe Mon Suivi Justice pour obtenir ces tables.
+Pour générer le .csv, il faut disposer des tables `monsuivijustice_structure`, `monsuivijustice_communes`, et `monsuivijustice_communes_structures`. Vous pouvez vous rapprocher de la personne en charge du SRJ au sein de l'incubateur du Ministère de la Justice.
 
 ### On récupère les communes dont les informations sont correctes : 
 
@@ -29,6 +29,9 @@ ORDER BY count(*) DESC
 ```
 
 On exporte ces informations dans un .csv avec les en-têtes "id","postal_code","names","insee_code","ascii_name","name","type", un séparateur "," et un encodage UTF-8 (avec un logiciel de gestion de base de données par exemple).
+Par exemple, si on utilise pgAdmin, on peut cliquer sur "Save results to file" ou F8 pour enregistrer les résultats de la requête dans un .csv.
+
+```sql
 
 ### On récupère les commmunes qui sont associés à de trop nombreux spips :
 
@@ -52,7 +55,7 @@ LEFT JOIN monsuivijustice_relation_commune_structure rcs ON rcs.commune_id = c.i
 WHERE rcs.commune_id IS null AND (c.postal_code LIKE '75%')
 ```
 
-Les communes listées par ces deux requêtes, si il y en a, doivent être corrigées/complétées par un membre de l'équipe Mon Suivi Justice et donner lieu à la génération d'un .csv ou chaque commune possède un seul spip et un seul tj tel que décrit dans l'introduction.
+Les communes listées par ces deux requêtes, si il y en a, doivent être corrigées/complétées par un membre de l'équipe Mon Suivi Justice et donner lieu à la génération d'un .csv ou chaque commune possède un seul spip et un seul tj tel que décrit dans l'introduction. Pour faire cela on peut tout simplement utiliser un tableur type Google Sheet (Exemple [ici](https://docs.google.com/spreadsheets/d/17_37JoZHcqddQopveg98XRmmS_KNVuMKHjq_vUX77aA/))
 
 ### On combine les deux .csv générés précédemment :
 On combine les informations des deux .csv générés précédemment en un seul .csv contenant toutes les informations du SRJ grâce.
