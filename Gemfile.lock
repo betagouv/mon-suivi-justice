@@ -171,11 +171,11 @@ GEM
     faraday-net_http (3.0.2)
     faraday-retry (2.2.0)
       faraday (~> 2.0)
-    ffi (1.15.5)
+    ffi (1.16.3)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    font-awesome-sass (6.4.2)
+    font-awesome-sass (6.5.1)
       sassc (~> 2.0)
     formatador (1.1.0)
     globalid (1.2.1)
@@ -587,7 +587,7 @@ DEPENDENCIES
   faker
   faraday (~> 2.7)
   faraday-retry (~> 2.2)
-  font-awesome-sass (~> 6.1)
+  font-awesome-sass (~> 6.5)
   groupdate (~> 6.4)
   guard-rspec
   guard-rubocop

@@ -23,7 +23,7 @@ gem 'phony_rails', '~> 0.15'
 
 gem 'ransack', '~>4.1'
 gem 'kaminari', '~> 1.2'
-gem 'font-awesome-sass', '~> 6.1'
+gem 'font-awesome-sass', '~> 6.5'
 
 gem 'state_machines', '~> 0.5'
 gem 'state_machines-activerecord', '~> 0.8'
