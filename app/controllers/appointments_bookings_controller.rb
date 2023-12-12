@@ -29,7 +29,7 @@ class AppointmentsBookingsController < ApplicationController
 
   def load_agendas
     @place = Place.find(params[:place_id])
-    @agendas = Agenda.kept.where(place_id: @place.id)
+    @agendas = Agenda.kept.where(place_id: @place.id).order(name: :asc)
     @appointment_type = AppointmentType.find(params[:apt_type_id])
     return unless @agendas.count == 1
 
