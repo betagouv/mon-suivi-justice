@@ -240,12 +240,6 @@
   padding: 0.4em 0.8em;
 }
 
-.index-appointments-state-icon {
-  font-size: 10px;
-  margin: 3px 5px 0 5px;
-  color: var(--dark-grey);
-}
-
 .appointment-form-cpip-input-container {
   margin-bottom: 5px;
 }

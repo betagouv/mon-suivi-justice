@@ -182,16 +182,6 @@
   margin-top: 40px;
 }
 
-.icon_fulfil_appointment,
-.icon_fulfiled {
-  color: var(--fulfiled-appointment);
-}
-
-.icon_miss_appointment,
-.icon_no_show {
-  color: var(--missed-appointment);
-}
-
 .missed-appointment-modal-text {
   margin-bottom: 20px;
 }
