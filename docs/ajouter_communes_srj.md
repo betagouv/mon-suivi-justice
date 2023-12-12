@@ -12,7 +12,15 @@ L'insertion des informations du SRJ dans l'application Mon Suivi Justice se fait
 
 ## 1/ Génération du .csv
 
-Pour générer le .csv, il faut disposer des tables `monsuivijustice_structure`, `monsuivijustice_communes`, et `monsuivijustice_communes_structures`. Vous pouvez vous rapprocher de la personne en charge du SRJ au sein de l'incubateur du Ministère de la Justice.
+Pour générer le .csv, il faut disposer des tables `monsuivijustice_structure`, `monsuivijustice_communes`, et `monsuivijustice_communes_structures`. Vous pouvez vous rapprocher de la personne en charge du SRJ au sein de l'incubateur du Ministère de la Justice. Des fichiers .sql permettent  de générer ces tables. On peut les monter de la manière suivante ($DB_URL est l'url de la base de données de l'application) :
+
+```sql
+psql --dbname $DB_URL  < ~/<path_to_your_srj_files>/monsuivijustice_commune_staging.sql  
+psql --dbname $DB_URL  < ~/<path_to_your_srj_files>/monsuivijustice_structure_staging.sql 
+psql --dbname $DB_URL  < ~/<path_to_your_srj_files>/monsuivijustice_relation_commune_structure_staging.sql
+```
+
+```bash
 
 ### On récupère les communes dont les informations sont correctes : 
 
