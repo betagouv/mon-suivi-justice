@@ -20,10 +20,8 @@
                                     label: t('activerecord.models.appointment_type'),
                                     input_html: { class: 'form-select' } %>
 
-  <%= f.input :date, input_html: { class: 'form-select', min: Date.today },
-                     label: t('activerecord.attributes.slot.date'),
-                     as: :date,
-                     html5: true %>
+  <%= f.input :date, input_html: { data: {controller: "pick-multiple-dates"}, min: Date.today },
+                     label: t('activerecord.attributes.slot.date') %>
 
   <div class='new-slots-time-fields-container' id='new-slots-time-fields-container'>
     <%= turbo_frame_tag 'display_time_fields' do %>
