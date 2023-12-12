@@ -3,10 +3,17 @@ class AppointmentPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
+      # for bex and localadmin, we should check appointment_type like for sap
+      # currently bex user can see all spip appointments
       if user.work_at_bex? || user.local_admin_tj?
         scope.in_jurisdiction(user.organization).or(scope.created_by_organization(user.organization)).distinct
       elsif user.work_at_sap?
-        scope.in_organization(user.organization).or(scope.created_by_organization(user.organization)).distinct
+        scope.joins(:slot,
+                    convict: :organizations).in_organization(user.organization)
+             .or(scope.created_by_organization(user.organization)
+                      .joins(slot: { agenda: :place })
+                      .where({ 'appointment_types.name': AppointmentType.used_at_sap? }))
+             .distinct
       else
         scope.in_organization(user.organization)
       end
@@ -18,7 +25,7 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def show?
-    ownership_check
+    ownership_check && hability_check
   end
 
   def agenda_jap?

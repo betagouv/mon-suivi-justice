@@ -33,6 +33,11 @@ class Place < ApplicationRecord
     where(organization: [user_organization, *user_organization.linked_organizations])
   }
 
+  scope :linked_with_ddse, lambda { |user_organization|
+    joins(:appointment_types)
+      .where(organization: user_organization.linked_organizations, appointment_types: { name: 'SAP DDSE' })
+  }
+
   scope :in_dep_spips, lambda { |departments|
     ids = departments.map(&:id)
     joins(organization: :areas_organizations_mappings)

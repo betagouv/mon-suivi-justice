@@ -239,40 +239,41 @@ RSpec.feature 'Appointments', type: :feature do
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
                                                                 .and change { Notification.count }.by(5)
       end
+      context 'Inter-Ressort' do
+        it 'allows an agent to setup an appointment in another service',
+           logged_in_as: 'bex_interressort' do
+          appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
+          create :place, name: 'Test place', appointment_types: [appointment_type],
+                         organization: @user.organization
 
-      it 'Inter-Ressort: allows an agent to setup an appointment in another service',
-         logged_in_as: 'bex_interressort' do
-        appointment_type = create :appointment_type, :with_notification_types, name: "Sortie d'audience SAP"
-        create :place, name: 'Test place', appointment_types: [appointment_type],
-                       organization: @user.organization
+          organization = create :organization, name: 'TJ Foix', organization_type: 'tj'
 
-        organization = create :organization, name: 'TJ Foix', organization_type: 'tj'
+          @convict.organizations << organization
 
-        @convict.organizations << organization
+          place_ariege = create :place, organization:, name: 'SAP TJ Foix',
+                                        appointment_types: [appointment_type]
+          agenda_ariege = create :agenda, place: place_ariege, name: 'agenda SAP Foix'
+          create :agenda, place: place_ariege, name: 'agenda 2 SAP Foix'
 
-        place_ariege = create :place, organization:, name: 'SAP TJ Foix',
-                                      appointment_types: [appointment_type]
-        agenda_ariege = create :agenda, place: place_ariege, name: 'agenda SAP Foix'
-        create :agenda, place: place_ariege, name: 'agenda 2 SAP Foix'
+          create :slot, agenda: agenda_ariege, appointment_type:, date: Date.civil(2025, 4, 18),
+                        starting_time: new_time_for(17, 0)
 
-        create :slot, agenda: agenda_ariege, appointment_type:, date: Date.civil(2025, 4, 18),
-                      starting_time: new_time_for(17, 0)
+          visit new_appointment_path({ convict_id: @convict.id })
 
-        visit new_appointment_path({ convict_id: @convict.id })
+          select "Sortie d'audience SAP", from: :appointment_appointment_type_id
 
-        select "Sortie d'audience SAP", from: :appointment_appointment_type_id
+          expect(page).to have_content('Test place')
 
-        expect(page).to have_content('Test place')
+          select 'SAP TJ Foix', from: 'Lieu'
+          select 'agenda SAP Foix', from: 'Agenda'
 
-        select 'SAP TJ Foix', from: 'Lieu'
-        select 'agenda SAP Foix', from: 'Agenda'
+          choose '17:00'
 
-        choose '17:00'
+          page.find('label[for="send_sms_1"]').click
 
-        page.find('label[for="send_sms_1"]').click
-
-        expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
-                                     .and change { Notification.count }.by(5)
+          expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
+                                       .and change { Notification.count }.by(5)
+        end
       end
     end
 
