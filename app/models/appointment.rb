@@ -54,7 +54,7 @@ class Appointment < ApplicationRecord
   }
 
   scope :in_organization, lambda { |organization|
-    joins(slot: { agenda: :place }).where(slots: { agendas: { places: { organization: } } })
+    joins(slot: [{ agenda: :place }, :appointment_type]).where(slots: { agendas: { places: { organization: } } })
   }
 
   scope :in_jurisdiction, lambda { |user_organization|
