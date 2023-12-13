@@ -1,6 +1,11 @@
 import "./components/modal";
 import "./components/keep_scroll";
 
+function isValidDateFormat(dateStr) {
+  const regex = /^20\d{2}-\d{2}-\d{2}$/;
+  return regex.test(dateStr);
+}
+
 document.addEventListener("input", function (e) {
   const { target } = e;
   if (
@@ -12,6 +17,12 @@ document.addEventListener("input", function (e) {
       "q_user_id_eq",
     ].includes(target.id)
   ) {
-    e.target.form.submit();
+    if (target.id === "index-appointment-date-filter") {
+      if (isValidDateFormat(target.value)) {
+        e.target.form.submit();
+      } 
+    } else {
+      e.target.form.submit();
+    }
   }
 });
