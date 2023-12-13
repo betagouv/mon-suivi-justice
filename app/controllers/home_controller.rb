@@ -3,7 +3,6 @@ class HomeController < ApplicationController
   skip_after_action :verify_authorized
 
   def home
-    @convicts = policy_scope(Convict.all)
     if params[:global_stats]
       @stats = DataCollector::User.new(full_stats: false).perform
       @global_stats = true

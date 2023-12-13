@@ -1,5 +1,5 @@
 class ConvictPolicy < ApplicationPolicy
-  ALLOWED_TO_DESTROY = %w[admin local_admin jap dir_greff_bex dir_greff_sap greff_sap dpip secretary_court].freeze
+  ALLOWED_TO_DESTROY = %w[admin local_admin dir_greff_bex dir_greff_sap dpip].freeze
 
   class Scope < Scope
     def resolve

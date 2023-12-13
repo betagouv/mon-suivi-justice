@@ -5,12 +5,12 @@ ruby '3.2.2'
 gem 'rails', '~> 7.0.0', '>= 7.0.8'
 
 gem 'pg', '~> 1.3'
-gem 'puma', '~> 5.6'
+gem 'puma', '~> 6.4'
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'turbo-rails', '~> 1.4'
+gem 'turbo-rails', '~> 1.5'
 
 gem 'devise', '~> 4.9'
-gem 'devise-i18n', '~> 1.10'
+gem 'devise-i18n', '~> 1.12'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'devise-security', '>= 0.18.0'
 
@@ -39,8 +39,8 @@ gem 'discard', '~> 1.2'
 
 gem 'paper_trail', '~> 12.2'
 gem 'ahoy_matey', '~> 4.1'
-gem 'sentry-ruby', '~> 5.1'
-gem 'sentry-rails', '~> 5.1'
+gem 'sentry-ruby', '~> 5.15'
+gem 'sentry-rails', '~> 5.15'
 gem 'ruby-progressbar', '~> 1.11'
 
 gem 'jbuilder', '~> 2.11', '>= 2.11.5'
@@ -95,7 +95,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'shoulda-matchers', '~> 4.0'
-  gem 'pundit-matchers', '~> 1.6.0'
+  gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec'
   gem 'webmock'
 end
@@ -109,7 +109,7 @@ gem 'administrate-field-belongs_to_search'
 gem 'faker'
 
 # Use Redis for Action Cable
-gem 'redis', '~> 4.0'
+gem 'redis', '~> 5.0'
 
 gem 'jsbundling-rails', '~> 1.1'
 

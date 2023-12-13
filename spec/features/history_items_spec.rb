@@ -61,7 +61,9 @@ RSpec.feature 'HistoryItems', type: :feature do
   describe 'for an appointment', logged_in_as: 'cpip' do
     before do
       @convict = create(:convict, phone: nil, refused_phone: true, organizations: [@user.organization])
-      @appointment = create(:appointment, convict: @convict, creating_organization: @user.organization)
+      @appointment_type = build(:appointment_type, name: 'Convocation de suivi SPIP')
+      @slot = create(:slot, appointment_type: @appointment_type)
+      @appointment = create(:appointment, convict: @convict, creating_organization: @user.organization, slot: @slot)
       @summon_notif = create(:notification, appointment: @appointment,
                                             role: 'summon',
                                             content: 'Vous êtes encore convoqué...')

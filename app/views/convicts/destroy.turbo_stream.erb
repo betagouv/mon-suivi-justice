@@ -1,0 +1,2 @@
+<%= turbo_stream.remove("#{dom_id(@convict)}_row") %>
+<%= turbo_stream.update "flash_messages", partial: "shared/flashes", locals: { flash: { success: 'Le probationnaire a bien été supprimé' } } %>

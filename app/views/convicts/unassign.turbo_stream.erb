@@ -1,0 +1,2 @@
+<%= turbo_stream.replace "#{dom_id(@convict)}_self_assign_link", partial: "shared/convict_self_assign_link", locals: { convict: @convict } %>
+<%= turbo_stream.update "flash_messages", partial: "shared/flashes", locals: { flash: { success: 'Le probationnaire a été assigné au service' } } %>

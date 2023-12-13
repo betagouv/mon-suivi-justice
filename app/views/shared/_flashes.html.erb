@@ -1,0 +1,5 @@
+<% flash.each do |type, msg| %>
+    <div class="fr-alert fr-alert--<%= dsfr_class_for(type) %> fr-alert--sm">        
+    <p><%= msg.html_safe %></p>
+    </div>
+<% end %>
