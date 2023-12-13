@@ -93,7 +93,7 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
+    it { is_expected.not_to permit_action(:destroy) }
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'tj') }
@@ -119,7 +119,7 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
+    it { is_expected.not_to permit_action(:destroy) }
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'tj') }
@@ -249,7 +249,7 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
+    it { is_expected.not_to permit_action(:destroy) }
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'tj') }
