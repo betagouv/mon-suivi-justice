@@ -45,6 +45,14 @@ class Place < ApplicationRecord
       .where(organizations: { organization_type: 'spip' })
   }
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[]
+  end
+
   def multiple_agendas?
     agendas.count > 1
   end

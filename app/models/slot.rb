@@ -64,7 +64,7 @@ class Slot < ApplicationRecord
   }
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[full agenda_id appointment_type_id date]
+    %w[full agenda_id appointment_type_id date starting_time]
   end
 
   def self.ransackable_associations(_auth_object = nil)
