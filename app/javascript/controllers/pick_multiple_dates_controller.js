@@ -10,6 +10,7 @@ export default class extends Controller {
     const nextYear = thisYear + 1;
     const thisYearHolidays = holidays.getHolidays(thisYear).map((holiday) => holiday.date);
     const nextYearHolidays = holidays.getHolidays(nextYear).map((holiday) => holiday.date);
+    
     flatpickr(this.element, { mode: 'multiple', minDate: 'today', locale: French, disable: [
       function(date) {
           // return true to disable
