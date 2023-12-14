@@ -32,7 +32,7 @@ module Admin
         @gh_api_client = Octokit::Client.new(access_token: ENV.fetch('GITHUB_API_TOKEN', nil))
         develop_sha = @gh_api_client.get("/repos/#{MSJ_PUBLIC_REPO_PATH}/git/ref/heads/develop").object.sha
         @gh_api_client.create_ref(MSJ_PUBLIC_REPO_PATH, "heads/add-#{@org_name}-page", develop_sha)
-        @new_page_branch = @gh_api_client.get("/repos/#{MSJ_PUBLIC_REPO_PATH}/git/ref/heads/add-#{@org_name}-page").object.sha
+        @new_page_branch = response.object.sha
 
         handle_image
         handle_template
