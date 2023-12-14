@@ -3,3 +3,8 @@
     --background-action-high-blue-france-hover: darkred; /* Hover state */
     color: white; /* Change text color for better visibility */
 }
+
+.table-header__arrows--expand {
+    width: 1.2rem; 
+    height: 1.2rem;
+}
