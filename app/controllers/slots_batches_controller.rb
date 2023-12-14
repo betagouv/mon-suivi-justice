@@ -51,6 +51,10 @@ class SlotsBatchesController < ApplicationController
     render turbo_stream: turbo_stream.append('display_time_fields', partial: 'time_fields')
   end
 
+  def display_interval_fields
+    render turbo_stream: turbo_stream.append('display_time_fields', partial: 'interval_fields')
+  end
+
   private
 
   def slot_params

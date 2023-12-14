@@ -1,4 +1,4 @@
-  <div class="time required slot_batch_starting_time">
+  <div class="time required slot_batch_starting_time" style="border: 1px solid grey; padding: 16px; margin: 16px 0; display: flex; flex-direction: column;">
     <div class="form-label">
       <label class="time required form-label" for="slot_batch_starting_time_4i">
         <abbr title="required">*</abbr> <%= t('activerecord.attributes.slot.starting_time') %></label>
@@ -21,6 +21,6 @@
         <% end %>
       </select>
 
-      <div class="new-slot-delete-time-fields" onclick="this.parentNode.parentNode.remove();">Supprimer</div>
+      <button style="color: #c9191e;" class="fr-btn fr-btn--tertiary-no-outline" onclick="this.parentNode.parentNode.remove();">Supprimer</button>
     </div>
   </div>
