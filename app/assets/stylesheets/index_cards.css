@@ -96,8 +96,9 @@
 
 .index-card-state-controls-container {
   display: flex;
-  align-items: center;
-  margin-right: -5px;
+  flex-direction: column;
+  align-content: stretch;
+  gap: 10px;
 }
 
 .appointment-info-link {

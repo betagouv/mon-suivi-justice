@@ -183,8 +183,8 @@
   text-decoration: none;
   color: black;
 
-  .fa-sort {
-    margin-left: 5px;
+  .fr-icon-arrow-up-s-line:before, .fr-icon-arrow-down-s-line:before {
+    --icon-size: 1rem !important;
   }
 }
 
