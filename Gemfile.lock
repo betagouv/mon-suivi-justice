@@ -175,8 +175,6 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    font-awesome-sass (6.4.2)
-      sassc (~> 2.0)
     formatador (1.1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -590,7 +588,6 @@ DEPENDENCIES
   faker
   faraday (~> 2.7)
   faraday-retry (~> 2.2)
-  font-awesome-sass (~> 6.1)
   groupdate (~> 6.4)
   guard-rspec
   guard-rubocop
