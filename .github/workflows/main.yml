@@ -37,7 +37,10 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.18.0
+          node-version: 18.18.2
+
+      - name: Install Yarn
+        run: npm install --global yarn@1.22.19
 
       - name: Install Ruby dependencies
         run: bundle install
