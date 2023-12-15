@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import * as esbuild from 'esbuild'
-
+import { sentryEsbuildPlugin } from "@sentry/esbuild-plugin";
 
 let appEnvironment;
 if (process.env.APP === 'mon-suivi-justice-staging') {
@@ -13,7 +13,17 @@ if (process.env.APP === 'mon-suivi-justice-staging') {
   appEnvironment = 'development';
 }
 
+console.log("APP ENVIRONMENT", process.env.SENTRY_AUTH_TOKEN)
+
 let ctx = await esbuild.context({
+  sourcemap: true,
+  plugins: [
+    sentryEsbuildPlugin({
+      org: "betagouv",
+      project: "mon-suivi-justice",
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+    }),
+  ],
   entryPoints: ['app/javascript/*.js'],
   bundle: true,
   loader: { '.svg': 'copy' },
