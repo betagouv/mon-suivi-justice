@@ -2,7 +2,7 @@
   "name": "mon-suivi-justice",
   "private": true,
   "engines": {
-    "node": "18.19.0",
+    "node": "18.18.2",
     "yarn": "1.22.19"
   },
   "dependencies": {
