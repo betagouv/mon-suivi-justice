@@ -32,11 +32,11 @@ class Agenda < ApplicationRecord
   }
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[place_id]
+    %w[place_id name]
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[]
+    %w[place]
   end
 
   def appointment_type_with_slot_types?
