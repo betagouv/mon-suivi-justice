@@ -181,10 +181,16 @@
 
 .sort_link {
   text-decoration: none;
+  background-image: none;
   color: black;
+  display: flex;
+  align-items: center;
 
   .fr-icon-arrow-up-s-line:before, .fr-icon-arrow-down-s-line:before {
     --icon-size: 1rem !important;
+  }
+  .table-header__arrows--expand {
+    margin-bottom: -2px;
   }
 }
 
