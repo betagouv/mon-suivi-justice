@@ -94,6 +94,7 @@ group :test do
   gem 'selenium-webdriver', '~> 4.10.0'
   gem 'webdrivers', '~> 5.3.1'
   gem 'shoulda-matchers', '~> 4.5.1'
+  gem 'timecop', '~> 0.9.8'
   gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec', '~> 0.6.0'
   gem 'webmock', '~> 3.19.1'

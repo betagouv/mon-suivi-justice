@@ -1,9 +1,9 @@
-class ManageUnsendNotification < ApplicationJob
+class ManageUnsentNotification < ApplicationJob
   queue_as :default
 
   def perform
     reschedule_unqueued_notifications
-    inform_users_about_unsend_notifications
+    inform_users_about_unsent_notifications
     inform_admins
   end
 
@@ -16,12 +16,14 @@ class ManageUnsendNotification < ApplicationJob
     end
   end
 
-  def inform_users_about_unsend_notifications
-    unsend_notifications.each(&:failed_programmed!)
+  def inform_users_about_unsent_notifications
+    unsent_notifications.each(&:failed_programmed!)
   end
 
   def inform_admins
-    AdminMailer.notifications_problems(notifications_to_reschedule.pluck(:id), unsend_notifications.pluck(:id))
+    return unless notifications_to_reschedule.any? || unsent_notifications.any?
+
+    AdminMailer.notifications_problems(notifications_to_reschedule.pluck(:id), unsent_notifications.pluck(:id))
                .deliver_later
   end
 
@@ -29,8 +31,8 @@ class ManageUnsendNotification < ApplicationJob
     @notifications_to_reschedule ||= sms_notifications_to_be_send.where.not(id: scheduled_sms_delivery_jobs_notif_ids)
   end
 
-  def unsend_notifications
-    @unsend_notifications ||=
+  def unsent_notifications
+    @unsent_notifications ||=
       Notification.joins(appointment: :slot)
                   .where('slots.date < ?', Time.zone.now - 1.hour)
                   .where(state: 'programmed', role: 'reminder')

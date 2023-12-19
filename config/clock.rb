@@ -16,7 +16,7 @@ module Clockwork
   # Populate dedicted pgsql tables for Metabse. Do this one only on production env
   if ENV['APP'] == 'mon-suivi-justice-prod'
     every(1.day, 'execute_stored_procedures.job', at: '04:00') { ExecuteStoredProceduresJob.perform_later }
-    every(1.day, 'manage_unsend_notification.job', at: '04:00') { ManageUnsendNotification.perform_later }
+    every(1.day, 'manage_unsent_notification.job', at: '04:00') { ManageUnsentNotification.perform_later }
   end
 
   every(1.day, 'delete_place_transfert', at: '05:00') { DeletePlaceTransfertJob.perform_later }

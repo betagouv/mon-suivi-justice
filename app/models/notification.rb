@@ -59,7 +59,7 @@ class Notification < ApplicationRecord
       transition sent: :received
     end
 
-    event :mark_as_unsend do
+    event :mark_as_unsent do
       transition programmed: :unsent
     end
 

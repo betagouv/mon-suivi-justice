@@ -7,8 +7,8 @@ class SmsDeliveryJob < ApplicationJob
     notification = notification_id.is_a?(Integer) ? Notification.find(notification_id) : notification_id
     return if notification.canceled?
 
-    if notification.convict.can_receive_sms?
-      notification.mark_as_unsend
+    unless notification.convict.can_receive_sms?
+      notification.mark_as_unsent if notification.programmed?
       return
     end
 
