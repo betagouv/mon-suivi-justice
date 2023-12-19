@@ -83,7 +83,7 @@ class Organization < ApplicationRecord
     convicts.count
   end
 
-  def after_hearing_available_types
+  def after_hearing_available_appointment_types
     places.map(&:appointment_type_with_slot_types).flatten.uniq
   end
 
