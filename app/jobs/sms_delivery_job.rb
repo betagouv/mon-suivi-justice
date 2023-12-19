@@ -6,7 +6,11 @@ class SmsDeliveryJob < ApplicationJob
   def perform(notification_id)
     notification = notification_id.is_a?(Integer) ? Notification.find(notification_id) : notification_id
     return if notification.canceled?
-    return unless notification.convict.can_receive_sms?
+
+    if notification.convict.can_receive_sms?
+      notification.mark_as_unsend
+      return
+    end
 
     notification.send_then if notification.programmed?
 

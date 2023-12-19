@@ -33,6 +33,9 @@ class Notification < ApplicationRecord
     state :received do
     end
 
+    state :unsent do
+    end
+
     state :failed do
     end
 
@@ -54,6 +57,10 @@ class Notification < ApplicationRecord
 
     event :receive do
       transition sent: :received
+    end
+
+    event :mark_as_unsend do
+      transition programmed: :unsent
     end
 
     event :failed_send do
