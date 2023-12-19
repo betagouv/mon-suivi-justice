@@ -4,6 +4,7 @@ class AppointmentTypesController < ApplicationController
   def index
     @appointment_types = AppointmentType.all.order('name asc')
     @organizations = Organization.all.order(:name)
+    @organization = params[:orga] ? Organization.find(params[:orga]) : nil
 
     authorize @appointment_types
   end

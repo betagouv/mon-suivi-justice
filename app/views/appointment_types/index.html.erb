@@ -6,7 +6,7 @@
       </div>
       <div class='appointment-types-organization-select-container'>
         <%= form_tag appointment_types_path, method: 'get' do %>
-          <%= select_tag :orga, options_for_select(formated_orgas_for_select(@organizations), params[:orga]),
+          <%= select_tag :orga, options_for_select(formatted_orgas_for_select(@organizations), params[:orga]),
                                 id: 'apt-type-organization-select',
                                 class: 'form-select form-text-input',
                                 onchange: 'this.form.submit()' %>
@@ -16,7 +16,7 @@
 
     <div class='appointment-types-warning-container'>
       <% if params[:orga].present? %>
-        <%= t('appointment_type.warning', orga: Organization.find(params[:orga]).name) %>
+        <%= t('appointment_type.warning', orga: @organization.name) %>
       <% else %>
         <%= t('appointment_type.warning_default') %>
       <% end %>
@@ -34,6 +34,12 @@
           <div class='appointment_type-data'>
             <%= appointment_type.name %>
           </div>
+
+          <% if @organization.custom_template?(appointment_type:) %>
+            <div class='appointment_type-data'>
+              <%= t('appointment_type.custom_template') %>
+            </div>
+          <% end %>
 
           <div class='index-controls-container'>
             <%= link_to t('edit'), edit_appointment_type_path(appointment_type, orga: params[:orga]), class: 'index-control' %>

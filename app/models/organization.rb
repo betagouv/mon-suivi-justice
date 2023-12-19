@@ -83,6 +83,13 @@ class Organization < ApplicationRecord
     convicts.count
   end
 
+  def custom_template?(appointment_type: nil, role: nil)
+    filtered_notification_types = notification_types.where(still_default: false)
+    filtered_notification_types = filtered_notification_types.where(appointment_type:) if appointment_type
+    filtered_notification_types = filtered_notification_types.where(role:) if role
+    filtered_notification_types.any?
+  end
+
   private
 
   def extra_fields_count
