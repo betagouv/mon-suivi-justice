@@ -81,7 +81,8 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       expect(page).to have_select('Type de convocation', options: ['', "Sortie d'audience SPIP"])
       select "Sortie d'audience SPIP", from: 'Type de convocation'
 
-      fill_in 'Date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
+      find('#slot_batch_date').click
+      find('.flatpickr-day.today').click
 
       within first('.form-time-select-fields') do
         select '15', from: 'slot_batch_starting_time_4i'
