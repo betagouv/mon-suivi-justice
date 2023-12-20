@@ -38,8 +38,6 @@
   </div>
 
   <%= link_to 'Ajouter une heure', display_time_fields_path, class: 'new-slots-add-starting-time' %>
-  <h1> <%= @duration %></h1>
-  <h1> <%= @capacity %></h1>
   <%= f.input :duration, input_html: { value: @duration }, label: t('activerecord.attributes.slot.duration') %>
   <%= f.input :capacity, label: t('activerecord.attributes.slot.capacity'), input_html: { value: @capacity } %>
 
