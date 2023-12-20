@@ -52,7 +52,8 @@ RSpec.feature 'Convicts', type: :feature do
 
   describe 'creation', logged_in_as: 'cpip' do
     it 'creates a convict with his first appointment', js: true do
-      appointment_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SPIP")
+      appointment_type = create(:appointment_type, :with_notification_types, organization: @user.organization,
+                                                                             name: "Sortie d'audience SPIP")
       place = create :place, name: 'McDo de Clichy',
                              appointment_types: [appointment_type],
                              organization: @user.organization

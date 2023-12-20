@@ -33,7 +33,8 @@ RSpec.describe NotificationType, type: :model do
 
     it 'validates uniqueness of organization_id with appointment_type_id and role' do
       create(:notification_type, organization_id: organization.id, appointment_type_id: appointment_type.id, role: 0)
-      new_notification_type = build(:notification_type, organization_id: organization.id, appointment_type_id: appointment_type.id, role: 0)
+      new_notification_type = build(:notification_type, organization_id: organization.id,
+                                                        appointment_type_id: appointment_type.id, role: 0)
       expect(new_notification_type).not_to be_valid
     end
 

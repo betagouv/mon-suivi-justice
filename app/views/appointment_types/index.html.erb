@@ -16,7 +16,7 @@
 
     <div class='appointment-types-warning-container'>
       <% if params[:orga].present? %>
-        <%= t('appointment_type.warning', orga: @organization.name) %>
+        <%= t('appointment_type.warning', orga: @organization&.name) %>
       <% else %>
         <%= t('appointment_type.warning_default') %>
       <% end %>
@@ -35,7 +35,7 @@
             <%= appointment_type.name %>
           </div>
 
-          <% if @organization.custom_template?(appointment_type:) %>
+          <% if @organization&.custom_template?(appointment_type:) %>
             <div class='appointment_type-data'>
               <%= t('appointment_type.custom_template') %>
             </div>

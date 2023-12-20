@@ -151,7 +151,7 @@ RSpec.describe Slot, type: :model do
 
   describe 'capacity' do
     it 'allows multiple appointments for a slot' do
-      appointment_type = create(:appointment_type, :with_notification_types)
+      appointment_type = create(:appointment_type, :with_notification_types, organization: create(:organization))
       slot = create(:slot, available: true, capacity: 3, used_capacity: 0, appointment_type:)
       create(:appointment, slot:).book
 
@@ -193,7 +193,7 @@ RSpec.describe Slot, type: :model do
 
   describe 'used_capacity' do
     it 'cant be negative' do
-      appointment_type = create(:appointment_type, :with_notification_types)
+      appointment_type = create(:appointment_type, :with_notification_types, organization: create(:organization))
       slot = create(:slot, available: true, capacity: 3, used_capacity: 0, appointment_type:)
 
       expect(slot.decrement(:used_capacity)).not_to be_valid
