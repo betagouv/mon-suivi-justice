@@ -6,7 +6,7 @@ function isValidDateFormat(dateStr) {
   return regex.test(dateStr);
 }
 
-document.addEventListener("input", function (e) {
+document.addEventListener("change", function (e) {
   const { target } = e;
   if (
     [
@@ -18,7 +18,7 @@ document.addEventListener("input", function (e) {
     ].includes(target.id)
   ) {
     if (target.id === "index-appointment-date-filter") {
-      if (isValidDateFormat(target.value)) {
+      if (isValidDateFormat(target.value) || target.value === "") {
         e.target.form.submit();
       } 
     } else {
