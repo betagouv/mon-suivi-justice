@@ -10,17 +10,20 @@
 <h1 class='form-title'><%= t('slots.new_batch_title') %></h1>
 
 <p class='form-manual'><%= t('slots.new_batch_manual') %></p>
-
 <%= simple_form_for(:slot_batch, method: :post, url: slots_batch_path, html: { class: 'basic-form' }) do |f| %>
   <%= f.input :agenda_id, collection: current_user.organization.agendas.kept.select(&:appointment_type_with_slot_types?),
                           label: t('activerecord.models.agenda'),
+                          selected: @agenda&.id,
+                          include_blank: true,
                           input_html: { class: 'form-select' } %>
 
   <%= f.input :appointment_type_id, collection: appointment_types_for_slot_creation(current_user),
                                     label: t('activerecord.models.appointment_type'),
+                                    selected: @appointment_type&.id,
+                                    include_blank: true,
                                     input_html: { class: 'form-select' } %>
 
-  <%= f.input :date, input_html: { data: {controller: "pick-multiple-dates"}, min: Date.today },
+  <%= f.input :date, input_html: { data: {controller: "pick-multiple-dates"}, min: Date.today, value: @date },
                      label: t('activerecord.attributes.slot.date') %>
 
   <div class='new-slots-time-fields-container' id='new-slots-time-fields-container'>
@@ -35,9 +38,10 @@
   </div>
 
   <%= link_to 'Ajouter une heure', display_time_fields_path, class: 'new-slots-add-starting-time' %>
-  
-  <%= f.input :duration, label: t('activerecord.attributes.slot.duration') %>
-  <%= f.input :capacity, label: t('activerecord.attributes.slot.capacity') %>
+  <h1> <%= @duration %></h1>
+  <h1> <%= @capacity %></h1>
+  <%= f.input :duration, input_html: { value: @duration }, label: t('activerecord.attributes.slot.duration') %>
+  <%= f.input :capacity, label: t('activerecord.attributes.slot.capacity'), input_html: { value: @capacity } %>
 
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>

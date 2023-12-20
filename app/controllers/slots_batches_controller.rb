@@ -5,15 +5,31 @@ class SlotsBatchesController < ApplicationController
   def new; end
 
   def create
+    handle_create(params, slot_params)
+  rescue StandardError => e
+    p e
+    handle_create_errors(params, slot_params)
+  end
+
+  def handle_create(params, slot_params)
     result = batch_create(params, slot_params)
 
     if result.all?(&:persisted?)
       flash.discard
       redirect_to slots_path
     else
-      flash[:error] = I18n.t('slots.failed_batch_creation')
-      render :new, status: :unprocessable_entity
+      handle_create_errors(params, slot_params)
     end
+  end
+
+  def handle_create_errors(_params, slot_params)
+    flash[:error] = I18n.t('slots.failed_batch_creation')
+    @agenda = Agenda.find(slot_params[:agenda_id]) if slot_params[:agenda_id].present?
+    if slot_params[:appointment_type_id].present?
+      @appointment_type = AppointmentType.find(slot_params[:appointment_type_id])
+    end
+    @date = slot_params[:date] if slot_params[:date].present?
+    render :new, status: :unprocessable_entity
   end
 
   def update
