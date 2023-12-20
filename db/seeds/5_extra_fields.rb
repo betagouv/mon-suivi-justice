@@ -15,7 +15,7 @@ PlaceAppointmentType.find_or_create_by!(place: place_tj_tours, appointment_type:
 Agenda.find_or_create_by!(place: place_spip_37_tours, name: "Agenda SPIP Tours")
 agenda_tj = Agenda.find_or_create_by!(place: place_tj_tours, name: "Agenda TJ Tours")
 
-Slot.create!(agenda: agenda_tj, starting_time: Time.zone.now, date: Date.tomorrow.next_occurring(:monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
+Slot.create!(agenda: agenda_tj, starting_time: Time.zone.now, date: next_valid_day(day: :monday), duration: 15, capacity: 1, appointment_type: apt_type_sortie_audience_sap)
 
 create_user(
   organization: org_spip_37_tours, email: 'cpip37tours@example.com', role: :cpip
@@ -26,7 +26,7 @@ create_user(
 )
 
 create_user(
-  organization: org_tj_tours, email: 'bextours@example.com', role: :bex 
+  organization: org_tj_tours, email: 'bextours@example.com', role: :bex
 )
 
 create_user(
