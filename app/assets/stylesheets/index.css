@@ -185,6 +185,10 @@
   color: black;
   display: flex;
   align-items: center;
+  padding: 1.2em;
+  margin: -1.2em;
+  position: relative;
+  z-index: 1;
 
   .fr-icon-arrow-up-s-line:before, .fr-icon-arrow-down-s-line:before {
     --icon-size: 1rem !important;

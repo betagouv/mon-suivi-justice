@@ -279,3 +279,8 @@
 .appointments-link__cancel {
   color: var(--danger);
 }
+
+.sort-link-inline {
+  display: inline-flex;
+  align-items: center;
+}
