@@ -194,8 +194,7 @@ class ConvictsController < ApplicationController
 
   def update_convict
     @convict.current_user = current_user
-    @convict.update(convict_params)
-    @convict.update_organizations(current_user)
+    @convict.update_organizations(current_user) if @convict.update(convict_params)
   end
 
   def handle_successful_update(old_phone)

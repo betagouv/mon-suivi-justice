@@ -5,6 +5,8 @@ class SlotTypesBatchesController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def create
     @agenda = Agenda.find(params[:agenda_id])
+    authorize @agenda, :can_create_slot_inside?
+    authorize SlotType, :new?
     @appointment_type = AppointmentType.find_by(id: params[:appointment_type_id])
     data = slot_types_batch_params.to_h
 

@@ -1,7 +1,8 @@
 module SlotsHelper
   def appointment_types_for_slot_creation(user)
     list = apt_type_list(user)
-    AppointmentType.where(name: list)
+    after_hearing_organization_types = user.organization.after_hearing_available_appointment_types
+    AppointmentType.where(name: list).where(id: after_hearing_organization_types)
   end
 
   private

@@ -37,4 +37,17 @@ module AppointmentsHelper
       t('appointments.waiting_line.for_a_service', orga: organization.name)
     end
   end
+
+  def current_sort_column
+    params[:q]&.fetch(:s, '')&.split&.first
+  end
+
+  def sort_link_with_expandable_arrow(column, text)
+    link = sort_link(@q, column, text, default_order: :desc)
+    unless current_sort_column == column
+      svg = image_tag('expand-up-down-line.svg', width: 15, style: 'margin-left: 5px')
+    end
+    content = link + svg.to_s
+    "<span class='sort-link-inline'>#{content}</span>".html_safe
+  end
 end
