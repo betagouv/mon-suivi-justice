@@ -192,7 +192,7 @@ class Appointment < ApplicationRecord
     end
 
     after_transition do |appointment, transition|
-      event = "#{transition.event}_appointment".to_sym
+      event = :"#{transition.event}_appointment"
       if HistoryItem.validate_event(event) == true
         HistoryItemFactory.perform(
           appointment:,
@@ -232,7 +232,7 @@ class Appointment < ApplicationRecord
       previous_event = appointment.state_paths(from: :booked, to: appointment.state.to_sym)
                                   .find { |a| a.length == 1 }.first.event.to_s
 
-      history_item = appointment.history_items.where(event: "#{previous_event}_appointment".to_sym)
+      history_item = appointment.history_items.where(event: :"#{previous_event}_appointment")
                                 .order(created_at: :desc).first
       history_item&.destroy
     end
