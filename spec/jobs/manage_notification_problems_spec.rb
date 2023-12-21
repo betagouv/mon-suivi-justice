@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ManageUnsentNotification, type: :job do
+RSpec.describe ManageNotificationProblems, type: :job do
   include ActiveJob::TestHelper
 
   describe '#perform' do
@@ -20,7 +20,7 @@ RSpec.describe ManageUnsentNotification, type: :job do
     end
 
     before do
-      allow_any_instance_of(ManageUnsentNotification)
+      allow_any_instance_of(ManageNotificationProblems)
         .to receive(:scheduled_sms_delivery_jobs_notif_ids)
         .and_return([other_notification3.id])
 
@@ -36,11 +36,11 @@ RSpec.describe ManageUnsentNotification, type: :job do
         create(:notification, appointment: appointment_for_future_slot, state: 'programmed', role: 'reminder')
       end
 
-      let!(:unsent_notification1) do
+      let!(:stucked_notification1) do
         create(:notification, appointment: appointment_for_past_slot, state: 'programmed', role: 'reminder')
       end
 
-      let!(:unsent_notification2) do
+      let!(:stucked_notification2) do
         create(:notification, appointment: appointment_for_past_slot, state: 'programmed', role: 'reminder')
       end
 
@@ -50,10 +50,10 @@ RSpec.describe ManageUnsentNotification, type: :job do
         end.to have_enqueued_job(SmsDeliveryJob).with(notification_to_reschedule.id)
       end
 
-      it 'sets unsent notifications to failed' do
+      it 'sets stucked notifications to failed' do
         described_class.perform_now
-        expect(unsent_notification1.reload.state).to eq('failed')
-        expect(unsent_notification2.reload.state).to eq('failed')
+        expect(stucked_notification1.reload.state).to eq('failed')
+        expect(stucked_notification2.reload.state).to eq('failed')
         expect(notification_to_reschedule.reload.state).to eq('programmed')
         expect(other_notification1.reload.state).to eq('unsent')
       end
@@ -64,7 +64,7 @@ RSpec.describe ManageUnsentNotification, type: :job do
             described_class.perform_now
           end.to have_enqueued_mail(AdminMailer, :notifications_problems)
             .with(match_array([notification_to_reschedule.id]),
-                  match_array([unsent_notification1.id, unsent_notification2.id]))
+                  match_array([stucked_notification1.id, stucked_notification2.id]))
         end
       end
     end

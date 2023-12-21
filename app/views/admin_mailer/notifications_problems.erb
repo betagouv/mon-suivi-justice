@@ -14,11 +14,11 @@
         <% end %>
       </ul>
     <% end %>
-    <% if @unsent_ids.any? %>
+    <% if @stucked_ids.any? %>
       <h2>Notifications non envoyées</h2>
       <p>Les notifications suivantes n'ont pas été envoyées. Un history item a été créé pour prévenir les utilisateurs.</p>
       <ul>
-        <% @unsent_ids.each do |notification_id| %>
+        <% @stucked_ids.each do |notification_id| %>
           <li>ID: <%= notification_id %></li>
         <% end %>
       </ul>
