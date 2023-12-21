@@ -84,6 +84,6 @@ class SlotsBatchesController < ApplicationController
     return unless params[:agenda_id].present?
 
     @agenda = Agenda.find(params[:agenda_id])
-    authorize agenda, :can_create_slot_inside?
+    authorize @agenda, :can_create_slot_inside?
   end
 end
