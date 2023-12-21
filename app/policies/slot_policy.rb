@@ -1,46 +1,46 @@
 class SlotPolicy < ApplicationPolicy
-  ALLOWED_TO_EDIT = %w[admin local_admin jap dir_greff_bex dir_greff_sap greff_sap dpip overseer].freeze
+  ALLOWED_TO_INTERACT = %w[admin local_admin jap dir_greff_bex dir_greff_sap greff_sap dpip overseer].freeze
 
   class Scope < Scope
     def resolve
       if user.admin?
         scope.available.in_jurisdiction(user.organization)
-      elsif ALLOWED_TO_EDIT.include? user.role
+      elsif ALLOWED_TO_INTERACT.include? user.role
         scope.available.in_organization(user.organization)
       end
     end
   end
 
   def index?
-    ALLOWED_TO_EDIT.include?(user.role)
+    ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def edit?
-    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def new?
-    ALLOWED_TO_EDIT.include?(user.role)
+    ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def update?
-    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def show?
-    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def create?
-    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def destroy?
-    check_ownership? && ALLOWED_TO_EDIT.include?(user.role)
+    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def update_all?
-    return false unless ALLOWED_TO_EDIT.include?(user.role)
+    return false unless ALLOWED_TO_INTERACT.include?(user.role)
 
     record.to_a.all? { |slot| check_ownership?(slot) }
   end

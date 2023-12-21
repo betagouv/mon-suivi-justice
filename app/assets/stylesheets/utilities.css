@@ -17,3 +17,22 @@
 .d-none {
   display: none;
 }
+
+.circle-icon {
+  display: inline-block;
+  width: 1em; 
+  height: 1em;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.circle-icon.icon_fulfil_appointment,
+.icon_fulfiled {
+  color: var(--fulfiled-appointment);
+}
+
+.circle-icon.icon_miss_appointment,
+.icon_no_show {
+  color: var(--missed-appointment);
+}
+

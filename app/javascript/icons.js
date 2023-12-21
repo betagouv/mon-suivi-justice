@@ -19,3 +19,11 @@ import "@gouvfr/dsfr/dist/icons/system/eye-fill.svg"
 import "@gouvfr/dsfr/dist/icons/system/eye-off-fill.svg"
 import "@gouvfr/dsfr/dist/icons/business/line-chart-fill.svg"
 import "@gouvfr/dsfr/dist/icons/map/france-fill.svg"
+import "@gouvfr/dsfr/dist/icons/system/arrow-right-s-line.svg"
+import "@gouvfr/dsfr/dist/icons/system/arrow-left-s-line.svg"
+import "@gouvfr/dsfr/dist/icons/system/arrow-up-s-line.svg"
+import "@gouvfr/dsfr/dist/icons/system/arrow-down-s-line.svg"
+import "@gouvfr/dsfr/dist/icons/system/fr--arrow-right-s-line-double.svg"
+import "@gouvfr/dsfr/dist/icons/system/fr--arrow-left-s-line-double.svg"
+
+

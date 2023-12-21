@@ -16,8 +16,8 @@
                 <tr>
                   <td>
                     <div  class='show-history-item-icon text-center'>
-                      <%= icon('fa', 'circle', class: "icon_#{history_item.event}")%>
-                  </div>
+                      <span class="circle-icon icon_<%= history_item.event %> fr-mr-1w"></span>
+                    </div>
                   </td>
                   <td>
                     <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>

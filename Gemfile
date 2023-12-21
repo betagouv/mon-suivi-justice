@@ -11,7 +11,7 @@ gem 'turbo-rails', '~> 1.5'
 
 gem 'devise', '~> 4.9'
 gem 'devise-i18n', '~> 1.12'
-gem 'devise_invitable', '~> 2.0.0'
+gem 'devise_invitable', '~> 2.0.9'
 gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.1'
@@ -23,7 +23,6 @@ gem 'phony_rails', '~> 0.15'
 
 gem 'ransack', '~>4.1'
 gem 'kaminari', '~> 1.2'
-gem 'font-awesome-sass', '~> 6.1'
 
 gem 'state_machines', '~> 0.5'
 gem 'state_machines-activerecord', '~> 0.8'
@@ -111,7 +110,7 @@ gem 'faker'
 # Use Redis for Action Cable
 gem 'redis', '~> 5.0'
 
-gem 'jsbundling-rails', '~> 1.1'
+gem 'jsbundling-rails', '~> 1.2'
 
 gem 'cssbundling-rails', '~> 1.3'
 

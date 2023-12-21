@@ -181,10 +181,20 @@
 
 .sort_link {
   text-decoration: none;
+  background-image: none;
   color: black;
+  display: flex;
+  align-items: center;
+  padding: 1.2em;
+  margin: -1.2em;
+  position: relative;
+  z-index: 1;
 
-  .fa-sort {
-    margin-left: 5px;
+  .fr-icon-arrow-up-s-line:before, .fr-icon-arrow-down-s-line:before {
+    --icon-size: 1rem !important;
+  }
+  .table-header__arrows--expand {
+    margin-bottom: -2px;
   }
 }
 
