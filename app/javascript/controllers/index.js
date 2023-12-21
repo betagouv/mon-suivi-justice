@@ -33,3 +33,6 @@ application.register("debounce-submit", DebounceSubmitController)
 
 import AbymeController from "./abyme_controller"
 application.register("abyme", AbymeController)
+
+import PickMultipleDatesController from "./pick_multiple_dates_controller"
+application.register("pick-multiple-dates", PickMultipleDatesController)
