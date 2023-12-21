@@ -570,15 +570,15 @@ PLATFORMS
 DEPENDENCIES
   abyme (~> 0.7.0)
   addressable (~> 2.8)
-  administrate
-  administrate-field-belongs_to_search
-  administrate-field-enum
+  administrate (~> 0.19.0)
+  administrate-field-belongs_to_search (~> 0.8.0)
+  administrate-field-enum (~> 0.0.9)
   ahoy_matey (~> 4.1)
   bootsnap (>= 1.4.4)
-  bullet
-  byebug
+  bullet (~> 7.1.4)
+  byebug (~> 11.0)
   capybara (>= 3.26)
-  capybara-screenshot
+  capybara-screenshot (~> 1.0.26)
   clockwork (~> 3.0)
   cocoon (~> 1.2)
   cssbundling-rails (~> 1.3)
@@ -589,19 +589,19 @@ DEPENDENCIES
   devise_invitable (~> 2.0.9)
   discard (~> 1.2)
   dotenv-rails (~> 2.7)
-  factory_bot_rails
-  faker
+  factory_bot_rails (~> 6.2)
+  faker (~> 3.2.2)
   faraday (~> 2.7)
   faraday-retry (~> 2.2)
   groupdate (~> 6.4)
-  guard-rspec
-  guard-rubocop
+  guard-rspec (~> 4.7.3)
+  guard-rubocop (~> 1.5.0)
   holidays (~> 8.5)
   jbuilder (~> 2.11, >= 2.11.5)
   jsbundling-rails (~> 1.2)
   kaminari (~> 1.2)
   launchy (~> 2.4, >= 2.4.3)
-  letter_opener
+  letter_opener (~> 1.8.1)
   listen (~> 3.3)
   noticed (~> 1.6)
   octokit (~> 5.0)
@@ -609,21 +609,21 @@ DEPENDENCIES
   pg (~> 1.3)
   pg_search (~> 2.3)
   phony_rails (~> 0.15)
-  pretender
+  pretender (~> 0.5.0)
   pry-byebug (~> 3.9)
   puma (~> 6.4)
   pundit (~> 2.1)
   pundit-matchers (~> 3.1.2)
   rack-mini-profiler (~> 3.1)
   rails (~> 7.0.0, >= 7.0.8)
-  rails-controller-testing
-  rails-erd
+  rails-controller-testing (~> 1.0.5)
+  rails-erd (~> 1.7.2)
   ransack (~> 4.1)
   redis (~> 5.0)
-  rspec-rails
-  rspec_junit_formatter
+  rspec-rails (~> 6.1)
+  rspec_junit_formatter (~> 0.6.0)
   ruby-progressbar (~> 1.11)
-  selenium-webdriver
+  selenium-webdriver (~> 4.10.0)
   sentry-rails (~> 5.15)
   sentry-ruby (~> 5.15)
   shoulda-matchers (~> 4.0)
@@ -631,20 +631,20 @@ DEPENDENCIES
   sidekiq (~> 7.1)
   sidekiq-failures (~> 1.0)
   simple_form (~> 5.1)
-  solargraph
-  spring
+  solargraph (~> 0.50.0)
+  spring (~> 4.1)
   sprockets-rails
   state_machines (~> 0.5)
   state_machines-activerecord (~> 0.8)
-  state_machines-graphviz
-  state_machines-rspec
-  stimulus-rails
+  state_machines-graphviz (~> 0.0.2)
+  state_machines-rspec (~> 0.6.0)
+  stimulus-rails (~> 1.2.2)
   turbo-rails (~> 1.5)
-  tzinfo
-  tzinfo-data
+  tzinfo (~> 2.0.6)
+  tzinfo-data (~> 1.2023.3)
   web-console (>= 4.1.0)
-  webdrivers
-  webmock
+  webdrivers (~> 5.3.1)
+  webmock (~> 3.19.1)
   wicked_pdf (~> 2.6)
   wkhtmltopdf-binary (~> 0.12)
 
