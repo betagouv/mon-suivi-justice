@@ -88,7 +88,8 @@ class Organization < ApplicationRecord
     filtered_notification_types = filtered_notification_types.where(appointment_type:) if appointment_type
     filtered_notification_types = filtered_notification_types.where(role:) if role
     filtered_notification_types.any?
-    
+  end
+
   def after_hearing_available_appointment_types
     places.map(&:appointment_type_with_slot_types).flatten.uniq
   end
