@@ -4,8 +4,8 @@ RSpec.describe ManageNotificationProblems, type: :job do
   include ActiveJob::TestHelper
 
   describe '#perform' do
-    let(:past_slot) { create(:slot, date: Time.zone.now + 1.day) }
-    let(:future_slot) { create(:slot, date: Time.zone.now + 3.day) }
+    let(:past_slot) { create(:slot, date: next_valid_day(date: Time.zone.now + 1.day)) }
+    let(:future_slot) { create(:slot, date: next_valid_day(date: Time.zone.now + 20.day)) }
     let(:appointment_for_past_slot) { create(:appointment, slot: past_slot, state: 'booked') }
     let(:appointment_for_future_slot) { create(:appointment, slot: future_slot, state: 'booked') }
 
@@ -24,7 +24,7 @@ RSpec.describe ManageNotificationProblems, type: :job do
         .to receive(:scheduled_sms_delivery_jobs_notif_ids)
         .and_return([other_notification3.id])
 
-      Timecop.freeze(Time.zone.now + 2.days)
+      Timecop.freeze(Time.zone.now + 10.days)
     end
 
     after do
