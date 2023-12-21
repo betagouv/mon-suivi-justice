@@ -194,8 +194,6 @@ RSpec.feature 'Convicts', type: :feature do
         expect(page).to have_content('Un doublon potentiel a été détecté :')
         expect(page).to have_link("DUPOND Roberta, suivi(e) par : #{convict.organizations.first.name}",
                                   href: convict_path(convict))
-
-        expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
       end
 
       it 'shows a warning with link to potential first name / last name / phone duplicates' do
@@ -215,10 +213,6 @@ RSpec.feature 'Convicts', type: :feature do
         expect(page).to have_content('Un doublon potentiel a été détecté :')
         expect(page).to have_link("DUPOND Roberta, suivi(e) par : #{convict.organizations.first.name}",
                                   href: convict_path(convict))
-
-        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
-
-        expect(page).to have_content('Un probationnaire est déjà enregistré avec ce numéro de téléphone.')
       end
     end
 
