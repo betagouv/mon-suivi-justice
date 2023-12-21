@@ -11,7 +11,7 @@ gem 'turbo-rails', '~> 1.5'
 
 gem 'devise', '~> 4.9'
 gem 'devise-i18n', '~> 1.12'
-gem 'devise_invitable', '~> 2.0.0'
+gem 'devise_invitable', '~> 2.0.9'
 gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.1'
