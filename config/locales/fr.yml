@@ -29,6 +29,7 @@ fr:
         alert_type: type d'alerte
         services: services destinataires
         roles: rôles destinataires
+        created_at: date de création
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
