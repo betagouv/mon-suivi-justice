@@ -1,9 +1,10 @@
 module AppointmentTypeHelper
-  def formated_orgas_for_select(orgas)
+  def formatted_orgas_for_select(orgas)
     formated = [[I18n.t('default'), nil]]
 
     orgas.each do |orga|
-      formated << [orga.name, orga.id]
+      name = orga.custom_template? ? "#{orga.name} (#{I18n.t('appointment_type.custom_template')})" : orga.name
+      formated << [name, orga.id]
     end
 
     formated

@@ -19,13 +19,16 @@ RSpec.describe Notification, type: :model do
 
   describe 'program' do
     it 'sends at the proper delivery time' do
+      organization = create(:organization)
+      place = create(:place, organization:)
+      agenda = create(:agenda, place:)
       appointment_type = create(:appointment_type)
 
       slot_date = Date.civil(2025, 4, 14)
       slot_starting_time = new_time_for(0, 0)
 
-      slot = create(:slot, date: slot_date, appointment_type:, starting_time: slot_starting_time)
-      create(:notification_type, appointment_type:,
+      slot = create(:slot, date: slot_date, appointment_type:, starting_time: slot_starting_time, agenda:)
+      create(:notification_type, appointment_type:, organization:,
                                  role: :reminder,
                                  reminder_period: :two_days)
 
