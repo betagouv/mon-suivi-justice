@@ -13,7 +13,7 @@ class UserAlertDashboard < Administrate::BaseDashboard
     alert_type: Field::String,
     services: Field::String,
     roles: Field::String,
-    created_at: Field::DateTime,
+    created_at: Field::DateTime.with_options(format: '%d/%m/%Y'),
     updated_at: Field::DateTime
   }.freeze
 
@@ -28,6 +28,7 @@ class UserAlertDashboard < Administrate::BaseDashboard
     services
     roles
     content
+    created_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
