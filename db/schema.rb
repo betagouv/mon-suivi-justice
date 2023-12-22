@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_22_103644) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -30,7 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.bigint "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "discarded_at", precision: nil
     t.index ["discarded_at"], name: "index_agendas_on_discarded_at"
     t.index ["place_id"], name: "index_agendas_on_place_id"
   end
@@ -68,7 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.bigint "user_id"
     t.string "name"
     t.jsonb "properties"
-    t.datetime "time"
+    t.datetime "time", precision: nil
     t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
     t.index ["properties"], name: "index_ahoy_events_on_properties", opclass: :jsonb_path_ops, using: :gin
     t.index ["user_id"], name: "index_ahoy_events_on_user_id"
@@ -100,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.string "app_version"
     t.string "os_version"
     t.string "platform"
-    t.datetime "started_at"
+    t.datetime "started_at", precision: nil
     t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
   end
@@ -193,11 +193,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.boolean "refused_phone"
     t.string "prosecutor_number"
     t.string "appi_uuid"
-    t.datetime "discarded_at"
+    t.datetime "discarded_at", precision: nil
     t.bigint "user_id"
     t.integer "invitation_to_convict_interface_count", default: 0, null: false
-    t.datetime "timestamp_convict_interface_creation"
-    t.datetime "last_invite_to_convict_interface"
+    t.datetime "timestamp_convict_interface_creation", precision: nil
+    t.datetime "last_invite_to_convict_interface", precision: nil
     t.date "date_of_birth"
     t.boolean "homeless", default: false, null: false
     t.boolean "lives_abroad", default: false, null: false
@@ -214,7 +214,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
   create_table "convicts_organizations_mappings", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "convict_id", null: false
-    t.datetime "desactivated_at"
+    t.datetime "desactivated_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["convict_id"], name: "index_convicts_organizations_mappings_on_convict_id"
@@ -229,6 +229,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_departments_on_name", unique: true
     t.index ["number"], name: "index_departments_on_number", unique: true
+  end
+
+  create_table "divestments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "organization_from_id", null: false
+    t.bigint "organization_to_id", null: false
+    t.string "state"
+    t.date "decision_date"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_from_id"], name: "index_divestments_on_organization_from_id"
+    t.index ["organization_to_id"], name: "index_divestments_on_organization_to_id"
+    t.index ["user_id"], name: "index_divestments_on_user_id"
   end
 
   create_table "extra_fields", force: :cascade do |t|
@@ -362,7 +376,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.string "contact_email"
     t.integer "main_contact_method", default: 0, null: false
     t.string "preparation_link", default: "https://mon-suivi-justice.beta.gouv.fr/", null: false
-    t.datetime "discarded_at"
+    t.datetime "discarded_at", precision: nil
     t.index ["discarded_at"], name: "index_places_on_discarded_at"
     t.index ["organization_id"], name: "index_places_on_organization_id"
   end
@@ -387,7 +401,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "agenda_id"
-    t.datetime "discarded_at"
+    t.datetime "discarded_at", precision: nil
     t.index ["agenda_id"], name: "index_slot_types_on_agenda_id"
     t.index ["appointment_type_id"], name: "index_slot_types_on_appointment_type_id"
     t.index ["discarded_at"], name: "index_slot_types_on_discarded_at"
@@ -454,7 +468,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.bigint "recipient_id", null: false
     t.string "type", null: false
     t.jsonb "params"
-    t.datetime "read_at"
+    t.datetime "read_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["read_at"], name: "index_user_notifications_on_read_at"
@@ -476,17 +490,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", null: false
     t.string "first_name"
     t.string "last_name"
     t.string "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
+    t.datetime "invitation_created_at", precision: nil
+    t.datetime "invitation_sent_at", precision: nil
+    t.datetime "invitation_accepted_at", precision: nil
     t.integer "invitation_limit"
     t.string "invited_by_type"
     t.bigint "invited_by_id"
@@ -513,7 +527,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.string "event", null: false
     t.string "whodunnit"
     t.text "object"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.text "object_changes"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
@@ -534,6 +548,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
   add_foreign_key "convicts", "cities"
   add_foreign_key "convicts", "organizations", column: "creating_organization_id"
   add_foreign_key "convicts", "users"
+  add_foreign_key "divestments", "organizations", column: "organization_from_id"
+  add_foreign_key "divestments", "organizations", column: "organization_to_id"
+  add_foreign_key "divestments", "users"
   add_foreign_key "extra_fields", "organizations"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
