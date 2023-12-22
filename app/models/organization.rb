@@ -22,6 +22,9 @@ class Organization < ApplicationRecord
   has_many :convicts_organizations_mappings, dependent: :destroy
   has_many :convicts, through: :convicts_organizations_mappings
 
+  has_many :divestments_as_from, class_name: 'Divestment', foreign_key: 'organization_from_id'
+  has_many :divestments_as_to, class_name: 'Divestment', foreign_key: 'organization_to_id'
+
   enum organization_type: { spip: 0, tj: 1 }
 
   validates :organization_type, presence: true
