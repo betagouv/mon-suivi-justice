@@ -164,7 +164,7 @@ GEM
       railties (>= 5.0.0)
     faker (3.2.2)
       i18n (>= 1.8.11, < 2)
-    faraday (2.7.12)
+    faraday (2.8.1)
       base64
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
@@ -591,7 +591,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.8.1)
   factory_bot_rails (~> 6.2.0)
   faker (~> 3.2.2)
-  faraday (~> 2.7.12)
+  faraday (~> 2.8.1)
   faraday-retry (~> 2.2.0)
   groupdate (~> 6.4.0)
   guard-rspec (~> 4.7.3)
