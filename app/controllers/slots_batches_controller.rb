@@ -98,6 +98,8 @@ class SlotsBatchesController < ApplicationController
   def generate_times(start_time, end_time, interval)
     start_time = Time.zone.parse("#{start_time[0]}:#{start_time[1]}")
     end_time = Time.zone.parse("#{end_time[0]}:#{end_time[1]}")
+    raise ArgumentError, 'Start time must be before end time' if start_time > end_time
+
     interval_minutes = interval.first.to_i.minutes
     result = []
 
@@ -118,7 +120,9 @@ class SlotsBatchesController < ApplicationController
   end
 
   def valid_interval?(params)
-    params[:start_times].present? && params[:end_times].present? && params[:intervals].present?
+    params[:start_times].present? &&
+      params[:end_times].present? &&
+      params[:intervals].present?
   end
 
   def build_slot(params, date, time)
