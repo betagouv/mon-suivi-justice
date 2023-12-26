@@ -16,7 +16,8 @@ class SlotsBatchesController < ApplicationController
 
   def handle_create(params, slot_params)
     result = batch_create(params, slot_params)
-    if result.all?(&:persisted?)
+
+    if result.flatten(1).all?(&:persisted?)
       flash.discard
       redirect_to slots_path
     else
@@ -59,17 +60,65 @@ class SlotsBatchesController < ApplicationController
 
   def slot_params
     params.require(:slot_batch).permit(:agenda_id, :appointment_type_id, :date, :available,
-                                       :starting_time, :capacity, :duration, starting_times: [])
+                                       :starting_time, :capacity, :duration, :interval, :start_time, :end_time,
+                                       starting_times: [],
+                                       intervals: [], start_times: [], end_times: [])
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
   def batch_create(params, slot_params)
-    times = params.require(:starting_times).each_slice(2).to_a
+    unless valid_time?(params)
+      render json: { error: 'At least one of starting_times or intervals is required' },
+             status: :bad_request
+    end
+
+    times = []
+    times = params.require(:starting_times).each_slice(2).to_a if params[:starting_times].present?
+    times += generate_times_from_intervals(params) if valid_interval?(params)
+    times = times.flatten(1)
     dates = slot_params.require(:date).split(', ').map(&:to_date)
-    slots_data = []
+    slots_data = dates.map { |date| times.map { |time| build_slot(slot_params, date, time) } }
+    Slot.create(slots_data) unless slots_data.empty?
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
-    dates.each { |date| times.each { |time| slots_data << build_slot(slot_params, date, time) } }
+  def generate_times_from_intervals(params)
+    start_times = params.require(:start_times).each_slice(2).to_a
+    end_times = params.require(:end_times).each_slice(2).to_a
+    intervals = params.require(:intervals).each_slice(2).to_a
 
-    Slot.create(slots_data)
+    start_times.map.with_index do |start_time, idx|
+      end_time = end_times[idx] if end_times[idx].present?
+      interval = intervals[idx] if intervals[idx].present?
+      generate_times(start_time, end_time, interval) if start_time.present? && interval.present? && end_time.present?
+    end
+  end
+
+  def generate_times(start_time, end_time, interval)
+    start_time = Time.zone.parse("#{start_time[0]}:#{start_time[1]}")
+    end_time = Time.zone.parse("#{end_time[0]}:#{end_time[1]}")
+    interval_minutes = interval.first.to_i.minutes
+    result = []
+
+    current_time = start_time
+    while current_time <= end_time
+      result << [current_time.hour.to_s.rjust(2, '0'), current_time.min.to_s.rjust(2, '0')]
+      current_time += interval_minutes
+    end
+    result
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def valid_time?(params)
+    return true if params[:starting_times].present?
+    return true if valid_interval?(params)
+
+    false
+  end
+
+  def valid_interval?(params)
+    params[:start_times].present? && params[:end_times].present? && params[:intervals].present?
   end
 
   def build_slot(params, date, time)

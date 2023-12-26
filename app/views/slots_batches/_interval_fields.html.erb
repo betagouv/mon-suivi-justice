@@ -1,20 +1,20 @@
   <div class="time required slot_batch_interval_time fr-my-2w fr-p-2w" style="border: 1px solid grey; display: flex; flex-direction: column;">
     <div class="form-label">
-      <label class="time required form-label" for="slot_batch_starting_time_4i">
+      <label class="time required form-label" for="slot_batch_start_time_4i">
         <abbr title="required">*</abbr> Heure de début</label>
     </div>
     <div class="form-time-select-fields form-input-wrapper">
-      <input type="hidden" id="slot_batch_starting_time_1i" name="slot_batch[starting_time(1i)]" value="1" autocomplete="off" />
-      <input type="hidden" id="slot_batch_starting_time_2i" name="slot_batch[starting_time(2i)]" value="1" autocomplete="off" />
-      <input type="hidden" id="slot_batch_starting_time_3i" name="slot_batch[starting_time(3i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_start_time_1i" name="slot_batch[start_time(1i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_start_time_2i" name="slot_batch[start_time(2i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_start_time_3i" name="slot_batch[start_time(3i)]" value="1" autocomplete="off" />
 
-      <select id="slot_batch_starting_time_4i" name="starting_times[]" class="time required form-select fr-input">
+      <select id="slot_batch_start_time_4i" name="start_times[]" class="time required form-select fr-input">
         <option value="" label=" "></option>
         <% (6..20).each do |o| %>
           <option value=<%= o %>><%= o %></option>
         <% end %>
       </select> :
-      <select id="slot_batch_starting_time_5i" name="starting_times[]" class="time required form-select fr-input">
+      <select id="slot_batch_start_time_5i" name="start_times[]" class="time required form-select fr-input">
         <option value="" label=" "></option>
         <% ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].each do |o| %>
           <option value=<%= o %>><%= o %></option>
@@ -23,21 +23,21 @@
 
     </div>
     <div class="form-label">
-      <label class="time required form-label" for="slot_batch_starting_time_8i">
+      <label class="time required form-label" for="slot_batch_end_time_4i">
         <abbr title="required">*</abbr> Heure de fin</label>
     </div>
     <div class="form-time-select-fields form-input-wrapper">
-      <input type="hidden" id="slot_batch_starting_time_5i" name="slot_batch[starting_time(1i)]" value="1" autocomplete="off" />
-      <input type="hidden" id="slot_batch_starting_time_6i" name="slot_batch[starting_time(2i)]" value="1" autocomplete="off" />
-      <input type="hidden" id="slot_batch_starting_time_7i" name="slot_batch[starting_time(3i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_end_time_1i" name="slot_batch[end_time(1i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_end_time_2i" name="slot_batch[end_time(2i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_end_time_3i" name="slot_batch[end_time(3i)]" value="1" autocomplete="off" />
 
-      <select id="slot_batch_starting_time_8i" name="ending_times[]" class="time required form-select fr-input">
+      <select id="slot_batch_end_time_4i" name="end_times[]" class="time required form-select fr-input">
         <option value="" label=" "></option>
         <% (6..20).each do |o| %>
           <option value=<%= o %>><%= o %></option>
         <% end %>
       </select> :
-      <select id="slot_batch_starting_time_9i" name="starting_times[]" class="time required form-select fr-input">
+      <select id="slot_batch_end_time_5i" name="end_times[]" class="time required form-select fr-input">
         <option value="" label=" "></option>
         <% ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].each do |o| %>
           <option value=<%= o %>><%= o %></option>
@@ -45,7 +45,7 @@
       </select>
 
     </div>
-    <label for="interval" class="required form-label"><abbr title="required">*</abbr> Intervalle</label>
-    <input type="number" id="interval" name="interval" min="1" max="60" value="15" class="fr-input">
+    <label for="interval_1i" class="required form-label"><abbr title="required">*</abbr> Intervalle</label>
+    <input type="number" id="interval_1i" name="intervals[]" min="1" max="60" value="15" class="fr-input">
     <button style="color: #c9191e; align-self: center;" class="fr-btn fr-btn--tertiary-no-outline fr-mt-2w" onclick="this.parentNode.remove();">Supprimer</button>
   </div>
