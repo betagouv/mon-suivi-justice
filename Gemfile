@@ -75,7 +75,7 @@ end
 
 group :development do
   gem 'web-console', '>= 4.1.0'
-  gem 'rack-mini-profiler', '~> 3.1'
+  gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.8.0'
   gem 'spring', '~> 4.1.2'
   gem 'guard-rspec', '~> 4.7.3', require: false
