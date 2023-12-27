@@ -67,6 +67,7 @@ class SlotsBatchesController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def batch_create(params, slot_params)
     unless valid_time?(params)
       render json: { error: 'At least one of starting_times or intervals is required' },
@@ -75,12 +76,13 @@ class SlotsBatchesController < ApplicationController
 
     starting_times = params.require(:starting_times).each_slice(2).to_a if params[:starting_times].present?
     interval_times = generate_times_from_intervals(params) if valid_interval?(params)
-    times = [*starting_times, *interval_times].compact.uniq
+    times = [*starting_times, *interval_times&.flatten(1)].compact.uniq
 
     dates = slot_params.require(:date).split(', ').map(&:to_date)
     slots_data = dates.map { |date| times.map { |time| build_slot(slot_params, date, time) } }
     Slot.create(slots_data) unless slots_data.empty?
   end
+  # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def generate_times_from_intervals(params)
