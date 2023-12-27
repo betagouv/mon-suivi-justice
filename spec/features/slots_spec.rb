@@ -33,6 +33,7 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
 
   describe 'creation' do
     before do
+      Timecop.freeze(Date.parse('2023-12-27'))
       place = create(:place, name: 'McDo de Clichy', organization: @user.organization)
       @agenda = create(:agenda, place:, name: 'Agenda de Michel')
       @appointment_type = create(:appointment_type, name: "Sortie d'audience SPIP")
@@ -41,14 +42,21 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       create(:appointment_type, name: 'Convocation de suivi SPIP')
     end
 
-    it 'creates one slot' do
+    after do
+      Timecop.return
+    end
+
+    it 'creates one slot', js: true do
       visit new_slots_batch_path
 
       select 'Agenda de Michel', from: 'Agenda'
       expect(page).to have_select('Type de convocation', options: ['', "Sortie d'audience SPIP"])
       select "Sortie d'audience SPIP", from: 'Type de convocation'
 
-      fill_in 'Date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
+      find('#slot_batch_date').click
+      find('.flatpickr-day.today').click
+
+      click_on 'Ajouter une heure'
 
       within first('.form-time-select-fields') do
         select '15', from: 'slot_batch_starting_time_4i'
@@ -65,7 +73,7 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       expect(created_slot.agenda).to eq(@agenda)
       expect(created_slot.appointment_type).to eq(@appointment_type)
       expect(created_slot.appointment_type).to eq(@appointment_type)
-      expect(created_slot.date).to eq(Date.parse('Fri, 18 Apr 2025'))
+      expect(created_slot.date).to eq(Date.today)
 
       time_zone = TZInfo::Timezone.get('Europe/Paris')
       expect(time_zone.to_local(created_slot.starting_time).hour).to eq(15)
@@ -83,6 +91,8 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
 
       find('#slot_batch_date').click
       find('.flatpickr-day.today').click
+
+      click_on 'Ajouter une heure'
 
       within first('.form-time-select-fields') do
         select '15', from: 'slot_batch_starting_time_4i'

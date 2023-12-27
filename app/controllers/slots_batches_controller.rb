@@ -73,10 +73,10 @@ class SlotsBatchesController < ApplicationController
              status: :bad_request
     end
 
-    times = []
-    times = params.require(:starting_times).each_slice(2).to_a if params[:starting_times].present?
-    times += generate_times_from_intervals(params) if valid_interval?(params)
-    times = times.flatten(1)
+    starting_times = params.require(:starting_times).each_slice(2).to_a if params[:starting_times].present?
+    interval_times = generate_times_from_intervals(params) if valid_interval?(params)
+    times = [*starting_times, *interval_times].compact.uniq
+
     dates = slot_params.require(:date).split(', ').map(&:to_date)
     slots_data = dates.map { |date| times.map { |time| build_slot(slot_params, date, time) } }
     Slot.create(slots_data) unless slots_data.empty?
