@@ -71,6 +71,9 @@ fr:
       add_city: "ajoutez une commune au probationnaire"
       change_city: "modifiez la commune du probationnaire"
 
+  divestments:
+    new:
+      title: 'Créer un déssaisissement'
 
   appointment:
     create:
