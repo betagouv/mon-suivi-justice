@@ -10,7 +10,7 @@ class HomeController < ApplicationController
       @stats = DataCollector::User.new(organization_id: current_organization.id, full_stats: false).perform
     end
 
-    # display_uninformed_appointments
+    display_uninformed_appointments
   end
 
   private
@@ -19,7 +19,7 @@ class HomeController < ApplicationController
     return unless @stats[:passed_uninformed_percentage] >= 20 && !current_user.work_at_bex?
 
     message = setup_flash_message
-    link = view_context.link_to I18n.t('home.notice.click_here'), appointments_waiting_lines_path
+    link = view_context.link_to I18n.t('home.notice.click_here'), appointments_path(waiting_line: true)
     flash.now[:warning] = "#{message}&nbsp#{link}".html_safe
   end
 

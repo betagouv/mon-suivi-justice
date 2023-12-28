@@ -3,22 +3,12 @@ class AppointmentsController < ApplicationController
   include AppointmentsHelper
   before_action :authenticate_user!
 
-  def index # rubocop:disable Metrics/CyclomaticComplexity
+  def index
     @search_params = search_params
-    @q = policy_scope(Appointment).active.ransack(params[:q])
-    @all_appointments = @q.result(distinct: true)
-                          .joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
-                          .includes(:convict, :user, slot: [:appointment_type, { agenda: [:place] }])
-                          .order('slots.date ASC, slots.starting_time ASC')
 
-    slots = @all_appointments.map(&:slot).uniq
-    @agendas = slots.map(&:agenda).sort_by(&:name).uniq
-    @places = @agendas.map(&:place).uniq
-    @appointment_types = slots.map(&:appointment_type).uniq
-    @users = @all_appointments.map(&:user).uniq.compact
-    @users.delete(current_user)
+    @q = base_query(params[:waiting_line])
 
-    @users.unshift(current_user) if current_user.can_have_appointments_assigned?
+    process_appointments(@q.result(distinct: true))
 
     @appointments = @all_appointments.page(params[:page]).per(25)
 
@@ -187,5 +177,38 @@ class AppointmentsController < ApplicationController
     available_apt_type = appointment_types_for_user_role(user)
     places_apt_type = appointment_types_for_user_places
     available_apt_type.to_a.intersection(places_apt_type.to_a)
+  end
+
+  def base_query(waiting_line)
+    query = policy_scope(Appointment).active
+    query = query.joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
+                 .includes(:convict, :user, slot: [:appointment_type, { agenda: [:place] }])
+
+    if waiting_line
+      query = query.where('slots.date <= ? AND appointments.state = ?', Date.today, 'booked')
+      query = query.where(user: current_user) if %w[cpip dpip].include?(current_user.role)
+    end
+
+    query.ransack(params[:q])
+  end
+
+  def process_appointments(ransack_result)
+    @all_appointments = ransack_result.order('slots.date ASC, slots.starting_time ASC')
+
+    process_related_entities
+  end
+
+  def process_related_entities
+    slots = @all_appointments.map(&:slot).uniq
+    @agendas = slots.map(&:agenda).sort_by(&:name).uniq
+    @places = @agendas.map(&:place).uniq
+    @appointment_types = slots.map(&:appointment_type).uniq
+    process_users
+  end
+
+  def process_users
+    @users = @all_appointments.map(&:user).uniq.compact
+    @users.delete(current_user)
+    @users.unshift(current_user) if current_user.can_have_appointments_assigned?
   end
 end
