@@ -31,7 +31,6 @@ Rails.application.routes.draw do
       resources :place_transferts do
         put '/start_transfert' => "place_transferts#start_transfert"
       end
-      resources :divestments
 
       root to: "users#index"
     end
@@ -161,6 +160,8 @@ Rails.application.routes.draw do
       put :mark_as_read
     end
   end
+
+  resources :divestments
 
   match '/404' => 'errors#not_found', via: :all
   match '/422' => 'errors#unprocessable_entity', via: :all
