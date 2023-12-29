@@ -9,7 +9,7 @@ class DivestmentPolicy < ApplicationPolicy
     end
   end
 
-  def new?
+  def create?
     user.admin? || user.local_admin?
   end
 end
