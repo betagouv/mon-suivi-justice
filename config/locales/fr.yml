@@ -114,6 +114,9 @@ fr:
       user_alert:
         one: "Alerte utilisateur"
         other: "Alertes utilisateurs"
+      divestment:
+        one: "Dessaisissement"
+        other: "Dessaisissements"
 
     attributes:
       convict:
@@ -217,6 +220,9 @@ fr:
         organization_types:
           spip: "SPIP"
           tj: "TJ"
+      divestment:
+        organization_to_id: "Service vers lequel le dossier est transféré"
+        organization_from_id: "Service d'origine du dossier"
 
     state_machines:
       states:

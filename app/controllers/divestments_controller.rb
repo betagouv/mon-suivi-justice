@@ -1,12 +1,5 @@
 # app/controllers/divestments_controller.rb
 class DivestmentsController < ApplicationController
-  def new
-    @divestment = Divestment.new
-    @organizations = Organization.all
-    @convicts = Convict.all
-    authorize @divestment
-  end
-
   def create
     @divestment = Divestment.new(divestment_params)
     @divestment.organization_from_id = current_user.organization.id
