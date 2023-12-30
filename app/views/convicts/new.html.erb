@@ -181,6 +181,10 @@
           </div>
         </div>
       <% end %>
+
+      <% if @convict.errors.where(:appi_uuid, :taken).any? || @convict.errors.where(:phone, t('activerecord.errors.models.convict.attributes.phone.taken')).any?  %>
+        <%= button_to t('divestments.create'), divestments_path, method: :post, class: 'fr-btn' %>
+      <% end %>
     <% end %>
   </div>
 </div>

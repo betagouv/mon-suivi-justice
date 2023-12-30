@@ -74,6 +74,7 @@ fr:
   divestments:
     new:
       title: 'Créer un déssaisissement'
+    create: 'Créer un déssaisissement'
 
   appointment:
     create:
