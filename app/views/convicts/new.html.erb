@@ -117,55 +117,10 @@
         </div>
       </div>
       <% if @convict.duplicates.present? %>
-        <div class='new-convict-duplicate-warning'>
-          <% if @convict.duplicates.count == 1 %>
-            <p class='new-convict-duplicate-header'><%= t('new_convict_duplicate_warning1')%></p>
-          <% else %>
-            <p class='new-convict-duplicate-header'><%= t('new_convict_duplicate_warning2')%></p>
-          <% end %>
-          <% if @convict.duplicates.any? %>
-            <% @convict.duplicates.each do |duplicate| %>
-              <% if policy(duplicate).show? %>
-                <div class='new-convict-duplicate-link'>
-                  <%= link_to t('new_convict_duplicate_link', name: duplicate.name, orgs: duplicate.organizations.pluck(:name).join(', ')), convict_path(duplicate), target: "_blank" %>
-                </div>
-              <% else %>
-                <p><%= duplicate.name %> suivi par : <%= duplicate.organizations.pluck(:name).join(', ') %></p>
-              <% end %>
-            <% end %>
-          <% end %>
-          <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
-          <p><%= t('new_convict_duplicate_warning4')%></p>
-        </div>
-        <div class="fr-container fr-mt-5w">
-          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-            <ul class="fr-btns-group fr-btns-group--inline-lg">
-              <%= f.hidden_field :force_duplication, value: true  %>
-              <%= f.button :button, id: 'submit-no-appointment', class: 'fr-btn', name: 'no-appointment', data: {turbo: false} do %>
-                Forcer <%= t('submit') %><br>
-                <%= t('new_convict_submit') %>
-              <% end %>
-              <%= f.button :button, id: 'submit-with-appointment', class: 'fr-btn', name: 'with-appointment', data: { turbo: false } do %>
-                Forcer <%= t('submit') %><br>
-                <%= t('new_convict_first_appointment') %>
-              <% end %>
-            </ul>
-          </div>
-        </div>
+        <p>Il y a un doublon strict. Proposition de création de désaisissement ?</p>
+        <p>Il y a plusieurs doublons possibles. Laisser la possibilité à l'agent de choisir le convict à désaissir ?</p>
       <% else %>
-        <% if @convict_with_same_appi.present? %>
-          <% convict_with_same_appi = @convict_with_same_appi.first %>
-          <% orgs = convict_with_same_appi.organizations.map(&:name).join(", ") %>
-          <div class='new-convict-duplicate-warning'>
-            <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_appi_uuid_1', orgs: orgs) %></p>
-            <% if !policy_scope(@convict_with_same_appi).empty? %>
-              <div class='new-convict-duplicate-link'>
-                <%= link_to t('new_convict_duplicate_link', name: convict_with_same_appi.name, orgs: convict_with_same_appi.organizations.pluck(:name).join(', ')), convict_path(convict_with_same_appi), target: "_blank" %>
-              </div>
-            <% end %>
-            <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
-          </div>
-        <% end %>
+        <p>Aucun doublon détecté. On peut poursuicre</p>
         <div class="fr-container fr-mt-5w">
           <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
             <ul class="fr-btns-group fr-btns-group--inline-lg">
