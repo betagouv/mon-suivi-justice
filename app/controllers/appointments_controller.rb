@@ -6,7 +6,7 @@ class AppointmentsController < ApplicationController
   def index
     @search_params = search_params
 
-    @q = base_query(params[:waiting_line])
+    @q = base_query
 
     process_appointments(@q.result(distinct: true))
 
@@ -179,17 +179,17 @@ class AppointmentsController < ApplicationController
     available_apt_type.to_a.intersection(places_apt_type.to_a)
   end
 
-  def base_query(waiting_line)
+  def base_query
     query = policy_scope(Appointment).active
     query = query.joins(:convict, slot: [:appointment_type, { agenda: [:place] }])
                  .includes(:convict, :user, slot: [:appointment_type, { agenda: [:place] }])
 
-    if waiting_line
+    if params[:waiting_line]
       query = query.where('slots.date <= ? AND appointments.state = ?', Date.today, 'booked')
       query = query.where(user: current_user) if %w[cpip dpip].include?(current_user.role)
     end
 
-    query.ransack(params[:q])
+    query.ransack(@q)
   end
 
   def process_appointments(ransack_result)
