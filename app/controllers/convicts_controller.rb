@@ -129,7 +129,7 @@ class ConvictsController < ApplicationController
   private
 
   def save_and_redirect(convict)
-    if duplicate_present?(convict) && !force_duplication?
+    if duplicate_present?(convict)
       render :new, status: :unprocessable_entity
     else
       handle_save_and_redirect(convict)
@@ -186,10 +186,6 @@ class ConvictsController < ApplicationController
   def duplicate_present?(convict)
     convict.check_duplicates
     convict.duplicates.present?
-  end
-
-  def force_duplication?
-    ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
   end
 
   def update_convict
