@@ -140,4 +140,14 @@ Rails.application.configure do
     :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn,
     :phone, :email, :first_name, :last_name, :full_name, :date_of_birth, :appi_uuid
   ]
+
+    # Better logging
+    config.lograge.enabled = true
+
+    # lograge custom options (sensitive attributes are hidden by rails config.filter_parameter)
+    config.lograge.custom_options = lambda do |event|
+      {
+        params: event.payload[:params]
+      }
+    end
 end
