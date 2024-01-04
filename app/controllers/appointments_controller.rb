@@ -185,7 +185,7 @@ class AppointmentsController < ApplicationController
                  .includes(:convict, :user, slot: [:appointment_type, { agenda: [:place] }])
 
     if params[:waiting_line]
-      query = query.where('slots.date <= ? AND appointments.state = ?', Date.today, 'booked')
+      query = query.where('slots.date < ? AND appointments.state = ?', Date.today, 'booked')
       query = query.where(user: current_user) if %w[cpip dpip].include?(current_user.role)
     end
 
