@@ -56,16 +56,16 @@ RSpec.describe ManageNotificationProblems, type: :job do
         expect(stucked_notification2.reload.state).to eq('failed')
         expect(notification_to_reschedule.reload.state).to eq('programmed')
         expect(other_notification1.reload.state).to eq('unsent')
+        expect(other_notification2.reload.state).to eq('canceled')
+        expect(other_notification3.reload.state).to eq('programmed')
       end
 
-      context 'when there are notifications to handle' do
-        it 'sends an email to admins with correct arguments' do
-          expect do
-            described_class.perform_now
-          end.to have_enqueued_mail(AdminMailer, :notifications_problems)
-            .with(match_array([notification_to_reschedule.id]),
-                  match_array([stucked_notification1.id, stucked_notification2.id]))
-        end
+      it 'sends an email to admins with correct arguments' do
+        expect do
+          described_class.perform_now
+        end.to have_enqueued_mail(AdminMailer, :notifications_problems)
+          .with(match_array([notification_to_reschedule.id]),
+                match_array([stucked_notification1.id, stucked_notification2.id]))
       end
     end
 
