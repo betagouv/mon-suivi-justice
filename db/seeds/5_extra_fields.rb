@@ -26,7 +26,7 @@ create_user(
 )
 
 create_user(
-  organization: org_tj_tours, email: 'bextours@example.com', role: :bex 
+  organization: org_tj_tours, email: 'bextours@example.com', role: :bex
 )
 
 create_user(

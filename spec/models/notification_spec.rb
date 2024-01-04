@@ -19,13 +19,16 @@ RSpec.describe Notification, type: :model do
 
   describe 'program' do
     it 'sends at the proper delivery time' do
+      organization = create(:organization)
+      place = create(:place, organization:)
+      agenda = create(:agenda, place:)
       appointment_type = create(:appointment_type)
 
       slot_date = Date.civil(2025, 4, 14)
       slot_starting_time = new_time_for(0, 0)
 
-      slot = create(:slot, date: slot_date, appointment_type:, starting_time: slot_starting_time)
-      create(:notification_type, appointment_type:,
+      slot = create(:slot, date: slot_date, appointment_type:, starting_time: slot_starting_time, agenda:)
+      create(:notification_type, appointment_type:, organization:,
                                  role: :reminder,
                                  reminder_period: :two_days)
 
@@ -63,7 +66,7 @@ RSpec.describe Notification, type: :model do
   end
 
   describe 'state machine' do
-    it { is_expected.to have_states :created, :programmed, :canceled, :sent, :received, :failed }
+    it { is_expected.to have_states :created, :programmed, :canceled, :sent, :received, :failed, :unsent }
 
     it { is_expected.to transition_from :created, to_state: :programmed, on_event: :program }
     it { is_expected.to transition_from :created, to_state: :sent, on_event: :send_now }
@@ -74,5 +77,6 @@ RSpec.describe Notification, type: :model do
     it { is_expected.to transition_from :sent, to_state: :received, on_event: :receive }
     it { is_expected.to transition_from :sent, to_state: :failed, on_event: :failed_send }
     it { is_expected.to transition_from :programmed, to_state: :failed, on_event: :failed_programmed }
+    it { is_expected.to transition_from :programmed, to_state: :unsent, on_event: :mark_as_unsent }
   end
 end

@@ -7,7 +7,7 @@ RSpec.feature 'NotificationType', type: :feature do
 
       orga2 = create :organization, name: 'SPIP 42'
 
-      apt_type = create :appointment_type, :with_notification_types, name: 'Convocation de suivi SPIP'
+      apt_type = create :appointment_type, name: 'Convocation de suivi SPIP'
 
       create :notification_type, appointment_type: apt_type,
                                  organization: @user.organization,

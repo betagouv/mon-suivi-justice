@@ -4,7 +4,7 @@ RSpec.describe SmsDeliveryJob, type: :job do
   context 'with a phone number' do
     let(:convict) { create :convict, phone: '+33606060607' }
     let(:appointment) { create :appointment, convict: }
-    let(:notification) { create :notification, appointment: }
+    let(:notification) { create :notification, state: :programmed, appointment: }
 
     describe '#perform' do
       let(:tested_method) { SmsDeliveryJob.perform_now(notification.id) }
@@ -23,6 +23,10 @@ RSpec.describe SmsDeliveryJob, type: :job do
         expect(adapter_dbl).to have_received(:send_sms).once.with(notification)
       end
 
+      it 'changes status to sent for programmed notification' do
+        expect(notification.reload.state).to eq('sent')
+      end
+
       # TODO: rework the notification status system with new provider
       # it 'get sms events' do
       #   expect(GetSmsStatusJob).to have_been_enqueued.once.with(notification.id)
@@ -33,7 +37,7 @@ RSpec.describe SmsDeliveryJob, type: :job do
   context 'without a phone number' do
     let(:convict) { create :convict, phone: '', no_phone: true }
     let(:appointment) { create :appointment, convict: }
-    let(:notification) { create :notification, appointment: }
+    let(:notification) { create :notification, state: :programmed, appointment: }
 
     describe '#perform' do
       let(:tested_method) { SmsDeliveryJob.perform_now(notification.id) }
@@ -50,6 +54,10 @@ RSpec.describe SmsDeliveryJob, type: :job do
 
       it "don't send sms" do
         expect(adapter_dbl).not_to have_received(:send_sms)
+      end
+
+      it 'changes status to unsent for programmed notification' do
+        expect(notification.reload.state).to eq('unsent')
       end
       # TODO: rework the notification status system with new provider
       # it "don't get sms events" do

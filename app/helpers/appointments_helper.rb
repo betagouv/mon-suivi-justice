@@ -39,7 +39,7 @@ module AppointmentsHelper
   end
 
   def current_sort_column
-    params[:q]&.fetch(:s, '')&.split(' ')&.first
+    params[:q]&.fetch(:s, '')&.split&.first
   end
 
   def sort_link_with_expandable_arrow(column, text)

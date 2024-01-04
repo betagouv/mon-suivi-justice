@@ -29,6 +29,7 @@ fr:
         alert_type: type d'alerte
         services: services destinataires
         roles: rôles destinataires
+        created_at: date de création
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
@@ -91,7 +92,7 @@ fr:
       organization:
         one: "Service"
         other: "Services"
-      city: 
+      city:
         one: "Commune"
         other: "Communes"
       department:
@@ -503,7 +504,7 @@ fr:
   edit_convict_jurisdiction: "Juridiction"
   archive_convict_confirmation: "Ce probationnaire restera accessible pendant 6 mois avant d'être définitivement supprimée."
   self_assign_link: S'attribuer ce probationnaire
-  
+
   history_item:
     archive_convict_title: "Archivage"
     archive_convict: "Le profil de %{name} a été archivé. Pour le désarchiver, contactez votre administrateur local."
@@ -573,7 +574,7 @@ fr:
     waiting_line:
       for_a_service: "Convocation au statut inconnu au %{orga}"
       for_a_user: "Vos convocations au statut inconnu"
-  
+
   users:
     mutate:
       confirmation_message: "Etes-vous certain de vouloir muter cet agent dans votre service ? Cela le supprimera de son service actuel : %{organization_name}. En cas de doute merci de contacter le service actuel au %{phone_number}"
@@ -808,5 +809,5 @@ fr:
 
   admin:
     user_alerts:
-      create: 
+      create:
         notice: "Les alertes sont en cours de création. Vous recevrez un mail lorsque l'opération sera terminée."

@@ -51,7 +51,8 @@ RSpec.feature 'Organizations', type: :feature, logged_in_as: 'admin' do
     place = create :place, organization: @user.organization
     agenda = create(:agenda, place:)
 
-    apt_type = create(:appointment_type, :with_notification_types, name: "Sortie d'audience SAP")
+    apt_type = create(:appointment_type, :with_notification_types, organization: @user.organization,
+                                                                   name: "Sortie d'audience SAP")
 
     create(:slot, :without_validations, agenda:,
                                         date: Date.civil(2025, 4, 14),

@@ -14,15 +14,16 @@ RSpec.feature 'AppointmentType', type: :feature do
   end
 
   describe 'update', logged_in_as: 'admin' do
+    let!(:organization) { create(:organization, name: 'SPIP 92') }
     let!(:appointment_type) { create(:appointment_type, name: '1er contact') }
 
     let!(:notif_type1) do
-      create(:notification_type, appointment_type:, is_default: true,
+      create(:notification_type, appointment_type:, organization: nil, is_default: true,
                                  role: :summon, template: 'Default summon')
     end
 
     let!(:notif_type2) do
-      create(:notification_type, appointment_type:, is_default: true,
+      create(:notification_type, appointment_type:, organization: nil, is_default: true,
                                  role: :reminder, template: 'Default reminder')
     end
 

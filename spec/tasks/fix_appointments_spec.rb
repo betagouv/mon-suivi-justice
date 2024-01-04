@@ -16,7 +16,8 @@ RSpec.describe 'appointments namespace rake tasks' do
     let!(:appointment_type) { create(:appointment_type) }
     let!(:convict) { create(:convict, organizations: [organization]) }
     let!(:notif_type) do
-      create(:notification_type, appointment_type:, role: :summon, template: 'Blabla', is_default: true)
+      create(:notification_type, organization: nil, appointment_type:, role: :summon, template: 'Blabla',
+                                 is_default: true)
     end
 
     let!(:slot) do
@@ -42,14 +43,8 @@ RSpec.describe 'appointments namespace rake tasks' do
         Rake.application.invoke_task('appointments:update_state')
       end.to change { Appointment.count }.by(-1)
 
-      # Assertions
       expect(Appointment.exists?(created_appointment_conflicting.id)).to be_falsey
       expect(created_appointment_non_conflicting.reload.state).to eq('booked')
     end
-
-    # You can add more examples, for instance:
-    # - When there are no appointments at all.
-    # - When there are only booked appointments.
-    # - When all appointments are non-conflicting.
   end
 end
