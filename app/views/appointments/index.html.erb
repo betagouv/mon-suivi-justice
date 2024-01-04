@@ -1,3 +1,9 @@
+<% if params[:waiting_line] %>
+  <div>
+      <h1><%= t('appointments.index.only_passed_uninformed') %></h1>
+  </div>
+<% end %>
+
 <div class="fr-grid-row fr-grid-row--right fr-mb-2w">
   <ul class="fr-btns-group fr-btns-group--inline-lg">
     <% if @q.conditions.any? %>

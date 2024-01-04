@@ -48,26 +48,26 @@ RSpec.feature 'Home', type: :feature do
       @convict = create(:convict, organizations: [@user.organization], user: @user)
 
       slot1 = create(:slot, :without_validations, agenda: @agenda, appointment_type: @appointment_type,
-                                                  date: Date.civil(2022, 5, 26),
+                                                  date: next_valid_day(date: Date.today - 2.months),
                                                   starting_time: new_time_for(13, 0))
       slot2 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: Date.civil(2022, 6, 27),
+                            date: next_valid_day(date: Date.today - 2.months),
                             starting_time: new_time_for(15, 30))
 
       slot3 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: Date.civil(2022, 6, 30),
+                            date: next_valid_day(date: Date.today - 2.months),
                             starting_time: new_time_for(12, 30))
 
       slot4 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: Date.civil(2022, 6, 27),
+                            date: next_valid_day(date: Date.today - 2.months),
                             starting_time: new_time_for(15, 30))
 
       slot5 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: Date.civil(2022, 6, 27),
+                            date: next_valid_day(date: Date.today - 2.months),
                             starting_time: new_time_for(15, 30))
 
       slot6 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: Date.civil(2022, 6, 27),
+                            date: next_valid_day(date: Date.today - 2.months),
                             starting_time: new_time_for(15, 30))
 
       @appointment1 = build :appointment, :with_notifications, convict: @convict, slot: slot1, user: @user
@@ -94,19 +94,16 @@ RSpec.feature 'Home', type: :feature do
       appointment6.save validate: false
       appointment6.book
 
-      debugger
-
       visit home_path
 
-      expect(page).to have_content('le statut de plusieurs convocations que vous avez effectuées n’a pas été renseigné.')
+      expect(page).to have_content("le statut de plusieurs convocations que vous avez effectuées n'a pas été renseigné.")
 
       within first('div.fr-alert', text: 'Attention') do
         click_on('Cliquez ici pour le renseigner simplement')
       end
 
-      expect(page).to have_content('Vos convocations au statut inconnu')
-      expect(page).to have_content(Date.civil(2022, 6, 30))
-      expect(page).to have_content('12:30')
+      expect(page).to have_content('Convocations au statut inconnu')
+      expect(page).to have_selector('tr', count: 7)
     end
 
     it_behaves_like 'convict search feature'

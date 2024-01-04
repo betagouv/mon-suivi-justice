@@ -144,7 +144,6 @@ class User < ApplicationRecord
   end
 
   def too_many_appointments_without_status?
-    debugger
     recent_past_booked_appointments_count = appointments
                                             .joins(:slot)
                                             .joins(:convict)
