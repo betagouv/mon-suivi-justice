@@ -102,9 +102,8 @@ class Organization < ApplicationRecord
                                                        .where(state: 'booked')
                                                        .where('slots.date >= ? AND slots.date < ?', 3.months.ago, Date.today)
                                                        .count
-    debugger
 
-    (recent_past_booked_appointments_count * 100.fdiv(total_appointments_count)).round > 0
+    (recent_past_booked_appointments_count * 100.fdiv(total_appointments_count)).round > 20
   end
 
   private

@@ -189,6 +189,8 @@ class AppointmentsController < ApplicationController
       query = query.where(user: current_user) if %w[cpip dpip].include?(current_user.role)
     end
 
+    query = query.order('slots.date DESC')
+
     query.ransack(@q)
   end
 
