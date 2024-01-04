@@ -32,7 +32,7 @@ RSpec.feature 'Home', type: :feature do
       @appointment2.book
     end
 
-    pending 'should display a link to a page listing uninformed appointments' do
+    it 'should display a link to a page listing uninformed appointments' do
       expect(page).to have_content("Attention, 50% des convocations de votre service n'ont pas de statut renseigné")
 
       within first('div.fr-alert', text: 'Attention') do
