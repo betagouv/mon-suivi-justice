@@ -16,27 +16,17 @@ class HomeController < ApplicationController
   private
 
   def display_uninformed_appointments
-    
-    #if %w[cpip dpip].include?(current_user.role) && 
+    return if current_user.work_at_bex?
 
+    if (%w[cpip dpip].include? current_user.role) && current_user.too_many_appointments_without_status?
+      message = I18n.t('home.notice.fill_out_appointments_cpip')
+      link = view_context.link_to I18n.t('home.notice.click_here'), appointments_path(waiting_line: true)
+      flash.now[:warning] = "#{message}&nbsp#{link}".html_safe
 
-
-
-    message = setup_flash_message
-    link = view_context.link_to I18n.t('home.notice.click_here'), appointments_path(waiting_line: true)
-    flash.now[:warning] = "#{message}&nbsp#{link}".html_safe
-
-
-
-
-
-  end
-
-  def setup_flash_message
-    if %w[cpip dpip].include?(current_user.role)
-      I18n.t('home.notice.fill_out_appointments_cpip', data: @stats[:passed_uninformed_percentage])
-    else
-      I18n.t('home.notice.fill_out_appointments', data: @stats[:passed_uninformed_percentage])
+    elsif (%w[cpip dpip].exclude? current_user.role) && current_organization.too_many_appointments_without_status?
+      message = I18n.t('home.notice.fill_out_appointments')
+      link = view_context.link_to I18n.t('home.notice.click_here'), appointments_path(waiting_line: true)
+      flash.now[:warning] = "#{message}&nbsp#{link}".html_safe
     end
   end
 end

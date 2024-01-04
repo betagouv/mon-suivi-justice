@@ -374,9 +374,9 @@ fr:
     button_label: "Rechercher"
 
     notice:
-      fill_out_appointments: "Attention, %{data}% des convocations de votre service n'ont pas de statut renseigné."
-      fill_out_appointments_cpip: "Attention, %{data}% de vos convocations n'ont pas de statut renseigné."
-      click_here: Cliquez ici
+      fill_out_appointments: Attention, le statut de plusieurs convocations de votre service n’a pas été renseigné.
+      fill_out_appointments_cpip: Attention, le statut de plusieurs convocations que vous avez effectuées n’a pas été renseigné.
+      click_here: Cliquez ici pour le renseigner simplement
 
   sidebar:
     home: "Accueil"
