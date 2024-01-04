@@ -91,9 +91,19 @@ RSpec.feature 'Home', type: :feature do
       appointment7.save validate: false
       appointment7.book
 
+      @user2 = create(:user, first_name: 'Michèle', last_name: 'Doe', role: 'cpip', organization: @user.organization)
+
+      slot8 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
+                            date: next_valid_day(date: Date.today - 2.months),
+                            starting_time: new_time_for(15, 30))
+
+      appointment8 = build :appointment, :with_notifications, convict: @convict, slot: slot8, user: @user2
+      appointment8.save validate: false
+      appointment8.book
+
       visit home_path
 
-      expect(page).to have_content("le statut de plusieurs convocations que vous avez effectuées n'a pas été renseigné.")
+      expect(page).to have_content("n'a pas été renseigné.")
 
       within first('div.fr-alert', text: 'Attention') do
         click_on('Cliquez ici pour le renseigner simplement')

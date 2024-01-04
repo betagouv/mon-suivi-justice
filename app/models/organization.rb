@@ -95,15 +95,15 @@ class Organization < ApplicationRecord
   end
 
   def too_many_appointments_without_status?
-    total_appointments_count = Appointment.in_organization(self).count
-    return false if total_appointments_count.zero?
+    total_appointments = Appointment.in_organization(self).count
+    return false if total_appointments.zero?
 
-    recent_past_booked_appointments_count = Appointment.in_organization(self)
-                                                       .where(state: 'booked')
-                                                       .where('slots.date >= ? AND slots.date < ?', 3.months.ago, Date.today)
-                                                       .count
+    past_booked_appointments = Appointment.in_organization(self)
+                                          .where(state: 'booked')
+                                          .where('slots.date >= ? AND slots.date < ?', 3.months.ago, Date.today)
+                                          .count
 
-    (recent_past_booked_appointments_count * 100.fdiv(total_appointments_count)).round > 20
+    (past_booked_appointments * 100.fdiv(total_appointments)).round > 20
   end
 
   private
