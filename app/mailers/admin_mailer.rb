@@ -67,4 +67,11 @@ class AdminMailer < ApplicationMailer
     mail(to: @admin ? @admin.email : 'support@mon-suivi-justice.beta.gouv.fr',
          subject: "Echec de synchronisation avec Brevo pour l'agent #{@user_email}")
   end
+
+  def notifications_problems(to_reschedule_ids, stucked_ids)
+    @to_reschedule_ids = to_reschedule_ids
+    @stucked_ids = stucked_ids
+    mail(to: ['matthieu.faugere@beta.gouv.fr', 'charles.marcoin@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr'],
+         subject: 'Notifications remises dans la queue')
+  end
 end
