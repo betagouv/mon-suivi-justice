@@ -86,4 +86,14 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
+
+  # Better logging
+  config.lograge.enabled = true
+
+  # lograge custom options (sensitive attributes are hidden by rails config.filter_parameter)
+  config.lograge.custom_options = lambda do |event|
+    {
+      params: event.payload[:params]
+    }
+  end
 end
