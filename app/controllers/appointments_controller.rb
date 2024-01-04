@@ -8,7 +8,7 @@ class AppointmentsController < ApplicationController
 
     @q = base_query
 
-    process_appointments(@q.result(distinct: true))
+    process_appointments
 
     @appointments = @all_appointments.page(params[:page]).per(25)
 
@@ -191,11 +191,11 @@ class AppointmentsController < ApplicationController
 
     query = query.order('slots.date DESC')
 
-    query.ransack(@q)
+    query.ransack(params[:q])
   end
 
-  def process_appointments(ransack_result)
-    @all_appointments = ransack_result.order('slots.date ASC, slots.starting_time ASC')
+  def process_appointments
+    @all_appointments = @q.result(distinct: true).order('slots.date ASC, slots.starting_time ASC')
 
     process_related_entities
   end
