@@ -31,7 +31,7 @@ class Convict < ApplicationRecord
 
   validates :first_name, :last_name, :invitation_to_convict_interface_count, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
-  validate :phone_uniqueness
+  validate :phone_uniqueness, if: -> { phone.present? }
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
   validate :either_city_homeless_lives_abroad_present, if: proc { current_user&.can_use_inter_ressort? }
@@ -45,6 +45,8 @@ class Convict < ApplicationRecord
 
   validates :organizations, presence: true
   validate :unique_organizations
+
+  validate :check_for_duplicate_without_appi_uuid
 
   after_update :update_convict_api
 
@@ -140,6 +142,19 @@ class Convict < ApplicationRecord
     return unless city_id.blank? && homeless.blank? && lives_abroad.blank?
 
     errors.add(:base, I18n.t('activerecord.errors.models.convict.attributes.city.all_blanks'))
+  end
+
+  def check_for_duplicate_without_appi_uuid
+    return if appi_uuid.present?
+
+    duplicate = Convict.where(first_name:, last_name:, date_of_birth:)
+                       .where(appi_uuid: [nil, ''])
+                       .where.not(id:)
+                       .first
+
+    return unless duplicate
+
+    errors.add(:duplicate_convict, 'Un probationnaire avec le même nom, prénom et date de naissance existe déjà')
   end
 
   def check_duplicates
