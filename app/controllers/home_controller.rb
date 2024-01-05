@@ -20,8 +20,8 @@ class HomeController < ApplicationController
 
     if %w[cpip dpip].include?(current_user.role)
       flash_warning('cpip') if current_user.too_many_appointments_without_status?
-    elsif %w[cpip dpip].exclude?(current_user.role)
-      flash_warning('default') if current_organization.too_many_appointments_without_status?
+    elsif %w[cpip dpip].exclude?(current_user.role) && current_organization.too_many_appointments_without_status?
+      flash_warning('default')
     end
   end
 
