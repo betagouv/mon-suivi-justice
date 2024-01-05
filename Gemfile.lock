@@ -534,7 +534,7 @@ GEM
       ethon (>= 0.9.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2023.3)
+    tzinfo-data (1.2023.4)
       tzinfo (>= 1.0.0)
     unf (0.1.4)
       unf_ext
@@ -649,7 +649,7 @@ DEPENDENCIES
   timecop (~> 0.9.8)
   turbo-rails (~> 1.5.0)
   tzinfo (~> 2.0.6)
-  tzinfo-data (~> 1.2023.3)
+  tzinfo-data (~> 1.2023.4)
   web-console (>= 4.1.0)
   webdrivers (~> 5.3.1)
   webmock (~> 3.19.1)
