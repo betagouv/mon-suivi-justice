@@ -116,11 +116,21 @@
           </div>
         </div>
       </div>
-      <% if @convict.duplicates.present? %>
-        <p>Il y a un doublon strict. Proposition de création de désaisissement ?</p>
-        <p>Il y a plusieurs doublons possibles. Laisser la possibilité à l'agent de choisir le convict à désaissir ?</p>
+      <% if @duplicate_convict %>
+        <div class="fr-container">
+          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+            <div class="fr-alert fr-alert--warning">
+              <h3 class="fr-alert__title">Attention : ce probationnaire existe déjà</h3>
+              <p><%= @duplicate_convict.full_name %> suivi par <%= @duplicate_convict.organizations.pluck(:name).join(', ') %></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-container fr-mt-5w fr-mb-5w">
+          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+            <%= button_to t('new_divestment'), divestments_path, method: :post, class: 'fr-btn', params: { convict_id: @duplicate_convict.id } %>
+          </div>
+        </div>
       <% else %>
-        <p>Aucun doublon détecté. On peut poursuicre</p>
         <div class="fr-container fr-mt-5w">
           <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
             <ul class="fr-btns-group fr-btns-group--inline-lg">
@@ -136,10 +146,7 @@
           </div>
         </div>
       <% end %>
-
-      <% if @convict.errors.where(:appi_uuid, :taken).any? || @convict.errors.where(:phone, t('activerecord.errors.models.convict.attributes.phone.taken')).any?  %>
-        <%= button_to t('divestments.create'), divestments_path, method: :post, class: 'fr-btn' %>
-      <% end %>
     <% end %>
+      <%#% @convict.errors.inspect %>
   </div>
 </div>

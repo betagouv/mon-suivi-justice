@@ -41,7 +41,13 @@ class ConvictsController < ApplicationController
     @convict.update_organizations(current_user, autosave: false)
     authorize @convict
 
-    save_and_redirect(@convict)
+    if @convict.save
+      # TODO : mettre une petite notif pour dire que le probationnaire a bien été créé ?
+      redirect_to select_path(params)
+    else
+      @duplicate_convict = find_duplicate_convict
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -128,12 +134,18 @@ class ConvictsController < ApplicationController
 
   private
 
-  def save_and_redirect(convict)
-    if duplicate_present?(convict)
-      render :new, status: :unprocessable_entity
-    else
-      handle_save_and_redirect(convict)
+  def find_duplicate_convict # rubocop:disable Metrics/AbcSize
+    if @convict.errors.where(:appi_uuid, :taken).any?
+      duplicate = Convict.find_by(appi_uuid: @convict.appi_uuid)
+    elsif @convict.errors.where(:phone, t('activerecord.errors.models.convict.attributes.phone.taken')).any?
+      duplicate = Convict.find_by(phone: @convict.phone)
+    elsif @convict.errors.where(:duplicate_convict,
+                                'Un probationnaire avec le même nom, prénom et date de naissance existe déjà').any?
+      duplicate = Convict.where(first_name: @convict.first_name, last_name: @convict.last_name,
+                                date_of_birth: @convict.date_of_birth, appi_uuid: [nil, '']).first
     end
+
+    duplicate
   end
 
   def convict_params
@@ -197,14 +209,6 @@ class ConvictsController < ApplicationController
     record_phone_change(old_phone)
     flash.now[:success] = 'Le probationnaire a bien été mise à jour'
     redirect_to convict_path(@convict)
-  end
-
-  def handle_save_and_redirect(convict)
-    if convict.update_organizations(current_user)
-      redirect_to select_path(params)
-    else
-      render_new_with_appi_uuid(convict)
-    end
   end
 
   def render_new_with_appi_uuid(convict)
