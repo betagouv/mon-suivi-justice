@@ -146,8 +146,7 @@ class User < ApplicationRecord
   def too_many_appointments_without_status?
     recent_past_booked_appointments_count = appointments
                                             .joins(:slot)
-                                            .joins(:convict)
-                                            .where(state: 'booked', convicts: { user_id: id })
+                                            .where(state: 'booked')
                                             .where('slots.date >= ? AND slots.date < ?', 3.months.ago, Date.today)
                                             .count
 
