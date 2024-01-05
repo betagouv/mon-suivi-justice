@@ -95,8 +95,6 @@ Rails.application.routes.draw do
     put 'rebook'
   end
 
-  resources :appointments_waiting_lines, only: :index
-
   resources :cities do
     collection do
       get :search
