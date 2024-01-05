@@ -22,7 +22,6 @@ class User < ApplicationRecord
   has_many :user_alerts, through: :user_user_alerts
   has_many :unread_user_alerts, -> { where(user_user_alerts: { read_at: nil }) },
            through: :user_user_alerts, source: :user_alert
-  has_many :appointments, through: :convicts
 
   # Include default devise modules. Others available are:
   # :confirmable, :trackable and :omniauthable
@@ -147,7 +146,8 @@ class User < ApplicationRecord
   def too_many_appointments_without_status?
     recent_past_booked_appointments_count = appointments
                                             .joins(:slot)
-                                            .where(state: 'booked')
+                                            .joins(:convict)
+                                            .where(state: 'booked', convicts: { user_id: id })
                                             .where('slots.date >= ? AND slots.date < ?', 3.months.ago, Date.today)
                                             .count
 
