@@ -7,7 +7,7 @@ task :invite_agents, [:filepath] => [:environment] do |_task, args|
   csv_data = args[:filepath]
 
   CSV.foreach(csv_data, headers: true, col_sep: ',').with_index do |row, _index|
-    if User.find_by_email(row['EMAIL']) || !Organization.find_by_name(row['ORGANIZATION'])
+    if User.find_by_email(row['EMAIL']&.downcase&.strip) || !Organization.find_by_name(row['ORGANIZATION'])
       Rails.logger.info("#{row['EMAIL']} n'a pas pu être créé")
       puts "#{row['EMAIL']} n'a pas pu être créé"
     else
@@ -16,7 +16,7 @@ task :invite_agents, [:filepath] => [:environment] do |_task, args|
         last_name: row['LAST_NAME'],
         phone: row['PHONE'].nil? ? nil : row['PHONE'],
         role: row['ROLE'],
-        email: row['EMAIL'],
+        email: row['EMAIL']&.downcase&.strip,
         organization: Organization.find_by_name(row['ORGANIZATION'])
       )
     end
