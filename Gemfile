@@ -63,7 +63,7 @@ gem 'octokit', '~> 5.6.1'
 
 gem 'stimulus-rails', '~> 1.2.2'
 
-gem 'lograge', '~> 0.12.0'
+gem 'lograge', '~> 0.14.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 6.1.0'
