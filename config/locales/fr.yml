@@ -485,6 +485,7 @@ fr:
 
   new_convict_title: "Nouveau probationnaire"
   new_divestment: "Créer un dessaisissement"
+  new_divestment_confirm: "Etes-vous sûr(e) de vouloir créer cette demande de dessaisissement ?"
   my_convicts: "Afficher uniquement mes probationnaires"
   new_first_appointment_title: "Créneaux disponibles"
   new_convict_submit: "sans convoquer"
