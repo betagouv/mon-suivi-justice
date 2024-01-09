@@ -61,7 +61,7 @@ gem 'pretender', '~> 0.5.0'
 
 gem 'octokit', '~> 5.6.1'
 
-gem 'stimulus-rails', '~> 1.2.2'
+gem 'stimulus-rails', '~> 1.3.3'
 
 gem 'lograge', '~> 0.14.0'
 
