@@ -26,21 +26,22 @@ class DivestmentDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    comment
+    user
     decision_date
     organization_from
+    organization_to
+    state
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    comment
     decision_date
     organization_from
     organization_to
-    state
     user
+    state
     created_at
     updated_at
   ].freeze
@@ -49,12 +50,8 @@ class DivestmentDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    comment
     decision_date
-    organization_from
-    organization_to
     state
-    user
   ].freeze
 
   # COLLECTION_FILTERS

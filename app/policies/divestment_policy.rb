@@ -10,6 +10,10 @@ class DivestmentPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin? || user.local_admin?
+    true
+  end
+
+  def create_divestments_for_convict?
+    true
   end
 end

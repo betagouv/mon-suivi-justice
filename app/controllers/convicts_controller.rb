@@ -20,11 +20,6 @@ class ConvictsController < ApplicationController
     @convicts = fetch_convicts(query)
 
     authorize @convicts
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
   end
 
   def new

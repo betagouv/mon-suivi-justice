@@ -2,9 +2,11 @@
 class DivestmentsController < ApplicationController
   def create
     convict = Convict.find_by(id: params[:convict_id])
+    authorize :divestment, :create?
+
     if convict
       create_divestments_for_convict(convict)
-      redirect_to convicts_path, notice: 'Les demandes des dessaisissements ont bien été créées.'
+      redirect_to convicts_path, success: 'Les demandes des dessaisissements ont bien été créées.'
     else
       redirect_to convicts_path, alert: "Le probationnaire n'existe pas"
     end
