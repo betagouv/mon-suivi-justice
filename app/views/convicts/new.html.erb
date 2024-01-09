@@ -116,23 +116,8 @@
           </div>
         </div>
       </div>
-      <% if @duplicate_convict %>
-        <div class="fr-container fr-mb-5w">
-          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-            <div class="fr-alert fr-alert--warning">
-              <h3 class="fr-alert__title">Attention : ce probationnaire existe déjà</h3>
-              <p><%= @duplicate_convict.full_name %> suivi par <%= @org_names %></p>
-            </div>
-          </div>
-        </div>
-        <% if @duplicate_convict && @show_divestment_button %>
-          <div class="fr-container fr-mt-5w fr-mb-5w">
-            <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-              <%= link_to t('new_divestment'), divestments_path, method: :post, class: 'fr-btn', params: { convict_id: @duplicate_convict.id }, data: { confirm: t('new_divestment_confirm') } %>
-            </div>
-          </div>
-        <% end %>
-      <% else %>
+
+      <% if !@duplicate_convict %>
         <div class="fr-container fr-mt-5w">
           <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
             <ul class="fr-btns-group fr-btns-group--inline-lg">
@@ -149,6 +134,23 @@
         </div>
       <% end %>
     <% end %>
-      <%#% @convict.errors.inspect %>
+    <% if @duplicate_convict %>
+      <div class="fr-container fr-mb-5w">
+        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+          <div class="fr-alert fr-alert--warning">
+            <h3 class="fr-alert__title">Attention : ce probationnaire existe déjà</h3>
+            <p><%= @duplicate_convict.full_name %> suivi par <%= @org_names %></p>
+          </div>
+        </div>
+      </div>
+      <% if @duplicate_convict && @show_divestment_button %>
+        <div class="fr-container fr-mt-5w fr-mb-5w">
+          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+            <%= button_to t('new_divestment'), divestments_path, method: :post, class: 'fr-btn', params: { convict_id: @duplicate_convict.id }, data: { confirm: t('new_divestment_confirm'), turbo: false  } %>
+          </div>
+        </div>
+      <% end %>
+    <% end%>
+    <%#% @convict.errors.inspect %>
   </div>
 </div>
