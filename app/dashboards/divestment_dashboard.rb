@@ -11,10 +11,20 @@ class DivestmentDashboard < Administrate::BaseDashboard
     id: Field::Number,
     comment: Field::Text,
     decision_date: Field::Date,
-    organization_from: Field::BelongsTo,
-    organization_to: Field::BelongsTo,
+    organization_from: Field::BelongsTo.with_options(
+      searchable: true,
+      searchable_fields: ['name']
+    ),
+    organization_to: Field::BelongsTo.with_options(
+      searchable: true,
+      searchable_fields: ['name']
+    ),
     state: Field::String,
     user: Field::BelongsTo,
+    convict: Field::BelongsTo.with_options(
+      searchable: true,
+      searchable_fields: %w[first_name last_name]
+    ),
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -26,6 +36,7 @@ class DivestmentDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
+    convict
     user
     decision_date
     organization_from
@@ -41,6 +52,7 @@ class DivestmentDashboard < Administrate::BaseDashboard
     organization_from
     organization_to
     user
+    convict
     state
     created_at
     updated_at
