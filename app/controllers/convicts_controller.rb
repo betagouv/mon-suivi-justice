@@ -34,7 +34,7 @@ class ConvictsController < ApplicationController
     @convict.appointments.build
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @convict = Convict.new(convict_params)
     @convict.creating_organization = current_organization
     @convict.current_user = current_user
@@ -46,6 +46,8 @@ class ConvictsController < ApplicationController
       redirect_to select_path(params)
     else
       @duplicate_convict = find_duplicate_convict
+      divestment_button_checks
+
       render :new, status: :unprocessable_entity
     end
   end
@@ -146,6 +148,22 @@ class ConvictsController < ApplicationController
     end
 
     duplicate
+  end
+
+  def divestment_button_checks
+    if @duplicate_convict&.organizations&.include?(current_organization)
+      @show_divestment_button = false
+      @organization_names = organization_names_with_custom_label('Votre propre service')
+    elsif @duplicate_convict
+      @show_divestment_button = true
+      @organization_names = @duplicate_convict.organizations.pluck(:name).join(', ')
+    end
+  end
+
+  def organization_names_with_custom_label(custom_label)
+    @duplicate_convict.organizations.map do |org|
+      org == current_organization ? custom_label : org.name
+    end.join(', ')
   end
 
   def convict_params
