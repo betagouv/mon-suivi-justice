@@ -69,10 +69,7 @@ class SlotsBatchesController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
   def batch_create(params, slot_params)
-    unless valid_time?(params)
-      render json: { error: 'At least one of starting_times or intervals is required' },
-             status: :bad_request
-    end
+    raise StandardError, 'You must provide at least one starting time or a valid interval' unless valid_time?(params)
 
     starting_times = params.require(:starting_times).each_slice(2).to_a if params[:starting_times].present?
     interval_times = generate_times_from_intervals(params) if valid_interval?(params)
@@ -115,10 +112,7 @@ class SlotsBatchesController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   def valid_time?(params)
-    return true if params[:starting_times].present?
-    return true if valid_interval?(params)
-
-    false
+    params[:starting_times].present? || valid_interval?(params)
   end
 
   def valid_interval?(params)
