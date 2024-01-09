@@ -232,6 +232,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_103644) do
   end
 
   create_table "divestments", force: :cascade do |t|
+    t.bigint "convict_id", null: false
     t.bigint "user_id", null: false
     t.bigint "organization_from_id", null: false
     t.bigint "organization_to_id", null: false
@@ -240,6 +241,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_103644) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["convict_id"], name: "index_divestments_on_convict_id"
     t.index ["organization_from_id"], name: "index_divestments_on_organization_from_id"
     t.index ["organization_to_id"], name: "index_divestments_on_organization_to_id"
     t.index ["user_id"], name: "index_divestments_on_user_id"
@@ -548,6 +550,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_103644) do
   add_foreign_key "convicts", "cities"
   add_foreign_key "convicts", "organizations", column: "creating_organization_id"
   add_foreign_key "convicts", "users"
+  add_foreign_key "divestments", "convicts"
   add_foreign_key "divestments", "organizations", column: "organization_from_id"
   add_foreign_key "divestments", "organizations", column: "organization_to_id"
   add_foreign_key "divestments", "users"
