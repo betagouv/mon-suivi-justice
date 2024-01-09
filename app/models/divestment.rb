@@ -1,5 +1,6 @@
 class Divestment < ApplicationRecord
   belongs_to :user
+  belongs_to :convict
   belongs_to :organization_from, class_name: 'Organization'
   belongs_to :organization_to, class_name: 'Organization'
 
