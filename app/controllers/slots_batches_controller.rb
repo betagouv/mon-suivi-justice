@@ -103,7 +103,7 @@ class SlotsBatchesController < ApplicationController
     result = []
 
     current_time = start_time
-    while current_time <= end_time
+    while current_time < end_time
       result << [current_time.hour.to_s.rjust(2, '0'), current_time.min.to_s.rjust(2, '0')]
       current_time += interval_minutes
     end
