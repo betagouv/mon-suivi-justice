@@ -138,32 +138,36 @@ class ConvictsController < ApplicationController
 
   def find_duplicate_convict # rubocop:disable Metrics/AbcSize
     if @convict.errors.where(:appi_uuid, :taken).any?
-      duplicate = Convict.find_by(appi_uuid: @convict.appi_uuid)
+      Convict.find_by(appi_uuid: @convict.appi_uuid)
     elsif @convict.errors.where(:phone, t('activerecord.errors.models.convict.attributes.phone.taken')).any?
-      duplicate = Convict.find_by(phone: @convict.phone)
-    elsif @convict.errors.where(:duplicate_convict,
-                                'Un probationnaire avec le même nom, prénom et date de naissance existe déjà').any?
-      duplicate = Convict.where(first_name: @convict.first_name, last_name: @convict.last_name,
-                                date_of_birth: @convict.date_of_birth, appi_uuid: [nil, '']).first
+      Convict.find_by(phone: @convict.phone)
+    elsif @convict.errors.where(:date_of_birth,:taken).any?
+      Convict.where(first_name: @convict.first_name, last_name: @convict.last_name,
+                    date_of_birth: @convict.date_of_birth, appi_uuid: [nil, '']).first
     end
-
-    duplicate
   end
 
   def divestment_button_checks
     if @duplicate_convict&.organizations&.include?(current_organization)
       @show_divestment_button = false
-      @organization_names = organization_names_with_custom_label('Votre propre service')
+      @org_names = org_names_with_custom_label('votre propre service')
     elsif @duplicate_convict
       @show_divestment_button = true
-      @organization_names = @duplicate_convict.organizations.pluck(:name).join(', ')
+      @org_names = @duplicate_convict.organizations.pluck(:name)
+    end
+
+    if @org_names.length > 1
+      last = @org_names.pop
+      @org_names = "#{@org_names.join(', ')} ainsi que #{last}"
+    else
+      @org_names.first.to_s
     end
   end
 
-  def organization_names_with_custom_label(custom_label)
+  def org_names_with_custom_label(custom_label)
     @duplicate_convict.organizations.map do |org|
       org == current_organization ? custom_label : org.name
-    end.join(', ')
+    end
   end
 
   def convict_params
