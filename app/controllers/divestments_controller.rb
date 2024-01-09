@@ -4,9 +4,9 @@ class DivestmentsController < ApplicationController
     convict = Convict.find_by(id: params[:convict_id])
     if convict
       create_divestments_for_convict(convict)
-      redirect_to some_path, notice: 'Divestments were successfully created.'
+      redirect_to convicts_path, notice: 'Les demandes des dessaisissements ont bien été créées.'
     else
-      redirect_to some_path, alert: 'Convict not found.'
+      redirect_to convicts_path, alert: "Le probationnaire n'existe pas"
     end
   end
 
@@ -19,6 +19,7 @@ class DivestmentsController < ApplicationController
       convict.organizations.each do |org|
         Divestment.create!(
           convict_id: convict.id,
+          user_id: current_user.id,
           organization_from_id: org.id,
           organization_to_id: user_organization.id,
           state: 'pending'
