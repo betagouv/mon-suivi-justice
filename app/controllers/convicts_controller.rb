@@ -152,7 +152,7 @@ class ConvictsController < ApplicationController
       @show_divestment_button = false
       @org_names = org_names_with_custom_label('votre propre service')
     elsif @duplicate_convict
-      @show_divestment_button = true
+      @show_divestment_button = !duplicate_has_pending_divestments_or_future_appointments?
       @org_names = @duplicate_convict.organizations.pluck(:name)
     end
 
@@ -168,6 +168,12 @@ class ConvictsController < ApplicationController
     @duplicate_convict.organizations.map do |org|
       org == current_organization ? custom_label : org.name
     end
+  end
+
+  def duplicate_has_pending_divestments_or_future_appointments?
+    pending_divestments = @duplicate_convict.divestments.where(state: 'pending').exists?
+    future_appointments = @duplicate_convict.future_appointments.exists?
+    pending_divestments || future_appointments
   end
 
   def convict_params
