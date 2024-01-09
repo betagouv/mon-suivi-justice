@@ -38,7 +38,7 @@ class Convict < ApplicationRecord
 
   validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
                                           case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE,
-                                          on: :appi_import
+                                          unless: -> { appi_uuid.present? }
 
   validates :date_of_birth, presence: true, unless: proc { current_user&.admin? }
   validate :date_of_birth_date_cannot_be_in_the_past
@@ -46,7 +46,7 @@ class Convict < ApplicationRecord
   validates :organizations, presence: true
   validate :unique_organizations
 
-  validate :check_for_duplicate_without_appi_uuid
+  # validate :check_for_duplicate_without_appi_uuid
 
   after_update :update_convict_api
 
@@ -144,18 +144,18 @@ class Convict < ApplicationRecord
     errors.add(:base, I18n.t('activerecord.errors.models.convict.attributes.city.all_blanks'))
   end
 
-  def check_for_duplicate_without_appi_uuid
-    return if appi_uuid.present?
+  # def check_for_duplicate_without_appi_uuid
+  #   return if appi_uuid.present?
 
-    duplicate = Convict.where(first_name:, last_name:, date_of_birth:)
-                       .where(appi_uuid: [nil, ''])
-                       .where.not(id:)
-                       .first
+  #   duplicate = Convict.where(first_name:, last_name:, date_of_birth:)
+  #                      .where(appi_uuid: [nil, ''])
+  #                      .where.not(id:)
+  #                      .first
 
-    return unless duplicate
+  #   return unless duplicate
 
-    errors.add(:duplicate_convict, 'Un probationnaire avec le même nom, prénom et date de naissance existe déjà')
-  end
+  #   errors.add(:duplicate_convict, 'Un probationnaire avec le même nom, prénom et date de naissance existe déjà')
+  # end
 
   def check_duplicates
     duplicates = find_duplicates
