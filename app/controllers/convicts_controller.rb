@@ -148,20 +148,30 @@ class ConvictsController < ApplicationController
       @org_names = org_names_with_custom_label('votre propre service')
     elsif @duplicate_convict
       @show_divestment_button = !duplicate_has_pending_divestments_or_future_appointments?
-      @org_names = @duplicate_convict.organizations.pluck(:name)
+      @org_names = formatted_organization_names_and_phones
     end
 
-    if @org_names.length > 1
-      last = @org_names.pop
-      @org_names = "#{@org_names.join(', ')} ainsi que #{last}"
-    else
-      @org_names.first.to_s
-    end
+    format_organization_string(@org_names)
   end
 
   def org_names_with_custom_label(custom_label)
     @duplicate_convict.organizations.map do |org|
       org == current_organization ? custom_label : org.name
+    end
+  end
+
+  def format_organization_string(org_names)
+    return org_names.first.to_s if org_names.length <= 1
+
+    last = org_names.pop
+    @org_names = "#{org_names.join(', ')} ainsi que #{last}"
+  end
+
+  def formatted_organization_names_and_phones
+    @duplicate_convict.organizations.map do |org|
+      name_and_phone = org.name
+      name_and_phone += " (#{org.places.first&.phone})" if org.places.first&.phone.present?
+      name_and_phone
     end
   end
 
