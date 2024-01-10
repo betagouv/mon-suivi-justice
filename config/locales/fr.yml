@@ -591,6 +591,11 @@ fr:
       for_a_service: "Convocation au statut inconnu au %{orga}"
       for_a_user: "Vos convocations au statut inconnu"
 
+  divestments:
+    create:
+      success: Les demandes des dessaisissements ont bien été créées. Les services concernés ont été notifiés.
+      failure: Le probationnaire n'existe pas
+
   users:
     mutate:
       confirmation_message: "Etes-vous certain de vouloir muter cet agent dans votre service ? Cela le supprimera de son service actuel : %{organization_name}. En cas de doute merci de contacter le service actuel au %{phone_number}"
