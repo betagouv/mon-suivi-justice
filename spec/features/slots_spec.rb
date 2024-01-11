@@ -51,7 +51,7 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       find('#slot_batch_date').click
       find('.flatpickr-day.today').click
 
-      click_on 'Ajouter une heure'
+      click_on 'Créneau unique'
 
       within first('.form-time-select-fields') do
         select '15', from: 'slot_batch_starting_time_4i'
@@ -87,24 +87,28 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       find('#slot_batch_date').click
       find('.flatpickr-day.today').click
 
-      click_on 'Ajouter une heure'
+      click_on 'Créneau unique'
 
       within first('.form-time-select-fields') do
         select '15', from: 'slot_batch_starting_time_4i'
         select '00', from: 'slot_batch_starting_time_5i'
       end
 
-      click_on 'Ajouter une heure'
+      click_on 'Plage de créneaux'
 
-      within all('.form-time-select-fields').last do
-        select '16', from: 'slot_batch_starting_time_4i'
-        select '00', from: 'slot_batch_starting_time_5i'
+      within all('.slot_batch_interval_time').last do
+        select '16', from: 'slot_batch_start_time_4i'
+        select '00', from: 'slot_batch_start_time_5i'
+
+        select '16', from: 'slot_batch_end_time_4i'
+        select '30', from: 'slot_batch_end_time_5i'
+
+        fill_in 'interval_1i', with: '15'
       end
 
       fill_in 'Durée', with: 40
       fill_in 'Capacité', with: 10
-
-      expect { click_button 'Enregistrer' }.to change { Slot.count }.by(2)
+      expect { click_button 'Enregistrer' }.to change { Slot.count }.by(4)
     end
   end
 

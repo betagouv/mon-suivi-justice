@@ -13,8 +13,6 @@ const options = {
   mode: 'multiple', 
   minDate: 'today', 
   locale: French,
-  altInput: true,
-  altFormat: "d/m/Y",
   dateFormat: "Y-m-d",
   disable: [
     function(date) {
