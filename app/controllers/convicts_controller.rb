@@ -149,10 +149,10 @@ class ConvictsController < ApplicationController
     else
       pending_divestments_and_future_appointments
       @show_divestment_button = !(@pending_divestments || @future_appointments)
+      @show_pending_divestment_notice = false
 
       @org_names = if @pending_divestments
-                    # TODO : ce n'est pas encore le bon format, on veut afficher le nom de l'organisation qui a fait la demande de divestment
-                     formatted_organization_names_and_phones(@pending_divestments.first.organization_to)
+                     @show_pending_divestment_notice = false
                    else
                      formatted_organization_names_and_phones(@duplicate_convict.organizations)
                    end
