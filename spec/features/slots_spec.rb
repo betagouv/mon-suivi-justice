@@ -33,17 +33,12 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
 
   describe 'creation' do
     before do
-      Timecop.freeze(Date.parse('2023-12-27'))
       place = create(:place, name: 'McDo de Clichy', organization: @user.organization)
       @agenda = create(:agenda, place:, name: 'Agenda de Michel')
       @appointment_type = create(:appointment_type, name: "Sortie d'audience SPIP")
       create(:place_appointment_type, place:, appointment_type: @appointment_type)
 
       create(:appointment_type, name: 'Convocation de suivi SPIP')
-    end
-
-    after do
-      Timecop.return
     end
 
     it 'creates one slot', js: true do
