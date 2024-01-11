@@ -100,7 +100,7 @@ Shoulda::Matchers.configure do |config|
 end
 
 Capybara.server = :puma, { Silent: true }
-Capybara.javascript_driver = :selenium
+Capybara.javascript_driver = :selenium_headless
 Capybara.default_max_wait_time = 5
 Capybara.default_normalize_ws = true
 Capybara.asset_host = "http://localhost:3001"

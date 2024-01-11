@@ -32,8 +32,8 @@
   </div>
 
   <ul class="fr-btns-group fr-btns-group--inline-md">
-    <%= link_to 'Ajouter une heure', display_time_fields_path, class: 'fr-btn fr-mr-2w' %>
-    <%= link_to 'Ajouter un intervalle', display_interval_fields_path, class: 'fr-btn fr-btn--secondary' %>
+    <%= link_to 'Créneau unique', display_time_fields_path, class: 'fr-btn fr-mr-2w' %>
+    <%= link_to 'Plage de créneaux', display_interval_fields_path, class: 'fr-btn fr-btn--secondary' %>
   </ul>
   
   <%= f.input :duration, input_html: { value: @duration }, label: t('activerecord.attributes.slot.duration') %>
