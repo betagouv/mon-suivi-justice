@@ -29,7 +29,7 @@ class ConvictsController < ApplicationController
     @convict.appointments.build
   end
 
-  def create # rubocop:disable Metrics/AbcSize
+  def create
     @convict = Convict.new(convict_params)
     @convict.creating_organization = current_organization
     @convict.current_user = current_user
@@ -136,7 +136,7 @@ class ConvictsController < ApplicationController
       Convict.find_by(appi_uuid: @convict.appi_uuid)
     elsif @convict.errors.where(:phone, t('activerecord.errors.models.convict.attributes.phone.taken')).any?
       Convict.find_by(phone: @convict.phone)
-    elsif @convict.errors.where(:date_of_birth,:taken).any?
+    elsif @convict.errors.where(:date_of_birth, :taken).any?
       Convict.where(first_name: @convict.first_name, last_name: @convict.last_name,
                     date_of_birth: @convict.date_of_birth, appi_uuid: [nil, '']).first
     end
@@ -146,9 +146,16 @@ class ConvictsController < ApplicationController
     if @duplicate_convict&.organizations&.include?(current_organization)
       @show_divestment_button = false
       @org_names = org_names_with_custom_label('votre propre service')
-    elsif @duplicate_convict
-      @show_divestment_button = !duplicate_has_pending_divestments_or_future_appointments?
-      @org_names = formatted_organization_names_and_phones
+    else
+      pending_divestments_and_future_appointments
+      @show_divestment_button = !(@pending_divestments || @future_appointments)
+
+      @org_names = if @pending_divestments
+                    # TODO : ce n'est pas encore le bon format, on veut afficher le nom de l'organisation qui a fait la demande de divestment
+                     formatted_organization_names_and_phones(@pending_divestments.first.organization_to)
+                   else
+                     formatted_organization_names_and_phones(@duplicate_convict.organizations)
+                   end
     end
 
     format_organization_string(@org_names)
@@ -175,10 +182,9 @@ class ConvictsController < ApplicationController
     end
   end
 
-  def duplicate_has_pending_divestments_or_future_appointments?
-    pending_divestments = @duplicate_convict.divestments.where(state: 'pending').exists?
-    future_appointments = @duplicate_convict.future_appointments.exists?
-    pending_divestments || future_appointments
+  def pending_divestments_and_future_appointments
+    @pending_divestments = @duplicate_convict.divestments.where(state: 'pending')
+    @future_appointments = @duplicate_convict.future_appointments
   end
 
   def convict_params
