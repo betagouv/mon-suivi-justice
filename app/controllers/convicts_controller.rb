@@ -160,13 +160,14 @@ class ConvictsController < ApplicationController
 
   def handle_duplicate_is_under_other_org
     pending_divestment_and_future_appointments
-    @show_divestment_button = @pending_divestment.none? && @future_appointments.none?
+    @show_divestment_button = @pending_divestment.nil? && @future_appointments.none?
 
     @duplicate_alert = if @pending_divestment.present?
                          @show_pending_divestment_notice =
                            "Le probationnaire #{@duplicate_convict.full_name} fait \
                            déjà l'objet d'une demande de dessaisissement \
-                           de la part de #{@pending_divestment.first.organization.name} "
+                           de la part de #{@pending_divestment.organization.name} \
+                           (#{@pending_divestment.organization.places.first&.phone})."
                        else
                          org_names = formatted_organization_names_and_phones
                          @duplicate_alert = format_duplicate_alert_string(org_names)
@@ -195,7 +196,7 @@ class ConvictsController < ApplicationController
   end
 
   def pending_divestment_and_future_appointments
-    @pending_divestment = @duplicate_convict.divestments.where(convict: @duplicate_convict, state: 'pending')
+    @pending_divestment = @duplicate_convict.divestments.find_by(state: 'pending')
     @future_appointments = @duplicate_convict.future_appointments
   end
 
