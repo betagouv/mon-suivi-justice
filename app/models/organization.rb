@@ -22,8 +22,14 @@ class Organization < ApplicationRecord
   has_many :convicts_organizations_mappings, dependent: :destroy
   has_many :convicts, through: :convicts_organizations_mappings
 
+  # dessaisissements initiés
+  has_many :divestments
+
+  # demandes de ddessaisissements reçues
   has_many :organization_divestments
-  has_many :divestments, through: :organization_divestments
+
+  # Pas forcément nécessaire :
+  # has_many :other_organizations_divestments, through: :organization_divestments, source: :divestment
 
   enum organization_type: { spip: 0, tj: 1 }
 

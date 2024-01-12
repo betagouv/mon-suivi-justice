@@ -1,8 +1,10 @@
 class Divestment < ApplicationRecord
   belongs_to :user
   belongs_to :convict
+  belongs_to :organization
+
   has_many :organization_divestments
-  has_many :organizations, through: :organization_divestments
+  has_many :involved_organizations, through: :organization_divestments, source: :organization
 
   state_machine initial: :pending do
     event :accept do

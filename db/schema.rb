@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_11_142653) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -231,17 +231,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_11_142653) do
     t.index ["number"], name: "index_departments_on_number", unique: true
   end
 
-  create_table "divestments", force: :cascade do |t|
-    t.bigint "convict_id", null: false
-    t.bigint "user_id", null: false
-    t.string "state"
-    t.date "decision_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["convict_id"], name: "index_divestments_on_convict_id"
-    t.index ["user_id"], name: "index_divestments_on_user_id"
-  end
-
   create_table "extra_fields", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.string "data_type", default: "text"
@@ -327,18 +316,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_11_142653) do
     t.string "state"
     t.string "external_id"
     t.index ["appointment_id"], name: "index_notifications_on_appointment_id"
-  end
-
-  create_table "organization_divestments", force: :cascade do |t|
-    t.bigint "organization_id", null: false
-    t.bigint "divestment_id", null: false
-    t.string "state"
-    t.date "decision_date"
-    t.text "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["divestment_id"], name: "index_organization_divestments_on_divestment_id"
-    t.index ["organization_id"], name: "index_organization_divestments_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -557,8 +534,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_11_142653) do
   add_foreign_key "convicts", "cities"
   add_foreign_key "convicts", "organizations", column: "creating_organization_id"
   add_foreign_key "convicts", "users"
-  add_foreign_key "divestments", "convicts"
-  add_foreign_key "divestments", "users"
   add_foreign_key "extra_fields", "organizations"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
@@ -567,8 +542,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_11_142653) do
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notification_types", "organizations"
   add_foreign_key "notifications", "appointments"
-  add_foreign_key "organization_divestments", "divestments"
-  add_foreign_key "organization_divestments", "organizations"
   add_foreign_key "organizations", "headquarters"
   add_foreign_key "places", "organizations"
   add_foreign_key "previous_passwords", "users"

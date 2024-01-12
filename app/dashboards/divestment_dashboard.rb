@@ -9,13 +9,8 @@ class DivestmentDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    comment: Field::Text,
     decision_date: Field::Date,
-    organization_from: Field::BelongsTo.with_options(
-      searchable: true,
-      searchable_fields: ['name']
-    ),
-    organization_to: Field::BelongsTo.with_options(
+    organization: Field::BelongsTo.with_options(
       searchable: true,
       searchable_fields: ['name']
     ),
@@ -39,8 +34,7 @@ class DivestmentDashboard < Administrate::BaseDashboard
     convict
     user
     decision_date
-    organization_from
-    organization_to
+    organization
     state
   ].freeze
 
@@ -49,8 +43,7 @@ class DivestmentDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     decision_date
-    organization_from
-    organization_to
+    organization
     user
     convict
     state
