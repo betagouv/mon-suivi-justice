@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_11_142653) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -239,6 +239,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_11_142653) do
     t.date "decision_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["convict_id", "state"], name: "index_divestments_on_convict_id_and_state", unique: true, where: "((state)::text = 'pending'::text)"
     t.index ["convict_id"], name: "index_divestments_on_convict_id"
     t.index ["organization_id"], name: "index_divestments_on_organization_id"
     t.index ["user_id"], name: "index_divestments_on_user_id"
