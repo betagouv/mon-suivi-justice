@@ -143,22 +143,34 @@ class ConvictsController < ApplicationController
   end
 
   def divestment_button_checks
+    @duplicate_alert = ''
+
     if @duplicate_convict&.organizations&.include?(current_organization)
-      @show_divestment_button = false
-      @org_names = org_names_with_custom_label('votre propre service')
+      handle_duplicate_is_under_current_org
     else
-      pending_divestments_and_future_appointments
-      @show_divestment_button = !(@pending_divestments || @future_appointments)
-      @show_pending_divestment_notice = false
-
-      @org_names = if @pending_divestments
-                     @show_pending_divestment_notice = false
-                   else
-                     formatted_organization_names_and_phones(@duplicate_convict.organizations)
-                   end
+      handle_duplicate_is_under_other_org
     end
+  end
 
-    format_organization_string(@org_names)
+  def handle_duplicate_is_under_current_org
+    @show_divestment_button = false
+    org_names = org_names_with_custom_label('votre propre service')
+    @duplicate_alert = format_duplicate_alert_string(org_names)
+  end
+
+  def handle_duplicate_is_under_other_org
+    pending_divestment_and_future_appointments
+    @show_divestment_button = @pending_divestment.none? && @future_appointments.none?
+
+    @duplicate_alert = if @pending_divestment.present?
+                         @show_pending_divestment_notice =
+                           "Le probationnaire #{@duplicate_convict.full_name} fait \
+                           déjà l'objet d'une demande de dessaisissement \
+                           de la part de #{@pending_divestment.first.organization.name} "
+                       else
+                         org_names = formatted_organization_names_and_phones
+                         @duplicate_alert = format_duplicate_alert_string(org_names)
+                       end
   end
 
   def org_names_with_custom_label(custom_label)
@@ -167,11 +179,11 @@ class ConvictsController < ApplicationController
     end
   end
 
-  def format_organization_string(org_names)
+  def format_duplicate_alert_string(org_names)
     return org_names.first.to_s if org_names.length <= 1
 
     last = org_names.pop
-    @org_names = "#{org_names.join(', ')} ainsi que #{last}"
+    "#{@duplicate_convict.full_name} suivi par #{org_names.join(', ')} ainsi que #{last}"
   end
 
   def formatted_organization_names_and_phones
@@ -182,8 +194,8 @@ class ConvictsController < ApplicationController
     end
   end
 
-  def pending_divestments_and_future_appointments
-    @pending_divestments = @duplicate_convict.divestments.where(state: 'pending')
+  def pending_divestment_and_future_appointments
+    @pending_divestment = @duplicate_convict.divestments.where(convict: @duplicate_convict, state: 'pending')
     @future_appointments = @duplicate_convict.future_appointments
   end
 

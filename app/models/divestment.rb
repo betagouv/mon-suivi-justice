@@ -6,6 +6,10 @@ class Divestment < ApplicationRecord
   has_many :organization_divestments
   has_many :involved_organizations, through: :organization_divestments, source: :organization
 
+  validates :convict_id, uniqueness: { scope: :state,
+                                       message: 'le probationnaire a déjà une demande de dessaisissement en cours' },
+                         if: -> { state == 'pending' }
+
   state_machine initial: :pending do
     event :accept do
       transition pending: :accepted
