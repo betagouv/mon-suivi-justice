@@ -32,6 +32,7 @@ Rails.application.routes.draw do
         put '/start_transfert' => "place_transferts#start_transfert"
       end
       resources :divestments
+      resources :organization_divestments
 
       root to: "users#index"
     end
