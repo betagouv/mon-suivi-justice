@@ -28,7 +28,8 @@ class DivestmentsController < ApplicationController
       convict.organizations.each do |org|
         OrganizationDivestment.create!(
           divestment_id: divestment.id,
-          organization_id: org.id
+          organization_id: org.id,
+          state: 'pending'
         )
       end
     end
