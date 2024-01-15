@@ -113,7 +113,7 @@ gem 'faker', '~> 3.2.2'
 # Use Redis for Action Cable
 gem 'redis', '~> 5.0.8'
 
-gem 'jsbundling-rails', '~> 1.2.1'
+gem 'jsbundling-rails', '~> 1.2.2'
 
 gem 'cssbundling-rails', '~> 1.3.3'
 
