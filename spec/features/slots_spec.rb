@@ -110,10 +110,10 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       fill_in 'Capacité', with: 10
       expect { click_button 'Enregistrer' }.to change { Slot.count }.by(4)
       # Generate a test to check the slots are created with the right time
-      expect(Slot.last(4).map(&:starting_time)).to match_array([Time.zone.parse('2021-06-21 15:00:00'),
-                                                                Time.zone.parse('2021-06-21 16:00:00'),
-                                                                Time.zone.parse('2021-06-21 16:15:00'),
-                                                                Time.zone.parse('2021-06-21 16:30:00')])
+      expect(Slot.last(4).map(&:starting_time)).to match_array([Time.zone.parse('2000-01-01 15:00:00 +01:00'),
+                                                                Time.zone.parse('2000-01-01 16:00:00 +01:00'),
+                                                                Time.zone.parse('2000-01-01 16:15:00 +01:00'),
+                                                                Time.zone.parse('2000-01-01 16:30:00 +01:00')])
     end
   end
 
