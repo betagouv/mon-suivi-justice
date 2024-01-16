@@ -18,6 +18,10 @@ body {
   height: 40px;
   width: 100%;
 }
+.alert-link {
+  color: #c9191e;
+  text-decoration: underline;
+}
 
 .notice {
   background-color: var(--notice);
