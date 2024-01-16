@@ -10,6 +10,8 @@ class Divestment < ApplicationRecord
                                        message: 'le probationnaire a déjà une demande de dessaisissement en cours' },
                          if: -> { state == 'pending' }
 
+  validates :comment, length: { maximum: 120 }, allow_blank: true
+
   state_machine initial: :pending do
     event :accept do
       transition pending: :accepted
