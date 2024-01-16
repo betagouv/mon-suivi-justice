@@ -23,7 +23,7 @@ class AppointmentTypesController < ApplicationController
 
     if @appointment_type.update(appointment_type_params)
       check_default_and_update(old_templates)
-      redirect_to appointment_types_path, notice: t('.notice')
+      redirect_to edit_appointment_type_path(@appointment_type, orga: @organization), notice: t('.notice')
     else
       render :edit, status: :unprocessable_entity
     end
