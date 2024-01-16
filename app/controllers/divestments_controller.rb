@@ -34,10 +34,12 @@ class DivestmentsController < ApplicationController
 
   def create_organization_divestments(divestment, convict)
     convict.organizations.each do |org|
+      state = org.users.where(role: 'local_admin').empty? ? 'ignored' : 'pending'
+
       OrganizationDivestment.create!(
         divestment_id: divestment.id,
         organization_id: org.id,
-        state: 'pending'
+        state:
       )
     end
   end
@@ -50,7 +52,7 @@ class DivestmentsController < ApplicationController
 
   def redirect_after_creation(convict)
     path = current_user.work_at_bex? ? new_appointment_path(convict_id: convict.id) : convicts_path
-    redirect_to path, success: t('divestments.create.success')
+    redirect_to path, notice: t('divestments.create.success')
   end
 
   # def divestment_params
