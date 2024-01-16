@@ -54,8 +54,8 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       click_on 'Créneau unique'
 
       within first('.form-time-select-fields') do
-        select '15', from: 'slot_batch_starting_time_4i'
-        select '00', from: 'slot_batch_starting_time_5i'
+        select '15', from: 'slot_batch_starting_time_1i'
+        select '00', from: 'slot_batch_starting_time_2i'
       end
 
       fill_in 'Durée', with: '40'
@@ -90,18 +90,18 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       click_on 'Créneau unique'
 
       within first('.form-time-select-fields') do
-        select '15', from: 'slot_batch_starting_time_4i'
-        select '00', from: 'slot_batch_starting_time_5i'
+        select '15', from: 'slot_batch_starting_time_1i'
+        select '00', from: 'slot_batch_starting_time_2i'
       end
 
       click_on 'Plage de créneaux'
 
       within all('.slot_batch_interval_time').last do
-        select '16', from: 'slot_batch_start_time_4i'
-        select '00', from: 'slot_batch_start_time_5i'
+        select '16', from: 'slot_batch_start_time_1i'
+        select '00', from: 'slot_batch_start_time_2i'
 
-        select '16', from: 'slot_batch_end_time_4i'
-        select '30', from: 'slot_batch_end_time_5i'
+        select '16', from: 'slot_batch_end_time_1i'
+        select '30', from: 'slot_batch_end_time_2i'
 
         fill_in 'interval_1i', with: '15'
       end
