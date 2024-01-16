@@ -3,14 +3,12 @@ class Divestment < ApplicationRecord
   belongs_to :convict
   belongs_to :organization
 
-  has_many :organization_divestments
+  has_many :organization_divestments, dependent: :destroy
   has_many :involved_organizations, through: :organization_divestments, source: :organization
 
   validates :convict_id, uniqueness: { scope: :state,
                                        message: 'le probationnaire a déjà une demande de dessaisissement en cours' },
                          if: -> { state == 'pending' }
-
-  validates :comment, length: { maximum: 120 }, allow_blank: true
 
   state_machine initial: :pending do
     event :accept do
