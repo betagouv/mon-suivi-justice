@@ -60,8 +60,9 @@ class SlotsBatchesController < ApplicationController
 
   def slot_params
     params.require(:slot_batch).permit(:agenda_id, :appointment_type_id, :date, :available,
-                                       :capacity, :duration, starting_times: [], intervals: [], start_times: [],
-                                                             end_times: [])
+                                       :starting_time, :capacity, :duration, :interval, :start_time, :end_time,
+                                       starting_times: [],
+                                       intervals: [], start_times: [], end_times: [])
   end
 
   # rubocop:disable Metrics/AbcSize
