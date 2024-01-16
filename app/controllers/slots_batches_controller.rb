@@ -60,15 +60,14 @@ class SlotsBatchesController < ApplicationController
 
   def slot_params
     params.require(:slot_batch).permit(:agenda_id, :appointment_type_id, :date, :available,
-                                       :starting_time, :capacity, :duration, :interval, :start_time, :end_time,
-                                       starting_times: [],
-                                       intervals: [], start_times: [], end_times: [])
+                                       :capacity, :duration, starting_times: [], intervals: [], start_times: [],
+                                                             end_times: [])
   end
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
   def batch_create(params, slot_params)
-    raise StandardError, 'You must provide at least one starting time or a valid interval' unless valid_time?(params)
+    raise ArgumentErrorError, t('.argument_error') unless valid_time?(params)
 
     starting_times = params.require(:starting_times).each_slice(2).to_a if params[:starting_times].present?
     interval_times = generate_times_from_intervals(params) if valid_interval?(params)
@@ -99,7 +98,7 @@ class SlotsBatchesController < ApplicationController
   def generate_times(start_time, end_time, interval)
     start_time = Time.zone.parse("#{start_time[0]}:#{start_time[1]}")
     end_time = Time.zone.parse("#{end_time[0]}:#{end_time[1]}")
-    raise ArgumentError, 'Start time must be before end time' if start_time > end_time
+    raise ArgumentError, t('.start_time_before_end_time') if start_time > end_time
 
     interval_minutes = interval.to_i.minutes
     result = []
@@ -114,13 +113,13 @@ class SlotsBatchesController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   def valid_time?(params)
-    params[:starting_times].present? || valid_interval?(params)
+    params[:starting_times]&.compact_blank.present? || valid_interval?(params)
   end
 
   def valid_interval?(params)
-    params[:start_times].present? &&
-      params[:end_times].present? &&
-      params[:intervals].present?
+    params[:start_times]&.compact_blaenk.present? &&
+      params[:end_times]&.compact_blank.present? &&
+      params[:intervals]&.compact_blank.present?
   end
 
   def build_slot(params, date, time)

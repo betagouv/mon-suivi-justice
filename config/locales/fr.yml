@@ -33,6 +33,10 @@ fr:
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
+  slot_batchs:
+    batch_create:
+      argument_error: "Vous devez indiquer au minimum une heure ou un intervalle de temps"
+      start_time_before_end_time: "L'heure de début doit être avant l'heure de fin"
   convicts:
     create:
       notice: "Le probationnaire a bien été créé."
