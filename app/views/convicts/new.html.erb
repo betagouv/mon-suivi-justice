@@ -146,7 +146,8 @@
       <% if @duplicate_convict && @show_divestment_button %>
         <div class="fr-container fr-mt-5w fr-mb-5w">
           <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-            <%= button_to t('new_divestment'), divestments_path, method: :post, class: 'fr-btn', params: { convict_id: @duplicate_convict.id }, data: { confirm: t('new_divestment_confirm'), turbo: false  } %>
+            <% button_message = current_user.work_at_bex? ? t('new_divestment_bex') : t('new_divestment') %>
+            <%= button_to button_message, divestments_path, method: :post, class: 'fr-btn', params: { convict_id: @duplicate_convict.id }, data: { confirm: t('new_divestment_confirm'), turbo: false  } %>
           </div>
         </div>
       <% end %>

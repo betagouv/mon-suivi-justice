@@ -4,41 +4,56 @@ class DivestmentsController < ApplicationController
     convict = Convict.find_by(id: params[:convict_id])
     authorize :divestment, :create?
 
-    if convict
-      create_divestments_for_convict(convict)
-      redirect_to convicts_path, success: t('divestments.create.success')
-    else
-      redirect_to convicts_path, alert: t('divestments.create.failure')
-    end
+    return redirect_to convicts_path, alert: t('divestments.create.failure') unless convict
+
+    create_divestments_for_convict(convict)
+    redirect_after_creation(convict)
   end
 
   private
 
   def create_divestments_for_convict(convict)
-    user_organization = current_user.organization
-
     ActiveRecord::Base.transaction do
-      divestment = Divestment.create!(
-        convict_id: convict.id,
-        user_id: current_user.id,
-        organization_id: user_organization.id,
-        state: 'pending'
-      )
-
-      convict.organizations.each do |org|
-        OrganizationDivestment.create!(
-          divestment_id: divestment.id,
-          organization_id: org.id,
-          state: 'pending'
-        )
-      end
+      divestment = create_divestment(convict)
+      create_organization_divestments(divestment, convict)
+      update_convict_organizations(convict)
     end
   rescue ActiveRecord::RecordInvalid => e
     # TODO: Handle error (back to convicts/new ?)
-    Rails.logger.error("Error creating divestments: #{e.message}")
+    Rails.logger.error("Erreur lors de la création des dessaisissements: #{e.message}")
   end
 
-  def divestment_params
-    params.require(:divestment).permit(:user_id, :organization_to_id, :decision_date, :comment)
+  def create_divestment(convict)
+    Divestment.create!(
+      convict_id: convict.id,
+      user_id: current_user.id,
+      organization_id: current_user.organization.id,
+      state: 'pending'
+    )
   end
+
+  def create_organization_divestments(divestment, convict)
+    convict.organizations.each do |org|
+      OrganizationDivestment.create!(
+        divestment_id: divestment.id,
+        organization_id: org.id,
+        state: 'pending'
+      )
+    end
+  end
+
+  def update_convict_organizations(convict)
+    return unless current_user.work_at_bex?
+
+    convict.organizations << current_user.organizations
+  end
+
+  def redirect_after_creation(convict)
+    path = current_user.work_at_bex? ? new_appointment_path(convict) : convicts_path
+    redirect_to path, success: t('divestments.create.success')
+  end
+
+  # def divestment_params
+  #   params.require(:divestment).permit(:user_id, :organization_to_id, :decision_date)
+  # end
 end
