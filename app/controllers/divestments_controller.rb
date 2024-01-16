@@ -49,7 +49,7 @@ class DivestmentsController < ApplicationController
   end
 
   def redirect_after_creation(convict)
-    path = current_user.work_at_bex? ? new_appointment_path(convict) : convicts_path
+    path = current_user.work_at_bex? ? new_appointment_path(convict_id: convict.id) : convicts_path
     redirect_to path, success: t('divestments.create.success')
   end
 
