@@ -118,7 +118,7 @@ class SlotsBatchesController < ApplicationController
   end
 
   def valid_interval?(params)
-    params[:start_times]&.compact_blaenk.present? &&
+    params[:start_times]&.compact_blank.present? &&
       params[:end_times]&.compact_blank.present? &&
       params[:intervals]&.compact_blank.present?
   end
