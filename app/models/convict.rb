@@ -204,6 +204,11 @@ class Convict < ApplicationRecord
     duplicates
   end
 
+  def last_appointment_at_least_6_months_old?
+    last_appointment_date = appointments.joins(:slot).maximum('slots.date')
+    last_appointment_date.present? && last_appointment_date < 6.months.ago
+  end
+
   private
 
   def unique_organizations
@@ -211,10 +216,5 @@ class Convict < ApplicationRecord
 
     errors.add(:organizations,
                I18n.t('activerecord.errors.models.convict.attributes.organizations.multiple_uniqueness'))
-  end
-
-  def last_appointment_at_least_6_months_old?
-    last_appointment_date = appointments.maximum(:date)
-    last_appointment_date.present? && last_appointment_date < 6.months.ago
   end
 end

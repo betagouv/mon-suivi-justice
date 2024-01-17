@@ -25,7 +25,7 @@ class DivestmentsController < ApplicationController
   end
 
   def divestment_state(convict)
-    if convict.archived? || convict.last_appointment_at_least_6_months_old?
+    if convict.discarded? || convict.last_appointment_at_least_6_months_old?
       'validated'
     else
       'pending'
