@@ -14,8 +14,9 @@ class DivestmentsController < ApplicationController
 
   def create_divestments_for_convict(convict)
     ActiveRecord::Base.transaction do
-      divestment = create_divestment(convict)
-      create_organization_divestments(divestment, convict)
+      state = divestment_state(convict)
+      divestment = create_divestment(convict, state)
+      create_organization_divestments(divestment, convict, state)
       update_convict_organizations(convict)
     end
   rescue ActiveRecord::RecordInvalid => e
@@ -23,18 +24,26 @@ class DivestmentsController < ApplicationController
     Rails.logger.error("Erreur lors de la création des dessaisissements: #{e.message}")
   end
 
-  def create_divestment(convict)
+  def divestment_state(convict)
+    if convict.archived? || convict.last_appointment_at_least_6_months_old?
+      'validated'
+    else
+      'pending'
+    end
+  end
+
+  def create_divestment(convict, state = 'pending')
     Divestment.create!(
       convict_id: convict.id,
       user_id: current_user.id,
       organization_id: current_user.organization.id,
-      state: 'pending'
+      state:
     )
   end
 
-  def create_organization_divestments(divestment, convict)
+  def create_organization_divestments(divestment, convict, state = 'pending')
     convict.organizations.each do |org|
-      state = org.users.where(role: 'local_admin').empty? ? 'ignored' : 'pending'
+      state = 'ignored' if org.users.where(role: 'local_admin').empty?
 
       OrganizationDivestment.create!(
         divestment_id: divestment.id,

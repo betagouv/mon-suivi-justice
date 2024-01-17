@@ -30,7 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", precision: nil, null: false
+    t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", precision: nil, null: false
+    t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
     t.bigint "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "discarded_at", precision: nil
+    t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_agendas_on_discarded_at"
     t.index ["place_id"], name: "index_agendas_on_place_id"
   end
@@ -68,7 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
     t.bigint "user_id"
     t.string "name"
     t.jsonb "properties"
-    t.datetime "time", precision: nil
+    t.datetime "time"
     t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
     t.index ["properties"], name: "index_ahoy_events_on_properties", opclass: :jsonb_path_ops, using: :gin
     t.index ["user_id"], name: "index_ahoy_events_on_user_id"
@@ -100,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
     t.string "app_version"
     t.string "os_version"
     t.string "platform"
-    t.datetime "started_at", precision: nil
+    t.datetime "started_at"
     t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
   end
@@ -193,11 +193,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
     t.boolean "refused_phone"
     t.string "prosecutor_number"
     t.string "appi_uuid"
-    t.datetime "discarded_at", precision: nil
+    t.datetime "discarded_at"
     t.bigint "user_id"
     t.integer "invitation_to_convict_interface_count", default: 0, null: false
-    t.datetime "timestamp_convict_interface_creation", precision: nil
-    t.datetime "last_invite_to_convict_interface", precision: nil
+    t.datetime "timestamp_convict_interface_creation"
+    t.datetime "last_invite_to_convict_interface"
     t.date "date_of_birth"
     t.boolean "homeless", default: false, null: false
     t.boolean "lives_abroad", default: false, null: false
@@ -214,7 +214,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
   create_table "convicts_organizations_mappings", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "convict_id", null: false
-    t.datetime "desactivated_at", precision: nil
+    t.datetime "desactivated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["convict_id"], name: "index_convicts_organizations_mappings_on_convict_id"
@@ -388,7 +388,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
     t.string "contact_email"
     t.integer "main_contact_method", default: 0, null: false
     t.string "preparation_link", default: "https://mon-suivi-justice.beta.gouv.fr/", null: false
-    t.datetime "discarded_at", precision: nil
+    t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_places_on_discarded_at"
     t.index ["organization_id"], name: "index_places_on_organization_id"
   end
@@ -413,7 +413,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "agenda_id"
-    t.datetime "discarded_at", precision: nil
+    t.datetime "discarded_at"
     t.index ["agenda_id"], name: "index_slot_types_on_agenda_id"
     t.index ["appointment_type_id"], name: "index_slot_types_on_appointment_type_id"
     t.index ["discarded_at"], name: "index_slot_types_on_discarded_at"
@@ -480,7 +480,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
     t.bigint "recipient_id", null: false
     t.string "type", null: false
     t.jsonb "params"
-    t.datetime "read_at", precision: nil
+    t.datetime "read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["read_at"], name: "index_user_notifications_on_read_at"
@@ -502,17 +502,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: nil
-    t.datetime "remember_created_at", precision: nil
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", null: false
     t.string "first_name"
     t.string "last_name"
     t.string "invitation_token"
-    t.datetime "invitation_created_at", precision: nil
-    t.datetime "invitation_sent_at", precision: nil
-    t.datetime "invitation_accepted_at", precision: nil
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
     t.integer "invitation_limit"
     t.string "invited_by_type"
     t.bigint "invited_by_id"
@@ -539,7 +539,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_160648) do
     t.string "event", null: false
     t.string "whodunnit"
     t.text "object"
-    t.datetime "created_at", precision: nil
+    t.datetime "created_at"
     t.text "object_changes"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
