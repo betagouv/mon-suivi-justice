@@ -1,6 +1,7 @@
 <tr id="<%= "#{dom_id(convict)}_row" %>">
     <td><%= convict.first_name %></td>
     <td><%= convict.last_name %></td>
+    <td><%= l(convict.date_of_birth, format: :long) %></td>
     <td><%= convict.appi_uuid %></td>
     <td><%= convict.display_phone %></td>
     <td>
