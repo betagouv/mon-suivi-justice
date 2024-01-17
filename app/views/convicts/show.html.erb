@@ -130,7 +130,7 @@
                 <strong><%= t('.interface_invitation_state') %></strong> : <%= t(".#{@convict.interface_invitation_state}", last_invite: @convict.last_invite_to_convict_interface.present? ? l(@convict.last_invite_to_convict_interface, format: :clear) : nil) %>
               </p>
               <p>
-                <strong><%= t('.interface_access_timestamp')%></strong> : 
+                <strong><%= t('.interface_access_timestamp')%></strong> :
                 <% if @convict.can_access_convict_inferface? %>
                   <%= l(@convict.timestamp_convict_interface_creation, format: :clear) %>
                 <% else %>
@@ -154,6 +154,7 @@
               <% end %>
               <thead>
                 <tr>
+                  <th scope="col">Type de convocation</th>
                   <th scope="col">Lieu</th>
                   <th scope="col">Date</th>
                   <th scope="col">Horaire</th>
@@ -163,6 +164,7 @@
               <tbody>
                 <% @convict.future_appointments.each do |apt| %>
                   <tr>
+                    <td><%= apt.slot.appointment_type.name %></td>
                     <td><%= apt.slot.agenda.place.name %></td>
                     <td><%= apt.slot.date.to_fs %></td>
                     <td><%= apt.localized_time.to_fs(:time) %></td>
