@@ -41,14 +41,17 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       create(:appointment_type, name: 'Convocation de suivi SPIP')
     end
 
-    it 'creates one slot' do
+    it 'creates one slot', js: true do
       visit new_slots_batch_path
 
       select 'Agenda de Michel', from: 'Agenda'
       expect(page).to have_select('Type de convocation', options: ['', "Sortie d'audience SPIP"])
       select "Sortie d'audience SPIP", from: 'Type de convocation'
 
-      fill_in 'Date', with: Date.civil(2025, 4, 18).strftime('%Y-%m-%d')
+      find('#slot_batch_date').click
+      find('.flatpickr-day.today').click
+
+      click_on 'Créneau unique'
 
       within first('.form-time-select-fields') do
         select '15', from: 'slot_batch_starting_time_4i'
@@ -65,7 +68,7 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       expect(created_slot.agenda).to eq(@agenda)
       expect(created_slot.appointment_type).to eq(@appointment_type)
       expect(created_slot.appointment_type).to eq(@appointment_type)
-      expect(created_slot.date).to eq(Date.parse('Fri, 18 Apr 2025'))
+      expect(created_slot.date).to eq(Date.today)
 
       time_zone = TZInfo::Timezone.get('Europe/Paris')
       expect(time_zone.to_local(created_slot.starting_time).hour).to eq(15)
@@ -84,22 +87,33 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       find('#slot_batch_date').click
       find('.flatpickr-day.today').click
 
+      click_on 'Créneau unique'
+
       within first('.form-time-select-fields') do
         select '15', from: 'slot_batch_starting_time_4i'
         select '00', from: 'slot_batch_starting_time_5i'
       end
 
-      click_on 'Ajouter une heure'
+      click_on 'Plage de créneaux'
 
-      within all('.form-time-select-fields').last do
-        select '16', from: 'slot_batch_starting_time_4i'
-        select '00', from: 'slot_batch_starting_time_5i'
+      within all('.slot_batch_interval_time').last do
+        select '16', from: 'slot_batch_start_time_4i'
+        select '00', from: 'slot_batch_start_time_5i'
+
+        select '16', from: 'slot_batch_end_time_4i'
+        select '30', from: 'slot_batch_end_time_5i'
+
+        fill_in 'interval_1i', with: '15'
       end
 
       fill_in 'Durée', with: 40
       fill_in 'Capacité', with: 10
-
-      expect { click_button 'Enregistrer' }.to change { Slot.count }.by(2)
+      expect { click_button 'Enregistrer' }.to change { Slot.count }.by(4)
+      # Generate a test to check the slots are created with the right time
+      expect(Slot.last(4).map(&:starting_time)).to match_array([Time.zone.parse('2000-01-01 15:00:00 +01:00'),
+                                                                Time.zone.parse('2000-01-01 16:00:00 +01:00'),
+                                                                Time.zone.parse('2000-01-01 16:15:00 +01:00'),
+                                                                Time.zone.parse('2000-01-01 16:30:00 +01:00')])
     end
   end
 

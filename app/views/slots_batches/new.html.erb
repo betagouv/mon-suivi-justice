@@ -28,18 +28,16 @@
 
   <div class='new-slots-time-fields-container' id='new-slots-time-fields-container'>
     <%= turbo_frame_tag 'display_time_fields' do %>
-      <%= f.input :starting_time, 
-                  input_html: { class: 'form-select', name: 'starting_times[]' },
-                  wrapper_html: { class: 'new-slots-time-fields' },
-                  label: t('activerecord.attributes.slot.starting_time'),
-                  as: :time, wrapper: :custom_time, include_blank: true,
-                  multiple: true, start_hour: 6, end_hour: 20, minute_step: 5 %>
     <% end %>
   </div>
 
-  <%= link_to 'Ajouter une heure', display_time_fields_path, class: 'new-slots-add-starting-time' %>
+  <ul class="fr-btns-group fr-btns-group--inline-md">
+    <%= link_to 'Créneau unique', display_time_fields_path, class: 'fr-btn fr-mr-2w' %>
+    <%= link_to 'Plage de créneaux', display_interval_fields_path, class: 'fr-btn fr-btn--secondary' %>
+  </ul>
+  
   <%= f.input :duration, input_html: { value: @duration }, label: t('activerecord.attributes.slot.duration') %>
-  <%= f.input :capacity, label: t('activerecord.attributes.slot.capacity'), input_html: { value: @capacity } %>
+  <%= f.input :capacity, input_html: { value: @capacity }, label: t('activerecord.attributes.slot.capacity') %>
 
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>

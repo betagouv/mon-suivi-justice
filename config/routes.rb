@@ -95,8 +95,6 @@ Rails.application.routes.draw do
     put 'rebook'
   end
 
-  resources :appointments_waiting_lines, only: :index
-
   resources :cities do
     collection do
       get :search
@@ -118,6 +116,7 @@ Rails.application.routes.draw do
   end
 
   get '/display_time_fields' => 'slots_batches#display_time_fields', as: 'display_time_fields'
+  get '/display_interval_fields' => 'slots_batches#display_interval_fields', as: 'display_interval_fields'
   get '/stats' => redirect('https://infogram.com/column-stacked-chart-1h7z2l8www5rg6o?live', status: 302), as: :stats
 
   scope controller: :bex do

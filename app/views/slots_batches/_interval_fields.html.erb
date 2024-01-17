@@ -1,0 +1,51 @@
+  <div class="time required slot_batch_interval_time fr-my-2w fr-p-2w new-slot-time-fields-box">
+    <div class="form-label">
+      <label class="time required form-label" for="slot_batch_start_time_4i">
+        <abbr title="required">*</abbr> Premier Créneau</label>
+    </div>
+    <div class="form-time-select-fields form-input-wrapper">
+      <input type="hidden" id="slot_batch_start_time_1i" name="slot_batch[start_time(1i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_start_time_2i" name="slot_batch[start_time(2i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_start_time_3i" name="slot_batch[start_time(3i)]" value="1" autocomplete="off" />
+
+      <select id="slot_batch_start_time_4i" name="start_times[]" class="time required form-select fr-input">
+        <option value="" label=" "></option>
+        <% (6..20).each do |o| %>
+          <option value=<%= o %>><%= o %></option>
+        <% end %>
+      </select> :
+      <select id="slot_batch_start_time_5i" name="start_times[]" class="time required form-select fr-input">
+        <option value="" label=" "></option>
+        <% ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].each do |o| %>
+          <option value=<%= o %>><%= o %></option>
+        <% end %>
+      </select>
+
+    </div>
+    <div class="form-label">
+      <label class="time required form-label" for="slot_batch_end_time_4i">
+        <abbr title="required">*</abbr> Dernier Créneau</label>
+    </div>
+    <div class="form-time-select-fields form-input-wrapper">
+      <input type="hidden" id="slot_batch_end_time_1i" name="slot_batch[end_time(1i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_end_time_2i" name="slot_batch[end_time(2i)]" value="1" autocomplete="off" />
+      <input type="hidden" id="slot_batch_end_time_3i" name="slot_batch[end_time(3i)]" value="1" autocomplete="off" />
+
+      <select id="slot_batch_end_time_4i" name="end_times[]" class="time required form-select fr-input">
+        <option value="" label=" "></option>
+        <% (6..20).each do |o| %>
+          <option value=<%= o %>><%= o %></option>
+        <% end %>
+      </select> :
+      <select id="slot_batch_end_time_5i" name="end_times[]" class="time required form-select fr-input">
+        <option value="" label=" "></option>
+        <% ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].each do |o| %>
+          <option value=<%= o %>><%= o %></option>
+        <% end %>
+      </select>
+
+    </div>
+    <label for="interval_1i" class="required form-label"><abbr title="required">*</abbr> Intervalle</label>
+    <input type="number" id="interval_1i" name="intervals[]" min="1" max="60" value="15" class="fr-input">
+    <button class="fr-btn fr-btn--tertiary-no-outline fr-mt-2w alert-link fr-col--middle" onclick="this.parentNode.remove();">Supprimer</button>
+  </div>
