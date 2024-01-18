@@ -595,6 +595,7 @@ fr:
   divestments:
     create:
       success: Les demandes des dessaisissements ont bien été créées. Les services concernés ont été notifiés.
+      success_bex: Les demandes des dessaisissements ont bien été créées. Les services actuels du probationnaire ont été prévenus. Vous serez tenu au courant du résultat des demandes sous 10 jours au plus.
       failure: Le probationnaire n'existe pas
 
   users:
