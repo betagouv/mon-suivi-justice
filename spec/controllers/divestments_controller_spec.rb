@@ -64,4 +64,58 @@ RSpec.describe DivestmentsController, type: :controller do
       end
     end
   end
+
+  describe '#update_convict_organizations' do
+    let(:bex_user) { create(:user, :in_organization, role: 'bex') }
+    let(:convict) { create(:convict) }
+    let(:bex_organization) { bex_user.organization }
+
+    before do
+      allow(controller).to receive(:current_user).and_return(bex_user)
+      allow(bex_user).to receive(:work_at_bex?).and_return(true)
+      controller.send(:update_convict_organizations, convict)
+    end
+
+    it 'adds current user organizations to convict if user works at BEX' do
+      expect(convict.organizations).to include(bex_organization)
+    end
+  end
+
+  describe '#redirect_after_creation' do
+    let(:convict) { create(:convict) }
+
+    before do
+      allow(controller).to receive(:new_appointment_path).and_return('/appointments/new')
+      allow(controller).to receive(:convicts_path).and_return('/convicts')
+      request.host = 'test.host'
+    end
+
+    context 'when current user works at BEX' do
+      let(:bex_user) { create(:user, :in_organization, role: 'bex') }
+
+      before do
+        allow(controller).to receive(:current_user).and_return(bex_user)
+        allow(bex_user).to receive(:work_at_bex?).and_return(true)
+      end
+
+      it 'redirects to new appointment path with convict id' do
+        expect(controller).to receive(:redirect_to).with(new_appointment_path(convict_id: convict.id), anything)
+        controller.send(:redirect_after_creation, convict)
+      end
+    end
+
+    context 'when current user does not work at BEX' do
+      let(:non_bex_user) { create(:user, :in_organization, role: 'cpip') }
+
+      before do
+        allow(controller).to receive(:current_user).and_return(non_bex_user)
+        allow(non_bex_user).to receive(:work_at_bex?).and_return(false)
+      end
+
+      it 'redirects to convicts path' do
+        expect(controller).to receive(:redirect_to).with(convicts_path, anything)
+        controller.send(:redirect_after_creation, convict)
+      end
+    end
+  end
 end
