@@ -4,7 +4,7 @@ FactoryBot.define do
     last_name { 'Doe' }
     sequence(:phone, 2) { |n| "060606060#{n}" }
     no_phone { false }
-    date_of_birth { '1990-01-01' }
+    sequence(:date_of_birth) { |n| (Date.new(1990, 1, 1) - n.days).to_fs }
     organizations { [create(:organization)] }
   end
 end
