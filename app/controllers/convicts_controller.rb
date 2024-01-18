@@ -247,11 +247,6 @@ class ConvictsController < ApplicationController
     end
   end
 
-  def duplicate_present?(convict)
-    convict.check_duplicates
-    convict.duplicates.present?
-  end
-
   def update_convict
     @convict.current_user = current_user
     @convict.update_organizations(current_user) if @convict.update(convict_params)

@@ -197,29 +197,6 @@ RSpec.feature 'Convicts', type: :feature do
 
         expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
       end
-
-      it 'shows a warning with link to potential first name / last name / phone duplicates' do
-        convict = create(:convict, first_name: 'roberta', last_name: 'dupond', phone: '+33606060606',
-                                   date_of_birth: '01/01/1980',
-                                   organizations: [@user.organization])
-
-        visit new_convict_path
-
-        fill_in 'Prénom', with: 'Roberta'
-        fill_in 'Nom', with: 'Dupond'
-        fill_in 'Date de naissance', with: '1970-01-01'
-        fill_in 'Téléphone', with: '0606060606'
-
-        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
-
-        expect(page).to have_content('Un doublon potentiel a été détecté :')
-        expect(page).to have_link("DUPOND Roberta, suivi(e) par : #{convict.organizations.first.name}",
-                                  href: convict_path(convict))
-
-        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
-
-        expect(page).to have_content('Un probationnaire est déjà enregistré avec ce numéro de téléphone.')
-      end
     end
 
     it 'creates a convicts with a cpip relation', logged_in_as: 'cpip', js: true do

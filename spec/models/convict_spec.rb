@@ -70,31 +70,6 @@ RSpec.describe Convict, type: :model do
     end
   end
 
-  describe '.check_duplicates' do
-    before do
-      @user = create_admin_user_and_login
-    end
-
-    it 'adds duplicate if names are the same' do
-      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
-      convict2 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
-
-      convict1.check_duplicates
-
-      expect(convict1.duplicates).to eq([convict2])
-    end
-
-    it "doesn't add duplicate if appi_uuid are different" do
-      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '1234',
-                                  date_of_birth: '1980-01-01')
-      create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '5678', date_of_birth: '1980-01-01')
-
-      convict1.check_duplicates
-
-      expect(convict1.duplicates).to be_empty
-    end
-  end
-
   describe 'either_city_homeless_lives_abroad_present' do
     it('is valid when the user is not using inter-ressort') do
       expect(build(:convict, city: nil, homeless: false, lives_abroad: false)).to be_valid

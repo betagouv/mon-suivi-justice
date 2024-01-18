@@ -146,24 +146,6 @@ class Convict < ApplicationRecord
     errors.add(:base, I18n.t('activerecord.errors.models.convict.attributes.city.all_blanks'))
   end
 
-  # def check_for_duplicate_without_appi_uuid
-  #   return if appi_uuid.present?
-
-  #   duplicate = Convict.where(first_name:, last_name:, date_of_birth:)
-  #                      .where(appi_uuid: [nil, ''])
-  #                      .where.not(id:)
-  #                      .first
-
-  #   return unless duplicate
-
-  #   errors.add(:duplicate_convict, 'Un probationnaire avec le même nom, prénom et date de naissance existe déjà')
-  # end
-
-  def check_duplicates
-    duplicates = find_duplicates
-    self.duplicates = duplicates
-  end
-
   def update_convict_api
     UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
   end
