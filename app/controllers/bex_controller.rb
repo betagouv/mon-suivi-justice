@@ -75,7 +75,7 @@ class BexController < ApplicationController
   end
 
   def get_jap_agendas(appointment_type, params)
-    @places_agendas = policy_scope(Agenda).includes([:place]).where(place: places(appointment_type))
+    @places_agendas = policy_scope(Agenda).where(place: places(appointment_type))
                                           .with_open_slots(appointment_type).sort_by(&:name)
     @selected_agenda = Agenda.find(params[:agenda_id]) unless params[:agenda_id].blank?
     @agendas_to_display = @selected_agenda.nil? ? @places_agendas : [@selected_agenda]
