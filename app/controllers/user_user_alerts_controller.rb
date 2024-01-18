@@ -1,4 +1,5 @@
 class UserUserAlertsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_user_user_alert, only: %i[mark_as_read]
 
   def mark_as_read
