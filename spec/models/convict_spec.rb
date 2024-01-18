@@ -192,4 +192,27 @@ RSpec.describe Convict, type: :model do
       end
     end
   end
+
+  describe '#update_organizations_for_bex_user' do
+    let(:bex_user) { create(:user, :in_organization, role: 'bex') }
+    let(:convict) { create(:convict) }
+
+    context 'when the user works at BEX' do
+      before { allow(bex_user).to receive(:work_at_bex?).and_return(true) }
+
+      it 'adds the user’s organizations to the convict' do
+        expect { convict.update_organizations_for_bex_user(bex_user) }
+          .to change { convict.organizations.count }.by(bex_user.organizations.count)
+      end
+    end
+
+    context 'when the user does not work at BEX' do
+      let(:non_bex_user) { create(:user, :in_organization, role: 'cpip') }
+
+      it 'does not change the convict’s organizations' do
+        expect { convict.update_organizations_for_bex_user(non_bex_user) }
+          .not_to(change { convict.organizations.count })
+      end
+    end
+  end
 end

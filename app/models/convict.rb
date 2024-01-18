@@ -191,6 +191,13 @@ class Convict < ApplicationRecord
     last_appointment_date.present? && last_appointment_date < 6.months.ago
   end
 
+  def update_organizations_for_bex_user(user)
+    return unless user.work_at_bex?
+
+    organizations << user.organizations
+    save
+  end
+
   private
 
   def unique_organizations
