@@ -12,7 +12,7 @@ class AppointmentsBookingsController < ApplicationController
 
     user_places = policy_scope(Place).joins(:appointment_types, organization: :convicts).kept
 
-    @places = convict_places.and(user_places)
+    @places = user_places.where(id: convict_places.pluck(:id))
   end
 
   def load_prosecutor
