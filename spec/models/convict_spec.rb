@@ -167,4 +167,29 @@ RSpec.describe Convict, type: :model do
       expect(convict.organizations.pluck(:id)).to match_array([@current_user.organization.id])
     end
   end
+
+  describe 'first_name, last_namd and dob validations with and without appi_uuid' do
+    let(:first_name) { 'Jane' }
+    let(:last_name) { 'Doe' }
+    let(:date_of_birth) { '1990-01-01' }
+    let!(:existing_convict) { create(:convict, first_name:, last_name:, date_of_birth:, appi_uuid: nil) }
+
+    context 'when validating date_of_birth uniqueness' do
+      it 'is invalid with a duplicate date_of_birth, first_name, and last_name without appi_uuid' do
+        new_convict = build(:convict, first_name:, last_name:, date_of_birth:, appi_uuid: nil)
+        expect(new_convict).not_to be_valid
+        expect(new_convict.errors[:date_of_birth]).to include(Convict::DOB_UNIQUENESS_MESSAGE)
+      end
+
+      it 'is valid with a unique combination of date_of_birth, first_name, and last_name' do
+        unique_convict = build(:convict, first_name:, last_name: 'Smith', date_of_birth:, appi_uuid: nil)
+        expect(unique_convict).to be_valid
+      end
+
+      it 'is valid with a duplicate date_of_birth, first_name, and last_name but with appi_uuid' do
+        convict_with_appi_uuid = build(:convict, first_name:, last_name:, date_of_birth:, appi_uuid: '123456')
+        expect(convict_with_appi_uuid).to be_valid
+      end
+    end
+  end
 end
