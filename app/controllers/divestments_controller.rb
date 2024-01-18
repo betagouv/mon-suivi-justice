@@ -60,11 +60,8 @@ class DivestmentsController < ApplicationController
   end
 
   def redirect_after_creation(convict)
+    notice = current_user.work_at_bex? ? t('divestments.create.success_bex') : t('divestments.create.success')
     path = current_user.work_at_bex? ? new_appointment_path(convict_id: convict.id) : convicts_path
-    redirect_to path, notice: t('divestments.create.success')
+    redirect_to path, notice:
   end
-
-  # def divestment_params
-  #   params.require(:divestment).permit(:user_id, :organization_to_id, :decision_date)
-  # end
 end
