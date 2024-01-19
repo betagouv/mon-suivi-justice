@@ -22,6 +22,14 @@ class SlotsBatchesController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def display_time_fields
+    render turbo_stream: turbo_stream.append('display_time_fields', partial: 'time_fields')
+  end
+
+  def display_interval_fields
+    render turbo_stream: turbo_stream.append('display_time_fields', partial: 'interval_fields')
+  end
+
   private
 
   def slot_params
@@ -56,14 +64,6 @@ class SlotsBatchesController < ApplicationController
     render :new, status: :unprocessable_entity
   end
   # rubocop:enable Metrics/AbcSize
-
-  def display_time_fields
-    render turbo_stream: turbo_stream.append('display_time_fields', partial: 'time_fields')
-  end
-
-  def display_interval_fields
-    render turbo_stream: turbo_stream.append('display_time_fields', partial: 'interval_fields')
-  end
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
