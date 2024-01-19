@@ -7,8 +7,8 @@ class UserMailer < ApplicationMailer
   end
 
   def notify_local_admins_of_mutation(user, old_organization)
-    @admins = old_organization.local_admin
-    @admins = old_organization.headquarter&.local_admin if @admins.empty?
+    @admins = old_organization.users_local_admin
+    @admins = old_organization.headquarter&.users_local_admin if @admins.empty?
     return if @admins.empty?
 
     @user = user

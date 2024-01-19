@@ -29,7 +29,7 @@ class Organization < ApplicationRecord
   validate :extra_fields_count
   validate :spips_tjs_type
 
-  delegate :local_admin, to: :users
+  delegate :local_admin, to: :users, prefix: true
 
   has_rich_text :jap_modal_content
 
