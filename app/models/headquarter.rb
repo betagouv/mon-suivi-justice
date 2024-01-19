@@ -3,5 +3,6 @@ class Headquarter < ApplicationRecord
   has_many :users, dependent: :nullify
   validates :name, presence: true
 
-  delegate :local_admin, to: :users, prefix: true
+  delegate :local_admin, to: :users
+  alias local_admins local_admin
 end
