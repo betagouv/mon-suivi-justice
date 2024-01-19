@@ -4,10 +4,14 @@ class DivestmentsController < ApplicationController
     convict = Convict.find_by(id: params[:convict_id])
     authorize :divestment, :create?
 
-    return redirect_to convicts_path, alert: t('divestments.create.failure') unless convict
+    return redirect_to convicts_path, alert: t('divestments.create.convict_not_found') unless convict
 
-    DivestmentCreator.new(convict, current_user).call
-    redirect_after_creation(convict)
+    begin
+      DivestmentCreator.new(convict, current_user).call
+      redirect_after_creation(convict)
+    rescue ActiveRecord::RecordInvalid => e
+      redirect_to new_convict_path, alert: t('divestments.create.error', error: e.message)
+    end
   end
 
   private

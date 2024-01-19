@@ -41,7 +41,8 @@ class ConvictsController < ApplicationController
       redirect_to select_path(params)
     else
       @duplicate_convict = find_duplicate_convict
-      divestment_button_checks
+
+      divestment_decision
 
       render :new, status: :unprocessable_entity
     end
@@ -130,6 +131,12 @@ class ConvictsController < ApplicationController
   end
 
   private
+
+  def divestment_decision
+    decision = DivestmentDecision.new(@duplicate_convict, current_organization).call
+    @show_divestment_button = decision[:show_button]
+    @duplicate_alert = decision[:alert]
+  end
 
   def find_duplicate_convict # rubocop:disable Metrics/AbcSize
     if @convict.errors.where(:appi_uuid, :taken).any?
