@@ -10,52 +10,72 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
+    return false unless user.security_charter_accepted?
+
     allow_user_actions?
   end
 
   def update?
+    return false unless user.security_charter_accepted?
+
     check_ownership
   end
 
   def show?
+    return false unless user.security_charter_accepted?
+
     check_ownership
   end
 
   def new?
+    return false unless user.security_charter_accepted?
+
     allow_user_actions?
   end
 
   def create?
+    return false unless user.security_charter_accepted?
+
     check_ownership && allow_user_actions?
   end
 
   def destroy?
+    return false unless user.security_charter_accepted?
+
     return false unless check_ownership && allow_user_actions? && user != record
 
     !record.admin? || user.admin? # only admin can destroy other admins
   end
 
   def invitation_link?
+    return false unless user.security_charter_accepted?
+
     user.admin? && user != record
   end
 
   def reset_pwd_link?
+    return false unless user.security_charter_accepted?
+
     user.admin? && user != record
   end
 
   def stop_impersonating?
-    true
+    user.security_charter_accepted?
   end
 
   def search?
-    true
+    user.security_charter_accepted?
   end
 
   def filter?
+    return false unless user.security_charter_accepted?
+
     index?
   end
 
   def mutate?
+    return false unless user.security_charter_accepted?
+
     return false unless user.admin? || user.local_admin?
 
     record.organization.organization_type == user.organization.organization_type

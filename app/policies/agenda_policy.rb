@@ -14,26 +14,36 @@ class AgendaPolicy < ApplicationPolicy
   end
 
   def new?
+    return false unless user.security_charter_accepted?
+
     user.admin? || user.local_admin? || user.greff_sap?
   end
 
   def edit?
+    return false unless user.security_charter_accepted?
+
     user.admin? || user.local_admin? || user.greff_sap?
   end
 
   def create?
+    return false unless user.security_charter_accepted?
+
     return false unless user.admin? || user.local_admin? || user.greff_sap?
 
     record.place.organization == user.organization
   end
 
   def update?
+    return false unless user.security_charter_accepted?
+
     return false unless user.admin? || user.local_admin? || user.greff_sap?
 
     record.place.organization == user.organization
   end
 
   def destroy?
+    return false unless user.security_charter_accepted?
+
     return false unless user.admin? || user.local_admin? || user.greff_sap?
 
     record.place.organization == user.organization

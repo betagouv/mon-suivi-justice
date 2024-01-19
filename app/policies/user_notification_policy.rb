@@ -1,5 +1,5 @@
 class UserNotificationPolicy < ApplicationPolicy
   def index?
-    true
+    user.security_charter_accepted?
   end
 end
