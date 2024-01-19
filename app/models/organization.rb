@@ -29,6 +29,9 @@ class Organization < ApplicationRecord
   validate :extra_fields_count
   validate :spips_tjs_type
 
+  delegate :local_admin, to: :users
+  alias local_admins local_admin
+
   has_rich_text :jap_modal_content
 
   def ten_next_days_with_slots(appointment_type)
