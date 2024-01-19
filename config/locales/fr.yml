@@ -33,6 +33,9 @@ fr:
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
+  security_charter_acceptances:
+    new:
+      notice: "The security charter has been successfully accepted."
   slot_batchs:
     batch_create:
       argument_error: "Vous devez indiquer au minimum une heure ou un intervalle de temps"
