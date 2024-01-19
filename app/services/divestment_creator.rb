@@ -12,9 +12,6 @@ class DivestmentCreator
       create_organization_divestments(divestment, state)
       @convict.update_organizations_for_bex_user(@user)
     end
-  rescue ActiveRecord::RecordInvalid => e
-    # TODO: Handle error (back to convicts/new ?)
-    Rails.logger.error("Erreur lors de la création des dessaisissements: #{e.message}")
   end
 
   private
