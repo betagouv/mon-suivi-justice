@@ -12,7 +12,7 @@ module Admin
     after_action :track_action
 
     def authenticate_admin
-      redirect_to root_path unless current_user.admin?
+      redirect_to root_path, alert: t('errors.not_found.title') unless current_user&.admin?
     end
 
     # Override this value to specify the number of elements to display at a time
