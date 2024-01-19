@@ -14,6 +14,31 @@ class SlotsBatchesController < ApplicationController
     handle_create_errors(params, slot_params)
   end
 
+  def update
+    slots = Slot.joins(agenda: :place).where(id: params[:slot_ids])
+    authorize slots, :update_all?
+    slots.update_all(available: false)
+
+    redirect_back(fallback_location: root_path)
+  end
+
+  def display_time_fields
+    render turbo_stream: turbo_stream.append('display_time_fields', partial: 'time_fields')
+  end
+
+  def display_interval_fields
+    render turbo_stream: turbo_stream.append('display_time_fields', partial: 'interval_fields')
+  end
+
+  private
+
+  def slot_params
+    params.require(:slot_batch).permit(:agenda_id, :appointment_type_id, :date, :available,
+                                       :starting_time, :capacity, :duration, :interval, :start_time, :end_time,
+                                       starting_times: [],
+                                       intervals: [], start_times: [], end_times: [])
+  end
+
   def handle_create(params, slot_params)
     result = batch_create(params, slot_params)
 
@@ -39,31 +64,6 @@ class SlotsBatchesController < ApplicationController
     render :new, status: :unprocessable_entity
   end
   # rubocop:enable Metrics/AbcSize
-
-  def update
-    slots = Slot.joins(agenda: :place).where(id: params[:slot_ids])
-    authorize slots, :update_all?
-    slots.update_all(available: false)
-
-    redirect_back(fallback_location: root_path)
-  end
-
-  def display_time_fields
-    render turbo_stream: turbo_stream.append('display_time_fields', partial: 'time_fields')
-  end
-
-  def display_interval_fields
-    render turbo_stream: turbo_stream.append('display_time_fields', partial: 'interval_fields')
-  end
-
-  private
-
-  def slot_params
-    params.require(:slot_batch).permit(:agenda_id, :appointment_type_id, :date, :available,
-                                       :starting_time, :capacity, :duration, :interval, :start_time, :end_time,
-                                       starting_times: [],
-                                       intervals: [], start_times: [], end_times: [])
-  end
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
