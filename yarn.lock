@@ -188,15 +188,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@rails/actioncable@^7.0":
-  version "7.0.6"
-  resolved "https://registry.npmjs.org/@rails/actioncable/-/actioncable-7.0.6.tgz"
-  integrity sha512-ybBsUrIsu5geM8BtqnpM7ZA9D8uzSz+e1B4JR57NaCmasHKWap6AX5DT7NHIbp21opVet1qqoVSdsoLDqXeB2A==
-
-"@rails/actioncable@^7.0.7":
-  version "7.0.7"
-  resolved "https://registry.npmjs.org/@rails/actioncable/-/actioncable-7.0.7.tgz"
-  integrity sha512-NqHf4XDkeVaNk/r+TBo2aAMkjPyRPEfZkSqCTijfWukW1zTZ2XLDfvFzbpRCuWZ6gxItgoa/FkILZm27HRh2yg==
+"@rails/actioncable@^7.0", "@rails/actioncable@^7.1.3":
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.1.3.tgz#4db480347775aeecd4dde2405659eef74a458881"
+  integrity sha512-ojNvnoZtPN0pYvVFtlO7dyEN9Oml1B6IDM+whGKVak69MMYW99lC2NOWXWeE3bmwEydbP/nn6ERcpfjHVjYQjA==
 
 "@rails/actiontext@^7.0.7":
   version "7.0.7"
