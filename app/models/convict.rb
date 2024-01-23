@@ -48,8 +48,6 @@ class Convict < ApplicationRecord
   validates :organizations, presence: true
   validate :unique_organizations
 
-  # validate :check_for_duplicate_without_appi_uuid
-
   after_update :update_convict_api
 
   scope :with_phone, -> { where.not(phone: '') }
