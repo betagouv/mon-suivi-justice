@@ -4,13 +4,6 @@ class User < ApplicationRecord
 
   has_paper_trail
 
-  CAN_INVITE_TO_CONVICT_INTERFACE =
-    %w[charles.marcoin@beta.gouv.fr
-       delphine.deneubourg@justice.fr
-       melanie.plassais@justice.fr clement.roulet@justice.fr abel.diouf@justice.fr
-       anne-sophie.genet@justice.fr anna.grinsnir@justice.fr pauline.guilloton@justice.fr
-       claire.becanne@justice.fr].freeze
-
   belongs_to :organization
   belongs_to :headquarter, optional: true
   has_many :convicts, dependent: :nullify
@@ -97,6 +90,10 @@ class User < ApplicationRecord
     %w[dpip cpip educator psychologist overseer secretary_spip]
   end
 
+  def self.can_invite_roles
+    %w[admin cpip local_admin dpip jap greff_sap dir_greff_sap secretary_court secretary_spip]
+  end
+
   def self.tj_roles
     sap_roles + bex_roles
   end
@@ -128,7 +125,7 @@ class User < ApplicationRecord
   end
 
   def can_invite_to_convict_interface?
-    CAN_INVITE_TO_CONVICT_INTERFACE.include?(email) || admin?
+    User.can_invite_roles.include? role
   end
 
   def can_have_appointments_assigned?
