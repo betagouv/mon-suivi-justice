@@ -95,10 +95,6 @@ class Convict < ApplicationRecord
                 .where('starting_time <= ?', Time.now.strftime('%H:%M'))
   end
 
-  def next_appointments
-    future_appointments.select('appointments.*, slots.date, slots.starting_time').order('slots.date ASC, starting_time ASC')
-  end
-
   def mobile_phone_number
     return unless phone && !phone.start_with?('+336', '+337')
 
