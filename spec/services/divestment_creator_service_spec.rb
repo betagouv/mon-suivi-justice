@@ -4,8 +4,9 @@ require 'rails_helper'
 RSpec.describe DivestmentCreatorService do
   let(:user) { create(:user, :in_organization, role: 'cpip') }
   let(:convict) { create(:convict) }
+  let(:unsaved_divestment) { create(:divestment, convict:, user:, organization: user.organization) }
 
-  subject(:service) { DivestmentCreatorService.new(convict, user) }
+  subject(:service) { DivestmentCreatorService.new(convict, user, unsaved_divestment) }
 
   describe '#call' do
     context 'when organizations have local admins' do

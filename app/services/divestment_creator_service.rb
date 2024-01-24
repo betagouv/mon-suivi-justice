@@ -1,15 +1,16 @@
 # app/services/divestment_creator.rb
 class DivestmentCreatorService
-  def initialize(convict, user)
+  def initialize(convict, user, divestment)
     @convict = convict
     @user = user
+    @divestment = divestment
   end
 
   def call
     ActiveRecord::Base.transaction do
       state = divestment_state
-      divestment = create_divestment(state)
-      create_organization_divestments(divestment, state)
+      save_divestment(state)
+      create_organization_divestments(@divestment, state)
       @convict.update_organizations_for_bex_user(@user)
     end
   end
@@ -24,13 +25,11 @@ class DivestmentCreatorService
     end
   end
 
-  def create_divestment(state)
-    Divestment.create!(
-      convict_id: @convict.id,
-      user_id: @user.id,
-      organization_id: @user.organization.id,
+  def save_divestment(state)
+    @divestment.assign_attributes(
       state:
     )
+    @divestment.save!
   end
 
   def create_organization_divestments(divestment, state)

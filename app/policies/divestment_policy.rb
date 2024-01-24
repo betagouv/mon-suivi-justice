@@ -12,8 +12,4 @@ class DivestmentPolicy < ApplicationPolicy
   def create?
     record.organization == user.organization
   end
-
-  def create_divestments_for_convict?
-    record.organization == user.organization
-  end
 end
