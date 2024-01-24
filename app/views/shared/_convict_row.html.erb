@@ -27,7 +27,7 @@
     </td>
     <td>
         <% @next_appointment = policy_scope(convict.next_appointments).first %>
-        <% if @next_appointment %>
+        <% if @next_appointment && policy(@next_appointment).show? %>
             <%= link_to @next_appointment.date&.to_fs, appointment_path(@next_appointment), class: 'index-control', data: { turbo: false } %>
         <% end %>
     </td>

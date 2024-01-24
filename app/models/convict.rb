@@ -96,7 +96,7 @@ class Convict < ApplicationRecord
   end
 
   def next_appointments
-    future_appointments.order('slots.date ASC, starting_time ASC')
+    future_appointments.select('appointments.*, slots.date, slots.starting_time').order('slots.date ASC, starting_time ASC')
   end
 
   def mobile_phone_number
