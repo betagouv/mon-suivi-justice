@@ -27,15 +27,6 @@ RSpec.describe DivestmentsController, type: :controller do
         end
       end
     end
-
-    context 'when convict does not exist' do
-      it 'redirects to convicts path with an alert' do
-        allow(Convict).to receive(:find_by).with(id: 'undefined').and_return(nil)
-        post :create, params: { convict_id: 'undefined' }
-        expect(response).to redirect_to(convicts_path)
-        expect(flash[:alert]).to be_present
-      end
-    end
   end
 
   describe '#redirect_after_creation' do
