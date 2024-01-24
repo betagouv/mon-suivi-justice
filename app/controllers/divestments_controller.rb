@@ -1,20 +1,26 @@
 # app/controllers/divestments_controller.rb
 class DivestmentsController < ApplicationController
   def create # rubocop:disable Metrics/AbcSize
-    convict = Convict.find_by(id: params[:convict_id])
-
-    divestment = Divestment.new(
-      convict_id: convict.id,
-      user_id: current_user.id,
-      organization_id: current_organization.id
-    )
-
+    divestment = Divestment.new(user_id: current_user.id, organization_id: current_organization.id)
     authorize divestment
 
-    DivestmentCreatorService.new(convict, current_user, divestment).call
-    redirect_after_creation(convict)
-  rescue ActiveRecord::RecordInvalid => e
-    redirect_to new_convict_path, alert: t('divestments.create.error', error: e.message)
+    begin
+      convict = Convict.find(params[:convict_id])
+      divestment.convict_id = convict.id
+
+      divestment = Divestment.new(
+        convict_id: convict.id,
+        user_id: current_user.id,
+        organization_id: current_organization.id
+      )
+
+      authorize divestment
+
+      DivestmentCreatorService.new(convict, current_user, divestment).call
+      redirect_after_creation(convict)
+    rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
+      redirect_to new_convict_path, alert: t('divestments.create.error', error: e.message)
+    end
   end
 
   private
