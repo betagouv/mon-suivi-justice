@@ -40,10 +40,10 @@ class DivestmentDecisionService
   end
 
   def format_duplicate_alert_string(org_names)
-    return org_names.first.to_s if org_names.length <= 1
+    return "#{@duplicate_convict.name} suivi par #{org_names.first}" if org_names.length <= 1
 
     last = org_names.pop
-    "#{@duplicate_convict.full_name} suivi par #{org_names.join(', ')} ainsi que #{last}"
+    "#{@duplicate_convict.name} suivi par #{org_names.join(', ')} ainsi que #{last}"
   end
 
   def other_org_alert(pending_divestment)
