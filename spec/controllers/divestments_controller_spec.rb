@@ -10,9 +10,9 @@ RSpec.describe DivestmentsController, type: :controller do
     end
 
     context 'when convict exists' do
-      it 'delegates divestment creation to DivestmentCreator service' do
+      it 'delegates divestment creation to DivestmentCreatorService service' do
         allow(Convict).to receive(:find_by).with(id: convict.id.to_s).and_return(convict)
-        expect(DivestmentCreator).to receive(:new).with(convict, user).and_call_original
+        expect(DivestmentCreatorService).to receive(:new).with(convict, user).and_call_original
         post :create, params: { convict_id: convict.id }
       end
     end

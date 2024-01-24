@@ -1,4 +1,4 @@
-class DivestmentDecision
+class DivestmentDecisionService
   attr_reader :show_divestment_button, :duplicate_alert
 
   def initialize(duplicate_convict, current_organization)

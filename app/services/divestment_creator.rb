@@ -1,5 +1,5 @@
 # app/services/divestment_creator.rb
-class DivestmentCreator
+class DivestmentCreatorService
   def initialize(convict, user)
     @convict = convict
     @user = user
