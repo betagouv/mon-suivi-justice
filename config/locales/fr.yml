@@ -37,7 +37,8 @@ fr:
     new:
       alert: "Vous devez accepter la charte de sécurité pour continuer à utiliser Mon Suivi Justice."
       accept: "J'accepte la charte de sécurité"
-      notice: "Merci d'avoir accepté notre charte de sécurité."
+    create:
+      notice: "Merci d'avoir accepté notre charte de sécurité. Vous pouvez désormais utiliser Mon Suivi Justice librement."
   slot_batchs:
     batch_create:
       argument_error: "Vous devez indiquer au minimum une heure ou un intervalle de temps"
