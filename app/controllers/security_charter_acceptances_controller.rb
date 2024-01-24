@@ -3,6 +3,7 @@ class SecurityCharterAcceptancesController < ApplicationController
 
   def new
     authorize :security_charter_acceptance
+    flash.now[:alert] = t('.alert')
   end
 
   def create
