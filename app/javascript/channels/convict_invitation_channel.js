@@ -41,7 +41,7 @@ function displayToast(data) {
   const notif = getNotif(notificationId, data);
   container.append(notif);
 
-  removeNotif(notificationId)
+  // removeNotif(notificationId)
 }
 
 function changeInvitationText(data) {
