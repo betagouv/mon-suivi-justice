@@ -171,6 +171,16 @@ class Convict < ApplicationRecord
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
 
+  def update_organizations_for_bex_user(user)
+    return unless user.work_at_bex?
+
+    user.organizations.each do |org|
+      organizations << org unless organizations.include?(org)
+    end
+
+    save
+  end
+
   def find_duplicates
     name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'
     prefixed_phone = PhonyRails.normalize_number(phone, country_code: 'FR')
@@ -187,13 +197,6 @@ class Convict < ApplicationRecord
   def last_appointment_at_least_6_months_old?
     last_appointment_date = appointments.joins(:slot).maximum('slots.date')
     last_appointment_date.present? && last_appointment_date < 6.months.ago
-  end
-
-  def update_organizations_for_bex_user(user)
-    return unless user.work_at_bex?
-
-    organizations << user.organizations
-    save
   end
 
   private
