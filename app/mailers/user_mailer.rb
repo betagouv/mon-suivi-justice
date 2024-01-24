@@ -8,8 +8,8 @@ class UserMailer < ApplicationMailer
 
   def notify_local_admins_of_mutation(user, old_organization)
     @admins = old_organization.local_admins
-    @admins = old_organization.headquarter&.local_admins if @admins.empty?
-    return if @admins.empty?
+    @admins = old_organization.headquarter&.local_admins if @admins.blank?
+    return if @admins.blank?
 
     @user = user
     mail(to: @admins.map(&:email), subject: "L'agent #{@user.name} a été muté dans Mon Suivi Justice")
