@@ -43,7 +43,7 @@ class ConvictsController < ApplicationController
     else
       @duplicate_convict = find_duplicate_convict
 
-      divestment_decision
+      divestment_decision if @duplicate_convict.present?
 
       render :new, status: :unprocessable_entity
     end
