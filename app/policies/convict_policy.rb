@@ -16,10 +16,6 @@ class ConvictPolicy < ApplicationPolicy
     true
   end
 
-  def search?
-    true
-  end
-
   def update?
     check_ownership?
   end
