@@ -35,15 +35,11 @@ class ConvictsController < ApplicationController
   end
 
   def create
-    @convict = Convict.new(convict_params)
-    @convict.creating_organization = current_organization
-    @convict.current_user = current_user
-    @convict.update_organizations(current_user, autosave: false)
+    instantiate_convict
     authorize @convict
 
     if @convict.save
-      # TODO : mettre une petite notif pour dire que le probationnaire a bien été créé ?
-      redirect_to select_path(params)
+      redirect_to select_path(params), notice: t('.notice')
     else
       @duplicate_convict = find_duplicate_convict
 
@@ -229,5 +225,12 @@ class ConvictsController < ApplicationController
     scope = policy_scope(base_filter)
     scope = scope.search_by_name_and_phone(query) if query.present?
     scope.order('last_name asc').page params[:page]
+  end
+
+  def instantiate_convict
+    @convict = Convict.new(convict_params)
+    @convict.creating_organization = current_organization
+    @convict.current_user = current_user
+    @convict.update_organizations(current_user, autosave: false)
   end
 end
