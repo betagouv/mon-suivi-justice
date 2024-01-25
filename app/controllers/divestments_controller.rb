@@ -8,14 +8,6 @@ class DivestmentsController < ApplicationController
       convict = Convict.find(params[:convict_id])
       divestment.convict_id = convict.id
 
-      divestment = Divestment.new(
-        convict_id: convict.id,
-        user_id: current_user.id,
-        organization_id: current_organization.id
-      )
-
-      authorize divestment
-
       DivestmentCreatorService.new(convict, current_user, divestment).call
       redirect_after_creation(convict)
     rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
