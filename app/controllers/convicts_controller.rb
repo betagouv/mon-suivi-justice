@@ -14,12 +14,17 @@ class ConvictsController < ApplicationController
   end
 
   def index
-    query = params[:q]
-    query = add_prefix_to_phone(params[:q]) if query =~ (/\d/) && !/^(\+33)/.match?(params[:q])
-
-    @convicts = fetch_convicts(query)
+    @convicts = fetch_convicts
 
     authorize @convicts
+  end
+
+  def search
+    query = params[:q]
+    query = add_prefix_to_phone(params[:q]) if query =~ (/\d/) && !/^(\+33)/.match?(params[:q])
+    @convicts = fetch_convicts(query)
+    authorize @convicts
+    render partial: 'shared/convicts_list', locals: { convicts: @convicts }
   end
 
   def new
@@ -220,7 +225,7 @@ class ConvictsController < ApplicationController
     params[:my_convicts] == '1' ? current_user.convicts : Convict.all
   end
 
-  def fetch_convicts(query)
+  def fetch_convicts(query = nil)
     scope = policy_scope(base_filter)
     scope = scope.search_by_name_and_phone(query) if query.present?
     scope.order('last_name asc').page params[:page]

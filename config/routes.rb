@@ -63,7 +63,7 @@ Rails.application.routes.draw do
 
   resources :convicts do
     collection do
-      get :search
+      post :search
     end
     delete 'archive'
     post 'unarchive'
