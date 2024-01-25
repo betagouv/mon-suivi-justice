@@ -1,13 +1,11 @@
-// section containing toast
 #user-notifications-container {
   position: absolute;
   right: 5%;
   top: 10%;
   width: 400px;
   z-index: 1000;
+  background-color: white;
 }
-
-// section containing the notification list
 
 .user-notification-container {
   display: flex;

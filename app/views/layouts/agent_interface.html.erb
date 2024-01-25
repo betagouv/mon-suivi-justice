@@ -23,14 +23,6 @@
   <main class="fr-container fr-pt-5w">
     <%= yield %>
     <section id="user-notifications-container">
-        <div class="fr-alert fr-alert--${data2.type} fr-alert--sm" id="${id2}">
-    <h3 class="fr-alert__title">
-      L'invitation est en cours d'envoi
-    </h3>
-    <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="">
-        Masquer le message
-    </button>
-  </div>
     </section>
   </main>
   <%= render 'layouts/ie_warning' %>
