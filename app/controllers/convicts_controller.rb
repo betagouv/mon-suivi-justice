@@ -145,8 +145,8 @@ class ConvictsController < ApplicationController
     elsif @convict.errors.where(:phone, t('activerecord.errors.models.convict.attributes.phone.taken')).any?
       Convict.find_by(phone: @convict.phone)
     elsif @convict.errors.where(:date_of_birth, :taken).any?
-      Convict.where(first_name: @convict.first_name, last_name: @convict.last_name,
-                    date_of_birth: @convict.date_of_birth, appi_uuid: [nil, '']).first
+      Convict.find_by(first_name: @convict.first_name, last_name: @convict.last_name,
+                      date_of_birth: @convict.date_of_birth, appi_uuid: [nil, ''])
     end
   end
 

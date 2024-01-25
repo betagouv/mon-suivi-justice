@@ -25,7 +25,7 @@ class Organization < ApplicationRecord
   # dessaisissements initiés
   has_many :divestments
 
-  # demandes de ddessaisissements reçues
+  # demandes de dessaisissements reçues
   has_many :organization_divestments
 
   # Pas forcément nécessaire :

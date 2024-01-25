@@ -163,7 +163,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :divestments
+  resources :divestments, only: :create
 
   match '/404' => 'errors#not_found', via: :all
   match '/422' => 'errors#unprocessable_entity', via: :all

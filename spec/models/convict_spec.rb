@@ -168,7 +168,7 @@ RSpec.describe Convict, type: :model do
     end
   end
 
-  describe 'first_name, last_namd and dob validations with and without appi_uuid' do
+  describe 'first_name, last_name and dob validations with and without appi_uuid' do
     let(:first_name) { 'Jane' }
     let(:last_name) { 'Doe' }
     let(:date_of_birth) { '1990-01-01' }
