@@ -18,43 +18,43 @@ RSpec.shared_examples 'convict search feature' do
 
     page.find('label[for="my_convicts_checkbox"]').click
 
-    expect(page).to have_content('McGregor')
-    expect(page).to have_content('Champion')
-    expect(page).not_to have_content('Rabbit')
-    expect(page).not_to have_content('Dupneu')
+    expect(page).to have_content(/McGregor/i)
+    expect(page).to have_content(/Champion/i)
+    expect(page).not_to have_content(/Rabbit/i)
+    expect(page).not_to have_content(/Dupneu/i)
 
     search_input = find('#convicts_search_field')
     search_input.set('Champ')
 
-    expect(page).not_to have_content('McGregor')
-    expect(page).to have_content('Champion')
+    expect(page).not_to have_content(/Vaillant/i)
+    expect(page).to have_content(/Champion/i)
 
     page.find('label[for="my_convicts_checkbox"]').click
 
     search_input.set('')
     search_input.set('Bob')
 
-    expect(page).to have_content('Dupneu')
-    expect(page).to have_link('Profil')
-    expect(page).not_to have_content('Rabbit')
+    expect(page).to have_content(/Dupneu/i)
+    expect(page).to have_link('Convoquer')
+    expect(page).not_to have_content(/Rabbit/i)
 
     search_input.set('')
     search_input.set('07876')
 
-    expect(page).to have_content('Rabbit')
-    expect(page).to have_link('Profil')
-    expect(page).not_to have_content('Dupneu')
+    expect(page).to have_content(/Rabbit/i)
+    expect(page).to have_link('Convoquer')
+    expect(page).not_to have_content(/Dupneu/i)
 
     search_input.set('')
     search_input.set('+337876')
 
-    expect(page).to have_content('Rabbit')
-    expect(page).to have_link('Profil')
-    expect(page).not_to have_content('Dupneu')
+    expect(page).to have_content(/Rabbit/i)
+    expect(page).to have_link('Convoquer')
+    expect(page).not_to have_content(/Dupneu/i)
 
     search_input.set('')
     search_input.set('Whatever')
-    expect(page).not_to have_content('Dupneu')
-    expect(page).not_to have_content('Rabbit')
+    expect(page).not_to have_content(/Dupneu/i)
+    expect(page).not_to have_content(/Rabbit/i)
   end
 end
