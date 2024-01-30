@@ -37,7 +37,7 @@ RSpec.describe DivestmentDecisionService do
           service = DivestmentDecisionService.new(duplicate_convict, user.organization)
           result = service.call
           expect(result[:show_button]).to be_falsey
-          expect(result[:alert]).to include('demande de dessaisissement')
+          expect(result[:duplicate_alert_details]).to include('demande de dessaisissement')
         end
       end
 

@@ -43,7 +43,7 @@ RSpec.describe DivestmentCreatorService do
       it 'sets divestment state to accepted' do
         service.call
         divestment = Divestment.last
-        expect(divestment.state).to eq('accepted')
+        expect(divestment.state).to eq('auto_accepted')
       end
     end
 
@@ -55,7 +55,7 @@ RSpec.describe DivestmentCreatorService do
       it 'sets divestment state to accepted' do
         service.call
         divestment = Divestment.last
-        expect(divestment.state).to eq('accepted')
+        expect(divestment.state).to eq('auto_accepted')
       end
     end
 
