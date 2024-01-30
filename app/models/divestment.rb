@@ -15,6 +15,10 @@ class Divestment < ApplicationRecord
       transition pending: :accepted
     end
 
+    event :auto_accept do
+      transition pending: :auto_accepted
+    end
+
     event :refuse do
       transition pending: :refused
     end

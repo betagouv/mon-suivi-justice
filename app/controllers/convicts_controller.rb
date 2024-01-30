@@ -137,6 +137,7 @@ class ConvictsController < ApplicationController
     decision = DivestmentDecisionService.new(@duplicate_convict, current_organization).call
     @show_divestment_button = decision[:show_button]
     @duplicate_alert = decision[:alert]
+    @duplicate_alert_details = decision[:duplicate_alert_details]
   end
 
   def find_duplicate_convict # rubocop:disable Metrics/AbcSize

@@ -19,7 +19,7 @@ class DivestmentCreatorService
 
   def divestment_state
     if @convict.discarded? || @convict.last_appointment_at_least_6_months_old?
-      'accepted'
+      'auto_accepted'
     else
       'pending'
     end

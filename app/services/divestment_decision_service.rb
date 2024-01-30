@@ -6,6 +6,7 @@ class DivestmentDecisionService
     @current_organization = current_organization
     @show_divestment_button = true
     @duplicate_alert = ''
+    @duplicate_alert_details = ''
   end
 
   def call
@@ -14,7 +15,7 @@ class DivestmentDecisionService
     else
       handle_duplicate_is_under_other_org
     end
-    { show_button: @show_divestment_button, alert: @duplicate_alert }
+    { show_button: @show_divestment_button, alert: @duplicate_alert, duplicate_alert_details: @duplicate_alert_details }
   end
 
   private
@@ -30,7 +31,7 @@ class DivestmentDecisionService
     future_appointments = @duplicate_convict.future_appointments
 
     @show_divestment_button = pending_divestment.nil? && future_appointments.none?
-    other_org_alert(pending_divestment)
+    other_org_alert(pending_divestment, future_appointments)
   end
 
   def org_names_with_custom_label(custom_label)
@@ -46,14 +47,19 @@ class DivestmentDecisionService
     "#{@duplicate_convict.name} suivi par #{org_names.join(', ')} ainsi que #{last}"
   end
 
-  def other_org_alert(pending_divestment)
+  def other_org_alert(pending_divestment, future_appointments)
+    org_names = formatted_organization_names_and_phones
+    @duplicate_alert = format_duplicate_alert_string(org_names)
+
     if pending_divestment.present?
-      @duplicate_alert = "Le probationnaire #{@duplicate_convict.full_name} fait \
+      @duplicate_alert_details = "Impossible de créer une demande de dessaisissement car ce probationnaire fait
                           déjà l'objet d'une demande de dessaisissement \
                           de la part de #{pending_divestment.organization.name}."
-    else
-      org_names = formatted_organization_names_and_phones
-      @duplicate_alert = format_duplicate_alert_string(org_names)
+    elsif future_appointments.any?
+      unique_org_names = future_appointments.map { |appointment| appointment.organization.name }.uniq
+      org_names_string = unique_org_names.join(', ')
+      @duplicate_alert_details = "Impossible de créer une demande de dessaisissement car ce probationnaire \n
+                      a des convocations à venir de la part de : #{org_names_string}."
     end
   end
 
