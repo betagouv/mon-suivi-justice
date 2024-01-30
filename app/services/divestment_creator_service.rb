@@ -7,12 +7,14 @@ class DivestmentCreatorService
   end
 
   def call
+    state = divestment_state
+
     ActiveRecord::Base.transaction do
-      state = divestment_state
       save_divestment(state)
       create_organization_divestments(@divestment, state)
       @convict.update_organizations_for_bex_user(@user)
     end
+    { state: }
   end
 
   private
