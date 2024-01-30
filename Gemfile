@@ -87,7 +87,7 @@ group :development do
   gem 'state_machines-graphviz', '~> 0.0.2'
   gem 'debug', '>= 1.0.0'
   gem 'solargraph', '~> 0.50.0'
-  gem 'bullet', '~> 7.1.4'
+  gem 'bullet', '~> 7.1.6'
 end
 
 group :test do
