@@ -90,7 +90,6 @@ GEM
       safely_block (>= 0.4)
     ast (2.4.2)
     backport (1.2.0)
-    base64 (0.2.0)
     bcrypt (3.1.20)
     benchmark (0.3.0)
     bindex (0.8.1)
@@ -164,11 +163,10 @@ GEM
       railties (>= 5.0.0)
     faker (3.2.2)
       i18n (>= 1.8.11, < 2)
-    faraday (2.8.1)
-      base64
-      faraday-net_http (>= 2.0, < 3.1)
-      ruby2_keywords (>= 0.0.4)
-    faraday-net_http (3.0.2)
+    faraday (2.9.0)
+      faraday-net_http (>= 2.0, < 3.2)
+    faraday-net_http (3.1.0)
+      net-http
     faraday-retry (2.2.0)
       faraday (~> 2.0)
     ffi (1.16.3)
@@ -272,6 +270,8 @@ GEM
     minitest (5.21.2)
     msgpack (1.7.2)
     nenv (0.3.0)
+    net-http (0.4.1)
+      uri
     net-imap (0.4.9.1)
       date
       net-protocol
@@ -440,7 +440,6 @@ GEM
     ruby-graphviz (1.2.5)
       rexml
     ruby-progressbar (1.13.0)
-    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     safely_block (0.4.0)
     sassc (2.4.0)
@@ -541,6 +540,7 @@ GEM
     unf_ext (0.0.8.2)
     unicode-display_width (2.5.0)
     uniform_notifier (1.16.0)
+    uri (0.13.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.1)
@@ -597,7 +597,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.8.1)
   factory_bot_rails (~> 6.2.0)
   faker (~> 3.2.2)
-  faraday (~> 2.8.1)
+  faraday (~> 2.9.0)
   faraday-retry (~> 2.2.0)
   groupdate (~> 6.4.0)
   guard-rspec (~> 4.7.3)
