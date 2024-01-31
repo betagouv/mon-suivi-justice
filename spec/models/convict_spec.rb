@@ -70,31 +70,6 @@ RSpec.describe Convict, type: :model do
     end
   end
 
-  describe '.check_duplicates' do
-    before do
-      @user = create_admin_user_and_login
-    end
-
-    it 'adds duplicate if names are the same' do
-      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
-      convict2 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
-
-      convict1.check_duplicates
-
-      expect(convict1.duplicates).to eq([convict2])
-    end
-
-    it "doesn't add duplicate if appi_uuid are different" do
-      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '1234',
-                                  date_of_birth: '1980-01-01')
-      create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '5678', date_of_birth: '1980-01-01')
-
-      convict1.check_duplicates
-
-      expect(convict1.duplicates).to be_empty
-    end
-  end
-
   describe 'either_city_homeless_lives_abroad_present' do
     it('is valid when the user is not using inter-ressort') do
       expect(build(:convict, city: nil, homeless: false, lives_abroad: false)).to be_valid
@@ -190,6 +165,54 @@ RSpec.describe Convict, type: :model do
 
       convict.update_organizations(@current_user)
       expect(convict.organizations.pluck(:id)).to match_array([@current_user.organization.id])
+    end
+  end
+
+  describe 'first_name, last_name and dob validations with and without appi_uuid' do
+    let(:first_name) { 'Jane' }
+    let(:last_name) { 'Doe' }
+    let(:date_of_birth) { '1990-01-01' }
+    let!(:existing_convict) { create(:convict, first_name:, last_name:, date_of_birth:, appi_uuid: nil) }
+
+    context 'when validating date_of_birth uniqueness' do
+      it 'is invalid with a duplicate date_of_birth, first_name, and last_name without appi_uuid' do
+        new_convict = build(:convict, first_name:, last_name:, date_of_birth:, appi_uuid: nil)
+        expect(new_convict).not_to be_valid
+        expect(new_convict.errors[:date_of_birth]).to include(Convict::DOB_UNIQUENESS_MESSAGE)
+      end
+
+      it 'is valid with a unique combination of date_of_birth, first_name, and last_name' do
+        unique_convict = build(:convict, first_name:, last_name: 'Smith', date_of_birth:, appi_uuid: nil)
+        expect(unique_convict).to be_valid
+      end
+
+      it 'is valid with a duplicate date_of_birth, first_name, and last_name but with appi_uuid' do
+        convict_with_appi_uuid = build(:convict, first_name:, last_name:, date_of_birth:, appi_uuid: '123456')
+        expect(convict_with_appi_uuid).to be_valid
+      end
+    end
+  end
+
+  describe '#update_organizations_for_bex_user' do
+    let(:bex_user) { create(:user, :in_organization, role: 'bex') }
+    let(:convict) { create(:convict) }
+
+    context 'when the user works at BEX' do
+      before { allow(bex_user).to receive(:work_at_bex?).and_return(true) }
+
+      it 'adds the user’s organizations to the convict' do
+        expect { convict.update_organizations_for_bex_user(bex_user) }
+          .to change { convict.organizations.count }.by(bex_user.organizations.count)
+      end
+    end
+
+    context 'when the user does not work at BEX' do
+      let(:non_bex_user) { create(:user, :in_organization, role: 'cpip') }
+
+      it 'does not change the convict’s organizations' do
+        expect { convict.update_organizations_for_bex_user(non_bex_user) }
+          .not_to(change { convict.organizations.count })
+      end
     end
   end
 end
