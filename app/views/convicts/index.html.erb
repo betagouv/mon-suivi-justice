@@ -12,8 +12,6 @@
         <% end %>
       </div>
     </div>
-    <%= turbo_frame_tag "convicts_list" do %>
-      <%= render partial: "shared/convicts_list", locals: { convicts: @convicts } %>
-    <% end %>
+    <%= render partial: "shared/convicts_list", locals: { convicts: @convicts } %>
   </div>
 </div>
