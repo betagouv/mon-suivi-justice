@@ -14,17 +14,17 @@ class ConvictsController < ApplicationController
   end
 
   def index
-    query = params[:q]
-    query = add_prefix_to_phone(params[:q]) if query =~ (/\d/) && !/^(\+33)/.match?(params[:q])
-
-    @convicts = fetch_convicts(query)
+    @convicts = fetch_convicts
 
     authorize @convicts
+  end
 
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
+  def search
+    query = params[:q]
+    query = add_prefix_to_phone(params[:q]) if query =~ (/\d/) && !/^(\+33)/.match?(params[:q])
+    @convicts = fetch_convicts(query)
+    authorize @convicts
+    render partial: 'shared/convicts_list', locals: { convicts: @convicts }
   end
 
   def new
@@ -35,13 +35,18 @@ class ConvictsController < ApplicationController
   end
 
   def create
-    @convict = Convict.new(convict_params)
-    @convict.creating_organization = current_organization
-    @convict.current_user = current_user
-    @convict.update_organizations(current_user, autosave: false)
+    instantiate_convict
     authorize @convict
 
-    save_and_redirect(@convict)
+    if @convict.save
+      redirect_to select_path(params), notice: t('.notice')
+    else
+      @duplicate_convict = find_duplicate_convict
+
+      divestment_decision if @duplicate_convict.present?
+
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -130,11 +135,21 @@ class ConvictsController < ApplicationController
 
   private
 
-  def save_and_redirect(convict)
-    if duplicate_present?(convict) && !force_duplication?
-      render :new, status: :unprocessable_entity
-    else
-      handle_save_and_redirect(convict)
+  def divestment_decision
+    decision = DivestmentDecisionService.new(@duplicate_convict, current_organization).call
+    @show_divestment_button = decision[:show_button]
+    @duplicate_alert = decision[:alert]
+    @duplicate_alert_details = decision[:duplicate_alert_details]
+  end
+
+  def find_duplicate_convict # rubocop:disable Metrics/AbcSize
+    if @convict.errors.where(:appi_uuid, :taken).any?
+      Convict.find_by(appi_uuid: @convict.appi_uuid)
+    elsif @convict.errors.where(:phone, t('activerecord.errors.models.convict.attributes.phone.taken')).any?
+      Convict.find_by(phone: @convict.phone)
+    elsif @convict.errors.where(:date_of_birth, :taken).any?
+      Convict.find_by(first_name: @convict.first_name, last_name: @convict.last_name,
+                      date_of_birth: @convict.date_of_birth, appi_uuid: [nil, ''])
     end
   end
 
@@ -186,15 +201,6 @@ class ConvictsController < ApplicationController
     end
   end
 
-  def duplicate_present?(convict)
-    convict.check_duplicates
-    convict.duplicates.present?
-  end
-
-  def force_duplication?
-    ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
-  end
-
   def update_convict
     @convict.current_user = current_user
     @convict.update_organizations(current_user) if @convict.update(convict_params)
@@ -230,9 +236,16 @@ class ConvictsController < ApplicationController
     params[:my_convicts] == '1' ? current_user.convicts : Convict.all
   end
 
-  def fetch_convicts(query)
+  def fetch_convicts(query = nil)
     scope = policy_scope(base_filter)
     scope = scope.search_by_name_and_phone(query) if query.present?
     scope.order('last_name asc').page params[:page]
+  end
+
+  def instantiate_convict
+    @convict = Convict.new(convict_params)
+    @convict.creating_organization = current_organization
+    @convict.current_user = current_user
+    @convict.update_organizations(current_user, autosave: false)
   end
 end
