@@ -1,7 +1,12 @@
 <tr id="<%= "#{dom_id(convict)}_row" %>">
-    <td><%= convict.first_name %></td>
-    <td><%= convict.last_name %></td>
-    <td><%= l(convict.date_of_birth, format: :long, default: '') %></td>
+    <td>        
+        <% if policy(convict).show? %>
+            <%= link_to convict.name, convict_path(convict), class: 'index-control', data: { turbo: false } %>
+        <% else %>
+            <%= convict.name %>
+        <% end %>
+    </td>
+    <td><%= convict.date_of_birth&.to_fs %></td>
     <td><%= convict.appi_uuid %></td>
     <td><%= convict.display_phone %></td>
     <td>
@@ -21,24 +26,29 @@
         </div>
     </td>
     <td>
-        <% if policy(convict).show? %>
-        <%= link_to t('show_convict'), convict_path(convict), class: 'index-control', data: { turbo: false } %>
+        <% next_appointment = policy_scope(convict.future_appointments).first %>
+        <% if next_appointment && policy(next_appointment).show? %>
+            <%= link_to next_appointment.date&.to_fs, appointment_path(next_appointment), class: 'index-control', data: { turbo: false } %>
+        <% elsif next_appointment %>
+            <%= next_appointment.date&.to_fs %>
+        <% end %>
+    </td>
+    <td>
+        <% if policy(:appointment).new? %>
+            <%= link_to "Convoquer", new_appointment_path(convict_id: convict.id), class: 'index-control bold',
+                                                    data: { turbo: false }
+                                                    %>
         <% end %>
         <% if policy(convict).edit? %>
-        <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control', data: { turbo: false } %>
+            <%= link_to t('edit'), edit_convict_path(convict), class: 'index-control', data: { turbo: false } %>
         <% end %>
         <% if policy(convict).archive? %>
-        <%= link_to t('archive'), convict_archive_path(convict),
+            <%= link_to t('archive'), convict_archive_path(convict),
                                                                 data: { 'turbo-confirm': t('archive_convict_confirmation'), "turbo_method": :delete },
                                                                 class: 'index-control' %>
         <% end %>
         <% if policy(convict).unarchive? %>
-        <%= link_to t('unarchive'), convict_unarchive_path(convict), data: { "turbo_method": :post }, class: 'index-control' %>
-        <% end %>
-        <% if policy(convict).destroy? %>
-        <%= link_to t('delete'), convict_path(convict), class: 'index-control',
-                                                    data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :delete }
-                                                    %>
+            <%= link_to t('unarchive'), convict_unarchive_path(convict), data: { "turbo_method": :post }, class: 'index-control' %>
         <% end %>
     </td>
 </tr>
