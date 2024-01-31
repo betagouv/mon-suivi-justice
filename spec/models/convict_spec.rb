@@ -338,6 +338,7 @@ RSpec.describe Convict, type: :model do
       expect(convict.organizations.pluck(:id)).to match_array([@current_user.organization.id])
     end
   end
+  
   describe '#toggle_japat_orgs' do
     let(:tj_paris) { create(:organization, organization_type: :tj, name: 'TJ Paris') }
     let(:spip_paris) { create(:organization, organization_type: :spip, name: 'SPIP 75') }
