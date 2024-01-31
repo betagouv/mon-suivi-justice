@@ -62,12 +62,20 @@ RSpec.describe Convict, type: :model do
         create(:convict, organizations: [organization], first_name:, last_name:, date_of_birth:, phone:)
       end
 
-      it 'should NOT allow to create a convict with same first_name, last_name and dob but different appi_number' do
+      it 'should NOT allow to create a convict with same first_name, last_name and dob and no appi_uuid' do
         new_convict = build(:convict, organizations: [organization], first_name:, last_name:,
                                       date_of_birth:)
 
         expect(new_convict.valid?).to eq(false)
         expect(new_convict.errors[:date_of_birth]).to include('Un probationnaire avec les mêmes prénom, nom et date de naissance existe déjà')
+      end
+
+      it 'should allow to create a convict with same first_name, last_name and dob but with appi_number' do
+        appi_uuid = "2024#{Faker::Number.number(digits: 16)}"
+        new_convict = build(:convict, organizations: [organization], appi_uuid:, first_name:, last_name:,
+                                      date_of_birth:)
+
+        expect(new_convict.valid?).to eq(true)
       end
 
       it 'should not allow to create a convict with same phone_number' do
