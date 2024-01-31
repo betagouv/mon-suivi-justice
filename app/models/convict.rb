@@ -43,7 +43,7 @@ class Convict < ApplicationRecord
                                           unless: -> { appi_uuid.present? }
 
   validates :date_of_birth, presence: true, unless: proc { current_user&.admin? }
-  validate :date_of_birth_date_cannot_be_in_the_past
+  validate :date_of_birth_date_cannot_be_in_the_future
 
   validates :organizations, presence: true
   validate :unique_organizations
@@ -132,7 +132,7 @@ class Convict < ApplicationRecord
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.taken')
   end
 
-  def date_of_birth_date_cannot_be_in_the_past
+  def date_of_birth_date_cannot_be_in_the_future
     return unless date_of_birth.present? && date_of_birth >= Date.today
 
     errors.add(:date_of_birth, I18n.t('activerecord.errors.models.convict.attributes.dob.not_in_the_future'))

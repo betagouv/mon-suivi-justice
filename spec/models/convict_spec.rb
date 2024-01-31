@@ -10,6 +10,79 @@ RSpec.describe Convict, type: :model do
   it { should validate_presence_of(:invitation_to_convict_interface_count) }
   it { should validate_uniqueness_of(:appi_uuid) }
 
+  describe 'uniqness' do
+    context 'when appi_uuid is present' do
+      let(:organization) { Organization.create(name: 'Organization') }
+      let(:appi_uuid) { "2024#{Faker::Number.number(digits: 16)}" }
+      let(:first_name) { Faker::Name.first_name }
+      let(:last_name) { Faker::Name.last_name }
+      let(:phone) { Faker::Base.numerify('+3361#######') }
+      let(:date_of_birth) { Faker::Date.birthday(min_age: 18, max_age: 65) }
+      let!(:existing_convict) do
+        create(:convict, organizations: [organization], appi_uuid:, first_name:, last_name:, date_of_birth:, phone:)
+      end
+
+      it 'should not allow to create a convict with the same appi_uuid' do
+        new_convict = build(:convict, organizations: [organization], appi_uuid:)
+
+        expect(new_convict.valid?).to eq(false)
+        expect(new_convict.errors[:appi_uuid]).to include("n'est pas disponible")
+      end
+
+      it 'should allow to create a convict with same first_name, last_name and dob but different appi_number' do
+        appi_uuid2 = "2024#{Faker::Number.number(digits: 16)}"
+        new_convict = build(:convict, organizations: [organization], appi_uuid: appi_uuid2, first_name:, last_name:,
+                                      date_of_birth:)
+
+        expect(new_convict.valid?).to eq(true)
+      end
+
+      it 'should allow to create a convict with same first_name, last_name and dob but without appi_number' do
+        new_convict = build(:convict, organizations: [organization], first_name:, last_name:,
+                                      date_of_birth:)
+
+        expect(new_convict.valid?).to eq(false)
+        p new_convict.errors
+      end
+
+      it 'should not allow to create a convict with same phone_number' do
+        appi_uuid2 = "2024#{Faker::Number.number(digits: 16)}"
+        new_convict = build(:convict, organizations: [organization], appi_uuid: appi_uuid2, first_name:, last_name:,
+                                      date_of_birth:, phone:)
+        expect(new_convict.valid?).to eq(false)
+        expect(new_convict.errors[:phone].first).to include('Un probationnaire est déjà enregistré avec ce numéro de téléphone')
+      end
+    end
+    context 'when appi_uuid is not present' do
+      let(:organization) { Organization.create(name: 'Organization') }
+      let(:first_name) { Faker::Name.first_name }
+      let(:last_name) { Faker::Name.last_name }
+      let(:phone) { Faker::Base.numerify('+3361#######') }
+      let(:date_of_birth) { Faker::Date.birthday(min_age: 18, max_age: 65) }
+      let!(:existing_convict) do
+        create(:convict, organizations: [organization], first_name:, last_name:, date_of_birth:, phone:)
+      end
+
+      it 'should NOT allow to create a convict with same first_name, last_name and dob but different appi_number' do
+        new_convict = build(:convict, organizations: [organization], first_name:, last_name:,
+                                      date_of_birth:)
+
+        expect(new_convict.valid?).to eq(false)
+        expect(new_convict.errors[:date_of_birth]).to include('Un probationnaire avec les mêmes prénom, nom et date de naissance existe déjà')
+      end
+
+      it 'should not allow to create a convict with same phone_number' do
+        first_name2 = Faker::Name.first_name
+        last_name2 = Faker::Name.last_name
+        date_of_birth2 = Faker::Date.birthday(min_age: 18, max_age: 65)
+        new_convict = build(:convict, organizations: [organization], first_name: first_name2, last_name: last_name2,
+                                      date_of_birth: date_of_birth2, phone:)
+        expect(new_convict.valid?).to eq(false)
+        expect(new_convict.errors[:phone].first).to include('Un probationnaire est déjà enregistré avec ce numéro de téléphone')
+      end
+    end
+  end
+
   it_behaves_like 'normalized_phone'
 
   describe 'Validations' do
