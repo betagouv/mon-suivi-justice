@@ -1,28 +1,30 @@
-<% if defined?(@convicts) %>
-  <% if @convicts.length > 0 %>
-    <div class="fr-table fr-table--bordered fr-mt-2w">
-      <table>
-        <caption>Résultats de la recherche</caption>
-        <thead>
-          <tr>
-            <th scope="col"><%= t('activerecord.attributes.convict.name') %></th>
-            <th scope="col"><%= t('activerecord.attributes.convict.date_of_birth') %></th>
-            <th scope="col"><%= t('activerecord.attributes.convict.appi_uuid') %></th>
-            <th scope="col"><%= t('activerecord.attributes.convict.phone') %></th>
-            <th scope="col"><%= t('activerecord.attributes.convict.cpip') %></th>
-            <th scope="col"> Prochaine convocation </th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @convicts.each do |convict| %>
-            <%= render partial: "shared/convict_row", locals: { convict: convict } %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-    <%= paginate @convicts %>
-  <% else %>
-    <p>Aucun résultat trouvé</p>
+<%= turbo_frame_tag "convicts_list" do %>
+  <% if defined?(@convicts) %>
+    <% if @convicts.length > 0 %>
+      <div class="fr-table fr-table--bordered fr-mt-2w">
+        <table>
+          <caption>Résultats de la recherche</caption>
+          <thead>
+            <tr>
+              <th scope="col"><%= t('activerecord.attributes.convict.name') %></th>
+              <th scope="col"><%= t('activerecord.attributes.convict.date_of_birth') %></th>
+              <th scope="col"><%= t('activerecord.attributes.convict.appi_uuid') %></th>
+              <th scope="col"><%= t('activerecord.attributes.convict.phone') %></th>
+              <th scope="col"><%= t('activerecord.attributes.convict.cpip') %></th>
+              <th scope="col"> Prochaine convocation </th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @convicts.each do |convict| %>
+              <%= render partial: "shared/convict_row", locals: { convict: convict } %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <%= paginate @convicts %>
+    <% else %>
+      <p>Aucun résultat trouvé</p>
+    <% end %>
   <% end %>
 <% end %>
