@@ -38,9 +38,7 @@ class Convict < ApplicationRecord
 
   validate :either_city_homeless_lives_abroad_present, if: proc { current_user&.can_use_inter_ressort? }
 
-  validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
-                                          case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE,
-                                          unless: -> { appi_uuid.present? }
+  validate :unique_name_and_dob_unless_uuid
 
   validates :date_of_birth, presence: true, unless: proc { current_user&.admin? }
   validate :date_of_birth_date_cannot_be_in_the_future
@@ -206,5 +204,14 @@ class Convict < ApplicationRecord
 
     errors.add(:organizations,
                I18n.t('activerecord.errors.models.convict.attributes.organizations.multiple_uniqueness'))
+  end
+
+  def unique_name_and_dob_unless_uuid
+    existing_convict = Convict.where(first_name:, last_name:, date_of_birth:)
+
+    # Check if there's an existing record with the same attributes and no appi_uuid
+    return unless existing_convict.exists?(appi_uuid: nil) && appi_uuid.blank?
+
+    errors.add(:date_of_birth, DOB_UNIQUENESS_MESSAGE)
   end
 end

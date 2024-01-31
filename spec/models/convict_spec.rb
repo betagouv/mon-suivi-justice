@@ -41,8 +41,7 @@ RSpec.describe Convict, type: :model do
         new_convict = build(:convict, organizations: [organization], first_name:, last_name:,
                                       date_of_birth:)
 
-        expect(new_convict.valid?).to eq(false)
-        p new_convict.errors
+        expect(new_convict.valid?).to eq(true)
       end
 
       it 'should not allow to create a convict with same phone_number' do
