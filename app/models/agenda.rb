@@ -29,7 +29,7 @@ class Agenda < ApplicationRecord
 
   scope :with_open_slots, lambda { |appointment_type|
     joins(:slots).where('slots.appointment_type_id = ?', appointment_type.id)
-                 .where('slots.date >= ?', Date.today).uniq
+                 .where('slots.date >= ?', Time.zone.today).uniq
   }
 
   def self.ransackable_attributes(_auth_object = nil)
