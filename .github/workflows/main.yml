@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [develop, feature/inter-ressort]
+    branches: [develop, feature/divestment]
   pull_request:
-    branches: [develop, feature/inter-ressort]
+    branches: [develop, feature/divestment]
 
 jobs:
   build:
