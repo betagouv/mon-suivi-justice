@@ -26,16 +26,16 @@
         </div>
     </td>
     <td>
-        <% @next_appointment = policy_scope(convict.future_appointments).first %>
-        <% if @next_appointment && policy(@next_appointment).show? %>
-            <%= link_to @next_appointment.date&.to_fs, appointment_path(@next_appointment), class: 'index-control', data: { turbo: false } %>
-        <% elsif @next_appointment %>
-            <%= @next_appointment.date&.to_fs %>
+        <% next_appointment = policy_scope(convict.future_appointments).first %>
+        <% if next_appointment && policy(next_appointment).show? %>
+            <%= link_to next_appointment.date&.to_fs, appointment_path(next_appointment), class: 'index-control', data: { turbo: false } %>
+        <% elsif next_appointment %>
+            <%= next_appointment.date&.to_fs %>
         <% end %>
     </td>
     <td>
         <% if policy(:appointment).new? %>
-            <%= link_to "Convoquer", new_appointment_path(convict_id: convict.id), class: 'index-control',
+            <%= link_to "Convoquer", new_appointment_path(convict_id: convict.id), class: 'index-control bold',
                                                     data: { turbo: false }
                                                     %>
         <% end %>
