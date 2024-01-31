@@ -21,6 +21,8 @@ class Convict < ApplicationRecord
   has_many :departments, through: :areas_convicts_mappings, source: :area, source_type: 'Department'
   has_many :jurisdictions, through: :areas_convicts_mappings, source: :area, source_type: 'Jurisdiction'
 
+  has_many :divestments, dependent: :destroy
+
   belongs_to :user, optional: true
 
   belongs_to :city, optional: true
@@ -35,7 +37,7 @@ class Convict < ApplicationRecord
 
   validates :first_name, :last_name, :invitation_to_convict_interface_count, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
-  validate :phone_uniqueness
+  validate :phone_uniqueness, if: -> { phone.present? }
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
   validate :either_city_homeless_lives_abroad_present, if: proc { current_user&.can_use_inter_ressort? }
@@ -157,11 +159,6 @@ class Convict < ApplicationRecord
     errors.add(:base, I18n.t('activerecord.errors.models.convict.attributes.city.all_blanks'))
   end
 
-  def check_duplicates
-    duplicates = find_duplicates
-    self.duplicates = duplicates
-  end
-
   def update_convict_api
     UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
   end
@@ -203,6 +200,16 @@ class Convict < ApplicationRecord
 
     save
   end
+  
+  def update_organizations_for_bex_user(user)
+    return unless user.work_at_bex?
+
+    user.organizations.each do |org|
+      organizations << org unless organizations.include?(org)
+    end
+
+    save
+  end
 
   def find_duplicates
     name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'
@@ -228,6 +235,11 @@ class Convict < ApplicationRecord
     return unless existing_convict.exists?(appi_uuid: [nil, '']) && appi_uuid.blank?
 
     errors.add(:date_of_birth, DOB_UNIQUENESS_MESSAGE)
+  end
+
+  def last_appointment_at_least_6_months_old?
+    last_appointment_date = appointments.joins(:slot).maximum('slots.date')
+    last_appointment_date.present? && last_appointment_date < 6.months.ago
   end
 
   private

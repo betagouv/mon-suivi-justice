@@ -453,4 +453,51 @@ RSpec.describe Convict, type: :model do
       end
     end
   end
+  describe 'first_name, last_name and dob validations with and without appi_uuid' do
+    let(:first_name) { 'Jane' }
+    let(:last_name) { 'Doe' }
+    let(:date_of_birth) { '1990-01-01' }
+    let!(:existing_convict) { create(:convict, first_name:, last_name:, date_of_birth:, appi_uuid: nil) }
+
+    context 'when validating date_of_birth uniqueness' do
+      it 'is invalid with a duplicate date_of_birth, first_name, and last_name without appi_uuid' do
+        new_convict = build(:convict, first_name:, last_name:, date_of_birth:, appi_uuid: nil)
+        expect(new_convict).not_to be_valid
+        expect(new_convict.errors[:date_of_birth]).to include(Convict::DOB_UNIQUENESS_MESSAGE)
+      end
+
+      it 'is valid with a unique combination of date_of_birth, first_name, and last_name' do
+        unique_convict = build(:convict, first_name:, last_name: 'Smith', date_of_birth:, appi_uuid: nil)
+        expect(unique_convict).to be_valid
+      end
+
+      it 'is valid with a duplicate date_of_birth, first_name, and last_name but with appi_uuid' do
+        convict_with_appi_uuid = build(:convict, first_name:, last_name:, date_of_birth:, appi_uuid: '123456')
+        expect(convict_with_appi_uuid).to be_valid
+      end
+    end
+  end
+
+  describe '#update_organizations_for_bex_user' do
+    let(:bex_user) { create(:user, :in_organization, role: 'bex') }
+    let(:convict) { create(:convict) }
+
+    context 'when the user works at BEX' do
+      before { allow(bex_user).to receive(:work_at_bex?).and_return(true) }
+
+      it 'adds the user\'s organizations to the convict' do
+        expect { convict.update_organizations_for_bex_user(bex_user) }
+          .to change { convict.organizations.count }.by(bex_user.organizations.count)
+      end
+    end
+
+    context 'when the user does not work at BEX' do
+      let(:non_bex_user) { create(:user, :in_organization, role: 'cpip') }
+
+      it 'does not change the convict’s organizations' do
+        expect { convict.update_organizations_for_bex_user(non_bex_user) }
+          .not_to(change { convict.organizations.count })
+      end
+    end
+  end
 end

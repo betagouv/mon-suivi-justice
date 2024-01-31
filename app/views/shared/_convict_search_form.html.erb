@@ -1,4 +1,4 @@
-<%= form_with url: convicts_path, method: :get, data: { turbo_frame: "convicts_list",
+<%= form_with url: search_convicts_path, data: { turbo_frame: "convicts_list",
                                                         controller: "debounce-submit",
                                                         action: "search->debounce-submit#submit" },
                                                         id: "convicts_search_form" do |form| %>

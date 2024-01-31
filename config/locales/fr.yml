@@ -77,6 +77,10 @@ fr:
       add_city: "ajoutez une commune au probationnaire"
       change_city: "modifiez la commune du probationnaire"
 
+  divestments:
+    new:
+      title: 'Créer un déssaisissement'
+    create: 'Créer un déssaisissement'
 
   appointment:
     create:
@@ -117,6 +121,9 @@ fr:
       user_alert:
         one: "Alerte utilisateur"
         other: "Alertes utilisateurs"
+      divestment:
+        one: "Dessaisissement"
+        other: "Dessaisissements"
 
     attributes:
       convict:
@@ -221,6 +228,9 @@ fr:
         organization_types:
           spip: "SPIP"
           tj: "TJ"
+      divestment:
+        organization_to_id: "Service vers lequel le dossier est transféré"
+        organization_from_id: "Service d'origine du dossier"
 
     state_machines:
       states:
@@ -447,6 +457,9 @@ fr:
   edit_organization_remove_extrafield: "Supprimer cette colonne"
 
   new_convict_title: "Nouveau probationnaire"
+  new_divestment: "Créer un dessaisissement"
+  new_divestment_bex: "Demander un dessaisissement et convoquer"
+  new_divestment_confirm: "Etes-vous sûr(e) de vouloir créer cette demande de dessaisissement ?"
   my_convicts: "Afficher uniquement mes probationnaires"
   new_first_appointment_title: "Créneaux disponibles"
   new_convict_submit: "sans convoquer"
@@ -551,6 +564,14 @@ fr:
     waiting_line:
       for_a_service: "Convocation au statut inconnu au %{orga}"
       for_a_user: "Vos convocations au statut inconnu"
+
+  divestments:
+    create:
+      success: Les demandes des dessaisissements ont bien été créées. Les services concernés ont été notifiés.
+      success_bex: Les demandes des dessaisissements ont bien été créées. Les services actuels du probationnaire ont été prévenus. Vous serez tenu au courant du résultat des demandes sous 10 jours au plus.
+      auto_accepted: La demande a été automatiquement validée car le suivi du probationnaire n’était plus actif
+      convict_not_found: Le probationnaire n'existe pas
+      error: "Une erreur est survenue lors de la création des dessaisissements : %{error}"
 
   users:
     update:
