@@ -16,6 +16,7 @@ RSpec.describe DivestmentCreatorService do
 
       it 'creates organization divestments with pending state' do
         convict.reload
+        p convict.errors
         convict.organizations.each do |org|
           create(:user, role: 'local_admin', organization: org)
         end

@@ -59,12 +59,12 @@ RSpec.describe Convict, type: :model do
       let(:phone) { Faker::Base.numerify('+3361#######') }
       let(:date_of_birth) { Faker::Date.birthday(min_age: 18, max_age: 65) }
       let!(:existing_convict) do
-        create(:convict, organizations: [organization], first_name:, last_name:, date_of_birth:, phone:)
+        create(:convict, organizations: [organization], first_name:, last_name:, date_of_birth:, phone:, appi_uuid: nil)
       end
 
       it 'should NOT allow to create a convict with same first_name, last_name and dob and no appi_uuid' do
         new_convict = build(:convict, organizations: [organization], first_name:, last_name:,
-                                      date_of_birth:)
+                                      date_of_birth:, appi_uuid: '')
 
         expect(new_convict.valid?).to eq(false)
         expect(new_convict.errors[:date_of_birth]).to include('Un probationnaire avec les mêmes prénom, nom et date de naissance existe déjà')

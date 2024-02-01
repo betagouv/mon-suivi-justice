@@ -1,10 +1,11 @@
 FactoryBot.define do
   factory :convict do
-    first_name { 'Jane' }
-    last_name { 'Doe' }
-    sequence(:phone, 2) { |n| "060606060#{n}" }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    phone { Faker::Base.numerify('+3361#######') }
     no_phone { false }
-    sequence(:date_of_birth) { |n| (Date.new(1990, 1, 1) - n.days).to_fs }
+    date_of_birth { Faker::Date.birthday(min_age: 18, max_age: 65) }
     organizations { [create(:organization)] }
+    appi_uuid { "2024#{Faker::Number.number(digits: 16)}"}
   end
 end
