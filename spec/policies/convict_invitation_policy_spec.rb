@@ -21,7 +21,7 @@ describe ConvictInvitationPolicy do
     let(:user) { build(:user, role: 'local_admin') }
     let(:convict) { build(:convict) }
 
-    it { is_expected.not_to permit_action(:create) }
+    it { is_expected.to permit_action(:create) }
   end
 
   context 'for a local_admin' do
@@ -35,7 +35,7 @@ describe ConvictInvitationPolicy do
     let(:user) { build(:user, role: 'prosecutor', email: 'delphine.deneubourg@justice.fr') }
     let(:convict) { build(:convict) }
 
-    it { is_expected.to permit_action(:create) }
+    it { is_expected.to forbid_action(:create) }
   end
 
   context 'for a jap user' do
@@ -56,21 +56,21 @@ describe ConvictInvitationPolicy do
     let(:user) { build(:user, role: 'dir_greff_bex', email: 'delphine.deneubourg@justice.fr') }
     let(:convict) { build(:convict) }
 
-    it { is_expected.to permit_action(:create) }
+    it { is_expected.to forbid_action(:create) }
   end
 
   context 'for a bex user' do
     let(:user) { build(:user, role: 'bex', email: 'delphine.deneubourg@justice.fr') }
     let(:convict) { build(:convict) }
 
-    it { is_expected.to permit_action(:create) }
+    it { is_expected.to forbid_action(:create) }
   end
 
   context 'for a greff_co user' do
     let(:user) { build(:user, role: 'greff_co', email: 'delphine.deneubourg@justice.fr') }
     let(:convict) { build(:convict) }
 
-    it { is_expected.to permit_action(:create) }
+    it { is_expected.to forbid_action(:create) }
   end
 
   context 'for a dir_greff_sap user' do
@@ -98,21 +98,21 @@ describe ConvictInvitationPolicy do
     let(:user) { build(:user, role: 'educator', email: 'delphine.deneubourg@justice.fr') }
     let(:convict) { build(:convict) }
 
-    it { is_expected.to permit_action(:create) }
+    it { is_expected.to forbid_action(:create) }
   end
 
   context 'for a psychologist user' do
     let(:user) { build(:user, role: 'psychologist', email: 'delphine.deneubourg@justice.fr') }
     let(:convict) { build(:convict) }
 
-    it { is_expected.to permit_action(:create) }
+    it { is_expected.to forbid_action(:create) }
   end
 
   context 'for a overseer user' do
     let(:user) { build(:user, role: 'overseer', email: 'delphine.deneubourg@justice.fr') }
     let(:convict) { build(:convict) }
 
-    it { is_expected.to permit_action(:create) }
+    it { is_expected.to forbid_action(:create) }
   end
 
   context 'for a dpip user' do
