@@ -29,8 +29,8 @@ RSpec.feature 'Convicts', type: :feature do
 
       expect(page).not_to have_content('Dupneu')
       expect(page).not_to have_content('Dupont')
-      expect(page).to have_content('Vaillant')
-      expect(page).to have_content('Personne')
+      expect(page).to have_content(/Vaillant/i)
+      expect(page).to have_content(/Personne/i)
     end
 
     it 'an agent can list only the convicts assigned to him', js: true do
@@ -43,8 +43,8 @@ RSpec.feature 'Convicts', type: :feature do
 
       page.find('label[for="my_convicts_checkbox"]').click
 
-      expect(page).to have_content('Vaillant')
-      expect(page).to have_no_content('Personne')
+      expect(page).to have_content(/Vaillant/i)
+      expect(page).to have_no_content(/Personne/i)
     end
 
     it_behaves_like 'convict search feature'

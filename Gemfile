@@ -29,7 +29,7 @@ gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
 gem 'dotenv-rails', '~> 2.8.1'
-gem 'sidekiq', '~> 7.1.6'
+gem 'sidekiq', '~> 7.2.1'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
@@ -45,7 +45,7 @@ gem 'ruby-progressbar', '~> 1.13.0'
 gem 'jbuilder', '~> 2.11.5'
 gem 'groupdate', '~> 6.4.0'
 
-gem 'faraday', '~> 2.8.1'
+gem 'faraday', '~> 2.9.0'
 gem 'faraday-retry', '~> 2.2.0'
 
 gem 'wicked_pdf', '~> 2.7.0'
@@ -59,7 +59,7 @@ gem 'administrate-field-enum', '~> 0.0.9'
 
 gem 'pretender', '~> 0.5.0'
 
-gem 'octokit', '~> 5.6.1'
+gem 'octokit', '~> 8.0.0'
 
 gem 'stimulus-rails', '~> 1.3.3'
 
@@ -87,7 +87,7 @@ group :development do
   gem 'state_machines-graphviz', '~> 0.0.2'
   gem 'debug', '>= 1.0.0'
   gem 'solargraph', '~> 0.50.0'
-  gem 'bullet', '~> 7.1.4'
+  gem 'bullet', '~> 7.1.6'
 end
 
 group :test do
@@ -95,7 +95,7 @@ group :test do
   gem 'capybara-screenshot', '~> 1.0.26'
   gem 'selenium-webdriver', '~> 4.10.0'
   gem 'webdrivers', '~> 5.3.1'
-  gem 'shoulda-matchers', '~> 4.5.1'
+  gem 'shoulda-matchers', '~> 6.1.0'
   gem 'timecop', '~> 0.9.8'
   gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec', '~> 0.6.0'
@@ -107,7 +107,7 @@ gem 'noticed', '~> 1.6.3'
 gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.6'
-gem 'administrate-field-belongs_to_search', '~> 0.8.0'
+gem 'administrate-field-belongs_to_search', '~> 0.9.0'
 gem 'faker', '~> 3.2.2'
 
 # Use Redis for Action Cable
@@ -115,6 +115,6 @@ gem 'redis', '~> 5.0.8'
 
 gem 'jsbundling-rails', '~> 1.2.2'
 
-gem 'cssbundling-rails', '~> 1.3.3'
+gem 'cssbundling-rails', '~> 1.4.0'
 
 gem 'sprockets-rails', '~> 3.4.2', require: 'sprockets/railtie'

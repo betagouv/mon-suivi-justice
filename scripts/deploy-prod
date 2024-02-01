@@ -23,10 +23,16 @@ then
 
   git push origin master
   git checkout develop
-  echo "Push to Scalingo"
+  echo "Push to Scalingo prod"
   git push scalingo-prod master
-  echo "Run database migrations"
+  echo "Run database migrations in production"
   scalingo -a mon-suivi-justice-prod --region osc-secnum-fr1 run rails db:migrate
   echo ""
   echo "Production deployed"
+  echo "Push to Scalingo demo"
+  git push scalingo-demo master
+  echo "Run database setup in demo"
+  scalingo -a mon-suivi-justice-demo --region osc-secnum-fr1 run rails db:migrate
+  echo ""
+  echo "Demo deployed"
 fi
