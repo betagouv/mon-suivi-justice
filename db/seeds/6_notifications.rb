@@ -110,3 +110,7 @@ NotificationType.create!(appointment_type: apt_type_convoc_spip, role: :reminder
 NotificationType.create!(appointment_type: apt_type_convoc_spip, role: :cancelation, template: "Votre rendez-vous du {rdv.date} à {rdv.heure} avec le SPIP est annulé. Votre conseiller référent va vous contacter pour en fixer un nouveau.", is_default: true)
 NotificationType.create!(appointment_type: apt_type_convoc_spip, role: :no_show, template: "Vous avez manqué votre rendez-vous du {rdv.date} à {rdv.heure} avec le SPIP, merci de contacter au plus vite votre conseiller référent ou le standard au {lieu.téléphone}. Plus d'informations sur {lieu.lien_info}", is_default: true)
 NotificationType.create!(appointment_type: apt_type_convoc_spip, role: :reschedule, template: "Votre rendez-vous au SPIP a été modifié. Vous êtes désormais convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}. Attention, présence impérative. En cas de problème, contactez votre conseiller référent ou le standard au {lieu.téléphone}. Plus d'informations sur {lieu.lien_info}", is_default: true)
+
+Organization.all.each do |organization|
+  organization.setup_notification_types
+end
