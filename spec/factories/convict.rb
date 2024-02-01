@@ -6,6 +6,6 @@ FactoryBot.define do
     no_phone { false }
     date_of_birth { Faker::Date.birthday(min_age: 18, max_age: 65) }
     organizations { [create(:organization)] }
-    appi_uuid { "2024#{Faker::Number.number(digits: 16)}"}
+    appi_uuid { "2024#{Faker::Number.number(digits: 16)}" }
   end
 end

@@ -49,7 +49,8 @@ RSpec.describe Convict, type: :model do
         new_convict = build(:convict, organizations: [organization], appi_uuid: appi_uuid2, first_name:, last_name:,
                                       date_of_birth:, phone:)
         expect(new_convict.valid?).to eq(false)
-        expect(new_convict.errors[:phone].first).to include('Un probationnaire est déjà enregistré avec ce numéro de téléphone')
+        error_message = 'Un probationnaire est déjà enregistré avec ce numéro de téléphone'
+        expect(new_convict.errors[:phone].first).to include(error_message)
       end
     end
     context 'when appi_uuid is not present' do
@@ -67,7 +68,8 @@ RSpec.describe Convict, type: :model do
                                       date_of_birth:, appi_uuid: '')
 
         expect(new_convict.valid?).to eq(false)
-        expect(new_convict.errors[:date_of_birth]).to include('Un probationnaire avec les mêmes prénom, nom et date de naissance existe déjà')
+        error_message = 'Un probationnaire avec les mêmes prénom, nom et date de naissance existe déjà'
+        expect(new_convict.errors[:date_of_birth]).to include(error_message)
       end
 
       it 'should allow to create a convict with same first_name, last_name and dob but with appi_number' do
@@ -85,7 +87,8 @@ RSpec.describe Convict, type: :model do
         new_convict = build(:convict, organizations: [organization], first_name: first_name2, last_name: last_name2,
                                       date_of_birth: date_of_birth2, phone:)
         expect(new_convict.valid?).to eq(false)
-        expect(new_convict.errors[:phone].first).to include('Un probationnaire est déjà enregistré avec ce numéro de téléphone')
+        error_message = 'Un probationnaire est déjà enregistré avec ce numéro de téléphone'
+        expect(new_convict.errors[:phone].first).to include(error_message)
       end
     end
   end
