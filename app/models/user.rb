@@ -90,10 +90,6 @@ class User < ApplicationRecord
     %w[dpip cpip educator psychologist overseer secretary_spip]
   end
 
-  def self.can_invite_roles
-    %w[admin cpip local_admin dpip jap greff_sap dir_greff_sap secretary_court secretary_spip]
-  end
-
   def self.tj_roles
     sap_roles + bex_roles
   end
