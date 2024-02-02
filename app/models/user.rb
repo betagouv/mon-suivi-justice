@@ -125,7 +125,6 @@ class User < ApplicationRecord
   end
 
   def can_invite_to_convict_interface?(convict)
-    debugger
     return true if admin?
 
     return true if dpip? && belongs_to_convict_organizations?(convict)
