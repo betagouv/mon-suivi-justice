@@ -198,8 +198,6 @@ class Convict < ApplicationRecord
   end
 
   def delete_convict_from_node_app
-    MonSuiviJusticePublicApi::Convict.delete(id)
-  rescue StandardError => e
-    Rails.logger.error("Failed to delete convict from probationnaires app: #{e.message}")
+    DeleteConvictJob.perform_later(id)
   end
 end
