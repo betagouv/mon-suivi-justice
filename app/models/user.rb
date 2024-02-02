@@ -124,8 +124,14 @@ class User < ApplicationRecord
     Rails.application.routes.url_helpers.user_path(id)
   end
 
-  def can_invite_to_convict_interface?
-    User.can_invite_roles.include? role
+  def can_invite_to_convict_interface?(convict)
+    return true if admin?
+
+    return true if dpip? && belongs_to_convict_organizations?(convict)
+
+    return true if cpip? && convict.user_id == id
+
+    false
   end
 
   def can_have_appointments_assigned?
@@ -162,5 +168,9 @@ class User < ApplicationRecord
 
   def relevant_field_changed?
     %i[role organization_id first_name last_name email].any? { |attr| saved_change_to_attribute?(attr) }
+  end
+
+  def belongs_to_convict_organizations?(convict)
+    convict.organizations.include?(organization)
   end
 end
