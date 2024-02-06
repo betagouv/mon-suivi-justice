@@ -45,10 +45,6 @@ class Appointment < ApplicationRecord
 
   scope :for_a_date, ->(date = Time.zone.today) { joins(:slot).where('slots.date' => date) }
 
-  scope :for_a_place, lambda { |place|
-    joins(slot: { agenda: :place }).where(slots: { agendas: { places: place } })
-  }
-
   scope :for_a_month, lambda { |date = Time.zone.today|
     joins(:slot).where('extract(month from slots.date) = ?', date.month)
   }
