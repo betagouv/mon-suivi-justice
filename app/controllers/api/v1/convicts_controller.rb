@@ -3,6 +3,7 @@ module Api
     class ConvictsController < ApiController
       def show
         @convict = Convict.find(params[:id])
+        @sorted_appointments = @convict.appointments.joins(:slot).order('slots.date ASC, slots.starting_time ASC')
       end
 
       def cpip
