@@ -22,8 +22,8 @@ class Convict < ApplicationRecord
   belongs_to :city, optional: true
   belongs_to :creating_organization, class_name: 'Organization', optional: true
 
-  alias_attribute :cpip, :user
-  alias_attribute :agent, :user
+  alias_method :cpip, :user
+  alias_method :agent, :user
 
   attr_accessor :place_id, :duplicates, :current_user
 
