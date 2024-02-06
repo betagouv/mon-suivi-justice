@@ -116,6 +116,14 @@
           </div>
         </div>
       </div>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-checkbox-group">
+          <input name="invite_convict" id="convict-invite_convict" type="checkbox" value="1">
+          <label class="fr-label" for="convict-invite_convict">
+            <%= t('activerecord.attributes.convict.invite_convict') %>
+          </label>
+        </div>
+      </div>
       <% if @convict.duplicates.present? %>
         <div class='new-convict-duplicate-warning'>
           <% if @convict.duplicates.count == 1 %>

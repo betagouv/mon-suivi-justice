@@ -139,7 +139,8 @@ class ConvictsController < ApplicationController
   def convict_params
     params.require(:convict).permit(
       :first_name, :last_name, :phone, :no_phone,
-      :refused_phone, :place_id, :appi_uuid, :user_id, :city_id, :japat, :homeless, :lives_abroad, :date_of_birth
+      :refused_phone, :place_id, :appi_uuid, :user_id, :city_id,
+      :japat, :homeless, :lives_abroad, :date_of_birth
     )
   end
 
@@ -205,6 +206,9 @@ class ConvictsController < ApplicationController
 
   def handle_save_and_redirect(convict)
     if convict.update_organizations(current_user)
+      if params[:invite_convict] == '1' && convict.phone.present?
+        InviteConvictJob.perform_later(convict.id, current_user)
+      end
       redirect_to select_path(params)
     else
       render_new_with_appi_uuid(convict)
