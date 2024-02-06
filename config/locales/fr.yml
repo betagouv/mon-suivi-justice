@@ -745,7 +745,7 @@ fr:
 
   convict_invitations:
     create:
-      invitation_pending: L'invitation est en cours d'envoi au probationnaire
+      invitation_pending: L'invitation est en cours d'envoi au probationnaire. Rafraîchir la page pour actualiser le statut.
       invitation_sent: L'invitation a été envoyée au probationnaire
 
 

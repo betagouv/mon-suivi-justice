@@ -1,14 +1,16 @@
 class ConvictInvitationsController < ApplicationController
   before_action :authenticate_user!
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @convict = Convict.find(params[:convict_id])
     authorize @convict, policy_class: ConvictInvitationPolicy
     params = { phone: @convict.phone, msj_id: @convict.id, first_name: @convict.first_name,
                last_name: @convict.last_name }
 
     ConvictInvitationNotification.with(invitation_params: params, status: :pending,
-                                       type: :info).deliver_later(current_user)
+                                       type: :info).deliver(current_user)
     InviteConvictJob.perform_later(@convict.id, current_user)
+
+    redirect_to convict_path(@convict), notice: t('.invitation_pending')
   end
 end
