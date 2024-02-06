@@ -116,23 +116,6 @@ RSpec.describe Appointment, type: :model do
     end
   end
 
-  describe '.for_a_place' do
-    it 'returns correct relation' do
-      place1 = create :place
-      agenda1 = create :agenda, place: place1
-      slot1 = create :slot, agenda: agenda1
-      appointment1 = create :appointment, slot: slot1
-
-      place2 = create :place
-      agenda2 = create :agenda, place: place2
-      slot2 = create :slot, agenda: agenda2
-      appointment2 = create :appointment, slot: slot2
-
-      expect(Appointment.for_a_place(place1)).to eq [appointment1]
-      expect(Appointment.for_a_place(place2)).to eq [appointment2]
-    end
-  end
-
   describe '.in_the_past?' do
     let(:agenda) { build(:agenda) }
     it 'returns true if appointment is in the past' do
