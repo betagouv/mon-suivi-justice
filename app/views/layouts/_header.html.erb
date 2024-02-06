@@ -42,11 +42,6 @@
                 <% end %>
               </li>
               <li>
-                <%= link_to user_user_notifications_path, class: 'fr-btn fr-icon-notification-badge-fill' do %>
-                  (<span id="user-notification-counter-container"> <%= current_user.user_notifications.unread.size %></span>) Notifications
-                <% end %>
-              </li>
-              <li>
                 <%= link_to(t('my_profile'), user_path(current_user.id), class: 'fr-btn fr-icon-account-circle-fill') %>
               </li>
               <li>

@@ -56,7 +56,6 @@ Rails.application.routes.draw do
 
   resource :user do
     resources :appointments, only: [:index], controller: 'users/appointments'
-    resources :user_notifications, only: [:index], controller: 'users/notifications'
   end
 
   resources :convicts do
