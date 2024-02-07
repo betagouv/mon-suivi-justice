@@ -121,10 +121,12 @@ class User < ApplicationRecord
   end
 
   def can_invite_to_convict_interface?(convict = nil)
+    return true if admin?
+
     if convict
-      admin? || (dpip? && belongs_to_convict_organizations?(convict)) || (cpip? && convict.user_id == id)
+      (dpip? && belongs_to_convict_organizations?(convict)) || (cpip? && convict.user_id == id)
     else
-      cpip?
+      dpip? || cpip?
     end
   end
 
