@@ -206,7 +206,7 @@ class ConvictsController < ApplicationController
 
   def handle_save_and_redirect(convict)
     if convict.update_organizations(current_user)
-      if params[:invite_convict] == '1' && convict.phone.present?
+      if params[:invite_convict] == '1' && ConvictInvitationPolicy.new(current_user, @convict).create?
         InviteConvictJob.perform_later(convict.id, current_user)
       end
       redirect_to select_path(params)
