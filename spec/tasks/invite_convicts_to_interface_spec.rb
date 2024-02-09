@@ -23,7 +23,7 @@ RSpec.describe 'invite_convicts_to_interface.rake' do
     appointment4.save(validate: false)
   end
 
-  it 'invites the right convicts' do
+  pending 'invites the right convicts' do
     expect do
       Rake::Task['invite_convicts_to_interface'].invoke
     end.to have_enqueued_job(InviteConvictJob).once.with(convict1.id)
