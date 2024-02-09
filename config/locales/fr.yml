@@ -273,6 +273,8 @@ fr:
               transfert_out: "Ce lieu de convocation n'est plus disponible après le %{date}"
             send_sms:
               blank: "Veuillez sélectionner une préférence d'envoi de SMS"
+            convict:
+              discarded: "Ce probationnaire a été archivé. Vous ne pouvez pas le convoquer."
         place_transfert:
           attributes:
             date:
