@@ -49,7 +49,7 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       select "Sortie d'audience SPIP", from: 'Type de convocation'
 
       find('#slot_batch_date').click
-      find('.flatpickr-day.today').click
+      find('.flatpickr-day', text: next_valid_day.day).click
 
       click_on 'Créneau unique'
 
@@ -68,7 +68,7 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       expect(created_slot.agenda).to eq(@agenda)
       expect(created_slot.appointment_type).to eq(@appointment_type)
       expect(created_slot.appointment_type).to eq(@appointment_type)
-      expect(created_slot.date).to eq(Date.today)
+      expect(created_slot.date).to eq(next_valid_day)
 
       time_zone = TZInfo::Timezone.get('Europe/Paris')
       expect(time_zone.to_local(created_slot.starting_time).hour).to eq(15)
@@ -85,7 +85,7 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       select "Sortie d'audience SPIP", from: 'Type de convocation'
 
       find('#slot_batch_date').click
-      find('.flatpickr-day.today').click
+      find('.flatpickr-day', text: next_valid_day.day).click
 
       click_on 'Créneau unique'
 
