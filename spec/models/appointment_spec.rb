@@ -152,12 +152,20 @@ RSpec.describe Appointment, type: :model do
     end
   end
 
-  describe 'future validation' do
+  describe 'validations' do
     it 'validates that new appointment is in the future' do
       slot = build(:slot, date: Date.new(2018, 1, 1))
       appointment = build(:appointment, slot:)
 
       expect(appointment.valid?).to eq(false)
+    end
+
+    it 'validates that new appointment is not for discarded convict' do
+      convict = create(:convict, discarded_at: Time.current)
+      appointment = build(:appointment, convict: convict)
+
+      expect(appointment.valid?).to eq(false)
+      expect(appointment.errors[:convict]).to include(I18n.t('activerecord.errors.models.appointment.attributes.convict.discarded'))
     end
   end
 end

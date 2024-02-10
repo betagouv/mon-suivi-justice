@@ -102,7 +102,7 @@ class Appointment < ApplicationRecord
   end
 
   def convict_is_not_discarded
-    return unless convict.discarded?
+    return unless convict&.discarded?
 
     errors.add(:convict, I18n.t('activerecord.errors.models.appointment.attributes.convict.discarded'))
   end
