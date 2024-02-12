@@ -38,8 +38,8 @@ gem 'discard', '~> 1.3.0'
 
 gem 'paper_trail', '~> 12.3.0'
 gem 'ahoy_matey', '~> 5.0.2'
-gem 'sentry-ruby', '~> 5.15.2'
-gem 'sentry-rails', '~> 5.15.2'
+gem 'sentry-ruby', '~> 5.16.1'
+gem 'sentry-rails', '~> 5.16.1'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'jbuilder', '~> 2.11.5'
