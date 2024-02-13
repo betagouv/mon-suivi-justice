@@ -10,30 +10,44 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def index?
+    return false unless user.security_charter_accepted?
+
     user.admin? || user.local_admin?
   end
 
   def show?
+    return false unless user.security_charter_accepted?
+
     user.admin?
   end
 
   def new?
+    return false unless user.security_charter_accepted?
+
     user.admin?
   end
 
   def edit?
+    return false unless user.security_charter_accepted?
+
     user.admin? || (user.local_admin? && user.organization == record)
   end
 
   def update?
+    return false unless user.security_charter_accepted?
+
     user.admin? || (user.local_admin? && user.organization == record)
   end
 
   def create?
+    return false unless user.security_charter_accepted?
+
     user.admin?
   end
 
   def destroy?
+    return false unless user.security_charter_accepted?
+
     user.admin?
   end
 end

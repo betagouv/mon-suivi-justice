@@ -3,6 +3,13 @@ require 'rails_helper'
 describe ConvictInvitationPolicy do
   subject { ConvictInvitationPolicy.new(user, convict) }
 
+  context 'for a user who has not accepted the security charter' do
+    let(:user) { build(:user, role: 'admin', security_charter_accepted_at: nil) }
+    let(:convict) { build(:convict) }
+
+    it { is_expected.to forbid_action(:create) }
+  end
+
   context 'for an admin' do
     let(:user) { build(:user, role: 'admin') }
     let(:convict) { build(:convict) }

@@ -21,34 +21,46 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    user.security_charter_accepted?
   end
 
   def show?
+    return false unless user.security_charter_accepted?
+
     ownership_check && hability_check
   end
 
   def agenda_jap?
+    return false unless user.security_charter_accepted?
+
     user.admin? || user.local_admin_tj? || user.work_at_sap? || user.work_at_bex?
   end
 
   def agenda_sap_ddse?
+    return false unless user.security_charter_accepted?
+
     user.admin? || user.local_admin? || user.work_at_sap? || user.work_at_bex? || user.overseer? || user.work_at_spip?
   end
 
   def agenda_spip?
+    return false unless user.security_charter_accepted?
+
     user.admin? || user.local_admin_spip? || user.work_at_bex? || user.work_at_spip?
   end
 
   def update?
+    return false unless user.security_charter_accepted?
+
     ownership_check && hability_check
   end
 
   def new?
-    true
+    user.security_charter_accepted?
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def create?
+    return false unless user.security_charter_accepted?
     # we don't use ownership_check here because otherwise the creating_organization
     # condition would always make it true and we need to handle inter ressort for bex
     return true if user.work_at_bex? && user.organization.use_inter_ressort
@@ -58,46 +70,65 @@ class AppointmentPolicy < ApplicationPolicy
 
     record.in_organization?(user.organization)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def destroy?
+    return false unless user.security_charter_accepted?
+
     ownership_check && hability_check
   end
 
   def cancel?
+    return false unless user.security_charter_accepted?
+
     return false unless record.booked?
 
     ownership_check && hability_check
   end
 
   def fulfil?
+    return false unless user.security_charter_accepted?
+
     ownership_check && appointment_fulfilment
   end
 
   def miss?
+    return false unless user.security_charter_accepted?
+
     ownership_check && appointment_fulfilment
   end
 
   def excuse?
+    return false unless user.security_charter_accepted?
+
     ownership_check && appointment_fulfilment
   end
 
   def rebook?
+    return false unless user.security_charter_accepted?
+
     ownership_check && appointment_fulfilment
   end
 
   def prepare?
-    true
+    user.security_charter_accepted?
   end
 
   def fulfil_old?
+    return false unless user.security_charter_accepted?
+
     ownership_check && appointment_fulfilment(allow_fulfil_old: true)
   end
 
   def excuse_old?
+    return false unless user.security_charter_accepted?
+
     ownership_check && appointment_fulfilment(allow_fulfil_old: true)
   end
 
   def rebook_old?
+    return false unless user.security_charter_accepted?
+
     ownership_check && appointment_fulfilment(allow_fulfil_old: true)
   end
 

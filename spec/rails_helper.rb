@@ -136,8 +136,8 @@ def create_cpip_user_and_login
   @cpip
 end
 
-def create_user_and_login(role, org_type, interressort: false)
-  @user = create(:user, :in_organization, type: org_type, role: role, interressort:)
+def create_user_and_login(role, org_type, interressort: false, security_charter_accepted_at: Time.zone.now - 1.minute)
+  @user = create(:user, :in_organization, type: org_type, role: role, interressort:, security_charter_accepted_at:)
   login_as(@user)
   @user
 end

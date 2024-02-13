@@ -5,6 +5,14 @@ describe UserServiceSwitchPolicy do
 
   let(:organization) { build(:organization, organization_type: 'spip') }
 
+  context 'for a user who has not accepted the security charter' do
+    let(:user) do
+      build(:user, organization:, role: 'local_admin', headquarter: build(:headquarter),
+                   security_charter_accepted_at: nil)
+    end
+    it { is_expected.to forbid_action(:create) }
+  end
+
   context 'for an admin' do
     let(:user) { build(:user, organization:, role: 'admin') }
     it { is_expected.to forbid_action(:create) }

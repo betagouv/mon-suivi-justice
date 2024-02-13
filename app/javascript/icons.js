@@ -25,5 +25,6 @@ import "@gouvfr/dsfr/dist/icons/system/arrow-up-s-line.svg"
 import "@gouvfr/dsfr/dist/icons/system/arrow-down-s-line.svg"
 import "@gouvfr/dsfr/dist/icons/system/fr--arrow-right-s-line-double.svg"
 import "@gouvfr/dsfr/dist/icons/system/fr--arrow-left-s-line-double.svg"
+import "@gouvfr/dsfr/dist/icons/system/checkbox-circle-line.svg"
 
 
