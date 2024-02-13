@@ -97,6 +97,7 @@ class ApplicationController < ActionController::Base
     return unless user_signed_in? &&
                   !current_user.security_charter_accepted? &&
                   controller_name != 'security_charter_acceptances' &&
+                  !(controller_name == 'sessions' && action_name == 'destroy') &&
                   action_name != 'stop_impersonating'
 
     redirect_to new_security_charter_acceptance_path
