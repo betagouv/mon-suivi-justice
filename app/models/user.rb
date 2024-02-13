@@ -123,9 +123,9 @@ class User < ApplicationRecord
   def can_invite_to_convict_interface?(convict)
     return true if admin?
 
-    return true if dpip? && belongs_to_convict_organizations?(convict)
+    # return true if dpip? && belongs_to_convict_organizations?(convict)
 
-    return true if cpip? && convict.user_id == id
+    # return true if cpip? && convict.user_id == id
 
     false
   end
