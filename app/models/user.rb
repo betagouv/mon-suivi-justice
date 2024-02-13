@@ -120,7 +120,7 @@ class User < ApplicationRecord
     Rails.application.routes.url_helpers.user_path(id)
   end
 
-  def can_invite_to_convict_interface?(convict)
+  def can_invite_to_convict_interface?(_convict)
     return true if admin?
 
     # return true if dpip? && belongs_to_convict_organizations?(convict)
