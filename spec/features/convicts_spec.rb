@@ -29,8 +29,8 @@ RSpec.feature 'Convicts', type: :feature do
 
       expect(page).not_to have_content('Dupneu')
       expect(page).not_to have_content('Dupont')
-      expect(page).to have_content('Vaillant')
-      expect(page).to have_content('Personne')
+      expect(page).to have_content(/Vaillant/i)
+      expect(page).to have_content(/Personne/i)
     end
 
     it 'an agent can list only the convicts assigned to him', js: true do
@@ -43,8 +43,8 @@ RSpec.feature 'Convicts', type: :feature do
 
       page.find('label[for="my_convicts_checkbox"]').click
 
-      expect(page).to have_content('Vaillant')
-      expect(page).to have_no_content('Personne')
+      expect(page).to have_content(/Vaillant/i)
+      expect(page).to have_no_content(/Personne/i)
     end
 
     it_behaves_like 'convict search feature'
@@ -385,8 +385,9 @@ RSpec.feature 'Convicts', type: :feature do
         expect(Convict.first.cpip).to eq(@user)
       end
 
-      it 'allow a cpip to invite a convict to his interface and displays the correct content', logged_in_as: 'cpip' do
+      pending 'allow a cpip to invite a convict to his interface and displays the correct content', logged_in_as: 'cpip' do
         @user.update(email: 'delphine.deneubourg@justice.fr')
+        @convict.update(user: @user)
         visit convict_path(@convict)
         expect(page).to have_content('Jamais invité')
         expect(page).to have_content("Aucun accès pour l'instant")

@@ -71,6 +71,7 @@ class Appointment < ApplicationRecord
 
   validate :in_the_future, on: :create
   validate :must_choose_to_send_notification, on: :create
+  validate :convict_is_not_discarded
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[user_id]
@@ -98,6 +99,12 @@ class Appointment < ApplicationRecord
     return if convict&.phone.blank? || !send_sms.nil?
 
     errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.send_sms.blank'))
+  end
+
+  def convict_is_not_discarded
+    return unless convict&.discarded?
+
+    errors.add(:convict, I18n.t('activerecord.errors.models.appointment.attributes.convict.discarded'))
   end
 
   def datetime

@@ -12,7 +12,7 @@
           <%= button_tag t('index_slots_batch_close'), type: 'submit',
                                                    form: 'index-slots-update-form',
                                                    data: { 'turbo-confirm': t('basic_confirmation') },
-                                                   class: 'fr-btn fr-btn--danger' %>
+                                                   class: 'fr-btn fr-btn--secondary-danger' %>
         <% end %>
       </ul>
     </div>
@@ -89,7 +89,6 @@
                     <div class="col-fr">
                       <div class="fr-mt-1-5v fr-mr-2w">
                         <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
-                      
                       </div>
                     </div>
                     <div class="col-fr">
