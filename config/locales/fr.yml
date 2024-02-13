@@ -757,6 +757,9 @@ fr:
       invitation_pending: L'invitation est en cours d'envoi au probationnaire
       invitation_sent: L'invitation a été envoyée au probationnaire
 
+  shared:
+    environment_alert:
+      content: "IMPORTANT : Vous êtes actuellement sur l'environnement %{environment} ! Vos actions ne créent pas de données en production."
 
   errors:
     non_authorized: "Vous n'êtes pas autorisé à effectuer cette action"
