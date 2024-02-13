@@ -7,6 +7,8 @@ FactoryBot.define do
     password { '1mot2passeSecurise!' }
     password_confirmation { '1mot2passeSecurise!' }
 
+    security_charter_accepted_at { Time.zone.now - 2.minutes }
+
     trait :in_organization do
       transient do
         type { 'spip' }

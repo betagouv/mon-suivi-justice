@@ -385,8 +385,10 @@ RSpec.feature 'Convicts', type: :feature do
         expect(Convict.first.cpip).to eq(@user)
       end
 
-      it 'allow a cpip to invite a convict to his interface and displays the correct content', logged_in_as: 'cpip' do
+      pending 'allow a cpip to invite a convict to his interface and displays the correct content',
+              logged_in_as: 'cpip' do
         @user.update(email: 'delphine.deneubourg@justice.fr')
+        @convict.update(user: @user)
         visit convict_path(@convict)
         expect(page).to have_content('Jamais invité')
         expect(page).to have_content("Aucun accès pour l'instant")

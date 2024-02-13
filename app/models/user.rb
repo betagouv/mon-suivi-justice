@@ -4,13 +4,6 @@ class User < ApplicationRecord
 
   has_paper_trail
 
-  CAN_INVITE_TO_CONVICT_INTERFACE =
-    %w[charles.marcoin@beta.gouv.fr
-       delphine.deneubourg@justice.fr
-       melanie.plassais@justice.fr clement.roulet@justice.fr abel.diouf@justice.fr
-       anne-sophie.genet@justice.fr anna.grinsnir@justice.fr pauline.guilloton@justice.fr
-       claire.becanne@justice.fr].freeze
-
   belongs_to :organization
   belongs_to :headquarter, optional: true
   has_many :convicts, dependent: :nullify
@@ -127,8 +120,14 @@ class User < ApplicationRecord
     Rails.application.routes.url_helpers.user_path(id)
   end
 
-  def can_invite_to_convict_interface?
-    CAN_INVITE_TO_CONVICT_INTERFACE.include?(email) || admin?
+  def can_invite_to_convict_interface?(_convict)
+    return true if admin?
+
+    # return true if dpip? && belongs_to_convict_organizations?(convict)
+
+    # return true if cpip? && convict.user_id == id
+
+    false
   end
 
   def can_have_appointments_assigned?
@@ -153,6 +152,10 @@ class User < ApplicationRecord
     recent_past_booked_appointments_count > 5
   end
 
+  def security_charter_accepted?
+    security_charter_accepted_at && security_charter_accepted_at < Time.zone.now
+  end
+
   private
 
   def set_default_role
@@ -165,5 +168,9 @@ class User < ApplicationRecord
 
   def relevant_field_changed?
     %i[role organization_id first_name last_name email].any? { |attr| saved_change_to_attribute?(attr) }
+  end
+
+  def belongs_to_convict_organizations?(convict)
+    convict.organizations.include?(organization)
   end
 end

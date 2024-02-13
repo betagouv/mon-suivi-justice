@@ -1,0 +1,11 @@
+<% if ENV['APP'] == 'mon-suivi-justice-staging' || ENV['APP'] == 'mon-suivi-justice-demo' %>
+  <div class="fr-notice fr-notice--info">
+    <div class="fr-container">
+      <div class="fr-notice__body">
+        <p class="fr-notice__title">
+          IMPORTANT : Vous êtes actuellement sur l'environment de <% if ENV['APP'] == 'mon-suivi-justice-staging' %>Staging<% elsif ENV['APP'] == 'mon-suivi-justice-demo' %>Démo<% end %> de Mon Suivi Justice ! Vos actions ne créent pas de données en production.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

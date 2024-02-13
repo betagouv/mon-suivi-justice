@@ -99,6 +99,10 @@ RSpec.configure do |config|
     create_user_and_login('admin', 'spip')
   end
 
+  config.before(:example, :logged_in_as => 'no_security_charter') do
+    create_user_and_login('cpip', 'spip', security_charter_accepted_at: nil)
+  end
+
   config.before(:example, :logged_in_as => 'cpip') do
     create_user_and_login('cpip', 'spip')
   end

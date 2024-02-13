@@ -38,8 +38,8 @@ gem 'discard', '~> 1.3.0'
 
 gem 'paper_trail', '~> 12.3.0'
 gem 'ahoy_matey', '~> 5.0.2'
-gem 'sentry-ruby', '~> 5.15.2'
-gem 'sentry-rails', '~> 5.15.0'
+gem 'sentry-ruby', '~> 5.16.1'
+gem 'sentry-rails', '~> 5.16.1'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'jbuilder', '~> 2.11.5'
@@ -59,7 +59,7 @@ gem 'administrate-field-enum', '~> 0.0.9'
 
 gem 'pretender', '~> 0.5.0'
 
-gem 'octokit', '~> 8.0.0'
+gem 'octokit', '~> 8.1.0'
 
 gem 'stimulus-rails', '~> 1.3.3'
 
@@ -68,7 +68,7 @@ gem 'lograge', '~> 0.14.0'
 group :development, :test do
   gem 'rspec-rails', '~> 6.1.0'
   gem 'rspec_junit_formatter', '~> 0.6.0'
-  gem 'factory_bot_rails', '~> 6.2.0'
+  gem 'factory_bot_rails', '~> 6.4.3'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug', '~> 3.10.1'
   gem 'launchy', '~> 2.5.2'
@@ -79,7 +79,7 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.8.0'
-  gem 'spring', '~> 4.1.2'
+  gem 'spring', '~> 4.1.3'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
   gem 'letter_opener', '~> 1.8.1'
@@ -99,7 +99,7 @@ group :test do
   gem 'timecop', '~> 0.9.8'
   gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec', '~> 0.6.0'
-  gem 'webmock', '~> 3.19.1'
+  gem 'webmock', '~> 3.20.0'
 end
 
 gem 'noticed', '~> 1.6.3'
@@ -108,12 +108,12 @@ gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.6'
 gem 'administrate-field-belongs_to_search', '~> 0.9.0'
-gem 'faker', '~> 3.2.2'
+gem 'faker', '~> 3.2.3'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 5.0.8'
 
-gem 'jsbundling-rails', '~> 1.2.2'
+gem 'jsbundling-rails', '~> 1.3.0'
 
 gem 'cssbundling-rails', '~> 1.4.0'
 
