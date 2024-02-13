@@ -13,10 +13,6 @@ versions.each do |version|
     version.update_columns old_object: nil, object: YAML.safe_load(version.old_object, permitted_classes: Rails.application.config.active_record.yaml_column_permitted_classes, aliases: true) if version.old_object.present?
     if version.old_object_changes.present?
       old_object_changes = YAML.safe_load(version.old_object_changes, permitted_classes: Rails.application.config.active_record.yaml_column_permitted_classes, aliases: true)
-      starting_time = old_object_changes['starting_time'][1] if old_object_changes['starting_time'].present?
-      if starting_time.is_a?(ActiveRecord::Type::Time::Value)
-        old_object_changes['starting_time'][1] = starting_time.strftime('%H:%M')
-      end
       version.update_columns old_object_changes: nil, object_changes: old_object_changes
     end
     progress.increment
