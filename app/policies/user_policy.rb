@@ -60,7 +60,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def stop_impersonating?
-    user.security_charter_accepted?
+    true
   end
 
   def search?

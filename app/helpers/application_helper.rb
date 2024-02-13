@@ -88,4 +88,20 @@ module ApplicationHelper
       flash_type.to_s
     end
   end
+
+  def environment_human_name
+    env_names = {
+      'mon-suivi-justice-staging' => 'Staging',
+      'mon-suivi-justice-demo' => 'Démo',
+      /^mon-suivi-justice-staging-pr\d+/ => 'Review'
+    }
+
+    return 'Développement' if Rails.env.development?
+
+    return unless Rails.env.production?
+
+    env_names.each do |key, value|
+      return value if ENV['APP']&.match?(key)
+    end
+  end
 end
