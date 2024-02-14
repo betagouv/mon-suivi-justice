@@ -4,6 +4,9 @@ class Convict < ApplicationRecord
   include PgSearch::Model
 
   has_paper_trail
+  normalizes :last_name, with: ->(last_name) { last_name&.upcase&.strip }
+  normalizes :first_name, with: ->(first_name) { first_name&.capitalize&.strip }
+  normalizes :appi_uuid, with: ->(appi_uuid) { appi_uuid&.strip }
 
   DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
 
