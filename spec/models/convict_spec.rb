@@ -12,6 +12,24 @@ RSpec.describe Convict, type: :model do
 
   it_behaves_like 'normalized_phone'
 
+  describe 'Normalization' do
+    it 'normalizes first_name' do
+      convict = create(:convict, first_name: '  jean  ')
+      expect(convict.first_name).to eq('Jean')
+    end
+
+    it 'normalizes last_name' do
+      convict = create(:convict, last_name: '  martin  ')
+      expect(convict.last_name).to eq('MARTIN')
+    end
+
+    it 'normalizes appi_uuid' do
+      appi_uuid = "2024#{Faker::Number.unique.number(digits: 8)}"
+      convict = create(:convict, appi_uuid: " #{appi_uuid}  ")
+      expect(convict.appi_uuid).to eq(appi_uuid)
+    end
+  end
+
   describe 'Validations' do
     it 'requires a phone' do
       expect(build(:convict, phone: nil)).not_to be_valid
