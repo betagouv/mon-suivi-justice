@@ -70,7 +70,7 @@
                   <th>
                     <% unless appointments[i].nil? %>
                       <%= link_to convict_path(appointments[i]&.convict), class: 'index-control' do %>
-                        <%= appointments[i]&.convict&.last_name&.upcase %>
+                        <%= appointments[i]&.convict&.last_name %>
                       <% end %>
                     <% end %>
                   </th>
