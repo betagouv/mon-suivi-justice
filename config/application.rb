@@ -35,5 +35,7 @@ module MonSuiviJustice
     config.i18n.load_path += Dir["#{Rails.root.to_s}/config/locales/**/*.{rb,yml}"]
 
     config.exceptions_app = routes
+    config.active_record.use_yaml_unsafe_load = false
+    config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone, ActiveRecord::Type::Time::Value]
   end
 end
