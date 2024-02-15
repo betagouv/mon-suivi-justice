@@ -78,6 +78,46 @@ RSpec.describe Convict, type: :model do
         end
       end
     end
+
+    describe 'appi_uuid format' do
+      context 'no appi uuid' do
+        let(:convict) { build(:convict, appi_uuid: nil) }
+        it 'should be valid' do
+          expect(convict).to be_valid
+        end
+      end
+
+      context 'right format' do
+        let(:convict) { build(:convict, appi_uuid: nil) }
+        it 'start with 199 and have 12 characters' do
+          convict.appi_uuid = "199#{Faker::Number.unique.number(digits: 9)}"
+          expect(convict).to be_valid
+        end
+        it 'start with 200 and have 12 characters' do
+          convict.appi_uuid = "200#{Faker::Number.unique.number(digits: 9)}"
+          expect(convict).to be_valid
+        end
+        it 'start with 201 and have 12 characters' do
+          convict.appi_uuid = "201#{Faker::Number.unique.number(digits: 9)}"
+          expect(convict).to be_valid
+        end
+        it 'start with 202 and have 12 characters' do
+          convict.appi_uuid = "202#{Faker::Number.unique.number(digits: 9)}"
+          expect(convict).to be_valid
+        end
+      end
+      context 'wrong format' do
+        let(:convict) { build(:convict, appi_uuid: nil) }
+        it 'does not start with the the right digits' do
+          convict.appi_uuid = "18#{Faker::Number.unique.number(digits: 10)}"
+          expect(convict).not_to be_valid
+        end
+        it 'does not have the right amount of digits' do
+          convict.appi_uuid = "18#{Faker::Number.unique.number(digits: 8)}"
+          expect(convict).not_to be_valid
+        end
+      end
+    end
   end
 
   describe 'phone_uniqueness' do
