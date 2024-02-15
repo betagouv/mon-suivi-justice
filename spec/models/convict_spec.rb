@@ -113,7 +113,11 @@ RSpec.describe Convict, type: :model do
           expect(convict).not_to be_valid
         end
         it 'does not have the right amount of digits' do
-          convict.appi_uuid = "18#{Faker::Number.unique.number(digits: 8)}"
+          convict.appi_uuid = "201#{Faker::Number.unique.number(digits: 7)}"
+          expect(convict).not_to be_valid
+        end
+        it 'contains letters' do
+          convict.appi_uuid = "201#{Faker::Number.unique.number(digits: 8)}a"
           expect(convict).not_to be_valid
         end
       end

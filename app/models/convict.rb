@@ -206,11 +206,30 @@ class Convict < ApplicationRecord
   end
   
   def appi_format
+    # Return early if appi_uuid is blank
     return unless appi_uuid.present?
-    return if appi_uuid.start_with?('199', '200', '201', '202')
+
+    # Check if appi_uuid consists only of digits
+    unless appi_uuid.match?(/\A\d+\z/)
+      errors.add(:appi_uuid, I18n.t('activerecord.errors.models.convict.attributes.appi_uuid.only_digits'))
+      return
+    end
+
+    # Define valid formats as combinations of prefix and length
+    valid_formats = [
+      { prefix: %w[199 200], length: 8 },
+      { prefix: %w[199 200 201 202], length: 12 }
+    ]
+
+    # Check if appi_uuid matches any of the valid formats
+    is_valid = valid_formats.any? do |format|
+      format[:prefix].any? { |prefix| appi_uuid.start_with?(prefix) } && appi_uuid.length == format[:length]
+    end
+
+    # Add error if appi_uuid doesn't match any valid format
+    return if is_valid
 
     errors.add(:appi_uuid, I18n.t('activerecord.errors.models.convict.attributes.appi_uuid.invalid'))
-
   end
 
   private
