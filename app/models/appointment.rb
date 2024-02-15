@@ -68,6 +68,7 @@ class Appointment < ApplicationRecord
   validate :in_the_future, on: :create
   validate :must_choose_to_send_notification, on: :create
   validate :convict_is_not_discarded
+  validate :convict_has_a_dob, on: :create
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[user_id]
@@ -101,6 +102,12 @@ class Appointment < ApplicationRecord
     return unless convict&.discarded?
 
     errors.add(:convict, I18n.t('activerecord.errors.models.appointment.attributes.convict.discarded'))
+  end
+
+  def convict_has_a_dob
+    return if convict&.date_of_birth.present?
+
+    errors.add(:convict, I18n.t('activerecord.errors.models.appointment.attributes.convict.DoB'))
   end
 
   def datetime
