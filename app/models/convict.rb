@@ -204,7 +204,8 @@ class Convict < ApplicationRecord
   def already_invited_to_interface?
     invitation_to_convict_interface_count.positive?
   end
-  
+
+  # rubocop:disable Metrics/AbcSize
   def appi_format
     # Return early if appi_uuid is blank
     return unless appi_uuid.present?
@@ -231,6 +232,7 @@ class Convict < ApplicationRecord
 
     errors.add(:appi_uuid, I18n.t('activerecord.errors.models.convict.attributes.appi_uuid.invalid'))
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
