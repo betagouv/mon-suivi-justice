@@ -79,7 +79,7 @@ RSpec.describe Convict, type: :model do
       end
     end
 
-    describe 'appi_uuid format' do
+    describe 'appi_uuid' do
       context 'no appi uuid' do
         let(:convict) { build(:convict, appi_uuid: nil) }
         it 'should be valid' do
@@ -90,7 +90,7 @@ RSpec.describe Convict, type: :model do
       context 'right format' do
         let(:convict) { build(:convict, appi_uuid: nil) }
         it 'start with 199 and have 12 characters' do
-          convict.appi_uuid = "199#{Faker::Number.unique.number(digits: 9)}"
+          convict.appi_uuid = "199#{Faker::Number.unique.number(digits: 5)}"
           expect(convict).to be_valid
         end
         it 'start with 200 and have 12 characters' do
@@ -112,8 +112,12 @@ RSpec.describe Convict, type: :model do
           convict.appi_uuid = "18#{Faker::Number.unique.number(digits: 10)}"
           expect(convict).not_to be_valid
         end
-        it 'does not have the right amount of digits' do
-          convict.appi_uuid = "201#{Faker::Number.unique.number(digits: 7)}"
+        it 'does not have the right amount of digits for an appi uuid starting with 201' do
+          convict.appi_uuid = "201#{Faker::Number.unique.number(digits: 5)}"
+          expect(convict).not_to be_valid
+        end
+        it 'does not have the right amount of digits for an appi uuid starting with 199' do
+          convict.appi_uuid = "199#{Faker::Number.unique.number(digits: 9)}"
           expect(convict).not_to be_valid
         end
         it 'contains letters' do
