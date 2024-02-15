@@ -220,7 +220,7 @@ class Convict < ApplicationRecord
     # Define valid formats as combinations of prefix and length
     valid_formats = [
       { prefix: %w[199 200], length: 8 },
-      { prefix: %w[199 200 201 202], length: 12 }
+      { prefix: %w[200 201 202], length: 12 }
     ]
 
     # Check if appi_uuid matches any of the valid formats
