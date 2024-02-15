@@ -49,6 +49,8 @@ class Convict < ApplicationRecord
   validates :organizations, presence: true
   validate :unique_organizations
 
+  validate :appi_format
+
   after_update :update_convict_api
   after_destroy :delete_convict_from_node_app, if: :timestamp_convict_interface_creation
 
@@ -203,6 +205,14 @@ class Convict < ApplicationRecord
 
   def already_invited_to_interface?
     invitation_to_convict_interface_count.positive?
+  end
+  
+  def appi_format
+    return unless appi_uuid.present?
+    return if appi_uuid.start_with?('199', '200', '201', '202')
+
+    errors.add(:appi_uuid, I18n.t('activerecord.errors.models.convict.attributes.appi_uuid.invalid'))
+
   end
 
   private

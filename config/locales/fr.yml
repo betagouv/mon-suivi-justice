@@ -263,6 +263,8 @@ fr:
             organizations:
               blank: "Veuillez sélectionner au moins un service"
               multiple_uniqueness: "Un probationnaire ne peut pas être suivi par plusieurs fois le même service"
+            appi_uuid:
+              invalid: "Format incorrect"
         place:
           attributes:
             name:
