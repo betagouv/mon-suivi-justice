@@ -285,6 +285,7 @@ fr:
               blank: "Veuillez sélectionner une préférence d'envoi de SMS"
             convict:
               discarded: "Ce probationnaire a été archivé. Vous ne pouvez pas le convoquer."
+              DoB: "Merci d'ajouter une date de naissance pour ce probationnaire"
         place_transfert:
           attributes:
             date:
