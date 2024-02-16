@@ -537,12 +537,28 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
-    context 'for an appointment outside of organization' do
+    context 'show for an appointment outside of organization' do
       let(:organization2) { build(:organization, organization_type: 'tj') }
       let(:user2) { build(:user, role: 'admin', organization: organization2) }
       subject { AppointmentPolicy.new(user2, appointment) }
 
       it { is_expected.to forbid_action(:show) }
+    end
+
+    context 'create for an appointment in jurisdiction' do
+      let(:organization2) { build(:organization, organization_type: 'tj', spips: [slot.place.organization]) }
+      let(:user2) { build(:user, role: 'admin', organization: organization2) }
+      subject { AppointmentPolicy.new(user2, appointment) }
+
+      it { is_expected.to permit_action(:create) }
+    end
+
+    context 'create for an appointment outside of jurisdiction' do
+      let(:organization2) { build(:organization, organization_type: 'tj') }
+      let(:user2) { build(:user, role: 'admin', organization: organization2) }
+      subject { AppointmentPolicy.new(user2, appointment) }
+
+      it { is_expected.to forbid_action(:create) }
     end
   end
 
