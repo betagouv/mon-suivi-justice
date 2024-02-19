@@ -1,5 +1,5 @@
 <tr id="<%= "#{dom_id(convict)}_row" %>">
-    <td>        
+    <td>
         <% if policy(convict).show? %>
             <%= link_to convict.name, convict_path(convict), class: 'index-control', data: { turbo: false } %>
         <% else %>
@@ -34,7 +34,7 @@
         <% end %>
     </td>
     <td>
-        <% if policy(:appointment).new? %>
+        <% if policy(:appointment).new? && convict.undiscarded? %>
             <%= link_to "Convoquer", new_appointment_path(convict_id: convict.id), class: 'index-control bold',
                                                     data: { turbo: false }
                                                     %>

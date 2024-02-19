@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
     if @user.update(user_params)
       remove_linked_convicts(@user)
-      redirect_to @user == current_user ? user_path(params[:id]) : users_path
+      redirect_to_correct_path_for_update
     else
       render :edit, status: :unprocessable_entity
     end
@@ -127,5 +127,15 @@ class UsersController < ApplicationController
     return policy_scope(User).search_by_name(params[:search]).page params[:page] if params[:search].present?
 
     policy_scope(User).order('last_name asc').page params[:page]
+  end
+
+  def redirect_to_correct_path_for_update
+    if params.dig(:user, :redirect_to_home)
+      redirect_to home_path, notice: t('.organization_updated')
+    elsif @user != current_user
+      redirect_to users_path, notice: t('.organization_updated')
+    else
+      redirect_to user_path(params[:id]), notice: t('.organization_updated')
+    end
   end
 end

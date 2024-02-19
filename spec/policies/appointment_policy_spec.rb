@@ -12,6 +12,29 @@ describe AppointmentPolicy do
     create(:appointment, slot:, state: :booked, creating_organization: slot.place.organization, convict:)
   end
 
+  context 'for a user who has not accepted the security charter' do
+    let(:user) { build(:user, role: 'admin', organization: slot.place.organization, security_charter_accepted_at: nil) }
+
+    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to forbid_action(:show) }
+    it { is_expected.to forbid_action(:agenda_jap) }
+    it { is_expected.to forbid_action(:agenda_sap_ddse) }
+    it { is_expected.to forbid_action(:agenda_spip) }
+    it { is_expected.to forbid_action(:update) }
+    it { is_expected.to forbid_action(:new) }
+    it { is_expected.to forbid_action(:create) }
+    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:cancel) }
+    it { is_expected.to forbid_action(:fulfil) }
+    it { is_expected.to forbid_action(:miss) }
+    it { is_expected.to forbid_action(:excuse) }
+    it { is_expected.to forbid_action(:rebook) }
+    it { is_expected.to forbid_action(:prepare) }
+    it { is_expected.to forbid_action(:fulfil_old) }
+    it { is_expected.to forbid_action(:excuse_old) }
+    it { is_expected.to forbid_action(:rebook_old) }
+  end
+
   context 'related to appointment status' do
     let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
 

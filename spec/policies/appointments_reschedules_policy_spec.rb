@@ -1,6 +1,20 @@
 require 'rails_helper'
 
 describe AppointmentsReschedulesPolicy do
+  context 'for a user who has not accepted the security charter' do
+    let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
+    let(:slot) { create :slot, :without_validations, appointment_type: }
+    let(:user) do
+      build(:user, organization: slot.agenda.place.organization, role: :cpip, security_charter_accepted_at: nil)
+    end
+    let(:appointment) { create(:appointment, slot:, state: :booked) }
+
+    subject { AppointmentsReschedulesPolicy.new(user, appointment) }
+
+    it { is_expected.to forbid_action(:new) }
+    it { is_expected.to forbid_action(:create) }
+  end
+
   context 'reschedule related to appointment status' do
     let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
     let(:slot) { create :slot, :without_validations, appointment_type: }

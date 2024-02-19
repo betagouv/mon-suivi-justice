@@ -1,0 +1,11 @@
+<% if ENV['APP'] != 'mon-suivi-justice-prod' %>
+  <div class="fr-notice fr-notice--info">
+    <div class="fr-container">
+      <div class="fr-notice__body">
+        <p class="fr-notice__title">
+          <%= t('.content', environment: environment_human_name) %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

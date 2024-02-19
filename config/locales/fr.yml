@@ -33,6 +33,12 @@ fr:
   appointment_types:
     update:
       notice: "Les modifications ont bien été enregistrées."
+  security_charter_acceptances:
+    new:
+      alert: "Vous devez accepter la charte de sécurité pour continuer à utiliser Mon Suivi Justice."
+      accept: "J'accepte la charte de sécurité"
+    create:
+      notice: "Merci d'avoir accepté notre charte de sécurité. Vous pouvez désormais utiliser Mon Suivi Justice librement."
   slot_batchs:
     batch_create:
       argument_error: "Vous devez indiquer au minimum une heure ou un intervalle de temps"
@@ -274,6 +280,8 @@ fr:
               transfert_out: "Ce lieu de convocation n'est plus disponible après le %{date}"
             send_sms:
               blank: "Veuillez sélectionner une préférence d'envoi de SMS"
+            convict:
+              discarded: "Ce probationnaire a été archivé. Vous ne pouvez pas le convoquer."
         place_transfert:
           attributes:
             date:
@@ -353,7 +361,6 @@ fr:
   ie_warning2: "Vous pouvez copier - coller le lien qui est dans la barre d'adresse dans un autre navigateur."
 
   header_title: "Mon Suivi Justice"
-  header_staging: "Staging"
 
   home:
     find_convict: "Trouver un probationnaire :"
@@ -581,6 +588,8 @@ fr:
       for_a_user: "Vos convocations au statut inconnu"
 
   users:
+    update:
+      organization_updated: "Le service a bien été mis à jour"
     mutate:
       confirmation_message: "Etes-vous certain de vouloir muter cet agent dans votre service ? Cela le supprimera de son service actuel : %{organization_name}. En cas de doute merci de contacter le service actuel au %{phone_number}"
       call_to_action: "Muter l'agent dans mon service"
@@ -749,6 +758,9 @@ fr:
       invitation_pending: L'invitation est en cours d'envoi au probationnaire
       invitation_sent: L'invitation a été envoyée au probationnaire
 
+  shared:
+    environment_alert:
+      content: "IMPORTANT : Vous êtes actuellement sur l'environnement %{environment} ! Vos actions ne créent pas de données en production."
 
   errors:
     non_authorized: "Vous n'êtes pas autorisé à effectuer cette action"
