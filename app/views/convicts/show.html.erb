@@ -107,7 +107,7 @@
         </div>
       </div>
     </div>
-    <% if current_user.can_invite_to_convict_interface?(@convict) %>
+    <% if ConvictInvitationPolicy.new(current_user, @convict).create? || @convict.already_invited_to_interface? %>
       <div class="fr-grid-row fr-mt-2w">
         <div class="fr-col">
           <div class="fr-card fr-p-2w">
@@ -127,7 +127,7 @@
             </div>
             <div>
               <p>
-                <strong><%= t('.interface_invitation_state') %></strong> : 
+                <strong><%= t('.interface_invitation_state') %></strong> :
                 <span id="convict-invitation-text">
                   <% if flash[:notice] == t('convict_invitations.create.invitation_pending') %>
                     <%= t("convict_invitations.create.invitation_pending") %>
