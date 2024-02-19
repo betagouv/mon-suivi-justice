@@ -148,7 +148,7 @@ class ConvictsController < ApplicationController
     if params['no-appointment'].nil?
       new_appointment_path(convict_id: @convict.id)
     else
-      convicts_path
+      convict_path(@convict)
     end
   end
 
@@ -207,9 +207,9 @@ class ConvictsController < ApplicationController
   def handle_save_and_redirect(convict)
     if convict.update_organizations(current_user)
       if params[:invite_convict] == 'on' && ConvictInvitationPolicy.new(current_user, @convict).create?
-        InviteConvictJob.perform_later(convict.id, current_user)
+        InviteConvictJob.perform_later(convict.id)
       end
-      redirect_to select_path(params)
+      redirect_to select_path(params), notice: 'Le probationnaire a bien été créé'
     else
       render_new_with_appi_uuid(convict)
     end
