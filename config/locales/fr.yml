@@ -133,6 +133,7 @@ fr:
         city_id: "Commune"
         user: "Agent"
         date_of_birth: "Date de naissance"
+        invite_convict: "Inviter à l'interface probationnaire (effectif seulement si numéro de téléphone renseigné)"
       user:
         name: "Nom"
         first_name: "Prénom"
