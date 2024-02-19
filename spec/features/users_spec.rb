@@ -65,7 +65,7 @@ RSpec.feature 'Users', type: :feature do
 
       fill_in 'Prénom', with: 'Mireille'
       fill_in 'Numéro de téléphone', with: '0644444444'
-      uncheck 'Partager mon email à mes probationnaires'
+      uncheck "Partage de l'email aux probationnaires suivis"
 
       click_button 'Enregistrer'
 
