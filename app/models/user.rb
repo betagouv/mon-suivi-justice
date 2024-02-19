@@ -123,6 +123,7 @@ class User < ApplicationRecord
   def can_invite_to_convict_interface?(_convict)
     return true if admin?
 
+    # Permet de gérer les policies pour l'invitation lors de la création d'un probationnaire
     # if convict
     #   (dpip? && belongs_to_convict_organizations?(convict)) || (cpip? && convict.user_id == id)
     # else
