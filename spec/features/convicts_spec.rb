@@ -256,7 +256,7 @@ RSpec.feature 'Convicts', type: :feature do
       expect(Convict.last.creating_organization).to eq(orga)
     end
 
-    pending 'invites the convict to its interface by default for qualified roles' do
+    it 'invites the convict to its interface by default for qualified roles' do
       user = create :user, :in_organization, role: 'cpip'
       logout_current_user
       login_user user
@@ -270,7 +270,7 @@ RSpec.feature 'Convicts', type: :feature do
       expect(InviteConvictJob).to have_been_enqueued.exactly(:once).with(Convict.last.id, user)
     end
 
-    pending 'does not invite the convict to its interface if checkbox not selected' do
+    it 'does not invite the convict to its interface if checkbox not selected' do
       user = create :user, :in_organization, role: 'cpip'
       logout_current_user
       login_user user
@@ -428,7 +428,7 @@ RSpec.feature 'Convicts', type: :feature do
         expect(Convict.first.cpip).to eq(@user)
       end
 
-      pending 'allow a cpip to invite a convict to his interface and displays the correct content',
+      it 'allows a cpip to invite a convict to his interface and displays the correct content',
               logged_in_as: 'cpip' do
         @user.update(email: 'delphine.deneubourg@justice.fr')
         @convict.update(user: @user)
