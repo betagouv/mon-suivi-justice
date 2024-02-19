@@ -189,7 +189,7 @@ class Convict < ApplicationRecord
   end
 
   def already_invited_to_interface?
-    invitation_to_convict_interface_count > 0
+    invitation_to_convict_interface_count.positive?
   end
 
   private
