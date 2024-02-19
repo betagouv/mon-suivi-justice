@@ -19,34 +19,50 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def index?
+    return false unless user.security_charter_accepted?
+
     ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def new?
+    return false unless user.security_charter_accepted?
+
     ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def edit?
+    return false unless user.security_charter_accepted?
+
     check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def update?
+    return false unless user.security_charter_accepted?
+
     check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def show?
+    return false unless user.security_charter_accepted?
+
     check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def create?
+    return false unless user.security_charter_accepted?
+
     check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def destroy?
+    return false unless user.security_charter_accepted?
+
     check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
   def archive?
+    return false unless user.security_charter_accepted?
+
     check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 

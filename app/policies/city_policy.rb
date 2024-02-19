@@ -1,9 +1,9 @@
 class CityPolicy < ApplicationPolicy
   def services?
-    true
+    user.security_charter_accepted?
   end
 
   def search?
-    true
+    user.security_charter_accepted?
   end
 end

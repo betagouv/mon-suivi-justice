@@ -129,6 +129,8 @@ Rails.application.routes.draw do
     get :home
   end
 
+  resources :security_charter_acceptances, only: %i[new create]
+
   resource :steering, only: :show
 
   get '/steering_user_app' => 'steerings#user_app_stats', as: 'steering_user_app'

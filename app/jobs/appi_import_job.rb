@@ -57,7 +57,7 @@ class AppiImportJob < ApplicationJob
   def create_convict(convict, organizations)
     convict = Convict.new(
       first_name: convict[:first_name],
-      last_name: staging? ? anonymize(convict) : convict[:last_name],
+      last_name: staging_or_demo? ? anonymize(convict) : convict[:last_name],
       date_of_birth: convict[:date_of_birth].present? ? convict[:date_of_birth].to_date : nil,
       no_phone: true,
       appi_uuid: convict[:appi_uuid]
@@ -82,8 +82,8 @@ class AppiImportJob < ApplicationJob
     @calculated_organizations_names.concat(Organization.where(id: convict.organization_ids).pluck(:name))
   end
 
-  def staging?
-    ENV['APP'] == 'mon-suivi-justice-staging'
+  def staging_or_demo?
+    ENV['APP'] == 'mon-suivi-justice-staging' || ENV['APP'] == 'mon-suivi-justice-demo'
   end
 
   def anonymize(convict)

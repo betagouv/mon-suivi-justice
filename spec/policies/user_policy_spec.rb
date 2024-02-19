@@ -314,6 +314,20 @@ describe UserPolicy do
     end
   end
 
+  context 'for a user who has not accepted the security charter' do
+    let(:organization) { tested_user.organization }
+    let(:user) { build(:user, role: 'admin', organization:, security_charter_accepted_at: nil) }
+
+    it { is_expected.to forbid_action(:show) }
+    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to forbid_action(:new) }
+    it { is_expected.to forbid_action(:create) }
+    it { is_expected.to forbid_action(:edit) }
+    it { is_expected.to forbid_action(:update) }
+    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:mutate) }
+  end
+
   context 'for an admin' do
     let(:organization) { tested_user.organization }
     let(:user) { build(:user, role: 'admin', organization:) }

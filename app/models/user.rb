@@ -119,12 +119,12 @@ class User < ApplicationRecord
     Rails.application.routes.url_helpers.user_path(id)
   end
 
-  def can_invite_to_convict_interface?(convict)
+  def can_invite_to_convict_interface?(_convict)
     return true if admin?
 
-    return true if dpip? && belongs_to_convict_organizations?(convict)
+    # return true if dpip? && belongs_to_convict_organizations?(convict)
 
-    return true if cpip? && convict.user_id == id
+    # return true if cpip? && convict.user_id == id
 
     false
   end
@@ -149,6 +149,10 @@ class User < ApplicationRecord
                                             .count
 
     recent_past_booked_appointments_count > 5
+  end
+
+  def security_charter_accepted?
+    security_charter_accepted_at && security_charter_accepted_at < Time.zone.now
   end
 
   private

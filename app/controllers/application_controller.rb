@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
   before_action :set_sentry_context
   before_action :build_user_alerts
+  before_action :redirect_to_security_charter
 
   after_action :verify_authorized, unless: :skip_pundit?
   after_action :track_action
@@ -90,5 +91,15 @@ class ApplicationController < ActionController::Base
     return unless user_signed_in?
 
     @unread_alerts = UserAlert.unread_by(current_user)
+  end
+
+  def redirect_to_security_charter
+    return unless user_signed_in? &&
+                  !current_user.security_charter_accepted? &&
+                  controller_name != 'security_charter_acceptances' &&
+                  !(controller_name == 'sessions' && action_name == 'destroy') &&
+                  action_name != 'stop_impersonating'
+
+    redirect_to new_security_charter_acceptance_path
   end
 end

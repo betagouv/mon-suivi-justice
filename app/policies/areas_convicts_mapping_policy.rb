@@ -1,9 +1,9 @@
 class AreasConvictsMappingPolicy < ApplicationPolicy
   def create?
-    true
+    user.security_charter_accepted?
   end
 
   def destroy?
-    true
+    user.security_charter_accepted?
   end
 end

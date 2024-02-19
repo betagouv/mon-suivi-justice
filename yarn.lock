@@ -132,10 +132,10 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.5.1.tgz#55cc8410abf1003b726324661ce5b0d1c10de258"
   integrity sha512-CNy5vSwN3fsUStPRLX7fUYojyuzoEMSXPl7zSLJ8TgtRfjv24LOnOWKT2zYwaHZCJGkdyRnTmstR0P+Ah503Gw==
 
-"@gouvfr/dsfr@^1.11.0":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.11.0.tgz#79d1ce472b91468659256cf2cd5cdb1f8272ecf2"
-  integrity sha512-RD+kUk9iJJ4B7xFdAFCNQz0LRqYiMy9dajlKfgnmDPSrYHm+JCJpYCzXhNjYyp4FJggMafRd1ZqJJ6KW6aM0Jw==
+"@gouvfr/dsfr@^1.11.1":
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.11.1.tgz#6fb86026e7d53fedcec2f1d481bf6c4c24d3e787"
+  integrity sha512-t6rxZ0DDQpuex9Izpnm1wnPIgJGukZKQenPlU+PKElKGN9HvFfI3qbV5VH1uqE2+50+JORNJKJZSdYUru9stig==
 
 "@hotwired/stimulus-webpack-helpers@^1.0.1":
   version "1.0.1"
@@ -380,10 +380,10 @@ date-holidays-parser@^3.4.4:
     jalaali-js "^1.2.6"
     moment-timezone "^0.5.43"
 
-date-holidays@^3.23.7:
-  version "3.23.7"
-  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.23.7.tgz#01cc8ecd248beafa0827671c1f20b8e2afa22b19"
-  integrity sha512-B5mJ4EzMx0vtQ8HEyaoxgffT3nrTBUst6TV/bH21KwPaZvLlnS3NHqO8+PK1cqHoYWvgRSsgkLvrYPvZrlIqYg==
+date-holidays@^3.23.8:
+  version "3.23.8"
+  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.23.8.tgz#ba9d9010d5784654cc0347b5479a09e40cc7b488"
+  integrity sha512-cNYbiwzi8XlSxSzNnUfdQHiX4nNd9WHD0gx+BWDaD9gV7WGIsVWjueBsgn/ewlpR5ObbpSdXT6WKA2/C37wo9Q==
   dependencies:
     date-holidays-parser "^3.4.4"
     js-yaml "^4.1.0"
@@ -862,10 +862,10 @@ postcss@^7.0.2:
     picocolors "^0.2.1"
     source-map "^0.6.1"
 
-postcss@^8.4.33:
-  version "8.4.33"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.33.tgz#1378e859c9f69bf6f638b990a0212f43e2aaa742"
-  integrity sha512-Kkpbhhdjw2qQs2O2DGX+8m5OVqEcbB9HRBvuYM9pgrjEFUg30A9LmXNlTAUj4S9kgtGyrMbTzVjH7E+s5Re2yg==
+postcss@^8.4.35:
+  version "8.4.35"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.35.tgz#60997775689ce09011edf083a549cea44aabe2f7"
+  integrity sha512-u5U8qYpBCpN13BsiEB0CbR1Hhh4Gc0zLFuedrHJKMctHCHAGrMdG0PRM/KErzAL3CU6/eckEtmHNB3x6e3c0vA==
   dependencies:
     nanoid "^3.3.7"
     picocolors "^1.0.0"
