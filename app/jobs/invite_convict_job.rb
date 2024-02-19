@@ -2,7 +2,7 @@ class InviteConvictJob < ApplicationJob
   sidekiq_options retry: 5
 
   queue_as :default
-  def perform(convict_id, current_user = nil)
+  def perform(convict_id)
     @convict = Convict.find(convict_id)
     return unless @convict.phone.present?
 

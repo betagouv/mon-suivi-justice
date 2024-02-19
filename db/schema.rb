@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_19_201008) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -449,18 +449,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.string "roles"
   end
 
-  create_table "user_notifications", force: :cascade do |t|
-    t.string "recipient_type", null: false
-    t.bigint "recipient_id", null: false
-    t.string "type", null: false
-    t.jsonb "params"
-    t.datetime "read_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["read_at"], name: "index_user_notifications_on_read_at"
-    t.index ["recipient_type", "recipient_id"], name: "index_user_notifications_on_recipient"
-  end
-
   create_table "user_user_alerts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "user_alert_id", null: false
@@ -498,6 +486,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.bigint "headquarter_id"
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at"
+    t.datetime "security_charter_accepted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["headquarter_id"], name: "index_users_on_headquarter_id"
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -512,9 +501,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_132139) do
     t.bigint "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object"
+    t.text "old_object"
     t.datetime "created_at"
-    t.text "object_changes"
+    t.text "old_object_changes"
+    t.jsonb "object"
+    t.jsonb "object_changes"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 

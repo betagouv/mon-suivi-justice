@@ -799,10 +799,6 @@ fr:
   views:
     pagination:
       truncate: '...'
-  user_notifications:
-    convict_invitation:
-      pending: "L'invitation est en cours d'envoi à %{first_name} %{last_name} "
-      sent: "L'invitation a été envoyée à %{first_name} %{last_name}"
     index:
       no_notification: "Vous êtes à jour"
   organization:
