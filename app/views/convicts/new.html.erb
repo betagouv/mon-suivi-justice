@@ -2,16 +2,6 @@
   <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
     <h1 class='form-title'><%= t('new_convict_title') %></h1>
     <%= simple_form_for @convict do |f| %>
-      <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
-        <div class="fr-fieldset__element fr-fieldset__element--inline">
-          <div class="fr-checkbox-group">
-            <input name="invite_convict" id="convict-invite_convict" type="checkbox" checked>
-            <label class="fr-label" for="convict-invite_convict">
-              <%= t('activerecord.attributes.convict.invite_convict') %>
-            </label>
-          </div>
-        </div>
-      <% end %>
       <div class="fr-grid-row fr-grid-row--gutters fr-mb-2v ">
         <div class="fr-col">
           <% invalid = @convict.errors.include?(:last_name) %>
@@ -85,6 +75,16 @@
       <% end %>
       <% if current_user.work_at_spip? || current_user.admin? %>
         <%= render partial: 'shared/user_selector' %>
+      <% end %>
+      <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
+        <div class="fr-fieldset__element fr-fieldset__element--inline">
+          <div class="fr-checkbox-group">
+            <input name="invite_convict" id="convict-invite_convict" type="checkbox" checked>
+            <label class="fr-label" for="convict-invite_convict">
+              <%= t('activerecord.attributes.convict.invite_convict') %>
+            </label>
+          </div>
+        </div>
       <% end %>
       <% invalid = @convict.errors.include?(:phone) %>
       <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
