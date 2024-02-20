@@ -18,14 +18,17 @@ class MergeAppiUuidDuplicates
       group_with_appointments = group.select do |convict|
         convict.appointments.any?
       end
+
       most_active = group_with_appointments.max_by do |convict|
         convict.appointments.joins(:slot).order('slots.date DESC').first&.slot&.date
       end || group.first
+
       mergeable = (group - [most_active]).reject do |convict|
         convict.appointments.any? &&
           (convict.appointments.joins(:slot).order('slots.date DESC').first&.slot&.date&.> 6.months.ago) &&
           convict.undiscarded?
       end
+
       ActiveRecord::Base.transaction do
         mergeable.each do |duplicated_convict|
           duplicated_convict.appointments.update_all(convict_id: most_active.id)
