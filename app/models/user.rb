@@ -10,7 +10,6 @@ class User < ApplicationRecord
   has_many :appointments, dependent: :nullify
   has_many :invited_appointments, class_name: 'Appointment', foreign_key: :inviter_user_id, dependent: :nullify
   has_many :visits, class_name: 'Ahoy::Visit'
-  has_many :user_notifications, as: :recipient, dependent: :destroy
   has_many :user_user_alerts, dependent: :destroy
   has_many :user_alerts, through: :user_user_alerts
   has_many :unread_user_alerts, -> { where(user_user_alerts: { read_at: nil }) },
@@ -123,9 +122,12 @@ class User < ApplicationRecord
   def can_invite_to_convict_interface?(_convict)
     return true if admin?
 
-    # return true if dpip? && belongs_to_convict_organizations?(convict)
-
-    # return true if cpip? && convict.user_id == id
+    # Permet de gérer les policies pour l'invitation lors de la création d'un probationnaire
+    # if convict
+    #   ((dpip? || local_admin_spip?) && belongs_to_convict_organizations?(convict)) || (cpip? && convict.user_id == id)
+    # else
+    #   dpip? || cpip? || local_admin_spip?
+    # end
 
     false
   end

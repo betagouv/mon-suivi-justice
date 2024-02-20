@@ -139,7 +139,8 @@ class ConvictsController < ApplicationController
   def convict_params
     params.require(:convict).permit(
       :first_name, :last_name, :phone, :no_phone,
-      :refused_phone, :place_id, :appi_uuid, :user_id, :city_id, :japat, :homeless, :lives_abroad, :date_of_birth
+      :refused_phone, :place_id, :appi_uuid, :user_id, :city_id,
+      :japat, :homeless, :lives_abroad, :date_of_birth
     )
   end
 
@@ -205,7 +206,10 @@ class ConvictsController < ApplicationController
 
   def handle_save_and_redirect(convict)
     if convict.update_organizations(current_user)
-      redirect_to select_path(params)
+      if params[:invite_convict] == 'on' && ConvictInvitationPolicy.new(current_user, @convict).create?
+        InviteConvictJob.perform_later(convict.id)
+      end
+      redirect_to select_path(params), notice: 'Le probationnaire a bien été créé'
     else
       render_new_with_appi_uuid(convict)
     end

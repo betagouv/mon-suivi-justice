@@ -255,6 +255,49 @@ RSpec.feature 'Convicts', type: :feature do
       click_button 'submit-no-appointment'
       expect(Convict.last.creating_organization).to eq(orga)
     end
+
+    pending 'invites the convict to its interface by default for qualified roles' do
+      user = create :user, :in_organization, role: 'cpip'
+      logout_current_user
+      login_user user
+      visit new_convict_path
+
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      fill_in 'Téléphone', with: '0606060606'
+      fill_in 'Date de naissance', with: '01/01/1980'
+      click_button 'submit-no-appointment'
+      expect(InviteConvictJob).to have_been_enqueued.exactly(:once).with(Convict.last.id, user)
+    end
+
+    pending 'does not invite the convict to its interface if checkbox not selected' do
+      user = create :user, :in_organization, role: 'cpip'
+      logout_current_user
+      login_user user
+      visit new_convict_path
+
+      uncheck('invite_convict')
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      fill_in 'Téléphone', with: '0606060606'
+      fill_in 'Date de naissance', with: '01/01/1980'
+      click_button 'submit-no-appointment'
+      expect(InviteConvictJob).not_to have_been_enqueued
+    end
+
+    it 'does not invite the convict to its interface by default for unqualified roles' do
+      user = create :user, :in_organization, role: 'jap'
+      logout_current_user
+      login_user user
+      visit new_convict_path
+
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      fill_in 'Téléphone', with: '0606060606'
+      fill_in 'Date de naissance', with: '01/01/1980'
+      click_button 'submit-no-appointment'
+      expect(InviteConvictJob).not_to have_been_enqueued
+    end
   end
 
   describe 'update', logged_in_as: 'cpip' do

@@ -188,6 +188,10 @@ class Convict < ApplicationRecord
     duplicates
   end
 
+  def already_invited_to_interface?
+    invitation_to_convict_interface_count.positive?
+  end
+
   private
 
   def unique_organizations
