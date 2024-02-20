@@ -28,7 +28,7 @@ describe ConvictInvitationPolicy do
 
   context 'for a local_admin tj' do
     let(:organization) { create(:organization, organization_type: 'tj') }
-    let(:user) { build(:user, role: 'local_admin', organization: organization) }
+    let(:user) { build(:user, role: 'local_admin', organization:) }
 
     context 'when the convict is persisted' do
       let(:convict) { create(:convict) }
@@ -45,7 +45,7 @@ describe ConvictInvitationPolicy do
 
   context 'for a local_admin spip' do
     let(:organization) { create(:organization, organization_type: 'spip') }
-    let(:user) { build(:user, role: 'local_admin', organization: organization) }
+    let(:user) { build(:user, role: 'local_admin', organization:) }
 
     context 'when the convict is persisted' do
       let(:convict) { create(:convict) }

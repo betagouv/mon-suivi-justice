@@ -119,6 +119,8 @@ class User < ApplicationRecord
     Rails.application.routes.url_helpers.user_path(id)
   end
 
+  # rubocop:disable Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity
   def can_invite_to_convict_interface?(convict = nil)
     return true if admin?
 
@@ -129,6 +131,8 @@ class User < ApplicationRecord
       dpip? || cpip? || local_admin_spip?
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def can_have_appointments_assigned?
     %w[cpip psychologist overseer].include? role

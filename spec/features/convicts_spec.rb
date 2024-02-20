@@ -429,7 +429,7 @@ RSpec.feature 'Convicts', type: :feature do
       end
 
       it 'allows a cpip to invite a convict to his interface and displays the correct content',
-              logged_in_as: 'cpip' do
+         logged_in_as: 'cpip' do
         @user.update(email: 'delphine.deneubourg@justice.fr')
         @convict.update(user: @user)
         visit convict_path(@convict)
