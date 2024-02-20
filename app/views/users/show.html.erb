@@ -23,12 +23,12 @@
                   <% end %>
                   <% if policy(@user).invitation_link? %>
                     <%= button_to t('edit_user_generate_invitation_link'), user_invitation_link_path(@user),
-                                                                          class: 'fr-btn', 
+                                                                          class: 'fr-btn',
                                                                           method: :get %>
                   <% end %>
                   <% if policy(@user).reset_pwd_link? %>
                       <%= button_to t('edit_user_generate_reset_pwd_link'), user_reset_pwd_link_path(@user),
-                                                                            class: 'fr-btn', 
+                                                                            class: 'fr-btn',
                                                                             method: :get %>
                   <% end %>
                 </ul>
@@ -42,7 +42,7 @@
             <strong><%= t('activerecord.attributes.user.first_name') %></strong> : <%= @user.first_name.capitalize %>
           </p>
           <p>
-            <strong><%= t('activerecord.attributes.user.email') %></strong> : <%= @user.email %>            
+            <strong><%= t('activerecord.attributes.user.email') %></strong> : <%= @user.email %>
           </p>
           <p>
             <strong><%= t('activerecord.attributes.user.role') %></strong> : <%= t("activerecord.attributes.user.user_roles.#{@user.role}") %>
@@ -53,6 +53,14 @@
           <p>
             <strong><%= t('activerecord.attributes.user.organization') %></strong> : <%= @user.organization.name %>
           </p>
+          <% if @user.cpip? %>
+            <p>
+              <strong><%= t('activerecord.attributes.user.share_email_to_convict') %></strong> : <%= @user.share_email_to_convict? ? t('yes') : t('no') %>
+            </p>
+            <p>
+              <strong><%= t('activerecord.attributes.user.share_phone_to_convict') %></strong> : <%= @user.share_phone_to_convict? ? t('yes') : t('no') %>
+            </p>
+          <% end %>
         </div>
       </div>
     </div>

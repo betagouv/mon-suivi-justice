@@ -107,7 +107,7 @@
         </div>
       </div>
     </div>
-    <% if current_user.can_invite_to_convict_interface?(@convict) %>
+    <% if ConvictInvitationPolicy.new(current_user, @convict).create? || @convict.already_invited_to_interface? %>
       <div class="fr-grid-row fr-mt-2w">
         <div class="fr-col">
           <div class="fr-card fr-p-2w">
@@ -119,7 +119,7 @@
                 <div class="fr-grid-row  fr-grid-row--right">
                   <ul class="fr-btns-group fr-btns-group--inline-lg">
                     <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
-                      <%= button_to @convict.invitation_to_convict_interface_count == 1 ? t('.reinvite') : t('.invite'), convict_invitation_path(@convict), class: 'fr-btn fr-btn--secondary', id: 'convict-invitation-button', data: { turbo: false } %>
+                      <%= button_to @convict.invitation_to_convict_interface_count == 1 ? t('.reinvite') : t('.invite'), convict_invitation_path(@convict), class: 'fr-btn fr-btn--secondary', id: 'convict-invitation-button', data: { turbo: false }, disabled: flash[:notice] == t('convict_invitations.create.invitation_pending') || @convict.invitation_to_convict_interface_count == 2 %>
                     <% end %>
                   </ul>
                 </div>
@@ -127,7 +127,14 @@
             </div>
             <div>
               <p>
-                <strong><%= t('.interface_invitation_state') %></strong> : <span id="convict-invitation-text"><%= t(".#{@convict.interface_invitation_state}", last_invite: @convict.last_invite_to_convict_interface.present? ? l(@convict.last_invite_to_convict_interface, format: :clear) : nil) %></span>
+                <strong><%= t('.interface_invitation_state') %></strong> :
+                <span id="convict-invitation-text">
+                  <% if flash[:notice] == t('convict_invitations.create.invitation_pending') %>
+                    <%= t("convict_invitations.create.invitation_pending") %>
+                  <% else %>
+                    <%= t(".#{@convict.interface_invitation_state}", last_invite: @convict.last_invite_to_convict_interface.present? ? l(@convict.last_invite_to_convict_interface, format: :clear) : nil) %>
+                  <% end %>
+                </span>
               </p>
               <p>
                 <strong><%= t('.interface_access_timestamp')%></strong> :

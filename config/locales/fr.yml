@@ -133,6 +133,7 @@ fr:
         city_id: "Commune"
         user: "Agent"
         date_of_birth: "Date de naissance"
+        invite_convict: "Inviter à l'interface probationnaire (effectif seulement si numéro de téléphone renseigné)"
       user:
         name: "Nom"
         first_name: "Prénom"
@@ -140,8 +141,8 @@ fr:
         role: "Rôle"
         phone: "Numéro de téléphone"
         organization: "Service"
-        share_phone_to_convict: "Partager mon téléphone à mes probationnaires"
-        share_email_to_convict: "Partager mon email à mes probationnaires"
+        share_phone_to_convict: "Partage du téléphone aux probationnaires suivis"
+        share_email_to_convict: "Partage de l'email aux probationnaires suivis"
         user_roles:
           admin: "Administrateur central"
           local_admin: "Administrateur local"
@@ -754,7 +755,7 @@ fr:
 
   convict_invitations:
     create:
-      invitation_pending: L'invitation est en cours d'envoi au probationnaire
+      invitation_pending: L'invitation est en cours d'envoi au probationnaire. Rafraîchir la page pour actualiser le statut.
       invitation_sent: L'invitation a été envoyée au probationnaire
 
   shared:
@@ -811,10 +812,6 @@ fr:
   views:
     pagination:
       truncate: '...'
-  user_notifications:
-    convict_invitation:
-      pending: "L'invitation est en cours d'envoi à %{first_name} %{last_name} "
-      sent: "L'invitation a été envoyée à %{first_name} %{last_name}"
     index:
       no_notification: "Vous êtes à jour"
   organization:

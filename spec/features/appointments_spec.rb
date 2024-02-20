@@ -655,14 +655,14 @@ RSpec.feature 'Appointments', type: :feature do
       slot2 = create :slot, agenda: appointment.slot.agenda,
                             appointment_type: apt_type,
                             date: Date.civil(2025, 4, 16),
-                            starting_time: new_time_for(16, 0)
+                            starting_time: new_time_for(14, 0)
 
       visit appointment_path(appointment)
       click_button 'Replanifier'
 
       expect(page).to have_content 'Replanifier une convocation'
 
-      choose '16:00'
+      choose '14:00'
 
       click_button 'Enregistrer'
 

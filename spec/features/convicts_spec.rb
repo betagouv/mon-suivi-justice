@@ -255,6 +255,49 @@ RSpec.feature 'Convicts', type: :feature do
       click_button 'submit-no-appointment'
       expect(Convict.last.creating_organization).to eq(orga)
     end
+
+    it 'invites the convict to its interface by default for qualified roles' do
+      user = create :user, :in_organization, role: 'cpip'
+      logout_current_user
+      login_user user
+      visit new_convict_path
+
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      fill_in 'Téléphone', with: '0606060606'
+      fill_in 'Date de naissance', with: '01/01/1980'
+      click_button 'submit-no-appointment'
+      expect(InviteConvictJob).to have_been_enqueued.exactly(:once).with(Convict.last.id)
+    end
+
+    it 'does not invite the convict to its interface if checkbox not selected' do
+      user = create :user, :in_organization, role: 'cpip'
+      logout_current_user
+      login_user user
+      visit new_convict_path
+
+      uncheck('invite_convict')
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      fill_in 'Téléphone', with: '0606060606'
+      fill_in 'Date de naissance', with: '01/01/1980'
+      click_button 'submit-no-appointment'
+      expect(InviteConvictJob).not_to have_been_enqueued
+    end
+
+    it 'does not invite the convict to its interface by default for unqualified roles' do
+      user = create :user, :in_organization, role: 'jap'
+      logout_current_user
+      login_user user
+      visit new_convict_path
+
+      fill_in 'Prénom', with: 'Robert'
+      fill_in 'Nom', with: 'Durand'
+      fill_in 'Téléphone', with: '0606060606'
+      fill_in 'Date de naissance', with: '01/01/1980'
+      click_button 'submit-no-appointment'
+      expect(InviteConvictJob).not_to have_been_enqueued
+    end
   end
 
   describe 'update', logged_in_as: 'cpip' do
@@ -385,14 +428,14 @@ RSpec.feature 'Convicts', type: :feature do
         expect(Convict.first.cpip).to eq(@user)
       end
 
-      pending 'allow a cpip to invite a convict to his interface and displays the correct content',
-              logged_in_as: 'cpip' do
+      it 'allows a cpip to invite a convict to his interface and displays the correct content',
+         logged_in_as: 'cpip' do
         @user.update(email: 'delphine.deneubourg@justice.fr')
         @convict.update(user: @user)
         visit convict_path(@convict)
         expect(page).to have_content('Jamais invité')
         expect(page).to have_content("Aucun accès pour l'instant")
-        expect { click_button('Inviter à son espace') }.to have_enqueued_job(InviteConvictJob).once
+        expect { click_button('Inviter à son espace') }.to have_enqueued_job(InviteConvictJob).once.with(@convict.id)
 
         @convict.update(invitation_to_convict_interface_count: 1)
         visit convict_path(@convict)

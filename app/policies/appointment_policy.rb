@@ -59,18 +59,20 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def create?
     return false unless user.security_charter_accepted?
     # we don't use ownership_check here because otherwise the creating_organization
     # condition would always make it true and we need to handle inter ressort for bex
     return true if user.work_at_bex? && user.organization.use_inter_ressort
-    return record.in_jurisdiction?(user.organization) if user.work_at_bex? || user.local_admin_tj?
+    return record.in_jurisdiction?(user.organization) if user.work_at_bex? || user.local_admin_tj? || user.admin?
     # Les agents SAP doivent pouvoir prendre des convocations SAP DDSE au SPIP
     return record.in_jurisdiction?(user.organization) if user.work_at_sap? && record.appointment_type.ddse?
 
     record.in_organization?(user.organization)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def destroy?
     return false unless user.security_charter_accepted?
