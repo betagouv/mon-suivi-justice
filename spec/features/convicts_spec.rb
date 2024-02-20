@@ -267,7 +267,7 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Téléphone', with: '0606060606'
       fill_in 'Date de naissance', with: '01/01/1980'
       click_button 'submit-no-appointment'
-      expect(InviteConvictJob).to have_been_enqueued.exactly(:once).with(Convict.last.id, user)
+      expect(InviteConvictJob).to have_been_enqueued.exactly(:once).with(Convict.last.id)
     end
 
     it 'does not invite the convict to its interface if checkbox not selected' do
@@ -435,7 +435,7 @@ RSpec.feature 'Convicts', type: :feature do
         visit convict_path(@convict)
         expect(page).to have_content('Jamais invité')
         expect(page).to have_content("Aucun accès pour l'instant")
-        expect { click_button('Inviter à son espace') }.to have_enqueued_job(InviteConvictJob).once
+        expect { click_button('Inviter à son espace') }.to have_enqueued_job(InviteConvictJob).once.with(@convict.id)
 
         @convict.update(invitation_to_convict_interface_count: 1)
         visit convict_path(@convict)
