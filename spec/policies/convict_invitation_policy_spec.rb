@@ -26,8 +26,9 @@ describe ConvictInvitationPolicy do
     end
   end
 
-  context 'for a local_admin' do
-    let(:user) { build(:user, role: 'local_admin') }
+  context 'for a local_admin tj' do
+    let(:organization) { create(:organization, organization_type: 'tj') }
+    let(:user) { build(:user, role: 'local_admin', organization:) }
 
     context 'when the convict is persisted' do
       let(:convict) { create(:convict) }
@@ -39,6 +40,29 @@ describe ConvictInvitationPolicy do
       let(:convict) { build(:convict) }
 
       it { is_expected.to forbid_action(:create) }
+    end
+  end
+
+  context 'for a local_admin spip' do
+    let(:organization) { create(:organization, organization_type: 'spip') }
+    let(:user) { build(:user, role: 'local_admin', organization:) }
+
+    context 'when the convict is persisted' do
+      let(:convict) { create(:convict) }
+
+      it { is_expected.to forbid_action(:create) }
+    end
+
+    context 'when the convict is not persisted' do
+      let(:convict) { build(:convict) }
+
+      it { is_expected.to permit_action(:create) }
+    end
+
+    context 'when the convict is persisted and belongs to the user\'s organization' do
+      let(:convict) { build(:convict, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:create) }
     end
   end
 
@@ -182,13 +206,13 @@ describe ConvictInvitationPolicy do
     context 'when the convict is not persisted' do
       let(:convict) { build(:convict) }
 
-      pending { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:create) }
     end
 
     context 'when the convict is persisted and belongs to the user\'s organization' do
       let(:convict) { build(:convict, user:) }
 
-      pending { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:create) }
     end
   end
 
@@ -252,13 +276,13 @@ describe ConvictInvitationPolicy do
     context 'when the convict is not persisted' do
       let(:convict) { build(:convict) }
 
-      pending { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:create) }
     end
 
     context 'when the convict is persisted and belongs to the user\'s organization' do
       let(:convict) { build(:convict, organizations: [user.organization]) }
 
-      pending { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:create) }
     end
   end
 
