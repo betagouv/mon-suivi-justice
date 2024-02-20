@@ -12,6 +12,7 @@ class Appointment < ApplicationRecord
   belongs_to :slot
   belongs_to :user, optional: true
   belongs_to :creating_organization, class_name: 'Organization', optional: true
+  belongs_to :inviter_user, class_name: 'User', optional: true
 
   has_many :notifications, dependent: :destroy
   has_many :history_items, dependent: :destroy
@@ -106,6 +107,7 @@ class Appointment < ApplicationRecord
 
   def convict_has_a_dob
     return if convict&.date_of_birth.present?
+    return if inviter_user_id.present? && inviter_user.admin?
 
     errors.add(:convict, I18n.t('activerecord.errors.models.appointment.attributes.convict.DoB'))
   end
