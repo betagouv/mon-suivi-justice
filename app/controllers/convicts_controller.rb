@@ -148,7 +148,7 @@ class ConvictsController < ApplicationController
     if params['no-appointment'].nil?
       new_appointment_path(convict_id: @convict.id)
     else
-      convict_path(@convict)
+      convicts_path
     end
   end
 
