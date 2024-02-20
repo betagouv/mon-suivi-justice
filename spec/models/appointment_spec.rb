@@ -166,5 +166,38 @@ RSpec.describe Appointment, type: :model do
       expect(appointment.errors[:convict])
                         .to include(I18n.t('activerecord.errors.models.appointment.attributes.convict.DoB'))
     end
+    context 'when convict does not have DoB' do
+      it 'validates that new appointment is not valid' do
+        convict = build(:convict, date_of_birth: nil)
+        appointment = build(:appointment, convict:)
+  
+        expect(appointment.valid?).to eq(false)
+        expect(appointment.errors[:convict])
+                          .to include(I18n.t('activerecord.errors.models.appointment.attributes.convict.DoB'))
+      end
+      context 'when user is admin' do
+        it 'skip validates' do
+          user = create(:user, :in_organization, role: :admin)
+          convict = build(:convict, date_of_birth: nil)
+          appointment = build(:appointment, convict:, inviter_user: user)
+    
+          expect(appointment.valid?).to eq(true)
+        end
+      end
+      context 'when user is not admin' do
+        it 'validates that new appointment is not valid for convict without DoB if non admin user' do
+          user = create(:user, :in_organization, role: :cpip)
+          convict = build(:convict, date_of_birth: nil)
+          appointment = build(:appointment, convict:, inviter_user: user)
+    
+          expect(appointment.valid?).to eq(false)
+          expect(appointment.errors[:convict])
+                            .to include(I18n.t('activerecord.errors.models.appointment.attributes.convict.DoB'))
+        end
+      end
+    end
+
+    
+
   end
 end
