@@ -12,6 +12,22 @@ describe AppointmentPolicy do
     create(:appointment, slot:, state: :booked, creating_organization: slot.place.organization, convict:)
   end
 
+  context 'appointment date' do
+    let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+    let(:user) { build(:user, role: 'local_admin', organization: slot.place.organization, security_charter_accepted_at: Time.zone.yesterday) }
+    let!(:appointment) do
+      create(:appointment, :skip_validate, slot:, state: :booked, creating_organization: slot.place.organization, convict:)
+    end
+    context 'in the past' do
+      let(:slot) { create :slot, :without_validations, appointment_type:, agenda:, date: 2.day.ago }
+      it { is_expected.to forbid_action(:cancel) }
+    end
+    context 'in the future' do
+      let(:slot) { create :slot, :without_validations, appointment_type:, agenda:, date: 2.day.from_now }
+      it { is_expected.to permit_action(:cancel) }
+    end
+  end
+
   context 'for a user who has not accepted the security charter' do
     let(:user) { build(:user, role: 'admin', organization: slot.place.organization, security_charter_accepted_at: nil) }
 
