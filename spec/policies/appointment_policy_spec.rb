@@ -14,9 +14,13 @@ describe AppointmentPolicy do
 
   context 'appointment date' do
     let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
-    let(:user) { build(:user, role: 'local_admin', organization: slot.place.organization, security_charter_accepted_at: Time.zone.yesterday) }
+    let(:user) do
+      build(:user, role: 'local_admin', organization: slot.place.organization,
+                   security_charter_accepted_at: Time.zone.yesterday)
+    end
     let!(:appointment) do
-      create(:appointment, :skip_validate, slot:, state: :booked, creating_organization: slot.place.organization, convict:)
+      create(:appointment, :skip_validate, slot:, state: :booked, creating_organization: slot.place.organization,
+                                           convict:)
     end
     context 'in the past' do
       let(:slot) { create :slot, :without_validations, appointment_type:, agenda:, date: 2.day.ago }

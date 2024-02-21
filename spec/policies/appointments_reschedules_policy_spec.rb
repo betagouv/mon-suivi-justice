@@ -18,7 +18,8 @@ describe AppointmentsReschedulesPolicy do
   context 'previous appointment date is' do
     let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
     let(:user) do
-      build(:user, organization: slot.agenda.place.organization, role: :cpip, security_charter_accepted_at: Time.zone.now)
+      build(:user, organization: slot.agenda.place.organization, role: :cpip,
+                   security_charter_accepted_at: Time.zone.now)
     end
     let(:appointment) { create(:appointment, :skip_validate, slot:, state: :booked) }
     context 'in the past' do
