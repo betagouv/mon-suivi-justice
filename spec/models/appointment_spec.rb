@@ -171,7 +171,7 @@ RSpec.describe Appointment, type: :model do
 
     it 'validates new appointment for a convict with a phone but dont want to receive sms' do
       convict = create(:convict, phone: '+33612345678', refused_phone: true)
-      appointment = create(:appointment, convict:, send_sms: nil)
+      appointment = create(:appointment, convict:)
       expect(appointment.valid?).to eq(true)
     end
   end
