@@ -15,6 +15,31 @@ describe AppointmentsReschedulesPolicy do
     it { is_expected.to forbid_action(:create) }
   end
 
+  context 'previous appointment date is' do
+    let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
+    let(:user) do
+      build(:user, organization: slot.agenda.place.organization, role: :cpip,
+                   security_charter_accepted_at: Time.zone.now)
+    end
+    let(:appointment) { create(:appointment, :skip_validate, slot:, state: :booked) }
+    context 'in the past' do
+      let(:slot) { create :slot, :without_validations, appointment_type:, date: 2.day.ago }
+
+      subject { AppointmentsReschedulesPolicy.new(user, appointment) }
+
+      it { is_expected.to forbid_action(:new) }
+    end
+    context 'in the future' do
+      let(:slot) { create :slot, :without_validations, appointment_type:, date: 2.day.from_now }
+
+      let(:appointment) { create(:appointment, :skip_validate, slot:, state: :booked) }
+
+      subject { AppointmentsReschedulesPolicy.new(user, appointment) }
+
+      it { is_expected.to permit_action(:new) }
+    end
+  end
+
   context 'reschedule related to appointment status' do
     let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
     let(:slot) { create :slot, :without_validations, appointment_type: }

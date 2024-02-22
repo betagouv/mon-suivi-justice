@@ -82,8 +82,8 @@ class AppointmentPolicy < ApplicationPolicy
 
   def cancel?
     return false unless user.security_charter_accepted?
-
     return false unless record.booked?
+    return false unless record.slot.date > Time.zone.yesterday
 
     ownership_check && hability_check
   end

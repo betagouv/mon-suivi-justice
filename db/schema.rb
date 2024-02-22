@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_19_201008) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_22_153243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -481,8 +481,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_19_201008) do
     t.integer "invitations_count", default: 0
     t.bigint "organization_id"
     t.string "phone"
-    t.boolean "share_email_to_convict", default: true
-    t.boolean "share_phone_to_convict", default: true
+    t.boolean "share_email_to_convict", default: false
+    t.boolean "share_phone_to_convict", default: false
     t.bigint "headquarter_id"
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at"
