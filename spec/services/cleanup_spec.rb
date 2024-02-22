@@ -64,6 +64,7 @@ RSpec.describe Cleanup do
       it 'ensures inactive old convict does not exist' do
         history_items = HistoryItem.where(convict: inactive_old_convict, category: %w[convict])
                                 .order(created_at: :desc)
+        inactive_old_convict.reload
         expect(inactive_old_convict.discarded?).to be true
         expect(history_items.first.event).to eq('archive_convict')
       end
