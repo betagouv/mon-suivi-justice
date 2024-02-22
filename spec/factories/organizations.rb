@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :organization do
     organization_type { 'spip' }
-    sequence(:name) { Faker::Fantasy::Tolkien.unique.location }
+    sequence(:name) { |seq| "organization_#{seq}" }
     time_zone { 'Europe/Paris' }
     tjs { [] }
     spips { [] }
