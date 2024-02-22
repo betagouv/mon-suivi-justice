@@ -7,11 +7,11 @@ RSpec.describe Cleanup do
       let!(:active_old_convict) { create(:convict, created_at: 19.months.ago) }
       let!(:active_recent_convict) { create(:convict, created_at: 17.months.ago) }
       let!(:inactive_recent_convict) { create(:convict, created_at: 17.months.ago) }
-    
+
       let!(:old_slot) { create(:slot, :without_validations, date: 19.months.ago) }
       let!(:new_slot) { create(:slot, :without_validations, date: 16.months.ago) }
       let!(:new_slot2) { create(:slot, :without_validations, date: 6.months.ago) }
-    
+
       let!(:old_appointment) { create(:appointment, :skip_validate, slot: old_slot, convict: inactive_old_convict) }
       let!(:new_appointment) { create(:appointment, :skip_validate, slot: new_slot, convict: active_recent_convict) }
       let!(:new_appointment2) { create(:appointment, :skip_validate, slot: new_slot2, convict: active_old_convict) }
@@ -44,11 +44,11 @@ RSpec.describe Cleanup do
       let!(:active_old_convict) { create(:convict, created_at: 13.months.ago) }
       let!(:active_recent_convict) { create(:convict, created_at: 11.months.ago) }
       let!(:inactive_recent_convict) { create(:convict, created_at: 11.months.ago) }
-    
+
       let!(:old_slot) { create(:slot, :without_validations, date: 13.months.ago) }
       let!(:new_slot) { create(:slot, :without_validations, date: 10.months.ago) }
       let!(:new_slot2) { create(:slot, :without_validations, date: 6.months.ago) }
-    
+
       let!(:old_appointment) { create(:appointment, :skip_validate, slot: old_slot, convict: inactive_old_convict) }
       let!(:new_appointment) { create(:appointment, :skip_validate, slot: new_slot, convict: active_recent_convict) }
       let!(:new_appointment2) { create(:appointment, :skip_validate, slot: new_slot2, convict: active_old_convict) }
