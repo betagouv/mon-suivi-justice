@@ -168,5 +168,11 @@ RSpec.describe Appointment, type: :model do
       expect(appointment.errors[:convict])
                         .to include(I18n.t('activerecord.errors.models.appointment.attributes.convict.discarded'))
     end
+
+    it 'validates new appointment for a convict with a phone but dont want to receive sms' do
+      convict = create(:convict, phone: '+33612345678', refused_phone: true)
+      appointment = create(:appointment, convict:)
+      expect(appointment.valid?).to eq(true)
+    end
   end
 end
