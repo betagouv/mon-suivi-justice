@@ -115,7 +115,7 @@ class Convict < ApplicationRecord
   end
 
   def invitable_to_convict_interface?
-    phone.present? && invitation_to_convict_interface_count < 2 &&
+    can_receive_sms? && invitation_to_convict_interface_count < 2 &&
       timestamp_convict_interface_creation.nil?
   end
 
