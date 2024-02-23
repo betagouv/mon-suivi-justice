@@ -63,6 +63,14 @@ class Convict < ApplicationRecord
 
   delegate :name, to: :cpip, allow_nil: true, prefix: true
 
+  def self.delete_delay
+    18.month.ago
+  end
+
+  def self.archive_delay
+    12.month.ago
+  end
+
   def name
     "#{last_name.upcase} #{first_name.capitalize}"
   end
