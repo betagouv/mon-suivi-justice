@@ -157,7 +157,7 @@ RSpec.describe Appointment, type: :model do
       appointment = create(:appointment, convict:)
       expect(appointment.valid?).to eq(true)
     end
-    
+
     it 'validates that new appointment is not for convict without DoB' do
       convict = build(:convict, date_of_birth: nil)
       appointment = build(:appointment, convict:)
