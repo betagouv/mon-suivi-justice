@@ -57,11 +57,11 @@ RSpec.describe Cleanup do
         Cleanup::ArchiveUnactiveConvicts.new.call
       end
 
-      it 'ensures active old convict still exists' do
+      it 'ensures active old convict is not actived' do
         expect(active_old_convict.discarded?).to be false
       end
 
-      it 'ensures inactive old convict does not exist' do
+      it 'ensures inactive old convict is archived' do
         history_items = HistoryItem.where(convict: inactive_old_convict, category: %w[convict])
                                 .order(created_at: :desc)
         inactive_old_convict.reload
@@ -69,11 +69,11 @@ RSpec.describe Cleanup do
         expect(history_items.first.event).to eq('archive_convict')
       end
 
-      it 'ensures active recent convict still exists' do
+      it 'ensures active recent convict is not archived' do
         expect(active_recent_convict.discarded?).to be false
       end
 
-      it 'ensures inactive recent convict still exists' do
+      it 'ensures inactive recent convict is not archived' do
         expect(inactive_recent_convict.discarded?).to be false
       end
     end
