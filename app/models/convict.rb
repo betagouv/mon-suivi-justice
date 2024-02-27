@@ -2,6 +2,7 @@ class Convict < ApplicationRecord
   include NormalizedPhone
   include Discard::Model
   include PgSearch::Model
+  include ActiveModel::Validations
 
   has_paper_trail
   normalizes :last_name, with: ->(last_name) { last_name&.strip&.upcase }
@@ -49,7 +50,7 @@ class Convict < ApplicationRecord
   validates :organizations, presence: true
   validate :unique_organizations
 
-  validate :appi_format
+  validates_with AppiUuidValidator
 
   after_update :update_convict_api
   after_destroy :delete_convict_from_node_app, if: :timestamp_convict_interface_creation
@@ -204,35 +205,6 @@ class Convict < ApplicationRecord
   def already_invited_to_interface?
     invitation_to_convict_interface_count.positive?
   end
-
-  # rubocop:disable Metrics/AbcSize
-  def appi_format
-    # Return early if appi_uuid is blank
-    return unless appi_uuid.present?
-
-    # Check if appi_uuid consists only of digits
-    unless appi_uuid.match?(/\A\d+\z/)
-      errors.add(:appi_uuid, I18n.t('activerecord.errors.models.convict.attributes.appi_uuid.only_digits'))
-      return
-    end
-
-    # Define valid formats as combinations of prefix and length
-    valid_formats = [
-      { prefix: %w[199 200], length: 8 },
-      { prefix: %w[200 201 202], length: 12 }
-    ]
-
-    # Check if appi_uuid matches any of the valid formats
-    is_valid = valid_formats.any? do |format|
-      format[:prefix].any? { |prefix| appi_uuid.start_with?(prefix) } && appi_uuid.length == format[:length]
-    end
-
-    # Add error if appi_uuid doesn't match any valid format
-    return if is_valid
-
-    errors.add(:appi_uuid, I18n.t('activerecord.errors.models.convict.attributes.appi_uuid.invalid'))
-  end
-  # rubocop:enable Metrics/AbcSize
 
   private
 
