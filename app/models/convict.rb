@@ -22,8 +22,8 @@ class Convict < ApplicationRecord
   belongs_to :city, optional: true
   belongs_to :creating_organization, class_name: 'Organization', optional: true
 
-  alias_attribute :cpip, :user
-  alias_attribute :agent, :user
+  alias cpip user
+  alias agent user
 
   attr_accessor :place_id, :duplicates, :current_user
 
@@ -62,6 +62,14 @@ class Convict < ApplicationRecord
                                              ignoring: :accents
 
   delegate :name, to: :cpip, allow_nil: true, prefix: true
+
+  def self.delete_delay
+    18.month.ago
+  end
+
+  def self.archive_delay
+    12.month.ago
+  end
 
   def name
     "#{last_name.upcase} #{first_name.capitalize}"
@@ -107,7 +115,7 @@ class Convict < ApplicationRecord
   end
 
   def invitable_to_convict_interface?
-    phone.present? && invitation_to_convict_interface_count < 2 &&
+    can_receive_sms? && invitation_to_convict_interface_count < 2 &&
       timestamp_convict_interface_creation.nil?
   end
 

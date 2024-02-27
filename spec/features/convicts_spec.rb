@@ -445,6 +445,13 @@ RSpec.feature 'Convicts', type: :feature do
         visit convict_path(@convict)
         expect(page).to have_content('Accepté')
       end
+
+      it 'does not allow to invite a convict without phone number to his interface',
+         logged_in_as: 'cpip' do
+        @convict.update(user: @user, phone: nil, no_phone: true)
+        visit convict_path(@convict)
+        expect(page).to have_content("Impossible d'inviter ce probationnaire")
+      end
     end
 
     context 'logged in as admin', logged_in_as: 'admin' do
