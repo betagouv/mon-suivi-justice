@@ -47,7 +47,7 @@ class Convict < ApplicationRecord
   validate :unique_organizations
 
   after_update :update_convict_api
-  after_destroy :delete_convict_from_node_app
+  after_destroy :delete_convict_from_node_app, if: :timestamp_convict_interface_creation
 
   scope :with_phone, -> { where.not(phone: '') }
   scope :never_invited, -> { where(invitation_to_convict_interface_count: 0) }
