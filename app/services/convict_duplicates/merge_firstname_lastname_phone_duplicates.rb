@@ -1,12 +1,14 @@
 module ConvictDuplicates
-  class MergeFirstnameLastnameDobDuplicates
+  # This class is responsible for merging duplicates convicts
+  # based on the first_name, last_name and date_of_birth attributes.
+  class MergeFirstnameLastnamePhoneDuplicates
     def initialize
       @duplicates = Convict
-        .where.not(date_of_birth: nil)
-        .where.not(first_name: nil)
-        .where.not(last_name: nil)
-        .select('LOWER(TRIM(first_name)) as cleaned_fn, LOWER(TRIM(last_name)) as cleaned_ln, date_of_birth, COUNT(*) as duplicates_count')
-        .group('cleaned_fn', 'cleaned_ln', :date_of_birth)
+        .where.not(phone: [nil, ''])
+        .where.not(first_name: [nil, ''])
+        .where.not(last_name: [nil, ''])
+        .select('LOWER(TRIM(first_name)) as cleaned_fn, LOWER(TRIM(last_name)) as cleaned_ln, phone, COUNT(*) as duplicates_count')
+        .group('cleaned_fn', 'cleaned_ln', :phone)
         .having('COUNT(*) > 1')
       p @duplicates
     end
