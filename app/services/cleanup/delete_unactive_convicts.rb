@@ -15,9 +15,7 @@ module Cleanup
     end
 
     def call
-      Convict.transaction do
-        @convicts.destroy_all
-      end
+      @convicts.destroy_all
     end
   end
 end
