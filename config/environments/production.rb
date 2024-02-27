@@ -106,11 +106,6 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
-  config.filter_parameters += [
-    :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn,
-    :phone, :email, :first_name, :last_name, :full_name, :date_of_birth, :appi_uuid
-  ]
-
     # Better logging
     config.lograge.enabled = true
 
