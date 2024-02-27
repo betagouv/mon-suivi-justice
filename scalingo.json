@@ -5,7 +5,7 @@
       }
     },
   "scripts": {
-      "first-deploy": "bin/rails db:migrate db:seed",
+      "first-deploy": "bin/rails db:setup",
       "postdeploy": "bin/rails db:migrate"
     },
     "formation": {
