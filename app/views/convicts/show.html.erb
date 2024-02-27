@@ -85,8 +85,8 @@
             </p>
           <% end %>
           <div class="fr-grid-row">
-              <p class="fr-mr-1w"><strong><%= t('activerecord.attributes.convict.cpip') %> :</strong></p>
-              <%= render 'shared/convict_self_assign_link', convict: @convict %>
+            <p class="fr-mr-1w"><strong><%= t('activerecord.attributes.convict.cpip') %> :</strong></p>
+            <%= render 'shared/convict_self_assign_link', convict: @convict %>
           </div>
           <p>
             <strong><%= t('activerecord.attributes.convict.appi_uuid') %></strong> : <%= @convict.appi_uuid.presence %>
@@ -145,7 +145,7 @@
     <% end %>
     <% if policy(:appointment).new? && @convict.undiscarded? %>
       <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
-          <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
+        <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
                                                         class: 'fr-btn  fr-btn--lg'%>
       </div>
     <% end %>
