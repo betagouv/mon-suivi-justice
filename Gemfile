@@ -52,7 +52,7 @@ gem 'wicked_pdf', '~> 2.7.0'
 gem 'wkhtmltopdf-binary', '~> 0.12.6'
 
 gem 'tzinfo', '~> 2.0.6'
-gem 'tzinfo-data', '~> 1.2023.4'
+gem 'tzinfo-data', '~> 1.2024.1'
 
 gem 'administrate', '~> 0.19.0'
 gem 'administrate-field-enum', '~> 0.0.9'
