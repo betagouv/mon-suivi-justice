@@ -42,5 +42,8 @@
   },
   "devDependencies": {
     "postcss-replace": "^2.0.1"
+  },
+  "resolutions": {
+    "postcss": "^8.4.35"
   }
 }
