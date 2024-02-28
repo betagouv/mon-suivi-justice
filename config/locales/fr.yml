@@ -808,6 +808,7 @@ fr:
   date:
     formats:
       value: "%Y-%m-%d"
+      flatpickr: "%B %-d, %Y"
 
   views:
     pagination:
