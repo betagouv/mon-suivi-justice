@@ -49,7 +49,7 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       select "Sortie d'audience SPIP", from: 'Type de convocation'
 
       find('#slot_batch_date').click
-      find('.flatpickr-day', text: next_valid_day.day).click
+      find(".flatpickr-day[aria-label=\"#{I18n.localize(next_valid_day, format: :flatpickr)}\"]").click
 
       click_on 'Créneau unique'
 
@@ -85,7 +85,7 @@ RSpec.feature 'Slots', type: :feature, logged_in_as: 'admin' do
       select "Sortie d'audience SPIP", from: 'Type de convocation'
 
       find('#slot_batch_date').click
-      find('.flatpickr-day', text: next_valid_day.day).click
+      find(".flatpickr-day[aria-label=\"#{I18n.localize(next_valid_day, format: :flatpickr)}\"]").click
 
       click_on 'Créneau unique'
 
