@@ -30,19 +30,17 @@ end
 def process_old_object(version, permitted_classes)
   old_object = version.old_object
   if version.old_object.include?('!ruby/object:ActiveRecord::Type::Time::Value')
-    old_object = version.old_object.gsub('  ', '')
-                        .gsub('!ruby/object:ActiveRecord::Type::Time::Value',
-                              'Sat, 01 Jan 2000 05:00:00.000000000 UTC +00:00')
+    old_object = old_object.gsub(%r{!ruby/object:ActiveRecord::Type::Time::Value\s*\n\s*delegate_dc_obj:}, '')
   end
   YAML.safe_load(old_object, permitted_classes:, aliases: true)
 end
 
 def process_old_object_changes(version, permitted_classes)
-  old_object_change = version.old_object_changes
+  old_object_changes = version.old_object_changes
   if version.old_object_changes.include?('!ruby/object:ActiveRecord::Type::Time::Value')
-    old_object_change = version.old_object_change.gsub('  ', '')
-                               .gsub('!ruby/object:ActiveRecord::Type::Time::Value',
-                                     'Sat, 01 Jan 2000 05:00:00.000000000 UTC +00:00')
+    old_object_changes = old_object_changes.gsub(
+      %r{!ruby/object:ActiveRecord::Type::Time::Value\s*\n\s*delegate_dc_obj:}, ''
+    )
   end
-  YAML.safe_load(old_object_change, permitted_classes:, aliases: true)
+  YAML.safe_load(old_object_changes, permitted_classes:, aliases: true)
 end
