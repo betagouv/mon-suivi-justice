@@ -12,6 +12,7 @@ module Cleanup
                     AND slots.date > ?
                   )', delay)
                   .where('convicts.created_at < ?', delay)
+                  .where(discarded_at: nil)
     end
 
     def call

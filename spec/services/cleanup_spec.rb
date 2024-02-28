@@ -40,10 +40,12 @@ RSpec.describe Cleanup do
   end
   describe 'ArchiveUnactiveConvicts' do
     describe 'call' do
+      let(:discarded_date) { 1.day.ago }
       let!(:inactive_old_convict) { create(:convict, created_at: 14.months.ago) }
       let!(:active_old_convict) { create(:convict, created_at: 13.months.ago) }
       let!(:active_recent_convict) { create(:convict, created_at: 11.months.ago) }
       let!(:inactive_recent_convict) { create(:convict, created_at: 11.months.ago) }
+      let!(:archived_recent_convict) { create(:convict, created_at: 1.months.ago, discarded_at: discarded_date) }
 
       let!(:old_slot) { create(:slot, :without_validations, date: 13.months.ago) }
       let!(:new_slot) { create(:slot, :without_validations, date: 10.months.ago) }
@@ -67,6 +69,10 @@ RSpec.describe Cleanup do
         inactive_old_convict.reload
         expect(inactive_old_convict.discarded?).to be true
         expect(history_items.first.event).to eq('archive_convict')
+      end
+
+      it 'ensures already discarded convict is not touched' do
+        expect(archived_recent_convict.discarded_at).to eq discarded_date
       end
 
       it 'ensures active recent convict is not archived' do
