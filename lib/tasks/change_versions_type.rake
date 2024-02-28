@@ -39,7 +39,7 @@ end
 
 def process_old_object_changes(version, permitted_classes)
   old_object_change = version.old_object_changes
-  if version.old_object_change.include?('!ruby/object:ActiveRecord::Type::Time::Value')
+  if version.old_object_changes.include?('!ruby/object:ActiveRecord::Type::Time::Value')
     old_object_change = version.old_object_change.gsub('  ', '')
                                .gsub('!ruby/object:ActiveRecord::Type::Time::Value',
                                      'Sat, 01 Jan 2000 05:00:00.000000000 UTC +00:00')
