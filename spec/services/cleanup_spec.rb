@@ -40,7 +40,7 @@ RSpec.describe Cleanup do
   end
   describe 'ArchiveUnactiveConvicts' do
     describe 'call' do
-      let(:discarded_date) { 1.day.ago }
+      let(:discarded_date) { Time.parse('2024-02-02') }
       let!(:inactive_old_convict) { create(:convict, created_at: 14.months.ago) }
       let!(:active_old_convict) { create(:convict, created_at: 13.months.ago) }
       let!(:active_recent_convict) { create(:convict, created_at: 11.months.ago) }
