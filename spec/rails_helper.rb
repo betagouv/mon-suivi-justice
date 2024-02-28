@@ -105,6 +105,7 @@ Capybara.default_max_wait_time = 5
 Capybara.default_normalize_ws = true
 Capybara.asset_host = "http://localhost:3001"
 Capybara.raise_server_errors = false
+Capybara.enable_aria_label = true
 
 Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
   "screenshot_#{example.description.gsub(' ', '-').gsub(/^.*\/spec\//,'')}"
