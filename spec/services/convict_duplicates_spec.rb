@@ -11,7 +11,7 @@ RSpec.describe ConvictDuplicates, type: :service do
         apt = build(:appointment, slot:)
         apt.save(validate: false)
         conv = build(:convict, appi_uuid: "#{duplicate_appi_uuid} ",
-                              appointments: [apt])
+                               appointments: [apt])
         conv.save(validate: false)
         conv
       end
@@ -20,7 +20,7 @@ RSpec.describe ConvictDuplicates, type: :service do
         apt = build(:appointment, slot:)
         apt.save(validate: false)
         conv = build(:convict, appi_uuid: "#{duplicate_appi_uuid} ",
-                              appointments: [apt])
+                               appointments: [apt])
         conv.save(validate: false)
         conv
       end

@@ -2,12 +2,12 @@ module ConvictDuplicates
   class MergeFirstnameLastnameDobDuplicates
     def initialize
       @duplicates = Convict
-        .where.not(date_of_birth: nil)
-        .where.not(first_name: nil)
-        .where.not(last_name: nil)
-        .select('LOWER(TRIM(first_name)) as cleaned_fn, LOWER(TRIM(last_name)) as cleaned_ln, date_of_birth, COUNT(*) as duplicates_count')
-        .group('cleaned_fn', 'cleaned_ln', :date_of_birth)
-        .having('COUNT(*) > 1')
+                    .where.not(date_of_birth: nil)
+                    .where.not(first_name: nil)
+                    .where.not(last_name: nil)
+                    .select('LOWER(TRIM(first_name)) as cleaned_fn, LOWER(TRIM(last_name)) as cleaned_ln, date_of_birth, COUNT(*) as duplicates_count')
+                    .group('cleaned_fn', 'cleaned_ln', :date_of_birth)
+                    .having('COUNT(*) > 1')
       p @duplicates
     end
 
