@@ -24,7 +24,7 @@ RSpec.describe 'Import Convicts', type: :feature, logged_in_as: 'admin' do
     perform_enqueued_jobs
 
     new_convict = Convict.find_by(first_name: 'Bob', last_name: 'DUPNEU', date_of_birth: '15/11/1993'.to_date,
-                                  appi_uuid: '111111111111')
+                                  appi_uuid: "2024#{Faker::Number.unique.number(digits: 8)}")
 
     # Check if there is only on convict with the same first_name, last_name and date_of_birth
     expect(Convict.where(first_name: 'John', last_name: 'DOE', date_of_birth: '02/02/1986'.to_date).count).to eq(1)
@@ -38,7 +38,7 @@ RSpec.describe 'Import Convicts', type: :feature, logged_in_as: 'admin' do
 
   it 'updates existing convicts' do
     convict = create(:convict, first_name: 'Bob', last_name: 'DUPNEU', date_of_birth: '15/11/1993'.to_date,
-                               appi_uuid: '111111111111', organizations: [@organization])
+                               appi_uuid: "202420232022", organizations: [@organization])
 
     visit admin_import_convicts_path
 
