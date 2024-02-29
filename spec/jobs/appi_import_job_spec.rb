@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe AppiImportJob, type: :job do
   describe '#process_convict' do
     let(:target_organizations) { [create(:organization), create(:organization)] }
-    let(:convict_hash) { { date_of_birth: '02/02/1987', appi_uuid: "2024#{Faker::Number.unique.number(digits: 8)}", first_name: 'Bob', last_name: 'Dupneu' } }
+    let(:convict_hash) do
+      { date_of_birth: '02/02/1987', appi_uuid: "2024#{Faker::Number.unique.number(digits: 8)}", first_name: 'Bob',
+        last_name: 'Dupneu' }
+    end
     let(:job) { AppiImportJob.new }
 
     before do
