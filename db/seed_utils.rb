@@ -30,7 +30,7 @@ end
 
 def create_convict(organizations:, city: nil)
   Faker::Config.locale = 'fr'
-  Convict.create!(city: city, appi_uuid: Faker::Number.unique.number(digits: 12), date_of_birth: Faker::Date.in_date_period(year: 1989)) do |convict|
+  Convict.create!(city: city, appi_uuid: "2024#{Faker::Number.unique.number(digits: 8)}", date_of_birth: Faker::Date.in_date_period(year: 1989)) do |convict|
     convict.first_name = Faker::Name.first_name
     convict.last_name = Faker::Name.last_name
     convict.no_phone = true # we don't want to send SMS to convicts during tests
