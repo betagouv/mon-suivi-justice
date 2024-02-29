@@ -318,7 +318,7 @@ RSpec.feature 'Convicts', type: :feature do
       click_button 'Enregistrer'
 
       convict.reload
-      expect(convict.last_name).to eq('Ristretto')
+      expect(convict.last_name).to eq('RISTRETTO')
       expect(convict.cpip).to eq(cpip)
     end
 
