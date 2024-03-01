@@ -27,7 +27,6 @@ class ExtraField < ApplicationRecord
     appointment_types.any?(&:sortie_audience_spip?)
   end
 
-
   def find_places_with_shared_appointment_types
     # Determine the organization and linked organizations
     linked_organizations = organization.linked_organizations
