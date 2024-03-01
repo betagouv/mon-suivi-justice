@@ -26,4 +26,18 @@ class ExtraField < ApplicationRecord
   def relate_to_spip?
     appointment_types.any?(&:sortie_audience_spip?)
   end
+
+
+  def find_places_with_shared_appointment_types
+    # Determine the organization and linked organizations
+    linked_organizations = organization.linked_organizations
+    organization_ids = [organization_id, *linked_organizations.map(&:id)]
+
+    # Query for places that are associated with the primary organization
+    # or any of the linked organizations and that share the ExtraField's appointment types
+    Place.joins(:appointment_types)
+         .where(organization_id: organization_ids)
+         .where(appointment_types: { id: appointment_type_ids })
+         .distinct
+  end
 end
