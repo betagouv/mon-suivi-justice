@@ -17,14 +17,6 @@ class AgendasController < ApplicationController
     redirect_to edit_place_path(agenda.place)
   end
 
-  def destroy
-    agenda = Agenda.find params[:id]
-    authorize agenda
-
-    agenda.destroy
-    redirect_to edit_place_path(agenda.place)
-  end
-
   private
 
   def agenda_params

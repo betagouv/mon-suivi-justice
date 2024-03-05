@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         get '/impersonate' => "users#impersonate"
       end
       resources :convicts
-      resources :organizations, except: %i[new create] do
+      resources :organizations, except: %i[new create destroy] do
         put '/link_convict_from_linked_orga' => "organizations#link_convict_from_linked_orga"
       end
       resources :departments
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       resources :srj_spips
       resources :cities
       resources :appointments, except: :index
-      resources :places
+      resources :places, except: :destroy
       resources :jurisdictions, except: :index
       resources :seeds, only: [:index]
       get '/reset_db' => "seeds#reset_db"
@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  resources :organizations
+  resources :organizations, except: :destroy
 
   resources :users do
     collection do
@@ -69,7 +69,7 @@ Rails.application.routes.draw do
     resource :invitation, only: :create, controller: 'convict_invitations'
   end
 
-  resources :places do
+  resources :places, except: :destroy do
     patch :archive
   end
 
@@ -80,7 +80,7 @@ Rails.application.routes.draw do
 
   resources :slot_types, only: [:create, :destroy, :update]
 
-  resources :agendas, only: [:create, :destroy, :update] do
+  resources :agendas, only: [:create, :update] do
     resources :slot_types, only: :index
     resource :slot_types_batch, only: [:create, :destroy]
   end

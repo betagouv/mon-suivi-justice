@@ -44,10 +44,4 @@ class OrganizationPolicy < ApplicationPolicy
 
     user.admin?
   end
-
-  def destroy?
-    return false unless user.security_charter_accepted?
-
-    user.admin?
-  end
 end

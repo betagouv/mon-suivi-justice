@@ -41,14 +41,6 @@ class AgendaPolicy < ApplicationPolicy
     record.place.organization == user.organization
   end
 
-  def destroy?
-    return false unless user.security_charter_accepted?
-
-    return false unless user.admin? || user.local_admin? || user.greff_sap?
-
-    record.place.organization == user.organization
-  end
-
   def can_create_slot_inside?
     if user.admin?
       return [user.organization, *user.organization.linked_organizations].include?(record.place.organization)

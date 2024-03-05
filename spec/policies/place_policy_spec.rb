@@ -19,10 +19,6 @@ describe PlacePolicy do
         expect(subject).to receive(:check_ownership?)
         subject.update?
       end
-      it 'destroy' do
-        expect(subject).to receive(:check_ownership?)
-        subject.destroy?
-      end
       it 'create' do
         expect(subject).to receive(:check_ownership?)
         subject.destroy?
@@ -567,7 +563,6 @@ describe PlacePolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for an admin' do
@@ -580,7 +575,6 @@ describe PlacePolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'for a local_admin' do
@@ -593,7 +587,6 @@ describe PlacePolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'for a prosecutor' do
@@ -606,7 +599,6 @@ describe PlacePolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a jap user' do
@@ -619,7 +611,6 @@ describe PlacePolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'for a court secretary' do
@@ -632,7 +623,6 @@ describe PlacePolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a dir_greff_bex user' do
@@ -645,7 +635,6 @@ describe PlacePolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'for a bex user' do
@@ -658,7 +647,6 @@ describe PlacePolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a greff_co user' do
@@ -671,7 +659,6 @@ describe PlacePolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a dir_greff_sap user' do
@@ -684,7 +671,6 @@ describe PlacePolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'for a greff_sap user' do
@@ -697,7 +683,6 @@ describe PlacePolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'for a cpip user' do
@@ -710,7 +695,6 @@ describe PlacePolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a educator user' do
@@ -723,7 +707,6 @@ describe PlacePolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a psychologist user' do
@@ -736,7 +719,6 @@ describe PlacePolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a overseer user' do
@@ -749,7 +731,6 @@ describe PlacePolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a dpip user' do
@@ -762,7 +743,6 @@ describe PlacePolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'for a secretary_spip user' do
@@ -775,6 +755,5 @@ describe PlacePolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 end

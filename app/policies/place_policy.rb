@@ -54,12 +54,6 @@ class PlacePolicy < ApplicationPolicy
     check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
-  def destroy?
-    return false unless user.security_charter_accepted?
-
-    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
-  end
-
   def archive?
     return false unless user.security_charter_accepted?
 
