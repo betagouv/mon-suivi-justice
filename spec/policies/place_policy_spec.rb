@@ -21,7 +21,7 @@ describe PlacePolicy do
       end
       it 'create' do
         expect(subject).to receive(:check_ownership?)
-        subject.destroy?
+        subject.create?
       end
       it 'archive' do
         expect(subject).to receive(:check_ownership?)
