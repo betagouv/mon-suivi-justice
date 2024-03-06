@@ -89,6 +89,7 @@ class Convict < ApplicationRecord
     appointments.joins(:slot)
                 .where(state: 'booked')
                 .where('slots.date': Date.today..)
+                .order('slots.date')
   end
 
   def passed_appointments
