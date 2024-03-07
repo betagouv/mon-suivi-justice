@@ -55,7 +55,8 @@ class ConvictPolicy < ApplicationPolicy
   def unarchive?
     return false unless user.security_charter_accepted?
 
-    (user.admin? || user.local_admin? || user.dir_greff_sap? || user.greff_sap? || user.cpip? || user.dpip?) &&
+    (user.admin? || user.local_admin? || user.work_at_bex? || user.greff_sap? || user.cpip? || user.dpip? ||
+    user.secretary_court? || user.secretary_spip?) &&
       record.discarded? && check_ownership?
   end
   # rubocop:enable Metrics/CyclomaticComplexity
