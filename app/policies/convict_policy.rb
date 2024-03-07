@@ -50,22 +50,27 @@ class ConvictPolicy < ApplicationPolicy
     record.undiscarded? && check_ownership?
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def unarchive?
     return false unless user.security_charter_accepted?
 
-    (user.admin? || user.local_admin? || user.dir_greff_sap? || user.greff_sap?) && record.discarded?
+    (user.admin? || user.local_admin? || user.dir_greff_sap? || user.greff_sap? || user.cpip? || user.dpip?) &&
+      record.discarded? && check_ownership?
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def self_assign?
     return false unless user.security_charter_accepted?
 
-    (user.cpip? || user.dpip?) && record.cpip.nil?
+    (user.cpip? || user.dpip?) && record.cpip.nil? && check_ownership?
   end
 
   def unassign?
     return false unless user.security_charter_accepted?
 
-    (user.cpip? && record.user == user) || user.dpip? || user.local_admin_spip?
+    (user.cpip? && record.user == user) || ((user.dpip? || user.local_admin_spip?) && check_ownership?)
   end
 
   def destroy?
