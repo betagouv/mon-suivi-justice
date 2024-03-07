@@ -45,7 +45,7 @@
 
         <%= f.fields_for :appointment_extra_fields do |extra_field_form|%>
           <% corresponding_extra_field = @extra_fields.find { |ef| ef.id == extra_field_form.object.extra_field_id } %>
-          <%= extra_field_form.input :extra_field_id, as: :hidden, input_html: {"data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": corresponding_extra_field.appointment_type_ids, "data-organization-places": corresponding_extra_field.organization.places.ids}, disabled: true %>
+          <%= extra_field_form.input :extra_field_id, as: :hidden, input_html: {"data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": corresponding_extra_field.appointment_type_ids, "data-organization-places": corresponding_extra_field.find_places_with_shared_appointment_types.map(&:id)}, disabled: true %>
           <%= extra_field_form.input :value, label: corresponding_extra_field&.name, input_html: { :type => corresponding_extra_field&.data_type, "data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": corresponding_extra_field.appointment_type_ids, "data-organization-places": corresponding_extra_field.find_places_with_shared_appointment_types.map(&:id)}, disabled: true %>
         <% end %>
       </div>

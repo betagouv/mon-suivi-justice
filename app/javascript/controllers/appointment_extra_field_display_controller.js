@@ -6,19 +6,13 @@ export default class extends Controller {
   static targets = [ "selectAppointmentTypeInput", "extraFieldsContainer", "extraFieldInputs" ]
 
   connect() {
-
     this.place = null;
+    this.change();
+  }
 
-    document.addEventListener('change', (event) => {
-      // Check if the event target is the select element
-      if (event.target && event.target.id === 'appointment-form-place-select') {
-        var selectedValue = event.target.value;
-        console.log('Selected value:', selectedValue);
-        this.place = selectedValue;
-        this.change();
-      }
-    });
-
+  changePlace(event) {
+    var selectedValue = event.target.value;
+    this.place = selectedValue;
     this.change();
   }
   

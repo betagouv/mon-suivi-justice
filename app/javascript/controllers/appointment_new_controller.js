@@ -5,10 +5,6 @@ import { getFieldsBelow, sendRequest } from './form_utilities'
 // in the create appointment form
 export default class extends Controller {
   static targets = [ "selectAppointmentTypeInput", "convictSelectInput", "submitButtonContainer", "container", "selectPlaceInput", "selectAgendaInput", "submitButtonWithoutModal", "newAppointmentForm", "sendSmsRBContainer", "sendSmsValue" ]
-
-  connect() {
-    console.log("appointment new controller connected");
-  }
   
   changeAptType() {
     const aptTypeValue = this.selectAppointmentTypeInputTarget.value;
