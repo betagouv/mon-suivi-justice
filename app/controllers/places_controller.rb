@@ -39,15 +39,6 @@ class PlacesController < ApplicationController
     end
   end
 
-  def destroy
-    @place = Place.find(params[:id])
-    authorize @place
-
-    @place.destroy
-
-    redirect_to places_path
-  end
-
   def archive
     @place = Place.find(params[:place_id])
     authorize @place

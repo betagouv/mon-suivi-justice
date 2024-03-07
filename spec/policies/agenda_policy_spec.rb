@@ -16,7 +16,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for an admin' do
@@ -27,7 +26,6 @@ describe AgendaPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
 
     context 'outside of organization' do
       let(:user) { build(:user, role: 'admin', organization: tj) }
@@ -36,7 +34,6 @@ describe AgendaPolicy do
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to forbid_action(:create) }
       it { is_expected.to forbid_action(:update) }
-      it { is_expected.to forbid_action(:destroy) }
     end
   end
 
@@ -48,7 +45,6 @@ describe AgendaPolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
 
     context 'outside of organization' do
       let(:user) { build(:user, role: 'admin', organization: tj) }
@@ -57,7 +53,6 @@ describe AgendaPolicy do
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to forbid_action(:create) }
       it { is_expected.to forbid_action(:update) }
-      it { is_expected.to forbid_action(:destroy) }
     end
   end
 
@@ -69,7 +64,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a jap user' do
@@ -80,7 +74,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a court secretary' do
@@ -91,7 +84,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a dir_greff_bex user' do
@@ -102,7 +94,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a bex user' do
@@ -113,7 +104,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a greff_co user' do
@@ -124,7 +114,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a dir_greff_sap user' do
@@ -135,7 +124,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a greff_sap user' do
@@ -146,7 +134,6 @@ describe AgendaPolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
 
     context 'outside of organization' do
       let(:other_tj) { build(:organization, organization_type: 'tj') }
@@ -156,7 +143,6 @@ describe AgendaPolicy do
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to forbid_action(:create) }
       it { is_expected.to forbid_action(:update) }
-      it { is_expected.to forbid_action(:destroy) }
     end
   end
 
@@ -168,7 +154,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a educator user' do
@@ -179,7 +164,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a psychologist user' do
@@ -190,7 +174,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a overseer user' do
@@ -201,7 +184,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a dpip user' do
@@ -212,7 +194,6 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'for a secretary_spip user' do
@@ -223,6 +204,5 @@ describe AgendaPolicy do
     it { is_expected.to forbid_action(:create) }
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
   end
 end

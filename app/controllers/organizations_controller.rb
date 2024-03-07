@@ -28,14 +28,6 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  def destroy
-    organization = Organization.find params[:id]
-    authorize organization
-
-    organization.destroy
-    redirect_to organizations_path
-  end
-
   def create
     organization = Organization.new organization_params
     authorize organization
