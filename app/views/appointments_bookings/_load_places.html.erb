@@ -10,7 +10,7 @@
       aria-required="true" 
       name="appointment[place_id]" 
       data-appointment-new-target="selectPlaceInput"
-      data-action="change->appointment-new#changePlace"
+      data-action="change->appointment-new#changePlace change->appointment-extra-field-display#changePlace"
     >
       <option value="" label=" "></option>
       <% @places.each do |place| %>

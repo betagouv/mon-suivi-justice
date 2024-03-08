@@ -70,6 +70,7 @@ class AppointmentsController < ApplicationController
 
       # We need to set the extra fields but we don't want to build them again
       set_extra_fields
+
       render :new, status: :unprocessable_entity
     end
   end
@@ -149,10 +150,9 @@ class AppointmentsController < ApplicationController
 
   def set_extra_fields
     return unless @convict
+    return unless @convict.organizations.include?(current_user.organization)
 
-    @extra_fields = @convict.organizations.includes([:extra_fields]).flat_map do |org|
-      org.extra_fields.select(&:appointment_create?)
-    end
+    @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
   end
 
   def build_appointment_extra_fields
