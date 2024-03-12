@@ -137,10 +137,10 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.5.1.tgz#55cc8410abf1003b726324661ce5b0d1c10de258"
   integrity sha512-CNy5vSwN3fsUStPRLX7fUYojyuzoEMSXPl7zSLJ8TgtRfjv24LOnOWKT2zYwaHZCJGkdyRnTmstR0P+Ah503Gw==
 
-"@gouvfr/dsfr@^1.11.1":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.11.1.tgz#6fb86026e7d53fedcec2f1d481bf6c4c24d3e787"
-  integrity sha512-t6rxZ0DDQpuex9Izpnm1wnPIgJGukZKQenPlU+PKElKGN9HvFfI3qbV5VH1uqE2+50+JORNJKJZSdYUru9stig==
+"@gouvfr/dsfr@^1.11.2":
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.11.2.tgz#aa815e458b266acd8e457bdad35b7e3ad5e6c2ab"
+  integrity sha512-S7idT4rCCw6M1pqxJS8y4nUSq/Rus+Kucoifmv0CrZD/eoBA34HWqWYzR9GIxvtAX/TQ1XC7Hz+54THtVzMeqQ==
 
 "@hotwired/stimulus-webpack-helpers@^1.0.1":
   version "1.0.1"
