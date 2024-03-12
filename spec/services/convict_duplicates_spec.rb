@@ -7,21 +7,19 @@ RSpec.describe ConvictDuplicates, type: :service do
       let!(:convict1) { create(:convict, no_phone: true) }
       let!(:convict2) { create(:convict, appi_uuid: " #{duplicate_appi_uuid} ") }
       let!(:convict3) do
-        slot = build(:slot, date: 2.month.ago)
-        apt = build(:appointment, slot:)
-        apt.save(validate: false)
-        conv = build(:convict, appi_uuid: "#{duplicate_appi_uuid} ",
-                               appointments: [apt])
+        conv = build(:convict, appi_uuid: "#{duplicate_appi_uuid} ")
         conv.save(validate: false)
+        slot = build(:slot, date: 2.month.ago)
+        apt = build(:appointment, slot:, convict: conv)
+        apt.save(validate: false)
         conv
       end
       let!(:convict4) do
-        slot = build(:slot, date: 1.year.ago)
-        apt = build(:appointment, slot:)
-        apt.save(validate: false)
-        conv = build(:convict, appi_uuid: "#{duplicate_appi_uuid} ",
-                               appointments: [apt])
+        conv = build(:convict, appi_uuid: "#{duplicate_appi_uuid} ")
         conv.save(validate: false)
+        slot = build(:slot, date: 1.year.ago)
+        apt = build(:appointment, slot:, convict: conv)
+        apt.save(validate: false)
         conv
       end
       let!(:unique_convict) do
@@ -65,21 +63,21 @@ RSpec.describe ConvictDuplicates, type: :service do
                          phone: duplicate_phone_number)
       end
       let!(:convict3) do
-        slot = build(:slot, date: 2.month.ago)
-        apt = build(:appointment, slot:)
-        apt.save(validate: false)
-        conv = build(:convict, first_name: duplicate_first_name, last_name: duplicate_last_name,
-                               appointments: [apt], phone: duplicate_phone_number)
+        conv = build(:convict, first_name: duplicate_first_name, last_name: duplicate_last_name, 
+                               phone: duplicate_phone_number)
         conv.save(validate: false)
+        slot = build(:slot, date: 2.month.ago)
+        apt = build(:appointment, slot:, convict: conv)
+        apt.save(validate: false)
         conv
       end
       let!(:convict4) do
-        slot = build(:slot, date: 1.year.ago)
-        apt = build(:appointment, slot:)
-        apt.save(validate: false)
         conv = build(:convict, first_name: "#{duplicate_first_name} ", last_name: duplicate_last_name,
-                               appointments: [apt], phone: duplicate_phone_number)
+                               phone: duplicate_phone_number)
         conv.save(validate: false)
+        slot = build(:slot, date: 1.year.ago)
+        apt = build(:appointment, slot:, convict: conv)
+        apt.save(validate: false)
         conv
       end
       let!(:unique_convict) do
@@ -126,20 +124,20 @@ RSpec.describe ConvictDuplicates, type: :service do
                          date_of_birth: duplicate_dob)
       end
       let!(:convict3) do
-        slot = build(:slot, date: 2.month.ago)
-        apt = build(:appointment, slot:)
-        apt.save(validate: false)
         conv = build(:convict, first_name: duplicate_first_name, last_name: duplicate_last_name,
-                               appointments: [apt], date_of_birth: duplicate_dob)
+                               date_of_birth: duplicate_dob)
+        slot = build(:slot, date: 2.month.ago)
+        apt = build(:appointment, slot:, convict: conv)
+        apt.save(validate: false)
         conv.save(validate: false)
         conv
       end
       let!(:convict4) do
-        slot = build(:slot, date: 1.year.ago)
-        apt = build(:appointment, slot:)
-        apt.save(validate: false)
         conv = build(:convict, first_name: "#{duplicate_first_name} ", last_name: duplicate_last_name,
-                               appointments: [apt], date_of_birth: duplicate_dob)
+                               date_of_birth: duplicate_dob)
+        slot = build(:slot, date: 1.year.ago)
+        apt = build(:appointment, slot:, convict: conv)
+        apt.save(validate: false)
         conv.save(validate: false)
         conv
       end
