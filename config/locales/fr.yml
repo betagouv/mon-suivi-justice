@@ -263,6 +263,9 @@ fr:
             organizations:
               blank: "Veuillez sélectionner au moins un service"
               multiple_uniqueness: "Un probationnaire ne peut pas être suivi par plusieurs fois le même service"
+            appi_uuid:
+              invalid: "doit contenir 8 ou 12 chiffres et commencer par 199, 200, 201 ou 202"
+              only_digits: "Seuls les chiffres sont autorisés"
         place:
           attributes:
             name:
@@ -282,6 +285,7 @@ fr:
               blank: "Veuillez sélectionner une préférence d'envoi de SMS"
             convict:
               discarded: "Ce probationnaire a été archivé. Vous ne pouvez pas le convoquer."
+              DoB: "Merci d'ajouter une date de naissance pour ce probationnaire"
         place_transfert:
           attributes:
             date:

@@ -12,6 +12,24 @@ RSpec.describe Convict, type: :model do
 
   it_behaves_like 'normalized_phone'
 
+  describe 'Normalization' do
+    it 'normalizes first_name' do
+      convict = create(:convict, first_name: '  jean  ')
+      expect(convict.first_name).to eq('Jean')
+    end
+
+    it 'normalizes last_name' do
+      convict = create(:convict, last_name: '  martin  ')
+      expect(convict.last_name).to eq('MARTIN')
+    end
+
+    it 'normalizes appi_uuid' do
+      appi_uuid = "2024#{Faker::Number.unique.number(digits: 8)}"
+      convict = create(:convict, appi_uuid: " #{appi_uuid}  ")
+      expect(convict.appi_uuid).to eq(appi_uuid)
+    end
+  end
+
   describe 'Validations' do
     it 'requires a phone' do
       expect(build(:convict, phone: nil)).not_to be_valid
@@ -65,6 +83,54 @@ RSpec.describe Convict, type: :model do
       expect(build(:convict, date_of_birth: 15.years.ago, no_phone: true)).not_to be_valid
       expect(build(:convict, date_of_birth: 17.years.ago, no_phone: true)).to be_valid
     end
+
+    describe 'appi_uuid' do
+      context 'no appi uuid' do
+        let(:convict) { build(:convict, appi_uuid: nil) }
+        it 'should be valid' do
+          expect(convict).to be_valid
+        end
+      end
+
+      context 'right format' do
+        let(:convict) { build(:convict, appi_uuid: nil) }
+        it 'start with 199 and have 12 characters' do
+          convict.appi_uuid = "199#{Faker::Number.unique.number(digits: 5)}"
+          expect(convict).to be_valid
+        end
+        it 'start with 200 and have 12 characters' do
+          convict.appi_uuid = "200#{Faker::Number.unique.number(digits: 9)}"
+          expect(convict).to be_valid
+        end
+        it 'start with 201 and have 12 characters' do
+          convict.appi_uuid = "201#{Faker::Number.unique.number(digits: 9)}"
+          expect(convict).to be_valid
+        end
+        it 'start with 202 and have 12 characters' do
+          convict.appi_uuid = "202#{Faker::Number.unique.number(digits: 9)}"
+          expect(convict).to be_valid
+        end
+      end
+      context 'wrong format' do
+        let(:convict) { build(:convict, appi_uuid: nil) }
+        it 'does not start with the the right digits' do
+          convict.appi_uuid = "18#{Faker::Number.unique.number(digits: 10)}"
+          expect(convict).not_to be_valid
+        end
+        it 'does not have the right amount of digits for an appi uuid starting with 201' do
+          convict.appi_uuid = "201#{Faker::Number.unique.number(digits: 5)}"
+          expect(convict).not_to be_valid
+        end
+        it 'does not have the right amount of digits for an appi uuid starting with 199' do
+          convict.appi_uuid = "199#{Faker::Number.unique.number(digits: 9)}"
+          expect(convict).not_to be_valid
+        end
+        it 'contains letters' do
+          convict.appi_uuid = "201#{Faker::Number.unique.number(digits: 8)}a"
+          expect(convict).not_to be_valid
+        end
+      end
+    end
   end
 
   describe 'phone_uniqueness' do
@@ -90,9 +156,11 @@ RSpec.describe Convict, type: :model do
     end
 
     it "doesn't add duplicate if appi_uuid are different" do
-      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '1234',
+      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin',
+                                  appi_uuid: "2024#{Faker::Number.unique.number(digits: 8)}",
                                   date_of_birth: '1980-01-01')
-      create(:convict, first_name: 'Jean Louis', last_name: 'Martin', appi_uuid: '5678', date_of_birth: '1980-01-01')
+      create(:convict, first_name: 'Jean Louis', last_name: 'Martin',
+                       appi_uuid: "2024#{Faker::Number.unique.number(digits: 8)}", date_of_birth: '1980-01-01')
 
       convict1.check_duplicates
 
