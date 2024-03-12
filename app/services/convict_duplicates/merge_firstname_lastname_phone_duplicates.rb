@@ -2,6 +2,8 @@ module ConvictDuplicates
   # This class is responsible for merging duplicates convicts
   # based on the first_name, last_name and date_of_birth attributes.
   class MergeFirstnameLastnamePhoneDuplicates
+    attr_reader :duplicates
+
     def initialize
       @duplicates = Convict
                     .where.not(phone: [nil, ''])
@@ -14,7 +16,6 @@ module ConvictDuplicates
                     )
                     .group('cleaned_fn', 'cleaned_ln', :phone)
                     .having('COUNT(*) > 1')
-      p @duplicates
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -23,7 +24,10 @@ module ConvictDuplicates
     # rubocop:disable Metrics/MethodLength
     def perform
       @duplicates.each do |dup|
-        group = Convict.where('TRIM(appi_uuid) = ?', dup.trimmed_appi_uuid)
+        group = Convict
+          .where('LOWER(TRIM(first_name)) = ?', dup.cleaned_fn)
+          .where('LOWER(TRIM(last_name)) = ?', dup.cleaned_ln)
+          .where('phone = ?', dup.phone)
         group_with_appointments = group.select do |convict|
           convict.appointments.any?
         end
