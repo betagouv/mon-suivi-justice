@@ -85,6 +85,7 @@ class AppointmentPolicy < ApplicationPolicy
     return false unless record.booked?
     return false unless record.slot.date > Time.zone.yesterday
 
+    # test
     ownership_check && hability_check
   end
 
