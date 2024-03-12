@@ -15,8 +15,6 @@ module ConvictDuplicates
                     .group('cleaned_fn', 'cleaned_ln', :date_of_birth)
                     .having('COUNT(*) > 1')
       @dup_data = {}
-
-      p @duplicates
     end
 
     def key_from_duplicate(dup)
