@@ -60,6 +60,11 @@ RSpec.describe Convict, type: :model do
         end
       end
     end
+
+    it 'denies a convict under 16' do
+      expect(build(:convict, date_of_birth: 15.years.ago, no_phone: true)).not_to be_valid
+      expect(build(:convict, date_of_birth: 17.years.ago, no_phone: true)).to be_valid
+    end
   end
 
   describe 'phone_uniqueness' do

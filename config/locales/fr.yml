@@ -257,7 +257,7 @@ fr:
               blank: "n'est pas renseigné. Veuillez renseigner au moins un des champs 'téléphone portable', 'ne possède pas de téléphone portable' ou 'refuse de recevoir des SMS'"
             dob:
               taken: "Un probationnaire avec les mêmes prénom, nom et date de naissance existe déjà"
-              not_in_the_future: "La date de naissance ne peut pas être dans le futur"
+              over16: "Un probationnaire doit être âgé de plus de 16 ans"
             city:
               all_blanks: "Veuillez renseigner au moins un des champs commune, sdf ou résidant à l'étranger"
             organizations:
