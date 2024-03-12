@@ -110,4 +110,68 @@ RSpec.describe ConvictDuplicates, type: :service do
       end
     end
   end
+  describe 'MergeFirstnameLastnameDobDuplicates' do
+    describe 'perform' do
+      let(:duplicate_dob) { Faker::Date.unique.birthday(min_age: 18, max_age: 65) }
+      let(:duplicate_first_name) { Faker::Name.unique.first_name }
+      let(:duplicate_last_name) { Faker::Name.unique.last_name }
+      let!(:convict1) do
+        convict_without_dob = build(:convict, no_phone: true, date_of_birth: nil, 
+                                              first_name: duplicate_first_name, last_name: duplicate_last_name)
+        convict_without_dob.save(validate: false)
+        convict_without_dob
+      end
+      let!(:convict2) do
+        create(:convict, first_name: duplicate_first_name, last_name: duplicate_last_name,
+                         date_of_birth: duplicate_dob)
+      end
+      let!(:convict3) do
+        slot = build(:slot, date: 2.month.ago)
+        apt = build(:appointment, slot:)
+        apt.save(validate: false)
+        conv = build(:convict, first_name: duplicate_first_name, last_name: duplicate_last_name,
+                               appointments: [apt], date_of_birth: duplicate_dob)
+        conv.save(validate: false)
+        conv
+      end
+      let!(:convict4) do
+        slot = build(:slot, date: 1.year.ago)
+        apt = build(:appointment, slot:)
+        apt.save(validate: false)
+        conv = build(:convict, first_name: "#{duplicate_first_name} ", last_name: duplicate_last_name,
+                               appointments: [apt], date_of_birth: duplicate_dob)
+        conv.save(validate: false)
+        conv
+      end
+      let!(:unique_convict) do
+        create(:convict, first_name: Faker::Name.unique.first_name, last_name: Faker::Name.unique.last_name,
+                         date_of_birth: Faker::Date.unique.birthday(min_age: 18, max_age: 65))
+      end
+
+      before do
+        @service = ConvictDuplicates::MergeFirstnameLastnameDobDuplicates.new
+        @service.perform
+      end
+
+      it 'keeps the most active convict based on appointments' do
+        key = @service.key_from_duplicate(@service.duplicates.first)
+        expect(@service.dup_data[key][:most_active].id).to eq(convict3.id)
+      end
+
+      it 'deletes the less actives duplicates' do
+        key = @service.key_from_duplicate(@service.duplicates.first)
+        expect(@service.dup_data[key][:mergeable]).to match_array([convict4, convict2])
+      end
+
+      it 'does not affect convicts with unique dob' do
+        key = @service.key_from_duplicate(@service.duplicates.first)
+        expect(@service.dup_data[key][:mergeable]).not_to include(unique_convict)
+      end
+
+      it 'does not affect convicts without dob' do
+        key = @service.key_from_duplicate(@service.duplicates.first)
+        expect(@service.dup_data[key][:mergeable]).not_to include(convict1)
+      end
+    end
+  end
 end

@@ -1,5 +1,7 @@
 module ConvictDuplicates
   class MergeFirstnameLastnameDobDuplicates
+    attr_reader :duplicates, :dup_data
+
     def initialize
       @duplicates = Convict
                     .where.not(date_of_birth: nil)
@@ -12,8 +14,13 @@ module ConvictDuplicates
                     )
                     .group('cleaned_fn', 'cleaned_ln', :date_of_birth)
                     .having('COUNT(*) > 1')
+      @dup_data = {}
 
       p @duplicates
+    end
+
+    def key_from_duplicate(dup)
+      "#{dup.date_of_birth.to_fs}_#{dup.cleaned_fn}_#{dup.cleaned_ln}"
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -22,7 +29,9 @@ module ConvictDuplicates
     # rubocop:disable Metrics/MethodLength
     def perform
       @duplicates.each do |dup|
-        group = Convict.where('TRIM(appi_uuid) = ?', dup.trimmed_appi_uuid)
+        group = Convict.where('LOWER(TRIM(first_name)) = ?', dup.cleaned_fn)
+          .where('LOWER(TRIM(last_name)) = ?', dup.cleaned_ln)
+          .where('date_of_birth = ?', dup.date_of_birth)
         group_with_appointments = group.select do |convict|
           convict.appointments.any?
         end
@@ -37,15 +46,12 @@ module ConvictDuplicates
             convict.undiscarded?
         end
 
-        ActiveRecord::Base.transaction do
-          mergeable.each do |duplicated_convict|
-            duplicated_convict.appointments.update_all(convict_id: most_active.id)
-            duplicated_convict.history_items.update_all(convict_id: most_active.id)
-
-            most_active.save
-            duplicated_convict.destroy!
-          end
-        end
+        dup_key = key_from_duplicate(dup)
+        @dup_data[dup_key] ||= {}
+        @dup_data[dup_key][:most_active] = most_active
+        @dup_data[dup_key][:mergeable] = mergeable
+        @dup_data[dup_key][:group] = group
+        @dup_data[dup_key][:group_with_appointments] = group_with_appointments
       end
     end
     # rubocop:enable Metrics/MethodLength
