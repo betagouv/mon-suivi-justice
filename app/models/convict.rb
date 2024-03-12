@@ -41,7 +41,7 @@ class Convict < ApplicationRecord
                                           on: :appi_import
 
   validates :date_of_birth, presence: true, unless: proc { current_user&.admin? }
-  validate :date_of_birth_date_cannot_be_in_the_past
+  validate :convict_cannot_be_under16
 
   validates :organizations, presence: true
   validate :unique_organizations
@@ -139,10 +139,10 @@ class Convict < ApplicationRecord
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.taken')
   end
 
-  def date_of_birth_date_cannot_be_in_the_past
-    return unless date_of_birth.present? && date_of_birth >= Date.today
+  def convict_cannot_be_under16
+    return unless date_of_birth.present? && date_of_birth >= 16.years.ago
 
-    errors.add(:date_of_birth, I18n.t('activerecord.errors.models.convict.attributes.dob.not_in_the_future'))
+    errors.add(:date_of_birth, I18n.t('activerecord.errors.models.convict.attributes.dob.over16'))
   end
 
   def either_city_homeless_lives_abroad_present
