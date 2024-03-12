@@ -28,7 +28,7 @@ describe ConvictInvitationPolicy do
 
   context 'for a local_admin tj' do
     let(:organization) { create(:organization, organization_type: 'tj') }
-    let(:user) { build(:user, role: 'local_admin', organization:) }
+    let!(:user) { build(:user, role: 'local_admin', organization:) }
 
     context 'when the convict is persisted' do
       let(:convict) { create(:convict) }
@@ -39,7 +39,13 @@ describe ConvictInvitationPolicy do
     context 'when the convict is not persisted' do
       let(:convict) { build(:convict) }
 
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
+    end
+
+    context 'when the convict is persisted and belongs to the user\'s organization' do
+      let(:convict) { build(:convict, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:create) }
     end
   end
 
@@ -83,7 +89,7 @@ describe ConvictInvitationPolicy do
   end
 
   context 'for a jap user' do
-    let(:user) { build(:user, role: 'jap') }
+    let(:user) { build(:user, :in_organization, role: 'jap') }
 
     context 'when the convict is persisted' do
       let(:convict) { create(:convict) }
@@ -94,12 +100,18 @@ describe ConvictInvitationPolicy do
     context 'when the convict is not persisted' do
       let(:convict) { build(:convict) }
 
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
+    end
+
+    context 'when the convict is persisted and belongs to the user\'s organization' do
+      let(:convict) { build(:convict, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:create) }
     end
   end
 
   context 'for a court secretary' do
-    let(:user) { build(:user, role: 'secretary_court') }
+    let(:user) { build(:user, :in_organization, role: 'secretary_court') }
 
     context 'when the convict is persisted' do
       let(:convict) { create(:convict) }
@@ -110,7 +122,13 @@ describe ConvictInvitationPolicy do
     context 'when the convict is not persisted' do
       let(:convict) { build(:convict) }
 
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
+    end
+
+    context 'when the convict is persisted and belongs to the user\'s organization' do
+      let(:convict) { build(:convict, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:create) }
     end
   end
 
@@ -163,7 +181,7 @@ describe ConvictInvitationPolicy do
   end
 
   context 'for a dir_greff_sap user' do
-    let(:user) { build(:user, role: 'dir_greff_sap') }
+    let(:user) { build(:user, :in_organization, role: 'dir_greff_sap') }
 
     context 'when the convict is persisted' do
       let(:convict) { create(:convict) }
@@ -174,12 +192,18 @@ describe ConvictInvitationPolicy do
     context 'when the convict is not persisted' do
       let(:convict) { build(:convict) }
 
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
+    end
+
+    context 'when the convict is persisted and belongs to the user\'s organization' do
+      let(:convict) { build(:convict, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:create) }
     end
   end
 
   context 'for a greff_sap user' do
-    let(:user) { build(:user, role: 'greff_sap') }
+    let(:user) { build(:user, :in_organization, role: 'greff_sap') }
 
     context 'when the convict is persisted' do
       let(:convict) { create(:convict) }
@@ -190,7 +214,13 @@ describe ConvictInvitationPolicy do
     context 'when the convict is not persisted' do
       let(:convict) { build(:convict) }
 
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
+    end
+
+    context 'when the convict is persisted and belongs to the user\'s organization' do
+      let(:convict) { build(:convict, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:create) }
     end
   end
 
@@ -209,7 +239,7 @@ describe ConvictInvitationPolicy do
       it { is_expected.to permit_action(:create) }
     end
 
-    context 'when the convict is persisted and belongs to the user\'s organization' do
+    context 'when the convict is persisted and the cpip is it referring agent' do
       let(:convict) { build(:convict, user:) }
 
       it { is_expected.to permit_action(:create) }
@@ -287,7 +317,7 @@ describe ConvictInvitationPolicy do
   end
 
   context 'for a secretary_spip user' do
-    let(:user) { build(:user, role: 'secretary_spip') }
+    let(:user) { build(:user, :in_organization, role: 'secretary_spip') }
 
     context 'when the convict is persisted' do
       let(:convict) { create(:convict) }
@@ -298,7 +328,13 @@ describe ConvictInvitationPolicy do
     context 'when the convict is not persisted' do
       let(:convict) { build(:convict) }
 
-      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to permit_action(:create) }
+    end
+
+    context 'when the convict is persisted and belongs to the user\'s organization' do
+      let(:convict) { build(:convict, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:create) }
     end
   end
 end

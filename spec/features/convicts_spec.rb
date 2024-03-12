@@ -286,7 +286,7 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'does not invite the convict to its interface by default for unqualified roles' do
-      user = create :user, :in_organization, role: 'jap'
+      user = create :user, :in_organization, role: 'bex'
       logout_current_user
       login_user user
       visit new_convict_path
