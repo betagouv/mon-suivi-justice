@@ -16,6 +16,10 @@ describe ConvictPolicy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
   end
 
   context 'for an admin' do
@@ -31,6 +35,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization) }
@@ -43,6 +57,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 
@@ -57,6 +81,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to permit_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization) }
@@ -69,6 +103,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 
@@ -83,6 +127,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'tj') }
@@ -95,6 +149,16 @@ describe ConvictPolicy do
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to permit_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to permit_action(:unarchive) }
+      end
     end
   end
 
@@ -108,7 +172,17 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.not_to permit_action(:destroy) }
+    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to forbid_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'tj') }
@@ -121,6 +195,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 
@@ -134,7 +218,17 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.not_to permit_action(:destroy) }
+    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'tj') }
@@ -147,6 +241,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 
@@ -161,6 +265,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'tj') }
@@ -173,6 +287,16 @@ describe ConvictPolicy do
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
+      it { is_expected.to permit_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to permit_action(:unarchive) }
+      end
     end
   end
 
@@ -187,6 +311,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'tj') }
@@ -199,6 +333,16 @@ describe ConvictPolicy do
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to permit_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to permit_action(:unarchive) }
+      end
     end
   end
 
@@ -213,6 +357,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'tj') }
@@ -225,6 +379,16 @@ describe ConvictPolicy do
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to permit_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to permit_action(:unarchive) }
+      end
     end
   end
 
@@ -239,6 +403,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to forbid_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'tj') }
@@ -251,6 +425,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 
@@ -265,6 +449,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.not_to permit_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'tj') }
@@ -277,6 +471,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 
@@ -291,6 +495,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to permit_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'spip') }
@@ -303,6 +517,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 
@@ -317,6 +541,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to forbid_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'spip') }
@@ -329,6 +563,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 
@@ -343,6 +587,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to forbid_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'spip') }
@@ -355,6 +609,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 
@@ -369,6 +633,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to forbid_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'spip') }
@@ -381,6 +655,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 
@@ -395,6 +679,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to permit_action(:self_assign) }
+    it { is_expected.to permit_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'spip') }
@@ -407,6 +701,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 
@@ -421,6 +725,16 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:archive) }
+    it { is_expected.to forbid_action(:unarchive) }
+    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to forbid_action(:unassign) }
+
+    context 'for a discarded convict' do
+      let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
+
+      it { is_expected.to permit_action(:unarchive) }
+    end
 
     context 'for a convict from another organization' do
       let(:organization) { build(:organization, organization_type: 'spip') }
@@ -433,6 +747,16 @@ describe ConvictPolicy do
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
       it { is_expected.to forbid_action(:destroy) }
+      it { is_expected.to forbid_action(:archive) }
+      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to forbid_action(:self_assign) }
+      it { is_expected.to forbid_action(:unassign) }
+
+      context 'for a discarded convict' do
+        let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [organization]) }
+
+        it { is_expected.to forbid_action(:unarchive) }
+      end
     end
   end
 end

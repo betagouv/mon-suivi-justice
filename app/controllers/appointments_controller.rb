@@ -52,12 +52,12 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new(appointment_params)
     assign_appointment_to_user
     assign_appointment_to_creating_organization
+    @appointment.inviter_user = current_user
 
     authorize @appointment
 
     if @appointment.save
       @appointment.convict.update(user: current_user) if params.dig(:appointment, :user_is_cpip) == '1'
-      @appointment.update(inviter_user_id: current_user.id)
       @appointment.book(send_notification: @appointment.send_sms)
       redirect_to appointment_path(@appointment)
     else
@@ -70,6 +70,7 @@ class AppointmentsController < ApplicationController
 
       # We need to set the extra fields but we don't want to build them again
       set_extra_fields
+
       render :new, status: :unprocessable_entity
     end
   end
@@ -149,10 +150,9 @@ class AppointmentsController < ApplicationController
 
   def set_extra_fields
     return unless @convict
+    return unless @convict.organizations.include?(current_user.organization)
 
-    @extra_fields = @convict.organizations.includes([:extra_fields]).flat_map do |org|
-      org.extra_fields.select(&:appointment_create?)
-    end
+    @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
   end
 
   def build_appointment_extra_fields

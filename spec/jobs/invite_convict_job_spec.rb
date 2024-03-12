@@ -21,7 +21,7 @@ RSpec.describe InviteConvictJob, type: :job do
                        headers: { 'Authorization' => 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=' },
                        body: { phone: '+33666666666',
                                msj_id: 1, first_name: 'Bob',
-                               last_name: 'Dupneu' }.to_json, times: 1
+                               last_name: 'DUPNEU' }.to_json, times: 1
     end
 
     it 'increments the invitation_to_convict_interface_count' do

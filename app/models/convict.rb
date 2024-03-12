@@ -2,8 +2,12 @@ class Convict < ApplicationRecord
   include NormalizedPhone
   include Discard::Model
   include PgSearch::Model
+  include ActiveModel::Validations
 
   has_paper_trail
+  normalizes :last_name, with: ->(last_name) { last_name&.strip&.upcase }
+  normalizes :first_name, with: ->(first_name) { first_name&.strip&.capitalize }
+  normalizes :appi_uuid, with: ->(appi_uuid) { appi_uuid&.strip }
 
   DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
 
@@ -41,10 +45,12 @@ class Convict < ApplicationRecord
                                           on: :appi_import
 
   validates :date_of_birth, presence: true, unless: proc { current_user&.admin? }
-  validate :date_of_birth_date_cannot_be_in_the_past
+  validate :convict_cannot_be_under16
 
   validates :organizations, presence: true
   validate :unique_organizations
+
+  validates_with AppiUuidValidator
 
   after_update :update_convict_api
   after_destroy :delete_convict_from_node_app, if: :timestamp_convict_interface_creation
@@ -87,8 +93,10 @@ class Convict < ApplicationRecord
 
   def future_appointments
     appointments.joins(:slot)
+                .select('appointments.*, slots.date')
                 .where(state: 'booked')
                 .where('slots.date': Date.today..)
+                .order('slots.date')
   end
 
   def passed_appointments
@@ -139,10 +147,10 @@ class Convict < ApplicationRecord
     errors.add :phone, I18n.t('activerecord.errors.models.convict.attributes.phone.taken')
   end
 
-  def date_of_birth_date_cannot_be_in_the_past
-    return unless date_of_birth.present? && date_of_birth >= Date.today
+  def convict_cannot_be_under16
+    return unless date_of_birth.present? && date_of_birth >= 16.years.ago
 
-    errors.add(:date_of_birth, I18n.t('activerecord.errors.models.convict.attributes.dob.not_in_the_future'))
+    errors.add(:date_of_birth, I18n.t('activerecord.errors.models.convict.attributes.dob.over16'))
   end
 
   def either_city_homeless_lives_abroad_present

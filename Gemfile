@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 gem 'rails', '~> 7.1.3'
 
-gem 'pg', '~> 1.5.5'
+gem 'pg', '~> 1.5.6'
 gem 'puma', '~> 6.4.2'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
@@ -28,8 +28,8 @@ gem 'state_machines', '~> 0.6.0'
 gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
-gem 'dotenv-rails', '~> 2.8.1'
-gem 'sidekiq', '~> 7.2.1'
+gem 'dotenv-rails', '~> 3.1.0'
+gem 'sidekiq', '~> 7.2.2'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
@@ -48,7 +48,7 @@ gem 'groupdate', '~> 6.4.0'
 gem 'faraday', '~> 2.9.0'
 gem 'faraday-retry', '~> 2.2.0'
 
-gem 'wicked_pdf', '~> 2.7.0'
+gem 'wicked_pdf', '~> 2.8.0'
 gem 'wkhtmltopdf-binary', '~> 0.12.6'
 
 gem 'tzinfo', '~> 2.0.6'
@@ -78,12 +78,12 @@ end
 group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 3.3'
-  gem 'listen', '~> 3.8.0'
+  gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.1.3'
-  gem 'rubocop', '~> 1.60', '>= 1.60.2', require: false
+  gem 'rubocop', '~> 1.62', require: false
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
-  gem 'letter_opener', '~> 1.8.1'
+  gem 'letter_opener', '~> 1.9.0'
   gem 'rails-erd', '~> 1.7.2'
   gem 'htmlbeautifier', '~> 1.4', '>= 1.4.3'
   gem 'state_machines-graphviz', '~> 0.0.2'

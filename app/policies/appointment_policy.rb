@@ -45,7 +45,7 @@ class AppointmentPolicy < ApplicationPolicy
   def agenda_spip?
     return false unless user.security_charter_accepted?
 
-    user.admin? || user.local_admin_spip? || user.work_at_bex? || user.work_at_spip?
+    true
   end
 
   def update?

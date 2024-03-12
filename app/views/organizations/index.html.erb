@@ -26,11 +26,6 @@
                 <% if policy(organization).edit? %>
                   <%= link_to t('edit'), edit_organization_path(organization), class: 'index-control' %>
                 <% end %>
-                <% if policy(organization).destroy? %>
-                  <%= link_to t('delete'), organization_path(organization),
-                                     data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :delete },
-                                     class: 'index-control' %>
-                <% end %>
               </td>
             </tr>
           <% end %>

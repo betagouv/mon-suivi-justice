@@ -121,18 +121,21 @@ class User < ApplicationRecord
 
   # rubocop:disable Metrics/PerceivedComplexity
   # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize
   def can_invite_to_convict_interface?(convict = nil)
     return true if admin?
 
     # Permet de gérer les policies pour l'invitation lors de la création d'un probationnaire
     if convict
-      ((dpip? || local_admin_spip?) && belongs_to_convict_organizations?(convict)) || (cpip? && convict.user_id == id)
+      ((dpip? || local_admin? || secretary_spip? || work_at_sap?) && belongs_to_convict_organizations?(convict)) ||
+        (cpip? && convict.user_id == id)
     else
-      dpip? || cpip? || local_admin_spip?
+      dpip? || cpip? || local_admin? || secretary_spip? || work_at_sap?
     end
   end
   # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/AbcSize
 
   def can_have_appointments_assigned?
     %w[cpip psychologist overseer].include? role
