@@ -54,10 +54,10 @@ class ConvictPolicy < ApplicationPolicy
   # rubocop:disable Metrics/PerceivedComplexity
   def unarchive?
     return false unless user.security_charter_accepted?
+    return false unless record.discarded? && check_ownership?
 
-    (user.admin? || user.local_admin? || user.work_at_bex? || user.greff_sap? || user.cpip? || user.dpip? ||
-    user.secretary_court? || user.secretary_spip?) &&
-      record.discarded? && check_ownership?
+    user.admin? || user.local_admin? || user.work_at_bex? || user.greff_sap? || user.cpip? || user.dpip? ||
+      user.secretary_court? || user.secretary_spip?
   end
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
