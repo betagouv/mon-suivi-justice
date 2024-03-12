@@ -83,7 +83,7 @@ RSpec.describe Convict, type: :model do
       expect(build(:convict, date_of_birth: 15.years.ago, no_phone: true)).not_to be_valid
       expect(build(:convict, date_of_birth: 17.years.ago, no_phone: true)).to be_valid
     end
-    
+
     describe 'appi_uuid' do
       context 'no appi uuid' do
         let(:convict) { build(:convict, appi_uuid: nil) }

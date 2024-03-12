@@ -63,7 +63,7 @@ RSpec.describe ConvictDuplicates, type: :service do
                          phone: duplicate_phone_number)
       end
       let!(:convict3) do
-        conv = build(:convict, first_name: duplicate_first_name, last_name: duplicate_last_name, 
+        conv = build(:convict, first_name: duplicate_first_name, last_name: duplicate_last_name,
                                phone: duplicate_phone_number)
         conv.save(validate: false)
         slot = build(:slot, date: 2.month.ago)
