@@ -83,7 +83,7 @@ group :development do
   gem 'rubocop', '~> 1.62', require: false
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
-  gem 'letter_opener', '~> 1.8.1'
+  gem 'letter_opener', '~> 1.9.0'
   gem 'rails-erd', '~> 1.7.2'
   gem 'htmlbeautifier', '~> 1.4', '>= 1.4.3'
   gem 'state_machines-graphviz', '~> 0.0.2'
