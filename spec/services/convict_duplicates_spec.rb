@@ -116,7 +116,7 @@ RSpec.describe ConvictDuplicates, type: :service do
       let(:duplicate_first_name) { Faker::Name.unique.first_name }
       let(:duplicate_last_name) { Faker::Name.unique.last_name }
       let!(:convict1) do
-        convict_without_dob = build(:convict, no_phone: true, date_of_birth: nil, 
+        convict_without_dob = build(:convict, no_phone: true, date_of_birth: nil,
                                               first_name: duplicate_first_name, last_name: duplicate_last_name)
         convict_without_dob.save(validate: false)
         convict_without_dob

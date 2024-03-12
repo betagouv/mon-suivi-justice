@@ -25,9 +25,9 @@ module ConvictDuplicates
     def perform
       @duplicates.each do |dup|
         group = Convict
-          .where('LOWER(TRIM(first_name)) = ?', dup.cleaned_fn)
-          .where('LOWER(TRIM(last_name)) = ?', dup.cleaned_ln)
-          .where('phone = ?', dup.phone)
+                .where('LOWER(TRIM(first_name)) = ?', dup.cleaned_fn)
+                .where('LOWER(TRIM(last_name)) = ?', dup.cleaned_ln)
+                .where('phone = ?', dup.phone)
         group_with_appointments = group.select do |convict|
           convict.appointments.any?
         end
