@@ -23,7 +23,7 @@ class Appointment < ApplicationRecord
                                                            allow_destroy: true
   accepts_nested_attributes_for :slot
 
-  delegate :date, :starting_time, :duration, :agenda, :appointment_type, to: :slot
+  delegate :date, :starting_time, :duration, :agenda, :appointment_type, :localized_time, :datetime, to: :slot
   delegate :name, :share_address_to_convict, to: :appointment_type, prefix: true
   delegate :place, to: :agenda
   delegate :name, to: :agenda, prefix: true
@@ -110,16 +110,6 @@ class Appointment < ApplicationRecord
     return if inviter_user_id.present? && inviter_user.admin?
 
     errors.add(:convict, I18n.t('activerecord.errors.models.appointment.attributes.convict.DoB'))
-  end
-
-  def datetime
-    DateTime.new(date.year, date.month, date.day,
-                 localized_time.hour, localized_time.min, localized_time.sec, localized_time.zone)
-  end
-
-  def localized_time
-    time_zone = TZInfo::Timezone.get(slot.place.organization.time_zone)
-    time_zone.to_local(starting_time)
   end
 
   def summon_notif

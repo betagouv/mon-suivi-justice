@@ -75,9 +75,12 @@ class Slot < ApplicationRecord
     used_capacity == capacity
   end
 
+  def datetime
+    Time.new(date.year, date.month, date.day, localized_time.hour, localized_time.min, localized_time.sec)
+  end
+
   def localized_time
-    time_zone = TZInfo::Timezone.get(place.organization.time_zone)
-    time_zone.to_local(starting_time)
+    @localized_time ||= TZInfo::Timezone.get(place.organization.time_zone).to_local(starting_time)
   end
 
   private
@@ -100,9 +103,9 @@ class Slot < ApplicationRecord
   def check_organization_type(appointment_type)
     case appointment_type.name
     when "Sortie d'audience SAP"
-      return true if agenda.place.organization.organization_type == 'tj'
+      return true if place.organization.organization_type == 'tj'
     when "Sortie d'audience SPIP"
-      return true if agenda.place.organization.organization_type == 'spip'
+      return true if place.organization.organization_type == 'spip'
     when 'SAP DDSE'
       return true
     end
