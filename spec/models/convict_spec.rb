@@ -10,6 +10,89 @@ RSpec.describe Convict, type: :model do
   it { should validate_presence_of(:invitation_to_convict_interface_count) }
   it { should validate_uniqueness_of(:appi_uuid) }
 
+  describe 'uniqueness' do
+    context 'when appi_uuid is present' do
+      let(:organization) { Organization.create(name: 'Organization') }
+      let(:appi_uuid) { "2024#{Faker::Number.number(digits: 8)}" }
+      let(:first_name) { Faker::Name.first_name }
+      let(:last_name) { Faker::Name.last_name }
+      let(:phone) { Faker::Base.numerify('+3361#######') }
+      let(:date_of_birth) { Faker::Date.birthday(min_age: 18, max_age: 65) }
+      let!(:existing_convict) do
+        create(:convict, organizations: [organization], appi_uuid:, first_name:, last_name:, date_of_birth:, phone:)
+      end
+
+      it 'should not allow to create a convict with the same appi_uuid' do
+        new_convict = build(:convict, organizations: [organization], appi_uuid:)
+
+        expect(new_convict.valid?).to eq(false)
+        expect(new_convict.errors[:appi_uuid]).to include("n'est pas disponible")
+      end
+
+      it 'should allow to create a convict with same first_name, last_name and dob but different appi_number' do
+        appi_uuid2 = "2024#{Faker::Number.number(digits: 8)}"
+        new_convict = build(:convict, organizations: [organization], appi_uuid: appi_uuid2, first_name:, last_name:,
+                                      date_of_birth:)
+
+        expect(new_convict.valid?).to eq(true)
+      end
+
+      it 'should allow to create a convict with same first_name, last_name and dob but without appi_number' do
+        new_convict = build(:convict, organizations: [organization], first_name:, last_name:,
+                                      date_of_birth:)
+
+        expect(new_convict.valid?).to eq(true)
+      end
+
+      it 'should not allow to create a convict with same phone_number' do
+        appi_uuid2 = "2024#{Faker::Number.number(digits: 8)}"
+        new_convict = build(:convict, organizations: [organization], appi_uuid: appi_uuid2, first_name:, last_name:,
+                                      date_of_birth:, phone:)
+        expect(new_convict.valid?).to eq(false)
+        error_message = 'Un probationnaire est déjà enregistré avec ce numéro de téléphone'
+        expect(new_convict.errors[:phone].first).to include(error_message)
+      end
+    end
+    context 'when appi_uuid is not present' do
+      let(:organization) { Organization.create(name: 'Organization') }
+      let(:first_name) { Faker::Name.first_name }
+      let(:last_name) { Faker::Name.last_name }
+      let(:phone) { Faker::Base.numerify('+3361#######') }
+      let(:date_of_birth) { Faker::Date.birthday(min_age: 18, max_age: 65) }
+      let!(:existing_convict) do
+        create(:convict, organizations: [organization], first_name:, last_name:, date_of_birth:, phone:, appi_uuid: nil)
+      end
+
+      it 'should NOT allow to create a convict with same first_name, last_name and dob and no appi_uuid' do
+        new_convict = build(:convict, organizations: [organization], first_name:, last_name:,
+                                      date_of_birth:, appi_uuid: nil)
+
+        expect(new_convict.valid?).to eq(false)
+        error_message = 'Un probationnaire avec les mêmes prénom, nom et date de naissance existe déjà'
+        expect(new_convict.errors[:date_of_birth]).to include(error_message)
+      end
+
+      it 'should allow to create a convict with same first_name, last_name and dob but with appi_number' do
+        appi_uuid = "2024#{Faker::Number.number(digits: 8)}"
+        new_convict = build(:convict, organizations: [organization], appi_uuid:, first_name:, last_name:,
+                                      date_of_birth:)
+
+        expect(new_convict.valid?).to eq(true)
+      end
+
+      it 'should not allow to create a convict with same phone_number' do
+        first_name2 = Faker::Name.first_name
+        last_name2 = Faker::Name.last_name
+        date_of_birth2 = Faker::Date.birthday(min_age: 18, max_age: 65)
+        new_convict = build(:convict, organizations: [organization], first_name: first_name2, last_name: last_name2,
+                                      date_of_birth: date_of_birth2, phone:)
+        expect(new_convict.valid?).to eq(false)
+        error_message = 'Un probationnaire est déjà enregistré avec ce numéro de téléphone'
+        expect(new_convict.errors[:phone].first).to include(error_message)
+      end
+    end
+  end
+
   it_behaves_like 'normalized_phone'
 
   describe 'Normalization' do
@@ -147,9 +230,11 @@ RSpec.describe Convict, type: :model do
     end
 
     it 'adds duplicate if names are the same' do
-      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
-      convict2 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
-
+      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin',
+                                  appi_uuid: nil, date_of_birth: '1980-01-01')
+      convict2 = build(:convict, first_name: 'Jean Louis', last_name: 'Martin',
+                                 appi_uuid: nil, date_of_birth: '1980-01-01')
+      convict2.save(validate: false)
       convict1.check_duplicates
 
       expect(convict1.duplicates).to eq([convict2])
