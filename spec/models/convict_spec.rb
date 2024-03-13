@@ -230,8 +230,10 @@ RSpec.describe Convict, type: :model do
     end
 
     it 'adds duplicate if names are the same' do
-      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin')
-      convict2 = build(:convict, first_name: 'Jean Louis', last_name: 'Martin')
+      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin',
+                                  appi_uuid: nil, date_of_birth: '1980-01-01')
+      convict2 = build(:convict, first_name: 'Jean Louis', last_name: 'Martin',
+                                 appi_uuid: nil, date_of_birth: '1980-01-01')
       convict2.save(validate: false)
       convict1.check_duplicates
 
