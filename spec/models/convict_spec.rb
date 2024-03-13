@@ -101,6 +101,16 @@ RSpec.describe Convict, type: :model do
       expect(convict.first_name).to eq('Jean')
     end
 
+    it 'normalizes hyphen first_name' do
+      convict = create(:convict, first_name: '  jean-pierre  ')
+      expect(convict.first_name).to eq('Jean-Pierre')
+    end
+
+    it 'normalizes spaces in first_name' do
+      convict = create(:convict, first_name: '  jean pierre  ')
+      expect(convict.first_name).to eq('Jean Pierre')
+    end
+
     it 'normalizes last_name' do
       convict = create(:convict, last_name: '  martin  ')
       expect(convict.last_name).to eq('MARTIN')
