@@ -40,9 +40,7 @@ class Convict < ApplicationRecord
 
   validate :either_city_homeless_lives_abroad_present, if: proc { current_user&.can_use_inter_ressort? }
 
-  validates_uniqueness_of :date_of_birth, allow_nil: true, scope: %i[first_name last_name],
-                                          case_sensitive: false, message: DOB_UNIQUENESS_MESSAGE,
-                                          on: :appi_import
+  validate :unique_name_and_dob_unless_uuid
 
   validates :date_of_birth, presence: true, unless: proc { current_user&.admin? }
   validate :convict_cannot_be_under16
@@ -206,6 +204,15 @@ class Convict < ApplicationRecord
 
   def already_invited_to_interface?
     invitation_to_convict_interface_count.positive?
+  end
+
+  def unique_name_and_dob_unless_uuid
+    existing_convict = Convict.where(first_name:, last_name:, date_of_birth:)
+
+    # Check if there's an existing record with the same attributes and no appi_uuid
+    return unless existing_convict.exists?(appi_uuid: nil) && appi_uuid.blank?
+
+    errors.add(:date_of_birth, DOB_UNIQUENESS_MESSAGE)
   end
 
   private
