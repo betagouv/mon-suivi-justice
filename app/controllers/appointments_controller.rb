@@ -141,13 +141,6 @@ class AppointmentsController < ApplicationController
     @appointment.creating_organization = current_user.organization
   end
 
-  def set_warning_flash_no_city
-    flash.now[:warning] = "<strong>ATTENTION. Aucune commune renseignée.</strong>
-                           Convocation possible uniquement dans votre ressort:
-                           <a href='/convicts/#{@convict.id}/edit'>
-                          Ajouter une commune à #{@convict.full_name}</a>".html_safe
-  end
-
   def set_extra_fields
     return unless @convict
     return unless @convict.organizations.include?(current_user.organization)
