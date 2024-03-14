@@ -48,7 +48,7 @@ module AppointmentsHelper
       svg = image_tag('expand-up-down-line.svg', width: 15, style: 'margin-left: 5px')
     end
     content = link + svg.to_s
-    # Todo
+
     "<span class='sort-link-inline'>#{ERB::Util.html_escape(content)}</span>".html_safe
   end
 end
