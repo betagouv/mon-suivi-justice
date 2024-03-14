@@ -3,7 +3,7 @@ module InterRessortFlashes
 
   # rubocop:disable Metrics/AbcSize
   def set_inter_ressort_flashes
-    link_to_edit = "<a href='/convicts/#{ERB::Util.html_escape(@convict.id)}/edit'>en cliquant ici</a>"
+    link_to_edit = "<a href='/convicts/#{@convict.id}/edit'>en cliquant ici</a>"
     change_city = I18n.t('convicts.set_inter_ressort_flashes.change_city')
     add_city = I18n.t('convicts.set_inter_ressort_flashes.add_city')
     set_city = @convict.city_id ? change_city : add_city
