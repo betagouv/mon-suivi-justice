@@ -35,6 +35,25 @@ RSpec.describe DivestmentCreatorService do
       end
     end
 
+    context 'when organizations are SPIP and TJS' do
+      let(:tj) { create(:organization, organization_type: :tj) }
+      let(:spip) do
+        spip = build(:organization, organization_type: :spip)
+        spip.tjs = [tj]
+        spip.save
+        spip
+      end
+
+      let(:convict) { create(:convict, organizations: [tj, spip]) }
+
+      it 'creates organization divestments with auto_accepted state for spip if tj' do
+        service.call
+        expect(service.divestment.organization_divestments.count).to eq(2)
+        expect(service.divestment.organization_divestments.find_by(organization: spip).state).to eq('auto_accepted')
+        expect(service.divestment.organization_divestments.find_by(organization: tj).state).to eq('ignored')
+      end
+    end
+
     context 'when the convict is discarded' do
       before do
         allow(convict).to receive(:discarded?).and_return(true)
