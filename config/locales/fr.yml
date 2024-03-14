@@ -753,9 +753,10 @@ fr:
     new_batch_manual: "Si vous ajoutez plusieurs heures, vous créez une série de créneaux avec les mêmes caractéristiques."
     failed_batch_creation: "Une erreur a bloqué la création, merci de vérifier les données saisies."
     index_place_filter: "Lieu de la convocation"
-    edit_used_capacity:  "%{data} convocations déjà réalisées."
-    edit_minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} place(s)."
-    edit_warning: "Si vous choisissez %{data}, le créneau sera fermé."
+    edit:
+      used_capacity:  "%{data} convocations déjà réalisées."
+      minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} place(s)."
+      warning: "Si vous choisissez %{data}, le créneau sera fermé."
 
   convict_invitations:
     create:
