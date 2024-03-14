@@ -1,6 +1,7 @@
 module InterRessortFlashes
   extend ActiveSupport::Concern
 
+  # rubocop:disable Metrics/AbcSize
   def set_inter_ressort_flashes
     link_to_edit = "<a href='/convicts/#{ERB::Util.html_escape(@convict.id)}/edit'>en cliquant ici</a>"
     change_city = I18n.t('convicts.set_inter_ressort_flashes.change_city')
@@ -17,4 +18,5 @@ module InterRessortFlashes
 
     flash.now[:info] = warning_message
   end
+  # rubocop:enable Metrics/AbcSize
 end
