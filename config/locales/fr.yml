@@ -367,6 +367,7 @@ fr:
   header_title: "Mon Suivi Justice"
 
   home:
+    local_admin_list: "Votre ou vos admin locaux : %{admins}"
     find_convict: "Trouver un probationnaire :"
     new_convict: "Nouveau probationnaire"
     bex_jap: "Sortie d'audience JAP"
