@@ -1,5 +1,7 @@
 # app/services/divestment_creator.rb
 class DivestmentCreatorService
+  attr_reader :convict, :user, :divestment
+
   def initialize(convict, user, divestment)
     @convict = convict
     @user = user
@@ -36,12 +38,18 @@ class DivestmentCreatorService
 
   def create_organization_divestments(divestment, state)
     @convict.organizations.each do |org|
-      org_state = org.users.where(role: 'local_admin').empty? ? 'ignored' : state
+      org_state = initial_state(org, state)
       OrganizationDivestment.create!(
         divestment_id: divestment.id,
         organization_id: org.id,
         state: org_state
       )
     end
+  end
+
+  def initial_state(org, state)
+    return 'auto_accepted' if org.spip? && @convict.organizations.intersect?(org.tjs)
+
+    org.users.where(role: 'local_admin').empty? ? 'ignored' : state
   end
 end
