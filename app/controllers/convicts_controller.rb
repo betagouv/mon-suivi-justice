@@ -39,6 +39,7 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     if @convict.save
+      handle_convict_interface_invitation
       redirect_to select_path(params), notice: t('.notice')
     else
       @duplicate_convict = find_duplicate_convict
@@ -212,22 +213,6 @@ class ConvictsController < ApplicationController
     redirect_to convict_path(@convict)
   end
 
-  def handle_save_and_redirect(convict)
-    if convict.update_organizations(current_user)
-      if params[:invite_convict] == 'on' && ConvictInvitationPolicy.new(current_user, @convict).create?
-        InviteConvictJob.perform_later(convict.id)
-      end
-      redirect_to select_path(params), notice: 'Le probationnaire a bien été créé'
-    else
-      render_new_with_appi_uuid(convict)
-    end
-  end
-
-  def render_new_with_appi_uuid(convict)
-    @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
-    render :new, status: :unprocessable_entity
-  end
-
   def add_prefix_to_phone(phone)
     "+33#{phone[1..].gsub(/[^0-9]/, '')}"
   end
@@ -247,5 +232,11 @@ class ConvictsController < ApplicationController
     @convict.creating_organization = current_organization
     @convict.current_user = current_user
     @convict.update_organizations(current_user, autosave: false)
+  end
+
+  def handle_convict_interface_invitation
+    return unless params[:invite_convict] == 'on' && ConvictInvitationPolicy.new(current_user, @convict).create?
+
+    InviteConvictJob.perform_later(@convict.id)
   end
 end
