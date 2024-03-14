@@ -1,6 +1,6 @@
 module ConvictsHelper
   def selected_cpip_for(convict, current_user)
-    if current_user.cpip?
+    if current_user.cpip? || current_user.dpip? || current_user.local_admin_spip?
       convict.user || current_user
     else
       convict.user
@@ -8,7 +8,8 @@ module ConvictsHelper
   end
 
   def can_be_linked_to_user?(convict, current_user)
-    (current_user.cpip? || current_user.dpip?) && convict.present? && convict.cpip.nil?
+    (current_user.cpip? || current_user.dpip? || current_user.local_admin_spip?) &&
+      convict.present? && convict.cpip.nil?
   end
 
   def cpip_for_select(organization)

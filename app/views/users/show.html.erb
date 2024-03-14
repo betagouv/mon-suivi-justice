@@ -14,9 +14,8 @@
                                                 method: :get,
                                                 form_class: 'show-button-to-edit-form',
                                                 class: 'fr-btn' %>
-
                   <% if policy(@user).destroy? %>
-                      <%= button_to t('delete'), user_path(@user),
+                    <%= button_to t('delete'), user_path(@user),
                                                 method: :delete,
                                                 data: { 'turbo-confirm': t('basic_confirmation') },
                                                 class: 'fr-btn fr-btn--danger' %>
@@ -27,7 +26,7 @@
                                                                           method: :get %>
                   <% end %>
                   <% if policy(@user).reset_pwd_link? %>
-                      <%= button_to t('edit_user_generate_reset_pwd_link'), user_reset_pwd_link_path(@user),
+                    <%= button_to t('edit_user_generate_reset_pwd_link'), user_reset_pwd_link_path(@user),
                                                                             class: 'fr-btn',
                                                                             method: :get %>
                   <% end %>
@@ -53,7 +52,7 @@
           <p>
             <strong><%= t('activerecord.attributes.user.organization') %></strong> : <%= @user.organization.name %>
           </p>
-          <% if @user.cpip? %>
+          <% if @user.cpip? || @user.dpip? || @user.local_admin_spip? %>
             <p>
               <strong><%= t('activerecord.attributes.user.share_email_to_convict') %></strong> : <%= @user.share_email_to_convict? ? t('yes') : t('no') %>
             </p>

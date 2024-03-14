@@ -2,21 +2,21 @@
                                                         controller: "debounce-submit",
                                                         action: "search->debounce-submit#submit" },
                                                         id: "convicts_search_form" do |form| %>
-    <div class="fr-search-bar" id="header-search" role="search">
-        <%= form.label'convicts_search_field', t('home.form_label'), class: 'fr-label' %>
-        <%= form.search_field :q, placeholder: "Rechercher un probationnaire", id: "convicts_search_field", class: 'fr-input', data: { action: "keyup->debounce-submit#submit" } %>
-        <button class="fr-btn" title="<%= t('home.button_label') %>">
-        <%= t('home.button_label') %>
-        </button>
-    </div>
-    <% if current_user.cpip? %>
-        <fieldset class="fr-fieldset fr-fieldset__element--inline fr-mt-2w">
-        <div class="fr-fieldset__element">
-            <div class="fr-checkbox-group">
-            <%= form.check_box :my_convicts, id: "my_convicts_checkbox",  data: { action: "change->debounce-submit#submit" } %>
-            <%= form.label :my_convicts_checkbox, t('my_convicts') %>
-            </div>  
+  <div class="fr-search-bar" id="header-search" role="search">
+    <%= form.label'convicts_search_field', t('home.form_label'), class: 'fr-label' %>
+    <%= form.search_field :q, placeholder: "Rechercher un probationnaire", id: "convicts_search_field", class: 'fr-input', data: { action: "keyup->debounce-submit#submit" } %>
+    <button class="fr-btn" title="<%= t('home.button_label') %>">
+      <%= t('home.button_label') %>
+    </button>
+  </div>
+  <% if current_user.cpip? || current_user.dpip? || current_user.local_admin_spip? %>
+    <fieldset class="fr-fieldset fr-fieldset__element--inline fr-mt-2w">
+      <div class="fr-fieldset__element">
+        <div class="fr-checkbox-group">
+          <%= form.check_box :my_convicts, id: "my_convicts_checkbox",  data: { action: "change->debounce-submit#submit" } %>
+          <%= form.label :my_convicts_checkbox, t('my_convicts') %>
         </div>
-        </fieldset>
-    <% end %>
+      </div>
+    </fieldset>
+  <% end %>
 <% end %>
