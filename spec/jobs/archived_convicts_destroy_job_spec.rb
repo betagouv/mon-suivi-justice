@@ -11,28 +11,29 @@ RSpec.describe ArchivedConvictsDestroyJob, type: :job do
   end
 
   describe '#perform' do
-    let(:convict1) { create :convict }
-    let(:convict2) { create :convict }
-    let(:convict3) { create :convict }
-
     before do
-      allow(Time).to receive(:now).and_return Time.zone.parse('2021-02-02')
-      convict3
-      convict1.discard
-      allow(Time).to receive(:now).and_return Time.zone.parse('2021-04-04')
-      convict2.discard
-      allow(Time).to receive(:now).and_return Time.zone.parse('2021-09-09')
-      ArchivedConvictsDestroyJob.new.perform
+      Timecop.freeze(Time.zone.parse('2021-02-02')) do
+        @convict1 = create :convict
+        @convict2 = create :convict
+        @convict3 = create :convict
+        @convict1.discard
+      end
+      Timecop.freeze(Time.zone.parse('2021-04-04')) do
+        @convict2.discard
+      end
+      Timecop.freeze(Time.zone.parse('2021-09-09')) do
+        ArchivedConvictsDestroyJob.new.perform
+      end
     end
 
     it 'delete fully convict deleted 7 months ago' do
-      expect(Convict.exists?(id: convict1.id)).to be false
+      expect(Convict.exists?(id: @convict1.id)).to be false
     end
     it 'does not delete fully convict deleted 5 months ago' do
-      expect(Convict.exists?(id: convict2.id)).to be true
+      expect(Convict.exists?(id: @convict2.id)).to be true
     end
     it 'does not delete fully convict not deleted' do
-      expect(Convict.exists?(id: convict3.id)).to be true
+      expect(Convict.exists?(id: @convict3.id)).to be true
     end
   end
 end

@@ -11,10 +11,13 @@ RSpec.describe SlotCreationJob, type: :job do
   end
 
   describe '#perform' do
-    let(:frozen_time) { Time.zone.parse '2021-05-03' }
     before do
-      allow(Time).to receive(:now).and_return frozen_time
+      Timecop.freeze(Time.zone.parse('2021-05-03'))
       allow(SlotFactory).to receive(:perform)
+    end
+
+    after do
+      Timecop.return
     end
 
     before { SlotCreationJob.new.perform }

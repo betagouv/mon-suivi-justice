@@ -13,7 +13,11 @@ RSpec.describe SlotFactory do
   let!(:agenda) { create :agenda, place: }
 
   before do
-    allow(Time).to receive(:now).and_return frozen_time
+    Timecop.freeze(Time.zone.parse('2021-07-12'))
+  end
+
+  after do
+    Timecop.return
   end
 
   describe '#perform' do
