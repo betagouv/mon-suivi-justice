@@ -22,6 +22,12 @@ class Agenda < ApplicationRecord
       .where(place: { organization: user_organization.linked_organizations, appointment_types: { name: 'SAP DDSE' } })
   }
 
+  scope :linked_with_sortie_daudience_spip, lambda { |user_organization|
+    joins(place: :appointment_types)
+      .where(place: { organization: user_organization.linked_organizations,
+                      appointment_types: { name: "Sortie d'audience SPIP" } })
+  }
+
   scope :with_open_slots_for_date, lambda { |date, appointment_type|
     joins(:slots).where('slots.date = ? AND slots.appointment_type_id = ?', date, appointment_type.id)
                  .uniq
