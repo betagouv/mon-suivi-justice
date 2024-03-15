@@ -30,7 +30,7 @@
                                 label_method: lambda {|k| t("activerecord.attributes.user.user_roles.#{k}")},
                                 input_html: { class: 'form-select' } %>
             <% end %>
-            <% if @user.cpip? || @user.dpip? || @user.local_admin_spip? && @user == current_user %>
+            <% if @user.can_follow_convict && @user == current_user %>
               <%= f.input :share_phone_to_convict, as: :boolean,
                                                   input_html: { class: 'form-checkbox' },
                                                   label_html: { class: 'form-checkbox-label' },

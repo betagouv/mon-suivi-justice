@@ -65,7 +65,7 @@ class ConvictPolicy < ApplicationPolicy
   def self_assign?
     return false unless user.security_charter_accepted?
 
-    (user.cpip? || user.dpip? || user.local_admin_spip?) && record.cpip.nil? && check_ownership?
+    user.can_follow_convict? && record.cpip.nil? && check_ownership?
   end
 
   def unassign?

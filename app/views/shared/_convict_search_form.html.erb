@@ -9,7 +9,7 @@
       <%= t('home.button_label') %>
     </button>
   </div>
-  <% if current_user.cpip? || current_user.dpip? || current_user.local_admin_spip? %>
+  <% if current_user.can_follow_convict? %>
     <fieldset class="fr-fieldset fr-fieldset__element--inline fr-mt-2w">
       <div class="fr-fieldset__element">
         <div class="fr-checkbox-group">

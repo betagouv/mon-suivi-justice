@@ -52,7 +52,7 @@
           <p>
             <strong><%= t('activerecord.attributes.user.organization') %></strong> : <%= @user.organization.name %>
           </p>
-          <% if @user.cpip? || @user.dpip? || @user.local_admin_spip? %>
+          <% if @user.can_follow_convict? %>
             <p>
               <strong><%= t('activerecord.attributes.user.share_email_to_convict') %></strong> : <%= @user.share_email_to_convict? ? t('yes') : t('no') %>
             </p>
