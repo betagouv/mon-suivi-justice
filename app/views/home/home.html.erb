@@ -3,9 +3,12 @@
     <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
       <div class="fr-grid-row fr-grid-row--gutters">
         <div class="fr-col-12">
-        <h2>
-          <%= t('home.welcome_title', name: current_user.name(reverse: true) )%>
-        </h2>
+          <h2>
+            <%= t('home.welcome_title', name: current_user.name(reverse: true) )%>
+          </h2>
+          <% unless current_user.local_admin? %>
+            <p class="fr-mb-0"><%= t('home.local_admin_list', admins: current_user.organization.local_admins.pluck(:full_name).join(', '), count: current_user.organization.local_admins.count) %></p>
+          <% end %>
         </div>
         <div class="fr-col-12">
           <p>
@@ -23,7 +26,6 @@
       </div>
     </div>
   </div>
-
   <div class="fr-grid-row fr-grid-row--gutters">
     <div class="fr-col-12 fr-mt-2w">
       <%= turbo_frame_tag "convicts_list" do %>
@@ -31,7 +33,6 @@
       <% end %>
     </div>
   </div>
-
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
     <div class="fr-col-6">
       <% if UserServiceSwitchPolicy.new(current_user, nil).create? %>
