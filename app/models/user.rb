@@ -163,6 +163,10 @@ class User < ApplicationRecord
     security_charter_accepted_at && security_charter_accepted_at < Time.zone.now
   end
 
+  def can_follow_convict?
+    cpip? || dpip? || local_admin_spip?
+  end
+
   private
 
   def set_default_role

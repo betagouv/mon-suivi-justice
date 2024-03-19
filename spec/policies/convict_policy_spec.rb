@@ -83,7 +83,7 @@ describe ConvictPolicy do
     it { is_expected.to permit_action(:destroy) }
     it { is_expected.to permit_action(:archive) }
     it { is_expected.to forbid_action(:unarchive) }
-    it { is_expected.to forbid_action(:self_assign) }
+    it { is_expected.to permit_action(:self_assign) }
     it { is_expected.to permit_action(:unassign) }
 
     context 'for a discarded convict' do
