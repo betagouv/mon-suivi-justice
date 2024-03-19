@@ -21,15 +21,6 @@ class SlotsController < ApplicationController
 
   def edit
     @slot = Slot.find(params[:id])
-
-    used_capacity = @slot.used_capacity
-    min_capacity = @slot.used_capacity.zero? ? used_capacity + 1 : used_capacity
-
-    @hint1 = t('slots.edit_used_capacity', data: used_capacity)
-    @hint2 = t('slots.edit_minimum_capacity', data: min_capacity)
-    @hint3 = t('slots.edit_warning', data: used_capacity)
-    @hint = "#{@hint1}<br/>#{@hint2}<br/>#{used_capacity.zero? ? '' : @hint3}".html_safe
-
     authorize @slot
   end
 

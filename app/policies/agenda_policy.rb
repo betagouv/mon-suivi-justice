@@ -7,6 +7,7 @@ class AgendaPolicy < ApplicationPolicy
         scope
           .in_organization(user.organization)
           .or(scope.linked_with_ddse(user.organization))
+          .or(scope.linked_with_sortie_daudience_spip(user.organization))
       else
         scope.in_organization(user.organization)
       end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_29_085031) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_14_164801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -487,6 +487,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_085031) do
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at"
     t.datetime "security_charter_accepted_at"
+    t.virtual "full_name", type: :string, as: "(((first_name)::text || ' '::text) || (last_name)::text)", stored: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["headquarter_id"], name: "index_users_on_headquarter_id"
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
