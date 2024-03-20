@@ -23,13 +23,6 @@ class AdminMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Rapport import SRJ')
   end
 
-  def convict_migration_report
-    @convict_migration_success = params[:convict_migration_success]
-    @convict_migration_errors = params[:convict_migration_errors]
-    mail(to: 'matthieu.faugere@beta.gouv.fr', subject: 'Rapport migration des convicts')
-    mail(to: 'charles.marcoin@beta.gouv.fr', subject: 'Rapport migration des convicts')
-  end
-
   def link_convict_from_organizations_source
     @user = params[:user]
     @organization = params[:organization]
@@ -61,11 +54,11 @@ class AdminMailer < ApplicationMailer
 
   def brevo_sync_failure
     @admin = params[:admin]
-    @user_email = params[:user_email]
+    @user_id = params[:user_id]
     @error = params[:error]
 
     mail(to: @admin ? @admin.email : 'support@mon-suivi-justice.beta.gouv.fr',
-         subject: "Echec de synchronisation avec Brevo pour l'agent #{@user_email}")
+         subject: "Echec de synchronisation avec Brevo pour l'agent #{@user_id}")
   end
 
   def notifications_problems(to_reschedule_ids, stucked_ids)
