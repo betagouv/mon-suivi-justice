@@ -22,6 +22,7 @@ class Convict < ApplicationRecord
   has_many :jurisdictions, through: :areas_convicts_mappings, source: :area, source_type: 'Jurisdiction'
 
   has_many :divestments, dependent: :destroy
+  has_many :organization_divestments, through: :divestments
 
   belongs_to :user, optional: true
 
@@ -229,6 +230,10 @@ class Convict < ApplicationRecord
 
   def pending_divestments?
     divestments.where(state: :pending).any?
+  end
+
+  def organization_divestments_from(organization, state: :pending)
+    organization_divestments.where(state:).where(organization:)
   end
 
   def divestment_to?(organization)

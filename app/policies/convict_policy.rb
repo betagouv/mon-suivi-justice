@@ -77,7 +77,7 @@ class ConvictPolicy < ApplicationPolicy
 
   def destroy?
     return false unless user.security_charter_accepted?
-    return false unless record.convokable?
+    return false unless convokable?
 
     ALLOWED_TO_DESTROY.include?(user.role) && record.undiscarded? && check_ownership?
   end
@@ -93,7 +93,6 @@ class ConvictPolicy < ApplicationPolicy
   def convokable?
     return false unless user.security_charter_accepted?
     return true unless record.pending_divestments?
-
-    user.bex? && record.convict.divestment_to?(user.organization)
+    user.bex? && record.divestment_to?(user.organization)
   end
 end
