@@ -227,6 +227,14 @@ class Convict < ApplicationRecord
     last_appointment_date.present? && last_appointment_date < 6.months.ago
   end
 
+  def pending_divestments?
+    divestments.where(state: :pending).any?
+  end
+
+  def divestment_to?(organization)
+    divestments.where(state: :pending).where(organization:).any?
+  end
+
   private
 
   def unique_organizations
