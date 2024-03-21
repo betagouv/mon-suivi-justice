@@ -2,7 +2,7 @@ class MetabaseDashboard
   def initialize(attributes)
     @service_id = attributes[:service_id]
     @dashboard_id = attributes[:dashboard_id]
-    @metabase_site_url = 'http://msj-metabase.osc-secnum-fr1.scalingo.io'
+    @metabase_site_url = 'https://msj-metabase.osc-secnum-fr1.scalingo.io'
     @metabase_secret_key = ENV.fetch('METABASE_SECRET_KEY', nil)
   end
 
