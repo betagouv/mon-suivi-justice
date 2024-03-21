@@ -1,6 +1,6 @@
 module ConvictsHelper
   def selected_cpip_for(convict, current_user)
-    if current_user.can_follow_convict?
+    if current_user.cpip? || current_user.dpip?
       convict.user || current_user
     else
       convict.user
