@@ -44,7 +44,7 @@ class User < ApplicationRecord
 
   after_invitation_accepted { CreateContactInBrevoJob.perform_later(id) }
   after_update_commit :trigger_brevo_update_job, if: :relevant_field_changed?
-  after_destroy_commit { DeleteContactInBrevoJob.perform_later(id, email) }
+  after_destroy_commit { DeleteContactInBrevoJob.perform_later(email) }
 
   validates :first_name, :last_name, presence: true
   validates :share_email_to_convict, inclusion: { in: [true, false] }

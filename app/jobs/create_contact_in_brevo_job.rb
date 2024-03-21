@@ -8,7 +8,7 @@ class CreateContactInBrevoJob < ApplicationJob
     begin
       adapter.create_contact_for_user(user)
     rescue StandardError => e
-      AdminMailer.with(admin:, user_id:, error: e).brevo_sync_failure.deliver_now
+      AdminMailer.with(admin:, user_email: user.email, error: e).brevo_sync_failure.deliver_now
     end
   end
 end
