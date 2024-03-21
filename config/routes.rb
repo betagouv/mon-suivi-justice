@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   end
 
   resources :organizations, except: :destroy
+  resources :organization_statistics, only: [:index], controller: 'organizations/statistics'
 
   resources :users do
     collection do
@@ -130,12 +131,6 @@ Rails.application.routes.draw do
   end
 
   resources :security_charter_acceptances, only: %i[new create]
-
-  resource :steering, only: :show
-
-  get '/steering_user_app' => 'steerings#user_app_stats', as: 'steering_user_app'
-  get '/steering_convict_app' => 'steerings#convict_app_stats', as: 'steering_convict_app'
-  get '/steering_sda' => 'steerings#sda_stats', as: 'steering_sda'
 
   unauthenticated do
     devise_scope :user do
