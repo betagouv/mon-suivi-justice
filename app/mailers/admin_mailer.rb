@@ -23,13 +23,6 @@ class AdminMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Rapport import SRJ')
   end
 
-  def convict_migration_report
-    @convict_migration_success = params[:convict_migration_success]
-    @convict_migration_errors = params[:convict_migration_errors]
-    mail(to: 'matthieu.faugere@beta.gouv.fr', subject: 'Rapport migration des convicts')
-    mail(to: 'charles.marcoin@beta.gouv.fr', subject: 'Rapport migration des convicts')
-  end
-
   def link_convict_from_organizations_source
     @user = params[:user]
     @organization = params[:organization]
