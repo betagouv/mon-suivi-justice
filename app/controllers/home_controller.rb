@@ -3,13 +3,6 @@ class HomeController < ApplicationController
   skip_after_action :verify_authorized
 
   def home
-    if params[:global_stats]
-      @stats = DataCollector::User.new(full_stats: false).perform
-      @global_stats = true
-    else
-      @stats = DataCollector::User.new(organization_id: current_organization.id, full_stats: false).perform
-    end
-
     display_uninformed_appointments
   end
 

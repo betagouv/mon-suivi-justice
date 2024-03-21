@@ -17,44 +17,6 @@
   @mixin button var(--light-grey);
 }
 
-.home-stats-wrapper {
-  @mixin box;
-  padding: 20px;
-  width: 550px;
-  margin: auto;
-}
-
-.home-stats-title {
-  font-size: 18px;
-  line-height: 18px;
-}
-
-.home-stats-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.home-stats-appointment-states {
-  padding-left: 20px;
-}
-
-.home-stats-orga {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.home-stats-link {
-  @mixin badge var(--light-grey);
-  margin-bottom: 10px;
-  border: 2px solid darken(var(--light-grey), 8%);
-  background-color: var(--main-background);
-}
-
-.home_active_stat_link {
-  background-color: var(--light-grey);
-}
-
 .profile-search-select2-input {
   width: 100%;
   padding: 10px;

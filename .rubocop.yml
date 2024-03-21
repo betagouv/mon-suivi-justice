@@ -69,7 +69,6 @@ Metrics/MethodLength:
     - app/helpers/users_helper.rb
     - app/controllers/home_controller.rb
     - app/services/history_item_factory.rb
-    - app/services/data_collector/sda.rb
     - app/controllers/appointments_controller.rb
     - app/controllers/appointments_bookings_controller.rb
     - app/controllers/admin/public_pages_controller.rb
@@ -86,7 +85,6 @@ Metrics/ClassLength:
     - app/models/user.rb
     - app/controllers/appointments_controller.rb
     - app/controllers/convicts_controller.rb
-    - app/services/data_collector/user.rb
     - app/controllers/admin/public_pages_controller.rb
 
 Metrics/AbcSize:
@@ -100,7 +98,6 @@ Metrics/AbcSize:
     - app/controllers/appointments_bookings_controller.rb
     - app/controllers/home_controller.rb
     - app/services/history_item_factory.rb
-    - app/services/data_collector/sda.rb
     - app/controllers/admin/public_pages_controller.rb
     - app/controllers/admin/import_convicts_controller.rb
     - app/controllers/admin/users_controller.rb
