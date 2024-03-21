@@ -50,6 +50,33 @@
     </div>
   </div>
   <div class="fr-col-12 fr-mt-4w fr-mb-4w">
-    <%= render 'home_stats', data: @stats, title: t('home.stats_title') %>
+    <div class="fr-tabs">
+      <ul class="fr-tabs__list" role="tablist" aria-label="statistiques">
+        <li role="presentation">
+          <button id="tabpanel-404" class="fr-tabs__tab fr-icon-line-chart-fill fr-tabs__tab--icon-left" tabindex="0" role="tab" aria-selected="false" aria-controls="tabpanel-404-panel"><%= current_organization.name %></button>
+        </li>
+        <li role="presentation">
+          <button id="tabpanel-405" class="fr-tabs__tab fr-icon-france-fill fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-405-panel"><%= t('home.stats_global') %></button>
+        </li>
+      </ul>
+      <div id="tabpanel-404-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-404" tabindex="0" style="display: flex;">
+        <iframe
+          src="<%= MetabaseDashboard.new(dashboard_id: 27, service_id: current_organization.id).iframe_url %>"
+          frameborder="0"
+          width="100%"
+          height="500px"
+          allowtransparency
+        ></iframe>
+      </div>
+      <div id="tabpanel-405-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-405" tabindex="0" style="display: flex;">
+        <iframe
+          src="<%= MetabaseDashboard.new(dashboard_id: 28).iframe_url %>"
+          frameborder="0"
+          width="100%"
+          height="500px"
+          allowtransparency
+        ></iframe>
+      </div>
+    </div>
   </div>
 </div>
