@@ -377,16 +377,6 @@ fr:
     bex_spip: "Sortie d'audience SPIP"
     sap_ddse: "SAP DDSE"
     today_appointments: "Convocations du jour"
-    stats_title: Stats
-    stats_users: Agents utilisateurs
-    stats_convicts: Probationnaires enregistrés
-    stats_reminded: "Convocations rappelées"
-    stats_fulfiled: "de présence"
-    stats_excused: "d'absence justifiée"
-    stats_no_show: "d'absence non justifiée"
-    stats_passed_booked: "de convocations non renseignées"
-    stats_from_informed: "Parmi les convocations renseignées :"
-    stats_global: "Global"
     select_organization: "Changer d'antenne"
     welcome_title: "Bonjour, %{name}"
     welcome_text: "Pour convoquer un ou une probationnaire, veuillez saisir les premières lettres de son nom ou prénom dans la barre de recherche ci-dessous :"
@@ -408,10 +398,10 @@ fr:
     slot_types: 'Créneaux récurrents'
     users: "Agents"
     organizations: "Services"
-    steering: "Statistiques"
     guides: "Documentation"
     appointmentsnew: "Nouvelle convocation"
     convictsnew: "Nouveau probationnaire"
+    statistics: "Statistiques de votre service"
 
   support:
     modal_title: Support
@@ -422,38 +412,6 @@ fr:
     modal_bug: "Pour signaler un bug, merci de décrire avec précision les dernières actions qui ont menée au bug. Une capture d'écran du problème est également très utile."
     modal_evolution: "Pour demander une évolution, n'hésitez pas à entrer dans les détails. Dites-nous quel est votre poste et quelle partie du processus vous souhaitez changer."
     modal_thanks: "Merci de nous aider à améliorer Mon Suivi Justice."
-
-  stats:
-    user_app: "App agents"
-    convict_app: "App probationnaires"
-    sda_stats: "Sortie d'audience"
-    steering_title: "Global"
-    of_which: "dont"
-    that_is: "soit"
-    recorded: "Total convocations enregistrées"
-    passed_no_canceled_with_phone: "convocations passées avec numéro de tél / convocations rappelés"
-    future_booked: "convocations futures"
-    fulfiled: "convocations réussies"
-    fulfiled_percentage: "%{data}% de présence aux convocations renseignées"
-    no_show: "convocations manqués"
-    no_show_percentage: "%{data}% d'absence aux convocations renseignées"
-    excused: "convocations excusées"
-    excused_percentage: "%{data}% d'absence justifiée aux convocations renseignées"
-    canceled: "convocations annulées"
-    informed: "convocations renseignées"
-    uninformed: "convocations passées non-renseignées"
-    uninformed_percentage: "%{data}% de convocations non renseignées"
-    convicts: "Total probationnaires enregistrés"
-    convicts_with_phone: "Total probationnaires avec numéro de téléphone"
-    users: "Total agents utilisateurs"
-    notifications: "Total SMS envoyés"
-    invites: "Probationnaires invités"
-    reminder: "dont probationnaires relancés"
-    account_created: "Comptes créés"
-    sda_sap: "Sortie d'audience SAP"
-    sda_spip: "Sortie d'audience SPIP"
-    sda_convicts: "Total probationnaires convoqués"
-    sda_average_delay: "Délai moyen convocation/rdv (jours)"
 
   pdf:
     appointments:
@@ -829,6 +787,10 @@ fr:
       scope:
         appointment_create: "Renseigner au moment de la convocation"
         appointment_update: "Renseigner directement dans le tableau de sortie d'audience"
+  organizations:
+    statistics:
+      index:
+        title: "Statistiques du service %{name}"
 
   admin:
     user_alerts:
