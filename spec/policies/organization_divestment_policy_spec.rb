@@ -71,50 +71,14 @@ describe OrganizationDivestmentPolicy do
       it { is_expected.to forbid_action(:validate) }
     end
 
-    context('user is ') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :admin) }
+    context('user is psychologist') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :psychologist) }
 
       it { is_expected.to forbid_action(:validate) }
     end
 
-    context('user is admin') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :admin) }
-
-      it { is_expected.to forbid_action(:validate) }
-    end
-
-    context('user is admin') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :admin) }
-
-      it { is_expected.to forbid_action(:validate) }
-    end
-
-    context('user is admin') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :admin) }
-
-      it { is_expected.to forbid_action(:validate) }
-    end
-
-    context('user is admin') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :admin) }
-
-      it { is_expected.to forbid_action(:validate) }
-    end
-
-    context('user is admin') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :admin) }
-
-      it { is_expected.to forbid_action(:validate) }
-    end
-
-    context('user is admin') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :admin) }
-
-      it { is_expected.to forbid_action(:validate) }
-    end
-
-    context('user is admin') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :admin) }
+    context('user is secretary_spip') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :secretary_spip) }
 
       it { is_expected.to forbid_action(:validate) }
     end
@@ -125,8 +89,62 @@ describe OrganizationDivestmentPolicy do
       it { is_expected.to forbid_action(:validate) }
     end
 
-    context('user is admin') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :admin) }
+    context('user is greff_tpe') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :greff_tpe) }
+
+      it { is_expected.to forbid_action(:validate) }
+    end
+
+    context('user is prosecutor') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :prosecutor) }
+
+      it { is_expected.to forbid_action(:validate) }
+    end
+
+    context('user is greff_co') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :greff_co) }
+
+      it { is_expected.to forbid_action(:validate) }
+    end
+
+    context('user is greff_crpc') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :greff_crpc) }
+
+      it { is_expected.to forbid_action(:validate) }
+    end
+
+    context('user is greff_ca') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :greff_ca) }
+
+      it { is_expected.to forbid_action(:validate) }
+    end
+
+    context('user is dir_greff_bex') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :dir_greff_bex) }
+
+      it { is_expected.to forbid_action(:validate) }
+    end
+
+    context('user is jap') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :jap) }
+
+      it { is_expected.to forbid_action(:validate) }
+    end
+
+    context('user is greff_sap') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :greff_sap) }
+
+      it { is_expected.to forbid_action(:validate) }
+    end
+
+    context('user is dir_greff_sap') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :dir_greff_sap) }
+
+      it { is_expected.to forbid_action(:validate) }
+    end
+
+    context('user is secretary_court') do
+      let(:user_from) { create(:user, :in_organization, type: :tj, role: :secretary_court) }
 
       it { is_expected.to forbid_action(:validate) }
     end
