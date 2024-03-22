@@ -93,6 +93,7 @@ class ConvictPolicy < ApplicationPolicy
   def convokable?
     return false unless user.security_charter_accepted?
     return true unless record.pending_divestments?
+
     user.bex? && record.divestment_to?(user.organization)
   end
 end
