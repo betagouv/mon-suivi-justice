@@ -6,12 +6,13 @@ describe OrganizationDivestmentPolicy do
   let(:user_to) { create(:user, :in_organization, type: :tj, role: :local_admin) }
   let(:divestment) { create(:divestment, organization: user_to.organization, user: user_to) }
   let(:user) { user_from }
+  let(:organization) { user.organization }
+  let(:organization_divestment) { create(:organization_divestment, organization:, divestment:) }
 
   context('user did not accept cgu') do
     let(:user_from) do
       create(:user, :in_organization, type: :tj, role: :local_admin, security_charter_accepted_at: nil)
     end
-    let(:organization_divestment) { create(:organization_divestment, organization: user.organization, divestment:) }
 
     it { is_expected.to forbid_action(:validate) }
   end
@@ -19,15 +20,21 @@ describe OrganizationDivestmentPolicy do
   context('organization_divestment is not pending') do
     let(:user_from) { create(:user, :in_organization, type: :tj, role: :local_admin) }
     let(:organization_divestment) do
-      create(:organization_divestment, organization: user.organization, divestment:,
+      create(:organization_divestment, organization:, divestment:,
                                        state: :auto_accepted)
     end
 
     it { is_expected.to forbid_action(:validate) }
   end
 
+  context('ownership') do
+    let(:user_from) { create(:user, :in_organization, type: :tj, role: :local_admin) }
+    let(:organization) { create(:organization) }
+
+    it { is_expected.to forbid_action(:validate) }
+  end
+
   context('per role') do
-    let(:organization_divestment) { create(:organization_divestment, organization: user.organization, divestment:) }
     context('user is local admin') do
       let(:user_from) { create(:user, :in_organization, type: :tj, role: :local_admin) }
 
