@@ -1,9 +1,0 @@
-<%= render 'steering_header' %>
-
-<div class='steering-container'>
-  <%= render 'data_card', data: @global, title: t('stats.steering_title') %>
-
-  <% @local.each do |local| %>
-    <%= render 'data_card', data: local, title: local[:organization_name] %>
-  <% end %>
-</div>

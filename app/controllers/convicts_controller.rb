@@ -221,7 +221,7 @@ class ConvictsController < ApplicationController
   end
 
   def add_prefix_to_phone(phone)
-    "+33#{phone[1..]}"
+    "+33#{phone[1..].gsub(/[^0-9]/, '')}"
   end
 
   def base_filter

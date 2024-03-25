@@ -66,10 +66,9 @@ class AppiImportJob < ApplicationJob
     assign_organizations_to_convict(convict, organizations)
 
     if convict.save(context: :appi_import)
-      @import_successes << "#{convict[:first_name]} #{convict[:last_name]} (id: #{convict[:id]})"
+      @import_successes << "ID: #{convict[:id]}"
     else
-      first_error_message = convict.errors.full_messages.first
-      @import_errors << "#{convict.first_name} #{convict.last_name} (n°APPI : #{convict[:appi_uuid]}) - #{first_error_message}" # rubocop:disable Layout/LineLength
+      @import_errors << "ID : #{convict[:id]} - #{convict.errors.full_messages.first}"
     end
   end
 
