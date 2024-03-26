@@ -2,6 +2,7 @@ class AppointmentPolicy < ApplicationPolicy
   include AppointmentHabilityCheckable
 
   class Scope < Scope
+    # rubocop:disable Metrics/MethodLength
     def resolve
       if user.work_at_bex?
         scope.in_jurisdiction(user.organization).joins(slot: [{ agenda: :place },
@@ -27,6 +28,7 @@ class AppointmentPolicy < ApplicationPolicy
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def index?
     user.security_charter_accepted?
@@ -165,7 +167,8 @@ class AppointmentPolicy < ApplicationPolicy
     return true if record.created_by_organization?(user.organization)
 
     return record.in_jurisdiction?(user.organization) if (user.work_at_bex? && record.appointment_type.used_at_bex?) ||
-                                                         (user.local_admin_tj? && record.appointment_type.used_by_local_admin_tj?)
+                                                         (user.local_admin_tj? &&
+                                                           record.appointment_type.used_by_local_admin_tj?)
 
     record.in_organization?(user.organization)
   end

@@ -144,7 +144,8 @@ describe AppointmentPolicy do
     context 'for an bex user' do
       let(:user) { build(:user, role: 'bex', organization: organization2) }
 
-      it 'returns the appointments of the organization, created by the organization and the ones used at bex in the juridiction' do
+      it 'returns the appointments of the organization,
+         created by the organization and the ones used at bex in the juridiction' do
         expect(described_class::Scope.new(user,
                                           Appointment).resolve).to match_array([appointment1, appointment5,
                                                                                 appointment6, appointment7,
@@ -155,7 +156,8 @@ describe AppointmentPolicy do
     context 'for an admin_local_tj user' do
       let(:user) { build(:user, role: 'local_admin', organization: organization2) }
 
-      it 'returns the appointments of the organization, created by the organization and the ones used by local admin tj in the juridiction' do
+      it 'returns the appointments of the organization,
+         created by the organization and the ones used by local admin tj in the juridiction' do
         expect(described_class::Scope.new(user,
                                           Appointment).resolve).to match_array([appointment1, appointment3,
                                                                                 appointment4, appointment5,

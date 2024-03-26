@@ -4,7 +4,8 @@ require_relative '../support/shared_examples/convict_search_examples'
 RSpec.feature 'Home', type: :feature do
   describe 'As a logged user' do
     before do
-      @appointment_type = create :appointment_type, :with_notification_types, organization: @user.organization
+      @appointment_type = create :appointment_type, :with_notification_types, organization: @user.organization,
+                                                                              name: 'Convocation de suivi JAP'
       place = create :place, organization: @user.organization
       @agenda = create(:agenda, place:)
 
