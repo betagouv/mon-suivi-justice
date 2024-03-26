@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = policy_scope(User).where(role: %w[cpip dpip]).search_by_name(params[:q])
+    @users = policy_scope(User).where(role: %w[cpip dpip local_admin]).search_by_name(params[:q])
     authorize @users
 
     render layout: false
