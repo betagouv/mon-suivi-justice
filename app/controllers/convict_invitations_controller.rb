@@ -5,7 +5,7 @@ class ConvictInvitationsController < ApplicationController
     @convict = Convict.find(params[:convict_id])
     authorize @convict, policy_class: ConvictInvitationPolicy
 
-    InviteConvictJob.perform_later(@convict.id, current_user.id)
+    InviteConvictJob.perform_later(@convict.id)
 
     respond_to do |format|
       format.html { redirect_to convict_path(@convict), notice: t('.invitation_pending') }

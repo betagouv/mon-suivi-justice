@@ -107,7 +107,29 @@
         </div>
       </div>
     </div>
-    <%= render 'invitation_card', convict: @convict, user: current_user %>
+    <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
+      <%= render 'invitation_card', convict: @convict, can_invite: true %>
+    <% elsif @convict.already_invited_to_interface? %>
+      <%= render 'invitation_card', convict: @convict, can_invite: false %>
+    <% elsif current_user.can_invite_to_convict_interface?(@convict) && !@convict.can_receive_sms? %>
+      <div class="fr-grid-row fr-mt-2w">
+        <div class="fr-col">
+          <div class="fr-card fr-p-2w">
+            <div class="fr-grid-row  fr-grid-row--middle">
+              <div class="fr-col-4">
+                <h3 class="fr-mr-2w"><%= t('.invitation_title') %></h3>
+              </div>
+            </div>
+            <div>
+              <p>
+                <strong><%= t('.cannot_invite') %></strong><br>
+                <%= t('.cannot_invite_reason') %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
     <% if @convict.future_appointments.count(:id) != 0 %>
       <div class="fr-grid-row fr-mt-2w">
         <div class="fr-col">

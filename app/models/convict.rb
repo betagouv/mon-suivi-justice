@@ -50,6 +50,11 @@ class Convict < ApplicationRecord
 
   validates_with AppiUuidValidator
 
+  after_update_commit lambda {
+                        broadcast_replace_to [self, 'convict_invitation_card'], partial: 'convicts/invitation_card',
+                                                                                locals: { convict: self, can_invite: true },
+                                                                                target: 'convict_invitation_card'
+                      }
   after_update :update_convict_api
   after_destroy :delete_convict_from_node_app, if: :timestamp_convict_interface_creation
 

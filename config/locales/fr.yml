@@ -52,10 +52,12 @@ fr:
     edit:
       cpip_label: "CPIP"
       cpip_blank_option: "Suivi affecté au service"
-    invitation_card:
-      title: Espace probationnaire
+    show:
+      invitation_title: Espace probationnaire
       cannot_invite: Impossible d'inviter ce probationnaire
       cannot_invite_reason: Il n'a pas renseigné de numéro de téléphone ou ne souhaite pas recevoir de SMS
+    invitation_card:
+      title: Espace probationnaire
       invite: Inviter à son espace
       reinvite: Relancer l'invitation
       interface_invitation_state: État de l'invitation
