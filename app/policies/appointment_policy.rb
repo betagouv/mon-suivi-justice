@@ -3,10 +3,18 @@ class AppointmentPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      # for bex and localadmin, we should check appointment_type like for sap
-      # currently bex user can see all spip appointments
-      if user.work_at_bex? || user.local_admin_tj?
-        scope.in_jurisdiction(user.organization).or(scope.created_by_organization(user.organization)).distinct
+      if user.work_at_bex?
+        scope.in_jurisdiction(user.organization).joins(slot: [{ agenda: :place },
+                                                              :appointment_type])
+             .where({ 'appointment_types.name': AppointmentType.used_at_bex? })
+             .or(scope.created_by_organization(user.organization).joins(slot: [{ agenda: :place },
+                                                                               :appointment_type])).distinct
+      elsif user.local_admin_tj?
+        scope.in_jurisdiction(user.organization).joins(slot: [{ agenda: :place },
+                                                              :appointment_type])
+             .where({ 'appointment_types.name': AppointmentType.used_by_local_admin_tj? })
+             .or(scope.created_by_organization(user.organization).joins(slot: [{ agenda: :place },
+                                                                               :appointment_type])).distinct
       elsif user.work_at_sap?
         scope.joins(:slot,
                     convict: :organizations).in_organization(user.organization)
@@ -63,7 +71,11 @@ class AppointmentPolicy < ApplicationPolicy
     # we don't use ownership_check here because otherwise the creating_organization
     # condition would always make it true and we need to handle inter ressort for bex
     return true if user.work_at_bex? && user.organization.use_inter_ressort
-    return record.in_jurisdiction?(user.organization) if user.work_at_bex? || user.local_admin_tj? || user.admin?
+
+    return record.in_jurisdiction?(user.organization) if (user.work_at_bex? && record.appointment_type.used_at_bex?) ||
+                                                         (user.local_admin_tj? &&
+                                                         record.appointment_type.used_by_local_admin_tj?) ||
+                                                         user.admin?
     # Les agents SAP doivent pouvoir prendre des convocations SAP DDSE au SPIP
     return record.in_jurisdiction?(user.organization) if user.work_at_sap? && record.appointment_type.ddse?
 
@@ -152,7 +164,8 @@ class AppointmentPolicy < ApplicationPolicy
   def ownership_check
     return true if record.created_by_organization?(user.organization)
 
-    return record.in_jurisdiction?(user.organization) if user.work_at_bex? || user.local_admin_tj?
+    return record.in_jurisdiction?(user.organization) if (user.work_at_bex? && record.appointment_type.used_at_bex?) ||
+                                                         (user.local_admin_tj? && record.appointment_type.used_by_local_admin_tj?)
 
     record.in_organization?(user.organization)
   end
