@@ -85,12 +85,12 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
-  
+
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
 
   # Better logging
-  config.lograge.enabled = true
+  config.lograge.enabled = false
 
   # lograge custom options (sensitive attributes are hidden by rails config.filter_parameter)
   config.lograge.custom_options = lambda do |event|

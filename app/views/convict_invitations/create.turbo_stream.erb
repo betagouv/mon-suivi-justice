@@ -1,0 +1,2 @@
+<%= turbo_stream.update "flash_messages", partial: "shared/flashes" %>
+<%= turbo_stream.replace 'convict_invitation_card', partial: 'convicts/invitation_card', locals: { convict: @convict, user: current_user } %>
