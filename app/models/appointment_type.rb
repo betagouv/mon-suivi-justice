@@ -33,6 +33,10 @@ class AppointmentType < ApplicationRecord
       ["Sortie d'audience SAP", 'Convocation de suivi JAP', 'SAP débat contradictoire', 'Convocation JAPAT', 'SAP DDSE']
     end
 
+    def used_by_local_admin_tj?
+      [*used_at_sap?, "Sortie d'audience SPIP"]
+    end
+
     def used_at_spip?
       [*SPIP_ASSIGNABLE, "Sortie d'audience SPIP", 'SAP DDSE']
     end
@@ -44,6 +48,18 @@ class AppointmentType < ApplicationRecord
 
   def ddse?
     name == 'SAP DDSE'
+  end
+
+  def used_at_bex?
+    self.class.used_at_bex?.include? name
+  end
+
+  def used_at_sap?
+    self.class.used_at_sap?.include? name
+  end
+
+  def used_by_local_admin_tj?
+    self.class.used_by_local_admin_tj?.include? name
   end
 
   def sortie_audience?
