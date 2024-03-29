@@ -1,100 +1,149 @@
 <% if @organization_divestments.present? %>
-<div class="fr-grid-row fr-grid-row--left fr-grid-row--middle fr-grid-row--gutters">
-
-    <h3 class="fr-mr-2w">Demandes de dessaisissement sortant</h3>
-
-</div>
-<div class="fr-grid-row fr-grid-row--left fr-grid-row--center fr-grid-row--gutters">
-  <div class="col">
-    <div class="fr-table fr-table--bordered fr-table--layout-fixed">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
-            <th scope="col">Date</th>
-            <th scope="col">Source</th>
-            <th scope="col">Services</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @organization_divestments.each do |organization_divestment| %>
+  <div class="fr-grid-row fr-grid-row--left fr-grid-row--middle fr-grid-row--gutters">
+    <h3 class="fr-mr-2w">Demandes de dessaisissement sortantes</h3>
+  </div>
+  <div class="fr-grid-row fr-grid-row--left fr-grid-row--center fr-grid-row--gutters">
+    <div class="col">
+      <div class="fr-table fr-table--bordered fr-table--layout-fixed">
+        <table>
+          <thead>
             <tr>
-              <td>
-                <% if policy(organization_divestment.convict).show? %>
-                    <%= link_to organization_divestment.convict.name, convict_path(organization_divestment.convict), class: 'index-control', data: { turbo: false } %>
-                <% else %>
-                    <%= organization_divestment.convict.name %>
-                <% end %>
-              </td>
-              <td><%= organization_divestment.created_at.strftime("%d/%m/%Y") %></td>
-              <td><%= organization_divestment.source.name %></td>
-              <td>
-                <% organization_divestment.other_organizations_divestments.each do |other_organizations_divestment| %>
-                  <% badge_class = case other_organizations_divestment.state
-                                  when "accepted", "auto_accepted" then "fr-badge--success"
-                                  when "ignored" then "fr-badge--new"
-                                  when "refused" then "fr-badge--error"
-                                  else ""
-                                  end %>
-                  <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= other_organizations_divestment.orga_name %></p>
-                <% end %>
-              </td>
-              <td>
-                <% if policy(organization_divestment).validate? %>
-                  can be validated
-                <% end %>
-              </td>
+              <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
+              <th scope="col">Date</th>
+              <th scope="col">Source</th>
+              <th scope="col">Services</th>
+              <th scope="col">Actions</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @current_orga_divestments.each do |organization_divestment| %>
+              <tr>
+                <td>
+                  <% if policy(organization_divestment.convict).show? %>
+                      <%= link_to organization_divestment.convict.name, convict_path(organization_divestment.convict), class: 'index-control', data: { turbo: false } %>
+                  <% else %>
+                      <%= organization_divestment.convict.name %>
+                  <% end %>
+                </td>
+                <td><%= organization_divestment.created_at.strftime("%d/%m/%Y") %></td>
+                <td><%= organization_divestment.source.name %></td>
+                <td>
+                  <% organization_divestment.other_organizations_divestments.each do |other_organizations_divestment| %>
+                    <% badge_class = case other_organizations_divestment.state
+                                    when "accepted", "auto_accepted" then "fr-badge--success"
+                                    when "ignored" then "fr-badge--new"
+                                    when "refused" then "fr-badge--error"
+                                    else ""
+                                    end %>
+                    <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= other_organizations_divestment.orga_name %></p>
+                  <% end %>
+                </td>
+                <td>
+                  <% if policy(organization_divestment).validate? %>
+                    can be validated
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
-<%= paginate @organization_divestments %>
+  <%= paginate @current_orga_divestments %>
 <% end %>
 <% if @divestments.present? %>
-<div class="fr-grid-row fr-grid-row--left fr-grid-row--middle fr-grid-row--gutters">
-    <h3 class="fr-mr-2w">Demandes de dessaisissement entrant</h3>
-</div>
-<div class="col">
-  <div class="fr-table fr-table--bordered fr-table--layout-fixed">
-    <table>
-      <thead>
-        <tr>
-          <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
-          <th scope="col">Date</th>
-          <th scope="col">Services</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @divestments.each do |divestment| %>
-          <tr>
-            <td>
-              <% if policy(divestment.convict).show? %>
-                  <%= link_to divestment.convict.name, convict_path(divestment.convict), class: 'index-control', data: { turbo: false } %>
-              <% else %>
-                  <%= divestment.convict.name %>
-              <% end %>
-            </td>
-            <td><%= divestment.created_at.strftime("%d/%m/%Y") %></td>
-            <td>
-              <% divestment.organization_divestments.each do |organizations_divestment| %>
-                <% badge_class = case organizations_divestment.state
-                                when "accepted", "auto_accepted" then "fr-badge--success"
-                                when "ignored" then "fr-badge--new"
-                                when "refused" then "fr-badge--error"
-                                else ""
-                                end %>
-                <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= organizations_divestment.orga_name %></p>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div class="fr-grid-row fr-grid-row--left fr-grid-row--middle fr-grid-row--gutters">
+    <h3 class="fr-mr-2w">Demandes de dessaisissement entrantes</h3>
   </div>
-</div>
-<%= paginate @divestments %>
+  <div class="fr-tabs">
+    <ul class="fr-tabs__list" role="tablist" aria-label="divestments-state">
+      <li role="presentation">
+        <button id="tabpanel-404" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-404-panel">En cours</button>
+      </li>
+      <li role="presentation">
+        <button id="tabpanel-405" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-405-panel">Passé</button>
+      </li>
+    </ul>
+    <div id="tabpanel-404-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-404" tabindex="0">
+      <div class="fr-table fr-table--bordered fr-table--layout-fixed">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
+              <th scope="col">Date</th>
+              <th scope="col">Services</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @current_divestments.each do |divestment| %>
+              <tr>
+                <td>
+                  <% if policy(divestment.convict).show? %>
+                      <%= link_to divestment.convict.name, convict_path(divestment.convict), class: 'index-control', data: { turbo: false } %>
+                  <% else %>
+                      <%= divestment.convict.name %>
+                  <% end %>
+                </td>
+                <td><%= divestment.created_at.strftime("%d/%m/%Y") %></td>
+                <td>
+                  <% divestment.organization_divestments.each do |organizations_divestment| %>
+                    <% badge_class = case organizations_divestment.state
+                                    when "accepted", "auto_accepted" then "fr-badge--success"
+                                    when "ignored" then "fr-badge--new"
+                                    when "refused" then "fr-badge--error"
+                                    else ""
+                                    end %>
+                    <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= organizations_divestment.orga_name %></p>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div> 
+      <%= paginate @current_divestments %>
+    </div>
+    <div id="tabpanel-405-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-405" tabindex="-1">
+      <div class="fr-table fr-table--bordered fr-table--layout-fixed">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Services</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @past_divestments.each do |divestment| %>
+                <tr>
+                  <td>
+                    <% if policy(divestment.convict).show? %>
+                        <%= link_to divestment.convict.name, convict_path(divestment.convict), class: 'index-control', data: { turbo: false } %>
+                    <% else %>
+                        <%= divestment.convict.name %>
+                    <% end %>
+                  </td>
+                  <td><%= divestment.created_at.strftime("%d/%m/%Y") %></td>
+                  <td><%= divestment.state %></td>
+                  <td>
+                    <% divestment.organization_divestments.each do |organizations_divestment| %>
+                      <% badge_class = case organizations_divestment.state
+                                      when "accepted", "auto_accepted" then "fr-badge--success"
+                                      when "ignored" then "fr-badge--new"
+                                      when "refused" then "fr-badge--error"
+                                      else ""
+                                      end %>
+                      <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= organizations_divestment.orga_name %></p>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <%= paginate @past_divestments %>
+      </div>
+    </div>
 <% end %>

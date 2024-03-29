@@ -192,7 +192,7 @@ describe ConvictPolicy do
         it { is_expected.to forbid_action(:convokable_during_divestment) }
       end
 
-      context "bex" do
+      context 'bex' do
         context "when the divestment is to the user's organization" do
           let!(:divestment) { create(:divestment, state: 'pending', convict:, user:, organization: user.organization) }
 
