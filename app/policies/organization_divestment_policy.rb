@@ -1,7 +1,7 @@
 class OrganizationDivestmentPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      return [] unless user.local_admin?
+      return scope.none unless user.local_admin?
 
       scope.where(organization: user.organization)
     end
