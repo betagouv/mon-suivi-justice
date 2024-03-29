@@ -1,6 +1,7 @@
 class OrganizationDivestment < ApplicationRecord
   belongs_to :organization
   belongs_to :divestment
+  delegate :convict, to: :divestment
 
   state_machine initial: :pending do
     event :accept do
@@ -21,4 +22,16 @@ class OrganizationDivestment < ApplicationRecord
   end
 
   validates :comment, length: { maximum: 120 }, allow_blank: true
+
+  def source
+    divestment.organization
+  end
+
+  def other_organizations_divestments
+    divestment.organization_divestments.where.not(id:)
+  end
+
+  def orga_name
+    organization.name
+  end
 end
