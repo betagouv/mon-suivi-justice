@@ -34,4 +34,8 @@ class OrganizationDivestment < ApplicationRecord
   def orga_name
     organization.name
   end
+
+  def convict_name
+    convict.full_name
+  end
 end

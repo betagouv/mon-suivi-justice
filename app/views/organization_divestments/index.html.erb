@@ -59,8 +59,10 @@
                         <% end %>
                       </td>
                       <td>
-                        <% if policy(organization_divestment).validate? %>
-                          can be validated
+                        <% if policy(organization_divestment).edit? %>
+                          <div class="col-fr">
+                            <%= link_to t('edit'), edit_organization_divestment_path(organization_divestment), class: 'slots-index-control' %>
+                          </div>
                         <% end %>
                       </td>
                     </tr>
