@@ -20,10 +20,7 @@ class OrganizationDivestment < ApplicationRecord
       transition pending: :ignored
     end
 
-    after_transition on: :accept do |divestment|
-      divestment.update(decision_date: Time.zone.now)
-    end
-    after_transition on: :refuse do |divestment|
+    after_transition pending: any do |divestment|
       divestment.update(decision_date: Time.zone.now)
     end
   end

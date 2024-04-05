@@ -28,7 +28,8 @@ class DivestmentStateService
 
     organizations = @convict.organizations - @target_organizations
     @convict.update(organizations:)
-    AdminMailer.with(divestment: @divestment, organization_divestment: @organization_divestmentl, current_user: @user).divestment_refused.deliver_later
+    AdminMailer.with(divestment: @divestment, organization_divestment: @organization_divestmentl,
+                     current_user: @user).divestment_refused.deliver_later
 
     true
   end
