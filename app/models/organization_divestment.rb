@@ -19,6 +19,13 @@ class OrganizationDivestment < ApplicationRecord
     event :ignore do
       transition pending: :ignored
     end
+
+    after_transition on: :accept do |divestment|
+      divestment.update(decision_date: Time.zone.now)
+    end
+    after_transition on: :refuse do |divestment|
+      divestment.update(decision_date: Time.zone.now)
+    end
   end
 
   validates :comment, length: { maximum: 120 }, allow_blank: true
