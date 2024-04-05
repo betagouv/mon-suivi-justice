@@ -3,7 +3,7 @@ class DivestmentStateService
     @organization_divestment = organization_divestment
     @divestment = organization_divestment.divestment
     @convict = @divestment.convict
-    @target_organization = [@target_organization, *@target_organization.linked_organizations]
+    @target_organizations = [@divestment.organization, *@divestment.organization.linked_organizations]
     @user = user
   end
 
