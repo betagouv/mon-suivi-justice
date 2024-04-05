@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe DivestmentStateService do
   let(:tj) { create(:organization, name: 'TJ', organization_type: :tj) }
   let(:spip) { create(:organization, name: 'SPIP', organization_type: :spip) }
+  let(:cpip) { create(:user, organization: spip, role: 'cpip')}
   let(:admin) { create(:user, organization: tj, role: 'local_admin') }
   let(:spip_target) { create(:organization, name: 'SPIP target', organization_type: :spip) }
   let(:tj_target) do
@@ -12,7 +13,7 @@ RSpec.describe DivestmentStateService do
     tj
   end
   let(:user) { create(:user, organization: tj_target, role: 'bex') }
-  let(:convict) { create(:convict, organizations: [tj, spip, tj_target, spip_target]) }
+  let(:convict) { create(:convict, organizations: [tj, spip, tj_target, spip_target], user: cpip) }
   let(:divestment) { create(:divestment, state: 'pending', convict:, user:, organization: tj_target) }
   let(:tj_organization_divestment) { create(:organization_divestment, divestment:, organization: tj, state: :pending) }
   let(:spip_divestment_state) { :auto_accepted }
@@ -47,6 +48,7 @@ RSpec.describe DivestmentStateService do
         expect(divestment.state).to eq('accepted')
         expect(tj_organization_divestment.decision_date).to eq(Date.today)
         expect(divestment.decision_date).to eq(Date.today)
+        expect(convict.user).to be_nil
         expect(convict.organizations).to match_array([tj_target, spip_target])
       end
     end
