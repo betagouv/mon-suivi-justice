@@ -24,13 +24,24 @@ class DivestmentStateService
     return false unless @organization_divestment.pending? && @divestment.pending?
 
     @organization_divestment.refuse
-    @divestment.refuse
-
+    return unless @divestment.refuse
+    handle_undecided_divestment
     organizations = @convict.organizations - @target_organizations
     @convict.update(organizations:)
     AdminMailer.with(divestment: @divestment, organization_divestment: @organization_divestmentl,
                      current_user: @user).divestment_refused.deliver_later
 
     true
+  end
+
+  private
+
+  def handle_undecided_divestment
+    return unless @divestment.refused?
+
+    @divestment.organization_divestments.where(state: :pending).each do |organization_divestment|
+      organization_divestment.ignore
+      organization_divestment.update(comment: "orga divestment ignored because divestment was refused")
+    end
   end
 end

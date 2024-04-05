@@ -74,5 +74,23 @@ RSpec.describe DivestmentStateService do
         expect(convict.organizations).to match_array([tj, spip])
       end
     end
+    context 'other organization divestments are pending' do
+      let(:spip_divestment_state) { :pending }
+
+      it 'change the divestment state' do
+        service.refuse
+        tj_organization_divestment.reload
+        convict.reload
+        divestment.reload
+        spip_organization_divestment.reload
+
+        expect(divestment.refused?).to eq(true)
+        expect(tj_organization_divestment.refused?).to eq(true)
+        expect(tj_organization_divestment.decision_date).to eq(Date.today)
+        expect(divestment.decision_date).to eq(Date.today)
+        expect(convict.organizations).to match_array([tj, spip])
+        expect(spip_organization_divestment.ignored?).to eq(true)
+      end
+    end
   end
 end
