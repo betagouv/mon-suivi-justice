@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h2>La demande de dessaisissment concernant le probationnaire n°<%= link_to(@convict.appi_uuid || @convict.id, convict_path(convict)) %> a été refusée </h2>
+    <h5>Raisons du refus : </h5>
+    <ul>
+      <li><%= @comment %></li>
+    </ul>
+    <h5>Pour en discuter, n'hésitez pas a contacter <%= @current_user.name %></h5>
+    <ul>
+      <li>email: <%= @current_user.email %></li>
+      <li>phone: <%= @current_user.phone %></li>
+    </ul>
+  </body>
+</html>

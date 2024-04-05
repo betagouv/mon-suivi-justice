@@ -1,9 +1,10 @@
 class DivestmentStateService
-  def initialize(organization_divestment)
+  def initialize(organization_divestment, user)
     @organization_divestment = organization_divestment
     @divestment = organization_divestment.divestment
     @convict = @divestment.convict
     @target_organization = [@target_organization, *@target_organization.linked_organizations]
+    @user = user
   end
 
   def update(new_state)
@@ -25,7 +26,7 @@ class DivestmentStateService
     return @organization_divestment.accept unless @divestment.all_accepted? && @divestment.accept
 
     @convict.update(organizations: @target_organizations, user: nil)
-
+    AdminMailer.with(convict: @convict, target_organizations: @target_organizations).divestment_accepted.deliver_later
 
   end
 
@@ -34,5 +35,6 @@ class DivestmentStateService
 
     organizations = @convict.organizations - @target_organizations
     @convict.update(organizations:)
+    AdminMailer.with(divestment: @divestment, organization_divestment: @organization_divestmentl, current_user: @user).divestment_refused.deliver_later
   end
 end
