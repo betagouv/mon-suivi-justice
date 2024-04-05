@@ -3,6 +3,12 @@ class OrganizationDivestment < ApplicationRecord
   belongs_to :divestment
   delegate :convict, to: :divestment
 
+  scope :old_pending, lambda {
+    joins(:divestment)
+      .where('organization_divestments.created_at < ?', 10.days.ago)
+      .where(organization_divestments: { state: 'pending' }, divestments: { state: 'pending' })
+  }
+
   state_machine initial: :pending do
     event :accept do
       transition pending: :accepted
