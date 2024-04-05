@@ -32,10 +32,6 @@ class Divestment < ApplicationRecord
   end
 
   def all_accepted?
-    organization_divestments.each do |organization_divestment|
-      p organization_divestment.state
-      p organization_divestment.is_accepted?
-    end
     organization_divestments.all?(&:is_accepted?)
   end
 end
