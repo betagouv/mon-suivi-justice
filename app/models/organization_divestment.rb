@@ -39,8 +39,8 @@ class OrganizationDivestment < ApplicationRecord
     convict.full_name
   end
 
-  def accepted?
+  def is_accepted?
     # should ignored be considered as accepted?
-    state == 'accepted' || state == 'auto_accepted'
+    accepted? || auto_accepted?
   end
 end

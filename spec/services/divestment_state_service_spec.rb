@@ -36,11 +36,12 @@ RSpec.describe DivestmentStateService do
     context 'all organization divestments are accepted' do
       let(:spip_divestment_state) { :auto_accepted }
 
-      it 'does not change the divestment state' do
+      it 'change the divestment state' do
         service.update('accept')
         divestment.reload
         tj_organization_divestment.reload
         convict.reload
+        
         expect(tj_organization_divestment.state).to eq('accepted')
         expect(divestment.state).to eq('accepted')
         expect(divestment.decision_date).to eq(Date.today)

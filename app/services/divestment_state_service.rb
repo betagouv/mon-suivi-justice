@@ -23,11 +23,13 @@ class DivestmentStateService
   private
 
   def accept_divestment
-    return @organization_divestment.accept unless @divestment.all_accepted? && @divestment.accept
+    @organization_divestment.accept
+    return true unless @divestment.all_accepted?
+    return false unless @divestment.accept
 
     @convict.update(organizations: @target_organizations, user: nil)
     AdminMailer.with(convict: @convict, target_organizations: @target_organizations).divestment_accepted.deliver_later
-
+    true
   end
 
   def refuse_divestment
