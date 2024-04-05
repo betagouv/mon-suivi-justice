@@ -7,32 +7,22 @@ class DivestmentStateService
     @user = user
   end
 
-  def update(new_state)
-    return unless @divestment.pending?
+  def accept
+    return false unless @organization_divestment.pending? && @divestment.pending?
 
-    case new_state
-    when 'accept', 'auto_accept'
-      accept_divestment
-    when 'refuse'
-      refuse_divestment
-    else
-      false
-    end
-  end
-
-  private
-
-  def accept_divestment
     @organization_divestment.accept
     return true unless @divestment.all_accepted?
-    return false unless @divestment.accept
+
+    @divestment.accept
 
     @convict.update(organizations: @target_organizations, user: nil)
     AdminMailer.with(convict: @convict, target_organizations: @target_organizations).divestment_accepted.deliver_later
     true
   end
 
-  def refuse_divestment
+  def refuse
+    return false unless @organization_divestment.pending? && @divestment.pending?
+
     @organization_divestment.refuse
     @divestment.refuse
 

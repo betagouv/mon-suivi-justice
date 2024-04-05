@@ -25,7 +25,7 @@ RSpec.describe DivestmentStateService do
       let(:spip_divestment_state) { :pending }
 
       it 'does not change the divestment state' do
-        service.update('accept')
+        service.accept
         divestment.reload
         tj_organization_divestment.reload
 
@@ -37,7 +37,7 @@ RSpec.describe DivestmentStateService do
       let(:spip_divestment_state) { :auto_accepted }
 
       it 'change the divestment state' do
-        service.update('accept')
+        service.accept
         divestment.reload
         tj_organization_divestment.reload
         convict.reload
@@ -55,7 +55,7 @@ RSpec.describe DivestmentStateService do
       let(:spip_divestment_state) { :auto_accepted }
 
       it 'change the divestment state' do
-        service.update('refuse')
+        service.refuse
         tj_organization_divestment.reload
         convict.reload
         divestment.reload
