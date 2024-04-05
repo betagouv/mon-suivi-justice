@@ -41,11 +41,29 @@ RSpec.describe DivestmentStateService do
         divestment.reload
         tj_organization_divestment.reload
         convict.reload
-        
+
         expect(tj_organization_divestment.state).to eq('accepted')
         expect(divestment.state).to eq('accepted')
         expect(divestment.decision_date).to eq(Date.today)
         expect(convict.organizations).to match_array([tj_target, spip_target])
+      end
+    end
+  end
+
+  describe 'refuse divestment' do
+    context 'other organization divestments are accepted' do
+      let(:spip_divestment_state) { :auto_accepted }
+
+      it 'change the divestment state' do
+        service.update('refuse')
+        tj_organization_divestment.reload
+        convict.reload
+        divestment.reload
+
+        expect(divestment.refused?).to eq(true)
+        expect(tj_organization_divestment.refused?).to eq(true)
+        expect(divestment.decision_date).to eq(Date.today)
+        expect(convict.organizations).to match_array([tj, spip])
       end
     end
   end

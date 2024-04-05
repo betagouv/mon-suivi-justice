@@ -33,10 +33,13 @@ class DivestmentStateService
   end
 
   def refuse_divestment
-    return @organization_divestment.refuse unless @divestment.refuse
+    @organization_divestment.refuse
+    @divestment.refuse
 
     organizations = @convict.organizations - @target_organizations
     @convict.update(organizations:)
     AdminMailer.with(divestment: @divestment, organization_divestment: @organization_divestmentl, current_user: @user).divestment_refused.deliver_later
+
+    true
   end
 end
