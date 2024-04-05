@@ -24,6 +24,7 @@ class DivestmentStateService
     return false unless @organization_divestment.pending? && @divestment.pending?
 
     @organization_divestment.refuse
+
     return unless @divestment.refuse
 
     handle_undecided_divestment

@@ -224,8 +224,11 @@ class Convict < ApplicationRecord
   end
 
   def last_appointment_at_least_6_months_old?
-    last_appointment_date = appointments.joins(:slot).maximum('slots.date')
-    last_appointment_date.present? && last_appointment_date < 6.months.ago
+    last_appointment_at_least_x_months_old?(6)
+  end
+
+  def last_appointment_at_least_3_months_old?
+    last_appointment_at_least_x_months_old?(3)
   end
 
   def pending_divestments?
@@ -240,6 +243,10 @@ class Convict < ApplicationRecord
     divestments.where(state: :pending).where(organization:).any?
   end
 
+  def archived?
+    discarded?
+  end
+
   private
 
   def unique_organizations
@@ -251,5 +258,10 @@ class Convict < ApplicationRecord
 
   def delete_convict_from_node_app
     DeleteConvictJob.perform_later(id)
+  end
+
+  def last_appointment_at_least_x_months_old?(nb_months)
+    last_appointment_date = appointments.joins(:slot).maximum('slots.date')
+    last_appointment_date.present? && last_appointment_date < nb_months.months.ago
   end
 end
