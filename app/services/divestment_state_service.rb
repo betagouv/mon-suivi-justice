@@ -16,7 +16,7 @@ class DivestmentStateService
     @divestment.accept
 
     @convict.update(organizations: @target_organizations, user: nil)
-    AdminMailer.with(convict: @convict, target_organizations: @target_organizations).divestment_accepted.deliver_later
+    UserMailer.with(divestment: @divestment).divestment_accepted.deliver_later
     true
   end
 
@@ -30,10 +30,19 @@ class DivestmentStateService
     handle_undecided_divestment
     organizations = @convict.organizations - @target_organizations
     @convict.update(organizations:)
-    AdminMailer.with(divestment: @divestment, organization_divestment: @organization_divestmentl,
-                     current_user: @user).divestment_refused.deliver_later
+
+    if @current_user
+      AdminMailer.with(divestment: @divestment, organization_divestment: @organization_divestment,
+                       current_user: @user).divestment_refused.deliver_later
+    end
 
     true
+  end
+
+  def ignore
+    return false unless @organization_divestment.pending? && @divestment.pending?
+
+    @organization_divestment.ignore
   end
 
   private

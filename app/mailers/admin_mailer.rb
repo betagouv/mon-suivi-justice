@@ -67,21 +67,4 @@ class AdminMailer < ApplicationMailer
     mail(to: ['matthieu.faugere@beta.gouv.fr', 'charles.marcoin@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr'],
          subject: 'Notifications remises dans la queue')
   end
-
-  def divestment_accepted
-    divestment = params[:divestment]
-    user = divestment.user
-    @convict = divestment.convict
-    mail(to: [user.email], subject: 'Votre demande de dessaisissement a été acceptée')
-  end
-
-  def divestment_refused
-    @divestment = params[:divestment]
-    @organization_divestment = params[:organization_divestment]
-    @comment = @organization_divestment.comment
-    @current_user = params[:current_user]
-    @convict = divestment.convict
-    user = @divestment.user
-    mail(to: [user.email], subject: 'Votre demande de dessaisissement a été refusée')
-  end
 end

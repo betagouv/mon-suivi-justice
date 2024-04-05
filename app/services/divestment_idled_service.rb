@@ -6,9 +6,10 @@ class DivestmentIdledService
   def call
     @organization_divestments.each do |organization_divestment|
       convict = organization_divestment.convict
-      return organization_divestment.accept if convict.divestmentable?
+      service = DivestmentStateService.new(organization_divestment, nil)
+      return service.accept if convict.divestmentable?
 
-      organization_divestment.ignore
+      service.ignore
     end
   end
 
