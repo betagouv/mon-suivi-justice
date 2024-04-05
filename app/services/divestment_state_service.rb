@@ -25,6 +25,7 @@ class DivestmentStateService
 
     @organization_divestment.refuse
     return unless @divestment.refuse
+
     handle_undecided_divestment
     organizations = @convict.organizations - @target_organizations
     @convict.update(organizations:)
@@ -41,7 +42,7 @@ class DivestmentStateService
 
     @divestment.organization_divestments.where(state: :pending).each do |organization_divestment|
       organization_divestment.ignore
-      organization_divestment.update(comment: "orga divestment ignored because divestment was refused")
+      organization_divestment.update(comment: 'orga divestment ignored because divestment was refused')
     end
   end
 end
