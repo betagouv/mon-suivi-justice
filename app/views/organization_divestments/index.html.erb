@@ -52,9 +52,9 @@
                                           else ""
                                           end %>
                           <% ood_id = other_organizations_divestment.id %>
-                          <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-ood-<% ood_id %>" id="link-ood-<% ood_id %>"><%= other_organizations_divestment.orga_name %></p>
+                          <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-ood-<%= ood_id %>" id="link-ood-<%= ood_id %>"><%= other_organizations_divestment.orga_name %></p>
                           <% if other_organizations_divestment.comment %>
-                            <span class="fr-tooltip fr-placement" id="tooltip-ood-<% ood_id %>" role="tooltip" aria-hidden="true"><%= other_organizations_divestment.comment %></span>
+                            <span class="fr-tooltip fr-placement" id="tooltip-ood-<%= ood_id %>" role="tooltip" aria-hidden="true"><%= other_organizations_divestment.comment %></span>
                           <% end %>
                         <% end %>
                       </td>
@@ -84,8 +84,10 @@
                     <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
                     <th scope="col">Date</th>
                     <th scope="col">Source</th>
+                    <th scope="col">Status du dessaisissement</th>
                     <th scope="col">Services</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Votre décision</th>
+                    <th scope="col">Comment</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -101,6 +103,15 @@
                       <td><%= organization_divestment.created_at.strftime("%d/%m/%Y") %></td>
                       <td><%= organization_divestment.source.name %></td>
                       <td>
+                        <% badge_class = case organization_divestment.divestment.state
+                                        when "accepted", "auto_accepted" then "fr-badge--success"
+                                        when "ignored" then "fr-badge--new"
+                                        when "refused" then "fr-badge--error"
+                                        else ""
+                                        end %>
+                        <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= organization_divestment.divestment.state %></p>
+                      </td>
+                      <td>
                         <% organization_divestment.other_organizations_divestments.each do |other_organizations_divestment| %>
                           <% badge_class = case other_organizations_divestment.state
                                           when "accepted", "auto_accepted" then "fr-badge--success"
@@ -112,7 +123,16 @@
                         <% end %>
                       </td>
                       <td>
-                        <%= organization_divestment.state %>
+                          <% badge_class = case organization_divestment.state
+                                          when "accepted", "auto_accepted" then "fr-badge--success"
+                                          when "ignored" then "fr-badge--new"
+                                          when "refused" then "fr-badge--error"
+                                          else ""
+                                          end %>
+                          <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= organization_divestment.state %></p>
+                      </td>
+                      <td>
+                        <%= organization_divestment.comment %>
                       </td>
                     </tr>
                   <% end %>
@@ -168,9 +188,9 @@
                                     else ""
                                     end %>
                     <% od_id = organization_divestment.id %>
-                    <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-od-<% od_id %>" id="link-od-<% od_id %>"><%= organization_divestment.orga_name %></p>
+                    <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-od-<%= od_id %>" id="link-od-<%= od_id %>"><%= organization_divestment.orga_name %></p>
                     <% if organization_divestment.comment %>
-                      <span class="fr-tooltip fr-placement" id="tooltip-od-<% od_id %>" role="tooltip" aria-hidden="true"><%= organization_divestment.comment %></span>
+                      <span class="fr-tooltip fr-placement" id="tooltip-od-<%= od_id %>" role="tooltip" aria-hidden="true"><%= organization_divestment.comment %></span>
                     <% end %>
                   <% end %>
                 </td>
@@ -203,16 +223,28 @@
                     <% end %>
                   </td>
                   <td><%= divestment.created_at.strftime("%d/%m/%Y") %></td>
-                  <td><%= divestment.state %></td>
                   <td>
-                    <% divestment.organization_divestments.each do |organizations_divestment| %>
-                      <% badge_class = case organizations_divestment.state
+                    <% badge_class = case divestment.state
                                       when "accepted", "auto_accepted" then "fr-badge--success"
                                       when "ignored" then "fr-badge--new"
                                       when "refused" then "fr-badge--error"
                                       else ""
                                       end %>
-                      <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= organizations_divestment.orga_name %></p>
+                    <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= divestment.state %></p>
+                    </td>
+                  <td>
+                    <% divestment.organization_divestments.each do |organization_divestment| %>
+                      <% badge_class = case organization_divestment.state
+                                      when "accepted", "auto_accepted" then "fr-badge--success"
+                                      when "ignored" then "fr-badge--new"
+                                      when "refused" then "fr-badge--error"
+                                      else ""
+                                      end %>
+                      <% od_id = organization_divestment.id %>
+                      <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-od-<%= od_id %>" id="link-od-<%= od_id %>"><%= organization_divestment.orga_name %></p>
+                      <% if organization_divestment.comment %>
+                        <span class="fr-tooltip fr-placement" id="tooltip-od-<%= od_id %>" role="tooltip" aria-hidden="true"><%= organization_divestment.comment %></span>
+                      <% end %>
                     <% end %>
                   </td>
                 </tr>
