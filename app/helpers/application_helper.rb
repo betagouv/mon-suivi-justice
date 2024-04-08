@@ -12,25 +12,15 @@ module ApplicationHelper
   end
 
   def formated_dates_for_select(date_array)
-    formated = []
-
-    date_array.each do |date|
-      formated << [date.strftime('%d/%m/%Y'), date.to_fs]
+    date_array.map do |date|
+      [date.strftime('%d/%m/%Y'), date.to_fs]
     end
-
-    formated
   end
 
   def formated_month_for_select(date_array)
-    formated = []
-
-    date_array.each do |date|
-      localized_date = I18n.l(date, format: '%B %Y')
-
-      formated << [localized_date.capitalize, date.to_fs]
+    date_array.map do |date|
+      [I18n.l(date, format: '%B %Y').capitalize, date.to_fs]
     end
-
-    formated
   end
 
   def formated_days_for_select(date_array)
