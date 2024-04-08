@@ -11,13 +11,7 @@ class DivestmentStateService
     return false unless @organization_divestment.pending? && @divestment.pending?
 
     @organization_divestment.accept
-    return true unless @divestment.all_accepted?
-
-    @divestment.accept
-
-    @convict.update(organizations: @target_organizations, user: nil)
-    UserMailer.with(divestment: @divestment).divestment_accepted.deliver_later
-    true
+    handle_divestment_state
   end
 
   def refuse
@@ -43,6 +37,7 @@ class DivestmentStateService
     return false unless @organization_divestment.pending? && @divestment.pending?
 
     @organization_divestment.ignore
+    handle_divestment_state
   end
 
   private
@@ -54,5 +49,15 @@ class DivestmentStateService
       organization_divestment.ignore
       organization_divestment.update(comment: 'orga divestment ignored because divestment was refused')
     end
+  end
+
+  def handle_divestment_state
+    return true unless @divestment.all_accepted?
+
+    @divestment.accept
+
+    @convict.update(organizations: @target_organizations, user: nil)
+    UserMailer.with(divestment: @divestment).divestment_accepted.deliver_later
+    true
   end
 end

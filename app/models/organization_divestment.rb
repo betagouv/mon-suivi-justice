@@ -50,7 +50,6 @@ class OrganizationDivestment < ApplicationRecord
   end
 
   def is_accepted?
-    # should ignored be considered as accepted?
-    accepted? || auto_accepted?
+    accepted? || auto_accepted? || ignored?
   end
 end
