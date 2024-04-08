@@ -24,8 +24,8 @@ module ApplicationHelper
   end
 
   def formated_days_for_select(date_array)
-    date_array.each do |date|
-      formated << [I18n.l(date, format: '%A %d').capitalize, date.to_fs]
+    date_array.map do |date|
+      [I18n.l(date, format: '%A %d').capitalize, date.to_fs]
     end
   end
 
