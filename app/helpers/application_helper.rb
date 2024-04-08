@@ -24,15 +24,9 @@ module ApplicationHelper
   end
 
   def formated_days_for_select(date_array)
-    formated = []
-
     date_array.each do |date|
-      localized_date = I18n.l(date, format: '%A %d')
-
-      formated << [localized_date.capitalize, date.to_fs]
+      formated << [I18n.l(date, format: '%A %d').capitalize, date.to_fs]
     end
-
-    formated
   end
 
   def ten_next_open_days
@@ -43,13 +37,9 @@ module ApplicationHelper
   end
 
   def available_places_list
-    list = []
-
-    Place.in_organization(current_organization).each do |place|
-      list << [place.name, place.id]
+    Place.in_organization(current_organization).map do |place|
+      [place.name, place.id]
     end
-
-    list
   end
 
   def next_valid_day(date: Time.zone.today, day: nil)
