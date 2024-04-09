@@ -22,6 +22,7 @@ class Convict < ApplicationRecord
   has_many :jurisdictions, through: :areas_convicts_mappings, source: :area, source_type: 'Jurisdiction'
 
   has_many :divestments, dependent: :destroy
+  has_many :organization_divestments, through: :divestments
 
   belongs_to :user, optional: true
 
@@ -30,6 +31,7 @@ class Convict < ApplicationRecord
 
   alias cpip user
   alias agent user
+  alias archived? discarded?
 
   attr_accessor :place_id, :duplicates, :current_user
 
@@ -238,8 +240,24 @@ class Convict < ApplicationRecord
   end
 
   def last_appointment_at_least_6_months_old?
-    last_appointment_date = appointments.joins(:slot).maximum('slots.date')
-    last_appointment_date.present? && last_appointment_date < 6.months.ago
+    last_appointment_at_least_x_months_old?(6)
+  end
+
+  def last_appointment_at_least_3_months_old?
+    last_appointment_at_least_x_months_old?(3)
+  end
+
+  def pending_divestments?
+    divestments.where(state: :pending).any?
+  end
+
+  def organization_divestments_from(organization)
+    # can only be one pending divestment per organization and convict
+    organization_divestments.where(state: :pending, organization:).first
+  end
+
+  def divestment_to?(organization)
+    divestments.where(state: :pending, organization:).any?
   end
 
   private
@@ -261,5 +279,10 @@ class Convict < ApplicationRecord
     paris_jurisdictions = [tj_paris, spip_paris]
 
     paris_jurisdictions.all? { |org| organizations.include?(org) }
+  end
+  
+  def last_appointment_at_least_x_months_old?(nb_months)
+    last_appointment_date = appointments.joins(:slot).maximum('slots.date')
+    last_appointment_date.present? && last_appointment_date < nb_months.months.ago
   end
 end

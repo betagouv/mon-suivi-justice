@@ -32,7 +32,7 @@ Rails.application.routes.draw do
         put '/start_transfert' => "place_transferts#start_transfert"
       end
       resources :divestments
-      resources :organization_divestments
+      resources :organization_divestments, only: %i[index show]
 
       root to: "users#index"
     end
@@ -160,6 +160,7 @@ Rails.application.routes.draw do
   end
 
   resources :divestments, only: :create
+  resources :organization_divestments, only: %i[index edit update]
 
   match '/404' => 'errors#not_found', via: :all
   match '/422' => 'errors#unprocessable_entity', via: :all

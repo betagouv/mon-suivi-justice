@@ -96,6 +96,13 @@
               <% end %>
             </li>
           <% end %>
+          <% if policy(:organization_divestment).index? %>
+            <li class="fr-nav__item">
+              <%= link_to organization_divestments_path, class: 'fr-nav__link', 'aria-current': current?("page", organization_divestments_path) do %>
+                <%= t('sidebar.organization_divestments') %>
+              <% end %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </li>
