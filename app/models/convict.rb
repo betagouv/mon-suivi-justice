@@ -31,6 +31,7 @@ class Convict < ApplicationRecord
 
   alias cpip user
   alias agent user
+  alias archived? discarded?
 
   attr_accessor :place_id, :duplicates, :current_user
 
@@ -242,10 +243,6 @@ class Convict < ApplicationRecord
 
   def divestment_to?(organization)
     divestments.where(state: :pending, organization:).any?
-  end
-
-  def archived?
-    discarded?
   end
 
   private

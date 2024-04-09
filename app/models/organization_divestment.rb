@@ -3,6 +3,9 @@ class OrganizationDivestment < ApplicationRecord
   belongs_to :divestment
   delegate :convict, to: :divestment
 
+  delegate :name, to: :organization, prefix: true
+  delegate :name, to: :convict, prefix: true
+
   scope :old_pending, lambda {
     joins(:divestment)
       .where('organization_divestments.created_at < ?', 10.days.ago)
@@ -39,10 +42,6 @@ class OrganizationDivestment < ApplicationRecord
 
   def other_organizations_divestments
     divestment.organization_divestments.where.not(id:)
-  end
-
-  def orga_name
-    organization.name
   end
 
   def convict_name

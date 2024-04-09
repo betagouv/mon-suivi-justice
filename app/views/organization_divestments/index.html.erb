@@ -52,7 +52,7 @@
                                           else ""
                                           end %>
                           <% ood_id = other_organizations_divestment.id %>
-                          <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-ood-<%= ood_id %>" id="link-ood-<%= ood_id %>"><%= other_organizations_divestment.orga_name %></p>
+                          <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-ood-<%= ood_id %>" id="link-ood-<%= ood_id %>"><%= other_organizations_divestment.organization_name %></p>
                           <% if other_organizations_divestment.comment %>
                             <span class="fr-tooltip fr-placement" id="tooltip-ood-<%= ood_id %>" role="tooltip" aria-hidden="true"><%= other_organizations_divestment.comment %></span>
                           <% end %>
@@ -119,7 +119,7 @@
                                           when "refused" then "fr-badge--error"
                                           else ""
                                           end %>
-                          <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= other_organizations_divestment.orga_name %></p>
+                          <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= other_organizations_divestment.organization_name %></p>
                         <% end %>
                       </td>
                       <td>
@@ -188,7 +188,7 @@
                                     else ""
                                     end %>
                     <% od_id = organization_divestment.id %>
-                    <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-od-<%= od_id %>" id="link-od-<%= od_id %>"><%= organization_divestment.orga_name %></p>
+                    <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-od-<%= od_id %>" id="link-od-<%= od_id %>"><%= organization_divestment.organization_name %></p>
                     <% if organization_divestment.comment %>
                       <span class="fr-tooltip fr-placement" id="tooltip-od-<%= od_id %>" role="tooltip" aria-hidden="true"><%= organization_divestment.comment %></span>
                     <% end %>
@@ -241,7 +241,7 @@
                                       else ""
                                       end %>
                       <% od_id = organization_divestment.id %>
-                      <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-od-<%= od_id %>" id="link-od-<%= od_id %>"><%= organization_divestment.orga_name %></p>
+                      <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-od-<%= od_id %>" id="link-od-<%= od_id %>"><%= organization_divestment.organization_name %></p>
                       <% if organization_divestment.comment %>
                         <span class="fr-tooltip fr-placement" id="tooltip-od-<%= od_id %>" role="tooltip" aria-hidden="true"><%= organization_divestment.comment %></span>
                       <% end %>
