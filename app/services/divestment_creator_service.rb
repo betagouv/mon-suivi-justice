@@ -42,7 +42,8 @@ class DivestmentCreatorService
       OrganizationDivestment.create!(
         divestment_id: divestment.id,
         organization_id: org.id,
-        state: org_state
+        state: org_state,
+        comment: initial_comment(org_state)
       )
     end
   end
@@ -51,5 +52,14 @@ class DivestmentCreatorService
     return 'auto_accepted' if org.spip? && @convict.organizations.intersect?(org.tjs)
 
     org.users.where(role: 'local_admin').empty? ? 'ignored' : state
+  end
+
+  def initial_comment(state)
+    case state
+    when 'auto_accepted'
+      I18n.t('organization_divestment.comment.auto_accepted')
+    when 'ignored'
+      I18n.t('organization_divestment.comment.ignored')
+    end
   end
 end
