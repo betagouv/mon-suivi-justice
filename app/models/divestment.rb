@@ -22,5 +22,13 @@ class Divestment < ApplicationRecord
     event :refuse do
       transition pending: :refused
     end
+
+    after_transition pending: any do |divestment|
+      divestment.update(decision_date: Time.zone.now)
+    end
+  end
+
+  def all_accepted?
+    organization_divestments.all?(&:is_accepted?)
   end
 end
