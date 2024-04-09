@@ -29,8 +29,8 @@ class OrganizationDivestment < ApplicationRecord
       transition pending: :ignored
     end
 
-    after_transition pending: any do |divestment|
-      divestment.update(decision_date: Time.zone.now)
+    after_transition pending: any do |organization_divestment|
+      organization_divestment.update(decision_date: Time.zone.now)
     end
   end
 
