@@ -1,4 +1,4 @@
-class DivestmentIdledService
+class DivestmentStalledService
   def initialize
     @organization_divestments = OrganizationDivestment.old_pending
   end
