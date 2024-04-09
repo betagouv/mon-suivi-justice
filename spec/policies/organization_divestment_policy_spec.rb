@@ -60,21 +60,21 @@ describe OrganizationDivestmentPolicy do
 
     context('user is dpip') do
       let(:user_from) { create(:user, :in_organization, type: :tj, role: :dpip) }
-      
+
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
     end
 
     context('user is overseer') do
       let(:user_from) { create(:user, :in_organization, type: :tj, role: :overseer) }
-      
+
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
     end
 
     context('user is educator') do
       let(:user_from) { create(:user, :in_organization, type: :tj, role: :educator) }
-      
+
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
     end
