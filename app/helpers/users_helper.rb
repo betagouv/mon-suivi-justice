@@ -44,7 +44,8 @@ module UsersHelper
       policy(:organization).index? ||
       policy(:place).index? ||
       policy(:user).index? ||
-      policy(:slot).index?
+      policy(:slot).index? ||
+      policy(:organization_divestment).index?
   end
 
   def places_options_for_select(places)

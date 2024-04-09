@@ -33,6 +33,15 @@
         <%= t('show_convict_archived') %>
       </div>
     <% end %>
+    <% unless policy(@convict).convokable_during_divestment?%>
+        <div class="fr-alert fr-alert--warning fr-my-2w">
+            <h3 class="fr-alert__title">Attention : Une demande de dessaisissement est en cours</h3>
+            <% if policy(@convict.organization_divestments_from(current_user.organization)).edit? %>
+              <p>Merci d'y répondre <a href='/convicts/#{@convict.id}/edit'>en cliquant ici</a></p>
+            <% end %>
+            <p>Il ne sera pas possible de convoquer, modifier ou archiver ce probationnaire tant que la demande de dessaisissement n'aura pas été traitée</p>
+        </div>
+    <% end %>
     <div class="fr-grid-row">
       <div class="fr-col">
         <div class="fr-card fr-p-2w">
@@ -48,7 +57,7 @@
             <div class="fr-col-12">
               <div class="fr-grid-row  fr-grid-row--right">
                 <ul class="fr-btns-group fr-btns-group--inline-lg">
-                  <% if policy(:appointment).new? && @convict.undiscarded? %>
+                  <% if policy(:appointment).new? && policy(@convict).convokable_during_divestment? && @convict.undiscarded? %>
                     <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
                                                         class: 'fr-btn'%>
                   <% end %>
@@ -143,7 +152,7 @@
         </div>
       </div>
     <% end %>
-    <% if policy(:appointment).new? && @convict.undiscarded? %>
+    <% if policy(:appointment).new? && policy(@convict).convokable_during_divestment? && @convict.undiscarded? %>
       <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
         <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: params[:id]),
                                                         class: 'fr-btn  fr-btn--lg'%>

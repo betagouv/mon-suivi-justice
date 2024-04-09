@@ -1,0 +1,2 @@
+module OrganizationDivestmentHelper
+end
