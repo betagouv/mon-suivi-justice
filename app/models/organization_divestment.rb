@@ -48,7 +48,9 @@ class OrganizationDivestment < ApplicationRecord
     convict.full_name
   end
 
+  # rubocop:disable Naming/PredicateName
   def is_accepted?
     accepted? || auto_accepted? || ignored?
   end
+  # rubocop:enable Naming/PredicateName
 end

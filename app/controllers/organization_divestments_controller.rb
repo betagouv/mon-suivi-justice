@@ -2,6 +2,7 @@ class OrganizationDivestmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_organization_divestment, only: [:show, :edit, :update]
 
+  # rubocop:disable Metrics/AbcSize
   def index
     @organization_divestments = policy_scope(OrganizationDivestment).order(:created_at)
     authorize @organization_divestments
@@ -13,6 +14,7 @@ class OrganizationDivestmentsController < ApplicationController
     @current_divestments = @divestments.where(state: :pending).page params[:page]
     @past_divestments = @divestments.where.not(state: :pending).page params[:page]
   end
+  # rubocop:enable Metrics/AbcSize
 
   def edit
     authorize @organization_divestment
