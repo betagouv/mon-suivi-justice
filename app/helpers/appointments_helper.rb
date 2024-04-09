@@ -14,17 +14,17 @@ module AppointmentsHelper
     elsif user.local_admin_tj?
       list = AppointmentType.used_at_sap? + AppointmentType.used_at_bex?
     else
-      return AppointmentType.all
+      return AppointmentType.kept
     end
 
-    AppointmentType.where(name: list)
+    AppointmentType.where(name: list).kept
   end
 
   # rubocop:enable Metrics/PerceivedComplexity, Metrics/AbcSize
 
   def spip_user_appointments_types_array(user)
     if user.can_have_appointments_assigned?
-      AppointmentType.assignable.pluck(:name)
+      AppointmentType.kept.assignable.pluck(:name)
     else
       AppointmentType.used_at_spip?
     end

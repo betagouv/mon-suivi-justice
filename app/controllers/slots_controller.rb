@@ -13,7 +13,7 @@ class SlotsController < ApplicationController
     @slots = all_slots.page(params[:page]).per(25)
     @agendas = all_slots.map(&:agenda).uniq
     @places = @agendas.map(&:place).uniq
-    @appointment_types = all_slots.map(&:appointment_type).uniq
+    @appointment_types = all_slots.map(&:appointment_type).select(&:kept?).uniq
 
     authorize @slots
   end

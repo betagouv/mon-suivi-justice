@@ -51,7 +51,7 @@ class Organization < ApplicationRecord
   def setup_notification_types
     all_default = NotificationType.default
 
-    AppointmentType.all.each do |apt_type|
+    AppointmentType.kept.each do |apt_type|
       default = all_default.where(appointment_type: apt_type)
 
       NotificationType.roles.each_key do |role|

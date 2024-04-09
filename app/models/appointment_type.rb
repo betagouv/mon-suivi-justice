@@ -1,4 +1,5 @@
 class AppointmentType < ApplicationRecord
+  include Discard::Model
   has_paper_trail
 
   WITH_SLOT_TYPES = ["Sortie d'audience SAP", "Sortie d'audience SPIP", 'SAP DDSE'].freeze
@@ -9,7 +10,7 @@ class AppointmentType < ApplicationRecord
 
   has_many :notification_types, inverse_of: :appointment_type, dependent: :destroy
   has_many :slot_types, inverse_of: :appointment_type, dependent: :destroy
-  has_many :slots
+  has_many :slots, dependent: :nullify
 
   has_many :place_appointment_types, dependent: :destroy
   has_many :places, through: :place_appointment_types

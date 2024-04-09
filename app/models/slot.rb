@@ -53,7 +53,7 @@ class Slot < ApplicationRecord
   }
 
   scope :with_appointment_type_with_slot_system, lambda {
-    joins(:appointment_type).merge(AppointmentType.with_slot_types)
+    joins(:appointment_type).merge(AppointmentType.kept.with_slot_types)
   }
 
   scope :available_or_with_appointments, lambda { |date, appointment_type|

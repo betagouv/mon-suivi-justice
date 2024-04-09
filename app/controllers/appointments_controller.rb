@@ -163,7 +163,7 @@ class AppointmentsController < ApplicationController
   end
 
   def appointment_types_for_user_places
-    AppointmentType.joins(place_appointment_types: :place)
+    AppointmentType.kept.joins(place_appointment_types: :place)
                    .where(places: policy_scope(Place).kept)
                    .distinct
   end
@@ -193,7 +193,7 @@ class AppointmentsController < ApplicationController
     slots = @all_appointments.map(&:slot).uniq
     @agendas = slots.map(&:agenda).sort_by(&:name).uniq
     @places = @agendas.map(&:place).uniq
-    @appointment_types = slots.map(&:appointment_type).uniq
+    @appointment_types = slots.map(&:appointment_type).select(&:kept?).uniq
     process_users
   end
 

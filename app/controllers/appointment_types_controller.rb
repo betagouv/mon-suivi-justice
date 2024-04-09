@@ -2,7 +2,7 @@ class AppointmentTypesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @appointment_types = AppointmentType.all.order('name asc')
+    @appointment_types = AppointmentType.kept.order('name asc')
     @organizations = Organization.all.order(:name)
     @organization = params[:orga].present? ? Organization.find(params[:orga]) : nil
 

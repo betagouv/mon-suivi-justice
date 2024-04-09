@@ -18,6 +18,7 @@
           <h2 class='form-secondary-title'><%= t('edit_place_appointment_types') %></h2>
           <div class='edit-place-appointment-types-container'>
             <%= f.association :appointment_types, as: :check_boxes,
+                                                  collection: AppointmentType.kept,
                                                   label: '',
                                                   item_wrapper_class: 'form-checkbox-wrapper',
                                                   item_label_class: 'form-checkbox-label',
