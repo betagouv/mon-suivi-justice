@@ -74,7 +74,8 @@ class AppointmentPolicy < ApplicationPolicy
     # condition would always make it true and we need to handle inter ressort for bex
     return true if user.work_at_bex? && user.organization.use_inter_ressort
 
-    return record.in_jurisdiction?(user.organization) if (user.work_at_bex? && record.slot&.appointment_type&.used_at_bex?) ||
+    return record.in_jurisdiction?(user.organization) if (user.work_at_bex? &&
+                                                          record.slot&.appointment_type&.used_at_bex?) ||
                                                          (user.local_admin_tj? &&
                                                          record.slot&.appointment_type&.used_by_local_admin_tj?) ||
                                                          user.admin?
