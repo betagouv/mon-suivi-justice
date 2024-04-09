@@ -31,7 +31,7 @@ class Appointment < ApplicationRecord
   delegate :name, :adress, :phone, :contact_email, :main_contact_method,
            to: :place, prefix: true
   delegate :name, to: :organization, prefix: true
-  delegate :phone, to: :convict, prefix: true
+  delegate :phone, :name, to: :convict, prefix: true
 
   attr_accessor :place_id, :agenda_id, :department_id, :user_is_cpip, :send_sms
 

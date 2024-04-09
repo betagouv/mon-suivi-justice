@@ -56,14 +56,12 @@ class AppointmentsController < ApplicationController
 
     authorize @appointment
 
-    if @appointment.save
+    if @appointment.slot.present? && @appointment.save
       @appointment.convict.update(user: current_user) if params.dig(:appointment, :user_is_cpip) == '1'
       @appointment.book(send_notification: @appointment.send_sms)
       redirect_to appointment_path(@appointment)
     else
-      selected_place = Place.find(params.dig(:appointment, :place_id))
-
-      build_error_messages(selected_place)
+      build_error_messages
 
       @convict = Convict.find(params.dig(:appointment, :convict_id))
       @appointment_types = appointment_types_for_user(current_user)
@@ -152,10 +150,12 @@ class AppointmentsController < ApplicationController
     @extra_fields&.each { |extra_field| @appointment.appointment_extra_fields.build(extra_field:) }
   end
 
-  def build_error_messages(place)
+  def build_error_messages
+    flash.now[:warning] = "Le créneau n'est pas valide" if @appointment.slot.nil?
     @appointment.errors.each do |error|
       flash.now[:warning] = if error.attribute.to_s == 'appointment_extra_fields.value' && error.type == :blank
-                              "Le(s) champ(s) aditionnel(s) du service #{place.name} doivent être renseignés"
+                              place = Place.find_by_id(params.dig(:appointment, :place_id))
+                              "Le(s) champ(s) aditionnel(s) du service #{place&.name} doivent être renseignés"
                             else
                               error.message
                             end
