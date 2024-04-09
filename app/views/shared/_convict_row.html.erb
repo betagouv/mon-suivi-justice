@@ -34,7 +34,7 @@
         <% end %>
     </td>
     <td>
-        <% if policy(:appointment).new? && convict.undiscarded? %>
+        <% if policy(:appointment).new? && policy(convict).convokable_during_divestment? && convict.undiscarded? %>
             <%= link_to "Convoquer", new_appointment_path(convict_id: convict.id), class: 'index-control bold',
                                                     data: { turbo: false }
                                                     %>
