@@ -139,6 +139,8 @@ class Appointment < ApplicationRecord
   end
 
   def in_organization?(orga)
+    return false if slot.nil?
+
     organization == orga
   end
 
