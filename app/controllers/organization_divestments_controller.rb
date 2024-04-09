@@ -14,10 +14,6 @@ class OrganizationDivestmentsController < ApplicationController
     @past_divestments = @divestments.where.not(state: :pending).page params[:page]
   end
 
-  def show
-    authorize OrganizationDivestment
-  end
-
   def edit
     authorize @organization_divestment
   end
@@ -25,19 +21,17 @@ class OrganizationDivestmentsController < ApplicationController
   def update
     authorize @organization_divestment
     state_service = DivestmentStateService.new(@organization_divestment, current_user)
-    case params[:transition]
-    when 'accept'
-      if state_service.accept && @organization_divestment.update(organization_divestment_params)
-        redirect_to organization_divestments_path, notice: 'Organization divestment was successfully accepted.'
-      else
-        render :edit
-      end
-    when 'refuse'
-      if state_service.refuse && @organization_divestment.update(organization_divestment_params)
-        redirect_to organization_divestments_path, notice: 'Organization divestment was successfully refused.'
-      else
-        render :edit
-      end
+    success = case params[:transition]
+              when 'accept'
+                state_service.accept
+              when 'refuse'
+                state_service.refuse
+              else
+                false
+              end
+
+    if success && @organization_divestment.update(organization_divestment_params)
+      redirect_to organization_divestments_path, notice: notice_message(params[:transition])
     else
       render :edit
     end
@@ -51,5 +45,16 @@ class OrganizationDivestmentsController < ApplicationController
 
   def organization_divestment_params
     params.require(:organization_divestment).permit(:comment)
+  end
+
+  def notice_message(transition)
+    case transition
+    when 'accept'
+      'Organization divestment was successfully accepted.'
+    when 'refuse'
+      'Organization divestment was successfully refused.'
+    else
+      'Invalid action.'
+    end
   end
 end
