@@ -235,12 +235,13 @@ class Convict < ApplicationRecord
     divestments.where(state: :pending).any?
   end
 
-  def organization_divestments_from(organization, state: :pending)
-    organization_divestments.where(state:).where(organization:)
+  def organization_divestments_from(organization)
+    # can only be one pending divestment per organization and convict
+    organization_divestments.where(state: :pending, organization:).first
   end
 
   def divestment_to?(organization)
-    divestments.where(state: :pending).where(organization:).any?
+    divestments.where(state: :pending, organization:).any?
   end
 
   def archived?
