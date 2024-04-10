@@ -31,19 +31,7 @@ class OrganizationDivestment < ApplicationRecord
 
     after_transition pending: any do |organization_divestment, transition|
       organization_divestment.update(decision_date: Time.zone.now)
-      event = "#{transition.event}_organization_divestment"
-      if HistoryItem.validate_event(event)
-        HistoryItemFactory.perform(
-          convict: organization_divestment.convict,
-          event:,
-          category: 'convict',
-          data: {
-            organization_name: organization_divestment.organization.name, 
-            target_name: organization_divestment.divestment.organization.name, 
-            comment: organization_divestment.comment
-          }
-        )
-      end
+      organization_divestment.record_history_for_transition(transition.event)
     end
   end
 
@@ -66,4 +54,20 @@ class OrganizationDivestment < ApplicationRecord
     accepted? || auto_accepted?
   end
   # rubocop:enable Naming/PredicateName
+
+  def record_history_for_transition(transition_event)
+    event = "#{transition_event}_organization_divestment"
+    return unless HistoryItem.validate_event(event)
+
+    HistoryItemFactory.perform(
+      convict:,
+      event:,
+      category: 'convict',
+      data: {
+        organization_name: organization.name,
+        target_name: divestment.organization.name,
+        comment:
+      }
+    )
+  end
 end
