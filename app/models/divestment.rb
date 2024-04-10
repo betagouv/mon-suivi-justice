@@ -29,10 +29,10 @@ class Divestment < ApplicationRecord
 
       if HistoryItem.validate_event(event) == true
         HistoryItemFactory.perform(
-          convict:,
+          convict: divestment.convict,
           event:,
           category: 'convict',
-          data: { target_name: organization.name }
+          data: { target_name: divestment.organization.name }
         )
       end
     end

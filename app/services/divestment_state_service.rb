@@ -7,15 +7,17 @@ class DivestmentStateService
     @user = user
   end
 
-  def accept
+  def accept(comment = nil)
     return false unless @organization_divestment.pending? && @divestment.pending?
+    return false unless comment.nil? || @organization_divestment.update(comment:)
 
     @organization_divestment.accept
     handle_divestment_state
   end
 
-  def refuse
+  def refuse(comment = nil)
     return false unless @organization_divestment.pending? && @divestment.pending?
+    return false unless comment.nil? || @organization_divestment.update(comment:)
 
     @organization_divestment.refuse
 
@@ -37,7 +39,6 @@ class DivestmentStateService
     return false unless @organization_divestment.pending? && @divestment.pending?
 
     @organization_divestment.ignore
-    handle_divestment_state
   end
 
   private
