@@ -29,12 +29,35 @@ class OrganizationDivestment < ApplicationRecord
       transition pending: :ignored
     end
 
-    after_transition pending: any do |organization_divestment|
+    after_transition pending: any do |organization_divestment, transition|
       organization_divestment.update(decision_date: Time.zone.now)
+      event = "#{organization_divestment.event_name(transition.event)}_organization_divestment"
+      p event
+      if HistoryItem.validate_event(event)
+        HistoryItemFactory.perform(
+          convict: organization_divestment.convict,
+          event:,
+          category: 'convict',
+          data: {
+            organization_name: organization_divestment.organization.name, 
+            target_name: organization_divestment.divestment.organization.name, 
+            comment: organization_divestment.comment
+          }
+        )
+      end
     end
   end
 
   validates :comment, length: { maximum: 120 }, allow_blank: true
+
+  def event_name(transition_event)
+    case transition_event
+    when :auto_accept
+      :accept
+    else
+      transition_event
+    end
+  end
 
   def source
     divestment.organization
