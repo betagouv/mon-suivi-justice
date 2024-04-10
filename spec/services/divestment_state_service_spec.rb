@@ -70,21 +70,18 @@ RSpec.describe DivestmentStateService do
         expect(tj_organization_divestment.state).to eq('ignored')
       end
     end
-    context 'all organization divestments are accepted' do
+    context 'other organization divestments are accepted' do
       let(:spip_divestment_state) { :auto_accepted }
 
-      it 'change the divestment state' do
+      it 'does not change the divestment state' do
         service.ignore
         divestment.reload
         tj_organization_divestment.reload
         convict.reload
 
         expect(tj_organization_divestment.state).to eq('ignored')
-        expect(divestment.state).to eq('accepted')
+        expect(divestment.state).to eq('pending')
         expect(tj_organization_divestment.decision_date).to eq(Date.today)
-        expect(divestment.decision_date).to eq(Date.today)
-        expect(convict.user).to be_nil
-        expect(convict.organizations).to match_array([tj_target, spip_target])
       end
     end
   end
