@@ -39,6 +39,16 @@ module HistoryItemFactory
       when 'remove_phone_convict'
         I18n.t('history_item.remove_phone_convict', name: convict.name, old_phone: data[:old_phone].phony_formatted,
                                                     user_name: data[:user_name], user_role: data[:user_role])
+      when 'refuse_organization_divestment'
+        I18n.t('history_item.refuse_organization_divestment', comment: data[:comment],
+                                                              organization_name: data[:organization_name],
+                                                              target_name: data[:target_name])
+      when 'accept_organization_divestment'
+        I18n.t('history_item.accept_organization_divestment', comment: data[:comment],
+                                                              organization_name: data[:organization_name],
+                                                              target_name: data[:target_name])
+      when 'accept_divestment'
+        I18n.t('history_item.accept_divestment', target_name: data[:target_name])
       end
     end
 
