@@ -49,6 +49,7 @@ class DivestmentCreatorService
   end
 
   def initial_state(org, state)
+    return state unless state == 'pending'
     return 'auto_accepted' if org.spip? && @convict.organizations.intersect?(org.tjs)
 
     org.users.where(role: 'local_admin').empty? ? 'ignored' : state
