@@ -23,16 +23,17 @@ class OrganizationDivestmentsController < ApplicationController
   def update
     authorize @organization_divestment
     state_service = DivestmentStateService.new(@organization_divestment, current_user)
+    comment = organization_divestment_params[:comment]
     success = case params[:transition]
               when 'accept'
-                state_service.accept
+                state_service.accept(comment)
               when 'refuse'
-                state_service.refuse
+                state_service.refuse(comment)
               else
                 false
               end
 
-    if success && @organization_divestment.update(organization_divestment_params)
+    if success
       redirect_to organization_divestments_path, notice: notice_message(params[:transition])
     else
       render :edit
