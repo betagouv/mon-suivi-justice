@@ -25,6 +25,12 @@ RSpec.describe DivestmentStateService do
   subject(:service) { DivestmentStateService.new(tj_organization_divestment, admin) }
 
   describe 'accept divestment' do
+    it 'handle comment' do
+      service.accept('this is a comment')
+      tj_organization_divestment.reload
+
+      expect(tj_organization_divestment.comment).to eq('this is a comment')
+    end
     context 'not all organization divestments are accepted' do
       let(:spip_divestment_state) { :pending }
 
@@ -87,6 +93,12 @@ RSpec.describe DivestmentStateService do
   end
 
   describe 'refuse divestment' do
+    it 'handle comment' do
+      service.refuse('this is a negative comment')
+      tj_organization_divestment.reload
+
+      expect(tj_organization_divestment.comment).to eq('this is a negative comment')
+    end
     context 'other organization divestments are accepted' do
       let(:spip_divestment_state) { :auto_accepted }
 
