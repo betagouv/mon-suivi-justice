@@ -50,7 +50,7 @@ class OrganizationDivestment < ApplicationRecord
 
   # rubocop:disable Naming/PredicateName
   def is_accepted?
-    accepted? || auto_accepted? || ignored?
+    accepted? || auto_accepted?
   end
   # rubocop:enable Naming/PredicateName
 end
