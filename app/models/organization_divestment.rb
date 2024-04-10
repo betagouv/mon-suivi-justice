@@ -49,15 +49,6 @@ class OrganizationDivestment < ApplicationRecord
 
   validates :comment, length: { maximum: 120 }, allow_blank: true
 
-  def event_name(transition_event)
-    case transition_event
-    when :auto_accept
-      :accept
-    else
-      transition_event
-    end
-  end
-
   def source
     divestment.organization
   end
