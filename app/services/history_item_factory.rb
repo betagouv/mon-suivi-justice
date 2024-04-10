@@ -41,12 +41,7 @@ module HistoryItemFactory
                                                     user_name: data[:user_name], user_role: data[:user_role])
       when 'refuse_organization_divestment'
         I18n.t('history_item.refuse_organization_divestment', comment: data[:comment],
-                                                              organization_name: data[:organization_name],
-                                                              target_name: data[:target_name])
-      when 'accept_organization_divestment'
-        I18n.t('history_item.accept_organization_divestment', comment: data[:comment],
-                                                              organization_name: data[:organization_name],
-                                                              target_name: data[:target_name])
+                                                              organization_name: data[:organization_name],                                                     target_name: data[:target_name])
       when 'accept_divestment'
         I18n.t('history_item.accept_divestment', target_name: data[:target_name])
       end

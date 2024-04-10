@@ -31,8 +31,7 @@ class OrganizationDivestment < ApplicationRecord
 
     after_transition pending: any do |organization_divestment, transition|
       organization_divestment.update(decision_date: Time.zone.now)
-      event = "#{organization_divestment.event_name(transition.event)}_organization_divestment"
-      p event
+      event = "#{transition.event}_organization_divestment"
       if HistoryItem.validate_event(event)
         HistoryItemFactory.perform(
           convict: organization_divestment.convict,
