@@ -29,7 +29,6 @@ class HistoryItem < ApplicationRecord
     failed_programmed_reminder_notification: 18,
     accept_divestment: 19,
     refuse_organization_divestment: 20,
-    accept_organization_divestment: 21
   }
 
   def self.validate_event(event)
