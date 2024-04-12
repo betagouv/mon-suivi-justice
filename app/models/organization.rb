@@ -13,6 +13,7 @@ class Organization < ApplicationRecord
   belongs_to :headquarter, optional: true
   abymize :extra_fields, permit: :all_attributes, allow_destroy: true
   has_many :agendas, through: :places
+  has_many :appointments, through: :places
 
   has_and_belongs_to_many :spips, class_name: 'Organization', foreign_key: 'tj_id', join_table: 'spips_tjs',
                                   association_foreign_key: 'spip_id', optional: true
