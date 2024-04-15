@@ -310,8 +310,8 @@ fr:
           attributes:
             extra_fields:
               too_many:
-                spip: "Vous ne pouvez pas avoir plus de 3 champs supplémentaires pour la sortie d'audience SPIP"
-                sap: "Vous ne pouvez pas avoir plus de 3 champs supplémentaires pour la sortie d'audience SAP"
+                spip: "Vous ne pouvez pas avoir plus de 4 champs supplémentaires pour la sortie d'audience SPIP"
+                sap: "Vous ne pouvez pas avoir plus de 4 champs supplémentaires pour la sortie d'audience SAP"
 
   "yes": "Oui"
   "no": "Non"
