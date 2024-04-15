@@ -9,7 +9,7 @@ gem 'puma', '~> 6.4.2'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
 
-gem 'devise', '~> 4.9.3'
+gem 'devise', '~> 4.9.4'
 gem 'devise-i18n', '~> 1.12.0'
 gem 'devise_invitable', '~> 2.0.9'
 gem 'devise-security', '>= 0.18.0'
