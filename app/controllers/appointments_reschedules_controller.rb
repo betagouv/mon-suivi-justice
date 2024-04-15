@@ -13,7 +13,8 @@ class AppointmentsReschedulesController < AppointmentsController
 
       redirect_to appointment_path new_appointment
     else
-      redirect_to new_appointment_reschedule_path(old_appointment)
+      redirect_to new_appointment_reschedule_path(old_appointment),
+                  alert: new_appointment.errors.messages.values.join(', ')
     end
   end
 
