@@ -197,7 +197,7 @@ class Convict < ApplicationRecord
                         .where('phone = ? OR (date_of_birth = ? AND phone IS NOT NULL)', prefixed_phone, date_of_birth)
                         .where.not(id:)
 
-    duplicates = duplicates.where(appi_uuid: nil) if appi_uuid.present?
+    duplicates = duplicates.where(appi_uuid: [nil, '']) if appi_uuid.present?
 
     duplicates
   end
@@ -207,10 +207,10 @@ class Convict < ApplicationRecord
   end
 
   def unique_name_and_dob_unless_uuid
-    existing_convict = Convict.where(first_name:, last_name:, date_of_birth:)
+    existing_convict = Convict.where(first_name:, last_name:, date_of_birth:).where.not(id:)
 
     # Check if there's an existing record with the same attributes and no appi_uuid
-    return unless existing_convict.exists?(appi_uuid: nil) && appi_uuid.blank?
+    return unless existing_convict.exists?(appi_uuid: [nil, '']) && appi_uuid.blank?
 
     errors.add(:date_of_birth, DOB_UNIQUENESS_MESSAGE)
   end
