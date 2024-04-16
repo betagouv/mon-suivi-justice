@@ -9,7 +9,7 @@ gem 'puma', '~> 6.4.2'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
 
-gem 'devise', '~> 4.9.3'
+gem 'devise', '~> 4.9.4'
 gem 'devise-i18n', '~> 1.12.0'
 gem 'devise_invitable', '~> 2.0.9'
 gem 'devise-security', '>= 0.18.0'
@@ -38,8 +38,8 @@ gem 'discard', '~> 1.3.0'
 
 gem 'paper_trail', '~> 15.1.0'
 gem 'ahoy_matey', '~> 5.1.0'
-gem 'sentry-ruby', '~> 5.17.1'
-gem 'sentry-rails', '~> 5.17.1'
+gem 'sentry-ruby', '~> 5.17.3'
+gem 'sentry-rails', '~> 5.17.2'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'jbuilder', '~> 2.11.5'
@@ -72,7 +72,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.4.3'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug', '~> 3.10.1'
-  gem 'launchy', '~> 2.5.2'
+  gem 'launchy', '~> 3.0.0'
   gem 'rails-controller-testing', '~> 1.0.5'
 end
 
@@ -80,8 +80,8 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
-  gem 'spring', '~> 4.1.3'
-  gem 'rubocop', '~> 1.62', require: false
+  gem 'spring', '~> 4.2.0'
+  gem 'rubocop', '~> 1.63', require: false
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
   gem 'letter_opener', '~> 1.10.0'
@@ -110,7 +110,7 @@ gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.6'
 gem 'administrate-field-belongs_to_search', '~> 0.9.0'
-gem 'faker', '~> 3.3.0'
+gem 'faker', '~> 3.3.1'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 5.1.0'

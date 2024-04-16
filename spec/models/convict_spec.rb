@@ -80,6 +80,13 @@ RSpec.describe Convict, type: :model do
         expect(new_convict.valid?).to eq(true)
       end
 
+      it 'should allow to change the phone number (or any attributes that are not first_name, last_name and
+          date_of_birth) of a convict without appi_uuid' do
+        existing_convict.phone = Faker::Base.numerify('+3361#######')
+
+        expect(existing_convict.valid?).to eq(true)
+      end
+
       it 'should not allow to create a convict with same phone_number' do
         first_name2 = Faker::Name.first_name
         last_name2 = Faker::Name.last_name
