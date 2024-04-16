@@ -1,6 +1,6 @@
 <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
   <div class="fr-col-6" data-controller="appointment-new">
-    <h2 class='form-title' id="appointment-form-title"><%= t('new_appointment_title', convict_link: @convict ? "pour #{link_to(@convict.full_name, convict_path(@convict))}" : "").html_safe %></h2>
+    <h2 class='form-title' id="appointment-form-title"><%= t('new_appointment_title', convict_link: @convict && policy(@convict).show? ? "pour #{link_to(@convict.full_name, convict_path(@convict))}" : "").html_safe %></h2>
     <%= simple_form_for @appointment, url: appointments_path(convict_id: @convict&.id), html: { "data-appointment-new-target": "newAppointmentForm" } do |f| %>
       <div>
         <% if @convict %>

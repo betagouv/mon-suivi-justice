@@ -1,5 +1,9 @@
 <tr>
-  <td><%= link_to appointment.convict.name, convict_path(appointment.convict) %></td>
+  <% if policy(appointment.convict).show? %>
+    <td><%= link_to appointment.convict.name, convict_path(appointment.convict) %></td>
+  <% else %>
+    <td><%= appointment.convict.name %></td>
+  <% end %>
   <td><%= appointment.slot.date.to_fs(:base_date_format) %></td>
   <td><%= appointment.localized_time.to_fs(:time) %></td>
   <td><%= appointment.slot.agenda.place.name %></td>
