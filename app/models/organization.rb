@@ -114,12 +114,12 @@ class Organization < ApplicationRecord
   private
 
   def extra_fields_count
-    if extra_fields.related_to_spip.count > 4
+    if extra_fields.related_to_spip.count > 3
       errors.add(:extra_fields,
                  I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.spip'))
     end
 
-    return unless extra_fields.related_to_sap.count > 4
+    return unless extra_fields.related_to_sap.count > 3
 
     errors.add(:extra_fields,
                I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.sap'))
