@@ -567,7 +567,7 @@ fr:
   appointment_starting_time: "Heure"
   appointment_state: "Statut"
   appointment_origin_department: "Service d'origine"
-  new_appointment_title: "Nouvelle convocation"
+  new_appointment_title: "Nouvelle convocation %{convict_link}"
   new-appointment-place: "Lieu de convocation :"
   new-appointment-all-agendas: "Tous les agendas"
   new-appointment-available-slots: Créneaux disponibles

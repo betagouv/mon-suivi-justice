@@ -1,6 +1,7 @@
 class AppointmentsReschedulesController < AppointmentsController
   before_action :authenticate_user!
 
+  # rubocop:disable Metrics/AbcSize
   def create
     old_appointment = Appointment.find_by id: params.dig(:appointment, :old_appointment_id)
     new_appointment = Appointment.new appointment_params
@@ -13,9 +14,11 @@ class AppointmentsReschedulesController < AppointmentsController
 
       redirect_to appointment_path new_appointment
     else
-      redirect_to new_appointment_reschedule_path(old_appointment)
+      redirect_to new_appointment_reschedule_path(old_appointment),
+                  alert: new_appointment.errors.messages.values.join(', ')
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def new
     @appointment = Appointment.find(params[:appointment_id])

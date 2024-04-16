@@ -1,5 +1,9 @@
 <tr>
-  <td><%= appointment.convict.name %></td>
+  <% if policy(appointment.convict).show? %>
+    <td><%= link_to appointment.convict.name, convict_path(appointment.convict) %></td>
+  <% else %>
+    <td><%= appointment.convict.name %></td>
+  <% end %>
   <td><%= appointment.slot.date.to_fs(:base_date_format) %></td>
   <td><%= appointment.localized_time.to_fs(:time) %></td>
   <td><%= appointment.slot.agenda.place.name %></td>
@@ -35,9 +39,7 @@
   </td>
   <td>
     <% if policy(appointment).show? %>
-
-        <%= link_to "Voir", appointment_path(appointment), class: 'index-control' %>
-
+      <%= link_to "Voir", appointment_path(appointment), class: 'index-control' %>
     <% end %>
     <% if policy(appointment).cancel? && appointment.slot.date.after?(DateTime.current) %>
       <%= link_to t('cancel'), appointment_cancel_path(appointment),
