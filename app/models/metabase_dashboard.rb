@@ -10,7 +10,7 @@ class MetabaseDashboard
     payload = {
       resource: { dashboard: @dashboard_id },
       params: {
-        service_id: @service_id
+        service_id: @service_id.to_s
       },
       exp: Time.now.to_i + (60 * 10)
     }
