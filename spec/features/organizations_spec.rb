@@ -50,6 +50,8 @@ RSpec.feature 'Organizations', type: :feature, logged_in_as: 'admin' do
   end
 
   scenario 'An admin adds an extra field to an organization', js: true, logged_in_as: 'admin' do
+    organization = create :organization, organization_type: 'tj'
+    @user.update(organization:)
     place = create :place, organization: @user.organization
     agenda = create(:agenda, place:)
 
