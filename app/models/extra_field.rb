@@ -14,6 +14,7 @@ class ExtraField < ApplicationRecord
   validates :data_type, presence: true
   validates :scope, presence: true
   validates :appointment_types, presence: true
+  validate :organization_is_tj
 
   scope :related_to_sap, -> { joins(:appointment_types).where(appointment_types: { name: "Sortie d'audience SAP" }) }
   scope :related_to_spip, -> { joins(:appointment_types).where(appointment_types: { name: "Sortie d'audience SPIP" }) }
@@ -33,5 +34,11 @@ class ExtraField < ApplicationRecord
          .where(organization_id: organization_ids)
          .where(appointment_types: { id: appointment_type_ids })
          .distinct
+  end
+
+  private
+
+  def organization_is_tj
+    errors.add(:organization, 'doit être un TJ') unless organization.tj?
   end
 end

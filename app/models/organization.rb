@@ -48,6 +48,14 @@ class Organization < ApplicationRecord
     ten_next_days_with_slots(appointment_type).first
   end
 
+  def extra_fields_for_agenda
+    if tj?
+      extra_fields
+    else
+      tj&.extra_fields
+    end
+  end
+
   def setup_notification_types
     all_default = NotificationType.default
 
@@ -114,12 +122,12 @@ class Organization < ApplicationRecord
   private
 
   def extra_fields_count
-    if extra_fields.related_to_spip.count > 3
+    if extra_fields.related_to_spip.length > 3
       errors.add(:extra_fields,
                  I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.spip'))
     end
 
-    return unless extra_fields.related_to_sap.count > 3
+    return unless extra_fields.related_to_sap.length > 3
 
     errors.add(:extra_fields,
                I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.sap'))
