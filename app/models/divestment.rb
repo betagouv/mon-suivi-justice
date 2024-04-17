@@ -25,20 +25,23 @@ class Divestment < ApplicationRecord
 
     after_transition pending: any do |divestment, transition|
       divestment.update(decision_date: Time.zone.now)
-      event = "#{transition.event}_divestment"
-
-      if HistoryItem.validate_event(event) == true
-        HistoryItemFactory.perform(
-          convict: divestment.convict,
-          event:,
-          category: 'convict',
-          data: { target_name: divestment.organization.name }
-        )
-      end
+      divestment.record_history_for_transition(transition.event)
     end
   end
 
   def all_accepted?
     organization_divestments.all?(&:is_accepted?)
+  end
+
+  def record_history_for_transition(transition_event)
+    event = "#{transition_event}_divestment"
+    return unless HistoryItem.validate_event(event)
+
+    HistoryItemFactory.perform(
+      convict:,
+      event:,
+      category: 'convict',
+      data: { target_name: organization.name }
+    )
   end
 end
