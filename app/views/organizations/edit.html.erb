@@ -1,28 +1,23 @@
 <h1 class='form-title'><%= t('edit_organization_title') %></h1>
 <%= simple_form_for @organization, html: { class: 'basic-form' } do |f| %>
   <%= f.input :name %>
-
   <% if current_user.admin? %>
     <%= f.input :organization_type, collection: form_organization_type, input_html: { class: 'form-select' }, include_blank: false %>
     <%= f.input :time_zone , input_html: { class: 'form-select' }, collection: time_zones_for_select, default: 'Europe/Paris' %>
-    <p class='organization-subtitle'><%= t('edit_organization_jap_modal') %></p>  
+    <p class='organization-subtitle'><%= t('edit_organization_jap_modal') %></p>
   <% end %>
-
-  <% if current_user.admin? || current_user.local_admin_tj? %>  
+  <% if current_user.admin? || current_user.local_admin_tj? %>
     <%= f.rich_text_area :jap_modal_content %>
-    <h6 class='extra-fields-title'><%= t('edit_organization_extrafields_title') %></h6>
-    <div data-controller="disable-when-abyme-limit-reached">
-      <%= f.abyme_for(:extra_fields) do |abyme| %>
-        <%= abyme.records(fields_html: { class: "extra-field-spacing" }) %>
-        <%= abyme.new_records %>
+    <% if @organization.tj? %>
+      <h6 class='extra-fields-title'><%= t('edit_organization_extrafields_title') %></h6>
+      <div data-controller="disable-when-abyme-limit-reached">
+        <%= f.abyme_for(:extra_fields) do |abyme| %>
+          <%= abyme.records(fields_html: { class: "extra-field-spacing" }) %>
+          <%= abyme.new_records %>
           <%= add_associated_record(content: t('edit_organization_add_extrafield'), html: {type: 'button', class: "fr-btn", "data-disable-when-abyme-limit-reached-target": "addButton"}) %>
-      <% end %>
-    </div>
-    
+        <% end %>
+      </div>
+    <% end %>
     <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
   <% end %>
-
-
 <% end %>
-
-

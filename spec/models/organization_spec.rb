@@ -13,7 +13,9 @@ RSpec.describe Organization, type: :model do
   it { should validate_presence_of(:organization_type) }
 
   describe 'destruction with dependent associations' do
-    let!(:organization) { create(:organization, tjs: [create(:organization, organization_type: 'tj')]) }
+    let!(:organization) do
+      create(:organization, organization_type: 'tj', spips: [create(:organization, organization_type: 'spip')])
+    end
     let!(:convict) { create(:convict, organizations: [organization], creating_organization: organization) }
 
     before do

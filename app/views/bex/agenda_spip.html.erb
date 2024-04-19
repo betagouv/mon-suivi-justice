@@ -9,9 +9,6 @@
     <% end %>
   </ul>
 </div>
-
-
-
 <div>
   <div class='bex-agendas-date-container'>
     <div class='bex-date-title-container'>
@@ -26,7 +23,6 @@
                                 class: 'fr-select',
                                 onchange: 'this.form.submit()' %>
         </div>
-
         <% if @places.count > 0 %>
           <div class="bex-form-input-wrapper">
             <%= label_tag 'place_id', 'Lieu :' %>
@@ -42,44 +38,41 @@
       <% end %>
     </div>
   </div>
-
   <% if @agenda.nil? %>
     <p class='bex-agenda-spip-no-agenda'><%= t('bex.spip.no_agenda_available') %></p>
   <% else %>
     <% open_days_for_the_month(@current_date).each do |day| %>
-
       <% slots_for_date = @agenda.slots_for_date(day, @appointment_type) %>
       <% next if slots_for_date.count == 0 %>
-        <div class="fr-table fr-table--bordered fr-table--layout-fixed">
-          <table class="agenda-jap-table">
-              <caption class='spip-agenda-header'><%= day.to_fs %></caption>
-              <thead>
-                <th scope="col">
-                  <%= t('bex.jap.header_hour') %>
-                </th>
-                <th scope="col">
-                  <%= t('bex.jap.header_last_name') %>
-                </th>
-                <th scope="col">
-                  <%= t('bex.jap.header_first_name') %>
-                </th>
-                <th scope="col">
-                  <%= t('bex.jap.header_prosecutor') %>
-                </th scope="col">
-                <th scope="col">
-                  <%= t('bex.jap.header_origin') %>
-                </th>
-                <th scope="col">
-                  <%= t('bex.jap.header_role') %>
-                </th>
-                
-                <% @extra_fields&.each do |extra_field| %>
-                  <th scope="col">
-                    <%= extra_field.name %>
-                  </th>
-                <% end %>
-              </thead>
-              <tbody>
+      <div class="fr-table fr-table--bordered fr-table--layout-fixed">
+        <table class="agenda-jap-table">
+          <caption class='spip-agenda-header'><%= day.to_fs %></caption>
+          <thead>
+            <th scope="col">
+              <%= t('bex.jap.header_hour') %>
+            </th>
+            <th scope="col">
+              <%= t('bex.jap.header_last_name') %>
+            </th>
+            <th scope="col">
+              <%= t('bex.jap.header_first_name') %>
+            </th>
+            <th scope="col">
+              <%= t('bex.jap.header_prosecutor') %>
+            </th scope="col">
+            <th scope="col">
+              <%= t('bex.jap.header_origin') %>
+            </th>
+            <th scope="col">
+              <%= t('bex.jap.header_role') %>
+            </th>
+            <% @extra_fields&.each do |extra_field| %>
+              <th scope="col">
+                <%= extra_field.name %>
+              </th>
+            <% end %>
+          </thead>
+          <tbody>
             <% slots_for_date.each do |slot| %>
               <% appointments = slot.appointments.active %>
               <% slot.capacity.times do |i| %>
@@ -120,12 +113,11 @@
                       <% end %>
                     <% end %>
                   </th>
-
                   <% @extra_fields&.each do |extra_field| %>
                     <% if extra_field.appointment_update? && appointments[i].present? %>
                       <th data-controller="table-update-field">
                         <input data-table-update-field-target="inputField" data-action="table-update-field#update" data-appointment="<%= appointments[i].id %>" data-extra-field="<%= extra_field.id %>"
-                          class="fr-input agenda-jap-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" /> 
+                          class="fr-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" />
                       </th>
                     <% else %>
                       <th>
@@ -136,9 +128,9 @@
                 </div>
               <% end %>
             <% end %>
-              </tbody>
-          </table>
-        </div>
+          </tbody>
+        </table>
+      </div>
     <% end %>
   <% end %>
 </div>
