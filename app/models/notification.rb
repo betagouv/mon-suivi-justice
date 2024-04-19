@@ -80,7 +80,8 @@ class Notification < ApplicationRecord
     end
 
     after_transition on: :send_now do |notification|
-      SmsDeliveryJob.perform_later(notification.id)
+      SmsDeliveryJob.set(wait: 10.seconds)
+                    .perform_later(notification.id)
     end
 
     after_transition on: :program do |notification|
