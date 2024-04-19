@@ -2,7 +2,7 @@ class ExtraField < ApplicationRecord
   DATA_TYPES = { text: 'texte', date: 'date' }.freeze
   SCOPES = { appointment_create: 'appointment_create', appointment_update: 'appointment_update' }.freeze
 
-  belongs_to :organization, touch: true
+  belongs_to :organization
   has_many :appointments, through: :appointment_extra_fields
   has_many :appointment_extra_fields, inverse_of: :extra_field, dependent: :destroy
   has_and_belongs_to_many :appointment_types
