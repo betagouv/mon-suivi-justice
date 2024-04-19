@@ -206,11 +206,9 @@ class Appointment < ApplicationRecord
       appointment.slot.increment!(:used_capacity, 1)
       appointment.slot.update(full: true) if appointment.slot.all_capacity_used?
 
-      appointment.transaction do
-        NotificationFactory.perform(appointment)
-        appointment.summon_notif.send_now if send_sms?(transition) && appointment.convict.can_receive_sms?
-        appointment.reminder_notif&.program
-      end
+      NotificationFactory.perform(appointment)
+      appointment.summon_notif&.send_now if send_sms?(transition) && appointment.convict.can_receive_sms?
+      appointment.reminder_notif&.program
     end
 
     after_transition on: :cancel do |appointment, transition|
