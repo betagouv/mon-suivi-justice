@@ -144,6 +144,7 @@ class AppointmentsController < ApplicationController
   def set_extra_fields
     return unless @convict
     return unless @convict.organizations.include?(current_user.organization)
+    return unless current_user.organization.tj?
 
     @extra_fields = current_user.organization.extra_fields.select(&:appointment_create?)
   end

@@ -74,7 +74,7 @@
               <th scope="col">
                 <%= t('bex.jap.header_role') %>
               </th>
-              <% agenda.organization&.extra_fields.select(&:relate_to_sap?)&.each do |extra_field| %>
+              <% agenda.organization&.extra_fields_for_agenda&.related_to_sap&.each do |extra_field| %>
                 <th scope="col">
                   <%= extra_field.name %>
                 </th>
@@ -121,11 +121,11 @@
                         <% end %>
                       <% end %>
                     </th>
-                    <% agenda.organization.extra_fields&.select(&:relate_to_sap?).each do |extra_field| %>
+                    <% agenda.organization.extra_fields_for_agenda&.related_to_sap&.each do |extra_field| %>
                       <% if extra_field.appointment_update? && appointments[i].present? %>
                         <th data-controller="table-update-field">
                           <input data-table-update-field-target="inputField" data-action="table-update-field#update" data-appointment="<%= appointments[i].id %>" data-extra-field="<%= extra_field.id %>"
-                           class="fr-input agenda-jap-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" />
+                           class="fr-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" />
                         </th>
                       <% else %>
                         <th>

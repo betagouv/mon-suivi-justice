@@ -21,7 +21,7 @@ class OrganizationsController < ApplicationController
     authorize @organization
 
     if @organization.update organization_params
-      redirect_to organizations_path
+      redirect_to edit_organization_path(@organization), notice: 'Service mis à jour avec succès.'
     else
       @organization.errors.each { |error| flash.now[:alert] = error.message }
       render :edit, status: :unprocessable_entity
@@ -34,7 +34,7 @@ class OrganizationsController < ApplicationController
 
     organization.save
     organization.setup_notification_types
-    redirect_to organizations_path
+    redirect_to edit_organization_path(organization), notice: 'Service créé avec succès.'
   end
 
   private

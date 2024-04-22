@@ -385,10 +385,10 @@ date-holidays-parser@^3.4.4:
     jalaali-js "^1.2.6"
     moment-timezone "^0.5.43"
 
-date-holidays@^3.23.10:
-  version "3.23.10"
-  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.23.10.tgz#43503867d6125b4a5a42381340ec9fe174028f7e"
-  integrity sha512-3qWX5SKd5tQ7CpdkT7ZojccEd8Ah9t4cHKtx80wVdRvgSZWJKjlKmNYS+mHyFzqILhsEOBKiJ8e8ABatdzyHNg==
+date-holidays@^3.23.11:
+  version "3.23.11"
+  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.23.11.tgz#8cbf7a026e76118ca5ce33fe793c937209a24427"
+  integrity sha512-Fmb/z+LC8QjeYcjeqBX/2e2ZItYVcZiDBcPNo5ZS7ooUF6sgfRe68KSyr5sSjlI7dU5qqLCS8eQFJj80M2gtsw==
   dependencies:
     date-holidays-parser "^3.4.4"
     js-yaml "^4.1.0"
@@ -787,10 +787,10 @@ postcss-mixins@^10.0.0:
     postcss-simple-vars "^7.0.1"
     sugarss "^4.0.1"
 
-postcss-nesting@^12.1.1:
-  version "12.1.1"
-  resolved "https://registry.yarnpkg.com/postcss-nesting/-/postcss-nesting-12.1.1.tgz#6662d9c70e6356686dc24132f2a7520ec90d39ef"
-  integrity sha512-qc74KvIAQNa5ujZKG1UV286dhaDW6basbUy2i9AzNU/T8C9hpvGu9NZzm1SfePe2yP7sPYgpA8d4sPVopn2Hhw==
+postcss-nesting@^12.1.2:
+  version "12.1.2"
+  resolved "https://registry.yarnpkg.com/postcss-nesting/-/postcss-nesting-12.1.2.tgz#e7aba3f73b86a0e944e84798d481b54dcfce802e"
+  integrity sha512-FUmTHGDNundodutB4PUBxt/EPuhgtpk8FJGRsBhOuy+6FnkR2A8RZWIsyyy6XmhvX2DZQQWIkvu+HB4IbJm+Ew==
   dependencies:
     "@csstools/selector-resolve-nested" "^1.1.0"
     "@csstools/selector-specificity" "^3.0.3"

@@ -1,16 +1,18 @@
 module NotificationFactory
   class << self
     def perform(appointment)
-      notif_types = select_notification_types(appointment)
-      notif_types.each do |notif_type|
-        template = setup_template(notif_type.template)
+      appointment.transaction do
+        notif_types = select_notification_types(appointment)
+        notif_types.each do |notif_type|
+          template = setup_template(notif_type.template)
 
-        Notification.create!(
-          appointment:,
-          role: notif_type.role,
-          reminder_period: notif_type.reminder_period,
-          content: template % sms_data(appointment.slot)
-        )
+          Notification.create!(
+            appointment:,
+            role: notif_type.role,
+            reminder_period: notif_type.reminder_period,
+            content: template % sms_data(appointment.slot)
+          )
+        end
       end
     end
 

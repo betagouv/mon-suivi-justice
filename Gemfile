@@ -39,14 +39,14 @@ gem 'discard', '~> 1.3.0'
 gem 'paper_trail', '~> 15.1.0'
 gem 'ahoy_matey', '~> 5.1.0'
 gem 'sentry-ruby', '~> 5.17.3'
-gem 'sentry-rails', '~> 5.17.2'
+gem 'sentry-rails', '~> 5.17.3'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'jbuilder', '~> 2.11.5'
 gem 'groupdate', '~> 6.4.0'
 
 gem 'faraday', '~> 2.9.0'
-gem 'faraday-retry', '~> 2.2.0'
+gem 'faraday-retry', '~> 2.2.1'
 gem 'jwt', '~> 2.8', '>= 2.8.1'
 
 gem 'wicked_pdf', '~> 2.8.0'
@@ -113,7 +113,7 @@ gem 'administrate-field-belongs_to_search', '~> 0.9.0'
 gem 'faker', '~> 3.3.1'
 
 # Use Redis for Action Cable
-gem 'redis', '~> 5.1.0'
+gem 'redis', '~> 5.2.0'
 
 gem 'jsbundling-rails', '~> 1.3.0'
 

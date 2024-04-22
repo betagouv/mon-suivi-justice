@@ -18,7 +18,8 @@ RSpec.feature 'Organizations', type: :feature, logged_in_as: 'admin' do
     fill_in :organization_name, with: 'SPIP 75'
     expect { click_button 'Enregistrer' }.to change(Organization, :count).from(1).to(2)
                                          .and change { NotificationType.count }.by(5)
-    expect(page).to have_content('SPIP 75')
+    expect(page).to have_content('Modifier le service')
+    expect(page).to have_field('Nom', with: 'SPIP 75')
   end
 
   scenario 'An admin updates an organization' do
@@ -29,7 +30,8 @@ RSpec.feature 'Organizations', type: :feature, logged_in_as: 'admin' do
     end
     fill_in :organization_name, with: 'SPIP 75'
     click_button 'Enregistrer'
-    expect(page).to have_content('SPIP 75')
+    expect(page).to have_content('Modifier le service')
+    expect(page).to have_field('Nom', with: 'SPIP 75')
   end
 
   describe 'update' do
@@ -48,6 +50,8 @@ RSpec.feature 'Organizations', type: :feature, logged_in_as: 'admin' do
   end
 
   scenario 'An admin adds an extra field to an organization', js: true, logged_in_as: 'admin' do
+    organization = create :organization, organization_type: 'tj'
+    @user.update(organization:)
     place = create :place, organization: @user.organization
     agenda = create(:agenda, place:)
 
