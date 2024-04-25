@@ -9,6 +9,7 @@ class Divestment < ApplicationRecord
   validates :convict_id, uniqueness: { scope: :state,
                                        message: 'le probationnaire a déjà une demande de dessaisissement en cours' },
                          if: -> { state == 'pending' }
+  validate :convict_is_not_japat, on: :create
 
   state_machine initial: :pending do
     event :accept do
@@ -43,5 +44,11 @@ class Divestment < ApplicationRecord
       category: 'convict',
       data: { target_name: organization.name }
     )
+  end
+
+  def convict_is_not_japat
+    return unless convict.japat?
+
+    errors.add(:convict, 'Le dessaisissement n\'est pas possible pour un JAPAT, merci de contacter un admin')
   end
 end

@@ -231,6 +231,7 @@ fr:
       divestment:
         organization_to_id: "Service vers lequel le dossier est transféré"
         organization_from_id: "Service d'origine du dossier"
+        convict: Probationnaire
 
     state_machines:
       states:
