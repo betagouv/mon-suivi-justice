@@ -19,7 +19,7 @@ class OrganizationDivestment < ApplicationRecord
 
   state_machine initial: :pending do
     event :accept do
-      transition pending: :accepted
+      transition %i[pending ignored] => :accepted
     end
 
     event :auto_accept do
@@ -27,14 +27,14 @@ class OrganizationDivestment < ApplicationRecord
     end
 
     event :refuse do
-      transition pending: :refused
+      transition %i[pending ignored] => :refused
     end
 
     event :ignore do
       transition pending: :ignored
     end
 
-    after_transition pending: any do |organization_divestment, transition|
+    after_transition %i[pending ignored] => any do |organization_divestment, transition|
       organization_divestment.update(decision_date: Time.zone.now)
       organization_divestment.record_history_for_transition(transition.event)
     end
@@ -74,5 +74,9 @@ class OrganizationDivestment < ApplicationRecord
         comment:
       }
     )
+  end
+
+  def unanswered?
+    pending? || ignored?
   end
 end
