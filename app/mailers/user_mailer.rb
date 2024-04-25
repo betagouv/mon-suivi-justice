@@ -37,7 +37,7 @@ class UserMailer < ApplicationMailer
     @organization_divestment = params[:organization_divestment]
     @comment = @organization_divestment.comment
     @current_user = params[:current_user]
-    @convict = divestment.convict
+    @convict = @divestment.convict
     user = @divestment.user
     mail(to: [user.email], subject: 'Votre demande de dessaisissement a été refusée')
   end

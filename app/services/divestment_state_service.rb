@@ -9,6 +9,9 @@ class DivestmentStateService
 
   def accept(comment = nil)
     ActiveRecord::Base.transaction do
+      p @organization_divestment.pending?
+      p @divestment.pending?
+      p comment.nil?
       return false unless @organization_divestment.pending? && @divestment.pending?
       return false unless comment.nil? || @organization_divestment.update!(comment:)
 
