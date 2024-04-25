@@ -34,7 +34,7 @@ class DivestmentStateService
 
       if @user
         UserMailer.with(divestment: @divestment, organization_divestment: @organization_divestment,
-                         current_user: @user).divestment_refused.deliver_later
+                        current_user: @user).divestment_refused.deliver_later
       end
 
       true

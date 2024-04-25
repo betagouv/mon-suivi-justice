@@ -44,6 +44,14 @@ class Organization < ApplicationRecord
 
   has_rich_text :jap_modal_content
 
+  # Scope to find all organizations with at least one due divestment
+  scope :with_due_divestments, lambda {
+    joins(:organization_divestments, :users)
+      .where(users: { role: 'local_admin' })
+      .merge(OrganizationDivestment.reminders_due)
+      .distinct
+  }
+
   def ten_next_days_with_slots(appointment_type)
     Slot.future
         .in_organization(self)
