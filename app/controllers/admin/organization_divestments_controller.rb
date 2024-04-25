@@ -3,10 +3,33 @@ module Admin
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
-    # def update
-    #   super
-    #   send_foo_updated_email(requested_resource)
-    # end
+    def update
+      p requested_resource
+      p current_user
+      p resource_params
+      state_service = DivestmentStateService.new(requested_resource, current_user)
+      comment = "Ce dessaisissement a été effectué par un administrateur."
+      success = case resource_params[:state]
+                when 'accepted'
+                  state_service.accept(comment)
+                when 'refused'
+                  state_service.refuse(comment)
+                else
+                  false
+                end
+      p success
+      if success
+        redirect_to(
+          after_resource_updated_path(requested_resource),
+          notice: translate_with_resource("update.success"),
+          status: :see_other
+        )
+      else
+        render :edit, locals: {
+          page: Administrate::Page::Form.new(dashboard, requested_resource)
+        }, status: :unprocessable_entity
+      end
+    end
 
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
