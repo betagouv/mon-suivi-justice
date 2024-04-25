@@ -4,9 +4,6 @@ module Admin
     # For example, you may want to send an email after a foo is updated.
     #
     def update
-      p requested_resource
-      p current_user
-      p resource_params
       state_service = DivestmentStateService.new(requested_resource, current_user)
       comment = "Ce dessaisissement a été effectué par un administrateur."
       success = case resource_params[:state]
@@ -17,7 +14,7 @@ module Admin
                 else
                   false
                 end
-      p success
+
       if success
         redirect_to(
           after_resource_updated_path(requested_resource),
@@ -44,13 +41,9 @@ module Admin
     # Override this if you have certain roles that require a subset
     # this will be used to set the records shown on the `index` action.
     #
-    # def scoped_resource
-    #   if current_user.super_admin?
-    #     resource_class
-    #   else
-    #     resource_class.with_less_stuff
-    #   end
-    # end
+    def scoped_resource
+      resource_class.order(Arel.sql("CASE state WHEN 'ignored' THEN 1 WHEN 'pending' THEN 2 WHEN 'accepted' THEN 3 WHEN 'refused' THEN 4 WHEN 'auto_accepted' THEN 5 ELSE 6 END"))
+    end
 
     # Override `resource_params` if you want to transform the submitted
     # data before it's persisted. For example, the following would turn all
