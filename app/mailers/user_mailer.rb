@@ -15,6 +15,16 @@ class UserMailer < ApplicationMailer
     mail(to: @admins.map(&:email), subject: "L'agent #{@user.name} a été muté dans Mon Suivi Justice")
   end
 
+  def notify_local_admins_of_divestment(organization_divestment)
+    organization = organization_divestment.organization
+    @admins = organization.local_admins
+    return if @admins.blank?
+
+    mail(to: @admins.map(&:email), subject: 'Vous avez des demandes de dessaisissement en attente')
+    # je sais pas si c'est une bonne idee de faire ca la
+    organization_divestment.update!(last_reminder_email_at: Time.zone.now)
+  end
+
   def divestment_accepted
     divestment = params[:divestment]
     user = divestment.user

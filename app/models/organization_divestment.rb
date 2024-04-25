@@ -12,6 +12,11 @@ class OrganizationDivestment < ApplicationRecord
       .where(organization_divestments: { state: 'pending' }, divestments: { state: 'pending' })
   }
 
+  scope :reminders_due, lambda {
+    where(state: 'pending')
+      .where('last_reminder_email_at IS NULL OR last_reminder_email_at <= ?', 5.days.ago)
+  }
+
   state_machine initial: :pending do
     event :accept do
       transition pending: :accepted

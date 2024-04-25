@@ -11,6 +11,12 @@ class DivestmentStalledService
 
       service.ignore
     end
+
+    reminders_due = OrganizationDivestment.reminders_due
+
+    reminders_due.each do |organization_divestment|
+      UserMailer.notify_local_admins_of_divestment(organization_divestment).deliver_later
+    end
   end
 
   private
