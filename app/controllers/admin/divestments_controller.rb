@@ -22,7 +22,14 @@ module Admin
     # this will be used to set the records shown on the `index` action.
     #
     def scoped_resource
-      resource_class.order(Arel.sql("CASE state WHEN 'ignored' THEN 1 WHEN 'pending' THEN 2 WHEN 'accepted' THEN 3 WHEN 'refused' THEN 4 WHEN 'auto_accepted' THEN 5 ELSE 6 END"))
+      order_statement = "CASE state \
+        WHEN 'ignored' THEN 1 \
+        WHEN 'pending' THEN 2 \
+        WHEN 'accepted' THEN 3 \
+        WHEN 'refused' THEN 4 \
+        WHEN 'auto_accepted' THEN 5 \
+        ELSE 6 END"
+      resource_class.order(Arel.sql(order_statement))
     end
 
     # Override `resource_params` if you want to transform the submitted

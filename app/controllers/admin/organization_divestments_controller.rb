@@ -4,21 +4,12 @@ module Admin
     # For example, you may want to send an email after a foo is updated.
     #
     def update
-      state_service = DivestmentStateService.new(requested_resource, current_user)
-      comment = "Ce dessaisissement a été effectué par un administrateur."
-      success = case resource_params[:state]
-                when 'accepted'
-                  state_service.accept(comment)
-                when 'refused'
-                  state_service.refuse(comment)
-                else
-                  false
-                end
+      success = process_state(resource_params[:state], requested_resource, current_user)
 
       if success
         redirect_to(
           after_resource_updated_path(requested_resource),
-          notice: translate_with_resource("update.success"),
+          notice: translate_with_resource('update.success'),
           status: :see_other
         )
       else
@@ -42,7 +33,14 @@ module Admin
     # this will be used to set the records shown on the `index` action.
     #
     def scoped_resource
-      resource_class.order(Arel.sql("CASE state WHEN 'ignored' THEN 1 WHEN 'pending' THEN 2 WHEN 'accepted' THEN 3 WHEN 'refused' THEN 4 WHEN 'auto_accepted' THEN 5 ELSE 6 END"))
+      order_statement = "CASE state \
+        WHEN 'ignored' THEN 1 \
+        WHEN 'pending' THEN 2 \
+        WHEN 'accepted' THEN 3 \
+        WHEN 'refused' THEN 4 \
+        WHEN 'auto_accepted' THEN 5 \
+        ELSE 6 END"
+      resource_class.order(Arel.sql(order_statement))
     end
 
     # Override `resource_params` if you want to transform the submitted
@@ -58,5 +56,18 @@ module Admin
 
     # See https://administrate-demo.herokuapp.com/customizing_controller_actions
     # for more information
+
+    def process_state(state, resource, user)
+      state_service = DivestmentStateService.new(resource, user)
+      comment = 'Ce dessaisissement a été effectué par un administrateur.'
+      case state
+      when 'accepted'
+        state_service.accept(comment)
+      when 'refused'
+        state_service.refuse(comment)
+      else
+        false
+      end
+    end
   end
 end

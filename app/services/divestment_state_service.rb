@@ -9,10 +9,7 @@ class DivestmentStateService
 
   def accept(comment = nil)
     ActiveRecord::Base.transaction do
-      p @organization_divestment.pending?
-      p @divestment.pending?
-      p comment.nil?
-      return false unless @organization_divestment.pending? && @divestment.pending?
+      return false unless @organization_divestment.unanswered? && @divestment.pending?
       return false unless comment.nil? || @organization_divestment.update!(comment:)
 
       @organization_divestment.accept!
@@ -25,7 +22,7 @@ class DivestmentStateService
   # rubocop:disable Metrics/CyclomaticComplexity
   def refuse(comment = nil)
     ActiveRecord::Base.transaction do
-      return false unless @organization_divestment.pending? && @divestment.pending?
+      return false unless @organization_divestment.unanswered? && @divestment.pending?
       return false unless comment.nil? || @organization_divestment.update!(comment:)
 
       @organization_divestment.refuse!
