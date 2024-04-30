@@ -36,6 +36,14 @@ class ExtraField < ApplicationRecord
          .distinct
   end
 
+  def relate_to_sap?
+    appointment_types.any?(&:sortie_audience_sap?)
+  end
+
+  def relate_to_spip?
+    appointment_types.any?(&:sortie_audience_spip?)
+  end
+
   private
 
   def organization_is_tj

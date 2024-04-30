@@ -29,7 +29,7 @@ gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
 gem 'dotenv-rails', '~> 3.1.0'
-gem 'sidekiq', '~> 7.2.2'
+gem 'sidekiq', '~> 7.2.4'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
@@ -42,7 +42,7 @@ gem 'sentry-ruby', '~> 5.17.3'
 gem 'sentry-rails', '~> 5.17.3'
 gem 'ruby-progressbar', '~> 1.13.0'
 
-gem 'jbuilder', '~> 2.11.5'
+gem 'jbuilder', '~> 2.12.0'
 gem 'groupdate', '~> 6.4.0'
 
 gem 'faraday', '~> 2.9.0'
@@ -80,7 +80,7 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
-  gem 'spring', '~> 4.2.0'
+  gem 'spring', '~> 4.2.1'
   gem 'rubocop', '~> 1.63', require: false
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
