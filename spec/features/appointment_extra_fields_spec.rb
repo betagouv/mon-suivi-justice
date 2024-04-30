@@ -108,7 +108,7 @@ RSpec.feature 'ExtraFields', type: :feature, js: true do
       select current_date, from: :date
 
       expect(page).to have_selector('th', text: extra_field_a.name)
-      expect(page).to have_selector('th', text: AppointmentExtraField.last.value)
+      expect(page).to have_selector('td', text: AppointmentExtraField.last.value)
     end
   end
 end
