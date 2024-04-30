@@ -123,12 +123,12 @@ class Organization < ApplicationRecord
   private
 
   def extra_fields_count
-    if extra_fields.related_to_spip.length > 3
+    if extra_fields.reject(&:marked_for_destruction?).count(&:relate_to_spip?) > 4
       errors.add(:extra_fields,
                  I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.spip'))
     end
 
-    return unless extra_fields.related_to_sap.length > 3
+    return unless extra_fields.reject(&:marked_for_destruction?).count(&:relate_to_sap?) > 4
 
     errors.add(:extra_fields,
                I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.sap'))
