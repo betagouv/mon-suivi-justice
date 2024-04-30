@@ -12,7 +12,6 @@
                                 class: 'form-select form-text-input sap_ddse-date-select',
                                 onchange: 'this.form.submit()' %>
         </div>
-
         <% if @places.count > 0 %>
           <div class="bex-form-input-wrapper">
             <%= label_tag 'place_id', 'Lieu :' %>
@@ -28,67 +27,62 @@
       <% end %>
     </div>
   </div>
-
   <% if @agenda.nil? %>
     <p class='bex-agenda-sap_ddse-no-agenda'><%= t('bex.sap_ddse.no_agenda_available') %></p>
   <% else %>
     <% open_days_for_the_month(@current_date).each do |day| %>
       <% next if @agenda.slots_for_date(day, @appointment_type).count == 0 %>
-        <div class="fr-table fr-table--bordered">
-          <table class="agenda-jap-table">
-              <caption class='sap_ddse-agenda-header'><%= day.to_fs %></caption>
-              <thead>
-                <th scope="col">
-                  <%= t('bex.jap.header_hour') %>
-                </th>
-                <th scope="col">
-                  <%= t('bex.jap.header_last_name') %>
-                </th>
-                <th scope="col">
-                  <%= t('bex.jap.header_first_name') %>
-                </th>
-                <th scope="col">
-                  <%= t('bex.jap.header_prosecutor') %>
-                </th scope="col">
-                <th scope="col">
-                  <%= t('bex.jap.header_origin') %>
-                </th>
-                <th scope="col">
-                  <%= t('bex.jap.header_role') %>
-                </th>
-              </thead>
-              <tbody>
+      <div class="fr-table fr-table--bordered">
+        <table class="agenda-jap-table">
+          <caption class='sap_ddse-agenda-header'><%= day.to_fs %></caption>
+          <thead>
+            <th scope="col">
+              <%= t('bex.jap.header_hour') %>
+            </th>
+            <th scope="col">
+              <%= t('activerecord.attributes.convict.name') %>
+            </th>
+            <th scope="col">
+              <%= t('bex.jap.header_prosecutor') %>
+            </th scope="col">
+            <th scope="col">
+              <%= t('bex.jap.header_origin') %>
+            </th>
+            <th scope="col">
+              <%= t('bex.jap.header_role') %>
+            </th>
+          </thead>
+          <tbody>
             <% @agenda.slots_for_date(day, @appointment_type).each do |slot| %>
               <% appointments = slot.appointments.active %>
               <% slot.capacity.times do |i| %>
                 <tr>
-                  <th>
+                  <td>
                     <% if i == 0 %>
                       <%= slot.localized_time.to_fs(:lettered) %>
                     <% end %>
-                  </th>
-                  <th>
-                    <% unless appointments[i].nil? %>
+                  </td>
+                  <td>
+                    <% if appointments[i].present? && policy(appointments[i]&.convict).show? %>
                       <%= link_to convict_path(appointments[i]&.convict), class: 'index-control' do %>
-                        <%= appointments[i]&.convict&.last_name %>
+                        <%= appointments[i]&.convict&.name %>
                       <% end %>
+                    <% elsif appointments[i].present? %>
+                      <%= appointments[i]&.convict&.name %>
                     <% end %>
-                  </th>
-                  <th>
-                    <%= appointments[i]&.convict&.first_name %>
-                  </th>
-                  <th>
+                  </td>
+                  <td>
                     <%= appointments[i]&.prosecutor_number %>
-                  </th>
-                  <th>
+                  </td>
+                  <td>
                     <% if appointments[i].present? && appointments[i].creating_organization.present? %>
                       <%= appointments[i].creating_organization.name %>
                     <% elsif appointments[i].present? && appointments[i].inviter_user_id.present? %>
                       <% user = User.find(appointments[i].inviter_user_id) %>
                       <%= user.organization.name %>
                     <% end %>
-                  </th>
-                  <th>
+                  </td>
+                  <td>
                     <% if appointments[i].present? %>
                       <% if appointments[i].origin_department.present? %>
                         <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
@@ -97,13 +91,13 @@
                         <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
                       <% end %>
                     <% end %>
-                  </th>
+                  </td>
                 </div>
               <% end %>
             <% end %>
-              </tbody>
-          </table>
-        </div>
+          </tbody>
+        </table>
+      </div>
     <% end %>
   <% end %>
 </div>

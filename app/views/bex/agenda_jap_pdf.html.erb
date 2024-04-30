@@ -15,10 +15,7 @@
             <%= t('bex.jap.header_hour') %>
           </div>
           <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex.jap.header_last_name') %>
-          </div>
-          <div class='bex-agenda-header-title bex-agenda-column'>
-            <%= t('bex.jap.header_first_name') %>
+            <%= t('activerecord.attributes.convict.name') %>
           </div>
           <div class='bex-agenda-header-title bex-agenda-column'>
             <%= t('bex.jap.header_prosecutor') %>
@@ -45,10 +42,7 @@
                 <% end %>
               </div>
               <div class='bex-agenda-column'>
-                <%= appointments[i]&.convict&.last_name %>
-              </div>
-              <div class='bex-agenda-column'>
-                <%= appointments[i]&.convict&.first_name %>
+                <%= appointments[i]&.convict&.name %>
               </div>
               <div class='bex-agenda-column'>
                 <%= appointments[i]&.prosecutor_number %>

@@ -60,10 +60,7 @@
                 <%= t('bex.jap.header_hour') %>
               </th>
               <th scope="col">
-                <%= t('bex.jap.header_last_name') %>
-              </th>
-              <th scope="col">
-                <%= t('bex.jap.header_first_name') %>
+                <%= t('activerecord.attributes.convict.name') %>
               </th>
               <th scope="col">
                 <%= t('bex.jap.header_prosecutor') %>
@@ -85,33 +82,32 @@
                 <% appointments = slot.appointments.active %>
                 <% slot.capacity.times do |i| %>
                   <tr>
-                    <th>
+                    <td>
                       <% if i == 0 %>
                         <%= slot.localized_time.to_fs(:lettered) %>
                       <% end %>
-                    </th>
-                    <th>
-                      <% unless appointments[i].nil? %>
+                    </td>
+                    <td>
+                      <% if appointments[i].present? && policy(appointments[i]&.convict).show? %>
                         <%= link_to convict_path(appointments[i]&.convict), class: 'index-control' do %>
-                          <%= appointments[i]&.convict&.last_name&.upcase %>
+                          <%= appointments[i]&.convict&.name %>
                         <% end %>
+                      <% elsif appointments[i].present? %>
+                        <%= appointments[i]&.convict&.name %>
                       <% end %>
-                    </th>
-                    <th>
-                      <%= appointments[i]&.convict&.first_name %>
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                       <%= appointments[i]&.prosecutor_number %>
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                       <% if appointments[i].present? && appointments[i].creating_organization.present? %>
                         <%= appointments[i].creating_organization.name %>
                       <% elsif appointments[i].present? && appointments[i].inviter_user_id.present? %>
                         <% user = User.find(appointments[i].inviter_user_id) %>
                         <%= user.organization.name %>
                       <% end %>
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                       <% if appointments[i].present? %>
                         <% if appointments[i].origin_department.present? %>
                           <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
@@ -120,17 +116,17 @@
                           <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
                         <% end %>
                       <% end %>
-                    </th>
+                    </td>
                     <% agenda.organization.extra_fields_for_agenda&.related_to_sap&.each do |extra_field| %>
                       <% if extra_field.appointment_update? && appointments[i].present? %>
                         <th data-controller="table-update-field">
                           <input data-table-update-field-target="inputField" data-action="table-update-field#update" data-appointment="<%= appointments[i].id %>" data-extra-field="<%= extra_field.id %>"
                            class="fr-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" />
-                        </th>
+                        </td>
                       <% else %>
-                        <th>
+                        <td>
                           <%= display_extra_field(extra_field, appointments[i]) %>
-                        </th>
+                        </td>
                       <%end%>
                     <% end %>
                   </div>
