@@ -9,7 +9,7 @@ class Organization < ApplicationRecord
   has_many :created_appointments, class_name: 'Appointment', foreign_key: 'creating_organization_id',
                                   dependent: :nullify
   has_many :created_convicts, class_name: 'Convict', foreign_key: 'creating_organization_id', dependent: :nullify
-  has_many :extra_fields, dependent: :destroy, inverse_of: :organization
+  has_many :extra_fields, dependent: :destroy
   belongs_to :headquarter, optional: true
   abymize :extra_fields, permit: :all_attributes, allow_destroy: true
   has_many :agendas, through: :places
@@ -122,17 +122,23 @@ class Organization < ApplicationRecord
 
   private
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
   def extra_fields_count
-    if extra_fields.related_to_spip.length > 3
+    return if extra_fields.size <= 4
+
+    if extra_fields.reject(&:marked_for_destruction?).count(&:relate_to_spip?) > 4
       errors.add(:extra_fields,
                  I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.spip'))
     end
 
-    return unless extra_fields.related_to_sap.length > 3
+    return unless extra_fields.reject(&:marked_for_destruction?).count(&:relate_to_sap?) > 4
 
     errors.add(:extra_fields,
                I18n.t('activerecord.errors.models.organization.attributes.extra_fields.too_many.sap'))
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/PerceivedComplexity
