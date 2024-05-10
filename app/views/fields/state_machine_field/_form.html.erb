@@ -1,0 +1,6 @@
+<%= f.select(
+  field.attribute,
+  field.permitted_transitions.map { |state| [state.to_s.humanize, state] },
+  {},
+  include_blank: "Please select a state"
+) %>
