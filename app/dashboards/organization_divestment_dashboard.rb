@@ -13,7 +13,7 @@ class OrganizationDivestmentDashboard < Administrate::BaseDashboard
     decision_date: Field::Date,
     divestment: Field::BelongsTo,
     organization: Field::BelongsTo,
-    state: Field::Select.with_options(collection: OrganizationDivestment.state_machine.states.map(&:name)),
+    state: StateMachineField,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     convict_name: Field::String
