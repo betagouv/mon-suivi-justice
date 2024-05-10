@@ -31,7 +31,7 @@ class Divestment < ApplicationRecord
   end
 
   def all_accepted?
-    organization_divestments.all?(&:is_accepted?)
+    organization_divestments.all?(&:positively_answered?)
   end
 
   def record_history_for_transition(transition_event)
@@ -49,6 +49,6 @@ class Divestment < ApplicationRecord
   def convict_is_not_japat
     return unless convict.japat?
 
-    errors.add(:convict, 'Le dessaisissement n\'est pas possible pour un JAPAT, merci de contacter un admin')
+    errors.add(:convict, 'Code 12 - Dessaisissment impossible pour ce probationnaire, veuillez contacter un administrateur.')
   end
 end

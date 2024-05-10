@@ -54,11 +54,9 @@ class OrganizationDivestment < ApplicationRecord
     convict.full_name
   end
 
-  # rubocop:disable Naming/PredicateName
-  def is_accepted?
+  def positively_answered?
     accepted? || auto_accepted?
   end
-  # rubocop:enable Naming/PredicateName
 
   def record_history_for_transition(transition_event)
     event = "#{transition_event}_organization_divestment"
