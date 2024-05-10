@@ -20,6 +20,6 @@ class OrganizationDivestmentPolicy < ApplicationPolicy
   def update?
     return false unless user.security_charter_accepted? && user.local_admin?
 
-    record.pending? && user.organization == record.organization
+    record.unanswered? && user.organization == record.organization
   end
 end
