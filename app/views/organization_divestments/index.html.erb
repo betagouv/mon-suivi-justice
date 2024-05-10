@@ -26,8 +26,8 @@
               <thead>
                 <tr>
                   <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
-                  <th scope="col">Date</th>
-                  <th scope="col">Source</th>
+                  <th scope="col">Date de demande</th>
+                  <th scope="col">Service demandeur</th>
                   <th scope="col">Services</th>
                   <th scope="col">Actions</th>
                 </tr>
@@ -84,8 +84,8 @@
               <thead>
                 <tr>
                   <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
-                  <th scope="col">Date</th>
-                  <th scope="col">Source</th>
+                  <th scope="col">Date de décision</th>
+                  <th scope="col">Service demandeur</th>
                   <th scope="col">Status du dessaisissement</th>
                   <th scope="col">Services</th>
                   <th scope="col">Votre décision</th>
@@ -102,7 +102,7 @@
                           <%= organization_divestment.convict.name %>
                       <% end %>
                     </td>
-                    <td><%= organization_divestment.created_at.strftime("%d/%m/%Y") %></td>
+                    <td><%= organization_divestment.decision_date.strftime("%d/%m/%Y") %></td>
                     <td><%= organization_divestment.source.name %></td>
                     <td>
                       <% badge_class = case organization_divestment.divestment.state
@@ -168,7 +168,7 @@
           <thead>
             <tr>
               <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
-              <th scope="col">Date</th>
+              <th scope="col">Date de demande</th>
               <th scope="col">Services</th>
             </tr>
           </thead>
@@ -209,7 +209,7 @@
             <thead>
               <tr>
                 <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
-                <th scope="col">Date</th>
+                <th scope="col">Date de décision</th>
                 <th scope="col">Status</th>
                 <th scope="col">Services</th>
               </tr>
@@ -224,7 +224,7 @@
                         <%= divestment.convict.name %>
                     <% end %>
                   </td>
-                  <td><%= divestment.created_at.strftime("%d/%m/%Y") %></td>
+                  <td><%= divestment.decision_date.strftime("%d/%m/%Y") %></td>
                   <td>
                     <% badge_class = case divestment.state
                                       when "accepted", "auto_accepted" then "fr-badge--success"
