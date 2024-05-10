@@ -573,9 +573,9 @@ fr:
 
   divestments:
     create:
-      success: Les demandes des dessaisissements ont bien été créées. Les services concernés ont été notifiés.
-      success_bex: Les demandes des dessaisissements ont bien été créées. Les services actuels du probationnaire ont été prévenus. Vous serez tenu au courant du résultat des demandes sous 10 jours au plus.
-      auto_accepted: La demande a été automatiquement validée car le suivi du probationnaire n’était plus actif
+      success_bex: La demande de dessaisissement a bien été créée. Les services concernés ont été notifiés.
+      success: La demande de dessaisissement a bien été créée. Les services actuels du probationnaire ont été prévenus. Vous serez tenu au courant du résultat des demandes sous 10 jours au plus.
+      auto_accepted: La demande a été automatiquement validée car le suivi du probationnaire n'était plus actif
       convict_not_found: Le probationnaire n'existe pas
       error: "Une erreur est survenue lors de la création des dessaisissements : %{error}"
 
