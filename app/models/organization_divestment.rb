@@ -54,10 +54,6 @@ class OrganizationDivestment < ApplicationRecord
     convict.full_name
   end
 
-  def positively_answered?
-    accepted? || auto_accepted?
-  end
-
   def record_history_for_transition(transition_event)
     event = "#{transition_event}_organization_divestment"
     return unless HistoryItem.validate_event(event)
@@ -76,5 +72,13 @@ class OrganizationDivestment < ApplicationRecord
 
   def unanswered?
     pending? || ignored?
+  end
+
+  def positively_answered?
+    accepted? || auto_accepted?
+  end
+
+  def answered?
+    accepted? || auto_accepted? || refused?
   end
 end

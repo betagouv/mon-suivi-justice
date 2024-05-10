@@ -245,6 +245,10 @@ class Convict < ApplicationRecord
     divestments.where(state: :pending, organization:).any?
   end
 
+  def pending_divestment
+    divestments.where(state: :pending).first
+  end
+
   private
 
   def unique_organizations
