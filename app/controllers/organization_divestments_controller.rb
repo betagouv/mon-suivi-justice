@@ -4,15 +4,15 @@ class OrganizationDivestmentsController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def index
-    @organization_divestments = policy_scope(OrganizationDivestment).order(:created_at)
+    @organization_divestments = policy_scope(OrganizationDivestment)
     authorize @organization_divestments
-    @current_orga_divestments = @organization_divestments.unanswered.page params[:page]
-    @past_orga_divestments = @organization_divestments.answered.page params[:page]
+    @current_orga_divestments = @organization_divestments.unanswered.order(created_at: :desc).page params[:page]
+    @past_orga_divestments = @organization_divestments.answered.order(decision_date: :asc).page params[:page]
 
-    @divestments = policy_scope(Divestment).order(:created_at)
+    @divestments = policy_scope(Divestment)
 
-    @current_divestments = @divestments.where(state: :pending).page params[:page]
-    @past_divestments = @divestments.where.not(state: :pending).page params[:page]
+    @current_divestments = @divestments.where(state: :pending).order(created_at: :desc).page params[:page]
+    @past_divestments = @divestments.where.not(state: :pending).order(decision_date: :asc).page params[:page]
   end
   # rubocop:enable Metrics/AbcSize
 
