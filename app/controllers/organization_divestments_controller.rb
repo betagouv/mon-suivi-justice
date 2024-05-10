@@ -6,8 +6,8 @@ class OrganizationDivestmentsController < ApplicationController
   def index
     @organization_divestments = policy_scope(OrganizationDivestment).order(:created_at)
     authorize @organization_divestments
-    @current_orga_divestments = @organization_divestments.where(state: :pending).page params[:page]
-    @past_orga_divestments = @organization_divestments.where.not(state: :pending).page params[:page]
+    @current_orga_divestments = @organization_divestments.unanswered.page params[:page]
+    @past_orga_divestments = @organization_divestments.answered.page params[:page]
 
     @divestments = policy_scope(Divestment).order(:created_at)
 

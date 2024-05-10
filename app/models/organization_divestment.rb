@@ -17,6 +17,9 @@ class OrganizationDivestment < ApplicationRecord
       .where('last_reminder_email_at IS NULL OR last_reminder_email_at <= ?', 5.days.ago)
   }
 
+  scope :unanswered, -> { where(state: %i[pending ignored]) }
+  scope :answered, -> { where(state: %i[accepted auto_accepted refused]) }
+
   state_machine initial: :pending do
     event :accept do
       transition %i[pending ignored] => :accepted
