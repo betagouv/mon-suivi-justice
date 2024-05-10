@@ -1,7 +1,6 @@
 <%= image_tag wicked_pdf_asset_base64('logo_msj.svg') %>
 <h1 class='pdf-bex-title'><%= t('pdf.bex-sap-ddse.title') %></h1>
 <div class='bex-agenda-date'><%= date.strftime('%d/%m/%Y') %></div>
-
 <% if @agendas.empty? %>
   <p class='bex-agenda-spip-no-agenda'><%= t('bex.sap_ddse.no_agenda_available') %></p>
 <% else %>
@@ -13,17 +12,13 @@
             <%= agenda.name %>
           </div>
         </div>
-
         <div class='bex-agenda-table'>
           <div class='bex-agenda-table-header bex-agenda-line'>
             <div class='bex-agenda-header-title bex-agenda-small-column'>
               <%= t('bex.jap.header_hour') %>
             </div>
             <div class='bex-agenda-header-title bex-agenda-column'>
-              <%= t('bex.jap.header_last_name') %>
-            </div>
-            <div class='bex-agenda-header-title bex-agenda-column'>
-              <%= t('bex.jap.header_first_name') %>
+              <%= t('activerecord.attributes.convict.name') %>
             </div>
             <div class='bex-agenda-header-title bex-agenda-column'>
               <%= t('bex.jap.header_prosecutor') %>
@@ -32,7 +27,6 @@
               <%= t('bex.jap.header_origin') %>
             </div>
           </div>
-
           <% agenda.slots_for_date(@current_date, @appointment_type).each do |slot| %>
             <% appointments = slot.appointments.active %>
             <% slot.capacity.times do |i| %>
@@ -43,14 +37,7 @@
                   <% end %>
                 </div>
                 <div class='bex-agenda-column'>
-                  <% unless appointments[i].nil? %>
-                    <%= link_to convict_path(appointments[i]&.convict), class: 'index-control' do %>
-                      <%= appointments[i]&.convict&.last_name %>
-                    <% end %>
-                  <% end %>
-                </div>
-                <div class='bex-agenda-column'>
-                  <%= appointments[i]&.convict&.first_name %>
+                  <%= appointments[i]&.convict&.name %>
                 </div>
                 <div class='bex-agenda-column'>
                   <%= appointments[i]&.prosecutor_number %>
