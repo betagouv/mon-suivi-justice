@@ -9,14 +9,16 @@
   </div>
     <div class="fr-tabs">
       <ul class="fr-tabs__list" role="tablist" aria-label="divestments-state">
+        <% if @current_orga_divestments.present? %>
+          <li role="presentation">
+            <button id="tabpanel-404" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="<%= @current_orga_divestments.present?%>" aria-controls="tabpanel-404-panel">En cours</button>
+          </li>
+        <% end %>
         <li role="presentation">
-          <button id="tabpanel-404" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-404-panel">En cours</button>
-        </li>
-        <li role="presentation">
-          <button id="tabpanel-405" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-405-panel">Passé</button>
+          <button id="tabpanel-405" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="<%= @current_orga_divestments.empty?%>" aria-controls="tabpanel-405-panel">Passé</button>
         </li>
       </ul>
-      <div id="tabpanel-404-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-404" tabindex="0">
+      <div id="tabpanel-404-panel" class="fr-tabs__panel <%= @current_orga_divestments.present? ? "fr-tabs__panel--selected" : "" %>" role="tabpanel" aria-labelledby="tabpanel-404" tabindex="0">
         <div class="fr-grid-row fr-grid-row--left fr-grid-row--center fr-grid-row--gutters">
           <div class="col">
             <div class="fr-table fr-table--bordered fr-table--layout-fixed">
@@ -73,7 +75,7 @@
         </div>
         <%= paginate @current_orga_divestments %>
       </div>
-      <div id="tabpanel-405-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-405" tabindex="0">
+      <div id="tabpanel-405-panel" class="fr-tabs__panel <%= @current_orga_divestments.empty? ? "fr-tabs__panel--selected" : "" %>" role="tabpanel" aria-labelledby="tabpanel-405" tabindex="0">
         <div class="fr-grid-row fr-grid-row--left fr-grid-row--center fr-grid-row--gutters">
           <div class="col">
             <div class="fr-table fr-table--bordered fr-table--layout-fixed">
@@ -150,14 +152,16 @@
   </div>
   <div class="fr-tabs">
     <ul class="fr-tabs__list" role="tablist" aria-label="divestments-state">
+      <% if @current_divestments.present? %>
+        <li role="presentation">
+          <button id="tabpanel-404" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="<%= @current_divestments.present?%>" aria-controls="tabpanel-404-panel">En cours</button>
+        </li>
+      <% end %>
       <li role="presentation">
-        <button id="tabpanel-404" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-404-panel">En cours</button>
-      </li>
-      <li role="presentation">
-        <button id="tabpanel-405" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-405-panel">Passé</button>
+        <button id="tabpanel-405" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="<%= @current_divestments.empty?%>" aria-controls="tabpanel-405-panel">Passé</button>
       </li>
     </ul>
-    <div id="tabpanel-404-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-404" tabindex="0">
+    <div id="tabpanel-404-panel" class="fr-tabs__panel <%= @current_divestments.present? ? "fr-tabs__panel--selected" : "" %>" role="tabpanel" aria-labelledby="tabpanel-404" tabindex="0">
       <div class="fr-table fr-table--bordered fr-table--layout-fixed">
         <table>
           <thead>
@@ -198,7 +202,7 @@
       </div> 
       <%= paginate @current_divestments %>
     </div>
-    <div id="tabpanel-405-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-405" tabindex="-1">
+    <div id="tabpanel-405-panel" class="fr-tabs__panel <%= @current_divestments.empty? ? "fr-tabs__panel--selected" : "" %>" role="tabpanel" aria-labelledby="tabpanel-405" tabindex="-1">
       <div class="fr-table fr-table--bordered fr-table--layout-fixed">
           <table>
             <thead>
