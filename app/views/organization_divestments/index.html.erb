@@ -53,9 +53,8 @@
                                           end %>
                           <% ood_id = other_organizations_divestment.id %>
                           <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-ood-<%= ood_id %>" id="link-ood-<%= ood_id %>"><%= other_organizations_divestment.organization_name %></p>
-                          <% if other_organizations_divestment.comment %>
-                            <span class="fr-tooltip fr-placement" id="tooltip-ood-<%= ood_id %>" role="tooltip" aria-hidden="true"><%= other_organizations_divestment.comment %></span>
-                          <% end %>
+                          <span class="fr-tooltip fr-placement" id="tooltip-ood-<%= ood_id %>" role="tooltip" aria-hidden="true"><%= comment_text(other_organizations_divestment.comment) %></span>
+
                         <% end %>
                       </td>
                       <td>
@@ -132,7 +131,7 @@
                           <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= organization_divestment.state %></p>
                       </td>
                       <td>
-                        <%= organization_divestment.comment %>
+                        <%= comment_text(organization_divestment.comment) %>
                       </td>
                     </tr>
                   <% end %>
@@ -189,9 +188,7 @@
                                     end %>
                     <% od_id = organization_divestment.id %>
                     <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-od-<%= od_id %>" id="link-od-<%= od_id %>"><%= organization_divestment.organization_name %></p>
-                    <% if organization_divestment.comment %>
-                      <span class="fr-tooltip fr-placement" id="tooltip-od-<%= od_id %>" role="tooltip" aria-hidden="true"><%= organization_divestment.comment %></span>
-                    <% end %>
+                    <span class="fr-tooltip fr-placement" id="tooltip-od-<%= od_id %>" role="tooltip" aria-hidden="true"><%= comment_text(organization_divestment.comment) %></span>
                   <% end %>
                 </td>
               </tr>
@@ -242,9 +239,8 @@
                                       end %>
                       <% od_id = organization_divestment.id %>
                       <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-od-<%= od_id %>" id="link-od-<%= od_id %>"><%= organization_divestment.organization_name %></p>
-                      <% if organization_divestment.comment %>
-                        <span class="fr-tooltip fr-placement" id="tooltip-od-<%= od_id %>" role="tooltip" aria-hidden="true"><%= organization_divestment.comment %></span>
-                      <% end %>
+                      <span class="fr-tooltip fr-placement" id="tooltip-od-<%= od_id %>" role="tooltip" aria-hidden="true"><%= comment_text(organization_divestment.comment) %></span>
+
                     <% end %>
                   </td>
                 </tr>
