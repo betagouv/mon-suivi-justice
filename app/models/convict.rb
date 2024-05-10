@@ -286,6 +286,8 @@ class Convict < ApplicationRecord
   end
   
   def last_appointment_at_least_x_months_old?(nb_months)
+    return true if appointments.empty?
+
     last_appointment_date = appointments.joins(:slot).maximum('slots.date')
     last_appointment_date.present? && last_appointment_date < nb_months.months.ago
   end
