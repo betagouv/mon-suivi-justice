@@ -64,7 +64,7 @@ class AdminMailer < ApplicationMailer
   def notifications_problems(to_reschedule_ids, stucked_ids)
     @to_reschedule_ids = to_reschedule_ids
     @stucked_ids = stucked_ids
-    mail(to: ['matthieu.faugere@beta.gouv.fr', 'charles.marcoin@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr'],
+    mail(to: ['matthieu.faugere@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr'],
          subject: 'Notifications remises dans la queue')
   end
 end
