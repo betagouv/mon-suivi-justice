@@ -14,7 +14,7 @@ gem 'devise-i18n', '~> 1.12.0'
 gem 'devise_invitable', '~> 2.0.9'
 gem 'devise-security', '>= 0.18.0'
 
-gem 'pundit', '~> 2.3.1'
+gem 'pundit', '~> 2.3.2'
 gem 'simple_form', '~> 5.3.0'
 gem 'addressable', '~> 2.8.6' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
@@ -28,7 +28,7 @@ gem 'state_machines', '~> 0.6.0'
 gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
-gem 'dotenv-rails', '~> 3.1.0'
+gem 'dotenv-rails', '~> 3.1.2'
 gem 'sidekiq', '~> 7.2.4'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
@@ -72,7 +72,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.4.3'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug', '~> 3.10.1'
-  gem 'launchy', '~> 3.0.0'
+  gem 'launchy', '~> 3.0.1'
   gem 'rails-controller-testing', '~> 1.0.5'
 end
 
