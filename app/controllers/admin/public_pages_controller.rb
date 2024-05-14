@@ -59,7 +59,7 @@ module Admin
     def handle_image
       @image_filename = @org_name + @image_extension
 
-      image_repo_path = "app/frontend/images/#{@image_filename}"
+      image_repo_path = "app/assets/images/#{@image_filename}"
 
       temp_image = params[:picture].tempfile
       # read ensures files is closed before returning
