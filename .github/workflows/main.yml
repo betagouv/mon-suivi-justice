@@ -31,16 +31,16 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.2
+          ruby-version: 3.3.1
           bundler-cache: true
 
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18.18.2
+          node-version: 20.13.1
 
       - name: Install Yarn
-        run: npm install --global yarn@1.22.19
+        run: npm install --global yarn@1.22.22
 
       - name: Install Ruby dependencies
         run: bundle install
