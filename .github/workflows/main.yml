@@ -37,7 +37,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18.18.2
+          node-version: 20.13.1
 
       - name: Install Yarn
         run: npm install --global yarn@1.22.19
