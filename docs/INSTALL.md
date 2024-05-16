@@ -21,7 +21,6 @@ MSJ utilise Ruby 2.7.6. L'installation peut être géré avec [RVM](https://rvm.
 - Yarn : voir https://yarnpkg.com/en/docs/install
 - Foreman : voir https://github.com/ddollar/foreman
 - graphviz, pour rails-erd : voir https://voormedia.github.io/rails-erd/install.html
-- webpack-cli : Pour lancer le serveur local avec webpack, il faut avoir installé `webpack-cli` en global.
 
 ## 4. Script d'installation
 
