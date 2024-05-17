@@ -42,5 +42,7 @@ module MonSuiviJustice
     config.active_record.use_yaml_unsafe_load = false
     config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone, ActiveRecord::Type::Time::Value]
     config.active_support.cache_format_version = 7.1
+
+    config.middleware.delete(Rack::Runtime)
   end
 end

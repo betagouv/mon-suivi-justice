@@ -8,8 +8,9 @@ describe ApplicationHelper do
       it 'returns the next valid day, skipping weekends and French holidays' do
         allow(Time.zone).to receive(:today).and_return(Date.new(2023, 7, 21)) # Friday
 
-        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 24), :fr).and_return([{ name: 'a holiday' }]) # Monday
-        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 25), :fr).and_return([]) # Tuesday
+        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 24), :fr, :informal)
+                                       .and_return([{ name: 'a holiday' }]) # Monday
+        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 25), :fr, :informal).and_return([]) # Tuesday
 
         valid_day = next_valid_day
 
@@ -19,8 +20,8 @@ describe ApplicationHelper do
 
     context 'when a specific day parameter is given' do
       it 'returns the next valid day, skipping French holidays' do
-        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 24), :fr).and_return([{ name: 'a holiday' }])
-        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 31), :fr).and_return([])
+        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 24), :fr, :informal).and_return([{ name: 'a holiday' }])
+        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 31), :fr, :informal).and_return([])
 
         valid_day = next_valid_day(date: Date.new(2023, 7, 21), day: :monday)
 
@@ -29,7 +30,7 @@ describe ApplicationHelper do
 
       it 'throw if day parameter falls on a weekend' do
         allow(Date).to receive(:today).and_return(Date.new(2023, 7, 21))
-        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 23), :fr).and_return(false)
+        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 23), :fr, :informal).and_return(false)
 
         expect { next_valid_day(day: :saturday) }.to raise_error(ArgumentError)
         expect { next_valid_day(day: :sunday) }.to raise_error(ArgumentError)
