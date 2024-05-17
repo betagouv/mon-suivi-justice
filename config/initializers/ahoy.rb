@@ -12,3 +12,5 @@ Ahoy.geocode = false
 Ahoy.user_method = :true_user
 
 Ahoy.exclude_method = -> (controller, request) { Rails.env.development? }
+
+Ahoy.cookie_options = { http_only: true, secure: true, same_site: :lax }
