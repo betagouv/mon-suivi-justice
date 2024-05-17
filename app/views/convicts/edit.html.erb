@@ -100,6 +100,16 @@
           </div>
         </div>
       </div>
+      <div id="convict-japat-checkbox" class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-checkbox-group">
+          <input name="convict[japat]" id="convict-japat" type="checkbox" aria-describedby="convict-japat-messages" value="1" <%= 'checked' if @convict.japat %> <%= 'disabled' if @saved_japat_value %>>
+          <label class="fr-label" for="convict-japat">
+            Japat
+          </label>
+          <div class="fr-messages-group" id="convict-japat-messages" aria-live="assertive">
+          </div>
+        </div>
+      </div>
       <%= f.button :submit, t('edit_convict_submit'), class: 'fr-btn' %>
     <% end %>
   </div>
