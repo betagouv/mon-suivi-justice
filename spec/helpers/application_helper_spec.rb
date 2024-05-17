@@ -8,7 +8,8 @@ describe ApplicationHelper do
       it 'returns the next valid day, skipping weekends and French holidays' do
         allow(Time.zone).to receive(:today).and_return(Date.new(2023, 7, 21)) # Friday
 
-        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 24), :fr, :informal).and_return([{ name: 'a holiday' }]) # Monday
+        allow(Holidays).to receive(:on).with(Date.new(2023, 7, 24), :fr, :informal)
+                                       .and_return([{ name: 'a holiday' }]) # Monday
         allow(Holidays).to receive(:on).with(Date.new(2023, 7, 25), :fr, :informal).and_return([]) # Tuesday
 
         valid_day = next_valid_day
