@@ -46,6 +46,7 @@ class ConvictsController < ApplicationController
 
   def edit
     @convict = policy_scope(Convict).find(params[:id])
+    @saved_japat_value = @convict.japat
     set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     authorize @convict
@@ -56,6 +57,7 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     old_phone = @convict.phone
+    @saved_japat_value = @convict.japat
 
     update_convict
 
