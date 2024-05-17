@@ -322,6 +322,27 @@ RSpec.feature 'Convicts', type: :feature do
       expect(convict.cpip).to eq(cpip)
     end
 
+    it 'add to TJ Paris if japat is selected', js: true do
+      tj_paris = create(:organization, name: 'TJ Paris', organization_type: 'tj')
+      convict = create(:convict, last_name: 'Expresso', date_of_birth: '01/01/1980',
+                                 organizations: [@user.organization])
+      cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
+
+      visit edit_convict_path(convict)
+
+      japat_checkbox = find('#convict-japat-checkbox')
+      japat_checkbox.check(id: 'convict-japat', allow_label_click: true)
+
+      click_button 'Enregistrer'
+
+      convict.reload
+      expect(convict.organizations).to match([@user.organization, tj_paris])
+      expect(convict.japat).to be_truthy
+
+      visit edit_convict_path(convict)
+      expect(find("input#convict-japat", visible: :all)).to be_disabled
+    end
+
     it 'creates a history_item if the phone number is updated' do
       convict = create(:convict, phone: '0606060606', organizations: [@user.organization])
       visit edit_convict_path(convict)
