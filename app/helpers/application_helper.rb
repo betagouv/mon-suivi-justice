@@ -31,7 +31,7 @@ module ApplicationHelper
 
   def ten_next_open_days
     twenty_next_days = (Date.today..Date.today + 20).to_a
-    open_days = twenty_next_days.select { |d| !d.on_weekend? && Holidays.on(d, :fr) == [] }
+    open_days = twenty_next_days.select { |d| !d.on_weekend? && Holidays.on(d, :fr, :informal) == [] }
 
     open_days.slice(0, 10)
   end
@@ -45,12 +45,12 @@ module ApplicationHelper
   def next_valid_day(date: Time.zone.today, day: nil)
     if day.nil?
       valid_day = date.tomorrow
-      valid_day = valid_day.tomorrow while valid_day.on_weekend? || Holidays.on(valid_day, :fr).any?
+      valid_day = valid_day.tomorrow while valid_day.on_weekend? || Holidays.on(valid_day, :fr, :informal).any?
     else
       raise ArgumentError, 'Weekends are not valid days!' if date.next_occurring(day).on_weekend?
 
       valid_day = date.next_occurring(day)
-      valid_day = valid_day.next_occurring(day) while Holidays.on(valid_day, :fr).any?
+      valid_day = valid_day.next_occurring(day) while Holidays.on(valid_day, :fr, :informal).any?
     end
 
     valid_day
