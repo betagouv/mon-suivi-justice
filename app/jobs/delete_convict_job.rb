@@ -3,6 +3,7 @@ class DeleteConvictJob < ApplicationJob
   queue_as :default
 
   def perform(convict_id)
-    MonSuiviJusticePublicApi::Convict.delete(convict_id)
+    convict = Convict.find(convict_id)
+    MonSuiviJusticePublicApi::Convict.delete(convict)
   end
 end

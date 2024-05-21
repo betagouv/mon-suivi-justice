@@ -1,0 +1,29 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "0a5cf77af5accc1e3b05920ebea7b4a2a31379ef1bcf692c1da9ccffd78d8303",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/admin/db_reset_service.rb",
+      "line": 16,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"TRUNCATE TABLE #{table} CASCADE;\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::DbResetService",
+        "method": "s(:self).truncate_tables"
+      },
+      "user_input": "table",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "Only used to reset development DB"
+    }
+  ],
+  "updated": "2024-05-21 07:58:52 +0200",
+  "brakeman_version": "6.1.2"
+}
