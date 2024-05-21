@@ -10,13 +10,11 @@ Rails.application.routes.draw do
       resources :organizations, except: %i[new create destroy] do
         put '/link_convict_from_linked_orga' => "organizations#link_convict_from_linked_orga"
       end
-      resources :departments
       resources :srj_tjs
       resources :srj_spips
       resources :cities
       resources :appointments, except: :index
       resources :places, except: :destroy
-      resources :jurisdictions, except: :index
       resources :seeds, only: [:index]
       get '/reset_db' => "seeds#reset_db"
       resources :public_pages, only: [:index]
@@ -107,7 +105,6 @@ Rails.application.routes.draw do
     get :load_prosecutor
     get :load_is_cpip
     get :load_agendas
-    get :load_departments
     get :load_time_options
     get :load_slots
     get :load_slot_fields

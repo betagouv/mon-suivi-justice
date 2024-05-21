@@ -268,14 +268,6 @@
   padding: 20px 10px;
 }
 
-.appointment-form-out-of-department-container {
-  text-align: center;
-}
-
-.appointment-form-out-of-department-link {
-  color: var(--link);
-}
-
 .appointments-link__cancel {
   color: var(--danger);
 }

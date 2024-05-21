@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_14_164801) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_21_070944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -120,6 +120,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_14_164801) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "share_address_to_convict", default: true, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_appointment_types_on_discarded_at"
   end
 
   create_table "appointment_types_extra_fields", id: false, force: :cascade do |t|
@@ -143,28 +145,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_14_164801) do
     t.index ["creating_organization_id"], name: "index_appointments_on_creating_organization_id"
     t.index ["slot_id"], name: "index_appointments_on_slot_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
-  end
-
-  create_table "areas_convicts_mappings", force: :cascade do |t|
-    t.string "area_type"
-    t.bigint "area_id"
-    t.bigint "convict_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["area_type", "area_id"], name: "index_areas_convicts_mappings_on_area"
-    t.index ["convict_id", "area_id", "area_type"], name: "index_areas_convicts_mappings_on_convict_and_area", unique: true
-    t.index ["convict_id"], name: "index_areas_convicts_mappings_on_convict_id"
-  end
-
-  create_table "areas_organizations_mappings", force: :cascade do |t|
-    t.string "area_type"
-    t.bigint "area_id"
-    t.bigint "organization_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["area_type", "area_id"], name: "index_areas_organizations_mappings_on_area"
-    t.index ["organization_id", "area_id", "area_type"], name: "index_areas_organizations_mappings_on_organization_and_area", unique: true
-    t.index ["organization_id"], name: "index_areas_organizations_mappings_on_organization_id"
   end
 
   create_table "cities", force: :cascade do |t|
@@ -222,13 +202,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_14_164801) do
     t.index ["organization_id"], name: "index_convicts_organizations_mappings_on_organization_id"
   end
 
-  create_table "departments", force: :cascade do |t|
-    t.string "number", null: false
-    t.string "name", null: false
+  create_table "divestments", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "convict_id", null: false
+    t.bigint "user_id", null: false
+    t.string "state"
+    t.date "decision_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_departments_on_name", unique: true
-    t.index ["number"], name: "index_departments_on_number", unique: true
+    t.index ["convict_id", "state"], name: "index_divestments_on_convict_id_and_state", unique: true, where: "((state)::text = 'pending'::text)"
+    t.index ["convict_id"], name: "index_divestments_on_convict_id"
+    t.index ["organization_id"], name: "index_divestments_on_organization_id"
+    t.index ["user_id"], name: "index_divestments_on_user_id"
   end
 
   create_table "extra_fields", force: :cascade do |t|
@@ -257,13 +242,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_14_164801) do
     t.text "content"
     t.index ["appointment_id"], name: "index_history_items_on_appointment_id"
     t.index ["convict_id"], name: "index_history_items_on_convict_id"
-  end
-
-  create_table "jurisdictions", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_jurisdictions_on_name", unique: true
   end
 
   create_table "monsuivijustice_commune", id: :integer, default: nil, force: :cascade do |t|
@@ -316,6 +294,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_14_164801) do
     t.string "state"
     t.string "external_id"
     t.index ["appointment_id"], name: "index_notifications_on_appointment_id"
+  end
+
+  create_table "organization_divestments", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "divestment_id", null: false
+    t.string "state"
+    t.date "decision_date"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "last_reminder_email_at"
+    t.index ["divestment_id"], name: "index_organization_divestments_on_divestment_id"
+    t.index ["organization_id"], name: "index_organization_divestments_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -517,13 +508,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_14_164801) do
   add_foreign_key "appointments", "organizations", column: "creating_organization_id"
   add_foreign_key "appointments", "slots"
   add_foreign_key "appointments", "users"
-  add_foreign_key "areas_convicts_mappings", "convicts"
-  add_foreign_key "areas_organizations_mappings", "organizations"
   add_foreign_key "cities", "srj_spips"
   add_foreign_key "cities", "srj_tjs"
   add_foreign_key "convicts", "cities"
   add_foreign_key "convicts", "organizations", column: "creating_organization_id"
   add_foreign_key "convicts", "users"
+  add_foreign_key "divestments", "convicts"
+  add_foreign_key "divestments", "organizations"
+  add_foreign_key "divestments", "users"
   add_foreign_key "extra_fields", "organizations"
   add_foreign_key "history_items", "appointments"
   add_foreign_key "history_items", "convicts"
@@ -532,6 +524,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_14_164801) do
   add_foreign_key "notification_types", "appointment_types"
   add_foreign_key "notification_types", "organizations"
   add_foreign_key "notifications", "appointments"
+  add_foreign_key "organization_divestments", "divestments"
+  add_foreign_key "organization_divestments", "organizations"
   add_foreign_key "organizations", "headquarters"
   add_foreign_key "places", "organizations"
   add_foreign_key "previous_passwords", "users"

@@ -17,10 +17,6 @@ class Convict < ApplicationRecord
   has_many :appointments, dependent: :destroy
   has_many :history_items, dependent: :destroy
 
-  has_many :areas_convicts_mappings, dependent: :destroy
-  has_many :departments, through: :areas_convicts_mappings, source: :area, source_type: 'Department'
-  has_many :jurisdictions, through: :areas_convicts_mappings, source: :area, source_type: 'Jurisdiction'
-
   belongs_to :user, optional: true
 
   belongs_to :city, optional: true

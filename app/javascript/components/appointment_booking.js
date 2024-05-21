@@ -21,7 +21,6 @@ const onChangeAppointmentTypeHandler = (e) => {
 const STRUCTURE = {
   appointmentType: { containerId: 'appointment-type-container' },
   prosecutor: { containerId: 'prosecutor-container' },
-  department: { containerId: 'departments-container' },
   place: { containerId: 'places-container' },
   agenda: { containerId: 'agendas-container' },
   slot: { containerId: 'slots-container' },
@@ -103,11 +102,6 @@ const loadTemplate = {
     this.sendRequest(targetUrl);
   },
 
-  departments(appointment_type_id) {
-    const targetUrl = `/load_departments?apt_type_id=${appointment_type_id}`;
-    this.sendRequest(targetUrl, setupForm.department);
-  },
-
   agendas(place_id, appointment_type_id) {
     const targetUrl = `/load_agendas?place_id=${place_id}&apt_type_id=${appointment_type_id}`;
     this.sendRequest(targetUrl, setupForm.agenda);
@@ -128,7 +122,7 @@ const setupForm = {
   appointmentType() {
     console.count('appointmentType');
     const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
-    
+
     // Add the event listener
     aptTypeSelect.addEventListener('change', onChangeAppointmentTypeHandler);
   },
@@ -136,7 +130,6 @@ const setupForm = {
   place() {
     const placeSelect = document.getElementById('appointment-form-place-select');
     const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
-    const departmentSelect = document.getElementById('appointment-form-department-select');
     const places_container = document.getElementById('places-container');
     const submitButtonContainer = document.getElementById('submit-button-container');
 
@@ -144,24 +137,10 @@ const setupForm = {
       placeSelect.addEventListener('change', (e) => {
         resetFieldsBelow('place');
         submitButtonContainer.style.display = 'none';
-  
+
         loadTemplate.agendas(placeSelect.value, aptTypeSelect.value);
       });
     }
-  },
-
-  department() {
-    const departments_container = document.getElementById('departments-container');
-    const places_container = document.getElementById('places-container');
-    const departmentSelect = document.getElementById('appointment-form-department-select');
-    const aptTypeSelect = document.getElementById('appointment_appointment_type_id');
-
-    departments_container.after(places_container);
-
-    departmentSelect.addEventListener('change', (e) => {
-      resetFieldsBelow('department');
-      loadTemplate.places(aptTypeSelect.value, departmentSelect.value);
-    });
   },
 
   agenda() {
