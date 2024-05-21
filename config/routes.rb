@@ -53,10 +53,6 @@ Rails.application.routes.draw do
     get :filter, on: :collection
   end
 
-  resource :user do
-    resources :appointments, only: [:index], controller: 'users/appointments'
-  end
-
   resources :convicts do
     collection do
       get :search
