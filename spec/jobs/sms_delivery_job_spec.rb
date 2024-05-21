@@ -26,11 +26,6 @@ RSpec.describe SmsDeliveryJob, type: :job do
       it 'changes status to sent for programmed notification' do
         expect(notification.reload.state).to eq('sent')
       end
-
-      # TODO: rework the notification status system with new provider
-      # it 'get sms events' do
-      #   expect(GetSmsStatusJob).to have_been_enqueued.once.with(notification.id)
-      # end
     end
   end
 
@@ -59,10 +54,6 @@ RSpec.describe SmsDeliveryJob, type: :job do
       it 'changes status to unsent for programmed notification' do
         expect(notification.reload.state).to eq('unsent')
       end
-      # TODO: rework the notification status system with new provider
-      # it "don't get sms events" do
-      #   expect(GetSmsStatusJob).not_to have_been_enqueued
-      # end
     end
   end
 end
