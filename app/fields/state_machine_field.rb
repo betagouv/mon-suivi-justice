@@ -1,4 +1,4 @@
-require "administrate/field/base"
+require 'administrate/field/base'
 
 class StateMachineField < Administrate::Field::Base
   def to_s

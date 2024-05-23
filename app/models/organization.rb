@@ -44,6 +44,12 @@ class Organization < ApplicationRecord
 
   has_rich_text :jap_modal_content
 
+  scope :with_divestment_reminders_due, lambda {
+    joins(:organization_divestments)
+      .merge(OrganizationDivestment.reminders_due)
+      .distinct
+  }
+
   def ten_next_days_with_slots(appointment_type)
     Slot.future
         .in_organization(self)

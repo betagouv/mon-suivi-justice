@@ -22,7 +22,7 @@ class DivestmentDashboard < Administrate::BaseDashboard
     ),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    organization_divestments: Field::HasMany,
+    organization_divestments: Field::HasMany
   }.freeze
 
   # COLLECTION_ATTRIBUTES
