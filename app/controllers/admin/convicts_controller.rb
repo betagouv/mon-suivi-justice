@@ -5,7 +5,18 @@ module Admin
     #
     def update
       requested_resource.current_user = current_user
-      super
+
+      if requested_resource.update(resource_params)
+        requested_resource.toggle_japat_orgs
+        redirect_to(
+          after_resource_updated_path(requested_resource),
+          notice: translate_with_resource("update.success"),
+        )
+      else
+        render :edit, locals: {
+          page: Administrate::Page::Form.new(dashboard, requested_resource),
+        }, status: :unprocessable_entity
+      end
     end
 
     # Override this method to specify custom lookup behavior.

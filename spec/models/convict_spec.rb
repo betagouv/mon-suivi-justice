@@ -367,4 +367,54 @@ RSpec.describe Convict, type: :model do
       expect(convict.organizations.pluck(:id)).to match_array([@current_user.organization.id])
     end
   end
+  describe '#toggle_japat_orgs' do
+    let(:tj_paris) { create(:organization, organization_type: :tj, name: 'TJ Paris') }
+    let(:spip_paris) { create(:organization, organization_type: :spip, name: 'SPIP 75') }
+    context 'when in Paris jurisdiction' do
+      let(:convict) { build(:convict, organizations: [tj_paris, spip_paris]) }
+      it 'does not change organizations' do
+        allow(convict).to receive(:in_paris_jurisdiction?).and_return(true)
+        expect(convict).not_to receive(:save)
+        
+        convict.toggle_japat_orgs
+
+        expect(convict.organizations).to include(tj_paris)
+      end
+    end
+
+    context 'when not in Paris jurisdiction' do
+      let(:tj_bordeaux) { create(:organization, organization_type: :tj, name: 'TJ Bordeaux') }
+      let(:spip_bordeaux) { create(:organization, organization_type: :spip, name: 'SPIP 33') }
+
+      context 'and japat? is true' do
+        let(:convict) { create(:convict, organizations: [tj_bordeaux, spip_bordeaux], japat: true) }
+
+        it 'adds TJ Paris to organizations if not already included' do
+          allow(convict).to receive(:japat?).and_return(true)
+
+          expect { convict.toggle_japat_orgs }.to change { convict.organizations.include?(tj_paris) }.from(false).to(true)
+        end
+
+        it 'does not add TJ Paris if already included' do
+          convict = create(:convict, organizations: [tj_bordeaux, spip_bordeaux, tj_paris], japat: true)
+
+          expect { convict.toggle_japat_orgs }.not_to change { convict.organizations.count }
+        end
+      end
+
+      context 'and japat? is false' do
+        let(:convict) { create(:convict, organizations: [tj_bordeaux, spip_bordeaux], japat: false) }
+
+        it 'removes TJ Paris from organizations if included' do
+          convict = create(:convict, organizations: [tj_bordeaux, spip_bordeaux, tj_paris], japat: false)
+
+          expect { convict.toggle_japat_orgs }.to change { convict.organizations.include?(tj_paris) }.from(true).to(false)
+        end
+
+        it 'does nothing if TJ Paris is not included' do
+          expect { convict.toggle_japat_orgs }.not_to change { convict.organizations.count }
+        end
+      end
+    end
+  end
 end
