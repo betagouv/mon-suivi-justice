@@ -191,19 +191,18 @@ class Convict < ApplicationRecord
 
   def toggle_japat_orgs
     return if in_paris_jurisdiction?
-  
+
     tj_paris = Organization.find_by(name: 'TJ Paris')
     return unless tj_paris
-  
+
     if japat?
       organizations << tj_paris unless organizations.include?(tj_paris)
     else
       organizations.delete(tj_paris)
     end
-  
+
     save
   end
-  
 
   def find_duplicates
     name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'

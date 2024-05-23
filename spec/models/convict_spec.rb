@@ -375,7 +375,7 @@ RSpec.describe Convict, type: :model do
       it 'does not change organizations' do
         allow(convict).to receive(:in_paris_jurisdiction?).and_return(true)
         expect(convict).not_to receive(:save)
-        
+
         convict.toggle_japat_orgs
 
         expect(convict.organizations).to include(tj_paris)
@@ -392,13 +392,15 @@ RSpec.describe Convict, type: :model do
         it 'adds TJ Paris to organizations if not already included' do
           allow(convict).to receive(:japat?).and_return(true)
 
-          expect { convict.toggle_japat_orgs }.to change { convict.organizations.include?(tj_paris) }.from(false).to(true)
+          expect { convict.toggle_japat_orgs }.to change {
+                                                    convict.organizations.include?(tj_paris)
+                                                  }.from(false).to(true)
         end
 
         it 'does not add TJ Paris if already included' do
           convict = create(:convict, organizations: [tj_bordeaux, spip_bordeaux, tj_paris], japat: true)
 
-          expect { convict.toggle_japat_orgs }.not_to change { convict.organizations.count }
+          expect { convict.toggle_japat_orgs }.not_to(change { convict.organizations.count })
         end
       end
 
@@ -408,11 +410,13 @@ RSpec.describe Convict, type: :model do
         it 'removes TJ Paris from organizations if included' do
           convict = create(:convict, organizations: [tj_bordeaux, spip_bordeaux, tj_paris], japat: false)
 
-          expect { convict.toggle_japat_orgs }.to change { convict.organizations.include?(tj_paris) }.from(true).to(false)
+          expect { convict.toggle_japat_orgs }.to change {
+                                                    convict.organizations.include?(tj_paris)
+                                                  }.from(true).to(false)
         end
 
         it 'does nothing if TJ Paris is not included' do
-          expect { convict.toggle_japat_orgs }.not_to change { convict.organizations.count }
+          expect { convict.toggle_japat_orgs }.not_to(change { convict.organizations.count })
         end
       end
     end

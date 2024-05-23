@@ -10,11 +10,11 @@ module Admin
         requested_resource.toggle_japat_orgs
         redirect_to(
           after_resource_updated_path(requested_resource),
-          notice: translate_with_resource("update.success"),
+          notice: translate_with_resource('update.success')
         )
       else
         render :edit, locals: {
-          page: Administrate::Page::Form.new(dashboard, requested_resource),
+          page: Administrate::Page::Form.new(dashboard, requested_resource)
         }, status: :unprocessable_entity
       end
     end
