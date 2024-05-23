@@ -49,6 +49,7 @@ class Divestment < ApplicationRecord
   def convict_is_not_japat
     return unless convict.japat?
 
-    errors.add(:convict, 'Code 12 - Dessaisissment impossible pour ce probationnaire, veuillez contacter un administrateur.')
+    errors.add(:convict,
+               'Code 12 - Dessaisissment impossible pour ce probationnaire, veuillez contacter un administrateur.')
   end
 end
