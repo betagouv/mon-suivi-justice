@@ -104,7 +104,7 @@ group :test do
   gem 'webmock', '~> 3.23.0'
 end
 
-gem 'noticed', '~> 1.6.3'
+gem 'noticed', '~> 2.3.1'
 
 gem 'abyme', '~> 0.7.0'
 
