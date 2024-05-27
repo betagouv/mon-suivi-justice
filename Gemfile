@@ -33,7 +33,7 @@ gem 'sidekiq', '~> 7.2.4'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
-gem 'holidays', '~> 8.7.1'
+gem 'holidays', '~> 8.8.0'
 gem 'discard', '~> 1.3.0'
 
 gem 'paper_trail', '~> 15.1.0'
