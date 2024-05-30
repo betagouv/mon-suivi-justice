@@ -12,13 +12,13 @@ module Admin
     end
 
     def reset_db
+      return redirect_to admin_root_path unless Rails.env.development?
+
       login_email = true_user.email
       sign_out(true_user)
       sign_out(current_user)
 
       DbResetService.reset_database
-
-      return redirect_to admin_root_path unless Rails.env.development?
 
       Rails.application.load_seed
       @admin = User.find_by(email: login_email)

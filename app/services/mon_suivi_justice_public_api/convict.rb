@@ -6,8 +6,8 @@ module MonSuiviJusticePublicApi
                          'Content-Type': 'application/json')
       end
 
-      def delete(convict_id)
-        connection.delete("#{BASE_URL}/api/users/#{convict_id}", 'Content-Type': 'application/json')
+      def delete(convict)
+        connection.delete("#{BASE_URL}/api/users/#{convict.id}", 'Content-Type': 'application/json')
       end
     end
   end
