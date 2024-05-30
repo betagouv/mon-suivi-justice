@@ -102,7 +102,7 @@ group :test do
   gem 'timecop', '~> 0.9.8'
   gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec', '~> 0.6.0'
-  gem 'webmock', '~> 3.23.0'
+  gem 'webmock', '~> 3.23.1'
 end
 
 gem 'noticed', '~> 1.6.3'
