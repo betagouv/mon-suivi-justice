@@ -1,5 +1,4 @@
 class AppiImportJob < ApplicationJob
-  require 'csv'
   require 'digest/bubblebabble'
   queue_as :default
 
