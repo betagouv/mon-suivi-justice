@@ -15,7 +15,7 @@ gem 'devise_invitable', '~> 2.0.9'
 gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.3.2'
-gem 'simple_form', '~> 5.3.0'
+gem 'simple_form', '~> 5.3.1'
 gem 'addressable', '~> 2.8.6' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
 
@@ -33,7 +33,7 @@ gem 'sidekiq', '~> 7.2.4'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
-gem 'holidays', '~> 8.7.1'
+gem 'holidays', '~> 8.8.0'
 gem 'discard', '~> 1.3.0'
 
 gem 'paper_trail', '~> 15.1.0'
@@ -81,7 +81,8 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.2.1'
-  gem 'rubocop', '~> 1.63', require: false
+  gem 'rubocop', '~> 1.64', require: false
+  gem 'brakeman', '~> 6.1', '>= 6.1.2'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
   gem 'letter_opener', '~> 1.10.0'
@@ -101,7 +102,7 @@ group :test do
   gem 'timecop', '~> 0.9.8'
   gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec', '~> 0.6.0'
-  gem 'webmock', '~> 3.23.0'
+  gem 'webmock', '~> 3.23.1'
 end
 
 gem 'noticed', '~> 1.6.3'

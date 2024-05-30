@@ -102,9 +102,15 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :first_name, :last_name, :email, :role, :organization_id,
+      :first_name, :last_name, :email, :organization_id,
       :password, :password_confirmation, :phone, :share_email_to_convict, :share_phone_to_convict
-    )
+    ).merge(user_role_params)
+  end
+
+  def user_role_params
+    return {} unless (current_user.admin? || current_user.local_admin?) && params.dig(:user, :role) != 'admin'
+
+    { role: params.dig(:user, :role) }
   end
 
   def remove_linked_convicts(user, mutation: false)

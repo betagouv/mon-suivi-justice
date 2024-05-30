@@ -89,6 +89,9 @@ jobs:
       - name: Ruby linter
         run: bundle exec rubocop
 
+      - name: Brakeman
+        run: bundle exec brakeman --no-exit-on-warn --no-exit-on-error
+
       - name: Test seed file
         run: bundle exec rails db:seed RAILS_ENV=test
         env:
