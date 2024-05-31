@@ -68,7 +68,7 @@ jobs:
       #     SSH_PASS: ${{ secrets.SSH_PASS }}
 
       - name: Build ESbuild
-        run: yarn build
+        run: rails assets:precompile
 
       - name: Spec suite
         run: bundle exec rspec
