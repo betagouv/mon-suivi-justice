@@ -1,7 +1,6 @@
 module Admin
   class ImportConvictsController < Admin::ApplicationController
     include Devise::Controllers::Helpers
-    require 'csv'
 
     def index
       render locals: {
