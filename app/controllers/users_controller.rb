@@ -108,7 +108,8 @@ class UsersController < ApplicationController
   end
 
   def user_role_params
-    return {} unless (current_user.admin? || current_user.local_admin?) && params.dig(:user, :role) != 'admin'
+    return {} unless params.dig(:user, :role).present? && params.dig(:user, :role) != 'admin'
+    return {} unless current_user.admin? || current_user.local_admin?
 
     { role: params.dig(:user, :role) }
   end
