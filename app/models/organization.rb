@@ -29,8 +29,6 @@ class Organization < ApplicationRecord
   # demandes de dessaisissements reçues
   has_many :organization_divestments
 
-  # Pas forcément nécessaire :
-  # has_many :other_organizations_divestments, through: :organization_divestments, source: :divestment
 
   enum organization_type: { spip: 0, tj: 1 }
 
@@ -47,6 +45,13 @@ class Organization < ApplicationRecord
   scope :with_divestment_reminders_due, lambda {
     joins(:organization_divestments)
       .merge(OrganizationDivestment.reminders_due)
+      .distinct
+  }
+
+  scope :with_ignored_divestment, lambda {
+    joins(organization_divestments: :divestment)
+      .where(organization_divestments: { state: :ignored })
+      .where(divestments: { state: :pending })
       .distinct
   }
 
