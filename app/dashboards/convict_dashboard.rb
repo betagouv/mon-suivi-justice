@@ -32,7 +32,8 @@ class ConvictDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     date_of_birth: Field::Date,
-    creating_organization: Field::BelongsTo
+    creating_organization: Field::BelongsTo,
+    japat: Field::Boolean
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -67,6 +68,7 @@ class ConvictDashboard < Administrate::BaseDashboard
     lives_abroad
     prosecutor_number
     user
+    japat
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -86,6 +88,7 @@ class ConvictDashboard < Administrate::BaseDashboard
     lives_abroad
     prosecutor_number
     user
+    japat
   ].freeze
 
   # COLLECTION_FILTERS

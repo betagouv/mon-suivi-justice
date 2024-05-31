@@ -189,6 +189,21 @@ class Convict < ApplicationRecord
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
 
+  def toggle_japat_orgs
+    return if in_paris_jurisdiction?
+
+    tj_paris = Organization.find_by(name: 'TJ Paris')
+    return unless tj_paris
+
+    if japat?
+      organizations << tj_paris unless organizations.include?(tj_paris)
+    else
+      organizations.delete(tj_paris)
+    end
+
+    save
+  end
+
   def find_duplicates
     name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'
     prefixed_phone = PhonyRails.normalize_number(phone, country_code: 'FR')
@@ -226,5 +241,13 @@ class Convict < ApplicationRecord
 
   def delete_convict_from_node_app
     DeleteConvictJob.perform_later(id)
+  end
+
+  def in_paris_jurisdiction?
+    tj_paris = Organization.find_by(name: 'TJ Paris')
+    spip_paris = Organization.find_by(name: 'SPIP 75')
+    paris_jurisdictions = [tj_paris, spip_paris]
+
+    paris_jurisdictions.all? { |org| organizations.include?(org) }
   end
 end

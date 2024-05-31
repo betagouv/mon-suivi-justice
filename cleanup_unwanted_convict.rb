@@ -1,5 +1,3 @@
-require 'csv'
-
 input_file = 'metz_input.csv'
 output_file = 'metz_outpu.csv'
 
