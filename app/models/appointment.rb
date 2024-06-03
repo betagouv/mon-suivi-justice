@@ -19,7 +19,7 @@ class Appointment < ApplicationRecord
   has_many :extra_fields, through: :appointment_extra_fields
   has_many :appointment_extra_fields, inverse_of: :appointment, autosave: true, dependent: :destroy
 
-  accepts_nested_attributes_for :appointment_extra_fields, reject_if: :all_blank, limit: 3,
+  accepts_nested_attributes_for :appointment_extra_fields, reject_if: :all_blank, limit: 4,
                                                            allow_destroy: true
   accepts_nested_attributes_for :slot
 
