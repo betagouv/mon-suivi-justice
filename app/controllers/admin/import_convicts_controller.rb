@@ -23,10 +23,6 @@ module Admin
               'Veuillez selectionner au moins 1 organization'
       end
 
-      if params[:organization_id].present?
-        raise StandardError,
-              'Veuillez selectionner 1 organization'
-      end
       @organization = Organization.find(params[:organization_id]) if params[:organization_id].present?
 
       temp_csv = params[:convicts_list].tempfile

@@ -3,15 +3,7 @@
     <h2 class='form-title' id="appointment-form-title"><%= t('new_appointment_title', convict_link: @convict && policy(@convict).show? ? "pour #{link_to(@convict.full_name, convict_path(@convict))}" : "").html_safe %></h2>
     <%= simple_form_for @appointment, url: appointments_path(convict_id: @convict&.id), html: { "data-appointment-new-target": "newAppointmentForm" } do |f| %>
       <div>
-        <%= f.association :convict, collection: policy_scope(Convict.all),
-                                  label: t('activerecord.models.convict', count: 1),
-                                  as: :select,
-                                  label_method: :name,
-                                  input_html: {
-                                    class: 'form-select',
-                                    id: 'convict-name-autocomplete',
-                                    "data-appointment-new-target": "convictSelectInput",
-                                  } %>
+        <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id, "data-appointment-new-target": "convictSelectInput" } %>
         <div class="appointment-form-cpip-container" id="cpip-container">
           <% if can_be_linked_to_user?(@convict, current_user) %>
             <div class="form-input-wrapper radio_buttons optional appointment_user_is_cpip">
