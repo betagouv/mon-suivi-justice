@@ -10,7 +10,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
 
 gem 'devise', '~> 4.9.4'
-gem 'devise-i18n', '~> 1.12.0'
+gem 'devise-i18n', '~> 1.12.1'
 gem 'devise_invitable', '~> 2.0.9'
 gem 'devise-security', '>= 0.18.0'
 
@@ -100,7 +100,7 @@ group :test do
   gem 'selenium-webdriver', '~> 4.10.0'
   gem 'webdrivers', '~> 5.3.1'
   gem 'shoulda-matchers', '~> 6.2.0'
-  gem 'timecop', '~> 0.9.8'
+  gem 'timecop', '~> 0.9.9'
   gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec', '~> 0.6.0'
   gem 'webmock', '~> 3.23.1'
@@ -112,7 +112,7 @@ gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.6'
 gem 'administrate-field-belongs_to_search', '~> 0.9.0'
-gem 'faker', '~> 3.3.1'
+gem 'faker', '~> 3.4.1'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 5.2.0'
