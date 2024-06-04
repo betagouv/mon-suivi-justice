@@ -10,7 +10,8 @@
   transition: .3s background-color;
 
   &:hover {
-    background-color: color-mod($color shade(8%));
+    filter: brightness(1.1);
+    background-color: $color !important;
   }
 
   &:disabled, &[disabled] {
@@ -23,20 +24,4 @@
   border: 1px solid var(--table-border);
   padding: 20px;
   border-radius: 2px;
-}
-
-@define-mixin badge $color {
-  background-color: $color;
-  color: var(--main-font-color);
-  padding: .2em .5em;
-  border-radius: 2px;
-  font-size: 14px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: .3s background-color;
-
-  &:hover {
-    background: color-mod($color shade(8%));
-  }
 }

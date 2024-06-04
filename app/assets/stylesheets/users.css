@@ -1,62 +1,10 @@
-.users-header {
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  height: 40px;
-  border-bottom: 1px solid lightgray;
-  padding-left: 30px;
-}
-
 .link-to-new-user-form {
   text-align: right;
   margin-bottom: 20px;
-}
-
-.link-to-new-user-button {
-  @mixin button var(--light-blue);
-}
-
-.delete-user-button {
-  @mixin button var(--light-red);
-  margin-bottom: 10px;
-}
-
-.users-item-container {
-  display: flex;
-  align-items: center;
-  min-height: 40px;
-  border-bottom: 1px solid lightgray;
-  padding-left: 30px;
-}
-
-.users-column-1 {
-  width: 20%;
-}
-
-.users-column-2 {
-  width: 20%;
-}
-
-.users-column-3 {
-  width: 20%;
-}
-
-.users-column-4 {
-  width: 20%;
-}
-
-.users-column-5 {
-  width: 20%;
 }
 
 .invitation-and-pwd-link-container {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.show-user-account-controls {
-  @mixin button var(--light-grey);
-  margin-top: 10px;
-  width: 180px;
 }

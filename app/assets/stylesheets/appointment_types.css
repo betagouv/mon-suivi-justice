@@ -49,58 +49,6 @@
   background-color: white;
 }
 
-.slot-types-container {
-  margin-bottom: 100px;
-}
-
-.slot-container-line1 {
-  display: flex;
-  justify-content: space-between;
-
-  .form-time-select-fields {
-    select {
-      width: 100%;
-    }
-  }
-}
-
-.slot-container-line2 {
-  display: flex;
-  justify-content: space-between;
-}
-
-.appointment-type-slot-form-line1 {
-  width: 45%;
-}
-
-.appointment-type-slot-form-line2 {
-  width: 30%;
-}
-
-.add-slot-button-container {
-  text-align: center;
-}
-
-.add-slot-button {
-  @mixin button var(--light-grey);
-}
-
-.remove-slot-button-container {
-  display: flex;
-  align-items: center;
-}
-
-.remove-slot-button {
-  margin-top: 11px;
-  @mixin button var(--light-grey);
-}
-
-.edit-appointment-type-slot-container {
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--table-border);
-  margin-bottom: 20px;
-}
-
 .appointment-types-wrapper {
   display: flex;
   justify-content: center;

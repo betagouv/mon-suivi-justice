@@ -34,17 +34,6 @@
   margin: 40px 0;
 }
 
-.slot-type-apt-type-link-true {
-  color: var(--link);
-  padding: 0 10px;
-  font-weight: bold;
-}
-
-.slot-type-apt-type-link-false {
-  color: var(--link);
-  padding: 0 10px;
-}
-
 .slot-type-appointment-type-container {
   width: max-content;
   margin: auto;
