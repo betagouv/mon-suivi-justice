@@ -104,8 +104,6 @@ group :test do
   gem 'webmock', '~> 3.23.0'
 end
 
-gem 'noticed', '~> 1.6.3'
-
 gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.6'
