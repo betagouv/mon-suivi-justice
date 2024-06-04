@@ -379,7 +379,7 @@ fr:
     today_appointments: "Convocations du jour"
     select_organization: "Changer d'antenne"
     welcome_title: "Bonjour, %{name}"
-    welcome_text: "Pour convoquer un ou une probationnaire, veuillez saisir les premières lettres de son nom ou prénom dans la barre de recherche ci-dessous :"
+    welcome_text: "Pour convoquer un ou une probationnaire, veuillez saisir les premières lettres de son nom ou prénom ou les premiers chiffres de son numéro de téléphone dans la barre de recherche ci-dessous :"
     form_label: "Recherche"
     button_label: "Rechercher"
 
