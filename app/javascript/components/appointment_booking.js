@@ -72,17 +72,6 @@ document.addEventListener('turbo:load',function() {
   // setupForm.appointmentType();
 });
 
-function cleanupListener(elementId, eventType, eventHandler) {
-  const element = document.getElementById(elementId);
-  if (element == null) { return; }
-  element.removeEventListener(eventType, eventHandler);
-}
-
-document.addEventListener('turbo:before-cache', function() {
-  $('#convict-name-autocomplete').off('select2:select', displayAppointmentTypeSelect);
-  cleanupListener('appointment_appointment_type_id', 'change', onChangeAppointmentTypeHandler);
-});
-
 const loadTemplate = {
   sendRequest(url, onSuccess) {
     Rails.ajax({
