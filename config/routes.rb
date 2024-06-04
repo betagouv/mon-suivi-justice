@@ -13,7 +13,6 @@ Rails.application.routes.draw do
       resources :srj_tjs
       resources :srj_spips
       resources :cities
-      resources :appointments, except: :index
       resources :places, except: :destroy
       resources :seeds, only: [:index]
       get '/reset_db' => "seeds#reset_db"
@@ -26,9 +25,7 @@ Rails.application.routes.draw do
       post '/import_srjs' => "import_srjs#import"
       post '/create_user_alert' => "user_alerts#create"
       resources :headquarters
-      resources :place_transferts do
-        put '/start_transfert' => "place_transferts#start_transfert"
-      end
+      resources :place_transferts
 
       root to: "users#index"
     end
@@ -39,10 +36,10 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  resources :organizations, except: :destroy
+  resources :organizations, except: %i[show destroy]
   resources :organization_statistics, only: [:index], controller: 'organizations/statistics'
 
-  resources :users do
+  resources :users, except: %i[new create] do
     collection do
       get :search # used for cpip association to convict in the select
     end
@@ -54,9 +51,6 @@ Rails.application.routes.draw do
   end
 
   resources :convicts do
-    collection do
-      get :search
-    end
     delete 'archive'
     post 'unarchive'
     post 'self_assign'
@@ -64,13 +58,13 @@ Rails.application.routes.draw do
     resource :invitation, only: :create, controller: 'convict_invitations'
   end
 
-  resources :places, except: :destroy do
+  resources :places, except: %i[show destroy] do
     patch :archive
   end
 
-  resources :appointment_types
+  resources :appointment_types, except: %i[new create show destroy]
   resources :notification_types_reset, only: :update
-  resources :slots
+  resources :slots, except: %i[new create show destroy]
   resource :slots_batch, only: [:new, :create, :update]
 
   resources :slot_types, only: [:create, :destroy, :update]
@@ -80,7 +74,7 @@ Rails.application.routes.draw do
     resource :slot_types_batch, only: [:create, :destroy]
   end
 
-  resources :appointments do
+  resources :appointments, except: %i[edit update destroy] do
     resource :reschedule, only: [:new, :create], controller: 'appointments_reschedules'
     put 'cancel'
     put 'fulfil'
@@ -89,7 +83,7 @@ Rails.application.routes.draw do
     put 'rebook'
   end
 
-  resources :cities do
+  resources :cities, only: [] do
     collection do
       get :search
     end
@@ -144,7 +138,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_user_alerts do
+  resources :user_user_alerts, only: [] do
     member do
       put :mark_as_read
     end
