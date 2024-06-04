@@ -35,19 +35,7 @@ class SlotPolicy < ApplicationPolicy
     check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
-  def show?
-    return false unless user.security_charter_accepted?
-
-    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
-  end
-
   def create?
-    return false unless user.security_charter_accepted?
-
-    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
-  end
-
-  def destroy?
     return false unless user.security_charter_accepted?
 
     check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
@@ -59,10 +47,6 @@ class SlotPolicy < ApplicationPolicy
     return false unless ALLOWED_TO_INTERACT.include?(user.role)
 
     record.to_a.all? { |slot| check_ownership?(slot) }
-  end
-
-  def select?
-    user.security_charter_accepted?
   end
 
   def check_ownership?(slot = record)
