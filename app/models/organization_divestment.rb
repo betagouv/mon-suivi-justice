@@ -49,10 +49,6 @@ class OrganizationDivestment < ApplicationRecord
     divestment.organization
   end
 
-  def other_organizations_divestments
-    divestment.organization_divestments.where.not(id:)
-  end
-
   def convict_name
     convict.full_name
   end
