@@ -81,6 +81,11 @@ fr:
     new:
       title: 'Créer un déssaisissement'
     create: 'Créer un déssaisissement'
+  
+  organization_divestment:
+    comment:
+      auto_accepted: 'Demande de dessaisissement automatiquement acceptée'
+      ignored: 'Demande de dessaisissement ignorée'
 
   appointment:
     create:
@@ -124,6 +129,9 @@ fr:
       divestment:
         one: "Dessaisissement"
         other: "Dessaisissements"
+      organization_divestment:
+        one: "Demande de dessaisissement"
+        other: "Demandes de dessaisissement"
 
     attributes:
       convict:
@@ -414,6 +422,7 @@ fr:
     appointmentsnew: "Nouvelle convocation"
     convictsnew: "Nouveau probationnaire"
     statistics: "Statistiques de votre service"
+    organization_divestments: "Demandes de dessaisissement"
 
   support:
     modal_title: Support

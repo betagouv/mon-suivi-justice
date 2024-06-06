@@ -43,7 +43,7 @@
                 </td>
               <% end %>
               <td>
-                <% organization_divestment.other_organizations_divestments.each do |other_organizations_divestment| %>
+                <% organization_divestment.divestment.organization_divestments.each do |other_organizations_divestment| %>
                   <% badge_class = case other_organizations_divestment.state
                                   when "accepted", "auto_accepted" then "fr-badge--success"
                                   when "ignored" then "fr-badge--new"
