@@ -63,6 +63,10 @@ class Convict < ApplicationRecord
     joins(appointments: :slot).where(appointments: { slots: { date: ..Date.today } })
   end)
 
+  scope :find_by_date_of_birth_and_name, lambda { |first_name, last_name, date_of_birth|
+    find_by(first_name:, last_name:, date_of_birth:, appi_uuid: [nil, ''])
+  }
+
   pg_search_scope :search_by_name_and_phone, against: { last_name: 'A', first_name: 'B', phone: 'C' },
                                              using: {
                                                tsearch: { prefix: true }
@@ -77,6 +81,17 @@ class Convict < ApplicationRecord
 
   def self.archive_delay
     12.month.ago
+  end
+
+  def self.find_duplicates(convict)
+    dups = []
+    dups << find_by(appi_uuid: convict.appi_uuid) if convict.duplicate_appi_uuid?
+    dups << find_by(phone: convict.phone) if convict.duplicate_phone?
+    if convict.duplicate_date_of_birth?
+      dups << find_by_date_of_birth_and_name(convict.first_name, convict.last_name,
+                                             convict.date_of_birth)
+    end
+    dups.uniq.compact
   end
 
   def name
@@ -247,6 +262,18 @@ class Convict < ApplicationRecord
 
   def pending_divestment
     divestments.where(state: :pending).first
+  end
+
+  def duplicate_appi_uuid?
+    errors.where(:appi_uuid, :taken).any?
+  end
+
+  def duplicate_phone?
+    errors.where(:phone, I18n.t('activerecord.errors.models.convict.attributes.phone.taken')).any?
+  end
+
+  def duplicate_date_of_birth?
+    errors.where(:date_of_birth, DOB_UNIQUENESS_MESSAGE).any?
   end
 
   private

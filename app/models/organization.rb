@@ -28,7 +28,6 @@ class Organization < ApplicationRecord
   # demandes de dessaisissements reçues
   has_many :organization_divestments
 
-
   enum organization_type: { spip: 0, tj: 1 }
 
   validates :organization_type, presence: true
