@@ -29,7 +29,7 @@
                     <%= organization_divestment.convict.name %>
                 <% end %>
               </td>
-              <td><%= past ? organization_divestment.decision_date.strftime("%d/%m/%Y") : organization_divestment.created_at.strftime("%d/%m/%Y") %></td>
+              <td><%= past ? organization_divestment.decision_date&.strftime("%d/%m/%Y") : organization_divestment.created_at.strftime("%d/%m/%Y") %></td>
               <td><%= organization_divestment.source.name %></td>
               <% if past %>
                 <td>

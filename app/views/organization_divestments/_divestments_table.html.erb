@@ -20,7 +20,7 @@
                 <%= divestment.convict.name %>
             <% end %>
           </td>
-          <td><%= past ? divestment.decision_date.strftime("%d/%m/%Y") : divestment.created_at.strftime("%d/%m/%Y") %></td>
+          <td><%= past ? divestment.decision_date&.strftime("%d/%m/%Y") : divestment.created_at.strftime("%d/%m/%Y") %></td>
           <% if past %>
             <td>
               <% badge_class = case divestment.state
