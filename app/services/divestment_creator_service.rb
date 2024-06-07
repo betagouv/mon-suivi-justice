@@ -33,18 +33,24 @@ class DivestmentCreatorService
     @divestment.assign_attributes(
       state:
     )
+    @divestment.decision_date = Time.zone.now if state == 'auto_accepted'
     @divestment.save!
   end
 
   def create_organization_divestments(divestment, state)
     @convict.organizations.each do |org|
       org_state = initial_state(org, state)
-      OrganizationDivestment.create!(
+      attributes = {
         divestment_id: divestment.id,
         organization_id: org.id,
         state: org_state,
         comment: initial_comment(org_state)
-      )
+      }
+
+      # Add decision_date if org_state is not 'pending'
+      attributes[:decision_date] = Time.zone.now unless org_state == 'pending'
+
+      OrganizationDivestment.create!(attributes)
     end
   end
 
