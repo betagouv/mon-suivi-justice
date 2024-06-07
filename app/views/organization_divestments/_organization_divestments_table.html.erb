@@ -39,7 +39,7 @@
                                   when "refused" then "fr-badge--error"
                                   else ""
                                   end %>
-                  <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= organization_divestment.divestment.state %></p>
+                  <p class="fr-badge fr-my-0-5v fr-badge--no-icon <%= badge_class %>"><%= organization_divestment.divestment.state %></p>
                 </td>
               <% end %>
               <td>
@@ -51,7 +51,7 @@
                                   else ""
                                   end %>
                   <% ood_id = other_organizations_divestment.id %>
-                  <p class="fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-ood-<%= ood_id %>" id="link-ood-<%= ood_id %>"><%= other_organizations_divestment.organization_name %></p>
+                  <p class="fr-my-0-5v fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-ood-<%= ood_id %>" id="link-ood-<%= ood_id %>"><%= other_organizations_divestment.organization_name %></p>
                   <% if other_organizations_divestment.answered? %>
                     <span class="fr-tooltip fr-placement" id="tooltip-ood-<%= ood_id %>" role="tooltip" aria-hidden="true"><%= comment_text(other_organizations_divestment.comment) %></span>
                   <% end %>
@@ -65,7 +65,7 @@
                                   when "refused" then "fr-badge--error"
                                   else ""
                                   end %>
-                  <p class="fr-badge fr-badge--no-icon <%= badge_class %>"><%= organization_divestment.state %></p>
+                  <p class="fr-my-0-5v fr-badge fr-badge--no-icon <%= badge_class %>"><%= organization_divestment.state %></p>
                 </td>
                 <td>
                   <%= comment_text(organization_divestment.comment) %>
