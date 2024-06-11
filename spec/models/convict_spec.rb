@@ -338,7 +338,7 @@ RSpec.describe Convict, type: :model do
       expect(convict.organizations.pluck(:id)).to match_array([@current_user.organization.id])
     end
   end
-  
+
   describe '#toggle_japat_orgs' do
     let(:tj_paris) { create(:organization, organization_type: :tj, name: 'TJ Paris') }
     let(:spip_paris) { create(:organization, organization_type: :spip, name: 'SPIP 75') }
@@ -473,7 +473,9 @@ RSpec.describe Convict, type: :model do
     context 'when there is a duplicate by date_of_birth and name' do
       let(:convict) { build(:convict, appi_uuid: nil) }
       let!(:duplicate_convict) do
-        create(:convict, first_name: convict.first_name, last_name: convict.last_name, date_of_birth: convict.date_of_birth,
+        create(:convict, first_name: convict.first_name,
+                         last_name: convict.last_name,
+                         date_of_birth: convict.date_of_birth,
                          appi_uuid: nil)
       end
 
@@ -487,7 +489,9 @@ RSpec.describe Convict, type: :model do
       let!(:duplicate_by_appi_uuid) { create(:convict, appi_uuid: convict.appi_uuid) }
       let!(:duplicate_by_phone) { create(:convict, phone: convict.phone) }
       let!(:duplicate_by_date_of_birth) do
-        create(:convict, first_name: convict.first_name, last_name: convict.last_name, date_of_birth: convict.date_of_birth,
+        create(:convict, first_name: convict.first_name,
+                         last_name: convict.last_name,
+                         date_of_birth: convict.date_of_birth,
                          appi_uuid: nil)
       end
       context 'convict with appi uuid' do

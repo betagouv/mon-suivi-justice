@@ -52,7 +52,11 @@ class DivestmentDecisionService
     end
 
     last = org_names.pop
-    "#{duplicate_convict.name} né le #{duplicate_convict.date_of_birth.to_fs} suivi par #{org_names.join(', ')} ainsi que #{last}"
+    I18n.t('organization_divestment.alerts.convict_details',
+           name: duplicate_convict.name,
+           org_names: org_names.join(', '),
+           date_of_birth: duplicate_convict.date_of_birth.to_fs,
+           last:)
   end
 
   def other_org_alert(duplicate_convict, pending_divestment, future_appointments)
@@ -61,11 +65,13 @@ class DivestmentDecisionService
     duplicate_alert = format_duplicate_alert_string(duplicate_convict, org_names)
 
     if pending_divestment.present?
-      duplicate_alert_details = "Impossible de créer une demande de dessaisissement car ce probationnaire fait déjà l'objet d'une demande de dessaisissement de la part de #{pending_divestment.organization.name}."
+      organization_name = pending_divestment.organization.name
+      duplicate_alert_details = I18n.t('organization_divestments.alerts.duplicate_alert_details', organization_name:)
     elsif future_appointments.any?
       unique_org_names = future_appointments.map { |appointment| appointment.organization.name }.uniq
       org_names_string = unique_org_names.join(', ')
-      duplicate_alert_details = "Impossible de créer une demande de dessaisissement car ce probationnaire a des convocations à venir de la part de : #{org_names_string}."
+      duplicate_alert_details = I18n.t('organization_divestment.alerts.pending_appointments_alert',
+                                       org_names: org_names_string)
     end
 
     [duplicate_alert, duplicate_alert_details]

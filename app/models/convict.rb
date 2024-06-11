@@ -217,7 +217,7 @@ class Convict < ApplicationRecord
 
     save
   end
-  
+
   def update_organizations_for_bex_user(user)
     return unless user.work_at_bex?
 
@@ -311,7 +311,7 @@ class Convict < ApplicationRecord
 
     paris_jurisdictions.all? { |org| organizations.include?(org) }
   end
-  
+
   def last_appointment_at_least_x_months_old?(nb_months)
     return true if appointments.empty?
 
