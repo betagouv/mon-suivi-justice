@@ -60,7 +60,7 @@ RSpec.describe Organization, type: :model do
 
       expect(result).to include(organization1)
       expect(result).not_to include(organization2) # last_reminder_email_at is 4 days ago
-      expect(result).not_to include(organization3) # state is 'completed'
+      expect(result).not_to include(organization3) # state is 'accepted'
     end
   end
 end
