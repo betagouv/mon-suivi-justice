@@ -4,15 +4,24 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h2>La demande de dessaisissment concernant le probationnaire n°<%= link_to(@convict.appi_uuid || @convict.id, convict_path(convict)) %> a été refusée </h2>
-    <h5>Raisons du refus : </h5>
-    <ul>
-      <li><%= @comment %></li>
-    </ul>
-    <h5>Pour en discuter, n'hésitez pas a contacter <%= @current_user.name %></h5>
-    <ul>
-      <li>email: <%= @current_user.email %></li>
-      <li>phone: <%= @current_user.phone %></li>
-    </ul>
+    <h2>La demande de dessaisissment concernant le probationnaire n°<%= link_to(@convict.appi_uuid || @convict.id, convict_url(@convict)) %> a été refusée </h2>
+    <% if @comment.present? %>
+      <h5>Raisons du refus : </h5>
+      <ul>
+        <li><%= @comment %></li>
+      </ul>
+    <% end %>
+    <% if @current_user.email.present? || @current_user.phone %>
+      <h5>Pour en discuter, n'hésitez pas a contacter <%= @current_user.name %>, <%= t("activerecord.attributes.user.user_roles.#{@current_user.role}") %> au <%= @current_user.organization.name %>  </h5>
+      <h5>Coordonnées de l'utilisateur</h5>
+      <ul>
+        <% if @current_user.email? %>
+          <li>email: <%= @current_user.email %></li>
+        <% end %>
+        <% if @current_user.phone %>
+          <li>phone: <%= @current_user.phone %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </body>
 </html>

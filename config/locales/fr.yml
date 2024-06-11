@@ -81,7 +81,15 @@ fr:
     new:
       title: 'Créer un déssaisissement'
     create: 'Créer un déssaisissement'
-
+  
+  organization_divestment:
+    comment:
+      auto_accepted: 'Demande de dessaisissement automatiquement acceptée'
+      ignored: 'Demande de dessaisissement ignorée'
+    alerts:
+      duplicate_alert_details: "Impossible de créer une demande de dessaisissement car ce probationnaire fait déjà l'objet d'une demande de dessaisissement de la part de %{organization_name}."
+      pending_appointments_alert: "Impossible de créer une demande de dessaisissement car ce probationnaire a des convocations à venir de la part de : %{org_names}."
+      convict_details: "%{name} né le %{date_of_birth} suivi par %{org_names} ainsi que %{last}"
   appointment:
     create:
       submit: Convoquer
@@ -124,6 +132,9 @@ fr:
       divestment:
         one: "Dessaisissement"
         other: "Dessaisissements"
+      organization_divestment:
+        one: "Demande de dessaisissement"
+        other: "Demandes de dessaisissement"
 
     attributes:
       convict:
@@ -231,6 +242,7 @@ fr:
       divestment:
         organization_to_id: "Service vers lequel le dossier est transféré"
         organization_from_id: "Service d'origine du dossier"
+        convict: Probationnaire
 
     state_machines:
       states:
@@ -241,6 +253,11 @@ fr:
         no_show: "Manqué"
         excused: "Excusé"
         created: "Créé"
+        auto_accepted: "Accepté automatiquement"
+        accepted: "Accepté"
+        refused: "Refusé"
+        ignored: "Ignoré"
+        pending: "En attente"
       events:
         book: "Plannifier"
 
@@ -357,6 +374,7 @@ fr:
   contact: "Contacter l'équipe"
   get_back: "Retour"
   default: "Défaut"
+  answer: "Répondre"
 
   monday: lundi
   tuesday: mardi
@@ -412,6 +430,7 @@ fr:
     appointmentsnew: "Nouvelle convocation"
     convictsnew: "Nouveau probationnaire"
     statistics: "Statistiques de votre service"
+    organization_divestments: "Demandes de dessaisissement"
 
   support:
     modal_title: Support
@@ -507,6 +526,10 @@ fr:
     add_phone_convict: "Un numéro de téléphone pour %{name} a été ajouté par %{user_name} (%{user_role}). Nouveau numéro : %{new_phone}."
     remove_phone_convict_title: "Numéro supprimé"
     remove_phone_convict: "Le numéro de téléphone de %{name} a été supprimé par %{user_name} (%{user_role}). Ancien numéro : %{old_phone}."
+    refuse_organization_divestment_title: "Refus de dessaisissement"
+    refuse_organization_divestment: "Le dessaisissement vers %{target_name} a été refusé par %{organization_name} (%{comment})."
+    accept_divestment_title: "Dessaisissement accepté"
+    accept_divestment: "Le dessaisissement vers %{target_name} est maintenant effectif."
 
     book_appointment_title: "Nouvelle convocation"
     book_appointment: "%{name} a été convoqué(e) le %{date} à %{time} au lieu suivant : %{place}."
@@ -568,9 +591,9 @@ fr:
 
   divestments:
     create:
-      success: Les demandes des dessaisissements ont bien été créées. Les services concernés ont été notifiés.
-      success_bex: Les demandes des dessaisissements ont bien été créées. Les services actuels du probationnaire ont été prévenus. Vous serez tenu au courant du résultat des demandes sous 10 jours au plus.
-      auto_accepted: La demande a été automatiquement validée car le suivi du probationnaire n’était plus actif
+      success_bex: La demande de dessaisissement a bien été créée. Les services concernés ont été notifiés.
+      success: La demande de dessaisissement a bien été créée. Les services actuels du probationnaire ont été prévenus. Vous serez tenu au courant du résultat des demandes sous 10 jours au plus.
+      auto_accepted: La demande a été automatiquement validée car le suivi du probationnaire n'était plus actif
       convict_not_found: Le probationnaire n'existe pas
       error: "Une erreur est survenue lors de la création des dessaisissements : %{error}"
 

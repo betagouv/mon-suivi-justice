@@ -3,6 +3,6 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h2>La demande de dessaisissment concernant le probationnaire n°<%= link_to(@convict.appi_uuid || @convict.id, convict_path(convict)) %> a été acceptée </h2>
+    <h2>La demande de dessaisissment concernant le probationnaire n°<%= link_to(@convict.appi_uuid || @convict.id, convict_url(@convict)) %> a été acceptée </h2>
   </body>
 </html>

@@ -9,6 +9,7 @@ class Divestment < ApplicationRecord
   validates :convict_id, uniqueness: { scope: :state,
                                        message: 'le probationnaire a déjà une demande de dessaisissement en cours' },
                          if: -> { state == 'pending' }
+  validate :convict_is_not_japat, on: :create
 
   state_machine initial: :pending do
     event :accept do
@@ -23,12 +24,32 @@ class Divestment < ApplicationRecord
       transition pending: :refused
     end
 
-    after_transition pending: any do |divestment|
+    after_transition pending: any do |divestment, transition|
       divestment.update(decision_date: Time.zone.now)
+      divestment.record_history_for_transition(transition.event)
     end
   end
 
   def all_accepted?
-    organization_divestments.all?(&:is_accepted?)
+    organization_divestments.all?(&:positively_answered?)
+  end
+
+  def record_history_for_transition(transition_event)
+    event = "#{transition_event}_divestment"
+    return unless HistoryItem.validate_event(event)
+
+    HistoryItemFactory.perform(
+      convict:,
+      event:,
+      category: 'convict',
+      data: { target_name: organization.name }
+    )
+  end
+
+  def convict_is_not_japat
+    return unless convict.japat?
+
+    errors.add(:convict,
+               'Code 12 - Dessaisissment impossible pour ce probationnaire, veuillez contacter un administrateur.')
   end
 end

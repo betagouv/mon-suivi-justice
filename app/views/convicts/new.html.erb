@@ -142,25 +142,35 @@
         </div>
       </div>
     <% end %>
-    <% if @duplicate_convict %>
+    <% @dups_details&.each do |result| %>
+      <% duplicate_convict = result[:convict] %>
       <div class="fr-container fr-mt-5w fr-mb-5w">
         <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
           <div class="fr-alert fr-alert--warning">
             <h3 class="fr-alert__title">Attention : ce probationnaire existe déjà</h3>
-            <p><%= @duplicate_alert %></p>
-            <p><%= @duplicate_alert_details %></p>
-            <% if @show_divestment_button %>
+            <p><%= result[:alert] %></p>
+            <p><%= result[:alert_details] %></p>
+            <% if duplicate_convict.phone.present? %>
+              <p><%= t('activerecord.attributes.convict.phone')%>: <%= duplicate_convict.display_phone %></p>
+            <% end %>
+            <% if duplicate_convict.appi_uuid.present? %>
+              <p><%= t('activerecord.attributes.convict.appi_uuid') %>: <%= duplicate_convict.appi_uuid %></p>
+            <% end %>
+            <% if result[:show_button] %>
               <div class="fr-container fr-mt-5w fr-mb-5w">
                 <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-                  <% button_message = current_user.work_at_bex? ? t('new_divestment_bex') : t('new_divestment') %>
-                  <%= button_to button_message, divestments_path, method: :post, class: 'fr-btn', params: { convict_id: @duplicate_convict.id }, data: { confirm: t('new_divestment_confirm'), turbo: false  } %>
+                  <% if policy(duplicate_convict).be_divested? %>
+                    <% button_message = current_user.work_at_bex? ? t('new_divestment_bex') : t('new_divestment') %>
+                    <%= button_to button_message, divestments_path, method: :post, class: 'fr-btn', params: { convict_id: duplicate_convict.id }, data: { confirm: t('new_divestment_confirm'), turbo: false } %>
+                  <% else %>
+                    Code 12 - Dessaisissement impossible pour ce probationnaire, veuillez contacter un administrateur.
+                  <% end %>
                 </div>
               </div>
             <% end %>
           </div>
         </div>
       </div>
-    <% end%>
-    <%#% @convict.errors.inspect %>
+    <% end %>
   </div>
 </div>

@@ -35,9 +35,14 @@
     <% end %>
     <% unless policy(@convict).convokable_during_divestment?%>
         <div class="fr-alert fr-alert--warning fr-my-2w">
-            <h3 class="fr-alert__title">Attention : Une demande de dessaisissement est en cours</h3>
-            <% if policy(@convict.organization_divestments_from(current_user.organization)).edit? %>
-              <p>Merci d'y répondre <a href='/convicts/#{@convict.id}/edit'>en cliquant ici</a></p>
+            <% organization_divestment = @convict.organization_divestments_from(current_user.organization) %>
+            <% if organization_divestment.present? %>
+              <h3 class="fr-alert__title">Attention : Une demande de dessaisissement venant du <%= organization_divestment&.divestment.organization.name %> est en cours</h3>
+              <% if policy(organization_divestment).edit? %>
+                <p>Merci d'y répondre <%= link_to "en cliquant ici", organization_divestments_path, class: 'index-control' %></p>
+              <% end %>
+            <% else %>
+              <h3 class="fr-alert__title">Attention : Une demande de dessaisissement est en cours</h3>
             <% end %>
             <p>Il ne sera pas possible de convoquer, modifier ou archiver ce probationnaire tant que la demande de dessaisissement n'aura pas été traitée</p>
         </div>

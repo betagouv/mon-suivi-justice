@@ -8,14 +8,14 @@ RSpec.describe DivestmentDecisionService do
 
   let(:duplicate_convict) { create(:convict, organizations: [other_organization]) }
 
-  subject(:service) { DivestmentDecisionService.new(duplicate_convict, user.organization) }
+  subject(:service) { DivestmentDecisionService.new([duplicate_convict], user.organization) }
 
   describe '#call' do
     context 'when convict is under the current organization' do
       before { duplicate_convict.organizations << user.organization }
 
       it 'does not show the divestment button and provides correct alert' do
-        result = service.call
+        result = service.call.first
         expect(result[:show_button]).to be_falsey
         expect(result[:alert]).to include(duplicate_convict.name)
       end
@@ -23,7 +23,7 @@ RSpec.describe DivestmentDecisionService do
 
     context 'when convict is under a different organization' do
       it 'handles no pending divestments and no future appointments' do
-        result = service.call
+        result = service.call.first
         expect(result[:show_button]).to be_truthy
       end
 
@@ -34,10 +34,12 @@ RSpec.describe DivestmentDecisionService do
         end
 
         it 'does not show the divestment button and provides correct alert for pending divestment' do
-          service = DivestmentDecisionService.new(duplicate_convict, user.organization)
-          result = service.call
+          service = DivestmentDecisionService.new([duplicate_convict], user.organization)
+          result = service.call.first
+          org_name = duplicate_convict.organizations.first.name
           expect(result[:show_button]).to be_falsey
-          expect(result[:duplicate_alert_details]).to include('demande de dessaisissement')
+          expect(result[:alert_details]).to include(I18n.t('organization_divestment.alerts.duplicate_alert_details',
+                                                           organization_name: org_name))
         end
       end
 
@@ -62,8 +64,8 @@ RSpec.describe DivestmentDecisionService do
 
         it 'does not show the divestment button and provides correct alert for pending divestment' do
           duplicate_convict.reload
-          service = DivestmentDecisionService.new(duplicate_convict, user.organization)
-          result = service.call
+          service = DivestmentDecisionService.new([duplicate_convict], user.organization)
+          result = service.call.first
           expect(result[:show_button]).to be_falsey
           expect(result[:alert]).to include(duplicate_convict.name)
           expect(result[:alert]).to include(other_organization.name)

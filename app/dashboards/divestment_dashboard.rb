@@ -21,7 +21,8 @@ class DivestmentDashboard < Administrate::BaseDashboard
       searchable_fields: %w[first_name last_name]
     ),
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    updated_at: Field::DateTime,
+    organization_divestments: Field::HasMany
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -44,6 +45,7 @@ class DivestmentDashboard < Administrate::BaseDashboard
     id
     decision_date
     organization
+    organization_divestments
     user
     convict
     state

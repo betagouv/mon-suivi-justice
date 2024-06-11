@@ -1,0 +1,16 @@
+<div class="fr-grid-row fr-grid-row--left fr-grid-row--middle fr-mt-2w">
+  <h3 class="fr-mr-2w">Demandes de dessaisissement entrantes</h3>
+</div>
+<div class="fr-tabs">
+  <ul class="fr-tabs__list" role="tablist" aria-label="divestments-state">
+    <% if current_divestments.present? %>
+      <li role="presentation">
+        <button id="tabpanel-404" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="<%= current_divestments.present? %>" aria-controls="tabpanel-406-panel">En cours</button>
+      </li>
+    <% end %>
+    <li role="presentation">
+      <button id="tabpanel-405" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="<%= current_divestments.empty? %>" aria-controls="tabpanel-407-panel">Passé</button>
+    </li>
+  </ul>
+  <%= render 'divestments_tab_panel', current_divestments: current_divestments, past_divestments: past_divestments %>
+</div>
