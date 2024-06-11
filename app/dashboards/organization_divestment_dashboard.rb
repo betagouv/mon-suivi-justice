@@ -13,9 +13,10 @@ class OrganizationDivestmentDashboard < Administrate::BaseDashboard
     decision_date: Field::Date,
     divestment: Field::BelongsTo,
     organization: Field::BelongsTo,
-    state: Field::String,
+    state: StateMachineField,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    updated_at: Field::DateTime,
+    convict_name: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -29,6 +30,7 @@ class OrganizationDivestmentDashboard < Administrate::BaseDashboard
     divestment
     decision_date
     state
+    convict_name
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

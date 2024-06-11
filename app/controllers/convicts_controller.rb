@@ -42,9 +42,9 @@ class ConvictsController < ApplicationController
       handle_convict_interface_invitation
       redirect_to select_path(params), notice: t('.notice')
     else
-      @duplicate_convict = find_duplicate_convict
+      @duplicate_convicts = Convict.find_duplicates(@convict)
 
-      divestment_decision if @duplicate_convict.present?
+      divestment_decision if @duplicate_convicts.present?
 
       render :new, status: :unprocessable_entity
     end
@@ -137,21 +137,10 @@ class ConvictsController < ApplicationController
   private
 
   def divestment_decision
-    decision = DivestmentDecisionService.new(@duplicate_convict, current_organization).call
-    @show_divestment_button = decision[:show_button]
-    @duplicate_alert = decision[:alert]
-    @duplicate_alert_details = decision[:duplicate_alert_details]
-  end
-
-  def find_duplicate_convict # rubocop:disable Metrics/AbcSize
-    if @convict.errors.where(:appi_uuid, :taken).any?
-      Convict.find_by(appi_uuid: @convict.appi_uuid)
-    elsif @convict.errors.where(:phone, t('activerecord.errors.models.convict.attributes.phone.taken')).any?
-      Convict.find_by(phone: @convict.phone)
-    elsif @convict.errors.where(:date_of_birth, :taken).any?
-      Convict.find_by(first_name: @convict.first_name, last_name: @convict.last_name,
-                      date_of_birth: @convict.date_of_birth, appi_uuid: [nil, ''])
-    end
+    @dups_details = DivestmentDecisionService.new(@duplicate_convicts, current_organization).call
+    # @show_divestment_button = decision[:show_button]
+    # @duplicate_alert = decision[:alert]
+    # @duplicate_alert_details = decision[:duplicate_alert_details]
   end
 
   def convict_params

@@ -9,6 +9,10 @@ RSpec.describe DivestmentCreatorService do
   subject(:service) { DivestmentCreatorService.new(convict, user, unsaved_divestment) }
 
   describe '#call' do
+    before do
+      allow(convict).to receive(:discarded?).and_return(false)
+      allow(convict).to receive(:last_appointment_at_least_6_months_old?).and_return(false)
+    end
     context 'when organizations have local admins' do
       before do
         create_list(:organization, 2, convicts: [convict])

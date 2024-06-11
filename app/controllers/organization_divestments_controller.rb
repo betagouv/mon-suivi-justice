@@ -4,15 +4,15 @@ class OrganizationDivestmentsController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def index
-    @organization_divestments = policy_scope(OrganizationDivestment).order(:created_at)
+    @organization_divestments = policy_scope(OrganizationDivestment)
     authorize @organization_divestments
-    @current_orga_divestments = @organization_divestments.where(state: :pending).page params[:page]
-    @past_orga_divestments = @organization_divestments.where.not(state: :pending).page params[:page]
+    @current_orga_divestments = @organization_divestments.unanswered.order(created_at: :desc).page params[:page]
+    @past_orga_divestments = @organization_divestments.answered.order(decision_date: :asc).page params[:page]
 
-    @divestments = policy_scope(Divestment).order(:created_at)
+    @divestments = policy_scope(Divestment)
 
-    @current_divestments = @divestments.where(state: :pending).page params[:page]
-    @past_divestments = @divestments.where.not(state: :pending).page params[:page]
+    @current_divestments = @divestments.where(state: :pending).order(created_at: :desc).page params[:page]
+    @past_divestments = @divestments.where.not(state: :pending).order(decision_date: :asc).page params[:page]
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -23,16 +23,17 @@ class OrganizationDivestmentsController < ApplicationController
   def update
     authorize @organization_divestment
     state_service = DivestmentStateService.new(@organization_divestment, current_user)
+    comment = organization_divestment_params[:comment]
     success = case params[:transition]
               when 'accept'
-                state_service.accept
+                state_service.accept(comment)
               when 'refuse'
-                state_service.refuse
+                state_service.refuse(comment)
               else
                 false
               end
 
-    if success && @organization_divestment.update(organization_divestment_params)
+    if success
       redirect_to organization_divestments_path, notice: notice_message(params[:transition])
     else
       render :edit
