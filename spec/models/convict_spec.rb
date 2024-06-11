@@ -370,6 +370,7 @@ RSpec.describe Convict, type: :model do
       expect(convict.organizations.pluck(:id)).to match_array([@current_user.organization.id])
     end
   end
+
   describe '#toggle_japat_orgs' do
     let(:tj_paris) { create(:organization, organization_type: :tj, name: 'TJ Paris') }
     let(:spip_paris) { create(:organization, organization_type: :spip, name: 'SPIP 75') }
@@ -468,6 +469,93 @@ RSpec.describe Convict, type: :model do
       it 'does not change the convict’s organizations' do
         expect { convict.update_organizations_for_bex_user(non_bex_user) }
           .not_to(change { convict.organizations.count })
+      end
+    end
+  end
+
+  describe '.find_duplicates' do
+    let(:convict) { build(:convict) }
+
+    context 'when there are no duplicates' do
+      it 'returns an empty array' do
+        convict.validate
+        expect(Convict.find_duplicates(convict)).to be_empty
+      end
+    end
+
+    context 'when there is a duplicate by appi_uuid' do
+      let!(:duplicate_convict) { create(:convict, appi_uuid: convict.appi_uuid) }
+
+      it 'returns an array with the duplicate convict' do
+        convict.validate
+        convict.errors.add(:appi_uuid, :taken)
+        expect(Convict.find_duplicates(convict)).to include(duplicate_convict)
+      end
+    end
+
+    context 'when there is a duplicate by phone' do
+      let!(:duplicate_convict) { create(:convict, phone: convict.phone) }
+
+      it 'returns an array with the duplicate convict' do
+        convict.validate
+        expect(Convict.find_duplicates(convict)).to include(duplicate_convict)
+      end
+    end
+
+    context 'when there is a duplicate by date_of_birth and name' do
+      let(:convict) { build(:convict, appi_uuid: nil) }
+      let!(:duplicate_convict) do
+        create(:convict, first_name: convict.first_name,
+                         last_name: convict.last_name,
+                         date_of_birth: convict.date_of_birth,
+                         appi_uuid: nil)
+      end
+
+      it 'returns an array with the duplicate convict' do
+        convict.validate
+        expect(Convict.find_duplicates(convict)).to include(duplicate_convict)
+      end
+    end
+
+    context 'when there are multiple duplicates' do
+      let!(:duplicate_by_appi_uuid) { create(:convict, appi_uuid: convict.appi_uuid) }
+      let!(:duplicate_by_phone) { create(:convict, phone: convict.phone) }
+      let!(:duplicate_by_date_of_birth) do
+        create(:convict, first_name: convict.first_name,
+                         last_name: convict.last_name,
+                         date_of_birth: convict.date_of_birth,
+                         appi_uuid: nil)
+      end
+      context 'convict with appi uuid' do
+        it 'returns an array with all duplicate convicts' do
+          # no dob validation when appi_uuid is present
+          convict.validate
+          duplicates = Convict.find_duplicates(convict)
+          expect(duplicates).to match_array([duplicate_by_appi_uuid, duplicate_by_phone])
+        end
+      end
+      context 'convict without appi uuid' do
+        let(:convict) { build(:convict, appi_uuid: nil) }
+        it 'returns an array with all duplicate convicts' do
+          convict.validate
+          duplicates = Convict.find_duplicates(convict)
+          expect(duplicates).to match_array([duplicate_by_date_of_birth, duplicate_by_phone])
+        end
+      end
+    end
+
+    context 'when another convict match multiple criteria' do
+      let(:convict) { build(:convict, appi_uuid: nil) }
+      let!(:dup) do
+        create(:convict, phone: convict.phone, first_name: convict.first_name, last_name: convict.last_name,
+                         date_of_birth: convict.date_of_birth, appi_uuid: nil)
+      end
+
+      it 'returns the dup only once' do
+        convict.validate
+        duplicates = Convict.find_duplicates(convict)
+
+        expect(duplicates).to match_array([dup])
       end
     end
   end

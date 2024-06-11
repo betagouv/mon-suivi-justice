@@ -90,6 +90,10 @@ class ConvictPolicy < ApplicationPolicy
     user.work_at_bex? || record.organizations.include?(user.organization)
   end
 
+  def be_divested?
+    !record.japat?
+  end
+
   def convokable_during_divestment?
     return false unless user.security_charter_accepted?
     return true unless record.pending_divestments?

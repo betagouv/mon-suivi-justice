@@ -3,10 +3,21 @@ module Admin
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
-    # def update
-    #   super
-    #   send_foo_updated_email(requested_resource)
-    # end
+    def update
+      success = process_state(resource_params[:state], requested_resource, current_user)
+
+      if success
+        redirect_to(
+          after_resource_updated_path(requested_resource),
+          notice: translate_with_resource('update.success'),
+          status: :see_other
+        )
+      else
+        render :edit, locals: {
+          page: Administrate::Page::Form.new(dashboard, requested_resource)
+        }, status: :unprocessable_entity
+      end
+    end
 
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
@@ -21,13 +32,16 @@ module Admin
     # Override this if you have certain roles that require a subset
     # this will be used to set the records shown on the `index` action.
     #
-    # def scoped_resource
-    #   if current_user.super_admin?
-    #     resource_class
-    #   else
-    #     resource_class.with_less_stuff
-    #   end
-    # end
+    def scoped_resource
+      order_statement = "CASE state \
+        WHEN 'ignored' THEN 1 \
+        WHEN 'pending' THEN 2 \
+        WHEN 'accepted' THEN 3 \
+        WHEN 'refused' THEN 4 \
+        WHEN 'auto_accepted' THEN 5 \
+        ELSE 6 END"
+      resource_class.order(Arel.sql(order_statement))
+    end
 
     # Override `resource_params` if you want to transform the submitted
     # data before it's persisted. For example, the following would turn all
@@ -42,5 +56,18 @@ module Admin
 
     # See https://administrate-demo.herokuapp.com/customizing_controller_actions
     # for more information
+
+    def process_state(state, resource, user)
+      state_service = DivestmentStateService.new(resource, user)
+      comment = 'Ce dessaisissement a été effectué par un administrateur.'
+      case state
+      when 'accepted'
+        state_service.accept(comment)
+      when 'refused'
+        state_service.refuse(comment)
+      else
+        false
+      end
+    end
   end
 end

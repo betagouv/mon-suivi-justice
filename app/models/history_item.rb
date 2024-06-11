@@ -26,7 +26,9 @@ class HistoryItem < ApplicationRecord
     update_phone_convict: 15,
     add_phone_convict: 16,
     remove_phone_convict: 17,
-    failed_programmed_reminder_notification: 18
+    failed_programmed_reminder_notification: 18,
+    accept_divestment: 19,
+    refuse_organization_divestment: 20
   }
 
   def self.validate_event(event)
