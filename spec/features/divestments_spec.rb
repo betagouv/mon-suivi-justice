@@ -7,7 +7,7 @@ RSpec.feature 'Divestments', type: :feature do
         @convict = create(:convict, first_name: 'Joe', last_name: 'Dalton')
         create(:user, role: :local_admin, organization: @convict.organizations.last)
         organization = @convict.organizations.last
-        place = create(:place, organization: )
+        place = create(:place, organization:)
         agenda = create(:agenda, place:)
         slot = build(:slot, agenda:, date: 2.month.ago)
         slot.save(validate: false)
