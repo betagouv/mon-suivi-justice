@@ -66,7 +66,7 @@ class DivestmentDecisionService
 
     if pending_divestment.present?
       organization_name = pending_divestment.organization.name
-      duplicate_alert_details = I18n.t('organization_divestments.alerts.duplicate_alert_details', organization_name:)
+      duplicate_alert_details = I18n.t('organization_divestment.alerts.duplicate_alert_details', organization_name:)
     elsif future_appointments.any?
       unique_org_names = future_appointments.map { |appointment| appointment.organization.name }.uniq
       org_names_string = unique_org_names.join(', ')
