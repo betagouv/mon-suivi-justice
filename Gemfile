@@ -98,6 +98,7 @@ group :test do
   gem 'capybara', '>= 3.39.2'
   gem 'capybara-screenshot', '~> 1.0.26'
   gem 'selenium-webdriver', '~> 4.21.1'
+  gem 'webdrivers', '~> 5.3.1'
   gem 'shoulda-matchers', '~> 6.2.0'
   gem 'timecop', '~> 0.9.9'
   gem 'pundit-matchers', '~> 3.1.2'
