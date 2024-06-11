@@ -151,10 +151,10 @@
             <p><%= result[:alert] %></p>
             <p><%= result[:alert_details] %></p>
             <% if duplicate_convict.phone.present? %>
-              <p>phone: <%= duplicate_convict.phone %></p>
+              <p><%= t('activerecord.attributes.convict.phone')%>: <%= duplicate_convict.display_phone %></p>
             <% end %>
             <% if duplicate_convict.appi_uuid.present? %>
-              <p>Numéro APPI: <%= duplicate_convict.appi_uuid %></p>
+              <p><%= t('activerecord.attributes.convict.appi_uuid') %>: <%= duplicate_convict.appi_uuid %></p>
             <% end %>
             <% if result[:show_button] %>
               <div class="fr-container fr-mt-5w fr-mb-5w">
@@ -163,7 +163,7 @@
                     <% button_message = current_user.work_at_bex? ? t('new_divestment_bex') : t('new_divestment') %>
                     <%= button_to button_message, divestments_path, method: :post, class: 'fr-btn', params: { convict_id: duplicate_convict.id }, data: { confirm: t('new_divestment_confirm'), turbo: false } %>
                   <% else %>
-                    Code 12 - Dessaisissment impossible pour ce probationnaire, veuillez contacter un administrateur.
+                    Code 12 - Dessaisissement impossible pour ce probationnaire, veuillez contacter un administrateur.
                   <% end %>
                 </div>
               </div>

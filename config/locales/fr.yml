@@ -250,6 +250,11 @@ fr:
         no_show: "Manqué"
         excused: "Excusé"
         created: "Créé"
+        auto_accepted: "Accepté automatiquement"
+        accepted: "Accepté"
+        refused: "Refusé"
+        ignored: "Ignoré"
+        pending: "En attente"
       events:
         book: "Plannifier"
 
