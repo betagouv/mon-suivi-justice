@@ -33,7 +33,8 @@ class DivestmentDecisionService
       future_appointments = duplicate_convict.future_appointments
 
       show_divestment_button = pending_divestment.nil? && future_appointments.empty?
-      duplicate_alert, duplicate_alert_details = other_org_alert(duplicate_convict, pending_divestment, future_appointments)
+      duplicate_alert, duplicate_alert_details = other_org_alert(duplicate_convict, pending_divestment,
+                                                                 future_appointments)
     end
 
     [show_divestment_button, duplicate_alert, duplicate_alert_details]
@@ -46,7 +47,9 @@ class DivestmentDecisionService
   end
 
   def format_duplicate_alert_string(duplicate_convict, org_names)
-    return "#{duplicate_convict.name} né le #{duplicate_convict.date_of_birth.to_fs} suivi par #{org_names.first}" if org_names.length <= 1
+    if org_names.length <= 1
+      return "#{duplicate_convict.name} né le #{duplicate_convict.date_of_birth.to_fs} suivi par #{org_names.first}"
+    end
 
     last = org_names.pop
     "#{duplicate_convict.name} né le #{duplicate_convict.date_of_birth.to_fs} suivi par #{org_names.join(', ')} ainsi que #{last}"
