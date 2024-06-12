@@ -35,12 +35,7 @@ class DivestmentStateService
       handle_undecided_divestment
       organizations = @convict.organizations - @target_organizations
       @convict.update!(organizations:)
-
-      if @user
-        UserMailer.with(divestment: @divestment, organization_divestment: @organization_divestment,
-                        current_user: @user).divestment_refused.deliver_later
-      end
-
+      send_refuse_email
       true
     end
   rescue ActiveRecord::RecordInvalid
@@ -74,5 +69,12 @@ class DivestmentStateService
     @convict.update!(organizations: @target_organizations, user: nil)
     UserMailer.with(divestment: @divestment).divestment_accepted.deliver_later
     true
+  end
+
+  def send_refuse_email
+    if @user
+      UserMailer.with(divestment: @divestment, organization_divestment: @organization_divestment,
+                      current_user: @user).divestment_refused.deliver_later
+    end
   end
 end
