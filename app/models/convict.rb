@@ -220,6 +220,7 @@ class Convict < ApplicationRecord
 
   def update_organizations_for_bex_user(user)
     return unless user.work_at_bex?
+    return unless valid?
 
     user.organizations.each do |org|
       organizations << org unless organizations.include?(org)
