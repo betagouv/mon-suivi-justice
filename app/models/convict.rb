@@ -263,7 +263,7 @@ class Convict < ApplicationRecord
   end
 
   def pending_divestments?
-    divestments.where(state: :pending).any?
+    divestments.find_by(state: :pending).present?
   end
 
   def organization_divestments_from(organization)
