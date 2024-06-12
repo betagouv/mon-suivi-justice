@@ -56,8 +56,8 @@ class DivestmentStateService
     return unless @divestment.refused?
 
     @divestment.organization_divestments.where(state: :pending).each do |organization_divestment|
-      organization_divestment.ignore! # Assuming ignore! is a method you implement that can raise exceptions on failure
-      organization_divestment.update!(comment: 'orga divestment ignored because divestment was refused')
+      organization_divestment.ignore!
+      organization_divestment.update(comment: 'ignorée car le dessaisissement a été refusé')
     end
   end
 
