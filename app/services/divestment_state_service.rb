@@ -8,8 +8,10 @@ class DivestmentStateService
   end
 
   def accept(comment = nil)
+    return false unless @convict.valid?
+    return false unless @organization_divestment.unanswered? && @divestment.pending?
+
     ActiveRecord::Base.transaction do
-      return false unless @organization_divestment.unanswered? && @divestment.pending?
       return false unless comment.nil? || @organization_divestment.update!(comment:)
 
       @organization_divestment.accept!
@@ -21,8 +23,10 @@ class DivestmentStateService
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def refuse(comment = nil)
+    return false unless @convict.valid?
+    return false unless @organization_divestment.unanswered? && @divestment.pending?
+
     ActiveRecord::Base.transaction do
-      return false unless @organization_divestment.unanswered? && @divestment.pending?
       return false unless comment.nil? || @organization_divestment.update!(comment:)
 
       @organization_divestment.refuse!
@@ -45,6 +49,7 @@ class DivestmentStateService
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def ignore
+    return false unless @convict.valid?
     return false unless @organization_divestment.pending? && @divestment.pending?
 
     @organization_divestment.ignore
@@ -64,7 +69,7 @@ class DivestmentStateService
   def handle_divestment_state
     return true unless @divestment.all_accepted?
 
-    @divestment.accept! # Assuming accept! is similar to above, can raise an exception
+    @divestment.accept!
 
     @convict.update!(organizations: @target_organizations, user: nil)
     UserMailer.with(divestment: @divestment).divestment_accepted.deliver_later

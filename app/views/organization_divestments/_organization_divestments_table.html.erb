@@ -72,6 +72,11 @@
                 </td>
               <% else %>
                 <td>
+                  <% if organization_divestment.convict.invalid? %>
+                    <div class="col-fr">
+                      le probationnaire n'est pas valide, veuillez verifier les informations de date de naissance et de numero appi
+                    </div>
+                  <% end %>
                   <% if policy(organization_divestment).edit? %>
                     <div class="col-fr">
                       <%= link_to t('answer'), edit_organization_divestment_path(organization_divestment), class: 'slots-index-control' %>
