@@ -3,15 +3,29 @@ require 'rails_helper'
 describe OrganizationDivestmentPolicy do
   subject { OrganizationDivestmentPolicy.new(user, organization_divestment) }
 
-  let(:user_to) { create(:user, :in_organization, type: :tj, role: :local_admin) }
-  let(:divestment) { create(:divestment, organization: user_to.organization, user: user_to) }
   let(:user) { user_from }
+  let(:user_to) { create(:user, :in_organization, type: :tj, role: :local_admin) }
+  let(:convict) { create(:convict, organizations: [user.organization]) }
+  let(:divestment) { create(:divestment, organization: user_to.organization, user: user_to, convict:) }
   let(:organization) { user.organization }
   let(:organization_divestment) { create(:organization_divestment, organization:, divestment:) }
 
   context('user did not accept cgu') do
     let(:user_from) do
       create(:user, :in_organization, type: :tj, role: :local_admin, security_charter_accepted_at: nil)
+    end
+
+    it { is_expected.to forbid_action(:edit) }
+    it { is_expected.to forbid_action(:update) }
+  end
+
+  context('convict is invalid') do
+    let(:user_from) { create(:user, :in_organization, type: :tj, role: :local_admin) }
+
+    let(:convict) do
+      c = build(:convict, organizations: [user.organization], appi_uuid: 'invalid')
+      c.save(validate: false)
+      c
     end
 
     it { is_expected.to forbid_action(:edit) }
