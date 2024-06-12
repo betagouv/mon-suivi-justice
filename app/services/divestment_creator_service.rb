@@ -14,7 +14,12 @@ class DivestmentCreatorService
     ActiveRecord::Base.transaction do
       save_divestment(state)
       create_organization_divestments(@divestment, state)
-      @convict.update_organizations_for_bex_user(@user)
+      if state == 'auto_accepted'
+        organizations = [@divestment.organization, *@divestment.organization.linked_organizations]
+        @convict.update(organizations:, user: nil)
+      else
+        @convict.update_organizations_for_bex_user(@user)
+      end
     end
     { state: }
   end
