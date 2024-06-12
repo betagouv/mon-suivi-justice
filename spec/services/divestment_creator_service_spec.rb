@@ -40,9 +40,10 @@ RSpec.describe DivestmentCreatorService do
     end
 
     context 'when organizations are SPIP and TJS' do
-      let(:tj) { create(:organization, organization_type: :tj) }
+      let(:tj) { create(:organization, organization_type: :tj, name: 'old tj') }
+      let!(:admin_tj) { create(:user, role: 'local_admin', organization: tj) }
       let(:spip) do
-        spip = build(:organization, organization_type: :spip)
+        spip = build(:organization, organization_type: :spip, name: 'old spip')
         spip.tjs = [tj]
         spip.save
         spip
@@ -53,8 +54,9 @@ RSpec.describe DivestmentCreatorService do
       it 'creates organization divestments with auto_accepted state for spip if tj' do
         service.call
         expect(service.divestment.organization_divestments.count).to eq(2)
+        expect(service.divestment.state).to eq('pending')
         expect(service.divestment.organization_divestments.find_by(organization: spip).state).to eq('auto_accepted')
-        expect(service.divestment.organization_divestments.find_by(organization: tj).state).to eq('ignored')
+        expect(service.divestment.organization_divestments.find_by(organization: tj).state).to eq('pending')
       end
     end
 
@@ -67,6 +69,8 @@ RSpec.describe DivestmentCreatorService do
         service.call
         divestment = Divestment.last
         expect(divestment.state).to eq('auto_accepted')
+        convict.reload
+        expect(convict.organizations).to eq([user.organization])
       end
     end
 
@@ -79,6 +83,8 @@ RSpec.describe DivestmentCreatorService do
         service.call
         divestment = Divestment.last
         expect(divestment.state).to eq('auto_accepted')
+        convict.reload
+        expect(convict.organizations).to eq([user.organization])
       end
     end
 
