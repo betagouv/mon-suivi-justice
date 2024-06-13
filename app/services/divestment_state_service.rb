@@ -8,8 +8,10 @@ class DivestmentStateService
   end
 
   def accept(comment = nil)
+    return false unless @convict.valid?
+    return false unless @organization_divestment.unanswered? && @divestment.pending?
+
     ActiveRecord::Base.transaction do
-      return false unless @organization_divestment.unanswered? && @divestment.pending?
       return false unless comment.nil? || @organization_divestment.update!(comment:)
 
       @organization_divestment.accept!
@@ -21,8 +23,10 @@ class DivestmentStateService
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def refuse(comment = nil)
+    return false unless @convict.valid?
+    return false unless @organization_divestment.unanswered? && @divestment.pending?
+
     ActiveRecord::Base.transaction do
-      return false unless @organization_divestment.unanswered? && @divestment.pending?
       return false unless comment.nil? || @organization_divestment.update!(comment:)
 
       @organization_divestment.refuse!
@@ -31,12 +35,7 @@ class DivestmentStateService
       handle_undecided_divestment
       organizations = @convict.organizations - @target_organizations
       @convict.update!(organizations:)
-
-      if @user
-        UserMailer.with(divestment: @divestment, organization_divestment: @organization_divestment,
-                        current_user: @user).divestment_refused.deliver_later
-      end
-
+      send_refuse_email
       true
     end
   rescue ActiveRecord::RecordInvalid
@@ -45,6 +44,7 @@ class DivestmentStateService
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def ignore
+    return false unless @convict.valid?
     return false unless @organization_divestment.pending? && @divestment.pending?
 
     @organization_divestment.ignore
@@ -64,10 +64,17 @@ class DivestmentStateService
   def handle_divestment_state
     return true unless @divestment.all_accepted?
 
-    @divestment.accept! # Assuming accept! is similar to above, can raise an exception
+    @divestment.accept!
 
     @convict.update!(organizations: @target_organizations, user: nil)
     UserMailer.with(divestment: @divestment).divestment_accepted.deliver_later
     true
+  end
+
+  def send_refuse_email
+    return unless @user
+
+    UserMailer.with(divestment: @divestment, organization_divestment: @organization_divestment,
+                    current_user: @user).divestment_refused.deliver_later
   end
 end

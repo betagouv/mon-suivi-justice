@@ -70,7 +70,7 @@ RSpec.describe DivestmentCreatorService do
         divestment = Divestment.last
         expect(divestment.state).to eq('auto_accepted')
         convict.reload
-        expect(convict.organizations).to eq([user.organization])
+        expect(convict.organizations).to match_array([user.organization])
       end
     end
 
@@ -79,12 +79,29 @@ RSpec.describe DivestmentCreatorService do
         allow(convict).to receive(:discarded?).and_return(false)
         allow(convict).to receive(:last_appointment_at_least_6_months_old?).and_return(true)
       end
-      it 'sets divestment state to accepted' do
+      it 'sets divestment state to accepted and update convict orgas' do
         service.call
         divestment = Divestment.last
         expect(divestment.state).to eq('auto_accepted')
         convict.reload
-        expect(convict.organizations).to eq([user.organization])
+        expect(convict.organizations).to match_array([user.organization])
+      end
+
+      context 'invalid convict' do
+        let(:convict) do
+          c = build(:convict, appi_uuid: 'abc')
+          c.save(validate: false)
+          c
+        end
+
+        it 'sets divestment state to pending and does not update convict orgas' do
+          convict_organizations = [*convict.organizations]
+          service.call
+          divestment = Divestment.last
+          expect(divestment.state).to eq('pending')
+          convict.reload
+          expect(convict.organizations).to match_array(convict_organizations)
+        end
       end
     end
 
@@ -95,9 +112,42 @@ RSpec.describe DivestmentCreatorService do
       end
 
       it 'sets divestment state to pending' do
+        convict_organizations = [*convict.organizations]
         service.call
         divestment = Divestment.last
         expect(divestment.state).to eq('pending')
+        convict.reload
+        expect(convict.organizations).to match_array(convict_organizations)
+      end
+
+      context 'user is bex' do
+        let(:user) { create(:user, :in_organization, type: :tj, role: 'bex') }
+        it 'add user organization to current convict organizations' do
+          convict_organizations = [*convict.organizations]
+          service.call
+          divestment = Divestment.last
+          expect(divestment.state).to eq('pending')
+
+          convict.reload
+          expect(convict.organizations).to match_array(convict_organizations + [user.organization])
+        end
+
+        context 'invalid convict' do
+          let(:convict) do
+            c = build(:convict, appi_uuid: 'abc')
+            c.save(validate: false)
+            c
+          end
+          it 'does not add user organization to current convict organizations' do
+            convict_organizations = [*convict.organizations]
+            service.call
+            divestment = Divestment.last
+            expect(divestment.state).to eq('pending')
+
+            convict.reload
+            expect(convict_organizations).to match_array(convict.organizations)
+          end
+        end
       end
     end
   end

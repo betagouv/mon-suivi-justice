@@ -422,6 +422,20 @@ RSpec.describe Convict, type: :model do
     let(:bex_user) { create(:user, :in_organization, role: 'bex') }
     let(:convict) { create(:convict) }
 
+    context 'when the convict is not valid' do
+      let(:convict) do
+        c = build(:convict, appi_uuid: 'abc')
+        c.save(validate: false)
+        c
+      end
+
+      it 'does not update the convict\'s organizations' do
+        orgas = [*convict.organizations]
+        convict.update_organizations_for_bex_user(bex_user)
+        expect(convict.organizations).to match_array(orgas)
+      end
+    end
+
     context 'when the user works at BEX' do
       before { allow(bex_user).to receive(:work_at_bex?).and_return(true) }
 
