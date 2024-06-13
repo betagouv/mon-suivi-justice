@@ -129,7 +129,7 @@ RSpec.describe DivestmentCreatorService do
           expect(divestment.state).to eq('pending')
 
           convict.reload
-          expect(convict_organizations).to match_array(convict.organizations + [user.organization])
+          expect(convict.organizations).to match_array(convict_organizations + [user.organization])
         end
 
         context 'invalid convict' do
