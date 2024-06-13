@@ -1,7 +1,5 @@
 # $ rake 'invite_agents[/tmp/uploads/file_name.csv]'
 
-require 'csv'
-
 desc 'seed and invite agents'
 task :invite_agents, [:filepath] => [:environment] do |_task, args|
   csv_data = args[:filepath]

@@ -475,9 +475,9 @@ fr:
     button_label: Rechercher
     form_label: Recherche
     local_admin_list:
-      one: 'Votre admin local : %{admins}'
-      other: 'Vos admins locaux : %{admins}'
-      zero: Votre service n'a pas d'admin locaux
+      one: "Votre admin local : %{admins}"
+      other: "Vos admins locaux : %{admins}"
+      zero: "Votre service n'a pas d'admin locaux"
     notice:
       click_here: Cliquez ici pour le renseigner simplement
       fill_out_appointments: Attention, le statut de plusieurs convocations de votre service n'a pas été renseigné.

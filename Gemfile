@@ -10,12 +10,12 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
 
 gem 'devise', '~> 4.9.4'
-gem 'devise-i18n', '~> 1.12.0'
+gem 'devise-i18n', '~> 1.12.1'
 gem 'devise_invitable', '~> 2.0.9'
 gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.3.2'
-gem 'simple_form', '~> 5.3.0'
+gem 'simple_form', '~> 5.3.1'
 gem 'addressable', '~> 2.8.6' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
 
@@ -33,7 +33,7 @@ gem 'sidekiq', '~> 7.2.4'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
-gem 'holidays', '~> 8.7.1'
+gem 'holidays', '~> 8.8.0'
 gem 'discard', '~> 1.3.0'
 
 gem 'paper_trail', '~> 15.1.0'
@@ -42,10 +42,11 @@ gem 'sentry-ruby', '~> 5.17.3'
 gem 'sentry-rails', '~> 5.17.3'
 gem 'ruby-progressbar', '~> 1.13.0'
 
+gem 'csv', '~> 3.2', '>= 3.2.8'
 gem 'jbuilder', '~> 2.12.0'
 gem 'groupdate', '~> 6.4.0'
 
-gem 'faraday', '~> 2.9.0'
+gem 'faraday', '~> 2.9.1'
 gem 'faraday-retry', '~> 2.2.1'
 gem 'jwt', '~> 2.8', '>= 2.8.1'
 
@@ -81,7 +82,8 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.2.1'
-  gem 'rubocop', '~> 1.63', require: false
+  gem 'rubocop', '~> 1.64', require: false
+  gem 'brakeman', '~> 6.1', '>= 6.1.2'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
   gem 'letter_opener', '~> 1.10.0'
@@ -98,17 +100,17 @@ group :test do
   gem 'selenium-webdriver', '~> 4.10.0'
   gem 'webdrivers', '~> 5.3.1'
   gem 'shoulda-matchers', '~> 6.2.0'
-  gem 'timecop', '~> 0.9.8'
+  gem 'timecop', '~> 0.9.9'
   gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec', '~> 0.6.0'
-  gem 'webmock', '~> 3.23.0'
+  gem 'webmock', '~> 3.23.1'
 end
 
 gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.6'
 gem 'administrate-field-belongs_to_search', '~> 0.9.0'
-gem 'faker', '~> 3.3.1'
+gem 'faker', '~> 3.4.1'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 5.2.0'
@@ -117,4 +119,4 @@ gem 'jsbundling-rails', '~> 1.3.0'
 
 gem 'cssbundling-rails', '~> 1.4.0'
 
-gem 'sprockets-rails', '~> 3.4.2', require: 'sprockets/railtie'
+gem 'sprockets-rails', '~> 3.5.1', require: 'sprockets/railtie'

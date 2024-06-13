@@ -1,5 +1,4 @@
 class LinkConvictFromOrganizationsSourceJob < ApplicationJob
-  require 'csv'
   queue_as :default
 
   def perform(organization, user, organizations_source)

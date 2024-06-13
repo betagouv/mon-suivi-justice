@@ -1,5 +1,4 @@
 class SrjImportJob < ApplicationJob
-  require 'csv'
   queue_as :default
 
   def perform(srj_data, user, csv_errors)
