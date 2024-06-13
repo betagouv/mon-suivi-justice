@@ -26,7 +26,8 @@ fr:
         date_of_birth: Date de naissance
         first_name: Prénom
         homeless: SDF
-        invite_convict: Inviter à l'interface probationnaire (effectif seulement si numéro de téléphone renseigné)
+        invite_convict: Inviter à l'interface probationnaire (effectif seulement si
+          numéro de téléphone renseigné)
         last_name: Nom
         lives_abroad: Habite à l'étranger
         name: Nom
@@ -115,7 +116,8 @@ fr:
               blank: Date manquante
               past: La convocation ne peut pas être dans le passé
               transfert_in: Ce lieu de convocation sera disponible à partir du %{date}
-              transfert_out: Ce lieu de convocation n'est plus disponible après le %{date}
+              transfert_out: Ce lieu de convocation n'est plus disponible après le
+                %{date}
             place:
               required: Lieu manquant
             send_sms:
@@ -123,31 +125,41 @@ fr:
         convict:
           attributes:
             appi_uuid:
-              invalid: doit contenir 8 ou 12 chiffres et commencer par 199, 200, 201 ou 202
+              invalid: doit contenir 8 ou 12 chiffres et commencer par 199, 200, 201
+                ou 202
               only_digits: Seuls les chiffres sont autorisés
             city:
-              all_blanks: Veuillez renseigner au moins un des champs commune, sdf ou résidant à l'étranger
+              all_blanks: Veuillez renseigner au moins un des champs commune, sdf
+                ou résidant à l'étranger
             dob:
               over16: Un probationnaire doit être âgé de plus de 16 ans
-              taken: Un probationnaire avec les mêmes prénom, nom et date de naissance existe déjà
+              taken: Un probationnaire avec les mêmes prénom, nom et date de naissance
+                existe déjà
             organizations:
               blank: Veuillez sélectionner au moins un service
-              multiple_uniqueness: Un probationnaire ne peut pas être suivi par plusieurs fois le même service
+              multiple_uniqueness: Un probationnaire ne peut pas être suivi par plusieurs
+                fois le même service
             phone:
-              blank: n'est pas renseigné. Veuillez renseigner au moins un des champs 'téléphone portable', 'ne possède pas de téléphone portable' ou 'refuse de recevoir des SMS'
+              blank: n'est pas renseigné. Veuillez renseigner au moins un des champs
+                'téléphone portable', 'ne possède pas de téléphone portable' ou 'refuse
+                de recevoir des SMS'
               confirmation: Ne correspond pas au premier mot de passe saisi
               mobile: Numéro de téléphone portable requis
-              taken: Un probationnaire est déjà enregistré avec ce numéro de téléphone. Merci de saisir un autre numéro
+              taken: Un probationnaire est déjà enregistré avec ce numéro de téléphone.
+                Merci de saisir un autre numéro
         notification_type:
           attributes:
             template:
-              invalid_format: Le format de ce modèle n'est pas valide. Merci d'utiliser uniquement les clés documentées.
+              invalid_format: Le format de ce modèle n'est pas valide. Merci d'utiliser
+                uniquement les clés documentées.
         organization:
           attributes:
             extra_fields:
               too_many:
-                sap: Vous ne pouvez pas avoir plus de 4 champs supplémentaires pour la sortie d'audience SAP
-                spip: Vous ne pouvez pas avoir plus de 4 champs supplémentaires pour la sortie d'audience SPIP
+                sap: Vous ne pouvez pas avoir plus de 4 champs supplémentaires pour
+                  la sortie d'audience SAP
+                spip: Vous ne pouvez pas avoir plus de 4 champs supplémentaires pour
+                  la sortie d'audience SPIP
         place:
           attributes:
             adress:
@@ -161,14 +173,19 @@ fr:
         slot:
           attributes:
             appointment_type:
-              wrong_organization: Ce type de convocation n'est pas possible dans ce lieu
+              wrong_organization: Ce type de convocation n'est pas possible dans ce
+                lieu
             date:
               not_workday: Le jour sélectionné n'est pas un jour ouvrable
-              transfert_in: Impossible de créer des créneaux pour ce lieu avant le %{date}, veuillez utiliser %{place_name}
-              transfert_out: Impossible de créer des créneaux pour ce lieu après le %{date}, veuillez utiliser %{place_name}
+              transfert_in: Impossible de créer des créneaux pour ce lieu avant le
+                %{date}, veuillez utiliser %{place_name}
+              transfert_out: Impossible de créer des créneaux pour ce lieu après le
+                %{date}, veuillez utiliser %{place_name}
         slot_type:
-          batch_multiple_uniqueness: Un ou plusieurs créneaux récurrents similaires existent déjà. Les doublons n'ont pas été crées.
-          batch_zero_interval: Impossible de créer des créneaux récurrents avec un intervalle de 0 minute
+          batch_multiple_uniqueness: Un ou plusieurs créneaux récurrents similaires
+            existent déjà. Les doublons n'ont pas été crées.
+          batch_zero_interval: Impossible de créer des créneaux récurrents avec un
+            intervalle de 0 minute
           multiple_uniqueness: Un créneau récurrent similaire existe déjà.
         user:
           attributes:
@@ -224,7 +241,8 @@ fr:
   admin:
     user_alerts:
       create:
-        notice: Les alertes sont en cours de création. Vous recevrez un mail lorsque l'opération sera terminée.
+        notice: Les alertes sont en cours de création. Vous recevrez un mail lorsque
+          l'opération sera terminée.
   appointment:
     create:
       submit: Convoquer
@@ -267,13 +285,22 @@ fr:
       key7_meaning: Heure de la convocation
       key7_sample: 'Ex : 18h20'
       key7_title: "{rdv.heure}"
-      sample1_data: Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}. Merci de venir avec une pièce d'identité au {lieu.adresse}.
+      sample1_data: Vous êtes convoqué au {lieu.nom} le {rdv.date} à {rdv.heure}.
+        Merci de venir avec une pièce d'identité au {lieu.adresse}.
       sample1_title: 'Modèle :'
-      sample2_data: Vous êtes convoqué au SPIP 92 le 27/06/2021 à 15h15. Merci de venir avec une pièce d'identité au 94 Bvd du Géneral Leclerc 92000 Nanterre.
+      sample2_data: Vous êtes convoqué au SPIP 92 le 27/06/2021 à 15h15. Merci de
+        venir avec une pièce d'identité au 94 Bvd du Géneral Leclerc 92000 Nanterre.
       sample2_title: 'Résultat :'
-      text1: Les modèles de SMS permettent d'insérer les données de Mon Suivi Justice dans le contenu des SMS envoyés. Pour cela on utilise des clés, comme par exemple {lieu.nom}, qui insère le nom du lieu de convocation.
-      text2: Les changements apportés ici sont répercutés sur les nouvelles convocations. Si un SMS de rappel a été plannifié avant un changement des modèles de SMS, son contenu ne changera pas.
-      text3: Les modèles marqués comme 'Défaut' sont mis à jour depuis des modèles utilisés nationalement. Une fois qu'une modification locale a été effectuée, le modèle est marqué comme 'Personnalisé', et n'est plus mis à jour de manière centrale.
+      text1: Les modèles de SMS permettent d'insérer les données de Mon Suivi Justice
+        dans le contenu des SMS envoyés. Pour cela on utilise des clés, comme par
+        exemple {lieu.nom}, qui insère le nom du lieu de convocation.
+      text2: Les changements apportés ici sont répercutés sur les nouvelles convocations.
+        Si un SMS de rappel a été plannifié avant un changement des modèles de SMS,
+        son contenu ne changera pas.
+      text3: Les modèles marqués comme 'Défaut' sont mis à jour depuis des modèles
+        utilisés nationalement. Une fois qu'une modification locale a été effectuée,
+        le modèle est marqué comme 'Personnalisé', et n'est plus mis à jour de manière
+        centrale.
       title: Mode d'emploi
       title2: Exemple
       title3: Liste des clés disponibles
@@ -286,11 +313,13 @@ fr:
       notice: Les modifications ont bien été enregistrées.
   appointments:
     index:
-      no_appointments: Vous n'avez pas de convocations correspondants aux filtres choisis
+      no_appointments: Vous n'avez pas de convocations correspondants aux filtres
+        choisis
       only_passed_uninformed: Convocations au statut inconnu
     new:
       choose_city: Commune de résidence du probationnaire
-      is_cpip_label: Ce probationnaire n'a pas de CPIP lié. Êtes-vous son ou sa CPIP ?
+      is_cpip_label: Ce probationnaire n'a pas de CPIP lié. Êtes-vous son ou sa CPIP
+        ?
     show:
       assigned_user: Agent Référent
       inviter_user_role: Rôle source
@@ -298,7 +327,8 @@ fr:
       for_a_service: Convocation au statut inconnu au %{orga}
       for_a_user: Vos convocations au statut inconnu
   archive: Archiver
-  archive_convict_confirmation: Ce probationnaire restera accessible pendant 6 mois avant d'être définitivement supprimée.
+  archive_convict_confirmation: Ce probationnaire restera accessible pendant 6 mois
+    avant d'être définitivement supprimée.
   basic_confirmation: Êtes-vous sûr(e)?
   bex:
     jap:
@@ -314,20 +344,24 @@ fr:
       appointments_title: Convocations SPIP pour
       no_agenda_available: Pas de convocation Sortie d'audience SPIP prévue
   cancel: Annuler
-  cancel_appointment_warning: En annulant la convocation, vous envoyez un SMS d'annulation au probationnaire (si le probationnaire a un numéro de téléphone), et vous annulez le SMS de rappel prévu. Êtes-vous sûr.e ?
+  cancel_appointment_warning: En annulant la convocation, vous envoyez un SMS d'annulation
+    au probationnaire (si le probationnaire a un numéro de téléphone), et vous annulez
+    le SMS de rappel prévu. Êtes-vous sûr.e ?
   close: Fermer
   contact: Contacter l'équipe
   continue: Continuer
   convict_invitations:
     create:
-      invitation_pending: L'invitation est en cours d'envoi au probationnaire. Rafraîchir la page pour actualiser le statut.
+      invitation_pending: L'invitation est en cours d'envoi au probationnaire. Rafraîchir
+        la page pour actualiser le statut.
   convicts:
     create:
       notice: Le probationnaire a bien été créé.
     invitation_card:
       accepted: Accepté
       cannot_invite: Impossible d'inviter ce probationnaire
-      cannot_invite_reason: Il n'a pas renseigné de numéro de téléphone ou ne souhaite pas recevoir de SMS
+      cannot_invite_reason: Il n'a pas renseigné de numéro de téléphone ou ne souhaite
+        pas recevoir de SMS
       interface_access_timestamp: Date d'acceptation
       interface_invitation_state: État de l'invitation
       interface_no_access: Aucun accès pour l'instant
@@ -378,7 +412,8 @@ fr:
       title: Toutes nos excuses, une erreur a eu lieu dans l'application.
     non_authorized: Vous n'êtes pas autorisé à effectuer cette action
     not_found:
-      subtitle: Vous avez peut-être fait une erreur dans l'adresse, ou la page a été deplacée
+      subtitle: Vous avez peut-être fait une erreur dans l'adresse, ou la page a été
+        deplacée
       title: La page que vous recherchez n'existe pas.
     unprocessable_entity:
       subtitle: Peut-être n'aviez vous pas accès à cette action.
@@ -420,30 +455,40 @@ fr:
         roles: rôles destinataires
         services: services destinataires
   history_item:
-    add_phone_convict: 'Un numéro de téléphone pour %{name} a été ajouté par %{user_name} (%{user_role}). Nouveau numéro : %{new_phone}.'
+    add_phone_convict: 'Un numéro de téléphone pour %{name} a été ajouté par %{user_name}
+      (%{user_role}). Nouveau numéro : %{new_phone}.'
     add_phone_convict_title: Nouveau numéro
-    archive_convict: Le profil de %{name} a été archivé. Pour le désarchiver, contactez votre administrateur local.
+    archive_convict: Le profil de %{name} a été archivé. Pour le désarchiver, contactez
+      votre administrateur local.
     archive_convict_title: Archivage
-    book_appointment: "%{name} a été convoqué(e) le %{date} à %{time} au lieu suivant : %{place}."
+    book_appointment: "%{name} a été convoqué(e) le %{date} à %{time} au lieu suivant
+      : %{place}."
     book_appointment_title: Nouvelle convocation
-    book_phone_appointment: "%{name} a été convoqué(e) pour un rendez-vous téléphonique le %{date} à %{time}."
+    book_phone_appointment: "%{name} a été convoqué(e) pour un rendez-vous téléphonique
+      le %{date} à %{time}."
     cancel_appointment: La convocation au %{place} le %{date} à %{time} a été annulée.
     cancel_appointment_title: Convocation annulée
-    cancel_reminder_notification: Le SMS de rappel ne sera pas envoyé à %{name} car la convocation a été annulée.
+    cancel_reminder_notification: Le SMS de rappel ne sera pas envoyé à %{name} car
+      la convocation a été annulée.
     cancel_reminder_notification_title: SMS de rappel annulé
-    excuse_appointment: "%{name} ne s'est pas presenté(e) à sa convocation le %{date} à %{time} au lieu %{place}, mais a présenté une justification valide."
+    excuse_appointment: "%{name} ne s'est pas presenté(e) à sa convocation le %{date}
+      à %{time} au lieu %{place}, mais a présenté une justification valide."
     excuse_appointment_title: Convocation excusée
-    failed_programmed_reminder_notification: Suite à une difficulté technique le SMS de rappel n'a pas été envoyé à %{name}.
+    failed_programmed_reminder_notification: Suite à une difficulté technique le SMS
+      de rappel n'a pas été envoyé à %{name}.
     failed_programmed_reminder_notification_title: Echec de l'envoi du SMS (rappel)
-    failed_send_cancelation_notification: Le SMS d'annulation n'a pas été reçu par %{name}.
+    failed_send_cancelation_notification: Le SMS d'annulation n'a pas été reçu par
+      %{name}.
     failed_send_cancelation_notification_title: Echec du SMS (annulation)
     failed_send_reminder_notification: Le SMS de rappel n'a pas été reçu par %{name}.
     failed_send_reminder_notification_title: Echec du SMS (rappel)
     failed_send_summon_notification: Le SMS de convocation n'a pas été reçu par %{name}.
     failed_send_summon_notification_title: Echec du SMS (convocation)
-    fulfil_appointment: "%{name} s'est bien presenté(e) à sa convocation le %{date} à %{time} au lieu %{place}."
+    fulfil_appointment: "%{name} s'est bien presenté(e) à sa convocation le %{date}
+      à %{time} au lieu %{place}."
     fulfil_appointment_title: Convocation honorée
-    miss_appointment: "%{name} ne s'est pas presenté(e) à sa convocation le %{date} à %{time} au lieu %{place}."
+    miss_appointment: "%{name} ne s'est pas presenté(e) à sa convocation le %{date}
+      à %{time} au lieu %{place}."
     miss_appointment_title: Convocation manquée
     receive_cancelation_notification: Le SMS d'annulation a bien été reçu par %{name}.
     receive_cancelation_notification_title: SMS reçu (annulation)
@@ -451,7 +496,8 @@ fr:
     receive_reminder_notification_title: SMS reçu (rappel)
     receive_summon_notification: Le SMS de convocation a bien été reçu par %{name}.
     receive_summon_notification_title: SMS reçu (convocation)
-    remove_phone_convict: 'Le numéro de téléphone de %{name} a été supprimé par %{user_name} (%{user_role}). Ancien numéro : %{old_phone}.'
+    remove_phone_convict: 'Le numéro de téléphone de %{name} a été supprimé par %{user_name}
+      (%{user_role}). Ancien numéro : %{old_phone}.'
     remove_phone_convict_title: Numéro supprimé
     reschedule_appointment: La convocation a été replanifiée.
     reschedule_appointment_title: Convocation replanifiée
@@ -467,7 +513,9 @@ fr:
     send_then_reminder_notification_title: SMS envoyé (rappel)
     unarchive_convict: Le profil de %{name} a été désarchivé.
     unarchive_convict_title: Désarchivage
-    update_phone_convict: 'Le numéro de téléphone de %{name} a été modifié par %{user_name} (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}.  L''accès à son espace personnel se fait désormais à l''aide de ce nouveau numéro'
+    update_phone_convict: 'Le numéro de téléphone de %{name} a été modifié par %{user_name}
+      (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}.  L''accès
+      à son espace personnel se fait désormais à l''aide de ce nouveau numéro'
     update_phone_convict_title: Nouveau numéro
   home:
     bex_jap: Sortie d'audience JAP
@@ -475,20 +523,25 @@ fr:
     button_label: Rechercher
     form_label: Recherche
     local_admin_list:
-      one: "Votre admin local : %{admins}"
-      other: "Vos admins locaux : %{admins}"
-      zero: "Votre service n'a pas d'admin locaux"
+      one: 'Votre admin local : %{admins}'
+      other: 'Vos admins locaux : %{admins}'
+      zero: Votre service n'a pas d'admin locaux
     notice:
       click_here: Cliquez ici pour le renseigner simplement
-      fill_out_appointments: Attention, le statut de plusieurs convocations de votre service n'a pas été renseigné.
-      fill_out_appointments_cpip: Attention, le statut de plusieurs convocations que vous avez effectuées n'a pas été renseigné.
+      fill_out_appointments: Attention, le statut de plusieurs convocations de votre
+        service n'a pas été renseigné.
+      fill_out_appointments_cpip: Attention, le statut de plusieurs convocations que
+        vous avez effectuées n'a pas été renseigné.
     sap_ddse: SAP DDSE
     select_organization: Changer d'antenne
     stats_global: Statistiques générales
-    welcome_text: 'Pour convoquer un ou une probationnaire, veuillez saisir les premières lettres de son nom ou prénom dans la barre de recherche ci-dessous :'
+    welcome_text: 'Pour convoquer un ou une probationnaire, veuillez saisir les premières
+      lettres de son nom ou prénom dans la barre de recherche ci-dessous :'
     welcome_title: Bonjour, %{name}
-  ie_warning1: Mon Suivi Justice n'est pas compatible avec Internet Explorer. Merci d'utiliser Edge.
-  ie_warning2: Vous pouvez copier - coller le lien qui est dans la barre d'adresse dans un autre navigateur.
+  ie_warning1: Mon Suivi Justice n'est pas compatible avec Internet Explorer. Merci
+    d'utiliser Edge.
+  ie_warning2: Vous pouvez copier - coller le lien qui est dans la barre d'adresse
+    dans un autre navigateur.
   index-appointment-agenda-filter: Agenda
   index-appointment-clear-filters: Supprimer les filtres
   index-appointment-see-data: Voir les infos
@@ -504,7 +557,8 @@ fr:
   index_slot_types_title: Créneaux récurrents
   index_slot_types_title_place: "%{place} : %{agenda}"
   index_slot_types_update: Enregistrer
-  index_slot_types_warning: Les modifications sur cette page seront répercutées pour les convocations dans un délai de 24h.
+  index_slot_types_warning: Les modifications sur cette page seront répercutées pour
+    les convocations dans un délai de 24h.
   index_slots_batch_close: Fermer la sélection
   invitation_link_title: Lien d'invitation agent
   log_out: Déconnexion
@@ -512,7 +566,9 @@ fr:
     back_to_public_site: Retour sur le site public
     password_error: Mot de passe invalide
     sub_title: Espace agents
-    tutorial: 'Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial présent dans la liste suivante :'
+    tutorial: 'Votre mot de passe doit contenir au moins une lettre majuscule, une
+      lettre minuscule, un chiffre et un caractère spécial présent dans la liste suivante
+      :'
     tutorial_special: "! @ # $ % ^ & * ( ) _ + - = [ ] { } | '"
   monday: lundi
   my_convicts: Afficher uniquement mes probationnaires
@@ -522,14 +578,18 @@ fr:
   new-appointment-jap-agendas: Répartition cabinet JAP
   new-appointment-no-place: Vous n'avez accès à aucun lieu proposant ce type de convocation
   new-appointment-no-slot: Pas de créneau disponible
-  new-appointment-warning: En cliquant sur "Enregistrer", vous générez l'envoi d'un SMS de rappel 48h avant la convocation (si un numéro de téléphone a été donné).
+  new-appointment-warning: En cliquant sur "Enregistrer", vous générez l'envoi d'un
+    SMS de rappel 48h avant la convocation (si un numéro de téléphone a été donné).
   new_appointment_title: Nouvelle convocation %{convict_link}
-  new_convict_duplicate_appi_uuid_1: 'Un probationnaire avec le même numéro appi existe dans le(s) service(s): %{orgs}.'
+  new_convict_duplicate_appi_uuid_1: 'Un probationnaire avec le même numéro appi existe
+    dans le(s) service(s): %{orgs}.'
   new_convict_duplicate_link: "%{name}, suivi(e) par : %{orgs}"
   new_convict_duplicate_warning1: 'Un doublon potentiel a été détecté :'
   new_convict_duplicate_warning2: Plusieurs doublons potentiels ont été détectés.
-  new_convict_duplicate_warning3: Merci de vérifier qu'il s'agit bien de personnes distinctes avant d'enregistrer ce nouveau profil.
-  new_convict_duplicate_warning4: Si un homonyme existe dans un autre service, et que vous pensez que c'est la même personne, merci de contacter le support.
+  new_convict_duplicate_warning3: Merci de vérifier qu'il s'agit bien de personnes
+    distinctes avant d'enregistrer ce nouveau profil.
+  new_convict_duplicate_warning4: Si un homonyme existe dans un autre service, et
+    que vous pensez que c'est la même personne, merci de contacter le support.
   new_convict_first_appointment: et convoquer
   new_convict_submit: sans convoquer
   new_convict_title: Nouveau probationnaire
@@ -552,18 +612,23 @@ fr:
     bex-spip:
       title: Convocations Sortie d'audience SPIP
   print_button: Imprimer
-  rebook_missed_appointment1: Si vous aviez marqué la convocation comme manquée, vous avez peut-être envoyé un SMS au probationnaire concerné. Vous pouvez le vérifier dans l'historique.
-  rebook_missed_appointment2: Si besoin, merci de contacter cette personne pour clarifier la situation.
+  rebook_missed_appointment1: Si vous aviez marqué la convocation comme manquée, vous
+    avez peut-être envoyé un SMS au probationnaire concerné. Vous pouvez le vérifier
+    dans l'historique.
+  rebook_missed_appointment2: Si besoin, merci de contacter cette personne pour clarifier
+    la situation.
   reschedule: Replanifier
   reset_pwd_link_title: Lien de réinitialisation de mot de passe agent
   search-appointment-placeholder: 'Saisir une date : dd/mm/yyyy'
   search_by_name_placeholder: Saisir un nom ou un prénom
   security_charter_acceptances:
     create:
-      notice: Merci d'avoir accepté notre charte de sécurité. Vous pouvez désormais utiliser Mon Suivi Justice librement.
+      notice: Merci d'avoir accepté notre charte de sécurité. Vous pouvez désormais
+        utiliser Mon Suivi Justice librement.
     new:
       accept: J'accepte la charte de sécurité
-      alert: Vous devez accepter la charte de sécurité pour continuer à utiliser Mon Suivi Justice.
+      alert: Vous devez accepter la charte de sécurité pour continuer à utiliser Mon
+        Suivi Justice.
   see: Voir
   see_details: Voir infos convocation
   see_profile: Voir profil
@@ -572,9 +637,11 @@ fr:
   send_invitation: Envoyer invitation
   shared:
     environment_alert:
-      content: 'IMPORTANT : Vous êtes actuellement sur l''environnement %{environment} ! Vos actions ne créent pas de données en production.'
+      content: 'IMPORTANT : Vous êtes actuellement sur l''environnement %{environment}
+        ! Vos actions ne créent pas de données en production.'
   show-convict-fulfilment-excused: Excusé(e)
-  show-convict-fulfilment-prompt: Est-ce-que %{name} s'est présenté(e) au %{place} le %{date} à %{time} ?
+  show-convict-fulfilment-prompt: Est-ce-que %{name} s'est présenté(e) au %{place}
+    le %{date} à %{time} ?
   show-convict-fulfilment-send-sms: Voulez-vous envoyer un SMS au probationnaire ?
   show-convict-fulfilment-sms-content: 'Texte du SMS :'
   show-convict-next-appointments-title1: Prochaine convocation
@@ -626,11 +693,9 @@ fr:
           thursday: Jeudi
           tuesday: Mardi
           wednesday: Mercredi
-  slots_batches:
-    create:
-      argument_error: Vous devez indiquer au minimum une heure ou un intervalle de temps
-      start_time_before_end_time: L'heure de début doit être avant l'heure de fin
-  slot_type_delete_confirmation: Supprimer un créneau récurrent supprimera également tous les créneaux associés, sauf si il existe une convocation sur ce créneau. Êtes-vous sûr(e)?
+  slot_type_delete_confirmation: Supprimer un créneau récurrent supprimera également
+    tous les créneaux associés, sauf si il existe une convocation sur ce créneau.
+    Êtes-vous sûr(e)?
   slot_types_batch_capacity: Capacité
   slot_types_batch_capacity_placeholder: 'ex: 6'
   slot_types_batch_closing: Dernier créneau
@@ -646,17 +711,29 @@ fr:
       minimum_capacity: La nouvelle capacité doit être au minimum de %{data} place(s).
       used_capacity: "%{data} convocations déjà réalisées."
       warning: Si vous choisissez %{data}, le créneau sera fermé.
-    failed_batch_creation: Une erreur a bloqué la création, merci de vérifier les données saisies.
+    failed_batch_creation: Une erreur a bloqué la création, merci de vérifier les
+      données saisies.
     index_place_filter: Lieu de la convocation
-    new_batch_manual: Si vous ajoutez plusieurs heures, vous créez une série de créneaux avec les mêmes caractéristiques.
+    new_batch_manual: Si vous ajoutez plusieurs heures, vous créez une série de créneaux
+      avec les mêmes caractéristiques.
     new_batch_title: Nouveau Créneau
+  slots_batches:
+    create:
+      argument_error: Vous devez indiquer au minimum une heure ou un intervalle de
+        temps
+      start_time_before_end_time: L'heure de début doit être avant l'heure de fin
   submit: Enregistrer
   support:
-    modal_bug: Pour signaler un bug, merci de décrire avec précision les dernières actions qui ont menée au bug. Une capture d'écran du problème est également très utile.
-    modal_evolution: Pour demander une évolution, n'hésitez pas à entrer dans les détails. Dites-nous quel est votre poste et quelle partie du processus vous souhaitez changer.
+    modal_bug: Pour signaler un bug, merci de décrire avec précision les dernières
+      actions qui ont menée au bug. Une capture d'écran du problème est également
+      très utile.
+    modal_evolution: Pour demander une évolution, n'hésitez pas à entrer dans les
+      détails. Dites-nous quel est votre poste et quelle partie du processus vous
+      souhaitez changer.
     modal_text_1: 'En cas de question, n’hésitez pas à consulter '
     modal_text_2: notre site d’information.
-    modal_text_3: 'Si cela ne répond pas à votre besoin, n’hésitez pas à contacter l’équipe de Mon Suivi Justice à l’adresse suivante :'
+    modal_text_3: 'Si cela ne répond pas à votre besoin, n’hésitez pas à contacter
+      l’équipe de Mon Suivi Justice à l’adresse suivante :'
     modal_thanks: Merci de nous aider à améliorer Mon Suivi Justice.
     modal_title: Support
     modal_warning: 'Quelques recommandations :'
@@ -670,7 +747,9 @@ fr:
   users:
     mutate:
       call_to_action: Muter l'agent dans mon service
-      confirmation_message: 'Etes-vous certain de vouloir muter cet agent dans votre service ? Cela le supprimera de son service actuel : %{organization_name}. En cas de doute merci de contacter le service actuel au %{phone_number}'
+      confirmation_message: 'Etes-vous certain de vouloir muter cet agent dans votre
+        service ? Cela le supprimera de son service actuel : %{organization_name}.
+        En cas de doute merci de contacter le service actuel au %{phone_number}'
     update:
       organization_updated: Le service a bien été mis à jour
   views:
