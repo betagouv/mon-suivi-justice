@@ -72,6 +72,15 @@
                 </td>
               <% else %>
                 <td>
+                  <% if organization_divestment.convict.invalid? %>
+                    <div class="col-fr">
+                      <ul>
+                        <% organization_divestment.convict.errors.each do |error| %>
+                          <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{organization_divestment.convict.send(error.attribute)})" %>: <%= error.type %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
                   <% if policy(organization_divestment).edit? %>
                     <div class="col-fr">
                       <%= link_to t('answer'), edit_organization_divestment_path(organization_divestment), class: 'slots-index-control' %>

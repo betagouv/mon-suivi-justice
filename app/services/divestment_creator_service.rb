@@ -14,6 +14,7 @@ class DivestmentCreatorService
     ActiveRecord::Base.transaction do
       save_divestment(state)
       create_organization_divestments(@divestment, state)
+
       if state == 'auto_accepted'
         organizations = [@divestment.organization, *@divestment.organization.linked_organizations]
         @convict.update(organizations:, user: nil)
@@ -27,11 +28,9 @@ class DivestmentCreatorService
   private
 
   def divestment_state
-    if @convict.discarded? || @convict.last_appointment_at_least_6_months_old?
-      'auto_accepted'
-    else
-      'pending'
-    end
+    return 'auto_accepted' if auto_acceptable_divestment?
+
+    'pending'
   end
 
   def save_divestment(state)
@@ -73,5 +72,11 @@ class DivestmentCreatorService
     when 'ignored'
       I18n.t('organization_divestment.comment.ignored')
     end
+  end
+
+  def auto_acceptable_divestment?
+    return false if @convict.invalid?
+
+    @convict.discarded? || @convict.last_appointment_at_least_6_months_old?
   end
 end
