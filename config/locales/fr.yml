@@ -484,6 +484,7 @@ fr:
       fill_out_appointments_cpip: Attention, le statut de plusieurs convocations que vous avez effectuées n'a pas été renseigné.
     sap_ddse: SAP DDSE
     select_organization: Changer d'antenne
+    stats_global: Statistiques générales
     welcome_text: 'Pour convoquer un ou une probationnaire, veuillez saisir les premières lettres de son nom ou prénom dans la barre de recherche ci-dessous :'
     welcome_title: Bonjour, %{name}
   ie_warning1: Mon Suivi Justice n'est pas compatible avec Internet Explorer. Merci d'utiliser Edge.
@@ -625,8 +626,8 @@ fr:
           thursday: Jeudi
           tuesday: Mardi
           wednesday: Mercredi
-  slot_batchs:
-    batch_create:
+  slots_batches:
+    create:
       argument_error: Vous devez indiquer au minimum une heure ou un intervalle de temps
       start_time_before_end_time: L'heure de début doit être avant l'heure de fin
   slot_type_delete_confirmation: Supprimer un créneau récurrent supprimera également tous les créneaux associés, sauf si il existe une convocation sur ce créneau. Êtes-vous sûr(e)?

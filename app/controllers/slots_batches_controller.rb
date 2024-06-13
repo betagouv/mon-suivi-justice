@@ -68,7 +68,7 @@ class SlotsBatchesController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
   def batch_create(params, slot_params)
-    raise ArgumentErrorError, t('.argument_error') unless valid_time?(params)
+    raise ArgumentError, t('.argument_error') unless valid_time?(params)
 
     starting_times = params.require(:starting_times).each_slice(2).to_a if params[:starting_times].present?
     interval_times = generate_times_from_intervals(params) if valid_interval?(params)
