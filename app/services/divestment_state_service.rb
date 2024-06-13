@@ -72,9 +72,9 @@ class DivestmentStateService
   end
 
   def send_refuse_email
-    if @user
-      UserMailer.with(divestment: @divestment, organization_divestment: @organization_divestment,
-                      current_user: @user).divestment_refused.deliver_later
-    end
+    return unless @user
+
+    UserMailer.with(divestment: @divestment, organization_divestment: @organization_divestment,
+                    current_user: @user).divestment_refused.deliver_later
   end
 end
