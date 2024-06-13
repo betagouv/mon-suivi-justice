@@ -30,12 +30,19 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
     ) if accessible_action?(page.resource, :show) %>
   </div>
 </header>
-<% if page.resource.convict.valid? %>
+<% convict = page.resource.convict %>
+<% if convict.valid? %>
   <section class="main-content__body">
     <%= render "form", page: page %>
   </section>
 <% else %>
   <section class="main-content__body">
-    le probationnaire <%= page.resource.convict.first_name %> <%= page.resource.convict.last_name %> n'est pas valide.
+    <h2><%= pluralize(convict.errors.count, "erreur") %></h2>
+
+    <ul>
+    <% convict.errors.each do |error| %>
+      <li><%= "#{error.attribute} (#{convict.send(error.attribute)})" %>: <%= error.type %></li>
+    <% end %>
+    </ul>
   </section>
 <% end%>
