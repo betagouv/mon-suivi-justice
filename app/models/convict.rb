@@ -216,18 +216,14 @@ class Convict < ApplicationRecord
 
   # rubocop:disable Metrics/AbcSize
   def find_duplicates
-    return Convict.none if valid?
+    return [] if valid?
 
     duplicates = []
     duplicates << Convict.where(appi_uuid:).where.not(id:) if duplicate_appi_uuid?
     duplicates << Convict.where(phone:).where.not(id:) if duplicate_phone?
-    if duplicate_date_of_birth?
-      dob_dups = Convict.where(first_name:, last_name:, date_of_birth:).where.not(id:)
-      dob_dups = dob_dups.where(appi_uuid: [nil, '']) if appi_uuid.present?
-      duplicates << dob_dups
-    end
+    duplicates << Convict.where(first_name:, last_name:, date_of_birth:).where.not(id:) if duplicate_date_of_birth?
 
-    duplicates.flatten
+    duplicates.flatten.uniq
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -239,7 +235,7 @@ class Convict < ApplicationRecord
     existing_convict = Convict.where(first_name:, last_name:, date_of_birth:).where.not(id:)
 
     # Check if there's an existing record with the same attributes and no appi_uuid
-    return unless existing_convict.exists?(appi_uuid: [nil, '']) || appi_uuid.blank?
+    return unless existing_convict.exists?(appi_uuid: [nil, '']) && appi_uuid.blank?
 
     errors.add(:date_of_birth, DOB_UNIQUENESS_MESSAGE)
   end
