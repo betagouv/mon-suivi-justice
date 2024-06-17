@@ -18,7 +18,7 @@ class DivestmentsController < ApplicationController
   private
 
   def redirect_after_creation(convict, state = 'pending')
-    redirect_to determine_path(convict), notice: determine_notice(convict, state)
+    redirect_to determine_path(convict, state), notice: determine_notice(convict, state)
   end
 
   def determine_path(convict, state)
