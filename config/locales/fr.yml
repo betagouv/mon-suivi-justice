@@ -771,6 +771,8 @@ fr:
       invitation_sent: L'invitation a été envoyée au probationnaire
 
   shared:
+    convict_row:
+      ongoing_divestment: "Dessaisissement en cours"
     environment_alert:
       content: "IMPORTANT : Vous êtes actuellement sur l'environnement %{environment} ! Vos actions ne créent pas de données en production."
 
