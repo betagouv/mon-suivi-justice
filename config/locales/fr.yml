@@ -81,12 +81,13 @@ fr:
     new:
       title: 'Créer un déssaisissement'
     create: 'Créer un déssaisissement'
-  
+
   organization_divestment:
     comment:
       auto_accepted: 'Demande de dessaisissement automatiquement acceptée'
       ignored: 'Demande de dessaisissement ignorée'
     alerts:
+      your_organization: 'votre propre service'
       duplicate_alert_details: "Impossible de créer une demande de dessaisissement car ce probationnaire fait déjà l'objet d'une demande de dessaisissement de la part de %{organization_name}."
       pending_appointments_alert: "Impossible de créer une demande de dessaisissement car ce probationnaire a des convocations à venir de la part de : %{org_names}."
       convict_details: "%{name} né le %{date_of_birth} suivi par %{org_names} ainsi que %{last}"

@@ -26,7 +26,8 @@ class DivestmentDecisionService
 
     if duplicate_convict&.organizations&.include?(@current_organization)
       show_divestment_button = false
-      org_names = org_names_with_custom_label(duplicate_convict, 'votre propre service')
+      org_names = org_names_with_custom_label(duplicate_convict,
+                                              I18n.t('organization_divestment.alerts.your_organization'))
       duplicate_alert = format_duplicate_alert_string(duplicate_convict, org_names)
     else
       pending_divestment = duplicate_convict.divestments.find_by(state: 'pending')
@@ -80,6 +81,8 @@ class DivestmentDecisionService
   def formatted_organization_names_and_phones(duplicate_convict)
     duplicate_convict.organizations.map do |org|
       name_and_phone = org.name
+      # [OPTIMIZE] org.places.first n'est pas fiable. Rajouter un boolean sur le lieu pour savoir si c'est le lieu
+      # principal ou un téléphone directement sur le service
       name_and_phone += " (#{org.places.first&.phone})" if org.places.first&.phone.present?
       name_and_phone
     end

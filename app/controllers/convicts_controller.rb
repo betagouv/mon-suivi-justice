@@ -134,9 +134,6 @@ class ConvictsController < ApplicationController
 
   def divestment_decision
     @dups_details = DivestmentDecisionService.new(@duplicate_convicts, current_organization).call
-    # @show_divestment_button = decision[:show_button]
-    # @duplicate_alert = decision[:alert]
-    # @duplicate_alert_details = decision[:duplicate_alert_details]
   end
 
   def convict_params
