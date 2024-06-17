@@ -17,14 +17,10 @@ class ConvictsController < ApplicationController
     @convicts = fetch_convicts
 
     authorize @convicts
-  end
-
-  def search
     query = params[:q]
     query = add_prefix_to_phone(params[:q]) if query =~ (/\d/) && !/^(\+33)/.match?(params[:q])
     @convicts = fetch_convicts(query)
     authorize @convicts
-    render partial: 'shared/convicts_list', locals: { convicts: @convicts }
   end
 
   def new
