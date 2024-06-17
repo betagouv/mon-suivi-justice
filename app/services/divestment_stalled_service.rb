@@ -16,6 +16,9 @@ class DivestmentStalledService
 
     reminders_due.each do |organization|
       UserMailer.notify_local_admins_of_divestment(organization).deliver_later
+      organization.organization_divestments.reminders_due.each do |od|
+        od.update!(last_reminder_email_at: Time.zone.now)
+      end
     end
   end
 
