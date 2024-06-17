@@ -592,6 +592,7 @@ fr:
   divestments:
     create:
       success_bex: La demande de dessaisissement a bien été créée. Les services concernés ont été notifiés.
+      invalid_for_bex: Le dessaisissement a bien été créé mais les données du probationnaire sont invalides. La demande de dessaisissement doit être validée avant de pouvoir le convoquer.
       success: La demande de dessaisissement a bien été créée. Les services actuels du probationnaire ont été prévenus. Vous serez tenu au courant du résultat des demandes sous 10 jours au plus.
       auto_accepted: La demande a été automatiquement validée car le suivi du probationnaire n'était plus actif
       convict_not_found: Le probationnaire n'existe pas

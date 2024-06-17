@@ -126,7 +126,6 @@
           </div>
         </div>
       </div>
-
       <div class="fr-container fr-mt-5w">
         <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
           <ul class="fr-btns-group fr-btns-group--inline-lg">
@@ -160,7 +159,7 @@
               <div class="fr-container fr-mt-5w fr-mb-5w">
                 <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
                   <% if policy(duplicate_convict).be_divested? %>
-                    <% button_message = current_user.work_at_bex? ? t('new_divestment_bex') : t('new_divestment') %>
+                    <% button_message = (current_user.work_at_bex? && duplicate_convict.valid?) ? t('new_divestment_bex') : t('new_divestment') %>
                     <%= button_to button_message, divestments_path, method: :post, class: 'fr-btn', params: { convict_id: duplicate_convict.id }, data: { confirm: t('new_divestment_confirm'), turbo: false } %>
                   <% else %>
                     Code 12 - Dessaisissement impossible pour ce probationnaire, veuillez contacter un administrateur.
