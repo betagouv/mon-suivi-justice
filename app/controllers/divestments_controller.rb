@@ -18,13 +18,24 @@ class DivestmentsController < ApplicationController
   private
 
   def redirect_after_creation(convict, state = 'pending')
-    notice = if state == 'auto_accepted'
-               t('divestments.create.auto_accepted')
-             else
-               current_user.work_at_bex? ? t('divestments.create.success_bex') : t('divestments.create.success')
-             end
+    redirect_to determine_path(convict), notice: determine_notice(convict, state)
+  end
 
-    path = current_user.work_at_bex? ? new_appointment_path(convict_id: convict.id) : convicts_path
-    redirect_to path, notice:
+  def determine_path(convict, state)
+    return convicts_path if convict.invalid?
+    return new_appointment_path(convict_id: convict.id) if current_user.work_at_bex?
+    return convict_path(convict) if state == 'auto_accepted'
+
+    convicts_path
+  end
+
+  def determine_notice(convict, state)
+    if state == 'auto_accepted'
+      t('divestments.create.auto_accepted')
+    elsif current_user.work_at_bex?
+      convict.valid? ? t('divestments.create.success_bex') : t('divestments.create.invalid_for_bex')
+    else
+      t('divestments.create.success')
+    end
   end
 end
