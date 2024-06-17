@@ -24,9 +24,9 @@
             <tr>
               <td>
                 <% if policy(organization_divestment.convict).show? %>
-                    <%= link_to organization_divestment.convict.name, convict_path(organization_divestment.convict), class: 'index-control', data: { turbo: false } %>
+                  <%= link_to organization_divestment.convict.name, convict_path(organization_divestment.convict), class: 'index-control', data: { turbo: false } %>
                 <% else %>
-                    <%= organization_divestment.convict.name %>
+                  <%= organization_divestment.convict.name %>
                 <% end %>
               </td>
               <td><%= past ? organization_divestment.decision_date&.strftime("%d/%m/%Y") : organization_divestment.created_at.strftime("%d/%m/%Y") %></td>
@@ -74,6 +74,7 @@
                 <td>
                   <% if organization_divestment.convict.invalid? %>
                     <div class="col-fr">
+                      <%= t('.errors_to_fix') %>
                       <ul>
                         <% organization_divestment.convict.errors.each do |error| %>
                           <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{organization_divestment.convict.send(error.attribute)})" %>: <%= error.type %></li>
