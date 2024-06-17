@@ -20,6 +20,7 @@ class OrganizationDivestmentsController < ApplicationController
     authorize @organization_divestment
   end
 
+  # rubocop:disable Metrics/AbcSize
   def update
     authorize @organization_divestment
     state_service = DivestmentStateService.new(@organization_divestment, current_user)
@@ -39,6 +40,7 @@ class OrganizationDivestmentsController < ApplicationController
       render :edit
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -52,12 +54,12 @@ class OrganizationDivestmentsController < ApplicationController
 
   def notice_message(transition)
     case transition
-    when 'accept'
-      'Organization divestment was successfully accepted.'
-    when 'refuse'
-      'Organization divestment was successfully refused.'
+    when I18n.t('organization_divestments.edit.accept')
+      I18n.t('organization_divestments.edit.accept_notice')
+    when I18n.t('organization_divestments.edit.refuse')
+      I18n.t('organization_divestments.edit.refuse_notice')
     else
-      'Invalid action.'
+      I18n.t('organization_divestments.edit.invalid_notice')
     end
   end
 end

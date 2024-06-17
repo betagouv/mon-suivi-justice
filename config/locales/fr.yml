@@ -772,9 +772,16 @@ fr:
       warning: "Si vous choisissez %{data}, le créneau sera fermé."
 
   organization_divestments:
+    divestments:
+      outgoing_divestment_requests: "Demandes de dessaisissement sortantes"
+    organization_divestments:
+      incoming_divestment_requests: "Demandes de dessaisissement entrantes"
     edit:
       accept: Accepter
       refuse: Refuser
+      accept_notice: "Le dessaisissement a bien été accepté"
+      refuse_notice: "Le dessaisissement a bien été refusé"
+      invalid_notice: "Action invalide"
     organization_divestments_table:
       errors_to_fix: 'Merci de corriger ces erreurs avant de répondre à la demande:'
 
