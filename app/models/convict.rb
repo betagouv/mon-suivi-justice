@@ -6,7 +6,7 @@ class Convict < ApplicationRecord
 
   has_paper_trail
   normalizes :last_name, with: ->(last_name) { last_name&.strip&.upcase }
-  normalizes :first_name, with: ->(first_name) { first_name&.strip&.gsub(/\b\w/, &:upcase) }
+  normalizes :first_name, with: ->(first_name) { first_name&.strip&.downcase&.gsub(/\b\w/, &:upcase) }
   normalizes :appi_uuid, with: ->(appi_uuid) { appi_uuid&.strip }
 
   DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
@@ -63,10 +63,6 @@ class Convict < ApplicationRecord
     joins(appointments: :slot).where(appointments: { slots: { date: ..Date.today } })
   end)
 
-  scope :find_by_date_of_birth_and_name, lambda { |first_name, last_name, date_of_birth|
-    find_by(first_name:, last_name:, date_of_birth:, appi_uuid: [nil, ''])
-  }
-
   pg_search_scope :search_by_name_and_phone, against: { last_name: 'A', first_name: 'B', phone: 'C' },
                                              using: {
                                                tsearch: { prefix: true }
@@ -81,17 +77,6 @@ class Convict < ApplicationRecord
 
   def self.archive_delay
     12.month.ago
-  end
-
-  def self.find_duplicates(convict)
-    dups = []
-    dups << find_by(appi_uuid: convict.appi_uuid) if convict.duplicate_appi_uuid?
-    dups << find_by(phone: convict.phone) if convict.duplicate_phone?
-    if convict.duplicate_date_of_birth?
-      dups << find_by_date_of_birth_and_name(convict.first_name, convict.last_name,
-                                             convict.date_of_birth)
-    end
-    dups.uniq.compact
   end
 
   def name
@@ -229,18 +214,22 @@ class Convict < ApplicationRecord
     save
   end
 
+  # rubocop:disable Metrics/AbcSize
   def find_duplicates
-    name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'
-    prefixed_phone = PhonyRails.normalize_number(phone, country_code: 'FR')
+    return Convict.none if valid?
 
-    duplicates = Convict.kept.where(name_conditions, first_name.downcase, last_name.downcase)
-                        .where('phone = ? OR (date_of_birth = ? AND phone IS NOT NULL)', prefixed_phone, date_of_birth)
-                        .where.not(id:)
+    duplicates = []
+    duplicates << Convict.where(appi_uuid:).where.not(id:) if duplicate_appi_uuid?
+    duplicates << Convict.where(phone:).where.not(id:) if duplicate_phone?
+    if duplicate_date_of_birth?
+      dob_dups = Convict.where(first_name:, last_name:, date_of_birth:).where.not(id:)
+      dob_dups = dob_dups.where(appi_uuid: [nil, '']) if appi_uuid.present?
+      duplicates << dob_dups
+    end
 
-    duplicates = duplicates.where(appi_uuid: [nil, '']) if appi_uuid.present?
-
-    duplicates
+    duplicates.flatten
   end
+  # rubocop:enable Metrics/AbcSize
 
   def already_invited_to_interface?
     invitation_to_convict_interface_count.positive?
@@ -250,7 +239,7 @@ class Convict < ApplicationRecord
     existing_convict = Convict.where(first_name:, last_name:, date_of_birth:).where.not(id:)
 
     # Check if there's an existing record with the same attributes and no appi_uuid
-    return unless existing_convict.exists?(appi_uuid: [nil, '']) && appi_uuid.blank?
+    return unless existing_convict.exists?(appi_uuid: [nil, '']) || appi_uuid.blank?
 
     errors.add(:date_of_birth, DOB_UNIQUENESS_MESSAGE)
   end

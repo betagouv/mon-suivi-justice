@@ -38,7 +38,7 @@ class ConvictsController < ApplicationController
       handle_convict_interface_invitation
       redirect_to select_path(params), notice: t('.notice')
     else
-      @duplicate_convicts = Convict.find_duplicates(@convict)
+      @duplicate_convicts = @convict.find_duplicates
 
       divestment_decision if @duplicate_convicts.present?
 
