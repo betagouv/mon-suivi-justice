@@ -44,6 +44,9 @@ fr:
       argument_error: "Vous devez indiquer au minimum une heure ou un intervalle de temps"
       start_time_before_end_time: "L'heure de début doit être avant l'heure de fin"
   convicts:
+    show:
+      ongoing_divestment: 'Attention : Une demande de dessaisissement est en cours'
+      ongoing_divestment_details: "Il ne sera pas possible de convoquer, modifier ou archiver ce probationnaire tant que la demande de dessaisissement n'aura pas été traitée"
     create:
       notice: "Le probationnaire a bien été créé."
     new:
@@ -240,6 +243,8 @@ fr:
         organization_types:
           spip: "SPIP"
           tj: "TJ"
+      organization_divestment:
+        comment: Commentaire
       divestment:
         organization_to_id: "Service vers lequel le dossier est transféré"
         organization_from_id: "Service d'origine du dossier"
@@ -764,6 +769,13 @@ fr:
       used_capacity:  "%{data} convocations déjà réalisées."
       minimum_capacity: "La nouvelle capacité doit être au minimum de %{data} place(s)."
       warning: "Si vous choisissez %{data}, le créneau sera fermé."
+
+  organization_divestments:
+    edit:
+      accept: Accepter
+      refuse: Refuser
+    organization_divestments_table:
+      errors_to_fix: 'Merci de corriger ces erreurs avant de répondre à la demande:'
 
   convict_invitations:
     create:

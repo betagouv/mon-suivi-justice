@@ -25,9 +25,9 @@ class OrganizationDivestmentsController < ApplicationController
     state_service = DivestmentStateService.new(@organization_divestment, current_user)
     comment = organization_divestment_params[:comment]
     success = case params[:transition]
-              when 'accept'
+              when I18n.t('organization_divestments.edit.accept')
                 state_service.accept(comment)
-              when 'refuse'
+              when I18n.t('organization_divestments.edit.refuse')
                 state_service.refuse(comment)
               else
                 false
