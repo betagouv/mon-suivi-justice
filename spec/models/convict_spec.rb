@@ -493,7 +493,7 @@ RSpec.describe Convict, type: :model do
     context 'when there are no duplicates' do
       it 'returns an empty array' do
         convict.validate
-        expect(Convict.find_duplicates(convict)).to be_empty
+        expect(convict.find_duplicates).to be_empty
       end
     end
 
@@ -503,7 +503,7 @@ RSpec.describe Convict, type: :model do
       it 'returns an array with the duplicate convict' do
         convict.validate
         convict.errors.add(:appi_uuid, :taken)
-        expect(Convict.find_duplicates(convict)).to include(duplicate_convict)
+        expect(convict.find_duplicates).to include(duplicate_convict)
       end
     end
 
@@ -512,7 +512,7 @@ RSpec.describe Convict, type: :model do
 
       it 'returns an array with the duplicate convict' do
         convict.validate
-        expect(Convict.find_duplicates(convict)).to include(duplicate_convict)
+        expect(convict.find_duplicates).to include(duplicate_convict)
       end
     end
 
@@ -527,7 +527,7 @@ RSpec.describe Convict, type: :model do
 
       it 'returns an array with the duplicate convict' do
         convict.validate
-        expect(Convict.find_duplicates(convict)).to include(duplicate_convict)
+        expect(convict.find_duplicates).to include(duplicate_convict)
       end
     end
 
@@ -544,7 +544,7 @@ RSpec.describe Convict, type: :model do
         it 'returns an array with all duplicate convicts' do
           # no dob validation when appi_uuid is present
           convict.validate
-          duplicates = Convict.find_duplicates(convict)
+          duplicates = convict.find_duplicates
           expect(duplicates).to match_array([duplicate_by_appi_uuid, duplicate_by_phone])
         end
       end
@@ -552,7 +552,7 @@ RSpec.describe Convict, type: :model do
         let(:convict) { build(:convict, appi_uuid: nil) }
         it 'returns an array with all duplicate convicts' do
           convict.validate
-          duplicates = Convict.find_duplicates(convict)
+          duplicates = convict.find_duplicates
           expect(duplicates).to match_array([duplicate_by_date_of_birth, duplicate_by_phone])
         end
       end
@@ -567,7 +567,7 @@ RSpec.describe Convict, type: :model do
 
       it 'returns the dup only once' do
         convict.validate
-        duplicates = Convict.find_duplicates(convict)
+        duplicates = convict.find_duplicates
 
         expect(duplicates).to match_array([dup])
       end
