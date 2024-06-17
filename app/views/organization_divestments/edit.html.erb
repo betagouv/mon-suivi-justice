@@ -5,7 +5,6 @@
       <% if @organization_divestment.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@organization_divestment.errors.count, "error") %> prohibited this organization divestment from being saved:</h2>
-
           <ul>
             <% @organization_divestment.errors.full_messages.each do |message| %>
               <li><%= message %></li>
@@ -13,21 +12,18 @@
           </ul>
         </div>
       <% end %>
-
       <div class="fr-input-group">
         <%= form.label :comment, class: "fr-label" %>
         <%= form.text_area :comment, class: "fr-input" %>
       </div>
-
       <ul class="fr-btns-group fr-btns-group--inline-md">
         <li>
-            <%= form.submit "Accept", name: 'transition', value: 'accept', class: "fr-btn" %>
+          <%= form.submit t('.accept'), name: 'transition', value: t('.accept'), class: "fr-btn" %>
         </li>
         <li>
-            <%= form.submit "Refuse", name: 'transition', value: 'refuse', class: "fr-btn fr-btn--secondary-danger" %>
+          <%= form.submit t('.refuse'), name: 'transition', value: t('.refuse'), class: "fr-btn fr-btn--secondary-danger" %>
         </li>
-    </ul>
-
+      </ul>
     <% end %>
   </div>
 </div>
