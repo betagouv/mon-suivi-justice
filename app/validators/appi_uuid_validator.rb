@@ -12,24 +12,8 @@ class AppiUuidValidator < ActiveModel::Validator
     # Return early if appi_uuid is blank
     return true unless appi_uuid.present?
 
-    # Check if appi_uuid consists only of digits
-    unless appi_uuid.match?(/\A\d+\z/)
-      return false, I18n.t('activerecord.errors.models.convict.attributes.appi_uuid.only_digits')
-    end
-
-    # Define valid formats as combinations of prefix and length
-    valid_formats = [
-      { prefix: %w[199 200], length: 8 },
-      { prefix: %w[200 201 202], length: 12 }
-    ]
-
-    # Check if appi_uuid matches any of the valid formats
-    is_valid = valid_formats.any? do |format|
-      format[:prefix].any? { |prefix| appi_uuid.start_with?(prefix) } && appi_uuid.length == format[:length]
-    end
-
     # Add error if appi_uuid doesn't match any valid format
-    return true if is_valid
+    return true if /(200|201|202)\d{9}([A-Za-z]?)$|^(199|200)\d{5}([A-Za-z]?)/.match?(appi_uuid)
 
     [false, I18n.t('activerecord.errors.models.convict.attributes.appi_uuid.invalid')]
   end
