@@ -3,6 +3,7 @@ class AppiUuidValidator < ActiveModel::Validator
     is_valid, error_message = appi_format(record.appi_uuid)
 
     return if is_valid
+
     record.errors.add(:appi_uuid, error_message)
   end
 
