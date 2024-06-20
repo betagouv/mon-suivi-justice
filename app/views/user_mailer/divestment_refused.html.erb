@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h2>La demande de dessaisissment concernant le probationnaire n°<%= link_to(@convict.appi_uuid || @convict.id, convict_url(@convict)) %> a été refusée </h2>
+    <h2>Votre demande de dessaisissment concernant le probationnaire n°<%= link_to(@convict.appi_uuid || @convict.id, convict_url(@convict)) %> a été refusée </h2>
     <% if @comment.present? %>
       <h5>Raisons du refus : </h5>
       <ul>
@@ -12,7 +12,7 @@
       </ul>
     <% end %>
     <% if @current_user.email.present? || @current_user.phone %>
-      <h5>Pour en discuter, n'hésitez pas a contacter <%= @current_user.name %>, <%= t("activerecord.attributes.user.user_roles.#{@current_user.role}") %> au <%= @current_user.organization.name %>  </h5>
+      <h5>Si vous pensez que c'est une erreur, n'hésitez pas a contacter <%= @current_user.name %>, <%= t("activerecord.attributes.user.user_roles.#{@current_user.role}") %> au <%= @current_user.organization.name %>.</h5>
       <h5>Coordonnées de l'utilisateur</h5>
       <ul>
         <% if @current_user.email? %>

@@ -774,16 +774,33 @@ fr:
   organization_divestments:
     divestments:
       outgoing_divestment_requests: "Demandes de dessaisissement sortantes"
-    organization_divestments:
-      incoming_divestment_requests: "Demandes de dessaisissement entrantes"
+    divesments_table:
+      decision_date: 'Date de décision'
+      request_date: 'Date de demande'
+      status: Status
+      services: Services
     edit:
       accept: Accepter
-      refuse: Refuser
       accept_notice: "Le dessaisissement a bien été accepté"
-      refuse_notice: "Le dessaisissement a bien été refusé"
+      errors_count: "%{count} à corriger avant de répondre à la demande"
       invalid_notice: "Action invalide"
+      refuse: Refuser
+      refuse_notice: "Le dessaisissement a bien été refusé"
+      title: "Décision concernant le dessaisissement de %{convict_name}"
+    no_divestments:
+      content: "Vous n'avez pas encore de dessaisissements en cours ou passés"
+    organization_divestments:
+      incoming_divestment_requests: "Demandes de dessaisissement entrantes"
     organization_divestments_table:
+      decision_date: 'Date de décision'
       errors_to_fix: 'Merci de corriger ces erreurs avant de répondre à la demande:'
+      request_date: 'Date de demande'
+      requesting_service: 'Service demandeur'
+      decision: 'Votre décision'
+      comment: 'Commentaire'
+      action: 'Actions'
+      status: Status
+      services: Services
 
   convict_invitations:
     create:

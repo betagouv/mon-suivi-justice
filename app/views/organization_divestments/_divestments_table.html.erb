@@ -3,11 +3,11 @@
     <thead>
       <tr>
         <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
-        <th scope="col"><%= past ? 'Date de décision' : 'Date de demande' %></th>
+        <th scope="col"><%= past ? t('.decision_date') : t('.request_date') %></th>
         <% if past %>
-          <th scope="col">Status</th>
+          <th scope="col"><%= t('.status') %></th>
         <% end %>
-        <th scope="col">Services</th>
+        <th scope="col"><%= t('.services') %></th>
       </tr>
     </thead>
     <tbody>
@@ -15,34 +15,21 @@
         <tr>
           <td>
             <% if policy(divestment.convict).show? %>
-                <%= link_to divestment.convict.name, convict_path(divestment.convict), class: 'index-control', data: { turbo: false } %>
+              <%= link_to divestment.convict.name, convict_path(divestment.convict), class: 'index-control', data: { turbo: false } %>
             <% else %>
-                <%= divestment.convict.name %>
+              <%= divestment.convict.name %>
             <% end %>
           </td>
           <td><%= past ? divestment.decision_date&.strftime("%d/%m/%Y") : divestment.created_at.strftime("%d/%m/%Y") %></td>
           <% if past %>
             <td>
-              <% badge_class = case divestment.state
-                              when "accepted", "auto_accepted" then "fr-badge--success"
-                              when "ignored" then "fr-badge--new"
-                              when "refused" then "fr-badge--error"
-                              else ""
-                              end %>
-              <p class="fr-my-0-5v fr-badge fr-badge--no-icon <%= badge_class %> hyphens-auto"><%= divestment.human_state_name %></p>
+              <%= divestment_state_badge(divestment.state, divestment.human_state_name) %>
             </td>
           <% end %>
           <td>
             <% divestment.organization_divestments.each do |organization_divestment| %>
-              <% badge_class = case organization_divestment.state
-                              when "accepted", "auto_accepted" then "fr-badge--success"
-                              when "ignored" then "fr-badge--new"
-                              when "refused" then "fr-badge--error"
-                              else ""
-                              end %>
-              <% od_id = organization_divestment.id %>
-              <p class="fr-my-0-5v fr-badge fr-badge--no-icon <%= badge_class %>" aria-describedby="tooltip-od-<%= od_id %>" id="link-od-<%= od_id %>"><%= organization_divestment.organization_name %></p>
-              <span class="fr-tooltip fr-placement" id="tooltip-od-<%= od_id %>" role="tooltip" aria-hidden="true"><%= comment_text(organization_divestment.comment) %></span>
+              <%= organization_divestment_state_badge(organization_divestment) %>
+              <%= organization_divestment_tooltip(organization_divestment) %>
             <% end %>
           </td>
         </tr>
