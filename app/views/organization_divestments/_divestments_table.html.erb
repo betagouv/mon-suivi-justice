@@ -1,40 +1,48 @@
-<div class="fr-table fr-table--bordered fr-table--layout-fixed">
-  <table>
-    <thead>
-      <tr>
-        <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
-        <th scope="col"><%= past ? t('.decision_date') : t('.request_date') %></th>
-        <% if past %>
-          <th scope="col"><%= t('.status') %></th>
-        <% end %>
-        <th scope="col"><%= t('.services') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% divestments.each do |divestment| %>
+<% if divestments.any? %>
+  <div class="fr-table fr-table--bordered fr-table--layout-fixed">
+    <table>
+      <thead>
         <tr>
-          <td>
-            <% if policy(divestment.convict).show? %>
-              <%= link_to divestment.convict.name, convict_path(divestment.convict), class: 'index-control', data: { turbo: false } %>
-            <% else %>
-              <%= divestment.convict.name %>
-            <% end %>
-          </td>
-          <td><%= past ? divestment.decision_date&.strftime("%d/%m/%Y") : divestment.created_at.strftime("%d/%m/%Y") %></td>
+          <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
+          <th scope="col"><%= past ? t('.decision_date') : t('.request_date') %></th>
           <% if past %>
-            <td>
-              <%= divestment_state_badge(divestment.state, divestment.human_state_name) %>
-            </td>
+            <th scope="col"><%= t('.status') %></th>
           <% end %>
-          <td>
-            <% divestment.organization_divestments.each do |organization_divestment| %>
-              <%= organization_divestment_state_badge(organization_divestment) %>
-              <%= organization_divestment_tooltip(organization_divestment) %>
-            <% end %>
-          </td>
+          <th scope="col"><%= t('.services') %></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<%= paginate divestments %>
+      </thead>
+      <tbody>
+        <% divestments.each do |divestment| %>
+          <tr>
+            <td>
+              <% if policy(divestment.convict).show? %>
+                <%= link_to divestment.convict.name, convict_path(divestment.convict), class: 'index-control', data: { turbo: false } %>
+              <% else %>
+                <%= divestment.convict.name %>
+              <% end %>
+            </td>
+            <td><%= past ? divestment.decision_date&.strftime("%d/%m/%Y") : divestment.created_at.strftime("%d/%m/%Y") %></td>
+            <% if past %>
+              <td>
+                <%= divestment_state_badge(divestment.state, divestment.human_state_name) %>
+              </td>
+            <% end %>
+            <td>
+              <% divestment.organization_divestments.each do |organization_divestment| %>
+                <%= organization_divestment_state_badge(organization_divestment) %>
+                <%= organization_divestment_tooltip(organization_divestment) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= paginate divestments, params: { d_display_past_tab: past} %>
+<% else %>
+  <% if past %>
+    <p><%= t('.no_past_divestments') %></p>
+  <% else %>
+    <p><%= t('.no_current_divestments') %></p>
+  <% end %>
+<% end %>

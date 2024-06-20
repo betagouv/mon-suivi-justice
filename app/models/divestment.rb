@@ -30,6 +30,8 @@ class Divestment < ApplicationRecord
     end
   end
 
+  paginates_per 5
+
   def all_accepted?
     organization_divestments.all?(&:positively_answered?)
   end

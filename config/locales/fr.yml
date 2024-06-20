@@ -380,7 +380,6 @@ fr:
   contact: "Contacter l'équipe"
   get_back: "Retour"
   default: "Défaut"
-  answer: "Répondre"
 
   monday: lundi
   tuesday: mardi
@@ -774,11 +773,19 @@ fr:
   organization_divestments:
     divestments:
       outgoing_divestment_requests: "Demandes de dessaisissement sortantes"
-    divesments_table:
+      current: "En cours"
+      past: "Terminées"
+    divestments_table:
       decision_date: 'Date de décision'
+      no_past_divestments: "Aucun dessaisissement sortant terminé"
+      no_current_divestments: "Aucun dessaisissement sortant en cours"
       request_date: 'Date de demande'
       status: Status
       services: Services
+    organization_divestments:
+      incoming_divestment_requests: "Demandes de dessaisissement entrantes"
+      current: "En cours"
+      past: "Terminées"
     edit:
       accept: Accepter
       accept_notice: "Le dessaisissement a bien été accepté"
@@ -787,11 +794,10 @@ fr:
       refuse: Refuser
       refuse_notice: "Le dessaisissement a bien été refusé"
       title: "Décision concernant le dessaisissement de %{convict_name}"
-    no_divestments:
-      content: "Vous n'avez pas encore de dessaisissements en cours ou passés"
     organization_divestments:
       incoming_divestment_requests: "Demandes de dessaisissement entrantes"
     organization_divestments_table:
+      answer: "Répondre"
       decision_date: 'Date de décision'
       errors_to_fix: 'Merci de corriger ces erreurs avant de répondre à la demande:'
       request_date: 'Date de demande'
@@ -801,6 +807,8 @@ fr:
       action: 'Actions'
       status: Status
       services: Services
+      no_past_divestments: "Aucun dessaisissement entrant terminé"
+      no_current_divestments: "Aucun dessaisissement entrant en cours"
 
   convict_invitations:
     create:
