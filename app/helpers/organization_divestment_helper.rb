@@ -15,9 +15,9 @@ module OrganizationDivestmentHelper
 
   def organization_divestment_tooltip(organization_divestment)
     content_tag(:span, comment_text(organization_divestment.comment),
-                class: "fr-tooltip fr-placement",
+                class: 'fr-tooltip fr-placement',
                 id: "tooltip-od-#{organization_divestment.id}",
-                role: "tooltip",
+                role: 'tooltip',
                 aria: { hidden: true })
   end
 end

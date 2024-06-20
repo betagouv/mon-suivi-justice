@@ -1,14 +1,14 @@
 module DivestmentHelper
   def badge_class(state)
     case state
-    when "accepted", "auto_accepted"
-      "fr-badge--success"
-    when "ignored"
-      "fr-badge--new"
-    when "refused"
-      "fr-badge--error"
+    when 'accepted', 'auto_accepted'
+      'fr-badge--success'
+    when 'ignored'
+      'fr-badge--new'
+    when 'refused'
+      'fr-badge--error'
     else
-      ""
+      ''
     end
   end
 
