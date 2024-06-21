@@ -1,6 +1,0 @@
-<div id="tabpanel-406-panel" class="fr-tabs__panel <%= current_divestments.present? ? "fr-tabs__panel--selected" : "" %>" role="tabpanel" aria-labelledby="tabpanel-406" tabindex="0">
-  <%= render 'divestments_table', divestments: current_divestments, past: false %>
-</div>
-<div id="tabpanel-407-panel" class="fr-tabs__panel <%= current_divestments.empty? ? "fr-tabs__panel--selected" : "" %>" role="tabpanel" aria-labelledby="tabpanel-407" tabindex="-1">
-  <%= render 'divestments_table', divestments: past_divestments, past: true %>
-</div>
