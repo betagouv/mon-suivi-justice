@@ -7,7 +7,7 @@ class Convict < ApplicationRecord
   has_paper_trail
   normalizes :last_name, with: ->(last_name) { last_name&.strip&.upcase }
   normalizes :first_name, with: ->(first_name) { first_name&.strip&.gsub(/\b\w/, &:upcase) }
-  normalizes :appi_uuid, with: ->(appi_uuid) { appi_uuid&.strip }
+  normalizes :appi_uuid, with: ->(appi_uuid) { appi_uuid&.strip&.upcase }
 
   DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
 

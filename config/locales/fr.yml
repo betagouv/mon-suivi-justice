@@ -264,8 +264,7 @@ fr:
               blank: "Veuillez sélectionner au moins un service"
               multiple_uniqueness: "Un probationnaire ne peut pas être suivi par plusieurs fois le même service"
             appi_uuid:
-              invalid: "doit contenir 8 ou 12 chiffres et commencer par 199, 200, 201 ou 202"
-              only_digits: "Seuls les chiffres sont autorisés"
+              invalid: "doit contenir 8 ou 12 chiffres et commencer par 199, 200, 201 ou 202 avec une lettre finale facultative"
         place:
           attributes:
             name:
