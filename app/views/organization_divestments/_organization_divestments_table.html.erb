@@ -5,17 +5,17 @@
         <thead>
           <tr>
             <th scope="col"><%= t('activerecord.models.convict', count: 1) %></th>
-            <th scope="col"><%= past ? 'Date de décision' : 'Date de demande' %></th>
-            <th scope="col">Service demandeur</th>
+            <th scope="col"><%= past ? t('.decision_date') : t('.request_date') %></th>
+            <th scope="col"><%= t('.requesting_service') %></th>
             <% if past %>
-              <th scope="col">Status du dessaisissement</th>
+              <th scope="col"><%= t('.status') %></th>
             <% end %>
-            <th scope="col">Services</th>
+            <th scope="col"><%= t('.services') %></th>
             <% if past %>
-              <th scope="col">Votre décision</th>
-              <th scope="col">Comment</th>
+              <th scope="col"><%= t('.decision') %></th>
+              <th scope="col"><%= t('.comment') %></th>
             <% else %>
-              <th scope="col">Actions</th>
+              <th scope="col"><%= t('.actions') %></th>
             <% end %>
           </tr>
         </thead>
@@ -33,39 +33,18 @@
               <td><%= organization_divestment.source.name %></td>
               <% if past %>
                 <td>
-                  <% badge_class = case organization_divestment.divestment.state
-                                  when "accepted", "auto_accepted" then "fr-badge--success"
-                                  when "ignored" then "fr-badge--new"
-                                  when "refused" then "fr-badge--error"
-                                  else ""
-                                  end %>
-                  <p class="fr-badge fr-my-0-5v fr-badge--no-icon <%= badge_class %> hyphens-auto"><%= organization_divestment.divestment.human_state_name %></p>
+                  <%= divestment_state_badge(organization_divestment.divestment.state, organization_divestment.divestment.human_state_name) %>
                 </td>
               <% end %>
               <td>
                 <% organization_divestment.divestment.organization_divestments.each do |other_organizations_divestment| %>
-                  <% badge_class = case other_organizations_divestment.state
-                                  when "accepted", "auto_accepted" then "fr-badge--success"
-                                  when "ignored" then "fr-badge--new"
-                                  when "refused" then "fr-badge--error"
-                                  else ""
-                                  end %>
-                  <% ood_id = other_organizations_divestment.id %>
-                  <p class="fr-my-0-5v fr-badge fr-badge--no-icon <%= badge_class %> hyphens-auto" aria-describedby="tooltip-ood-<%= ood_id %>" id="link-ood-<%= ood_id %>"><%= other_organizations_divestment.organization_name %></p>
-                  <% if other_organizations_divestment.answered? %>
-                    <span class="fr-tooltip fr-placement" id="tooltip-ood-<%= ood_id %>" role="tooltip" aria-hidden="true"><%= comment_text(other_organizations_divestment.comment) %></span>
-                  <% end %>
+                  <%= organization_divestment_state_badge(other_organizations_divestment) %>
+                  <%= organization_divestment_tooltip(other_organizations_divestment) %>
                 <% end %>
               </td>
               <% if past %>
                 <td>
-                  <% badge_class = case organization_divestment.state
-                                  when "accepted", "auto_accepted" then "fr-badge--success"
-                                  when "ignored" then "fr-badge--new"
-                                  when "refused" then "fr-badge--error"
-                                  else ""
-                                  end %>
-                  <p class="fr-my-0-5v fr-badge fr-badge--no-icon <%= badge_class %> hyphens-auto"><%= organization_divestment.human_state_name %></p>
+                  <%= divestment_state_badge(organization_divestment.state, organization_divestment.human_state_name) %>
                 </td>
                 <td>
                   <%= comment_text(organization_divestment.comment) %>
