@@ -1,4 +1,4 @@
-class DivestmentDecisionService
+class DivestmentProposalService
   def initialize(duplicate_convicts, current_organization)
     @duplicate_convicts = duplicate_convicts
     @current_organization = current_organization
