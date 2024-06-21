@@ -1,11 +1,2 @@
-<% if @organization_divestments.empty? && @divestments.empty? %>
-  <%= render 'no_divestments' %>
-<% end %>
-
-<% if @organization_divestments.present? %>
-  <%= render 'organization_divestments', current_orga_divestments: @current_orga_divestments, past_orga_divestments: @past_orga_divestments %>
-<% end %>
-
-<% if @divestments.present? %>
-  <%= render 'divestments', current_divestments: @current_divestments, past_divestments: @past_divestments %>
-<% end %>
+<%= render 'organization_divestments', current_orga_divestments: @current_orga_divestments, past_orga_divestments: @past_orga_divestments %>
+<%= render 'divestments', current_divestments: @current_divestments, past_divestments: @past_divestments %>

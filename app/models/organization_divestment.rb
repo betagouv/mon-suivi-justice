@@ -6,6 +6,8 @@ class OrganizationDivestment < ApplicationRecord
   delegate :name, to: :organization, prefix: true
   delegate :name, to: :convict, prefix: true
 
+  validates :comment, length: { maximum: 120 }, allow_blank: true
+
   scope :old_pending, lambda {
     joins(:divestment)
       .where('organization_divestments.created_at < ?', 10.days.ago)
@@ -43,7 +45,7 @@ class OrganizationDivestment < ApplicationRecord
     end
   end
 
-  validates :comment, length: { maximum: 120 }, allow_blank: true
+  paginates_per 5
 
   def source
     divestment.organization

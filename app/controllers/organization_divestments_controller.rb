@@ -7,12 +7,11 @@ class OrganizationDivestmentsController < ApplicationController
     @organization_divestments = policy_scope(OrganizationDivestment)
     authorize @organization_divestments
     @current_orga_divestments = @organization_divestments.unanswered.order(created_at: :desc).page params[:page]
-    @past_orga_divestments = @organization_divestments.answered.order(decision_date: :asc).page params[:page]
+    @past_orga_divestments = @organization_divestments.answered.order(decision_date: :desc).page params[:page]
 
     @divestments = policy_scope(Divestment)
-
     @current_divestments = @divestments.where(state: :pending).order(created_at: :desc).page params[:page]
-    @past_divestments = @divestments.where.not(state: :pending).order(decision_date: :asc).page params[:page]
+    @past_divestments = @divestments.where.not(state: :pending).order(decision_date: :desc).page params[:page]
   end
   # rubocop:enable Metrics/AbcSize
 
