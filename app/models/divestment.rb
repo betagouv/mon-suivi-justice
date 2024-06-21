@@ -11,6 +11,8 @@ class Divestment < ApplicationRecord
                          if: -> { state == 'pending' }
   validate :convict_is_not_japat, on: :create
 
+  scope :admin_action_needed, -> { where(state: :pending, created_at: ..10.days.ago) }
+
   state_machine initial: :pending do
     event :accept do
       transition pending: :accepted
