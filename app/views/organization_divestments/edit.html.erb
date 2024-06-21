@@ -1,10 +1,10 @@
 <div class="fr-grid-row fr-grid-row--center">
   <div class="fr-col-12 fr-col-md-10 fr-col-lg-8 fr-mb-5w">
-    <h3 class='form-title'>Décision concernant le dessaisissement de <%= @organization_divestment.convict_name %></h3>
+    <h3 class='form-title'><%= t('.title', convict_name: @organization_divestment.convict_name) %></h3>
     <%= form_with(model: @organization_divestment, local: true) do |form| %>
       <% if @organization_divestment.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@organization_divestment.errors.count, "error") %> prohibited this organization divestment from being saved:</h2>
+          <h2><%= t('.errors_count', count: pluralize(@organization_divestment.errors.count, "erreur")) %></h2>
           <ul>
             <% @organization_divestment.errors.full_messages.each do |message| %>
               <li><%= message %></li>
