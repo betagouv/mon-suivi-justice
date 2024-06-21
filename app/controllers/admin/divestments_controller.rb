@@ -30,10 +30,7 @@ module Admin
         WHEN 'refused' THEN 4 \
         WHEN 'auto_accepted' THEN 5 \
         ELSE 6 END"
-      resources = super.order(Arel.sql(order_statement))
-      return resources if params[:all_divestments] == 'true'
-
-      resources.admin_action_needed
+      resources.order(Arel.sql(order_statement))
     end
 
     # Override `resource_params` if you want to transform the submitted

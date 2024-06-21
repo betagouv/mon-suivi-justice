@@ -71,7 +71,9 @@ class DivestmentDashboard < Administrate::BaseDashboard
   #   COLLECTION_FILTERS = {
   #     open: ->(resources) { resources.where(open: true) }
   #   }.freeze
-  COLLECTION_FILTERS = {}.freeze
+  COLLECTION_FILTERS = {
+    repondre: ->(resources) { resources.admin_action_needed }
+  }.freeze
 
   # Overwrite this method to customize how divestments are displayed
   # across all pages of the admin dashboard.
