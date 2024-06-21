@@ -14,75 +14,75 @@
               <th scope="col"><%= t('.services') %></th>
               <% if past %>
                 <th scope="col"><%= t('.decision') %></th>
-                <th scope="col"><%= t('.comment') %</th>
+                <th scope="col"><%= t('.comment') %></th>
               <% else %>
-                  <th scope="col"><%= t('.actions') %></th>
+                <th scope="col"><%= t('.actions') %></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% organization_divestments.each do |organization_divestment| %>
+              <tr>
+                <td>
+                  <% if policy(organization_divestment.convict).show? %>
+                    <%= link_to organization_divestment.convict.name, convict_path(organization_divestment.convict), class: 'index-control', data: { turbo: false } %>
+                  <% else %>
+                    <%= organization_divestment.convict.name %>
+                  <% end %>
+                </td>
+                <td><%= past ? organization_divestment.decision_date&.strftime("%d/%m/%Y") : organization_divestment.created_at.strftime("%d/%m/%Y") %></td>
+                <td><%= organization_divestment.source.name %></td>
+                <% if past %>
+                  <td>
+                    <%= divestment_state_badge(organization_divestment.divestment.state, organization_divestment.divestment.human_state_name) %>
+                  </td>
+                <% end %>
+                <td>
+                  <% organization_divestment.divestment.organization_divestments.each do |other_organizations_divestment| %>
+                    <%= organization_divestment_state_badge(other_organizations_divestment) %>
+                    <% if other_organizations_divestment.answered? %>
+                      <%= organization_divestment_tooltip(other_organizations_divestment) %>
+                    <% end %>
+                  <% end %>
+                </td>
+                <% if past %>
+                  <td>
+                    <%= divestment_state_badge(organization_divestment.state, organization_divestment.human_state_name) %>
+                  </td>
+                  <td>
+                    <%= organization_divestment.comment %>
+                  </td>
+                <% else %>
+                  <td>
+                    <% if organization_divestment.convict.invalid? %>
+                      <div class="col-fr">
+                        <%= t('.errors_to_fix') %>
+                        <ul>
+                          <% organization_divestment.convict.errors.each do |error| %>
+                            <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{organization_divestment.convict.send(error.attribute)})" %>: <%= error.type %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+                    <% if policy(organization_divestment).edit? %>
+                      <div class="col-fr">
+                        <%= link_to t('.answer'), edit_organization_divestment_path(organization_divestment), class: 'slots-index-control' %>
+                      </div>
+                    <% end %>
+                  </td>
                 <% end %>
               </tr>
-            </thead>
-            <tbody>
-              <% organization_divestments.each do |organization_divestment| %>
-                <tr>
-                  <td>
-                    <% if policy(organization_divestment.convict).show? %>
-                      <%= link_to organization_divestment.convict.name, convict_path(organization_divestment.convict), class: 'index-control', data: { turbo: false } %>
-                    <% else %>
-                      <%= organization_divestment.convict.name %>
-                    <% end %>
-                  </td>
-                  <td><%= past ? organization_divestment.decision_date&.strftime("%d/%m/%Y") : organization_divestment.created_at.strftime("%d/%m/%Y") %></td>
-                  <td><%= organization_divestment.source.name %></td>
-                  <% if past %>
-                    <td>
-                      <%= divestment_state_badge(organization_divestment.divestment.state, organization_divestment.divestment.human_state_name) %>
-                    </td>
-                  <% end %>
-                  <td>
-                    <% organization_divestment.divestment.organization_divestments.each do |other_organizations_divestment| %>
-                      <%= organization_divestment_state_badge(other_organizations_divestment) %>
-                      <% if other_organizations_divestment.answered? %>
-                        <%= organization_divestment_tooltip(other_organizations_divestment) %>
-                      <% end %>
-                    <% end %>
-                  </td>
-                  <% if past %>
-                    <td>
-                      <%= divestment_state_badge(organization_divestment.state, organization_divestment.human_state_name) %>
-                    </td>
-                    <td>
-                      <%= comment_text(organization_divestment.comment) %>
-                    </td>
-                  <% else %>
-                    <td>
-                      <% if organization_divestment.convict.invalid? %>
-                        <div class="col-fr">
-                          <%= t('.errors_to_fix') %>
-                          <ul>
-                            <% organization_divestment.convict.errors.each do |error| %>
-                              <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{organization_divestment.convict.send(error.attribute)})" %>: <%= error.type %></li>
-                            <% end %>
-                          </ul>
-                        </div>
-                      <% end %>
-                      <% if policy(organization_divestment).edit? %>
-                        <div class="col-fr">
-                          <%= link_to t('.answer'), edit_organization_divestment_path(organization_divestment), class: 'slots-index-control' %>
-                        </div>
-                      <% end %>
-                    </td>
-                  <% end %>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
-    <%= paginate organization_divestments, params: { od_display_past_tab: past } %>
+  </div>
+  <%= paginate organization_divestments, params: { od_display_past_tab: past } %>
+<% else %>
+  <% if past %>
+    <p><%= t('.no_past_divestments') %></p>
   <% else %>
-    <% if past %>
-      <p><%= t('.no_past_divestments') %></p>
-    <% else %>
-      <p><%= t('.no_current_divestments') %></p>
-    <% end %>
+    <p><%= t('.no_current_divestments') %></p>
   <% end %>
+<% end %>
