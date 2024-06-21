@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe DivestmentDecisionService do
+RSpec.describe DivestmentProposalService do
   let(:user) { create(:user, :in_organization, role: 'cpip') }
 
   let(:other_organization) { create(:organization) }
@@ -8,7 +8,7 @@ RSpec.describe DivestmentDecisionService do
 
   let(:duplicate_convict) { create(:convict, organizations: [other_organization]) }
 
-  subject(:service) { DivestmentDecisionService.new([duplicate_convict], user.organization) }
+  subject(:service) { DivestmentProposalService.new([duplicate_convict], user.organization) }
 
   describe '#call' do
     context 'when convict is under the current organization' do
@@ -34,7 +34,7 @@ RSpec.describe DivestmentDecisionService do
         end
 
         it 'does not show the divestment button and provides correct alert for pending divestment' do
-          service = DivestmentDecisionService.new([duplicate_convict], user.organization)
+          service = DivestmentProposalService.new([duplicate_convict], user.organization)
           result = service.call.first
           org_name = duplicate_convict.organizations.first.name
           expect(result[:show_button]).to be_falsey
@@ -64,7 +64,7 @@ RSpec.describe DivestmentDecisionService do
 
         it 'does not show the divestment button and provides correct alert for pending divestment' do
           duplicate_convict.reload
-          service = DivestmentDecisionService.new([duplicate_convict], user.organization)
+          service = DivestmentProposalService.new([duplicate_convict], user.organization)
           result = service.call.first
           expect(result[:show_button]).to be_falsey
           expect(result[:alert]).to include(duplicate_convict.name)

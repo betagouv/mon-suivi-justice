@@ -40,7 +40,7 @@ class ConvictsController < ApplicationController
     else
       @duplicate_convicts = @convict.find_duplicates
 
-      divestment_decision if @duplicate_convicts.present?
+      divestment_proposal if @duplicate_convicts.present?
 
       render :new, status: :unprocessable_entity
     end
@@ -132,8 +132,8 @@ class ConvictsController < ApplicationController
 
   private
 
-  def divestment_decision
-    @dups_details = DivestmentDecisionService.new(@duplicate_convicts, current_organization).call
+  def divestment_proposal
+    @dups_details = DivestmentProposalService.new(@duplicate_convicts, current_organization).call
   end
 
   def convict_params
