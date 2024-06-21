@@ -283,9 +283,15 @@ fr:
               confirmation: "ne correspond pas au premier mot de passe saisi"
         convict:
           attributes:
+            first_name:
+              blank: "Prénom manquant"
+            last_name:
+              blank: "Nom manquant"
+            date_of_birth:
+              blank: "Date de naissance manquante"
             phone:
               mobile: "Numéro de téléphone portable requis"
-              taken: "Un probationnaire est déjà enregistré avec ce numéro de téléphone. Merci de saisir un autre numéro"
+              taken: "Un probationnaire est déjà enregistré avec ce numéro de téléphone."
               confirmation: "Ne correspond pas au premier mot de passe saisi"
               blank: "n'est pas renseigné. Veuillez renseigner au moins un des champs 'téléphone portable', 'ne possède pas de téléphone portable' ou 'refuse de recevoir des SMS'"
             dob:
@@ -299,6 +305,7 @@ fr:
             appi_uuid:
               invalid: "doit contenir 8 ou 12 chiffres et commencer par 199, 200, 201 ou 202"
               only_digits: "Seuls les chiffres sont autorisés"
+              taken: "Un probationnaire est déjà enregistré avec ce numéro APPI"
         place:
           attributes:
             name:
