@@ -16,7 +16,7 @@ class DivestmentStalledService
       convict = organization_divestment.convict
       service = DivestmentStateService.new(organization_divestment, nil)
       if divestmentable?(convict)
-        service.accept
+        service.accept("Accepté automatiquement après 10 jours d'attente", true)
       else
         admin_action_needed << organization_divestment
       end

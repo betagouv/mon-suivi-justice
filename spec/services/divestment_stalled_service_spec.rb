@@ -5,13 +5,15 @@ RSpec.describe DivestmentStalledService do
     let(:convict) { instance_double('Convict', archived?: false, last_appointment_at_least_3_months_old?: false) }
     let(:divestment) { instance_double('Divestment', convict:) }
     let(:organization_divestment) { instance_double('OrganizationDivestment', divestment:) }
-    let(:state_service) { instance_double('DivestmentStateService', accept: nil, ignore: nil) }
+    let(:state_service) { instance_double('DivestmentStateService', accept: nil) }
 
     before do
       allow(OrganizationDivestment).to receive(:old_pending).and_return([organization_divestment])
       allow(DivestmentStateService).to receive(:new).with(organization_divestment, nil).and_return(state_service)
 
       allow(organization_divestment).to receive(:convict).and_return(convict)
+
+      allow(UserMailer).to receive(:admin_divestment_action_needed).and_call_original
     end
 
     context 'when convict is divestmentable' do
@@ -25,12 +27,17 @@ RSpec.describe DivestmentStalledService do
         expect(state_service).to receive(:accept)
         DivestmentStalledService.new.call
       end
+      it 'does not send email to the admin' do
+        allow(convict).to receive_messages(last_appointment_at_least_3_months_old?: true)
+        DivestmentStalledService.new.call
+        expect(UserMailer).not_to have_received(:admin_divestment_action_needed)
+      end
     end
 
     context 'when convict is not divestmentable' do
-      it 'calls ignore on DivestmentStateService' do
-        expect(state_service).to receive(:ignore)
+      it 'sends email to the admin' do
         DivestmentStalledService.new.call
+        expect(UserMailer).to have_received(:admin_divestment_action_needed).once
       end
     end
   end

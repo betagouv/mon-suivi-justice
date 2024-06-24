@@ -7,14 +7,14 @@ class DivestmentStateService
     @user = user
   end
 
-  def accept(comment = nil)
+  def accept(comment = nil, auto_accepted = false)
     return false unless @convict.valid?
     return false unless @organization_divestment.unanswered? && @divestment.pending?
 
     ActiveRecord::Base.transaction do
       return false unless comment.nil? || @organization_divestment.update!(comment:)
 
-      @organization_divestment.accept!
+      auto_accepted ? @organization_divestment.auto_accept! : @organization_divestment.accept!
       handle_divestment_state
     end
   rescue ActiveRecord::RecordInvalid
