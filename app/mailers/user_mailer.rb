@@ -22,6 +22,10 @@ class UserMailer < ApplicationMailer
     mail(to: @admins.map(&:email), subject: 'Vous avez des demandes de dessaisissement en attente')
   end
 
+  def admin_divestment_action_needed
+    mail(to: 'support@mon-suivi-justice.beta.gouv.fr', subject: 'Des demandes de dessaisissement nécessitent une action')
+  end
+
   def divestment_accepted
     divestment = params[:divestment]
     user = divestment.user
