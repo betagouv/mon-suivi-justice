@@ -42,7 +42,7 @@ module HistoryItemFactory
                                                     user_name: data[:user_name], user_role: data[:user_role])
       when 'refuse_divestment'
         relevant_org_divestment = data[:divestment].organization_divestments.with_state(:refused).first
-        comment = relevant_org_divestment.comment.present? ? relevant_org_divestment : 'décision sans commentaire'
+        comment = relevant_org_divestment.comment.present? ? relevant_org_divestment.comment : 'décision sans commentaire'
         I18n.t('history_item.refuse_divestment', comment:, organization_name: relevant_org_divestment.organization_name,
                                                  target_name: data[:divestment].organization_name)
       when 'accept_divestment'

@@ -19,7 +19,7 @@ class OrganizationDivestment < ApplicationRecord
       .where('last_reminder_email_at IS NULL OR last_reminder_email_at <= ?', 5.days.ago)
   }
 
-  scope :unanswered, -> { where(state: %i[pending ignored]) }
+  scope :unanswered, -> { where(state: %i[pending]) }
   scope :answered, -> { where(state: %i[accepted auto_accepted refused]) }
 
   state_machine initial: :pending do
@@ -54,10 +54,6 @@ class OrganizationDivestment < ApplicationRecord
 
   def convict_name
     convict.full_name
-  end
-
-  def unanswered?
-    pending? || ignored?
   end
 
   def positively_answered?

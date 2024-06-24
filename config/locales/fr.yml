@@ -803,7 +803,7 @@ fr:
       request_date: 'Date de demande'
       requesting_service: 'Service demandeur'
       decision: 'Votre décision'
-      comment: 'Commentaire'
+      comment: 'Votre commentaire'
       action: 'Actions'
       status: Status
       services: Services

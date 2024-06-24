@@ -26,7 +26,7 @@ class Divestment < ApplicationRecord
 
     after_transition pending: %i[accepted auto_accepted refused] do |divestment, transition|
       divestment.update(decision_date: Time.zone.now)
-      divestment.record_history_for_transition(transition.event == :refused ? :refused : :accepted)
+      divestment.record_history_for_transition(transition.event == :refuse ? :refuse : :accept)
     end
   end
 

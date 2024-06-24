@@ -21,6 +21,6 @@ class OrganizationDivestmentPolicy < ApplicationPolicy
     return false unless user.security_charter_accepted? && user.local_admin?
     return false unless record.convict.valid?
 
-    record.unanswered? && user.organization == record.organization
+    record.pending? && user.organization == record.organization
   end
 end

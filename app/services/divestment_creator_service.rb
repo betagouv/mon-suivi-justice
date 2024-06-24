@@ -38,6 +38,7 @@ class DivestmentCreatorService
     )
     @divestment.decision_date = Time.zone.now if state == 'auto_accepted'
     @divestment.save!
+    @divestment.record_history_for_transition(:accept) if @divestment.auto_accepted?
   end
 
   def create_organization_divestments(divestment, state)
