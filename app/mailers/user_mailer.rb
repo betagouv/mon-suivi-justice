@@ -23,7 +23,8 @@ class UserMailer < ApplicationMailer
   end
 
   def admin_divestment_action_needed
-    mail(to: 'support@mon-suivi-justice.beta.gouv.fr', subject: 'Des demandes de dessaisissement nécessitent une action')
+    mail(to: 'support@mon-suivi-justice.beta.gouv.fr',
+         subject: 'Des demandes de dessaisissement nécessitent une action')
   end
 
   def divestment_accepted

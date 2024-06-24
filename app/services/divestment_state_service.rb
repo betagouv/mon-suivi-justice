@@ -7,7 +7,8 @@ class DivestmentStateService
     @user = user
   end
 
-  def accept(comment = nil, auto_accepted = false)
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def accept(comment = nil, auto_accepted: false)
     return false unless @convict.valid?
     return false unless @organization_divestment.unanswered? && @divestment.pending?
 
@@ -20,6 +21,7 @@ class DivestmentStateService
   rescue ActiveRecord::RecordInvalid
     false
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def refuse(comment = nil)

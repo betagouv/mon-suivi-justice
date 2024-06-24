@@ -6,6 +6,8 @@ class StateMachineField < Administrate::Field::Base
   end
 
   def permitted_transitions
-    [resource.human_state_name] + (resource.state_paths.to_states & %i[accepted refused]).map { |state| OrganizationDivestment.human_state_name(state) }
+    [resource.human_state_name] + (resource.state_paths.to_states & %i[accepted refused]).map do |state|
+                                    OrganizationDivestment.human_state_name(state)
+                                  end
   end
 end

@@ -26,7 +26,7 @@ RSpec.describe Convict, type: :model do
         new_convict = build(:convict, organizations: [organization], appi_uuid:)
 
         expect(new_convict.valid?).to eq(false)
-        expect(new_convict.errors[:appi_uuid]).to include("Un probationnaire est déjà enregistré avec ce numéro APPI")
+        expect(new_convict.errors[:appi_uuid]).to include('Un probationnaire est déjà enregistré avec ce numéro APPI')
       end
 
       it 'should allow to create a convict with same first_name, last_name and dob but different appi_number' do

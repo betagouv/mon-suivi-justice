@@ -1,8 +1,9 @@
 module OrganizationDivestmentHelper
   def organization_divestment_state_badge(organization_divestment)
     od_id = organization_divestment.id
+    classes = "fr-my-0-5v fr-badge fr-badge--no-icon #{badge_class(organization_divestment.state)} hyphens-auto"
     content_tag(:p, organization_divestment.organization_name,
-                class: "fr-my-0-5v fr-badge fr-badge--no-icon #{badge_class(organization_divestment.state)} hyphens-auto",
+                class: classes,
                 aria: { describedby: "tooltip-od-#{od_id}" },
                 id: "link-od-#{od_id}")
   end

@@ -1,7 +1,4 @@
 class DivestmentStalledService
-  def initialize
-  end
-
   def call
     manage_old_pending_divestments
     remind_local_admins_of_divestments
@@ -16,7 +13,7 @@ class DivestmentStalledService
       convict = organization_divestment.convict
       service = DivestmentStateService.new(organization_divestment, nil)
       if divestmentable?(convict)
-        service.accept("Accepté automatiquement après 10 jours d'attente", true)
+        service.accept("Accepté automatiquement après 10 jours d'attente", auto_accepted: true)
       else
         admin_action_needed << organization_divestment
       end
@@ -33,7 +30,6 @@ class DivestmentStalledService
       update_to_be_reminded(organization)
     end
   end
-
 
   def update_to_be_reminded(organization)
     organization.organization_divestments.reminders_due.each do |od|
