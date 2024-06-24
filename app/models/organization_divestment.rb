@@ -41,11 +41,12 @@ class OrganizationDivestment < ApplicationRecord
 
     after_transition %i[pending ignored] => any do |organization_divestment, transition|
       organization_divestment.update(decision_date: Time.zone.now)
-      organization_divestment.record_history_for_transition(transition.event)
     end
   end
 
   paginates_per 5
+
+  delegate :name, to: :organization, prefix: true
 
   def source
     divestment.organization
@@ -53,22 +54,6 @@ class OrganizationDivestment < ApplicationRecord
 
   def convict_name
     convict.full_name
-  end
-
-  def record_history_for_transition(transition_event)
-    event = "#{transition_event}_organization_divestment"
-    return unless HistoryItem.validate_event(event)
-
-    HistoryItemFactory.perform(
-      convict:,
-      event:,
-      category: 'convict',
-      data: {
-        organization_name: organization.name,
-        target_name: divestment.organization.name,
-        comment:
-      }
-    )
   end
 
   def unanswered?

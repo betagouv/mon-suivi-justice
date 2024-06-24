@@ -531,8 +531,8 @@ fr:
     add_phone_convict: "Un numéro de téléphone pour %{name} a été ajouté par %{user_name} (%{user_role}). Nouveau numéro : %{new_phone}."
     remove_phone_convict_title: "Numéro supprimé"
     remove_phone_convict: "Le numéro de téléphone de %{name} a été supprimé par %{user_name} (%{user_role}). Ancien numéro : %{old_phone}."
-    refuse_organization_divestment_title: "Refus de dessaisissement"
-    refuse_organization_divestment: "Le dessaisissement vers %{target_name} a été refusé par %{organization_name} (%{comment})."
+    refuse_divestment_title: "Refus de dessaisissement"
+    refuse_divestment: "Le dessaisissement vers %{target_name} a été refusé par %{organization_name} (%{comment})."
     accept_divestment_title: "Dessaisissement accepté"
     accept_divestment: "Le dessaisissement vers %{target_name} est maintenant effectif."
 

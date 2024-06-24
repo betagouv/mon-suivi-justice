@@ -30,7 +30,7 @@ RSpec.describe HistoryItem, type: :model do
         remove_phone_convict: 17,
         failed_programmed_reminder_notification: 18,
         accept_divestment: 19,
-        refuse_organization_divestment: 20
+        refuse_divestment: 20
       }
     )
   }
