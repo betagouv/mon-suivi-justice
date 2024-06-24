@@ -62,9 +62,10 @@ class DivestmentCreatorService
     return state unless state == 'pending'
     return 'ignored' if org.local_admin.empty?
 
-    if org.spip? && @convict.organizations.intersect?(org.tjs)
-      return 'auto_accepted' unless@convict.organizations.tj.map(&:local_admin).flatten.empty?
+    if org.spip? && @convict.organizations.intersect?(org.tjs) && @convict.tj.map(&:local_admin).flatten.present?
+      return 'auto_accepted'
     end
+
     state
   end
 
