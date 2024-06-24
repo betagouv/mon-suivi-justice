@@ -20,7 +20,7 @@ class OrganizationDivestment < ApplicationRecord
   }
 
   scope :unanswered, -> { where(state: %i[pending]) }
-  scope :answered, -> { where(state: %i[accepted auto_accepted refused]) }
+  scope :answered, -> { where(state: %i[ignored accepted auto_accepted refused]) }
 
   state_machine initial: :pending do
     event :accept do
@@ -61,6 +61,6 @@ class OrganizationDivestment < ApplicationRecord
   end
 
   def answered?
-    accepted? || auto_accepted? || refused?
+    ignored? || accepted? || auto_accepted? || refused?
   end
 end
