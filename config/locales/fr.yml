@@ -780,7 +780,7 @@ fr:
       no_past_divestments: "Aucun dessaisissement sortant terminé"
       no_current_divestments: "Aucun dessaisissement sortant en cours"
       request_date: 'Date de demande'
-      status: Status
+      status: Statut
       services: Services
     organization_divestments:
       incoming_divestment_requests: "Demandes de dessaisissement entrantes"
@@ -794,8 +794,6 @@ fr:
       refuse: Refuser
       refuse_notice: "Le dessaisissement a bien été refusé"
       title: "Décision concernant le dessaisissement de %{convict_name}"
-    organization_divestments:
-      incoming_divestment_requests: "Demandes de dessaisissement entrantes"
     organization_divestments_table:
       answer: "Répondre"
       decision_date: 'Date de décision'
@@ -805,7 +803,7 @@ fr:
       decision: 'Votre décision'
       comment: 'Commentaire'
       action: 'Actions'
-      status: Status
+      status: Statut
       services: Services
       no_past_divestments: "Aucun dessaisissement entrant terminé"
       no_current_divestments: "Aucun dessaisissement entrant en cours"
