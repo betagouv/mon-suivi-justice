@@ -57,7 +57,7 @@ class OrganizationDivestment < ApplicationRecord
   end
 
   def positively_answered?
-    accepted? || auto_accepted?
+    ignored? || accepted? || auto_accepted?
   end
 
   def answered?
