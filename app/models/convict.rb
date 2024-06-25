@@ -279,6 +279,10 @@ class Convict < ApplicationRecord
     errors.where(:date_of_birth, DOB_UNIQUENESS_MESSAGE).any?
   end
 
+  def being_divested?
+    divestments.where(state: :pending).any?
+  end
+
   private
 
   def unique_organizations

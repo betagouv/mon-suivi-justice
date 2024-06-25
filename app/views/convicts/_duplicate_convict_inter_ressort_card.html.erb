@@ -1,0 +1,30 @@
+<div class="fr-container fr-mt-5w fr-mb-5w">
+  <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+    <div class="fr-alert fr-alert--warning">
+      <h3 class="fr-alert__title">Attention : ce probationnaire existe déjà</h3>
+      <% duplicate_convicts&.each do |duplicate_convict| %>
+        <p>Ce probationnaire <%= duplicate_convict.city.present? ? "habite a #{duplicate_convict.city.name}" : "n'a pas de ville renseignée" %> et est rattaché aux services : <%= duplicate_convict.organizations.map(&:name).join(', ') %></p>
+        <% if duplicate_convict.phone.present? %>
+          <p><%= t('activerecord.attributes.convict.phone')%>: <%= duplicate_convict.display_phone %></p>
+        <% end %>
+        <% if duplicate_convict.appi_uuid.present? %>
+          <p><%= t('activerecord.attributes.convict.appi_uuid') %>: <%= duplicate_convict.appi_uuid %></p>
+        <% end %>
+        <% if policy(duplicate_convict).edit? %>
+          <div class="fr-container fr-mt-5w fr-mb-5w">
+            <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+              <% if user.in_jurisdiction?(duplicate_convict) %>
+                  <%= link_to t('show_convict_new_appointment'), new_appointment_path(convict_id: duplicate_convict.id),
+                                            class: 'fr-btn fr-btn--lg'%>
+              <% elsif user.in_jurisdiction?(duplicate_convict) %>
+                <p>un dessaisissement est deja en cours pour ce probationnaire</p>
+              <% else %>
+                <%= button_to "Changer sa ville", edit_convict_path(duplicate_convict), method: :get, class: 'fr-btn' %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -40,7 +40,7 @@ class ConvictsController < ApplicationController
     else
       @duplicate_convicts = @convict.find_duplicates
 
-      divestment_proposal if @duplicate_convicts.present?
+      divestment_proposal if @duplicate_convicts.present? && !current_user.can_use_inter_ressort?
 
       render :new, status: :unprocessable_entity
     end
@@ -195,7 +195,7 @@ class ConvictsController < ApplicationController
 
   def handle_successful_update(old_phone)
     record_phone_change(old_phone)
-    if !convict.japat? && organizations_changed?
+    if !@convict.japat? && organizations_changed?
       origin = divestment_origin
 
       divestment = Divestment.new user: current_user, organization: origin, convict: @convict
