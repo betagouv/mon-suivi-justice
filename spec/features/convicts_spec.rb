@@ -355,12 +355,14 @@ RSpec.feature 'Convicts', type: :feature do
       convict = create(:convict, phone: nil, no_phone: true, organizations: [spip, tj])
 
       spip2 = create(:organization, organization_type: 'spip')
-      tj2 = create(:organization, organization_type: 'tj')
+      tj2 = build(:organization, organization_type: 'tj')
+      tj2.spips = [spip2]
+      tj2.save
       srj_tj = create(:srj_tj, organization: tj2)
       srj_spip = create(:srj_spip, organization: spip2)
 
       create(:city, srj_tj:, srj_spip:)
-
+      create_appointment(convict, tj, date: 1.month.ago)
       visit edit_convict_path(convict)
 
       find('#convict_city_id').set('Melun')
@@ -374,8 +376,45 @@ RSpec.feature 'Convicts', type: :feature do
       expect(orgs_info_div).to have_content("les services actuels du probationnaire: #{spip.name}, #{tj.name}")
 
       click_button 'Enregistrer'
+      convict.reload
+      expect(convict.organizations).to match_array([spip, tj, spip2, tj2])
+      expect(convict.being_divested?).to be(true)
+    end
 
-      expect(Convict.last.organizations).to match_array([spip, tj, spip2, tj2])
+    it 'it auto divest convict when city is updated if possible', logged_in_as: 'bex',
+                                                                              js: true do
+      @user.organization.use_inter_ressort = true
+
+      spip = create(:organization, organization_type: 'spip')
+      tj = create(:organization, organization_type: 'tj')
+
+      convict = create(:convict, phone: nil, no_phone: true, organizations: [spip, tj])
+
+      spip2 = create(:organization, organization_type: 'spip')
+      tj2 = build(:organization, organization_type: 'tj')
+      tj2.spips = [spip2]
+      tj2.save
+      srj_tj = create(:srj_tj, organization: tj2)
+      srj_spip = create(:srj_spip, organization: spip2)
+
+      create(:city, srj_tj:, srj_spip:)
+      visit edit_convict_path(convict)
+
+      find('#convict_city_id').set('Melun')
+
+      page.has_content?('77000 Melun (France)')
+      find('a', text: '77000 Melun (France)').click
+
+      orgs_info_div = page.find("div[data-search-cities-results-target='organizationsInfo']")
+
+      expect(orgs_info_div).to have_content("pour cette commune: #{tj2.name}, #{spip2.name}")
+      expect(orgs_info_div).to have_content("les services actuels du probationnaire: #{spip.name}, #{tj.name}")
+
+      click_button 'Enregistrer'
+      convict.reload
+      expect(convict.organizations).to match_array([spip2, tj2])
+      expect(convict.being_divested?).to be(false)
+      expect(convict.divestments.last.state).to eq('auto_accepted')
     end
   end
 
