@@ -19,8 +19,8 @@ class OrganizationDivestment < ApplicationRecord
       .where('last_reminder_email_at IS NULL OR last_reminder_email_at <= ?', 5.days.ago)
   }
 
-  scope :unanswered, -> { where(state: %i[pending ignored]) }
-  scope :answered, -> { where(state: %i[accepted auto_accepted refused]) }
+  scope :unanswered, -> { where(state: %i[pending]) }
+  scope :answered, -> { where(state: %i[ignored accepted auto_accepted refused]) }
 
   state_machine initial: :pending do
     event :accept do
@@ -39,13 +39,14 @@ class OrganizationDivestment < ApplicationRecord
       transition pending: :ignored
     end
 
-    after_transition %i[pending ignored] => any do |organization_divestment, transition|
+    after_transition %i[pending ignored] => any do |organization_divestment, _transition|
       organization_divestment.update(decision_date: Time.zone.now)
-      organization_divestment.record_history_for_transition(transition.event)
     end
   end
 
   paginates_per 5
+
+  delegate :name, to: :organization, prefix: true
 
   def source
     divestment.organization
@@ -55,31 +56,11 @@ class OrganizationDivestment < ApplicationRecord
     convict.full_name
   end
 
-  def record_history_for_transition(transition_event)
-    event = "#{transition_event}_organization_divestment"
-    return unless HistoryItem.validate_event(event)
-
-    HistoryItemFactory.perform(
-      convict:,
-      event:,
-      category: 'convict',
-      data: {
-        organization_name: organization.name,
-        target_name: divestment.organization.name,
-        comment:
-      }
-    )
-  end
-
-  def unanswered?
-    pending? || ignored?
-  end
-
   def positively_answered?
-    accepted? || auto_accepted?
+    ignored? || accepted? || auto_accepted?
   end
 
   def answered?
-    accepted? || auto_accepted? || refused?
+    ignored? || accepted? || auto_accepted? || refused?
   end
 end

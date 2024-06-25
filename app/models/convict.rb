@@ -70,6 +70,7 @@ class Convict < ApplicationRecord
                                              ignoring: :accents
 
   delegate :name, to: :cpip, allow_nil: true, prefix: true
+  delegate :tj, to: :organizations, allow_nil: true
 
   def self.delete_delay
     18.month.ago
