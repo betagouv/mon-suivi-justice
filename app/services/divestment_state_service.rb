@@ -67,7 +67,7 @@ class DivestmentStateService
 
     @divestment.accept!
 
-    city = user.can_use_inter_ressort? ? @convict.city : nil
+    city = @user.can_use_inter_ressort? ? @convict.city : nil
     @convict.update!(organizations: @target_organizations, user: nil, city:)
     UserMailer.with(divestment: @divestment).divestment_accepted.deliver_later
     true
