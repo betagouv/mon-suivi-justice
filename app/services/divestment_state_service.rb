@@ -22,6 +22,8 @@ class DivestmentStateService
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize
   def refuse(comment = nil)
     return false unless @convict.valid?
     return false unless @organization_divestment.pending? && @divestment.pending?
@@ -42,6 +44,8 @@ class DivestmentStateService
   rescue ActiveRecord::RecordInvalid
     false
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def ignore
