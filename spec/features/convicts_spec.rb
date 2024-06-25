@@ -382,7 +382,7 @@ RSpec.feature 'Convicts', type: :feature do
     end
 
     it 'it auto divest convict when city is updated if possible', logged_in_as: 'bex',
-                                                                              js: true do
+                                                                  js: true do
       @user.organization.use_inter_ressort = true
 
       spip = create(:organization, organization_type: 'spip')
