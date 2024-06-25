@@ -7,8 +7,7 @@ class UserMailer < ApplicationMailer
   end
 
   def notify_local_admins_of_mutation(user, old_organization)
-    @admins = old_organization.local_admins
-    @admins = old_organization.headquarter&.local_admins if @admins.blank?
+    @admins = old_organization.all_local_admins
     return if @admins.blank?
 
     @user = user
@@ -16,7 +15,7 @@ class UserMailer < ApplicationMailer
   end
 
   def notify_local_admins_of_divestment(organization)
-    @admins = organization.local_admins
+    @admins = organization.all_local_admins
     return if @admins.blank?
 
     mail(to: @admins.map(&:email), subject: 'Vous avez des demandes de dessaisissement en attente')
