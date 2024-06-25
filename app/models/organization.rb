@@ -118,6 +118,12 @@ class Organization < ApplicationRecord
     (past_booked_appointments * 100.fdiv(total_appointments)).round > 20
   end
 
+  def all_local_admins
+    return headquarter.local_admins if headquarter.present?
+
+    local_admins
+  end
+
   private
 
   # rubocop:disable Metrics/AbcSize
