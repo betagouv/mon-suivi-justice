@@ -41,22 +41,35 @@ RSpec.describe DivestmentCreatorService do
 
     context 'when organizations are SPIP and TJS' do
       let(:tj) { create(:organization, organization_type: :tj, name: 'old tj') }
-      let!(:admin_tj) { create(:user, role: 'local_admin', organization: tj) }
       let(:spip) do
         spip = build(:organization, organization_type: :spip, name: 'old spip')
         spip.tjs = [tj]
         spip.save
         spip
       end
-
+      let!(:admin_spip) { create(:user, role: 'local_admin', organization: spip) }
       let(:convict) { create(:convict, organizations: [tj, spip]) }
 
-      it 'creates organization divestments with auto_accepted state for spip if tj' do
-        service.call
-        expect(service.divestment.organization_divestments.count).to eq(2)
-        expect(service.divestment.state).to eq('pending')
-        expect(service.divestment.organization_divestments.find_by(organization: spip).state).to eq('auto_accepted')
-        expect(service.divestment.organization_divestments.find_by(organization: tj).state).to eq('pending')
+      context 'when the TJ has a local admin' do
+        let!(:admin_tj) { create(:user, role: 'local_admin', organization: tj) }
+
+        it 'creates organization divestments with auto_accepted state for spip if tj' do
+          service.call
+          expect(service.divestment.organization_divestments.count).to eq(2)
+          expect(service.divestment.state).to eq('pending')
+          expect(service.divestment.organization_divestments.find_by(organization: spip).state).to eq('auto_accepted')
+          expect(service.divestment.organization_divestments.find_by(organization: tj).state).to eq('pending')
+        end
+      end
+
+      context 'when the TJ does not have a local admin' do
+        it 'creates organization divestments with pending state for spip if tj and tj has local admin' do
+          service.call
+          expect(service.divestment.organization_divestments.count).to eq(2)
+          expect(service.divestment.state).to eq('pending')
+          expect(service.divestment.organization_divestments.find_by(organization: spip).state).to eq('pending')
+          expect(service.divestment.organization_divestments.find_by(organization: tj).state).to eq('ignored')
+        end
       end
     end
 

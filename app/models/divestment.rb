@@ -24,11 +24,13 @@ class Divestment < ApplicationRecord
       transition pending: :refused
     end
 
-    after_transition pending: any do |divestment, transition|
+    after_transition pending: %i[accepted auto_accepted refused] do |divestment, transition|
       divestment.update(decision_date: Time.zone.now)
-      divestment.record_history_for_transition(transition.event)
+      divestment.record_history_for_transition(transition.event == :refuse ? :refuse : :accept)
     end
   end
+
+  delegate :name, to: :organization, prefix: true
 
   paginates_per 5
 
@@ -44,7 +46,7 @@ class Divestment < ApplicationRecord
       convict:,
       event:,
       category: 'convict',
-      data: { target_name: organization.name }
+      data: { divestment: self }
     )
   end
 
