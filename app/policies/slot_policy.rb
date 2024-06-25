@@ -1,6 +1,6 @@
 class SlotPolicy < ApplicationPolicy
   ALLOWED_TO_INTERACT = %w[admin local_admin jap dir_greff_bex dir_greff_sap greff_sap dpip overseer
-                           secretary_court].freeze
+                           secretary_court secretary_spip].freeze
 
   class Scope < Scope
     def resolve
