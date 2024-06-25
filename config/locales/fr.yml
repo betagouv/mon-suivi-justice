@@ -538,8 +538,8 @@ fr:
     add_phone_convict: "Un numéro de téléphone pour %{name} a été ajouté par %{user_name} (%{user_role}). Nouveau numéro : %{new_phone}."
     remove_phone_convict_title: "Numéro supprimé"
     remove_phone_convict: "Le numéro de téléphone de %{name} a été supprimé par %{user_name} (%{user_role}). Ancien numéro : %{old_phone}."
-    refuse_organization_divestment_title: "Refus de dessaisissement"
-    refuse_organization_divestment: "Le dessaisissement vers %{target_name} a été refusé par %{organization_name} (%{comment})."
+    refuse_divestment_title: "Refus de dessaisissement"
+    refuse_divestment: "Le dessaisissement vers %{target_name} a été refusé par %{organization_name} (%{comment})."
     accept_divestment_title: "Dessaisissement accepté"
     accept_divestment: "Le dessaisissement vers %{target_name} est maintenant effectif."
 
@@ -787,7 +787,7 @@ fr:
       no_past_divestments: "Aucun dessaisissement sortant terminé"
       no_current_divestments: "Aucun dessaisissement sortant en cours"
       request_date: 'Date de demande'
-      status: Status
+      status: Statut
       services: Services
     organization_divestments:
       incoming_divestment_requests: "Demandes de dessaisissement entrantes"
@@ -801,8 +801,6 @@ fr:
       refuse: Refuser
       refuse_notice: "Le dessaisissement a bien été refusé"
       title: "Décision concernant le dessaisissement de %{convict_name}"
-    organization_divestments:
-      incoming_divestment_requests: "Demandes de dessaisissement entrantes"
     organization_divestments_table:
       answer: "Répondre"
       decision_date: 'Date de décision'
@@ -810,9 +808,9 @@ fr:
       request_date: 'Date de demande'
       requesting_service: 'Service demandeur'
       decision: 'Votre décision'
-      comment: 'Commentaire'
+      comment: 'Votre commentaire'
       action: 'Actions'
-      status: Status
+      status: Statut
       services: Services
       no_past_divestments: "Aucun dessaisissement entrant terminé"
       no_current_divestments: "Aucun dessaisissement entrant en cours"

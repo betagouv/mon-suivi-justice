@@ -38,6 +38,7 @@ class DivestmentCreatorService
     )
     @divestment.decision_date = Time.zone.now if state == 'auto_accepted'
     @divestment.save!
+    @divestment.record_history_for_transition(:accept) if @divestment.auto_accepted?
   end
 
   def create_organization_divestments(divestment, state)
@@ -59,9 +60,13 @@ class DivestmentCreatorService
 
   def initial_state(org, state)
     return state unless state == 'pending'
-    return 'auto_accepted' if org.spip? && @convict.organizations.intersect?(org.tjs)
+    return 'ignored' if org.local_admin.empty?
 
-    org.users.where(role: 'local_admin').empty? ? 'ignored' : state
+    if org.spip? && @convict.organizations.intersect?(org.tjs) && @convict.tj.map(&:local_admin).flatten.present?
+      return 'auto_accepted'
+    end
+
+    state
   end
 
   def initial_comment(state)
