@@ -50,7 +50,7 @@ class ConvictsController < ApplicationController
     @convict = policy_scope(Convict).find(params[:id])
     @saved_japat_value = @convict.japat
     @saved_convict_city = @convict.city
-    @saved_convict_organizations = @convict.organizations
+    @saved_convict_organizations = [*@convict.organizations]
     set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     authorize @convict
@@ -196,10 +196,8 @@ class ConvictsController < ApplicationController
   def handle_successful_update(old_phone)
     record_phone_change(old_phone)
     if !@convict.japat? && organizations_changed?
-      origin = divestment_origin
-
-      divestment = Divestment.new user: current_user, organization: origin, convict: @convict
-      divestment_creation = DivestmentCreatorService.new(@convict, current_user, divestment).call
+      divestment = Divestment.new user: current_user, organization: divestment_origin, convict: @convict
+      DivestmentCreatorService.new(@convict, current_user, divestment).call
     end
     flash.now[:success] = 'Le probationnaire a bien été mise à jour'
     redirect_to convict_path(@convict)
@@ -238,8 +236,8 @@ class ConvictsController < ApplicationController
 
   def divestment_origin
     diff = @convict.organizations - @saved_convict_organizations
-    tj = diff.find { |org| org.tj? } 
-    spip = diff.find { |org| org.spip? }
-    return tj || spip
+    tj = diff.find(&:tj?)
+    spip = diff.find(&:spip?)
+    tj || spip
   end
 end

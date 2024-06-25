@@ -151,7 +151,6 @@ class Organization < ApplicationRecord
     convict.organizations.where(id: jurisdiction).any?
   end
 
-
   private
 
   # rubocop:disable Metrics/AbcSize

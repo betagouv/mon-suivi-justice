@@ -6,7 +6,7 @@ class DivestmentCreatorService
     @convict = convict
     @user = user
     @divestment = divestment
-    @destinations = [@divestment.organization, *@divestment.organization.linked_organizations]
+    @destinations = divestment.organization.jurisdiction
   end
 
   def call
