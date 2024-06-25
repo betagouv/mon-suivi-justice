@@ -65,6 +65,7 @@ class User < ApplicationRecord
                                    }
 
   delegate :name, to: :organization, prefix: true
+  delegate :all_local_admins, to: :organization
 
   def name(reverse: false)
     "#{last_name.upcase} #{first_name.capitalize}" unless reverse

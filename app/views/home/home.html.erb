@@ -7,7 +7,7 @@
             <%= t('home.welcome_title', name: current_user.name(reverse: true) )%>
           </h2>
           <% unless current_user.local_admin? %>
-            <p class="fr-mb-0"><%= t('home.local_admin_list', admins: current_user.organization.local_admins.pluck(:full_name).join(', '), count: current_user.organization.local_admins.count) %></p>
+            <p class="fr-mb-0"><%= t('home.local_admin_list', admins: current_user.all_local_admins.pluck(:full_name).to_sentence, count: current_user.all_local_admins.count) %></p>
           <% end %>
         </div>
         <div class="fr-col-12">
