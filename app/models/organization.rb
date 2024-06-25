@@ -143,6 +143,15 @@ class Organization < ApplicationRecord
     local_admins
   end
 
+  def jurisdiction
+    [self, linked_organizations].flatten
+  end
+
+  def in_jurisdiction?(convict)
+    convict.organizations.where(id: jurisdiction).any?
+  end
+
+
   private
 
   # rubocop:disable Metrics/AbcSize

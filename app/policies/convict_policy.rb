@@ -97,7 +97,7 @@ class ConvictPolicy < ApplicationPolicy
   def no_divestment_or_convokable_nonetheless?
     return false unless user.security_charter_accepted?
     return true unless record.pending_divestments?
-
+    return true if user.work_at_bex? && user.can_use_inter_ressort?
     user.work_at_bex? && record.divestment_to?(user.organization)
   end
 end

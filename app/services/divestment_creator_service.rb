@@ -6,6 +6,7 @@ class DivestmentCreatorService
     @convict = convict
     @user = user
     @divestment = divestment
+    @destinations = [@divestment.organization, *@divestment.organization.linked_organizations]
   end
 
   def call
@@ -15,10 +16,9 @@ class DivestmentCreatorService
       save_divestment(state)
       create_organization_divestments(@divestment, state)
       if state == 'auto_accepted'
-        organizations = [@divestment.organization, *@divestment.organization.linked_organizations]
-        @convict.update(organizations:, user: nil)
+        @convict.update(organizations: @destinations, user: nil)
       else
-        @convict.update_organizations_for_bex_user(@user)
+        @convict.update_organizations_for_bex_user(@user, @destinations)
       end
     end
     { state: }
@@ -42,7 +42,8 @@ class DivestmentCreatorService
   end
 
   def create_organization_divestments(divestment, state)
-    @convict.organizations.each do |org|
+    old_orgs = @convict.organizations - @destinations
+    old_orgs.each do |org|
       org_state = initial_state(org, state)
       attributes = {
         divestment_id: divestment.id,

@@ -34,7 +34,8 @@ class DivestmentStateService
 
       handle_undecided_divestment
       organizations = @convict.organizations - @target_organizations
-      @convict.update!(organizations:)
+      city = user.can_use_inter_ressort? ? nil : @convict.city
+      @convict.update!(organizations:, city: )
       send_refuse_email
       true
     end
@@ -66,7 +67,8 @@ class DivestmentStateService
 
     @divestment.accept!
 
-    @convict.update!(organizations: @target_organizations, user: nil)
+    city = user.can_use_inter_ressort? ? @convict.city : nil
+    @convict.update!(organizations: @target_organizations, user: nil, city:)
     UserMailer.with(divestment: @divestment).divestment_accepted.deliver_later
     true
   end
