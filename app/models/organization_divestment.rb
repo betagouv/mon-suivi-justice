@@ -39,7 +39,7 @@ class OrganizationDivestment < ApplicationRecord
       transition pending: :ignored
     end
 
-    after_transition %i[pending ignored] => any do |organization_divestment, _transition|
+    after_transition %i[pending ignored] => %i[accepted auto_accepted refused] do |organization_divestment, _transition|
       organization_divestment.update(decision_date: Time.zone.now)
     end
   end

@@ -32,16 +32,8 @@ module Admin
     # Override this if you have certain roles that require a subset
     # this will be used to set the records shown on the `index` action.
     #
-    def scoped_resource
-      order_statement = "CASE state \
-        WHEN 'ignored' THEN 1 \
-        WHEN 'pending' THEN 2 \
-        WHEN 'accepted' THEN 3 \
-        WHEN 'refused' THEN 4 \
-        WHEN 'auto_accepted' THEN 5 \
-        ELSE 6 END"
-      resource_class.order(Arel.sql(order_statement))
-    end
+    # def scoped_resource
+    # end
 
     # Override `resource_params` if you want to transform the submitted
     # data before it's persisted. For example, the following would turn all

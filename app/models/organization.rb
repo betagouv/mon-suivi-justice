@@ -41,7 +41,7 @@ class Organization < ApplicationRecord
 
   has_rich_text :jap_modal_content
 
-  scope :with_divestment_reminders_due, lambda {
+  scope :with_divestment_to_be_reminded, lambda {
     joins(:organization_divestments)
       .merge(OrganizationDivestment.reminders_due)
       .distinct

@@ -28,7 +28,7 @@ RSpec.describe Organization, type: :model do
     end
   end
 
-  describe '.with_divestment_reminders_due' do
+  describe '.with_divestment_to_be_reminded' do
     let!(:organization1) { create(:organization, organization_type: :tj) }
     let!(:organization2) { create(:organization, organization_type: :spip) }
     let!(:organization3) { create(:organization, organization_type: :spip) }
@@ -56,7 +56,7 @@ RSpec.describe Organization, type: :model do
     end
 
     it 'returns organizations with pending divestments and no reminder email or reminder email older than 5 days' do
-      result = Organization.with_divestment_reminders_due
+      result = Organization.with_divestment_to_be_reminded
 
       expect(result).to include(organization1)
       expect(result).not_to include(organization2) # last_reminder_email_at is 4 days ago

@@ -72,7 +72,6 @@ RSpec.describe DivestmentStateService do
         tj_organization_divestment.reload
 
         expect(divestment.state).to eq('pending')
-        expect(tj_organization_divestment.decision_date).to eq(Date.today)
         expect(tj_organization_divestment.state).to eq('ignored')
       end
     end
@@ -87,7 +86,6 @@ RSpec.describe DivestmentStateService do
 
         expect(tj_organization_divestment.state).to eq('ignored')
         expect(divestment.state).to eq('pending')
-        expect(tj_organization_divestment.decision_date).to eq(Date.today)
       end
     end
   end

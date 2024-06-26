@@ -50,7 +50,7 @@
                     <%= divestment_state_badge(organization_divestment.state, organization_divestment.human_state_name) %>
                   </td>
                   <td>
-                    <%= comment_text(organization_divestment.comment) %>
+                    <%= organization_divestment.comment %>
                   </td>
                 <% else %>
                   <td>
@@ -59,7 +59,7 @@
                         <%= t('.errors_to_fix') %>
                         <ul>
                           <% organization_divestment.convict.errors.each do |error| %>
-                            <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{organization_divestment.convict.send(error.attribute)})" %>: <%= error.type %></li>
+                            <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{organization_divestment.convict.send(error.attribute)})" %>: <%= error.message %></li>
                           <% end %>
                         </ul>
                       </div>

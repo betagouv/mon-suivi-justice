@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Des demandes de dessaisissement nécessitent une action administrateur</h1>
+    <p>
+      Bonjour,
+      Des demandes de dessaisissement ont plus de 10 jours et nécessitent une action de la part des admins.
+      Pour y accéder, <%= link_to 'Cliquez ici', admin_divestments_url(search: 'repondre:') %>
+    </p>
+  </body>
+</html>
