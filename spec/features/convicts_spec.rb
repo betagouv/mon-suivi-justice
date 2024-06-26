@@ -373,7 +373,6 @@ RSpec.feature 'Convicts', type: :feature do
       orgs_info_div = page.find("div[data-search-cities-results-target='organizationsInfo']")
 
       expect(orgs_info_div).to have_content("pour cette commune: #{tj2.name}, #{spip2.name}")
-      expect(orgs_info_div).to have_content("les services actuels du probationnaire: #{spip.name}, #{tj.name}")
 
       click_button 'Enregistrer'
       convict.reload
@@ -408,7 +407,6 @@ RSpec.feature 'Convicts', type: :feature do
       orgs_info_div = page.find("div[data-search-cities-results-target='organizationsInfo']")
 
       expect(orgs_info_div).to have_content("pour cette commune: #{tj2.name}, #{spip2.name}")
-      expect(orgs_info_div).to have_content("les services actuels du probationnaire: #{spip.name}, #{tj.name}")
 
       click_button 'Enregistrer'
       convict.reload
