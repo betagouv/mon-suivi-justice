@@ -144,5 +144,8 @@
     <% if @dups_details.present? %>
       <%= render 'duplicate_convict_card', dups_details: @dups_details, user: current_user %>
     <% end %>
+    <% if @duplicate_convicts.present? && current_user.can_use_inter_ressort? %>
+      <%= render 'duplicate_convict_inter_ressort_card', duplicate_convicts: @duplicate_convicts, user: current_user %>
+    <% end %>
   </div>
 </div>

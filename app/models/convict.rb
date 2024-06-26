@@ -204,11 +204,12 @@ class Convict < ApplicationRecord
     save
   end
 
-  def update_organizations_for_bex_user(user)
+  def update_organizations_for_bex_user(user, new_orgas = nil)
     return unless user.work_at_bex?
     return unless valid?
 
-    user.organizations.each do |org|
+    new_orgas ||= user.organizations
+    new_orgas.each do |org|
       organizations << org unless organizations.include?(org)
     end
 
@@ -276,6 +277,10 @@ class Convict < ApplicationRecord
 
   def duplicate_date_of_birth?
     errors.where(:date_of_birth, DOB_UNIQUENESS_MESSAGE).any?
+  end
+
+  def being_divested?
+    divestments.where(state: :pending).any?
   end
 
   private

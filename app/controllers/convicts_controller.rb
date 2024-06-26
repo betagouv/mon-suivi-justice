@@ -40,7 +40,7 @@ class ConvictsController < ApplicationController
     else
       @duplicate_convicts = @convict.find_duplicates
 
-      divestment_proposal if @duplicate_convicts.present?
+      divestment_proposal if @duplicate_convicts.present? && !current_user.can_use_inter_ressort?
 
       render :new, status: :unprocessable_entity
     end
@@ -49,6 +49,8 @@ class ConvictsController < ApplicationController
   def edit
     @convict = policy_scope(Convict).find(params[:id])
     @saved_japat_value = @convict.japat
+    @saved_convict_city = @convict.city
+    @saved_convict_organizations = [*@convict.organizations]
     set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     authorize @convict
@@ -60,6 +62,8 @@ class ConvictsController < ApplicationController
 
     old_phone = @convict.phone
     @saved_japat_value = @convict.japat
+    @saved_convict_city = @convict.city
+    @saved_convict_organizations = [*@convict.organizations]
 
     update_convict
 
@@ -191,6 +195,10 @@ class ConvictsController < ApplicationController
 
   def handle_successful_update(old_phone)
     record_phone_change(old_phone)
+    if !@convict.japat? && organizations_changed?
+      divestment = Divestment.new user: current_user, organization: divestment_origin, convict: @convict
+      DivestmentCreatorService.new(@convict, current_user, divestment).call
+    end
     flash.now[:success] = 'Le probationnaire a bien été mise à jour'
     redirect_to convict_path(@convict)
   end
@@ -220,5 +228,16 @@ class ConvictsController < ApplicationController
     return unless params[:invite_convict] == 'on' && ConvictInvitationPolicy.new(current_user, @convict).create?
 
     InviteConvictJob.perform_later(@convict.id)
+  end
+
+  def organizations_changed?
+    @saved_convict_organizations.present? && @saved_convict_organizations != @convict.organizations
+  end
+
+  def divestment_origin
+    diff = @convict.organizations - @saved_convict_organizations
+    tj = diff.find(&:tj?)
+    spip = diff.find(&:spip?)
+    tj || spip
   end
 end

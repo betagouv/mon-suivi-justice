@@ -8,6 +8,8 @@ class DivestmentPolicy < ApplicationPolicy
   end
 
   def create?
+    return true if user.can_use_inter_ressort?
+
     record.organization == user.organization
   end
 end
