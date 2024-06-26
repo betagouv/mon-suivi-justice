@@ -1,6 +1,6 @@
 <div class="fr-container fr-mt-5w fr-mb-5w">
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-    <div class="fr-alert fr-alert--warning">
+    <div class="fr-alert fr-alert--info">
       <h3 class="fr-alert__title">Attention : ce probationnaire existe déjà</h3>
       <% duplicate_convicts&.each do |duplicate_convict| %>
         <p>Ce probationnaire <%= duplicate_convict.city.present? ? "habite a #{duplicate_convict.city.name}" : "n'a pas de ville renseignée" %> et est rattaché aux services : <%= duplicate_convict.organizations.map(&:name).join(', ') %></p>
