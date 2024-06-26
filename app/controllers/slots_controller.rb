@@ -44,9 +44,9 @@ class SlotsController < ApplicationController
   end
 
   def check_if_slot_should_be_closed
-    return unless @slot.all_capacity_used? == true
+    return if @slot.full == @slot.all_capacity_used?
 
-    @slot.update(full: true)
+    @slot.update(full: @slot.all_capacity_used?) if @slot.full != @slot.all_capacity_used?
   end
 
   def set_query_params
