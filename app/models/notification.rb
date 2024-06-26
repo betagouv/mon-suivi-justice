@@ -3,6 +3,7 @@ class Notification < ApplicationRecord
 
   belongs_to :appointment
   validates :content, presence: true
+  validates :external_id, presence: true, if: :sent?
 
   delegate :convict_phone, :convict, to: :appointment
   delegate :id, to: :appointment, prefix: true
@@ -43,8 +44,8 @@ class Notification < ApplicationRecord
       transition created: :programmed
     end
 
-    event :send_now do
-      transition created: :sent
+    event :program_now do
+      transition created: :programmed
     end
 
     event :send_then do
@@ -79,7 +80,7 @@ class Notification < ApplicationRecord
       end
     end
 
-    after_transition on: :send_now do |notification|
+    after_transition on: :program_now do |notification|
       SmsDeliveryJob.perform_later(notification.id)
     end
 

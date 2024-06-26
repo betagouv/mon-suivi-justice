@@ -9,10 +9,10 @@ RSpec.describe Notification, type: :model do
   it { should define_enum_for(:role).with_values(%i[summon reminder cancelation no_show reschedule]) }
   it { should define_enum_for(:reminder_period).with_values(%i[one_day two_days]) }
 
-  describe 'send_now' do
+  describe 'program_now' do
     it 'trigger sms delivery job' do
       notif = create(:notification)
-      notif.send_now
+      notif.program_now
       expect(SmsDeliveryJob).to have_been_enqueued.once.with(notif.id)
     end
   end
@@ -69,7 +69,7 @@ RSpec.describe Notification, type: :model do
     it { is_expected.to have_states :created, :programmed, :canceled, :sent, :received, :failed, :unsent }
 
     it { is_expected.to transition_from :created, to_state: :programmed, on_event: :program }
-    it { is_expected.to transition_from :created, to_state: :sent, on_event: :send_now }
+    it { is_expected.to transition_from :created, to_state: :programmed, on_event: :program_now }
 
     it { is_expected.to transition_from :programmed, to_state: :sent, on_event: :send_then }
     it { is_expected.to transition_from :programmed, to_state: :canceled, on_event: :cancel }
