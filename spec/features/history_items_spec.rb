@@ -83,7 +83,7 @@ RSpec.feature 'HistoryItems', type: :feature do
     end
 
     it 'displays summon notification content' do
-      expect { @summon_notif.send_now }.to change { HistoryItem.count }.by(1)
+      expect { @summon_notif.program_now }.to change { HistoryItem.count }.by(1)
 
       visit appointment_path(@appointment)
 
@@ -99,7 +99,7 @@ RSpec.feature 'HistoryItems', type: :feature do
     end
 
     it 'displays cancelation notification content' do
-      expect { @cancelation_notif.send_now }.to change { HistoryItem.count }.by(1)
+      expect { @cancelation_notif.program_now }.to change { HistoryItem.count }.by(1)
 
       visit appointment_path(@appointment)
 
@@ -107,7 +107,7 @@ RSpec.feature 'HistoryItems', type: :feature do
     end
 
     it 'displays no_show notification content' do
-      expect { @no_show_notif.send_now }.to change { HistoryItem.count }.by(1)
+      expect { @no_show_notif.program_now }.to change { HistoryItem.count }.by(1)
 
       visit appointment_path(@appointment)
 
