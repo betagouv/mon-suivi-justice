@@ -103,11 +103,14 @@ class Appointment < ApplicationRecord
     errors.add(:convict, I18n.t('activerecord.errors.models.appointment.attributes.convict.discarded'))
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def convict_must_be_valid
-    return if convict.valid?
+    return if inviter_user_id.present? && inviter_user.admin?
+    return if convict&.valid?
 
-    errors.add(:convict, convict.errors.full_messages.to_sentence)
+    errors.add(:convict, convict&.errors&.full_messages&.to_sentence)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def summon_notif
     notifications.find_by(role: :summon)
