@@ -23,6 +23,7 @@ module HistoryItemFactory
       end
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def content_for_convict(event:, convict:, data:)
       case event
       when 'archive_convict'
@@ -39,8 +40,16 @@ module HistoryItemFactory
       when 'remove_phone_convict'
         I18n.t('history_item.remove_phone_convict', name: convict.name, old_phone: data[:old_phone].phony_formatted,
                                                     user_name: data[:user_name], user_role: data[:user_role])
+      when 'refuse_divestment'
+        relevant_org_divestment = data[:divestment].organization_divestments.with_state(:refused).first
+        I18n.t('history_item.refuse_divestment', comment: relevant_org_divestment.comment || 'aucun commentaire',
+                                                 organization_name: relevant_org_divestment.organization_name,
+                                                 target_name: data[:divestment].organization_name)
+      when 'accept_divestment'
+        I18n.t('history_item.accept_divestment', target_name: data[:divestment].organization_name)
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def content_for_appointment(event:, appointment:)
       if appointment.slot.appointment_type.name == 'RDV téléphonique'

@@ -23,6 +23,12 @@ class Organization < ApplicationRecord
   has_many :convicts_organizations_mappings, dependent: :destroy
   has_many :convicts, through: :convicts_organizations_mappings
 
+  # dessaisissements initiés
+  has_many :divestments
+
+  # demandes de dessaisissements reçues
+  has_many :organization_divestments
+
   enum organization_type: { spip: 0, tj: 1 }
 
   validates :organization_type, presence: true
@@ -34,6 +40,19 @@ class Organization < ApplicationRecord
   alias local_admins local_admin
 
   has_rich_text :jap_modal_content
+
+  scope :with_divestment_to_be_reminded, lambda {
+    joins(:organization_divestments)
+      .merge(OrganizationDivestment.reminders_due)
+      .distinct
+  }
+
+  scope :with_ignored_divestment, lambda {
+    joins(organization_divestments: :divestment)
+      .where(organization_divestments: { state: :ignored })
+      .where(divestments: { state: :pending })
+      .distinct
+  }
 
   def ten_next_days_with_slots(appointment_type)
     Slot.future
@@ -122,6 +141,14 @@ class Organization < ApplicationRecord
     return headquarter.local_admins if headquarter.present?
 
     local_admins
+  end
+
+  def jurisdiction
+    [self, linked_organizations].flatten
+  end
+
+  def in_jurisdiction?(convict)
+    convict.organizations.where(id: jurisdiction).any?
   end
 
   private

@@ -12,7 +12,7 @@ RSpec.describe UserMailer, type: :mailer do
 
     context 'when there are local admins in the old organization' do
       before do
-        local_admin.update(organization: old_organization)
+        local_admin.update(organization: old_organization, headquarter:)
         send_email.call
       end
 

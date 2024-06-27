@@ -163,3 +163,14 @@ def create_default_notification_types
     end
   end
 end
+
+def create_appointment(convict, organization, date: Time.zone.now)
+  skip_validations = date.past?
+  place = create(:place, organization:)
+  agenda = create(:agenda, place:)
+  slot = build(:slot, agenda:, date:)
+  slot.save(validate: !skip_validations)
+  appointment = build(:appointment, convict:, slot:)
+  appointment.save(validate: !skip_validations)
+  appointment
+end

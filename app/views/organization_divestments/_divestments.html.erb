@@ -1,0 +1,19 @@
+<div class="fr-grid-row fr-grid-row--left fr-grid-row--middle fr-mt-2w">
+  <h3 class="fr-mr-2w"><%= t('.outgoing_divestment_requests') %></h3>
+</div>
+<div class="fr-tabs">
+  <ul class="fr-tabs__list" role="tablist" aria-label="divestments-state">
+    <li role="presentation">
+      <button id="tabpanel-404" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="<%= !params[:d_display_past_tab] %>" aria-controls="tabpanel-406-panel"><%= t('.current') %></button>
+    </li>
+    <li role="presentation">
+      <button id="tabpanel-405" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="<%= params[:d_display_past_tab] %>" aria-controls="tabpanel-407-panel"><%= t('.past') %></button>
+    </li>
+  </ul>
+  <div id="tabpanel-406-panel" class="fr-tabs__panel <%= !params[:d_display_past_tab] ? "fr-tabs__panel--selected" : "" %>d" role="tabpanel" aria-labelledby="tabpanel-406" tabindex="0">
+    <%= render 'divestments_table', divestments: current_divestments, past: false %>
+  </div>
+  <div id="tabpanel-407-panel" class="fr-tabs__panel <%= params[:d_display_past_tab] ? "fr-tabs__panel--selected" : "" %>" role="tabpanel" aria-labelledby="tabpanel-407" tabindex="-1">
+    <%= render 'divestments_table', divestments: past_divestments, past: true %>
+  </div>
+</div>
