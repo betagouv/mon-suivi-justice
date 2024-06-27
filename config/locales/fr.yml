@@ -287,8 +287,6 @@ fr:
               blank: "Prénom manquant"
             last_name:
               blank: "Nom manquant"
-            date_of_birth:
-              blank: "Date de naissance manquante"
             phone:
               mobile: "Numéro de téléphone portable requis"
               taken: "Un probationnaire est déjà enregistré avec ce numéro de téléphone."
