@@ -42,7 +42,6 @@ class AppointmentsController < ApplicationController
 
     @convict = Convict.find(params[:convict_id])
     @appointment_types = appointment_types_for_user(current_user)
-    set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     set_extra_fields
     build_appointment_extra_fields

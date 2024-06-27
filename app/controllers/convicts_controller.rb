@@ -14,17 +14,13 @@ class ConvictsController < ApplicationController
   end
 
   def index
-    query = params[:q]
-    query = add_prefix_to_phone(params[:q]) if query =~ (/\d/) && !/^(\+33)/.match?(params[:q])
-
-    @convicts = fetch_convicts(query)
+    @convicts = fetch_convicts
 
     authorize @convicts
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
+    query = params[:q]
+    query = add_prefix_to_phone(params[:q]) if query =~ (/\d/) && !/^(\+33)/.match?(params[:q])
+    @convicts = fetch_convicts(query)
+    authorize @convicts
   end
 
   def new
@@ -35,18 +31,26 @@ class ConvictsController < ApplicationController
   end
 
   def create
-    @convict = Convict.new(convict_params)
-    @convict.creating_organization = current_organization
-    @convict.current_user = current_user
-    @convict.update_organizations(current_user, autosave: false)
+    instantiate_convict
     authorize @convict
 
-    save_and_redirect(@convict)
+    if @convict.save
+      handle_convict_interface_invitation
+      redirect_to select_path(params), notice: t('.notice')
+    else
+      @duplicate_convicts = @convict.find_duplicates
+
+      divestment_proposal if @duplicate_convicts.present? && !current_user.can_use_inter_ressort?
+
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
     @convict = policy_scope(Convict).find(params[:id])
     @saved_japat_value = @convict.japat
+    @saved_convict_city = @convict.city
+    @saved_convict_organizations = [*@convict.organizations]
     set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     authorize @convict
@@ -58,6 +62,8 @@ class ConvictsController < ApplicationController
 
     old_phone = @convict.phone
     @saved_japat_value = @convict.japat
+    @saved_convict_city = @convict.city
+    @saved_convict_organizations = [*@convict.organizations]
 
     update_convict
 
@@ -130,12 +136,8 @@ class ConvictsController < ApplicationController
 
   private
 
-  def save_and_redirect(convict)
-    if duplicate_present?(convict) && !force_duplication?
-      render :new, status: :unprocessable_entity
-    else
-      handle_save_and_redirect(convict)
-    end
+  def divestment_proposal
+    @dups_details = DivestmentProposalService.new(@duplicate_convicts, current_organization).call
   end
 
   def convict_params
@@ -186,15 +188,6 @@ class ConvictsController < ApplicationController
     end
   end
 
-  def duplicate_present?(convict)
-    convict.check_duplicates
-    convict.duplicates.present?
-  end
-
-  def force_duplication?
-    ActiveRecord::Type::Boolean.new.deserialize(params.dig(:convict, :force_duplication))
-  end
-
   def update_convict
     @convict.current_user = current_user
     @convict.update_organizations(current_user) if @convict.update(convict_params)
@@ -202,24 +195,12 @@ class ConvictsController < ApplicationController
 
   def handle_successful_update(old_phone)
     record_phone_change(old_phone)
+    if !@convict.japat? && organizations_changed?
+      divestment = Divestment.new user: current_user, organization: divestment_origin, convict: @convict
+      DivestmentCreatorService.new(@convict, current_user, divestment).call
+    end
     flash.now[:success] = 'Le probationnaire a bien été mise à jour'
     redirect_to convict_path(@convict)
-  end
-
-  def handle_save_and_redirect(convict)
-    if convict.update_organizations(current_user)
-      if params[:invite_convict] == 'on' && ConvictInvitationPolicy.new(current_user, @convict).create?
-        InviteConvictJob.perform_later(convict.id)
-      end
-      redirect_to select_path(params), notice: 'Le probationnaire a bien été créé'
-    else
-      render_new_with_appi_uuid(convict)
-    end
-  end
-
-  def render_new_with_appi_uuid(convict)
-    @convict_with_same_appi = Convict.where(appi_uuid: convict.appi_uuid) if convict.errors[:appi_uuid].any?
-    render :new, status: :unprocessable_entity
   end
 
   def add_prefix_to_phone(phone)
@@ -230,9 +211,33 @@ class ConvictsController < ApplicationController
     params[:my_convicts] == '1' ? current_user.convicts : Convict.all
   end
 
-  def fetch_convicts(query)
+  def fetch_convicts(query = nil)
     scope = policy_scope(base_filter)
     scope = scope.search_by_name_and_phone(query) if query.present?
     scope.order('last_name asc').page params[:page]
+  end
+
+  def instantiate_convict
+    @convict = Convict.new(convict_params)
+    @convict.creating_organization = current_organization
+    @convict.current_user = current_user
+    @convict.update_organizations(current_user, autosave: false)
+  end
+
+  def handle_convict_interface_invitation
+    return unless params[:invite_convict] == 'on' && ConvictInvitationPolicy.new(current_user, @convict).create?
+
+    InviteConvictJob.perform_later(@convict.id)
+  end
+
+  def organizations_changed?
+    @saved_convict_organizations.present? && @saved_convict_organizations != @convict.organizations
+  end
+
+  def divestment_origin
+    diff = @convict.organizations - @saved_convict_organizations
+    tj = diff.find(&:tj?)
+    spip = diff.find(&:spip?)
+    tj || spip
   end
 end

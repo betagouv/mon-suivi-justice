@@ -126,71 +126,26 @@
           </div>
         </div>
       </div>
-      <% if @convict.duplicates.present? %>
-        <div class='new-convict-duplicate-warning'>
-          <% if @convict.duplicates.count == 1 %>
-            <p class='new-convict-duplicate-header'><%= t('new_convict_duplicate_warning1')%></p>
-          <% else %>
-            <p class='new-convict-duplicate-header'><%= t('new_convict_duplicate_warning2')%></p>
-          <% end %>
-          <% if @convict.duplicates.any? %>
-            <% @convict.duplicates.each do |duplicate| %>
-              <% if policy(duplicate).show? %>
-                <div class='new-convict-duplicate-link'>
-                  <%= link_to t('new_convict_duplicate_link', name: duplicate.name, orgs: duplicate.organizations.pluck(:name).join(', ')), convict_path(duplicate), target: "_blank" %>
-                </div>
-              <% else %>
-                <p><%= duplicate.name %> suivi par : <%= duplicate.organizations.pluck(:name).join(', ') %></p>
-              <% end %>
+      <div class="fr-container fr-mt-5w">
+        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+          <ul class="fr-btns-group fr-btns-group--inline-lg">
+            <%= f.button :button, id: 'submit-no-appointment', class: 'fr-btn', name: 'no-appointment', data: {turbo: false} do %>
+              <%= t('submit') %><br>
+              <%= t('new_convict_submit') %>
             <% end %>
-          <% end %>
-          <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
-          <p><%= t('new_convict_duplicate_warning4')%></p>
-        </div>
-        <div class="fr-container fr-mt-5w">
-          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-            <ul class="fr-btns-group fr-btns-group--inline-lg">
-              <%= f.hidden_field :force_duplication, value: true  %>
-              <%= f.button :button, id: 'submit-no-appointment', class: 'fr-btn', name: 'no-appointment', data: {turbo: false} do %>
-                Forcer <%= t('submit') %><br>
-                <%= t('new_convict_submit') %>
-              <% end %>
-              <%= f.button :button, id: 'submit-with-appointment', class: 'fr-btn', name: 'with-appointment', data: { turbo: false } do %>
-                Forcer <%= t('submit') %><br>
-                <%= t('new_convict_first_appointment') %>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      <% else %>
-        <% if @convict_with_same_appi.present? %>
-          <% convict_with_same_appi = @convict_with_same_appi.first %>
-          <% orgs = convict_with_same_appi.organizations.map(&:name).join(", ") %>
-          <div class='new-convict-duplicate-warning'>
-            <p class='new-convict-duplicate-link'><%= t('new_convict_duplicate_appi_uuid_1', orgs: orgs) %></p>
-            <% if !policy_scope(@convict_with_same_appi).empty? %>
-              <div class='new-convict-duplicate-link'>
-                <%= link_to t('new_convict_duplicate_link', name: convict_with_same_appi.name, orgs: convict_with_same_appi.organizations.pluck(:name).join(', ')), convict_path(convict_with_same_appi), target: "_blank" %>
-              </div>
+            <%= f.button :button, id: 'submit-with-appointment', class: 'fr-btn', name: 'with-appointment', data: {turbo: false} do %>
+              <%= t('submit') %><br>
+              <%= t('new_convict_first_appointment') %>
             <% end %>
-            <p class='new-convict-duplicate-explanation'><%= t('new_convict_duplicate_warning3')%></p>
-          </div>
-        <% end %>
-        <div class="fr-container fr-mt-5w">
-          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-            <ul class="fr-btns-group fr-btns-group--inline-lg">
-              <%= f.button :button, id: 'submit-no-appointment', class: 'fr-btn', name: 'no-appointment', data: {turbo: false} do %>
-                <%= t('submit') %><br>
-                <%= t('new_convict_submit') %>
-              <% end %>
-              <%= f.button :button, id: 'submit-with-appointment', class: 'fr-btn', name: 'with-appointment', data: {turbo: false} do %>
-                <%= t('submit') %><br>
-                <%= t('new_convict_first_appointment') %>
-              <% end %>
-            </ul>
-          </div>
+          </ul>
         </div>
-      <% end %>
+      </div>
+    <% end %>
+    <% if @dups_details.present? %>
+      <%= render 'duplicate_convict_card', dups_details: @dups_details, user: current_user %>
+    <% end %>
+    <% if @duplicate_convicts.present? && current_user.can_use_inter_ressort? %>
+      <%= render 'duplicate_convict_inter_ressort_card', duplicate_convicts: @duplicate_convicts, user: current_user %>
     <% end %>
   </div>
 </div>

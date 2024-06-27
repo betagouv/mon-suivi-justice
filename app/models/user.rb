@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :user_alerts, through: :user_user_alerts
   has_many :unread_user_alerts, -> { where(user_user_alerts: { read_at: nil }) },
            through: :user_user_alerts, source: :user_alert
+  has_many :divestments
 
   # Include default devise modules. Others available are:
   # :confirmable, :trackable and :omniauthable
@@ -65,6 +66,8 @@ class User < ApplicationRecord
                                    }
 
   delegate :name, to: :organization, prefix: true
+  delegate :all_local_admins, to: :organization
+  delegate :in_jurisdiction?, to: :organization
 
   def name(reverse: false)
     "#{last_name.upcase} #{first_name.capitalize}" unless reverse

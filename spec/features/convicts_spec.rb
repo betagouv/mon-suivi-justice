@@ -177,51 +177,6 @@ RSpec.feature 'Convicts', type: :feature do
       expect(Convict.last.organizations).to match_array([spip, tj_paris])
     end
 
-    describe 'with potentially duplicated convicts', logged_in_as: 'cpip', js: true do
-      it 'shows a warning with link to potential first name / last name / date of birth duplicates' do
-        convict = create(:convict, first_name: 'roberta', last_name: 'dupond', date_of_birth: '01/01/1980',
-                                   organizations: [@user.organization])
-
-        visit new_convict_path
-
-        fill_in 'Prénom', with: 'Roberta'
-        fill_in 'Nom', with: 'Dupond'
-        fill_in 'Date de naissance', with: '1980-01-01'
-        fill_in 'Téléphone', with: '0707070707'
-
-        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
-
-        expect(page).to have_content('Un doublon potentiel a été détecté :')
-        expect(page).to have_link("DUPOND Roberta, suivi(e) par : #{convict.organizations.first.name}",
-                                  href: convict_path(convict))
-
-        expect { click_button('submit-no-appointment') }.to change(Convict, :count).by(1)
-      end
-
-      it 'shows a warning with link to potential first name / last name / phone duplicates' do
-        convict = create(:convict, first_name: 'roberta', last_name: 'dupond', phone: '+33606060606',
-                                   date_of_birth: '01/01/1980',
-                                   organizations: [@user.organization])
-
-        visit new_convict_path
-
-        fill_in 'Prénom', with: 'Roberta'
-        fill_in 'Nom', with: 'Dupond'
-        fill_in 'Date de naissance', with: '1970-01-01'
-        fill_in 'Téléphone', with: '0606060606'
-
-        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
-
-        expect(page).to have_content('Un doublon potentiel a été détecté :')
-        expect(page).to have_link("DUPOND Roberta, suivi(e) par : #{convict.organizations.first.name}",
-                                  href: convict_path(convict))
-
-        expect { click_button('submit-no-appointment') }.not_to change(Convict, :count)
-
-        expect(page).to have_content('Un probationnaire est déjà enregistré avec ce numéro de téléphone.')
-      end
-    end
-
     it 'creates a convicts with a cpip relation', logged_in_as: 'cpip', js: true do
       cpip = create(:user, first_name: 'Rémy', last_name: 'MAU', role: 'cpip', organization: @user.organization)
 
@@ -400,12 +355,14 @@ RSpec.feature 'Convicts', type: :feature do
       convict = create(:convict, phone: nil, no_phone: true, organizations: [spip, tj])
 
       spip2 = create(:organization, organization_type: 'spip')
-      tj2 = create(:organization, organization_type: 'tj')
+      tj2 = build(:organization, organization_type: 'tj')
+      tj2.spips = [spip2]
+      tj2.save
       srj_tj = create(:srj_tj, organization: tj2)
       srj_spip = create(:srj_spip, organization: spip2)
 
       create(:city, srj_tj:, srj_spip:)
-
+      create_appointment(convict, tj, date: 1.month.ago)
       visit edit_convict_path(convict)
 
       find('#convict_city_id').set('Melun')
@@ -416,11 +373,46 @@ RSpec.feature 'Convicts', type: :feature do
       orgs_info_div = page.find("div[data-search-cities-results-target='organizationsInfo']")
 
       expect(orgs_info_div).to have_content("pour cette commune: #{tj2.name}, #{spip2.name}")
-      expect(orgs_info_div).to have_content("les services actuels du probationnaire: #{spip.name}, #{tj.name}")
 
       click_button 'Enregistrer'
+      convict.reload
+      expect(convict.organizations).to match_array([spip, tj, spip2, tj2])
+      expect(convict.being_divested?).to be(true)
+    end
 
-      expect(Convict.last.organizations).to match_array([spip, tj, spip2, tj2])
+    it 'it auto divest convict when city is updated if possible', logged_in_as: 'bex',
+                                                                  js: true do
+      @user.organization.use_inter_ressort = true
+
+      spip = create(:organization, organization_type: 'spip')
+      tj = create(:organization, organization_type: 'tj')
+
+      convict = create(:convict, phone: nil, no_phone: true, organizations: [spip, tj])
+
+      spip2 = create(:organization, organization_type: 'spip')
+      tj2 = build(:organization, organization_type: 'tj')
+      tj2.spips = [spip2]
+      tj2.save
+      srj_tj = create(:srj_tj, organization: tj2)
+      srj_spip = create(:srj_spip, organization: spip2)
+
+      create(:city, srj_tj:, srj_spip:)
+      visit edit_convict_path(convict)
+
+      find('#convict_city_id').set('Melun')
+
+      page.has_content?('77000 Melun (France)')
+      find('a', text: '77000 Melun (France)').click
+
+      orgs_info_div = page.find("div[data-search-cities-results-target='organizationsInfo']")
+
+      expect(orgs_info_div).to have_content("pour cette commune: #{tj2.name}, #{spip2.name}")
+
+      click_button 'Enregistrer'
+      convict.reload
+      expect(convict.organizations).to match_array([spip2, tj2])
+      expect(convict.being_divested?).to be(false)
+      expect(convict.divestments.last.state).to eq('auto_accepted')
     end
   end
 

@@ -35,8 +35,7 @@ export default class extends Controller {
       if (data.length > 0) {        
         const servicesList = data.map((orga) => orga.name).join(', ')
         this.organizationsInfoTarget.hidden = false;
-        this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = `Mon suivi Justice est déployé dans les services suivants pour cette commune: <strong>${servicesList}.</strong> <br /> 
-        Vous pourrez poursuivre la convocation dans ces services${ this.actionNameValue == "new" ? '.' : ' et dans ' + convictCurrentOrganizations}`;
+        this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = `Mon suivi Justice est déployé dans les services suivants pour cette commune: <strong>${servicesList}.</strong> <br />`;
       } else {
           this.organizationsInfoTarget.hidden = false;
           this.organizationsInfoTarget.getElementsByTagName('p')[0].innerHTML = `Mon Suivi Justice n\' est déployé dans aucun service de cette commune. <br />

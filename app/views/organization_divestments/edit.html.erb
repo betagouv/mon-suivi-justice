@@ -1,0 +1,29 @@
+<div class="fr-grid-row fr-grid-row--center">
+  <div class="fr-col-12 fr-col-md-10 fr-col-lg-8 fr-mb-5w">
+    <h3 class='form-title'><%= t('.title', convict_name: @organization_divestment.convict_name) %></h3>
+    <%= form_with(model: @organization_divestment, local: true) do |form| %>
+      <% if @organization_divestment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= t('.errors_count', count: pluralize(@organization_divestment.errors.count, "erreur")) %></h2>
+          <ul>
+            <% @organization_divestment.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="fr-input-group">
+        <%= form.label :comment, class: "fr-label" %>
+        <%= form.text_area :comment, class: "fr-input" %>
+      </div>
+      <ul class="fr-btns-group fr-btns-group--inline-md">
+        <li>
+          <%= form.submit t('.accept'), name: 'transition', value: t('.accept'), class: "fr-btn" %>
+        </li>
+        <li>
+          <%= form.submit t('.refuse'), name: 'transition', value: t('.refuse'), class: "fr-btn fr-btn--secondary-danger" %>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+</div>

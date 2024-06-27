@@ -1,80 +1,144 @@
 <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
   <div class="fr-col-6" data-controller="appointment-new">
     <h2 class='form-title' id="appointment-form-title"><%= t('new_appointment_title', convict_link: @convict && policy(@convict).show? ? "pour #{link_to(@convict.full_name, convict_path(@convict))}" : "").html_safe %></h2>
-    <%= simple_form_for @appointment, url: appointments_path(convict_id: @convict&.id), html: { "data-appointment-new-target": "newAppointmentForm" } do |f| %>
-      <div>
-        <% if @convict %>
-          <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id, "data-appointment-new-target": "convictSelectInput" } %>
-        <% else %>
-          <%= f.association :convict, collection: policy_scope(Convict.all),
-                                    label: t('activerecord.models.convict', count: 1),
-                                    as: :select,
-                                    label_method: :name,
-                                    input_html: {
-                                      class: 'form-select',
-                                      id: 'convict-name-autocomplete',
-                                      "data-appointment-new-target": "convictSelectInput",
-                                    } %>
-        <% end %>
-        <div class="appointment-form-cpip-container" id="cpip-container">
-          <% if can_be_linked_to_user?(@convict, current_user) %>
-            <div class="form-input-wrapper radio_buttons optional appointment_user_is_cpip">
-              <label class="radio_buttons optional form-label"><%= t('appointments.new.is_cpip_label')%></label>
-              <input type="hidden" name="appointment[user_is_cpip]" value="">
-              <span class="radio appointment-form-cpip-input-container"><label for="appointment_user_is_cpip_1" class="appointment-form-cpip-input-label"><input class="radio_buttons optional form-text-input appointment-form-cpip-input" type="radio" value="1" checked="checked" name="appointment[user_is_cpip]" id="appointment_user_is_cpip_1">Oui</label></span>
-              <span class="radio appointment-form-cpip-input-container"><label for="appointment_user_is_cpip_0" class="appointment-form-cpip-input-label"><input class="radio_buttons optional form-text-input appointment-form-cpip-input" type="radio" value="0" name="appointment[user_is_cpip]" id="appointment_user_is_cpip_0">Non</label></span></div>
-          <% end %>
-        </div>
-        <div data-controller="appointment-extra-field-display">
-          <div class='appointment-form-appointment-type-container' id='appointment-type-container' data-appointment-new-target="container" data-container-type="appointmentType" style=<%= @convict ? "display: block" : "display: none" %>>
-            <%= f.input :appointment_appointment_type_id, collection: @appointment_types,
-                                                        label: t('activerecord.models.appointment_type'),
-                                                        as: :fake_select,
-                                                        label_method: :name,
-                                                        input_html: { class: 'form-select',
-                                                        "data-appointment-extra-field-display-target": "selectAppointmentTypeInput",
-                                                        "data-appointment-new-target": "selectAppointmentTypeInput",
-                                                        "data-action": "change->appointment-extra-field-display#change change->appointment-new#changeAptType" } %>
+    <% if @convict && @convict.invalid? %>
+      <div class="fr-alert fr-alert--warning">
+        <h3 class="fr-alert__title">Attention : Le probationnaire doit etre corrigé avant de pouvoir le convoquer</h3>
+        <div class="fr-container">
+          <div class="fr-grid-row">
+            <ul>
+              <% @convict.errors.each do |error| %>
+                <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{@convict.send(error.attribute)})" %>: <%= error.type %></li>
+              <% end %>
+            </ul>
           </div>
-          <div class='' id='cities-container'></div>
-          <div class='appointment-form-prosecutor-container' data-container-type="prosecutor" id='prosecutor-container' data-appointment-new-target="container"></div>
-          <div class='appointment-form-places-container' data-container-type="place" id='places-container' data-appointment-new-target="container"></div>
-          <%= f.fields_for :appointment_extra_fields do |extra_field_form|%>
-            <% corresponding_extra_field = @extra_fields.find { |ef| ef.id == extra_field_form.object.extra_field_id } %>
-            <%= extra_field_form.input :extra_field_id, as: :hidden, input_html: {"data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": corresponding_extra_field.appointment_type_ids, "data-organization-places": corresponding_extra_field.find_places_with_shared_appointment_types.map(&:id)}, disabled: true %>
-            <%= extra_field_form.input :value, label: corresponding_extra_field&.name, input_html: { :type => corresponding_extra_field&.data_type, "data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": corresponding_extra_field.appointment_type_ids, "data-organization-places": corresponding_extra_field.find_places_with_shared_appointment_types.map(&:id)}, disabled: true %>
-          <% end %>
+          <div class="fr-grid-row fr-grid-row--center">
+            <%= button_to "Modifier le probationnaire", edit_convict_path(@convict), method: :get, class: 'fr-btn' %>
+          </div>
         </div>
-        <div class='appointment-form-agendas-container' data-container-type="agenda" id='agendas-container' data-appointment-new-target="container"></div>
-        <div class='appointment-form-slot-fields-container' data-container-type="slotField" id='slot-fields-container' data-appointment-new-target="container"></div>
       </div>
-      <div class='appointment-form-slots-container' data-container-type="slot" data-appointment-new-target="container" id='slots-container'></div>
-      <% if @convict.can_receive_sms? %>
-        <fieldset class="fr-fieldset fr-mt-2w" id="radio-group-container" aria-labelledby="radio-group-container-legend radio-group-container-messages" data-appointment-new-target="sendSmsRBContainer">
-          <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="#radio-group-container-legend">
-            <abbr title="required">*</abbr>
-            Préférences de notification SMS:
-          </legend>
-          <%= f.collection_radio_buttons :send_sms, [['1', 'Prévenir immédiatement par SMS et envoyer un rappel avant la convocation.'], ['0', 'Envoyer uniquement un rappel par SMS avant la convocation']], :first, :last do |b| %>
-            <div class="fr-fieldset__element">
-              <div class="fr-radio-group">
-                <%= b.radio_button(id: "send_sms_#{b.value}", "data-action":"change->appointment-new#selectSendSmsOption", "data-appointment-new-target":"sendSmsValue") %>
-                <%= b.label(class: 'fr-label', for: "send_sms_#{b.value}") { b.text } %>
+    <% end %>
+    <% if !current_user.can_use_inter_ressort? && @convict && @convict.valid? && !current_user.organization.in_jurisdiction?(@convict) %>
+      <div class="fr-container fr-mt-5w fr-mb-5w">
+        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+          <div class="fr-alert fr-alert--warning">
+            <h5 class="fr-alert__title">Attention ce probationnaire est rattaché aux services : <%= @convict.organizations.map(&:name).join(', ') %> 
+            </h5>
+            <div class="fr-container fr-my-2w">
+              <div class="fr-grid-row fr-grid-row--center">
+                <% if policy(@convict).be_divested? %>
+                  <% button_message = current_user.organization.use_inter_ressort? ? "Convoquer dans votre service et dessaisir" : "Convoquer" %>
+                  <%= button_to button_message, divestments_path, method: :post, class: 'fr-btn', params: { convict_id: @convict.id }, data: { confirm: t('new_divestment_confirm'), turbo: false } %>
+                <% else %>
+                  Code 12 - Dessaisissement impossible pour ce probationnaire, veuillez contacter un administrateur.
+                <% end %>
+              </div>
+                <div class="fr-grid-row fr-mt-2w">
+                  <p>Cette action entrainera le dessaisissement de ce probationnaire sur l'application</p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if @convict && current_user.can_use_inter_ressort? && !current_user.organization.in_jurisdiction?(@convict) %>
+        <div class="fr-container fr-mt-5w fr-mb-5w">
+          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+            <div class="fr-alert fr-alert--info">
+              <h5 class="fr-alert__title">
+                Attention ce probationnaire <%= @convict.city.present? ? "habite a #{@convict.city.name}" : "n'a pas de ville renseignée" %> et est rattaché aux services : <%= @convict.organizations.map(&:name).join(', ') %>
+              </h5>
+              <div class="fr-container fr-my-2w">
+                <div class="fr-grid-row">
+                  Si vous souhaitez convoquer ce probationnaire dans un des services mentionnés, continuez la procédure ci dessous
+                </div>
+                <div class="fr-grid-row">
+                  Dans le cas contraire, veuillez modifier lieu d'habitation du probationnaire
+                </div>
+                <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
+                  <%= button_to "Modifier la ville", edit_convict_path(@convict), method: :get, class: 'fr-btn' %>
+                </div>
               </div>
             </div>
-          <% end %>
-          <div class="fr-messages-group" id="radio-group-container-messages" aria-live="assertive">
-          </div>
-        </fieldset>
-      <% end %>
-      <div id='submit-btn-container' data-appointment-new-target="submitButtonContainer" class='fr-grid-row fr-grid-row--center fr-mt-2w'>
-        <div>
-          <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
-            <button type='submit' name='submit-new-appointment' class='fr-btn fr-btn--primary' id='submit-new-appointment'>
-              <%= t('appointment.create.submit')%>
-            </button>
           </div>
         </div>
-      </div>
+    <% end %>
+    <% if !@convict || @convict.valid? && current_user.organization.use_inter_ressort? || @convict.valid? && current_user.organization.in_jurisdiction?(@convict) %>
+      <%= simple_form_for @appointment, url: appointments_path(convict_id: @convict&.id), html: { "data-appointment-new-target": "newAppointmentForm" } do |f| %>
+        <div>
+          <% if @convict %>
+            <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id, "data-appointment-new-target": "convictSelectInput" } %>
+          <% else %>
+            <%= f.association :convict, collection: policy_scope(Convict.all),
+                                      label: t('activerecord.models.convict', count: 1),
+                                      as: :select,
+                                      label_method: :name,
+                                      input_html: {
+                                        class: 'form-select',
+                                        id: 'convict-name-autocomplete',
+                                        "data-appointment-new-target": "convictSelectInput",
+                                      } %>
+          <% end %>
+          <div class="appointment-form-cpip-container" id="cpip-container">
+            <% if can_be_linked_to_user?(@convict, current_user) %>
+              <div class="form-input-wrapper radio_buttons optional appointment_user_is_cpip">
+                <label class="radio_buttons optional form-label"><%= t('appointments.new.is_cpip_label')%></label>
+                <input type="hidden" name="appointment[user_is_cpip]" value="">
+                <span class="radio appointment-form-cpip-input-container"><label for="appointment_user_is_cpip_1" class="appointment-form-cpip-input-label"><input class="radio_buttons optional form-text-input appointment-form-cpip-input" type="radio" value="1" checked="checked" name="appointment[user_is_cpip]" id="appointment_user_is_cpip_1">Oui</label></span>
+                <span class="radio appointment-form-cpip-input-container"><label for="appointment_user_is_cpip_0" class="appointment-form-cpip-input-label"><input class="radio_buttons optional form-text-input appointment-form-cpip-input" type="radio" value="0" name="appointment[user_is_cpip]" id="appointment_user_is_cpip_0">Non</label></span></div>
+            <% end %>
+          </div>
+          <div data-controller="appointment-extra-field-display">
+            <div class='appointment-form-appointment-type-container' id='appointment-type-container' data-appointment-new-target="container" data-container-type="appointmentType" style=<%= @convict ? "display: block" : "display: none" %>>
+              <%= f.input :appointment_appointment_type_id, collection: @appointment_types,
+                                                          label: t('activerecord.models.appointment_type'),
+                                                          as: :fake_select,
+                                                          label_method: :name,
+                                                          input_html: { class: 'form-select',
+                                                          "data-appointment-extra-field-display-target": "selectAppointmentTypeInput",
+                                                          "data-appointment-new-target": "selectAppointmentTypeInput",
+                                                          "data-action": "change->appointment-extra-field-display#change change->appointment-new#changeAptType" } %>
+            </div>
+            <div class='' id='cities-container'></div>
+            <div class='appointment-form-prosecutor-container' data-container-type="prosecutor" id='prosecutor-container' data-appointment-new-target="container"></div>
+            <div class='appointment-form-places-container' data-container-type="place" id='places-container' data-appointment-new-target="container"></div>
+            <%= f.fields_for :appointment_extra_fields do |extra_field_form|%>
+              <% corresponding_extra_field = @extra_fields.find { |ef| ef.id == extra_field_form.object.extra_field_id } %>
+              <%= extra_field_form.input :extra_field_id, as: :hidden, input_html: {"data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": corresponding_extra_field.appointment_type_ids, "data-organization-places": corresponding_extra_field.find_places_with_shared_appointment_types.map(&:id)}, disabled: true %>
+              <%= extra_field_form.input :value, label: corresponding_extra_field&.name, input_html: { :type => corresponding_extra_field&.data_type, "data-appointment-extra-field-display-target": "extraFieldInputs", "data-apt-type": corresponding_extra_field.appointment_type_ids, "data-organization-places": corresponding_extra_field.find_places_with_shared_appointment_types.map(&:id)}, disabled: true %>
+            <% end %>
+          </div>
+          <div class='appointment-form-agendas-container' data-container-type="agenda" id='agendas-container' data-appointment-new-target="container"></div>
+          <div class='appointment-form-slot-fields-container' data-container-type="slotField" id='slot-fields-container' data-appointment-new-target="container"></div>
+        </div>
+        <div class='appointment-form-slots-container' data-container-type="slot" data-appointment-new-target="container" id='slots-container'></div>
+        <% if @convict.can_receive_sms? %>
+          <fieldset class="fr-fieldset fr-mt-2w" id="radio-group-container" aria-labelledby="radio-group-container-legend radio-group-container-messages" data-appointment-new-target="sendSmsRBContainer">
+            <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="#radio-group-container-legend">
+              <abbr title="required">*</abbr>
+              Préférences de notification SMS:
+            </legend>
+            <%= f.collection_radio_buttons :send_sms, [['1', 'Prévenir immédiatement par SMS et envoyer un rappel avant la convocation.'], ['0', 'Envoyer uniquement un rappel par SMS avant la convocation']], :first, :last do |b| %>
+              <div class="fr-fieldset__element">
+                <div class="fr-radio-group">
+                  <%= b.radio_button(id: "send_sms_#{b.value}", "data-action":"change->appointment-new#selectSendSmsOption", "data-appointment-new-target":"sendSmsValue") %>
+                  <%= b.label(class: 'fr-label', for: "send_sms_#{b.value}") { b.text } %>
+                </div>
+              </div>
+            <% end %>
+            <div class="fr-messages-group" id="radio-group-container-messages" aria-live="assertive">
+            </div>
+          </fieldset>
+        <% end %>
+        <div id='submit-btn-container' data-appointment-new-target="submitButtonContainer" class='fr-grid-row fr-grid-row--center fr-mt-2w'>
+          <div>
+            <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
+              <button type='submit' name='submit-new-appointment' class='fr-btn fr-btn--primary' id='submit-new-appointment'>
+                <%= t('appointment.create.submit')%>
+              </button>
+            </div>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
