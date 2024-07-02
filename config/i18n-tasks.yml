@@ -1,8 +1,0 @@
-search:
-  relative_roots:
-    - app/controllers
-    - app/helpers
-    - app/mailers
-    - app/presenters
-    - app/views
-    - app/assets/builds
