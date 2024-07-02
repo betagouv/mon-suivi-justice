@@ -33,12 +33,14 @@ class ConvictsController < ApplicationController
   def create
     instantiate_convict
     authorize @convict
+    @duplicate_convicts = @convict.find_dup_with_appi_uuid if @convict.valid? && !params[:force_create]
 
-    if @convict.save
+    if @duplicate_convicts.nil? && @convict.save
       handle_convict_interface_invitation
       redirect_to select_path(params), notice: t('.notice')
     else
-      @duplicate_convicts = @convict.find_duplicates
+      @allow_force_create = @duplicate_convicts.present?
+      @duplicate_convicts ||= @convict.find_duplicates
 
       divestment_proposal if @duplicate_convicts.present? && !current_user.can_use_inter_ressort?
 

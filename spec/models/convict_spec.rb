@@ -573,4 +573,27 @@ RSpec.describe Convict, type: :model do
       end
     end
   end
+
+  describe '.find_dup_with_appi_uuid' do
+    let(:convict) { create(:convict) }
+    let(:appi_uuid) { nil }
+    let(:first_name) { convict.first_name }
+    let(:last_name) { convict.last_name }
+    let(:date_of_birth) { convict.date_of_birth }
+    let(:duplicate_convict) { build(:convict, appi_uuid:, first_name:, last_name:, date_of_birth:) }
+
+    context 'when the dup has an appi_uuid' do
+      let(:appi_uuid) { "2024#{Faker::Number.number(digits: 8)}" }
+
+      it 'returns an empty array' do
+        expect(duplicate_convict.find_dup_with_appi_uuid).to eq([])
+      end
+    end
+
+    context 'when the dup does not have an appi_uuid' do
+      it 'should return 1 duplicate' do
+        expect(duplicate_convict.find_dup_with_appi_uuid).to match_array([convict])
+      end
+    end
+  end
 end

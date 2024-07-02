@@ -3,7 +3,8 @@
     <div class="fr-alert fr-alert--info">
       <h3 class="fr-alert__title">Attention : ce probationnaire existe déjà</h3>
       <% duplicate_convicts&.each do |duplicate_convict| %>
-        <p>Ce probationnaire <%= duplicate_convict.city.present? ? "habite a #{duplicate_convict.city.name}" : "n'a pas de ville renseignée" %> et est rattaché aux services : <%= duplicate_convict.organizations.map(&:name).join(', ') %></p>
+        <p><%= duplicate_convict.name %>(<%= duplicate_convict.date_of_birth&.strftime('%d/%m/%Y') %>) <%= duplicate_convict.city.present? ? "habite a #{duplicate_convict.city.name}" : "n'a pas de ville renseignée" %> et est rattaché aux services : <%= duplicate_convict.organizations.map(&:name).join(', ') %></p>
+
         <% if duplicate_convict.phone.present? %>
           <p><%= t('activerecord.attributes.convict.phone')%>: <%= duplicate_convict.display_phone %></p>
         <% end %>
