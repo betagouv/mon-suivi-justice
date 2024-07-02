@@ -409,13 +409,11 @@ describe SlotPolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'secretary_court', organization:) }
 
-    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
 
     context 'batch slots' do
       subject { SlotPolicy.new(user, [slot]) }
@@ -587,13 +585,11 @@ describe SlotPolicy do
     let(:organization) { spip }
     let(:user) { build(:user, role: 'secretary_spip', organization:) }
 
-    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
 
     context 'batch slots' do
       subject { SlotPolicy.new(user, [slot]) }

@@ -20,6 +20,9 @@ class Convict < ApplicationRecord
   has_many :divestments, dependent: :destroy
   has_many :organization_divestments, through: :divestments
 
+  has_many :divestments, dependent: :destroy
+  has_many :organization_divestments, through: :divestments
+
   belongs_to :user, optional: true
 
   belongs_to :city, optional: true

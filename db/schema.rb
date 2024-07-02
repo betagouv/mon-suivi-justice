@@ -216,20 +216,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_070944) do
     t.index ["user_id"], name: "index_divestments_on_user_id"
   end
 
-  create_table "divestments", force: :cascade do |t|
-    t.bigint "organization_id", null: false
-    t.bigint "convict_id", null: false
-    t.bigint "user_id", null: false
-    t.string "state"
-    t.date "decision_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["convict_id", "state"], name: "index_divestments_on_convict_id_and_state", unique: true, where: "((state)::text = 'pending'::text)"
-    t.index ["convict_id"], name: "index_divestments_on_convict_id"
-    t.index ["organization_id"], name: "index_divestments_on_organization_id"
-    t.index ["user_id"], name: "index_divestments_on_user_id"
-  end
-
   create_table "extra_fields", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.string "data_type", default: "text"
