@@ -1,9 +1,3 @@
-.agent-interface-container {
-  height: calc(100vh - var(--header-height));
-  width: 100%;
-  display: flex;
-}
-
 .header {
   height: var(--header-height);
   padding: 20px;
@@ -15,29 +9,6 @@
   width: 100%;
   z-index: 1;
   border-bottom: 1px solid lightgrey;
-}
-
-.header-staging {
-  background-color: var(--header-staging-background);
-}
-
-.header-title {
-  font-size: 1.4em;
-}
-
-.header-home-link {
-  color: var(--main-font-color);
-  text-decoration: none;
-}
-
-.content-container {
-  width: 100%;
-
-  position: relative;
-
-  @media print {
-    padding: 0;
-  }
 }
 
 .fr-notice {
@@ -60,11 +31,6 @@
   background-color: var(--background-contrast-info);
   color: #0063cb;
   color: var(--text-default-info);
-}
-
-.header-link {
-  margin-left: 20px;
-  color: var(--main-font-color);
 }
 
 .support-link {

@@ -7,10 +7,6 @@
       <%= form.select :organization_id, options_from_collection_for_select(Organization.all.order(:name), 'id', 'name', @organization&.id), {include_blank: true}, {style: 'margin-left: 2rem;'} %>
     </div>
     <div class="field-unit field-unit--string field-unit--optional">
-      <%= form.label :headquarter_id, "Siège :", class: 'field-unit__label' %>
-      <%= form.select :headquarter_id, options_from_collection_for_select(Headquarter.all, 'id', 'name', @headquarter&.id), {include_blank: true}, {style: 'margin-left: 2rem;'} %>
-    </div>
-    <div class="field-unit field-unit--string field-unit--optional">
       <%= form.label :convicts_list, "Liste des probationnaires (.csv):", class: 'field-unit__label' %>
       <%= form.file_field :convicts_list, style: 'margin-left: 2rem;', required: true %>
     </div>

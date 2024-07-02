@@ -17,17 +17,12 @@ module Admin
       @file_extension = File.extname(params[:convicts_list].original_filename)
       raise StandardError, 'Seul le format csv est supporté' unless %w[.csv].include? @file_extension.downcase
 
-      if params[:organization_id].blank? && params[:headquarter_id].blank?
+      if params[:organization_id].blank?
         raise StandardError,
-              'Veuillez selectionner au moins 1 organization ou 1 siege'
+              'Veuillez selectionner au moins 1 organization'
       end
 
-      if params[:organization_id].present? && params[:headquarter_id].present?
-        raise StandardError,
-              'Veuillez selectionner 1 organization ou 1 siege'
-      end
       @organization = Organization.find(params[:organization_id]) if params[:organization_id].present?
-      @headquarter = Headquarter.find(params[:headquarter_id]) if params[:headquarter_id].present?
 
       temp_csv = params[:convicts_list].tempfile
       # rubocop:disable Style/RedundantDoubleSplatHashBraces
@@ -60,7 +55,6 @@ module Admin
       flash[:error] = "Erreur : #{e.message}"
     else
       target = [@organization] if @organization.present?
-      target = @headquarter.organizations.to_a if @headquarter&.organizations&.any?
 
       AppiImportJob.perform_later(appi_data, target, current_user, csv_errors) if target.present?
       flash[:success] =

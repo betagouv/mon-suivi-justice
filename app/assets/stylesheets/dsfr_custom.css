@@ -6,8 +6,3 @@
 .fr-btn--secondary-danger:hover {
   background-color: #F6F6F6 !important;
 }
-
-.table-header__arrows--expand {
-    width: 1rem;
-    height: 1rem;
-}

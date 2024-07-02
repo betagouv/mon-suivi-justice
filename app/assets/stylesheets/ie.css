@@ -25,7 +25,6 @@
 
 /* IE 6, 7, 8 */
 @media \0screen, screen\9 {
-  .agent-interface-container,
   .header,
   .authentication-form-container {
     display: none;
@@ -38,7 +37,6 @@
 
 /* IE9+ */
 @media screen and (min-width: 0\0) and (min-resolution: +72dpi) {
-  .agent-interface-container,
   .header,
   .authentication-form-container {
     display: none;

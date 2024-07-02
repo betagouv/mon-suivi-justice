@@ -10,13 +10,10 @@ Rails.application.routes.draw do
       resources :organizations, except: %i[new create destroy] do
         put '/link_convict_from_linked_orga' => "organizations#link_convict_from_linked_orga"
       end
-      resources :departments
       resources :srj_tjs
       resources :srj_spips
       resources :cities
-      resources :appointments, except: :index
       resources :places, except: :destroy
-      resources :jurisdictions, except: :index
       resources :seeds, only: [:index]
       get '/reset_db' => "seeds#reset_db"
       resources :public_pages, only: [:index]
@@ -28,9 +25,7 @@ Rails.application.routes.draw do
       post '/import_srjs' => "import_srjs#import"
       post '/create_user_alert' => "user_alerts#create"
       resources :headquarters
-      resources :place_transferts do
-        put '/start_transfert' => "place_transferts#start_transfert"
-      end
+      resources :place_transferts
       resources :divestments, only: %i[index show]
       resources :organization_divestments, only: %i[show edit update]
 
@@ -43,10 +38,10 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  resources :organizations, except: :destroy
+  resources :organizations, except: %i[show destroy]
   resources :organization_statistics, only: [:index], controller: 'organizations/statistics'
 
-  resources :users do
+  resources :users, except: %i[new create] do
     collection do
       get :search # used for cpip association to convict in the select
     end
@@ -57,14 +52,7 @@ Rails.application.routes.draw do
     get :filter, on: :collection
   end
 
-  resource :user do
-    resources :appointments, only: [:index], controller: 'users/appointments'
-  end
-
   resources :convicts do
-    collection do
-      post :search
-    end
     delete 'archive'
     post 'unarchive'
     post 'self_assign'
@@ -72,13 +60,13 @@ Rails.application.routes.draw do
     resource :invitation, only: :create, controller: 'convict_invitations'
   end
 
-  resources :places, except: :destroy do
+  resources :places, except: %i[show destroy] do
     patch :archive
   end
 
-  resources :appointment_types
+  resources :appointment_types, except: %i[new create show destroy]
   resources :notification_types_reset, only: :update
-  resources :slots
+  resources :slots, except: %i[new create show destroy]
   resource :slots_batch, only: [:new, :create, :update]
 
   resources :slot_types, only: [:create, :destroy, :update]
@@ -88,7 +76,7 @@ Rails.application.routes.draw do
     resource :slot_types_batch, only: [:create, :destroy]
   end
 
-  resources :appointments do
+  resources :appointments, except: %i[edit update destroy] do
     resource :reschedule, only: [:new, :create], controller: 'appointments_reschedules'
     put 'cancel'
     put 'fulfil'
@@ -97,7 +85,7 @@ Rails.application.routes.draw do
     put 'rebook'
   end
 
-  resources :cities do
+  resources :cities, only: [] do
     collection do
       get :search
     end
@@ -109,7 +97,6 @@ Rails.application.routes.draw do
     get :load_prosecutor
     get :load_is_cpip
     get :load_agendas
-    get :load_departments
     get :load_time_options
     get :load_slots
     get :load_slot_fields
@@ -153,7 +140,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_user_alerts do
+  resources :user_user_alerts, only: [] do
     member do
       put :mark_as_read
     end

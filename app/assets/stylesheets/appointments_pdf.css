@@ -30,20 +30,6 @@
   -webkit-box-pack: justify;
 }
 
-.index-sorting-tool-title {
-  border-right: 1px solid lightgray;
-  padding: 5px 10px;
-}
-
-.index-sorting-tool-item {
-  padding: 5px 10px;
-  margin-right: 5px;
-
-  &:last-child{
-    margin-right: 0;
-  }
-}
-
 .index-card-see-infos {
   display: none;
 }
@@ -97,8 +83,4 @@
 .index-card-data-content-item {
   margin-bottom: 5px;
   width: calc(100% - 100px);
-}
-
-.index-appointments-state-icon{
-  display: none;
 }

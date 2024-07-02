@@ -3,12 +3,6 @@
   margin-right: 10px;
 }
 
-.new-slots-add-starting-time {
-  @mixin button var(--light-grey);
-  font-size: 17px;
-  margin: 15px auto 30px;
-}
-
 .new-slots-time-fields-container {
   .form-time-select-fields {
     justify-content: flex-start;
@@ -17,12 +11,7 @@
 }
 
 .new-slot-time-fields-box {
-  border: 1px solid grey; 
-  display: flex; 
+  border: 1px solid grey;
+  display: flex;
   flex-direction: column;
-}
-
-.new-slot-delete-time-fields {
-  color: var(--dark-grey);
-  cursor: pointer;
 }

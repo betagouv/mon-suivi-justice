@@ -15,12 +15,6 @@ class OrganizationPolicy < ApplicationPolicy
     user.admin? || user.local_admin?
   end
 
-  def show?
-    return false unless user.security_charter_accepted?
-
-    user.admin?
-  end
-
   def new?
     return false unless user.security_charter_accepted?
 

@@ -7,7 +7,7 @@ class OrganizationsController < ApplicationController
   end
 
   def edit
-    @organization = Organization.includes(:departments).find params[:id]
+    @organization = Organization.find params[:id]
     authorize @organization
   end
 

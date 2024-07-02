@@ -1,26 +1,10 @@
-.mr-20px {
-  margin-right: 20px;
-}
-
-.mb-20px {
-  margin-bottom: 20px;
-}
-
 .text-center {
   text-align: center;
 }
 
-.d-flex {
-  display: flex;
-}
-
-.d-none {
-  display: none;
-}
-
 .circle-icon {
   display: inline-block;
-  width: 1em; 
+  width: 1em;
   height: 1em;
   border-radius: 50%;
   background-color: currentColor;

@@ -2,14 +2,6 @@ require 'rails_helper'
 
 RSpec.feature 'Bex', type: :feature do
   include ApplicationHelper
-  # before do
-  #   @department = create :department
-  #   @organization = create :organization, organization_type: 'tj'
-  #   create :areas_organizations_mapping, organization: @organization, area: @department, area_type: 'Department'
-  #   @local_admin = create(:user, role: :local_admin, organization: @organization)
-  #   logout_current_user
-  #   login_user(@local_admin)
-  # end
 
   describe 'JAP appointments index', logged_in_as: 'local_admin', js: true do
     it "lists appointments of type Sortie d'audience SAP" do
