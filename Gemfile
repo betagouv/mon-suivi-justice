@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.3.1'
+ruby '3.3.2'
 gem 'rails', '~> 7.1.3'
 
 gem 'pg', '~> 1.5.6'
@@ -16,7 +16,7 @@ gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.3.2'
 gem 'simple_form', '~> 5.3.1'
-gem 'addressable', '~> 2.8.6' # fix scalingo deploy bug
+gem 'addressable', '~> 2.8.7' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
 
 gem 'phony_rails', '~> 0.15.0'
@@ -38,17 +38,17 @@ gem 'discard', '~> 1.3.0'
 
 gem 'paper_trail', '~> 15.1.0'
 gem 'ahoy_matey', '~> 5.1.0'
-gem 'sentry-ruby', '~> 5.17.3'
-gem 'sentry-rails', '~> 5.17.3'
+gem 'sentry-ruby', '~> 5.18.0'
+gem 'sentry-rails', '~> 5.18.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.2', '>= 3.2.8'
 gem 'jbuilder', '~> 2.12.0'
 gem 'groupdate', '~> 6.4.0'
 
-gem 'faraday', '~> 2.9.1'
+gem 'faraday', '~> 2.9.2'
 gem 'faraday-retry', '~> 2.2.1'
-gem 'jwt', '~> 2.8', '>= 2.8.1'
+gem 'jwt', '~> 2.8'
 
 gem 'wicked_pdf', '~> 2.8.0'
 gem 'wkhtmltopdf-binary', '~> 0.12.6'
@@ -61,14 +61,14 @@ gem 'administrate-field-enum', '~> 0.0.9'
 
 gem 'pretender', '~> 0.5.0'
 
-gem 'octokit', '~> 8.1.0'
+gem 'octokit', '~> 9.1.0'
 
 gem 'stimulus-rails', '~> 1.3.3'
 
 gem 'lograge', '~> 0.14.0'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 6.1.2'
+  gem 'rspec-rails', '~> 6.1.3'
   gem 'rspec_junit_formatter', '~> 0.6.0'
   gem 'factory_bot_rails', '~> 6.4.3'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
@@ -100,7 +100,7 @@ group :test do
   gem 'selenium-webdriver', '~> 4.10.0'
   gem 'webdrivers', '~> 5.3.1'
   gem 'shoulda-matchers', '~> 6.2.0'
-  gem 'timecop', '~> 0.9.9'
+  gem 'timecop', '~> 0.9.10'
   gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec', '~> 0.6.0'
   gem 'webmock', '~> 3.23.1'

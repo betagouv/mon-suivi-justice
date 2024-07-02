@@ -35,6 +35,10 @@ fr:
         phone: Téléphone portable
         refused_phone: Refuse de recevoir des SMS
         user: Agent
+      divestment:
+        convict: Probationnaire
+        organization_from_id: Service d'origine du dossier
+        organization_to_id: Service vers lequel le dossier est transféré
       notification_type:
         notification_type_roles:
           cancelation: annulation
@@ -51,6 +55,8 @@ fr:
           spip: SPIP
           tj: TJ
         time_zone: Fuseau horaire
+      organization_divestment:
+        comment: Commentaire
       place:
         adress: Adresse
         contact_email: Email de contact
@@ -126,8 +132,8 @@ fr:
           attributes:
             appi_uuid:
               invalid: doit contenir 8 ou 12 chiffres et commencer par 199, 200, 201
-                ou 202
-              only_digits: Seuls les chiffres sont autorisés
+                ou 202 avec une lettre finale facultative
+              taken: Un probationnaire est déjà enregistré avec ce numéro APPI
             city:
               all_blanks: Veuillez renseigner au moins un des champs commune, sdf
                 ou résidant à l'étranger
@@ -135,6 +141,10 @@ fr:
               over16: Un probationnaire doit être âgé de plus de 16 ans
               taken: Un probationnaire avec les mêmes prénom, nom et date de naissance
                 existe déjà
+            first_name:
+              blank: Prénom manquant
+            last_name:
+              blank: Nom manquant
             organizations:
               blank: Veuillez sélectionner au moins un service
               multiple_uniqueness: Un probationnaire ne peut pas être suivi par plusieurs
@@ -209,10 +219,16 @@ fr:
       convict:
         one: Probationnaire
         other: Probationnaires
+      divestment:
+        one: Dessaisissement
+        other: Dessaisissements
       headquarter: Siège
       organization:
         one: Service
         other: Services
+      organization_divestment:
+        one: Demande de dessaisissement
+        other: Demandes de dessaisissement
       place: Lieu
       slot: Créneau
       spip:
@@ -229,15 +245,21 @@ fr:
         other: Alertes utilisateurs
     state_machines:
       events:
-        book: Plannifier
+        book: Planifier
       states:
+        accepted: Accepté
+        auto_accepted: Accepté automatiquement
         booked: Planifié
         canceled: Annulé
         created: Créé
         excused: Excusé
         fulfiled: Honoré
+        ignored: Ignoré
         no_show: Manqué
+        pending: En attente
+        refused: Refusé
         waiting: En attente
+  add: Ajouter
   admin:
     user_alerts:
       create:
@@ -354,6 +376,7 @@ fr:
     create:
       invitation_pending: L'invitation est en cours d'envoi au probationnaire. Rafraîchir
         la page pour actualiser le statut.
+      invitation_sent: L'invitation a été envoyée au probationnaire
   convicts:
     create:
       notice: Le probationnaire a bien été créé.
@@ -378,6 +401,11 @@ fr:
       available_organizations: 'Convocation possible dans les services suivants:'
       change_city: modifiez la commune du probationnaire
       how_to_add_organizations: Pour convoquer dans un autre service, %{msg}
+    show:
+      ongoing_divestment: 'Attention : Une demande de dessaisissement est en cours'
+      ongoing_divestment_details: Il ne sera pas possible de convoquer, modifier ou
+        archiver ce probationnaire tant que la demande de dessaisissement n'aura pas
+        été traitée
     unassign:
       notice: Le probationnaire a été réattribué au service
   current_user_title: moi
@@ -387,6 +415,19 @@ fr:
       value: "%Y-%m-%d"
   default: Défaut
   delete: Supprimer
+  divestments:
+    create:
+      auto_accepted: La demande a été automatiquement validée car le suivi du probationnaire
+        n'était plus actif
+      error: 'Une erreur est survenue lors de la création des dessaisissements : %{error}'
+      invalid_for_bex: Le dessaisissement a bien été créé mais les données du probationnaire
+        sont invalides. La demande de dessaisissement doit être validée avant de pouvoir
+        le convoquer.
+      success: La demande de dessaisissement a bien été créée. Les services actuels
+        du probationnaire ont été prévenus. Vous serez tenu au courant du résultat
+        des demandes sous 10 jours au plus.
+      success_bex: La demande de dessaisissement a bien été créée. Les services concernés
+        ont été notifiés.
   edit: Modifier
   edit_convict_submit: Enregistrer
   edit_convict_title: Modifier probationnaire
@@ -455,6 +496,8 @@ fr:
         roles: rôles destinataires
         services: services destinataires
   history_item:
+    accept_divestment: Le dessaisissement vers %{target_name} est maintenant effectif.
+    accept_divestment_title: Dessaisissement accepté
     add_phone_convict: 'Un numéro de téléphone pour %{name} a été ajouté par %{user_name}
       (%{user_role}). Nouveau numéro : %{new_phone}.'
     add_phone_convict_title: Nouveau numéro
@@ -496,6 +539,9 @@ fr:
     receive_reminder_notification_title: SMS reçu (rappel)
     receive_summon_notification: Le SMS de convocation a bien été reçu par %{name}.
     receive_summon_notification_title: SMS reçu (convocation)
+    refuse_divestment: Le dessaisissement vers %{target_name} a été refusé par %{organization_name}
+      (%{comment}).
+    refuse_divestment_title: Refus de dessaisissement
     remove_phone_convict: 'Le numéro de téléphone de %{name} a été supprimé par %{user_name}
       (%{user_role}). Ancien numéro : %{old_phone}.'
     remove_phone_convict_title: Numéro supprimé
@@ -536,7 +582,8 @@ fr:
     select_organization: Changer d'antenne
     stats_global: Statistiques générales
     welcome_text: 'Pour convoquer un ou une probationnaire, veuillez saisir les premières
-      lettres de son nom ou prénom dans la barre de recherche ci-dessous :'
+      lettres de son nom ou prénom ou les premiers chiffres de son numéro de téléphone
+      dans la barre de recherche ci-dessous :'
     welcome_title: Bonjour, %{name}
   ie_warning1: Mon Suivi Justice n'est pas compatible avec Internet Explorer. Merci
     d'utiliser Edge.
@@ -566,9 +613,9 @@ fr:
     back_to_public_site: Retour sur le site public
     password_error: Mot de passe invalide
     sub_title: Espace agents
-    tutorial: 'Votre mot de passe doit contenir au moins une lettre majuscule, une
-      lettre minuscule, un chiffre et un caractère spécial présent dans la liste suivante
-      :'
+    tutorial: 'Votre mot de passe doit contenir au moins 10 caractères, une lettre
+      majuscule, une lettre minuscule, un chiffre et un caractère spécial présent
+      dans la liste suivante :'
     tutorial_special: "! @ # $ % ^ & * ( ) _ + - = [ ] { } | '"
   monday: lundi
   my_convicts: Afficher uniquement mes probationnaires
@@ -581,23 +628,76 @@ fr:
   new-appointment-warning: En cliquant sur "Enregistrer", vous générez l'envoi d'un
     SMS de rappel 48h avant la convocation (si un numéro de téléphone a été donné).
   new_appointment_title: Nouvelle convocation %{convict_link}
-  new_convict_duplicate_appi_uuid_1: 'Un probationnaire avec le même numéro appi existe
-    dans le(s) service(s): %{orgs}.'
-  new_convict_duplicate_link: "%{name}, suivi(e) par : %{orgs}"
-  new_convict_duplicate_warning1: 'Un doublon potentiel a été détecté :'
-  new_convict_duplicate_warning2: Plusieurs doublons potentiels ont été détectés.
-  new_convict_duplicate_warning3: Merci de vérifier qu'il s'agit bien de personnes
     distinctes avant d'enregistrer ce nouveau profil.
-  new_convict_duplicate_warning4: Si un homonyme existe dans un autre service, et
-    que vous pensez que c'est la même personne, merci de contacter le support.
   new_convict_first_appointment: et convoquer
   new_convict_submit: sans convoquer
   new_convict_title: Nouveau probationnaire
+  new_divestment: Créer un dessaisissement
+  new_divestment_bex: Demander un dessaisissement et convoquer
+  new_divestment_confirm: Etes-vous sûr(e) de vouloir créer cette demande de dessaisissement
+    ?
   new_organization_title: Nouveau service
   new_place_submit: Enregistrer
   new_place_title: Nouveau Lieu
   new_user_title: Nouvel Agent
   'no': Non
+  notifications: Notifications
+  order: Trier
+  organization:
+    extra_field:
+      scope:
+        appointment_create: Renseigner au moment de la convocation
+        appointment_update: Renseigner directement dans le tableau de sortie d'audience
+  organization_divestment:
+    alerts:
+      convict_details: "%{name} né le %{date_of_birth} suivi par %{org_names} ainsi
+        que %{last}"
+      duplicate_alert_details: Impossible de créer une demande de dessaisissement
+        car ce probationnaire fait déjà l'objet d'une demande de dessaisissement de
+        la part de %{organization_name}.
+      pending_appointments_alert: 'Impossible de créer une demande de dessaisissement
+        car ce probationnaire a des convocations à venir de la part de : %{org_names}.'
+      your_organization: votre propre service
+    comment:
+      auto_accepted: Demande de dessaisissement automatiquement acceptée
+      ignored: Demande de dessaisissement ignorée
+  organization_divestments:
+    divestments:
+      current: En cours
+      outgoing_divestment_requests: Demandes de dessaisissement sortantes
+      past: Terminées
+    divestments_table:
+      decision_date: Date de décision
+      no_current_divestments: Aucun dessaisissement sortant en cours
+      no_past_divestments: Aucun dessaisissement sortant terminé
+      request_date: Date de demande
+      services: Services
+      status: Statut
+    edit:
+      accept: Accepter
+      accept_notice: Le dessaisissement a bien été accepté
+      errors_count: "%{count} à corriger avant de répondre à la demande"
+      invalid_notice: Action invalide
+      refuse: Refuser
+      refuse_notice: Le dessaisissement a bien été refusé
+      title: Décision concernant le dessaisissement de %{convict_name}
+    organization_divestments:
+      current: En cours
+      incoming_divestment_requests: Demandes de dessaisissement entrantes
+      past: Terminées
+    organization_divestments_table:
+      action: Actions
+      answer: Répondre
+      comment: Votre commentaire
+      decision: Votre décision
+      decision_date: Date de décision
+      errors_to_fix: 'Merci de corriger ces erreurs avant de répondre à la demande:'
+      no_current_divestments: Aucun dessaisissement entrant en cours
+      no_past_divestments: Aucun dessaisissement entrant terminé
+      request_date: Date de demande
+      requesting_service: Service demandeur
+      services: Services
+      status: Statut
   organizations:
     statistics:
       index:
@@ -619,6 +719,7 @@ fr:
     la situation.
   reschedule: Replanifier
   reset_pwd_link_title: Lien de réinitialisation de mot de passe agent
+  search: Recherche
   search-appointment-placeholder: 'Saisir une date : dd/mm/yyyy'
   search_by_name_placeholder: Saisir un nom ou un prénom
   security_charter_acceptances:
@@ -636,6 +737,8 @@ fr:
   self_assign_link: S'attribuer ce probationnaire
   send_invitation: Envoyer invitation
   shared:
+    convict_row:
+      ongoing_divestment: Dessaisissement en cours
     environment_alert:
       content: 'IMPORTANT : Vous êtes actuellement sur l''environnement %{environment}
         ! Vos actions ne créent pas de données en production.'
@@ -647,6 +750,7 @@ fr:
   show-convict-next-appointments-title1: Prochaine convocation
   show-convict-next-appointments-title2: Prochaines convocations
   show_appointment_title: Infos convocation
+  show_convict: Profil
   show_convict_archived: Archivé
   show_convict_history_title: Historique
   show_convict_new_appointment: Convoquer
@@ -660,6 +764,7 @@ fr:
     guides: Documentation
     home: Accueil
     message_templates: Modèles SMS
+    organization_divestments: Demandes de dessaisissement
     organizations: Services
     places: Lieux
     slot_types: Créneaux récurrents

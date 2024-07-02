@@ -7,7 +7,7 @@ class Convict < ApplicationRecord
   has_paper_trail
   normalizes :last_name, with: ->(last_name) { last_name&.strip&.upcase }
   normalizes :first_name, with: ->(first_name) { first_name&.strip&.gsub(/\b\w/, &:upcase) }
-  normalizes :appi_uuid, with: ->(appi_uuid) { appi_uuid&.strip }
+  normalizes :appi_uuid, with: ->(appi_uuid) { appi_uuid&.strip&.upcase }
 
   DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
 
@@ -17,6 +17,9 @@ class Convict < ApplicationRecord
   has_many :appointments, dependent: :destroy
   has_many :history_items, dependent: :destroy
 
+  has_many :divestments, dependent: :destroy
+  has_many :organization_divestments, through: :divestments
+
   belongs_to :user, optional: true
 
   belongs_to :city, optional: true
@@ -24,6 +27,7 @@ class Convict < ApplicationRecord
 
   alias cpip user
   alias agent user
+  alias archived? discarded?
 
   attr_accessor :place_id, :duplicates, :current_user
 
@@ -31,7 +35,7 @@ class Convict < ApplicationRecord
 
   validates :first_name, :last_name, :invitation_to_convict_interface_count, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
-  validate :phone_uniqueness
+  validate :phone_uniqueness, if: -> { phone.present? }
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
 
   validate :either_city_homeless_lives_abroad_present, if: proc { current_user&.can_use_inter_ressort? }
@@ -62,6 +66,7 @@ class Convict < ApplicationRecord
                                              ignoring: :accents
 
   delegate :name, to: :cpip, allow_nil: true, prefix: true
+  delegate :tj, to: :organizations, allow_nil: true
 
   def self.delete_delay
     18.month.ago
@@ -153,11 +158,6 @@ class Convict < ApplicationRecord
     errors.add(:base, I18n.t('activerecord.errors.models.convict.attributes.city.all_blanks'))
   end
 
-  def check_duplicates
-    duplicates = find_duplicates
-    self.duplicates = duplicates
-  end
-
   def update_convict_api
     UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
   end
@@ -200,18 +200,30 @@ class Convict < ApplicationRecord
     save
   end
 
-  def find_duplicates
-    name_conditions = 'lower(first_name) = ? AND lower(last_name) = ?'
-    prefixed_phone = PhonyRails.normalize_number(phone, country_code: 'FR')
+  def update_organizations_for_bex_user(user, new_orgas = nil)
+    return unless user.work_at_bex?
+    return unless valid?
 
-    duplicates = Convict.kept.where(name_conditions, first_name.downcase, last_name.downcase)
-                        .where('phone = ? OR (date_of_birth = ? AND phone IS NOT NULL)', prefixed_phone, date_of_birth)
-                        .where.not(id:)
+    new_orgas ||= user.organizations
+    new_orgas.each do |org|
+      organizations << org unless organizations.include?(org)
+    end
 
-    duplicates = duplicates.where(appi_uuid: [nil, '']) if appi_uuid.present?
-
-    duplicates
+    save
   end
+
+  # rubocop:disable Metrics/AbcSize
+  def find_duplicates
+    return [] if valid?
+
+    duplicates = []
+    duplicates << Convict.where(appi_uuid:).where.not(id:) if duplicate_appi_uuid?
+    duplicates << Convict.where(phone:).where.not(id:) if duplicate_phone?
+    duplicates << Convict.where(first_name:, last_name:, date_of_birth:).where.not(id:) if duplicate_date_of_birth?
+
+    duplicates.flatten.uniq
+  end
+  # rubocop:enable Metrics/AbcSize
 
   def already_invited_to_interface?
     invitation_to_convict_interface_count.positive?
@@ -224,6 +236,47 @@ class Convict < ApplicationRecord
     return unless existing_convict.exists?(appi_uuid: [nil, '']) && appi_uuid.blank?
 
     errors.add(:date_of_birth, DOB_UNIQUENESS_MESSAGE)
+  end
+
+  def last_appointment_at_least_6_months_old?
+    last_appointment_at_least_x_months_old?(6)
+  end
+
+  def last_appointment_at_least_3_months_old?
+    last_appointment_at_least_x_months_old?(3)
+  end
+
+  def pending_divestments?
+    divestments.find_by(state: :pending).present?
+  end
+
+  def organization_divestments_from(organization)
+    # can only be one pending divestment per organization and convict
+    organization_divestments.where(state: :pending, organization:).first
+  end
+
+  def divestment_to?(organization)
+    divestments.where(state: :pending, organization:).any?
+  end
+
+  def pending_divestment
+    divestments.where(state: :pending).first
+  end
+
+  def duplicate_appi_uuid?
+    errors.where(:appi_uuid, :taken).any?
+  end
+
+  def duplicate_phone?
+    errors.where(:phone, I18n.t('activerecord.errors.models.convict.attributes.phone.taken')).any?
+  end
+
+  def duplicate_date_of_birth?
+    errors.where(:date_of_birth, DOB_UNIQUENESS_MESSAGE).any?
+  end
+
+  def being_divested?
+    divestments.where(state: :pending).any?
   end
 
   private
@@ -245,5 +298,12 @@ class Convict < ApplicationRecord
     paris_jurisdictions = [tj_paris, spip_paris]
 
     paris_jurisdictions.all? { |org| organizations.include?(org) }
+  end
+
+  def last_appointment_at_least_x_months_old?(nb_months)
+    return true if appointments.empty?
+
+    last_appointment_date = appointments.joins(:slot).maximum('slots.date')
+    last_appointment_date.present? && last_appointment_date < nb_months.months.ago
   end
 end

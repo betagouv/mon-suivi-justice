@@ -67,7 +67,7 @@ class Appointment < ApplicationRecord
   validate :in_the_future, on: :create
   validate :must_choose_to_send_notification, on: :create
   validate :convict_is_not_discarded
-  validate :convict_has_a_dob, on: :create
+  validate :convict_must_be_valid, on: :create
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[user_id]
@@ -103,12 +103,14 @@ class Appointment < ApplicationRecord
     errors.add(:convict, I18n.t('activerecord.errors.models.appointment.attributes.convict.discarded'))
   end
 
-  def convict_has_a_dob
-    return if convict&.date_of_birth.present?
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def convict_must_be_valid
     return if inviter_user_id.present? && inviter_user.admin?
+    return if convict&.valid?
 
-    errors.add(:convict, I18n.t('activerecord.errors.models.appointment.attributes.convict.DoB'))
+    errors.add(:convict, convict&.errors&.full_messages&.to_sentence)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def summon_notif
     notifications.find_by(role: :summon)

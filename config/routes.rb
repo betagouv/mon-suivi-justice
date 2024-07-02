@@ -26,6 +26,8 @@ Rails.application.routes.draw do
       post '/create_user_alert' => "user_alerts#create"
       resources :headquarters
       resources :place_transferts
+      resources :divestments, only: %i[index show]
+      resources :organization_divestments, only: %i[show edit update]
 
       root to: "users#index"
     end
@@ -143,6 +145,9 @@ Rails.application.routes.draw do
       put :mark_as_read
     end
   end
+
+  resources :divestments, only: :create
+  resources :organization_divestments, only: %i[index edit update]
 
   match '/404' => 'errors#not_found', via: :all
   match '/422' => 'errors#unprocessable_entity', via: :all

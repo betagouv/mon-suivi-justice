@@ -8,7 +8,7 @@ RSpec.describe Convict, type: :model do
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
   it { should validate_presence_of(:invitation_to_convict_interface_count) }
-  it { should validate_uniqueness_of(:appi_uuid) }
+  it { should validate_uniqueness_of(:appi_uuid).ignoring_case_sensitivity }
 
   describe 'uniqueness' do
     context 'when appi_uuid is present' do
@@ -26,7 +26,7 @@ RSpec.describe Convict, type: :model do
         new_convict = build(:convict, organizations: [organization], appi_uuid:)
 
         expect(new_convict.valid?).to eq(false)
-        expect(new_convict.errors[:appi_uuid]).to include("n'est pas disponible")
+        expect(new_convict.errors[:appi_uuid]).to include('Un probationnaire est déjà enregistré avec ce numéro APPI')
       end
 
       it 'should allow to create a convict with same first_name, last_name and dob but different appi_number' do
@@ -194,20 +194,44 @@ RSpec.describe Convict, type: :model do
 
       context 'right format' do
         let(:convict) { build(:convict, appi_uuid: nil) }
-        it 'start with 199 and have 12 characters' do
+        it 'start with 199 and have 8 characters' do
           convict.appi_uuid = "199#{Faker::Number.unique.number(digits: 5)}"
+          expect(convict).to be_valid
+        end
+        it 'start with 199 and have 9 characters including one final letter' do
+          convict.appi_uuid = "199#{Faker::Number.unique.number(digits: 5)}X"
+          expect(convict).to be_valid
+        end
+        it 'start with 200 and have 8 characters' do
+          convict.appi_uuid = "200#{Faker::Number.unique.number(digits: 5)}"
+          expect(convict).to be_valid
+        end
+        it 'start with 200 and have 9 characters including one final letter' do
+          convict.appi_uuid = "200#{Faker::Number.unique.number(digits: 5)}X"
           expect(convict).to be_valid
         end
         it 'start with 200 and have 12 characters' do
           convict.appi_uuid = "200#{Faker::Number.unique.number(digits: 9)}"
           expect(convict).to be_valid
         end
+        it 'start with 200 and have 13 characters including one final letter' do
+          convict.appi_uuid = "200#{Faker::Number.unique.number(digits: 9)}X"
+          expect(convict).to be_valid
+        end
         it 'start with 201 and have 12 characters' do
           convict.appi_uuid = "201#{Faker::Number.unique.number(digits: 9)}"
           expect(convict).to be_valid
         end
+        it 'start with 201 and have 13 characters including one final letter' do
+          convict.appi_uuid = "201#{Faker::Number.unique.number(digits: 9)}X"
+          expect(convict).to be_valid
+        end
         it 'start with 202 and have 12 characters' do
           convict.appi_uuid = "202#{Faker::Number.unique.number(digits: 9)}"
+          expect(convict).to be_valid
+        end
+        it 'start with 202 and have 13 characters including one final letter' do
+          convict.appi_uuid = "202#{Faker::Number.unique.number(digits: 9)}X"
           expect(convict).to be_valid
         end
       end
@@ -225,7 +249,15 @@ RSpec.describe Convict, type: :model do
           convict.appi_uuid = "199#{Faker::Number.unique.number(digits: 9)}"
           expect(convict).not_to be_valid
         end
-        it 'contains letters' do
+        it 'contains letters not at the end' do
+          convict.appi_uuid = "199a#{Faker::Number.unique.number(digits: 8)}"
+          expect(convict).not_to be_valid
+        end
+        it 'contains letters but not the right lenght' do
+          convict.appi_uuid = "199#{Faker::Number.unique.number(digits: 4)}a"
+          expect(convict).not_to be_valid
+        end
+        it 'contains letters but not the right lenght' do
           convict.appi_uuid = "201#{Faker::Number.unique.number(digits: 8)}a"
           expect(convict).not_to be_valid
         end
@@ -238,35 +270,6 @@ RSpec.describe Convict, type: :model do
       create(:convict, phone: '0612458744')
 
       expect(build(:convict, phone: '0612458744')).not_to be_valid
-    end
-  end
-
-  describe '.check_duplicates' do
-    before do
-      @user = create_admin_user_and_login
-    end
-
-    it 'adds duplicate if names are the same' do
-      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin',
-                                  appi_uuid: nil, date_of_birth: '1980-01-01')
-      convict2 = build(:convict, first_name: 'Jean Louis', last_name: 'Martin',
-                                 appi_uuid: nil, date_of_birth: '1980-01-01')
-      convict2.save(validate: false)
-      convict1.check_duplicates
-
-      expect(convict1.duplicates).to eq([convict2])
-    end
-
-    it "doesn't add duplicate if appi_uuid are different" do
-      convict1 = create(:convict, first_name: 'Jean Louis', last_name: 'Martin',
-                                  appi_uuid: "2024#{Faker::Number.unique.number(digits: 8)}",
-                                  date_of_birth: '1980-01-01')
-      create(:convict, first_name: 'Jean Louis', last_name: 'Martin',
-                       appi_uuid: "2024#{Faker::Number.unique.number(digits: 8)}", date_of_birth: '1980-01-01')
-
-      convict1.check_duplicates
-
-      expect(convict1.duplicates).to be_empty
     end
   end
 
@@ -367,6 +370,7 @@ RSpec.describe Convict, type: :model do
       expect(convict.organizations.pluck(:id)).to match_array([@current_user.organization.id])
     end
   end
+
   describe '#toggle_japat_orgs' do
     let(:tj_paris) { create(:organization, organization_type: :tj, name: 'TJ Paris') }
     let(:spip_paris) { create(:organization, organization_type: :spip, name: 'SPIP 75') }
@@ -418,6 +422,154 @@ RSpec.describe Convict, type: :model do
         it 'does nothing if TJ Paris is not included' do
           expect { convict.toggle_japat_orgs }.not_to(change { convict.organizations.count })
         end
+      end
+    end
+  end
+  describe 'first_name, last_name and dob validations with and without appi_uuid' do
+    let(:first_name) { 'Jane' }
+    let(:last_name) { 'Doe' }
+    let(:date_of_birth) { '1990-01-01' }
+    let!(:existing_convict) { create(:convict, first_name:, last_name:, date_of_birth:, appi_uuid: nil) }
+
+    context 'when validating date_of_birth uniqueness' do
+      it 'is invalid with a duplicate date_of_birth, first_name, and last_name without appi_uuid' do
+        new_convict = build(:convict, first_name:, last_name:, date_of_birth:, appi_uuid: nil)
+        expect(new_convict).not_to be_valid
+        expect(new_convict.errors[:date_of_birth]).to include(Convict::DOB_UNIQUENESS_MESSAGE)
+      end
+
+      it 'is valid with a unique combination of date_of_birth, first_name, and last_name' do
+        unique_convict = build(:convict, first_name:, last_name: 'Smith', date_of_birth:, appi_uuid: nil)
+        expect(unique_convict).to be_valid
+      end
+
+      it 'is valid with a duplicate date_of_birth, first_name, and last_name but with appi_uuid' do
+        convict_with_appi_uuid = build(:convict, first_name:, last_name:, date_of_birth:)
+        expect(convict_with_appi_uuid).to be_valid
+      end
+    end
+  end
+
+  describe '#update_organizations_for_bex_user' do
+    let(:bex_user) { create(:user, :in_organization, role: 'bex') }
+    let(:convict) { create(:convict) }
+
+    context 'when the convict is not valid' do
+      let(:convict) do
+        c = build(:convict, appi_uuid: 'abc')
+        c.save(validate: false)
+        c
+      end
+
+      it 'does not update the convict\'s organizations' do
+        orgas = [*convict.organizations]
+        convict.update_organizations_for_bex_user(bex_user)
+        expect(convict.organizations).to match_array(orgas)
+      end
+    end
+
+    context 'when the user works at BEX' do
+      before { allow(bex_user).to receive(:work_at_bex?).and_return(true) }
+
+      it 'adds the user\'s organizations to the convict' do
+        expect { convict.update_organizations_for_bex_user(bex_user) }
+          .to change { convict.organizations.count }.by(bex_user.organizations.count)
+      end
+    end
+
+    context 'when the user does not work at BEX' do
+      let(:non_bex_user) { create(:user, :in_organization, role: 'cpip') }
+
+      it 'does not change the convict’s organizations' do
+        expect { convict.update_organizations_for_bex_user(non_bex_user) }
+          .not_to(change { convict.organizations.count })
+      end
+    end
+  end
+
+  describe '.find_duplicates' do
+    let(:convict) { build(:convict) }
+
+    context 'when there are no duplicates' do
+      it 'returns an empty array' do
+        convict.validate
+        expect(convict.find_duplicates).to be_empty
+      end
+    end
+
+    context 'when there is a duplicate by appi_uuid' do
+      let!(:duplicate_convict) { create(:convict, appi_uuid: convict.appi_uuid) }
+
+      it 'returns an array with the duplicate convict' do
+        convict.validate
+        convict.errors.add(:appi_uuid, :taken)
+        expect(convict.find_duplicates).to include(duplicate_convict)
+      end
+    end
+
+    context 'when there is a duplicate by phone' do
+      let!(:duplicate_convict) { create(:convict, phone: convict.phone) }
+
+      it 'returns an array with the duplicate convict' do
+        convict.validate
+        expect(convict.find_duplicates).to include(duplicate_convict)
+      end
+    end
+
+    context 'when there is a duplicate by date_of_birth and name' do
+      let(:convict) { build(:convict, appi_uuid: nil) }
+      let!(:duplicate_convict) do
+        create(:convict, first_name: convict.first_name,
+                         last_name: convict.last_name,
+                         date_of_birth: convict.date_of_birth,
+                         appi_uuid: nil)
+      end
+
+      it 'returns an array with the duplicate convict' do
+        convict.validate
+        expect(convict.find_duplicates).to include(duplicate_convict)
+      end
+    end
+
+    context 'when there are multiple duplicates' do
+      let!(:duplicate_by_appi_uuid) { create(:convict, appi_uuid: convict.appi_uuid) }
+      let!(:duplicate_by_phone) { create(:convict, phone: convict.phone) }
+      let!(:duplicate_by_date_of_birth) do
+        create(:convict, first_name: convict.first_name,
+                         last_name: convict.last_name,
+                         date_of_birth: convict.date_of_birth,
+                         appi_uuid: nil)
+      end
+      context 'convict with appi uuid' do
+        it 'returns an array with all duplicate convicts' do
+          # no dob validation when appi_uuid is present
+          convict.validate
+          duplicates = convict.find_duplicates
+          expect(duplicates).to match_array([duplicate_by_appi_uuid, duplicate_by_phone])
+        end
+      end
+      context 'convict without appi uuid' do
+        let(:convict) { build(:convict, appi_uuid: nil) }
+        it 'returns an array with all duplicate convicts' do
+          convict.validate
+          duplicates = convict.find_duplicates
+          expect(duplicates).to match_array([duplicate_by_date_of_birth, duplicate_by_phone])
+        end
+      end
+    end
+
+    context 'when another convict match multiple criteria' do
+      let(:convict) { build(:convict, appi_uuid: nil) }
+      let!(:dup) do
+        create(:convict, phone: convict.phone, first_name: convict.first_name, last_name: convict.last_name,
+                         date_of_birth: convict.date_of_birth, appi_uuid: nil)
+      end
+
+      it 'returns the dup only once' do
+        convict.validate
+        duplicates = convict.find_duplicates
+
+        expect(duplicates).to match_array([dup])
       end
     end
   end

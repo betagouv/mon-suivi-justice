@@ -20,6 +20,295 @@ describe ConvictPolicy do
     it { is_expected.to forbid_action(:unarchive) }
     it { is_expected.to forbid_action(:self_assign) }
     it { is_expected.to forbid_action(:unassign) }
+    it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+  end
+
+  context 'convokable during divestment' do
+    context 'no divestment pending' do
+      let(:convict) { create(:convict) }
+
+      context('user is local admin') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :local_admin) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is admin') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :admin) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is cpip') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :cpip) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is dpip') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :dpip) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is overseer') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :overseer) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is educator') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :educator) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is psychologist') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :psychologist) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is secretary_spip') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :secretary_spip) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is bex') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :bex) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is greff_tpe') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :greff_tpe) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is prosecutor') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :prosecutor) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is greff_co') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :greff_co) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is greff_crpc') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :greff_crpc) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is greff_ca') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :greff_ca) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is dir_greff_bex') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :dir_greff_bex) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is jap') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :jap) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is greff_sap') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :greff_sap) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is dir_greff_sap') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :dir_greff_sap) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is secretary_court') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :secretary_court) }
+
+        it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+      end
+    end
+    context 'a divestment pending' do
+      let(:convict) { create(:convict) }
+      let!(:divestment) { create(:divestment, state: 'pending', convict:, user:, organization: user.organization) }
+      context('user is local admin') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :local_admin) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is admin') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :admin) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is cpip') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :cpip) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is dpip') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :dpip) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is overseer') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :overseer) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is educator') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :educator) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is psychologist') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :psychologist) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is secretary_spip') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :secretary_spip) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context 'bex' do
+        context "when the divestment is to the user's organization" do
+          let!(:divestment) { create(:divestment, state: 'pending', convict:, user:, organization: user.organization) }
+
+          context('user is bex') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :bex) }
+
+            it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is greff_tpe') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :greff_tpe) }
+
+            it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is prosecutor') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :prosecutor) }
+
+            it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is greff_co') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :greff_co) }
+
+            it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is greff_crpc') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :greff_crpc) }
+
+            it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is greff_ca') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :greff_ca) }
+
+            it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is dir_greff_bex') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :dir_greff_bex) }
+
+            it { is_expected.to permit_action(:no_divestment_or_convokable_nonetheless) }
+          end
+        end
+        context "when the divestment is NOT to the user's organization" do
+          let!(:organization) { create(:organization) }
+          let!(:divestment) { create(:divestment, state: 'pending', convict:, user:, organization:) }
+
+          context('user is bex') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :bex) }
+
+            it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is greff_tpe') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :greff_tpe) }
+
+            it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is prosecutor') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :prosecutor) }
+
+            it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is greff_co') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :greff_co) }
+
+            it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is greff_crpc') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :greff_crpc) }
+
+            it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is greff_ca') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :greff_ca) }
+
+            it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+          end
+
+          context('user is dir_greff_bex') do
+            let(:user) { create(:user, :in_organization, type: :tj, role: :dir_greff_bex) }
+
+            it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+          end
+        end
+      end
+      context('user is jap') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :jap) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is greff_sap') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :greff_sap) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is dir_greff_sap') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :dir_greff_sap) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+
+      context('user is secretary_court') do
+        let(:user) { create(:user, :in_organization, type: :tj, role: :secretary_court) }
+
+        it { is_expected.to forbid_action(:no_divestment_or_convokable_nonetheless) }
+      end
+    end
   end
 
   context 'for an admin' do

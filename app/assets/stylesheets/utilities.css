@@ -24,3 +24,7 @@
   font-weight: bold;
 }
 
+.hyphens-auto {
+  hyphens: auto;
+}
+
