@@ -8,7 +8,7 @@
           <div class="fr-grid-row">
             <ul>
               <% @convict.errors.each do |error| %>
-                <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{@convict.send(error.attribute)})" %>: <%= error.type %></li>
+                <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{@convict.send(error.attribute)})" %>: <%= error.message %></li>
               <% end %>
             </ul>
           </div>

@@ -628,7 +628,6 @@ fr:
   new-appointment-warning: En cliquant sur "Enregistrer", vous générez l'envoi d'un
     SMS de rappel 48h avant la convocation (si un numéro de téléphone a été donné).
   new_appointment_title: Nouvelle convocation %{convict_link}
-    distinctes avant d'enregistrer ce nouveau profil.
   new_convict_first_appointment: et convoquer
   new_convict_submit: sans convoquer
   new_convict_title: Nouveau probationnaire
