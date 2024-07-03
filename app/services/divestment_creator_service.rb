@@ -63,9 +63,7 @@ class DivestmentCreatorService
     return state unless state == 'pending'
     return 'ignored' if org.local_admin.empty?
 
-    if auto_acceptable_org_divestment?(org, sources)
-      return 'auto_accepted'
-    end
+    return 'auto_accepted' if auto_acceptable_org_divestment?(org, sources)
 
     state
   end
