@@ -44,7 +44,7 @@ class DivestmentCreatorService
   def create_organization_divestments(divestment, state)
     old_orgs = @convict.organizations - @destinations
     old_orgs.each do |org|
-      org_state = initial_state(org, state)
+      org_state = initial_state(org, state, old_orgs)
       attributes = {
         divestment_id: divestment.id,
         organization_id: org.id,
@@ -59,13 +59,11 @@ class DivestmentCreatorService
     end
   end
 
-  def initial_state(org, state)
+  def initial_state(org, state, sources)
     return state unless state == 'pending'
     return 'ignored' if org.local_admin.empty?
 
-    if org.spip? && @convict.organizations.intersect?(org.tjs) && @convict.tj.map(&:local_admin).flatten.present?
-      return 'auto_accepted'
-    end
+    return 'auto_accepted' if auto_acceptable_org_divestment?(org, sources)
 
     state
   end
@@ -83,5 +81,12 @@ class DivestmentCreatorService
     return false if @convict.invalid?
 
     @convict.discarded? || @convict.last_appointment_at_least_6_months_old?
+  end
+
+  def auto_acceptable_org_divestment?(org, sources)
+    return false if org.tj?
+
+    tjs = sources & org.tjs # check if divestment sources contains the spip linked tj
+    tjs.any? { |tj| tj.local_admin.present? }
   end
 end
