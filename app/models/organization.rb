@@ -138,7 +138,7 @@ class Organization < ApplicationRecord
   end
 
   def all_local_admins
-    return headquarter.local_admins if headquarter.present?
+    return [*local_admins, *headquarter.local_admins].uniq if headquarter.present?
 
     local_admins
   end
