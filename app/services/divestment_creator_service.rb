@@ -11,6 +11,8 @@ class DivestmentCreatorService
 
   def call
     state = divestment_state
+    to_remove = @convict.organizations - @destinations
+    return if to_remove.empty?
 
     ActiveRecord::Base.transaction do
       save_divestment(state)
