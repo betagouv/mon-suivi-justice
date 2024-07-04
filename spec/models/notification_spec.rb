@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
-  subject { build(:notification) }
+  subject { build(:notification, external_id: '1') }
 
   it { should belong_to(:appointment) }
   it { should validate_presence_of(:content) }

@@ -11,22 +11,33 @@ RSpec.describe LinkMobilityAdapter do
   end
 
   describe 'send_sms' do
-    it 'calls LinkMobility API' do
-      convict = create(:convict, phone: '0600000000')
-      appointment = create(:appointment, convict:)
-      notif = create(:notification, content: 'Salut', appointment:)
-
-      response = {
+    let(:convict) { create(:convict, phone: '0600000000') }
+    let(:appointment) { create(:appointment, convict:) }
+    let(:notif) { create(:notification, content: 'Salut', appointment:, state: :programmed) }
+    let(:response) do
+      {
         responseCode: 0,
         responseMessage: 'Success',
         messageIds: ['1']
       }.to_json
+    end
 
-      stub = stub_request(:post, 'https://europe.ipx.com/restapi/v1/sms/send')
-              .to_return(body: response)
-
+    before do
+      @stub = stub_request(:post, 'https://europe.ipx.com/restapi/v1/sms/send')
+                .to_return(body: response)
       LinkMobilityAdapter.new.send_sms(notif)
-      expect(stub).to have_been_requested
+    end
+
+    it 'calls LinkMobility API' do
+      expect(@stub).to have_been_requested
+    end
+
+    it 'updates notification with external_id' do
+      expect(notif.reload.external_id).to eq('1')
+    end
+
+    it 'marks notification as sent' do
+      expect(notif.reload.state).to eq('sent')
     end
   end
 

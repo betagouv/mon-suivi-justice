@@ -71,7 +71,8 @@ RSpec.feature 'HistoryItems', type: :feature do
       @reminder_notif = create(:notification, appointment: @appointment,
                                               role: 'reminder',
                                               state: 'programmed',
-                                              content: 'RAPPEL Vous êtes encore convoqué...')
+                                              content: 'RAPPEL Vous êtes encore convoqué...',
+                                              external_id: '1')
 
       @cancelation_notif = create(:notification, appointment: @appointment,
                                                  role: 'cancelation',

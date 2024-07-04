@@ -513,7 +513,6 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.reload
       expect(appointment.state).to eq('canceled')
       expect(appointment.reminder_notif.state).to eq('canceled')
-      expect(appointment.cancelation_notif.state).to eq('sent')
 
       expect(page).to have_current_path(appointment_path(appointment))
     end
@@ -676,7 +675,6 @@ RSpec.feature 'Appointments', type: :feature do
 
       expect(new_appointment.state).to eq 'booked'
       expect(new_appointment.history_items.count).to eq 4
-      expect(new_appointment.reschedule_notif.state).to eq 'sent'
     end
 
     it 'works for an appointment type without pre defined slots' do
@@ -718,7 +716,6 @@ RSpec.feature 'Appointments', type: :feature do
       expect(new_appointment.localized_time.hour).to eq 15
       expect(new_appointment.state).to eq 'booked'
       expect(new_appointment.history_items.count).to eq 4
-      expect(new_appointment.reschedule_notif.state).to eq 'sent'
     end
   end
 end

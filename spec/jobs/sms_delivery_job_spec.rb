@@ -23,10 +23,6 @@ RSpec.describe SmsDeliveryJob, type: :job do
         expect(adapter_dbl).to have_received(:send_sms).once.with(notification)
       end
 
-      it 'changes status to sent for programmed notification' do
-        expect(notification.reload.state).to eq('sent')
-      end
-
       # TODO: rework the notification status system with new provider
       # it 'get sms events' do
       #   expect(GetSmsStatusJob).to have_been_enqueued.once.with(notification.id)
