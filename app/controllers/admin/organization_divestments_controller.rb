@@ -53,9 +53,9 @@ module Admin
       state_service = DivestmentStateService.new(resource, user)
       comment = 'Ce dessaisissement a été effectué par un administrateur.'
       case state
-      when 'accepted'
+      when OrganizationDivestment.human_state_name('accepted')
         state_service.accept(comment)
-      when 'refused'
+      when OrganizationDivestment.human_state_name('refused')
         state_service.refuse(comment)
       else
         false

@@ -13,6 +13,33 @@ RSpec.describe DivestmentCreatorService do
       allow(convict).to receive(:discarded?).and_return(false)
       allow(convict).to receive(:last_appointment_at_least_6_months_old?).and_return(false)
     end
+
+    context 'when convict is linked to 1 antenne and need to be moved to another one' do
+      let(:spip1) { create(:organization, organization_type: :spip, name: 'old spip') }
+      let(:spip2) { create(:organization, organization_type: :spip, name: 'new spip') }
+      let!(:tj) do
+        tj = build(:organization, organization_type: :tj, name: 'same tj')
+        tj.spips = [spip1, spip2]
+        tj.save
+        tj
+      end
+
+      let!(:local_admin_spip1) { create(:user, role: 'local_admin', organization: spip1) }
+      let!(:local_admin_tj) { create(:user, role: 'local_admin', organization: tj) }
+      let(:user) { create(:user, role: 'cpip', organization: spip2) }
+      let(:convict) { create(:convict, organizations: [spip1, tj]) }
+
+      it 'creates organization divestments with pending state' do
+        spip1.update(tjs: [tj])
+        spip2.update(tjs: [tj])
+        create_appointment(convict, spip1, date: 1.month.ago)
+        service.call
+        unsaved_divestment.reload
+        od_spip = unsaved_divestment.organization_divestments.find_by(organization: spip1)
+        expect(unsaved_divestment.state).to eq('pending')
+        expect(od_spip.state).to eq('pending')
+      end
+    end
     context 'when organizations have local admins' do
       before do
         create_list(:organization, 2, convicts: [convict])
