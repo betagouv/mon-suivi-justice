@@ -52,9 +52,9 @@ RSpec.describe ManageNotificationProblems, type: :job do
       end
 
       it 'reschedules the correct notifications' do
-        expect {
+        expect do
           described_class.perform_now
-        }.to have_enqueued_job(SmsDeliveryJob).exactly(3).times
+        end.to have_enqueued_job(SmsDeliveryJob).exactly(3).times
 
         expect(SmsDeliveryJob).to have_been_enqueued.with(notification_to_reschedule1.id)
         expect(SmsDeliveryJob).to have_been_enqueued.with(notification_to_reschedule2.id)
