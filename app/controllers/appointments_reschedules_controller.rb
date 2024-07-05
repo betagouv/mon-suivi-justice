@@ -45,6 +45,6 @@ class AppointmentsReschedulesController < AppointmentsController
     HistoryItem.order(created_at: :desc).where(appointment:, event: 'cancel_appointment').first&.destroy
     HistoryItemFactory.perform(appointment:, event: :reschedule_appointment, category: 'appointment')
     appointment.book send_notification: false
-    appointment.reschedule_notif.send_now if appointment.convict.phone.present?
+    appointment.reschedule_notif.program_now if appointment.convict.phone.present?
   end
 end

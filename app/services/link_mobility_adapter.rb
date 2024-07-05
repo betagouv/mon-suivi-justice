@@ -16,7 +16,7 @@ class LinkMobilityAdapter
       req.body = URI.encode_www_form(sms_data)
     end
 
-    set_notification_external_id(notification, response)
+    mark_as_sent_if_success(notification, response)
   end
 
   def format_data(notification)
@@ -29,13 +29,14 @@ class LinkMobilityAdapter
     }
   end
 
-  def set_notification_external_id(notification, response)
+  def mark_as_sent_if_success(notification, response)
     response_hash = JSON.parse(response.body)
 
-    if (response_hash['responseCode']).zero?
+    raise SmsDeliveryError.new(500, response_hash['responseMessage']) unless (response_hash['responseCode']).zero?
+
+    notification.transaction do
       notification.update(external_id: response_hash['messageIds'].first)
-    else
-      puts "Error when sending SMS: #{response_hash['responseMessage']}"
+      notification.mark_as_sent if notification.programmed?
     end
   end
 
