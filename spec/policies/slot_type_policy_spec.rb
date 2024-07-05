@@ -14,10 +14,6 @@ describe SlotTypePolicy do
     context 'should be called by' do
       let(:user) { build(:user, :in_organization, role: 'local_admin') }
 
-      it 'show' do
-        expect(subject).to receive(:check_ownership?)
-        subject.show?
-      end
       it 'update' do
         expect(subject).to receive(:check_ownership?)
         subject.update?
@@ -340,7 +336,6 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'admin', organization:, security_charter_accepted_at: nil) }
 
-    it { is_expected.to forbid_action(:show) }
     it { is_expected.to forbid_action(:index) }
     it { is_expected.to forbid_action(:new) }
     it { is_expected.to forbid_action(:create) }
@@ -353,7 +348,6 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'admin', organization:) }
 
-    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
@@ -366,7 +360,6 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'local_admin', organization:) }
 
-    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
@@ -379,7 +372,6 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'prosecutor', organization:) }
 
-    it { is_expected.to forbid_action(:show) }
     it { is_expected.to forbid_action(:index) }
     it { is_expected.to forbid_action(:new) }
     it { is_expected.to forbid_action(:create) }
@@ -392,7 +384,6 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'jap', organization:) }
 
-    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
@@ -405,7 +396,6 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'secretary_court', organization:) }
 
-    it { is_expected.to forbid_action(:show) }
     it { is_expected.to forbid_action(:index) }
     it { is_expected.to forbid_action(:new) }
     it { is_expected.to forbid_action(:create) }
@@ -418,7 +408,6 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'dir_greff_bex', organization:) }
 
-    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
@@ -431,7 +420,6 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'bex', organization:) }
 
-    it { is_expected.to forbid_action(:show) }
     it { is_expected.to forbid_action(:index) }
     it { is_expected.to forbid_action(:new) }
     it { is_expected.to forbid_action(:create) }
@@ -444,7 +432,6 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'greff_co', organization:) }
 
-    it { is_expected.to forbid_action(:show) }
     it { is_expected.to forbid_action(:index) }
     it { is_expected.to forbid_action(:new) }
     it { is_expected.to forbid_action(:create) }
@@ -457,7 +444,6 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'dir_greff_sap', organization:) }
 
-    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
@@ -470,7 +456,6 @@ describe SlotTypePolicy do
     let(:organization) { tj }
     let(:user) { build(:user, role: 'greff_sap', organization:) }
 
-    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
@@ -483,7 +468,6 @@ describe SlotTypePolicy do
     let(:organization) { spip }
     let(:user) { build(:user, role: 'cpip', organization:) }
 
-    it { is_expected.to forbid_action(:show) }
     it { is_expected.to forbid_action(:index) }
     it { is_expected.to forbid_action(:new) }
     it { is_expected.to forbid_action(:create) }
@@ -496,7 +480,6 @@ describe SlotTypePolicy do
     let(:organization) { spip }
     let(:user) { build(:user, role: 'educator', organization:) }
 
-    it { is_expected.to forbid_action(:show) }
     it { is_expected.to forbid_action(:index) }
     it { is_expected.to forbid_action(:new) }
     it { is_expected.to forbid_action(:create) }
@@ -509,7 +492,6 @@ describe SlotTypePolicy do
     let(:organization) { spip }
     let(:user) { build(:user, role: 'psychologist', organization:) }
 
-    it { is_expected.to forbid_action(:show) }
     it { is_expected.to forbid_action(:index) }
     it { is_expected.to forbid_action(:new) }
     it { is_expected.to forbid_action(:create) }
@@ -522,7 +504,6 @@ describe SlotTypePolicy do
     let(:organization) { spip }
     let(:user) { build(:user, role: 'overseer', organization:) }
 
-    it { is_expected.to forbid_action(:show) }
     it { is_expected.to forbid_action(:index) }
     it { is_expected.to forbid_action(:new) }
     it { is_expected.to forbid_action(:create) }
@@ -535,7 +516,6 @@ describe SlotTypePolicy do
     let(:organization) { spip }
     let(:user) { build(:user, role: 'dpip', organization:) }
 
-    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
@@ -548,7 +528,6 @@ describe SlotTypePolicy do
     let(:organization) { spip }
     let(:user) { build(:user, role: 'secretary_spip', organization:) }
 
-    it { is_expected.to forbid_action(:show) }
     it { is_expected.to forbid_action(:index) }
     it { is_expected.to forbid_action(:new) }
     it { is_expected.to forbid_action(:create) }

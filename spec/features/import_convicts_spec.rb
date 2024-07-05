@@ -4,7 +4,6 @@ RSpec.describe 'Import Convicts', type: :feature, logged_in_as: 'admin' do
   before do
     @organization = create(:organization)
     @organization2 = create(:organization, organization_type: 'tj', spips: [@organization])
-    @headquarter = create(:headquarter)
   end
 
   it 'create convicts in proper organizations' do

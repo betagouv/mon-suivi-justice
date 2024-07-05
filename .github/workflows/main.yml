@@ -67,8 +67,8 @@ jobs:
       #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
       #     SSH_PASS: ${{ secrets.SSH_PASS }}
 
-      - name: Build ESbuild
-        run: yarn build
+      - name: Precompile assets
+        run: bundle exec rails assets:precompile
 
       - name: Spec suite
         run: bundle exec rspec

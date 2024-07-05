@@ -13,12 +13,6 @@ class SlotTypePolicy < ApplicationPolicy
     check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
   end
 
-  def show?
-    return false unless user.security_charter_accepted?
-
-    check_ownership? && ALLOWED_TO_INTERACT.include?(user.role)
-  end
-
   def new?
     return false unless user.security_charter_accepted?
 

@@ -8,7 +8,7 @@
           <div class="fr-grid-row">
             <ul>
               <% @convict.errors.each do |error| %>
-                <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{@convict.send(error.attribute)})" %>: <%= error.type %></li>
+                <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{@convict.send(error.attribute)})" %>: <%= error.message %></li>
               <% end %>
             </ul>
           </div>
@@ -22,7 +22,7 @@
       <div class="fr-container fr-mt-5w fr-mb-5w">
         <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
           <div class="fr-alert fr-alert--warning">
-            <h5 class="fr-alert__title">Attention ce probationnaire est rattaché aux services : <%= @convict.organizations.map(&:name).join(', ') %> 
+            <h5 class="fr-alert__title">Attention ce probationnaire est rattaché aux services : <%= @convict.organizations.map(&:name).join(', ') %>
             </h5>
             <div class="fr-container fr-my-2w">
               <div class="fr-grid-row fr-grid-row--center">
@@ -33,35 +33,35 @@
                   Code 12 - Dessaisissement impossible pour ce probationnaire, veuillez contacter un administrateur.
                 <% end %>
               </div>
-                <div class="fr-grid-row fr-mt-2w">
-                  <p>Cette action entrainera le dessaisissement de ce probationnaire sur l'application</p>
-                </div>
+              <div class="fr-grid-row fr-mt-2w">
+                <p>Cette action entrainera le dessaisissement de ce probationnaire sur l'application</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     <% end %>
     <% if @convict && current_user.can_use_inter_ressort? && !current_user.organization.in_jurisdiction?(@convict) %>
-        <div class="fr-container fr-mt-5w fr-mb-5w">
-          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-            <div class="fr-alert fr-alert--info">
-              <h5 class="fr-alert__title">
-                Attention ce probationnaire <%= @convict.city.present? ? "habite a #{@convict.city.name}" : "n'a pas de ville renseignée" %> et est rattaché aux services : <%= @convict.organizations.map(&:name).join(', ') %>
-              </h5>
-              <div class="fr-container fr-my-2w">
-                <div class="fr-grid-row">
-                  Si vous souhaitez convoquer ce probationnaire dans un des services mentionnés, continuez la procédure ci dessous
-                </div>
-                <div class="fr-grid-row">
-                  Dans le cas contraire, veuillez modifier lieu d'habitation du probationnaire
-                </div>
-                <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
-                  <%= button_to "Modifier la ville", edit_convict_path(@convict), method: :get, class: 'fr-btn' %>
-                </div>
+      <div class="fr-container fr-mt-5w fr-mb-5w">
+        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+          <div class="fr-alert fr-alert--info">
+            <h5 class="fr-alert__title">
+              Attention ce probationnaire <%= @convict.city.present? ? "habite a #{@convict.city.name}" : "n'a pas de ville renseignée" %> et est rattaché aux services : <%= @convict.organizations.map(&:name).join(', ') %>
+            </h5>
+            <div class="fr-container fr-my-2w">
+              <div class="fr-grid-row">
+                Si vous souhaitez convoquer ce probationnaire dans un des services mentionnés, continuez la procédure ci dessous
+              </div>
+              <div class="fr-grid-row">
+                Dans le cas contraire, veuillez modifier lieu d'habitation du probationnaire
+              </div>
+              <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
+                <%= button_to "Modifier la ville", edit_convict_path(@convict), method: :get, class: 'fr-btn' %>
               </div>
             </div>
           </div>
         </div>
+      </div>
     <% end %>
     <% if !@convict || @convict.valid? && current_user.organization.use_inter_ressort? || @convict.valid? && current_user.organization.in_jurisdiction?(@convict) %>
       <%= simple_form_for @appointment, url: appointments_path(convict_id: @convict&.id), html: { "data-appointment-new-target": "newAppointmentForm" } do |f| %>
@@ -142,3 +142,4 @@
       <% end %>
     <% end %>
   </div>
+</div>

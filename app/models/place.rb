@@ -38,13 +38,6 @@ class Place < ApplicationRecord
       .where(organization: user_organization.linked_organizations, appointment_types: { name: 'SAP DDSE' })
   }
 
-  scope :in_dep_spips, lambda { |departments|
-    ids = departments.map(&:id)
-    joins(organization: :areas_organizations_mappings)
-      .where(areas_organizations_mappings: { area_type: 'Department', area_id: ids })
-      .where(organizations: { organization_type: 'spip' })
-  }
-
   def self.ransackable_attributes(_auth_object = nil)
     %w[name]
   end
