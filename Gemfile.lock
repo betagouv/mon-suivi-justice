@@ -460,7 +460,7 @@ GEM
     sentry-rails (5.18.0)
       railties (>= 5.0)
       sentry-ruby (~> 5.18.0)
-    sentry-ruby (5.18.0)
+    sentry-ruby (5.18.1)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shellany (0.0.1)
@@ -619,7 +619,7 @@ DEPENDENCIES
   ruby-progressbar (~> 1.13.0)
   selenium-webdriver (~> 4.10.0)
   sentry-rails (~> 5.18.0)
-  sentry-ruby (~> 5.18.0)
+  sentry-ruby (~> 5.18.1)
   shoulda-matchers (~> 6.2.0)
   sib-api-v3-sdk (~> 9.1.0)
   sidekiq (~> 7.2.4)
