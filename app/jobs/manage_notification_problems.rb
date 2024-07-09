@@ -62,7 +62,6 @@ class ManageNotificationProblems < ApplicationJob
 
   def mistakenly_marked_as_sent_notifications
     Notification.joins(appointment: :slot)
-                .where('slots.date > ?', Time.zone.now - 10.days)
-                .where(state: 'sent', external_id: nil, updated_at: Time.zone.now - 1.days..)
+                .where(state: 'sent', external_id: nil, updated_at: Time.zone.now - 2.days..)
   end
 end
