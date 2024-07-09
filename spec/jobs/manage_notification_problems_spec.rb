@@ -32,8 +32,15 @@ RSpec.describe ManageNotificationProblems, type: :job do
     end
 
     context 'when there are notifications to handle' do
-      let!(:notification_to_reschedule) do
+      let!(:notification_to_reschedule1) do
         create(:notification, appointment: appointment_for_future_slot, state: 'programmed', role: 'reminder')
+      end
+      let!(:notification_to_reschedule2) do
+        create(:notification, appointment: appointment_for_future_slot, state: 'programmed', role: 'summon')
+      end
+      let!(:notification_to_reschedule3) do
+        build(:notification, appointment: appointment_for_future_slot, state: 'sent', role: 'no_show', external_id: nil)
+        .tap { |n| n.save(validate: false) }
       end
 
       let!(:stucked_notification1) do
@@ -47,14 +54,20 @@ RSpec.describe ManageNotificationProblems, type: :job do
       it 'reschedules the correct notifications' do
         expect do
           described_class.perform_now
-        end.to have_enqueued_job(SmsDeliveryJob).with(notification_to_reschedule.id)
+        end.to have_enqueued_job(SmsDeliveryJob).exactly(3).times
+
+        expect(SmsDeliveryJob).to have_been_enqueued.with(notification_to_reschedule1.id)
+        expect(SmsDeliveryJob).to have_been_enqueued.with(notification_to_reschedule2.id)
+        expect(SmsDeliveryJob).to have_been_enqueued.with(notification_to_reschedule3.id)
       end
 
       it 'sets stucked notifications to failed' do
         described_class.perform_now
         expect(stucked_notification1.reload.state).to eq('failed')
         expect(stucked_notification2.reload.state).to eq('failed')
-        expect(notification_to_reschedule.reload.state).to eq('programmed')
+        expect(notification_to_reschedule1.reload.state).to eq('programmed')
+        expect(notification_to_reschedule2.reload.state).to eq('programmed')
+        expect(notification_to_reschedule3.reload.state).to eq('sent')
         expect(other_notification1.reload.state).to eq('unsent')
         expect(other_notification2.reload.state).to eq('canceled')
         expect(other_notification3.reload.state).to eq('programmed')
@@ -64,7 +77,8 @@ RSpec.describe ManageNotificationProblems, type: :job do
         expect do
           described_class.perform_now
         end.to have_enqueued_mail(AdminMailer, :notifications_problems)
-          .with(match_array([notification_to_reschedule.id]),
+          .with(match_array([notification_to_reschedule1.id, notification_to_reschedule2.id,
+                             notification_to_reschedule3.id]),
                 match_array([stucked_notification1.id, stucked_notification2.id]))
       end
     end

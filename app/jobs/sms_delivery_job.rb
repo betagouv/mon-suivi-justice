@@ -12,8 +12,6 @@ class SmsDeliveryJob < ApplicationJob
       return
     end
 
-    notification.send_then if notification.programmed?
-
     LinkMobilityAdapter.new.send_sms(notification)
   end
 end

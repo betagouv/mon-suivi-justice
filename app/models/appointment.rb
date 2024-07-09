@@ -209,7 +209,7 @@ class Appointment < ApplicationRecord
       appointment.slot.update(full: true) if appointment.slot.all_capacity_used?
 
       NotificationFactory.perform(appointment)
-      appointment.summon_notif&.send_now if send_sms?(transition) && appointment.convict.can_receive_sms?
+      appointment.summon_notif&.program_now if send_sms?(transition) && appointment.convict.can_receive_sms?
       appointment.reminder_notif&.program
     end
 
@@ -220,12 +220,12 @@ class Appointment < ApplicationRecord
       appointment.reminder_notif.cancel! if appointment.reminder_notif&.programmed?
 
       if send_sms?(transition) && appointment.convict.phone.present?
-        appointment.cancelation_notif.send_now
+        appointment.cancelation_notif.program_now
       end
     end
 
     after_transition on: :miss do |appointment, transition|
-      appointment.no_show_notif&.send_now if send_sms?(transition)
+      appointment.no_show_notif&.program_now if send_sms?(transition)
     end
 
     before_transition on: :rebook do |appointment, _|

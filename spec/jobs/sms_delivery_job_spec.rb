@@ -22,10 +22,6 @@ RSpec.describe SmsDeliveryJob, type: :job do
       it 'send sms' do
         expect(adapter_dbl).to have_received(:send_sms).once.with(notification)
       end
-
-      it 'changes status to sent for programmed notification' do
-        expect(notification.reload.state).to eq('sent')
-      end
     end
   end
 

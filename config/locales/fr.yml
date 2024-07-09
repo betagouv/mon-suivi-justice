@@ -555,8 +555,18 @@ fr:
     send_now_reschedule_notification_title: SMS envoyé (convocation replanifiée)
     send_now_summon_notification: "[Texte du SMS] %{content}"
     send_now_summon_notification_title: SMS envoyé (convocation)
+    program_now_cancelation_notification: "[Texte du SMS] %{content}"
+    program_now_cancelation_notification_title: SMS envoyé (annulation)
+    program_now_no_show_notification: "[Texte du SMS] %{content}"
+    program_now_no_show_notification_title: SMS envoyé (convocation manquée)
+    program_now_reschedule_notification: "[Texte du SMS] %{content}"
+    program_now_reschedule_notification_title: SMS envoyé (convocation replanifiée)
+    program_now_summon_notification: "[Texte du SMS] %{content}"
+    program_now_summon_notification_title: SMS envoyé (convocation)
     send_then_reminder_notification: "[Texte du SMS] %{content}"
     send_then_reminder_notification_title: SMS envoyé (rappel)
+    mark_as_sent_reminder_notification: "[Texte du SMS] %{content}"
+    mark_as_sent_reminder_notification_title: SMS envoyé (rappel)
     unarchive_convict: Le profil de %{name} a été désarchivé.
     unarchive_convict_title: Désarchivage
     update_phone_convict: 'Le numéro de téléphone de %{name} a été modifié par %{user_name}
