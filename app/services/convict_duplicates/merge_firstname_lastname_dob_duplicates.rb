@@ -18,7 +18,7 @@ module ConvictDuplicates
     end
 
     def key_from_duplicate(dup)
-      "#{dup.date_of_birth.to_fs}_#{dup.cleaned_fn}_#{dup.cleaned_ln}"
+      "#{dup.date_of_birth&.to_fs}_#{dup.cleaned_fn}_#{dup.cleaned_ln}"
     end
 
     # rubocop:disable Metrics/AbcSize
