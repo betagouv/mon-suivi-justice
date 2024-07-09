@@ -643,8 +643,7 @@ fr:
   new_convict_title: Nouveau probationnaire
   new_divestment: Créer un dessaisissement
   new_divestment_bex: Demander un dessaisissement et convoquer
-  new_divestment_confirm: Etes-vous sûr(e) de vouloir créer cette demande de dessaisissement
-    ?
+  new_divestment_confirm: Etes-vous sûr(e) de vouloir créer cette demande de dessaisissement?
   new_organization_title: Nouveau service
   new_place_submit: Enregistrer
   new_place_title: Nouveau Lieu
@@ -837,6 +836,7 @@ fr:
         temps
       start_time_before_end_time: L'heure de début doit être avant l'heure de fin
   submit: Enregistrer
+  submit_force: Forcer la création
   support:
     modal_bug: Pour signaler un bug, merci de décrire avec précision les dernières
       actions qui ont menée au bug. Une capture d'écran du problème est également

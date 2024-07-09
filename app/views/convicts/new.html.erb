@@ -133,11 +133,11 @@
         <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
           <ul class="fr-btns-group fr-btns-group--inline-lg">
             <%= f.button :button, id: 'submit-no-appointment', class: 'fr-btn', name: 'no-appointment', data: {turbo: false} do %>
-              <%= t('submit') %><br>
+              <%= @allow_force_create ? t('submit_force') : t('submit') %><br>
               <%= t('new_convict_submit') %>
             <% end %>
             <%= f.button :button, id: 'submit-with-appointment', class: 'fr-btn', name: 'with-appointment', data: {turbo: false} do %>
-              <%= t('submit') %><br>
+              <%= @allow_force_create ? t('submit_force') : t('submit') %><br>
               <%= t('new_convict_first_appointment') %>
             <% end %>
           </ul>
