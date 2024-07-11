@@ -3,6 +3,9 @@
     <div class="fr-alert fr-alert--info">
       <h3 class="fr-alert__title"><%= allow_force_create ? "Nous avons répéré un probationnaire similaire" : "Attention : ce probationnaire existe déjà"%></h3>
       <p>Merci de vérifier s'il s'agit de la même personne.</p>
+      <% if allow_force_create %>
+        <p>Si ce n'est pas le cas, vous pouvez forcer la création à l'aide des boutons précédents</p>
+      <% end %>
       <% duplicate_convicts&.each do |duplicate_convict| %>
         <p><%= duplicate_convict.name %>(<%= duplicate_convict.date_of_birth&.strftime('%d/%m/%Y') %>) <%= duplicate_convict.city.present? ? "habite a #{duplicate_convict.city.name}" : "n'a pas de ville renseignée" %> et est rattaché aux services : <%= duplicate_convict.organizations.map(&:name).join(', ') %></p>
 

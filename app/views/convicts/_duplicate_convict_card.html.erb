@@ -3,6 +3,9 @@
     <div class="fr-alert fr-alert--warning">
       <h3 class="fr-alert__title"><%= allow_force_create ? "Nous avons répéré un probationnaire similaire" : "Attention : ce probationnaire existe déjà"%></h3>
       <p>Merci de vérifier s'il s'agit de la même personne.</p>
+      <% if allow_force_create %>
+        <p>Si ce n'est pas le cas, vous pouvez forcer la création à l'aide des boutons précédents</p>
+      <% end %>
       <% dups_details&.each do |result| %>
         <% duplicate_convict = result[:convict] %>
         <p><%= result[:alert] %></p>
