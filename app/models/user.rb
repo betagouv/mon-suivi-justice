@@ -165,6 +165,10 @@ class User < ApplicationRecord
     cpip? || dpip? || local_admin_spip?
   end
 
+  def can_manage_divestments?
+    local_admin? || greff_sap? || jap? || dir_greff_sap?
+  end
+
   private
 
   def set_default_role
