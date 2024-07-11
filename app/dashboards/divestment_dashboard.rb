@@ -72,9 +72,12 @@ class DivestmentDashboard < Administrate::BaseDashboard
   #   COLLECTION_FILTERS = {
   #     open: ->(resources) { resources.where(open: true) }
   #   }.freeze
+
+  # rubocop:disable Style/SymbolProc
   COLLECTION_FILTERS = {
-    repondre: lambda(&:admin_action_needed)
+    repondre: ->(resources) { resources.admin_action_needed }
   }.freeze
+  # rubocop:enable Style/SymbolProc
 
   # Overwrite this method to customize how divestments are displayed
   # across all pages of the admin dashboard.
