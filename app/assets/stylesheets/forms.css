@@ -4,14 +4,6 @@
   margin: 20px 0;
 }
 
-.form-subtitle {
-  font-size: 1.1em;
-  text-align: center;
-  margin-top: -30px;
-  margin-bottom: 20px;
-  color: var(--dark-grey);
-}
-
 .form-manual {
   max-width: 400px;
   margin: 0 auto 40px;
@@ -29,14 +21,6 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-}
-
-.single-line-form {
-  display: flex;
-}
-
-.single-line-input {
-  width: 50%;
 }
 
 .form-submit-button {
@@ -82,15 +66,6 @@
   }
 }
 
-.form-radio-wrapper {
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.form-radio-input {
-  width: auto;
-}
-
 .form-radio-label {
   margin-left: 15px;
 }
@@ -126,56 +101,6 @@
   .mb-20 {
     margin-bottom: 20px;
   }
-}
-
-// adjustments fo select2 autocomplete
-
-.custom-select2-input {
-  width: 100%;
-  padding: 10px;
-  border: 2px solid var(--form-input) !important;
-  border-radius: 0 !important;
-  height: 45px !important;
-  display: flex !important;
-  align-items: center !important;
-
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-
-  background-repeat: no-repeat;
-  background-position: calc(100% - 0.5rem) 50%;
-  background-size: 1.5rem 1.5rem;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24' ><path fill='%23a1a1a1' d='M12,13.1l5-4.9l1.4,1.4L12,15.9L5.6,9.5l1.4-1.4L12,13.1z'/></svg>");
-}
-
-.select2-selection__arrow b {
-  display: none !important;
-}
-
-.select2-results__option {
-  font-size: 0.8em !important;
-}
-
-.select2-selection .select2-selection--single {
-  width: 100%;
-  display: flex !important;
-  align-items: center !important;
-}
-
-.select2-container--default
-  .select2-selection--single
-  .select2-selection__rendered {
-  color: var(--main-font-color) !important;
-  font-size: 0.8em !important;
-  line-height: inherit !important;
-  padding-left: 5px !important;
-}
-
-// checkbox, source: https://blog.logrocket.com/how-to-style-forms-with-css-a-beginners-guide/
-
-.form-checkbox-field-container {
-  margin-bottom: 20px;
 }
 
 .checkbox-label {

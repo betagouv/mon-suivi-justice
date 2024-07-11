@@ -156,6 +156,7 @@ fr:
               confirmation: Ne correspond pas au premier mot de passe saisi
               mobile: Numéro de téléphone portable requis
               taken: Un probationnaire est déjà enregistré avec ce numéro de téléphone.
+                Merci de saisir un autre numéro
         notification_type:
           attributes:
             template:
@@ -218,9 +219,6 @@ fr:
       convict:
         one: Probationnaire
         other: Probationnaires
-      department:
-        one: Département
-        other: Départements
       divestment:
         one: Dessaisissement
         other: Dessaisissements
@@ -247,7 +245,7 @@ fr:
         other: Alertes utilisateurs
     state_machines:
       events:
-        book: Plannifier
+        book: Planifier
       states:
         accepted: Accepté
         auto_accepted: Accepté automatiquement
@@ -269,15 +267,10 @@ fr:
           l'opération sera terminée.
   appointment:
     create:
-      send:
-        no_sms: Envoyer uniquement un rappel par SMS avant sa convocation au probationnaire
-        sms: Prévenir immédiatement le probationnaire par SMS puis lui envoyer un
-          rappel avant sa convocation
       submit: Convoquer
   appointment-reschedule-title: Replanifier une convocation
   appointment_agenda: Agenda
   appointment_date: Date
-  appointment_origin_department: Service d'origine
   appointment_place: Lieu de la convocation
   appointment_starting_time: Heure
   appointment_state: Statut
@@ -342,7 +335,6 @@ fr:
       notice: Les modifications ont bien été enregistrées.
   appointments:
     index:
-      my_appointments: Mes convocations
       no_appointments: Vous n'avez pas de convocations correspondants aux filtres
         choisis
       only_passed_uninformed: Convocations au statut inconnu
@@ -350,7 +342,6 @@ fr:
       choose_city: Commune de résidence du probationnaire
       is_cpip_label: Ce probationnaire n'a pas de CPIP lié. Êtes-vous son ou sa CPIP
         ?
-      out_of_department: Convoquer hors du ressort
     show:
       assigned_user: Agent Référent
       inviter_user_role: Rôle source
@@ -360,24 +351,18 @@ fr:
   archive: Archiver
   archive_convict_confirmation: Ce probationnaire restera accessible pendant 6 mois
     avant d'être définitivement supprimée.
-  archived: "(archivé)"
   basic_confirmation: Êtes-vous sûr(e)?
   bex:
     jap:
       agendas_title: Agenda Sortie d'audience JAP pour le
-      header_first_name: Prénom
       header_hour: Heure
-      header_last_name: Nom
       header_origin: Service d'origine
       header_prosecutor: N° parquet
       header_role: Rôle
-      no_agenda_available: Pas de convocation Sortie d'audience JAP prévue
     sap_ddse:
-      agendas_title: Agenda SAP DDSE pour le
       appointments_title: Convocation SAP DDSE pour
       no_agenda_available: Pas de convocation SAP DDSE prévue
     spip:
-      appointments_link: Agenda convocations SPIP
       appointments_title: Convocations SPIP pour
       no_agenda_available: Pas de convocation Sortie d'audience SPIP prévue
   cancel: Annuler
@@ -395,9 +380,6 @@ fr:
   convicts:
     create:
       notice: Le probationnaire a bien été créé.
-    edit:
-      cpip_blank_option: Suivi affecté au service
-      cpip_label: CPIP
     invitation_card:
       accepted: Accepté
       cannot_invite: Impossible d'inviter ce probationnaire
@@ -412,17 +394,12 @@ fr:
       reinvite: Relancer l'invitation
       reinvited: Relancé le %{last_invite}
       title: Espace probationnaire
-    new:
-      cpip_blank_option: Suivi affecté au service
-      cpip_label: CPIP
     self_assign:
       notice: Le probationnaire vous a bien été attribué.
     set_inter_ressort_flashes:
       add_city: ajoutez une commune au probationnaire
       available_organizations: 'Convocation possible dans les services suivants:'
       change_city: modifiez la commune du probationnaire
-      convict_has_city: Le probationnaire est lié à la commune %{city_name}.
-      convict_no_cities: Le probationnaire n'a pas de commune.
       how_to_add_organizations: Pour convoquer dans un autre service, %{msg}
     show:
       ongoing_divestment: 'Attention : Une demande de dessaisissement est en cours'
@@ -438,17 +415,10 @@ fr:
       value: "%Y-%m-%d"
   default: Défaut
   delete: Supprimer
-  delete_agenda_confirmation: Attention, Si vous confirmez, l'ensemble de l'agenda
-    sera définitivement effacé
-  delete_place_confirmation: Attention, en supprimant ce lieu, vous supprimez tous
-    les créneaux associés et les convocations programmées.
-  delete_slot_type_confirmation: Attention, en supprimant ce créneau récurent, vous
-    supprimez tous les créneaux associés.
   divestments:
     create:
       auto_accepted: La demande a été automatiquement validée car le suivi du probationnaire
         n'était plus actif
-      convict_not_found: Le probationnaire n'existe pas
       error: 'Une erreur est survenue lors de la création des dessaisissements : %{error}'
       invalid_for_bex: Le dessaisissement a bien été créé mais les données du probationnaire
         sont invalides. La demande de dessaisissement doit être validée avant de pouvoir
@@ -459,31 +429,21 @@ fr:
       success_bex: La demande de dessaisissement a bien été créée. Les services concernés
         ont été notifiés.
   edit: Modifier
-  edit_convict_department: Département
-  edit_convict_department_title: Département(s) du probationnaire
-  edit_convict_jurisdiction: Juridiction
-  edit_convict_jurisdiction_title: Juridiction(s) du probationnaire
   edit_convict_submit: Enregistrer
   edit_convict_title: Modifier probationnaire
   edit_organization_add_extrafield: Ajouter une colonne
-  edit_organization_department: Département
-  edit_organization_department_title: Département(s) rattaché(s)
   edit_organization_extrafields_title: Ajouter des colonnes au tableau de sortie d'audience
   edit_organization_jap_modal: Texte de la liste des agendas JAP
-  edit_organization_jurisdiction: Juridiction
-  edit_organization_jurisdiction_title: Juridiction(s) rattachée(s)
   edit_organization_remove_extrafield: Supprimer cette colonne
   edit_organization_title: Modifier le service
   edit_place_add_agenda: Ajouter agenda
   edit_place_agendas: Agendas
   edit_place_appointment_types: Types de convocations possibles
-  edit_place_delete_agenda: Supprimer
   edit_place_slot_types_agenda: Créneaux récurrents
   edit_place_title: Modifier Lieu
   edit_place_update_agenda: Enregistrer
   edit_slot_capacity: Modifier la capacité
   edit_slot_title: Infos créneau
-  edit_slot_type_title: Modifier
   edit_user_generate_invitation_link: Lien invitation
   edit_user_generate_reset_pwd_link: Lien nouveau mdp
   edit_user_title: Modifier les informations
@@ -595,8 +555,18 @@ fr:
     send_now_reschedule_notification_title: SMS envoyé (convocation replanifiée)
     send_now_summon_notification: "[Texte du SMS] %{content}"
     send_now_summon_notification_title: SMS envoyé (convocation)
+    program_now_cancelation_notification: "[Texte du SMS] %{content}"
+    program_now_cancelation_notification_title: SMS envoyé (annulation)
+    program_now_no_show_notification: "[Texte du SMS] %{content}"
+    program_now_no_show_notification_title: SMS envoyé (convocation manquée)
+    program_now_reschedule_notification: "[Texte du SMS] %{content}"
+    program_now_reschedule_notification_title: SMS envoyé (convocation replanifiée)
+    program_now_summon_notification: "[Texte du SMS] %{content}"
+    program_now_summon_notification_title: SMS envoyé (convocation)
     send_then_reminder_notification: "[Texte du SMS] %{content}"
     send_then_reminder_notification_title: SMS envoyé (rappel)
+    mark_as_sent_reminder_notification: "[Texte du SMS] %{content}"
+    mark_as_sent_reminder_notification_title: SMS envoyé (rappel)
     unarchive_convict: Le profil de %{name} a été désarchivé.
     unarchive_convict_title: Désarchivage
     update_phone_convict: 'Le numéro de téléphone de %{name} a été modifié par %{user_name}
@@ -607,13 +577,11 @@ fr:
     bex_jap: Sortie d'audience JAP
     bex_spip: Sortie d'audience SPIP
     button_label: Rechercher
-    find_convict: 'Trouver un probationnaire :'
     form_label: Recherche
     local_admin_list:
       one: 'Votre admin local : %{admins}'
       other: 'Vos admins locaux : %{admins}'
       zero: Votre service n'a pas d'admin locaux
-    new_convict: Nouveau probationnaire
     notice:
       click_here: Cliquez ici pour le renseigner simplement
       fill_out_appointments: Attention, le statut de plusieurs convocations de votre
@@ -622,7 +590,7 @@ fr:
         vous avez effectuées n'a pas été renseigné.
     sap_ddse: SAP DDSE
     select_organization: Changer d'antenne
-    today_appointments: Convocations du jour
+    stats_global: Statistiques générales
     welcome_text: 'Pour convoquer un ou une probationnaire, veuillez saisir les premières
       lettres de son nom ou prénom ou les premiers chiffres de son numéro de téléphone
       dans la barre de recherche ci-dessous :'
@@ -633,11 +601,8 @@ fr:
     dans un autre navigateur.
   index-appointment-agenda-filter: Agenda
   index-appointment-clear-filters: Supprimer les filtres
-  index-appointment-only-my-appointments: Uniquement mes convocations
-  index-appointment-reinit-filter: Convocations du jour
   index-appointment-see-data: Voir les infos
   index-appointment-state: Statut
-  index-appointment-state-filter: Statut de la convocation
   index-appointment-state-pdf: Statut
   index-slots-appointment-type-filter: Type de convocation
   index-slots-available-capacity: Capacité dispo
@@ -663,36 +628,16 @@ fr:
       dans la liste suivante :'
     tutorial_special: "! @ # $ % ^ & * ( ) _ + - = [ ] { } | '"
   monday: lundi
-  my_appointments_title: Mes convocations
   my_convicts: Afficher uniquement mes probationnaires
   my_profile: Mon profil
   new-appointment-all-agendas: Tous les agendas
   new-appointment-available-slots: Créneaux disponibles
-  new-appointment-bex-warning: Attention, le créneau de 9h est réservé aux DDSE.
-  new-appointment-confirmation-warning: Si vous le souhaitez, vous pouvez également
-    lui envoyer un SMS de confirmation immédiatement
   new-appointment-jap-agendas: Répartition cabinet JAP
   new-appointment-no-place: Vous n'avez accès à aucun lieu proposant ce type de convocation
   new-appointment-no-slot: Pas de créneau disponible
-  new-appointment-place: 'Lieu de convocation :'
   new-appointment-warning: En cliquant sur "Enregistrer", vous générez l'envoi d'un
     SMS de rappel 48h avant la convocation (si un numéro de téléphone a été donné).
-  new_appointment_reload: Recharger
   new_appointment_title: Nouvelle convocation %{convict_link}
-  new_convict_duplicate_appi_uuid_1: 'Un probationnaire avec le même numéro appi existe
-    dans le(s) service(s): %{orgs}.'
-  new_convict_duplicate_appi_uuid_2: Un probationnaire avec le même numéro appi existe
-    dans votre ressort.
-  new_convict_duplicate_link: "%{name}, suivi(e) par : %{orgs}"
-  new_convict_duplicate_warning1: 'Un doublon potentiel a été détecté :'
-  new_convict_duplicate_warning2: Plusieurs doublons potentiels ont été détectés.
-  new_convict_duplicate_warning3: Merci de vérifier qu'il s'agit bien de personnes
-    distinctes avant d'enregistrer ce nouveau profil.
-  new_convict_duplicate_warning4: Si un homonyme existe dans un autre service, et
-    que vous pensez que c'est la même personne, merci de contacter le support.
-  new_convict_duplicate_warning5: Un homonyme existe dans le département %{name} (%{number}).
-  new_convict_duplicate_warning_global: 'Hors de votre ressort :'
-  new_convict_duplicate_warning_local: 'Dans votre ressort :'
   new_convict_first_appointment: et convoquer
   new_convict_submit: sans convoquer
   new_convict_title: Nouveau probationnaire
@@ -700,15 +645,11 @@ fr:
   new_divestment_bex: Demander un dessaisissement et convoquer
   new_divestment_confirm: Etes-vous sûr(e) de vouloir créer cette demande de dessaisissement
     ?
-  new_first_appointment_title: Créneaux disponibles
   new_organization_title: Nouveau service
   new_place_submit: Enregistrer
   new_place_title: Nouveau Lieu
-  new_slot_type_submit: Enregistrer
-  new_slot_type_title: Nouveau Créneau Récurent
   new_user_title: Nouvel Agent
   'no': Non
-  no_appointment_today: Pas de convocation prévue aujourd'hui
   notifications: Notifications
   order: Trier
   organization:
@@ -800,7 +741,6 @@ fr:
         Suivi Justice.
   see: Voir
   see_details: Voir infos convocation
-  see_infos: Voir les infos
   see_profile: Voir profil
   select: Sélectionner
   self_assign_link: S'attribuer ce probationnaire
@@ -823,7 +763,6 @@ fr:
   show_convict_archived: Archivé
   show_convict_history_title: Historique
   show_convict_new_appointment: Convoquer
-  show_convict_next_appointment: "%{date} à %{time} au %{place}"
   show_user_title: Informations
   show_user_title_own: Mes informations
   sidebar:
@@ -868,11 +807,6 @@ fr:
           thursday: Jeudi
           tuesday: Mardi
           wednesday: Mercredi
-  slot_batchs:
-    batch_create:
-      argument_error: Vous devez indiquer au minimum une heure ou un intervalle de
-        temps
-      start_time_before_end_time: L'heure de début doit être avant l'heure de fin
   slot_type_delete_confirmation: Supprimer un créneau récurrent supprimera également
     tous les créneaux associés, sauf si il existe une convocation sur ce créneau.
     Êtes-vous sûr(e)?
@@ -897,9 +831,12 @@ fr:
     new_batch_manual: Si vous ajoutez plusieurs heures, vous créez une série de créneaux
       avec les mêmes caractéristiques.
     new_batch_title: Nouveau Créneau
+  slots_batches:
+    create:
+      argument_error: Vous devez indiquer au minimum une heure ou un intervalle de
+        temps
+      start_time_before_end_time: L'heure de début doit être avant l'heure de fin
   submit: Enregistrer
-  submit_no_sms: Enregistrer sans envoyer de SMS
-  submit_sms: Enregistrer et envoyer un SMS
   support:
     modal_bug: Pour signaler un bug, merci de décrire avec précision les dernières
       actions qui ont menée au bug. Une capture d'écran du problème est également
@@ -918,9 +855,6 @@ fr:
   time:
     formats:
       clear: "%A %e %B %Y à %kh%M"
-  today_agendas_title: Convocations prévues pour le
-  today_agendas_title_part2: au
-  today_appointments_place_filter: Lieu de la convocation
   'true': Oui
   tuesday: mardi
   unarchive: Désarchiver
@@ -933,8 +867,6 @@ fr:
     update:
       organization_updated: Le service a bien été mis à jour
   views:
-    index:
-      no_notification: Vous êtes à jour
     pagination:
       truncate: "..."
   wednesday: mercredi

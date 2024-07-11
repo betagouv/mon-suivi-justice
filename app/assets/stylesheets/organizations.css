@@ -1,56 +1,6 @@
-.organizations-header {
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  height: 40px;
-  border-bottom: 1px solid lightgray;
-  padding-left: 30px;
-}
-
-.organizations-container {
-  padding-top: 20px;
-}
-
 .link-to-new-organization-form {
   text-align: right;
   margin-bottom: 20px;
-}
-
-.organizations-item-container {
-  display: flex;
-  align-items: center;
-  height: 40px;
-  border-bottom: 1px solid lightgray;
-  padding-left: 30px;
-}
-
-.organizations-column-1 {
-  width: 80%;
-}
-
-.organization-relation-container {
-  width: 60%;
-  max-width: 500px;
-  margin: auto;
-  margin-bottom: 30px;
-  @mixin box;
-}
-
-.organization-attachment {
-  margin-bottom: 15px;
-}
-
-.organization-secondary-title {
-  font-size: 1.1em;
-  margin-bottom: 20px;
-}
-
-.organization-attachment-delete {
-  margin-left: 30px;
-}
-
-.organization-attachment-submit {
-  margin-top: 30px;
 }
 
 .organization-subtitle {
@@ -62,10 +12,6 @@
 
 .extra-fields-title {
   margin-top: 32px;
-}
-
-.extra-fields-spacing {
-  margin-bottom: 16px;
 }
 
 .extra-fields-apt-type-container {

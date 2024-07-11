@@ -34,7 +34,7 @@ class ManageNotificationProblems < ApplicationJob
   def stucked_notifications
     @stucked_notifications ||=
       Notification.joins(appointment: :slot)
-                  .where('slots.date < ?', Time.zone.now - 1.hour)
+                  .where('slots.date < ?', 1.hour.ago)
                   .where(state: 'programmed', role: 'reminder')
   end
 
@@ -46,9 +46,22 @@ class ManageNotificationProblems < ApplicationJob
   end
 
   def sms_notifications_to_be_send
+    reminder_notifications_to_be_send.or(other_notifications_to_be_send).or(mistakenly_marked_as_sent_notifications)
+  end
+
+  def reminder_notifications_to_be_send
     Notification.joins(appointment: :slot)
-                .where('slots.date > ?', Time.zone.now + 4.hours)
+                .where('slots.date > ?', 4.hours.from_now)
                 .where(appointments: { state: 'booked' })
                 .where(state: 'programmed', role: 'reminder')
+  end
+
+  def other_notifications_to_be_send
+    Notification.where(state: 'programmed', role: %w[summon cancelation no_show reschedule])
+  end
+
+  def mistakenly_marked_as_sent_notifications
+    Notification.joins(appointment: :slot)
+                .where(state: 'sent', external_id: nil, updated_at: 2.days.ago..)
   end
 end

@@ -105,10 +105,7 @@ RSpec.feature 'Users', type: :feature do
     end
 
     it 'forbid bex users to access some interfaces' do
-      department = create :department, number: '01', name: 'Ain'
-
       organization = create :organization
-      create :areas_organizations_mapping, organization:, area: department
 
       bex_user = create(:user, role: :bex, organization:)
       logout_current_user

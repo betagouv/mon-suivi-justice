@@ -10,8 +10,7 @@ class SlotsBatchesController < ApplicationController
     authorize_batch_create(slot_params)
     handle_create(params, slot_params)
   rescue StandardError => e
-    p e
-    handle_create_errors(params, slot_params)
+    handle_create_errors(e, slot_params)
   end
 
   def update
@@ -46,13 +45,13 @@ class SlotsBatchesController < ApplicationController
       flash.discard
       redirect_to slots_path
     else
-      handle_create_errors(params, slot_params)
+      handle_create_errors(error, slot_params)
     end
   end
 
   # rubocop:disable Metrics/AbcSize
-  def handle_create_errors(_params, slot_params)
-    flash[:error] = I18n.t('slots.failed_batch_creation')
+  def handle_create_errors(error, slot_params)
+    flash[:error] = error.message
     @agenda = Agenda.find(slot_params[:agenda_id]) if slot_params[:agenda_id].present?
     if slot_params[:appointment_type_id].present?
       @appointment_type = AppointmentType.find(slot_params[:appointment_type_id])
@@ -68,7 +67,7 @@ class SlotsBatchesController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
   def batch_create(params, slot_params)
-    raise ArgumentErrorError, t('.argument_error') unless valid_time?(params)
+    raise ArgumentError, t('.argument_error') unless valid_time?(params)
 
     starting_times = params.require(:starting_times).each_slice(2).to_a if params[:starting_times].present?
     interval_times = generate_times_from_intervals(params) if valid_interval?(params)

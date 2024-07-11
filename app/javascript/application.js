@@ -7,7 +7,6 @@ import "@nathanvda/cocoon"
 import "trix"
 import "@rails/actiontext"
 import "./controllers"
-import "./components/profile_search"
 import "./components/password_toggle"
 import "./channels"
 

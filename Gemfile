@@ -29,7 +29,7 @@ gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
 gem 'dotenv-rails', '~> 3.1.2'
-gem 'sidekiq', '~> 7.2.4'
+gem 'sidekiq', '~> 7.3.0'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
@@ -38,15 +38,15 @@ gem 'discard', '~> 1.3.0'
 
 gem 'paper_trail', '~> 15.1.0'
 gem 'ahoy_matey', '~> 5.1.0'
-gem 'sentry-ruby', '~> 5.18.0'
-gem 'sentry-rails', '~> 5.18.0'
+gem 'sentry-ruby', '~> 5.18.1'
+gem 'sentry-rails', '~> 5.18.1'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.2', '>= 3.2.8'
 gem 'jbuilder', '~> 2.12.0'
 gem 'groupdate', '~> 6.4.0'
 
-gem 'faraday', '~> 2.9.2'
+gem 'faraday', '~> 2.10.0'
 gem 'faraday-retry', '~> 2.2.1'
 gem 'jwt', '~> 2.8'
 
@@ -105,8 +105,6 @@ group :test do
   gem 'state_machines-rspec', '~> 0.6.0'
   gem 'webmock', '~> 3.23.1'
 end
-
-gem 'noticed', '~> 1.6.3'
 
 gem 'abyme', '~> 0.7.0'
 

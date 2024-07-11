@@ -7,75 +7,6 @@
   text-align: justify;
 }
 
-.convicts-header {
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  height: 40px;
-  border-bottom: 1px solid var(--table-border);
-  padding-left: 30px;
-}
-
-.link-to-my-convicts-button {
-  @mixin button var(--light-grey);
-  margin-right: 10px;
-}
-
-.convicts-item-container {
-  display: flex;
-  align-items: center;
-  min-height: 40px;
-  border-bottom: 1px solid var(--table-border);
-  padding-left: 30px;
-}
-
-.convicts-column-1 {
-  width: 25%;
-}
-
-.convicts-column-2 {
-  width: 25%;
-}
-
-.convicts-column-3 {
-  width: 25%;
-}
-
-.convicts-archived {
-  color: grey;
-}
-
-.new-convict-submits-container {
-  display: flex;
-  margin-top: 20px;
-}
-
-.edit-convict-submit-button {
-  margin-top: 40px;
-}
-
-.show-convict-next-appointments-container {
-  display: flex;
-  justify-content: center;
-  width: 70%;
-  max-width: 650px;
-  margin: auto;
-  margin-top: 20px;
-  @mixin box;
-}
-
-.show-convict-next-appointments-item {
-  margin-left: 40px;
-}
-
-.show-convict-next-appointment-link {
-  margin-left: 10px;
-}
-
-.show-convict-next-appointment {
-  margin-bottom: 5px;
-}
-
 .appointment-fulfilment-container {
   width: 100%;
   margin: auto;
@@ -108,78 +39,10 @@
   margin-left: 40px;
 }
 
-.show-button-to-delete {
-  @mixin button var(--light-blue);
-  padding: 0.4em 1em;
-  width: 130px;
-  margin-bottom: 10px;
-}
-
-.show-button-archive {
-  @mixin button var(--light-grey);
-  padding: 0.4em 1em;
-  width: 130px;
-}
-
-.show-button-invite {
-  @mixin button var(--light-grey);
-  padding: 0.4em 1em;
-}
-
-.show-convict-button-to-edit {
-  @mixin button var(--light-blue);
-  padding: 0.4em 1em;
-  width: 130px;
-  margin-bottom: 10px;
-}
-
-.show-history-container {
-  width: 70%;
-  max-width: 650px;
-  margin: auto;
-  margin-bottom: 50px;
-}
-
-.show-history-item-container {
-  margin-bottom: 30px;
-}
-
-.show-history-item-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
 .show-history-item-icon {
   margin-right: 10px;
   font-size: 15px;
   color: var(--dark-grey);
-}
-
-.show-history-item {
-  margin-left: 20px;
-  display: flex;
-}
-
-.show-history-item-title {
-  width: 23%;
-  flex-shrink: 0;
-  font-weight: bold;
-}
-
-.show-history-item-link {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.show-convict-history-control {
-  color: var(--link);
-}
-
-.show-convict-new-appointment-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
 }
 
 .missed-appointment-modal-text {
@@ -189,31 +52,6 @@
 .missed-appointment-modal-sms-content {
   font-weight: bold;
   display: inline;
-}
-
-.convict-relation-container {
-  width: 60%;
-  max-width: 500px;
-  margin: auto;
-  margin-bottom: 30px;
-  @mixin box;
-}
-
-.convict-attachment {
-  margin-bottom: 15px;
-}
-
-.convict-secondary-title {
-  font-size: 1.1em;
-  margin-bottom: 20px;
-}
-
-.convict-attachment-delete {
-  margin-left: 30px;
-}
-
-.convict-attachment-submit {
-  margin-top: 30px;
 }
 
 .show-convict-achived-container {
@@ -246,20 +84,4 @@
 
 .new-convict-duplicate-explanation {
   margin-bottom: 5px;
-}
-
-body.autocomplete #modal-autocomplete {
-  display: block;
-  z-index: 1;
-}
-
-#modal-autocomplete {
-  border: 0;
-  left: auto;
-  position: absolute;
-  right: 0;
-  text-align: left;
-  top: 2.5rem;
-  width: 100%;
-  display: block;
 }
