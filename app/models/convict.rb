@@ -228,10 +228,12 @@ class Convict < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
-  def find_dup_with_appi_uuid
-    return [] if appi_uuid.present?
+  def find_dup_with_full_name_and_dob
+    duplicates = Convict.where(first_name:, last_name:, date_of_birth:).where.not(id:)
 
-    Convict.where(first_name:, last_name:, date_of_birth:).where.not(id:).where.not(appi_uuid: [nil, ''])
+    return duplicates.where(appi_uuid: [nil, '']) if appi_uuid.present?
+
+    duplicates
   end
 
   def already_invited_to_interface?

@@ -34,7 +34,7 @@ class ConvictsController < ApplicationController
   def create
     instantiate_convict
     authorize @convict
-    @duplicate_convicts = @convict.find_dup_with_appi_uuid if @convict.valid? && !params[:force_create]
+    @duplicate_convicts = @convict.find_dup_with_full_name_and_dob if @convict.valid? && !params[:force_create]
 
     if @duplicate_convicts.blank? && @convict.save
       handle_convict_interface_invitation
