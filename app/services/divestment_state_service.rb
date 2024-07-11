@@ -3,7 +3,7 @@ class DivestmentStateService
     @organization_divestment = organization_divestment
     @divestment = organization_divestment.divestment
     @convict = @divestment.convict
-    @target_organizations = [@divestment.organization, *@divestment.organization.linked_organizations]
+    @target_organizations = @divestment.organization_jurisdiction
     @user = user
   end
 
@@ -38,7 +38,7 @@ class DivestmentStateService
 
       handle_undecided_divestment
       organizations = @convict.organizations - @target_organizations
-      city = @user.can_use_inter_ressort? ? nil : @convict.city
+      city = @divestment.target_use_ir? ? nil : @convict.city
       @convict.update!(organizations:, city:)
       send_refuse_email
       true
@@ -73,7 +73,7 @@ class DivestmentStateService
 
     @divestment.accept!
 
-    city = @user.can_use_inter_ressort? ? @convict.city : nil
+    city = @divestment.target_use_ir? ? @convict.city : nil
     @convict.update!(organizations: @target_organizations, user: nil, city:)
     UserMailer.with(divestment: @divestment).divestment_accepted.deliver_later
     true
