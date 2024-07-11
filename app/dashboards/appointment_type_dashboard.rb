@@ -1,6 +1,6 @@
 require 'administrate/base_dashboard'
 
-class DivestmentDashboard < Administrate::BaseDashboard
+class AppointmentTypeDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,20 +9,16 @@ class DivestmentDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    decision_date: Field::Date,
-    organization: Field::BelongsTo.with_options(
-      searchable: true,
-      searchable_fields: ['name']
-    ),
-    state: Field::String,
-    user: Field::BelongsTo,
-    convict: Field::BelongsTo.with_options(
-      searchable: true,
-      searchable_fields: %w[first_name last_name]
-    ),
-    created_at: Field::Date,
-    updated_at: Field::DateTime,
-    organization_divestments: Field::HasMany
+    name: Field::String,
+    notification_types: Field::HasMany,
+    place_appointment_types: Field::HasMany,
+    places: Field::HasMany,
+    share_address_to_convict: Field::Boolean,
+    slot_types: Field::HasMany,
+    slots: Field::HasMany,
+    versions: Field::HasMany,
+    created_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -32,24 +28,23 @@ class DivestmentDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    convict
-    user
-    created_at
-    decision_date
-    organization
-    state
+    name
+    notification_types
+    place_appointment_types
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    decision_date
-    organization
-    organization_divestments
-    user
-    convict
-    state
+    name
+    notification_types
+    place_appointment_types
+    places
+    share_address_to_convict
+    slot_types
+    slots
+    versions
     created_at
     updated_at
   ].freeze
@@ -58,8 +53,14 @@ class DivestmentDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    decision_date
-    state
+    name
+    notification_types
+    place_appointment_types
+    places
+    share_address_to_convict
+    slot_types
+    slots
+    versions
   ].freeze
 
   # COLLECTION_FILTERS
@@ -72,14 +73,12 @@ class DivestmentDashboard < Administrate::BaseDashboard
   #   COLLECTION_FILTERS = {
   #     open: ->(resources) { resources.where(open: true) }
   #   }.freeze
-  COLLECTION_FILTERS = {
-    repondre: lambda(&:admin_action_needed)
-  }.freeze
+  COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how divestments are displayed
+  # Overwrite this method to customize how appointment types are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(divestment)
-  #   "Divestment ##{divestment.id}"
-  # end
+  def display_resource(appointment_type)
+    appointment_type.name.to_s
+  end
 end

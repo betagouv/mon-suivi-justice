@@ -5,15 +5,19 @@ RSpec.describe DivestmentStateService do
   let(:spip) { create(:organization, name: 'SPIP', organization_type: :spip) }
   let(:cpip) { create(:user, organization: spip, role: 'cpip') }
   let(:admin) { create(:user, organization: tj, role: 'local_admin') }
-  let(:spip_target) { create(:organization, name: 'SPIP target', organization_type: :spip) }
+  let(:target_use_ir) { false }
+  let(:spip_target) do
+    create(:organization, name: 'SPIP target', organization_type: :spip, use_inter_ressort: target_use_ir)
+  end
   let(:tj_target) do
-    tj = build(:organization, name: 'TJ target', organization_type: :tj)
+    tj = build(:organization, name: 'TJ target', organization_type: :tj, use_inter_ressort: target_use_ir)
     tj.spips = [spip_target]
     tj.save
     tj
   end
+  let(:city) { nil }
   let(:user) { create(:user, organization: tj_target, role: 'bex') }
-  let(:convict) { create(:convict, organizations: [tj, spip, tj_target, spip_target], user: cpip) }
+  let(:convict) { create(:convict, organizations: [tj, spip, tj_target, spip_target], user: cpip, city:) }
   let(:divestment) { create(:divestment, state: 'pending', convict:, user:, organization: tj_target) }
   let(:tj_organization_divestment) { create(:organization_divestment, divestment:, organization: tj, state: :pending) }
   let(:spip_divestment_state) { :auto_accepted }
@@ -59,6 +63,27 @@ RSpec.describe DivestmentStateService do
         expect(divestment.decision_date).to eq(Date.today)
         expect(convict.user).to be_nil
         expect(convict.organizations).to match_array([tj_target, spip_target])
+      end
+
+      context 'city' do
+        let(:city) { create(:city) }
+        before do
+          service.accept
+          divestment.reload
+          convict.reload
+        end
+        context 'target use IR' do
+          let(:target_use_ir) { true }
+          it 'should keep the city' do
+            expect(convict.city).to eq(city)
+          end
+        end
+        context 'target dont use IR' do
+          let(:target_use_ir) { false }
+          it 'should remove the city' do
+            expect(convict.city).to be_nil
+          end
+        end
       end
     end
   end
@@ -129,6 +154,26 @@ RSpec.describe DivestmentStateService do
         expect(divestment.decision_date).to eq(Date.today)
         expect(convict.organizations).to match_array([tj, spip])
         expect(spip_organization_divestment.ignored?).to eq(true)
+      end
+    end
+    context 'city' do
+      let(:city) { create(:city) }
+      before do
+        service.refuse
+        divestment.reload
+        convict.reload
+      end
+      context 'target use IR' do
+        let(:target_use_ir) { true }
+        it 'should remove the city' do
+          expect(convict.city).to be_nil
+        end
+      end
+      context 'target dont use IR' do
+        let(:target_use_ir) { false }
+        it 'should keep the city' do
+          expect(convict.city).to eq(city)
+        end
       end
     end
   end

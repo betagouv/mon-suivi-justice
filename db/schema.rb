@@ -120,8 +120,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_070944) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "share_address_to_convict", default: true, null: false
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_appointment_types_on_discarded_at"
   end
 
   create_table "appointment_types_extra_fields", id: false, force: :cascade do |t|

@@ -55,12 +55,15 @@ class ConvictDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    appi_uuid
-    creating_organization
-    organizations
-    city
     first_name
     last_name
+    date_of_birth
+    appi_uuid
+    japat
+    creating_organization
+    organizations
+    appointments
+    city
     phone
     refused_phone
     no_phone
@@ -68,7 +71,6 @@ class ConvictDashboard < Administrate::BaseDashboard
     lives_abroad
     prosecutor_number
     user
-    japat
   ].freeze
 
   # FORM_ATTRIBUTES

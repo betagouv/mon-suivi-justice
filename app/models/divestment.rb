@@ -12,6 +12,7 @@ class Divestment < ApplicationRecord
   validate :convict_is_not_japat, on: :create
 
   scope :admin_action_needed, -> { where(state: :pending, created_at: ..10.days.ago) }
+  delegate :jurisdiction, to: :organization, prefix: true
 
   state_machine initial: :pending do
     event :accept do
@@ -57,5 +58,13 @@ class Divestment < ApplicationRecord
 
     errors.add(:convict,
                'Code 12 - Dessaisissment impossible pour ce probationnaire, veuillez contacter un administrateur.')
+  end
+
+  def source_use_ir?
+    involved_organizations.any?(&:use_inter_ressort?)
+  end
+
+  def target_use_ir?
+    organization_jurisdiction.any?(&:use_inter_ressort?)
   end
 end

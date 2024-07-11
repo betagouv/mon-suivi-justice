@@ -159,22 +159,22 @@ describe OrganizationDivestmentPolicy do
     context('user is jap') do
       let(:user_from) { create(:user, :in_organization, type: :tj, role: :jap) }
 
-      it { is_expected.to forbid_action(:edit) }
-      it { is_expected.to forbid_action(:update) }
+      it { is_expected.to permit_action(:edit) }
+      it { is_expected.to permit_action(:update) }
     end
 
     context('user is greff_sap') do
       let(:user_from) { create(:user, :in_organization, type: :tj, role: :greff_sap) }
 
-      it { is_expected.to forbid_action(:edit) }
-      it { is_expected.to forbid_action(:update) }
+      it { is_expected.to permit_action(:edit) }
+      it { is_expected.to permit_action(:update) }
     end
 
     context('user is dir_greff_sap') do
       let(:user_from) { create(:user, :in_organization, type: :tj, role: :dir_greff_sap) }
 
-      it { is_expected.to forbid_action(:edit) }
-      it { is_expected.to forbid_action(:update) }
+      it { is_expected.to permit_action(:edit) }
+      it { is_expected.to permit_action(:update) }
     end
 
     context('user is secretary_court') do

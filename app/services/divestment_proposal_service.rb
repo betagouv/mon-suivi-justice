@@ -49,14 +49,14 @@ class DivestmentProposalService
 
   def format_duplicate_alert_string(duplicate_convict, org_names)
     if org_names.length <= 1
-      return "#{duplicate_convict.name} né le #{duplicate_convict.date_of_birth.to_fs} suivi par #{org_names.first}"
+      return "#{duplicate_convict.name} né le #{duplicate_convict.date_of_birth&.to_fs} suivi par #{org_names.first}"
     end
 
     last = org_names.pop
     I18n.t('organization_divestment.alerts.convict_details',
            name: duplicate_convict.name,
            org_names: org_names.join(', '),
-           date_of_birth: duplicate_convict.date_of_birth.to_fs,
+           date_of_birth: duplicate_convict.date_of_birth&.to_fs,
            last:)
   end
 

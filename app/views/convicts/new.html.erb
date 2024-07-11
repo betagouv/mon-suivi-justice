@@ -126,15 +126,18 @@
           </div>
         </div>
       </div>
+      <% if @allow_force_create %>
+        <%= hidden_field :force_create, value: true %>
+      <% end %>
       <div class="fr-container fr-mt-5w">
         <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
           <ul class="fr-btns-group fr-btns-group--inline-lg">
             <%= f.button :button, id: 'submit-no-appointment', class: 'fr-btn', name: 'no-appointment', data: {turbo: false} do %>
-              <%= t('submit') %><br>
+              <%= @allow_force_create ? t('submit_force') : t('submit') %><br>
               <%= t('new_convict_submit') %>
             <% end %>
             <%= f.button :button, id: 'submit-with-appointment', class: 'fr-btn', name: 'with-appointment', data: {turbo: false} do %>
-              <%= t('submit') %><br>
+              <%= @allow_force_create ? t('submit_force') : t('submit') %><br>
               <%= t('new_convict_first_appointment') %>
             <% end %>
           </ul>
@@ -142,10 +145,10 @@
       </div>
     <% end %>
     <% if @dups_details.present? %>
-      <%= render 'duplicate_convict_card', dups_details: @dups_details, user: current_user %>
+      <%= render 'duplicate_convict_card', dups_details: @dups_details, user: current_user, allow_force_create: @allow_force_create %>
     <% end %>
     <% if @duplicate_convicts.present? && current_user.can_use_inter_ressort? %>
-      <%= render 'duplicate_convict_inter_ressort_card', duplicate_convicts: @duplicate_convicts, user: current_user %>
+      <%= render 'duplicate_convict_inter_ressort_card', duplicate_convicts: @duplicate_convicts, user: current_user, allow_force_create: @allow_force_create %>
     <% end %>
   </div>
 </div>
