@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         get '/impersonate' => "users#impersonate"
       end
       resources :convicts
+      resources :appointments, except: :index
       resources :organizations, except: %i[new create destroy] do
         put '/link_convict_from_linked_orga' => "organizations#link_convict_from_linked_orga"
       end

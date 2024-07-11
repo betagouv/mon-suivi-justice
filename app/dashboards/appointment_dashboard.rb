@@ -1,6 +1,6 @@
 require 'administrate/base_dashboard'
 
-class ConvictDashboard < Administrate::BaseDashboard
+class AppointmentDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,32 +8,21 @@ class ConvictDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    id: Field::Number.with_options(
-      searchable: true
-    ),
-    first_name: Field::String,
-    last_name: Field::String,
-    full_name: Field::String,
-    organizations: Field::HasMany,
-    appi_uuid: Field::String,
-    city: Field::BelongsToSearch,
-    appointments: Field::HasMany,
-    no_phone: Field::Boolean,
-    homeless: Field::Boolean,
-    lives_abroad: Field::Boolean,
-    phone: Field::String,
+    id: Field::Number,
+    convict: Field::BelongsTo,
+    history_items: Field::HasMany,
+    inviter_user_id: Field::Number,
+    notifications: Field::HasMany,
+    origin_department: Field::Select.with_options(searchable: false, collection: lambda { |field|
+                                                                                   field.resource.class.send(field.attribute.to_s.pluralize).keys
+                                                                                 }),
     prosecutor_number: Field::String,
-    refused_phone: Field::Boolean,
-    timestamp_convict_interface_creation: Field::DateTime,
+    slot: Field::BelongsTo,
+    state: Field::String,
     user: Field::BelongsTo,
-    invitation_to_convict_interface_count: Field::Number,
-    last_invite_to_convict_interface: Field::DateTime,
-    discarded_at: Field::DateTime,
+    versions: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-    date_of_birth: Field::Date,
-    creating_organization: Field::BelongsTo,
-    japat: Field::Boolean
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -43,53 +32,42 @@ class ConvictDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    appi_uuid
-    first_name
-    last_name
-    organizations
-    phone
-    appointments
-    date_of_birth
+    state
+    slot
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    appi_uuid
-    creating_organization
-    organizations
-    appointments
-    city
-    first_name
-    last_name
-    phone
-    refused_phone
-    no_phone
-    homeless
-    lives_abroad
+    id
+    convict
+    history_items
+    inviter_user_id
+    notifications
+    origin_department
     prosecutor_number
+    slot
+    state
     user
-    japat
+    versions
+    created_at
+    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    appi_uuid
-    organizations
-    city
-    first_name
-    last_name
-    date_of_birth
-    phone
-    refused_phone
-    no_phone
-    homeless
-    lives_abroad
+    convict
+    history_items
+    inviter_user_id
+    notifications
+    origin_department
     prosecutor_number
+    slot
+    state
     user
-    japat
+    versions
   ].freeze
 
   # COLLECTION_FILTERS
@@ -104,10 +82,10 @@ class ConvictDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how convicts are displayed
+  # Overwrite this method to customize how appointments are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(convict)
-    convict.full_name
-  end
+  # def display_resource(appointment)
+  #   "Appointment ##{appointment.id}"
+  # end
 end
