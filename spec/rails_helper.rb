@@ -174,3 +174,7 @@ def create_appointment(convict, organization, date: Time.zone.now)
   appointment.save(validate: !skip_validations)
   appointment
 end
+
+def generate_appi_uuid
+  "2024#{Faker::Number.number(digits: 8)}"
+end

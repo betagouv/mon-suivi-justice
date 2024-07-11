@@ -30,21 +30,24 @@ class ConvictsController < ApplicationController
     @convict.appointments.build
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
     instantiate_convict
     authorize @convict
+    @duplicate_convicts = @convict.find_dup_with_full_name_and_dob if @convict.valid? && !params[:force_create]
 
-    if @convict.save
+    if @duplicate_convicts.blank? && @convict.save
       handle_convict_interface_invitation
       redirect_to select_path(params), notice: t('.notice')
     else
-      @duplicate_convicts = @convict.find_duplicates
-
+      @allow_force_create = @duplicate_convicts.present?
+      @duplicate_convicts ||= @convict.find_duplicates
       divestment_proposal if @duplicate_convicts.present? && !current_user.can_use_inter_ressort?
 
       render :new, status: :unprocessable_entity
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def edit
     @convict = policy_scope(Convict).find(params[:id])
