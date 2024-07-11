@@ -1,7 +1,7 @@
 class OrganizationDivestmentPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      return scope.none unless user.local_admin?
+      return scope.none unless user.can_manage_divestments?
 
       scope.where(organization: user.organization)
     end
@@ -10,7 +10,7 @@ class OrganizationDivestmentPolicy < ApplicationPolicy
   def index?
     return false unless user.security_charter_accepted?
 
-    user.local_admin?
+    user.can_manage_divestments?
   end
 
   def edit?
@@ -18,7 +18,7 @@ class OrganizationDivestmentPolicy < ApplicationPolicy
   end
 
   def update?
-    return false unless user.security_charter_accepted? && user.local_admin?
+    return false unless user.security_charter_accepted? && user.can_manage_divestments?
     return false unless record.convict.valid?
 
     record.pending? && user.organization == record.organization
