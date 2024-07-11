@@ -1,7 +1,8 @@
 <div class="fr-container fr-mt-5w fr-mb-5w">
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
     <div class="fr-alert fr-alert--warning">
-      <h3 class="fr-alert__title">Attention : ce probationnaire existe déjà</h3>
+      <h3 class="fr-alert__title"><%= allow_force_create ? "Nous avons répéré un probationnaire similaire" : "Attention : ce probationnaire existe déjà"%></h3>
+      <p>Merci de vérifier s'il s'agit de la même personne.</p>
       <% dups_details&.each do |result| %>
         <% duplicate_convict = result[:convict] %>
         <p><%= result[:alert] %></p>
