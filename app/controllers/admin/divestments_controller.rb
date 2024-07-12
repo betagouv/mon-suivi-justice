@@ -30,7 +30,7 @@ module Admin
         WHEN 'refused' THEN 4 \
         WHEN 'auto_accepted' THEN 5 \
         ELSE 6 END"
-      resources.order(Arel.sql(order_statement))
+      resources.order(Arel.sql(order_statement), created_at: :desc)
     end
 
     # Override `resource_params` if you want to transform the submitted
