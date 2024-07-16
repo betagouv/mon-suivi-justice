@@ -65,7 +65,8 @@ class User < ApplicationRecord
   delegate :in_jurisdiction?, to: :organization
 
   def name(reverse: false)
-    "#{last_name.upcase} #{first_name.capitalize}" unless reverse
+    return "#{last_name.upcase} #{first_name.capitalize}" unless reverse
+
     "#{first_name.capitalize} #{last_name.upcase}"
   end
 
