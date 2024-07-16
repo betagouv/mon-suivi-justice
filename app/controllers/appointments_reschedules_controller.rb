@@ -7,7 +7,7 @@ class AppointmentsReschedulesController < AppointmentsController
     new_appointment = Appointment.new appointment_params
     new_appointment.inviter_user = current_user
     authorize new_appointment, policy_class: AppointmentsReschedulesPolicy
-    new_appointment.send_sms = false
+
     if new_appointment.save
       cancel_old_appointment old_appointment, new_appointment
       book_new_appointment new_appointment
@@ -45,6 +45,7 @@ class AppointmentsReschedulesController < AppointmentsController
     HistoryItem.order(created_at: :desc).where(appointment:, event: 'cancel_appointment').first&.destroy
     HistoryItemFactory.perform(appointment:, event: :reschedule_appointment, category: 'appointment')
     appointment.book send_notification: false
-    appointment.reschedule_notif.program_now if appointment.convict.phone.present?
+    send_sms = ActiveModel::Type::Boolean.new.cast appointment.send_sms
+    appointment.reschedule_notif.program_now if appointment.convict.can_receive_sms? && send_sms
   end
 end
