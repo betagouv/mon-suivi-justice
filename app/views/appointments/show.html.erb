@@ -126,10 +126,13 @@
                   <% end %>
                   <% if policy(@appointment).cancel? %>
                     <li>
-                      <%= button_to t('cancel'), appointment_cancel_path(@appointment),
+                      <%# <%= button_to t('cancel'), appointment_cancel_path(@appointment),
                                     method: :put,
                                     data: { "turbo-confirm": t('cancel_appointment_warning') },
-                                    class: 'fr-btn' %>
+                                    class: 'fr-btn' %> %>
+                      <button class="fr-btn" data-fr-opened="false" aria-controls="fr-modal-2">
+                          <%= t('cancel') %>
+                      </button>
                     </li>
                   <% end %>
               </ul>
@@ -141,4 +144,41 @@
     <%= render 'shared/history_items' %>
   </div>
 </div>
+<dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" class="fr-modal" role="dialog" >
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn--close fr-btn" aria-controls="fr-modal-2">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-2-title" class="fr-modal__title">
+                            <span class="fr-icon-arrow-right-line fr-icon--lg"></span>
+                            Annuler la convocation
+                        </h1>
+                        <p>
+                          Vous vous appretez à annuler la convocation et le SMS de rappel prévu. 
+                          Vpus pouvez choisir de prévenir par sms le probationnaire ou non.
+                          Êtes-vous sûr.e ?
+                        </p>
+                    </div>
+                    <div class="fr-modal__footer">
+                        <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg fr-btns-group--icon-left">
+                            <button class="fr-btn fr-icon-checkbox-circle-line fr-btn--icon-left">
+                                annuler et prévenir le probationnaire
+                            </button>
+                            <button class="fr-btn fr-icon-checkbox-circle-line fr-btn--icon-left fr-btn--secondary">
+                                annuler sans prévenir le probationnaire
+                            </button>
+                            <button class="fr-btn fr-icon-checkbox-circle-line fr-btn--icon-left fr-btn--secondary">
+                                retour
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
 <%= javascript_include_tag 'appointment_show', "data-turbo-track": "reload", defer: true %>
