@@ -188,8 +188,8 @@ RSpec.feature 'Convicts', type: :feature do
       fill_in 'Date de naissance', with: '1980-01-01'
 
       find('#convict_user_id').set('Mau')
-      page.has_content?('Rémy MAU')
-      find('a', text: 'Rémy MAU').click
+      page.has_content?('MAU Rémy')
+      find('a', text: 'MAU Rémy').click
 
       click_button 'submit-no-appointment'
 
@@ -266,9 +266,9 @@ RSpec.feature 'Convicts', type: :feature do
       find('#convict_last_name').set('').set('Ristretto')
 
       find('#convict_user_id').set('Mau')
-      page.has_content?('Rémy MAU')
+      page.has_content?('MAU Rémy')
 
-      find('a', text: 'Rémy MAU').click
+      find('a', text: 'MAU Rémy').click
 
       click_button 'Enregistrer'
 

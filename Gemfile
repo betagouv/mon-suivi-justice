@@ -21,7 +21,7 @@ gem 'cocoon', '~> 1.2.15'
 
 gem 'phony_rails', '~> 0.15.0'
 
-gem 'ransack', '~>4.1.1'
+gem 'ransack', '~>4.2.0'
 gem 'kaminari', '~> 1.2.2'
 
 gem 'state_machines', '~> 0.6.0'
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.2.1'
-  gem 'rubocop', '~> 1.64', require: false
+  gem 'rubocop', '~> 1.65', require: false
   gem 'brakeman', '~> 6.1', '>= 6.1.2'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
@@ -91,7 +91,7 @@ group :development do
   gem 'htmlbeautifier', '~> 1.4', '>= 1.4.3'
   gem 'state_machines-graphviz', '~> 0.0.2'
   gem 'debug', '>= 1.0.0'
-  gem 'bullet', '~> 7.1.6'
+  gem 'bullet', '~> 7.2.0'
 end
 
 group :test do
