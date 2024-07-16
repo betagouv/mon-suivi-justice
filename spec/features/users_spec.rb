@@ -11,7 +11,7 @@ RSpec.feature 'Users', type: :feature do
     end
 
     it 'lists all users' do
-      expect(page).to have_content('Jeanne MONTIRELLO')
+      expect(page).to have_content('MONTIRELLO Jeanne')
       expect(page).to have_content('Michèle')
     end
 
