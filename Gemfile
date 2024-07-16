@@ -21,7 +21,7 @@ gem 'cocoon', '~> 1.2.15'
 
 gem 'phony_rails', '~> 0.15.0'
 
-gem 'ransack', '~>4.1.1'
+gem 'ransack', '~>4.2.0'
 gem 'kaminari', '~> 1.2.2'
 
 gem 'state_machines', '~> 0.6.0'
