@@ -126,10 +126,6 @@
                   <% end %>
                   <% if policy(@appointment).cancel? %>
                     <li>
-                      <%# <%= button_to t('cancel'), appointment_cancel_path(@appointment),
-                                    method: :put,
-                                    data: { "turbo-confirm": t('cancel_appointment_warning') },
-                                    class: 'fr-btn' %> %>
                       <button class="fr-btn" data-fr-opened="false" aria-controls="fr-modal-2">
                           <%= t('cancel') %>
                       </button>
@@ -159,22 +155,17 @@
                         </h1>
                         <p>
                           Vous vous appretez à annuler la convocation et le SMS de rappel prévu. 
-                          Vpus pouvez choisir de prévenir par sms le probationnaire ou non.
+                          Vous pouvez choisir de prévenir par sms le probationnaire ou non.
                           Êtes-vous sûr.e ?
                         </p>
                     </div>
                     <div class="fr-modal__footer">
+                      <%= form_with url: appointment_cancel_path(@appointment), method: :put, data: { turbo: 'true' }, id: 'confirm-form' do %>
                         <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg fr-btns-group--icon-left">
-                            <button class="fr-btn fr-icon-checkbox-circle-line fr-btn--icon-left">
-                                annuler et prévenir le probationnaire
-                            </button>
-                            <button class="fr-btn fr-icon-checkbox-circle-line fr-btn--icon-left fr-btn--secondary">
-                                annuler sans prévenir le probationnaire
-                            </button>
-                            <button class="fr-btn fr-icon-checkbox-circle-line fr-btn--icon-left fr-btn--secondary">
-                                retour
-                            </button>
+                            <%= button_tag 'annuler et prévenir le probationnaire', name: "send_sms", value: "true", type: 'submit', class: 'fr-btn fr-icon-checkbox-circle-line fr-btn--icon-left' %>
+                            <%= button_tag 'annuler sans prévenir le probationnaire', name: "send_sms", value: "false", type: 'submit', class: 'fr-btn fr-icon-checkbox-circle-line fr-btn--icon-left fr-btn--secondary' %>
                         </div>
+                      <% end %>
                     </div>
                 </div>
             </div>

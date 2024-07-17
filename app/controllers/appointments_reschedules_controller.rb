@@ -45,6 +45,10 @@ class AppointmentsReschedulesController < AppointmentsController
     HistoryItem.order(created_at: :desc).where(appointment:, event: 'cancel_appointment').first&.destroy
     HistoryItemFactory.perform(appointment:, event: :reschedule_appointment, category: 'appointment')
     appointment.book send_notification: false
+    handle_sms_notification appointment
+  end
+
+  def handle_sms_notification(appointment)
     send_sms = ActiveModel::Type::Boolean.new.cast appointment.send_sms
     appointment.reschedule_notif.program_now if appointment.convict.can_receive_sms? && send_sms
   end
