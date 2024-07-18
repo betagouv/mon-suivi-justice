@@ -33,7 +33,7 @@
         <%= t('show_convict_archived') %>
       </div>
     <% end %>
-    <% unless !@convict.pending_divestments? %>
+    <% if @convict.pending_divestments? %>
       <div class="fr-alert fr-alert--warning fr-my-2w">
         <% organization_divestment = @convict.organization_divestments_from(current_user.organization) %>
         <% if organization_divestment.present? %>
