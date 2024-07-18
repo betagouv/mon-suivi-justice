@@ -18,14 +18,16 @@ class ConvictPolicy < ApplicationPolicy
 
   def update?
     return false unless user.security_charter_accepted?
+    return false if @record.pending_divestments?
 
-    check_ownership? && (no_divestment_or_convokable_nonetheless? || user.local_admin?)
+    check_ownership?
   end
 
   def edit?
     return false unless user.security_charter_accepted?
+    return false if @record.pending_divestments?
 
-    record.undiscarded? && (no_divestment_or_convokable_nonetheless? || user.local_admin?) && check_ownership?
+    record.undiscarded? && check_ownership?
   end
 
   def show?
@@ -46,7 +48,7 @@ class ConvictPolicy < ApplicationPolicy
 
   def archive?
     return false unless user.security_charter_accepted?
-    return false unless no_divestment_or_convokable_nonetheless?
+    return false if @record.pending_divestments?
 
     record.undiscarded? && check_ownership?
   end
@@ -77,7 +79,7 @@ class ConvictPolicy < ApplicationPolicy
 
   def destroy?
     return false unless user.security_charter_accepted?
-    return false unless no_divestment_or_convokable_nonetheless?
+    return false if @record.pending_divestments?
 
     ALLOWED_TO_DESTROY.include?(user.role) && record.undiscarded? && check_ownership?
   end

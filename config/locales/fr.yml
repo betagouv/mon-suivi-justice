@@ -406,6 +406,9 @@ fr:
       ongoing_divestment_details: Il ne sera pas possible de convoquer, modifier ou
         archiver ce probationnaire tant que la demande de dessaisissement n'aura pas
         été traitée
+      ongoing_divestment_details_convokable: Il ne sera pas possible de modifier ou
+        archiver ce probationnaire tant que la demande de dessaisissement n'aura pas
+        été traitée
     unassign:
       notice: Le probationnaire a été réattribué au service
   current_user_title: moi
