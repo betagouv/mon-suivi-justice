@@ -2,11 +2,11 @@
 class DivestmentCreatorService
   attr_reader :convict, :user, :divestment
 
-  def initialize(convict, user, divestment)
+  def initialize(convict, user, divestment, destination = nil)
     @convict = convict
     @user = user
     @divestment = divestment
-    @destinations = divestment.organization.jurisdiction
+    @destinations = destination || divestment.organization.jurisdiction
   end
 
   def call
