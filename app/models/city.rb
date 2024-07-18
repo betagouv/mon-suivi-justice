@@ -21,12 +21,4 @@ class City < ApplicationRecord
   def organizations
     [srj_tj&.organization, srj_spip&.organization].compact
   end
-
-  def tj
-    srj_tj&.organization
-  end
-
-  def spip
-    srj_spip&.organization
-  end
 end

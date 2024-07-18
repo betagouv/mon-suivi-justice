@@ -190,7 +190,12 @@ class ConvictsController < ApplicationController
 
   def update_convict
     @convict.current_user = current_user
-    @convict.update_organizations(current_user) if @convict.update(convict_params) && @new_convict_city.present?
+    japat_changed = @convict.japat != convict_params[:japat]
+    return unless @convict.update(convict_params)
+
+    return unless japat_changed || new_convict_city.present?
+
+    @convict.update_organizations(current_user)
   end
 
   def handle_successful_update(old_phone)
@@ -230,7 +235,7 @@ class ConvictsController < ApplicationController
   def create_divestment_proposal
     return unless !@convict.japat? && @new_convict_city.present?
 
-    divestment_origin = @new_convict_city.tj || @new_convict_city.spip
+    divestment_origin = @new_convict_city.tj_organization || @new_convict_city.spip_organization
     divestment = Divestment.new user: current_user, organization: divestment_origin, convict: @convict
     DivestmentCreatorService.new(@convict, current_user, divestment, @new_convict_city.organizations).call
   end
