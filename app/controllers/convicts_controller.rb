@@ -52,8 +52,7 @@ class ConvictsController < ApplicationController
   def edit
     @convict = policy_scope(Convict).find(params[:id])
     @saved_japat_value = @convict.japat
-    @saved_convict_city = @convict.city
-    @saved_convict_organizations = [*@convict.organizations]
+
     set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
     authorize @convict
@@ -65,9 +64,7 @@ class ConvictsController < ApplicationController
 
     old_phone = @convict.phone
     @saved_japat_value = @convict.japat
-    @saved_convict_city = @convict.city
-    @saved_convict_organizations = [*@convict.organizations]
-
+    handle_city_change
     update_convict
 
     if @convict.errors.empty?
@@ -193,15 +190,17 @@ class ConvictsController < ApplicationController
 
   def update_convict
     @convict.current_user = current_user
-    @convict.update_organizations(current_user) if @convict.update(convict_params)
+    japat_changed = @convict.japat != convict_params[:japat]
+    return unless @convict.update(convict_params)
+
+    return unless japat_changed || new_convict_city.present?
+
+    @convict.update_organizations(current_user)
   end
 
   def handle_successful_update(old_phone)
     record_phone_change(old_phone)
-    if !@convict.japat? && organizations_changed?
-      divestment = Divestment.new user: current_user, organization: divestment_origin, convict: @convict
-      DivestmentCreatorService.new(@convict, current_user, divestment).call
-    end
+    create_divestment_proposal
     flash.now[:success] = 'Le probationnaire a bien été mise à jour'
     redirect_to convict_path(@convict)
   end
@@ -233,14 +232,18 @@ class ConvictsController < ApplicationController
     InviteConvictJob.perform_later(@convict.id)
   end
 
-  def organizations_changed?
-    @saved_convict_organizations.present? && @saved_convict_organizations != @convict.organizations
+  def create_divestment_proposal
+    return unless !@convict.japat? && @new_convict_city.present?
+
+    divestment_origin = @new_convict_city.tj_organization || @new_convict_city.spip_organization
+    divestment = Divestment.new user: current_user, organization: divestment_origin, convict: @convict
+    DivestmentCreatorService.new(@convict, current_user, divestment, @new_convict_city.organizations).call
   end
 
-  def divestment_origin
-    diff = @convict.organizations - @saved_convict_organizations
-    tj = diff.find(&:tj?)
-    spip = diff.find(&:spip?)
-    tj || spip
+  def handle_city_change
+    return unless convict_params.present?
+
+    new_city_id = convict_params[:city_id]
+    @new_convict_city = City.find(new_city_id) if new_city_id.present? && new_city_id != @convict.city_id&.to_s
   end
 end

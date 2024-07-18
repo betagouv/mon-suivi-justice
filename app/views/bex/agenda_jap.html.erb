@@ -52,7 +52,7 @@
   <% else %>
     <% @agendas_to_display.each_with_index do |agenda, index| %>
       <% unless agenda.slots_for_date(@selected_day, @appointment_type).count.zero? %>
-        <div class="fr-table fr-table--bordered">
+        <div class="fr-table fr-table--bordered fr-table--layout-fixed">
           <table class="agenda-jap-table">
             <caption class='jap-agenda-header<%= index+1%>'><%= agenda.name %></caption>
             <thead>
