@@ -46,6 +46,7 @@
         <%= render partial: 'shared/city_selector' %>
         <div class="fr-fieldset__element fr-fieldset__element--inline">
           <div class="fr-checkbox-group">
+            <input type='hidden' value='0' name='convict[homeless]'>
             <input name="convict[homeless]" id="convict-homeless" type="checkbox" aria-describedby="convict-homeless-messages" value="1" <%= 'checked' if @convict.homeless%>>
             <label class="fr-label" for="convict-homeless">
               <%= t('activerecord.attributes.convict.homeless')%>
@@ -56,6 +57,7 @@
         </div>
         <div class="fr-fieldset__element fr-fieldset__element--inline">
           <div class="fr-checkbox-group">
+            <input type='hidden' value='0' name='convict[lives_abroad]'>
             <input name="convict[lives_abroad]" id="convict-lives-abroad" type="checkbox" aria-describedby="convict-lives-abroad-messages" value="1" <%= 'checked' if @convict.lives_abroad %>>
             <label class="fr-label" for="convict-lives-abroad">
               <%= t('activerecord.attributes.convict.lives_abroad')%>
