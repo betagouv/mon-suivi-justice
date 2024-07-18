@@ -35,8 +35,8 @@ class LinkMobilityAdapter
     raise SmsDeliveryError.new(500, response_hash['responseMessage']) unless (response_hash['responseCode']).zero?
 
     notification.transaction do
-      notification.update(external_id: response_hash['messageIds'].first)
-      notification.mark_as_sent if notification.programmed?
+      notification.update!(external_id: response_hash['messageIds'].first)
+      notification.mark_as_sent!
     end
   end
 
