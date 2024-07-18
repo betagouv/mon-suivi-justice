@@ -49,7 +49,7 @@ class Notification < ApplicationRecord
     end
 
     event :mark_as_sent do
-      transition %i[created programmed]: :sent
+      transition %i[created programmed] => :sent
     end
 
     event :cancel do
