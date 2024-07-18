@@ -64,10 +64,7 @@ class ConvictsController < ApplicationController
 
     old_phone = @convict.phone
     @saved_japat_value = @convict.japat
-
-    new_city_id = convict_params[:city_id]
-    @new_convict_city = City.find(new_city_id) if new_city_id.present? && new_city_id != @convict.city_id&.to_s
-
+    handle_city_change
     update_convict
 
     if @convict.errors.empty?
@@ -236,5 +233,12 @@ class ConvictsController < ApplicationController
     divestment_origin = @new_convict_city.tj || @new_convict_city.spip
     divestment = Divestment.new user: current_user, organization: divestment_origin, convict: @convict
     DivestmentCreatorService.new(@convict, current_user, divestment, @new_convict_city.organizations).call
+  end
+
+  def handle_city_change
+    return unless convict_params.present?
+
+    new_city_id = convict_params[:city_id]
+    @new_convict_city = City.find(new_city_id) if new_city_id.present? && new_city_id != @convict.city_id&.to_s
   end
 end
