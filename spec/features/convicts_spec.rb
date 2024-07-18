@@ -499,6 +499,7 @@ RSpec.feature 'Convicts', type: :feature do
       create(:convict, first_name: 'babar', last_name: 'BABAR', phone: '0606060606', date_of_birth: '01/01/1980',
                        organizations: [@user.organization])
       visit convicts_path
+
       expect(page).to have_content('BABAR')
       accept_alert do
         click_link 'Archiver'
