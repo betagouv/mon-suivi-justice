@@ -490,7 +490,7 @@ RSpec.feature 'Appointments', type: :feature do
       @convict = create(:convict, organizations: [@user.organization])
     end
 
-    it 'change state and cancel notifications' do
+    it 'change state and cancel notifications and send sms' do
       apt_type = create(:appointment_type, :with_notification_types, organization: @user.organization,
                                                                      name: 'Convocation de suivi SPIP')
       place = create :place, name: 'Test place', appointment_types: [apt_type],
@@ -512,7 +512,37 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.reload
       expect(appointment.state).to eq('canceled')
       expect(appointment.reminder_notif.state).to eq('canceled')
+      # cancellation notification is sent
       expect(appointment.cancelation_notif.state).to eq('programmed')
+
+      expect(page).to have_current_path(appointment_path(appointment))
+    end
+
+    it 'change state and cancel notifications without sms' do
+      apt_type = create(:appointment_type, :with_notification_types, organization: @user.organization,
+                                                                     name: 'Convocation de suivi SPIP')
+      place = create :place, name: 'Test place', appointment_types: [apt_type],
+                             organization: @user.organization
+      create :agenda, place:, name: 'Agenda de test'
+      slot = create :slot, appointment_type: apt_type, agenda: @user.organization.agendas.first
+
+      appointment = create(:appointment, convict: @convict, slot:)
+
+      appointment.book
+      expect(appointment.state).to eq('booked')
+      expect(appointment.notifications.count).to eq(5)
+      expect(appointment.reminder_notif.state).to eq('programmed')
+      expect(appointment.cancelation_notif.state).to eq('created')
+
+      visit appointment_path(appointment)
+      click_button 'Annuler'
+      click_button 'annuler sans prévenir le probationnaire'
+      appointment.reload
+      expect(appointment.state).to eq('canceled')
+      expect(appointment.reminder_notif.state).to eq('canceled')
+
+      # cancellation notification is not sent
+      expect(appointment.cancelation_notif.state).to eq('created')
 
       expect(page).to have_current_path(appointment_path(appointment))
     end
