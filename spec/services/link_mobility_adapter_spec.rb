@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# refaire check complet
 RSpec.describe LinkMobilityAdapter do
   before :each do
     @cached_sms_sender = ENV.fetch('SMS_SENDER', nil)
@@ -14,7 +15,7 @@ RSpec.describe LinkMobilityAdapter do
     it 'calls LinkMobility API' do
       convict = create(:convict, phone: '0600000000')
       appointment = create(:appointment, convict:)
-      notif = create(:notification, content: 'Salut', appointment:)
+      notif = create(:notification, state: :programmed, content: 'Salut', appointment:)
 
       response = {
         responseCode: 0,
@@ -25,8 +26,9 @@ RSpec.describe LinkMobilityAdapter do
       stub = stub_request(:post, 'https://europe.ipx.com/restapi/v1/sms/send')
               .to_return(body: response)
 
-      LinkMobilityAdapter.new.send_sms(notif)
+      result = LinkMobilityAdapter.new(notif).send_sms
       expect(stub).to have_been_requested
+      expect(result).to eq(success: true, external_id: '1')
     end
   end
 
@@ -35,7 +37,7 @@ RSpec.describe LinkMobilityAdapter do
       convict = create(:convict, phone: '0622334455')
       appointment = create(:appointment, convict:)
 
-      notif = create(:notification, appointment:)
+      notif = create(:notification, appointment:, state: :programmed)
       notif.content = 'Bonjour'
 
       expected = {
@@ -46,7 +48,7 @@ RSpec.describe LinkMobilityAdapter do
         maxConcatenatedMessages: 10
       }
 
-      result = LinkMobilityAdapter.new.format_data(notif)
+      result = LinkMobilityAdapter.new(notif).send(:sms_data)
 
       expect(result).to eq(expected)
     end

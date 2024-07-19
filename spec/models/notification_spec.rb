@@ -72,12 +72,11 @@ RSpec.describe Notification, type: :model do
     it { is_expected.to transition_from :created, to_state: :programmed, on_event: :program_now }
 
     it { is_expected.to transition_from :programmed, to_state: :sent, on_event: :mark_as_sent }
-    it { is_expected.to transition_from :created, to_state: :sent, on_event: :mark_as_sent }
     it { is_expected.to transition_from :programmed, to_state: :canceled, on_event: :cancel }
 
     it { is_expected.to transition_from :sent, to_state: :received, on_event: :receive }
-    it { is_expected.to transition_from :sent, to_state: :failed, on_event: :failed_send }
-    it { is_expected.to transition_from :programmed, to_state: :failed, on_event: :failed_programmed }
+    it { is_expected.to transition_from :programmed, to_state: :failed, on_event: :mark_as_failed }
+    it { is_expected.to transition_from :created, to_state: :failed, on_event: :mark_as_failed }
     it { is_expected.to transition_from :programmed, to_state: :unsent, on_event: :mark_as_unsent }
   end
 end
