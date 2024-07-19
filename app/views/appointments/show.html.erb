@@ -1,7 +1,7 @@
 <div class="fr-grid-row fr-grid-row--center">
   <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
     <h1 class=''><%= t('show_appointment_title') %></h1>
-    <% if @appointment.in_the_past? && @appointment.booked? && policy(@appointment).fulfil? %>
+    <% if policy(@appointment).change_state? %>
       <div class='appointment-fulfilment-container'>
         <div class='appointment-fulfilment-prompt-container'>
           <%= t('show-convict-fulfilment-prompt', name: @convict.name,
@@ -10,17 +10,23 @@
                                               time: @appointment.localized_time.to_fs(:time)) %>
         </div>
         <div class='appointment-fulfilment-controls-container'>
-          <%= button_to t('yes'), appointment_fulfil_path(@appointment),
-                              method: :put,
-                              id: 'show-convict-fulfil-button',
-                              class: 'show-convict-fulfil-button' %>
-          <%= button_tag t('no'), type: 'button',
+          <% if policy(@appointment).fulfil? %>
+            <%= button_to t('yes'), appointment_fulfil_path(@appointment),
+                                method: :put,
+                                id: 'show-convict-fulfil-button',
+                                class: 'show-convict-fulfil-button' %>
+          <% end %>
+          <% if policy(@appointment).miss? %>
+            <%= button_tag t('no'), type: 'button',
                               class: 'show-convict-miss-button',
                               data: { 'micromodal-trigger': "missed-appointment-modal-#{@appointment.id}" } %>
-          <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(@appointment),
+          <% end %>
+          <% if policy(@appointment).excuse? %>
+            <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(@appointment),
                                                           method: :put,
                                                           id: 'show-convict-excuse-button',
                                                           class: 'show-convict-excuse-button' %>
+          <% end %>
         </div>
       </div>
       <%= render 'missed_appointment_modal', apt: @appointment %>

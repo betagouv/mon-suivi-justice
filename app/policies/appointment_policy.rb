@@ -106,20 +106,29 @@ class AppointmentPolicy < ApplicationPolicy
 
   def fulfil?
     return false unless user.security_charter_accepted?
+    return false unless record.in_the_past?
+    return false unless record.booked?
 
     ownership_check && appointment_fulfilment
   end
 
   def miss?
     return false unless user.security_charter_accepted?
+    return false unless record.in_the_past?
+    return false unless record.booked?
 
     ownership_check && appointment_fulfilment
   end
 
   def excuse?
     return false unless user.security_charter_accepted?
+    return false unless record.booked?
 
     ownership_check && appointment_fulfilment
+  end
+
+  def change_state?
+    fulfil? || miss? || excuse?
   end
 
   def rebook?
