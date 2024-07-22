@@ -41,7 +41,7 @@
     <% if policy(appointment).show? %>
       <%= link_to "Voir", appointment_path(appointment), class: 'index-control' %>
     <% end %>
-    <% if policy(appointment).cancel? && appointment.slot.date.after?(DateTime.current) %>
+    <% if policy(appointment).cancel? %>
       <%= link_to t('cancel'), appointment_cancel_path(appointment),
                                     class: 'index-control appointments-link__cancel',
                                     data: { 'turbo-confirm': t('cancel_appointment_warning'), "turbo_method": :put } %>
