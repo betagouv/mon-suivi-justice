@@ -5,7 +5,7 @@ class AppointmentsReschedulesPolicy < ApplicationPolicy
   def new?
     return false unless user.security_charter_accepted?
     return false unless record.booked?
-    return false unless record.slot.date > Time.zone.yesterday
+    return false unless record.slot.datetime.after?(Time.zone.now)
 
     hability_check && user.organization.in?([record.organization, record.creating_organization])
   end

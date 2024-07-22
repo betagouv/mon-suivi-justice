@@ -80,7 +80,7 @@ class Appointment < ApplicationRecord
   def in_the_future
     if slot.date.nil?
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.blank'))
-    elsif slot.date < Time.zone.today
+    elsif slot.datetime.before?(Time.zone.now)
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.past'))
     end
   end

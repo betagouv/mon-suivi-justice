@@ -580,7 +580,7 @@ RSpec.feature 'Appointments', type: :feature do
                                                                      name: 'Convocation de suivi SPIP'
       slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
                                                  appointment_type: apt_type, agenda: @agenda
-      appointment = create(:appointment, convict:, slot:)
+      appointment = create(:appointment, :skip_validate, convict:, slot:)
 
       appointment.book
 
@@ -595,8 +595,8 @@ RSpec.feature 'Appointments', type: :feature do
       convict = create(:convict, organizations: [@user.organization])
       apt_type = create :appointment_type, :with_notification_types, organization: @user.organization,
                                                                      name: 'Convocation de suivi SPIP'
-      slot = create :slot, :without_validations, date: Date.today, appointment_type: apt_type, agenda: @agenda
-      appointment = create(:appointment, convict:, slot:)
+      slot = create :slot, :without_validations, date: Date.yesterday, appointment_type: apt_type, agenda: @agenda
+      appointment = create(:appointment, :skip_validate, convict:, slot:)
 
       appointment.book
 
@@ -614,7 +614,7 @@ RSpec.feature 'Appointments', type: :feature do
                                                                        name: 'Convocation de suivi SPIP'
         slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
                                                    appointment_type: apt_type, agenda: @agenda
-        appointment = create(:appointment, convict:, slot:)
+        appointment = create(:appointment, :skip_validate, convict:, slot:)
 
         appointment.book
 
@@ -634,7 +634,7 @@ RSpec.feature 'Appointments', type: :feature do
                                                                        name: 'Convocation de suivi SPIP')
         slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
                                                    appointment_type: apt_type, agenda: @agenda
-        appointment = create(:appointment, convict:, slot:)
+        appointment = create(:appointment, :skip_validate, convict:, slot:)
 
         appointment.book
 
@@ -653,7 +653,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         apt_type = create :appointment_type, :with_notification_types, organization: @user.organization,
                                                                        name: 'Convocation de suivi SPIP'
-        slot = create :slot, :without_validations, date: Date.today, starting_time: Time.now - 1.minutes,
+        slot = create :slot, :without_validations, date: Date.tomorrow, starting_time: Time.now - 1.minutes,
                                                    appointment_type: apt_type, agenda: @agenda
         appointment = create(:appointment, convict:, slot:)
 

@@ -89,7 +89,7 @@ RSpec.feature 'Bex', type: :feature do
   end
 
   describe 'Spip appointment index', logged_in_as: 'local_admin' do
-    let!(:frozen_time) { Time.zone.parse('2021-08-01 10:00:00').to_date }
+    let!(:frozen_time) { Time.zone.parse('2025-04-14 10:00:00').to_date }
 
     before do
       zone = ActiveSupport::TimeZone.new('Paris')
@@ -120,7 +120,9 @@ RSpec.feature 'Bex', type: :feature do
 
       slot2 = create(:slot, :without_validations, agenda:,
                                                   appointment_type: apt_type,
-                                                  date: next_valid_day(day: :friday) + 1.month,
+                                                  date: next_valid_day(date:
+                                                                        Time.zone.parse('2025-05-01 10:00:00').to_date,
+                                                                       day: :friday),
                                                   starting_time: '15h')
 
       slot3 = create(:slot, :without_validations, agenda:,
@@ -137,6 +139,7 @@ RSpec.feature 'Bex', type: :feature do
       create(:appointment, slot: slot3, convict: convict4, prosecutor_number: '205282')
 
       visit agenda_spip_path
+      save_and_open_page
       select current_month_label, from: :date
       page.execute_script("$('#spip-appointments-month-select').trigger('change')")
 
