@@ -154,6 +154,17 @@ class Appointment < ApplicationRecord
     creating_organization == orga
   end
 
+  def decrease_slot_capacity
+    return unless in_the_future?
+
+    slot.decrement!(:used_capacity, 1) if appointment.slot.used_capacity.positive?
+    slot.update(full: false) if appointment.slot.all_capacity_used? == false
+  end
+
+  def cancel_reminder_notif
+    appointment.reminder_notif.cancel! if appointment.reminder_notif&.programmed?
+  end
+
   state_machine initial: :created do
     state :created do
     end
@@ -218,10 +229,8 @@ class Appointment < ApplicationRecord
     end
 
     after_transition on: :cancel do |appointment, transition|
-      appointment.slot.decrement!(:used_capacity, 1) if appointment.slot.used_capacity.positive?
-      appointment.slot.update(full: false) if appointment.slot.all_capacity_used? == false
-
-      appointment.reminder_notif.cancel! if appointment.reminder_notif&.programmed?
+      appointment.decrease_slot_capacity
+      appointment.cancel_reminder_notif
 
       if send_sms?(transition) && appointment.convict.phone.present?
         appointment.cancelation_notif.program_now
@@ -233,11 +242,8 @@ class Appointment < ApplicationRecord
     end
 
     after_transition on: :excuse do |appointment|
-      if appointment.in_the_future?
-        appointment.slot.decrement!(:used_capacity, 1) if appointment.slot.used_capacity.positive?
-        appointment.slot.update(full: false) if appointment.slot.all_capacity_used? == false
-      end
-      appointment.reminder_notif.cancel! if appointment.reminder_notif&.programmed?
+      appointment.decrease_slot_capacity
+      appointment.cancel_reminder_notif
     end
 
     before_transition on: :rebook do |appointment, _|
