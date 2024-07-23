@@ -4,10 +4,14 @@
     <% if policy(@appointment).change_state? %>
       <div class='appointment-fulfilment-container'>
         <div class='appointment-fulfilment-prompt-container'>
+          <% if @appointment.in_the_past? %>
           <%= t('show-convict-fulfilment-prompt', name: @convict.name,
                                               place: @appointment.slot.agenda.place.name,
                                               date: @appointment.slot.date.to_fs,
                                               time: @appointment.localized_time.to_fs(:time)) %>
+          <% else %>
+          <%= t('show-convict-excuse-prompt', name: @convict.name) %>
+          <% end %>
         </div>
         <div class='appointment-fulfilment-controls-container'>
           <% if policy(@appointment).fulfil? %>
@@ -156,7 +160,6 @@
                     </div>
                     <div class="fr-modal__content">
                         <h1 id="fr-modal-2-title" class="fr-modal__title">
-                            <span class="fr-icon-arrow-right-line fr-icon--lg"></span>
                             Annuler la convocation
                         </h1>
                         <p>
