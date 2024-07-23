@@ -46,5 +46,10 @@
                                     class: 'index-control appointments-link__cancel',
                                     data: { 'turbo-confirm': t('cancel_appointment_warning'), "turbo_method": :put } %>
     <% end %>
+    <% if appointment.in_the_future? && policy(appointment).excuse? %>
+      <%= link_to t('activerecord.state_machines.states.excused'), appointment_excuse_path(appointment),
+                                                                  data: {'turbo_method': :put},
+                                                                  class: 'index-control' %>
+    <% end %>
   </td>
 </tr>
