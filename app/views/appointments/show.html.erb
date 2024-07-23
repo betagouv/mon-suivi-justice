@@ -137,9 +137,9 @@
                   <% if policy(@appointment).cancel? %>
                     <li>
                       <% if @convict&.can_receive_sms? %>
-                      <button class="fr-btn" data-fr-opened="false" aria-controls="fr-modal-cancel-apt">
-                          <%= t('cancel') %>
-                      </button>
+                        <button class="fr-btn" data-fr-opened="false" aria-controls="<%= "fr-modal-cancel-apt-#{@appointment.id}" %>">
+                            <%= t('cancel') %>
+                        </button>
                       <% else %>
                         <%= button_to t('cancel'), appointment_cancel_path(@appointment),
                                       class: 'fr-btn',
@@ -156,35 +156,6 @@
     <%= render 'shared/history_items' %>
   </div>
 </div>
-<dialog aria-labelledby="fr-modal-cancel-apt-title" id="fr-modal-cancel-apt" class="fr-modal" role="dialog" >
-    <div class="fr-container fr-container--fluid fr-container-md">
-        <div class="fr-grid-row fr-grid-row--center">
-            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
-                <div class="fr-modal__body">
-                    <div class="fr-modal__header">
-                        <button class="fr-btn--close fr-btn" aria-controls="fr-modal-cancel-apt">Fermer</button>
-                    </div>
-                    <div class="fr-modal__content">
-                        <h1 id="fr-modal-cancel-apt-title" class="fr-modal__title">
-                            Annuler la convocation
-                        </h1>
-                        <p>
-                          Vous vous appretez à annuler la convocation et le SMS de rappel prévu. 
-                          Vous pouvez choisir de prévenir par sms le probationnaire ou non.
-                          Êtes-vous sûr.e ?
-                        </p>
-                    </div>
-                    <div class="fr-modal__footer">
-                      <%= form_with url: appointment_cancel_path(@appointment), method: :put, data: { turbo: 'true' }, id: 'confirm-form' do %>
-                        <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg fr-btns-group--icon-left">
-                            <%= button_tag 'annuler et prévenir le probationnaire', name: "send_sms", value: "true", type: 'submit', class: 'fr-btn fr-icon-checkbox-circle-line fr-btn--icon-left' %>
-                            <%= button_tag 'annuler sans prévenir le probationnaire', name: "send_sms", value: "false", type: 'submit', class: 'fr-btn fr-icon-checkbox-circle-line fr-btn--icon-left fr-btn--secondary' %>
-                        </div>
-                      <% end %>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</dialog>
+<%= render 'cancel_appointment_modal', appointment: @appointment %>
+
 <%= javascript_include_tag 'appointment_show', "data-turbo-track": "reload", defer: true %>
