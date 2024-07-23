@@ -130,7 +130,7 @@
       </div>
     </div>
     <%= render 'invitation_card', convict: @convict, user: current_user %>
-    <%= future_booked_or_excused = @convict.future_appointments_and_excused %>
+    <% future_booked_or_excused = @convict.future_appointments_and_excused %>
     <% if future_booked_or_excused.count(:id) != 0 %>
       <div class="fr-grid-row fr-mt-2w">
         <div class="fr-col">

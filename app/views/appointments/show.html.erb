@@ -136,9 +136,15 @@
                   <% end %>
                   <% if policy(@appointment).cancel? %>
                     <li>
-                      <button class="fr-btn" data-fr-opened="false" aria-controls="fr-modal-2">
+                      <% if @convict&.can_receive_sms? %>
+                      <button class="fr-btn" data-fr-opened="false" aria-controls="fr-modal-cancel-apt">
                           <%= t('cancel') %>
                       </button>
+                      <% else %>
+                        <%= button_to t('cancel'), appointment_cancel_path(@appointment),
+                                      class: 'fr-btn',
+                                      data: { 'turbo-confirm': t('cancel_appointment_warning'), "turbo_method": :put } %>
+                      <% end %>
                     </li>
                   <% end %>
               </ul>
@@ -150,16 +156,16 @@
     <%= render 'shared/history_items' %>
   </div>
 </div>
-<dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" class="fr-modal" role="dialog" >
+<dialog aria-labelledby="fr-modal-cancel-apt-title" id="fr-modal-cancel-apt" class="fr-modal" role="dialog" >
     <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
                 <div class="fr-modal__body">
                     <div class="fr-modal__header">
-                        <button class="fr-btn--close fr-btn" aria-controls="fr-modal-2">Fermer</button>
+                        <button class="fr-btn--close fr-btn" aria-controls="fr-modal-cancel-apt">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h1 id="fr-modal-2-title" class="fr-modal__title">
+                        <h1 id="fr-modal-cancel-apt-title" class="fr-modal__title">
                             Annuler la convocation
                         </h1>
                         <p>
