@@ -91,6 +91,10 @@ class Appointment < ApplicationRecord
     date == Time.zone.today && starting_time.strftime('%H:%M') <= Time.current.strftime('%H:%M')
   end
 
+  def in_the_future?
+    slot.datetime.after?(Time.zone.now)
+  end
+
   def must_choose_to_send_notification
     return if !convict&.can_receive_sms? || !send_sms.nil?
 
@@ -226,6 +230,14 @@ class Appointment < ApplicationRecord
 
     after_transition on: :miss do |appointment, transition|
       appointment.no_show_notif&.program_now if send_sms?(transition)
+    end
+
+    after_transition on: :excuse do |appointment|
+      if appointment.in_the_future?
+        appointment.slot.decrement!(:used_capacity, 1) if appointment.slot.used_capacity.positive?
+        appointment.slot.update(full: false) if appointment.slot.all_capacity_used? == false
+      end
+      appointment.reminder_notif.cancel! if appointment.reminder_notif&.programmed?
     end
 
     before_transition on: :rebook do |appointment, _|
