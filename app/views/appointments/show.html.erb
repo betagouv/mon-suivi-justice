@@ -5,12 +5,12 @@
       <div class='appointment-fulfilment-container'>
         <div class='appointment-fulfilment-prompt-container'>
           <% if @appointment.in_the_past? %>
-          <%= t('show-convict-fulfilment-prompt', name: @convict.name,
-                                              place: @appointment.slot.agenda.place.name,
-                                              date: @appointment.slot.date.to_fs,
-                                              time: @appointment.localized_time.to_fs(:time)) %>
+            <%= t('show-convict-fulfilment-prompt', name: @convict.name,
+                                                place: @appointment.slot.agenda.place.name,
+                                                date: @appointment.slot.date.to_fs,
+                                                time: @appointment.localized_time.to_fs(:time)) %>
           <% else %>
-          <%= t('show-convict-excuse-prompt', name: @convict.name) %>
+            <%= t('show-convict-excuse-prompt', name: @convict.name) %>
           <% end %>
         </div>
         <div class='appointment-fulfilment-controls-container'>
