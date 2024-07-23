@@ -139,7 +139,6 @@ RSpec.feature 'Bex', type: :feature do
       create(:appointment, slot: slot3, convict: convict4, prosecutor_number: '205282')
 
       visit agenda_spip_path
-      save_and_open_page
       select current_month_label, from: :date
       page.execute_script("$('#spip-appointments-month-select').trigger('change')")
 
