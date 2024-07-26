@@ -1,6 +1,22 @@
 class SmsDeliveryService
   attr_reader :notification
 
+  # Renvoyer un objet de l'adapter
+  # Gérer failed summon et reschedule notif dans le service qui manage les fails
+  # Gérer tous les codes d'erreur de l'API de SMS (renvoyer le code via l'adapteur ou si on doit stopper + relancher + message)
+  # Raise pour les notifications created en entrée
+  # Catcher les erreurs à ne pas raise et relancer et relancer le SMS manuellement 5 secondes plus tard en incrémentant le fail count
+  # Raise les notifications à ne plus renvoyer
+  # Raise en entrée pour les notifications avec plus de 5 fails
+  # Catcher les 2 types ci-dessus et les passer à failed
+  # Pour toutes les autres erreurs, incrémenter le fail et raise normalement pour retenter automatiquement
+  # Comprendre pourquoi certains SMS sont reschedule
+  # Envoyer toutes les 48h un mail à LinkMobility avec les numéros ayant des problèmes de routing
+  # Bonus:
+  # Pas de couleur pour les pastiles de statut (rdv et notif) ou en tout cas la plupart
+  # Certains changements de statut de notif ne créent pas d'history items
+  # Rien dans la colonne action des history items des convocations
+
   def initialize(notification)
     @notification = notification
   end
