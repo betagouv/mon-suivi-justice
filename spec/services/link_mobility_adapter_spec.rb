@@ -28,7 +28,10 @@ RSpec.describe LinkMobilityAdapter do
 
       result = LinkMobilityAdapter.new(notif).send_sms
       expect(stub).to have_been_requested
-      expect(result).to eq(success: true, external_id: '1')
+      expect(result).to be_an_instance_of(SmsApiResponse)
+      expect(result.success).to eq(true)
+      expect(result.external_id).to eq('1')
+      expect(result.should_raise_error).to eq(true)
     end
   end
 

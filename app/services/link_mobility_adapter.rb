@@ -19,7 +19,9 @@ class LinkMobilityAdapter
 
     parsed_response = JSON.parse(response.body)
 
-    { success: parsed_response['responseCode'].zero?, external_id: parsed_response['messageIds'].first }
+    SmsApiResponse.new(success: parsed_response['responseCode'].zero?,
+                       external_id: parsed_response['messageIds'].first,
+                       should_raise_error: true)
   end
 
   private

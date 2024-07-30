@@ -31,13 +31,15 @@ RSpec.describe SmsDeliveryService do
       end
 
       it 'calls LinkMobilityAdapter if notification is programmed and convict has a phone number' do
-        expect(adapter).to receive(:send_sms).and_return({ success: true, external_id: 'some_id' })
+        expect(adapter).to receive(:send_sms).and_return(SmsApiResponse.new(success: true, external_id: 'some_id',
+                                                                            should_raise_error: nil))
         service.send_sms
       end
 
       context 'when LinkMobilityAdapter response includes external_id' do
         it 'updates the notification with the external_id and marks it as sent' do
-          allow(adapter).to receive(:send_sms).and_return({ success: true, external_id: '123456' })
+          allow(adapter).to receive(:send_sms).and_return(SmsApiResponse.new(success: true, external_id: '123456',
+                                                                             should_raise_error: nil))
           service.send_sms
           notification.reload
           expect(notification.external_id).to eq('123456')
@@ -47,7 +49,8 @@ RSpec.describe SmsDeliveryService do
 
       context 'when LinkMobilityAdapter response is a failure' do
         before do
-          allow(adapter).to receive(:send_sms).and_return({ success: false })
+          allow(adapter).to receive(:send_sms).and_return(SmsApiResponse.new(success: false, external_id: nil,
+                                                                             should_raise_error: false))
         end
 
         context 'when notification has already failed 5 times' do
@@ -76,7 +79,8 @@ RSpec.describe SmsDeliveryService do
 
       context 'when LinkMobilityAdapter response is a success' do
         before do
-          allow(adapter).to receive(:send_sms).and_return({ success: true, external_id: 'some_id' })
+          allow(adapter).to receive(:send_sms).and_return(SmsApiResponse.new(success: true, external_id: 'some_id',
+                                                                             should_raise_error: nil))
         end
 
         it 'marks the notification as sent' do

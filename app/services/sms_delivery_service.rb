@@ -1,7 +1,6 @@
 class SmsDeliveryService
   attr_reader :notification
 
-  # Renvoyer un objet de l'adapter
   # Gérer failed summon et reschedule notif dans le service qui manage les fails
   # Gérer tous les codes d'erreur de l'API de SMS (renvoyer le code via l'adapteur ou si on doit stopper + relancher + message)
   # Raise pour les notifications created en entrée
@@ -44,9 +43,9 @@ class SmsDeliveryService
 
   def update_state_from_response(response)
     notification.transaction do
-      notification.update!(external_id: response[:external_id]) if response[:external_id]
+      notification.update!(external_id: response.external_id) if response.external_id.present?
 
-      if response[:success]
+      if response.success
         mark_as_sent
       else
         manage_failure
