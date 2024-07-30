@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.2'
 gem 'rails', '~> 7.1.3'
 
-gem 'pg', '~> 1.5.6'
+gem 'pg', '~> 1.5.7'
 gem 'puma', '~> 6.4.2'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
@@ -39,7 +39,7 @@ gem 'discard', '~> 1.3.0'
 gem 'paper_trail', '~> 15.1.0'
 gem 'ahoy_matey', '~> 5.1.0'
 gem 'sentry-ruby', '~> 5.18.1'
-gem 'sentry-rails', '~> 5.18.1'
+gem 'sentry-rails', '~> 5.18.2'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.2', '>= 3.2.8'
@@ -110,7 +110,7 @@ gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.6'
 gem 'administrate-field-belongs_to_search', '~> 0.9.0'
-gem 'faker', '~> 3.4.1'
+gem 'faker', '~> 3.4.2'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 5.2.0'
