@@ -15,18 +15,23 @@
           <% @history_items.each do |history_item| %>
             <tr>
               <td>
-                <div  class='show-history-item-icon text-center'>
-                  <span class="circle-icon icon_<%= history_item.event %> fr-mr-1w"></span>
-                </div>
+                <% if %w[fulfil_appointment miss_appointment excuse_appointment].include?(history_item.event) %>
+                  <div  class='show-history-item-icon text-center'>
+                    <span class="circle-icon icon_<%= history_item.event %> fr-mr-1w"></span>
+                  </div>
+                <% end %>
               </td>
               <td>
                 <%= history_item.created_at.strftime('%d/%m/%Y %H:%M') %>
               </td>
-              <td><%= t("history_item.#{history_item.event}_title") %> :               <%= history_item.content %>
+              <td>
+                <%= t("history_item.#{history_item.event}_title") %> : <%= history_item.content %>
               </td>
-              <td>          <% if history_item.appointment? && policy(history_item.appointment).show? && !current_page?(controller: 'appointments', action: 'show') %>
+              <td>
+                <% if history_item.appointment? && policy(history_item.appointment).show? && !current_page?(controller: 'appointments', action: 'show') %>
                   <%= link_to t('see_details'), appointment_path(history_item.appointment), class: '' %>
-                <% end %></td>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>

@@ -12,9 +12,7 @@ class SmsDeliveryService
   # Comprendre pourquoi certains SMS sont reschedule
   # Envoyer toutes les 48h un mail à LinkMobility avec les numéros ayant des problèmes de routing
   # Bonus:
-  # Pas de couleur pour les pastiles de statut (rdv et notif) ou en tout cas la plupart
   # Certains changements de statut de notif ne créent pas d'history items
-  # Rien dans la colonne action des history items des convocations
 
   def initialize(notification)
     @notification = notification

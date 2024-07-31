@@ -7,17 +7,21 @@
   width: 1em;
   height: 1em;
   border-radius: 50%;
-  background-color: currentColor;
 }
 
 .circle-icon.icon_fulfil_appointment,
 .icon_fulfiled {
-  color: var(--fulfiled-appointment);
+  background-color: var(--fulfiled-appointment);
 }
 
 .circle-icon.icon_miss_appointment,
 .icon_no_show {
-  color: var(--missed-appointment);
+  background-color: var(--missed-appointment);
+}
+
+.circle-icon.icon_excuse_appointment,
+.icon_excused {
+  background-color: var(--excused-appointment);
 }
 
 .bold {
