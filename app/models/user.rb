@@ -167,7 +167,7 @@ class User < ApplicationRecord
   end
 
   def can_manage_divestments?
-    local_admin? || greff_sap? || jap? || dir_greff_sap?
+    local_admin? || greff_sap? || jap? || dir_greff_sap? || secretary_spip?
   end
 
   private
