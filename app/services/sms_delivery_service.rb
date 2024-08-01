@@ -4,6 +4,7 @@ class SmsDeliveryService
   # Gérer failed summon et reschedule notif dans le service qui manage les fails
   # Gérer tous les codes d'erreur de l'API de SMS (renvoyer le code via l'adapteur ou si on doit stopper + relancher + message)
   # Raise pour les notifications created en entrée
+  # Ne pas envoyer de notifications aux probationnaires qui refusent de donner leur numéro
   # Catcher les erreurs à ne pas raise et relancer et relancer le SMS manuellement 5 secondes plus tard en incrémentant le fail count
   # Raise les notifications à ne plus renvoyer
   # Raise en entrée pour les notifications avec plus de 5 fails
@@ -11,8 +12,6 @@ class SmsDeliveryService
   # Pour toutes les autres erreurs, incrémenter le fail et raise normalement pour retenter automatiquement
   # Comprendre pourquoi certains SMS sont reschedule
   # Envoyer toutes les 48h un mail à LinkMobility avec les numéros ayant des problèmes de routing
-  # Bonus:
-  # Certains changements de statut de notif ne créent pas d'history items
 
   def initialize(notification)
     @notification = notification
