@@ -232,7 +232,7 @@ class Appointment < ApplicationRecord
       appointment.decrease_slot_capacity
       appointment.cancel_reminder_notif
 
-      if send_sms?(transition) && appointment.convict.phone.present?
+      if send_sms?(transition) && appointment.convict.can_receive_sms?
         appointment.cancelation_notif.program_now
       end
     end

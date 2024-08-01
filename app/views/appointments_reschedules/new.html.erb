@@ -83,28 +83,25 @@
     <fieldset class="fr-fieldset fr-mt-2w" id="radio-hint" aria-labelledby="radio-hint-legend radio-hint-messages">
       <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="radio-hint-legend">
         <abbr title="required">*</abbr>
-        Préférences de notification SMS:
+        <%= t('.notification_preferences') %>
       </legend>
-
       <div class="fr-fieldset__element">
         <div class="fr-radio-group">
           <%= f.radio_button :send_sms, 1, id: 'send_sms_1', checked: (@appointment.send_sms.nil? || @appointment.send_sms) %>
-          <label class="fr-label" for="send_sms_1">Prévenir immédiatement par SMS de la replanification et envoyer un rappel avant la convocation.</label>
+          <label class="fr-label" for="send_sms_1"><%= t('.warn_convict') %></label>
         </div>
       </div>
-
       <div class="fr-fieldset__element">
         <div class="fr-radio-group">
           <%= f.radio_button :send_sms, 0, id: 'send_sms_0' %>
-          <label class="fr-label" for="send_sms_0">Envoyer uniquement un rappel par SMS avant la convocation</label>
+          <label class="fr-label" for="send_sms_0"><%= t('.do_not_warn_convict') %></label>
         </div>
       </div>
-
       <div class="fr-messages-group" id="radio-hint-messages" aria-live="assertive"></div>
     </fieldset>
   <% end%>
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-    <div class='fr-mt-2w'>
+    <div class='fr-my-2w'>
       <%= f.submit t('submit'), class: 'fr-btn'  %>
     </div>
   </div>

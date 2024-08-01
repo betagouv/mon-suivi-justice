@@ -348,6 +348,18 @@ fr:
     waiting_line:
       for_a_service: Convocation au statut inconnu au %{orga}
       for_a_user: Vos convocations au statut inconnu
+    cancel_appointment_modal:
+      title: Annuler la convocation
+      description: Vous vous appretez à annuler la convocation et le SMS de rappel prévu.
+        Vous pouvez choisir de prévenir par sms le probationnaire ou non.
+        Êtes-vous sûr.e ?
+      warn_convict: Annuler et prévenir le probationnaire
+      do_not_warn_convict: Annuler sans prévenir le probationnaire
+  appointments_reschedules:
+    new:
+      notification_preferences: Préférences de notification SMS
+      warn_convict: Prévenir immédiatement par SMS de la replanification et envoyer un rappel avant la convocation.
+      do_not_warn_convict: Envoyer uniquement un rappel par SMS avant la convocation
   archive: Archiver
   archive_convict_confirmation: Ce probationnaire restera accessible pendant 6 mois
     avant d'être définitivement supprimée.
