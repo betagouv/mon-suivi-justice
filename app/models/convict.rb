@@ -322,6 +322,7 @@ class Convict < ApplicationRecord
 
   def future_appointments_with_states(states)
     appointments.joins(:slot)
+                .select('appointments.*, slots.date')
                 .where(state: states)
                 .where('slots.date': Date.today..)
                 .order('slots.date')

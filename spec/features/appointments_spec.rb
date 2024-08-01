@@ -508,7 +508,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       visit appointment_path(appointment)
       click_button 'Annuler'
-      click_button 'annuler et prévenir le probationnaire'
+      click_button 'Annuler et prévenir le probationnaire'
       appointment.reload
       expect(appointment.state).to eq('canceled')
       expect(appointment.reminder_notif.state).to eq('canceled')
@@ -536,7 +536,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       visit appointment_path(appointment)
       click_button 'Annuler'
-      click_button 'annuler sans prévenir le probationnaire'
+      click_button 'Annuler sans prévenir le probationnaire'
       appointment.reload
       expect(appointment.state).to eq('canceled')
       expect(appointment.reminder_notif.state).to eq('canceled')

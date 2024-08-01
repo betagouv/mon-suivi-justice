@@ -140,7 +140,7 @@
         <div class="fr-col">
           <div class="fr-table fr-table--layout-fixed fr-table--bordered">
             <table>
-              <caption><%= t('show-convict-next-appointments-title', count: @convict.future_appointments_and_excused.count) %></caption>
+              <caption><%= t('show-convict-next-appointments-title', count: @convict.future_appointments_and_excused.count(:id)) %></caption>
               <thead>
                 <tr>
                   <th scope="col">Type de convocation</th>
