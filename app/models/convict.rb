@@ -98,11 +98,11 @@ class Convict < ApplicationRecord
   end
 
   def future_appointments_and_excused
-    future_appointments_with_states(%w[booked excused])
+    @future_appointments_and_excused ||= future_appointments_with_states(%w[booked excused])
   end
 
   def booked_appointments
-    appointments.joins(:slot).where(state: 'booked')
+    appointments.joins(:slot).with_state(:booked)
   end
 
   def passed_appointments
@@ -322,7 +322,6 @@ class Convict < ApplicationRecord
 
   def future_appointments_with_states(states)
     appointments.joins(:slot)
-                .select('appointments.*, slots.date')
                 .where(state: states)
                 .where('slots.date': Date.today..)
                 .order('slots.date')

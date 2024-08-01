@@ -39,11 +39,11 @@
   </td>
   <td>
     <% if policy(appointment).show? %>
-      <%= link_to "Voir", appointment_path(appointment), class: 'index-control' %>
+      <%= link_to "Voir", appointment_path(appointment), class: 'index-control fr-text--bold' %>
     <% end %>
     <% if policy(appointment).cancel? %>
       <% if appointment.convict&.can_receive_sms? %>
-        <button class="fr-btn fr-btn--tertiary-no-outline" data-fr-opened="false" aria-controls="<%= "fr-modal-cancel-apt-#{appointment.id}" %>">
+        <button class="index-control fake-link" data-fr-opened="false" aria-controls="<%= "fr-modal-cancel-apt-#{appointment.id}" %>">
           <%= t('cancel') %>
         </button>
         <%= render 'cancel_appointment_modal', appointment: appointment %>
@@ -52,9 +52,9 @@
                       class: 'index-control',
                       data: { 'turbo-confirm': t('cancel_appointment_warning'), "turbo_method": :put } %>
       <% end %>
-      <% end %>
+    <% end %>
     <% if appointment.in_the_future? && policy(appointment).excuse? %>
-      <%= link_to t('activerecord.state_machines.states.excused'), appointment_excuse_path(appointment),
+      <%= link_to t('.excuse'), appointment_excuse_path(appointment),
                                                                   data: {'turbo_method': :put},
                                                                   class: 'index-control' %>
     <% end %>

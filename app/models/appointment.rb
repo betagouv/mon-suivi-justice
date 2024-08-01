@@ -157,12 +157,12 @@ class Appointment < ApplicationRecord
   def decrease_slot_capacity
     return unless in_the_future?
 
-    slot.decrement!(:used_capacity, 1) if appointment.slot.used_capacity.positive?
-    slot.update(full: false) if appointment.slot.all_capacity_used? == false
+    slot.decrement!(:used_capacity, 1) if slot.used_capacity.positive?
+    slot.update(full: false) if slot.all_capacity_used? == false
   end
 
   def cancel_reminder_notif
-    appointment.reminder_notif.cancel! if appointment.reminder_notif&.programmed?
+    reminder_notif.cancel! if reminder_notif&.programmed?
   end
 
   state_machine initial: :created do
