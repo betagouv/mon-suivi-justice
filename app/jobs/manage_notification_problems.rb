@@ -11,13 +11,12 @@ class ManageNotificationProblems < ApplicationJob
 
   def reschedule_unqueued_notifications
     notifications_to_reschedule.each do |notif|
-      SmsDeliveryJob.set(wait_until: notif.delivery_time)
-                    .perform_later(notif.id)
+      notif.role == 'reminder' ? notif.program! : notif.program_now!
     end
   end
 
   def inform_users_about_failed_notifications
-    notifications_to_be_marked_as_failed.each(&:mark_as_failed!)
+    notifications_to_be_marked_as_failed.each(&:handle_unsent!)
   end
 
   def inform_admins
@@ -34,7 +33,7 @@ class ManageNotificationProblems < ApplicationJob
 
   def notifications_to_be_marked_as_failed
     @notifications_to_be_marked_as_failed ||=
-      high_failure_notifications.or(stucked_notifications)
+      high_failure_notifications.or(stucked_no_show_notifications).or(other_stucked_notifications)
   end
 
   def high_failure_notifications
@@ -42,11 +41,16 @@ class ManageNotificationProblems < ApplicationJob
       Notification.joins(appointment: :slot).where(state: %w[created programmed], failed_count: 5..)
   end
 
-  def stucked_notifications
-    @stucked_notifications ||=
-      Notification.joins(appointment: :slot)
-                  .where('slots.date < ?', 1.hour.ago)
-                  .where(state: 'programmed', role: 'reminder')
+  def stucked_no_show_notifications
+    @stucked_no_show_notifications ||=
+      Notification.appointment_more_than_1_month_ago
+                  .where(state: 'programmed', role: 'no_show')
+  end
+
+  def other_stucked_notifications
+    @other_stucked_notifications ||=
+      Notification.appointment_in_the_past
+                  .where(state: 'programmed', role: %w[reminder summon cancelation reschedule])
   end
 
   def scheduled_sms_delivery_jobs_notif_ids
@@ -57,26 +61,27 @@ class ManageNotificationProblems < ApplicationJob
   end
 
   def sms_notifications_to_be_send
-    reminder_notifications_to_be_send.or(other_notifications_to_be_send).or(mistakenly_marked_as_sent_notifications)
+    cancelation_notifications_to_be_send.or(no_show_notifications_to_be_send).or(other_notifications_to_be_send)
   end
 
-  def reminder_notifications_to_be_send
-    Notification.joins(appointment: :slot)
-                .where.not(failed_count: 5..)
-                .where('slots.date > ?', 4.hours.from_now)
-                .where(appointments: { state: 'booked' })
-                .where(state: 'programmed', role: 'reminder')
+  def cancelation_notifications_to_be_send
+    Notification.retryable
+                .appointment_in_more_than_4_hours
+                .where(appointments: { state: 'canceled' })
+                .where(state: 'programmed', role: 'cancelation')
+  end
+
+  def no_show_notifications_to_be_send
+    Notification.retryable
+                .appointment_recently_past
+                .where(appointments: { state: 'no_show' })
+                .where(state: 'programmed', role: 'no_show')
   end
 
   def other_notifications_to_be_send
-    Notification.where.not(failed_count: 5..).where(state: 'programmed',
-                                                    role: %w[summon
-                                                             cancelation no_show reschedule])
-  end
-
-  def mistakenly_marked_as_sent_notifications
-    Notification.joins(appointment: :slot)
-                .where.not(failed_count: 5..)
-                .where(state: 'sent', external_id: nil, updated_at: 2.days.ago..)
+    Notification.retryable
+                .appointment_in_more_than_4_hours
+                .where(appointments: { state: 'booked' })
+                .where(state: 'programmed', role: %w[summon reminder reschedule])
   end
 end
