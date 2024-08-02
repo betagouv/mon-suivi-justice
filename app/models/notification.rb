@@ -112,7 +112,7 @@ class Notification < ApplicationRecord
 
     return false if %w[summon reminder cancelation reschedule].include?(role) && appointment.in_the_future?
 
-    return false if failure_count >= 5
+    return false if failed_count >= 5
 
     true
   end

@@ -24,13 +24,8 @@ class SmsDeliveryService
     notification.reload
     raise 'Notification state still created' if notification.created?
 
-    unless notification.can_be_sent?
-      notification.mark_as_failed!
-      return false
-    end
-
-    unless notification.convict.can_receive_sms?
-      notification.mark_as_unsent!
+    unless notification.convict.can_receive_sms? && notification.can_be_sent?
+      handle_unsent_notification
       return false
     end
 
@@ -55,5 +50,9 @@ class SmsDeliveryService
     raise SmsDeliveryError.new(response.code, response.message) if response.retry_if_failed?
 
     notification.mark_as_failed!
+  end
+
+  def handle_unsent_notification
+    notification.failed_count.zero? ? notification.mark_as_unsent! : notification.mark_as_failed!
   end
 end
