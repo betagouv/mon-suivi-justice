@@ -17,13 +17,7 @@ class LinkMobilityAdapter
       req.body = URI.encode_www_form(sms_data)
     end
 
-    parsed_response = JSON.parse(response.body)
-
-    SmsApiResponse.new(success: parsed_response['responseCode'].zero?,
-                       external_id: parsed_response['messageIds'].first,
-                       code: parsed_response['responseCode'],
-                       message: parsed_response['responseMessage'],
-                       retry_if_failed: retry_if_failed?(parsed_response['responseCode']))
+    structured_response(JSON.parse(response.body))
   end
 
   private
@@ -42,5 +36,13 @@ class LinkMobilityAdapter
     # 16 = Could not route message
     # 100 = Invalid destination address
     [100, 16].exclude?(response_code)
+  end
+
+  def structured_response(response)
+    SmsApiResponse.new(success: response['responseCode'].zero?,
+                       external_id: response['messageIds'].first,
+                       code: response['responseCode'],
+                       message: response['responseMessage'],
+                       retry_if_failed: retry_if_failed?(response['responseCode']))
   end
 end
