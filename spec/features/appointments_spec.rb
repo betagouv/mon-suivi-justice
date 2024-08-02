@@ -706,6 +706,51 @@ RSpec.feature 'Appointments', type: :feature do
       expect(new_appointment.state).to eq 'booked'
       expect(new_appointment.history_items.count).to eq 4
       expect(new_appointment.reschedule_notif.state).to eq 'programmed'
+      expect(SmsDeliveryJob).to have_been_enqueued.once.with(
+        Notification.find_by(role: :reschedule, appointment: Appointment.last).id
+      )
+    end
+
+    it 're-schedules an appointment to a later date without sending SMS if needed' do
+      convict = create(:convict, organizations: [@user.organization])
+      apt_type = create(:appointment_type, :with_notification_types, organization: @user.organization,
+                                                                     name: "Sortie d'audience SPIP")
+      place = create :place, name: 'Test place', appointment_types: [apt_type],
+                             organization: @user.organization
+      create :agenda, place:, name: 'Agenda de test'
+      slot1 = create :slot, appointment_type: apt_type, agenda: @user.organization.agendas.first
+      appointment = create(:appointment, convict:, slot: slot1)
+
+      appointment.book
+      slot2 = create :slot, agenda: appointment.slot.agenda,
+                            appointment_type: apt_type,
+                            date: Date.civil(2025, 4, 16),
+                            starting_time: new_time_for(14, 0)
+
+      visit appointment_path(appointment)
+      click_button 'Replanifier'
+
+      expect(page).to have_content 'Replanifier une convocation'
+
+      choose '14:00'
+      choose 'Envoyer uniquement un rappel par SMS avant la convocation'
+
+      click_button 'Enregistrer'
+
+      appointment.reload
+      expect(appointment.state).to eq 'canceled'
+      expect(appointment.reminder_notif.state).to eq 'canceled'
+      expect(appointment.cancelation_notif.state).to eq 'created'
+      expect(appointment.history_items).to eq []
+
+      new_appointment = Appointment.find_by(slot: slot2)
+
+      expect(new_appointment.state).to eq 'booked'
+      expect(new_appointment.history_items.count).to eq 3
+      expect(new_appointment.reschedule_notif.state).to eq 'created'
+      expect(SmsDeliveryJob).not_to have_been_enqueued.with(
+        Notification.find_by(role: :reschedule, appointment: Appointment.last).id
+      )
     end
 
     it 'works for an appointment type without pre defined slots' do
