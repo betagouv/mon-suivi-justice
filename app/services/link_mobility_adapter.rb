@@ -21,7 +21,9 @@ class LinkMobilityAdapter
 
     SmsApiResponse.new(success: parsed_response['responseCode'].zero?,
                        external_id: parsed_response['messageIds'].first,
-                       should_raise_error: true)
+                       code: parsed_response['responseCode'],
+                       message: parsed_response['responseMessage'],
+                       retry_if_failed: retry_if_failed?(parsed_response['responseCode']))
   end
 
   private
@@ -34,5 +36,11 @@ class LinkMobilityAdapter
       originatingAddress: ENV.fetch('SMS_SENDER', nil),
       maxConcatenatedMessages: 10
     }
+  end
+
+  def retry_if_failed?(response_code)
+    # 16 = Could not route message
+    # 100 = Invalid destination address
+    [100, 16].exclude?(response_code)
   end
 end

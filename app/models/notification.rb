@@ -106,4 +106,14 @@ class Notification < ApplicationRecord
   def hour_delay
     { 'one_day' => 24, 'two_days' => 48 }.fetch(reminder_period)
   end
+
+  def can_be_sent?
+    return false unless notification.can_mark_as_sent?
+
+    return false if %w[summon reminder cancelation reschedule].include?(role) && appointment.in_the_future?
+
+    return false if failure_count >= 5
+
+    true
+  end
 end
