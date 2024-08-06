@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe ManageNotificationProblems, type: :job do
   include ActiveJob::TestHelper
 
+  # Check high failure
+
   describe '#perform' do
     let(:past_slot) { create(:slot, date: next_valid_day(date: Time.zone.now + 1.day)) }
     let(:future_slot) { create(:slot, date: next_valid_day(date: Time.zone.now + 20.day)) }
@@ -44,11 +46,19 @@ RSpec.describe ManageNotificationProblems, type: :job do
       end
 
       let!(:stucked_notification1) do
-        create(:notification, appointment: appointment_for_past_slot, state: 'programmed', role: 'reminder')
+        create(:notification, appointment: appointment_for_past_slot, state: 'programmed', role: 'reminder', id: 100)
       end
 
       let!(:stucked_notification2) do
         create(:notification, appointment: appointment_for_past_slot, state: 'programmed', role: 'reminder')
+      end
+      let!(:failed_notification) do
+        create(:notification, appointment: appointment_for_future_slot, state: 'programmed', role: 'cancelation',
+                              failed_count: 5)
+      end
+      let!(:registered_failed_notification) do
+        create(:notification, appointment: appointment_for_future_slot, state: 'failed', role: 'cancelation',
+                              failed_count: 5)
       end
 
       it 'reschedules the correct notifications' do
@@ -65,6 +75,7 @@ RSpec.describe ManageNotificationProblems, type: :job do
         described_class.perform_now
         expect(stucked_notification1.reload.state).to eq('failed')
         expect(stucked_notification2.reload.state).to eq('failed')
+        expect(failed_notification.reload.state).to eq('failed')
         expect(notification_to_reschedule1.reload.state).to eq('programmed')
         expect(notification_to_reschedule2.reload.state).to eq('programmed')
         expect(notification_to_reschedule3.reload.state).to eq('sent')
@@ -79,7 +90,7 @@ RSpec.describe ManageNotificationProblems, type: :job do
         end.to have_enqueued_mail(AdminMailer, :notifications_problems)
           .with(match_array([notification_to_reschedule1.id, notification_to_reschedule2.id,
                              notification_to_reschedule3.id]),
-                match_array([stucked_notification1.id, stucked_notification2.id]))
+                match_array([stucked_notification1.id, stucked_notification2.id, failed_notification.id]))
       end
     end
 
