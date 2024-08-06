@@ -115,7 +115,7 @@ gem 'faker', '~> 3.4.2'
 # Use Redis for Action Cable
 gem 'redis', '~> 5.2.0'
 
-gem 'jsbundling-rails', '~> 1.3.0'
+gem 'jsbundling-rails', '~> 1.3.1'
 
 gem 'cssbundling-rails', '~> 1.4.0'
 
