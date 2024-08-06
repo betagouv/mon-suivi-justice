@@ -79,4 +79,61 @@ RSpec.describe Notification, type: :model do
     it { is_expected.to transition_from :created, to_state: :failed, on_event: :mark_as_failed }
     it { is_expected.to transition_from :programmed, to_state: :unsent, on_event: :mark_as_unsent }
   end
+
+  describe 'scopes' do
+    let!(:slot_future) { create(:slot, date: 1.day.from_now) }
+    let!(:slot_future2) { create(:slot, date: 3.months.from_now) }
+    let!(:slot_past) { create(:slot, date: 2.months.ago) }
+    let!(:slot_recent_past) { create(:slot, date: 2.weeks.ago) }
+    let!(:slot_recent_past2) { create(:slot, date: 1.day.ago) }
+
+    let!(:appointment_future) { build(:appointment, slot: slot_future) }
+    let!(:appointment_future2) { build(:appointment, slot: slot_future2) }
+    let!(:appointment_past) { build(:appointment, slot: slot_past) }
+    let!(:appointment_recent_past) { build(:appointment, slot: slot_recent_past) }
+    let!(:appointment_recent_past2) { build(:appointment, slot: slot_recent_past2) }
+
+    let!(:notification_future) { build(:notification, appointment: appointment_future) }
+    let!(:notification_future2) { build(:notification, appointment: appointment_future2) }
+    let!(:notification_past) { build(:notification, appointment: appointment_past) }
+    let!(:notification_recent_past) { build(:notification, appointment: appointment_recent_past) }
+    let!(:notification_recent_past2) { build(:notification, appointment: appointment_recent_past2) }
+
+    before do
+      [appointment_future, appointment_future2, appointment_past, appointment_recent_past,
+       appointment_recent_past2].each do |appointment|
+        appointment.save(validate: false)
+      end
+      [notification_future, notification_future2, notification_past, notification_recent_past,
+       notification_recent_past2].each do |notification|
+        notification.save(validate: false)
+      end
+    end
+
+    describe '.apointment_after_today' do
+      it 'returns notifications for appointments after today' do
+        expect(described_class.apointment_after_today).to match_array([notification_future, notification_future2])
+      end
+    end
+
+    describe '.appointment_more_than_1_month_ago' do
+      it 'returns notifications for appointments more than 1 month in the past' do
+        expect(described_class.appointment_more_than_1_month_ago).to match_array([notification_past])
+      end
+    end
+
+    describe '.appointment_in_the_past' do
+      it 'returns notifications for appointments in the past' do
+        expect(described_class.appointment_in_the_past).to match_array([notification_past, notification_recent_past,
+                                                                        notification_recent_past2])
+      end
+    end
+
+    describe '.appointment_recently_past' do
+      it 'returns notifications for appointments in the past month' do
+        expect(described_class.appointment_recently_past).to match_array([notification_recent_past,
+                                                                          notification_recent_past2])
+      end
+    end
+  end
 end

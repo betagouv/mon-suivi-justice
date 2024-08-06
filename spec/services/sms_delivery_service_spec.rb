@@ -32,7 +32,8 @@ RSpec.describe SmsDeliveryService do
 
       it 'calls LinkMobilityAdapter if notification is programmed and convict has a phone number' do
         expect(adapter).to receive(:send_sms).and_return(SmsApiResponse.new(success: true, external_id: 'some_id',
-                                                                            should_raise_error: nil))
+                                                                            code: nil, message: nil,
+                                                                            retry_if_failed: nil))
         service.send_sms
       end
 

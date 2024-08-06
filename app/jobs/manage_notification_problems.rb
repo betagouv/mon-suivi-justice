@@ -11,7 +11,12 @@ class ManageNotificationProblems < ApplicationJob
 
   def reschedule_unqueued_notifications
     notifications_to_reschedule.each do |notif|
-      notif.role == 'reminder' ? notif.program! : notif.program_now!
+      if notif.reminder?
+        SmsDeliveryJob.set(wait_until: notif.delivery_time)
+                      .perform_later(notif.id)
+      else
+        SmsDeliveryJob.perform_later(notif.id)
+      end
     end
   end
 
@@ -66,7 +71,7 @@ class ManageNotificationProblems < ApplicationJob
 
   def cancelation_notifications_to_be_send
     Notification.retryable
-                .appointment_in_more_than_4_hours
+                .apointment_after_today
                 .where(appointments: { state: 'canceled' })
                 .where(state: 'programmed', role: 'cancelation')
   end
@@ -80,7 +85,7 @@ class ManageNotificationProblems < ApplicationJob
 
   def other_notifications_to_be_send
     Notification.retryable
-                .appointment_in_more_than_4_hours
+                .apointment_after_today
                 .where(appointments: { state: 'booked' })
                 .where(state: 'programmed', role: %w[summon reminder reschedule])
   end

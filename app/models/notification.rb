@@ -18,9 +18,9 @@ class Notification < ApplicationRecord
 
   scope :all_sent, -> { where(state: %w[sent received failed]) }
 
-  scope :appointment_in_more_than_4_hours, lambda {
+  scope :apointment_after_today, lambda {
     joins(appointment: :slot)
-      .where('slots.date > ?', 4.hours.from_now)
+      .where('slots.date > ?', Time.zone.today)
   }
 
   scope :appointment_more_than_1_month_ago, lambda {
@@ -30,12 +30,12 @@ class Notification < ApplicationRecord
 
   scope :appointment_in_the_past, lambda {
     joins(appointment: :slot)
-      .where('slots.date < ?', Time.zone.now)
+      .where('slots.date < ?', Time.zone.today)
   }
 
   scope :appointment_recently_past, lambda {
     joins(appointment: :slot)
-      .where(slots: { date: 1.month.ago..Time.zone.now })
+      .where(slots: { date: 1.month.ago..Time.zone.yesterday })
   }
 
   scope :retryable, -> { where(failed_count: 0..4) }
@@ -130,9 +130,7 @@ class Notification < ApplicationRecord
   end
 
   def can_be_sent?
-    notification.can_mark_as_sent? &&
-      notification.role_conditions_valid? &&
-      failed_count < 5
+    can_mark_as_sent? && role_conditions_valid? && failed_count < 5
   end
 
   def role_conditions_valid?

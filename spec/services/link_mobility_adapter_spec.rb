@@ -31,7 +31,9 @@ RSpec.describe LinkMobilityAdapter do
       expect(result).to be_an_instance_of(SmsApiResponse)
       expect(result.success).to eq(true)
       expect(result.external_id).to eq('1')
-      expect(result.should_raise_error).to eq(true)
+      expect(result.code).to eq(0)
+      expect(result.message).to eq('Success')
+      expect(result.retry_if_failed).to eq(false)
     end
   end
 

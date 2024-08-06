@@ -35,7 +35,7 @@ class LinkMobilityAdapter
   def retry_if_failed?(response_code)
     # 16 = Could not route message
     # 100 = Invalid destination address
-    [100, 16].exclude?(response_code)
+    [0, 100, 16].exclude?(response_code)
   end
 
   def structured_response(response)

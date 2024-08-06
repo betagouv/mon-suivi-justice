@@ -6,7 +6,7 @@ class SmsDeliveryService
   end
 
   def send_sms
-    raise 'Notification state still created' if notification.created?
+    raise "Notification (id: #{notification.id}) state still created" if notification.created?
 
     unless sms_can_be_sent?
       notification.handle_unsent!
@@ -20,7 +20,7 @@ class SmsDeliveryService
 
   private
 
-  def sms_can_be_send?
+  def sms_can_be_sent?
     notification.convict.can_receive_sms? && notification.can_be_sent?
   end
 
