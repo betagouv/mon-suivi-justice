@@ -85,9 +85,22 @@ class UserPolicy < ApplicationPolicy
 
   def check_ownership
     return true if user.admin?
-    return record.organization == user.organization if user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
+    return same_organization? || can_switch_service? if user == record
+    return same_organization? if local_authority?
 
-    user == record
+    false
+  end
+
+  def local_authority?
+    user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
+  end
+
+  def same_organization?
+    record.organization == user.organization
+  end
+
+  def can_switch_service?
+    UserServiceSwitchPolicy.new(user, nil).create?
   end
 
   def allow_user_actions?
@@ -95,6 +108,12 @@ class UserPolicy < ApplicationPolicy
   end
 
   def authorized_role?
-    user.admin? || !record.admin? # Autorise tous les rôles sauf 'admin' pour les non-administrateurs
+    return true if user.admin?
+
+    if record.organization.spip?
+      record.work_at_spip?
+    else
+      record.work_at_tj?
+    end
   end
 end

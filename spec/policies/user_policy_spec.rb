@@ -4,6 +4,8 @@ describe UserPolicy do
   subject { UserPolicy.new(user, tested_user) }
 
   let(:tested_user) { build(:user, :in_organization) }
+  let(:tj) { build(:organization, organization_type: 'tj') }
+  let(:spip) { build(:organization, organization_type: 'spip') }
 
   context 'check_ownership' do
     context 'should be called by' do
@@ -42,14 +44,13 @@ describe UserPolicy do
       end
     end
     context 'for a dir_greff_bex' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'dir_greff_bex', organization:) }
+      let(:user) { build(:user, role: 'dir_greff_bex', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'does not own user outside organization' do
@@ -57,14 +58,13 @@ describe UserPolicy do
       end
     end
     context 'for a dir_greff_sap' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'dir_greff_sap', organization:) }
+      let(:user) { build(:user, role: 'dir_greff_sap', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'does not own user outside organization' do
@@ -72,14 +72,13 @@ describe UserPolicy do
       end
     end
     context 'for a greff_sap' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'greff_sap', organization:) }
+      let(:user) { build(:user, role: 'greff_sap', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -87,14 +86,13 @@ describe UserPolicy do
       end
     end
     context 'for a greff_co' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'greff_co', organization:) }
+      let(:user) { build(:user, role: 'greff_co', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -102,14 +100,13 @@ describe UserPolicy do
       end
     end
     context 'for a greff_ca' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'greff_ca', organization:) }
+      let(:user) { build(:user, role: 'greff_ca', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -117,14 +114,13 @@ describe UserPolicy do
       end
     end
     context 'for a greff_crpc' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'greff_crpc', organization:) }
+      let(:user) { build(:user, role: 'greff_crpc', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -132,14 +128,13 @@ describe UserPolicy do
       end
     end
     context 'for a greff_tpe' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'greff_tpe', organization:) }
+      let(:user) { build(:user, role: 'greff_tpe', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -147,14 +142,13 @@ describe UserPolicy do
       end
     end
     context 'for a prosecutor' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'prosecutor', organization:) }
+      let(:user) { build(:user, role: 'prosecutor', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -162,14 +156,13 @@ describe UserPolicy do
       end
     end
     context 'for a jap' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'jap', organization:) }
+      let(:user) { build(:user, role: 'jap', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -177,14 +170,13 @@ describe UserPolicy do
       end
     end
     context 'for a secretary_court' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'secretary_court', organization:) }
+      let(:user) { build(:user, role: 'secretary_court', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -192,14 +184,13 @@ describe UserPolicy do
       end
     end
     context 'for a bex' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'bex', organization:) }
+      let(:user) { build(:user, role: 'bex', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -207,14 +198,13 @@ describe UserPolicy do
       end
     end
     context 'for an admin' do
-      let(:organization) { build(:organization, organization_type: 'tj') }
-      let(:user) { build(:user, role: 'admin', organization:) }
+      let(:user) { build(:user, role: 'admin', organization: tj) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'greff_sap', organization:) }
+        let(:tested_user) { build(:user, role: 'greff_sap', organization: tj) }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'does not own user outside organization' do
@@ -223,14 +213,13 @@ describe UserPolicy do
     end
 
     context 'for a cpip' do
-      let(:organization) { build(:organization, organization_type: 'spip') }
-      let(:user) { build(:user, role: 'cpip', organization:) }
+      let(:user) { build(:user, role: 'cpip', organization: spip) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        let(:tested_user) { build(:user, role: 'educator', organization: spip) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -238,14 +227,13 @@ describe UserPolicy do
       end
     end
     context 'for a dpip' do
-      let(:organization) { build(:organization, organization_type: 'spip') }
-      let(:user) { build(:user, role: 'dpip', organization:) }
+      let(:user) { build(:user, role: 'dpip', organization: spip) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        let(:tested_user) { build(:user, role: 'educator', organization: spip) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -253,14 +241,13 @@ describe UserPolicy do
       end
     end
     context 'for an educator' do
-      let(:organization) { build(:organization, organization_type: 'spip') }
-      let(:user) { build(:user, role: 'educator', organization:) }
+      let(:user) { build(:user, role: 'educator', organization: spip) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        let(:tested_user) { build(:user, role: 'educator', organization: spip) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -268,14 +255,13 @@ describe UserPolicy do
       end
     end
     context 'for a psychologist' do
-      let(:organization) { build(:organization, organization_type: 'spip') }
-      let(:user) { build(:user, role: 'psychologist', organization:) }
+      let(:user) { build(:user, role: 'psychologist', organization: spip) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        let(:tested_user) { build(:user, role: 'educator', organization: spip) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -283,14 +269,13 @@ describe UserPolicy do
       end
     end
     context 'for an overseer' do
-      let(:organization) { build(:organization, organization_type: 'spip') }
-      let(:user) { build(:user, role: 'overseer', organization:) }
+      let(:user) { build(:user, role: 'overseer', organization: spip) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        let(:tested_user) { build(:user, role: 'educator', organization: spip) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -298,14 +283,13 @@ describe UserPolicy do
       end
     end
     context 'for a secretary_spip' do
-      let(:organization) { build(:organization, organization_type: 'spip') }
-      let(:user) { build(:user, role: 'secretary_spip', organization:) }
+      let(:user) { build(:user, role: 'secretary_spip', organization: spip) }
       context 'own self' do
         let(:tested_user) { user }
         it { expect(subject.send(:check_ownership)).to eq(true) }
       end
       context 'own user in organization' do
-        let(:tested_user) { build(:user, role: 'educator', organization:) }
+        let(:tested_user) { build(:user, role: 'educator', organization: spip) }
         it { expect(subject.send(:check_ownership)).to eq(false) }
       end
       context 'does not own user outside organization' do
@@ -342,8 +326,6 @@ describe UserPolicy do
     it { is_expected.to permit_action(:mutate) }
 
     context 'for a user in another organization type' do
-      let(:tj) { build(:organization, organization_type: 'tj') }
-      let(:spip) { build(:organization, organization_type: 'spip') }
       let(:organization) { tj }
       let(:tested_user) { build(:user, organization: spip) }
 
@@ -365,8 +347,6 @@ describe UserPolicy do
     it { is_expected.to permit_action(:mutate) }
 
     context 'for a user in another organization type' do
-      let(:tj) { build(:organization, organization_type: 'tj') }
-      let(:spip) { build(:organization, organization_type: 'spip') }
       let(:organization) { tj }
       let(:tested_user) { build(:user, organization: spip) }
 
@@ -375,7 +355,7 @@ describe UserPolicy do
   end
 
   context 'for a prosecutor' do
-    let(:user) { build(:user, role: 'prosecutor') }
+    let(:user) { build(:user, organization: tj, role: 'prosecutor') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
@@ -389,7 +369,7 @@ describe UserPolicy do
   end
 
   context 'for a jap user' do
-    let(:user) { build(:user, role: 'jap') }
+    let(:user) { build(:user, organization: tj, role: 'jap') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
@@ -403,7 +383,7 @@ describe UserPolicy do
   end
 
   context 'for a court secretary' do
-    let(:user) { build(:user, role: 'secretary_court') }
+    let(:user) { build(:user, organization: tj, role: 'secretary_court') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
@@ -419,7 +399,7 @@ describe UserPolicy do
   context 'for a dir_greff_bex user' do
     let(:organization) { build(:organization, organization_type: 'tj') }
     let(:user) { build(:user, role: 'dir_greff_bex', organization:) }
-    let(:tested_user) { build(:user, organization:) }
+    let(:tested_user) { build(:user, role: 'jap', organization:) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -432,7 +412,7 @@ describe UserPolicy do
   end
 
   context 'for a bex user' do
-    let(:user) { build(:user, role: 'bex') }
+    let(:user) { build(:user, organization: tj, role: 'bex') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
@@ -446,7 +426,7 @@ describe UserPolicy do
   end
 
   context 'for a greff_co user' do
-    let(:user) { build(:user, role: 'greff_co') }
+    let(:user) { build(:user, organization: tj, role: 'greff_co') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
@@ -462,7 +442,7 @@ describe UserPolicy do
   context 'for a dir_greff_sap user' do
     let(:organization) { build(:organization, organization_type: 'tj') }
     let(:user) { build(:user, role: 'dir_greff_sap', organization:) }
-    let(:tested_user) { build(:user, organization:) }
+    let(:tested_user) { build(:user, role: 'jap', organization:) }
 
     it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:index) }
@@ -475,7 +455,7 @@ describe UserPolicy do
   end
 
   context 'for a greff_sap user' do
-    let(:user) { build(:user, role: 'greff_sap') }
+    let(:user) { build(:user, organization: tj, role: 'greff_sap') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
@@ -489,7 +469,7 @@ describe UserPolicy do
   end
 
   context 'for a cpip user' do
-    let(:user) { build(:user, role: 'cpip') }
+    let(:user) { build(:user, organization: spip, role: 'cpip') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
@@ -503,7 +483,7 @@ describe UserPolicy do
   end
 
   context 'for a educator user' do
-    let(:user) { build(:user, role: 'educator') }
+    let(:user) { build(:user, organization: spip, role: 'educator') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
@@ -517,7 +497,7 @@ describe UserPolicy do
   end
 
   context 'for a psychologist user' do
-    let(:user) { build(:user, role: 'psychologist') }
+    let(:user) { build(:user, organization: spip, role: 'psychologist') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
@@ -531,7 +511,7 @@ describe UserPolicy do
   end
 
   context 'for a overseer user' do
-    let(:user) { build(:user, role: 'overseer') }
+    let(:user) { build(:user, organization: spip, role: 'overseer') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
@@ -545,7 +525,7 @@ describe UserPolicy do
   end
 
   context 'for a dpip user' do
-    let(:user) { build(:user, role: 'dpip') }
+    let(:user) { build(:user, organization: spip, role: 'dpip') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }
@@ -559,7 +539,7 @@ describe UserPolicy do
   end
 
   context 'for a secretary_spip user' do
-    let(:user) { build(:user, role: 'secretary_spip') }
+    let(:user) { build(:user, organization: spip, role: 'secretary_spip') }
     let(:tested_user) { user }
 
     it { is_expected.to permit_action(:show) }

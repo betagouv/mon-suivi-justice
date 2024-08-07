@@ -93,6 +93,10 @@ class User < ApplicationRecord
     SAP_ROLES.include? role
   end
 
+  def work_at_tj?
+    work_at_bex? || work_at_sap?
+  end
+
   def work_at_spip?
     SPIP_ROLES.include?(role) || local_admin_spip?
   end

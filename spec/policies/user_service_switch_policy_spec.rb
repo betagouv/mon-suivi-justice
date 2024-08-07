@@ -15,7 +15,7 @@ describe UserServiceSwitchPolicy do
 
   context 'for an admin' do
     let(:user) { build(:user, organization:, role: 'admin') }
-    it { is_expected.to forbid_action(:create) }
+    it { is_expected.to permit_action(:create) }
   end
 
   context 'for a bex' do

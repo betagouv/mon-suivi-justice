@@ -48,7 +48,7 @@ module OrganizationHelper
   def selectable_organizations_for_update
     return Organization.all.order(:name) if current_user.admin?
 
-    @user.headquarter&.organizations
+    current_user.headquarter&.organizations
   end
 
   def switch_organization_submit_text(user)
