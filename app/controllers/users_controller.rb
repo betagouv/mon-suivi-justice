@@ -19,9 +19,11 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    @user.assign_attributes(user_params)
+
     authorize @user
 
-    if @user.update(user_params)
+    if @user.save
       remove_linked_convicts(@user)
       redirect_to_correct_path_for_update
     else
@@ -102,9 +104,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :first_name, :last_name, :email, :organization_id,
+      :first_name, :last_name, :email, :organization_id, :role,
       :password, :password_confirmation, :phone, :share_email_to_convict, :share_phone_to_convict
-    ).merge(user_role_params)
+    )
   end
 
   def user_role_params

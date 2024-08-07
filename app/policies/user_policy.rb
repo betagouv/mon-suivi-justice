@@ -18,7 +18,7 @@ class UserPolicy < ApplicationPolicy
   def update?
     return false unless user.security_charter_accepted?
 
-    check_ownership
+    check_ownership && authorized_role?
   end
 
   def show?
@@ -36,7 +36,7 @@ class UserPolicy < ApplicationPolicy
   def create?
     return false unless user.security_charter_accepted?
 
-    check_ownership && allow_user_actions?
+    check_ownership && allow_user_actions? && authorized_role?
   end
 
   def destroy?
@@ -92,5 +92,11 @@ class UserPolicy < ApplicationPolicy
 
   def allow_user_actions?
     user.admin? || user.local_admin? || user.dir_greff_bex? || user.dir_greff_sap?
+  end
+
+  def authorized_role?
+    return true if user.admin?
+
+    record.role != 'admin' # Autorise tous les rôles sauf 'admin' pour les non-administrateurs
   end
 end
