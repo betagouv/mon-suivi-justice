@@ -109,14 +109,6 @@ class UsersController < ApplicationController
     )
   end
 
-  def user_role_params
-    user_role = params.dig(:user, :role)
-    return {} unless user_role.present? && user_role != 'admin'
-    return {} unless current_user.admin? || current_user.local_admin?
-
-    { role: user_role }
-  end
-
   def remove_linked_convicts(user, mutation: false)
     return if %w[cpip dpip].include?(user.role) && !mutation
 
