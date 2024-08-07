@@ -95,8 +95,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def authorized_role?
-    return true if user.admin?
-
-    !record.admin? # Autorise tous les rôles sauf 'admin' pour les non-administrateurs
+    user.admin? || !record.admin? # Autorise tous les rôles sauf 'admin' pour les non-administrateurs
   end
 end
