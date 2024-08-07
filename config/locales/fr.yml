@@ -592,7 +592,9 @@ fr:
       fill_out_appointments_cpip: Attention, le statut de plusieurs convocations que
         vous avez effectuées n'a pas été renseigné.
     sap_ddse: SAP DDSE
-    select_organization: Changer d'antenne
+    select_organization:
+      admin: Changer de service
+      default: Changer d'antenne
     stats_global: Statistiques générales
     welcome_text: 'Pour convoquer un ou une probationnaire, veuillez saisir les premières
       lettres de son nom ou prénom ou les premiers chiffres de son numéro de téléphone

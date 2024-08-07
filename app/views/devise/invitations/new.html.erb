@@ -1,25 +1,25 @@
 <div class="fr-grid-row fr-grid-row--center fr-mb-5w">
   <div class="fr-col-10 fr-col-md-8 fr-col-lg-6">
     <h1><%= t('new_user_title') %></h1>
-      <%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, class: '' }) do |f| %>
-        <%= f.error_notification %>
-        <%= f.input :first_name, required: true %>
-        <%= f.input :last_name, required: true %>
-        <%= f.input :role, collection: available_user_roles,
+    <%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, class: '' }) do |f| %>
+      <%= f.error_notification %>
+      <%= f.input :first_name, required: true %>
+      <%= f.input :last_name, required: true %>
+      <%= f.input :role, collection: available_user_roles,
                       label_method: lambda {|k| t("activerecord.attributes.user.user_roles.#{k}")},
                       input_html: { class: 'form-select' } %>
-        <%= f.input :email, required: true %>
-        <%= f.input :phone %>
-        <%= f.association :organization, include_blank: false,
+      <%= f.input :email, required: true %>
+      <%= f.input :phone %>
+      <%= f.association :organization, include_blank: false,
                                     label: t('activerecord.attributes.user.organization'),
                                     input_html: { class: 'form-select' },
                                     disabled: !current_user.admin?,
-                                    collection: current_user.admin? ? Organization.all.order(:name) : [current_organization],
+                                    collection: orga_for_user,
                                     selected: current_organization.id %>
-        <% if !current_user.admin? %>
-          <%= f.hidden_field :organization_id, value: current_organization.id %>
-        <% end %>
-        <%= f.button :submit, t('send_invitation'), class: 'fr-btn' %>
+      <% if !current_user.admin? %>
+        <%= f.hidden_field :organization_id, value: current_organization.id %>
       <% end %>
+      <%= f.button :submit, t('send_invitation'), class: 'fr-btn' %>
+    <% end %>
   </div>
 </div>

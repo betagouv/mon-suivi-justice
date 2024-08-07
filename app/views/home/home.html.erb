@@ -38,12 +38,12 @@
       <% if UserServiceSwitchPolicy.new(current_user, nil).create? %>
         <%= simple_form_for current_user, html: { class: 'basic-form' } do |f| %>
           <div class="select-organization-container">
-            <%= f.association :organization, collection: current_user.headquarter.organizations,
+            <%= f.association :organization, collection: selectable_organizations_for_update,
                                             wrapper_html: { class: 'select-organization-wrapper' },
                                             input_html: { class: 'form-input select-organization-input' },
                                             label_html: { class: "select-organization-label" }, include_blank: false %>
             <%= f.hidden_field :redirect_to_home, value: true %>
-            <%= f.button :submit, t('home.select_organization'), class: 'fr-btn fr-btn--secondary' %>
+            <%= f.button :submit, switch_organization_submit_text(current_user), class: 'fr-btn fr-btn--secondary' %>
           </div>
         <% end %>
       <% end %>
