@@ -20,7 +20,7 @@
             <%= f.input :last_name %>
             <%= f.input :email, required: true %>
             <%= f.input :phone %>
-            <% if UserServiceSwitchPolicy.new(@user, nil).create? %>
+            <% if UserServiceSwitchPolicy.new(current_user, @user).create? %>
               <%= f.association :organization, collection: selectable_organizations_for_update, include_blank: false,
                                               input_html: { class: 'form-select' } %>
             <% end %>

@@ -59,6 +59,7 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
   validates :share_email_to_convict, inclusion: { in: [true, false] }
   validates :share_phone_to_convict, inclusion: { in: [true, false] }
+  validate :correct_role_for_organization
 
   before_validation :set_default_role
 
@@ -94,7 +95,7 @@ class User < ApplicationRecord
   end
 
   def work_at_tj?
-    work_at_bex? || work_at_sap?
+    work_at_bex? || work_at_sap? || local_admin_tj?
   end
 
   def work_at_spip?
@@ -181,5 +182,15 @@ class User < ApplicationRecord
 
   def belongs_to_convict_organizations?(convict)
     convict.organizations.include?(organization)
+  end
+
+  def correct_role_for_organization
+    return if admin? || role_matches_organization?
+
+    errors.add(:role, I18n.t('activerecord.errors.models.user.attributes.role.correct_for_organization'))
+  end
+
+  def role_matches_organization?
+    (organization&.spip? && work_at_spip?) || (organization&.tj? && work_at_tj?)
   end
 end

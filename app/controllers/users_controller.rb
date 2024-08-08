@@ -135,9 +135,9 @@ class UsersController < ApplicationController
     if params.dig(:user, :redirect_to_home)
       redirect_to home_path, notice: t('.organization_updated')
     elsif @user != current_user
-      redirect_to users_path, notice: t('.organization_updated')
+      redirect_to users_path, notice: t('.user_updated')
     else
-      redirect_to user_path(params[:id]), notice: t('.organization_updated')
+      redirect_to user_path(params[:id]), notice: t('.user_updated')
     end
   end
 end

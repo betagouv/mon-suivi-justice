@@ -35,7 +35,7 @@
   </div>
   <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
     <div class="fr-col-6">
-      <% if UserServiceSwitchPolicy.new(current_user, nil).create? %>
+      <% if UserServiceSwitchPolicy.new(current_user, current_user).create? %>
         <%= simple_form_for current_user, html: { class: 'basic-form' } do |f| %>
           <div class="select-organization-container">
             <%= f.association :organization, collection: selectable_organizations_for_update,

@@ -2,12 +2,10 @@ module UsersHelper
   def available_user_roles
     if current_user.admin?
       User::ORDERED_ROLES
-    elsif current_user.local_admin_tj?
+    elsif current_user.work_at_tj?
       [:local_admin] + User::ORDERED_TJ_ROLES
-    elsif current_user.local_admin_spip?
+    elsif current_user.work_at_spip?
       [:local_admin] + User::ORDERED_SPIP_ROLES
-    else
-      []
     end
   end
 

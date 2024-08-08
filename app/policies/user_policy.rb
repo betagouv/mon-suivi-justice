@@ -100,7 +100,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def can_switch_service?
-    UserServiceSwitchPolicy.new(user, nil).create?
+    UserServiceSwitchPolicy.new(user, record).create?
   end
 
   def allow_user_actions?
@@ -108,12 +108,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def authorized_role?
-    return true if user.admin?
-
-    if record.organization.spip?
-      record.work_at_spip?
-    else
-      record.work_at_tj?
-    end
+    user.admin? || record.role != 'admin' # Autorise tous les rôles sauf 'admin' pour les non-administrateurs
   end
 end
