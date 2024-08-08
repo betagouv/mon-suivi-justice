@@ -39,12 +39,24 @@
   </td>
   <td>
     <% if policy(appointment).show? %>
-      <%= link_to "Voir", appointment_path(appointment), class: 'index-control' %>
+      <%= link_to "Voir", appointment_path(appointment), class: 'index-control fr-text--bold' %>
     <% end %>
-    <% if policy(appointment).cancel? && appointment.slot.date.after?(DateTime.current) %>
-      <%= link_to t('cancel'), appointment_cancel_path(appointment),
-                                    class: 'index-control appointments-link__cancel',
-                                    data: { 'turbo-confirm': t('cancel_appointment_warning'), "turbo_method": :put } %>
+    <% if policy(appointment).cancel? %>
+      <% if appointment.convict&.can_receive_sms? %>
+        <button class="index-control fake-link" data-fr-opened="false" aria-controls="<%= "fr-modal-cancel-apt-#{appointment.id}" %>">
+          <%= t('cancel') %>
+        </button>
+        <%= render 'cancel_appointment_modal', appointment: appointment %>
+      <% else %>
+        <%= link_to t('cancel'), appointment_cancel_path(appointment),
+                      class: 'index-control',
+                      data: { 'turbo-confirm': t('cancel_appointment_warning'), "turbo_method": :put } %>
+      <% end %>
+    <% end %>
+    <% if appointment.in_the_future? && policy(appointment).excuse? %>
+      <%= link_to t('.excuse'), appointment_excuse_path(appointment),
+                                                                  data: {'turbo_method': :put},
+                                                                  class: 'index-control' %>
     <% end %>
   </td>
 </tr>

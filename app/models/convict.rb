@@ -94,24 +94,26 @@ class Convict < ApplicationRecord
   end
 
   def future_appointments
-    appointments.joins(:slot)
-                .select('appointments.*, slots.date')
-                .where(state: 'booked')
-                .where('slots.date': Date.today..)
-                .order('slots.date')
+    future_appointments_with_states(['booked'])
+  end
+
+  def future_appointments_and_excused
+    @future_appointments_and_excused ||= future_appointments_with_states(%w[booked excused])
+  end
+
+  def booked_appointments
+    appointments.joins(:slot).with_state(:booked)
   end
 
   def passed_appointments
-    appointments.joins(:slot)
-                .where(state: 'booked')
-                .where('slots.date < ?', Date.today).or(passed_today_appointments)
+    booked_appointments
+      .where('slots.date < ?', Date.today).or(passed_today_appointments)
   end
 
   def passed_today_appointments
-    appointments.joins(:slot)
-                .where(state: 'booked')
-                .where('slots.date = ?', Date.today)
-                .where('starting_time <= ?', Time.now.strftime('%H:%M'))
+    booked_appointments
+      .where('slots.date = ?', Date.today)
+      .where('starting_time <= ?', Time.now.strftime('%H:%M'))
   end
 
   def mobile_phone_number
@@ -316,5 +318,13 @@ class Convict < ApplicationRecord
 
     last_appointment_date = appointments.joins(:slot).maximum('slots.date')
     last_appointment_date.present? && last_appointment_date < nb_months.months.ago
+  end
+
+  def future_appointments_with_states(states)
+    appointments.joins(:slot)
+                .select('appointments.*, slots.date')
+                .where(state: states)
+                .where('slots.date': Date.today..)
+                .order('slots.date')
   end
 end

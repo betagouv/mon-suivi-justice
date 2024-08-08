@@ -77,7 +77,8 @@ class AppointmentsController < ApplicationController
   def cancel
     @appointment = Appointment.find(params[:appointment_id])
     authorize @appointment
-    @appointment.cancel send_notification: true
+    send_sms = ActiveModel::Type::Boolean.new.cast params[:send_sms]
+    @appointment.cancel send_notification: send_sms.nil? || send_sms
 
     redirect_back(fallback_location: root_path)
   end

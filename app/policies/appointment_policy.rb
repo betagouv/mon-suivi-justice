@@ -99,27 +99,36 @@ class AppointmentPolicy < ApplicationPolicy
   def cancel?
     return false unless user.security_charter_accepted?
     return false unless record.booked?
-    return false unless record.slot.date > Time.zone.yesterday
+    return false unless record.slot.datetime.after?(Time.zone.now)
 
     ownership_check && hability_check
   end
 
   def fulfil?
     return false unless user.security_charter_accepted?
+    return false unless record.in_the_past?
+    return false unless record.booked?
 
     ownership_check && appointment_fulfilment
   end
 
   def miss?
     return false unless user.security_charter_accepted?
+    return false unless record.in_the_past?
+    return false unless record.booked?
 
     ownership_check && appointment_fulfilment
   end
 
   def excuse?
     return false unless user.security_charter_accepted?
+    return false unless record.booked?
 
     ownership_check && appointment_fulfilment
+  end
+
+  def change_state?
+    fulfil? || miss? || excuse?
   end
 
   def rebook?

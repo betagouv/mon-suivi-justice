@@ -348,6 +348,18 @@ fr:
     waiting_line:
       for_a_service: Convocation au statut inconnu au %{orga}
       for_a_user: Vos convocations au statut inconnu
+    cancel_appointment_modal:
+      title: Annuler la convocation
+      description: Vous vous appretez à annuler la convocation et le SMS de rappel prévu.
+        Vous pouvez choisir de prévenir par sms le probationnaire ou non.
+        Êtes-vous sûr.e ?
+      warn_convict: Annuler et prévenir le probationnaire
+      do_not_warn_convict: Annuler sans prévenir le probationnaire
+  appointments_reschedules:
+    new:
+      notification_preferences: Préférences de notification SMS
+      warn_convict: Prévenir immédiatement par SMS de la replanification et envoyer un rappel avant la convocation.
+      do_not_warn_convict: Envoyer uniquement un rappel par SMS avant la convocation
   archive: Archiver
   archive_convict_confirmation: Ce probationnaire restera accessible pendant 6 mois
     avant d'être définitivement supprimée.
@@ -366,8 +378,7 @@ fr:
       appointments_title: Convocations SPIP pour
       no_agenda_available: Pas de convocation Sortie d'audience SPIP prévue
   cancel: Annuler
-  cancel_appointment_warning: En annulant la convocation, vous envoyez un SMS d'annulation
-    au probationnaire (si le probationnaire a un numéro de téléphone), et vous annulez
+  cancel_appointment_warning: En annulant la convocation, vous annulez
     le SMS de rappel prévu. Êtes-vous sûr.e ?
   close: Fermer
   contact: Contacter l'équipe
@@ -748,6 +759,8 @@ fr:
   self_assign_link: S'attribuer ce probationnaire
   send_invitation: Envoyer invitation
   shared:
+    appointment_card:
+      excuse: Excuser
     convict_row:
       ongoing_divestment: Dessaisissement en cours
     environment_alert:
@@ -756,10 +769,12 @@ fr:
   show-convict-fulfilment-excused: Excusé(e)
   show-convict-fulfilment-prompt: Est-ce-que %{name} s'est présenté(e) au %{place}
     le %{date} à %{time} ?
+  show-convict-excuse-prompt: Si %{name} a d'ors et déjà excusé son absence pour sa convocation du %{date} à %{time} au %{place}, vous pouvez l'indiquer ci-dessous.
   show-convict-fulfilment-send-sms: Voulez-vous envoyer un SMS au probationnaire ?
   show-convict-fulfilment-sms-content: 'Texte du SMS :'
-  show-convict-next-appointments-title1: Prochaine convocation
-  show-convict-next-appointments-title2: Prochaines convocations
+  show-convict-next-appointments-title:
+    one: "Prochaine convocation"
+    other: "Prochaines convocations"
   show_appointment_title: Infos convocation
   show_convict: Profil
   show_convict_archived: Archivé
