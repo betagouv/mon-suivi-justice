@@ -7,7 +7,7 @@ class InvitationsController < Devise::InvitationsController
   end
 
   # Overriding devise's create action so that admins can move users to other organizations
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @user = User.new(invite_params)
     authorize @user, policy_class: UserPolicy
 

@@ -85,7 +85,9 @@ class UserPolicy < ApplicationPolicy
 
   def check_ownership
     return true if user.admin?
+
     return same_organization? || can_switch_service? if user == record
+
     return same_organization? if local_authority?
 
     false
@@ -108,6 +110,10 @@ class UserPolicy < ApplicationPolicy
   end
 
   def authorized_role?
-    user.admin? || record.role != 'admin' # Autorise tous les rôles sauf 'admin' pour les non-administrateurs
+    # Autorise tous les rôles sauf les rôles admin pour les non-administrateurs
+    return true if user.admin?
+    return false if record.admin?
+
+    user.local_admin? || !%w[admin local_admin].include?(record.role)
   end
 end

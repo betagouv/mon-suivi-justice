@@ -13,6 +13,8 @@ class UserServiceSwitchPolicy < ApplicationPolicy
   end
 
   def user_in_same_headquarter?
-    user.headquarter&.organizations&.include?(record.organization)
+    return false unless user.headquarter.present?
+
+    user.headquarter.organizations.include?(record.organization)
   end
 end

@@ -59,7 +59,7 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
   validates :share_email_to_convict, inclusion: { in: [true, false] }
   validates :share_phone_to_convict, inclusion: { in: [true, false] }
-  validate :correct_role_for_organization
+  validate :correct_role_for_organization_type
 
   before_validation :set_default_role
 
@@ -184,7 +184,7 @@ class User < ApplicationRecord
     convict.organizations.include?(organization)
   end
 
-  def correct_role_for_organization
+  def correct_role_for_organization_type
     return if admin? || role_matches_organization?
 
     errors.add(:role, I18n.t('activerecord.errors.models.user.attributes.role.correct_for_organization'))
