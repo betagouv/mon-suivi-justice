@@ -103,8 +103,8 @@ describe OrganizationDivestmentPolicy do
     context('user is secretary_spip') do
       let(:user_from) { create(:user, :in_organization, type: :tj, role: :secretary_spip) }
 
-      it { is_expected.to forbid_action(:edit) }
-      it { is_expected.to forbid_action(:update) }
+      it { is_expected.to permit_action(:edit) }
+      it { is_expected.to permit_action(:update) }
     end
 
     context('user is bex') do
