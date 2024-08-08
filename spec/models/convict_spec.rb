@@ -278,14 +278,14 @@ RSpec.describe Convict, type: :model do
       expect(build(:convict, city: nil, homeless: false, lives_abroad: false)).to be_valid
     end
     it('is valid when the user is using inter-ressort but is not bex') do
-      organization = create(:organization, use_inter_ressort: true)
+      organization = create(:organization, organization_type: 'tj', use_inter_ressort: true)
       current_user = create(:user, organization:, role: 'greff_sap')
       convict = build(:convict, city: nil, homeless: false, lives_abroad: false, creating_organization: organization,
                                 current_user:)
       expect(convict).to be_valid
     end
     context 'when the user is using inter-ressort' do
-      let(:organization) { create(:organization, use_inter_ressort: true) }
+      let(:organization) { create(:organization, organization_type: 'tj', use_inter_ressort: true) }
       let(:current_user) { create(:user, organization:, role: 'bex') }
       it('is invalid when has no city, dont live abroad and is not homeless') do
         convict = build(:convict, city: nil, homeless: false, lives_abroad: false, creating_organization: organization,
@@ -451,7 +451,7 @@ RSpec.describe Convict, type: :model do
   end
 
   describe '#update_organizations_for_bex_user' do
-    let(:bex_user) { create(:user, :in_organization, role: 'bex') }
+    let(:bex_user) { create(:user, :in_organization, type: :tj, role: 'bex') }
     let(:convict) { create(:convict) }
 
     context 'when the convict is not valid' do
