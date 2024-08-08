@@ -21,51 +21,60 @@ describe UserPolicy do
         subject.create?
       end
     end
-    context 'when user is admin' do
-      let(:user) { build(:user, role: 'admin') }
+    describe 'only allow to manage correct roles' do
+      context 'when user is admin and record too' do
+        let(:user) { build(:user, role: 'admin') }
+        let(:tested_user) { build(:user, role: 'admin') }
 
-      it 'returns true for any record' do
-        expect(described_class.new(user, build(:user, role: 'admin')).send(:authorized_role?)).to be true
-        expect(described_class.new(user, build(:user, role: 'local_admin')).send(:authorized_role?)).to be true
-        expect(described_class.new(user, build(:user, role: 'cpip')).send(:authorized_role?)).to be true
+        it { expect(subject.send(:authorized_role?)).to eq(true) }
       end
-    end
+      context 'when user is admin and record local_admin' do
+        let(:user) { build(:user, role: 'admin') }
+        let(:tested_user) { build(:user, role: 'local_admin') }
 
-    context 'when user is local_admin' do
-      let(:user) { build(:user, role: 'local_admin') }
-
-      it 'returns false when record is admin' do
-        policy = described_class.new(user, build(:user, role: 'admin'))
-        expect(policy.send(:authorized_role?)).to be false
+        it { expect(subject.send(:authorized_role?)).to eq(true) }
       end
+      context 'when user is admin and record regular user' do
+        let(:user) { build(:user, role: 'admin') }
+        let(:tested_user) { build(:user, role: 'cpip') }
 
-      it 'returns true when record is local_admin' do
-        policy = described_class.new(user, build(:user, role: 'local_admin'))
-        expect(policy.send(:authorized_role?)).to be true
+        it { expect(subject.send(:authorized_role?)).to eq(true) }
       end
+      context 'when user is local_admin and record admin' do
+        let(:user) { build(:user, role: 'local_admin') }
+        let(:tested_user) { build(:user, role: 'admin') }
 
-      it 'returns true when record is regular user' do
-        policy = described_class.new(user, build(:user, role: 'cpip'))
-        expect(policy.send(:authorized_role?)).to be true
+        it { expect(subject.send(:authorized_role?)).to eq(false) }
       end
-    end
+      context 'when user is local_admin and record too' do
+        let(:user) { build(:user, role: 'local_admin') }
+        let(:tested_user) { build(:user, role: 'local_admin') }
 
-    context 'when user is regular user' do
-      let(:user) { build(:user, role: 'cpip') }
-
-      it 'returns false when record is admin' do
-        policy = described_class.new(user, build(:user, role: 'admin'))
-        expect(policy.send(:authorized_role?)).to be false
+        it { expect(subject.send(:authorized_role?)).to eq(true) }
       end
+      context 'when user is local_admin and record regular user' do
+        let(:user) { build(:user, role: 'local_admin') }
+        let(:tested_user) { build(:user, role: 'cpip') }
 
-      it 'returns false when record is local_admin' do
-        policy = described_class.new(user, build(:user, role: 'local_admin'))
-        expect(policy.send(:authorized_role?)).to be false
+        it { expect(subject.send(:authorized_role?)).to eq(true) }
       end
+      context 'when user is regular user and record admin' do
+        let(:user) { build(:user, role: 'cpip') }
+        let(:tested_user) { build(:user, role: 'admin') }
 
-      it 'returns true when record is regular user' do
-        policy = described_class.new(user, build(:user, role: 'cpip'))
-        expect(policy.send(:authorized_role?)).to be true
+        it { expect(subject.send(:authorized_role?)).to eq(false) }
+      end
+      context 'when user is regular user and record local_admin' do
+        let(:user) { build(:user, role: 'cpip') }
+        let(:tested_user) { build(:user, role: 'local_admin') }
+
+        it { expect(subject.send(:authorized_role?)).to eq(false) }
+      end
+      context 'when user is regular user and record too' do
+        let(:user) { build(:user, role: 'cpip') }
+        let(:tested_user) { build(:user, role: 'cpip') }
+
+        it { expect(subject.send(:authorized_role?)).to eq(true) }
       end
     end
   end
