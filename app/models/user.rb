@@ -103,11 +103,11 @@ class User < ApplicationRecord
   end
 
   def local_admin_spip?
-    local_admin? && organization.organization_type == 'spip'
+    local_admin? && organization.spip?
   end
 
   def local_admin_tj?
-    local_admin? && organization.organization_type == 'tj'
+    local_admin? && organization.tj?
   end
 
   def profile_path
@@ -169,7 +169,7 @@ class User < ApplicationRecord
   private
 
   def set_default_role
-    self.role ||= organization.organization_type == 'tj' ? 'greff_sap' : 'cpip'
+    self.role ||= organization.tj? ? 'greff_sap' : 'cpip'
   end
 
   def trigger_brevo_update_job

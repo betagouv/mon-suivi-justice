@@ -12,7 +12,8 @@ class InvitationsController < Devise::InvitationsController
     authorize @user, policy_class: UserPolicy
 
     existing_user = User.find_by(email: @user.email)
-    if existing_user && existing_user.organization != current_user.organization
+    if existing_user && existing_user.organization != current_user.organization &&
+       existing_user.organization.organization_type == current_user.organization.organization_type
 
       custom_link = mutation_link(existing_user)
       error_message = "est déjà pris par un agent d'un autre service. #{custom_link}".html_safe
