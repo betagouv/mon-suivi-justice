@@ -175,7 +175,7 @@ class Convict < ApplicationRecord
     source = city&.organizations&.any? ? city : current_user
 
     source.organizations.each do |organization|
-      ignore_japat = organization.organization_type == 'tj' && japat
+      ignore_japat = organization.tj? && japat
       next if ignore_japat || organizations.include?(organization)
 
       organizations.push organization

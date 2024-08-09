@@ -1,38 +1,12 @@
 module UsersHelper
   def available_user_roles
     if current_user.admin?
-      ordered_user_roles
-    elsif current_user.local_admin_tj?
-      [:local_admin] + ordered_user_roles.intersection(User.tj_roles)
-    elsif current_user.local_admin_spip?
-      [:local_admin] + ordered_user_roles.intersection(User.spip_roles)
-    else
-      []
+      User::ORDERED_ROLES
+    elsif current_user.work_at_tj?
+      [:local_admin] + User::ORDERED_TJ_ROLES
+    elsif current_user.work_at_spip?
+      [:local_admin] + User::ORDERED_SPIP_ROLES
     end
-  end
-
-  def ordered_user_roles
-    %w[
-      admin
-      local_admin
-      jap
-      bex
-      prosecutor
-      secretary_court
-      dir_greff_bex
-      greff_co
-      greff_tpe
-      greff_crpc
-      greff_ca
-      dir_greff_sap
-      greff_sap
-      dpip
-      cpip
-      secretary_spip
-      educator
-      psychologist
-      overseer
-    ]
   end
 
   def current_user?(user)

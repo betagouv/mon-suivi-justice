@@ -201,6 +201,8 @@ fr:
           attributes:
             email:
               blank: Email manquant
+            role:
+              correct_for_organization: Ce rôle n'est pas compatible avec le service actuel
             first_name:
               blank: Prénom manquant
             last_name:
@@ -603,7 +605,9 @@ fr:
       fill_out_appointments_cpip: Attention, le statut de plusieurs convocations que
         vous avez effectuées n'a pas été renseigné.
     sap_ddse: SAP DDSE
-    select_organization: Changer d'antenne
+    select_organization:
+      admin: Changer de service
+      default: Changer d'antenne
     stats_global: Statistiques générales
     welcome_text: 'Pour convoquer un ou une probationnaire, veuillez saisir les premières
       lettres de son nom ou prénom ou les premiers chiffres de son numéro de téléphone
@@ -884,6 +888,7 @@ fr:
         En cas de doute merci de contacter le service actuel au %{phone_number}'
     update:
       organization_updated: Le service a bien été mis à jour
+      user_updated: L'agent a bien été mis à jour
   views:
     pagination:
       truncate: "..."

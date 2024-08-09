@@ -43,6 +43,15 @@ class User < ApplicationRecord
     greff_ca: 19
   }
 
+  BEX_ROLES = %w[prosecutor greff_co dir_greff_bex bex greff_tpe greff_crpc greff_ca].freeze
+  SAP_ROLES = %w[jap secretary_court greff_sap dir_greff_sap].freeze
+  SPIP_ROLES = %w[dpip cpip educator psychologist overseer secretary_spip].freeze
+  TJ_ROLES = (SAP_ROLES + BEX_ROLES).freeze
+  ORDERED_ROLES = %w[admin local_admin jap bex prosecutor secretary_court dir_greff_bex greff_co greff_tpe greff_crpc
+                     greff_ca dir_greff_sap greff_sap dpip cpip secretary_spip educator psychologist overseer].freeze
+  ORDERED_TJ_ROLES = ORDERED_ROLES & TJ_ROLES
+  ORDERED_SPIP_ROLES = ORDERED_ROLES & SPIP_ROLES
+
   after_invitation_accepted { CreateContactInBrevoJob.perform_later(id) }
   after_update_commit :trigger_brevo_update_job, if: :relevant_field_changed?
   after_destroy_commit { DeleteContactInBrevoJob.perform_later(email) }
@@ -50,6 +59,7 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
   validates :share_email_to_convict, inclusion: { in: [true, false] }
   validates :share_phone_to_convict, inclusion: { in: [true, false] }
+  validate :correct_role_for_organization_type
 
   before_validation :set_default_role
 
@@ -76,42 +86,28 @@ class User < ApplicationRecord
     "#{name} - #{phone.phony_formatted.delete(' ')}"
   end
 
-  def self.bex_roles
-    %w[prosecutor greff_co dir_greff_bex bex greff_tpe greff_crpc greff_ca]
-  end
-
-  def self.sap_roles
-    %w[jap secretary_court greff_sap dir_greff_sap]
-  end
-
-  def self.spip_roles
-    %w[dpip cpip educator psychologist overseer secretary_spip]
-  end
-
-  def self.tj_roles
-    sap_roles + bex_roles
-  end
-
   def work_at_bex?
-    User.bex_roles.include? role
+    BEX_ROLES.include? role
   end
 
   def work_at_sap?
-    User.sap_roles.include? role
+    SAP_ROLES.include? role
+  end
+
+  def work_at_tj?
+    work_at_bex? || work_at_sap? || local_admin_tj?
   end
 
   def work_at_spip?
-    return true if local_admin_spip?
-
-    User.spip_roles.include? role
+    SPIP_ROLES.include?(role) || local_admin_spip?
   end
 
   def local_admin_spip?
-    local_admin? && organization.organization_type == 'spip'
+    local_admin? && organization.spip?
   end
 
   def local_admin_tj?
-    local_admin? && organization.organization_type == 'tj'
+    local_admin? && organization.tj?
   end
 
   def profile_path
@@ -173,7 +169,7 @@ class User < ApplicationRecord
   private
 
   def set_default_role
-    self.role ||= organization.organization_type == 'tj' ? 'greff_sap' : 'cpip'
+    self.role ||= organization.tj? ? 'greff_sap' : 'cpip'
   end
 
   def trigger_brevo_update_job
@@ -186,5 +182,15 @@ class User < ApplicationRecord
 
   def belongs_to_convict_organizations?(convict)
     convict.organizations.include?(organization)
+  end
+
+  def correct_role_for_organization_type
+    return if admin? || role_matches_organization?
+
+    errors.add(:role, I18n.t('activerecord.errors.models.user.attributes.role.correct_for_organization'))
+  end
+
+  def role_matches_organization?
+    (organization&.spip? && work_at_spip?) || (organization&.tj? && work_at_tj?)
   end
 end

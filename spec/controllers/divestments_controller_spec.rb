@@ -48,7 +48,7 @@ RSpec.describe DivestmentsController, type: :controller do
     end
 
     context 'when current user works at BEX' do
-      let(:bex_user) { create(:user, :in_organization, role: 'bex') }
+      let(:bex_user) { create(:user, :in_organization, type: :tj, role: 'bex') }
 
       before do
         allow(controller).to receive(:current_user).and_return(bex_user)
