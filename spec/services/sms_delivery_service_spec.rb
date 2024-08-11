@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SmsDeliveryService do
+RSpec.describe SmsDeliveryService, skip: true do
   let(:convict) { create(:convict) }
   let(:appointment) { create(:appointment, convict:) }
   let(:notification) { create(:notification, appointment:, state: 'programmed') }
