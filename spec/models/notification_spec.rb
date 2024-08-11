@@ -81,11 +81,11 @@ RSpec.describe Notification, type: :model do
   end
 
   describe 'scopes' do
-    let!(:slot_future) { create(:slot, date: 1.day.from_now) }
-    let!(:slot_future2) { create(:slot, date: 3.months.from_now) }
-    let!(:slot_past) { create(:slot, date: 2.months.ago) }
-    let!(:slot_recent_past) { create(:slot, date: 2.weeks.ago) }
-    let!(:slot_recent_past2) { create(:slot, date: 1.day.ago) }
+    let!(:slot_future) { create(:slot, date: next_valid_day(date: 1.day.from_now)) }
+    let!(:slot_future2) { create(:slot, date: next_valid_day(date: 3.months.from_now)) }
+    let!(:slot_past) { create(:slot, date: next_valid_day(date: 2.months.ago)) }
+    let!(:slot_recent_past) { create(:slot, date: next_valid_day(date: 2.weeks.ago)) }
+    let!(:slot_recent_past2) { create(:slot, date: next_valid_day(date: 3.days.ago)) }
 
     let!(:appointment_future) { build(:appointment, slot: slot_future) }
     let!(:appointment_future2) { build(:appointment, slot: slot_future2) }
