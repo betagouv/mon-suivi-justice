@@ -80,7 +80,7 @@ class Appointment < ApplicationRecord
   def in_the_future
     if slot.date.nil?
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.blank'))
-    elsif slot.date < Time.zone.today
+    elsif slot.datetime.before?(Time.zone.now)
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.past'))
     end
   end
@@ -89,6 +89,10 @@ class Appointment < ApplicationRecord
     return true if date < Time.zone.today
 
     date == Time.zone.today && starting_time.strftime('%H:%M') <= Time.current.strftime('%H:%M')
+  end
+
+  def in_the_future?
+    slot.datetime.after?(Time.zone.now)
   end
 
   def must_choose_to_send_notification
@@ -148,6 +152,17 @@ class Appointment < ApplicationRecord
 
   def created_by_organization?(orga)
     creating_organization == orga
+  end
+
+  def decrease_slot_capacity
+    return unless in_the_future?
+
+    slot.decrement!(:used_capacity, 1) if slot.used_capacity.positive?
+    slot.update(full: false) if slot.all_capacity_used? == false
+  end
+
+  def cancel_reminder_notif
+    reminder_notif.cancel! if reminder_notif&.programmed?
   end
 
   state_machine initial: :created do
@@ -214,18 +229,21 @@ class Appointment < ApplicationRecord
     end
 
     after_transition on: :cancel do |appointment, transition|
-      appointment.slot.decrement!(:used_capacity, 1) if appointment.slot.used_capacity.positive?
-      appointment.slot.update(full: false) if appointment.slot.all_capacity_used? == false
+      appointment.decrease_slot_capacity
+      appointment.cancel_reminder_notif
 
-      appointment.reminder_notif.cancel! if appointment.reminder_notif&.programmed?
-
-      if send_sms?(transition) && appointment.convict.phone.present?
+      if send_sms?(transition) && appointment.convict.can_receive_sms?
         appointment.cancelation_notif.program_now
       end
     end
 
     after_transition on: :miss do |appointment, transition|
       appointment.no_show_notif&.program_now if send_sms?(transition)
+    end
+
+    after_transition on: :excuse do |appointment|
+      appointment.decrease_slot_capacity
+      appointment.cancel_reminder_notif
     end
 
     before_transition on: :rebook do |appointment, _|

@@ -6,10 +6,11 @@ describe AppointmentPolicy do
   let(:place) { build(:place, organization:) }
   let(:agenda) { build :agenda, place: }
   let(:appointment_type) { create(:appointment_type) }
-  let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
+  let(:slot) { create :slot, :without_validations, appointment_type:, agenda:, date: Date.yesterday }
   let(:convict) { create :convict, organizations: [slot.place.organization] }
   let!(:appointment) do
-    create(:appointment, slot:, state: :booked, creating_organization: slot.place.organization, convict:)
+    create(:appointment, :skip_validate, slot:, state: :booked, creating_organization: slot.place.organization,
+                                         convict:)
   end
 
   context 'appointment date' do
@@ -191,42 +192,43 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'admin', organization: slot.place.organization) }
 
     context 'for a booked appointment' do
-      let!(:appointment) { create(:appointment, slot:, state: 'booked') }
+      let(:slot) { create(:slot, appointment_type:, agenda:) }
+      let!(:appointment) { create(:appointment, :skip_validate, slot:, state: 'booked') }
       subject { AppointmentPolicy.new(user, appointment) }
 
       it { is_expected.to permit_action(:cancel) }
     end
 
     context 'for a canceled appointment' do
-      let!(:appointment) { create(:appointment, slot:, state: 'canceled') }
+      let!(:appointment) { create(:appointment, :skip_validate, slot:, state: 'canceled') }
       subject { AppointmentPolicy.new(user, appointment) }
 
       it { is_expected.to forbid_action(:cancel) }
     end
 
     context 'for a created appointment' do
-      let!(:appointment) { create(:appointment, slot:, state: 'created') }
+      let!(:appointment) { create(:appointment, :skip_validate, slot:, state: 'created') }
       subject { AppointmentPolicy.new(user, appointment) }
 
       it { is_expected.to forbid_action(:cancel) }
     end
 
     context 'for a fulfiled appointment' do
-      let!(:appointment) { create(:appointment, slot:, state: 'fulfiled') }
+      let!(:appointment) { create(:appointment, :skip_validate, slot:, state: 'fulfiled') }
       subject { AppointmentPolicy.new(user, appointment) }
 
       it { is_expected.to forbid_action(:cancel) }
     end
 
     context 'for a no_show appointment' do
-      let!(:appointment) { create(:appointment, slot:, state: 'no_show') }
+      let!(:appointment) { create(:appointment, :skip_validate, slot:, state: 'no_show') }
       subject { AppointmentPolicy.new(user, appointment) }
 
       it { is_expected.to forbid_action(:cancel) }
     end
 
     context 'for a excused appointment' do
-      let!(:appointment) { create(:appointment, slot:, state: 'excused') }
+      let!(:appointment) { create(:appointment, :skip_validate, slot:, state: 'excused') }
       subject { AppointmentPolicy.new(user, appointment) }
 
       it { is_expected.to forbid_action(:cancel) }
@@ -334,7 +336,7 @@ describe AppointmentPolicy do
         let(:organization2) { build(:organization, organization_type: 'tj') }
         let(:appointment_type) { create(:appointment_type, name: 'SAP DDSE') }
         let!(:appointment) do
-          create(:appointment, slot:, state: :booked, creating_organization: organization2, convict:)
+          create(:appointment, :skip_validate, slot:, state: :booked, creating_organization: organization2, convict:)
         end
         context 'for a secretary_court' do
           let(:user) { build(:user, role: 'secretary_court', organization: organization2) }
@@ -559,7 +561,8 @@ describe AppointmentPolicy do
 
           context 'appointment_type is SAP DDSE' do
             let!(:appointment) do
-              create(:appointment, slot:, state: :booked, creating_organization: user.organization, convict:)
+              create(:appointment, :skip_validate, slot:, state: :booked, creating_organization: user.organization,
+                                                   convict:)
             end
             let(:appointment_type) { create(:appointment_type, name: 'SAP DDSE') }
 
@@ -690,13 +693,17 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
-    it { is_expected.to permit_action(:cancel) }
     it { is_expected.to permit_action(:fulfil) }
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
     it { is_expected.to permit_action(:rebook) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
+
+    context 'can cancel an appointment' do
+      let(:slot) { build(:slot, appointment_type:, agenda:) }
+      it { is_expected.to permit_action(:cancel) }
+    end
 
     context 'show for an appointment outside of organization' do
       let(:organization2) { build(:organization, organization_type: 'tj') }
@@ -728,8 +735,13 @@ describe AppointmentPolicy do
     let(:place) { build(:place, organization: user.organization) }
     let(:agenda) { build :agenda, place: }
     let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
-    let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
-    let!(:appointment) { create(:appointment, slot:, state: :booked) }
+    let(:slot) { create :slot, :without_validations, appointment_type:, agenda:, date: Date.yesterday }
+    let!(:appointment) { create(:appointment, :skip_validate, slot:, state: :booked) }
+
+    context 'can cancel an appointment' do
+      let(:slot) { build(:slot, appointment_type:, agenda:) }
+      it { is_expected.to permit_action(:cancel) }
+    end
 
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
@@ -737,7 +749,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
-    it { is_expected.to permit_action(:cancel) }
     it { is_expected.to permit_action(:fulfil) }
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
@@ -751,7 +762,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'local_admin', organization:) }
     let(:place) { build(:place, organization: user.organization) }
     let(:agenda) { build :agenda, place: }
-    let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
+    let(:slot) { create :slot, :without_validations, appointment_type:, agenda:, date: Date.yesterday }
 
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
@@ -759,7 +770,6 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
-    it { is_expected.to permit_action(:cancel) }
     it { is_expected.to permit_action(:fulfil) }
     it { is_expected.to permit_action(:miss) }
     it { is_expected.to permit_action(:excuse) }
@@ -767,18 +777,27 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_spip) }
     it { is_expected.to permit_action(:agenda_jap) }
 
+    context 'can cancel an appointment' do
+      let(:slot) { build(:slot, appointment_type:, agenda:) }
+      it { is_expected.to permit_action(:cancel) }
+    end
+
     context "for an appointment_type Sortie d'audience SPIP" do
       let(:organization2) { build :organization, organization_type: 'spip' }
       let(:place) { build(:place, organization: organization2) }
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
       let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -815,12 +834,16 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -830,12 +853,16 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SPIP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -849,8 +876,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
-      it { is_expected.to forbid_action(:destroy) }
       it { is_expected.to forbid_action(:cancel) }
+      it { is_expected.to forbid_action(:destroy) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -869,12 +896,16 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -884,12 +915,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type Convocation de suivi JAP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi JAP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -923,12 +958,16 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -938,12 +977,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type Convocation de suivi JAP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi JAP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -977,12 +1020,16 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1007,12 +1054,16 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SPIP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1025,7 +1076,7 @@ describe AppointmentPolicy do
     let(:user) { build(:user, role: 'bex', organization:) }
     let(:place) { build(:place, organization: user.organization) }
     let(:agenda) { build :agenda, place: }
-    let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
+    let(:slot) { create :slot, :without_validations, appointment_type:, agenda:, date: Date.yesterday }
 
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
@@ -1034,12 +1085,16 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1052,12 +1107,16 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
       let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1112,12 +1171,16 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
       let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1154,12 +1217,16 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1172,12 +1239,16 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
       let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1214,12 +1285,16 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1232,12 +1307,16 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
       let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1274,12 +1353,16 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1292,12 +1375,16 @@ describe AppointmentPolicy do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
       let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1311,8 +1398,8 @@ describe AppointmentPolicy do
       it { is_expected.to permit_action(:create) }
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
-      it { is_expected.to forbid_action(:destroy) }
       it { is_expected.to forbid_action(:cancel) }
+      it { is_expected.to forbid_action(:destroy) }
       it { is_expected.to forbid_action(:fulfil) }
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
@@ -1331,13 +1418,17 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:show) }
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1347,13 +1438,17 @@ describe AppointmentPolicy do
     context 'for an appointment_type Convocation de suivi JAP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi JAP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:show) }
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1388,12 +1483,16 @@ describe AppointmentPolicy do
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1403,12 +1502,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type Convocation de suivi JAP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi JAP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1442,12 +1545,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1465,12 +1572,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1480,12 +1591,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type Convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1519,12 +1634,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1534,12 +1653,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1549,12 +1672,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type Convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1596,12 +1723,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1611,12 +1742,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1626,12 +1761,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type Convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1665,12 +1804,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1680,12 +1823,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1695,12 +1842,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type Convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1734,12 +1885,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1749,12 +1904,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1764,12 +1923,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type Convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1803,12 +1966,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1818,12 +1985,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type 1ère convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: '1ère convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1833,12 +2004,16 @@ describe AppointmentPolicy do
     context 'for an appointment_type Convocation de suivi SPIP' do
       let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
 
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
       it { is_expected.to permit_action(:new) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:edit) }
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:destroy) }
-      it { is_expected.to permit_action(:cancel) }
       it { is_expected.to permit_action(:fulfil) }
       it { is_expected.to permit_action(:miss) }
       it { is_expected.to permit_action(:excuse) }
@@ -1858,6 +2033,33 @@ describe AppointmentPolicy do
       it { is_expected.to forbid_action(:miss) }
       it { is_expected.to forbid_action(:excuse) }
       it { is_expected.to forbid_action(:rebook) }
+    end
+  end
+
+  describe 'state change' do
+    let(:user) { build(:user, :in_organization, type: 'spip', role: 'local_admin') }
+    let(:place) { build(:place, organization: user.organization) }
+    let(:agenda) { build :agenda, place: }
+    let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
+    let(:slot) { create :slot, :without_validations, appointment_type:, agenda: }
+    let!(:appointment) { create(:appointment, slot:, state: :booked) }
+
+    context 'past appointment' do
+      before do
+        allow(appointment).to receive(:in_the_past?).and_return(true)
+      end
+      it { is_expected.to permit_action(:fulfil) }
+      it { is_expected.to permit_action(:miss) }
+      it { is_expected.to permit_action(:excuse) }
+    end
+
+    context 'future appointment' do
+      before do
+        allow(appointment).to receive(:in_the_past?).and_return(false)
+      end
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to permit_action(:excuse) }
     end
   end
 end

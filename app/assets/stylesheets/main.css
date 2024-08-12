@@ -40,3 +40,8 @@ body {
   text-decoration: underline;
   color: var(--link);
 }
+
+.fake-link:hover {
+  background-color: var(--link-hover) !important;
+  text-decoration-thickness: 0.1rem;
+}

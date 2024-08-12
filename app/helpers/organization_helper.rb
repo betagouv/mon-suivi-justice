@@ -44,4 +44,18 @@ module OrganizationHelper
 
     [current_user.organization]
   end
+
+  def selectable_organizations_for_update
+    return Organization.all.order(:name) if current_user.admin?
+
+    current_user.headquarter&.organizations
+  end
+
+  def switch_organization_submit_text(user)
+    if user.admin?
+      I18n.t('home.select_organization.admin')
+    else
+      I18n.t('home.select_organization.default')
+    end
+  end
 end

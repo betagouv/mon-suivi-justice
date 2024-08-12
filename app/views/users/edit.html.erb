@@ -20,9 +20,8 @@
             <%= f.input :last_name %>
             <%= f.input :email, required: true %>
             <%= f.input :phone %>
-            <% if current_user.admin? %>
-              <%= f.association :organization, collection: Organization.order('name ASC'), include_blank: false,
-                                              label: t('activerecord.attributes.user.organization'),
+            <% if UserServiceSwitchPolicy.new(current_user, @user).create? %>
+              <%= f.association :organization, collection: selectable_organizations_for_update, include_blank: false,
                                               input_html: { class: 'form-select' } %>
             <% end %>
             <% if (current_user.admin? || current_user.local_admin?) && current_user != @user %>
@@ -39,9 +38,6 @@
                                                   input_html: { class: 'form-checkbox' },
                                                   label_html: { class: 'form-checkbox-label' },
                                                   wrapper_html: { class: 'form-checkbox-wrapper'} %>
-            <% end %>
-            <% if UserServiceSwitchPolicy.new(@user, nil).create? %>
-              <%= f.association :organization, collection: @user.headquarter.organizations, include_blank: false %>
             <% end %>
           <% end %>
         </div>

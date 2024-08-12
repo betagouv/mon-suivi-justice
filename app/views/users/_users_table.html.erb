@@ -15,25 +15,20 @@
           <td>
             <%= user.name %>
           </td>
-
           <td>
             <%= user.email %>
           </td>
-
           <td>
             <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
           </td>
           <td>
             <%= user.organization.name %>
           </td>
-
           <td>
             <%= link_to t('see_profile'), user_path(user), class: 'index-control', data: { "turbo-frame": "_top" } %>
-
             <% if policy(user).edit? %>
               <%= link_to t('edit'), edit_user_path(user), class: 'index-control', data: { "turbo-frame": "_top" } %>
             <% end %>
-
             <% if policy(user).destroy? %>
               <%= link_to t('delete'), user_path(user),
                                       data: { 'turbo-confirm': t('basic_confirmation'), 'turbo-method': :delete },

@@ -13,7 +13,7 @@ module SlotsHelper
     elsif user.work_at_bex? || user.admin? then bex_apt_types
     # assuming local_admin does not work at bex or spip (TODO: need to clarify roles) :
     elsif user.local_admin?
-      user.organization.organization_type == 'spip' ? spip_apt_types : sap_apt_types
+      user.organization.spip? ? spip_apt_types : sap_apt_types
     end
   end
 

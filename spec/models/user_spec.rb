@@ -5,9 +5,67 @@ RSpec.describe User, type: :model do
 
   it { should belong_to(:organization) }
 
-  it { should validate_presence_of(:first_name) }
-  it { should validate_presence_of(:last_name) }
-  it { should validate_presence_of(:email) }
+  describe 'validations' do
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+    it { should validate_presence_of(:email) }
+
+    describe '#correct_role_for_organization_type' do
+      let(:error_message) { I18n.t('activerecord.errors.models.user.attributes.role.correct_for_organization') }
+
+      context 'when user is an admin' do
+        let(:user) { build(:user, :admin) }
+
+        it 'is valid with SPIP organization' do
+          user.organization = build(:organization, :spip)
+          expect(user).to be_valid
+        end
+
+        it 'is valid with TJ organization' do
+          user.organization = build(:organization, :tj)
+          expect(user).to be_valid
+        end
+      end
+
+      context 'when user is not an admin' do
+        let(:user) { build(:user) }
+
+        context 'when organization is SPIP' do
+          before do
+            user.organization = build(:organization, :spip)
+          end
+
+          it 'is valid if user works at SPIP' do
+            allow(user).to receive(:work_at_spip?).and_return(true)
+            expect(user).to be_valid
+          end
+
+          it 'is invalid if user does not work at SPIP' do
+            allow(user).to receive(:work_at_spip?).and_return(false)
+            expect(user).not_to be_valid
+            expect(user.errors[:role]).to include(error_message)
+          end
+        end
+
+        context 'when organization is TJ' do
+          before do
+            user.organization = build(:organization, :tj)
+          end
+
+          it 'is valid if user works at TJ' do
+            allow(user).to receive(:work_at_tj?).and_return(true)
+            expect(user).to be_valid
+          end
+
+          it 'is invalid if user does not work at TJ' do
+            allow(user).to receive(:work_at_tj?).and_return(false)
+            expect(user).not_to be_valid
+            expect(user.errors[:role]).to include(error_message)
+          end
+        end
+      end
+    end
+  end
 
   it {
     should define_enum_for(:role).with_values(
