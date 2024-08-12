@@ -130,7 +130,7 @@ GEM
       tzinfo
     cocoon (1.2.15)
     coderay (1.1.3)
-    concurrent-ruby (1.3.3)
+    concurrent-ruby (1.3.4)
     connection_pool (2.4.1)
     crack (1.0.0)
       bigdecimal
@@ -487,7 +487,7 @@ GEM
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
-    sprockets-rails (3.5.1)
+    sprockets-rails (3.5.2)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
@@ -629,7 +629,7 @@ DEPENDENCIES
   sidekiq-failures (~> 1.0.4)
   simple_form (~> 5.3.1)
   spring (~> 4.2.1)
-  sprockets-rails (~> 3.5.1)
+  sprockets-rails (~> 3.5.2)
   state_machines (~> 0.6.0)
   state_machines-activerecord (~> 0.9.0)
   state_machines-graphviz (~> 0.0.2)
