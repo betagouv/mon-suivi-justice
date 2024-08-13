@@ -773,7 +773,7 @@ fr:
   show-convict-fulfilment-excused: Excusé(e)
   show-convict-fulfilment-prompt: Est-ce-que %{name} s'est présenté(e) au %{place}
     le %{date} à %{time} ?
-  show-convict-excuse-prompt: Si %{name} a d'ors et déjà excusé son absence pour sa convocation du %{date} à %{time} au %{place}, vous pouvez l'indiquer ci-dessous.
+  show-convict-excuse-prompt: Souhaitez-vous signaler que %{name} a excusé son absence pour la convocation du %{date} à %{time} au %{place} ? Si oui, vous pouvez l'indiquer ci-dessous.
   show-convict-fulfilment-send-sms: Voulez-vous envoyer un SMS au probationnaire ?
   show-convict-fulfilment-sms-content: 'Texte du SMS :'
   show-convict-next-appointments-title:
