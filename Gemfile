@@ -21,7 +21,7 @@ gem 'cocoon', '~> 1.2.15'
 
 gem 'phony_rails', '~> 0.15.0'
 
-gem 'ransack', '~>4.2.0'
+gem 'ransack', '~>4.2.1'
 gem 'kaminari', '~> 1.2.2'
 
 gem 'state_machines', '~> 0.6.0'
@@ -46,7 +46,7 @@ gem 'csv', '~> 3.2', '>= 3.2.8'
 gem 'jbuilder', '~> 2.12.0'
 gem 'groupdate', '~> 6.4.0'
 
-gem 'faraday', '~> 2.10.0'
+gem 'faraday', '~> 2.10.1'
 gem 'faraday-retry', '~> 2.2.1'
 gem 'jwt', '~> 2.8'
 
@@ -99,7 +99,7 @@ group :test do
   gem 'capybara-screenshot', '~> 1.0.26'
   gem 'selenium-webdriver', '~> 4.10.0'
   gem 'webdrivers', '~> 5.3.1'
-  gem 'shoulda-matchers', '~> 6.2.0'
+  gem 'shoulda-matchers', '~> 6.3.0'
   gem 'timecop', '~> 0.9.10'
   gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec', '~> 0.6.0'
@@ -108,7 +108,7 @@ end
 
 gem 'abyme', '~> 0.7.0'
 
-gem 'pg_search', '~> 2.3.6'
+gem 'pg_search', '~> 2.3.7'
 gem 'administrate-field-belongs_to_search', '~> 0.9.0'
 gem 'faker', '~> 3.4.2'
 
@@ -119,4 +119,4 @@ gem 'jsbundling-rails', '~> 1.3.1'
 
 gem 'cssbundling-rails', '~> 1.4.1'
 
-gem 'sprockets-rails', '~> 3.5.1', require: 'sprockets/railtie'
+gem 'sprockets-rails', '~> 3.5.2', require: 'sprockets/railtie'
