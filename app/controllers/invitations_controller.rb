@@ -7,12 +7,13 @@ class InvitationsController < Devise::InvitationsController
   end
 
   # Overriding devise's create action so that admins can move users to other organizations
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @user = User.new(invite_params)
     authorize @user, policy_class: UserPolicy
 
     existing_user = User.find_by(email: @user.email)
-    if existing_user && existing_user.organization != current_user.organization
+    if existing_user && existing_user.organization != current_user.organization &&
+       existing_user.organization.organization_type == current_user.organization.organization_type
 
       custom_link = mutation_link(existing_user)
       error_message = "est déjà pris par un agent d'un autre service. #{custom_link}".html_safe

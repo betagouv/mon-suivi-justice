@@ -99,27 +99,59 @@ class AppointmentPolicy < ApplicationPolicy
   def cancel?
     return false unless user.security_charter_accepted?
     return false unless record.booked?
-    return false unless record.slot.date > Time.zone.yesterday
+    return false unless record.slot.datetime.after?(Time.zone.now)
 
     ownership_check && hability_check
   end
 
-  def fulfil?
+  def fulfil?(allow_fulfil_old: false)
     return false unless user.security_charter_accepted?
+    return false unless record.in_the_past?
+    return false unless record.booked?
 
-    ownership_check && appointment_fulfilment
+    ownership_check && appointment_fulfilment(allow_fulfil_old:)
   end
 
-  def miss?
-    return false unless user.security_charter_accepted?
-
-    ownership_check && appointment_fulfilment
+  def fulfil_old?
+    fulfil?(allow_fulfil_old: true)
   end
 
-  def excuse?
+  def miss?(allow_fulfil_old: false)
+    return false unless user.security_charter_accepted?
+    return false unless record.in_the_past?
+    return false unless record.booked?
+
+    ownership_check && appointment_fulfilment(allow_fulfil_old:)
+  end
+
+  def miss_old?
+    miss?(allow_fulfil_old: true)
+  end
+
+  def excuse?(allow_fulfil_old: false)
+    return false unless user.security_charter_accepted?
+    return false unless record.booked?
+
+    ownership_check && appointment_fulfilment(allow_fulfil_old:)
+  end
+
+  def excuse_old?
+    excuse?(allow_fulfil_old: true)
+  end
+
+  # used to move back appointment from fulfilment states (missed, fulfiled, excused) to booked
+  def rebook_old?
     return false unless user.security_charter_accepted?
 
-    ownership_check && appointment_fulfilment
+    ownership_check && appointment_fulfilment(allow_fulfil_old: true)
+  end
+
+  def change_state?
+    fulfil? || miss? || excuse?
+  end
+
+  def change_state_old?
+    fulfil_old? || miss_old? || excuse_old?
   end
 
   def rebook?
@@ -130,24 +162,6 @@ class AppointmentPolicy < ApplicationPolicy
 
   def prepare?
     user.security_charter_accepted?
-  end
-
-  def fulfil_old?
-    return false unless user.security_charter_accepted?
-
-    ownership_check && appointment_fulfilment(allow_fulfil_old: true)
-  end
-
-  def excuse_old?
-    return false unless user.security_charter_accepted?
-
-    ownership_check && appointment_fulfilment(allow_fulfil_old: true)
-  end
-
-  def rebook_old?
-    return false unless user.security_charter_accepted?
-
-    ownership_check && appointment_fulfilment(allow_fulfil_old: true)
   end
 
   private

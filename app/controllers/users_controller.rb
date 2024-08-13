@@ -19,9 +19,11 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    @user.assign_attributes(user_params)
+
     authorize @user
 
-    if @user.update(user_params)
+    if @user.save
       remove_linked_convicts(@user)
       redirect_to_correct_path_for_update
     else
@@ -102,17 +104,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :first_name, :last_name, :email, :organization_id,
+      :first_name, :last_name, :email, :organization_id, :role,
       :password, :password_confirmation, :phone, :share_email_to_convict, :share_phone_to_convict
-    ).merge(user_role_params)
-  end
-
-  def user_role_params
-    user_role = params.dig(:user, :role)
-    return {} unless user_role.present? && user_role != 'admin'
-    return {} unless current_user.admin? || current_user.local_admin?
-
-    { role: user_role }
+    )
   end
 
   def remove_linked_convicts(user, mutation: false)
@@ -141,9 +135,9 @@ class UsersController < ApplicationController
     if params.dig(:user, :redirect_to_home)
       redirect_to home_path, notice: t('.organization_updated')
     elsif @user != current_user
-      redirect_to users_path, notice: t('.organization_updated')
+      redirect_to users_path, notice: t('.user_updated')
     else
-      redirect_to user_path(params[:id]), notice: t('.organization_updated')
+      redirect_to user_path(params[:id]), notice: t('.user_updated')
     end
   end
 end

@@ -13,18 +13,24 @@
     <td><%= appointment.user&.name %></td>
   <% end %>
   <td>
-    <% if appointment.in_the_past? && appointment.booked? && policy(appointment).fulfil_old? %>
+    <% if policy(appointment).change_state_old? %>
       <div class='index-card-state-container index-card-state-controls-wrapper'>
         <div class='index-card-state-controls-container'>
-          <%= button_to t('activerecord.state_machines.states.fulfiled'), appointment_fulfil_path(appointment),
-                                                                          method: :put,
-                                                                          class: 'index-appointments-fulfil-button' %>
-          <%= button_tag t('activerecord.state_machines.states.no_show'), type: 'button',
-                                                                          class: 'index-appointments-miss-button',
-                                                                          data: { 'micromodal-trigger': "missed-appointment-modal-#{appointment.id}" } %>
-          <%= button_to t('activerecord.state_machines.states.excused'), appointment_excuse_path(appointment),
+          <% if policy(appointment).fulfil_old?%>
+            <%= button_to t('activerecord.state_machines.states.fulfiled'), appointment_fulfil_path(appointment),
+                                                                            method: :put,
+                                                                            class: 'index-appointments-fulfil-button' %>
+          <% end %>
+          <% if policy(appointment).miss_old? %>
+            <%= button_tag t('activerecord.state_machines.states.no_show'), type: 'button',
+                                                                            class: 'index-appointments-miss-button',
+                                                                            data: { 'micromodal-trigger': "missed-appointment-modal-#{appointment.id}" } %>
+          <% end %>
+          <% if policy(appointment).excuse_old? %>
+            <%= button_to t('activerecord.state_machines.states.excused'), appointment_excuse_path(appointment),
                                                                          method: :put,
                                                                          class: 'index-appointments-excuse-button' %>
+          <% end %>
         </div>
         <%= render 'appointments/missed_appointment_modal', apt: appointment %>
       </div>
@@ -41,12 +47,24 @@
   </td>
   <td>
     <% if policy(appointment).show? %>
-      <%= link_to "Voir", appointment_path(appointment), class: 'index-control' %>
+      <%= link_to "Voir", appointment_path(appointment), class: 'index-control fr-text--bold' %>
     <% end %>
-    <% if policy(appointment).cancel? && appointment.slot.date.after?(DateTime.current) %>
-      <%= link_to t('cancel'), appointment_cancel_path(appointment),
-                                    class: 'index-control appointments-link__cancel',
-                                    data: { 'turbo-confirm': t('cancel_appointment_warning'), "turbo_method": :put } %>
+    <% if policy(appointment).cancel? %>
+      <% if appointment.convict&.can_receive_sms? %>
+        <button class="index-control fake-link" data-fr-opened="false" aria-controls="<%= "fr-modal-cancel-apt-#{appointment.id}" %>">
+          <%= t('cancel') %>
+        </button>
+        <%= render 'cancel_appointment_modal', appointment: appointment %>
+      <% else %>
+        <%= link_to t('cancel'), appointment_cancel_path(appointment),
+                      class: 'index-control',
+                      data: { 'turbo-confirm': t('cancel_appointment_warning'), "turbo_method": :put } %>
+      <% end %>
+    <% end %>
+    <% if appointment.in_the_future? && policy(appointment).excuse? %>
+      <%= link_to t('.excuse'), appointment_excuse_path(appointment),
+                                                                  data: {'turbo_method': :put},
+                                                                  class: 'index-control' %>
     <% end %>
   </td>
 </tr>

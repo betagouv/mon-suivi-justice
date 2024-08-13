@@ -103,9 +103,9 @@ class Slot < ApplicationRecord
   def check_organization_type(appointment_type)
     case appointment_type.name
     when "Sortie d'audience SAP"
-      return true if place.organization.organization_type == 'tj'
+      return true if place.organization.tj?
     when "Sortie d'audience SPIP"
-      return true if place.organization.organization_type == 'spip'
+      return true if place.organization.spip?
     when 'SAP DDSE'
       return true
     end

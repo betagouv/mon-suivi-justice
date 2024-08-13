@@ -172,14 +172,14 @@ class Organization < ApplicationRecord
   # rubocop:disable Metrics/PerceivedComplexity
   # rubocop:disable Metrics/CyclomaticComplexity
   def spips_tjs_type
-    if organization_type == 'tj' && tjs&.present?
+    if tj? && tjs&.present?
       errors.add(:tjs, 'cannot be set for a TJ')
-    elsif organization_type == 'spip' && spips&.present?
+    elsif spip? && spips&.present?
       errors.add(:spips, 'cannot be set for a SPIP')
     end
-    if tjs.any? { |tj| tj.organization_type != 'tj' }
+    if tjs.any? { |linked_tj| !linked_tj.tj? }
       errors.add(:tjs, 'must be a TJ')
-    elsif spips.any? { |spip| spip.organization_type != 'spip' }
+    elsif spips.any? { |linked_spip| !linked_spip.spip? }
       errors.add(:spips, 'must be a SPIP')
     end
   end

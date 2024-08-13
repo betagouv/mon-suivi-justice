@@ -66,45 +66,45 @@ describe OrganizationDivestmentPolicy do
     end
 
     context('user is cpip') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :cpip) }
+      let(:user_from) { create(:user, :in_organization, type: :spip, role: :cpip) }
 
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
     end
 
     context('user is dpip') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :dpip) }
+      let(:user_from) { create(:user, :in_organization, type: :spip, role: :dpip) }
 
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
     end
 
     context('user is overseer') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :overseer) }
+      let(:user_from) { create(:user, :in_organization, type: :spip, role: :overseer) }
 
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
     end
 
     context('user is educator') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :educator) }
+      let(:user_from) { create(:user, :in_organization, type: :spip, role: :educator) }
 
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
     end
 
     context('user is psychologist') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :psychologist) }
+      let(:user_from) { create(:user, :in_organization, type: :spip, role: :psychologist) }
 
       it { is_expected.to forbid_action(:edit) }
       it { is_expected.to forbid_action(:update) }
     end
 
     context('user is secretary_spip') do
-      let(:user_from) { create(:user, :in_organization, type: :tj, role: :secretary_spip) }
+      let(:user_from) { create(:user, :in_organization, type: :spip, role: :secretary_spip) }
 
-      it { is_expected.to forbid_action(:edit) }
-      it { is_expected.to forbid_action(:update) }
+      it { is_expected.to permit_action(:edit) }
+      it { is_expected.to permit_action(:update) }
     end
 
     context('user is bex') do
