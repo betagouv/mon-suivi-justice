@@ -135,7 +135,7 @@ class AppointmentPolicy < ApplicationPolicy
     ownership_check && appointment_fulfilment(allow_fulfil_old:)
   end
 
-  def excuse_old
+  def excuse_old?
     excuse?(allow_fulfil_old: true)
   end
 
