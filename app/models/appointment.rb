@@ -182,7 +182,7 @@ class Appointment < ApplicationRecord
   end
 
   def in_the_past?
-    slot.datetime.before(Time.zone.now)
+    slot.datetime.before?(Time.zone.now)
   end
 
   def in_the_future?
