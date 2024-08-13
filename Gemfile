@@ -119,4 +119,4 @@ gem 'jsbundling-rails', '~> 1.3.1'
 
 gem 'cssbundling-rails', '~> 1.4.1'
 
-gem 'sprockets-rails', '~> 3.5.1', require: 'sprockets/railtie'
+gem 'sprockets-rails', '~> 3.5.2', require: 'sprockets/railtie'
