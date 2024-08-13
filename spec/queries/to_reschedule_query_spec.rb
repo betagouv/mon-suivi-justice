@@ -7,6 +7,11 @@ RSpec.describe Notifications::ToRescheduleQuery do
   let(:query) { described_class.new }
   let(:today) { Time.zone.today2 }
 
+  before do
+    allow_any_instance_of(described_class).to receive(:scheduled_sms_delivery_jobs_notif_ids)
+                                          .and_return([])
+  end
+
   describe '#call' do
     context 'when there are valid notifications to be rescheduled' do
       let!(:future_cancelation_notification) do
