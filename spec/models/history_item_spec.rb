@@ -28,13 +28,14 @@ RSpec.describe HistoryItem, type: :model do
         update_phone_convict: 15,
         add_phone_convict: 16,
         remove_phone_convict: 17,
-        accept_divestment: 18,
-        refuse_divestment: 19,
-        mark_as_failed_reminder_notification: 20,
-        mark_as_failed_summon_notification: 21,
-        mark_as_failed_no_show_notification: 22,
-        mark_as_failed_cancelation_notification: 23,
-        mark_as_failed_reschedule_notification: 24
+        failed_programmed_reminder_notification: 18,
+        accept_divestment: 19,
+        refuse_divestment: 20,
+        mark_as_failed_reminder_notification: 21,
+        mark_as_failed_summon_notification: 22,
+        mark_as_failed_no_show_notification: 23,
+        mark_as_failed_cancelation_notification: 24,
+        mark_as_failed_reschedule_notification: 25
       }
     )
   }

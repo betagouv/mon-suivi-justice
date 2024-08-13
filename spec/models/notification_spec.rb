@@ -110,9 +110,9 @@ RSpec.describe Notification, type: :model do
       end
     end
 
-    describe '.apointment_after_today' do
+    describe '.appointment_after_today' do
       it 'returns notifications for appointments after today' do
-        expect(described_class.apointment_after_today).to match_array([notification_future, notification_future2])
+        expect(described_class.appointment_after_today).to match_array([notification_future, notification_future2])
       end
     end
 
@@ -133,6 +133,143 @@ RSpec.describe Notification, type: :model do
       it 'returns notifications for appointments in the past month' do
         expect(described_class.appointment_recently_past).to match_array([notification_recent_past,
                                                                           notification_recent_past2])
+      end
+    end
+
+    describe '#can_be_sent?' do
+      let(:notification) { create(:notification) }
+
+      context 'when convict can receive SMS' do
+        before do
+          allow(notification).to receive(:convict_can_receive_sms?).and_return(true)
+          allow(notification).to receive(:can_mark_as_sent?).and_return(true)
+          allow(notification).to receive(:role_conditions_valid?).and_return(true)
+          notification.failed_count = 0
+        end
+
+        it 'returns true if all conditions are met' do
+          expect(notification.can_be_sent?).to be true
+        end
+
+        it 'returns false if cannot mark as sent' do
+          allow(notification).to receive(:can_mark_as_sent?).and_return(false)
+          expect(notification.can_be_sent?).to be false
+        end
+
+        it 'returns false if role conditions are not valid' do
+          allow(notification).to receive(:role_conditions_valid?).and_return(false)
+          expect(notification.can_be_sent?).to be false
+        end
+
+        it 'returns false if failed count is 5 or more' do
+          notification.failed_count = 5
+          expect(notification.can_be_sent?).to be false
+        end
+      end
+
+      context 'when convict cannot receive SMS' do
+        before do
+          allow(notification).to receive(:convict_can_receive_sms?).and_return(false)
+        end
+
+        it 'returns false regardless of other conditions' do
+          expect(notification.can_be_sent?).to be false
+
+          allow(notification).to receive(:can_mark_as_sent?).and_return(true)
+          allow(notification).to receive(:role_conditions_valid?).and_return(true)
+          notification.failed_count = 0
+          expect(notification.can_be_sent?).to be false
+        end
+      end
+    end
+
+    describe '#role_conditions_valid?' do
+      context 'when role is summon, reminder, or reschedule' do
+        %w[summon reminder reschedule].each do |role|
+          let(:notification) { create(:notification, role:) }
+
+          it "returns true if appointment is in the future and booked for #{role}" do
+            allow(notification.appointment).to receive(:in_the_future?).and_return(true)
+            allow(notification.appointment).to receive(:booked?).and_return(true)
+            expect(notification.role_conditions_valid?).to be true
+          end
+
+          it "returns false if appointment is not in the future for #{role}" do
+            allow(notification.appointment).to receive(:in_the_future?).and_return(false)
+            allow(notification.appointment).to receive(:booked?).and_return(true)
+            expect(notification.role_conditions_valid?).to be false
+          end
+
+          it "returns false if appointment is not booked for #{role}" do
+            allow(notification.appointment).to receive(:in_the_future?).and_return(true)
+            allow(notification.appointment).to receive(:booked?).and_return(false)
+            expect(notification.role_conditions_valid?).to be false
+          end
+        end
+      end
+
+      context 'when role is cancelation' do
+        let(:notification) { create(:notification, role: 'cancelation') }
+
+        it 'returns true if appointment is in the future and canceled' do
+          allow(notification.appointment).to receive(:in_the_future?).and_return(true)
+          allow(notification.appointment).to receive(:canceled?).and_return(true)
+          expect(notification.role_conditions_valid?).to be true
+        end
+
+        it 'returns false if appointment is not in the future' do
+          allow(notification.appointment).to receive(:in_the_future?).and_return(false)
+          allow(notification.appointment).to receive(:canceled?).and_return(true)
+          expect(notification.role_conditions_valid?).to be false
+        end
+
+        it 'returns false if appointment is not canceled' do
+          allow(notification.appointment).to receive(:in_the_future?).and_return(true)
+          allow(notification.appointment).to receive(:canceled?).and_return(false)
+          expect(notification.role_conditions_valid?).to be false
+        end
+      end
+
+      context 'when role is no_show' do
+        let(:notification) { create(:notification, role: 'no_show') }
+
+        it 'returns true if appointment is in the past and no_show' do
+          allow(notification.appointment).to receive(:in_the_past?).and_return(true)
+          allow(notification.appointment).to receive(:no_show?).and_return(true)
+          expect(notification.role_conditions_valid?).to be true
+        end
+
+        it 'returns false if appointment is not in the past' do
+          allow(notification.appointment).to receive(:in_the_past?).and_return(false)
+          allow(notification.appointment).to receive(:no_show?).and_return(true)
+          expect(notification.role_conditions_valid?).to be false
+        end
+
+        it 'returns false if appointment is not no_show' do
+          allow(notification.appointment).to receive(:in_the_past?).and_return(true)
+          allow(notification.appointment).to receive(:no_show?).and_return(false)
+          expect(notification.role_conditions_valid?).to be false
+        end
+      end
+    end
+
+    describe '#handle_unsent!' do
+      context 'when failed_count is zero' do
+        let(:notification) { create(:notification, failed_count: 0) }
+
+        it 'calls mark_as_unsent!' do
+          expect(notification).to receive(:mark_as_unsent!)
+          notification.handle_unsent!
+        end
+      end
+
+      context 'when failed_count is not zero' do
+        let(:notification) { create(:notification, failed_count: 1) }
+
+        it 'calls mark_as_failed!' do
+          expect(notification).to receive(:mark_as_failed!)
+          notification.handle_unsent!
+        end
       end
     end
   end
