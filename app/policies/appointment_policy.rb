@@ -139,6 +139,13 @@ class AppointmentPolicy < ApplicationPolicy
     excuse?(allow_fulfil_old: true)
   end
 
+  # used to move back appointment from fulfilment states (missed, fulfiled, excused) to booked
+  def rebook_old?
+    return false unless user.security_charter_accepted?
+
+    ownership_check && appointment_fulfilment(allow_fulfil_old: true)
+  end
+
   def change_state?
     fulfil? || miss? || excuse?
   end
