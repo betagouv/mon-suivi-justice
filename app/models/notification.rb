@@ -18,7 +18,7 @@ class Notification < ApplicationRecord
 
   scope :all_sent, -> { where(state: %w[sent received failed]) }
 
-  scope :apointment_after_today, lambda {
+  scope :appointment_after_today, lambda {
     joins(appointment: :slot)
       .where('slots.date > ?', Time.zone.today)
   }

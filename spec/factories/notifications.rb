@@ -5,5 +5,6 @@ FactoryBot.define do
     content { 'test' }
     state { 'created' }
     role { 'summon' }
+    failed_count { 0 }
   end
 end
