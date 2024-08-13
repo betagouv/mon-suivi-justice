@@ -7,6 +7,7 @@ class Notification < ApplicationRecord
 
   delegate :convict_phone, :convict, to: :appointment
   delegate :id, to: :appointment, prefix: true
+  delegate :can_receive_sms?, to: :convict, prefix: true
 
   enum role: %i[summon reminder cancelation no_show reschedule]
   enum reminder_period: %i[one_day two_days]
@@ -130,7 +131,7 @@ class Notification < ApplicationRecord
   end
 
   def can_be_sent?
-    can_mark_as_sent? && role_conditions_valid? && failed_count < 5
+    convict_can_receive_sms? || (can_mark_as_sent? && role_conditions_valid? && failed_count < 5)
   end
 
   def role_conditions_valid?

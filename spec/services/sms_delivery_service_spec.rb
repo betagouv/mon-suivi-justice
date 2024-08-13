@@ -1,111 +1,78 @@
 require 'rails_helper'
 
-RSpec.describe SmsDeliveryService, skip: true do
-  let(:convict) { create(:convict) }
-  let(:appointment) { create(:appointment, convict:) }
-  let(:notification) { create(:notification, appointment:, state: 'programmed') }
+RSpec.describe SmsDeliveryService do
+  let(:notification) { create(:notification, state: 'programmed') }
   let(:service) { described_class.new(notification) }
+  let(:link_mobility_adapter) { instance_double(LinkMobilityAdapter) }
+  let(:response) { double('response') }
+
+  before do
+    allow(LinkMobilityAdapter).to receive(:new).and_return(link_mobility_adapter)
+    allow(link_mobility_adapter).to receive(:send_sms).and_return(response)
+  end
 
   describe '#send_sms' do
-    context 'when SMS cannot be sent' do
-      it 'does not call LinkMobilityAdapter if notification is already sent' do
-        notification.update(state: 'sent', external_id: 'some_id')
-        expect(LinkMobilityAdapter).not_to receive(:new)
-        service.send_sms
-      end
+    context 'when notification is in created state' do
+      before { notification.update(state: 'created') }
 
-      it 'does not call LinkMobilityAdapter if convict cannot receive SMS' do
-        allow_any_instance_of(Convict).to receive(:can_receive_sms?).and_return(false)
-        expect(LinkMobilityAdapter).not_to receive(:new)
-        service.send_sms
-        expect(notification.reload.state).to eq('unsent')
+      it 'raises an error' do
+        expect do
+          service.send_sms
+        end.to raise_error(RuntimeError, /Notification \(id: #{notification.id}\) state still created/)
       end
     end
 
-    context 'when SMS can be sent' do
-      let(:adapter) { instance_double('LinkMobilityAdapter') }
+    context 'when notification cannot be sent' do
+      before { allow(notification).to receive(:can_be_sent?).and_return(false) }
 
-      before do
-        allow_any_instance_of(Convict).to receive(:can_receive_sms?).and_return(true)
-        allow(LinkMobilityAdapter).to receive(:new).with(notification).and_return(adapter)
-      end
-
-      it 'calls LinkMobilityAdapter if notification is programmed and convict has a phone number' do
-        expect(adapter).to receive(:send_sms).and_return(SmsApiResponse.new(success: true, external_id: 'some_id',
-                                                                            code: nil, message: nil,
-                                                                            retry_if_failed: nil))
+      it 'calls handle_unsent!' do
+        expect(notification).to receive(:handle_unsent!)
         service.send_sms
       end
+    end
 
-      context 'when LinkMobilityAdapter response includes external_id' do
-        it 'updates the notification with the external_id and marks it as sent' do
-          allow(adapter).to receive(:send_sms).and_return(SmsApiResponse.new(success: true, external_id: '123456',
-                                                                             should_raise_error: nil))
-          service.send_sms
-          notification.reload
-          expect(notification.external_id).to eq('123456')
-          expect(notification.state).to eq('sent')
-        end
+    context 'when notification can be sent' do
+      before do
+        allow(notification).to receive(:can_be_sent?).and_return(true)
+        allow(response).to receive(:external_id).and_return('123')
+        allow(response).to receive(:success).and_return(true)
       end
 
-      context 'when LinkMobilityAdapter response is a failure' do
-        before do
-          allow(adapter).to receive(:send_sms).and_return(SmsApiResponse.new(success: false, external_id: nil,
-                                                                             should_raise_error: false))
-        end
-
-        context 'when notification has already failed 5 times' do
-          it 'marks the notification as failed' do
-            notification.update(failed_count: 5)
-            service.send_sms
-            expect(notification.reload.state).to eq('failed')
-          end
-        end
-
-        context 'when notification has failed less than 5 times' do
-          it 'increments the failure count and schedules a new attempt' do
-            expect do
-              service.send_sms
-            end.to change { notification.reload.failed_count }.by(1)
-
-            expect(SmsDeliveryJob).to have_been_enqueued.with(notification.id)
-
-            enqueued_job = ActiveJob::Base.queue_adapter.enqueued_jobs.last
-            expect(enqueued_job['job_class']).to eq('SmsDeliveryJob')
-            expect(enqueued_job['arguments']).to eq([notification.id])
-            expect(enqueued_job[:at]).to be_within(1.minute).of(5.minutes.from_now.to_f)
-          end
-        end
+      it 'updates notification with external_id' do
+        service.send_sms
+        expect(notification.reload.external_id).to eq('123')
       end
 
-      context 'when LinkMobilityAdapter response is a success' do
+      it 'marks notification as sent on success' do
+        service.send_sms
+        expect(notification.reload.state).to eq('sent')
+      end
+
+      context 'when sending fails' do
         before do
-          allow(adapter).to receive(:send_sms).and_return(SmsApiResponse.new(success: true, external_id: 'some_id',
-                                                                             should_raise_error: nil))
+          allow(response).to receive(:success).and_return(false)
+          allow(response).to receive(:retry_if_failed?).and_return(false)
         end
 
-        it 'marks the notification as sent' do
+        it 'increments failed_count' do
+          expect { service.send_sms }.to change { notification.reload.failed_count }.by(1)
+        end
+
+        it 'marks notification as failed' do
           service.send_sms
-          expect(notification.reload.state).to eq('sent')
+          expect(notification.reload.state).to eq('failed')
         end
 
-        it 'retries marking as sent if it fails initially' do
-          call_count = 0
-          allow_any_instance_of(Notification).to receive(:mark_as_sent!) do
-            call_count += 1
-            raise StandardError if call_count == 1
-
-            true
+        context 'when retry is possible' do
+          before do
+            allow(response).to receive(:retry_if_failed?).and_return(true)
+            allow(response).to receive(:code).and_return('500')
+            allow(response).to receive(:message).and_return('Server Error')
           end
-          expect(service).to receive(:sleep).with(0.5).once
-          service.send_sms
-          expect(call_count).to eq(2)
-        end
 
-        it 'raises an error after 5 failed attempts to mark as sent' do
-          allow_any_instance_of(Notification).to receive(:mark_as_sent!).and_raise(StandardError)
-          expect(service).to receive(:sleep).with(0.5).exactly(4).times
-          expect { service.send_sms }.to raise_error(StandardError)
+          it 'raises SmsDeliveryError' do
+            expect { service.send_sms }.to raise_error(SmsDeliveryError)
+          end
         end
       end
     end

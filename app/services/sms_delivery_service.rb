@@ -6,12 +6,8 @@ class SmsDeliveryService
   end
 
   def send_sms
-    raise "Notification (id: #{notification.id}) state still created" if notification.created?
-
-    unless sms_can_be_sent?
-      notification.handle_unsent!
-      return
-    end
+    validate_notification_state
+    return handle_unsendable_notification unless notification.can_be_sent?
 
     response = LinkMobilityAdapter.new(notification).send_sms
 
@@ -20,8 +16,12 @@ class SmsDeliveryService
 
   private
 
-  def sms_can_be_sent?
-    notification.convict.can_receive_sms? && notification.can_be_sent?
+  def validate_notification_state
+    raise "Notification (id: #{notification.id}) state still created" if notification.created?
+  end
+
+  def handle_unsendable_notification
+    notification.handle_unsent!
   end
 
   def update_state_from_response(response)
