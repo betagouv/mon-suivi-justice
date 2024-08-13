@@ -13,18 +13,24 @@
     <td><%= appointment.user&.name %></td>
   <% end %>
   <td>
-    <% if appointment.in_the_past? && appointment.booked? && policy(appointment).fulfil_old? %>
+    <% if policy(appointment).change_state_old? %>
       <div class='index-card-state-container index-card-state-controls-wrapper'>
         <div class='index-card-state-controls-container'>
-          <%= button_to t('activerecord.state_machines.states.fulfiled'), appointment_fulfil_path(appointment),
-                                                                          method: :put,
-                                                                          class: 'index-appointments-fulfil-button' %>
-          <%= button_tag t('activerecord.state_machines.states.no_show'), type: 'button',
-                                                                          class: 'index-appointments-miss-button',
-                                                                          data: { 'micromodal-trigger': "missed-appointment-modal-#{appointment.id}" } %>
-          <%= button_to t('activerecord.state_machines.states.excused'), appointment_excuse_path(appointment),
+          <% if policy(appointment).fulfil_old?%>
+            <%= button_to t('activerecord.state_machines.states.fulfiled'), appointment_fulfil_path(appointment),
+                                                                            method: :put,
+                                                                            class: 'index-appointments-fulfil-button' %>
+          <% end %>
+          <% if policy(appointment).miss_old? %>
+            <%= button_tag t('activerecord.state_machines.states.no_show'), type: 'button',
+                                                                            class: 'index-appointments-miss-button',
+                                                                            data: { 'micromodal-trigger': "missed-appointment-modal-#{appointment.id}" } %>
+          <% end %>
+          <% if policy(appointment).excuse_old? %>
+            <%= button_to t('activerecord.state_machines.states.excused'), appointment_excuse_path(appointment),
                                                                          method: :put,
                                                                          class: 'index-appointments-excuse-button' %>
+          <% end %>
         </div>
         <%= render 'appointments/missed_appointment_modal', apt: appointment %>
       </div>
