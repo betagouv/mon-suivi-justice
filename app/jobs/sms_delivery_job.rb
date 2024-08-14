@@ -1,5 +1,5 @@
 class SmsDeliveryJob < ApplicationJob
-  sidekiq_options retry: 5
+  sidekiq_options retry: 10
 
   queue_as :default
 
