@@ -18,12 +18,12 @@ class UserMailer < ApplicationMailer
     @admins = organization.all_local_admins
     return if @admins.blank?
 
-    mail(to: @admins.map(&:email), subject: 'Vous avez des demandes de dessaisissement en attente')
+    mail(to: @admins.map(&:email), subject: 'Action requise : Dessaisissements en attente de réponse de votre service')
   end
 
   def admin_divestment_action_needed
     mail(to: 'support@mon-suivi-justice.beta.gouv.fr',
-         subject: 'Des demandes de dessaisissement nécessitent une action')
+         subject: 'Des demandes de dessaisissement nécessitent une action admin')
   end
 
   def divestment_accepted
