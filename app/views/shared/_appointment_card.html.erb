@@ -37,7 +37,7 @@
     <% else %>
       <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
         <div class='index-card-state-container'>
-          <% if %w[fulfiled no_show excused].include?(appointment.state) %>
+          <% if appointment.completed? %>
             <span class="circle-icon icon_<%= appointment.state %> fr-mr-1w"></span>
           <% end %>
           <span class='index-card-state-data'><%= appointment.human_state_name %></span>

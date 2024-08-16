@@ -258,4 +258,8 @@ class Appointment < ApplicationRecord
   def cancel_reminder_notif
     reminder_notif.cancel! if reminder_notif&.programmed?
   end
+
+  def completed?
+    fulfiled? || no_show? || excused?
+  end
 end

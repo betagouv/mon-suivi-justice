@@ -20,7 +20,11 @@ class ManageNotificationProblems < ApplicationJob
   end
 
   def inform_users_about_failed_notifications
-    notifications_to_be_marked_as_failed.each(&:handle_unsent!)
+    notifications_to_be_marked_as_failed.each do |notification|
+      notification.handle_unsent!
+    rescue StandardError => e
+      Sentry.capture_exception(e)
+    end
   end
 
   def inform_admins
