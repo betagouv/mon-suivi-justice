@@ -20,11 +20,10 @@
       </tr>
     </thead>
     <tbody>
-      <% @appointments.each do |appointment| %>
+      <% @appointments.includes(:creating_organization, convict: :organizations, slot: { agenda: { place: :organization }}).each do |appointment| %>
         <%= render 'shared/appointment_card', appointment: appointment %>
       <% end %>
     </tbody>
   </table>
   <%= paginate @appointments %>
 </div>
-

@@ -12,7 +12,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @history_items.each do |history_item| %>
+          <% @history_items.includes(:appointment).each do |history_item| %>
             <tr>
               <td>
                 <div  class='show-history-item-icon text-center'>

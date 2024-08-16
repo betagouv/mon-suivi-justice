@@ -7,7 +7,7 @@ class SlotsController < ApplicationController
     @q = policy_scope(Slot).future.with_appointment_type_with_slot_system.ransack(params[:q])
     all_slots = @q.result(distinct: true)
                   .order(:date, :starting_time)
-                  .includes(agenda: [:place])
+                  .includes(:appointment_type, agenda: :place)
                   .joins(agenda: [:place])
 
     @slots = all_slots.page(params[:page]).per(25)

@@ -77,7 +77,7 @@ class BexController < ApplicationController
   end
 
   def get_jap_agendas(appointment_type, params)
-    @places_agendas = policy_scope(Agenda).where(place: places(appointment_type))
+    @places_agendas = policy_scope(Agenda).includes(:place).where(place: places(appointment_type))
                                           .with_open_slots(appointment_type).sort_by(&:name)
     @selected_agenda = Agenda.find(params[:agenda_id]) unless params[:agenda_id].blank?
     @agendas_to_display = @selected_agenda.nil? ? @places_agendas : [@selected_agenda]
@@ -86,7 +86,7 @@ class BexController < ApplicationController
   def get_places_and_agendas(appointment_type, params) # rubocop:disable Metrics/AbcSize
     @places = place_policy_scope_for_bex.kept.joins(:appointment_types).where(appointment_types: appointment_type)
     @place = params[:place_id] ? Place.find(params[:place_id]) : @places.first
-    @agendas = policy_scope(Agenda).where(place: @place).with_open_slots(appointment_type).sort_by(&:name)
+    @agendas = policy_scope(Agenda).includes(:place).where(place: @place).with_open_slots(appointment_type).sort_by(&:name)
     @agenda = params[:agenda_id].nil? ? @agendas.first : Agenda.find(params[:agenda_id])
   end
 

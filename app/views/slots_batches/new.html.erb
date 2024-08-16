@@ -11,7 +11,7 @@
 
 <p class='form-manual'><%= t('slots.new_batch_manual') %></p>
 <%= simple_form_for(:slot_batch, method: :post, url: slots_batch_path, html: { class: 'basic-form' }) do |f| %>
-  <%= f.input :agenda_id, collection: current_user.organization.agendas.kept.select(&:appointment_type_with_slot_types?),
+  <%= f.input :agenda_id, collection: current_user.organization.agendas.includes(:place).kept.select(&:appointment_type_with_slot_types?),
                           label: t('activerecord.models.agenda'),
                           selected: @agenda&.id,
                           include_blank: true,
@@ -35,7 +35,7 @@
     <%= link_to 'Créneau unique', display_time_fields_path, class: 'fr-btn fr-mr-2w' %>
     <%= link_to 'Plage de créneaux', display_interval_fields_path, class: 'fr-btn fr-btn--secondary' %>
   </ul>
-  
+
   <%= f.input :duration, input_html: { value: @duration }, label: t('activerecord.attributes.slot.duration') %>
   <%= f.input :capacity, input_html: { value: @capacity }, label: t('activerecord.attributes.slot.capacity') %>
 

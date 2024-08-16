@@ -8,7 +8,7 @@
         <% if policy(:slot).new? %>
           <%= link_to t('slots.new_batch_title'), new_slots_batch_path, class: 'fr-btn'%>
         <% end %>
-        <% if policy(@slots).update_all? %>
+        <% if policy(@slots.includes(agenda: { place: :organization })).update_all? %>
           <%= button_tag t('index_slots_batch_close'), type: 'submit',
                                                    form: 'index-slots-update-form',
                                                    data: { 'turbo-confirm': t('basic_confirmation') },
@@ -67,7 +67,7 @@
         </tr>
       </thead>
       <tbody>
-          <% @slots.each do |slot| %>
+          <% @slots.includes(:appointment_type, agenda: { place: :organization }).each do |slot| %>
             <tr>
               <td><%= slot.agenda.place.name %></td>
               <td><%= slot.agenda.name %></td>
