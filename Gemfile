@@ -68,7 +68,7 @@ gem 'stimulus-rails', '~> 1.3.3'
 gem 'lograge', '~> 0.14.0'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 6.1.3'
+  gem 'rspec-rails', '~> 6.1.4'
   gem 'rspec_junit_formatter', '~> 0.6.0'
   gem 'factory_bot_rails', '~> 6.4.3'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
