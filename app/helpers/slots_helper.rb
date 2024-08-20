@@ -5,6 +5,10 @@ module SlotsHelper
     AppointmentType.where(name: list).where(id: after_hearing_organization_types)
   end
 
+  def agendas_for_slot_creation(user)
+    user.organization.agendas.includes(:place).kept.select(&:appointment_type_with_slot_types?)
+  end
+
   private
 
   def apt_type_list(user)

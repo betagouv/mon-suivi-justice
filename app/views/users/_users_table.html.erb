@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @users.includes(:organization).each do |user| %>
+      <% @users.each do |user| %>
         <tr>
           <td>
             <%= user.name %>

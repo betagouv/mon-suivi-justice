@@ -102,7 +102,7 @@ class Convict < ApplicationRecord
   end
 
   def booked_appointments
-    appointments.joins(:slot).with_state(:booked)
+    appointments.includes(:creating_organization, slot: { agenda: :place }).with_state(:booked)
   end
 
   def passed_appointments
@@ -321,7 +321,7 @@ class Convict < ApplicationRecord
   end
 
   def future_appointments_with_states(states)
-    appointments.joins(:slot)
+    appointments.includes(slot: { agenda: :place, appointment_type: {} })
                 .select('appointments.*, slots.date')
                 .where(state: states)
                 .where('slots.date': Date.today..)
