@@ -15,7 +15,7 @@
           <% @history_items.each do |history_item| %>
             <tr>
               <td>
-                <% if %w[fulfil_appointment miss_appointment excuse_appointment].include?(history_item.event) %>
+                <% if history_item.appointment_completion_event? %>
                   <div  class='show-history-item-icon text-center'>
                     <span class="circle-icon icon_<%= history_item.event %> fr-mr-1w"></span>
                   </div>
