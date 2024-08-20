@@ -1,6 +1,6 @@
 <div class="fr-grid-row fr-grid-row--center">
   <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
-    <% policy_scope(@convict.booked_appointments).each do |apt| %>
+    <% policy_scope(@booked_appointments).each do |apt| %>
       <% if policy(apt).change_state? %>
         <div class='appointment-fulfilment-container'>
           <div class='appointment-fulfilment-prompt-container'>
@@ -9,33 +9,31 @@
                                                       place: apt.slot.agenda.place.name,
                                                       date: apt.slot.date.to_fs,
                                                       time: apt.localized_time.to_fs(:time)) %>
-              <% else %>
-                <%= t('show-convict-excuse-prompt', name: @convict.name,
+            <% else %>
+              <%= t('show-convict-excuse-prompt', name: @convict.name,
                                                     place: apt.slot.agenda.place.name,
                                                     date: apt.slot.date.to_fs,
                                                     time: apt.localized_time.to_fs(:time)) %>
-              <% end %>
+            <% end %>
           </div>
           <div class='appointment-fulfilment-controls-container'>
-        <% if policy(apt).fulfil? %>
-            <%= button_to t('yes'), appointment_fulfil_path(apt),
+            <% if policy(apt).fulfil? %>
+              <%= button_to t('yes'), appointment_fulfil_path(apt),
                                       method: :put,
                                       id: 'show-convict-fulfil-button',
                                       class: 'show-convict-fulfil-button' %>
-        <% end %>
-        <% if policy(apt).miss? %>
-
-            <%= button_tag t('no'), type: 'button',
+            <% end %>
+            <% if policy(apt).miss? %>
+              <%= button_tag t('no'), type: 'button',
                                       class: 'show-convict-miss-button',
                                       data: { 'micromodal-trigger': "missed-appointment-modal-#{apt.id}" } %>
-                                      <% end %>
-        <% if policy(apt).excuse? %>
-
-            <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(apt),
+            <% end %>
+            <% if policy(apt).excuse? %>
+              <%= button_to t('show-convict-fulfilment-excused'), appointment_excuse_path(apt),
                                                                   method: :put,
                                                                   id: 'show-convict-excuse-button',
                                                                   class: 'show-convict-excuse-button' %>
-                                                                  <% end %>
+            <% end %>
           </div>
         </div>
         <%= render 'missed_appointment_modal', apt: apt %>
@@ -135,7 +133,7 @@
       </div>
     </div>
     <%= render 'invitation_card', convict: @convict, user: current_user %>
-    <% if @convict.future_appointments_and_excused.any? %>
+    <% if @future_appointments_and_excused.any? %>
       <div class="fr-grid-row fr-mt-2w">
         <div class="fr-col">
           <div class="fr-table fr-table--layout-fixed fr-table--bordered">
@@ -151,7 +149,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% @convict.future_appointments_and_excused.each do |apt| %>
+                <% @future_appointments_and_excused.each do |apt| %>
                   <tr>
                     <td><%= apt.slot.appointment_type.name %></td>
                     <td><%= apt.slot.agenda.place.name %></td>

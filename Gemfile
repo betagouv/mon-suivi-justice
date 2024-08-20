@@ -29,7 +29,7 @@ gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
 gem 'dotenv-rails', '~> 3.1.2'
-gem 'sidekiq', '~> 7.3.0'
+gem 'sidekiq', '~> 7.3.1'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
@@ -38,8 +38,8 @@ gem 'discard', '~> 1.3.0'
 
 gem 'paper_trail', '~> 15.1.0'
 gem 'ahoy_matey', '~> 5.1.0'
-gem 'sentry-ruby', '~> 5.18.1'
-gem 'sentry-rails', '~> 5.18.2'
+gem 'sentry-ruby', '~> 5.19.0'
+gem 'sentry-rails', '~> 5.19.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.2', '>= 3.2.8'
@@ -50,7 +50,7 @@ gem 'faraday', '~> 2.10.1'
 gem 'faraday-retry', '~> 2.2.1'
 gem 'jwt', '~> 2.8'
 
-gem 'wicked_pdf', '~> 2.8.0'
+gem 'wicked_pdf', '~> 2.8.1'
 gem 'wkhtmltopdf-binary', '~> 0.12.6'
 
 gem 'tzinfo', '~> 2.0.6'
@@ -68,7 +68,7 @@ gem 'stimulus-rails', '~> 1.3.3'
 gem 'lograge', '~> 0.14.0'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 6.1.3'
+  gem 'rspec-rails', '~> 6.1.4'
   gem 'rspec_junit_formatter', '~> 0.6.0'
   gem 'factory_bot_rails', '~> 6.4.3'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
@@ -99,7 +99,7 @@ group :test do
   gem 'capybara-screenshot', '~> 1.0.26'
   gem 'selenium-webdriver', '~> 4.10.0'
   gem 'webdrivers', '~> 5.3.1'
-  gem 'shoulda-matchers', '~> 6.3.0'
+  gem 'shoulda-matchers', '~> 6.4.0'
   gem 'timecop', '~> 0.9.10'
   gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec', '~> 0.6.0'

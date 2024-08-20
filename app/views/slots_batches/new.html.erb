@@ -6,38 +6,30 @@
   </section>
   <%= render partial: 'shared/jap_agendas_modal', locals: {jap_modal_content: current_user.organization.jap_modal_content} %>
 <% end %>
-
 <h1 class='form-title'><%= t('slots.new_batch_title') %></h1>
-
 <p class='form-manual'><%= t('slots.new_batch_manual') %></p>
 <%= simple_form_for(:slot_batch, method: :post, url: slots_batch_path, html: { class: 'basic-form' }) do |f| %>
-  <%= f.input :agenda_id, collection: current_user.organization.agendas.kept.select(&:appointment_type_with_slot_types?),
+  <%= f.input :agenda_id, collection: agendas_for_slot_creation(current_user),
                           label: t('activerecord.models.agenda'),
                           selected: @agenda&.id,
                           include_blank: true,
                           input_html: { class: 'form-select' } %>
-
   <%= f.input :appointment_type_id, collection: appointment_types_for_slot_creation(current_user),
                                     label: t('activerecord.models.appointment_type'),
                                     selected: @appointment_type&.id,
                                     include_blank: true,
                                     input_html: { class: 'form-select' } %>
-
   <%= f.input :date, input_html: { data: {controller: "pick-multiple-dates"}, min: Date.today, value: @date },
                      label: t('activerecord.attributes.slot.date') %>
-
   <div class='new-slots-time-fields-container' id='new-slots-time-fields-container'>
     <%= turbo_frame_tag 'display_time_fields' do %>
     <% end %>
   </div>
-
   <ul class="fr-btns-group fr-btns-group--inline-md">
     <%= link_to 'Créneau unique', display_time_fields_path, class: 'fr-btn fr-mr-2w' %>
     <%= link_to 'Plage de créneaux', display_interval_fields_path, class: 'fr-btn fr-btn--secondary' %>
   </ul>
-  
   <%= f.input :duration, input_html: { value: @duration }, label: t('activerecord.attributes.slot.duration') %>
   <%= f.input :capacity, input_html: { value: @capacity }, label: t('activerecord.attributes.slot.capacity') %>
-
   <%= f.button :submit, t('submit'), class: 'form-submit-button' %>
 <% end %>

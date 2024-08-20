@@ -1,93 +1,68 @@
+# spec/jobs/manage_notification_problems_spec.rb
 require 'rails_helper'
 
 RSpec.describe ManageNotificationProblems, type: :job do
   include ActiveJob::TestHelper
 
   describe '#perform' do
-    let(:past_slot) { create(:slot, date: next_valid_day(date: Time.zone.now + 1.day)) }
-    let(:future_slot) { create(:slot, date: next_valid_day(date: Time.zone.now + 20.day)) }
-    let(:appointment_for_past_slot) { create(:appointment, slot: past_slot, state: 'booked') }
-    let(:appointment_for_future_slot) { create(:appointment, slot: future_slot, state: 'booked') }
-
-    let!(:other_notification1) do
-      create(:notification, appointment: appointment_for_past_slot, state: 'unsent')
-    end
-    let!(:other_notification2) do
-      create(:notification, appointment: appointment_for_future_slot, state: 'canceled')
-    end
-    let!(:other_notification3) do
-      create(:notification, appointment: appointment_for_future_slot, state: 'programmed', role: 'reminder')
-    end
+    let(:job) { described_class.new }
+    let(:to_reschedule_query) { instance_double(Notifications::ToRescheduleQuery) }
+    let(:to_be_marked_as_failed_query) { instance_double(Notifications::ToBeMarkedAsFailedQuery) }
 
     before do
-      allow_any_instance_of(ManageNotificationProblems)
-        .to receive(:scheduled_sms_delivery_jobs_notif_ids)
-        .and_return([other_notification3.id])
-
-      Timecop.freeze(Time.zone.now + 10.days)
+      allow(Notifications::ToRescheduleQuery).to receive(:new).and_return(to_reschedule_query)
+      allow(Notifications::ToBeMarkedAsFailedQuery).to receive(:new).and_return(to_be_marked_as_failed_query)
     end
 
-    after do
-      Timecop.return
-    end
+    context 'when there are notifications to reschedule and mark as failed' do
+      let(:notification_to_reschedule) { create(:notification, state: 'programmed') }
+      let(:notification_to_fail) { create(:notification, state: 'programmed') }
 
-    context 'when there are notifications to handle' do
-      let!(:notification_to_reschedule1) do
-        create(:notification, appointment: appointment_for_future_slot, state: 'programmed', role: 'reminder')
-      end
-      let!(:notification_to_reschedule2) do
-        create(:notification, appointment: appointment_for_future_slot, state: 'programmed', role: 'summon')
-      end
-      let!(:notification_to_reschedule3) do
-        build(:notification, appointment: appointment_for_future_slot, state: 'sent', role: 'no_show', external_id: nil)
-        .tap { |n| n.save(validate: false) }
+      before do
+        allow(to_reschedule_query).to receive(:call).and_return([notification_to_reschedule])
+        allow(to_be_marked_as_failed_query).to receive(:call).and_return([notification_to_fail])
       end
 
-      let!(:stucked_notification1) do
-        create(:notification, appointment: appointment_for_past_slot, state: 'programmed', role: 'reminder')
+      it 'both reschedules and marks as failed' do
+        expect(SmsDeliveryJob).to receive(:perform_later).with(notification_to_reschedule.id)
+        expect(notification_to_fail).to receive(:handle_unsent!)
+        job.perform
       end
 
-      let!(:stucked_notification2) do
-        create(:notification, appointment: appointment_for_past_slot, state: 'programmed', role: 'reminder')
-      end
-
-      it 'reschedules the correct notifications' do
-        expect do
-          described_class.perform_now
-        end.to have_enqueued_job(SmsDeliveryJob).exactly(3).times
-
-        expect(SmsDeliveryJob).to have_been_enqueued.with(notification_to_reschedule1.id)
-        expect(SmsDeliveryJob).to have_been_enqueued.with(notification_to_reschedule2.id)
-        expect(SmsDeliveryJob).to have_been_enqueued.with(notification_to_reschedule3.id)
-      end
-
-      it 'sets stucked notifications to failed' do
-        described_class.perform_now
-        expect(stucked_notification1.reload.state).to eq('failed')
-        expect(stucked_notification2.reload.state).to eq('failed')
-        expect(notification_to_reschedule1.reload.state).to eq('programmed')
-        expect(notification_to_reschedule2.reload.state).to eq('programmed')
-        expect(notification_to_reschedule3.reload.state).to eq('sent')
-        expect(other_notification1.reload.state).to eq('unsent')
-        expect(other_notification2.reload.state).to eq('canceled')
-        expect(other_notification3.reload.state).to eq('programmed')
-      end
-
-      it 'sends an email to admins with correct arguments' do
-        expect do
-          described_class.perform_now
-        end.to have_enqueued_mail(AdminMailer, :notifications_problems)
-          .with(match_array([notification_to_reschedule1.id, notification_to_reschedule2.id,
-                             notification_to_reschedule3.id]),
-                match_array([stucked_notification1.id, stucked_notification2.id]))
+      it 'informs admins' do
+        expect(AdminMailer).to receive(:notifications_problems).with([notification_to_reschedule.id],
+                                                                     [notification_to_fail.id])
+                                                               .and_return(double(deliver_later: true))
+        job.perform
       end
     end
 
-    context 'when there are no notifications to handle' do
-      it 'does not send an email to admins' do
-        expect do
-          described_class.perform_now
-        end.not_to have_enqueued_mail(AdminMailer, :notifications_problems)
+    context 'when there are no notifications to process' do
+      before do
+        allow(to_reschedule_query).to receive(:call).and_return([])
+        allow(to_be_marked_as_failed_query).to receive(:call).and_return([])
+      end
+
+      it 'does not send any admin email' do
+        expect(AdminMailer).not_to receive(:notifications_problems)
+        job.perform
+      end
+    end
+
+    context 'when rescheduling a reminder notification' do
+      let(:reminder_notification) { create(:notification, state: 'programmed', role: 'reminder') }
+
+      before do
+        allow(to_reschedule_query).to receive(:call).and_return([reminder_notification])
+        allow(to_be_marked_as_failed_query).to receive(:call).and_return([])
+        allow(reminder_notification).to receive(:delivery_time).and_return(1.day.from_now)
+      end
+
+      it 'schedules the reminder with the correct delivery time' do
+        expect(SmsDeliveryJob).to receive(:set).with(wait_until: reminder_notification.delivery_time)
+                                               .and_return(SmsDeliveryJob)
+        expect(SmsDeliveryJob).to receive(:perform_later).with(reminder_notification.id)
+        job.perform
       end
     end
   end

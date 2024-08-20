@@ -470,7 +470,7 @@ RSpec.feature 'Appointments', type: :feature do
       visit appointment_path(appointment)
 
       expect(page).to have_content('Honoré')
-      expect(page).to have_content("s'est bien presenté(e) à sa convocation")
+      expect(page).to have_content("s'est bien presenté à sa convocation")
 
       within first('.show-appointment-state-container') do
         click_link 'Modifier'
@@ -481,7 +481,7 @@ RSpec.feature 'Appointments', type: :feature do
 
       expect(page).to have_content('Planifié')
       expect(page).not_to have_content('Modifier')
-      expect(page).not_to have_content("s'est bien presenté(e) à sa convocation")
+      expect(page).not_to have_content("s'est bien presenté à sa convocation")
     end
   end
 
@@ -661,7 +661,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         visit convict_path(convict)
 
-        within first('.appointment-fulfilment-container') { click_button 'Excusé(e)' }
+        within first('.appointment-fulfilment-container') { click_button 'Excusé' }
 
         appointment.reload
         expect(appointment.state).to eq('excused')

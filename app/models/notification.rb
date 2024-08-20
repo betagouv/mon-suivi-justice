@@ -7,6 +7,7 @@ class Notification < ApplicationRecord
 
   delegate :convict_phone, :convict, to: :appointment
   delegate :id, to: :appointment, prefix: true
+  delegate :can_receive_sms?, to: :convict, prefix: true
 
   enum role: %i[summon reminder cancelation no_show reschedule]
   enum reminder_period: %i[one_day two_days]
@@ -17,6 +18,28 @@ class Notification < ApplicationRecord
   }
 
   scope :all_sent, -> { where(state: %w[sent received failed]) }
+
+  scope :appointment_after_today, lambda {
+    joins(appointment: :slot)
+      .where('slots.date > ?', Time.zone.today)
+  }
+
+  scope :appointment_more_than_1_month_ago, lambda {
+    joins(appointment: :slot)
+      .where('slots.date < ?', 1.month.ago)
+  }
+
+  scope :appointment_in_the_past, lambda {
+    joins(appointment: :slot)
+      .where('slots.date < ?', Time.zone.today)
+  }
+
+  scope :appointment_recently_past, lambda {
+    joins(appointment: :slot)
+      .where(slots: { date: 1.month.ago..Time.zone.yesterday })
+  }
+
+  scope :retryable, -> { where(failed_count: 0..4) }
 
   state_machine initial: :created do
     state :created do
@@ -49,7 +72,7 @@ class Notification < ApplicationRecord
     end
 
     event :mark_as_sent do
-      transition %i[created programmed] => :sent
+      transition programmed: :sent
     end
 
     event :cancel do
@@ -61,15 +84,11 @@ class Notification < ApplicationRecord
     end
 
     event :mark_as_unsent do
-      transition programmed: :unsent
+      transition %i[created programmed] => :unsent
     end
 
-    event :failed_send do
-      transition sent: :failed
-    end
-
-    event :failed_programmed do
-      transition programmed: :failed
+    event :mark_as_failed do
+      transition %i[created programmed] => :failed
     end
 
     after_transition do |notification, transition|
@@ -109,5 +128,24 @@ class Notification < ApplicationRecord
 
   def hour_delay
     { 'one_day' => 24, 'two_days' => 48 }.fetch(reminder_period)
+  end
+
+  def can_be_sent?
+    convict_can_receive_sms? && (can_mark_as_sent? && role_conditions_valid? && failed_count < 5)
+  end
+
+  def role_conditions_valid?
+    case role
+    when 'summon', 'reminder', 'reschedule'
+      appointment.in_the_future? && appointment.booked?
+    when 'cancelation'
+      appointment.in_the_future? && appointment.canceled?
+    when 'no_show'
+      appointment.in_the_past? && appointment.no_show?
+    end
+  end
+
+  def handle_unsent!
+    failed_count.zero? ? mark_as_unsent! : mark_as_failed!
   end
 end

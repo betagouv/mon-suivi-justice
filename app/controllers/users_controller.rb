@@ -128,7 +128,7 @@ class UsersController < ApplicationController
   def search_users
     return policy_scope(User).search_by_name(params[:search]).page params[:page] if params[:search].present?
 
-    policy_scope(User).order('last_name asc').page params[:page]
+    policy_scope(User).order('last_name asc').includes(:organization).page params[:page]
   end
 
   def redirect_to_correct_path_for_update

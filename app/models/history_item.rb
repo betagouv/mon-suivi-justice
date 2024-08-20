@@ -28,10 +28,19 @@ class HistoryItem < ApplicationRecord
     remove_phone_convict: 17,
     failed_programmed_reminder_notification: 18,
     accept_divestment: 19,
-    refuse_divestment: 20
+    refuse_divestment: 20,
+    mark_as_failed_reminder_notification: 21,
+    mark_as_failed_summon_notification: 22,
+    mark_as_failed_no_show_notification: 23,
+    mark_as_failed_cancelation_notification: 24,
+    mark_as_failed_reschedule_notification: 25
   }
 
   def self.validate_event(event)
     HistoryItem.events.keys.include?(event.to_s)
+  end
+
+  def appointment_completion_event?
+    %w[fulfil_appointment miss_appointment excuse_appointment].include?(event)
   end
 end

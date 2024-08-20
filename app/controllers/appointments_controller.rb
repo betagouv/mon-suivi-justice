@@ -12,7 +12,9 @@ class AppointmentsController < ApplicationController
     process_related_entities
     process_users
 
-    @appointments = @all_appointments.page(params[:page]).per(25)
+    @appointments = @all_appointments.includes(:creating_organization, convict: :organizations,
+                                                                       slot: { agenda: { place: :organization } })
+                                     .page(params[:page]).per(25)
 
     respond_to do |format|
       format.html
@@ -93,7 +95,7 @@ class AppointmentsController < ApplicationController
 
   def miss
     @appointment = Appointment.find(params[:appointment_id])
-    authorize @appointment
+    authorize @appointment, :miss_old?
     @appointment.miss(send_notification: params[:send_sms])
 
     redirect_back(fallback_location: root_path)

@@ -3,7 +3,7 @@ class ManageNotificationProblems < ApplicationJob
 
   def perform
     reschedule_unqueued_notifications
-    inform_users_about_stucked_notifications
+    inform_users_about_failed_notifications
     inform_admins
   end
 
@@ -11,57 +11,36 @@ class ManageNotificationProblems < ApplicationJob
 
   def reschedule_unqueued_notifications
     notifications_to_reschedule.each do |notif|
-      SmsDeliveryJob.set(wait_until: notif.delivery_time)
-                    .perform_later(notif.id)
+      if notif.reminder?
+        SmsDeliveryJob.set(wait_until: notif.delivery_time).perform_later(notif.id)
+      else
+        SmsDeliveryJob.perform_later(notif.id)
+      end
     end
   end
 
-  def inform_users_about_stucked_notifications
-    stucked_notifications.each(&:failed_programmed!)
+  def inform_users_about_failed_notifications
+    notifications_to_be_marked_as_failed.each do |notification|
+      notification.handle_unsent!
+    rescue StandardError => e
+      Sentry.capture_exception(e)
+    end
   end
 
   def inform_admins
-    return unless notifications_to_reschedule.any? || stucked_notifications.any?
+    return unless notifications_to_reschedule.any? || notifications_to_be_marked_as_failed.any?
 
-    AdminMailer.notifications_problems(notifications_to_reschedule.pluck(:id), stucked_notifications.pluck(:id))
-               .deliver_later
+    AdminMailer.notifications_problems(
+      notifications_to_reschedule.pluck(:id),
+      notifications_to_be_marked_as_failed.pluck(:id)
+    ).deliver_later
   end
 
   def notifications_to_reschedule
-    @notifications_to_reschedule ||= sms_notifications_to_be_send.where.not(id: scheduled_sms_delivery_jobs_notif_ids)
+    @notifications_to_reschedule ||= Notifications::ToRescheduleQuery.new.call
   end
 
-  def stucked_notifications
-    @stucked_notifications ||=
-      Notification.joins(appointment: :slot)
-                  .where('slots.date < ?', 1.hour.ago)
-                  .where(state: 'programmed', role: 'reminder')
-  end
-
-  def scheduled_sms_delivery_jobs_notif_ids
-    @scheduled_sms_delivery_jobs_notif_ids ||=
-      Sidekiq::ScheduledSet.new.map do |job|
-        job.item.dig('args', 0, 'arguments', 0) if job.item['wrapped'] == 'SmsDeliveryJob'
-      end.compact
-  end
-
-  def sms_notifications_to_be_send
-    reminder_notifications_to_be_send.or(other_notifications_to_be_send).or(mistakenly_marked_as_sent_notifications)
-  end
-
-  def reminder_notifications_to_be_send
-    Notification.joins(appointment: :slot)
-                .where('slots.date > ?', 4.hours.from_now)
-                .where(appointments: { state: 'booked' })
-                .where(state: 'programmed', role: 'reminder')
-  end
-
-  def other_notifications_to_be_send
-    Notification.where(state: 'programmed', role: %w[summon cancelation no_show reschedule])
-  end
-
-  def mistakenly_marked_as_sent_notifications
-    Notification.joins(appointment: :slot)
-                .where(state: 'sent', external_id: nil, updated_at: 2.days.ago..)
+  def notifications_to_be_marked_as_failed
+    @notifications_to_be_marked_as_failed ||= Notifications::ToBeMarkedAsFailedQuery.new.call
   end
 end
