@@ -8,6 +8,9 @@ class ConvictsController < ApplicationController
     @history_items = HistoryItem.where(convict: @convict, category: %w[appointment convict])
                                 .includes(:appointment)
                                 .order(created_at: :desc)
+    @booked_appointments = @convict.booked_appointments.includes(:creating_organization, slot: { agenda: :place })
+    @future_appointments_and_excused = @convict.future_appointments_and_excused
+                                               .includes(slot: { agenda: :place, appointment_type: {} })
 
     set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 

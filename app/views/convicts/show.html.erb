@@ -1,6 +1,6 @@
 <div class="fr-grid-row fr-grid-row--center">
   <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
-    <% policy_scope(@convict.booked_appointments).each do |apt| %>
+    <% policy_scope(@booked_appointments).each do |apt| %>
       <% if policy(apt).change_state? %>
         <div class='appointment-fulfilment-container'>
           <div class='appointment-fulfilment-prompt-container'>
@@ -133,7 +133,7 @@
       </div>
     </div>
     <%= render 'invitation_card', convict: @convict, user: current_user %>
-    <% if @convict.future_appointments_and_excused.any? %>
+    <% if @future_appointments_and_excused.any? %>
       <div class="fr-grid-row fr-mt-2w">
         <div class="fr-col">
           <div class="fr-table fr-table--layout-fixed fr-table--bordered">
@@ -149,7 +149,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% @convict.future_appointments_and_excused.each do |apt| %>
+                <% @future_appointments_and_excused.each do |apt| %>
                   <tr>
                     <td><%= apt.slot.appointment_type.name %></td>
                     <td><%= apt.slot.agenda.place.name %></td>
