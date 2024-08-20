@@ -170,7 +170,7 @@
                                                         class: 'fr-btn  fr-btn--lg'%>
       </div>
     <% end %>
-    <%= render 'shared/history_items' %>
+    <%= render 'shared/history_items', show_actions_link: true %>
   </div>
 </div>
 <%= javascript_include_tag 'convict', "data-turbo-track": "reload", defer: true %>
