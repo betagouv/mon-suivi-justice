@@ -146,6 +146,8 @@ class Notification < ApplicationRecord
   end
 
   def handle_unsent!
+    return if canceled?
+
     failed_count.zero? ? mark_as_unsent! : mark_as_failed!
   end
 end
