@@ -5,11 +5,11 @@
         <caption><%= t('show_convict_history_title') %></caption>
         <thead>
           <tr>
-            <th scope="col"></th>
-            <th scope="col">Date</th>
+            <th scope="col" class="fr-col-1"></th>
+            <th scope="col" class="fr-col-3">Date</th>
             <th scope="col">Evènement</th>
             <% if show_actions_link %>
-              <th scope="col">Actions</th>
+              <th scope="col" class="fr-col-3">Actions</th>
             <% end %>
           </tr>
         </thead>
@@ -19,7 +19,7 @@
               <td>
                 <% if history_item.appointment_completion_event? %>
                   <div  class='show-history-item-icon text-center'>
-                    <span class="circle-icon icon_<%= history_item.event %> fr-mr-1w"></span>
+                    <span class="circle-icon icon_<%= history_item.event %>"></span>
                   </div>
                 <% end %>
               </td>
