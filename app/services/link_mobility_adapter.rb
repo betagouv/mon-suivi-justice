@@ -40,7 +40,7 @@ class LinkMobilityAdapter
 
   def structured_response(response)
     SmsApiResponse.new(success: response['responseCode'].zero?,
-                       external_id: response['messageIds'].first,
+                       external_id: response['messageIds']&.first,
                        code: response['responseCode'],
                        message: response['responseMessage'],
                        retry_if_failed: retry_if_failed?(response['responseCode']))
