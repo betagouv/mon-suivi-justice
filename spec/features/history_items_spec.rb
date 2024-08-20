@@ -22,7 +22,7 @@ RSpec.feature 'HistoryItems', type: :feature do
 
       visit convict_path(@convict)
 
-      expect(page).to have_content("s'est bien presenté(e) à sa convocation")
+      expect(page).to have_content("s'est bien presenté à sa convocation")
     end
 
     it 'displays when appointments are missed' do
@@ -31,7 +31,7 @@ RSpec.feature 'HistoryItems', type: :feature do
 
       visit convict_path(@convict)
 
-      expect(page).to have_content("ne s'est pas presenté(e) à sa convocation")
+      expect(page).to have_content("ne s'est pas presenté à sa convocation")
     end
 
     it 'displays when convict is archived' do
