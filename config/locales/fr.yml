@@ -352,9 +352,8 @@ fr:
       for_a_user: Vos convocations au statut inconnu
     cancel_appointment_modal:
       title: Annuler la convocation
-      description: Vous vous appretez à annuler la convocation et le SMS de rappel prévu.
-        Vous pouvez choisir de prévenir par sms le probationnaire ou non.
-        Êtes-vous sûr.e ?
+      description: Vous vous apprêtez à annuler la convocation et le SMS de rappel prévu.
+        Vous pouvez choisir ci-dessous de prévenir par sms le probationnaire de cette annulation ou non.
       warn_convict: Annuler et prévenir le probationnaire
       do_not_warn_convict: Annuler sans prévenir le probationnaire
   appointments_reschedules:
@@ -365,7 +364,7 @@ fr:
   archive: Archiver
   archive_convict_confirmation: Ce probationnaire restera accessible pendant 6 mois
     avant d'être définitivement supprimée.
-  basic_confirmation: Êtes-vous sûr(e)?
+  basic_confirmation: Êtes-vous sûr?
   bex:
     jap:
       agendas_title: Agenda Sortie d'audience JAP pour le
@@ -380,8 +379,7 @@ fr:
       appointments_title: Convocations SPIP pour
       no_agenda_available: Pas de convocation Sortie d'audience SPIP prévue
   cancel: Annuler
-  cancel_appointment_warning: En annulant la convocation, vous annulez
-    le SMS de rappel prévu. Êtes-vous sûr.e ?
+  cancel_appointment_warning: Êtes-vous sûr de vouloir annuler cette convocation ?
   close: Fermer
   contact: Contacter l'équipe
   continue: Continuer
@@ -520,17 +518,17 @@ fr:
     archive_convict: Le profil de %{name} a été archivé. Pour le désarchiver, contactez
       votre administrateur local.
     archive_convict_title: Archivage
-    book_appointment: "%{name} a été convoqué(e) le %{date} à %{time} au lieu suivant
+    book_appointment: "%{name} a été convoqué le %{date} à %{time} au lieu suivant
       : %{place}."
     book_appointment_title: Nouvelle convocation
-    book_phone_appointment: "%{name} a été convoqué(e) pour un rendez-vous téléphonique
+    book_phone_appointment: "%{name} a été convoqué pour un rendez-vous téléphonique
       le %{date} à %{time}."
     cancel_appointment: La convocation au %{place} le %{date} à %{time} a été annulée.
     cancel_appointment_title: Convocation annulée
     cancel_reminder_notification: Le SMS de rappel ne sera pas envoyé à %{name} car
       la convocation a été annulée.
     cancel_reminder_notification_title: SMS de rappel annulé
-    excuse_appointment: "%{name} ne s'est pas presenté(e) à sa convocation le %{date}
+    excuse_appointment: "%{name} ne s'est pas presenté à sa convocation le %{date}
       à %{time} au lieu %{place}, mais a présenté une justification valide."
     excuse_appointment_title: Convocation excusée
     failed_programmed_reminder_notification: Suite à une difficulté technique le SMS
@@ -554,10 +552,10 @@ fr:
     mark_as_failed_reschedule_notification_title: Echec du SMS (replanification)
     mark_as_failed_no_show_notification: Le SMS de convocation manquée n'a pas été reçu par %{name}.
     mark_as_failed_no_show_notification_title: Echec du SMS (convocation manquée)
-    fulfil_appointment: "%{name} s'est bien presenté(e) à sa convocation le %{date}
+    fulfil_appointment: "%{name} s'est bien presenté à sa convocation le %{date}
       à %{time} au lieu %{place}."
     fulfil_appointment_title: Convocation honorée
-    miss_appointment: "%{name} ne s'est pas presenté(e) à sa convocation le %{date}
+    miss_appointment: "%{name} ne s'est pas presenté à sa convocation le %{date}
       à %{time} au lieu %{place}."
     miss_appointment_title: Convocation manquée
     receive_cancelation_notification: Le SMS d'annulation a bien été reçu par %{name}.
@@ -672,7 +670,7 @@ fr:
   new_convict_title: Nouveau probationnaire
   new_divestment: Créer un dessaisissement
   new_divestment_bex: Demander un dessaisissement et convoquer
-  new_divestment_confirm: Etes-vous sûr(e) de vouloir créer cette demande de dessaisissement?
+  new_divestment_confirm: Etes-vous sûr de vouloir créer cette demande de dessaisissement?
   new_organization_title: Nouveau service
   new_place_submit: Enregistrer
   new_place_title: Nouveau Lieu
@@ -781,10 +779,10 @@ fr:
     environment_alert:
       content: 'IMPORTANT : Vous êtes actuellement sur l''environnement %{environment}
         ! Vos actions ne créent pas de données en production.'
-  show-convict-fulfilment-excused: Excusé(e)
-  show-convict-fulfilment-prompt: Est-ce-que %{name} s'est présenté(e) au %{place}
+  show-convict-fulfilment-excused: Excusé
+  show-convict-fulfilment-prompt: Est-ce-que %{name} s'est présenté au %{place}
     le %{date} à %{time} ?
-  show-convict-excuse-prompt: Si %{name} a d'ors et déjà excusé son absence pour sa convocation du %{date} à %{time} au %{place}, vous pouvez l'indiquer ci-dessous.
+  show-convict-excuse-prompt: Si %{name} a déjà fourni un justificatif d'absence pour sa convocation prévue le %{date} à %{time} au %{place}, vous pouvez l'indiquer ci-dessous.
   show-convict-fulfilment-send-sms: Voulez-vous envoyer un SMS au probationnaire ?
   show-convict-fulfilment-sms-content: 'Texte du SMS :'
   show-convict-next-appointments-title:
@@ -841,7 +839,7 @@ fr:
           wednesday: Mercredi
   slot_type_delete_confirmation: Supprimer un créneau récurrent supprimera également
     tous les créneaux associés, sauf si il existe une convocation sur ce créneau.
-    Êtes-vous sûr(e)?
+    Êtes-vous sûr?
   slot_types_batch_capacity: Capacité
   slot_types_batch_capacity_placeholder: 'ex: 6'
   slot_types_batch_closing: Dernier créneau
