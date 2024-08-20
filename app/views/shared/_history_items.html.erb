@@ -8,7 +8,9 @@
             <th scope="col"></th>
             <th scope="col">Date</th>
             <th scope="col">Evènement</th>
-            <th scope="col">Actions</th>
+            <% if show_actions_link %>
+              <th scope="col">Actions</th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -27,11 +29,13 @@
               <td>
                 <%= t("history_item.#{history_item.event}_title") %> : <%= history_item.content %>
               </td>
-              <td>
-                <% if history_item.appointment? && policy(history_item.appointment).show? && !current_page?(controller: 'appointments', action: 'show') %>
-                  <%= link_to t('see_details'), appointment_path(history_item.appointment), class: '' %>
-                <% end %>
-              </td>
+              <% if show_actions_link %>
+                <td>
+                  <% if history_item.appointment? && policy(history_item.appointment).show? %>
+                    <%= link_to t('see_details'), appointment_path(history_item.appointment), class: '' %>
+                  <% end %>
+                </td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>
