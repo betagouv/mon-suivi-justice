@@ -3,8 +3,8 @@
     <h3 class="fr-mr-2w">Lieux</h3>
   </div>
   <div class="fr-col-8">
-  <div class="fr-grid-row fr-grid-row--right fr-grid-row--middle">
-    <%= button_to t('new_place_title'), new_place_path, class: 'fr-btn', form_class: 'link-to-new-place-form', method: :get %>
+    <div class="fr-grid-row fr-grid-row--right fr-grid-row--middle">
+      <%= button_to t('new_place_title'), new_place_path, class: 'fr-btn', form_class: 'link-to-new-place-form', method: :get %>
     </div>
   </div>
 </div>
@@ -40,4 +40,3 @@
   </table>
 </div>
 <%= paginate @places %>
-

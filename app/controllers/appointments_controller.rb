@@ -12,7 +12,9 @@ class AppointmentsController < ApplicationController
     process_related_entities
     process_users
 
-    @appointments = @all_appointments.page(params[:page]).per(25)
+    @appointments = @all_appointments.includes(:creating_organization, convict: :organizations,
+                                                                       slot: { agenda: { place: :organization } })
+                                     .page(params[:page]).per(25)
 
     respond_to do |format|
       format.html

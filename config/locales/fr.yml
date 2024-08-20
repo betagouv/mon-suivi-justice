@@ -347,9 +347,6 @@ fr:
     show:
       assigned_user: Agent Référent
       inviter_user_role: Rôle source
-    waiting_line:
-      for_a_service: Convocation au statut inconnu au %{orga}
-      for_a_user: Vos convocations au statut inconnu
     cancel_appointment_modal:
       title: Annuler la convocation
       description: Vous vous apprêtez à annuler la convocation et le SMS de rappel prévu.

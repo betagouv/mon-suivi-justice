@@ -45,12 +45,12 @@
       <%= button_tag t('filter'), type: 'submit', class: 'fr-btn fr-btn--secondary', form: 'index-header-filters-form' %>
     </div>
   </div>
-<div class="fr-grid-row fr-grid-row--gutters fr-mb-1w">
-  <div class="fr-col fr-checkbox-group">
-    <%= f.check_box :full_eq, { class: 'fr-checkbox', checked: params.dig(:q, :full_eq).blank? } %>
-    <%= f.label :full_eq, t('index-slots-full-filter'), class: 'fr-label' %>
+  <div class="fr-grid-row fr-grid-row--gutters fr-mb-1w">
+    <div class="fr-col fr-checkbox-group">
+      <%= f.check_box :full_eq, { class: 'fr-checkbox', checked: params.dig(:q, :full_eq).blank? } %>
+      <%= f.label :full_eq, t('index-slots-full-filter'), class: 'fr-label' %>
+    </div>
   </div>
-</div>
 <% end %>
 <div class="fr-table fr-table--bordered fr-table--layout-fixed">
   <%= form_tag slots_batch_path, method: 'put', id: 'index-slots-update-form' do %>
@@ -67,43 +67,43 @@
         </tr>
       </thead>
       <tbody>
-          <% @slots.each do |slot| %>
-            <tr>
-              <td><%= slot.agenda.place.name %></td>
-              <td><%= slot.agenda.name %></td>
-              <td><%= slot.appointment_type.name %></td>
-              <td><%= slot.date.to_fs(:base_date_format) %></td>
-              <td><%= slot.localized_time.to_fs(:time) %></td>
-              <td>
-                <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
-                  <div class="col-fr">
-                    <span>
-                      <%= slot.capacity - slot.used_capacity %> / <%= slot.capacity %>
-                    </span>
-                  </div>
+        <% @slots.each do |slot| %>
+          <tr>
+            <td><%= slot.agenda.place.name %></td>
+            <td><%= slot.agenda.name %></td>
+            <td><%= slot.appointment_type.name %></td>
+            <td><%= slot.date.to_fs(:base_date_format) %></td>
+            <td><%= slot.localized_time.to_fs(:time) %></td>
+            <td>
+              <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
+                <div class="col-fr">
+                  <span>
+                    <%= slot.capacity - slot.used_capacity %> / <%= slot.capacity %>
+                  </span>
                 </div>
-              </td>
-              <td>
-                <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
-                  <% if policy(slot).update? %>
-                    <div class="col-fr">
-                      <div class="fr-mt-1-5v fr-mr-2w">
-                        <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
-                      </div>
+              </div>
+            </td>
+            <td>
+              <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
+                <% if policy(slot).update? %>
+                  <div class="col-fr">
+                    <div class="fr-mt-1-5v fr-mr-2w">
+                      <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
                     </div>
-                    <div class="col-fr">
-                      <%= link_to t('close'), slot_path(slot, slot: { available: false }),
+                  </div>
+                  <div class="col-fr">
+                    <%= link_to t('close'), slot_path(slot, slot: { available: false }),
                                             data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :put },
                                             class: 'slots-index-control' %>
-                    </div>
-                    <div class="col-fr">
-                      <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
-                    </div>
-                  <% end %>
-                </div>
-              </td>
-            </tr>
-          <% end %>
+                  </div>
+                  <div class="col-fr">
+                    <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
+                  </div>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   <% end %>

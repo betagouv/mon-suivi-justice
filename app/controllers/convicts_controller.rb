@@ -6,7 +6,11 @@ class ConvictsController < ApplicationController
   def show
     @convict = policy_scope(Convict).find(params[:id])
     @history_items = HistoryItem.where(convict: @convict, category: %w[appointment convict])
+                                .includes(:appointment)
                                 .order(created_at: :desc)
+    @booked_appointments = @convict.booked_appointments.includes(:creating_organization, slot: { agenda: :place })
+    @future_appointments_and_excused = @convict.future_appointments_and_excused
+                                               .includes(slot: { agenda: :place, appointment_type: {} })
 
     set_inter_ressort_flashes if current_user.can_use_inter_ressort?
 
@@ -14,9 +18,6 @@ class ConvictsController < ApplicationController
   end
 
   def index
-    @convicts = fetch_convicts
-
-    authorize @convicts
     query = params[:q]
     query = add_prefix_to_phone(params[:q]) if query =~ (/\d/) && !/^(\+33)/.match?(params[:q])
     @convicts = fetch_convicts(query)
@@ -216,7 +217,7 @@ class ConvictsController < ApplicationController
   def fetch_convicts(query = nil)
     scope = policy_scope(base_filter)
     scope = scope.search_by_name_and_phone(query) if query.present?
-    scope.order('last_name asc').page params[:page]
+    scope.order('convicts.last_name asc').includes(:organizations, :user).page params[:page]
   end
 
   def instantiate_convict
