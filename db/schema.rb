@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_21_070944) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_19_142013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -120,6 +120,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_070944) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "share_address_to_convict", default: true, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_appointment_types_on_discarded_at"
   end
 
   create_table "appointment_types_extra_fields", id: false, force: :cascade do |t|
@@ -291,6 +293,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_070944) do
     t.integer "reminder_period", default: 0
     t.string "state"
     t.string "external_id"
+    t.integer "failed_count", default: 0, null: false
     t.index ["appointment_id"], name: "index_notifications_on_appointment_id"
   end
 

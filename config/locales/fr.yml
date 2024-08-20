@@ -541,6 +541,17 @@ fr:
     failed_send_reminder_notification_title: Echec du SMS (rappel)
     failed_send_summon_notification: Le SMS de convocation n'a pas été reçu par %{name}.
     failed_send_summon_notification_title: Echec du SMS (convocation)
+    mark_as_failed_cancelation_notification: Le SMS d'annulation n'a pas été reçu par
+      %{name}.
+    mark_as_failed_cancelation_notification_title: Echec du SMS (annulation)
+    mark_as_failed_reminder_notification: Le SMS de rappel n'a pas été reçu par %{name}.
+    mark_as_failed_reminder_notification_title: Echec du SMS (rappel)
+    mark_as_failed_summon_notification: Le SMS de convocation n'a pas été reçu par %{name}.
+    mark_as_failed_summon_notification_title: Echec du SMS (convocation)
+    mark_as_failed_reschedule_notification: Le SMS de replanification n'a pas été reçu par %{name}.
+    mark_as_failed_reschedule_notification_title: Echec du SMS (replanification)
+    mark_as_failed_no_show_notification: Le SMS de convocation manquée n'a pas été reçu par %{name}.
+    mark_as_failed_no_show_notification_title: Echec du SMS (convocation manquée)
     fulfil_appointment: "%{name} s'est bien presenté à sa convocation le %{date}
       à %{time} au lieu %{place}."
     fulfil_appointment_title: Convocation honorée
