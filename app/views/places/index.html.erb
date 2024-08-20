@@ -20,7 +20,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @places.includes(:organization).each do |place| %>
+      <% @places.each do |place| %>
         <tr>
           <td><%= place.name %></td>
           <td><%= place.adress %></td>
