@@ -169,6 +169,9 @@ class AppointmentPolicy < ApplicationPolicy
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def appointment_fulfilment(allow_fulfil_old: false)
     apt_type = AppointmentType.find(record.slot&.appointment_type_id)
+
+    return false if forbid_fulfilment_for_sap?(apt_type)
+
     is_too_old = allow_fulfil_old ? false : record.slot.date < 6.months.ago
     is_in_organization = record.slot.place.organization == user.organization
 
@@ -179,7 +182,7 @@ class AppointmentPolicy < ApplicationPolicy
       true
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def ownership_check
     return true if record.created_by_organization?(user.organization)
@@ -190,5 +193,10 @@ class AppointmentPolicy < ApplicationPolicy
                                                          (user.work_at_sap? && record.appointment_type.used_at_sap?)
 
     record.in_organization?(user.organization)
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity
+
+  def forbid_fulfilment_for_sap?(apt_type)
+    user.work_at_sap? && apt_type.sortie_audience_spip?
   end
 end

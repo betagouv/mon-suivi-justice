@@ -960,6 +960,28 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
+    context "for an appointment_type Sortie d'audience SPIP" do
+      let(:organization2) { build :organization, organization_type: 'spip' }
+      let(:place) { build(:place, organization: organization2) }
+      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+      let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
+
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
+      it { is_expected.to permit_action(:new) }
+      it { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:edit) }
+      it { is_expected.to permit_action(:update) }
+      it { is_expected.to permit_action(:destroy) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
+    end
+
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
@@ -1482,6 +1504,28 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
 
+    context "for an appointment_type Sortie d'audience SPIP" do
+      let(:organization2) { build :organization, organization_type: 'spip' }
+      let(:place) { build(:place, organization: organization2) }
+      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+      let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
+
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
+      it { is_expected.to permit_action(:new) }
+      it { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:edit) }
+      it { is_expected.to permit_action(:update) }
+      it { is_expected.to permit_action(:destroy) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
+    end
+
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
 
@@ -1546,6 +1590,28 @@ describe AppointmentPolicy do
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:agenda_jap) }
     it { is_expected.to permit_action(:agenda_spip) }
+
+    context "for an appointment_type Sortie d'audience SPIP" do
+      let(:organization2) { build :organization, organization_type: 'spip' }
+      let(:place) { build(:place, organization: organization2) }
+      let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SPIP") }
+      let(:organization) { build(:organization, organization_type: 'tj', spips: [organization2]) }
+
+      context 'can cancel an appointment' do
+        let(:slot) { build(:slot, appointment_type:, agenda:) }
+        it { is_expected.to permit_action(:cancel) }
+      end
+
+      it { is_expected.to permit_action(:new) }
+      it { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:edit) }
+      it { is_expected.to permit_action(:update) }
+      it { is_expected.to permit_action(:destroy) }
+      it { is_expected.to forbid_action(:fulfil) }
+      it { is_expected.to forbid_action(:miss) }
+      it { is_expected.to forbid_action(:excuse) }
+      it { is_expected.to forbid_action(:rebook) }
+    end
 
     context "for an appointment_type Sortie d'audience SAP" do
       let(:appointment_type) { create(:appointment_type, name: "Sortie d'audience SAP") }
