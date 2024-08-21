@@ -51,7 +51,7 @@ RSpec.describe SmsDeliveryService do
       context 'when sending fails' do
         before do
           allow(response).to receive(:success).and_return(false)
-          allow(response).to receive(:retry_if_failed?).and_return(false)
+          allow(response).to receive(:retry_if_failed).and_return(false)
         end
 
         it 'increments failed_count' do
@@ -65,7 +65,7 @@ RSpec.describe SmsDeliveryService do
 
         context 'when retry is possible' do
           before do
-            allow(response).to receive(:retry_if_failed?).and_return(true)
+            allow(response).to receive(:retry_if_failed).and_return(true)
             allow(response).to receive(:code).and_return('500')
             allow(response).to receive(:message).and_return('Server Error')
           end
