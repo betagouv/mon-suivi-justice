@@ -17,8 +17,9 @@ class AppointmentPolicy < ApplicationPolicy
              .or(scope.created_by_organization(user.organization).joins(slot: [{ agenda: :place },
                                                                                :appointment_type])).distinct
       elsif user.work_at_sap?
-        scope.joins(:slot,
-                    convict: :organizations).in_organization(user.organization)
+        scope.in_jurisdiction(user.organization).joins(slot: [{ agenda: :place },
+                                                              :appointment_type])
+             .where({ 'appointment_types.name': AppointmentType.used_at_sap? })
              .or(scope.created_by_organization(user.organization)
                       .joins(slot: [{ agenda: :place }, :appointment_type])
                       .where({ 'appointment_types.name': AppointmentType.used_at_sap? }))
@@ -81,9 +82,8 @@ class AppointmentPolicy < ApplicationPolicy
     return record.in_jurisdiction?(user.organization) if (user.work_at_bex? && record.appointment_type.used_at_bex?) ||
                                                          (user.local_admin_tj? &&
                                                          record.appointment_type.used_by_local_admin_tj?) ||
+                                                         (user.work_at_sap? && record.appointment_type.used_at_sap?) ||
                                                          user.admin?
-    # Les agents SAP doivent pouvoir prendre des convocations SAP DDSE au SPIP
-    return record.in_jurisdiction?(user.organization) if user.work_at_sap? && record.appointment_type.ddse?
 
     record.in_organization?(user.organization)
   end
@@ -186,7 +186,8 @@ class AppointmentPolicy < ApplicationPolicy
 
     return record.in_jurisdiction?(user.organization) if (user.work_at_bex? && record.appointment_type.used_at_bex?) ||
                                                          (user.local_admin_tj? &&
-                                                           record.appointment_type.used_by_local_admin_tj?)
+                                                           record.appointment_type.used_by_local_admin_tj?) ||
+                                                         (user.work_at_sap? && record.appointment_type.used_at_sap?)
 
     record.in_organization?(user.organization)
   end

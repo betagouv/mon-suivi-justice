@@ -30,11 +30,12 @@ class AppointmentType < ApplicationRecord
     end
 
     def used_at_sap?
-      ["Sortie d'audience SAP", 'Convocation de suivi JAP', 'SAP débat contradictoire', 'Convocation JAPAT', 'SAP DDSE']
+      ["Sortie d'audience SAP", "Sortie d'audience SPIP", 'Convocation de suivi JAP', 'SAP débat contradictoire',
+       'Convocation JAPAT', 'SAP DDSE']
     end
 
     def used_by_local_admin_tj?
-      [*used_at_sap?, "Sortie d'audience SPIP"]
+      used_at_sap?
     end
 
     def used_at_spip?
