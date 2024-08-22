@@ -16,7 +16,7 @@ class UserMailer < ApplicationMailer
 
   def notify_local_admins_of_divestment(organization)
     admins = organization.all_local_admins
-    mails = organization.mail || admins.map(&:email)
+    mails = organization.mail || admins&.map(&:email)
     return if mails.blank?
 
     mail(to: @admins.map(&:email), subject: 'Action requise : Dessaisissements en attente de réponse de votre service')
