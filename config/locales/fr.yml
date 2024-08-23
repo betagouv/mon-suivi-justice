@@ -50,6 +50,7 @@ fr:
         template: Modèle
       organization:
         name: Nom
+        email: Email structurel
         organization_type: Type
         organization_types:
           spip: SPIP

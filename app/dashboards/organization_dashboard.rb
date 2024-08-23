@@ -24,7 +24,8 @@ class OrganizationDashboard < Administrate::BaseDashboard
     tjs: Field::HasMany,
     spips: Field::HasMany,
     number_of_convicts: Field::Number,
-    use_inter_ressort: Field::Boolean
+    use_inter_ressort: Field::Boolean,
+    email: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -35,6 +36,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     name
+    email
     organization_type
     headquarter
     tjs
@@ -48,8 +50,9 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    organization_type
     name
+    email
+    organization_type
     users
     places
     notification_types
@@ -67,6 +70,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
+    email
     notification_types
     organization_type
     places
