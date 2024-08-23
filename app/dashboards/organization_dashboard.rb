@@ -36,7 +36,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     name
-    mail
+    email
     organization_type
     headquarter
     tjs

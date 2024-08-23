@@ -40,7 +40,7 @@ class OrganizationsController < ApplicationController
   private
 
   def organization_params
-    params.require(:organization).permit(:name, :jap_modal_content, :organization_type, :time_zone, :mail,
+    params.require(:organization).permit(:name, :jap_modal_content, :organization_type, :time_zone, :email,
                                          { extra_fields_attributes: [:id, :name, :data_type, :scope, :_destroy,
                                                                      { appointment_type_ids: [] }] })
   end
