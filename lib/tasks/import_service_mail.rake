@@ -10,6 +10,6 @@ task :import_service_mail, [:filepath] => [:environment] do |_task, args|
       next
     end
 
-    service.update(email: row['MAIL']) if service.mail.blank?
+    service.update(email: row['MAIL']) if service.email.blank?
   end
 end
