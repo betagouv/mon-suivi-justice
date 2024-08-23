@@ -51,7 +51,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     name
-    mail
+    email
     organization_type
     users
     places
@@ -70,7 +70,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
-    mail
+    email
     notification_types
     organization_type
     places
