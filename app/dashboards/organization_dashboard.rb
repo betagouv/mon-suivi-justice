@@ -25,7 +25,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
     spips: Field::HasMany,
     number_of_convicts: Field::Number,
     use_inter_ressort: Field::Boolean,
-    mail: Field::String
+    email: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES
