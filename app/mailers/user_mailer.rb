@@ -19,7 +19,7 @@ class UserMailer < ApplicationMailer
     mails = [*organization.email, *admins&.map(&:email)]
     return if mails.blank?
 
-    mail(to: @admins.map(&:email), subject: 'Action requise : Dessaisissements en attente de réponse de votre service')
+    mail(to: mails, subject: 'Action requise : Dessaisissements en attente de réponse de votre service')
   end
 
   def admin_divestment_action_needed
