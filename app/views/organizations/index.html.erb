@@ -23,7 +23,7 @@
           <% @organizations.each do |organization| %>
             <tr>
               <td><%= organization.name %></td>
-              <td><%= organization.mail %></td>
+              <td><%= organization.email %></td>
               <td>
                 <% if policy(organization).edit? %>
                   <%= link_to t('edit'), edit_organization_path(organization), class: 'index-control' %>
