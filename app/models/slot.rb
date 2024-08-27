@@ -83,6 +83,10 @@ class Slot < ApplicationRecord
     @localized_time ||= TZInfo::Timezone.get(place.organization.time_zone).to_local(starting_time)
   end
 
+  def civil_date
+    I18n.l(date, format: :civil)
+  end
+
   private
 
   def workday?

@@ -49,7 +49,7 @@ module NotificationFactory
       time_zone = TZInfo::Timezone.get(slot.place.organization.time_zone)
       {
         appointment_hour: time_zone.to_local(slot.starting_time).to_fs(:lettered),
-        appointment_date: slot.date.to_fs(:base_date_format),
+        appointment_date: slot.civil_date,
         place_name: slot.place_name,
         place_adress: slot.place_adress,
         place_phone: slot.place_display_phone(spaces: false),

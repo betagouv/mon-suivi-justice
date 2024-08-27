@@ -425,6 +425,10 @@ fr:
     formats:
       flatpickr: "%B %-d, %Y"
       value: "%Y-%m-%d"
+      default: "%d/%m/%Y"   # Example: 27/08/2024
+      long: "%d %B %Y"      # Example: 27 août 2024
+      short: "%d %b"        # Example: 27 août
+      civil: "%A %d %B %Y"
   default: Défaut
   delete: Supprimer
   divestments:
