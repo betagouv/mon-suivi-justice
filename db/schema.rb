@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_19_142013) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_22_112244) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -120,8 +120,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_142013) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "share_address_to_convict", default: true, null: false
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_appointment_types_on_discarded_at"
   end
 
   create_table "appointment_types_extra_fields", id: false, force: :cascade do |t|
@@ -318,6 +316,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_142013) do
     t.string "time_zone", default: "Europe/Paris", null: false
     t.bigint "headquarter_id"
     t.boolean "use_inter_ressort", default: false
+    t.string "email"
     t.index ["headquarter_id"], name: "index_organizations_on_headquarter_id"
     t.index ["name"], name: "index_organizations_on_name", unique: true
   end
