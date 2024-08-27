@@ -15,6 +15,7 @@
         <thead>
           <tr>
             <th scope="col"><%= t('activerecord.attributes.organization.name') %></th>
+            <th scope="col"><%= t('activerecord.attributes.organization.email') %></th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -22,6 +23,7 @@
           <% @organizations.each do |organization| %>
             <tr>
               <td><%= organization.name %></td>
+              <td><%= organization.email %></td>
               <td>
                 <% if policy(organization).edit? %>
                   <%= link_to t('edit'), edit_organization_path(organization), class: 'index-control' %>

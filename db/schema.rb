@@ -316,6 +316,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_27_082933) do
     t.string "time_zone", default: "Europe/Paris", null: false
     t.bigint "headquarter_id"
     t.boolean "use_inter_ressort", default: false
+    t.string "email"
     t.index ["headquarter_id"], name: "index_organizations_on_headquarter_id"
     t.index ["name"], name: "index_organizations_on_name", unique: true
   end
