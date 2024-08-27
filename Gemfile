@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.3.2'
-gem 'rails', '~> 7.1.3'
+gem 'rails', '~> 7.1.4'
 
 gem 'pg', '~> 1.5.7'
 gem 'puma', '~> 6.4.2'
@@ -14,7 +14,7 @@ gem 'devise-i18n', '~> 1.12.1'
 gem 'devise_invitable', '~> 2.0.9'
 gem 'devise-security', '>= 0.18.0'
 
-gem 'pundit', '~> 2.3.2'
+gem 'pundit', '~> 2.4.0'
 gem 'simple_form', '~> 5.3.1'
 gem 'addressable', '~> 2.8.7' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
@@ -46,7 +46,7 @@ gem 'csv', '~> 3.2', '>= 3.2.8'
 gem 'jbuilder', '~> 2.12.0'
 gem 'groupdate', '~> 6.4.0'
 
-gem 'faraday', '~> 2.10.1'
+gem 'faraday', '~> 2.11.0'
 gem 'faraday-retry', '~> 2.2.1'
 gem 'jwt', '~> 2.8'
 
@@ -63,7 +63,7 @@ gem 'pretender', '~> 0.5.0'
 
 gem 'octokit', '~> 9.1.0'
 
-gem 'stimulus-rails', '~> 1.3.3'
+gem 'stimulus-rails', '~> 1.3.4'
 
 gem 'lograge', '~> 0.14.0'
 
@@ -83,7 +83,7 @@ group :development do
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.2.1'
   gem 'rubocop', '~> 1.65', require: false
-  gem 'brakeman', '~> 6.1', '>= 6.1.2'
+  gem 'brakeman', '~> 6.2'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
   gem 'letter_opener', '~> 1.10.0'
