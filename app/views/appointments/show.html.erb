@@ -119,10 +119,11 @@
                   <%= link_to t('edit'), appointment_rebook_path(@appointment), class: 'show-appointment-change-state-link', data: { "turbo-method": :put } %>
                 <% end %>
               </p>
-              <p class="fr-text--xs" style="font-style: italic;">                <% if policy(@appointment).excuse? && @appointment.in_the_future? %>
-                  Si le probationnaire a déjà justifié son absence en amont de la convocation cliquez sur le bouton "Excuser"
-                <% end %>
+              <% if policy(@appointment).excuse? && @appointment.in_the_future? %>
+                <p class="fr-text--xs" style="font-style: italic;">                
+                    <%= t("appointments.show.excused_info")%> 
                 </p>
+              <% end %>
             </div>
             <div class="fr-col-4">
               <ul class="fr-btns-group fr-btns-group--equisized fr-btns-group--right">
@@ -134,7 +135,7 @@
                                         class: 'fr-btn' %>
                   </li>
                 <% end %>
-                <% if policy(@appointment).excuse? %>
+                <% if policy(@appointment).excuse? && @appointment.in_the_future? %>
                   <li>
                     <%= button_to t('excuser'), appointment_excuse_path(@appointment),
                                         method: :put,
