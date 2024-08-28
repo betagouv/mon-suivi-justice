@@ -15,7 +15,7 @@ module Cleanup
                          .where.not(id: Divestment.where(state: :pending).select(:convict_id))
                          .joins(:convicts_organizations_mappings)
                          .where.not(convicts_organizations_mappings: { created_at: delay.. }).distinct
-      # Pas de divestment en cours ni de changement d'organization dans le delay
+      # Pas de divestment en cours ni de changement de service dans le delay
     end
 
     def call
