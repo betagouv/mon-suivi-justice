@@ -120,7 +120,7 @@
                 <% end %>
               </p>
               <% if policy(@appointment).excuse? && @appointment.in_the_future? %>
-                <p class="fr-text--xs" style="font-style: italic;">                
+                <p class="fr-text--xs text-italic">                
                     <%= t("appointments.show.excused_info")%> 
                 </p>
               <% end %>
