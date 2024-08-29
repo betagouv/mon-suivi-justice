@@ -4,17 +4,10 @@
       <% if policy(apt).change_state? %>
         <div class='appointment-fulfilment-container'>
           <div class='appointment-fulfilment-prompt-container'>
-            <% if apt.in_the_past? %>
               <%= t('show-convict-fulfilment-prompt', name: @convict.name,
                                                       place: apt.slot.agenda.place.name,
                                                       date: apt.slot.date.to_fs,
                                                       time: apt.localized_time.to_fs(:time)) %>
-            <% else %>
-              <%= t('show-convict-excuse-prompt', name: @convict.name,
-                                                    place: apt.slot.agenda.place.name,
-                                                    date: apt.slot.date.to_fs,
-                                                    time: apt.localized_time.to_fs(:time)) %>
-            <% end %>
           </div>
           <div class='appointment-fulfilment-controls-container'>
             <% if policy(apt).fulfil? %>
