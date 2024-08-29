@@ -147,10 +147,14 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def change_state?
+    return false unless record.in_the_past?
+
     fulfil? || miss? || excuse?
   end
 
   def change_state_old?
+    return false unless record.in_the_past?
+
     fulfil_old? || miss_old? || excuse_old?
   end
 

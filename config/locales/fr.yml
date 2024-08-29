@@ -348,6 +348,7 @@ fr:
     show:
       assigned_user: Agent Référent
       inviter_user_role: Rôle source
+      excused_info: Si le probationnaire a justifié de son absence en amont de sa convocation, cliquez sur le bouton « Excuser »
     cancel_appointment_modal:
       title: Annuler la convocation
       description: Vous vous apprêtez à annuler la convocation et le SMS de rappel prévu.
@@ -425,6 +426,10 @@ fr:
     formats:
       flatpickr: "%B %-d, %Y"
       value: "%Y-%m-%d"
+      default: "%d/%m/%Y"   # Example: 27/08/2024
+      long: "%d %B %Y"      # Example: 27 août 2024
+      short: "%d %b"        # Example: 27 août
+      civil: "%A %d %B %Y"
   default: Défaut
   delete: Supprimer
   divestments:

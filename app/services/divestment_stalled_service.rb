@@ -7,18 +7,13 @@ class DivestmentStalledService
   private
 
   def manage_old_pending_divestments
-    admin_action_needed = false
-
     OrganizationDivestment.old_pending.each do |organization_divestment|
       convict = organization_divestment.convict
       service = DivestmentStateService.new(organization_divestment, nil)
       if divestmentable?(convict)
         service.accept("Accepté automatiquement après 10 jours d'attente", auto_accepted: true)
-      else
-        admin_action_needed = true
       end
     end
-    UserMailer.admin_divestment_action_needed.deliver_later if admin_action_needed
   end
 
   def remind_local_admins_of_divestments
