@@ -1,7 +1,7 @@
 <div class="fr-grid-row fr-grid-row--center">
   <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
     <h1 class=''><%= t('show_appointment_title') %></h1>
-    <% if policy(@appointment).change_state? && @appointment.in_the_past? %>
+    <% if policy(@appointment).change_state? %>
       <div class='appointment-fulfilment-container'>
         <div class='appointment-fulfilment-prompt-container'>
             <%= t('show-convict-fulfilment-prompt', name: @convict.name,
@@ -121,7 +121,7 @@
               </p>
               <% if policy(@appointment).excuse? && @appointment.in_the_future? %>
                 <p class="fr-text--xs text-italic">                
-                    <%= t("appointments.show.excused_info")%> 
+                    <%= t(".excused_info") %> 
                 </p>
               <% end %>
             </div>
