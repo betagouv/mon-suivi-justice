@@ -16,8 +16,6 @@ RSpec.describe DivestmentStalledService do
 
       allow(organization_divestment).to receive(:convict).and_return(convict)
       allow(organization_divestment2).to receive(:convict).and_return(convict)
-
-      allow(UserMailer).to receive(:admin_divestment_action_needed).and_call_original
     end
 
     context 'when convict is divestmentable' do
@@ -31,17 +29,12 @@ RSpec.describe DivestmentStalledService do
         expect(state_service).to receive(:accept)
         DivestmentStalledService.new.call
       end
-      it 'does not send email to the admin' do
-        allow(convict).to receive_messages(last_appointment_at_least_3_months_old?: true)
-        DivestmentStalledService.new.call
-        expect(UserMailer).not_to have_received(:admin_divestment_action_needed)
-      end
     end
 
     context 'when convict is not divestmentable' do
-      it 'sends email to the admin' do
+      it 'does not call accept on DivestmentStateService' do
+        expect(state_service).not_to receive(:accept)
         DivestmentStalledService.new.call
-        expect(UserMailer).to have_received(:admin_divestment_action_needed).once
       end
     end
   end
