@@ -68,7 +68,7 @@ gem 'stimulus-rails', '~> 1.3.4'
 gem 'lograge', '~> 0.14.0'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 6.1.4'
+  gem 'rspec-rails', '~> 6.1.5'
   gem 'rspec_junit_formatter', '~> 0.6.0'
   gem 'factory_bot_rails', '~> 6.4.3'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.2.1'
-  gem 'rubocop', '~> 1.65', require: false
+  gem 'rubocop', '~> 1.66', require: false
   gem 'brakeman', '~> 6.2'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
@@ -113,7 +113,7 @@ gem 'administrate-field-belongs_to_search', '~> 0.9.0'
 gem 'faker', '~> 3.4.2'
 
 # Use Redis for Action Cable
-gem 'redis', '~> 5.2.0'
+gem 'redis', '~> 5.3.0'
 
 gem 'jsbundling-rails', '~> 1.3.1'
 
