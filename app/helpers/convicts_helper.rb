@@ -18,4 +18,12 @@ module ConvictsHelper
   def ir_available_services(convict)
     convict.organizations.pluck(:name).join(', ')
   end
+
+  def convict_attribute_name_and_value(convict, attribute)
+    attribute_value = convict.send(attribute)
+    human_attribute_name = Convict.human_attribute_name(attribute)
+    return human_attribute_name unless attribute_value.present?
+
+    "#{human_attribute_name} (#{attribute_value})"
+  end
 end

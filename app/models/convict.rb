@@ -217,6 +217,12 @@ class Convict < ApplicationRecord
     save
   end
 
+  def valid_for_user?(user)
+    return true if user.admin?
+
+    valid?
+  end
+
   # rubocop:disable Metrics/AbcSize
   def find_duplicates
     return [] if valid?

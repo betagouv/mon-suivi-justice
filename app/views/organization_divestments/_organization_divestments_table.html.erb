@@ -59,7 +59,7 @@
                         <%= t('.errors_to_fix') %>
                         <ul>
                           <% organization_divestment.convict.errors.each do |error| %>
-                            <li><%= "#{Convict.human_attribute_name(error.attribute)} (#{organization_divestment.convict.send(error.attribute)})" %>: <%= error.message %></li>
+                            <li><%= convict_attribute_name_and_value(organization_divestment.convict, error.attribute) %>: <%= error.message %></li>
                           <% end %>
                         </ul>
                       </div>
