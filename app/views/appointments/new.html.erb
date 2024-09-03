@@ -2,51 +2,29 @@
   <div class="fr-col-6" data-controller="appointment-new">
     <h2 class='form-title' id="appointment-form-title"><%= t('new_appointment_title', convict_link: @convict && policy(@convict).show? ? "pour #{link_to(@convict.full_name, convict_path(@convict))}" : "").html_safe %></h2>
     <% if @convict.valid_for_user?(current_user) %>
-      <% if !current_user.can_use_inter_ressort? && !current_user.organization.in_jurisdiction?(@convict) %>
-        <div class="fr-container fr-mt-5w fr-mb-5w">
-          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-            <div class="fr-alert fr-alert--warning">
-              <h5 class="fr-alert__title">Attention ce probationnaire est rattaché aux services : <%= @convict.organizations.map(&:name).join(', ') %>
-              </h5>
-              <div class="fr-container fr-my-2w">
-                <div class="fr-grid-row fr-grid-row--center">
-                  <% if policy(@convict).be_divested? %>
-                    <% button_message = current_user.organization.use_inter_ressort? ? "Convoquer dans votre service et dessaisir" : "Convoquer" %>
-                    <%= button_to button_message, divestments_path, method: :post, class: 'fr-btn', params: { convict_id: @convict.id }, data: { confirm: t('new_divestment_confirm'), turbo: false } %>
-                  <% else %>
-                    Code 12 - Dessaisissement impossible pour ce probationnaire, veuillez contacter un administrateur.
-                  <% end %>
-                </div>
-                <div class="fr-grid-row fr-mt-2w">
-                  <p>Cette action entrainera le dessaisissement de ce probationnaire sur l'application</p>
-                </div>
-              </div>
-            </div>
-        </div>
-      <% end %>
-      <% if current_user.can_use_inter_ressort? && !current_user.organization.in_jurisdiction?(@convict) %>
-        <div class="fr-container fr-mt-5w fr-mb-5w">
-          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-            <div class="fr-alert fr-alert--info">
-              <h5 class="fr-alert__title">
-                Attention ce probationnaire <%= @convict.city.present? ? "habite a #{@convict.city.name}" : "n'a pas de ville renseignée" %> et est rattaché aux services : <%= @convict.organizations.map(&:name).join(', ') %>
-              </h5>
-              <div class="fr-container fr-my-2w">
-                <div class="fr-grid-row">
-                  Si vous souhaitez convoquer ce probationnaire dans un des services mentionnés, continuez la procédure ci dessous
-                </div>
-                <div class="fr-grid-row">
-                  Dans le cas contraire, veuillez modifier lieu d'habitation du probationnaire
-                </div>
-                <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
-                  <%= button_to "Modifier la ville", edit_convict_path(@convict), method: :get, class: 'fr-btn' %>
+      <% if current_user.can_use_inter_ressort? || current_user.organization.in_jurisdiction?(@convict) %>
+        <% unless current_user.organization.in_jurisdiction?(@convict) %>
+          <div class="fr-container fr-mt-5w fr-mb-5w">
+            <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+              <div class="fr-alert fr-alert--info">
+                <h5 class="fr-alert__title">
+                  Attention ce probationnaire <%= @convict.city.present? ? "habite a #{@convict.city.name}" : "n'a pas de ville renseignée" %> et est rattaché aux services : <%= @convict.organizations.map(&:name).join(', ') %>
+                </h5>
+                <div class="fr-container fr-my-2w">
+                  <div class="fr-grid-row">
+                    Si vous souhaitez convoquer ce probationnaire dans un des services mentionnés, continuez la procédure ci dessous
+                  </div>
+                  <div class="fr-grid-row">
+                    Dans le cas contraire, veuillez modifier lieu d'habitation du probationnaire
+                  </div>
+                  <div class="fr-grid-row fr-grid-row--center fr-mt-2w">
+                    <%= button_to "Modifier la ville", edit_convict_path(@convict), method: :get, class: 'fr-btn' %>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      <% end %>
-      <% if current_user.organization.use_inter_ressort? || current_user.organization.in_jurisdiction?(@convict) %>
+        <% end %>
         <%= simple_form_for @appointment, url: appointments_path(convict_id: @convict.id), html: { "data-appointment-new-target": "newAppointmentForm" } do |f| %>
           <div>
             <%= f.input :convict_id, as: :hidden, input_html: { value: @convict.id, "data-appointment-new-target": "convictSelectInput" } %>
@@ -111,6 +89,28 @@
             </div>
           </div>
         <% end %>
+      <% else %>
+        <div class="fr-container fr-mt-5w fr-mb-5w">
+          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+            <div class="fr-alert fr-alert--warning">
+              <h5 class="fr-alert__title">Attention ce probationnaire est rattaché aux services : <%= @convict.organizations.map(&:name).join(', ') %>
+              </h5>
+              <div class="fr-container fr-my-2w">
+                <div class="fr-grid-row fr-grid-row--center">
+                  <% if policy(@convict).be_divested? %>
+                    <% button_message = current_user.organization.use_inter_ressort? ? "Convoquer dans votre service et dessaisir" : "Convoquer" %>
+                    <%= button_to button_message, divestments_path, method: :post, class: 'fr-btn', params: { convict_id: @convict.id }, data: { confirm: t('new_divestment_confirm'), turbo: false } %>
+                  <% else %>
+                    Code 12 - Dessaisissement impossible pour ce probationnaire, veuillez contacter un administrateur.
+                  <% end %>
+                </div>
+                <div class="fr-grid-row fr-mt-2w">
+                  <p>Cette action entrainera le dessaisissement de ce probationnaire sur l'application</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       <% end %>
     <% else %>
       <div class="fr-alert fr-alert--warning">
