@@ -5,7 +5,7 @@ class PlacePolicy < ApplicationPolicy
     # for the inter ressort to work, we need bex user to be able to access all places of the convict
     # should bex user have access to all places?
     def resolve
-      return scope.all if user.work_at_bex? && user.organization.use_inter_ressort
+      return scope.all if user.can_use_inter_ressort?
 
       if user.admin? || user.work_at_bex? || user.local_admin_tj?
         scope.in_jurisdiction(user.organization)

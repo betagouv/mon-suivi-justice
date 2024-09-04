@@ -10,6 +10,7 @@ class Convict < ApplicationRecord
   normalizes :appi_uuid, with: ->(appi_uuid) { appi_uuid&.strip&.upcase }
 
   DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')
+  ARCHIVE_DURATION = 6.months
 
   has_many :convicts_organizations_mappings, dependent: :destroy
   has_many :organizations, through: :convicts_organizations_mappings
@@ -70,10 +71,6 @@ class Convict < ApplicationRecord
 
   delegate :name, to: :cpip, allow_nil: true, prefix: true
   delegate :tj, to: :organizations, allow_nil: true
-
-  def self.delete_delay
-    18.month.ago
-  end
 
   def self.archive_delay
     12.month.ago
@@ -215,6 +212,12 @@ class Convict < ApplicationRecord
     end
 
     save
+  end
+
+  def valid_for_user?(user)
+    return true if user.admin?
+
+    valid?
   end
 
   # rubocop:disable Metrics/AbcSize
