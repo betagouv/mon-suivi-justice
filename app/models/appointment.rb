@@ -126,10 +126,10 @@ class Appointment < ApplicationRecord
     after_transition on: :book do |appointment, transition|
       appointment.slot.increment!(:used_capacity, 1)
       appointment.slot.update(full: true) if appointment.slot.all_capacity_used?
-
-      NotificationFactory.perform(appointment)
-      appointment.summon_notif&.program_now if send_sms?(transition) && appointment.convict.can_receive_sms?
-      appointment.reminder_notif&.program
+      should_send_summon = send_sms?(transition) && appointment.convict.can_receive_sms?
+      roles = should_send_summon ? %i[summon reminder] : :reminder
+      NotificationFactory.perform(appointment, roles)
+      appointment.summon_notif&.program_now
     end
 
     after_transition on: :cancel do |appointment, transition|
@@ -261,5 +261,12 @@ class Appointment < ApplicationRecord
 
   def completed?
     fulfiled? || no_show? || excused?
+  end
+
+  def localized_starting_time
+    identifier = slot.place.organization.time_zone
+    time_zone = TZInfo::Timezone.get(identifier)
+
+    time_zone.to_local(slot.starting_time)
   end
 end

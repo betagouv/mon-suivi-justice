@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_27_082933) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_04_134013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -292,6 +292,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_27_082933) do
     t.string "state"
     t.string "external_id"
     t.integer "failed_count", default: 0, null: false
+    t.datetime "delivery_time"
     t.index ["appointment_id"], name: "index_notifications_on_appointment_id"
   end
 

@@ -109,27 +109,6 @@ class Notification < ApplicationRecord
     end
   end
 
-  def delivery_time
-    app_date = appointment.slot.date
-    app_time = localized_starting_time
-
-    app_datetime = app_date.to_datetime + app_time.seconds_since_midnight.seconds
-
-    result = app_datetime.to_time - hour_delay.hours
-    result.asctime.in_time_zone('Paris')
-  end
-
-  def localized_starting_time
-    identifier = appointment.slot.place.organization.time_zone
-    time_zone = TZInfo::Timezone.get(identifier)
-
-    time_zone.to_local(appointment.slot.starting_time)
-  end
-
-  def hour_delay
-    { 'one_day' => 24, 'two_days' => 48 }.fetch(reminder_period)
-  end
-
   def can_be_sent?
     convict_can_receive_sms? && (can_mark_as_sent? && role_conditions_valid? && failed_count < 5)
   end
