@@ -77,7 +77,7 @@ class AppointmentPolicy < ApplicationPolicy
 
     # we don't use ownership_check here because otherwise the creating_organization
     # condition would always make it true and we need to handle inter ressort for bex
-    return true if user.work_at_bex? && user.organization.use_inter_ressort
+    return true if user.can_use_inter_ressort?
 
     return record.in_jurisdiction?(user.organization) if (user.work_at_bex? && record.appointment_type.used_at_bex?) ||
                                                          (user.local_admin_tj? &&
