@@ -867,7 +867,7 @@ fr:
   slots_batches:
     create:
       argument_error: Vous devez indiquer au minimum une heure ou un intervalle de
-        temps
+        temps (supérieur à 0)
       start_time_before_end_time: L'heure de début doit être avant l'heure de fin
   submit: Enregistrer
   submit_force: Forcer la création

@@ -116,10 +116,16 @@ class SlotsBatchesController < ApplicationController
     params[:starting_times]&.compact_blank.present? || valid_interval?(params)
   end
 
-  def valid_interval?(params)
-    params[:start_times]&.compact_blank.present? &&
-      params[:end_times]&.compact_blank.present? &&
-      params[:intervals]&.compact_blank.present?
+  def valid_interval?(params) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+    intervals = params[:intervals]&.compact_blank
+    start_times = params[:start_times]&.compact_blank
+    end_times = params[:end_times]&.compact_blank
+
+    return false if intervals.blank? || start_times.blank? || end_times.blank?
+
+    intervals.size == start_times.size / 2 &&
+      intervals.size == end_times.size / 2 &&
+      intervals.all? { |interval| interval.to_i.positive? }
   end
 
   def build_slot(params, date, time)
