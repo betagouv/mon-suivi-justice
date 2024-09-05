@@ -126,11 +126,13 @@ class Appointment < ApplicationRecord
     after_transition on: :book do |appointment, transition|
       appointment.slot.increment!(:used_capacity, 1)
       appointment.slot.update(full: true) if appointment.slot.all_capacity_used?
+
       should_send_summon = send_sms?(transition) && appointment.convict.can_receive_sms?
       roles = should_send_summon ? %i[summon reminder] : :reminder
       NotificationFactory.perform(appointment, roles)
+
       appointment.reminder_notif&.program
-      appointment.summon_notif&.program_now
+      appointment.summon_notif&.program_now if should_send_summon
     end
 
     after_transition on: :cancel do |appointment, transition|

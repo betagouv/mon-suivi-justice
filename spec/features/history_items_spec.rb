@@ -2,57 +2,54 @@ require 'rails_helper'
 
 RSpec.feature 'HistoryItems', type: :feature do
   describe 'for a Convict', logged_in_as: 'cpip' do
-    before do
-      @convict = create(:convict, phone: nil, refused_phone: true, organizations: [@user.organization])
-      @appointment = create(:appointment, :with_notifications, convict: @convict,
-                                                               creating_organization: @user.organization)
-    end
+    let(:convict) { create(:convict, phone: nil, refused_phone: true, organizations: [@user.organization]) }
+    let(:appointment) { create(:appointment, convict:, creating_organization: @user.organization) }
 
     it 'displays new appointments' do
-      expect { @appointment.book }.to change { HistoryItem.count }.by(1)
+      expect { appointment.book }.to change { HistoryItem.count }.by(1)
 
-      visit convict_path(@convict)
+      visit convict_path(convict)
 
       expect(page).to have_content('Nouvelle convocation')
     end
 
     it 'displays when appointments are fulfiled' do
-      @appointment.book
-      expect { @appointment.fulfil }.to change { HistoryItem.count }.by(1)
+      appointment.book
+      expect { appointment.fulfil }.to change { HistoryItem.count }.by(1)
 
-      visit convict_path(@convict)
+      visit convict_path(convict)
 
       expect(page).to have_content("s'est bien presenté à sa convocation")
     end
 
     it 'displays when appointments are missed' do
-      @appointment.book
-      expect { @appointment.miss(send_sms: false) }.to change { HistoryItem.count }.by(1)
+      appointment.book
+      expect { appointment.miss(send_sms: false) }.to change { HistoryItem.count }.by(1)
 
-      visit convict_path(@convict)
+      visit convict_path(convict)
 
       expect(page).to have_content("ne s'est pas presenté à sa convocation")
     end
 
     it 'displays when convict is archived' do
       expect do
-        Capybara.current_session.driver.delete convict_archive_path(@convict)
+        Capybara.current_session.driver.delete convict_archive_path(convict)
       end.to change { HistoryItem.count }.by(1)
 
-      visit convict_path(@convict)
+      visit convict_path(convict)
 
       expect(page).to have_content('a été archivé. Pour le désarchiver, contactez votre administrateur local.')
     end
 
     it 'displays when convict is unarchived', logged_in_as: 'local_admin', js: true do
-      @convict.discard
+      convict.discard
 
       visit convicts_path
       within first('tbody > tr') do
         expect { click_link('Désarchiver') }.to change { HistoryItem.count }.by(1)
       end
 
-      visit convict_path(@convict)
+      visit convict_path(convict)
 
       expect(page).to have_content('a été désarchivé.')
     end
