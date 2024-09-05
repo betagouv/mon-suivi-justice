@@ -120,13 +120,13 @@ RSpec.feature 'Appointments', type: :feature do
         expect(page).to have_button('Convoquer')
 
         expect { click_button 'Convoquer' }.to change { Appointment.count }
-                                                                .by(1).and change { Notification.count }.by(5)
+                                                                .by(1).and change { Notification.count }.by(2)
 
         expect(SmsDeliveryJob).to have_been_enqueued.once.with(
           Notification.find_by(role: :summon, appointment: Appointment.last).id
         )
 
-        expect(SmsDeliveryJob).to have_been_enqueued.once.with(
+        expect(SmsDeliveryJob).not_to have_been_enqueued.once.with(
           Notification.find_by(role: :reminder, appointment: Appointment.last).id
         )
 
@@ -152,15 +152,16 @@ RSpec.feature 'Appointments', type: :feature do
         expect(page).to have_button('Convoquer')
 
         expect { click_button 'Convoquer' }.to change { Appointment.count }
-                                                                  .by(1).and change { Notification.count }.by(5)
+                                                                  .by(1).and change { Notification.count }.by(1)
 
-        expect(SmsDeliveryJob).to have_been_enqueued.once.with(
-          Notification.find_by(role: :reminder, appointment: Appointment.last).id
-        )
+        appointment = Appointment.last
+        reminder_notif = appointment.reminder_notif
+        summon_notif = appointment.summon_notif
 
-        expect(SmsDeliveryJob).to have_been_enqueued.at_most(0).with(
-          Notification.find_by(role: :summon, appointment: Appointment.last).id
-        )
+        expect(reminder_notif).to be_present
+        expect(summon_notif).to be_nil
+        expect(reminder_notif.state).to eq('programmed')
+        expect(SmsDeliveryJob).not_to have_been_enqueued
       end
 
       it 'allows an agent to create appointment only for his service places & slots', logged_in_as: 'jap' do
@@ -204,7 +205,7 @@ RSpec.feature 'Appointments', type: :feature do
         expect(page).to have_button('Convoquer')
 
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
-                                     .and change { Notification.count }.by(5)
+                                     .and change { Notification.count }.by(2)
       end
 
       it 'allows to see all agendas at once for some appointment_types' do
@@ -245,7 +246,7 @@ RSpec.feature 'Appointments', type: :feature do
         page.find('label[for="send_sms_1"]').click
 
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
-                                                                .and change { Notification.count }.by(5)
+                                                                .and change { Notification.count }.by(2)
       end
       context 'Inter-Ressort' do
         it 'allows an agent to setup an appointment in another service',
@@ -280,7 +281,7 @@ RSpec.feature 'Appointments', type: :feature do
           page.find('label[for="send_sms_1"]').click
 
           expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
-                                       .and change { Notification.count }.by(5)
+                                       .and change { Notification.count }.by(2)
         end
       end
     end
@@ -315,7 +316,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
                                     .and change { Slot.count }.by(1)
-                                    .and change { Notification.count }.by(5)
+                                    .and change { Notification.count }.by(2)
       end
 
       it 'allows to book appointment on weekends for some appointment_types' do
@@ -341,7 +342,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
                                     .and change { Slot.count }.by(1)
-                                    .and change { Notification.count }.by(5)
+                                    .and change { Notification.count }.by(2)
       end
 
       it "doesn't propose convocation SMS if the convict has no phone" do
@@ -365,7 +366,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         expect { click_button 'Convoquer' }.to change { Appointment.count }.by(1)
                                              .and change { Slot.count }.by(1)
-                                             .and change { Notification.count }.by(5)
+                                             .and change { Notification.count }.by(1)
       end
 
       it 'does not create appointment if the selected date is a weekend' do
@@ -502,9 +503,9 @@ RSpec.feature 'Appointments', type: :feature do
 
       appointment.book
       expect(appointment.state).to eq('booked')
-      expect(appointment.notifications.count).to eq(5)
+      expect(appointment.notifications.count).to eq(1)
       expect(appointment.reminder_notif.state).to eq('programmed')
-      expect(appointment.cancelation_notif.state).to eq('created')
+      expect(appointment.cancelation_notif).to be_nil
 
       visit appointment_path(appointment)
       click_button 'Annuler'
@@ -530,9 +531,9 @@ RSpec.feature 'Appointments', type: :feature do
 
       appointment.book
       expect(appointment.state).to eq('booked')
-      expect(appointment.notifications.count).to eq(5)
+      expect(appointment.notifications.count).to eq(1)
       expect(appointment.reminder_notif.state).to eq('programmed')
-      expect(appointment.cancelation_notif.state).to eq('created')
+      expect(appointment.cancelation_notif).to be_nil
 
       visit appointment_path(appointment)
       click_button 'Annuler'
@@ -542,7 +543,7 @@ RSpec.feature 'Appointments', type: :feature do
       expect(appointment.reminder_notif.state).to eq('canceled')
 
       # cancellation notification is not sent
-      expect(appointment.cancelation_notif.state).to eq('created')
+      expect(appointment.cancelation_notif).to be_nil
 
       expect(page).to have_current_path(appointment_path(appointment))
     end
@@ -593,8 +594,8 @@ RSpec.feature 'Appointments', type: :feature do
 
     it 'is also available on appointment#show page' do
       convict = create(:convict, organizations: [@user.organization])
-      apt_type = create :appointment_type, :with_notification_types, organization: @user.organization,
-                                                                     name: 'Convocation de suivi SPIP'
+      apt_type = create :appointment_type, organization: @user.organization,
+                                           name: 'Convocation de suivi SPIP'
       slot = create :slot, :without_validations, date: Date.yesterday, appointment_type: apt_type, agenda: @agenda
       appointment = create(:appointment, :skip_validate, convict:, slot:)
 
@@ -698,7 +699,7 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.reload
       expect(appointment.state).to eq 'canceled'
       expect(appointment.reminder_notif.state).to eq 'canceled'
-      expect(appointment.cancelation_notif.state).to eq 'created'
+      expect(appointment.cancelation_notif).to be_nil
       expect(appointment.history_items).to eq []
 
       new_appointment = Appointment.find_by(slot: slot2)
@@ -740,17 +741,14 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.reload
       expect(appointment.state).to eq 'canceled'
       expect(appointment.reminder_notif.state).to eq 'canceled'
-      expect(appointment.cancelation_notif.state).to eq 'created'
+      expect(appointment.cancelation_notif).to be_nil
       expect(appointment.history_items).to eq []
 
       new_appointment = Appointment.find_by(slot: slot2)
 
       expect(new_appointment.state).to eq 'booked'
       expect(new_appointment.history_items.count).to eq 3
-      expect(new_appointment.reschedule_notif.state).to eq 'created'
-      expect(SmsDeliveryJob).not_to have_been_enqueued.with(
-        Notification.find_by(role: :reschedule, appointment: Appointment.last).id
-      )
+      expect(new_appointment.reschedule_notif).to be_nil
     end
 
     it 'works for an appointment type without pre defined slots' do
@@ -783,7 +781,7 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.reload
       expect(appointment.state).to eq 'canceled'
       expect(appointment.reminder_notif.state).to eq 'canceled'
-      expect(appointment.cancelation_notif.state).to eq 'created'
+      expect(appointment.cancelation_notif).to be_nil
       expect(appointment.history_items).to eq []
 
       slot2 = Slot.find_by(date: Date.civil(2025, 4, 16))
