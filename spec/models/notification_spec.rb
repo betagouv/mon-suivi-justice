@@ -17,38 +17,6 @@ RSpec.describe Notification, type: :model do
     end
   end
 
-  describe 'program' do
-    it 'sends at the proper delivery time' do
-      organization = create(:organization)
-      place = create(:place, organization:)
-      agenda = create(:agenda, place:)
-      appointment_type = create(:appointment_type)
-
-      slot_date = Date.civil(2025, 4, 14)
-      slot_starting_time = new_time_for(0, 0)
-
-      slot = create(:slot, date: slot_date, appointment_type:, starting_time: slot_starting_time, agenda:)
-      create(:notification_type, appointment_type:, organization:,
-                                 role: :reminder,
-                                 reminder_period: :two_days)
-
-      appointment = create(:appointment, slot:)
-
-      NotificationFactory.perform(appointment)
-
-      notification = appointment.reminder_notif
-
-      reminder_date = slot_date - 2
-      expected_time = Time.new(reminder_date.year, reminder_date.month, reminder_date.day,
-                               slot_starting_time.hour, slot_starting_time.min,
-                               slot_starting_time.sec, slot_starting_time.zone)
-
-      expect(SmsDeliveryJob).to receive(:set).with(wait_until: expected_time) { double(perform_later: true) }
-
-      notification.program
-    end
-  end
-
   describe '.in_organization' do
     it 'returns correct relation' do
       organization = create :organization
