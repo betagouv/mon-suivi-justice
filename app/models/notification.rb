@@ -102,11 +102,6 @@ class Notification < ApplicationRecord
     after_transition on: :program_now do |notification|
       SmsDeliveryJob.perform_later(notification.id)
     end
-
-    after_transition on: :program do |notification|
-      SmsDeliveryJob.set(wait_until: notification.delivery_time)
-                    .perform_later(notification.id)
-    end
   end
 
   def pending?

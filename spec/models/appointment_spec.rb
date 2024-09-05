@@ -62,7 +62,7 @@ RSpec.describe Appointment, type: :model do
       allow(subject).to receive(:summon_notif)
                     .and_return(create(:notification))
       allow(subject).to receive(:reminder_notif)
-                    .and_return(create(:notification))
+                    .and_return(create(:notification, state: 'programmed'))
       allow(subject).to receive(:cancelation_notif)
                     .and_return(create(:notification))
     end

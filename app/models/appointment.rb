@@ -129,6 +129,7 @@ class Appointment < ApplicationRecord
       should_send_summon = send_sms?(transition) && appointment.convict.can_receive_sms?
       roles = should_send_summon ? %i[summon reminder] : :reminder
       NotificationFactory.perform(appointment, roles)
+      appointment.reminder_notif&.program
       appointment.summon_notif&.program_now
     end
 
@@ -143,10 +144,10 @@ class Appointment < ApplicationRecord
     end
 
     after_transition on: :miss do |appointment, transition|
-      return unless send_sms?(transition) && appointment.convict.can_receive_sms?
-
-      NotificationFactory.perform(appointment, :no_show)
-      appointment.no_show_notif&.program_now if send_sms?(transition)
+      if send_sms?(transition) && appointment.convict.can_receive_sms?
+        NotificationFactory.perform(appointment, :no_show)
+        appointment.no_show_notif&.program_now if send_sms?(transition)
+      end
     end
 
     after_transition on: :excuse do |appointment|
