@@ -137,11 +137,15 @@ class Appointment < ApplicationRecord
       appointment.cancel_reminder_notif
 
       if send_sms?(transition) && appointment.convict.can_receive_sms?
-        appointment.cancelation_notif.program_now
+        NotificationFactory.perform(appointment, :cancelation)
+        appointment.cancelation_notif&.program_now
       end
     end
 
     after_transition on: :miss do |appointment, transition|
+      return unless send_sms?(transition) && appointment.convict.can_receive_sms?
+
+      NotificationFactory.perform(appointment, :no_show)
       appointment.no_show_notif&.program_now if send_sms?(transition)
     end
 
@@ -256,7 +260,7 @@ class Appointment < ApplicationRecord
   end
 
   def cancel_reminder_notif
-    reminder_notif.cancel! if reminder_notif&.programmed?
+    reminder_notif&.cancel! if reminder_notif&.pending?
   end
 
   def completed?

@@ -50,6 +50,9 @@ class AppointmentsReschedulesController < AppointmentsController
 
   def handle_sms_notification(appointment)
     send_sms = ActiveModel::Type::Boolean.new.cast appointment.send_sms
-    appointment.reschedule_notif.program_now if appointment.convict.can_receive_sms? && send_sms
+    return unless appointment.convict.can_receive_sms? && send_sms
+
+    NotificationFactory.perform(appointment, :reschedule)
+    appointment.reschedule_notif.program_now
   end
 end

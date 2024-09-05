@@ -109,6 +109,10 @@ class Notification < ApplicationRecord
     end
   end
 
+  def pending?
+    programmed? || created?
+  end
+
   def can_be_sent?
     convict_can_receive_sms? && (can_mark_as_sent? && role_conditions_valid? && failed_count < 5)
   end

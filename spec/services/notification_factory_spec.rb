@@ -7,17 +7,17 @@ RSpec.describe NotificationFactory do
       place = create(:place, organization:)
       agenda = create(:agenda, place:)
       appointment_type = create(:appointment_type)
-      create(:notification_type, appointment_type:, organization:,
-                                 role: :summon,
-                                 template: 'Convocation le {rdv.date} à {rdv.heure}')
-      create(:notification_type, appointment_type:, organization:,
-                                 role: :reminder,
-                                 template: 'Rappel: convocation le {rdv.date} à {rdv.heure}')
+      nt1 = create(:notification_type, appointment_type:, organization:,
+                                       role: :summon,
+                                       template: 'Convocation le {rdv.date} à {rdv.heure}')
+      nt2 = create(:notification_type, appointment_type:, organization:,
+                                       role: :reminder,
+                                       template: 'Rappel: convocation le {rdv.date} à {rdv.heure}')
       slot = create(:slot, date: Date.civil(2025, 4, 14), starting_time: new_time_for(15, 30),
                            appointment_type:, agenda:)
       appointment = create(:appointment, slot:)
 
-      expect { NotificationFactory.perform(appointment) }.to change { Notification.count }.by(2)
+      expect { NotificationFactory.perform(appointment, [nt1.role, nt2.role]) }.to change { Notification.count }.by(2)
 
       appointment.reload
       expect(appointment.notifications.count).to eq(2)
@@ -59,7 +59,8 @@ RSpec.describe NotificationFactory do
                      "Merci de venir avec une pièce d'identité au {lieu.adresse}. " \
                      'Veuillez contacter le {lieu.téléphone} (ou {lieu.contact}) ' \
                      'en cas de problème. Plus d\'informations sur {lieu.lien_info}.'
-      create(:notification_type, appointment_type:, organization: place.organization, template: sms_template)
+      notif_type = create(:notification_type, appointment_type:, organization: place.organization,
+                                              template: sms_template)
 
       appointment = create(:appointment, slot:)
 
@@ -68,7 +69,7 @@ RSpec.describe NotificationFactory do
                  'Veuillez contacter le 0102030405 (ou test@test.com) en cas de problème. ' \
                  "Plus d'informations sur https://mon-suivi-justice.beta.gouv.fr/preparer_spip92?mtm_campaign=AgentsApp&mtm_source=sms."
 
-      NotificationFactory.perform(appointment)
+      NotificationFactory.perform(appointment, notif_type.role)
 
       notif = appointment.notifications.last
 
