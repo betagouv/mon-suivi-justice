@@ -85,7 +85,7 @@ RSpec.describe Notification, type: :model do
     let!(:slot_future2) { create(:slot, date: next_valid_day(date: 3.months.from_now)) }
     let!(:slot_past) { create(:slot, date: next_valid_day(date: 2.months.ago)) }
     let!(:slot_recent_past) { create(:slot, date: next_valid_day(date: 2.weeks.ago)) }
-    let!(:slot_recent_past2) { create(:slot, date: next_valid_day(date: 3.days.ago)) }
+    let!(:slot_recent_past2) { create(:slot, date: next_valid_day(date: 5.days.ago)) }
 
     let!(:appointment_future) { build(:appointment, slot: slot_future) }
     let!(:appointment_future2) { build(:appointment, slot: slot_future2) }
