@@ -38,6 +38,12 @@ class Place < ApplicationRecord
       .where(organization: user_organization.linked_organizations, appointment_types: { name: 'SAP DDSE' })
   }
 
+  scope :linked_with_sortie_daudience_spip, lambda { |user_organization|
+    joins(:appointment_types)
+      .where(organization: user_organization.linked_organizations,
+             appointment_types: { name: "Sortie d'audience SPIP" })
+  }
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[name]
   end
