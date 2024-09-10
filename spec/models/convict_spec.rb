@@ -64,7 +64,7 @@ RSpec.describe Convict, type: :model do
       end
 
       it 'should NOT allow to create a convict with same first_name, last_name and dob and no appi_uuid' do
-        new_convict = build(:convict, organizations: [organization], first_name:, last_name:,
+        new_convict = build(:convict, organizations: [organization], first_name: first_name.upcase, last_name:,
                                       date_of_birth:, appi_uuid: nil)
 
         expect(new_convict.valid?).to eq(false)

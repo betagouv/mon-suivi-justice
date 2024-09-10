@@ -151,7 +151,8 @@
                     <% else %>
                       <%= button_to t('cancel'), appointment_cancel_path(@appointment),
                                       class: 'fr-btn',
-                                      data: { 'turbo-confirm': t('cancel_appointment_warning'), "turbo_method": :put } %>
+                                      method: :put,
+                                      data: { 'turbo-confirm': t('cancel_appointment_warning') } %>
                     <% end %>
                   </li>
                 <% end %>
