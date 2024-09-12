@@ -131,7 +131,6 @@ class Appointment < ApplicationRecord
       roles = should_send_summon ? %i[summon reminder] : :reminder
       NotificationFactory.perform(appointment, roles)
 
-      appointment.reminder_notif&.program
       appointment.summon_notif&.program_now if should_send_summon
     end
 

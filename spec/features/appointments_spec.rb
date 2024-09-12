@@ -160,7 +160,7 @@ RSpec.feature 'Appointments', type: :feature do
 
         expect(reminder_notif).to be_present
         expect(summon_notif).to be_nil
-        expect(reminder_notif.state).to eq('programmed')
+        expect(reminder_notif.state).to eq('created')
         expect(SmsDeliveryJob).not_to have_been_enqueued
       end
 
@@ -504,7 +504,7 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.book
       expect(appointment.state).to eq('booked')
       expect(appointment.notifications.count).to eq(1)
-      expect(appointment.reminder_notif.state).to eq('programmed')
+      expect(appointment.reminder_notif.state).to eq('created')
       expect(appointment.cancelation_notif).to be_nil
 
       visit appointment_path(appointment)
@@ -532,7 +532,7 @@ RSpec.feature 'Appointments', type: :feature do
       appointment.book
       expect(appointment.state).to eq('booked')
       expect(appointment.notifications.count).to eq(1)
-      expect(appointment.reminder_notif.state).to eq('programmed')
+      expect(appointment.reminder_notif.state).to eq('created')
       expect(appointment.cancelation_notif).to be_nil
 
       visit appointment_path(appointment)

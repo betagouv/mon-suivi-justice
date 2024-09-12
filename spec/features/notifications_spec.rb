@@ -35,7 +35,7 @@ RSpec.feature 'Notifications', type: :feature do
 
       appointment = @convict.appointments.last
       expect(appointment.reminder_notif).to be_present
-      expect(appointment.reminder_notif.state).to eq('programmed')
+      expect(appointment.reminder_notif.state).to eq('created')
 
       expect(appointment.no_show_notif).to be_nil
       expect(appointment.reschedule_notif).to be_nil

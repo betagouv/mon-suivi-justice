@@ -41,6 +41,10 @@ class Notification < ApplicationRecord
 
   scope :retryable, -> { where(failed_count: 0..4) }
 
+  scope :ready_to_send, lambda {
+    where(delivery_time: 1.hour.ago..1.hour.from_now, state: 'programmed')
+  }
+
   state_machine initial: :created do
     state :created do
     end
@@ -76,7 +80,7 @@ class Notification < ApplicationRecord
     end
 
     event :cancel do
-      transition programmed: :canceled
+      transition %i[created programmed] => :canceled
     end
 
     event :receive do
