@@ -31,17 +31,6 @@ RSpec.describe NotificationFactory do
     end
   end
 
-  describe 'setup_template' do
-    it 'translates human readable template into a ruby usable one' do
-      human_template = 'Convocation le {rdv.date} à {rdv.heure}'
-      expected = 'Convocation le %{appointment_date} à %{appointment_hour}'
-
-      result = NotificationFactory.setup_template(human_template)
-
-      expect(result).to eq(expected)
-    end
-  end
-
   describe 'format_content' do
     it 'generates SMS content' do
       appointment_type = create(:appointment_type)

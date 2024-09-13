@@ -5,7 +5,7 @@ class Notification < ApplicationRecord
   validates :content, presence: true
   validates :external_id, presence: true, if: :sent?
 
-  delegate :convict_phone, :convict, to: :appointment
+  delegate :convict_phone, :convict, :appointment_type, :organization, :slot, to: :appointment
   delegate :id, to: :appointment, prefix: true
   delegate :can_receive_sms?, to: :convict, prefix: true
 
@@ -131,5 +131,43 @@ class Notification < ApplicationRecord
     return if canceled?
 
     failed_count.zero? ? mark_as_unsent! : mark_as_failed!
+  end
+
+  def default_notif_type
+    appointment.appointment_type.notification_types.where(organization: nil, role:)
+  end
+
+  def notification_type
+    p appointment_type
+    p appointment_type.notification_types
+    p role
+    p organization
+    for_orga = appointment.appointment_type.notification_types.where(organization: appointment.organization, role:)
+    p for_orga
+    return for_orga if for_orga.present?
+
+    default_notif_type
+  end
+
+  # rubocop:disable Metrics/AbcSize
+  def sms_data
+    time_zone = TZInfo::Timezone.get(slot.place.organization.time_zone)
+    {
+      appointment_hour: time_zone.to_local(slot.starting_time).to_fs(:lettered),
+      appointment_date: slot.civil_date,
+      place_name: slot.place_name,
+      place_adress: slot.place_adress,
+      place_phone: slot.place_display_phone(spaces: false),
+      place_contact: slot.place_contact_detail,
+      place_preparation_link: "#{slot.place_preparation_link}?mtm_campaign=AgentsApp&mtm_source=sms"
+    }
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def generate_content(notif_type = nil)
+    notif_type ||= notification_type
+    template = notif_type.setup_template
+
+    template % sms_data
   end
 end
