@@ -11,6 +11,10 @@ RSpec.feature 'NotificationType', type: :feature do
 
       create :notification_type, appointment_type: apt_type,
                                  organization: @user.organization,
+                                 role: :reminder,
+                                 template: 'Bienvenue au SPIP 65'
+      create :notification_type, appointment_type: apt_type,
+                                 organization: @user.organization,
                                  role: :summon,
                                  template: 'Bienvenue au SPIP 65'
 
