@@ -15,8 +15,12 @@ RSpec.describe 'appointments namespace rake tasks' do
     let!(:agenda) { create(:agenda, name: 'Test Agenda', place:) }
     let!(:appointment_type) { create(:appointment_type) }
     let!(:convict) { create(:convict, organizations: [organization]) }
-    let!(:notif_type) do
+    let!(:summon_notif_type) do
       create(:notification_type, organization: nil, appointment_type:, role: :summon, template: 'Blabla',
+                                 is_default: true)
+    end
+    let!(:reminder_notif_type) do
+      create(:notification_type, organization: nil, appointment_type:, role: :reminder, template: 'Blabla',
                                  is_default: true)
     end
 
