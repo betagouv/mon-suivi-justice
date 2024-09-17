@@ -166,10 +166,10 @@ end
 
 def create_appointment(convict, organization, appointment_type: nil, date: Time.zone.now, slot_capacity: 3)
   skip_validations = date.past?
-  place = create(:place, organization:)
-  agenda = create(:agenda, place:)
   appointment_type ||= create(:appointment_type, :with_notification_types, organization:)
-  
+  place = create(:place, organization:, appointment_types: [appointment_type])
+  agenda = create(:agenda, place:)
+
   slot = build(:slot, agenda:, date:, appointment_type:, capacity: slot_capacity)
   slot.save(validate: !skip_validations)
   appointment = build(:appointment, convict:, slot:)

@@ -418,6 +418,7 @@ RSpec.feature 'Appointments', type: :feature do
         page.find('label[for="send_sms_0"]').click
 
         click_button 'Convoquer'
+
         expect(Appointment.last.convict.cpip).to eq(@user)
       end
     end
