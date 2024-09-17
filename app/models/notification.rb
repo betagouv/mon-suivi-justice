@@ -134,16 +134,11 @@ class Notification < ApplicationRecord
   end
 
   def default_notif_type
-    appointment.appointment_type.notification_types.where(organization: nil, role:)
+    appointment.appointment_type.notification_types.find_by(organization: nil, role:)
   end
 
   def notification_type
-    p appointment_type
-    p appointment_type.notification_types
-    p role
-    p organization
-    for_orga = appointment.appointment_type.notification_types.where(organization: appointment.organization, role:)
-    p for_orga
+    for_orga = appointment.appointment_type.notification_types.find_by(organization: appointment.organization, role:)
     return for_orga if for_orga.present?
 
     default_notif_type

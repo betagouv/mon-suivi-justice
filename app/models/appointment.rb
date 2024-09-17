@@ -147,7 +147,7 @@ class Appointment < ApplicationRecord
     after_transition on: :miss do |appointment, transition|
       if send_sms?(transition) && appointment.convict.can_receive_sms?
         NotificationFactory.perform(appointment, :no_show)
-        appointment.no_show_notif&.program_now if send_sms?(transition)
+        appointment.no_show_notif&.program_now
       end
     end
 
