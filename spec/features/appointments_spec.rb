@@ -595,8 +595,8 @@ RSpec.feature 'Appointments', type: :feature do
 
     it 'is also available on appointment#show page' do
       convict = create(:convict, organizations: [@user.organization])
-      apt_type = create :appointment_type, organization: @user.organization,
-                                           name: 'Convocation de suivi SPIP'
+      apt_type = create :appointment_type, :with_notification_types, organization: @user.organization,
+                                                                     name: 'Convocation de suivi SPIP'
       slot = create :slot, :without_validations, date: Date.yesterday, appointment_type: apt_type, agenda: @agenda
       appointment = create(:appointment, :skip_validate, convict:, slot:)
 
