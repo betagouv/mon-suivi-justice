@@ -39,6 +39,7 @@ RSpec.describe 'appointments namespace rake tasks' do
     end
 
     it 'should destroy conflicting appointments and book non-conflicting ones' do
+      appointment_type.reload
       expect do
         Rake.application.invoke_task('appointments:update_state')
       end.to change { Appointment.count }.by(-1)

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'HistoryItems', type: :feature do
   describe 'for a Convict', logged_in_as: 'cpip' do
     let(:convict) { create(:convict, phone: nil, refused_phone: true, organizations: [@user.organization]) }
-    let(:appointment) { create(:appointment, convict:, creating_organization: @user.organization) }
+    let(:appointment) { create_appointment(convict, @user.organization, date: next_valid_day) }
 
     it 'displays new appointments' do
       expect { appointment.book }.to change { HistoryItem.count }.by(1)
