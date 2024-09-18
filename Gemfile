@@ -43,12 +43,12 @@ gem 'sentry-rails', '~> 5.19.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.2', '>= 3.2.8'
-gem 'jbuilder', '~> 2.12.0'
+gem 'jbuilder', '~> 2.13.0'
 gem 'groupdate', '~> 6.4.0'
 
 gem 'faraday', '~> 2.11.0'
 gem 'faraday-retry', '~> 2.2.1'
-gem 'jwt', '~> 2.8'
+gem 'jwt', '~> 2.9'
 
 gem 'wicked_pdf', '~> 2.8.1'
 gem 'wkhtmltopdf-binary', '~> 0.12.6'
