@@ -164,8 +164,10 @@ def create_default_notification_types
   end
 end
 
-def create_appointment(convict, organization, appointment_type: nil, date: Time.zone.now, slot_capacity: 3)
+def create_appointment(convict = nil, organization = nil, appointment_type: nil, date: Time.zone.now, slot_capacity: 3)
   skip_validations = date.past?
+  organization ||= create(:organization)
+  convict ||= create(:convict, organizations: [organization])
   appointment_type ||= create(:appointment_type, :with_notification_types, organization:)
   place = create(:place, organization:, appointment_types: [appointment_type])
   agenda = create(:agenda, place:)
