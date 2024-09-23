@@ -1,5 +1,4 @@
 <h1 class='form-title'><%= t('new_place_title') %></h1>
-
 <%= simple_form_for @place, html: { class: 'basic-form' } do |f| %>
   <%= f.input :name %>
   <%= f.input :adress %>
@@ -10,12 +9,11 @@
                                     include_blank: false %>
   <%= f.input :preparation_link %>
   <%= f.association :organization, collection: orga_for_user, include_blank: false,
-                                   label: t('activerecord.attributes.user.organization'),
-                                   input_html: { class: 'form-select' } %>
-
+                                         label: t('activerecord.attributes.user.organization'),
+                                         input_html: { class: 'form-select' },
+                                         selected: current_user.organization_id %>
   <div class='new-place-appointment-types-wrapper'>
     <h2 class='form-secondary-title'><%= t('edit_place_appointment_types') %></h2>
-
     <div class='edit-place-appointment-types-container'>
       <%= f.association :appointment_types, as: :check_boxes,
                                             label: '',
@@ -24,6 +22,5 @@
                                             input_html: { class: 'form-checkbox' } %>
     </div>
   </div>
-
   <%= f.button :submit, t('new_place_submit'), class: 'form-submit-button' %>
 <% end %>
