@@ -28,7 +28,7 @@ gem 'state_machines', '~> 0.6.0'
 gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
-gem 'dotenv-rails', '~> 3.1.2'
+gem 'dotenv-rails', '~> 3.1.4'
 gem 'sidekiq', '~> 7.3.2'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
