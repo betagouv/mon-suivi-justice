@@ -9,7 +9,7 @@
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@gouvfr/dsfr": "^1.11.2",
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^7.3.0",
+    "@hotwired/turbo-rails": "^8.0.10",
     "@nathanvda/cocoon": "^1.2.14",
     "@rails/actioncable": "^7.1.4",
     "@rails/actiontext": "^7.1.4",
