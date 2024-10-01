@@ -70,5 +70,22 @@ RSpec.describe Agenda, type: :model do
       slot1.update(available: false)
       expect(agenda1.slots_for_date(next_valid_day, apt_type1)).to match_array([slot1, slot2])
     end
+
+    it 'does not return unavailable slots with only canceled appointment for a given date' do
+      next_valid_day = next_valid_day(date: Date.today)
+      apt_type1 = create(:appointment_type, name: "Sortie d'audience SPIP")
+      place1 = create(:place)
+      create(:place_appointment_type, place: place1, appointment_type: apt_type1)
+      agenda1 = create(:agenda, place: place1)
+      slot_type1 = create(:slot_type, appointment_type: apt_type1, agenda: agenda1)
+      slot1 = create(:slot, agenda: agenda1, date: next_valid_day, appointment_type: apt_type1, slot_type: slot_type1)
+      slot2 = create(:slot, agenda: agenda1, date: next_valid_day, appointment_type: apt_type1, slot_type: slot_type1)
+      expect(agenda1.slots_for_date(next_valid_day, apt_type1)).to match_array([slot1, slot2])
+      appointment = create(:appointment, slot: slot1)
+      slot1.update(available: false)
+      expect(agenda1.slots_for_date(next_valid_day, apt_type1)).to match_array([slot1, slot2])
+      appointment.update(state: :canceled)
+      expect(agenda1.slots_for_date(next_valid_day, apt_type1)).to match_array([slot2])
+    end
   end
 end
