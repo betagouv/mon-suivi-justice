@@ -87,6 +87,12 @@ class Slot < ApplicationRecord
     I18n.l(date, format: :civil)
   end
 
+  def real_capacity
+    return capacity if available?
+
+    appointments.active.count
+  end
+
   private
 
   def workday?
