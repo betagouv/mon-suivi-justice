@@ -60,7 +60,7 @@ class Slot < ApplicationRecord
     where(date:, appointment_type:)
       # we use LEFT JOIN to get slots with or without appointments
       .joins('LEFT JOIN appointments ON appointments.slot_id = slots.id')
-      .where('slots.available = true OR appointments.id IS NOT NULL')
+      .where('slots.available = true OR (appointments.id IS NOT NULL AND appointments.state != ?)', 'canceled')
   }
 
   def self.ransackable_attributes(_auth_object = nil)
@@ -85,6 +85,12 @@ class Slot < ApplicationRecord
 
   def civil_date
     I18n.l(date, format: :civil)
+  end
+
+  def real_capacity
+    return capacity if available?
+
+    appointments.active.count
   end
 
   private

@@ -72,7 +72,7 @@
           <tbody>
             <% slots_for_date.each do |slot| %>
               <% appointments = slot.appointments.active %>
-              <% slot.capacity.times do |i| %>
+              <% slot.real_capacity.times do |i| %>
                 <tr>
                   <td>
                     <% if i == 0 %>
