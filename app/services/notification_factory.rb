@@ -2,7 +2,7 @@ module NotificationFactory
   class << self
     def perform(appointment, roles)
       @appointment = appointment
-      roles = [roles] unless roles.is_a?(Array)
+      roles = Array(roles)
 
       @appointment.transaction do
         roles.each do |role|
