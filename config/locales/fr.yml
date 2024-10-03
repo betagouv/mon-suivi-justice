@@ -123,6 +123,7 @@ fr:
             date:
               blank: Date manquante
               past: La convocation ne peut pas être dans le passé
+              future: la convocation est dans plus de 1 an
               transfert_in: Ce lieu de convocation sera disponible à partir du %{date}
               transfert_out: Ce lieu de convocation n'est plus disponible après le
                 %{date}
