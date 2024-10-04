@@ -5,15 +5,6 @@
   </head>
   <body>
     <h1>Notifications problématiques</h1>
-    <% if @to_reschedule_ids.any? %>
-      <h2>Notifications reprogrammées</h2>
-      <p>Les notifications suivantes n'étaient pas correctement mises en queue. Le job de SmsDelivery a été relancé. Merci de vérifier quel était le problème.</p>
-      <ul>
-        <% @to_reschedule_ids.each do |notification_id| %>
-          <li>ID: <%= notification_id %></li>
-        <% end %>
-      </ul>
-    <% end %>
     <% if @stucked_ids.any? %>
       <h2>Notifications non envoyées</h2>
       <p>Les notifications suivantes n'ont pas été envoyées. Un history item a été créé pour prévenir les utilisateurs.</p>

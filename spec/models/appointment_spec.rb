@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Appointment, type: :model do
-  subject { build(:appointment) }
+  let(:organization) { create(:organization) }
+  let(:convict) { create(:convict, organizations: [organization]) }
+  subject { create_appointment(convict, organization, date: next_valid_day) }
 
   it { should belong_to(:convict) }
 
@@ -19,12 +21,12 @@ RSpec.describe Appointment, type: :model do
   }
 
   it 'should free the slot when appointment is destroyed' do
-    orga = create(:organization)
-    slot = create(:slot, capacity: 1)
-    convict = create(:convict, organizations: [orga])
-    appointment = create(:appointment, convict:, slot:)
-    appointment.book(send_notification: false)
+    organization = create(:organization)
+    convict = create(:convict, organizations: [organization])
+    appointment = create_appointment(convict, organization, date: next_valid_day, slot_capacity: 1)
+    slot = appointment.slot
     slot.reload
+    appointment.book(send_notification: false)
 
     expect(slot.full?).to eq(true)
     expect(slot.used_capacity).to eq(1)
@@ -37,11 +39,11 @@ RSpec.describe Appointment, type: :model do
   end
 
   it 'should free the slot when appointment canceled and destroyed' do
-    orga = create(:organization)
-    slot = create(:slot, capacity: 1)
-    convict = create(:convict, organizations: [orga])
-    appointment = create(:appointment, convict:, slot:)
+    organization = create(:organization)
+    convict = create(:convict, organizations: [organization])
+    appointment = create_appointment(convict, organization, date: next_valid_day, slot_capacity: 1)
     appointment.book(send_notification: false)
+    slot = appointment.slot
     slot.reload
 
     expect(slot.full?).to eq(true)
@@ -62,7 +64,7 @@ RSpec.describe Appointment, type: :model do
       allow(subject).to receive(:summon_notif)
                     .and_return(create(:notification))
       allow(subject).to receive(:reminder_notif)
-                    .and_return(create(:notification))
+                    .and_return(create(:notification, state: 'programmed'))
       allow(subject).to receive(:cancelation_notif)
                     .and_return(create(:notification))
     end
@@ -81,25 +83,25 @@ RSpec.describe Appointment, type: :model do
     end
 
     it 'transitions from booked to missed without sending sms' do
-      appointment_type = create :appointment_type
-      slot = create(:slot, appointment_type:)
-      appointment = create(:appointment, :with_notifications, slot:)
-      appointment.book
+      organization = create(:organization)
+      convict = create(:convict, organizations: [organization])
+      appointment = create_appointment(convict, organization, date: next_valid_day, slot_capacity: 1)
+      appointment.book(send_notification: false)
       appointment.miss(send_notification: false)
 
       expect(appointment.state).to eq('no_show')
-      expect(SmsDeliveryJob).not_to have_been_enqueued.with(appointment.no_show_notif.id)
+      expect(appointment.no_show_notif).to be_nil
     end
 
     it 'transitions from booked to missed and sending sms' do
-      appointment_type = create :appointment_type
-      slot = create(:slot, appointment_type:)
-      appointment = create(:appointment, :with_notifications, slot:)
-      appointment.book
+      organization = create(:organization)
+      convict = create(:convict, organizations: [organization])
+      appointment = create_appointment(convict, organization, date: next_valid_day, slot_capacity: 1)
+      appointment.book(send_notification: false)
       appointment.miss(send_notification: true)
 
       expect(appointment.state).to eq('no_show')
-      expect(SmsDeliveryJob).to have_been_enqueued.once.with(appointment.no_show_notif.id)
+      expect(SmsDeliveryJob).to have_been_enqueued.once.with(appointment.no_show_notif&.id)
     end
   end
 

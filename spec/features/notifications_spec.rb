@@ -33,7 +33,15 @@ RSpec.feature 'Notifications', type: :feature do
 
       click_button 'Convoquer'
 
-      expect(SmsDeliveryJob).to have_been_enqueued.once
+      appointment = @convict.appointments.last
+      expect(appointment.reminder_notif).to be_present
+      expect(appointment.reminder_notif.state).to eq('created')
+
+      expect(appointment.no_show_notif).to be_nil
+      expect(appointment.reschedule_notif).to be_nil
+      expect(appointment.cancelation_notif).to be_nil
+      expect(appointment.summon_notif).to be_nil
+      expect(SmsDeliveryJob).not_to have_been_enqueued.once
     end
   end
 end

@@ -127,9 +127,11 @@ class Appointment < ApplicationRecord
       appointment.slot.increment!(:used_capacity, 1)
       appointment.slot.update(full: true) if appointment.slot.all_capacity_used?
 
-      NotificationFactory.perform(appointment)
-      appointment.summon_notif&.program_now if send_sms?(transition) && appointment.convict.can_receive_sms?
-      appointment.reminder_notif&.program
+      should_send_summon = send_sms?(transition) && appointment.convict.can_receive_sms?
+      roles = should_send_summon ? %i[summon reminder] : :reminder
+      NotificationFactory.perform(appointment, roles)
+
+      appointment.summon_notif&.program_now if should_send_summon
     end
 
     after_transition on: :cancel do |appointment, transition|
@@ -137,12 +139,16 @@ class Appointment < ApplicationRecord
       appointment.cancel_reminder_notif
 
       if send_sms?(transition) && appointment.convict.can_receive_sms?
-        appointment.cancelation_notif.program_now
+        NotificationFactory.perform(appointment, :cancelation)
+        appointment.cancelation_notif&.program_now
       end
     end
 
     after_transition on: :miss do |appointment, transition|
-      appointment.no_show_notif&.program_now if send_sms?(transition)
+      if send_sms?(transition) && appointment.convict.can_receive_sms?
+        NotificationFactory.perform(appointment, :no_show)
+        appointment.no_show_notif&.program_now
+      end
     end
 
     after_transition on: :excuse do |appointment|
@@ -256,10 +262,17 @@ class Appointment < ApplicationRecord
   end
 
   def cancel_reminder_notif
-    reminder_notif.cancel! if reminder_notif&.programmed?
+    reminder_notif&.cancel! if reminder_notif&.pending?
   end
 
   def completed?
     fulfiled? || no_show? || excused?
+  end
+
+  def localized_starting_time
+    identifier = slot.place.organization.time_zone
+    time_zone = TZInfo::Timezone.get(identifier)
+
+    time_zone.to_local(slot.starting_time)
   end
 end

@@ -66,4 +66,15 @@ RSpec.describe NotificationType, type: :model do
       end
     end
   end
+
+  # describe 'setup_template' do
+  #   it 'translates human readable template into a ruby usable one' do
+  #     human_template = 'Convocation le {rdv.date} à {rdv.heure}'
+  #     expected = 'Convocation le %<appointment_date>s à %<appointment_hour>s'
+
+  #     result = NotificationFactory.setup_template(human_template)
+
+  #     expect(result).to eq(expected)
+  #   end
+  # end
 end

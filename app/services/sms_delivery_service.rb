@@ -9,6 +9,9 @@ class SmsDeliveryService
     validate_notification_state
     return handle_unsendable_notification unless notification.can_be_sent?
 
+    final_content = notification.generate_content
+    notification.update(content: final_content) unless final_content == notification.content
+
     response = LinkMobilityAdapter.new(notification).send_sms
 
     update_state_from_response(response)
