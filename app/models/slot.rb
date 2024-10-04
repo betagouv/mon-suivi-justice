@@ -16,6 +16,7 @@ class Slot < ApplicationRecord
   validates_inclusion_of :available, in: [true, false]
   validate :workday?
   validate :coherent_organization_type?
+  validate :in_the_future, on: :create
 
   delegate :place, to: :agenda
   delegate :name, :adress, :display_phone, :contact_detail, :preparation_link, to: :place, prefix: true
@@ -128,5 +129,15 @@ class Slot < ApplicationRecord
     errors.add(:base,
                I18n.t("activerecord.errors.models.slot.attributes.date.#{attribute}", date: transfert.date.to_fs,
                                                                                       place_name:))
+  end
+
+  def in_the_future
+    if date.nil?
+      errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.blank'))
+    elsif datetime.before?(Time.zone.now)
+      errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.past'))
+    elsif datetime.after?(1.year.from_now)
+      errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.future'))
+    end
   end
 end

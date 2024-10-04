@@ -184,7 +184,7 @@ class Appointment < ApplicationRecord
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.blank'))
     elsif slot.datetime.before?(Time.zone.now)
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.past'))
-    elsif slot.datetime.after?(Time.zone.now + 1.year)
+    elsif slot.datetime.after?(1.year.from_now)
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.future'))
     end
   end
