@@ -38,13 +38,13 @@ gem 'discard', '~> 1.3.0'
 
 gem 'paper_trail', '~> 15.2.0'
 gem 'ahoy_matey', '~> 5.2.0'
-gem 'sentry-ruby', '~> 5.20.1'
-gem 'sentry-rails', '~> 5.20.1'
+gem 'sentry-ruby', '~> 5.21.0'
+gem 'sentry-rails', '~> 5.21.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.2', '>= 3.2.8'
 gem 'jbuilder', '~> 2.13.0'
-gem 'groupdate', '~> 6.4.0'
+gem 'groupdate', '~> 6.5.0'
 
 gem 'faraday', '~> 2.12.0'
 gem 'faraday-retry', '~> 2.2.1'
@@ -103,7 +103,7 @@ group :test do
   gem 'timecop', '~> 0.9.10'
   gem 'pundit-matchers', '~> 3.1.2'
   gem 'state_machines-rspec', '~> 0.6.0'
-  gem 'webmock', '~> 3.23.1'
+  gem 'webmock', '~> 3.24.0'
 end
 
 gem 'abyme', '~> 0.7.0'

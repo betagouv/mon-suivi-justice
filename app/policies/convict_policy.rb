@@ -19,13 +19,13 @@ class ConvictPolicy < ApplicationPolicy
   def update?
     return false unless user.security_charter_accepted?
 
-    check_ownership? && (!record.pending_divestments? || user.local_admin?)
+    check_ownership? && (!record.pending_divestments? || user.can_manage_divestments?)
   end
 
   def edit?
     return false unless user.security_charter_accepted?
 
-    record.undiscarded? && check_ownership? && (!record.pending_divestments? || user.local_admin?)
+    record.undiscarded? && check_ownership? && (!record.pending_divestments? || user.can_manage_divestments?)
   end
 
   def show?
