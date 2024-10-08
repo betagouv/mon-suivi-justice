@@ -55,7 +55,7 @@
           <tbody>
             <% @agenda.slots_for_date(day, @appointment_type).each do |slot| %>
               <% appointments = slot.appointments.active %>
-              <% slot.capacity.times do |i| %>
+              <% slot.real_capacity.times do |i| %>
                 <tr>
                   <td>
                     <% if i == 0 %>

@@ -37,7 +37,7 @@
         </div>
         <% @agenda.slots_for_date(day, @appointment_type).each do |slot| %>
           <% appointments = slot.appointments.active %>
-          <% slot.capacity.times do |i| %>
+          <% slot.real_capacity.times do |i| %>
             <div class='bex-agenda-line'>
               <div class='bex-agenda-small-column'>
                 <% if i == 0 %>

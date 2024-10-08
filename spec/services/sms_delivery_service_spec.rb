@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe SmsDeliveryService do
-  let(:notification) { create(:notification, state: 'programmed') }
+  let(:appointment) { create_appointment }
+  let(:notification) { create(:notification, appointment:, state: 'programmed') }
   let(:service) { described_class.new(notification) }
   let(:link_mobility_adapter) { instance_double(LinkMobilityAdapter) }
   let(:response) { double('response') }
@@ -36,6 +37,14 @@ RSpec.describe SmsDeliveryService do
         allow(notification).to receive(:can_be_sent?).and_return(true)
         allow(response).to receive(:external_id).and_return('123')
         allow(response).to receive(:success).and_return(true)
+      end
+
+      it 'update content if needed' do
+        notif_type = notification.notification_type
+        notif_type.update(template: 'new_template')
+
+        service.send_sms
+        expect(notification.reload.content).to eq('new_template')
       end
 
       it 'updates notification with external_id' do

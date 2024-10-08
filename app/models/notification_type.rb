@@ -18,6 +18,17 @@ class NotificationType < ApplicationRecord
 
   scope :default, -> { where(is_default: true) }
 
+  def setup_template
+    template.gsub('{', '%{')
+            .gsub('rdv.heure', 'appointment_hour')
+            .gsub('rdv.date', 'appointment_date')
+            .gsub('lieu.nom', 'place_name')
+            .gsub('lieu.adresse', 'place_adress')
+            .gsub('lieu.téléphone', 'place_phone')
+            .gsub('lieu.contact', 'place_contact')
+            .gsub('lieu.lien_info', 'place_preparation_link')
+  end
+
   private
 
   def template_format

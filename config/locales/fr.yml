@@ -786,7 +786,7 @@ fr:
   show-convict-fulfilment-prompt: Est-ce-que %{name} s'est présenté au %{place}
     le %{date} à %{time} ?
   show-convict-excuse-prompt: Si %{name} a déjà fourni un justificatif d'absence pour sa convocation prévue le %{date} à %{time} au %{place}, vous pouvez l'indiquer ci-dessous.
-  show-convict-fulfilment-send-sms: Voulez-vous envoyer un SMS au probationnaire ?
+  show-convict-fulfilment-send-sms: Voulez vous envoyer un SMS au probationnaire pour l'informer de son absence et l'encourager à vous recontacter?
   show-convict-fulfilment-sms-content: 'Texte du SMS :'
   show-convict-next-appointments-title:
     one: "Prochaine convocation"

@@ -5,7 +5,7 @@ class Notification < ApplicationRecord
   validates :content, presence: true
   validates :external_id, presence: true, if: :sent?
 
-  delegate :convict_phone, :convict, to: :appointment
+  delegate :convict_phone, :convict, :appointment_type, :organization, :slot, to: :appointment
   delegate :id, to: :appointment, prefix: true
   delegate :can_receive_sms?, to: :convict, prefix: true
 
@@ -40,6 +40,10 @@ class Notification < ApplicationRecord
   }
 
   scope :retryable, -> { where(failed_count: 0..4) }
+
+  scope :ready_to_send, lambda {
+    where(delivery_time: 1.hour.ago..1.hour.from_now, state: 'programmed')
+  }
 
   state_machine initial: :created do
     state :created do
@@ -76,7 +80,7 @@ class Notification < ApplicationRecord
     end
 
     event :cancel do
-      transition programmed: :canceled
+      transition %i[created programmed] => :canceled
     end
 
     event :receive do
@@ -102,32 +106,10 @@ class Notification < ApplicationRecord
     after_transition on: :program_now do |notification|
       SmsDeliveryJob.perform_later(notification.id)
     end
-
-    after_transition on: :program do |notification|
-      SmsDeliveryJob.set(wait_until: notification.delivery_time)
-                    .perform_later(notification.id)
-    end
   end
 
-  def delivery_time
-    app_date = appointment.slot.date
-    app_time = localized_starting_time
-
-    app_datetime = app_date.to_datetime + app_time.seconds_since_midnight.seconds
-
-    result = app_datetime.to_time - hour_delay.hours
-    result.asctime.in_time_zone('Paris')
-  end
-
-  def localized_starting_time
-    identifier = appointment.slot.place.organization.time_zone
-    time_zone = TZInfo::Timezone.get(identifier)
-
-    time_zone.to_local(appointment.slot.starting_time)
-  end
-
-  def hour_delay
-    { 'one_day' => 24, 'two_days' => 48 }.fetch(reminder_period)
+  def pending?
+    programmed? || created?
   end
 
   def can_be_sent?
@@ -149,5 +131,38 @@ class Notification < ApplicationRecord
     return if canceled?
 
     failed_count.zero? ? mark_as_unsent! : mark_as_failed!
+  end
+
+  def default_notif_type
+    appointment_type.notification_types.find_by(organization: nil, role:)
+  end
+
+  def notification_type
+    for_orga = appointment_type.notification_types.find_by(organization:, role:)
+    return for_orga if for_orga.present?
+
+    default_notif_type
+  end
+
+  # rubocop:disable Metrics/AbcSize
+  def sms_data
+    time_zone = TZInfo::Timezone.get(slot.place.organization.time_zone)
+    {
+      appointment_hour: time_zone.to_local(slot.starting_time).to_fs(:lettered),
+      appointment_date: slot.civil_date,
+      place_name: slot.place_name,
+      place_adress: slot.place_adress,
+      place_phone: slot.place_display_phone(spaces: false),
+      place_contact: slot.place_contact_detail,
+      place_preparation_link: "#{slot.place_preparation_link}?mtm_campaign=AgentsApp&mtm_source=sms"
+    }
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def generate_content(notif_type = nil)
+    notif_type ||= notification_type
+    template = notif_type.setup_template
+
+    template % sms_data
   end
 end

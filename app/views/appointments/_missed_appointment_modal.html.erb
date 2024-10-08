@@ -8,9 +8,6 @@
       <div class='missed-appointment-modal-text'>
         <%= t('show-convict-fulfilment-send-sms') %>
       </div>
-      <div>
-        <p class='missed-appointment-modal-sms-content'><%= t('show-convict-fulfilment-sms-content') %> </p><%= apt.no_show_notif.content %>
-      </div>
       <div class='appointment-fulfilment-controls-container'>
         <%= button_to t('yes'), appointment_miss_path(apt),
                                 method: :put,
