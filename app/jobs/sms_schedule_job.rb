@@ -4,6 +4,6 @@ class SmsScheduleJob < ApplicationJob
   queue_as :default
 
   def perform
-    Notification.ready_to_send.each { |notification| SmsDeliveryJob.perform_later(notification.id) }
+    Notification.ready_to_send.each(&:program_now)
   end
 end
