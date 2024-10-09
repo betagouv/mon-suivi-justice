@@ -55,7 +55,7 @@ RSpec.describe DivestmentCreatorService do
       end
     end
 
-    context 'when organizations do not have local admins' do
+    context 'when organizations do not have divestment roles' do
       before do
         create_list(:organization, 2, convicts: [convict])
       end
@@ -89,7 +89,7 @@ RSpec.describe DivestmentCreatorService do
         end
       end
 
-      context 'when the TJ does not have a local admin' do
+      context 'when the TJ does not have divestment roles' do
         it 'creates organization divestments with pending state for spip if tj and tj has local admin' do
           service.call
           expect(service.divestment.organization_divestments.count).to eq(2)
