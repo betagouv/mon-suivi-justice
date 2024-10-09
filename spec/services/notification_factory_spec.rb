@@ -7,12 +7,12 @@ RSpec.describe NotificationFactory do
       place = create(:place, organization:)
       agenda = create(:agenda, place:)
       appointment_type = create(:appointment_type)
-      nt1 = create(:notification_type, appointment_type:, organization:,
-                                       role: :summon,
-                                       template: 'Convocation le {rdv.date} à {rdv.heure}')
-      nt2 = create(:notification_type, appointment_type:, organization:,
-                                       role: :reminder,
-                                       template: 'Rappel: convocation le {rdv.date} à {rdv.heure}')
+      create(:notification_type, appointment_type:, organization:,
+                                 role: :summon,
+                                 template: 'Convocation le {rdv.date} à {rdv.heure}')
+      create(:notification_type, appointment_type:, organization:,
+                                 role: :reminder,
+                                 template: 'Rappel: convocation le {rdv.date} à {rdv.heure}')
       slot = create(:slot, date: Date.civil(2025, 4, 14), starting_time: new_time_for(15, 30),
                            appointment_type:, agenda:)
       appointment = create(:appointment, slot:)
