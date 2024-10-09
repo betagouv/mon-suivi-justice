@@ -2,12 +2,12 @@ module NotificationFactory
   class << self
     def perform(appointment, roles)
       @appointment = appointment
-      roles = cleanup Array(roles)
+      @roles = Array(roles)
 
       @appointment.transaction do
-        roles.each do |role|
+        @roles.each do |role|
           notif = create_notif(role)
-          notif.save!
+          notif&.save!
         end
       end
     end
@@ -19,6 +19,7 @@ module NotificationFactory
       )
 
       notif_type = notif.notification_type
+      return nil if should_ignore_reminder_notif?(notif_type)
 
       notif.reminder_period = notif_type.reminder_period
       notif.content = notif.generate_content(notif_type)
@@ -52,17 +53,14 @@ module NotificationFactory
       datetime < delay.hours.from_now
     end
 
-    def cleanup(roles)
-      return roles unless contains_all(roles, %w[reminder summon])
-
-      reminder_notif_type = @appointment.reminder_notification_type
-      return roles - ['reminder'] if before_hours_delay? reminder_notif_type
-
-      roles
+    def contains_all?(array, values)
+      (values - array).empty?
     end
 
-    def contains_all(array, values)
-      (values - array).empty?
+    def should_ignore_reminder_notif?(notif_type)
+      # We dont want to send a reminder if the appointment is in less than hour delay
+      # and a summon notification has already been sent
+      notif_type.reminder? && contains_all?(@roles, %w[summon reminder]) && before_hours_delay?(notif_type)
     end
   end
 end

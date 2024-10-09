@@ -275,11 +275,4 @@ class Appointment < ApplicationRecord
 
     time_zone.to_local(slot.starting_time)
   end
-
-  def reminder_notification_type
-    for_orga = appointment_type.notification_types.find_by(organization:, role: :reminder)
-    return for_orga if for_orga.present?
-
-    default_notif_type
-  end
 end
