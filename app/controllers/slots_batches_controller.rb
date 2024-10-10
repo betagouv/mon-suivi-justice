@@ -45,7 +45,9 @@ class SlotsBatchesController < ApplicationController
       flash.discard
       redirect_to slots_path
     else
-      handle_create_errors(error, slot_params)
+      slot_errors = result.select { |slot| slot.errors.any? }
+      errors = slot_errors.first.errors
+      handle_create_errors(errors.first, slot_params)
     end
   end
 
