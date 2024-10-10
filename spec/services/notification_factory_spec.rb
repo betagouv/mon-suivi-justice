@@ -7,17 +7,17 @@ RSpec.describe NotificationFactory do
       place = create(:place, organization:)
       agenda = create(:agenda, place:)
       appointment_type = create(:appointment_type)
-      nt1 = create(:notification_type, appointment_type:, organization:,
-                                       role: :summon,
-                                       template: 'Convocation le {rdv.date} à {rdv.heure}')
-      nt2 = create(:notification_type, appointment_type:, organization:,
-                                       role: :reminder,
-                                       template: 'Rappel: convocation le {rdv.date} à {rdv.heure}')
+      create(:notification_type, appointment_type:, organization:,
+                                 role: :summon,
+                                 template: 'Convocation le {rdv.date} à {rdv.heure}')
+      create(:notification_type, appointment_type:, organization:,
+                                 role: :reminder,
+                                 template: 'Rappel: convocation le {rdv.date} à {rdv.heure}')
       slot = create(:slot, date: Date.civil(2025, 4, 14), starting_time: new_time_for(15, 30),
                            appointment_type:, agenda:)
       appointment = create(:appointment, slot:)
 
-      expect { NotificationFactory.perform(appointment, [nt1.role, nt2.role]) }.to change { Notification.count }.by(2)
+      expect { NotificationFactory.perform(appointment, %i[summon reminder]) }.to change { Notification.count }.by(2)
 
       appointment.reload
       expect(appointment.notifications.count).to eq(2)
@@ -28,6 +28,81 @@ RSpec.describe NotificationFactory do
       expect(summon_notif.content).to eq("Convocation le #{I18n.l(Date.civil(2025, 4, 14), format: :civil)} à 15h30")
       expect(reminder_notif.content).to eq("Rappel: convocation le #{I18n.l(Date.civil(2025, 4, 14),
                                                                             format: :civil)} à 15h30")
+    end
+
+    describe 'appointment in less than hour delays' do
+      let(:organization) { create(:organization) }
+      let(:place) { create(:place, organization:) }
+      let(:agenda) { create(:agenda, place:) }
+      let(:appointment_type) { create(:appointment_type) }
+      let(:nt1) do
+        create(:notification_type, appointment_type:, organization:,
+                                   role: :summon,
+                                   template: 'Convocation le {rdv.date} à {rdv.heure}')
+      end
+      let(:nt2) do
+        create(:notification_type, appointment_type:, organization:,
+                                   role: :reminder,
+                                   template: 'Rappel: convocation le {rdv.date} à {rdv.heure}')
+      end
+      let(:slot) do
+        create(:slot, date: 36.hours.from_now, starting_time: 36.hours.from_now,
+                      appointment_type:, agenda:)
+      end
+      let(:appointment) { create(:appointment, slot:) }
+
+      it('should send only summmon if summon needed') do
+        expect { NotificationFactory.perform(appointment, [nt1.role, nt2.role]) }.to change { Notification.count }.by(1)
+        appointment.reload
+        expect(appointment.notifications.count).to eq(1)
+
+        summon_notif = appointment.notifications.find_by(role: :summon)
+
+        time_zone = TZInfo::Timezone.get(slot.place.organization.time_zone)
+        date = I18n.l(slot.date, format: :civil)
+        hour = time_zone.to_local(slot.starting_time).to_fs(:lettered)
+        expect(summon_notif.content).to eq("Convocation le #{date} à #{hour}")
+      end
+
+      it('should send reminder immediately otherwise') do
+        expect { NotificationFactory.perform(appointment, [nt2.role]) }.to change { Notification.count }.by(1)
+        appointment.reload
+        expect(appointment.notifications.count).to eq(1)
+
+        reminder_notif = appointment.notifications.find_by(role: :reminder)
+
+        expect(reminder_notif.delivery_time).to be_within(10.second).of(Time.zone.now)
+      end
+      describe '24 hours reminders' do
+        let(:nt2) do
+          create(:notification_type, appointment_type:, organization:,
+                                     role: :reminder,
+                                     reminder_period: :one_day,
+                                     template: 'Rappel: convocation le {rdv.date} à {rdv.heure}')
+        end
+        let(:slot) do
+          create(:slot, date: 36.hours.from_now, starting_time: 36.hours.from_now,
+                        appointment_type:, agenda:)
+        end
+
+        it('when over') do
+          expect { NotificationFactory.perform(appointment, [nt1.role, nt2.role]) }.to change {
+            Notification.count
+          }.by(2)
+          appointment.reload
+          expect(appointment.notifications.count).to eq(2)
+
+          time_zone = TZInfo::Timezone.get(slot.place.organization.time_zone)
+          date = I18n.l(slot.date, format: :civil)
+          hour = time_zone.to_local(slot.starting_time).to_fs(:lettered)
+
+          reminder_notif = appointment.notifications.find_by(role: :reminder)
+          summon_notif = appointment.notifications.find_by(role: :summon)
+
+          expect(summon_notif.content).to eq("Convocation le #{date} à #{hour}")
+          expect(reminder_notif.content).to eq("Rappel: convocation le #{date} à #{hour}")
+        end
+      end
     end
   end
 
