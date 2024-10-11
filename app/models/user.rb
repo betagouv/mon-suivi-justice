@@ -51,6 +51,7 @@ class User < ApplicationRecord
                      greff_ca dir_greff_sap greff_sap dpip cpip secretary_spip educator psychologist overseer].freeze
   ORDERED_TJ_ROLES = ORDERED_ROLES & TJ_ROLES
   ORDERED_SPIP_ROLES = ORDERED_ROLES & SPIP_ROLES
+  DIVESTMENT_ROLES = %w[local_admin greff_sap jap dir_greff_sap secretary_spip].freeze
 
   after_invitation_accepted { CreateContactInBrevoJob.perform_later(id) }
   after_update_commit :trigger_brevo_update_job, if: :relevant_field_changed?
@@ -64,6 +65,7 @@ class User < ApplicationRecord
   before_validation :set_default_role
 
   scope :in_organization, ->(organization) { where(organization:) }
+  scope :with_divestment_roles, -> { where(role: DIVESTMENT_ROLES) }
 
   pg_search_scope :search_by_name, against: %i[first_name last_name],
                                    using: {
