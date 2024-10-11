@@ -67,4 +67,12 @@ class Divestment < ApplicationRecord
   def target_use_ir?
     organization_jurisdiction.any?(&:use_inter_ressort?)
   end
+
+  def blocked_by
+    return unless state == 'pending'
+
+    return I18n.t('divestments.blocked_by.service_delay') if convict.valid?
+
+    convict.errors.full_messages.to_sentence
+  end
 end

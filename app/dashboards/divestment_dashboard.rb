@@ -22,7 +22,8 @@ class DivestmentDashboard < Administrate::BaseDashboard
     ),
     created_at: Field::Date,
     updated_at: Field::DateTime,
-    organization_divestments: Field::HasMany
+    organization_divestments: Field::HasMany,
+    blocked_by: Field::Text
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -38,6 +39,7 @@ class DivestmentDashboard < Administrate::BaseDashboard
     decision_date
     organization
     state
+    blocked_by
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
