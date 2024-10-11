@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe NotificationFactory do
+  include ActiveSupport::Testing::TimeHelpers
   describe 'perform' do
     it 'creates notifications for an appointment' do
       organization = create(:organization)
@@ -31,6 +32,14 @@ RSpec.describe NotificationFactory do
     end
 
     describe 'appointment in less than hour delays' do
+      before do
+        travel_to Time.zone.parse('2025-09-08 09:00:00')
+      end
+
+      after do
+        travel_back
+      end
+
       let(:organization) { create(:organization) }
       let(:place) { create(:place, organization:) }
       let(:agenda) { create(:agenda, place:) }
@@ -52,7 +61,9 @@ RSpec.describe NotificationFactory do
       let(:appointment) { create(:appointment, slot:) }
 
       it('should send only summmon if summon needed') do
-        expect { NotificationFactory.perform(appointment, [nt1.role, nt2.role]) }.to change { Notification.count }.by(1)
+        expect { NotificationFactory.perform(appointment, [nt1.role, nt2.role]) }.to change {
+          Notification.count
+        }.by(1)
         appointment.reload
         expect(appointment.notifications.count).to eq(1)
 
