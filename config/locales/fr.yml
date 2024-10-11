@@ -433,6 +433,8 @@ fr:
   default: Défaut
   delete: Supprimer
   divestments:
+    blocked_by:
+      service_delay: Retard du service
     create:
       auto_accepted: La demande a été automatiquement validée car le suivi du probationnaire
         n'était plus actif
@@ -512,6 +514,8 @@ fr:
         created_at: date de création
         roles: rôles destinataires
         services: services destinataires
+      divestment:
+        blocked_by: Bloqué à cause de
   history_item:
     accept_divestment: Le dessaisissement vers %{target_name} est maintenant effectif.
     accept_divestment_title: Dessaisissement accepté

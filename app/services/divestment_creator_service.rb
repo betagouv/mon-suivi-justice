@@ -63,7 +63,7 @@ class DivestmentCreatorService
 
   def initial_state(org, state, sources)
     return state unless state == 'pending'
-    return 'ignored' if org.local_admin.empty?
+    return 'ignored' if org.users.with_divestment_roles.empty?
 
     return 'auto_accepted' if auto_acceptable_org_divestment?(org, sources)
 
