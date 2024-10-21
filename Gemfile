@@ -110,7 +110,7 @@ gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.7'
 gem 'administrate-field-belongs_to_search', '~> 0.9.0'
-gem 'faker', '~> 3.4.2'
+gem 'faker', '~> 3.5.1'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 5.3.0'
