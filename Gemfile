@@ -37,14 +37,14 @@ gem 'holidays', '~> 8.8.0'
 gem 'discard', '~> 1.3.0'
 
 gem 'paper_trail', '~> 15.2.0'
-gem 'ahoy_matey', '~> 5.2.0'
+gem 'ahoy_matey', '~> 5.2.1'
 gem 'sentry-ruby', '~> 5.21.0'
 gem 'sentry-rails', '~> 5.21.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.2', '>= 3.2.8'
 gem 'jbuilder', '~> 2.13.0'
-gem 'groupdate', '~> 6.5.0'
+gem 'groupdate', '~> 6.5.1'
 
 gem 'faraday', '~> 2.12.0'
 gem 'faraday-retry', '~> 2.2.1'
@@ -61,7 +61,7 @@ gem 'administrate-field-enum', '~> 0.0.9'
 
 gem 'pretender', '~> 0.5.0'
 
-gem 'octokit', '~> 9.1.0'
+gem 'octokit', '~> 9.2.0'
 
 gem 'stimulus-rails', '~> 1.3.4'
 
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.2.1'
-  gem 'rubocop', '~> 1.66', require: false
+  gem 'rubocop', '~> 1.67', require: false
   gem 'brakeman', '~> 6.2'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
@@ -110,7 +110,7 @@ gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.7'
 gem 'administrate-field-belongs_to_search', '~> 0.9.0'
-gem 'faker', '~> 3.4.2'
+gem 'faker', '~> 3.5.1'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 5.3.0'
