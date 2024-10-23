@@ -32,6 +32,6 @@ class DivestmentStalledService
   end
 
   def divestmentable?(convict)
-    convict.archived? || convict.last_appointment_at_least_3_months_old?
+    convict.archived?
   end
 end
