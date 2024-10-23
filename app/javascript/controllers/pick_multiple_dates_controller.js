@@ -8,10 +8,12 @@ const thisYear = new Date().getFullYear();
 const nextYear = thisYear + 1;
 const thisYearHolidays = holidays.getHolidays(thisYear).map((holiday) => holiday.date);
 const nextYearHolidays = holidays.getHolidays(nextYear).map((holiday) => holiday.date);
-
+const oneYearFromNow = new Date();
+oneYearFromNow.setFullYear(nextYear);
 const options = { 
   mode: 'multiple', 
-  minDate: 'today', 
+  minDate: 'today',
+  maxDate: oneYearFromNow,
   locale: French,
   dateFormat: "Y-m-d",
   disable: [

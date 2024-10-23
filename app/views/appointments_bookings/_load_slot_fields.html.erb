@@ -17,6 +17,7 @@
     name="appointment[slot_attributes][date]" 
     id="appointment_slot_date" 
     min=<%= Time.zone.now %>
+    max=<%= 1.year.from_now %>
     data-action="change->appointment-new#selectSlot"
   />
 </div>
