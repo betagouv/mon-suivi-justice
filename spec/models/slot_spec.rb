@@ -41,6 +41,13 @@ RSpec.describe Slot, type: :model do
 
         expect(slot).to be_valid
       end
+
+      it 'is valid if appointment is type sap ddse' do
+        apt_type = create(:appointment_type, name: 'Convocation DDSE')
+        slot = build(:slot, agenda:, appointment_type: apt_type,
+                            date: Date.today.next_occurring(:saturday))
+        expect(slot).to be_valid
+      end
     end
 
     describe 'coherent_organization_type' do
