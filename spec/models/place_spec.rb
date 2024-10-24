@@ -27,6 +27,10 @@ RSpec.describe Place, type: :model do
       expect(build(:place, contact_email: 'youpi')).not_to be_valid
     end
 
+    it 'denies without appointment_types' do
+      expect(build(:place, appointment_types: [])).not_to be_valid
+    end
+
     it 'is valid with the factory\'s attributes' do
       expect(build(:place)).to be_valid
     end

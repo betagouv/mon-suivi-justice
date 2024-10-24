@@ -1,5 +1,11 @@
 <h1 class='form-title'><%= t('new_place_title') %></h1>
 <%= simple_form_for @place, html: { class: 'basic-form' } do |f| %>
+  <% invalid = @place.errors.include?(:appointment_types) %>
+  <% if invalid %>
+    <div class="fr-alert fr-alert--warning fr-my-2w">
+      <h3 class="fr-alert__title"><%=  @place.errors.messages_for(:appointment_types).first %></h3>
+    </div>
+  <% end %>
   <%= f.input :name %>
   <%= f.input :adress %>
   <%= f.input :phone %>

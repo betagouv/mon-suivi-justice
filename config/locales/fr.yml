@@ -68,6 +68,7 @@ fr:
         name: Nom
         phone: Téléphone
         preparation_link: Lien d'information sur le lieu
+        appointment_types: Types de convocation
       slot:
         appointment_type: Type de convocation
         available: Disponible
@@ -177,6 +178,8 @@ fr:
               blank: Adresse manquante
             name:
               blank: Nom manquant
+            appointment_types:
+              empty: Veuillez sélectionner au moins un type de convocation
         place_transfert:
           attributes:
             date:

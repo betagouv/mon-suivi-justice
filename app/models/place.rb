@@ -8,6 +8,7 @@ class Place < ApplicationRecord
   validates :contact_email, presence: true, if: :email_main_contact_method?
   validates :contact_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
   validates :preparation_link, presence: true
+  validate :appointment_types?
 
   has_many :agendas, dependent: :destroy
   has_many :place_appointment_types, dependent: :destroy
@@ -70,5 +71,13 @@ class Place < ApplicationRecord
 
   def transfert_in_date
     transfert_in&.date
+  end
+
+  private
+
+  def appointment_types?
+    return true unless appointment_types.empty?
+
+    errors.add(:appointment_types, I18n.t('activerecord.errors.models.place.attributes.appointment_types.empty'))
   end
 end
