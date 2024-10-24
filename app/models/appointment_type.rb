@@ -2,7 +2,7 @@ class AppointmentType < ApplicationRecord
   has_paper_trail
 
   WITH_SLOT_TYPES = ["Sortie d'audience SAP", "Sortie d'audience SPIP", 'SAP DDSE'].freeze
-  ALLOWED_ON_WEEKENDS = ['Placement TIG/TNR'].freeze
+  ALLOWED_ON_WEEKENDS = ['Placement TIG/TNR', 'Convocation DDSE'].freeze
   SPIP_ASSIGNABLE = ['1ère convocation de suivi SPIP', 'Convocation de suivi SPIP', 'Convocation 741-1',
                      'Placement TIG/TNR', 'Visite à domicile', 'RDV téléphonique', 'Convocation DDSE',
                      'Convocation stage', 'Convocation rappel SPIP', 'Action collective'].freeze
