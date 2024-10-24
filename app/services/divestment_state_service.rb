@@ -10,7 +10,7 @@ class DivestmentStateService
   # rubocop:disable Metrics/CyclomaticComplexity
   def accept(comment = nil, auto_accepted: false)
     return false unless @convict.valid?
-    return false unless @organization_divestment.pending? && @divestment.pending?
+    return false unless @organization_divestment.can_accept? && @divestment.can_accept?
 
     ActiveRecord::Base.transaction do
       return false unless comment.nil? || @organization_divestment.update!(comment:)
@@ -28,7 +28,7 @@ class DivestmentStateService
   # rubocop:disable Metrics/AbcSize
   def refuse(comment = nil)
     return false unless @convict.valid?
-    return false unless @organization_divestment.pending? && @divestment.pending?
+    return false unless @organization_divestment.can_refuse? && @divestment.can_refuse?
 
     ActiveRecord::Base.transaction do
       return false unless comment.nil? || @organization_divestment.update!(comment:)
@@ -52,7 +52,7 @@ class DivestmentStateService
 
   def ignore
     return false unless @convict.valid?
-    return false unless @organization_divestment.pending? && @divestment.pending?
+    return false unless @organization_divestment.can_ignore? && @divestment.pending?
 
     @organization_divestment.ignore
   end

@@ -35,6 +35,29 @@ RSpec.describe DivestmentStateService do
 
       expect(tj_organization_divestment.comment).to eq('this is a comment')
     end
+
+    context 'only 1 organization divestment with state ignored' do
+      let(:admin) { create(:user, organization: spip, role: 'local_admin') }
+      let(:convict) { create(:convict, organizations: [spip, tj_target, spip_target], user: cpip, city:) }
+      let(:tj_organization_divestment) { nil }
+      let(:spip_divestment_state) { :ignored }
+
+      subject(:service) { DivestmentStateService.new(spip_organization_divestment, admin) }
+
+      it 'change the divestment state' do
+        service.accept
+        divestment.reload
+        spip_organization_divestment.reload
+        convict.reload
+
+        expect(spip_organization_divestment.state).to eq('accepted')
+        expect(spip_organization_divestment.decision_date).to eq(Date.today)
+        expect(divestment.state).to eq('accepted')
+        expect(divestment.decision_date).to eq(Date.today)
+        expect(convict.user).to be_nil
+        expect(convict.organizations).to match_array([tj_target, spip_target])
+      end
+    end
     context 'not all organization divestments are accepted' do
       let(:spip_divestment_state) { :pending }
 
