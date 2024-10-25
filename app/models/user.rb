@@ -175,7 +175,6 @@ class User < ApplicationRecord
   end
 
   def trigger_brevo_create_job
-    sleep 1
     CreateContactInBrevoJob.perform_later(id)
   end
 
