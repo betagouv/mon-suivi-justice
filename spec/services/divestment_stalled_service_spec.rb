@@ -23,12 +23,12 @@ RSpec.describe DivestmentStalledService do
       expect(state_service).to receive(:accept)
       DivestmentStalledService.new.call
     end
-    it 'does not call accept on DivestmentStateService' do
+    it 'calls accept on DivestmentStateService' do
       allow(convict).to receive_messages(last_appointment_at_least_3_months_old?: true)
       expect(state_service).to receive(:accept)
       DivestmentStalledService.new.call
     end
-    it 'does not call accept on DivestmentStateService' do
+    it 'calls accept on DivestmentStateService' do
       expect(state_service).to receive(:accept)
       DivestmentStalledService.new.call
     end
