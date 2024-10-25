@@ -53,7 +53,7 @@ class User < ApplicationRecord
   ORDERED_SPIP_ROLES = ORDERED_ROLES & SPIP_ROLES
   DIVESTMENT_ROLES = %w[local_admin greff_sap jap dir_greff_sap secretary_spip].freeze
 
-  after_invitation_accepted { CreateContactInBrevoJob.perform_later(id) }
+  after_invitation_accepted :trigger_brevo_create_job
   after_update_commit :trigger_brevo_update_job, if: :relevant_field_changed?
   after_destroy_commit { DeleteContactInBrevoJob.perform_later(email) }
 
@@ -172,6 +172,10 @@ class User < ApplicationRecord
 
   def set_default_role
     self.role ||= organization.tj? ? 'greff_sap' : 'cpip'
+  end
+
+  def trigger_brevo_create_job
+    CreateContactInBrevoJob.perform_later(id)
   end
 
   def trigger_brevo_update_job
