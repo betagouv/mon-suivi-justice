@@ -18,24 +18,19 @@ RSpec.describe DivestmentStalledService do
       allow(organization_divestment2).to receive(:convict).and_return(convict)
     end
 
-    context 'when convict is divestmentable' do
-      it 'calls accept on DivestmentStateService' do
-        allow(convict).to receive_messages(archived?: true)
-        expect(state_service).to receive(:accept)
-        DivestmentStalledService.new.call
-      end
+    it 'calls accept on DivestmentStateService' do
+      allow(convict).to receive_messages(archived?: true)
+      expect(state_service).to receive(:accept)
+      DivestmentStalledService.new.call
     end
-
-    context 'when convict is not divestmentable' do
-      it 'does not call accept on DivestmentStateService' do
-        allow(convict).to receive_messages(last_appointment_at_least_3_months_old?: true)
-        expect(state_service).not_to receive(:accept)
-        DivestmentStalledService.new.call
-      end
-      it 'does not call accept on DivestmentStateService' do
-        expect(state_service).not_to receive(:accept)
-        DivestmentStalledService.new.call
-      end
+    it 'does not call accept on DivestmentStateService' do
+      allow(convict).to receive_messages(last_appointment_at_least_3_months_old?: true)
+      expect(state_service).to receive(:accept)
+      DivestmentStalledService.new.call
+    end
+    it 'does not call accept on DivestmentStateService' do
+      expect(state_service).to receive(:accept)
+      DivestmentStalledService.new.call
     end
   end
 end
