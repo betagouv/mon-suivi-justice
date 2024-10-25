@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe DivestmentStalledService do
   describe '#call' do
-    let(:convict) { instance_double('Convict', archived?: false, last_appointment_at_least_3_months_old?: false) }
+    let(:convict) { instance_double('Convict', archived?: false, last_appointment_in_the_past?: false) }
     let(:divestment) { instance_double('Divestment', convict:) }
     let(:organization_divestment) { instance_double('OrganizationDivestment', divestment:) }
     let(:organization_divestment2) { instance_double('OrganizationDivestment', divestment:) }
@@ -24,11 +24,21 @@ RSpec.describe DivestmentStalledService do
         expect(state_service).to receive(:accept)
         DivestmentStalledService.new.call
       end
+      it 'calls accept on DivestmentStateService' do
+        allow(convict).to receive_messages(last_appointment_in_the_past?: true)
+        expect(state_service).to receive(:accept)
+        DivestmentStalledService.new.call
+      end
     end
 
     context 'when convict is not divestmentable' do
       it 'does not call accept on DivestmentStateService' do
-        allow(convict).to receive_messages(last_appointment_at_least_3_months_old?: true)
+        allow(convict).to receive_messages(archived?: false)
+        expect(state_service).not_to receive(:accept)
+        DivestmentStalledService.new.call
+      end
+      it 'does not call accept on DivestmentStateService' do
+        allow(convict).to receive_messages(last_appointment_in_the_past?: false)
         expect(state_service).not_to receive(:accept)
         DivestmentStalledService.new.call
       end

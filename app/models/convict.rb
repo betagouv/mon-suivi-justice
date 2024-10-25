@@ -260,8 +260,8 @@ class Convict < ApplicationRecord
     last_appointment_at_least_x_months_old?(6)
   end
 
-  def last_appointment_at_least_3_months_old?
-    last_appointment_at_least_x_months_old?(3)
+  def last_appointment_in_the_past?
+    last_appointment_at_least_x_months_old?(0)
   end
 
   def pending_divestments?
