@@ -22,7 +22,7 @@ RSpec.feature 'Places', type: :feature do
 
   describe 'creation', logged_in_as: 'local_admin' do
     it 'creates a place and its first agenda' do
-      apt_type = create(:appointment_type, name: 'Premier contact Spip')
+      create(:appointment_type, name: 'Premier contact Spip')
 
       visit new_place_path
 
