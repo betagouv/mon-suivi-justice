@@ -22,13 +22,17 @@ RSpec.feature 'Places', type: :feature do
 
   describe 'creation', logged_in_as: 'local_admin' do
     it 'creates a place and its first agenda' do
+      apt_type = create(:appointment_type, name: 'Premier contact Spip')
+
       visit new_place_path
 
       fill_in 'Nom', with: 'Spip 72'
       fill_in 'Adresse', with: '93 rue des charmes 72200 La Flèche'
       fill_in 'Téléphone', with: '0606060606'
       fill_in "Lien d'information sur le lieu", with: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip92'
-
+      within first('.edit-place-appointment-types-container') do
+        check 'Premier contact Spip'
+      end
       expect { click_button 'Enregistrer' }.to change { Place.count }.by(1)
                                            .and change { Agenda.count }.by(1)
     end
@@ -72,14 +76,14 @@ RSpec.feature 'Places', type: :feature do
     end
 
     it 'allows to select appointment_types' do
-      place = create(:place, name: 'Spip du 91', organization: @user.organization)
       apt_type = create(:appointment_type, name: 'Premier contact Spip')
-
+      place = build(:place, name: 'Spip du 91', organization: @user.organization, appointment_types: [])
+      place.save(validate: false)
       expect(place.appointment_types).to be_empty
 
       visit edit_place_path(place)
       within first('.edit-place-appointment-types-container') do
-        check 'Premier contact Spip'
+        check apt_type.name
       end
 
       click_button('Enregistrer')

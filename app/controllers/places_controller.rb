@@ -14,13 +14,10 @@ class PlacesController < ApplicationController
   def create
     @place = Place.new(place_params)
     authorize @place
-    p @place
     if @place.save
       create_agenda(@place)
       redirect_to places_path
     else
-      p @place
-      p @place.errors
       render :new, status: :unprocessable_entity
     end
   end
