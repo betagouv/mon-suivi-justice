@@ -27,7 +27,7 @@
     "postcss-color-mod-function": "^4.1.1",
     "postcss-import": "^16.1.0",
     "postcss-mixins": "^11.0.3",
-    "postcss-nesting": "^13.0.0",
+    "postcss-nesting": "^13.0.1",
     "postcss-scss": "^4.0.9",
     "stimulus-use": "^0.51.3",
     "trix": "^2.1.7",
