@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.2'
 gem 'rails', '~> 7.1.4'
 
-gem 'pg', '~> 1.5.8'
+gem 'pg', '~> 1.5.9'
 gem 'puma', '~> 6.4.3'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
