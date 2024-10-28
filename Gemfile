@@ -50,7 +50,7 @@ gem 'faraday', '~> 2.12.0'
 gem 'faraday-retry', '~> 2.2.1'
 gem 'jwt', '~> 2.9'
 
-gem 'wicked_pdf', '~> 2.8.1'
+gem 'wicked_pdf', '~> 2.8.2'
 gem 'wkhtmltopdf-binary', '~> 0.12.6'
 
 gem 'tzinfo', '~> 2.0.6'
