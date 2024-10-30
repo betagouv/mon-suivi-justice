@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.2'
 gem 'rails', '~> 7.1.4'
 
-gem 'pg', '~> 1.5.8'
+gem 'pg', '~> 1.5.9'
 gem 'puma', '~> 6.4.3'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
@@ -29,7 +29,7 @@ gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
 gem 'dotenv-rails', '~> 3.1.4'
-gem 'sidekiq', '~> 7.3.2'
+gem 'sidekiq', '~> 7.3.4'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
@@ -50,7 +50,7 @@ gem 'faraday', '~> 2.12.0'
 gem 'faraday-retry', '~> 2.2.1'
 gem 'jwt', '~> 2.9'
 
-gem 'wicked_pdf', '~> 2.8.1'
+gem 'wicked_pdf', '~> 2.8.2'
 gem 'wkhtmltopdf-binary', '~> 0.12.6'
 
 gem 'tzinfo', '~> 2.0.6'
@@ -70,7 +70,7 @@ gem 'lograge', '~> 0.14.0'
 group :development, :test do
   gem 'rspec-rails', '~> 7.0.1'
   gem 'rspec_junit_formatter', '~> 0.6.0'
-  gem 'factory_bot_rails', '~> 6.4.3'
+  gem 'factory_bot_rails', '~> 6.4.4'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug', '~> 3.10.1'
   gem 'launchy', '~> 3.0.1'
