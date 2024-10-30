@@ -70,7 +70,7 @@ gem 'lograge', '~> 0.14.0'
 group :development, :test do
   gem 'rspec-rails', '~> 7.0.1'
   gem 'rspec_junit_formatter', '~> 0.6.0'
-  gem 'factory_bot_rails', '~> 6.4.3'
+  gem 'factory_bot_rails', '~> 6.4.4'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug', '~> 3.10.1'
   gem 'launchy', '~> 3.0.1'
