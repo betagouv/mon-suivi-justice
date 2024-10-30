@@ -14,7 +14,7 @@
     "@rails/actioncable": "^7.2.101",
     "@rails/actiontext": "^7.2.101",
     "@rails/activestorage": "^7.2.101",
-    "@rails/ujs": "^7.1.401",
+    "@rails/ujs": "^7.1.402",
     "abyme": "^0.7.4",
     "autoprefixer": "^10.4.20",
     "date-holidays": "^3.23.12",
