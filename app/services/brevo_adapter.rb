@@ -20,7 +20,6 @@ class BrevoAdapter
   end
 
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Layout/LineLength
   def create_contact_for_user(user)
     return log_event('create_contact_for_user', user) unless real_production?
 
@@ -41,7 +40,7 @@ class BrevoAdapter
       @client.create_contact(create_contact)
     rescue SibApiV3Sdk::ApiError => e
       error_response = JSON.parse(e.response_body)
-      raise unless error_response['code'] == 'duplicate_parameter' && error_response['message'] == 'Contact already exist'
+      raise unless error_response['code'] == 'duplicate_parameter'
 
       update_user_contact(user)
     end
@@ -81,12 +80,11 @@ class BrevoAdapter
     error_response = JSON.parse(e.response_body)
     raise unless contact_not_found_error?(error_response)
   end
-  # rubocop:enable Layout/LineLength
 
   private
 
   def contact_not_found_error?(error_response)
-    error_response['code'] == 'document_not_found' && error_response['message'] == 'Contact does not exist'
+    error_response['code'] == 'document_not_found'
   end
 
   def log_event(event, user_or_email)
