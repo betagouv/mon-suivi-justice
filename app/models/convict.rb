@@ -26,6 +26,8 @@ class Convict < ApplicationRecord
   has_many :divestments, dependent: :destroy
   has_many :organization_divestments, through: :divestments
 
+  generates_token_for :stop_sms, expires_in: 24.hours
+
   belongs_to :user, optional: true
 
   belongs_to :city, optional: true

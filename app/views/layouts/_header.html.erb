@@ -18,42 +18,54 @@
             </div>
           </div>
           <div class="fr-header__service">
-            <%= link_to home_path, title: "Accueil - Mon Suivi justice)"  do %>
+            <% if current_user %>
+              <%= link_to home_path, title: "Accueil - Mon Suivi justice)"  do %>
+                <p class="fr-header__service-title">
+                  Mon Suivi Justice
+                </p>
+              <% end %>
+            <% else %>
               <p class="fr-header__service-title">
                 Mon Suivi Justice
               </p>
             <% end %>
-            <p class="fr-header__service-tagline">Service : <%= current_organization&.name %></p>
+            <% if current_organization %>
+              <p class="fr-header__service-tagline">Service : <%= current_organization&.name %></p>
+            <% end %>
           </div>
         </div>
-        <div class="fr-header__tools">
-          <div class="fr-header__tools-links">
-            <ul class="fr-btns-group">
-              <li>
-                <% if current_user != true_user %>
-                  <%= button_to("Retour à l'admin", stop_impersonating_users_path, data: { turbo: false },  class: 'fr-btn fr-icon-settings-5-fill') %>
-                <% end %>
-              </li>
-              <li>
-                <% if current_user.admin? %>
-                  <%= link_to admin_root_path,  class: 'fr-btn fr-icon-settings-5-fill', data: { turbo: false } do%>
-                    Administration centrale
+        <% if current_user %>
+          <div class="fr-header__tools">
+            <div class="fr-header__tools-links">
+              <ul class="fr-btns-group">
+                <li>
+                  <% if current_user != true_user %>
+                    <%= button_to("Retour à l'admin", stop_impersonating_users_path, data: { turbo: false },  class: 'fr-btn fr-icon-settings-5-fill') %>
                   <% end %>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to(t('my_profile'), user_path(current_user.id), class: 'fr-btn fr-icon-account-circle-fill') %>
-              </li>
-              <li>
-                <%= link_to t('log_out'), destroy_user_session_path, class: 'fr-btn fr-icon-logout-box-r-fill', data: { turbo_method: :delete } %>
-              </li>
-            </ul>
+                </li>
+                <li>
+                  <% if current_user&.admin? %>
+                    <%= link_to admin_root_path,  class: 'fr-btn fr-icon-settings-5-fill', data: { turbo: false } do%>
+                      Administration centrale
+                    <% end %>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(t('my_profile'), user_path(current_user.id), class: 'fr-btn fr-icon-account-circle-fill') %>
+                </li>
+                <li>
+                  <%= link_to t('log_out'), destroy_user_session_path, class: 'fr-btn fr-icon-logout-box-r-fill', data: { turbo_method: :delete } %>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
-  <%= render 'layouts/main_navigation' %>
+  <% if current_user %>
+    <%= render 'layouts/main_navigation' %>
+  <% end %>
 </header>
 
 

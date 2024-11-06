@@ -2,6 +2,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'stop_sms', to: 'unsubscribe#stop_sms'
+  post 'stop_sms/refuse_phone', to: 'unsubscribe#refuse_phone', as: 'refuse_phone'
   namespace :admin do
       resources :users do
         get '/impersonate' => "users#impersonate"

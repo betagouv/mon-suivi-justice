@@ -1,0 +1,15 @@
+<h3>Désinscription des SMS</h3>
+
+<% if @error_message %>
+  <%= render 'unsubscribe/stop_sms_error' %>
+<% elsif @convict&.refused_phone? %>
+  <%= render 'unsubscribe/stop_sms_success' %>
+<% else %>
+  <turbo-frame id="unsubscribe">
+    <p>Je confirme ne pas souhaiter recevoir de SMS me rappelant mes convocations devant le JAP et le SPIP à l'avenir.</p> 
+
+    <p><b>Nous vous rappelons que votre présence aux convocations du JAP et du SPIP reste obligatoire.</b></p>
+
+    <%= button_to 'Confirmer la désinscription', refuse_phone_path(token: @token), method: :post, class: 'fr-btn fr-btn--secondary-danger' %>
+  </turbo-frame>
+<% end %>
