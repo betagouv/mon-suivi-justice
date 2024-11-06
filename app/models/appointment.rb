@@ -167,7 +167,7 @@ class Appointment < ApplicationRecord
 
     def send_sms?(transition)
       # user can chose to send sms or not, this generates a boolean from a transition parameter
-      ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification))
+      ActiveModel::Type::Boolean.new.cast(transition&.args&.first&.dig(:send_notification)) # rubocop:disable Style/SafeNavigationChainLength
     end
   end
 
@@ -212,7 +212,7 @@ class Appointment < ApplicationRecord
     return if inviter_user_id.present? && inviter_user.admin?
     return if convict&.valid?
 
-    errors.add(:convict, convict&.errors&.full_messages&.to_sentence)
+    errors.add(:convict, convict&.errors&.full_messages&.to_sentence) # rubocop:disable Style/SafeNavigationChainLength
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

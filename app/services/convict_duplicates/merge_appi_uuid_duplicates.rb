@@ -27,7 +27,7 @@ module ConvictDuplicates
 
         mergeable = (group - [most_active]).reject do |convict|
           convict.appointments.any? &&
-            (convict.appointments.joins(:slot).order('slots.date DESC').first&.slot&.date&.> 6.months.ago) &&
+            (convict.appointments.joins(:slot).order('slots.date DESC').first&.slot&.date&.> 6.months.ago) && # rubocop:disable Style/SafeNavigationChainLength
             convict.undiscarded?
         end
 
