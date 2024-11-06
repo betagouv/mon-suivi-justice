@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.3.2'
-gem 'rails', '~> 7.1.4'
+gem 'rails', '~> 7.1.5'
 
 gem 'pg', '~> 1.5.9'
 gem 'puma', '~> 6.4.3'
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.2.1'
-  gem 'rubocop', '~> 1.67', require: false
+  gem 'rubocop', '~> 1.68', require: false
   gem 'brakeman', '~> 6.2'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
