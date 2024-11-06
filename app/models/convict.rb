@@ -8,7 +8,7 @@ class Convict < ApplicationRecord
   normalizes :last_name, with: ->(last_name) { last_name&.strip&.upcase }
   # for firstname, we need the gsub for compose name (ex: Jean-Pierre)
   # we only modify 1st letter of each word, that's why we need the downcase first
-  normalizes :first_name, with: ->(first_name) { first_name&.strip&.downcase&.gsub(/\b\w/, &:upcase) }
+  normalizes :first_name, with: ->(first_name) { first_name&.strip&.downcase&.gsub(/\b\w/, &:upcase) } # rubocop:disable Style/SafeNavigationChainLength
   normalizes :appi_uuid, with: ->(appi_uuid) { appi_uuid&.strip&.upcase }
 
   DOB_UNIQUENESS_MESSAGE = I18n.t('activerecord.errors.models.convict.attributes.dob.taken')

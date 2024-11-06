@@ -25,7 +25,7 @@ class BexController < ApplicationController
     authorize Appointment
     @current_date = current_date(@appointment_type, params)
     get_places_and_agendas(@appointment_type, params)
-    @extra_fields = @agenda&.organization&.extra_fields_for_agenda&.includes(:appointment_types)&.related_to_spip
+    @extra_fields = @agenda&.organization&.extra_fields_for_agenda&.includes(:appointment_types)&.related_to_spip # rubocop:disable Style/SafeNavigationChainLength
 
     respond_to do |format|
       format.html
