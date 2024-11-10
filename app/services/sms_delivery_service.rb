@@ -39,6 +39,7 @@ class SmsDeliveryService
 
   def manage_failure(response)
     notification.increment!(:failed_count)
+    notification.update!(response_code: response.code, target_phone: notification.convict_phone)
 
     raise SmsDeliveryError.new(response.code, response.message) if response.retry_if_failed
 

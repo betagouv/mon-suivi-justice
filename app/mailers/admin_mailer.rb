@@ -66,4 +66,11 @@ class AdminMailer < ApplicationMailer
     mail(to: ['matthieu.faugere@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr'],
          subject: 'Notifications remises dans la queue')
   end
+
+  def warn_link_mobility_for_misrouted_notifications
+    @phones = params[:phones]
+    mail(to: 'support.fr@linkmobility.com',
+         cc: ['matthieu.faugere@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr'],
+         subject: 'Mon Suivi Justice - Liste des numéros non routés')
+  end
 end

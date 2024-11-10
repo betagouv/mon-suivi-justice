@@ -22,5 +22,6 @@ module Clockwork
 
   every(1.day, 'delete_place_transfert', at: '05:00') { DeletePlaceTransfertJob.perform_later }
   every(1.day, 'handle_stalled_divestments', at: '06:00') { HandleStalledDivestmentsJob.perform_later }
+  every(2.days, 'handle_misrouted_notifications', at: '06:00') { HandleMisroutedNotificationsJob.perform_later }
   every(1.hour, 'sms_schedule.job') { SmsScheduleJob.perform_later }
 end

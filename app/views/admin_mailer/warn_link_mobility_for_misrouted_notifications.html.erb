@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Liste des numéros non routés</h1>
+    <p>Bonjour,</p>
+    <p>Voici la liste des numéros de téléphone qui n'ont pas été correctement routés :</p>
+    <ul>
+      <% @phones.each do |phone| %>
+        <li><%= phone %></li>
+      <% end %>
+    </ul>
+    <p>Merci de bien vouloir vérifier ces numéros.</p>
+    <p>
+      Cordialement,<br>
+      L'équipe Mon Suivi Justice
+    </p>
+  </body>
+</html>
