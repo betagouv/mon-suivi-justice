@@ -90,7 +90,6 @@ class ApplicationController < ActionController::Base
   end
 
   def build_user_alerts
-    @unread_alerts = []
     return unless user_signed_in?
 
     @unread_alerts = UserAlert.unread_by(current_user)
