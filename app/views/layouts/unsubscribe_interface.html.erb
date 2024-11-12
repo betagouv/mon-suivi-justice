@@ -1,0 +1,10 @@
+<% content_for :content do %>
+  <%= render 'layouts/header_no_auth' %>
+  <div id="turbostream_error_messages"></div>
+
+  <main class="fr-container fr-pt-5w">
+    <%= yield %>
+  </main>
+  <%= render 'layouts/ie_warning' %>
+<% end %>
+<%= render template: 'layouts/application' %>
