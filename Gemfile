@@ -29,14 +29,14 @@ gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
 gem 'dotenv-rails', '~> 3.1.4'
-gem 'sidekiq', '~> 7.3.4'
+gem 'sidekiq', '~> 7.3.5'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
 gem 'holidays', '~> 8.8.0'
-gem 'discard', '~> 1.3.0'
+gem 'discard', '~> 1.4.0'
 
-gem 'paper_trail', '~> 15.2.0'
+gem 'paper_trail', '~> 16.0.0'
 gem 'ahoy_matey', '~> 5.2.1'
 gem 'sentry-ruby', '~> 5.21.0'
 gem 'sentry-rails', '~> 5.21.0'
@@ -68,7 +68,7 @@ gem 'stimulus-rails', '~> 1.3.4'
 gem 'lograge', '~> 0.14.0'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 7.0.1'
+  gem 'rspec-rails', '~> 7.1.0'
   gem 'rspec_junit_formatter', '~> 0.6.0'
   gem 'factory_bot_rails', '~> 6.4.4'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
@@ -91,7 +91,7 @@ group :development do
   gem 'htmlbeautifier', '~> 1.4', '>= 1.4.3'
   gem 'state_machines-graphviz', '~> 0.0.2'
   gem 'debug', '>= 1.0.0'
-  gem 'bullet', '~> 7.2.0'
+  gem 'bullet', '~> 8.0.0'
 end
 
 group :test do
