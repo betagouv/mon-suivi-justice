@@ -140,10 +140,10 @@ class ConvictsController < ApplicationController
     authorize @convict
 
     if @convict.accept_phone
-      redirect_to convict_path(@convict), notice: 'Le probationnaire recevra à nouveau des sms'
+      redirect_to convict_path(@convict), notice: t('.notice')
     else
       redirect_to convict_path(@convict),
-                  alert: 'une erreur est survenue, veuillez réessayer ultérieurement ou contactez le support'
+                  alert: t('.alert')
     end
   end
 

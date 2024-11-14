@@ -421,6 +421,9 @@ fr:
         été traitée
     unassign:
       notice: Le probationnaire a été réattribué au service
+    accept_phone:
+      notice: Le probationnaire recevra à nouveau des sms
+      alert: une erreur est survenue, veuillez réessayer ultérieurement ou contactez le support
   current_user_title: moi
   date:
     formats:
