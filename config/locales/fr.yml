@@ -608,6 +608,10 @@ fr:
       (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}.  L''accès
       à son espace personnel se fait désormais à l''aide de ce nouveau numéro'
     update_phone_convict_title: Nouveau numéro
+    refuse_phone_convict: Le probationnaire a notifié son refus de recevoir des sms
+    refuse_phone_convict_title: Stop SMS
+    accept_phone_convict: Un agent a réactivé la réception des sms pour ce probationnaire
+    accept_phone_convict_title: Stop SMS
   home:
     bex_jap: Sortie d'audience JAP
     bex_spip: Sortie d'audience SPIP

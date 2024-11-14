@@ -354,6 +354,6 @@ class Convict < ApplicationRecord
   def create_history_item(event)
     return unless HistoryItem.validate_event(event)
 
-    HistoryItemFactory.perform(convict: self, event:, category: convict)
+    HistoryItemFactory.perform(convict: self, event:, category: 'convict')
   end
 end

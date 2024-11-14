@@ -47,6 +47,12 @@ module HistoryItemFactory
                                                  target_name: data[:divestment].organization_name)
       when 'accept_divestment'
         I18n.t('history_item.accept_divestment', target_name: data[:divestment].organization_name)
+
+      when 'refuse_phone_convict'
+        I18n.t('history_item.refuse_phone_convict')
+
+      when 'accept_phone_convict'
+        I18n.t('history_item.accept_phone_convict')
       end
     end
     # rubocop:enable Metrics/CyclomaticComplexity
