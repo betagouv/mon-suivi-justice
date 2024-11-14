@@ -135,6 +135,18 @@ class ConvictsController < ApplicationController
     end
   end
 
+  def accept_phone
+    @convict = Convict.find(params[:id])
+    authorize @convict
+
+    if @convict.accept_phone
+      redirect_to convict_path(@convict), notice: 'Le probationnaire recevra à nouveau des sms'
+    else
+      redirect_to convict_path(@convict),
+                  alert: 'une erreur est survenue, veuillez réessayer ultérieurement ou contactez le support'
+    end
+  end
+
   private
 
   def divestment_proposal
