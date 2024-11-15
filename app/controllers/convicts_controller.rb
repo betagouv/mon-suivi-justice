@@ -217,7 +217,7 @@ class ConvictsController < ApplicationController
   def fetch_convicts(query = nil)
     scope = policy_scope(base_filter)
     scope = scope.search_by_name_and_phone(query) if query.present?
-    scope.order('convicts.last_name asc').includes(:organizations, :user).page params[:page]
+    scope.reorder('convicts.last_name asc, convicts.first_name asc').includes(:organizations, :user).page params[:page]
   end
 
   def instantiate_convict
