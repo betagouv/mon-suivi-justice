@@ -15,9 +15,9 @@ st_malo = City.find_or_create_by!(name: 'Saint-Malo', zipcode: '35400', code_ins
 srj_spip_guingamp = SrjSpip.find_or_create_by!(name: "Antenne de Guingamp du Service Pénitentiaire d'Insertion et de Probation des Côtes d'Armor", organization: org_spip_22_guingamp)
 City.find_or_create_by!(name: 'Guingamp', zipcode: '22200', code_insee: '22070', city_id: '41556', srj_tj: srj_tj_st_brieuc, srj_spip: srj_spip_guingamp)
 
-place_spip_22_st_brieuc = Place.find_or_create_by!(organization: org_spip_22_st_brieuc, name: "SPIP St Brieuc", adress: "30 Rue de Paris, 22000 Saint-Brieuc", phone: '+33606060606')
-place_tj_st_brieuc = Place.find_or_create_by!(organization: org_tj_st_brieuc, name: "TJ St Brieuc", adress: "2 Bd de Sévigné, 22000 Saint-Brieuc", phone: '+33606060606')
-place_tj_st_malo = Place.find_or_create_by!(organization: org_tj_st_malo, name: "TJ St Malo", adress: "49 AVENUE ARISTIDE BRIAND CS 51731 35417 St malo", phone: '+33606060606')
+place_spip_22_st_brieuc = find_or_create_without_validation_by(Place,organization: org_spip_22_st_brieuc, name: "SPIP St Brieuc", adress: "30 Rue de Paris, 22000 Saint-Brieuc", phone: '+33606060606')
+place_tj_st_brieuc = find_or_create_without_validation_by(Place,organization: org_tj_st_brieuc, name: "TJ St Brieuc", adress: "2 Bd de Sévigné, 22000 Saint-Brieuc", phone: '+33606060606')
+place_tj_st_malo = find_or_create_without_validation_by(Place,organization: org_tj_st_malo, name: "TJ St Malo", adress: "49 AVENUE ARISTIDE BRIAND CS 51731 35417 St malo", phone: '+33606060606')
 
 apt_type_sortie_audience_sap = AppointmentType.find_or_create_by!(name: "Sortie d'audience SAP")
 apt_type_sortie_audience_spip = AppointmentType.find_or_create_by!(name: "Sortie d'audience SPIP")
