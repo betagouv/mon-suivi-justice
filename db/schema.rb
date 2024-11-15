@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_10_110621) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_15_102407) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -203,7 +203,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_10_110621) do
   create_table "divestments", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "convict_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.string "state"
     t.date "decision_date"
     t.datetime "created_at", null: false

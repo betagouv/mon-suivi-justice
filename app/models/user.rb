@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :user_alerts, through: :user_user_alerts
   has_many :unread_user_alerts, -> { where(user_user_alerts: { read_at: nil }) },
            through: :user_user_alerts, source: :user_alert
-  has_many :divestments
+  has_many :divestments, dependent: :nullify
 
   # Include default devise modules. Others available are:
   # :confirmable, :trackable and :omniauthable
