@@ -135,6 +135,18 @@ class ConvictsController < ApplicationController
     end
   end
 
+  def accept_phone
+    @convict = Convict.find(params[:id])
+    authorize @convict
+
+    if @convict.accept_phone
+      redirect_to convict_path(@convict), notice: t('.notice')
+    else
+      redirect_to convict_path(@convict),
+                  alert: t('.alert')
+    end
+  end
+
   private
 
   def divestment_proposal

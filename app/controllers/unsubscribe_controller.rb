@@ -14,8 +14,7 @@ class UnsubscribeController < ApplicationController
     @convict = Convict.find_by_token_for(:stop_sms, @token)
 
     if @convict
-      @convict.refused_phone = true
-      if @convict.save(validate: false)
+      if @convict.refuse_phone
         render turbo_stream: turbo_stream.replace('unsubscribe', partial: 'unsubscribe/stop_sms_success')
       else
         @error_message = 'Une erreur s\'est produite, veuillez contacter votre agent référent.'
