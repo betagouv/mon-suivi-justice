@@ -6,5 +6,7 @@ FactoryBot.define do
     state { 'created' }
     role { 'summon' }
     failed_count { 0 }
+    target_phone { '+33611111111' }
+    response_code { '0' }
   end
 end

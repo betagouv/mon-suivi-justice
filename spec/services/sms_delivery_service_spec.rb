@@ -61,6 +61,7 @@ RSpec.describe SmsDeliveryService do
         before do
           allow(response).to receive(:success).and_return(false)
           allow(response).to receive(:retry_if_failed).and_return(false)
+          allow(response).to receive(:code).and_return('16')
         end
 
         it 'increments failed_count' do
@@ -70,6 +71,12 @@ RSpec.describe SmsDeliveryService do
         it 'marks notification as failed' do
           service.send_sms
           expect(notification.reload.state).to eq('failed')
+        end
+
+        it 'updates response_code' do
+          service.send_sms
+          expect(notification.reload.response_code).to eq('16')
+          expect(notification.reload.target_phone).to eq(notification.convict_phone)
         end
 
         context 'when retry is possible' do
