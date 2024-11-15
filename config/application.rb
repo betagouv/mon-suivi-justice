@@ -44,5 +44,9 @@ module MonSuiviJustice
     config.active_support.cache_format_version = 7.1
 
     config.middleware.delete(Rack::Runtime)
+
+    config.after_initialize do |app|
+      app.routes.default_url_options = app.config.action_mailer.default_url_options
+    end
   end
 end

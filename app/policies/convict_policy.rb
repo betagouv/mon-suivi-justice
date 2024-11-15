@@ -101,4 +101,10 @@ class ConvictPolicy < ApplicationPolicy
 
     user.work_at_bex? && record.divestment_to?(user.organization)
   end
+
+  def accept_phone?
+    return false unless user.security_charter_accepted?
+
+    check_ownership?
+  end
 end

@@ -1,6 +1,7 @@
 <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
   <div class="fr-col-6" data-controller="appointment-new">
     <h2 class='form-title' id="appointment-form-title"><%= t('new_appointment_title', convict_link: @convict && policy(@convict).show? ? "pour #{link_to(@convict.full_name, convict_path(@convict))}" : "").html_safe %></h2>
+    <%= render 'convict_phone_status', convict: @convict %>
     <% if @convict.valid_for_user?(current_user) %>
       <% if current_user.can_use_inter_ressort? || current_user.organization.in_jurisdiction?(@convict) %>
         <% unless current_user.organization.in_jurisdiction?(@convict) %>

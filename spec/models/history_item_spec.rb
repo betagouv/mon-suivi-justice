@@ -35,7 +35,9 @@ RSpec.describe HistoryItem, type: :model do
         mark_as_failed_summon_notification: 22,
         mark_as_failed_no_show_notification: 23,
         mark_as_failed_cancelation_notification: 24,
-        mark_as_failed_reschedule_notification: 25
+        mark_as_failed_reschedule_notification: 25,
+        refuse_phone_convict: 26,
+        accept_phone_convict: 27
       }
     )
   }

@@ -51,6 +51,7 @@
         <p><%= policy(@convict).no_divestment_or_convokable_nonetheless? ? t('.ongoing_divestment_details_convokable') : t('.ongoing_divestment_details') %></p>
       </div>
     <% end %>
+    <%= render 'phone_status', convict: @convict %>
     <div class="fr-grid-row">
       <div class="fr-col">
         <div class="fr-card fr-p-2w">
