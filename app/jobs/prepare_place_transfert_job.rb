@@ -85,20 +85,13 @@ class PreparePlaceTransfertJob < ApplicationJob
   end
 
   def modify_notif_content(old_place, new_place, notification)
-    attributes = %i[name adress contact_email preparation_link]
+    attributes = %i[name adress display_phone contact_email preparation_link]
 
     modified_content = notification.content
     attributes.each do |attr|
       if old_place.send(attr) && new_place.send(attr)
         modified_content = modified_content.gsub(old_place.send(attr), new_place.send(attr))
       end
-    end
-
-    if old_place.display_phone && new_place.display_phone
-      modified_content = modified_content.gsub(old_place.display_phone(spaces: false),
-                                               new_place.display_phone(spaces: false))
-      modified_content = modified_content.gsub(old_place.display_phone(spaces: true),
-                                               new_place.display_phone(spaces: false))
     end
 
     modified_content

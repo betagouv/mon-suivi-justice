@@ -156,7 +156,7 @@ class Notification < ApplicationRecord
       appointment_date: slot.civil_date,
       place_name: slot.place_name,
       place_adress: slot.place_adress,
-      place_phone: slot.place_display_phone(spaces: false),
+      place_phone: slot.place_display_phone,
       place_contact: slot.place_contact_detail,
       place_preparation_link: "#{slot.place_preparation_link}?mtm_campaign=AgentsApp&mtm_source=sms"
     }

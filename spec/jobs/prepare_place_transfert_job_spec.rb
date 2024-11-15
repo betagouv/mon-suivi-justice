@@ -28,12 +28,10 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
                      preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip_loiret_montargis')
     end
     let(:new_place) do
-      np = build(:place, organization:, name: 'Nouveau SPIP 45 - Montargis',
-                         adress: '8 av Adolphe Cochery, 45200 Montargis',
-                         phone: '0238858585', contact_email: 'new-mont@rgis.con',
-                         preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_new_spip_loiret_montargis')
-      np.save(validate: false)
-      np
+      create(:place, organization:, appointment_types: [appointment_type], name: 'Nouveau SPIP 45 - Montargis',
+                     adress: '8 av Adolphe Cochery, 45200 Montargis',
+                     phone: '0238858585', contact_email: 'new-mont@rgis.con',
+                     preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_new_spip_loiret_montargis')
     end
     let(:place_transfert) do
       create(:place_transfert, old_place:, new_place:, date: next_valid_day(date: Date.tomorrow))
