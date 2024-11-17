@@ -4,7 +4,7 @@ class SlotsController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def index
-    @q = policy_scope(Slot).future.with_appointment_type_with_slot_system.ransack(params[:q])
+    @q = policy_scope(Slot).future.ransack(params[:q])
     all_slots = @q.result(distinct: true)
                   .order(:date, :starting_time)
                   .includes(:appointment_type, agenda: { place: :organization })
