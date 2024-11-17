@@ -11,14 +11,15 @@ module SlotsHelper
 
   private
 
-  def apt_type_list(user)
-    if user.work_at_sap? then sap_apt_types
-    elsif user.work_at_spip? then spip_apt_types
-    elsif user.work_at_bex? || user.admin? then bex_apt_types
-    # assuming local_admin does not work at bex or spip (TODO: need to clarify roles) :
-    elsif user.local_admin?
-      user.organization.spip? ? spip_apt_types : sap_apt_types
-    end
+  def apt_type_list(user) # rubocop:disable Metrics/CyclomaticComplexity
+    return ['SAP DDSE'] if user.overseer?
+    return sap_apt_types if user.work_at_sap?
+    return spip_apt_types if user.work_at_spip?
+    return bex_apt_types if user.work_at_bex? || user.admin?
+
+    return unless user.local_admin?
+
+    user.organization.spip? ? spip_apt_types : sap_apt_types
   end
 
   def sap_apt_types
