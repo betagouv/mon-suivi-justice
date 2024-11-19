@@ -16,7 +16,7 @@ class Slot < ApplicationRecord
   validates_inclusion_of :available, in: [true, false]
   validate :workday?
   validate :coherent_organization_type?
-  validate :in_the_future, on: :create
+  validate :in_the_next_year, on: :create
 
   delegate :place, to: :agenda
   delegate :name, :adress, :display_phone, :contact_detail, :preparation_link, to: :place, prefix: true
@@ -131,7 +131,7 @@ class Slot < ApplicationRecord
                                                                                       place_name:))
   end
 
-  def in_the_future
+  def in_the_next_year
     if date.nil?
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.blank'))
     elsif datetime.before?(Time.zone.now)
