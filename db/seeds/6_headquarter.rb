@@ -5,8 +5,8 @@ hq_spip_61 = Headquarter.find_or_create_by!(name: 'SPIP 61')
 org_spip_61_argentan = create_spip(name: 'SPIP 61 - Argentan', headquarter: hq_spip_61)
 org_spip_61_alencon = create_spip(name: 'SPIP 61 - Alençon', headquarter: hq_spip_61)
 
-place_spip_61_argentan = Place.find_or_create_by!(organization: org_spip_61_argentan, name: "SPIP 61 - Argentan", adress: "17 avenue de l'Industrie, 61200 Argentan", phone: '+33606060606')
-place_spip_61_alencon = Place.find_or_create_by!(organization: org_spip_61_alencon, name: "SPIP 61 - Alencon", adress: "4 Ter rue des Poulies, 61007 Alençon", phone: '+33606060606')
+place_spip_61_argentan = find_or_create_without_validation_by(Place, organization: org_spip_61_argentan, name: "SPIP 61 - Argentan", adress: "17 avenue de l'Industrie, 61200 Argentan", phone: '+33606060606')
+place_spip_61_alencon = find_or_create_without_validation_by(Place, organization: org_spip_61_alencon, name: "SPIP 61 - Alencon", adress: "4 Ter rue des Poulies, 61007 Alençon", phone: '+33606060606')
 
 apt_type_rdv_suivi_spip = AppointmentType.find_or_create_by!(name: "Convocation de suivi SPIP")
 

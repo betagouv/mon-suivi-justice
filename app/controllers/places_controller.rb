@@ -14,7 +14,6 @@ class PlacesController < ApplicationController
   def create
     @place = Place.new(place_params)
     authorize @place
-
     if @place.save
       create_agenda(@place)
       redirect_to places_path

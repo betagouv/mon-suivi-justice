@@ -3,8 +3,8 @@ require_relative '../seed_utils.rb'
 org_tj_tours = create_tj(name: 'TJ Tours')
 org_spip_37_tours = create_spip(name: 'SPIP 37 - Tours', tjs: org_tj_tours)
 
-place_spip_37_tours = Place.find_or_create_by!(organization_id: org_spip_37_tours.id, name: "SPIP 37 - Tours", adress: "2 rue Albert Dennery BP 2603, 37000 Tours", phone: '+33606060606')
-place_tj_tours = Place.find_or_create_by!(organization_id: org_tj_tours.id, name: "TJ Tours", adress: "2 PLACE JEAN-JAURES 37928 Tours", phone: '+33606060606')
+place_spip_37_tours = find_or_create_without_validation_by(Place,organization_id: org_spip_37_tours.id, name: "SPIP 37 - Tours", adress: "2 rue Albert Dennery BP 2603, 37000 Tours", phone: '+33606060606')
+place_tj_tours = find_or_create_without_validation_by(Place,organization_id: org_tj_tours.id, name: "TJ Tours", adress: "2 PLACE JEAN-JAURES 37928 Tours", phone: '+33606060606')
 
 apt_type_sortie_audience_sap = AppointmentType.find_or_create_by!(name: "Sortie d'audience SAP")
 apt_type_sortie_audience_spip = AppointmentType.find_or_create_by!(name: "Sortie d'audience SPIP")
