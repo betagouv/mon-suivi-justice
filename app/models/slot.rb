@@ -19,6 +19,7 @@ class Slot < ApplicationRecord
 
   delegate :place, to: :agenda
   delegate :name, :adress, :display_phone, :contact_detail, :preparation_link, to: :place, prefix: true
+  delegate :organization, to: :place
 
   scope :relevant_and_available, lambda { |agenda, appointment_type|
     where(

@@ -54,14 +54,10 @@ class SlotPolicy < ApplicationPolicy
   end
 
   def check_ownership?(slot = record)
-    if user.admin?
-      return [user.organization, *user.organization.linked_organizations].include?(slot.agenda.place.organization)
-    end
+    return [user.organization, *user.organization.linked_organizations].include?(slot.organization) if user.admin?
 
-    if user.overseer?
-      return slot.appointment_type.name == 'SAP DDSE' && slot.agenda.place.organization == user.organization
-    end
+    return slot.appointment_type.name == 'SAP DDSE' && slot.organization == user.organization if user.overseer?
 
-    slot.agenda.place.organization == user.organization
+    slot.organization == user.organization
   end
 end
