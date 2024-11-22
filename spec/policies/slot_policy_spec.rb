@@ -8,6 +8,7 @@ describe SlotPolicy do
   let(:place) { build(:place, organization:) }
   let(:agenda) { build(:agenda, place:) }
   let(:slot) { build(:slot, agenda:) }
+  let(:sap_ddse_slot) { build(:slot, agenda:, appointment_type: build(:appointment_type, name: 'SAP DDSE')) }
 
   context 'check_ownership?' do
     let(:organization) { tj }
@@ -129,9 +130,13 @@ describe SlotPolicy do
         end
       end
       context 'for a overseer' do
-        context 'own slot in organization' do
+        context 'own slot in organization which is not SAP DDSE' do
           let(:user) { build(:user, role: 'overseer', organization:) }
-          it { expect(subject.send(:check_ownership?)).to eq(true) }
+          it { expect(subject.send(:check_ownership?)).to eq(false) }
+        end
+        context 'own slot in organization which is SAP DDSE' do
+          let(:user) { build(:user, role: 'overseer', organization:) }
+          it { expect(SlotPolicy.new(user, sap_ddse_slot).send(:check_ownership?)).to eq(true) }
         end
         context 'does not own slot outside organization' do
           let(:other_organization) { build(:organization, organization_type: 'spip') }
@@ -553,15 +558,34 @@ describe SlotPolicy do
     let(:organization) { spip }
     let(:user) { build(:user, role: 'overseer', organization:) }
 
-    it { is_expected.to permit_action(:index) }
-    it { is_expected.to permit_action(:new) }
-    it { is_expected.to permit_action(:create) }
-    it { is_expected.to permit_action(:edit) }
-    it { is_expected.to permit_action(:update) }
+    context 'SAP DDSE slot' do
+      subject { SlotPolicy.new(user, sap_ddse_slot) }
 
-    context 'batch slots' do
-      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to permit_action(:index) }
+      it { is_expected.to permit_action(:new) }
+      it { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:edit) }
+      it { is_expected.to permit_action(:update) }
+    end
+
+    context 'other slot' do
+      subject { SlotPolicy.new(user, slot) }
+
+      it { is_expected.to permit_action(:index) }
+      it { is_expected.to permit_action(:new) }
+      it { is_expected.to forbid_action(:create) }
+      it { is_expected.to forbid_action(:edit) }
+      it { is_expected.to forbid_action(:update) }
+    end
+
+    context 'batch slots with SAP DDSE slot' do
+      subject { SlotPolicy.new(user, [sap_ddse_slot]) }
       it { is_expected.to permit_action(:update_all) }
+    end
+
+    context 'batch slots with other slot' do
+      subject { SlotPolicy.new(user, [slot]) }
+      it { is_expected.to forbid_action(:update_all) }
     end
   end
 

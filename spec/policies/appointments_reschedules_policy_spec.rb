@@ -5,7 +5,7 @@ describe AppointmentsReschedulesPolicy do
     let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
     let(:slot) { create :slot, :without_validations, appointment_type: }
     let(:user) do
-      build(:user, organization: slot.agenda.place.organization, role: :cpip, security_charter_accepted_at: nil)
+      build(:user, organization: slot.organization, role: :cpip, security_charter_accepted_at: nil)
     end
     let(:appointment) { create(:appointment, slot:, state: :booked) }
 
@@ -18,7 +18,7 @@ describe AppointmentsReschedulesPolicy do
   context 'previous appointment date is' do
     let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
     let(:user) do
-      build(:user, organization: slot.agenda.place.organization, role: :cpip,
+      build(:user, organization: slot.organization, role: :cpip,
                    security_charter_accepted_at: Time.zone.now)
     end
     let(:appointment) { create(:appointment, :skip_validate, slot:, state: :booked) }
@@ -43,7 +43,7 @@ describe AppointmentsReschedulesPolicy do
   context 'reschedule related to appointment status' do
     let(:appointment_type) { create(:appointment_type, name: 'Convocation de suivi SPIP') }
     let(:slot) { create :slot, :without_validations, appointment_type: }
-    let(:user) { build(:user, organization: slot.agenda.place.organization, role: :cpip) }
+    let(:user) { build(:user, organization: slot.organization, role: :cpip) }
 
     context 'for a booked appointment' do
       let(:appointment) { create(:appointment, slot:, state: :booked) }
@@ -102,7 +102,7 @@ describe AppointmentsReschedulesPolicy do
 
       User::SPIP_ROLES.each do |role|
         context "for a #{role} user which belongs to the same organization as the appointment's" do
-          let(:user) { build(:user, organization: slot.agenda.place.organization, role:) }
+          let(:user) { build(:user, organization: slot.organization, role:) }
           subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
           it { is_expected.to permit_action(:new) }
@@ -118,7 +118,7 @@ describe AppointmentsReschedulesPolicy do
 
       User::TJ_ROLES.each do |role|
         context "for a #{role} user which belongs to the same organization as the appointment's" do
-          let(:user) { build(:user, organization: slot.agenda.place.organization, role:) }
+          let(:user) { build(:user, organization: slot.organization, role:) }
           subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
           it { is_expected.to forbid_action(:new) }
@@ -137,7 +137,7 @@ describe AppointmentsReschedulesPolicy do
 
       User::SPIP_ROLES.each do |role|
         context "for a #{role} user which belongs to the same organization as the appointment's" do
-          let(:user) { build(:user, organization: slot.agenda.place.organization, role:) }
+          let(:user) { build(:user, organization: slot.organization, role:) }
           subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
           it { is_expected.to permit_action(:create) }
@@ -153,7 +153,7 @@ describe AppointmentsReschedulesPolicy do
 
       User::TJ_ROLES.each do |role|
         context "for a #{role} user which belongs to the same organization as the appointment's" do
-          let(:user) { build(:user, organization: slot.agenda.place.organization, role:) }
+          let(:user) { build(:user, organization: slot.organization, role:) }
           subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
           it { is_expected.to forbid_action(:create) }
@@ -177,7 +177,7 @@ describe AppointmentsReschedulesPolicy do
       let(:appointment) { create(:appointment, slot:, state: :booked) }
       User::TJ_ROLES.each do |role|
         context "for a #{role} user which belongs to the same organization as the appointment's" do
-          let(:user) { build(:user, organization: slot.agenda.place.organization, role:) }
+          let(:user) { build(:user, organization: slot.organization, role:) }
           subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
           it { is_expected.to permit_action(:new) }
@@ -193,7 +193,7 @@ describe AppointmentsReschedulesPolicy do
 
       User::SPIP_ROLES.each do |role|
         context "for a #{role} user which belongs to the same organization as the appointment's" do
-          let(:user) { build(:user, organization: slot.agenda.place.organization, role:) }
+          let(:user) { build(:user, organization: slot.organization, role:) }
           subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
           it { is_expected.to forbid_action(:new) }
@@ -212,7 +212,7 @@ describe AppointmentsReschedulesPolicy do
       let(:appointment) { create(:appointment, slot:, state: :created) }
       User::TJ_ROLES.each do |role|
         context "for a #{role} user which belongs to the same organization as the appointment's" do
-          let(:user) { build(:user, organization: slot.agenda.place.organization, role:) }
+          let(:user) { build(:user, organization: slot.organization, role:) }
           subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
           it { is_expected.to permit_action(:create) }
@@ -228,7 +228,7 @@ describe AppointmentsReschedulesPolicy do
 
       User::SPIP_ROLES.each do |role|
         context "for a #{role} user which belongs to the same organization as the appointment's" do
-          let(:user) { build(:user, organization: slot.agenda.place.organization, role:) }
+          let(:user) { build(:user, organization: slot.organization, role:) }
           subject { AppointmentsReschedulesPolicy.new(user, appointment) }
 
           it { is_expected.to forbid_action(:create) }
