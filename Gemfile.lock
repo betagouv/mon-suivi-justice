@@ -325,7 +325,7 @@ GEM
     psych (5.2.0)
       stringio
     public_suffix (6.0.1)
-    puma (6.4.3)
+    puma (6.5.0)
       nio4r (~> 2.0)
     pundit (2.4.0)
       activesupport (>= 3.0.0)
@@ -609,7 +609,7 @@ DEPENDENCIES
   phony_rails (~> 0.15.0)
   pretender (~> 0.5.0)
   pry-byebug (~> 3.10.1)
-  puma (~> 6.4.3)
+  puma (~> 6.5.0)
   pundit (~> 2.4.0)
   pundit-matchers (~> 3.1.2)
   rack-mini-profiler (~> 3.3)
