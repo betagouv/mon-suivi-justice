@@ -470,7 +470,7 @@ describe ConvictPolicy do
     context 'for a discarded convict' do
       let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
 
-      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to permit_action(:unarchive) }
     end
 
     context 'for a convict from another organization' do
@@ -930,7 +930,7 @@ describe ConvictPolicy do
     context 'for a discarded convict' do
       let(:convict) { build(:convict, discarded_at: Time.zone.now, organizations: [user.organization]) }
 
-      it { is_expected.to forbid_action(:unarchive) }
+      it { is_expected.to permit_action(:unarchive) }
     end
 
     context 'for a convict from another organization' do

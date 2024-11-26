@@ -58,7 +58,7 @@ class ConvictPolicy < ApplicationPolicy
     return false unless record.discarded? && check_ownership?
 
     user.admin? || user.local_admin? || user.work_at_bex? || user.greff_sap? || user.cpip? || user.dpip? ||
-      user.secretary_court? || user.secretary_spip?
+      user.secretary_court? || user.secretary_spip? || user.jap? || user.overseer?
   end
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
