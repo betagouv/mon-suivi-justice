@@ -11,7 +11,7 @@ RSpec.feature 'UserMutation', type: :feature do
     existing_user # create the existing user
 
     past_appointment = build(:appointment, user: existing_user,
-                                           slot: create(:slot, date: next_valid_day(date: Date.today - 20.days)))
+                                           slot: create_ignore_validation(:slot, date: next_valid_day(date: Date.today - 20.days)))
     past_appointment.save(validate: false)
 
     create(:appointment, user: existing_user, slot: create(:slot, date: next_valid_day(date: Date.today + 20.days)))
