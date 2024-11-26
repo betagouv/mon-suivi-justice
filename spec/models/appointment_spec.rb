@@ -146,13 +146,15 @@ RSpec.describe Appointment, type: :model do
     end
 
     it 'validates that new appointment is in the near future' do
-      slot1 = build(:slot, date: 13.month.from_now)
+      slot1 = build(:slot, date: next_valid_day(date: 13.month.from_now))
       appointment1 = build(:appointment, slot: slot1)
       expect(appointment1.valid?).to eq(false)
 
-      slot2 = build(:slot, date: 11.month.from_now)
+      slot2 = build(:slot, date: next_valid_day(date: 11.month.from_now))
       appointment2 = build(:appointment, slot: slot2)
-      expect(appointment2.valid?).to eq(true)
+      res = appointment2.valid?
+
+      expect(res).to eq(true)
     end
 
     it 'validates that new appointment is not for discarded convict' do
