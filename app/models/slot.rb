@@ -77,13 +77,19 @@ class Slot < ApplicationRecord
     used_capacity == capacity
   end
 
+  # rubocop:disable Metrics/AbcSize
   def datetime
+    return nil if date.nil? || starting_time.nil?
+
     Time.new(date.year, date.month, date.day, localized_time.hour, localized_time.min, localized_time.sec)
   end
 
   def localized_time
+    return nil if starting_time.nil?
+
     @localized_time ||= TZInfo::Timezone.get(place.organization.time_zone).to_local(starting_time)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def civil_date
     I18n.l(date, format: :civil)
@@ -131,13 +137,17 @@ class Slot < ApplicationRecord
                                                                                       place_name:))
   end
 
+  # rubocop:disable Metrics/AbcSize
   def in_the_next_year
     if date.nil?
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.blank'))
+    elsif datetime.nil?
+      errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.invalid'))
     elsif datetime.before?(Time.zone.now)
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.past'))
     elsif datetime.after?(1.year.from_now)
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.future'))
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end
