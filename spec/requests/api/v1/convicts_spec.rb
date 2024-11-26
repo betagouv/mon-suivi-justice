@@ -23,8 +23,8 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
   end
   let(:agenda1) { create(:agenda, name: 'Cabinet 12 (JAPAT)', place: place1) }
   let(:slot1) do
-    create_ignore_validation(:slot, date: Date.new(2026, 2, 24), starting_time: new_time_for(10, 0),
-                                    duration: 30, appointment_type: appointment_type1, agenda: agenda1)
+    create(:slot, date: next_valid_day(day: :tuesday), starting_time: new_time_for(10, 0),
+                  duration: 30, appointment_type: appointment_type1, agenda: agenda1)
   end
   let(:place1) do
     create(:place, organization: organization1, name: 'SPIP 92',
@@ -33,8 +33,8 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
                    main_contact_method: 'phone')
   end
   let!(:appointment1) do
-    create_ignore_validation(:appointment, convict:, slot: slot1, id: 1,
-                                           state: 'booked', origin_department: 'bex')
+    create(:appointment, convict:, slot: slot1, id: 1,
+                         state: 'booked', origin_department: 'bex')
   end
 
   let(:appointment_type2) do
@@ -42,8 +42,8 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
   end
   let(:agenda2) { create(:agenda, name: 'Cabinet 11 (JAPAT)', place: place2) }
   let(:slot2) do
-    create_ignore_validation(:slot, date: Date.new(2026, 2, 23), starting_time: new_time_for(9, 0),
-                                    duration: 30, appointment_type: appointment_type2, agenda: agenda2)
+    create(:slot, date: next_valid_day(day: :monday), starting_time: new_time_for(9, 0),
+                  duration: 30, appointment_type: appointment_type2, agenda: agenda2)
   end
   let(:organization2) { create(:organization, name: 'SPIP 93') }
   let(:place2) do
@@ -53,8 +53,8 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
                    main_contact_method: 'phone')
   end
   let!(:appointment2) do
-    create_ignore_validation(:appointment, convict:, slot: slot2, id: 2, state: 'booked',
-                                           origin_department: 'bex')
+    create(:appointment, convict:, slot: slot2, id: 2, state: 'booked',
+                         origin_department: 'bex')
   end
 
   describe 'GET /show' do
@@ -87,7 +87,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
                 'role' => 'CPIP' },
             'appointments' =>
               [{ 'id' => 1,
-                 'datetime' => '2026-02-24T10:00:00.000+01:00',
+                 'datetime' => json_datetime_format(appointment1.datetime),
                  'duration' => 30,
                  'state' => 'Planifié',
                  'organization_name' => 'SPIP 92',
@@ -102,7 +102,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
                      'contact_method' => 'phone' },
                  'agenda_name' => 'Cabinet 12 (JAPAT)' },
                { 'id' => 2,
-                 'datetime' => '2026-02-23T09:00:00.000+01:00',
+                 'datetime' => json_datetime_format(appointment2.datetime),
                  'duration' => 30,
                  'state' => 'Planifié',
                  'organization_name' => 'SPIP 93',

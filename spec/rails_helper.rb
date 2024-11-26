@@ -188,3 +188,7 @@ def create_ignore_validation(*args)
   data.save(validation: false)
   data
 end
+
+def json_datetime_format(datetime)
+  datetime.strftime('%Y-%m-%dT%H:%M:%S.%L%:z')
+end
