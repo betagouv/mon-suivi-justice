@@ -182,3 +182,9 @@ end
 def generate_appi_uuid
   "2024#{Faker::Number.number(digits: 8)}"
 end
+
+def create_ignore_validation(*args)
+  data = build(*args)
+  data.save(validation: false)
+  data
+end
