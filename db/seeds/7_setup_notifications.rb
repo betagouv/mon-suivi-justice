@@ -1,3 +1,3 @@
 Organization.all.each do |organization|
-  organization.setup_notication_types
+  organization.setup_notification_types
 end
