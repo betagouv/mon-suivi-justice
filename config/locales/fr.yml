@@ -673,6 +673,7 @@ fr:
     tutorial_special: "! @ # $ % ^ & * ( ) _ + - = [ ] { } | '"
   monday: lundi
   my_convicts: Afficher uniquement mes probationnaires
+  organization_convicts: Afficher uniquement les probationnaires de mon ressort
   my_profile: Mon profil
   new-appointment-all-agendas: Tous les agendas
   new-appointment-available-slots: Créneaux disponibles

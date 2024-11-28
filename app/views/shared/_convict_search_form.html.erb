@@ -19,4 +19,14 @@
       </div>
     </fieldset>
   <% end %>
+  <% if current_user.work_at_bex? %>
+      <fieldset class="fr-fieldset fr-fieldset__element--inline fr-mt-2w">
+      <div class="fr-fieldset__element">
+        <div class="fr-checkbox-group">
+          <%= form.check_box :organization_convicts, id: "organization_convicts_checkbox",  data: { action: "change->debounce-submit#submit" } %>
+          <%= form.label :organization_convicts_checkbox, t('organization_convicts') %>
+        </div>
+      </div>
+    </fieldset>
+  <% end %>
 <% end %>
