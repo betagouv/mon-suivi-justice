@@ -179,13 +179,17 @@ class Appointment < ApplicationRecord
     %w[slot user]
   end
 
+  # rubocop:disable Metrics/AbcSize
   def in_the_future
     if date.nil?
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.blank'))
     elsif slot.datetime.before?(Time.zone.now)
       errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.past'))
+    elsif slot.datetime.after?(1.year.from_now)
+      errors.add(:base, I18n.t('activerecord.errors.models.appointment.attributes.date.future'))
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def in_the_past?
     slot.datetime.before?(Time.zone.now)

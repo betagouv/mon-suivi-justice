@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :slot do
     date { Date.civil(2025, 4, 14) }
-    starting_time { Time.new }
+    starting_time { 1.hour.from_now }
     available { true }
     duration { 60 }
     capacity { 3 }

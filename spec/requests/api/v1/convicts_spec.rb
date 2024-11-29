@@ -23,7 +23,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
   end
   let(:agenda1) { create(:agenda, name: 'Cabinet 12 (JAPAT)', place: place1) }
   let(:slot1) do
-    create(:slot, date: Date.new(2026, 2, 24), starting_time: new_time_for(10, 0),
+    create(:slot, date: next_valid_day(day: :tuesday), starting_time: new_time_for(10, 0),
                   duration: 30, appointment_type: appointment_type1, agenda: agenda1)
   end
   let(:place1) do
@@ -42,7 +42,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
   end
   let(:agenda2) { create(:agenda, name: 'Cabinet 11 (JAPAT)', place: place2) }
   let(:slot2) do
-    create(:slot, date: Date.new(2026, 2, 23), starting_time: new_time_for(9, 0),
+    create(:slot, date: next_valid_day(day: :monday), starting_time: new_time_for(9, 0),
                   duration: 30, appointment_type: appointment_type2, agenda: agenda2)
   end
   let(:organization2) { create(:organization, name: 'SPIP 93') }
@@ -87,7 +87,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
                 'role' => 'CPIP' },
             'appointments' =>
               [{ 'id' => 1,
-                 'datetime' => '2026-02-24T10:00:00.000+01:00',
+                 'datetime' => json_datetime_format(appointment1.datetime),
                  'duration' => 30,
                  'state' => 'Planifié',
                  'organization_name' => 'SPIP 92',
@@ -102,7 +102,7 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
                      'contact_method' => 'phone' },
                  'agenda_name' => 'Cabinet 12 (JAPAT)' },
                { 'id' => 2,
-                 'datetime' => '2026-02-23T09:00:00.000+01:00',
+                 'datetime' => json_datetime_format(appointment2.datetime),
                  'duration' => 30,
                  'state' => 'Planifié',
                  'organization_name' => 'SPIP 93',
@@ -126,7 +126,6 @@ RSpec.describe '/api/v1/convicts/:id', type: :request do
           parsed_response = JSON.parse(response.body)
           sorted_appointments = parsed_response['appointments'].sort_by { |a| a['id'] }
           sorted_expected_appointments = expected_response['appointments'].sort_by { |a| a['id'] }
-
           expect(parsed_response.except('appointments')).to eq(expected_response.except('appointments'))
           expect(sorted_appointments).to eq(sorted_expected_appointments)
         end

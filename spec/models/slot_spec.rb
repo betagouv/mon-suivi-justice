@@ -37,7 +37,7 @@ RSpec.describe Slot, type: :model do
 
       it 'it is valid if date is not a weekend nor a holiday' do
         slot = build(:slot, agenda:, appointment_type: apt_type,
-                            date: Date.civil(2022, 5, 31))
+                            date: next_valid_day)
 
         expect(slot).to be_valid
       end
