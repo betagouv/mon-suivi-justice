@@ -223,7 +223,13 @@ class ConvictsController < ApplicationController
   end
 
   def base_filter
-    params[:my_convicts] == '1' ? current_user.convicts : Convict.all
+    if current_user.can_follow_convict? && params[:my_convicts] == '1'
+      current_user.convicts
+    elsif current_user.work_at_bex? && params[:organization_convicts] == '1'
+      current_user.organization.convicts
+    else
+      Convict.all
+    end
   end
 
   def fetch_convicts(query = nil)
