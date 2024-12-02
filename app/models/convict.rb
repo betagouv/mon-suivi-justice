@@ -26,6 +26,8 @@ class Convict < ApplicationRecord
   has_many :divestments, dependent: :destroy
   has_many :organization_divestments, through: :divestments
 
+  generates_token_for :stop_sms, expires_in: 24.hours
+
   belongs_to :user, optional: true
 
   belongs_to :city, optional: true
@@ -297,6 +299,14 @@ class Convict < ApplicationRecord
     divestments.where(state: :pending).any?
   end
 
+  def refuse_phone
+    update_refused_phone(true)
+  end
+
+  def accept_phone
+    update_refused_phone(false)
+  end
+
   private
 
   def unique_organizations
@@ -331,5 +341,19 @@ class Convict < ApplicationRecord
                 .where(state: states)
                 .where('slots.date': Date.today..)
                 .order('slots.date')
+  end
+
+  def update_refused_phone(value)
+    self.refused_phone = value
+    state = save(validate: false)
+    event = value ? 'refuse_phone_convict' : 'accept_phone_convict'
+    create_history_item(event) if state
+    state
+  end
+
+  def create_history_item(event)
+    return unless HistoryItem.validate_event(event)
+
+    HistoryItemFactory.perform(convict: self, event:, category: 'convict')
   end
 end

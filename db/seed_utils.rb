@@ -61,3 +61,12 @@ def next_valid_day(date: Time.zone.today, day: nil)
 
   valid_day
 end
+
+def find_or_create_without_validation_by(klass, attributes)
+  record = klass.find_by(attributes)
+  return record if record
+
+  klass.new(attributes).tap do |record|
+    record.save!(validate: false)
+  end
+end

@@ -1,5 +1,5 @@
 class Divestment < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :convict
   belongs_to :organization
 
@@ -10,6 +10,8 @@ class Divestment < ApplicationRecord
                                        message: 'le probationnaire a déjà une demande de dessaisissement en cours' },
                          if: -> { state == 'pending' }
   validate :convict_is_not_japat, on: :create
+
+  validates :user, presence: true, if: -> { state == 'pending' }
 
   scope :admin_action_needed, -> { where(state: :pending, created_at: ..10.days.ago) }
   delegate :jurisdiction, to: :organization, prefix: true

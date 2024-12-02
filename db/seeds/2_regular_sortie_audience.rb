@@ -3,14 +3,15 @@ require_relative '../seed_utils.rb'
 org_tj_bordeaux = create_tj(name: 'TJ de Bordeaux')
 org_spip_33_bordeaux = create_spip(name: 'SPIP 33 - Bordeaux', tjs: org_tj_bordeaux)
 
-place_spip_33_bordeaux = Place.find_or_create_by!(organization: org_spip_33_bordeaux, name: "SPIP de Bordeaux", adress: "37 Rue Général de Larminat, 33000 Bordeaux", phone: '+33606060606')
-place_tj_bordeaux = Place.find_or_create_by!(organization: org_tj_bordeaux, name: "TJ de Bordeaux", adress: "30 Rue des Frères Bonie 33000 Bordeaux", phone: '+33606060606')
-
 apt_type_sortie_audience_sap = AppointmentType.find_or_create_by!(name: "Sortie d'audience SAP")
 apt_type_sortie_audience_spip = AppointmentType.find_or_create_by!(name: "Sortie d'audience SPIP")
 apt_type_sap_ddse = AppointmentType.find_or_create_by!(name: "SAP DDSE")
 apt_type_rdv_suivi_jap = AppointmentType.find_or_create_by!(name: 'Convocation de suivi JAP')
 apt_type_rdv_suivi_spip = AppointmentType.find_or_create_by!(name: "Convocation de suivi SPIP")
+
+place_spip_33_bordeaux = find_or_create_without_validation_by(Place, organization: org_spip_33_bordeaux, name: "SPIP de Bordeaux", adress: "37 Rue Général de Larminat, 33000 Bordeaux", phone: '+33606060606')
+place_tj_bordeaux = find_or_create_without_validation_by(Place, organization: org_tj_bordeaux, name: "TJ de Bordeaux", adress: "30 Rue des Frères Bonie 33000 Bordeaux", phone: '+33606060606')
+
 
 PlaceAppointmentType.find_or_create_by!(place: place_spip_33_bordeaux, appointment_type: apt_type_sortie_audience_spip)
 PlaceAppointmentType.find_or_create_by!(place: place_spip_33_bordeaux, appointment_type: apt_type_rdv_suivi_spip)

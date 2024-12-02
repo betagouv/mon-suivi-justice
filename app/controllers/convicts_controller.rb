@@ -135,6 +135,18 @@ class ConvictsController < ApplicationController
     end
   end
 
+  def accept_phone
+    @convict = Convict.find(params[:id])
+    authorize @convict
+
+    if @convict.accept_phone
+      redirect_to convict_path(@convict), notice: t('.notice')
+    else
+      redirect_to convict_path(@convict),
+                  alert: t('.alert')
+    end
+  end
+
   private
 
   def divestment_proposal
@@ -211,13 +223,19 @@ class ConvictsController < ApplicationController
   end
 
   def base_filter
-    params[:my_convicts] == '1' ? current_user.convicts : Convict.all
+    if current_user.can_follow_convict? && params[:my_convicts] == '1'
+      current_user.convicts
+    elsif current_user.work_at_bex? && params[:organization_convicts] == '1'
+      current_user.organization.convicts
+    else
+      Convict.all
+    end
   end
 
   def fetch_convicts(query = nil)
     scope = policy_scope(base_filter)
     scope = scope.search_by_name_and_phone(query) if query.present?
-    scope.order('convicts.last_name asc').includes(:organizations, :user).page params[:page]
+    scope.reorder('convicts.last_name asc, convicts.first_name asc').includes(:organizations, :user).page params[:page]
   end
 
   def instantiate_convict

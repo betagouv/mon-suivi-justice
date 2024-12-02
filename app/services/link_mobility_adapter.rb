@@ -24,8 +24,8 @@ class LinkMobilityAdapter
 
   def sms_data
     {
-      destinationAddress: notification.appointment.convict.phone,
-      messageText: notification.content,
+      destinationAddress: @notification.appointment.convict.phone,
+      messageText: add_stop_sms_url,
       originatorTON: 1,
       originatingAddress: ENV.fetch('SMS_SENDER', nil),
       maxConcatenatedMessages: 10
@@ -44,5 +44,11 @@ class LinkMobilityAdapter
                        code: response['responseCode'],
                        message: response['responseMessage'],
                        retry_if_failed: retry_if_failed?(response['responseCode']))
+  end
+
+  def add_stop_sms_url
+    token = @notification.convict.generate_token_for(:stop_sms)
+    stop_sms_url = Rails.application.routes.url_helpers.stop_sms_url(token:)
+    "#{@notification.content} Stop SMS: #{stop_sms_url}"
   end
 end

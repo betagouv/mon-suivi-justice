@@ -26,15 +26,15 @@ chartres = City.find_or_create_by!(name: 'Chartres', zipcode: '28000', code_inse
 nanterre = City.find_or_create_by!(name: 'Nanterre', zipcode: '92000', code_insee: '92050', city_id: '92050', srj_tj: srj_tj_nanterre, srj_spip: srj_spip_92)
 
 
-place_tj_pontoise = Place.find_or_create_by!(organization: org_tj_pontoise, name: "TJ Pontoise", adress: "3 Rue Victor Hugo, 95300 Pontoise", phone: '+33606060606')
-place_tj_versailles = Place.find_or_create_by!(organization: org_tj_versailles, name: "TJ Versailles", adress: "5 Rue Carnot, 78000 Versailles", phone: '+33606060606')
-place_tj_chartres = Place.find_or_create_by!(organization: org_tj_chartres, name: "TJ Chartres", adress: "1 Rue Saint-Jacques, 28000 Chartres", phone: '+33606060606')
-place_tj_nanterre = Place.find_or_create_by!(organization: org_tj_nanterre, name: "TJ Nanterre", adress: "179-191 Avenue Joliot Curie, 92000 Nanterre", phone: '+33606060606')
+place_tj_pontoise = find_or_create_without_validation_by(Place, organization: org_tj_pontoise, name: "TJ Pontoise", adress: "3 Rue Victor Hugo, 95300 Pontoise", phone: '+33606060606')
+place_tj_versailles = find_or_create_without_validation_by(Place, organization: org_tj_versailles, name: "TJ Versailles", adress: "5 Rue Carnot, 78000 Versailles", phone: '+33606060606')
+place_tj_chartres = find_or_create_without_validation_by(Place, organization: org_tj_chartres, name: "TJ Chartres", adress: "1 Rue Saint-Jacques, 28000 Chartres", phone: '+33606060606')
+place_tj_nanterre = find_or_create_without_validation_by(Place, organization: org_tj_nanterre, name: "TJ Nanterre", adress: "179-191 Avenue Joliot Curie, 92000 Nanterre", phone: '+33606060606')
 
-place_spip_92 = Place.find_or_create_by!(organization: org_spip_92, name: "SPIP 92", adress: "179-191 Avenue Joliot Curie, 92000 Nanterre", phone: '+33606060606')
-place_spip_28 = Place.find_or_create_by!(organization: org_spip_28, name: "SPIP 28", adress: "1 Rue Saint-Jacques, 28000 Chartres", phone: '+33606060606')
-place_spip_95 = Place.find_or_create_by!(organization: org_spip_95, name: "SPIP 95", adress: "3 Rue Victor Hugo, 95300 Pontoise", phone: '+33606060606')
-place_spip_78 = Place.find_or_create_by!(organization: org_spip_78, name: "SPIP 78", adress: "5 Rue Carnot, 78000 Versailles", phone: '+33606060606')
+place_spip_92 = find_or_create_without_validation_by(Place, organization: org_spip_92, name: "SPIP 92", adress: "179-191 Avenue Joliot Curie, 92000 Nanterre", phone: '+33606060606')
+place_spip_28 = find_or_create_without_validation_by(Place, organization: org_spip_28, name: "SPIP 28", adress: "1 Rue Saint-Jacques, 28000 Chartres", phone: '+33606060606')
+place_spip_95 = find_or_create_without_validation_by(Place, organization: org_spip_95, name: "SPIP 95", adress: "3 Rue Victor Hugo, 95300 Pontoise", phone: '+33606060606')
+place_spip_78 = find_or_create_without_validation_by(Place, organization: org_spip_78, name: "SPIP 78", adress: "5 Rue Carnot, 78000 Versailles", phone: '+33606060606')
 
 apt_type_sortie_audience_sap = AppointmentType.find_or_create_by!(name: "Sortie d'audience SAP")
 apt_type_sortie_audience_spip = AppointmentType.find_or_create_by!(name: "Sortie d'audience SPIP")

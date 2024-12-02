@@ -9,12 +9,12 @@ RSpec.feature 'Home', type: :feature do
       place = create :place, organization: @user.organization
       @agenda = create(:agenda, place:)
 
-      slot1 = create(:slot, :without_validations, agenda: @agenda, appointment_type: @appointment_type,
-                                                  date: next_valid_day(date: Date.today - 2.months),
-                                                  starting_time: new_time_for(13, 0))
-      slot2 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: next_valid_day(date: Date.today - 2.months),
-                            starting_time: new_time_for(15, 30))
+      slot1 = create_ignore_validation(:slot, agenda: @agenda, appointment_type: @appointment_type,
+                                              date: next_valid_day(date: Date.today - 2.months),
+                                              starting_time: new_time_for(13, 0))
+      slot2 = create_ignore_validation(:slot, agenda: @agenda, appointment_type: @appointment_type,
+                                              date: next_valid_day(date: Date.today - 2.months),
+                                              starting_time: new_time_for(15, 30))
 
       @convict = create(:convict, organizations: [@user.organization], user: @user)
       @appointment1 = build :appointment, :with_notifications, convict: @convict, slot: slot1, user: @user
@@ -52,25 +52,25 @@ RSpec.feature 'Home', type: :feature do
     end
 
     it 'should display a link to a page with the user uninformed appointments for cpip users', logged_in_as: 'cpip' do
-      slot3 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: next_valid_day(date: Date.today - 2.months),
-                            starting_time: new_time_for(12, 30))
+      slot3 = create_ignore_validation(:slot, agenda: @agenda, appointment_type: @appointment_type,
+                                              date: next_valid_day(date: Date.today - 2.months),
+                                              starting_time: new_time_for(12, 30))
 
-      slot4 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: next_valid_day(date: Date.today - 2.months),
-                            starting_time: new_time_for(15, 30))
+      slot4 = create_ignore_validation(:slot, agenda: @agenda, appointment_type: @appointment_type,
+                                              date: next_valid_day(date: Date.today - 2.months),
+                                              starting_time: new_time_for(15, 30))
 
-      slot5 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: next_valid_day(date: Date.today - 2.months),
-                            starting_time: new_time_for(15, 30))
+      slot5 = create_ignore_validation(:slot, agenda: @agenda, appointment_type: @appointment_type,
+                                              date: next_valid_day(date: Date.today - 2.months),
+                                              starting_time: new_time_for(15, 30))
 
-      slot6 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: next_valid_day(date: Date.today - 2.months),
-                            starting_time: new_time_for(15, 30))
+      slot6 = create_ignore_validation(:slot, agenda: @agenda, appointment_type: @appointment_type,
+                                              date: next_valid_day(date: Date.today - 2.months),
+                                              starting_time: new_time_for(15, 30))
 
-      slot7 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: next_valid_day(date: Date.today - 2.months),
-                            starting_time: new_time_for(15, 30))
+      slot7 = create_ignore_validation(:slot, agenda: @agenda, appointment_type: @appointment_type,
+                                              date: next_valid_day(date: Date.today - 2.months),
+                                              starting_time: new_time_for(15, 30))
 
       appointment3 = build :appointment, :with_notifications, convict: @convict, slot: slot3, user: @user
       appointment3.save validate: false
@@ -94,9 +94,9 @@ RSpec.feature 'Home', type: :feature do
 
       @user2 = create(:user, first_name: 'Michèle', last_name: 'Doe', role: 'cpip', organization: @user.organization)
 
-      slot8 = create(:slot, agenda: @agenda, appointment_type: @appointment_type,
-                            date: next_valid_day(date: Date.today - 2.months),
-                            starting_time: new_time_for(15, 30))
+      slot8 = create_ignore_validation(:slot, agenda: @agenda, appointment_type: @appointment_type,
+                                              date: next_valid_day(date: Date.today - 2.months),
+                                              starting_time: new_time_for(15, 30))
 
       appointment8 = build :appointment, :with_notifications, convict: @convict, slot: slot8, user: @user2
       appointment8.save validate: false

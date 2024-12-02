@@ -68,6 +68,7 @@ fr:
         name: Nom
         phone: Téléphone
         preparation_link: Lien d'information sur le lieu
+        appointment_types: Types de convocation
       slot:
         appointment_type: Type de convocation
         available: Disponible
@@ -122,6 +123,7 @@ fr:
             date:
               blank: Date manquante
               past: La convocation ne peut pas être dans le passé
+              future: La convocation ne peut pas être pris plus d'un an en avance
               transfert_in: Ce lieu de convocation sera disponible à partir du %{date}
               transfert_out: Ce lieu de convocation n'est plus disponible après le
                 %{date}
@@ -177,6 +179,8 @@ fr:
               blank: Adresse manquante
             name:
               blank: Nom manquant
+            appointment_types:
+              empty: Veuillez sélectionner au moins un type de convocation
         place_transfert:
           attributes:
             date:
@@ -421,6 +425,9 @@ fr:
         été traitée
     unassign:
       notice: Le probationnaire a été réattribué au service
+    accept_phone:
+      notice: Le probationnaire recevra à nouveau des sms
+      alert: une erreur est survenue, veuillez réessayer ultérieurement ou contactez le support
   current_user_title: moi
   date:
     formats:
@@ -605,6 +612,10 @@ fr:
       (%{user_role}). Ancien numéro : %{old_phone} / Nouveau numéro : %{new_phone}.  L''accès
       à son espace personnel se fait désormais à l''aide de ce nouveau numéro'
     update_phone_convict_title: Nouveau numéro
+    refuse_phone_convict: Le probationnaire a notifié son refus de recevoir des sms
+    refuse_phone_convict_title: Stop SMS
+    accept_phone_convict: Un agent a réactivé la réception des sms pour ce probationnaire
+    accept_phone_convict_title: Stop SMS
   home:
     bex_jap: Sortie d'audience JAP
     bex_spip: Sortie d'audience SPIP
@@ -663,6 +674,7 @@ fr:
     tutorial_special: "! @ # $ % ^ & * ( ) _ + - = [ ] { } | '"
   monday: lundi
   my_convicts: Afficher uniquement mes probationnaires
+  organization_convicts: Afficher uniquement les probationnaires de mon ressort
   my_profile: Mon profil
   new-appointment-all-agendas: Tous les agendas
   new-appointment-available-slots: Créneaux disponibles

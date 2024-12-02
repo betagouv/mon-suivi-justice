@@ -5,9 +5,12 @@ class SlotPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.admin?
-        scope.available.in_jurisdiction(user.organization)
+        scope.available.in_jurisdiction(user.organization).with_appointment_type_with_slot_system
+      elsif user.overseer?
+        Slot.available.in_organization(user.organization)
+            .joins(:appointment_type).where(appointment_types: { name: 'SAP DDSE' })
       elsif ALLOWED_TO_INTERACT.include? user.role
-        scope.available.in_organization(user.organization)
+        scope.available.in_organization(user.organization).with_appointment_type_with_slot_system
       end
     end
   end
@@ -51,10 +54,10 @@ class SlotPolicy < ApplicationPolicy
   end
 
   def check_ownership?(slot = record)
-    if user.admin?
-      return [user.organization, *user.organization.linked_organizations].include?(slot.agenda.place.organization)
-    end
+    return [user.organization, *user.organization.linked_organizations].include?(slot.organization) if user.admin?
 
-    slot.agenda.place.organization == user.organization
+    return slot.appointment_type.name == 'SAP DDSE' && slot.organization == user.organization if user.overseer?
+
+    slot.organization == user.organization
   end
 end

@@ -17,6 +17,10 @@ class Notification < ApplicationRecord
       .where(appointment: { slots: { agendas: { places: { organization: } } } })
   }
 
+  scope :misrouted, -> { where(response_code: '16') }
+
+  scope :to_reroute_link_mobility, -> { misrouted.with_state(:failed).where(delivery_time: 2.days.ago..Time.zone.now) }
+
   scope :all_sent, -> { where(state: %w[sent received failed]) }
 
   scope :appointment_after_today, lambda {

@@ -6,7 +6,7 @@
     "yarn": "1.22.22"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@fortawesome/fontawesome-free": "^6.7.1",
     "@gouvfr/dsfr": "^1.11.2",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^7.3.0",
@@ -22,7 +22,7 @@
     "flatpickr": "^4.6.13",
     "jquery": "^3.7.1",
     "micromodal": "^0.4.6",
-    "postcss": "^8.4.48",
+    "postcss": "^8.4.49",
     "postcss-cli": "^11.0.0",
     "postcss-color-mod-function": "^4.1.1",
     "postcss-import": "^16.1.0",
@@ -36,10 +36,12 @@
   "version": "0.1.0",
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --loader:.svg=copy --asset-names=[name] --outdir=app/assets/builds --public-path=/assets",
-    "build:css": "postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css"
+    "build:css": "postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "postcss-replace": "^2.0.1"
+    "postcss-replace": "^2.0.1",
+    "husky": "^9.1.7"
   },
   "resolutions": {
     "postcss": "^8.4.35"

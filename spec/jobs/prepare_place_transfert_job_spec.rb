@@ -28,10 +28,12 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
                      preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_spip_loiret_montargis')
     end
     let(:new_place) do
-      create(:place, organization:, name: 'Nouveau SPIP 45 - Montargis',
-                     adress: '8 av Adolphe Cochery, 45200 Montargis',
-                     phone: '0238858585', contact_email: 'new-mont@rgis.con',
-                     preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_new_spip_loiret_montargis')
+      np = build(:place, organization:, name: 'Nouveau SPIP 45 - Montargis',
+                         adress: '8 av Adolphe Cochery, 45200 Montargis',
+                         phone: '0238858585', contact_email: 'new-mont@rgis.con',
+                         preparation_link: 'https://mon-suivi-justice.beta.gouv.fr/preparer_new_spip_loiret_montargis')
+      np.save(validate: false)
+      np
     end
     let(:place_transfert) do
       create(:place_transfert, old_place:, new_place:, date: next_valid_day(date: Date.tomorrow))
@@ -80,7 +82,7 @@ RSpec.describe PreparePlaceTransfertJob, type: :job do
     end
 
     it('should copy old place appointment types to new place') do
-      expect(new_place.appointment_types).to match_array(old_place.appointment_types)
+      expect(new_place.reload.appointment_types).to match_array(old_place.appointment_types)
     end
 
     it('should copy old place slot types to new place') do

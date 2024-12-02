@@ -20,6 +20,8 @@ class ApplicationController < ActionController::Base
       'authentication'
     elsif params[:controller] == 'errors'
       'application'
+    elsif params[:controller] == 'unsubscribe'
+      'unsubscribe_interface'
     else
       'agent_interface'
     end
