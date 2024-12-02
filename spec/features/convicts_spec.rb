@@ -47,7 +47,7 @@ RSpec.feature 'Convicts', type: :feature do
       expect(page).to have_no_content(/Personne/i)
     end
 
-    it 'an agent can list only the convicts assigned to him', logged_in_as: :bex, js: true do
+    it 'an agent can list only the convicts related to their organization', logged_in_as: :bex, js: true do
       create(:convict, first_name: 'Michel', last_name: 'Vaillant', date_of_birth: '01/01/1980',
                        organizations: [@user.organization], user: @user)
       create(:convict, first_name: 'Paul', last_name: 'Personne', date_of_birth: '01/01/1980')
