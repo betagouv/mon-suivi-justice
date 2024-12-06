@@ -55,6 +55,7 @@ class Convict < ApplicationRecord
 
   validates :organizations, presence: true
   validate :unique_organizations
+  validates :unsubscribe_token, uniqueness: true
 
   validates_with AppiUuidValidator
 
@@ -78,6 +79,13 @@ class Convict < ApplicationRecord
 
   def self.archive_delay
     12.month.ago
+  end
+
+  def self.generate_unsubscribe_token
+    loop do
+      token = SecureRandom.hex(10)
+      break token unless exists?(unsubscribe_token: token)
+    end
   end
 
   def name

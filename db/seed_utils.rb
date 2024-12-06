@@ -35,6 +35,7 @@ def create_convict(organizations:, city: nil)
     convict.last_name = Faker::Name.last_name
     convict.no_phone = true # we don't want to send SMS to convicts during tests
     convict.organizations = organizations.is_a?(Array) ? organizations : [organizations]
+    convict.unsubscribe_token = Convict.generate_unsubscribe_token
   end
 end
 
