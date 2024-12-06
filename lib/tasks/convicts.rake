@@ -15,4 +15,13 @@ namespace :convicts do
       end
     end
   end
+  desc 'Backfill unsubscribe_token for existing Convicts'
+  task backfill_unsubscribe_token: :environment do
+    Convict.where(unsubscribe_token: nil).find_each(batch_size: 1000) do |convict|
+      convict.unsubscribe_token = Convict.generate_unsubscribe_token
+      convict.save!(validate: false)
+    rescue ActiveRecord::RecordInvalid => e
+      puts "Failed to update Convict ID #{convict.id}: #{e.message}"
+    end
+  end
 end
