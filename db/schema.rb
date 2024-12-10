@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_15_102407) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_06_123624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -183,9 +183,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_15_102407) do
     t.bigint "creating_organization_id"
     t.boolean "japat", default: false, null: false
     t.virtual "full_name", type: :string, as: "(((first_name)::text || ' '::text) || (last_name)::text)", stored: true
+    t.string "unsubscribe_token"
     t.index ["city_id"], name: "index_convicts_on_city_id"
     t.index ["creating_organization_id"], name: "index_convicts_on_creating_organization_id"
     t.index ["discarded_at"], name: "index_convicts_on_discarded_at"
+    t.index ["unsubscribe_token"], name: "index_convicts_on_unsubscribe_token", unique: true
     t.index ["user_id"], name: "index_convicts_on_user_id"
   end
 
