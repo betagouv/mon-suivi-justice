@@ -242,6 +242,7 @@ class ConvictsController < ApplicationController
     @convict = Convict.new(convict_params)
     @convict.creating_organization = current_organization
     @convict.current_user = current_user
+    @convict.unsubscribe_token = Convict.generate_unsubscribe_token
     @convict.update_organizations(current_user, autosave: false)
   end
 

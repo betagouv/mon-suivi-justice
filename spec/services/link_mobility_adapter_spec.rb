@@ -38,11 +38,8 @@ RSpec.describe LinkMobilityAdapter do
   end
 
   describe 'format_data' do
-    let(:valid_token) { 'valid_token' }
     let(:convict) { create(:convict, phone: '0622334455') }
-    before do
-      allow(convict).to receive(:generate_token_for).with(:stop_sms).and_return(valid_token)
-    end
+
     it 'prepares data for SMS' do
       appointment = create(:appointment, convict:)
 
@@ -51,7 +48,7 @@ RSpec.describe LinkMobilityAdapter do
 
       expected = {
         destinationAddress: '+33622334455',
-        messageText: 'Bonjour Stop SMS: http://localhost/stop_sms?token=valid_token',
+        messageText: "Bonjour Stop SMS: http://localhost/stop_sms?token=#{convict.unsubscribe_token}",
         originatorTON: 1,
         originatingAddress: 'MSJ',
         maxConcatenatedMessages: 10

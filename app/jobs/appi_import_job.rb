@@ -59,6 +59,7 @@ class AppiImportJob < ApplicationJob
       last_name: staging_or_demo? ? anonymize(convict) : convict[:last_name],
       date_of_birth: convict[:date_of_birth].present? ? convict[:date_of_birth].to_date : nil,
       no_phone: true,
+      unsubscribe_token: Convict.generate_unsubscribe_token,
       appi_uuid: convict[:appi_uuid]
     )
 
