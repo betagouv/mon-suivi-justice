@@ -48,6 +48,8 @@ class LinkMobilityAdapter
 
   def add_stop_sms_url
     token = @notification.convict.unsubscribe_token
+    return '' unless token
+
     stop_sms_url = Rails.application.routes.url_helpers.stop_sms_url(token:)
     "#{@notification.content} Stop SMS: #{stop_sms_url}"
   end
