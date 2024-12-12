@@ -848,7 +848,7 @@ RSpec.feature 'Appointments', type: :feature do
       
       # Change status to “excused”
       appointment.miss
-      appointment.reload
+      refresh
       expect(page).to have_content 'Manqué'
       expect(appointment.state).to eq 'no_show'
 
