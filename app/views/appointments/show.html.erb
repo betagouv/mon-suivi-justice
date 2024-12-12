@@ -156,6 +156,12 @@
                     <% end %>
                   </li>
                 <% end %>
+                <%= puts @appointment %>
+                <% if (@appointment.excused? || @appointment.no_show?) && policy(@appointment).new? %>
+                  <li>
+                    <%= link_to t('reconvene'), new_appointment_path(convict_id: @convict.id), class: 'fr-btn fr-btn--lg' %>
+                  </li>
+                <% end %>
               </ul>
             </div>
           </div>

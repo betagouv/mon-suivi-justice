@@ -2,6 +2,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   host: <%= ENV.fetch('DATABASE_URL','localhost') %>
+  port: <%= ENV.fetch('MSJ_DB_PORT','5432') %>
   username: <%= ENV.fetch('MSJ_DB_USER','msj') %>
   password: <%= ENV.fetch('MSJ_DB_PASSWORD','msj') %>
   pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
@@ -9,6 +10,7 @@ default: &default
 development:
   <<: *default
   database: <%= ENV.fetch('MSJ_DB_NAME','msj') %>
+  
 
 test:
   <<: *default
