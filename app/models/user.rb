@@ -76,6 +76,10 @@ class User < ApplicationRecord
   delegate :all_local_admins, to: :organization
   delegate :in_jurisdiction?, to: :organization
 
+  def self.spip_role?(role)
+    SPIP_ROLES.include?(role)
+  end
+
   def name(reverse: false)
     return "#{last_name.upcase} #{first_name.capitalize}" unless reverse
 
