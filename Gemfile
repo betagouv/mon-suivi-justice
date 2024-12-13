@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.2.1'
-  gem 'rubocop', '~> 1.68', require: false
+  gem 'rubocop', '~> 1.69', require: false
   gem 'brakeman', '~> 6.2'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
@@ -109,7 +109,7 @@ end
 gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.7'
-gem 'administrate-field-belongs_to_search', '~> 0.9.0'
+gem 'administrate-field-belongs_to_search', '~> 0.10.0'
 gem 'faker', '~> 3.5.1'
 
 # Use Redis for Action Cable
