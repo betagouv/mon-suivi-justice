@@ -52,61 +52,66 @@
     </div>
   </div>
 <% end %>
-<div class="fr-table fr-table--bordered fr-table--layout-fixed">
-  <%= form_tag slots_batch_path, method: 'put', id: 'index-slots-update-form' do %>
-    <table>
-      <thead>
-        <tr>
-          <th scope="col"><%= t('activerecord.attributes.slot.place') %></th>
-          <th scope="col"><%= t('activerecord.models.agenda') %></th>
-          <th scope="col"><%= t('activerecord.attributes.slot.appointment_type') %></th>
-          <th scope="col"><%= t('activerecord.attributes.slot.date') %></th>
-          <th scope="col"><%= t('activerecord.attributes.slot.starting_time') %></th>
-          <th scope="col"><%= t('index-slots-available-capacity') %></th>
-          <th scope="col"><%= t('select') %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @slots.each do |slot| %>
-          <tr>
-            <td><%= slot.agenda.place.name %></td>
-            <td><%= slot.agenda.name %></td>
-            <td><%= slot.appointment_type.name %></td>
-            <td><%= slot.date.to_fs(:base_date_format) %></td>
-            <td><%= slot.localized_time.to_fs(:time) %></td>
-            <td>
-              <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
-                <div class="col-fr">
-                  <span>
-                    <%= slot.capacity - slot.used_capacity %> / <%= slot.capacity %>
-                  </span>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
-                <% if policy(slot).update? %>
-                  <div class="col-fr">
-                    <div class="fr-mt-1-5v fr-mr-2w">
-                      <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
+<div class="fr-table fr-table--lg fr-table--layout-fixed fr-mt-2w">
+  <div class="fr-table__wrapper">
+    <div class="fr-table__container">
+      <div class="fr-table__content">
+        <%= form_tag slots_batch_path, method: 'put', id: 'index-slots-update-form' do %>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col"><%= t('activerecord.attributes.slot.place') %></th>
+                <th scope="col"><%= t('activerecord.models.agenda') %></th>
+                <th scope="col"><%= t('activerecord.attributes.slot.appointment_type') %></th>
+                <th scope="col"><%= t('activerecord.attributes.slot.date') %></th>
+                <th scope="col"><%= t('activerecord.attributes.slot.starting_time') %></th>
+                <th scope="col"><%= t('index-slots-available-capacity') %></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @slots.each do |slot| %>
+                <tr>
+                  <td>
+                    <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center">
+                      <% if policy(slot).update? %>
+                        <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
+                      <% end %>
                     </div>
-                  </div>
-                  <div class="col-fr">
-                    <%= link_to t('close'), slot_path(slot, slot: { available: false }),
-                                            data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :put },
-                                            class: 'slots-index-control' %>
-                  </div>
-                  <div class="col-fr">
-                    <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
-                  </div>
-                <% end %>
-              </div>
-            </td>
-          </tr>
+                  </td>
+                  <td><%= slot.agenda.place.name %></td>
+                  <td><%= slot.agenda.name %></td>
+                  <td><%= slot.appointment_type.name %></td>
+                  <td><%= slot.date.to_fs(:base_date_format) %></td>
+                  <td><%= slot.localized_time.to_fs(:time) %></td>
+                  <td>
+                    <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
+                      <div class="col-fr">
+                        <span>
+                          <%= slot.capacity - slot.used_capacity %> / <%= slot.capacity %>
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center">
+                      <% if policy(slot).update? %>
+                        <%= link_to t('close'), slot_path(slot, slot: { available: false }),
+                                                  data: { 'turbo-confirm': t('basic_confirmation'), "turbo_method": :put },
+                                                  class: 'slots-index-control' %>
+                        <%= link_to t('edit'), edit_slot_path(slot), class: 'slots-index-control' %>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         <% end %>
-      </tbody>
-    </table>
-  <% end %>
-  <%= paginate @slots %>
+        <%= paginate @slots %>
+      </div>
+    </div>
+  </div>
 </div>
 <%= javascript_include_tag 'slots_index', "data-turbo-track": "reload", defer: true %>
