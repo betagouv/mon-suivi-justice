@@ -42,7 +42,7 @@ gem 'sentry-ruby', '~> 5.21.0'
 gem 'sentry-rails', '~> 5.21.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
-gem 'csv', '~> 3.2', '>= 3.2.8'
+gem 'csv', '~> 3.3'
 gem 'jbuilder', '~> 2.13.0'
 gem 'groupdate', '~> 6.5.1'
 
