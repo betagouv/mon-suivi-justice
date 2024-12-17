@@ -72,9 +72,9 @@ class Divestment < ApplicationRecord
 
   def blocked_by
     return unless state == 'pending'
+    return convict.errors.full_messages.to_sentence unless convict.valid?
+    return 'dans l\'attente d\'une action du service' if created_at.after?(10.days.ago)
 
-    return I18n.t('divestments.blocked_by.service_delay') if convict.valid?
-
-    convict.errors.full_messages.to_sentence
+    I18n.t('divestments.blocked_by.service_delay')
   end
 end
