@@ -10,7 +10,7 @@ class OrganizationDivestment < ApplicationRecord
 
   scope :old_pending, lambda {
     joins(:divestment)
-      .where('organization_divestments.created_at < ?', 10.days.ago)
+      .where('DATE(organization_divestments.created_at) <= ?', 10.days.ago.to_date)
       .where(organization_divestments: { state: 'pending' }, divestments: { state: 'pending' })
   }
 
