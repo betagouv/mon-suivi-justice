@@ -50,8 +50,8 @@ RSpec.describe OrganizationDivestment, type: :model do
 
       let(:tj) { create(:organization, organization_type: 'tj') }
       let!(:old_pending_od) do
-        create(:organization_divestment, created_at: 10.days.ago + 1.hour, divestment: old_pending_divestment, organization: tj,
-                                         state: :pending)
+        create(:organization_divestment, created_at: 10.days.ago + 1.hour, divestment: old_pending_divestment,
+                                         organization: tj, state: :pending)
       end
       it 'should only considere the day part' do
         expected = [old_pending_od]
