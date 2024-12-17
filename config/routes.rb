@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :admin do
       resources :users do
         get '/impersonate' => "users#impersonate"
+        get '/unlock' => "users#unlock"
       end
       resources :convicts
       resources :appointments, except: :index
