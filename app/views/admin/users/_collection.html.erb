@@ -95,6 +95,13 @@ to display a collection of resources in an HTML table.
           class: "text-color-red",
         ) %></td>
         <% end %>
+        <% if resource.locked_at&.present? %>
+                  <td><%= link_to(
+          "Débloquer",
+          admin_user_unlock_path(resource),
+          class: "text-color-red",
+        ) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
