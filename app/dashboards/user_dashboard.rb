@@ -44,7 +44,8 @@ class UserDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     security_charter_accepted?: Field::Boolean,
-    headquarter: Field::BelongsTo
+    headquarter: Field::BelongsTo,
+    locked_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -61,6 +62,7 @@ class UserDashboard < Administrate::BaseDashboard
     email
     headquarter
     security_charter_accepted?
+    locked_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
