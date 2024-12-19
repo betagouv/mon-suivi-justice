@@ -19,6 +19,36 @@ module Admin
       end
     end
 
+    def merge_form
+      # Affiche le formnulaire de selection pour la fusion
+    end
+
+    def merge_preview
+      @kept_convict = Convict.find(params[:kept_id])
+      @duplicated_convict = Convict.find(params[:duplicated_id])
+
+      @duplicated_appointments_count = @duplicated_convict.appointments.count
+      @duplicated_history_items_count = @duplicated_convict.history_items.count
+    rescue ActiveRecord::RecordNotFound => e
+      redirect_to merge_form_admin_convicts_path, alert: "Le probationnaire d'id #{e.id} n'existe pas"
+      nil
+    end
+
+    def merge_execute
+      kept_id = params[:kept_id]
+      duplicated_id = params[:duplicated_id]
+
+      # Appel de votre service de fusion
+      Convicts::MergeService.call(kept_id: kept_id, duplicated_id: duplicated_id)
+
+      redirect_to admin_convict_path(kept_id), notice: 'Les probationnaires ont été fusionnés avec succès.'
+    rescue StandardError
+      kept_id = params[:kept_id]
+      duplicated_id = params[:duplicated_id]
+      redirect_to merge_preview_admin_convicts_path(kept_id: kept_id, duplicated_id: duplicated_id),
+                  alert: "Une erreur s'est produite lors de la fusion"
+    end
+
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
     # actions.

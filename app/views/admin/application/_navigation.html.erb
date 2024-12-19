@@ -17,4 +17,9 @@ as defined by the routes in the `admin/` namespace
       class: "navigation__link navigation__link--#{nav_link_state(resource)}"
     ) if accessible_action?(model_from_resource(resource), :index) %>
   <% end %>
+  <%= link_to(
+    "Fusionner des probationnaires",
+    merge_form_admin_convicts_path,
+    class: "navigation__link",
+  ) %>
 </nav>

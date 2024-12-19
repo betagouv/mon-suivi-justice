@@ -9,7 +9,13 @@ Rails.application.routes.draw do
         get '/impersonate' => "users#impersonate"
         get '/unlock' => "users#unlock"
       end
-      resources :convicts
+      resources :convicts do
+        collection do
+          get :merge_form
+          get :merge_preview
+          post :merge_execute
+        end
+      end
       resources :appointments, except: :index
       resources :organizations, except: %i[new create destroy] do
         put '/link_convict_from_linked_orga' => "organizations#link_convict_from_linked_orga"
