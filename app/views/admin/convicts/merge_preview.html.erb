@@ -1,0 +1,41 @@
+<div class="merge-preview-wrapper">
+  <h1>Aperçu de la fusion</h1>
+
+<div class="warning-banner">
+  Attention : La fusion est irréversible. Les données du probationnaire dupliqué seront transférées puis ce dernier sera supprimé.
+</div>
+
+<div class="merge-preview-container">
+  <div class="convict-card">
+    <h2>Probationnaire conservé (ID: <%= @kept_convict.id %>)</h2>
+    <ul>
+      <li><strong>Nom complet :</strong> <%= @kept_convict.full_name %></li>
+      <li><strong>Téléphone :</strong> <%= @kept_convict.phone %></li>
+      <li><strong>Numéro APPI :</strong> <%= @kept_convict.appi_uuid %></li>
+      <li><strong>Rendez-vous actuels :</strong> <%= @kept_convict.appointments.count %></li>
+      <li><strong>Historique :</strong> <%= @kept_convict.history_items.count %></li>
+    </ul>
+  </div>
+
+  <div class="convict-card duplicated">
+    <h2>Probationnaire à fusionner (ID: <%= @duplicated_convict.id %>)</h2>
+    <ul>
+      <li><strong>Nom complet :</strong> <%= @duplicated_convict.full_name %></li>
+      <li><strong>Téléphone :</strong> <%= @duplicated_convict.phone %></li>
+      <li><strong>Numéro APPI :</strong> <%= @duplicated_convict.appi_uuid %></li>
+      <li><strong>Rendez-vous à transférer :</strong> <%= @duplicated_appointments_count %></li>
+      <li><strong>Historique à transférer :</strong> <%= @duplicated_history_items_count %></li>
+    </ul>
+  </div>
+</div>
+
+<p>Êtes-vous sûr de vouloir fusionner ces données dans le probationnaire <%= @kept_convict.full_name %> ?</p>
+
+<div class="merge-actions">
+  <%= form_with url: merge_execute_admin_convicts_path, method: :post, local: true do |f| %>
+    <%= hidden_field_tag :kept_id, @kept_convict.id %>
+    <%= hidden_field_tag :duplicated_id, @duplicated_convict.id %>
+    <%= f.submit "Fusionner" %>
+  <% end %>
+</div>
+</div>

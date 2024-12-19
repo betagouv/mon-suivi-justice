@@ -1,0 +1,14 @@
+<div style="padding: 20px;">
+  <h1 style="margin-bottom: 20px;">Fusionner des probationnaires</h1>
+  <%= form_with url: merge_preview_admin_convicts_path, method: :get, local: true do |f| %>
+    <div>
+      <%= f.label :kept_id, "ID du probationnaire à conserver" %><br>
+      <%= f.number_field :kept_id, required: true %>
+    </div>
+    <div style="margin-bottom: 20px;">
+      <%= f.label :duplicated_id, "ID du probationnaire à fusionner/détruire" %><br>
+      <%= f.number_field :duplicated_id, required: true %>
+    </div>
+    <%= f.submit "Aperçu" %>
+  <% end %>
+</div>
