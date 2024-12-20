@@ -64,6 +64,15 @@ module Admin
       redirect_to root_path
     end
 
+    def unlock
+      user = User.find(params[:user_id])
+
+      return unless user.present?
+
+      user.unlock_access!
+      redirect_to admin_users_path
+    end
+
     def find_resources(search_term)
       search_terms = search_term.split
       roles = (search_terms & User.roles.keys)

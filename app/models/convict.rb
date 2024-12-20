@@ -18,6 +18,7 @@ class Convict < ApplicationRecord
   has_many :organizations, through: :convicts_organizations_mappings
 
   has_many :appointments, dependent: :destroy
+  has_many :slots, through: :appointments
   has_many :history_items, dependent: :destroy
 
   has_many :divestments, dependent: :destroy
@@ -25,8 +26,6 @@ class Convict < ApplicationRecord
 
   has_many :divestments, dependent: :destroy
   has_many :organization_divestments, through: :divestments
-
-  generates_token_for :stop_sms, expires_in: 24.hours
 
   belongs_to :user, optional: true
 
@@ -272,6 +271,17 @@ class Convict < ApplicationRecord
 
   def last_appointment_in_the_past?
     last_appointment_at_least_x_months_old?(0)
+  end
+
+  # Check if the convict has no future appointments outside an organization or its linked organizations
+  def no_future_appointments_outside_organization_and_links?(organization)
+    linked_organization_ids = [organization.id] + organization.linked_organizations.pluck(:id)
+
+    slots
+      .joins(agenda: :place)
+      .where('slots.date > ?', Date.today)
+      .where.not(places: { organization_id: linked_organization_ids })
+      .empty?
   end
 
   def pending_divestments?

@@ -1,14 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature 'Stop SMS', type: :feature do
-  let(:valid_token) { 'valid_token' }
   let(:invalid_token) { 'invalid_token' }
   let(:convict) { create(:convict, refused_phone: false) }
-
-  before do
-    allow(Convict).to receive(:find_by_token_for).with(:stop_sms, valid_token).and_return(convict)
-    allow(Convict).to receive(:find_by_token_for).with(:stop_sms, invalid_token).and_return(nil)
-  end
+  let(:valid_token) { convict.unsubscribe_token }
 
   describe 'Visiting stop_sms page' do
     context 'with valid token' do

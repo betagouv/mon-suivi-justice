@@ -10,7 +10,7 @@ class DivestmentStalledService
     OrganizationDivestment.old_pending.each do |organization_divestment|
       convict = organization_divestment.convict
       service = DivestmentStateService.new(organization_divestment, nil)
-      if divestmentable?(convict)
+      if divestmentable?(convict, organization_divestment)
         service.accept("Accepté automatiquement après 10 jours d'attente", auto_accepted: true)
       end
     end
@@ -31,7 +31,8 @@ class DivestmentStalledService
     end
   end
 
-  def divestmentable?(convict)
-    convict.archived? || convict.last_appointment_in_the_past?
+  def divestmentable?(convict, organization_divestment)
+    organization = organization_divestment.divestment.organization
+    convict.archived? || convict.no_future_appointments_outside_organization_and_links?(organization)
   end
 end

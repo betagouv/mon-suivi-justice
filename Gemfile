@@ -28,7 +28,7 @@ gem 'state_machines', '~> 0.6.0'
 gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
-gem 'dotenv-rails', '~> 3.1.4'
+gem 'dotenv-rails', '~> 3.1.6'
 gem 'sidekiq', '~> 7.3.6'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
@@ -42,7 +42,7 @@ gem 'sentry-ruby', '~> 5.21.0'
 gem 'sentry-rails', '~> 5.21.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
-gem 'csv', '~> 3.2', '>= 3.2.8'
+gem 'csv', '~> 3.3'
 gem 'jbuilder', '~> 2.13.0'
 gem 'groupdate', '~> 6.5.1'
 

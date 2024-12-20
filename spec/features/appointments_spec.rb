@@ -794,4 +794,74 @@ RSpec.feature 'Appointments', type: :feature do
       expect(new_appointment.reschedule_notif.state).to eq 'programmed'
     end
   end
+
+  describe 'revocation', logged_in_as: 'cpip' do
+    let(:convict) { create(:convict, organizations: [@user.organization]) }
+    let(:apt_type) do
+      create(:appointment_type, :with_notification_types, organization: @user.organization,
+                                                          name: 'Convocation de suivi SPIP')
+    end
+    let(:place) do
+      create(:place, name: 'Test place', organization: @user.organization, appointment_types: [apt_type])
+    end
+    let(:agenda) { create(:agenda, name: 'Agenda Test', place: place) }
+
+    let(:slot) { create(:slot, appointment_type: apt_type, agenda: agenda) }
+    let(:appointment) { create(:appointment, convict: convict, slot: slot) }
+
+    # Test step when the appointment is excused
+    it 'should appear when appointment is excused' do
+      appointment.book
+
+      # Visit the appointment page
+      visit appointment_path(appointment)
+
+      # Check that the button to reconvene is not present on the page
+      expect(appointment.state).to eq 'booked'
+      expect(page).not_to have_content 'Reconvoquer la PPSMJ'
+      expect(page).to have_content 'Excuser'
+
+      # Change status to “excused”
+      click_button 'Excuser'
+      appointment.reload
+      expect(appointment.state).to eq 'excused'
+
+      # Check the presence of the button
+      expect(page).to have_content 'Reconvoquer la PPSMJ'
+
+      # Click on the reconvene button
+      click_link 'Reconvoquer la PPSMJ'
+
+      # And check if we are on the new_appointment page
+      expect(page).to have_current_path(new_appointment_path(convict_id: convict.id))
+      expect(page).to have_content 'Nouvelle convocation pour'
+    end
+
+    it 'should appear when appointment is no_show' do
+      appointment.book
+
+      # Visit the appointment page
+      visit appointment_path(appointment)
+
+      # Check that the button to reconvene is not present on the page
+      expect(appointment.state).to eq 'booked'
+      expect(page).not_to have_content 'Reconvoquer la PPSMJ'
+
+      # Change status to “excused”
+      appointment.miss
+      refresh
+      expect(page).to have_content 'Manqué'
+      expect(appointment.state).to eq 'no_show'
+
+      # Check the presence of the button
+      expect(page).to have_content 'Reconvoquer la PPSMJ'
+
+      # Click on the reconvene button
+      click_link 'Reconvoquer la PPSMJ'
+
+      # And check if we are on the new_appointment page
+      expect(page).to have_current_path(new_appointment_path(convict_id: convict.id))
+      expect(page).to have_content 'Nouvelle convocation pour'
+    end
+  end
 end
