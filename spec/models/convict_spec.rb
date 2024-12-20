@@ -619,4 +619,41 @@ RSpec.describe Convict, type: :model do
       end
     end
   end
+
+  describe '#no_future_appointments_outside_organization_and_links?' do
+    let(:organization) { create(:organization, organization_type: 'spip') }
+    let(:linked_organization) { create(:organization, organization_type: 'tj') }
+    let(:place) { create(:place, organization: organization) }
+    let(:linked_place) { create(:place, organization: linked_organization) }
+    let(:agenda_in_org) { create(:agenda, place: place) }
+    let(:agenda_in_linked_org) { create(:agenda, place: linked_place) }
+    let(:slot_in_org) { create(:slot, date: Date.tomorrow, agenda: agenda_in_org) }
+    let(:slot_in_linked_org) { create(:slot, date: Date.tomorrow, agenda: agenda_in_linked_org) }
+    let(:convict) { create(:convict) }
+
+    before do
+      allow(organization).to receive(:linked_organizations).and_return([linked_organization])
+
+      create(:appointment, convict: convict, slot: slot_in_org)
+      create(:appointment, convict: convict, slot: slot_in_linked_org)
+    end
+    context 'the convict has future appointments outside the organization and its links' do
+      let(:other_organization) { create(:organization) }
+      let(:slot_outside_orgs) { create(:slot, date: Date.tomorrow, agenda: agenda_outside_orgs) }
+      let(:other_place) { create(:place, organization: other_organization) }
+      let(:agenda_outside_orgs) { create(:agenda, place: other_place) }
+      let!(:appointment_outside) do
+        create(:appointment, convict: convict, slot: slot_outside_orgs)
+      end
+      it 'returns false if ' do
+        expect(convict.no_future_appointments_outside_organization_and_links?(organization)).to eq(false)
+      end
+    end
+
+    context 'the convict has no future appointments outside the organization and its links' do
+      it 'returns true' do
+        expect(convict.no_future_appointments_outside_organization_and_links?(organization)).to eq(true)
+      end
+    end
+  end
 end
