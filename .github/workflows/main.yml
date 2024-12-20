@@ -55,6 +55,8 @@ jobs:
           MSJ_DB_USER: msj
           MSJ_DB_PASSWORD: msj
           MSJ_DB_NAME: msj_test
+          DEVS: "matthieu.faugere@beta.gouv.fr,damien.le-thiec@beta.gouv.fr,cyrille.corbin@justice.gouv.fr"
+          
 
       - name: Setup timezone
         uses: zcong1993/setup-timezone@master
