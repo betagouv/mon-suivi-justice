@@ -7,7 +7,8 @@ RSpec.describe AdminMailer, type: :mailer do
 
     it 'rend les bons destinataires' do
       expect(mail.to).to eq(['support.fr@linkmobility.com'])
-      expect(mail.cc).to eq(['matthieu.faugere@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr'])
+      expect(mail.cc).to eq(['matthieu.faugere@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr',
+                             'cyrille.corbin@justice.gouv.fr'])
     end
 
     it 'a le bon sujet' do

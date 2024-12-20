@@ -8,7 +8,8 @@ RSpec.describe AdminMailer, type: :mailer do
 
     it 'renders the headers' do
       expect(mail.subject).to eq('Notifications remises dans la queue')
-      expect(mail.to).to eq(['matthieu.faugere@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr'])
+      expect(mail.to).to eq(['matthieu.faugere@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr',
+                             'cyrille.corbin@justice.gouv.fr'])
     end
 
     it 'renders the body' do

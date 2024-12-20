@@ -63,14 +63,20 @@ class AdminMailer < ApplicationMailer
 
   def notifications_problems(stucked_ids)
     @stucked_ids = stucked_ids
-    mail(to: ['matthieu.faugere@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr'],
+    mail(to: devs,
          subject: 'Notifications remises dans la queue')
   end
 
   def warn_link_mobility_for_misrouted_notifications
     @phones = params[:phones]
     mail(to: 'support.fr@linkmobility.com',
-         cc: ['matthieu.faugere@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr'],
+         cc: devs,
          subject: 'Mon Suivi Justice - Liste des numéros non routés')
+  end
+
+  private
+
+  def devs
+    ENV.fetch('DEVS').split(',')
   end
 end
