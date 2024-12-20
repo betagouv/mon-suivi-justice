@@ -6,9 +6,9 @@ RSpec.describe AdminMailer, type: :mailer do
     let(:mail) { described_class.with(phones: phones).warn_link_mobility_for_misrouted_notifications }
 
     it 'rend les bons destinataires' do
+      dev_emails = ENV.fetch('DEV_EMAILS').split(',')
       expect(mail.to).to eq(['support.fr@linkmobility.com'])
-      expect(mail.cc).to eq(['matthieu.faugere@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr',
-                             'cyrille.corbin@justice.gouv.fr'])
+      expect(mail.cc).to eq(dev_emails)
     end
 
     it 'a le bon sujet' do

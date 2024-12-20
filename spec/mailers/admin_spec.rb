@@ -7,9 +7,9 @@ RSpec.describe AdminMailer, type: :mailer do
     let(:mail) { described_class.notifications_problems(stucked_ids).deliver_now }
 
     it 'renders the headers' do
+      dev_emails = ENV.fetch('DEV_EMAILS').split(',')
       expect(mail.subject).to eq('Notifications remises dans la queue')
-      expect(mail.to).to eq(['matthieu.faugere@beta.gouv.fr', 'damien.le-thiec@beta.gouv.fr',
-                             'cyrille.corbin@justice.gouv.fr'])
+      expect(mail.to).to eq(dev_emails)
     end
 
     it 'renders the body' do
