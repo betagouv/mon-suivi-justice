@@ -627,8 +627,8 @@ RSpec.describe Convict, type: :model do
     let(:linked_place) { create(:place, organization: linked_organization) }
     let(:agenda_in_org) { create(:agenda, place: place) }
     let(:agenda_in_linked_org) { create(:agenda, place: linked_place) }
-    let(:slot_in_org) { create(:slot, date: Date.tomorrow, agenda: agenda_in_org) }
-    let(:slot_in_linked_org) { create(:slot, date: Date.tomorrow, agenda: agenda_in_linked_org) }
+    let(:slot_in_org) { create(:slot, date: next_valid_day, agenda: agenda_in_org) }
+    let(:slot_in_linked_org) { create(:slot, date: next_valid_day, agenda: agenda_in_linked_org) }
     let(:convict) { create(:convict) }
 
     before do
@@ -639,7 +639,7 @@ RSpec.describe Convict, type: :model do
     end
     context 'the convict has future appointments outside the organization and its links' do
       let(:other_organization) { create(:organization) }
-      let(:slot_outside_orgs) { create(:slot, date: Date.tomorrow, agenda: agenda_outside_orgs) }
+      let(:slot_outside_orgs) { create(:slot, date: next_valid_day, agenda: agenda_outside_orgs) }
       let(:other_place) { create(:place, organization: other_organization) }
       let(:agenda_outside_orgs) { create(:agenda, place: other_place) }
       let!(:appointment_outside) do
