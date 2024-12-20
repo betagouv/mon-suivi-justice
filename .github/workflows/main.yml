@@ -54,9 +54,7 @@ jobs:
           DATABASE_URL: localhost
           MSJ_DB_USER: msj
           MSJ_DB_PASSWORD: msj
-          MSJ_DB_NAME: msj_test
-          DEVS: "matthieu.faugere@beta.gouv.fr,damien.le-thiec@beta.gouv.fr,cyrille.corbin@justice.gouv.fr"
-          
+          MSJ_DB_NAME: msj_test          
 
       - name: Setup timezone
         uses: zcong1993/setup-timezone@master
@@ -80,6 +78,7 @@ jobs:
           MSJ_DB_PASSWORD: msj
           MSJ_DB_NAME: msj_test
           APP: msj_ci
+          DEVS: "matthieu.faugere@beta.gouv.fr,damien.le-thiec@beta.gouv.fr,cyrille.corbin@justice.gouv.fr"
 
       - name: Upload screenshots
         if: always() # This ensures the step is run even if the previous step (tests) fail
