@@ -28,8 +28,8 @@ gem 'state_machines', '~> 0.6.0'
 gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
-gem 'dotenv-rails', '~> 3.1.6'
-gem 'sidekiq', '~> 7.3.6'
+gem 'dotenv-rails', '~> 3.1.7'
+gem 'sidekiq', '~> 7.3.7'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
@@ -101,7 +101,7 @@ group :test do
   gem 'webdrivers', '~> 5.3.1'
   gem 'shoulda-matchers', '~> 6.4.0'
   gem 'timecop', '~> 0.9.10'
-  gem 'pundit-matchers', '~> 3.1.2'
+  gem 'pundit-matchers', '~> 4.0.0'
   gem 'state_machines-rspec', '~> 0.6.0'
   gem 'webmock', '~> 3.24.0'
 end

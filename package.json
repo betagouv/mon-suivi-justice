@@ -6,7 +6,7 @@
     "yarn": "1.22.22"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.7.1",
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "@gouvfr/dsfr": "^1.13.0",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^7.3.0",
@@ -18,7 +18,7 @@
     "abyme": "^0.7.4",
     "autoprefixer": "^10.4.20",
     "date-holidays": "^3.23.14",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.24.2",
     "flatpickr": "^4.6.13",
     "jquery": "^3.7.1",
     "micromodal": "^0.4.6",
@@ -30,7 +30,7 @@
     "postcss-nesting": "^13.0.1",
     "postcss-scss": "^4.0.9",
     "stimulus-use": "^0.51.3",
-    "trix": "^2.1.10",
+    "trix": "^2.1.12",
     "uuid": "^11.0.3"
   },
   "version": "0.1.0",
