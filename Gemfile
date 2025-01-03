@@ -38,8 +38,8 @@ gem 'discard', '~> 1.4.0'
 
 gem 'paper_trail', '~> 16.0.0'
 gem 'ahoy_matey', '~> 5.2.1'
-gem 'sentry-ruby', '~> 5.21.0'
-gem 'sentry-rails', '~> 5.21.0'
+gem 'sentry-ruby', '~> 5.22.1'
+gem 'sentry-rails', '~> 5.22.1'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.3'
@@ -48,7 +48,7 @@ gem 'groupdate', '~> 6.5.1'
 
 gem 'faraday', '~> 2.12.2'
 gem 'faraday-retry', '~> 2.2.1'
-gem 'jwt', '~> 2.9'
+gem 'jwt', '~> 2.10'
 
 gem 'wicked_pdf', '~> 2.8.2'
 gem 'wkhtmltopdf-binary', '~> 0.12.6'
