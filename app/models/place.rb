@@ -20,6 +20,8 @@ class Place < ApplicationRecord
   has_one :new_location, dependent: :destroy, through: :transfert_out, source: :new_place
   belongs_to :organization
 
+  after_create :create_agenda
+
   enum main_contact_method: {
     phone: 0,
     email: 1
@@ -79,5 +81,9 @@ class Place < ApplicationRecord
     return true unless appointment_types.empty?
 
     errors.add(:appointment_types, I18n.t('activerecord.errors.models.place.attributes.appointment_types.empty'))
+  end
+
+  def create_agenda
+    agendas.create!(name: "Agenda #{name}")
   end
 end
