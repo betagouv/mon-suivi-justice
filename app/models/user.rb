@@ -139,7 +139,7 @@ class User < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def can_have_appointments_assigned?
-    %w[cpip psychologist overseer].include? role
+    %w[cpip psychologist overseer local_admin].include? role
   end
 
   def organizations
