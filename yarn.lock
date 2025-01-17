@@ -390,10 +390,10 @@ date-holidays-parser@^3.4.6:
     jalaali-js "^1.2.7"
     moment-timezone "^0.5.46"
 
-date-holidays@^3.23.17:
-  version "3.23.17"
-  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.23.17.tgz#766c279b17fadfd98dda523526ae0c2755524a69"
-  integrity sha512-7ugpzACGlBknYohA3oM5OO+fdN70IbBXY2pYuEzPMGCN/ovu2upKwTnUwTKrk8u6lSgpAjgNLyv5QXYDPaTjtA==
+date-holidays@^3.23.18:
+  version "3.23.18"
+  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.23.18.tgz#e8fc439b1a92280e1682fffa73d4a71bdebd88d8"
+  integrity sha512-7tiRQm81UJFkzH0EMgxadQdLbG7h7la3opfSRodETo+7D1vQwLP8H2md/oQlOd3Uol1VURHxZF4FXOL824AbUw==
   dependencies:
     date-holidays-parser "^3.4.6"
     js-yaml "^4.1.0"
@@ -1017,10 +1017,10 @@ util-deprecate@^1.0.2:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
 
-uuid@^11.0.4:
-  version "11.0.4"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.0.4.tgz#37943977894ef806d2919a7ca3f89d6e23c60bac"
-  integrity sha512-IzL6VtTTYcAhA/oghbFJ1Dkmqev+FpQWnCBaKq/gUluLxliWvO8DPFWfIviRmYbtaavtSQe4WBL++rFjdcGWEg==
+uuid@^11.0.5:
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.0.5.tgz#07b46bdfa6310c92c3fb3953a8720f170427fc62"
+  integrity sha512-508e6IcKLrhxKdBbcA2b4KQZlLVp2+J5UwQ6F7Drckkc5N9ZJwFa4TgWtsww9UG8fGHbm6gbV19TdM5pQ4GaIA==
 
 wrap-ansi@^7.0.0:
   version "7.0.0"

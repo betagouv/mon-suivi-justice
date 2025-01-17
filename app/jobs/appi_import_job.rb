@@ -82,7 +82,7 @@ class AppiImportJob < ApplicationJob
   end
 
   def staging_or_demo?
-    ENV['APP'] == 'mon-suivi-justice-staging' || ENV['APP'] == 'mon-suivi-justice-demo'
+    %w[mon-suivi-justice-staging mon-suivi-justice-demo].include?(ENV.fetch('APP', nil))
   end
 
   def anonymize(convict)
