@@ -12,7 +12,7 @@
     <% end %>
     <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
                                      method: :get,
-                                     params: { date: @selected_day, month: params[:month], agenda_id: params[:agenda_id] },
+                                     params: { date: params[:date], agenda_id: @agenda.id, place_id: @place.id },
                                      form: { target: '_blank' },
                                      class: 'fr-btn' %>
   </ul>
@@ -26,116 +26,109 @@
       <%= form_tag agenda_jap_path, method: 'post' do %>
         <div class="bex-form-input-wrapper">
           <%= label_tag 'month', 'Mois :' %>
-          <%= select_tag :month, options_for_select(formated_month_for_select(six_next_months), params[:month]),
+          <%= select_tag :date, options_for_select(formated_month_for_select(six_next_months), params[:date]),
                                   id: 'spip-appointments-month-select',
                                   class: 'fr-select',
                                   onchange: 'this.form.submit()' %>
         </div>
-        <% if !@days_with_slots_in_selected_month.empty? %>
+        <% if @agendas.count > 1 %>
           <div class="bex-form-input-wrapper">
-            <%= label_tag 'date', 'Jour :' %>
-            <%= select_tag :date, options_for_select(formated_days_for_select(@days_with_slots_in_selected_month), params[:date]),
-                                    id: 'jap-appointments-date-select',
-                                    class: 'fr-select',
-                                    onchange: 'this.form.submit()' %>
+            <%= label_tag 'agenda_id', 'Agenda :' %>
+            <%= select_tag :agenda_id, options_from_collection_for_select(@agendas, 'id', 'name', @agenda.id), class: 'fr-select', onchange: 'this.form.submit()' %>
           </div>
         <% end %>
-        <div class="bex-form-input-wrapper">
-          <%= label_tag 'agenda_id', 'Agenda :' %>
-          <%= select_tag :agenda_id, options_from_collection_for_select(@places_agendas, 'id', 'name', params[:agenda_id]), prompt: 'Tous les agendas', class: 'fr-select', onchange: 'this.form.submit()' %>
-        </div>
       <% end %>
     </div>
   </div>
-  <% if @days_with_slots_in_selected_month.empty? %>
-    <p class='bex-agenda-spip-no-agenda'>Aucun créneau pour le mois sélectionné</p>
+  <% if @agendas.empty? %>
+    <p class='bex-agenda-spip-no-agenda'><%= t('bex.jap.no_agenda_available') %></p>
   <% else %>
-    <% @agendas_to_display.each_with_index do |agenda, index| %>
-      <% unless agenda.slots_for_date(@selected_day, @appointment_type).count.zero? %>
-        <div class="fr-table fr-table--bordered fr-table--layout-fixed">
-          <table class="agenda-jap-table">
-            <caption class='jap-agenda-header<%= index+1%>'><%= agenda.name %></caption>
-            <thead>
+    <% open_days_for_the_month(@current_date).each do |day| %>
+      <% slots_for_date = @agenda.slots_for_date(day, @appointment_type) %>
+      <% next if slots_for_date.count == 0 %>
+      <div class="fr-table fr-table--bordered fr-table--layout-fixed">
+        <table class="agenda-jap-table">
+          <caption class='jap-agenda-header'><%= day.to_fs %></caption>
+          <thead>
+            <th scope="col">
+              <%= t('bex.jap.header_hour') %>
+            </th>
+            <th scope="col">
+              <%= t('activerecord.attributes.convict.name') %>
+            </th>
+            <th scope="col">
+              <%= t('bex.jap.header_prosecutor') %>
+            </th scope="col">
+            <th scope="col">
+              <%= t('bex.jap.header_origin') %>
+            </th>
+            <th scope="col">
+              <%= t('bex.jap.header_role') %>
+            </th>
+            <% @extra_fields&.each do |extra_field| %>
               <th scope="col">
-                <%= t('bex.jap.header_hour') %>
+                <%= extra_field.name %>
               </th>
-              <th scope="col">
-                <%= t('activerecord.attributes.convict.name') %>
-              </th>
-              <th scope="col">
-                <%= t('bex.jap.header_prosecutor') %>
-              </th scope="col">
-              <th scope="col">
-                <%= t('bex.jap.header_origin') %>
-              </th>
-              <th scope="col">
-                <%= t('bex.jap.header_role') %>
-              </th>
-              <% agenda.organization&.extra_fields_for_agenda&.related_to_sap&.each do |extra_field| %>
-                <th scope="col">
-                  <%= extra_field.name %>
-                </th>
-              <% end %>
-            </thead>
-            <tbody>
-              <% agenda.slots_for_date(@selected_day, @appointment_type).each do |slot| %>
-                <% appointments = slot.appointments.active %>
-                <% slot.real_capacity.times do |i| %>
-                  <tr>
-                    <td>
-                      <% if i == 0 %>
-                        <%= slot.localized_time.to_fs(:lettered) %>
-                      <% end %>
-                    </td>
-                    <td>
-                      <% if appointments[i].present? && policy(appointments[i]&.convict).show? %>
-                        <%= link_to convict_path(appointments[i]&.convict), class: 'index-control' do %>
-                          <%= appointments[i]&.convict&.name %>
-                        <% end %>
-                      <% elsif appointments[i].present? %>
+            <% end %>
+          </thead>
+          <tbody>
+            <% slots_for_date.each do |slot| %>
+              <% appointments = slot.appointments.active %>
+              <% slot.real_capacity.times do |i| %>
+                <tr>
+                  <td>
+                    <% if i == 0 %>
+                      <%= slot.localized_time.to_fs(:lettered) %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if appointments[i].present? && policy(appointments[i]&.convict).show? %>
+                      <%= link_to convict_path(appointments[i]&.convict), class: 'index-control' do %>
                         <%= appointments[i]&.convict&.name %>
                       <% end %>
-                    </td>
-                    <td>
-                      <%= appointments[i]&.prosecutor_number %>
-                    </td>
-                    <td>
-                      <% if appointments[i].present? && appointments[i].creating_organization.present? %>
-                        <%= appointments[i].creating_organization.name %>
-                      <% elsif appointments[i].present? && appointments[i].inviter_user_id.present? %>
-                        <% user = User.find(appointments[i].inviter_user_id) %>
-                        <%= user.organization.name %>
-                      <% end %>
-                    </td>
-                    <td>
-                      <% if appointments[i].present? %>
-                        <% if appointments[i].origin_department.present? %>
-                          <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
-                        <% elsif appointments[i].inviter_user_id.present? %>
-                          <% user = User.find(appointments[i].inviter_user_id) %>
-                          <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
-                        <% end %>
-                      <% end %>
-                    </td>
-                    <% agenda.organization.extra_fields_for_agenda&.related_to_sap&.each do |extra_field| %>
-                      <% if extra_field.appointment_update? && appointments[i].present? %>
-                        <th data-controller="table-update-field">
-                          <input data-table-update-field-target="inputField" data-action="table-update-field#update" data-appointment="<%= appointments[i].id %>" data-extra-field="<%= extra_field.id %>"
-                           class="fr-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" />
-                        </td>
-                      <% else %>
-                        <td>
-                          <%= display_extra_field(extra_field, appointments[i]) %>
-                        </td>
-                      <%end%>
+                    <% elsif appointments[i].present? %>
+                      <%= appointments[i]&.convict&.name %>
                     <% end %>
-                  </div>
-                <% end %>
+                  </td>
+                  <td>
+                    <%= appointments[i]&.prosecutor_number %>
+                  </td>
+                  <td>
+                    <% if appointments[i].present? && appointments[i].creating_organization.present? %>
+                      <%= appointments[i].creating_organization.name %>
+                    <% elsif appointments[i].present? && appointments[i].inviter_user_id.present? %>
+                      <% user = User.find(appointments[i].inviter_user_id) %>
+                      <%= user.organization.name %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if appointments[i].present? %>
+                      <% if appointments[i].origin_department.present? %>
+                        <%= t("activerecord.attributes.appointment.origin_departments.#{appointments[i].origin_department}") %>
+                      <% elsif appointments[i].inviter_user_id.present? %>
+                        <% user = User.find(appointments[i].inviter_user_id) %>
+                        <%= t("activerecord.attributes.user.user_roles.#{user.role}") %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                  <% @extra_fields&.each do |extra_field| %>
+                    <% if extra_field.appointment_update? && appointments[i].present? %>
+                      <th data-controller="table-update-field">
+                        <input data-table-update-field-target="inputField" data-action="table-update-field#update" data-appointment="<%= appointments[i].id %>" data-extra-field="<%= extra_field.id %>"
+                          class="fr-input" type="<%= extra_field.data_type %>" value="<%= extra_field.appointment_extra_fields_for_appointment(appointments[i].id)&.value if appointments[i].present? %>" />
+                      </td>
+                    <% else %>
+                      <td>
+                        <%= display_extra_field(extra_field, appointments[i]) %>
+                      </td>
+                    <%end%>
+                  <% end %>
+                </div>
               <% end %>
-            </tbody>
-          </table>
-        </div>
-      <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     <% end %>
   <% end %>
 </div>

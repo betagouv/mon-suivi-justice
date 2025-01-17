@@ -6,15 +6,14 @@ class BexController < ApplicationController
 
   def agenda_jap
     authorize Appointment
-    get_jap_agendas(@appointment_type, params)
-
-    @days_with_slots_in_selected_month = days_with_slots(@appointment_type, params[:month])
-    @selected_day = selected_day(@days_with_slots_in_selected_month, params)
+    @current_date = current_date(@appointment_type, params)
+    get_places_and_agendas(@appointment_type, params)
+    @extra_fields = @agenda&.organization&.extra_fields_for_agenda&.includes(:appointment_types)&.related_to_sap
 
     respond_to do |format|
       format.html
       format.pdf do
-        render template: 'bex/agenda_jap_pdf', locals: { date: @selected_day },
+        render template: 'bex/agenda_jap_pdf', locals: { date: @current_date },
                pdf: "Agenda sortie d'audience JAP", footer: { right: '[page]/[topage]' },
                orientation: 'Landscape', formats: [:html]
       end
