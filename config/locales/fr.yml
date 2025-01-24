@@ -26,8 +26,6 @@ fr:
         date_of_birth: Date de naissance
         first_name: Prénom
         homeless: SDF
-        invite_convict: Inviter à l'interface probationnaire (effectif seulement si
-          numéro de téléphone renseigné)
         last_name: Nom
         lives_abroad: Habite à l'étranger
         name: Nom
@@ -394,20 +392,6 @@ fr:
   convicts:
     create:
       notice: Le probationnaire a bien été créé.
-    invitation_card:
-      accepted: Accepté
-      cannot_invite: Impossible d'inviter ce probationnaire
-      cannot_invite_reason: Il n'a pas renseigné de numéro de téléphone ou ne souhaite
-        pas recevoir de SMS
-      interface_access_timestamp: Date d'acceptation
-      interface_invitation_state: État de l'invitation
-      interface_no_access: Aucun accès pour l'instant
-      invite: Inviter à son espace
-      invited: Invité le %{last_invite}
-      not_invited: Jamais invité
-      reinvite: Relancer l'invitation
-      reinvited: Relancé le %{last_invite}
-      title: Espace probationnaire
     self_assign:
       notice: Le probationnaire vous a bien été attribué.
     set_inter_ressort_flashes:
