@@ -892,9 +892,6 @@ fr:
     modal_bug: Pour signaler un bug, merci de décrire avec précision les dernières
       actions qui ont menée au bug. Une capture d'écran du problème est également
       très utile.
-    modal_evolution: Pour demander une évolution, n'hésitez pas à entrer dans les
-      détails. Dites-nous quel est votre poste et quelle partie du processus vous
-      souhaitez changer.
     modal_text_1: 'En cas de question, n’hésitez pas à consulter '
     modal_text_2: notre site d’information.
     modal_text_3: 'Si cela ne répond pas à votre besoin, n’hésitez pas à contacter

@@ -7,18 +7,17 @@
       <main class="modal__content support-modal-content" id="modal-2-content">
         <p class='support-modal-title'><%= t('support.modal_title') %></p>
         <p class='support-modal-text'><%= t('support.modal_text_1') %>
-        <%= link_to 'https://decouvrir.mon-suivi-justice.beta.gouv.fr/', target: '_blank' do %>
-          <%= t('support.modal_text_2') %>
-        <% end %>
-        <p class='support-modal-text'><%= t('support.modal_text_3') %></p>
-        <%= mail_to ENV['SUPPORT_EMAIL_ADRESS'], ENV['SUPPORT_EMAIL_ADRESS'], class: 'support-modal-email' %>
-        <p class='support-modal-warning'><%= t('support.modal_warning') %></p>
-        <ul class='support-modal-list'>
-          <li class='support-modal-bug'><%= t('support.modal_bug') %></li>
-          <li class='support-modal-evolution'><%= t('support.modal_evolution') %></li>
-        </ul>
-        <p class='support-modal-thanks'><%= t('support.modal_thanks') %></p>
-      </main>
+          <%= link_to 'https://decouvrir.mon-suivi-justice.beta.gouv.fr/', target: '_blank' do %>
+            <%= t('support.modal_text_2') %>
+          <% end %>
+          <p class='support-modal-text'><%= t('support.modal_text_3') %></p>
+          <%= mail_to ENV['SUPPORT_EMAIL_ADRESS'], ENV['SUPPORT_EMAIL_ADRESS'], class: 'support-modal-email' %>
+          <p class='support-modal-warning'><%= t('support.modal_warning') %></p>
+          <ul class='support-modal-list'>
+            <li class='support-modal-bug'><%= t('support.modal_bug') %></li>
+          </ul>
+          <p class='support-modal-thanks'><%= t('support.modal_thanks') %></p>
+        </main>
+      </div>
     </div>
   </div>
-</div>
