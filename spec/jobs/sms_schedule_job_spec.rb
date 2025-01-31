@@ -6,9 +6,9 @@ RSpec.describe SmsScheduleJob, type: :job do
 
     let!(:notification_ready) { create(:notification, delivery_time: current_time, state: 'created') }
 
-    let!(:notification_past) { create(:notification, delivery_time: 2.minutes.ago, state: 'created') }
+    let!(:notification_past) { create(:notification, delivery_time: 2.hours.ago, state: 'created') }
 
-    let!(:notification_future) { create(:notification, delivery_time: 2.minutes.from_now, state: 'created') }
+    let!(:notification_future) { create(:notification, delivery_time: 2.hours.from_now, state: 'created') }
 
     let!(:notification_sent) { create(:notification, delivery_time: current_time, state: 'sent', external_id: '123') }
 
