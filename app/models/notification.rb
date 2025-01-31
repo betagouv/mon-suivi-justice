@@ -46,7 +46,7 @@ class Notification < ApplicationRecord
   scope :retryable, -> { where(failed_count: 0..4) }
 
   scope :ready_to_send, lambda {
-    where(delivery_time: 1.hour.ago..1.hour.from_now, state: 'created')
+    where(delivery_time: 1.minute.ago..1.minute.from_now, state: 'created')
   }
 
   state_machine initial: :created do
