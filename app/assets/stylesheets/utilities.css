@@ -36,3 +36,6 @@
   hyphens: auto;
 }
 
+.white-space-normal {
+  white-space: normal !important;
+}

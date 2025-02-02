@@ -60,32 +60,32 @@
           <table>
             <thead>
               <tr>
-                <th scope="col"></th>
-                <th scope="col"><%= t('activerecord.attributes.slot.place') %></th>
-                <th scope="col"><%= t('activerecord.models.agenda') %></th>
-                <th scope="col"><%= t('activerecord.attributes.slot.appointment_type') %></th>
-                <th scope="col"><%= t('activerecord.attributes.slot.date') %></th>
-                <th scope="col"><%= t('activerecord.attributes.slot.starting_time') %></th>
-                <th scope="col"><%= t('index-slots-available-capacity') %></th>
-                <th scope="col"></th>
+                <th scope="col white-space-normal"></th>
+                <th scope="col white-space-normal"><%= t('activerecord.attributes.slot.place') %></th>
+                <th scope="col white-space-normal"><%= t('activerecord.models.agenda') %></th>
+                <th scope="col white-space-normal"><%= t('activerecord.attributes.slot.appointment_type') %></th>
+                <th scope="col white-space-normal"><%= t('activerecord.attributes.slot.date') %></th>
+                <th scope="col white-space-normal"><%= t('activerecord.attributes.slot.starting_time') %></th>
+                <th scope="col white-space-normal"><%= t('index-slots-available-capacity') %></th>
+                <th scope="col white-space-normal"></th>
               </tr>
             </thead>
             <tbody>
               <% @slots.each do |slot| %>
                 <tr>
-                  <td>
+                  <td class="white-space-normal">
                     <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center">
                       <% if policy(slot).update? %>
                         <%= check_box_tag "slot_ids[]", slot.id, false, id: "slot_#{slot.id}" %>
                       <% end %>
                     </div>
                   </td>
-                  <td><%= slot.agenda.place.name %></td>
-                  <td><%= slot.agenda.name %></td>
-                  <td><%= slot.appointment_type.name %></td>
-                  <td><%= slot.date.to_fs(:base_date_format) %></td>
-                  <td><%= slot.localized_time.to_fs(:time) %></td>
-                  <td>
+                  <td class="white-space-normal"><%= slot.agenda.place.name %></td>
+                  <td class="white-space-normal"><%= slot.agenda.name %></td>
+                  <td class="white-space-normal"><%= slot.appointment_type.name %></td>
+                  <td class="white-space-normal"><%= slot.date.to_fs(:base_date_format) %></td>
+                  <td class="white-space-normal"><%= slot.localized_time.to_fs(:time) %></td>
+                  <td class="white-space-normal">
                     <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center fr-grid-row--gutters">
                       <div class="col-fr">
                         <span>
@@ -94,7 +94,7 @@
                       </div>
                     </div>
                   </td>
-                  <td>
+                  <td class="white-space-normal">
                     <div class="fr-grid-row fr-grid-row--middle fr-grid-row--center">
                       <% if policy(slot).update? %>
                         <%= link_to t('close'), slot_path(slot, slot: { available: false }),
