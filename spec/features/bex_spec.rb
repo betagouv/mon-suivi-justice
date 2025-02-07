@@ -9,6 +9,7 @@ RSpec.feature 'Bex', type: :feature do
       convict2 = create(:convict, first_name: 'Lex', last_name: 'Luthor', organizations: [@user.organization])
       convict3 = create(:convict, first_name: 'Pat', last_name: 'Hibulaire', organizations: [@user.organization])
       convict4 = create(:convict, first_name: 'Darth', last_name: 'Vador', organizations: [@user.organization])
+      convict5 = create(:convict, first_name: 'Un', last_name: 'Intrus', organizations: [@user.organization])
 
       apt_type = create(:appointment_type, name: "Sortie d'audience SAP")
       apt_type2 = create(:appointment_type, name: 'Convocation de suivi JAP')
@@ -24,29 +25,34 @@ RSpec.feature 'Bex', type: :feature do
 
       slot1 = create(:slot, :without_validations, agenda: agenda1,
                                                   appointment_type: apt_type,
-                                                  date: next_valid_day(day: :friday),
+                                                  date: next_valid_day(day: :tuesday),
                                                   starting_time: '10h')
 
-      slot2 = create(:slot, :without_validations, agenda: agenda2,
+      slot2 = create(:slot, :without_validations, agenda: agenda1,
                                                   appointment_type: apt_type,
                                                   date: next_valid_day(day: :friday),
                                                   starting_time: '17h',
                                                   capacity: 2)
 
       slot3 = create(:slot, :without_validations, agenda: agenda2,
-                                                  appointment_type: apt_type2,
+                                                  appointment_type: apt_type,
                                                   date: next_valid_day(day: :friday),
                                                   starting_time: '12h',
                                                   capacity: 2)
 
-      slot4 = create(:slot, :without_validations, agenda: agenda3,
+      slot4 = create(:slot, :without_validations, agenda: agenda2,
+                                                  appointment_type: apt_type,
+                                                  date: next_valid_day(day: :monday),
+                                                  starting_time: '12h',
+                                                  capacity: 2)
+
+      slot5 = create(:slot, :without_validations, agenda: agenda3,
                                                   appointment_type: apt_type2,
-                                                  date: next_valid_day(day: :friday),
+                                                  date: next_valid_day(day: :monday),
                                                   starting_time: '12h',
                                                   capacity: 2)
 
       month = (I18n.l slot1.date, format: '%B %Y').capitalize
-      current_date = (I18n.l slot1.date, format: '%A %d').capitalize
 
       create(:appointment, slot: slot1, convict: convict1, prosecutor_number: '203204',
                            inviter_user_id: @user.id)
@@ -58,33 +64,51 @@ RSpec.feature 'Bex', type: :feature do
                            inviter_user_id: @user.id)
       create(:appointment, slot: slot4, convict: convict2, prosecutor_number: '205206',
                            inviter_user_id: @user.id)
+      create(:appointment, slot: slot5, convict: convict5, prosecutor_number: '205306',
+                           inviter_user_id: @user.id)
 
       visit agenda_jap_path
-
       select month, from: :month
-      select current_date, from: :date
 
       expect(page).to have_current_path(agenda_jap_path)
 
-      agenda_containers = page.all('.fr-table', minimum: 2)
+      date_containers = page.all('.fr-table', minimum: 2)
 
-      expect(agenda_containers[0]).to have_content('Cabinet Bleu')
-      expect(agenda_containers[0]).to have_content('James')
-      expect(agenda_containers[0]).to have_content('MORIARTY')
-      expect(agenda_containers[0]).to have_content('203204')
+      expect(date_containers[0]).to have_content('James')
+      expect(date_containers[0]).to have_content('MORIARTY')
+      expect(date_containers[0]).to have_content('203204')
 
-      expect(agenda_containers[1]).to have_content('Cabinet Rouge')
-      expect(agenda_containers[1]).to have_content('Lex')
-      expect(agenda_containers[1]).to have_content('LUTHOR')
-      expect(agenda_containers[1]).to have_content('205206')
+      expect(date_containers[1]).to have_content('Lex')
+      expect(date_containers[1]).to have_content('LUTHOR')
+      expect(date_containers[1]).to have_content('205206')
 
-      expect(agenda_containers[1]).to have_content('Pat')
-      expect(agenda_containers[1]).to have_content('HIBULAIRE')
-      expect(agenda_containers[1]).to have_content('205806')
+      expect(date_containers[1]).to have_content('Pat')
+      expect(date_containers[1]).to have_content('HIBULAIRE')
+      expect(date_containers[1]).to have_content('205806')
 
-      expect(page).not_to have_content('Darth')
-      expect(page).not_to have_content('Vador')
-      expect(page).not_to have_content('Cabinet Jaune')
+      expect(date_containers).not_to have_content('Darth')
+      expect(date_containers).not_to have_content('Vador')
+
+      expect(page).not_to have_content('Un')
+      expect(page).not_to have_content('Intrus')
+
+      # Test on the second agenda
+      select agenda2.name, from: :agenda_id
+      page.execute_script("$('#agenda_id').trigger('change')")
+
+      date_containers2 = page.all('.fr-table', minimum: 2)
+
+      expect(date_containers2[1]).to have_content('VADOR')
+      expect(date_containers2[1]).to have_content('Darth')
+      expect(date_containers2[1]).to have_content('205896')
+
+      expect(date_containers2[0]).to have_content('LUTHOR')
+      expect(date_containers2[0]).to have_content('Lex')
+      expect(date_containers2[0]).to have_content('205206')
+      
+      expect(page).not_to have_content('Un')
+      expect(page).not_to have_content('Intrus')
+
     end
   end
 

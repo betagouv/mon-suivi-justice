@@ -1,11 +1,14 @@
 <%= image_tag wicked_pdf_asset_base64('logo_msj.svg') %>
 <h1 class='pdf-bex-title'><%= t('pdf.bex-jap.title') %></h1>
-<div class='bex-agenda-date'><%= date %></div>
-<% @agendas_to_display.each_with_index do |agenda, index| %>
-  <% unless agenda.slots_for_date(@selected_day, @appointment_type).count.zero? %>
-    <div class='bex-agenda-header jap-agenda-header<%= index+1%>'>
+<div class='bex-agenda-date'><%= (I18n.l date, format: '%B %Y').capitalize %> - <%= @place.name %> - <%= @agenda.name %></div>
+<% if @agenda.nil? %>
+  <p class='bex-agenda-spip-no-agenda'><%= t('bex.jap.no_agenda_available') %></p>
+<% else %>
+  <% open_days_for_the_month(@current_date).each do |day| %>
+    <% next if @agenda.slots_for_date(day, @appointment_type).count == 0 %>
+    <div class='bex-agenda-header jap-agenda-header'>
       <div class='bex-agenda-header-title'>
-        <%= agenda.name %>
+        <%= day %>
       </div>
     </div>
     <div class='bex-agenda-container'>
@@ -26,13 +29,13 @@
           <div class='bex-agenda-header-title bex-agenda-column'>
             <%= t('bex.jap.header_role') %>
           </div>
-          <% agenda.organization&.extra_fields_for_agenda&.related_to_sap&.each do |extra_field| %>
+          <% @extra_fields.each do |extra_field| %>
             <div class='bex-agenda-header-title bex-agenda-column'>
               <%= extra_field.name %>
             </div>
           <% end %>
         </div>
-        <% agenda.slots_for_date(@selected_day, @appointment_type).each do |slot| %>
+        <% @agenda.slots_for_date(day, @appointment_type).each do |slot| %>
           <% appointments = slot.appointments.active %>
           <% slot.real_capacity.times do |i| %>
             <div class='bex-agenda-line'>
@@ -65,7 +68,7 @@
                   <% end %>
                 <% end %>
               </div>
-              <% agenda.organization.extra_fields_for_agenda&.related_to_sap&.each do |extra_field| %>
+              <% @extra_fields.each do |extra_field| %>
                 <div class="bex-agenda-column">
                   <%= display_extra_field(extra_field, appointments[i]) %>
                 </div>
