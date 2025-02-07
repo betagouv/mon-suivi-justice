@@ -376,10 +376,10 @@ date-easter@^1.0.3:
   resolved "https://registry.yarnpkg.com/date-easter/-/date-easter-1.0.3.tgz#b7e01f2d2b7cabd9451f8dd09377f76b8de46442"
   integrity sha512-aOViyIgpM4W0OWUiLqivznwTtuMlD/rdUWhc5IatYnplhPiWrLv75cnifaKYhmQwUBLAMWLNG4/9mlLIbXoGBQ==
 
-date-holidays-parser@^3.4.6:
-  version "3.4.6"
-  resolved "https://registry.yarnpkg.com/date-holidays-parser/-/date-holidays-parser-3.4.6.tgz#299f128376b4c1a265fb9dec39298ce5908d6d4f"
-  integrity sha512-qTuO7061IOyOAafjuKJIld4pBe5BhjdKyAayUgoYBaB+7aFnsdraeDLBS0WJpCALcw/RqyG8emoFuSgirW+c7w==
+date-holidays-parser@^3.4.7:
+  version "3.4.7"
+  resolved "https://registry.yarnpkg.com/date-holidays-parser/-/date-holidays-parser-3.4.7.tgz#301b32a83e8ca7b658e7d490a3ca27f2bfdb2c6e"
+  integrity sha512-h09ZEtM6u5cYM6m1bX+1Ny9f+nLO9KVZUKNPEnH7lhbXYTfqZogaGTnhONswGeIJFF91UImIftS3CdM9HLW5oQ==
   dependencies:
     astronomia "^4.1.1"
     caldate "^2.0.5"
@@ -388,14 +388,14 @@ date-holidays-parser@^3.4.6:
     date-easter "^1.0.3"
     deepmerge "^4.3.1"
     jalaali-js "^1.2.7"
-    moment-timezone "^0.5.46"
+    moment-timezone "^0.5.47"
 
-date-holidays@^3.23.18:
-  version "3.23.18"
-  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.23.18.tgz#e8fc439b1a92280e1682fffa73d4a71bdebd88d8"
-  integrity sha512-7tiRQm81UJFkzH0EMgxadQdLbG7h7la3opfSRodETo+7D1vQwLP8H2md/oQlOd3Uol1VURHxZF4FXOL824AbUw==
+date-holidays@^3.23.20:
+  version "3.23.20"
+  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.23.20.tgz#98098c8e325d3fec5b19f78c8e663551630facc6"
+  integrity sha512-lRJ91UNeSxdAZk66+RZtNx2ilqy00cgH6vtaq2+9NhjKUzCBd4ODXAMNhxslUyOXFi/8M9rey/ybD233ftmx3A==
   dependencies:
-    date-holidays-parser "^3.4.6"
+    date-holidays-parser "^3.4.7"
     js-yaml "^4.1.0"
     lodash "^4.17.21"
     prepin "^1.0.3"
@@ -680,10 +680,10 @@ moment-timezone@^0.5.43:
   dependencies:
     moment "^2.29.4"
 
-moment-timezone@^0.5.46:
-  version "0.5.46"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.46.tgz#a21aa6392b3c6b3ed916cd5e95858a28d893704a"
-  integrity sha512-ZXm9b36esbe7OmdABqIWJuBBiLLwAjrN7CE+7sYdCCx82Nabt1wHDj8TVseS59QIlfFPbOoiBPm6ca9BioG4hw==
+moment-timezone@^0.5.47:
+  version "0.5.47"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.47.tgz#d4d1a21b78372d914d6d69ae285454732a429749"
+  integrity sha512-UbNt/JAWS0m/NJOebR0QMRHBk0hu03r5dx9GK8Cs0AS3I81yDcOc9k+DytPItgVvBP7J6Mf6U2n3BPAacAV9oA==
   dependencies:
     moment "^2.29.4"
 
