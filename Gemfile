@@ -5,7 +5,7 @@ ruby '3.3.2'
 gem 'rails', '~> 7.1.5'
 
 gem 'pg', '~> 1.5.9'
-gem 'puma', '~> 6.5.0'
+gem 'puma', '~> 6.6.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
 
@@ -37,7 +37,7 @@ gem 'holidays', '~> 8.8.0'
 gem 'discard', '~> 1.4.0'
 
 gem 'paper_trail', '~> 16.0.0'
-gem 'ahoy_matey', '~> 5.2.1'
+gem 'ahoy_matey', '~> 5.3.0'
 gem 'sentry-ruby', '~> 5.22.1'
 gem 'sentry-rails', '~> 5.22.3'
 gem 'ruby-progressbar', '~> 1.13.0'
