@@ -10,11 +10,13 @@
         <%= render partial: 'shared/jap_agendas_modal', locals: { jap_modal_content: current_user.organization.jap_modal_content } %>
       <% end %>
     <% end %>
-    <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
+    <% if !@agenda.nil? %>
+      <%= button_to t('print_button'), agenda_jap_path(format: :pdf),
                                      method: :get,
-                                     params: { date: params[:date], agenda_id: @agenda.id, place_id: @place.id },
+                                     params: { date: params[:date], agenda_id: @agenda.id, place_id: @place.id }, 
                                      form: { target: '_blank' },
                                      class: 'fr-btn' %>
+    <% end %>
   </ul>
 </div>
 <div>
@@ -26,7 +28,7 @@
       <%= form_tag agenda_jap_path, method: 'post' do %>
         <div class="bex-form-input-wrapper">
           <%= label_tag 'month', 'Mois :' %>
-          <%= select_tag :date, options_for_select(formated_month_for_select(six_next_months), params[:date]),
+          <%= select_tag :month, options_for_select(formated_month_for_select(six_next_months), params[:date]),
                                   id: 'spip-appointments-month-select',
                                   class: 'fr-select',
                                   onchange: 'this.form.submit()' %>
