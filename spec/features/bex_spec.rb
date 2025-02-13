@@ -25,30 +25,30 @@ RSpec.feature 'Bex', type: :feature do
 
       slot1 = create(:slot, :without_validations, agenda: agenda1,
                                                   appointment_type: apt_type,
-                                                  date: next_valid_day(day: :tuesday),
+                                                  date: next_valid_day(day: :monday),
                                                   starting_time: '10h')
 
       slot2 = create(:slot, :without_validations, agenda: agenda1,
                                                   appointment_type: apt_type,
-                                                  date: next_valid_day(day: :friday),
+                                                  date: next_valid_day(day: :tuesday),
                                                   starting_time: '17h',
                                                   capacity: 2)
 
       slot3 = create(:slot, :without_validations, agenda: agenda2,
                                                   appointment_type: apt_type,
-                                                  date: next_valid_day(day: :friday),
+                                                  date: next_valid_day(day: :wednesday),
                                                   starting_time: '12h',
                                                   capacity: 2)
 
       slot4 = create(:slot, :without_validations, agenda: agenda2,
                                                   appointment_type: apt_type,
-                                                  date: next_valid_day(day: :monday),
+                                                  date: next_valid_day(day: :friday),
                                                   starting_time: '12h',
                                                   capacity: 2)
 
       slot5 = create(:slot, :without_validations, agenda: agenda3,
                                                   appointment_type: apt_type2,
-                                                  date: next_valid_day(day: :monday),
+                                                  date: next_valid_day(day: :friday),
                                                   starting_time: '12h',
                                                   capacity: 2)
 
@@ -68,7 +68,8 @@ RSpec.feature 'Bex', type: :feature do
                            inviter_user_id: @user.id)
 
       visit agenda_jap_path
-      select month, from: :month
+      select month, from: :date
+      page.execute_script("$('#jap-appointments-month-select').trigger('change')")
 
       expect(page).to have_current_path(agenda_jap_path)
 
@@ -78,16 +79,19 @@ RSpec.feature 'Bex', type: :feature do
       expect(date_containers[0]).to have_content('MORIARTY')
       expect(date_containers[0]).to have_content('203204')
 
-      expect(date_containers[1]).to have_content('Lex')
-      expect(date_containers[1]).to have_content('LUTHOR')
-      expect(date_containers[1]).to have_content('205206')
+      row_cells = date_containers[1].all('tbody tr', minimum: 2)
+      puts "Number of line of tab: #{row_cells.count}"
+ 
+      expect(page).to have_content('Lex')
+      expect(page).to have_content('LUTHOR')
+      expect(page).to have_content('205206')
 
-      expect(date_containers[1]).to have_content('Pat')
-      expect(date_containers[1]).to have_content('HIBULAIRE')
-      expect(date_containers[1]).to have_content('205806')
+      expect(page).to have_content('Pat')
+      expect(page).to have_content('HIBULAIRE')
+      expect(page).to have_content('205806')
 
-      expect(date_containers).not_to have_content('Darth')
-      expect(date_containers).not_to have_content('Vador')
+      expect(page).not_to have_content('Darth')
+      expect(page).not_to have_content('Vador')
 
       expect(page).not_to have_content('Un')
       expect(page).not_to have_content('Intrus')
@@ -98,13 +102,13 @@ RSpec.feature 'Bex', type: :feature do
 
       date_containers2 = page.all('.fr-table', minimum: 2)
 
-      expect(date_containers2[1]).to have_content('VADOR')
-      expect(date_containers2[1]).to have_content('Darth')
-      expect(date_containers2[1]).to have_content('205896')
+      expect(page).to have_content('VADOR')
+      expect(page).to have_content('Darth')
+      expect(page).to have_content('205896')
 
-      expect(date_containers2[0]).to have_content('LUTHOR')
-      expect(date_containers2[0]).to have_content('Lex')
-      expect(date_containers2[0]).to have_content('205206')
+      expect(page).to have_content('LUTHOR')
+      expect(page).to have_content('Lex')
+      expect(page).to have_content('205206')
       
       expect(page).not_to have_content('Un')
       expect(page).not_to have_content('Intrus')

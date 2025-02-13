@@ -28,8 +28,8 @@
       <%= form_tag agenda_jap_path, method: 'post' do %>
         <div class="bex-form-input-wrapper">
           <%= label_tag 'month', 'Mois :' %>
-          <%= select_tag :month, options_for_select(formated_month_for_select(six_next_months), params[:date]),
-                                  id: 'spip-appointments-month-select',
+          <%= select_tag :date, options_for_select(formated_month_for_select(six_next_months), params[:date]),
+                                  id: 'jap-appointments-month-select',
                                   class: 'fr-select',
                                   onchange: 'this.form.submit()' %>
         </div>
