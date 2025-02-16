@@ -101,8 +101,6 @@ RSpec.feature 'Bex', type: :feature do
       select agenda2.name, from: :agenda_id
       page.execute_script("$('#agenda_id').trigger('change')")
 
-      date_containers2 = page.all('.fr-table', minimum: 2)
-
       expect(page).to have_content('VADOR')
       expect(page).to have_content('Darth')
       expect(page).to have_content('205896')
