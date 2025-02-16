@@ -79,9 +79,10 @@ RSpec.feature 'Bex', type: :feature do
       expect(date_containers[0]).to have_content('MORIARTY')
       expect(date_containers[0]).to have_content('203204')
 
-      row_cells = date_containers[1].all('tbody tr', minimum: 2)
+      expect(page).to have_selector('.fr-table:nth-of-type(2) tbody tr', minimum: 2, wait: 10)
+      row_cells = page.all('.fr-table:nth-of-type(2) tbody tr')
       puts "Number of line of tab: #{row_cells.count}"
- 
+
       expect(page).to have_content('Lex')
       expect(page).to have_content('LUTHOR')
       expect(page).to have_content('205206')
@@ -109,10 +110,9 @@ RSpec.feature 'Bex', type: :feature do
       expect(page).to have_content('LUTHOR')
       expect(page).to have_content('Lex')
       expect(page).to have_content('205206')
-      
+
       expect(page).not_to have_content('Un')
       expect(page).not_to have_content('Intrus')
-
     end
   end
 
