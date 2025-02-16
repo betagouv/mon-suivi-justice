@@ -12,7 +12,7 @@ module ConvictsHelper
   end
 
   def cpip_for_select(organization)
-    User.in_organization(organization).where(role: %w[cpip dpip])
+    User.in_organization(organization).where(role: %w[cpip dpip local_admin])
   end
 
   def ir_available_services(convict)
