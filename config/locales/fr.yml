@@ -384,11 +384,6 @@ fr:
   close: Fermer
   contact: Contacter l'équipe
   continue: Continuer
-  convict_invitations:
-    create:
-      invitation_pending: L'invitation est en cours d'envoi au probationnaire. Rafraîchir
-        la page pour actualiser le statut.
-      invitation_sent: L'invitation a été envoyée au probationnaire
   convicts:
     create:
       notice: Le probationnaire a bien été créé.

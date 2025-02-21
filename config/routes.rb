@@ -67,7 +67,6 @@ Rails.application.routes.draw do
     post 'unarchive'
     post 'self_assign'
     post 'unassign'
-    resource :invitation, only: :create, controller: 'convict_invitations'
     member do
       patch :accept_phone
     end
@@ -142,15 +141,6 @@ Rails.application.routes.draw do
 
   authenticated :user do
     root 'home#home', as: :authenticated_root
-  end
-
-  namespace :api, defaults: {format: "json"} do
-    namespace :v1 do
-      resources :convicts, only: :show do
-        get 'cpip'
-        resource :invitation, only: :update, controller: 'convict_invitations'
-      end
-    end
   end
 
   resources :user_user_alerts, only: [] do
