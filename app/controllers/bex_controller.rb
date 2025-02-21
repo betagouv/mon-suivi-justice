@@ -6,15 +6,14 @@ class BexController < ApplicationController
 
   def agenda_jap
     authorize Appointment
-    get_jap_agendas(@appointment_type, params)
-
-    @days_with_slots_in_selected_month = days_with_slots(@appointment_type, params[:month])
-    @selected_day = selected_day(@days_with_slots_in_selected_month, params)
+    @current_date = current_date(@appointment_type, params)
+    get_places_and_agendas(@appointment_type, params)
+    @extra_fields = @agenda&.organization&.extra_fields_for_agenda&.includes(:appointment_types)&.related_to_sap  # rubocop:disable Style/SafeNavigationChainLength
 
     respond_to do |format|
       format.html
       format.pdf do
-        render template: 'bex/agenda_jap_pdf', locals: { date: @selected_day },
+        render template: 'bex/agenda_jap_pdf', locals: { date: @current_date },
                pdf: "Agenda sortie d'audience JAP", footer: { right: '[page]/[topage]' },
                orientation: 'Landscape', formats: [:html]
       end
@@ -74,13 +73,6 @@ class BexController < ApplicationController
 
   def places(appointment_type)
     place_policy_scope_for_bex.kept.joins(:appointment_types).where(appointment_types: appointment_type)
-  end
-
-  def get_jap_agendas(appointment_type, params)
-    @places_agendas = policy_scope(Agenda).includes(:place).where(place: places(appointment_type))
-                                          .with_open_slots(appointment_type).sort_by(&:name)
-    @selected_agenda = Agenda.find(params[:agenda_id]) unless params[:agenda_id].blank?
-    @agendas_to_display = @selected_agenda.nil? ? @places_agendas : [@selected_agenda]
   end
 
   def get_places_and_agendas(appointment_type, params) # rubocop:disable Metrics/AbcSize

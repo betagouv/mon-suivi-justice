@@ -100,12 +100,10 @@ RSpec.feature 'ExtraFields', type: :feature, js: true do
       login_as(orga_a_bex_user)
 
       month = (I18n.l slot_a.date, format: '%B %Y').capitalize
-      current_date = (I18n.l slot_a.date, format: '%A %d').capitalize
 
       visit agenda_jap_path
 
-      select month, from: :month
-      select current_date, from: :date
+      select month, from: :date
 
       expect(page).to have_selector('th', text: extra_field_a.name)
       expect(page).to have_selector('td', text: AppointmentExtraField.last.value)
