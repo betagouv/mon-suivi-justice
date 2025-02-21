@@ -20,8 +20,8 @@ class ApplicationController < ActionController::Base
       'authentication'
     elsif params[:controller] == 'errors'
       'application'
-    elsif params[:controller] == 'unsubscribe'
-      'unsubscribe_interface'
+    elsif %w[unsubscribe public_pages].include?(params[:controller])
+      'public_pages'
     else
       'agent_interface'
     end
@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
   private
 
   def skip_pundit?
-    devise_controller?
+    devise_controller? || %w[public_pages].include?(params[:controller])
   end
 
   def track_action
