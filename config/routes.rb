@@ -1,4 +1,3 @@
-
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
@@ -136,6 +135,8 @@ Rails.application.routes.draw do
       root to: "devise/sessions#new"
     end
   end
+
+  get '/convict_interface', to: 'public_pages#convict_interface'
 
   authenticated :user do
     root 'home#home', as: :authenticated_root
