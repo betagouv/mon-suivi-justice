@@ -370,11 +370,12 @@ fr:
   basic_confirmation: Êtes-vous sûr?
   bex:
     jap:
-      agendas_title: Agenda Sortie d'audience JAP pour le
+      agendas_title: Agenda Sortie d'audience JAP pour
       header_hour: Heure
       header_origin: Service d'origine
       header_prosecutor: N° parquet
       header_role: Rôle
+      no_agenda_available: Aucun créneau pour le mois sélectionné
     sap_ddse:
       appointments_title: Convocation SAP DDSE pour
       no_agenda_available: Pas de convocation SAP DDSE prévue

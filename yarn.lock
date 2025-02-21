@@ -390,10 +390,10 @@ date-holidays-parser@^3.4.7:
     jalaali-js "^1.2.7"
     moment-timezone "^0.5.47"
 
-date-holidays@^3.23.21:
-  version "3.23.21"
-  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.23.21.tgz#13b7a061daf3c54cf7e53bfcbc0a6dc7042ccdf7"
-  integrity sha512-FAsCIkKfnsRGhiHW0AR4ngu3E6cMU9nZ7pjLOGWpV2GjqiHulvpLdOEWDdtf21me2g2GPPONNlrhfxt+qBbIYA==
+date-holidays@^3.23.22:
+  version "3.23.22"
+  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.23.22.tgz#01077223527999133e341bf4405ababa03a817ce"
+  integrity sha512-zgsDucVNAYns+iH8bb2nXSfMzYHDwIJF/BlXILmxMjubdys/X5bvzwfcgZYtHAyug+6T2k/bDnqoYrumtrekAg==
   dependencies:
     date-holidays-parser "^3.4.7"
     js-yaml "^4.1.0"
@@ -411,9 +411,9 @@ dependency-graph@^0.11.0:
   integrity sha512-JeMq7fEshyepOWDfcfHK06N3MhyPhz++vtqWhMT5O9A3K42rdsEDpfdVqjaqaAhsw6a+ZqeDvQVtD0hFHQWrzg==
 
 dompurify@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.2.3.tgz#05dd2175225324daabfca6603055a09b2382a4cd"
-  integrity sha512-U1U5Hzc2MO0oW3DF+G9qYN0aT7atAou4AgI0XjWz061nyBPbdxkfdhfy5uMgGn6+oLFCfn44ZGbdDqCzVmlOWA==
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.2.4.tgz#af5a5a11407524431456cf18836c55d13441cd8e"
+  integrity sha512-ysFSFEDVduQpyhzAob/kkuJjf5zWkZD8/A9ywSp1byueyuCfHamrCBa14/Oc2iiB0e51B+NpxSl5gmzn+Ms/mg==
   optionalDependencies:
     "@types/trusted-types" "^2.0.7"
 
@@ -855,10 +855,10 @@ postcss-value-parser@^4.0.0, postcss-value-parser@^4.2.0:
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz#723c09920836ba6d3e5af019f92bc0971c02e514"
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
-postcss@^8.4.35, postcss@^8.5.1:
-  version "8.5.1"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.1.tgz#e2272a1f8a807fafa413218245630b5db10a3214"
-  integrity sha512-6oz2beyjc5VMn/KV1pPw8fliQkhBXrVn1Z3TVyqZxU8kZpzEKhBdmCFqI6ZbmGtamQvQGuU1sgPTk8ZrXDD7jQ==
+postcss@^8.4.35, postcss@^8.5.2:
+  version "8.5.2"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.2.tgz#e7b99cb9d2ec3e8dd424002e7c16517cb2b846bd"
+  integrity sha512-MjOadfU3Ys9KYoX0AdkBlFEF1Vx37uCCeN4ZHnmwm9FfpbsGWMZeBLMmmpY+6Ocqod7mkdZ0DT31OlbsFrLlkA==
   dependencies:
     nanoid "^3.3.8"
     picocolors "^1.1.1"

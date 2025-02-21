@@ -29,7 +29,7 @@ gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
 gem 'dotenv-rails', '~> 3.1.7'
-gem 'sidekiq', '~> 7.3.8'
+gem 'sidekiq', '~> 7.3.9'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
 
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.2.1'
-  gem 'rubocop', '~> 1.71', require: false
+  gem 'rubocop', '~> 1.72', require: false
   gem 'brakeman', '~> 7.0'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
