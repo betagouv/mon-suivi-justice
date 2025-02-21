@@ -26,11 +26,9 @@ Rails.application.routes.draw do
       resources :places, except: :destroy
       resources :seeds, only: [:index]
       get '/reset_db' => "seeds#reset_db"
-      resources :public_pages, only: [:index]
       resources :import_convicts, only: [:index]
       resources :import_srjs, only: [:index]
       resources :user_alerts
-      post '/create_page' => "public_pages#create"
       post '/import_convicts' => "import_convicts#import"
       post '/import_srjs' => "import_srjs#import"
       post '/create_user_alert' => "user_alerts#create"
