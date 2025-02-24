@@ -113,7 +113,7 @@ gem 'administrate-field-belongs_to_search', '~> 0.10.0'
 gem 'faker', '~> 3.5.1'
 
 # Use Redis for Action Cable
-gem 'redis', '~> 5.3.0'
+gem 'redis', '~> 5.4.0'
 
 gem 'jsbundling-rails', '~> 1.3.1'
 
