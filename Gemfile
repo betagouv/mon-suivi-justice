@@ -117,6 +117,6 @@ gem 'redis', '~> 5.3.0'
 
 gem 'jsbundling-rails', '~> 1.3.1'
 
-gem 'cssbundling-rails', '~> 1.4.1'
+gem 'cssbundling-rails', '~> 1.4.2'
 
 gem 'sprockets-rails', '~> 3.5.2', require: 'sprockets/railtie'
