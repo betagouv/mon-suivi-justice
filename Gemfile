@@ -73,7 +73,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.4.4'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug', '~> 3.10.1'
-  gem 'launchy', '~> 3.1.0'
+  gem 'launchy', '~> 3.1.1'
   gem 'rails-controller-testing', '~> 1.0.5'
 end
 
