@@ -112,7 +112,7 @@ class UsersController < ApplicationController
   end
 
   def remove_linked_convicts(user, mutation: false)
-    return if %w[cpip dpip].include?(user.role) && !mutation
+    return if %w[cpip dpip local_admin].include?(user.role) && !mutation
 
     user.convicts.each { |c| Convict.update(c.id, user_id: nil) }
   end
