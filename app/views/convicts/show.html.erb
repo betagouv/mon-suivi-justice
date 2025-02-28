@@ -4,7 +4,7 @@
       <% if policy(apt).change_state? %>
         <div class='appointment-fulfilment-container'>
           <div class='appointment-fulfilment-prompt-container'>
-              <%= t('show-convict-fulfilment-prompt', name: @convict.name,
+            <%= t('show-convict-fulfilment-prompt', name: @convict.name,
                                                       place: apt.slot.agenda.place.name,
                                                       date: apt.slot.date.to_fs,
                                                       time: apt.localized_time.to_fs(:time)) %>
@@ -126,7 +126,6 @@
         </div>
       </div>
     </div>
-    <%= render 'invitation_card', convict: @convict, user: current_user %>
     <% if @future_appointments_and_excused.any? %>
       <div class="fr-grid-row fr-mt-2w">
         <div class="fr-col">
