@@ -3,7 +3,9 @@ fr:
   activerecord:
     attributes:
       agenda:
+        discarded_at: Archivé le
         name: Nom
+        place: Lieu
       appointment:
         date: Date
         origin_department: Service d'origine de la convocation
@@ -19,6 +21,8 @@ fr:
         slot: Créneau
       appointment_type:
         name: Nom
+        notification_types: Types de notification
+        place_appointment_types: Types de convocation
       convict:
         appi_uuid: N° dossier APPI
         city_id: Commune
@@ -39,23 +43,43 @@ fr:
         convict: Probationnaire
         organization_from_id: Service d'origine du dossier
         organization_to_id: Service vers lequel le dossier est transféré
+        created_at: Créé le
+        state: Statut
+        decision_date: Date de décision
+        organization: Service
+        user: Agent
+      headquarter:
+        created_at: Créé le
+        updated_at: Modifié le
+        name: Nom
+        organizations: Services
+        users: Agents
       notification_type:
+        appointment_type: Type de convocation
+        is_default: Défaut
         notification_type_roles:
           cancelation: annulation
           no_show: convocation manquée
           reminder: rappel
           reschedule: replanifier
           summon: convocation
+        organization: Service
         reminder_period: Délai avant la convocation
         template: Modèle
       organization:
+        created_at: Créé le
+        updated_at: Modifié le
         name: Nom
         email: Email structurel
+        headquarter: Siège
+        number_of_convicts: Nombre de probationnaires
         organization_type: Type
         organization_types:
           spip: SPIP
           tj: TJ
+        places: Lieux
         time_zone: Fuseau horaire
+        use_inter_ressort: Utilise l'inter-ressort
       organization_divestment:
         comment: Commentaire
       place:
@@ -69,6 +93,14 @@ fr:
         phone: Téléphone
         preparation_link: Lien d'information sur le lieu
         appointment_types: Types de convocation
+        organization: Service
+      place_transfert:
+        created_at: Créé le
+        updated_at: Modifié le
+        date: Date
+        old_place: Ancien lieu
+        new_place: Nouveau lieu
+        status: Statut
       slot:
         appointment_type: Type de convocation
         available: Disponible
@@ -84,13 +116,40 @@ fr:
         duration: Durée
         starting_time: Heure
         week_day: Jour
+      srj_spip:
+        cities: Communes
+        created_at: Créé le
+        updated_at: Modifié le
+        name: Nom
+        short_name: Nom
+        structure: Structure
+        organization: Service
+      srj_tj:
+        cities: Communes
+        created_at: Créé le
+        updated_at: Modifié le
+        name: Nom
+        short_name: Nom
+        structure: Structure
+        organization: Service
       user:
+        appointments: Convocations
+        convicts: Probationnaires
         first_name: Prénom
+        headquarter: Siège
+        invitation_accepted_at: Acceptation de l'invitation
+        invitation_created_at: Création de l'invitation
+        invitation_count: Nombre d'invitations
+        invitation_limit: Limite d'invitation
+        invitation_sent_at: Envoi de l'invitation
+        invitation_token: Token d'invitation
+        invited_by: Invité par
         last_name: Nom
         name: Nom
         organization: Service
         phone: Numéro de téléphone
         role: Rôle
+        security_charter_accepted: Acceptation de la charte de sécurité
         share_email_to_convict: Partage de l'email aux probationnaires suivis
         share_phone_to_convict: Partage du téléphone aux probationnaires suivis
         user_roles:
@@ -113,6 +172,27 @@ fr:
           psychologist: Psychologue
           secretary_court: Secrétariat SAP
           secretary_spip: Secrétariat SPIP
+        roles:
+          admin: Administrateur central
+          bex: Agent BEX
+          cpip: CPIP
+          dir_greff_bex: Directeur de greffe BEX
+          dir_greff_sap: Directeur de greffe SAP
+          dpip: DPIP
+          educator: Educateur
+          greff_ca: Greffier CA
+          greff_co: Greffe correctionnel
+          greff_crpc: Greffier CRPC
+          greff_sap: Greffe SAP
+          greff_tpe: Greffier TPE
+          jap: JAP
+          local_admin: Administrateur local
+          overseer: Surveillant
+          prosecutor: Magistrat du parquet
+          psychologist: Psychologue
+          secretary_court: Secrétariat SAP
+          secretary_spip: Secrétariat SPIP
+        visits: Visites
     errors:
       models:
         appointment:
@@ -230,6 +310,7 @@ fr:
         one: Dessaisissement
         other: Dessaisissements
       headquarter: Siège
+      notification_type: Type de notification
       organization:
         one: Service
         other: Services
@@ -237,10 +318,15 @@ fr:
         one: Demande de dessaisissement
         other: Demandes de dessaisissement
       place: Lieu
+      place_transfert:
+        one: Déménagement
+        other: Déménagements
       slot: Créneau
       spip:
         one: SPIP (SRJ)
         other: SPIPs (SRJ)
+      srj_spip: SRJ SPIP
+      srj_tj: SRJ TJ
       tj:
         one: TJ (SRJ)
         other: TJs (SRJ)
