@@ -1,0 +1,4 @@
+fileignoreconfig:
+- filename: config/locales/fr.yml
+  checksum: f86a05a2c3701f5c39a51696f2c918832e4960e51793f649bba4744983b2752d
+version: ""
