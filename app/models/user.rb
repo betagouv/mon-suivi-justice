@@ -160,7 +160,7 @@ class User < ApplicationRecord
     recent_past_booked_appointments_count > 5
   end
 
-  def security_charter_accepted
+  def security_charter_accepted?
     security_charter_accepted_at && security_charter_accepted_at < Time.zone.now
   end
 
