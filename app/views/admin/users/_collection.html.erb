@@ -85,18 +85,14 @@ to display a collection of resources in an HTML table.
           table_title: "page-title"
         ) %>
         <% if resource.instance_of? User %>
-          <td><%= link_to(
-          "Se connecter en tant que cet agent",
-          admin_user_impersonate_path(resource),
-          class: "text-color-red",
-        ) %></td>
-        <% end %>
-        <% if resource.locked_at&.present? %>
-          <td><%= link_to(
-          "Débloquer",
-          admin_user_unlock_path(resource),
-          class: "text-color-red",
-        ) %></td>
+          <td>
+            <%= link_to("Se connecter en tant que cet agent", admin_user_impersonate_path(resource), class: "text-color-red",) %>
+          </td>
+          <% if resource.locked_at&.present? %>
+            <td>
+              <%= link_to("Débloquer", admin_user_unlock_path(resource), class: "text-color-red",) %>
+            </td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>
