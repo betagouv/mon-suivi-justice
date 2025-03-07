@@ -149,7 +149,7 @@ fr:
         organization: Service
         phone: Numéro de téléphone
         role: Rôle
-        security_charter_accepted: Acceptation de la charte de sécurité
+        security_charter_accepted?: Acceptation de la charte de sécurité
         share_email_to_convict: Partage de l'email aux probationnaires suivis
         share_phone_to_convict: Partage du téléphone aux probationnaires suivis
         user_roles:

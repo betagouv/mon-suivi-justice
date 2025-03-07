@@ -43,7 +43,7 @@ class UserDashboard < Administrate::BaseDashboard
     visits: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    security_charter_accepted: Field::Boolean,
+    security_charter_accepted?: Field::Boolean,
     headquarter: Field::BelongsTo,
     locked_at: Field::DateTime
   }.freeze
@@ -61,7 +61,7 @@ class UserDashboard < Administrate::BaseDashboard
     last_name
     email
     headquarter
-    security_charter_accepted
+    security_charter_accepted?
     locked_at
   ].freeze
 
@@ -91,7 +91,7 @@ class UserDashboard < Administrate::BaseDashboard
     reset_password_sent_at
     created_at
     updated_at
-    security_charter_accepted
+    security_charter_accepted?
     headquarter
   ].freeze
 
