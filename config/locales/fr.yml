@@ -30,8 +30,6 @@ fr:
         date_of_birth: Date de naissance
         first_name: Prénom
         homeless: SDF
-        invite_convict: Inviter à l'interface probationnaire (effectif seulement si
-          numéro de téléphone renseigné)
         last_name: Nom
         lives_abroad: Habite à l'étranger
         name: Nom
@@ -473,28 +471,9 @@ fr:
   close: Fermer
   contact: Contacter l'équipe
   continue: Continuer
-  convict_invitations:
-    create:
-      invitation_pending: L'invitation est en cours d'envoi au probationnaire. Rafraîchir
-        la page pour actualiser le statut.
-      invitation_sent: L'invitation a été envoyée au probationnaire
   convicts:
     create:
       notice: Le probationnaire a bien été créé.
-    invitation_card:
-      accepted: Accepté
-      cannot_invite: Impossible d'inviter ce probationnaire
-      cannot_invite_reason: Il n'a pas renseigné de numéro de téléphone ou ne souhaite
-        pas recevoir de SMS
-      interface_access_timestamp: Date d'acceptation
-      interface_invitation_state: État de l'invitation
-      interface_no_access: Aucun accès pour l'instant
-      invite: Inviter à son espace
-      invited: Invité le %{last_invite}
-      not_invited: Jamais invité
-      reinvite: Relancer l'invitation
-      reinvited: Relancé le %{last_invite}
-      title: Espace probationnaire
     self_assign:
       notice: Le probationnaire vous a bien été attribué.
     set_inter_ressort_flashes:
@@ -853,6 +832,10 @@ fr:
     bex-spip:
       title: Convocations Sortie d'audience SPIP
   print_button: Imprimer
+  public_pages:
+    convict_interface:
+      title: "Arrêt de l'interface Probationnaire"
+      description: "Cette interface vous permettant d'obtenir des informations sur votre suivi judiciaire a été arrêtée le 31 mars 2025. Si elle vous était utile, merci de prendre contact avec votre CPIP référent pour lui en faire part."
   rebook_missed_appointment1: Si vous aviez marqué la convocation comme manquée, vous
     avez peut-être envoyé un SMS au probationnaire concerné. Vous pouvez le vérifier
     dans l'historique.
