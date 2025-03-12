@@ -10,11 +10,11 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
 
 gem 'devise', '~> 4.9.4'
-gem 'devise-i18n', '~> 1.12.1'
+gem 'devise-i18n', '~> 1.13.0'
 gem 'devise_invitable', '~> 2.0.9'
 gem 'devise-security', '>= 0.18.0'
 
-gem 'pundit', '~> 2.4.0'
+gem 'pundit', '~> 2.5.0'
 gem 'simple_form', '~> 5.3.1'
 gem 'addressable', '~> 2.8.7' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.2.1'
-  gem 'rubocop', '~> 1.72', require: false
+  gem 'rubocop', '~> 1.73', require: false
   gem 'brakeman', '~> 7.0'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
@@ -103,7 +103,7 @@ group :test do
   gem 'timecop', '~> 0.9.10'
   gem 'pundit-matchers', '~> 4.0.0'
   gem 'state_machines-rspec', '~> 0.6.0'
-  gem 'webmock', '~> 3.25.0'
+  gem 'webmock', '~> 3.25.1'
 end
 
 gem 'abyme', '~> 0.7.0'
@@ -117,6 +117,6 @@ gem 'redis', '~> 5.4.0'
 
 gem 'jsbundling-rails', '~> 1.3.1'
 
-gem 'cssbundling-rails', '~> 1.4.2'
+gem 'cssbundling-rails', '~> 1.4.3'
 
 gem 'sprockets-rails', '~> 3.5.2', require: 'sprockets/railtie'
