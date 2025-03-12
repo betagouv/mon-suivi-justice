@@ -7,7 +7,7 @@ gem 'rails', '~> 7.1.5'
 gem 'pg', '~> 1.5.9'
 gem 'puma', '~> 6.6.0'
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'turbo-rails', '~> 1.5.0'
+gem 'turbo-rails', '~> 2.0.13'
 
 gem 'devise', '~> 4.9.4'
 gem 'devise-i18n', '~> 1.13.0'
