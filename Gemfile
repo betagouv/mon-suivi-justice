@@ -10,7 +10,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
 
 gem 'devise', '~> 4.9.4'
-gem 'devise-i18n', '~> 1.12.1'
+gem 'devise-i18n', '~> 1.13.0'
 gem 'devise_invitable', '~> 2.0.9'
 gem 'devise-security', '>= 0.18.0'
 
