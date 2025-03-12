@@ -141,7 +141,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    cssbundling-rails (1.4.2)
+    cssbundling-rails (1.4.3)
       railties (>= 6.0.0)
     csv (3.3.2)
     date (3.4.1)
@@ -590,7 +590,7 @@ DEPENDENCIES
   capybara-screenshot (~> 1.0.26)
   clockwork (~> 3.0.2)
   cocoon (~> 1.2.15)
-  cssbundling-rails (~> 1.4.2)
+  cssbundling-rails (~> 1.4.3)
   csv (~> 3.3)
   debug (>= 1.0.0)
   devise (~> 4.9.4)
