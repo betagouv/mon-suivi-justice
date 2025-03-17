@@ -13,7 +13,7 @@
     "@nathanvda/cocoon": "^1.2.14",
     "@rails/actioncable": "^7.2.200",
     "@rails/actiontext": "^7.2.200",
-    "@rails/activestorage": "^7.2.200",
+    "@rails/activestorage": "^8.0.200",
     "@rails/ujs": "^7.1.500",
     "abyme": "^0.7.4",
     "autoprefixer": "^10.4.21",
