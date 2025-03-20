@@ -38,8 +38,8 @@ gem 'discard', '~> 1.4.0'
 
 gem 'paper_trail', '~> 16.0.0'
 gem 'ahoy_matey', '~> 5.3.0'
-gem 'sentry-ruby', '~> 5.22.4'
-gem 'sentry-rails', '~> 5.22.4'
+gem 'sentry-ruby', '~> 5.23.0'
+gem 'sentry-rails', '~> 5.23.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.3'
@@ -81,8 +81,8 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
-  gem 'spring', '~> 4.2.1'
-  gem 'rubocop', '~> 1.73', require: false
+  gem 'spring', '~> 4.3.0'
+  gem 'rubocop', '~> 1.74', require: false
   gem 'brakeman', '~> 7.0'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
