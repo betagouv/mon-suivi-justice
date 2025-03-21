@@ -71,7 +71,6 @@ Metrics/MethodLength:
     - app/services/history_item_factory.rb
     - app/controllers/appointments_controller.rb
     - app/controllers/appointments_bookings_controller.rb
-    - app/controllers/admin/public_pages_controller.rb
     - app/controllers/admin/import_convicts_controller.rb
     - app/controllers/admin/users_controller.rb
     - app/jobs/appi_import_job.rb
@@ -85,7 +84,6 @@ Metrics/ClassLength:
     - app/models/user.rb
     - app/controllers/appointments_controller.rb
     - app/controllers/convicts_controller.rb
-    - app/controllers/admin/public_pages_controller.rb
 
 Metrics/AbcSize:
   Exclude:
@@ -98,7 +96,6 @@ Metrics/AbcSize:
     - app/controllers/appointments_bookings_controller.rb
     - app/controllers/home_controller.rb
     - app/services/history_item_factory.rb
-    - app/controllers/admin/public_pages_controller.rb
     - app/controllers/admin/import_convicts_controller.rb
     - app/controllers/admin/users_controller.rb
     - app/jobs/appi_import_job.rb
@@ -107,7 +104,6 @@ Metrics/AbcSize:
 Layout/LineLength:
   Exclude:
     - app/dashboards/**/*
-    - app/controllers/admin/public_pages_controller.rb
 
 Style/ClassAndModuleChildren:
   Exclude:

@@ -40,7 +40,7 @@ class Convict < ApplicationRecord
 
   validates :appi_uuid, allow_blank: true, uniqueness: true
 
-  validates :first_name, :last_name, :invitation_to_convict_interface_count, presence: true
+  validates :first_name, :last_name, presence: true
   validates :phone, presence: true, unless: proc { refused_phone? || no_phone? }
   validate :phone_uniqueness, if: -> { phone.present? }
   validate :mobile_phone_number, unless: proc { refused_phone? || no_phone? }
@@ -58,11 +58,7 @@ class Convict < ApplicationRecord
 
   validates_with AppiUuidValidator
 
-  after_update :update_convict_api
-  after_destroy :delete_convict_from_node_app, if: :timestamp_convict_interface_creation
-
   scope :with_phone, -> { where.not(phone: '') }
-  scope :never_invited, -> { where(invitation_to_convict_interface_count: 0) }
   scope :with_past_appointments, (lambda do
     joins(appointments: :slot).where(appointments: { slots: { date: ..Date.today } })
   end)
@@ -134,23 +130,6 @@ class Convict < ApplicationRecord
     !(phone.blank? || no_phone? || refused_phone?)
   end
 
-  def invitable_to_convict_interface?
-    can_receive_sms? && invitation_to_convict_interface_count < 2 &&
-      timestamp_convict_interface_creation.nil?
-  end
-
-  def can_access_convict_inferface?
-    timestamp_convict_interface_creation.present?
-  end
-
-  def interface_invitation_state
-    return :accepted if can_access_convict_inferface?
-    return :reinvited if invitation_to_convict_interface_count > 1
-    return :invited if invitation_to_convict_interface_count == 1
-
-    :not_invited
-  end
-
   def phone_uniqueness
     return if refused_phone? || no_phone?
 
@@ -169,10 +148,6 @@ class Convict < ApplicationRecord
     return unless city_id.blank? && homeless.blank? && lives_abroad.blank?
 
     errors.add(:base, I18n.t('activerecord.errors.models.convict.attributes.city.all_blanks'))
-  end
-
-  def update_convict_api
-    UpdateConvictPhoneJob.perform_later(id) if saved_change_to_phone? && can_access_convict_inferface?
   end
 
   # rubocop:disable Metrics/AbcSize
@@ -250,10 +225,6 @@ class Convict < ApplicationRecord
     return duplicates.where(appi_uuid: [nil, '']) if appi_uuid.present?
 
     duplicates
-  end
-
-  def already_invited_to_interface?
-    invitation_to_convict_interface_count.positive?
   end
 
   def unique_name_and_dob_unless_uuid
