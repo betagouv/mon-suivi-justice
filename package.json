@@ -21,7 +21,7 @@
     "esbuild": "^0.25.1",
     "flatpickr": "^4.6.13",
     "jquery": "^3.7.1",
-    "micromodal": "^0.4.6",
+    "micromodal": "^0.6.1",
     "postcss": "^8.5.3",
     "postcss-cli": "^11.0.1",
     "postcss-color-mod-function": "^4.1.1",
