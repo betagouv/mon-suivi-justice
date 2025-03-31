@@ -76,16 +76,6 @@
       <% if current_user.work_at_spip? || current_user.admin? %>
         <%= render partial: 'shared/user_selector' %>
       <% end %>
-      <% if ConvictInvitationPolicy.new(current_user, @convict).create? %>
-        <div class="fr-fieldset__element fr-fieldset__element--inline">
-          <div class="fr-checkbox-group">
-            <input name="invite_convict" id="convict-invite_convict" type="checkbox" checked>
-            <label class="fr-label" for="convict-invite_convict">
-              <%= t('activerecord.attributes.convict.invite_convict') %>
-            </label>
-          </div>
-        </div>
-      <% end %>
       <% invalid = @convict.errors.include?(:phone) %>
       <div class="fr-input-group <%= 'fr-input-group--error' if invalid %>">
         <label class="fr-label" for="convict_phone"><%= t('activerecord.attributes.convict.phone')%></label>

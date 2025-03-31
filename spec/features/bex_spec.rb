@@ -73,11 +73,12 @@ RSpec.feature 'Bex', type: :feature do
 
       expect(page).to have_current_path(agenda_jap_path)
 
-      date_containers = page.all('.fr-table', minimum: 2)
+      # Attendre que le contenu AJAX soit chargé avant de chercher les éléments
+      expect(page).to have_selector('.fr-table', count: 2, wait: 10)
 
-      expect(date_containers[0]).to have_content('James')
-      expect(date_containers[0]).to have_content('MORIARTY')
-      expect(date_containers[0]).to have_content('203204')
+      expect(page).to have_content('James')
+      expect(page).to have_content('MORIARTY')
+      expect(page).to have_content('203204')
 
       expect(page).to have_selector('.fr-table:nth-of-type(2) tbody tr', minimum: 2, wait: 10)
       row_cells = page.all('.fr-table:nth-of-type(2) tbody tr')

@@ -1,4 +1,3 @@
-
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
@@ -26,11 +25,9 @@ Rails.application.routes.draw do
       resources :places, except: :destroy
       resources :seeds, only: [:index]
       get '/reset_db' => "seeds#reset_db"
-      resources :public_pages, only: [:index]
       resources :import_convicts, only: [:index]
       resources :import_srjs, only: [:index]
       resources :user_alerts
-      post '/create_page' => "public_pages#create"
       post '/import_convicts' => "import_convicts#import"
       post '/import_srjs' => "import_srjs#import"
       post '/create_user_alert' => "user_alerts#create"
@@ -67,7 +64,6 @@ Rails.application.routes.draw do
     post 'unarchive'
     post 'self_assign'
     post 'unassign'
-    resource :invitation, only: :create, controller: 'convict_invitations'
     member do
       patch :accept_phone
     end
@@ -140,17 +136,10 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/convict_interface', to: 'public_pages#convict_interface'
+
   authenticated :user do
     root 'home#home', as: :authenticated_root
-  end
-
-  namespace :api, defaults: {format: "json"} do
-    namespace :v1 do
-      resources :convicts, only: :show do
-        get 'cpip'
-        resource :invitation, only: :update, controller: 'convict_invitations'
-      end
-    end
   end
 
   resources :user_user_alerts, only: [] do

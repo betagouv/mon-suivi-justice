@@ -7,7 +7,6 @@ RSpec.describe Convict, type: :model do
 
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
-  it { should validate_presence_of(:invitation_to_convict_interface_count) }
   it { should validate_uniqueness_of(:appi_uuid).ignoring_case_sensitivity }
 
   describe 'uniqueness' do
