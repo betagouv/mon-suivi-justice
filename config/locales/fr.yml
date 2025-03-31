@@ -835,7 +835,7 @@ fr:
   public_pages:
     convict_interface:
       title: "Arrêt de l'interface Probationnaire"
-      description: "Cette interface vous permettant d'obtenir des informations sur votre suivi judiciaire a été arrêtée le 31 mars 2025. Si elle vous était utile, merci de prendre contact avec votre CPIP référent pour lui en faire part."
+      description: "Cette interface vous permettant d'obtenir des informations sur votre suivi judiciaire a été arrêtée le 31 mars 2025. Si elle vous était utile, merci de prendre contact avec votre CPIP référent pour lui en faire part. Dans tous les cas, vous continuerez à bénéficier de l'envoi des SMS de rappel de vos convocations."
   rebook_missed_appointment1: Si vous aviez marqué la convocation comme manquée, vous
     avez peut-être envoyé un SMS au probationnaire concerné. Vous pouvez le vérifier
     dans l'historique.
