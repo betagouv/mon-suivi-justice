@@ -38,7 +38,6 @@ class ConvictsController < ApplicationController
     @duplicate_convicts = @convict.find_dup_with_full_name_and_dob if @convict.valid? && !params[:force_create]
 
     if @duplicate_convicts.blank? && @convict.save
-      handle_convict_interface_invitation
       redirect_to select_path(params), notice: t('.notice')
     else
       @allow_force_create = @duplicate_convicts.present?
@@ -244,12 +243,6 @@ class ConvictsController < ApplicationController
     @convict.current_user = current_user
     @convict.unsubscribe_token = Convict.generate_unsubscribe_token
     @convict.update_organizations(current_user, autosave: false)
-  end
-
-  def handle_convict_interface_invitation
-    return unless params[:invite_convict] == 'on' && ConvictInvitationPolicy.new(current_user, @convict).create?
-
-    InviteConvictJob.perform_later(@convict.id)
   end
 
   def create_divestment_proposal
