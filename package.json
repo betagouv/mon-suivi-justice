@@ -18,7 +18,7 @@
     "abyme": "^0.7.4",
     "autoprefixer": "^10.4.21",
     "date-holidays": "^3.24.1",
-    "esbuild": "^0.25.1",
+    "esbuild": "^0.25.2",
     "flatpickr": "^4.6.13",
     "jquery": "^3.7.1",
     "micromodal": "^0.6.1",
