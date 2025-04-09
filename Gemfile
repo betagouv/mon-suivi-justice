@@ -11,7 +11,7 @@ gem 'turbo-rails', '~> 1.5.0'
 
 gem 'devise', '~> 4.9.4'
 gem 'devise-i18n', '~> 1.13.0'
-gem 'devise_invitable', '~> 2.0.9'
+gem 'devise_invitable', '~> 2.0.10'
 gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.5.0'
@@ -47,7 +47,7 @@ gem 'jbuilder', '~> 2.13.0'
 gem 'groupdate', '~> 6.5.1'
 
 gem 'faraday', '~> 2.12.2'
-gem 'faraday-retry', '~> 2.2.1'
+gem 'faraday-retry', '~> 2.3.1'
 gem 'jwt', '~> 2.10'
 
 gem 'wicked_pdf', '~> 2.8.2'
@@ -59,7 +59,7 @@ gem 'tzinfo-data', '~> 1.2025.2'
 gem 'administrate', '~> 0.19.0'
 gem 'administrate-field-enum', '~> 0.0.9'
 
-gem 'pretender', '~> 0.5.0'
+gem 'pretender', '~> 0.6.0'
 
 gem 'octokit', '~> 9.2.0'
 
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.3.0'
-  gem 'rubocop', '~> 1.74', require: false
+  gem 'rubocop', '~> 1.75', require: false
   gem 'brakeman', '~> 7.0'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
@@ -91,7 +91,7 @@ group :development do
   gem 'htmlbeautifier', '~> 1.4', '>= 1.4.3'
   gem 'state_machines-graphviz', '~> 0.0.2'
   gem 'debug', '>= 1.0.0'
-  gem 'bullet', '~> 8.0.1'
+  gem 'bullet', '~> 8.0.3'
 end
 
 group :test do
