@@ -28,7 +28,7 @@ gem 'state_machines', '~> 0.6.0'
 gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
-gem 'dotenv-rails', '~> 3.1.7'
+gem 'dotenv-rails', '~> 3.1.8'
 gem 'sidekiq', '~> 7.3.9'
 gem 'sidekiq-failures', '~> 1.0.4'
 gem 'clockwork', '~> 3.0.2'
@@ -46,7 +46,7 @@ gem 'csv', '~> 3.3'
 gem 'jbuilder', '~> 2.13.0'
 gem 'groupdate', '~> 6.5.1'
 
-gem 'faraday', '~> 2.12.2'
+gem 'faraday', '~> 2.13.0'
 gem 'faraday-retry', '~> 2.3.1'
 gem 'jwt', '~> 2.10'
 
