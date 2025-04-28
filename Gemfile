@@ -61,7 +61,7 @@ gem 'administrate-field-enum', '~> 0.0.9'
 
 gem 'pretender', '~> 0.6.0'
 
-gem 'octokit', '~> 9.2.0'
+gem 'octokit', '~> 10.0.0'
 
 gem 'stimulus-rails', '~> 1.3.4'
 
