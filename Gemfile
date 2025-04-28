@@ -99,7 +99,7 @@ group :test do
   gem 'capybara-screenshot', '~> 1.0.26'
   gem 'selenium-webdriver', '~> 4.10.0'
   gem 'webdrivers', '~> 5.3.1'
-  gem 'shoulda-matchers', '~> 6.4.0'
+  gem 'shoulda-matchers', '~> 6.5.0'
   gem 'timecop', '~> 0.9.10'
   gem 'pundit-matchers', '~> 4.0.0'
   gem 'state_machines-rspec', '~> 0.6.0'
