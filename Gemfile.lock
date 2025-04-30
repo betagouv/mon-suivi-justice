@@ -136,7 +136,7 @@ GEM
     cocoon (1.2.15)
     coderay (1.1.3)
     concurrent-ruby (1.3.5)
-    connection_pool (2.5.1)
+    connection_pool (2.5.3)
     crack (1.0.0)
       bigdecimal
       rexml
@@ -487,7 +487,7 @@ GEM
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shellany (0.0.1)
-    shoulda-matchers (6.4.0)
+    shoulda-matchers (6.5.0)
       activesupport (>= 5.2.0)
     sib-api-v3-sdk (9.1.0)
       addressable (~> 2.3, >= 2.3.0)
@@ -645,7 +645,7 @@ DEPENDENCIES
   selenium-webdriver (~> 4.10.0)
   sentry-rails (~> 5.23.0)
   sentry-ruby (~> 5.23.0)
-  shoulda-matchers (~> 6.4.0)
+  shoulda-matchers (~> 6.5.0)
   sib-api-v3-sdk (~> 9.1.0)
   sidekiq (~> 7.3.9)
   sidekiq-failures (~> 1.0.4)
