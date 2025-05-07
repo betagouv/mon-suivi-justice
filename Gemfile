@@ -37,7 +37,7 @@ gem 'holidays', '~> 8.8.0'
 gem 'discard', '~> 1.4.0'
 
 gem 'paper_trail', '~> 16.0.0'
-gem 'ahoy_matey', '~> 5.3.0'
+gem 'ahoy_matey', '~> 5.4.0'
 gem 'sentry-ruby', '~> 5.23.0'
 gem 'sentry-rails', '~> 5.23.0'
 gem 'ruby-progressbar', '~> 1.13.0'
