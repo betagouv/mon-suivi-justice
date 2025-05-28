@@ -11,7 +11,7 @@ gem 'turbo-rails', '~> 1.5.0'
 
 gem 'devise', '~> 4.9.4'
 gem 'devise-i18n', '~> 1.13.0'
-gem 'devise_invitable', '~> 2.0.10'
+gem 'devise_invitable', '~> 2.0.11'
 gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.5.0'
@@ -38,8 +38,8 @@ gem 'discard', '~> 1.4.0'
 
 gem 'paper_trail', '~> 16.0.0'
 gem 'ahoy_matey', '~> 5.4.0'
-gem 'sentry-ruby', '~> 5.23.0'
-gem 'sentry-rails', '~> 5.23.0'
+gem 'sentry-ruby', '~> 5.24.0'
+gem 'sentry-rails', '~> 5.24.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.3'
@@ -91,7 +91,7 @@ group :development do
   gem 'htmlbeautifier', '~> 1.4', '>= 1.4.3'
   gem 'state_machines-graphviz', '~> 0.0.2'
   gem 'debug', '>= 1.0.0'
-  gem 'bullet', '~> 8.0.6'
+  gem 'bullet', '~> 8.0.7'
 end
 
 group :test do
