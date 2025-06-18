@@ -79,7 +79,7 @@ end
 
 group :development do
   gem 'web-console', '>= 4.1.0'
-  gem 'rack-mini-profiler', '~> 3.3'
+  gem 'rack-mini-profiler', '~> 4.0'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.3.0'
   gem 'rubocop', '~> 1.76', require: false
