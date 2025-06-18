@@ -24,7 +24,7 @@ gem 'phony_rails', '~> 0.15.0'
 gem 'ransack', '~>4.3.0'
 gem 'kaminari', '~> 1.2.2'
 
-gem 'state_machines', '~> 0.6.0'
+gem 'state_machines', '~> 0.10.0'
 gem 'state_machines-activerecord', '~> 0.9.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
@@ -38,13 +38,13 @@ gem 'discard', '~> 1.4.0'
 
 gem 'paper_trail', '~> 16.0.0'
 gem 'ahoy_matey', '~> 5.4.0'
-gem 'sentry-ruby', '~> 5.24.0'
-gem 'sentry-rails', '~> 5.24.0'
+gem 'sentry-ruby', '~> 5.25.0'
+gem 'sentry-rails', '~> 5.25.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.3'
 gem 'jbuilder', '~> 2.13.0'
-gem 'groupdate', '~> 6.6.0'
+gem 'groupdate', '~> 6.7.0'
 
 gem 'faraday', '~> 2.13.1'
 gem 'faraday-retry', '~> 2.3.1'
@@ -70,7 +70,7 @@ gem 'lograge', '~> 0.14.0'
 group :development, :test do
   gem 'rspec-rails', '~> 7.1.1'
   gem 'rspec_junit_formatter', '~> 0.6.0'
-  gem 'factory_bot_rails', '~> 6.4.4'
+  gem 'factory_bot_rails', '~> 6.5.0'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug', '~> 3.10.1'
   gem 'launchy', '~> 3.1.1'
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.3.0'
-  gem 'rubocop', '~> 1.75', require: false
+  gem 'rubocop', '~> 1.76', require: false
   gem 'brakeman', '~> 7.0'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
