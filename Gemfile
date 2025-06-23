@@ -47,7 +47,7 @@ gem 'jbuilder', '~> 2.13.0'
 gem 'groupdate', '~> 6.7.0'
 
 gem 'faraday', '~> 2.13.1'
-gem 'faraday-retry', '~> 2.3.1'
+gem 'faraday-retry', '~> 2.3.2'
 gem 'jwt', '~> 2.10'
 
 gem 'wicked_pdf', '~> 2.8.2'
