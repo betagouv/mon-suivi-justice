@@ -24,7 +24,7 @@ gem 'phony_rails', '~> 0.15.0'
 gem 'ransack', '~>4.3.0'
 gem 'kaminari', '~> 1.2.2'
 
-gem 'state_machines', '~> 0.10.0'
+gem 'state_machines', '~> 0.31.0'
 gem 'state_machines-activerecord', '~> 0.31.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
