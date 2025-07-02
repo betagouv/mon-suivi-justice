@@ -10,7 +10,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
 
 gem 'devise', '~> 4.9.4'
-gem 'devise-i18n', '~> 1.13.0'
+gem 'devise-i18n', '~> 1.14.0'
 gem 'devise_invitable', '~> 2.0.11'
 gem 'devise-security', '>= 0.18.0'
 
@@ -24,8 +24,8 @@ gem 'phony_rails', '~> 0.15.0'
 gem 'ransack', '~>4.3.0'
 gem 'kaminari', '~> 1.2.2'
 
-gem 'state_machines', '~> 0.10.0'
-gem 'state_machines-activerecord', '~> 0.9.0'
+gem 'state_machines', '~> 0.31.0'
+gem 'state_machines-activerecord', '~> 0.31.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
 gem 'dotenv-rails', '~> 3.1.8'
@@ -38,8 +38,8 @@ gem 'discard', '~> 1.4.0'
 
 gem 'paper_trail', '~> 16.0.0'
 gem 'ahoy_matey', '~> 5.4.0'
-gem 'sentry-ruby', '~> 5.25.0'
-gem 'sentry-rails', '~> 5.25.0'
+gem 'sentry-ruby', '~> 5.26.0'
+gem 'sentry-rails', '~> 5.26.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.3'
@@ -47,7 +47,7 @@ gem 'jbuilder', '~> 2.13.0'
 gem 'groupdate', '~> 6.7.0'
 
 gem 'faraday', '~> 2.13.1'
-gem 'faraday-retry', '~> 2.3.1'
+gem 'faraday-retry', '~> 2.3.2'
 gem 'jwt', '~> 2.10'
 
 gem 'wicked_pdf', '~> 2.8.2'
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.3.0'
-  gem 'rubocop', '~> 1.76', require: false
+  gem 'rubocop', '~> 1.77', require: false
   gem 'brakeman', '~> 7.0'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
