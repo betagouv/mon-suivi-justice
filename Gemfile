@@ -24,7 +24,7 @@ gem 'phony_rails', '~> 0.15.0'
 gem 'ransack', '~>4.3.0'
 gem 'kaminari', '~> 1.2.2'
 
-gem 'state_machines', '~> 0.31.0'
+gem 'state_machines', '~> 0.50.0'
 gem 'state_machines-activerecord', '~> 0.31.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
@@ -46,7 +46,7 @@ gem 'csv', '~> 3.3'
 gem 'jbuilder', '~> 2.13.0'
 gem 'groupdate', '~> 6.7.0'
 
-gem 'faraday', '~> 2.13.1'
+gem 'faraday', '~> 2.13.2'
 gem 'faraday-retry', '~> 2.3.2'
 gem 'jwt', '~> 2.10'
 
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.3.0'
-  gem 'rubocop', '~> 1.77', require: false
+  gem 'rubocop', '~> 1.78', require: false
   gem 'brakeman', '~> 7.0'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
@@ -110,7 +110,7 @@ gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.7'
 gem 'administrate-field-belongs_to_search', '~> 0.10.0'
-gem 'faker', '~> 3.5.1'
+gem 'faker', '~> 3.5.2'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 5.4.0'
