@@ -83,7 +83,7 @@ group :development do
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.3.0'
   gem 'rubocop', '~> 1.78', require: false
-  gem 'brakeman', '~> 7.0'
+  gem 'brakeman', '~> 7.1'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
   gem 'letter_opener', '~> 1.10.0'
