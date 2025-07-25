@@ -24,7 +24,7 @@ gem 'phony_rails', '~> 0.15.0'
 gem 'ransack', '~>4.3.0'
 gem 'kaminari', '~> 1.2.2'
 
-gem 'state_machines', '~> 0.50.0'
+gem 'state_machines', '~> 0.100.0'
 gem 'state_machines-activerecord', '~> 0.31.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
@@ -83,7 +83,7 @@ group :development do
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.3.0'
   gem 'rubocop', '~> 1.78', require: false
-  gem 'brakeman', '~> 7.0'
+  gem 'brakeman', '~> 7.1'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
   gem 'letter_opener', '~> 1.10.0'
@@ -113,7 +113,7 @@ gem 'administrate-field-belongs_to_search', '~> 0.10.0'
 gem 'faker', '~> 3.5.2'
 
 # Use Redis for Action Cable
-gem 'redis', '~> 5.4.0'
+gem 'redis', '~> 5.4.1'
 
 gem 'jsbundling-rails', '~> 1.3.1'
 
