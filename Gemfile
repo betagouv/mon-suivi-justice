@@ -43,7 +43,7 @@ gem 'sentry-rails', '~> 5.26.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.3'
-gem 'jbuilder', '~> 2.13.0'
+gem 'jbuilder', '~> 2.14.0'
 gem 'groupdate', '~> 6.7.0'
 
 gem 'faraday', '~> 2.13.4'
@@ -81,7 +81,7 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
-  gem 'spring', '~> 4.3.0'
+  gem 'spring', '~> 4.4.0'
   gem 'rubocop', '~> 1.79', require: false
   gem 'brakeman', '~> 7.1'
   gem 'guard-rspec', '~> 4.7.3', require: false
