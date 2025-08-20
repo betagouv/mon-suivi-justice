@@ -5,7 +5,7 @@ ruby '3.3.2'
 gem 'rails', '~> 7.1.5'
 
 gem 'pg', '~> 1.6.1'
-gem 'puma', '~> 6.6.0'
+gem 'puma', '~> 6.6.1'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
 
@@ -24,7 +24,7 @@ gem 'phony_rails', '~> 0.15.0'
 gem 'ransack', '~>4.3.0'
 gem 'kaminari', '~> 1.2.2'
 
-gem 'state_machines', '~> 0.100.0'
+gem 'state_machines', '~> 0.100.1'
 gem 'state_machines-activerecord', '~> 0.31.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
@@ -46,7 +46,7 @@ gem 'csv', '~> 3.3'
 gem 'jbuilder', '~> 2.13.0'
 gem 'groupdate', '~> 6.7.0'
 
-gem 'faraday', '~> 2.13.2'
+gem 'faraday', '~> 2.13.4'
 gem 'faraday-retry', '~> 2.3.2'
 gem 'jwt', '~> 2.10'
 
