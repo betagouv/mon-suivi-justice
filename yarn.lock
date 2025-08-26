@@ -182,10 +182,15 @@
   dependencies:
     jquery "^3.3.1"
 
-"@rails/actioncable@^7.0", "@rails/actioncable@^7.2.200":
+"@rails/actioncable@^7.0":
   version "7.2.200"
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.2.200.tgz#7f56b3313762dbb85b64490aa33c5f431419aafd"
   integrity sha512-gVmi3MabEa+Bkatvw0/k1Y3WTidcIf3qNbb9L8qc+AmT2UmkVqUZhJpSLvKmH10twCYIGzn7yySW/lOpg81Duw==
+
+"@rails/actioncable@^8.0.201":
+  version "8.0.201"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-8.0.201.tgz#f5ac6bfa3ac6f52f8a1c37b2661b66a61d4442e4"
+  integrity sha512-WiXZodvnK7u+wlu72DZydfV75x14HhzXI84sto9xcdsW1DMOHK+jYwQuuE/Wh/hKH5yajFIw/3DUP6MHDeGrbA==
 
 "@rails/actiontext@^7.2.200":
   version "7.2.200"
