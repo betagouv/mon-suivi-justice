@@ -20,7 +20,7 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find params[:id]
     authorize @organization
 
-    if @organization.update organization_params
+    if @organization.update organization_update_params
       redirect_to edit_organization_path(@organization), notice: 'Service mis à jour avec succès.'
     else
       @organization.errors.each { |error| flash.now[:alert] = error.message }
@@ -41,6 +41,13 @@ class OrganizationsController < ApplicationController
 
   def organization_params
     params.require(:organization).permit(:name, :jap_modal_content, :organization_type, :time_zone, :email,
+                                         { extra_fields_attributes: [:id, :name, :data_type, :scope, :_destroy,
+                                                                     { appointment_type_ids: [] }] })
+  end
+
+  def organization_update_params
+    # Exclure le champ `name` pour l'action update
+    params.require(:organization).permit(:jap_modal_content, :time_zone, :email,
                                          { extra_fields_attributes: [:id, :name, :data_type, :scope, :_destroy,
                                                                      { appointment_type_ids: [] }] })
   end
