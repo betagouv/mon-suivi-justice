@@ -1,8 +1,8 @@
 <h1 class='form-title'><%= t('edit_organization_title') %></h1>
 <%= simple_form_for @organization, html: { class: 'basic-form' } do |f| %>
-  <%= f.input :name %>
+  <%= f.input :name, disabled: true %>
   <% if current_user.admin? %>
-    <%= f.input :organization_type, collection: form_organization_type, input_html: { class: 'form-select' }, include_blank: false %>
+    <%= f.input :organization_type, collection: form_organization_type, input_html: { class: 'form-select' }, disabled: true %>
     <%= f.input :time_zone , input_html: { class: 'form-select' }, collection: time_zones_for_select, default: 'Europe/Paris' %>
     <p class='organization-subtitle'><%= t('edit_organization_jap_modal') %></p>
   <% end %>
