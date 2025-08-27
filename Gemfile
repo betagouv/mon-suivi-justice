@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.3.2'
-gem 'rails', '~> 7.1.5'
+gem 'rails', '~> 7.2.2'
 
 gem 'pg', '~> 1.6.1'
 gem 'puma', '~> 6.6.1'
@@ -10,7 +10,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
 
 gem 'devise', '~> 4.9.4'
-gem 'devise-i18n', '~> 1.14.0'
+gem 'devise-i18n', '~> 1.15.0'
 gem 'devise_invitable', '~> 2.0.11'
 gem 'devise-security', '>= 0.18.0'
 
@@ -25,12 +25,12 @@ gem 'ransack', '~>4.3.0'
 gem 'kaminari', '~> 1.2.2'
 
 gem 'state_machines', '~> 0.100.1'
-gem 'state_machines-activerecord', '~> 0.31.0'
+gem 'state_machines-activerecord', '~> 0.100.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
 gem 'dotenv-rails', '~> 3.1.8'
 gem 'sidekiq', '~> 7.3.9'
-gem 'sidekiq-failures', '~> 1.0.4'
+gem 'sidekiq-failures', '~> 1.1.0'
 gem 'clockwork', '~> 3.0.2'
 
 gem 'holidays', '~> 8.8.0'
@@ -43,7 +43,7 @@ gem 'sentry-rails', '~> 5.26.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.3'
-gem 'jbuilder', '~> 2.14.0'
+gem 'jbuilder', '~> 2.14.1'
 gem 'groupdate', '~> 6.7.0'
 
 gem 'faraday', '~> 2.13.4'
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.4.0'
-  gem 'rubocop', '~> 1.79', require: false
+  gem 'rubocop', '~> 1.80', require: false
   gem 'brakeman', '~> 7.1'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
