@@ -152,10 +152,10 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.7.2.tgz#8249de9b7e22fcb3ceb5e66090c30a1d5492b81a"
   integrity sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==
 
-"@gouvfr/dsfr@^1.13.2":
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.13.2.tgz#ef789c35dd73cc5e406253f31bf4892892c2c285"
-  integrity sha512-4Q9ggFFzwD/KFr37sJO1hFH9PcqlZ7F3jMiFJXnBLJfkH1+s28vnQp/oXoY8TosWsLMSjdhNCrxvrUdm5XzBlg==
+"@gouvfr/dsfr@^1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.14.1.tgz#9e0fb1efbfcb9c21cbb2dfbb6baf15924c8ade1c"
+  integrity sha512-UVR5yE+v2PAr3TVl1xi8B6sboRIbRP4AIwD66KW+AnAUfAKHpJGVhwyNR6v+/L5FXWXli9vuG2WOnJ9FcMTiUg==
 
 "@hotwired/stimulus@^3.2.2":
   version "3.2.2"
