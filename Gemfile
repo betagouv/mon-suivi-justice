@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.2'
 gem 'rails', '~> 7.2.2'
 
-gem 'pg', '~> 1.6.1'
+gem 'pg', '~> 1.6.2'
 gem 'puma', '~> 6.6.1'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
@@ -38,8 +38,8 @@ gem 'discard', '~> 1.4.0'
 
 gem 'paper_trail', '~> 16.0.0'
 gem 'ahoy_matey', '~> 5.4.0'
-gem 'sentry-ruby', '~> 5.26.0'
-gem 'sentry-rails', '~> 5.26.0'
+gem 'sentry-ruby', '~> 5.27.0'
+gem 'sentry-rails', '~> 5.27.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.3'
@@ -70,7 +70,7 @@ gem 'lograge', '~> 0.14.0'
 group :development, :test do
   gem 'rspec-rails', '~> 7.1.1'
   gem 'rspec_junit_formatter', '~> 0.6.0'
-  gem 'factory_bot_rails', '~> 6.5.0'
+  gem 'factory_bot_rails', '~> 6.5.1'
   gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug', '~> 3.10.1'
   gem 'launchy', '~> 3.1.1'
