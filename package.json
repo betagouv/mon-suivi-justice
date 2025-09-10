@@ -2,12 +2,12 @@
   "name": "mon-suivi-justice",
   "private": true,
   "engines": {
-    "node": "20.13.1",
+    "node": "20.19.0",
     "yarn": "1.22.22"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
-    "@gouvfr/dsfr": "^1.13.2",
+    "@gouvfr/dsfr": "^1.14.1",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^7.3.0",
     "@nathanvda/cocoon": "^1.2.14",
