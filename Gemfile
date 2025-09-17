@@ -14,7 +14,7 @@ gem 'devise-i18n', '~> 1.15.0'
 gem 'devise_invitable', '~> 2.0.11'
 gem 'devise-security', '>= 0.18.0'
 
-gem 'pundit', '~> 2.5.0'
+gem 'pundit', '~> 2.5.1'
 gem 'simple_form', '~> 5.3.1'
 gem 'addressable', '~> 2.8.7' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
@@ -24,7 +24,7 @@ gem 'phony_rails', '~> 0.15.0'
 gem 'ransack', '~>4.3.0'
 gem 'kaminari', '~> 1.2.2'
 
-gem 'state_machines', '~> 0.100.1'
+gem 'state_machines', '~> 0.100.2'
 gem 'state_machines-activerecord', '~> 0.100.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
