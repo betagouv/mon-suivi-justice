@@ -46,7 +46,7 @@ gem 'csv', '~> 3.3'
 gem 'jbuilder', '~> 2.14.1'
 gem 'groupdate', '~> 6.7.0'
 
-gem 'faraday', '~> 2.13.4'
+gem 'faraday', '~> 2.14.0'
 gem 'faraday-retry', '~> 2.3.2'
 gem 'jwt', '~> 2.10'
 
