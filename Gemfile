@@ -5,7 +5,7 @@ ruby '3.3.2'
 gem 'rails', '~> 7.2.2'
 
 gem 'pg', '~> 1.6.2'
-gem 'puma', '~> 6.6.1'
+gem 'puma', '~> 7.1.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
 
