@@ -14,14 +14,14 @@ gem 'devise-i18n', '~> 1.15.0'
 gem 'devise_invitable', '~> 2.0.11'
 gem 'devise-security', '>= 0.18.0'
 
-gem 'pundit', '~> 2.5.1'
+gem 'pundit', '~> 2.5.2'
 gem 'simple_form', '~> 5.3.1'
 gem 'addressable', '~> 2.8.7' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
 
 gem 'phony_rails', '~> 0.15.0'
 
-gem 'ransack', '~>4.3.0'
+gem 'ransack', '~>4.4.1'
 gem 'kaminari', '~> 1.2.2'
 
 gem 'state_machines', '~> 0.100.2'
@@ -38,15 +38,15 @@ gem 'discard', '~> 1.4.0'
 
 gem 'paper_trail', '~> 16.0.0'
 gem 'ahoy_matey', '~> 5.4.0'
-gem 'sentry-ruby', '~> 5.27.0'
-gem 'sentry-rails', '~> 5.27.1'
+gem 'sentry-ruby', '~> 5.28.0'
+gem 'sentry-rails', '~> 5.28.0'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.3'
 gem 'jbuilder', '~> 2.14.1'
 gem 'groupdate', '~> 6.7.0'
 
-gem 'faraday', '~> 2.13.4'
+gem 'faraday', '~> 2.14.0'
 gem 'faraday-retry', '~> 2.3.2'
 gem 'jwt', '~> 2.10'
 
@@ -82,7 +82,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.9.0'
   gem 'spring', '~> 4.4.0'
-  gem 'rubocop', '~> 1.80', require: false
+  gem 'rubocop', '~> 1.81', require: false
   gem 'brakeman', '~> 7.1'
   gem 'guard-rspec', '~> 4.7.3', require: false
   gem 'guard-rubocop', '~> 1.5.0'
