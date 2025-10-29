@@ -15,7 +15,7 @@ gem 'devise_invitable', '~> 2.0.11'
 gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.5.2'
-gem 'simple_form', '~> 5.3.1'
+gem 'simple_form', '~> 5.4.0'
 gem 'addressable', '~> 2.8.7' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
 
@@ -36,10 +36,10 @@ gem 'clockwork', '~> 3.0.2'
 gem 'holidays', '~> 8.8.0'
 gem 'discard', '~> 1.4.0'
 
-gem 'paper_trail', '~> 16.0.0'
+gem 'paper_trail', '~> 17.0.0'
 gem 'ahoy_matey', '~> 5.4.0'
 gem 'sentry-ruby', '~> 5.28.0'
-gem 'sentry-rails', '~> 5.28.0'
+gem 'sentry-rails', '~> 5.28.1'
 gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.3'
@@ -91,7 +91,7 @@ group :development do
   gem 'htmlbeautifier', '~> 1.4', '>= 1.4.3'
   gem 'state_machines-graphviz', '~> 0.0.2'
   gem 'debug', '>= 1.0.0'
-  gem 'bullet', '~> 8.0.8'
+  gem 'bullet', '~> 8.1.0'
 end
 
 group :test do
@@ -103,7 +103,7 @@ group :test do
   gem 'timecop', '~> 0.9.10'
   gem 'pundit-matchers', '~> 4.0.0'
   gem 'state_machines-rspec', '~> 0.6.0'
-  gem 'webmock', '~> 3.25.1'
+  gem 'webmock', '~> 3.26.0'
 end
 
 gem 'abyme', '~> 0.7.0'
