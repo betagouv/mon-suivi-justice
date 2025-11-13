@@ -17,7 +17,7 @@
     "@rails/ujs": "^7.1.600",
     "abyme": "^0.7.4",
     "autoprefixer": "^10.4.21",
-    "date-holidays": "^3.26.4",
+    "date-holidays": "^3.26.5",
     "esbuild": "^0.27.0",
     "flatpickr": "^4.6.13",
     "jquery": "^3.7.1",
