@@ -16,7 +16,7 @@
     "@rails/activestorage": "^8.1.100",
     "@rails/ujs": "^7.1.600",
     "abyme": "^0.7.4",
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "^10.4.22",
     "date-holidays": "^3.26.5",
     "esbuild": "^0.27.0",
     "flatpickr": "^4.6.13",
