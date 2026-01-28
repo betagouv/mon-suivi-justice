@@ -16,7 +16,7 @@ gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.5.2'
 gem 'simple_form', '~> 5.4.0'
-gem 'addressable', '~> 2.8.7' # fix scalingo deploy bug
+gem 'addressable', '~> 2.8.8' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
 
 gem 'phony_rails', '~> 0.15.0'
