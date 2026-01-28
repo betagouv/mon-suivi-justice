@@ -16,7 +16,7 @@ gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.5.2'
 gem 'simple_form', '~> 5.4.0'
-gem 'addressable', '~> 2.8.7' # fix scalingo deploy bug
+gem 'addressable', '~> 2.8.8' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
 
 gem 'phony_rails', '~> 0.15.0'
@@ -28,7 +28,7 @@ gem 'state_machines', '~> 0.100.4'
 gem 'state_machines-activerecord', '~> 0.100.0'
 
 gem 'sib-api-v3-sdk', '~> 9.1.0'
-gem 'dotenv-rails', '~> 3.1.8'
+gem 'dotenv-rails', '~> 3.2.0'
 gem 'sidekiq', '~> 7.3.9'
 gem 'sidekiq-failures', '~> 1.1.0'
 gem 'clockwork', '~> 3.0.2'
@@ -110,7 +110,7 @@ gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.7'
 gem 'administrate-field-belongs_to_search', '~> 0.10.0'
-gem 'faker', '~> 3.5.2'
+gem 'faker', '~> 3.5.3'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 5.4.1'
