@@ -47,14 +47,14 @@ gem 'jbuilder', '~> 2.14.1'
 gem 'groupdate', '~> 6.7.0'
 
 gem 'faraday', '~> 2.14.0'
-gem 'faraday-retry', '~> 2.3.2'
+gem 'faraday-retry', '~> 2.4.0'
 gem 'jwt', '~> 2.10'
 
 gem 'wicked_pdf', '~> 2.8.2'
 gem 'wkhtmltopdf-binary', '~> 0.12.6'
 
 gem 'tzinfo', '~> 2.0.6'
-gem 'tzinfo-data', '~> 1.2025.2'
+gem 'tzinfo-data', '~> 1.2025.3'
 
 gem 'administrate', '~> 0.19.0'
 gem 'administrate-field-enum', '~> 0.0.9'
