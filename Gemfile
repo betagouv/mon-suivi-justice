@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.2'
 gem 'rails', '~> 7.2.2'
 
-gem 'pg', '~> 1.6.2'
+gem 'pg', '~> 1.6.3'
 gem 'puma', '~> 6.6.1'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'turbo-rails', '~> 1.5.0'
@@ -15,7 +15,7 @@ gem 'devise_invitable', '~> 2.0.11'
 gem 'devise-security', '>= 0.18.0'
 
 gem 'pundit', '~> 2.5.2'
-gem 'simple_form', '~> 5.4.0'
+gem 'simple_form', '~> 5.4.1'
 gem 'addressable', '~> 2.8.8' # fix scalingo deploy bug
 gem 'cocoon', '~> 1.2.15'
 
@@ -47,7 +47,7 @@ gem 'jbuilder', '~> 2.14.1'
 gem 'groupdate', '~> 6.7.0'
 
 gem 'faraday', '~> 2.14.0'
-gem 'faraday-retry', '~> 2.3.2'
+gem 'faraday-retry', '~> 2.4.0'
 gem 'jwt', '~> 2.10'
 
 gem 'wicked_pdf', '~> 2.8.2'
@@ -80,7 +80,7 @@ end
 group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 3.3'
-  gem 'listen', '~> 3.9.0'
+  gem 'listen', '~> 3.10.0'
   gem 'spring', '~> 4.4.0'
   gem 'rubocop', '~> 1.81', require: false
   gem 'brakeman', '~> 7.1'
@@ -89,7 +89,7 @@ group :development do
   gem 'letter_opener', '~> 1.10.0'
   gem 'rails-erd', '~> 1.7.2'
   gem 'htmlbeautifier', '~> 1.4', '>= 1.4.3'
-  gem 'state_machines-graphviz', '~> 0.0.2'
+  gem 'state_machines-graphviz', '~> 0.1.0'
   gem 'debug', '>= 1.0.0'
   gem 'bullet', '~> 8.1.0'
 end
