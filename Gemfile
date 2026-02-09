@@ -81,7 +81,7 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.10.0'
-  gem 'spring', '~> 4.4.0'
+  gem 'spring', '~> 4.4.2'
   gem 'rubocop', '~> 1.81', require: false
   gem 'brakeman', '~> 7.1'
   gem 'guard-rspec', '~> 4.7.3', require: false
