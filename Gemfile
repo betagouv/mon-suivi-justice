@@ -89,7 +89,7 @@ group :development do
   gem 'letter_opener', '~> 1.10.0'
   gem 'rails-erd', '~> 1.7.2'
   gem 'htmlbeautifier', '~> 1.4', '>= 1.4.3'
-  gem 'state_machines-graphviz', '~> 0.1.0'
+  gem 'state_machines-graphviz', '~> 0.1.0', require: false
   gem 'debug', '>= 1.0.0'
   gem 'bullet', '~> 8.1.0'
 end
