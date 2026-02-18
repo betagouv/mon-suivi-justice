@@ -37,7 +37,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20.13.1
+          node-version: 20.19.0
 
       - name: Install Yarn
         run: npm install --global yarn@1.22.22
@@ -78,7 +78,7 @@ jobs:
           MSJ_DB_PASSWORD: msj
           MSJ_DB_NAME: msj_test
           APP: msj_ci
-          DEV_EMAILS: "matthieu.faugere@beta.gouv.fr,damien.le-thiec@beta.gouv.fr,cyrille.corbin@justice.gouv.fr"
+          DEV_EMAILS: "cyrille.corbin@justice.gouv.fr"
 
       - name: Upload screenshots
         if: always() # This ensures the step is run even if the previous step (tests) fail

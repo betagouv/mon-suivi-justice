@@ -46,7 +46,7 @@ gem 'csv', '~> 3.3'
 gem 'jbuilder', '~> 2.14.1'
 gem 'groupdate', '~> 6.7.0'
 
-gem 'faraday', '~> 2.14.0'
+gem 'faraday', '~> 2.14.1'
 gem 'faraday-retry', '~> 2.4.0'
 gem 'jwt', '~> 2.10'
 
@@ -81,7 +81,7 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'listen', '~> 3.10.0'
-  gem 'spring', '~> 4.4.0'
+  gem 'spring', '~> 4.4.2'
   gem 'rubocop', '~> 1.81', require: false
   gem 'brakeman', '~> 7.1'
   gem 'guard-rspec', '~> 4.7.3', require: false
@@ -89,7 +89,7 @@ group :development do
   gem 'letter_opener', '~> 1.10.0'
   gem 'rails-erd', '~> 1.7.2'
   gem 'htmlbeautifier', '~> 1.4', '>= 1.4.3'
-  gem 'state_machines-graphviz', '~> 0.1.0'
+  gem 'state_machines-graphviz', '~> 0.1.0', require: false
   gem 'debug', '>= 1.0.0'
   gem 'bullet', '~> 8.1.0'
 end
@@ -110,7 +110,7 @@ gem 'abyme', '~> 0.7.0'
 
 gem 'pg_search', '~> 2.3.7'
 gem 'administrate-field-belongs_to_search', '~> 0.10.0'
-gem 'faker', '~> 3.5.3'
+gem 'faker', '~> 3.6.0'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 5.4.1'
