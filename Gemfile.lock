@@ -75,7 +75,7 @@ GEM
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
-    addressable (2.8.8)
+    addressable (2.8.9)
       public_suffix (>= 2.0.2, < 8.0)
     administrate (0.19.0)
       actionpack (>= 5.0)
@@ -365,7 +365,7 @@ GEM
     psych (5.3.1)
       date
       stringio
-    public_suffix (7.0.0)
+    public_suffix (7.0.2)
     puma (6.6.1)
       nio4r (~> 2.0)
     pundit (2.5.2)
@@ -624,7 +624,7 @@ PLATFORMS
 
 DEPENDENCIES
   abyme (~> 0.7.0)
-  addressable (~> 2.8.8)
+  addressable (~> 2.8.9)
   administrate (~> 0.19.0)
   administrate-field-belongs_to_search (~> 0.10.0)
   administrate-field-enum (~> 0.0.9)
