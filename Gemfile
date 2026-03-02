@@ -96,7 +96,7 @@ end
 
 group :test do
   gem 'capybara', '>= 3.39.2'
-  gem 'capybara-screenshot', '~> 1.0.26'
+  gem 'capybara-screenshot', '~> 1.0.27'
   gem 'selenium-webdriver', '~> 4.10.0'
   gem 'webdrivers', '~> 5.3.1'
   gem 'shoulda-matchers', '~> 6.5.0'
