@@ -44,7 +44,7 @@ gem 'ruby-progressbar', '~> 1.13.0'
 
 gem 'csv', '~> 3.3'
 gem 'jbuilder', '~> 2.14.1'
-gem 'groupdate', '~> 6.7.0'
+gem 'groupdate', '~> 6.8.0'
 
 gem 'faraday', '~> 2.14.1'
 gem 'faraday-retry', '~> 2.4.0'
