@@ -100,7 +100,7 @@ group :test do
   gem 'selenium-webdriver', '~> 4.10.0'
   gem 'webdrivers', '~> 5.3.1'
   gem 'shoulda-matchers', '~> 6.5.0'
-  gem 'timecop', '~> 0.9.10'
+  gem 'timecop', '~> 0.9.11'
   gem 'pundit-matchers', '~> 4.0.0'
   gem 'state_machines-rspec', '~> 0.6.0'
   gem 'webmock', '~> 3.26.1'
