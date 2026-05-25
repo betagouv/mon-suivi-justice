@@ -379,14 +379,14 @@ date-holidays-parser@^3.4.7:
     jalaali-js "^1.2.7"
     moment-timezone "^0.5.47"
 
-date-holidays@^3.26.8:
-  version "3.26.8"
-  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.26.8.tgz#6b65e6ae56ed99e00d63a5341931822398137cc5"
-  integrity sha512-vwCa+2l+TQzB5hjPhle/OcmhU8NrPGuZvmcirm/Hn6aYIrWYatQG+a8GLHDR2MdTxzWWzcz7HXvD6fKtwXOHOQ==
+date-holidays@^3.30.1:
+  version "3.30.1"
+  resolved "https://registry.yarnpkg.com/date-holidays/-/date-holidays-3.30.1.tgz#0c46fc0a7b7c2c1cfe01cc09f5f34b6a98ea4800"
+  integrity sha512-AlXeT0ns1V/MxYiszL20Zz9vqTbb+EIpFHLoPhColQi6+Iw1tmzgwxTvSheK+Qs/YdNxH73Ce6d3YVSuvePnkQ==
   dependencies:
     date-holidays-parser "^3.4.7"
     js-yaml "^4.1.1"
-    lodash "^4.17.21"
+    lodash "^4.18.1"
     prepin "^1.0.3"
 
 deepmerge@^4.3.1:
@@ -605,10 +605,10 @@ lilconfig@^3.1.1:
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-3.1.1.tgz#9d8a246fa753106cfc205fd2d77042faca56e5e3"
   integrity sha512-O18pf7nyvHTckunPWCV1XUNXU1piu01y2b7ATJ0ppkUkk8ocqVWBrYjJBCwHDjD/ZWcfyrA0P4gKhzWGi5EINQ==
 
-lodash@^4.17.21:
-  version "4.17.23"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.23.tgz#f113b0378386103be4f6893388c73d0bde7f2c5a"
-  integrity sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==
+lodash@^4.18.1:
+  version "4.18.1"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.18.1.tgz#ff2b66c1f6326d59513de2407bf881439812771c"
+  integrity sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==
 
 micromodal@^0.6.1:
   version "0.6.1"
