@@ -610,10 +610,10 @@ lodash@^4.17.21:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.23.tgz#f113b0378386103be4f6893388c73d0bde7f2c5a"
   integrity sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==
 
-micromodal@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/micromodal/-/micromodal-0.6.1.tgz#2558c1802317a53e89f7913652a1eb8b91454738"
-  integrity sha512-rw1fOptxQe3XGDm9xil9hBC2ylPb1kKZyYv4FlK54R/7L+KG+D8SQxPL5L8OlEXAhBDHckeoULYxWSYU9rg/RA==
+micromodal@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/micromodal/-/micromodal-0.6.2.tgz#681803f6def6fb3f1474abef2f3414d916cd2e0a"
+  integrity sha512-awofmgoRTJxeF4gt5wQirrYlJeu7VXFNlGOvunmoWQZkb83N3g8HdXqnlgwi9paK0Uj/64t6zqI8dvV8C3KoAw==
 
 moment-timezone@^0.5.43:
   version "0.5.45"
