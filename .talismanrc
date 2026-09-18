@@ -1,4 +1,8 @@
 fileignoreconfig:
 - filename: config/locales/fr.yml
   checksum: f86a05a2c3701f5c39a51696f2c918832e4960e51793f649bba4744983b2752d
+- filename: config/initializers/session_store.rb
+  checksum: f7f94ee194eab674e2e3a798b402b68c8273b2a1db843f67e70e6ba6eaa1940d
+- filename: spec/requests/session_invalidation_spec.rb
+  checksum: 6c58af4d7e06eda4ea9e8430c0f1d800f764bab903de8c0bb4924064ae37fb27
 version: ""
