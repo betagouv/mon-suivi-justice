@@ -14,6 +14,8 @@ module Admin
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/MethodLength
     def import
+      CsvUploadValidator.call!(params[:srj_file])
+
       temp_csv = params[:srj_file].tempfile
 
       # rubocop:disable Style/RedundantDoubleSplatHashBraces
