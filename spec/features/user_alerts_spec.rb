@@ -56,4 +56,25 @@ RSpec.describe 'UserAlerts', type: :feature, js: true do
 
     expect(page).not_to have_content('Contenu de test')
   end
+
+  it 'does not create the alert when it contains a link to an unauthorized domain', logged_in_as: 'admin' do
+    @organization = create(:organization, name: 'Test Organization')
+
+    visit new_admin_user_alert_path
+
+    find('.trix-content').set('Contenu de test')
+    within('.trix-content') do
+      page.execute_script(<<~JS)
+        document.querySelector('trix-editor').editor.insertHTML('<a href="https://evil.com/phishing">lien</a>')
+      JS
+    end
+
+    select @organization.name, from: 'service'
+
+    click_button 'Créer un(e) Alerte utilisateur'
+
+    perform_enqueued_jobs
+
+    expect(UserAlert.count).to eq(0)
+  end
 end
