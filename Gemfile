@@ -114,6 +114,9 @@ gem 'faker', '~> 3.6.0'
 
 # Use Redis for Action Cable
 gem 'redis', '~> 5.4.1'
+# connection_pool >= 3.0 changed its initializer to keyword-only args, which
+# ActiveSupport::Cache::RedisCacheStore (activesupport 7.2.3) isn't compatible with yet.
+gem 'connection_pool', '< 3.0'
 
 gem 'jsbundling-rails', '~> 1.3.1'
 

@@ -52,6 +52,32 @@ RSpec.describe 'Import Convicts', type: :feature, logged_in_as: 'admin' do
     expect(convict.organizations).to include(@organization)
   end
 
+  it 'rejects a file whose content is not a valid csv, even with a .csv extension' do
+    visit admin_import_convicts_path
+
+    select @organization.name, from: 'organization_id'
+
+    attach_file('convicts_list', Rails.root.join('spec/fixtures/binary_disguised_as.csv'))
+
+    click_button 'Créer'
+
+    expect(page).to have_content('Erreur : Le contenu du fichier ne correspond pas à un CSV valide')
+    expect(Convict.count).to eq(0)
+  end
+
+  it 'rejects a file that is not a .csv' do
+    visit admin_import_convicts_path
+
+    select @organization.name, from: 'organization_id'
+
+    attach_file('convicts_list', Rails.root.join('spec/fixtures/valid_convicts.txt'))
+
+    click_button 'Créer'
+
+    expect(page).to have_content('Erreur : Seul le format csv est supporté')
+    expect(Convict.count).to eq(0)
+  end
+
   it 'only creates convict in selected organization if it has two ore more associated organizations' do
     @organization3 = create(:organization, organization_type: 'spip')
     @organization4 = create(:organization, organization_type: 'tj', spips: [@organization, @organization3])

@@ -50,3 +50,6 @@ notes
 /app/assets/builds/*
 !/app/assets/builds/.keep
 screenshots
+
+CLAUDE.md
+.vscode/settings.json

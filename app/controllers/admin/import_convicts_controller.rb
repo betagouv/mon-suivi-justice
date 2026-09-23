@@ -14,8 +14,7 @@ module Admin
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
     def import
-      @file_extension = File.extname(params[:convicts_list].original_filename)
-      raise StandardError, 'Seul le format csv est supporté' unless %w[.csv].include? @file_extension.downcase
+      CsvUploadValidator.call!(params[:convicts_list])
 
       if params[:organization_id].blank?
         raise StandardError,
