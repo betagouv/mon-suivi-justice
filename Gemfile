@@ -56,7 +56,7 @@ gem 'wkhtmltopdf-binary', '~> 0.12.6'
 gem 'tzinfo', '~> 2.0.6'
 gem 'tzinfo-data', '~> 1.2025.3'
 
-gem 'administrate', '~> 0.19.0'
+gem 'administrate', '~> 0.20.1'
 gem 'administrate-field-enum', '~> 0.0.9'
 
 gem 'pretender', '~> 0.6.0'
