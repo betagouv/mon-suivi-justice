@@ -48,7 +48,7 @@ gem 'groupdate', '~> 6.7.0'
 
 gem 'faraday', '~> 2.14.1'
 gem 'faraday-retry', '~> 2.4.0'
-gem 'jwt', '~> 2.10'
+gem 'jwt', '~> 3.2'
 
 gem 'wicked_pdf', '~> 2.8.2'
 gem 'wkhtmltopdf-binary', '~> 0.12.6'
