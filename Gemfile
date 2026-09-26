@@ -91,7 +91,7 @@ group :development do
   gem 'htmlbeautifier', '~> 1.4', '>= 1.4.3'
   gem 'state_machines-graphviz', '~> 0.1.0', require: false
   gem 'debug', '>= 1.0.0'
-  gem 'bullet', '~> 8.1.0'
+  gem 'bullet', '~> 8.1.1'
 end
 
 group :test do
